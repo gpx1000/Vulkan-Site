@@ -582,7 +582,7 @@ This is because we&#8217;re blitting between different levels of the same image.
 The source mip level was just transitioned to <code>VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL</code> and the destination level is still in <code>VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL</code> from <code>createTextureImage</code>.</p>
 </div>
 <div class="paragraph">
-<p>Beware if you are using a dedicated transfer queue (as suggested in <a href="!en/Vertex_buffers/Staging_buffer">Vertex buffers</a>): <code>vkCmdBlitImage</code> must be submitted to a queue with graphics capability.</p>
+<p>Beware if you are using a dedicated transfer queue (as suggested in <a href="04_Vertex_buffers/02_Staging_buffer.html" class="xref page">Vertex buffers</a>): <code>vkCmdBlitImage</code> must be submitted to a queue with graphics capability.</p>
 </div>
 <div class="paragraph">
 <p>The last parameter allows us to specify a <code>VkFilter</code> to use in the blit.

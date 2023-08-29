@@ -903,7 +903,7 @@ Unless you really need to be able to read these pixels back and get predictable 
 <p>That leaves one last field, <code>oldSwapChain</code>.
 With Vulkan it&#8217;s possible that your swap chain becomes invalid or unoptimized while your application is running, for example because the window was resized.
 In that case the swap chain actually needs to be recreated from scratch and a reference to the old one must be specified in this field.
-This is a complex topic that we&#8217;ll learn more about in <a href="!en/Drawing_a_triangle/Swap_chain_recreation">a future chapter</a>.
+This is a complex topic that we&#8217;ll learn more about in <a href="../04_Swap_chain_recreation.html" class="xref page">a future chapter</a>.
 For now we&#8217;ll assume that we&#8217;ll only ever create one swap chain.</p>
 </div>
 <div class="paragraph">
@@ -939,7 +939,7 @@ It should be cleaned up using <code>vkDestroySwapchainKHR</code> before the devi
 </div>
 <div class="paragraph">
 <p>Now run the application to ensure that the swap chain is created successfully!
-If at this point you get an access violation error in <code>vkCreateSwapchainKHR</code> or see a message like <code>Failed to find 'vkGetInstanceProcAddress' in layer SteamOverlayVulkanLayer.dll</code>, then see the <a href="!en/FAQ">FAQ entry</a> about the Steam overlay layer.</p>
+If at this point you get an access violation error in <code>vkCreateSwapchainKHR</code> or see a message like <code>Failed to find 'vkGetInstanceProcAddress' in layer SteamOverlayVulkanLayer.dll</code>, then see the <a href="../../90_FAQ.html" class="xref page">FAQ entry</a> about the Steam overlay layer.</p>
 </div>
 <div class="paragraph">
 <p>Try removing the <code>createInfo.imageExtent = extent;</code> line with validation layers enabled.
