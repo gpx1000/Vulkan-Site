@@ -3208,8 +3208,11 @@ drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08620" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08620"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08620</span><br>
 
 If a shader object is bound to any graphics stage, and the most recent
-call to <a href="../primsrast.html#vkCmdSetDepthBiasEnable" class="xref page">vkCmdSetDepthBiasEnable</a> in the current command buffer set
-<code>depthBiasEnable</code> to <code>VK_TRUE</code>, <a href="../primsrast.html#vkCmdSetDepthBias" class="xref page">vkCmdSetDepthBias</a>
+call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
+buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, and the most
+recent call to <a href="../primsrast.html#vkCmdSetDepthBiasEnable" class="xref page">vkCmdSetDepthBiasEnable</a> in the current command
+buffer set <code>depthBiasEnable</code> to <code>VK_TRUE</code>,
+<a href="../primsrast.html#vkCmdSetDepthBias" class="xref page">vkCmdSetDepthBias</a>
 or <a href="../primsrast.html#vkCmdSetDepthBias2EXT" class="xref page">vkCmdSetDepthBias2EXT</a>
 <strong>must</strong> have been called in the current command buffer prior to this
 drawing command</p>
@@ -3253,8 +3256,10 @@ buffer prior to this drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08622" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08622"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08622</span><br>
 
 If a shader object is bound to any graphics stage, and the most recent
-call to <a href="../fragops.html#vkCmdSetDepthBoundsTestEnable" class="xref page">vkCmdSetDepthBoundsTestEnable</a> in the current command
-buffer set <code>depthBoundsTestEnable</code> to <code>VK_TRUE</code>,
+call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
+buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, and the most
+recent call to <a href="../fragops.html#vkCmdSetDepthBoundsTestEnable" class="xref page">vkCmdSetDepthBoundsTestEnable</a> in the current
+command buffer set <code>depthBoundsTestEnable</code> to <code>VK_TRUE</code>, then
 <a href="../fragops.html#vkCmdSetDepthBounds" class="xref page">vkCmdSetDepthBounds</a> <strong>must</strong> have been called in the current command
 buffer prior to this drawing command</p>
 </li>
@@ -3338,7 +3343,9 @@ command buffer prior to this drawing command</p>
 
 If a shader object is bound to any graphics stage, and the most recent
 call to <a href="../primsrast.html#vkCmdSetSampleLocationsEnableEXT" class="xref page">vkCmdSetSampleLocationsEnableEXT</a> in the current command
-buffer set <code>sampleLocationsEnable</code> to <code>VK_TRUE</code>,
+buffer set <code>sampleLocationsEnable</code> to <code>VK_TRUE</code>, and the most
+recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current
+command buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
 <a href="../primsrast.html#vkCmdSetSampleLocationsEXT" class="xref page">vkCmdSetSampleLocationsEXT</a> <strong>must</strong> have been called in the current
 command buffer prior to this drawing command</p>
 </li>
@@ -3364,7 +3371,9 @@ buffer prior to this drawing command</p>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08627" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08627"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08627</span><br>
 
-If a shader object is bound to any graphics stage,
+If a shader object is bound to any graphics stage, and the most recent
+call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
+buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
 <a href="../primsrast.html#vkCmdSetCullMode" class="xref page">vkCmdSetCullMode</a> <strong>must</strong> have been called in the current command
 buffer prior to this drawing command</p>
 </li>
@@ -3379,7 +3388,9 @@ buffer prior to this drawing command</p>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08628" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08628"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08628</span><br>
 
-If a shader object is bound to any graphics stage,
+If a shader object is bound to any graphics stage, and the most recent
+call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
+buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
 <a href="../primsrast.html#vkCmdSetFrontFace" class="xref page">vkCmdSetFrontFace</a> <strong>must</strong> have been called in the current command
 buffer prior to this drawing command</p>
 </li>
@@ -3394,7 +3405,9 @@ command buffer prior to this drawing command</p>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08629" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08629"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08629</span><br>
 
-If a shader object is bound to any graphics stage,
+If a shader object is bound to any graphics stage, and the most recent
+call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
+buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
 <a href="../fragops.html#vkCmdSetDepthTestEnable" class="xref page">vkCmdSetDepthTestEnable</a> <strong>must</strong> have been called in the current
 command buffer prior to this drawing command</p>
 </li>
@@ -3409,7 +3422,9 @@ command buffer prior to this drawing command</p>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08630" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08630"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08630</span><br>
 
-If a shader object is bound to any graphics stage,
+If a shader object is bound to any graphics stage, and the most recent
+call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
+buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
 <a href="../fragops.html#vkCmdSetDepthWriteEnable" class="xref page">vkCmdSetDepthWriteEnable</a> <strong>must</strong> have been called in the current
 command buffer prior to this drawing command</p>
 </li>
@@ -3425,10 +3440,12 @@ command buffer prior to this drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08631" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08631"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08631</span><br>
 
 If a shader object is bound to any graphics stage, and the most recent
-call to <a href="../fragops.html#vkCmdSetDepthTestEnable" class="xref page">vkCmdSetDepthTestEnable</a> in the current command buffer set
-<code>depthTestEnable</code> to <code>VK_TRUE</code>, <a href="../fragops.html#vkCmdSetDepthCompareOp" class="xref page">vkCmdSetDepthCompareOp</a>
-<strong>must</strong> have been called in the current command buffer prior to this
-drawing command</p>
+call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
+buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, and the most
+recent call to <a href="../fragops.html#vkCmdSetDepthTestEnable" class="xref page">vkCmdSetDepthTestEnable</a> in the current command
+buffer set <code>depthTestEnable</code> to <code>VK_TRUE</code>, then
+<a href="../fragops.html#vkCmdSetDepthCompareOp" class="xref page">vkCmdSetDepthCompareOp</a> <strong>must</strong> have been called in the current
+command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-07846" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-07846"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-07846</span><br>
@@ -3442,8 +3459,10 @@ current command buffer prior to this drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08632" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08632"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08632</span><br>
 
 If a shader object is bound to any graphics stage, and the
-<a href="../features.html#features-depthBounds" class="xref page"><code>depthBounds</code></a> feature is enabled, the
-<a href="../fragops.html#vkCmdSetDepthBoundsTestEnable" class="xref page">vkCmdSetDepthBoundsTestEnable</a> <strong>must</strong> have been called in the
+<a href="../features.html#features-depthBounds" class="xref page"><code>depthBounds</code></a> feature is enabled, and the
+most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current
+command buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
+the <a href="../fragops.html#vkCmdSetDepthBoundsTestEnable" class="xref page">vkCmdSetDepthBoundsTestEnable</a> <strong>must</strong> have been called in the
 current command buffer prior to this drawing command</p>
 </li>
 <li>
@@ -3551,6 +3570,14 @@ the <code>viewportCount</code> parameter in the last call to
 <a href="../vertexpostproc.html#vkCmdSetViewportWithCount" class="xref page">vkCmdSetViewportWithCount</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-09232" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-09232"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-09232</span><br>
+
+If a shader object is bound to any graphics stage, and the
+<code><a href="../../appendices/extensions.html#VK_NV_clip_space_w_scaling" class="xref page">VK_NV_clip_space_w_scaling</a></code> extension is enabled on the device,
+then <a href="../vertexpostproc.html#vkCmdSetViewportWScalingNV" class="xref page">vkCmdSetViewportWScalingNV</a> must have been called in the
+current command buffer prior to this drawing command</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08636" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08636"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08636</span><br>
 
 If a shader object is bound to any graphics stage, and the
@@ -3582,6 +3609,29 @@ enabled then the <code>viewportCount</code> parameter in the last call to
 <a href="../primsrast.html#vkCmdSetViewportShadingRatePaletteNV" class="xref page">vkCmdSetViewportShadingRatePaletteNV</a> <strong>must</strong> be greater than or
 equal to the <code>viewportCount</code> parameter in the last call to
 <a href="../vertexpostproc.html#vkCmdSetViewportWithCount" class="xref page">vkCmdSetViewportWithCount</a></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-shadingRateImage-09233" href="#VUID-vkCmdExecuteGeneratedCommandsNV-shadingRateImage-09233"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-shadingRateImage-09233</span><br>
+
+If the <a href="../features.html#features-shadingRateImage" class="xref page"><code>shadingRateImage</code></a> feature is
+enabled, and the most recent call to
+<a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command buffer set
+rasterizerDiscardEnable to <code>VK_FALSE</code>, then
+<a href="../primsrast.html#vkCmdSetCoarseSampleOrderNV" class="xref page">vkCmdSetCoarseSampleOrderNV</a> must have been called in the current
+command buffer prior to this drawing command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-shadingRateImage-09234" href="#VUID-vkCmdExecuteGeneratedCommandsNV-shadingRateImage-09234"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-shadingRateImage-09234</span><br>
+
+If a shader object is bound to any graphics stage, and the
+<a href="../features.html#features-shadingRateImage" class="xref page"><code>shadingRateImage</code></a> feature is enabled
+on the device, and the most recent call to
+<a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command buffer set
+rasterizerDiscardEnable to <code>VK_FALSE</code>, and the most recent call to
+<a href="../primsrast.html#vkCmdSetShadingRateImageEnableNV" class="xref page">vkCmdSetShadingRateImageEnableNV</a> in the current command buffer set
+shadingRateImageEnable to <code>VK_TRUE</code>, then
+<a href="../primsrast.html#vkCmdSetViewportShadingRatePaletteNV" class="xref page">vkCmdSetViewportShadingRatePaletteNV</a> must have been called in the
+current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08637" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08637"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08637</span><br>
@@ -3632,6 +3682,14 @@ If the bound graphics pipeline state was created with the
 <code>VK_DYNAMIC_STATE_EXCLUSIVE_SCISSOR_NV</code> dynamic state enabled then
 <a href="../fragops.html#vkCmdSetExclusiveScissorNV" class="xref page">vkCmdSetExclusiveScissorNV</a> <strong>must</strong> have been called in the current
 command buffer prior to this drawing command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-exclusiveScissor-09235" href="#VUID-vkCmdExecuteGeneratedCommandsNV-exclusiveScissor-09235"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-exclusiveScissor-09235</span><br>
+
+If a shader object is bound to any graphics stage, and the
+<a href="../features.html#features-exclusiveScissor" class="xref page"><code>exclusiveScissor</code></a> feature is
+enabled, then <a href="../fragops.html#vkCmdSetExclusiveScissorEnableNV" class="xref page">vkCmdSetExclusiveScissorEnableNV</a> must have been
+called in the current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08638" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08638"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08638</span><br>
@@ -3686,13 +3744,14 @@ valid <a href="../framebuffer.html#VkLogicOp" class="xref page">VkLogicOp</a> va
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08641" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08641"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08641</span><br>
 
-If a shader object is bound to any graphics stage, and the
-<a href="../features.html#features-logicOp" class="xref page"><code>logicOp</code></a> feature is enabled on the device,
-and the most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the
-current command buffer set <code>rasterizerDiscardEnable</code> to
-<code>VK_FALSE</code>, then <a href="../framebuffer.html#vkCmdSetLogicOpEXT" class="xref page">vkCmdSetLogicOpEXT</a> <strong>must</strong> have been called in
-the current command buffer prior to this drawing command and the
-<code>logicOp</code> <strong>must</strong> be a valid <a href="../framebuffer.html#VkLogicOp" class="xref page">VkLogicOp</a> value</p>
+If a shader object is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>
+stage, and the <a href="../features.html#features-logicOp" class="xref page"><code>logicOp</code></a> feature is enabled on
+the device, and the most recent call to
+<a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command buffer set
+<code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
+<a href="../framebuffer.html#vkCmdSetLogicOpEXT" class="xref page">vkCmdSetLogicOpEXT</a> <strong>must</strong> have been called in the current command
+buffer prior to this drawing command and the <code>logicOp</code> <strong>must</strong> be a
+valid <a href="../framebuffer.html#VkLogicOp" class="xref page">VkLogicOp</a> value</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-primitiveFragmentShadingRateWithMultipleViewports-04552" href="#VUID-vkCmdExecuteGeneratedCommandsNV-primitiveFragmentShadingRateWithMultipleViewports-04552"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-primitiveFragmentShadingRateWithMultipleViewports-04552</span><br>
@@ -3906,11 +3965,12 @@ command buffer prior to this drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08646" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08646"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08646</span><br>
 
 If the <a href="../features.html#features-colorWriteEnable" class="xref page"><code>colorWriteEnable</code></a> feature is
-enabled on the device, and a shader object is bound to the fragment
-stage, and the most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a>
-in the current command buffer set <code>rasterizerDiscardEnable</code> to
-<code>VK_FALSE</code>, then <a href="../framebuffer.html#vkCmdSetColorWriteEnableEXT" class="xref page">vkCmdSetColorWriteEnableEXT</a> <strong>must</strong> have been
-called in the current command buffer prior to this drawing command</p>
+enabled on the device, and a shader object is bound to the
+<code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage, and the most recent call to
+<a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command buffer set
+<code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
+<a href="../framebuffer.html#vkCmdSetColorWriteEnableEXT" class="xref page">vkCmdSetColorWriteEnableEXT</a> <strong>must</strong> have been called in the current
+command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-attachmentCount-07750" href="#VUID-vkCmdExecuteGeneratedCommandsNV-attachmentCount-07750"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-attachmentCount-07750</span><br>
@@ -3926,13 +3986,14 @@ currently bound graphics pipeline</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08647" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08647"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08647</span><br>
 
 If the <a href="../features.html#features-colorWriteEnable" class="xref page"><code>colorWriteEnable</code></a> feature is
-enabled on the device, and a shader object is bound to the fragment
-stage, and the most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a>
-in the current command buffer set <code>rasterizerDiscardEnable</code> to
-<code>VK_FALSE</code>, then the <code>attachmentCount</code> parameter of most recent
-call to <code>vkCmdSetColorWriteEnableEXT</code> in the current command buffer
-<strong>must</strong> be greater than or equal to the number of color attachments in the
-current render pass instance</p>
+enabled on the device, and a shader object is bound to the
+<code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage, and the most recent call to
+<a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command buffer set
+<code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then the
+<code>attachmentCount</code> parameter of most recent call to
+<code>vkCmdSetColorWriteEnableEXT</code> in the current command buffer <strong>must</strong> be
+greater than or equal to the number of color attachments in the current
+render pass instance</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-07751" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-07751"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-07751</span><br>
@@ -3951,6 +4012,16 @@ If the bound graphics pipeline state was created with the
 <code>VK_DYNAMIC_STATE_DISCARD_RECTANGLE_ENABLE_EXT</code> dynamic state
 enabled then <a href="../fragops.html#vkCmdSetDiscardRectangleEnableEXT" class="xref page">vkCmdSetDiscardRectangleEnableEXT</a> <strong>must</strong> have been
 called in the current command buffer prior to this drawing command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-rasterizerDiscardEnable-09236" href="#VUID-vkCmdExecuteGeneratedCommandsNV-rasterizerDiscardEnable-09236"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-rasterizerDiscardEnable-09236</span><br>
+
+If the <code><a href="../../appendices/extensions.html#VK_EXT_discard_rectangles" class="xref page">VK_EXT_discard_rectangles</a></code> extension is enabled, and a
+shader object is bound to any graphics stage, and the most recent call
+to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command buffer
+set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
+<a href="../fragops.html#vkCmdSetDiscardRectangleEXT" class="xref page">vkCmdSetDiscardRectangleEXT</a> <strong>must</strong> have been called in the current
+command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08648" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08648"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08648</span><br>
@@ -4261,6 +4332,14 @@ If the bound graphics pipeline state was created with the
 command buffer prior to this drawing command</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-09237" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-09237"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-09237</span><br>
+
+If a shader object is bound to the
+<code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code> stage, then
+<a href="../tessellation.html#vkCmdSetTessellationDomainOriginEXT" class="xref page">vkCmdSetTessellationDomainOriginEXT</a> <strong>must</strong> have been called in the
+current command buffer prior to this drawing command</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08650" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08650"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08650</span><br>
 
 If the <a href="../features.html#features-depthClamp" class="xref page"><code>depthClamp</code></a> feature is enabled, and
@@ -4389,11 +4468,11 @@ command buffer prior to this drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08656" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08656"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08656</span><br>
 
 If the <a href="../features.html#features-logicOp" class="xref page"><code>logicOp</code></a> feature is enabled, and a
-shader object is bound to any graphics stage, and the most recent call
-to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command buffer
-set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
-<a href="../framebuffer.html#vkCmdSetLogicOpEnableEXT" class="xref page">vkCmdSetLogicOpEnableEXT</a> <strong>must</strong> have been called in the current
-command buffer prior to this drawing command</p>
+shader object is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage,
+and the most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the
+current command buffer set <code>rasterizerDiscardEnable</code> to
+<code>VK_FALSE</code>, then <a href="../framebuffer.html#vkCmdSetLogicOpEnableEXT" class="xref page">vkCmdSetLogicOpEnableEXT</a> <strong>must</strong> have been
+called in the current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-07627" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-07627"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-07627</span><br>
@@ -4406,11 +4485,11 @@ command buffer prior to this drawing command</p>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08657" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08657"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08657</span><br>
 
-If a shader object is bound to any graphics stage, and the most recent
-call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
-buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
-<a href="../framebuffer.html#vkCmdSetColorBlendEnableEXT" class="xref page">vkCmdSetColorBlendEnableEXT</a> <strong>must</strong> have been called in the current
-command buffer prior to this drawing command</p>
+If a shader object is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>
+stage, and the most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a>
+in the current command buffer set <code>rasterizerDiscardEnable</code> to
+<code>VK_FALSE</code>, then <a href="../framebuffer.html#vkCmdSetColorBlendEnableEXT" class="xref page">vkCmdSetColorBlendEnableEXT</a> <strong>must</strong> have been
+called in the current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-07628" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-07628"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-07628</span><br>
@@ -4442,11 +4521,11 @@ command buffer prior to this drawing command</p>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08659" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08659"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08659</span><br>
 
-If a shader object is bound to any graphics stage, and the most recent
-call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
-buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
-<a href="../framebuffer.html#vkCmdSetColorWriteMaskEXT" class="xref page">vkCmdSetColorWriteMaskEXT</a> <strong>must</strong> have been called in the current
-command buffer prior to this drawing command</p>
+If a shader object is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>
+stage, and the most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a>
+in the current command buffer set <code>rasterizerDiscardEnable</code> to
+<code>VK_FALSE</code>, then <a href="../framebuffer.html#vkCmdSetColorWriteMaskEXT" class="xref page">vkCmdSetColorWriteMaskEXT</a> <strong>must</strong> have been
+called in the current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-07630" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-07630"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-07630</span><br>
@@ -4460,7 +4539,8 @@ current command buffer prior to this drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08660" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08660"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08660</span><br>
 
 If the <a href="../features.html#features-geometryStreams" class="xref page"><code>geometryStreams</code></a> feature is
-enabled, and a shader object is bound to the geometry stage, then
+enabled, and a shader object is bound to the
+<code>VK_SHADER_STAGE_GEOMETRY_BIT</code> stage, then
 <a href="../primsrast.html#vkCmdSetRasterizationStreamEXT" class="xref page">vkCmdSetRasterizationStreamEXT</a> <strong>must</strong> have been called in the
 current command buffer prior to this drawing command</p>
 </li>
@@ -4558,8 +4638,8 @@ current command buffer prior to this drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08665" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08665"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08665</span><br>
 
 If the <code><a href="../../appendices/extensions.html#VK_EXT_provoking_vertex" class="xref page">VK_EXT_provoking_vertex</a></code> extension is enabled, and a
-shader object is bound to the vertex stage, then
-<a href="../vertexpostproc.html#vkCmdSetProvokingVertexModeEXT" class="xref page">vkCmdSetProvokingVertexModeEXT</a> <strong>must</strong> have been called in the
+shader object is bound to the <code>VK_SHADER_STAGE_VERTEX_BIT</code> stage,
+then <a href="../vertexpostproc.html#vkCmdSetProvokingVertexModeEXT" class="xref page">vkCmdSetProvokingVertexModeEXT</a> <strong>must</strong> have been called in the
 current command buffer prior to this drawing command</p>
 </li>
 <li>
@@ -4714,9 +4794,11 @@ current command buffer prior to this drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08676" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08676"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08676</span><br>
 
 If the <code><a href="../../appendices/extensions.html#VK_NV_fragment_coverage_to_color" class="xref page">VK_NV_fragment_coverage_to_color</a></code> extension is enabled,
-and a shader object is bound to any graphics stage, then
-<a href="../fragops.html#vkCmdSetCoverageToColorEnableNV" class="xref page">vkCmdSetCoverageToColorEnableNV</a> <strong>must</strong> have been called in the
-current command buffer prior to this drawing command</p>
+and a shader object is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>
+stage, and the most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a>
+in the current command buffer set <code>rasterizerDiscardEnable</code> to
+<code>VK_FALSE</code>, then <a href="../fragops.html#vkCmdSetCoverageToColorEnableNV" class="xref page">vkCmdSetCoverageToColorEnableNV</a> <strong>must</strong> have
+been called in the current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-07643" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-07643"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-07643</span><br>
@@ -4730,11 +4812,11 @@ called in the current command buffer prior to this drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08677" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08677"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08677</span><br>
 
 If the <code><a href="../../appendices/extensions.html#VK_NV_fragment_coverage_to_color" class="xref page">VK_NV_fragment_coverage_to_color</a></code> extension is enabled,
-and a shader object is bound to any graphics stage, and the most recent
-call to <a href="../fragops.html#vkCmdSetCoverageToColorEnableNV" class="xref page">vkCmdSetCoverageToColorEnableNV</a> in the current command
-buffer set <code>coverageToColorEnable</code> to <code>VK_TRUE</code>, then
-<a href="../fragops.html#vkCmdSetCoverageToColorLocationNV" class="xref page">vkCmdSetCoverageToColorLocationNV</a> <strong>must</strong> have been called in the
-current command buffer prior to this drawing command</p>
+and a shader object is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>
+stage, and the most recent call to <a href="../fragops.html#vkCmdSetCoverageToColorEnableNV" class="xref page">vkCmdSetCoverageToColorEnableNV</a>
+in the current command buffer set <code>coverageToColorEnable</code> to
+<code>VK_TRUE</code>, then <a href="../fragops.html#vkCmdSetCoverageToColorLocationNV" class="xref page">vkCmdSetCoverageToColorLocationNV</a> <strong>must</strong> have
+been called in the current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-07644" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-07644"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-07644</span><br>
@@ -4748,7 +4830,9 @@ the current command buffer prior to this drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08678" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08678"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08678</span><br>
 
 If the <code><a href="../../appendices/extensions.html#VK_NV_framebuffer_mixed_samples" class="xref page">VK_NV_framebuffer_mixed_samples</a></code> extension is enabled,
-and a shader object is bound to any graphics stage, then
+and a shader object is bound to any graphics stage, and the most recent
+call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
+buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
 <a href="../fragops.html#vkCmdSetCoverageModulationModeNV" class="xref page">vkCmdSetCoverageModulationModeNV</a> <strong>must</strong> have been called in the
 current command buffer prior to this drawing command</p>
 </li>
@@ -4764,7 +4848,12 @@ been called in the current command buffer prior to this drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08679" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08679"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08679</span><br>
 
 If the <code><a href="../../appendices/extensions.html#VK_NV_framebuffer_mixed_samples" class="xref page">VK_NV_framebuffer_mixed_samples</a></code> extension is enabled,
-and a shader object is bound to any graphics stage, then
+and a shader object is bound to any graphics stage, and the most recent
+call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
+buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, and the most
+recent call to <a href="../fragops.html#vkCmdSetCoverageModulationModeNV" class="xref page">vkCmdSetCoverageModulationModeNV</a> in the current
+command buffer set coverageModulationMode to any value other than
+<code>VK_COVERAGE_MODULATION_MODE_NONE_NV</code>, then
 <a href="../fragops.html#vkCmdSetCoverageModulationTableEnableNV" class="xref page">vkCmdSetCoverageModulationTableEnableNV</a> <strong>must</strong> have been called in
 the current command buffer prior to this drawing command</p>
 </li>
@@ -4781,10 +4870,12 @@ called in the current command buffer prior to this drawing command</p>
 
 If the <code><a href="../../appendices/extensions.html#VK_NV_framebuffer_mixed_samples" class="xref page">VK_NV_framebuffer_mixed_samples</a></code> extension is enabled,
 and a shader object is bound to any graphics stage, and the most recent
-call to <a href="../fragops.html#vkCmdSetCoverageModulationTableEnableNV" class="xref page">vkCmdSetCoverageModulationTableEnableNV</a> in the current
-command buffer set <code>coverageModulationTableEnable</code> to <code>VK_TRUE</code>,
-then <a href="../fragops.html#vkCmdSetCoverageModulationTableNV" class="xref page">vkCmdSetCoverageModulationTableNV</a> <strong>must</strong> have been called in
-the current command buffer prior to this drawing command</p>
+call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command
+buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, and the most
+recent call to <a href="../fragops.html#vkCmdSetCoverageModulationTableEnableNV" class="xref page">vkCmdSetCoverageModulationTableEnableNV</a> in the
+current command buffer set <code>coverageModulationTableEnable</code> to
+<code>VK_TRUE</code>, then <a href="../fragops.html#vkCmdSetCoverageModulationTableNV" class="xref page">vkCmdSetCoverageModulationTableNV</a> <strong>must</strong> have
+been called in the current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-07647" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-07647"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-07647</span><br>
@@ -4795,10 +4886,22 @@ enabled then <a href="../primsrast.html#vkCmdSetShadingRateImageEnableNV" class=
 called in the current command buffer prior to this drawing command</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-pipelineFragmentShadingRate-09238" href="#VUID-vkCmdExecuteGeneratedCommandsNV-pipelineFragmentShadingRate-09238"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-pipelineFragmentShadingRate-09238</span><br>
+
+If the <a href="../features.html#features-pipelineFragmentShadingRate" class="xref page">    <code>pipelineFragmentShadingRate</code></a> feature is enabled, and a shader
+object is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage, and the
+most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current
+command buffer set rasterizerDiscardEnable to <code>VK_FALSE</code>, then
+<a href="../primsrast.html#vkCmdSetFragmentShadingRateKHR" class="xref page">vkCmdSetFragmentShadingRateKHR</a> must have been called in the
+current command buffer prior to this drawing command</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08681" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08681"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08681</span><br>
 
 If the <a href="../features.html#features-shadingRateImage" class="xref page"><code>shadingRateImage</code></a> feature is
-enabled, and a shader object is bound to any graphics stage, then
+enabled, and a shader object is bound to any graphics stage, and the
+most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current
+command buffer set <code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
 <a href="../primsrast.html#vkCmdSetShadingRateImageEnableNV" class="xref page">vkCmdSetShadingRateImageEnableNV</a> <strong>must</strong> have been called in the
 current command buffer prior to this drawing command</p>
 </li>
@@ -4815,7 +4918,9 @@ drawing command</p>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08682" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08682"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08682</span><br>
 
 If the <a href="../features.html#features-representativeFragmentTest" class="xref page">    <code>representativeFragmentTest</code></a> feature is enabled, and a shader
-object is bound to any graphics stage, then
+object is bound to any graphics stage, and the most recent call to
+<a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the current command buffer set
+<code>rasterizerDiscardEnable</code> to <code>VK_FALSE</code>, then
 <a href="../fragops.html#vkCmdSetRepresentativeFragmentTestEnableNV" class="xref page">vkCmdSetRepresentativeFragmentTestEnableNV</a> <strong>must</strong> have been called
 in the current command buffer prior to this drawing command</p>
 </li>
@@ -4832,8 +4937,10 @@ current command buffer prior to this drawing command</p>
 
 If the <a href="../features.html#features-coverageReductionMode" class="xref page"><code>coverageReductionMode</code></a>
 feature is enabled, and a shader object is bound to any graphics stage,
-then <a href="../fragops.html#vkCmdSetCoverageReductionModeNV" class="xref page">vkCmdSetCoverageReductionModeNV</a> <strong>must</strong> have been called in the
-current command buffer prior to this drawing command</p>
+and the most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the
+current command buffer set <code>rasterizerDiscardEnable</code> to
+<code>VK_FALSE</code>, then <a href="../fragops.html#vkCmdSetCoverageReductionModeNV" class="xref page">vkCmdSetCoverageReductionModeNV</a> <strong>must</strong> have
+been called in the current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-pColorBlendEnables-07470" href="#VUID-vkCmdExecuteGeneratedCommandsNV-pColorBlendEnables-07470"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-pColorBlendEnables-07470</span><br>
@@ -5379,10 +5486,12 @@ or identically defined arrays of descriptor set layouts</p>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08880" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08880"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08880</span><br>
 
-If there is no bound graphics pipeline and the
-<a href="../features.html#features-attachmentFeedbackLoopDynamicState" class="xref page">    attachmentFeedbackLoopDynamicState</a> feature is enabled on the device,
-<a href="../renderpass.html#vkCmdSetAttachmentFeedbackLoopEnableEXT" class="xref page">vkCmdSetAttachmentFeedbackLoopEnableEXT</a> <strong>must</strong> have been called in
-the current command buffer prior to this drawing command</p>
+If a shader object is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>
+stage and the <a href="../features.html#features-attachmentFeedbackLoopDynamicState" class="xref page">    attachmentFeedbackLoopDynamicState</a> feature is enabled on the device,
+and the most recent call to <a href="../primsrast.html#vkCmdSetRasterizerDiscardEnable" class="xref page">vkCmdSetRasterizerDiscardEnable</a> in the
+current command buffer set <code>rasterizerDiscardEnable</code> to
+<code>VK_FALSE</code> <a href="../renderpass.html#vkCmdSetAttachmentFeedbackLoopEnableEXT" class="xref page">vkCmdSetAttachmentFeedbackLoopEnableEXT</a> <strong>must</strong> have
+been called in the current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-pDynamicStates-08715" href="#VUID-vkCmdExecuteGeneratedCommandsNV-pDynamicStates-08715"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-pDynamicStates-08715</span><br>
@@ -5419,6 +5528,15 @@ or
     <strong>must</strong> either include all of <code>VK_COLOR_COMPONENT_R_BIT</code>,
     <code>VK_COLOR_COMPONENT_G_BIT</code>, and <code>VK_COLOR_COMPONENT_B_BIT</code>, or
     none of them</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-maxFragmentDualSrcAttachments-09239" href="#VUID-vkCmdExecuteGeneratedCommandsNV-maxFragmentDualSrcAttachments-09239"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-maxFragmentDualSrcAttachments-09239</span><br>
+
+If <a href="../framebuffer.html#framebuffer-blending" class="xref page">blending</a> is enabled for any attachment where
+either the source or destination blend factors for that attachment
+<a href="../framebuffer.html#framebuffer-dsb" class="xref page">use the secondary color input</a>, the maximum value of
+<code>Location</code> for any output attachment <a href="../shaders.html#shaders-staticuse" class="xref page">statically    used</a> in the <code>Fragment</code> <code>Execution</code> <code>Model</code> executed by this command
+<strong>must</strong> be less than <a href="../limits.html#limits-maxFragmentDualSrcAttachments" class="xref page">    <code>maxFragmentDualSrcAttachments</code></a></p>
 </li>
 </ul>
 </div>

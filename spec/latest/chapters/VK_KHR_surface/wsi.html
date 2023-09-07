@@ -15362,8 +15362,7 @@ this command.</p>
 </li>
 <li>
 <p><code>pSwapchains</code> is a pointer to an array of <a href="#VkSwapchainKHR">VkSwapchainKHR</a>
-objects with <code>swapchainCount</code> entries.
-A given swapchain <strong>must</strong> not appear in this list more than once.</p>
+objects with <code>swapchainCount</code> entries.</p>
 </li>
 <li>
 <p><code>pImageIndices</code> is a pointer to an array of indices into the array
@@ -15417,6 +15416,11 @@ parameter <strong>should</strong> be set to <code>VK_PIPELINE_STAGE_BOTTOM_OF_PI
 <div class="title">Valid Usage</div>
 <div class="ulist">
 <ul>
+<li>
+<p><a id="VUID-VkPresentInfoKHR-pSwapchain-09231" href="#VUID-VkPresentInfoKHR-pSwapchain-09231"></a> <span class="vuid">VUID-VkPresentInfoKHR-pSwapchain-09231</span><br>
+
+Elements of <code>pSwapchain</code> <strong>must</strong> be unique</p>
+</li>
 <li>
 <p><a id="VUID-VkPresentInfoKHR-pImageIndices-01430" href="#VUID-VkPresentInfoKHR-pImageIndices-01430"></a> <span class="vuid">VUID-VkPresentInfoKHR-pImageIndices-01430</span><br>
 

@@ -11622,8 +11622,9 @@ for the scratch buffers, given the build parameters.</p>
 <div class="paragraph">
 <p>The <code>srcAccelerationStructure</code>, <code>dstAccelerationStructure</code>, and
 <code>mode</code> members of <code>pBuildInfo</code> are ignored.
-Any <a href="accelstructures.html#VkDeviceOrHostAddressKHR" class="xref page">VkDeviceOrHostAddressKHR</a> members of <code>pBuildInfo</code> are ignored
-by this command, except that the <code>hostAddress</code> member of
+Any <a href="accelstructures.html#VkDeviceOrHostAddressKHR" class="xref page">VkDeviceOrHostAddressKHR</a> or <a href="accelstructures.html#VkDeviceOrHostAddressConstKHR" class="xref page">VkDeviceOrHostAddressConstKHR</a>
+members of <code>pBuildInfo</code> are ignored by this command, except that the
+<code>hostAddress</code> member of
 <a href="accelstructures.html#VkAccelerationStructureGeometryTrianglesDataKHR" class="xref page">VkAccelerationStructureGeometryTrianglesDataKHR</a>::<code>transformData</code>
 will be examined to check if it is <code>NULL</code>.</p>
 </div>

@@ -2525,14 +2525,6 @@ decorates consumes <strong>must</strong> be less than or equal to the value for 
 matching <code>Execution</code> <code>Model</code> defined in <a href="../chapters/interfaces.html#interfaces-iointerfaces-limits" class="xref page">Shader Input and Output Locations</a></p>
 </li>
 <li>
-<p><a id="VUID-RuntimeSpirv-Fragment-06427" href="#VUID-RuntimeSpirv-Fragment-06427"></a> <span class="vuid">VUID-RuntimeSpirv-Fragment-06427</span><br>
-
-When blending is enabled and one of the dual source blend modes is in
-use, the maximum number of output attachments written to in the
-<code>Fragment</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be less than or equal to
-<a href="../chapters/limits.html#limits-maxFragmentDualSrcAttachments" class="xref page">    <code>maxFragmentDualSrcAttachments</code></a></p>
-</li>
-<li>
 <p><a id="VUID-RuntimeSpirv-Location-06428" href="#VUID-RuntimeSpirv-Location-06428"></a> <span class="vuid">VUID-RuntimeSpirv-Location-06428</span><br>
 
 The maximum number of storage buffers, storage images, and output
@@ -3934,8 +3926,8 @@ created using an identical sampler object</p>
 If an <code>OpImageBlockMatchSSDQCOM</code> or <code>OpImageBlockMatchSADQCOM</code>
 operation is used, then <code>target</code> <code>sampled</code> <code>image</code> and
 <code>reference</code> <code>sampled</code> <code>image</code> parameters <strong>must</strong> have been
-created with a sampler object with <code>unnormalizedCoordinates</code> equal to
-<code>VK_TRUE</code></p>
+created with a sampler object with <code>unnormalizedCoordinates</code> equal
+to <code>VK_TRUE</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpImageBlockMatchSSDQCOM-06987" href="#VUID-RuntimeSpirv-OpImageBlockMatchSSDQCOM-06987"></a> <span class="vuid">VUID-RuntimeSpirv-OpImageBlockMatchSSDQCOM-06987</span><br>
@@ -3943,8 +3935,8 @@ created with a sampler object with <code>unnormalizedCoordinates</code> equal to
 If an <code>OpImageBlockMatchSSDQCOM</code> or <code>OpImageBlockMatchSADQCOM</code>
 operation is used, then <code>target</code> <code>sampled</code> <code>image</code> and
 <code>reference</code> <code>sampled</code> <code>image</code> parameters <strong>must</strong> have been
-created with a sampler object with <code>unnormalizedCoordinates</code> equal to
-<code>VK_TRUE</code></p>
+created with a sampler object with <code>unnormalizedCoordinates</code> equal
+to <code>VK_TRUE</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpImageBlockMatchSSDQCOM-06988" href="#VUID-RuntimeSpirv-OpImageBlockMatchSSDQCOM-06988"></a> <span class="vuid">VUID-RuntimeSpirv-OpImageBlockMatchSSDQCOM-06988</span><br>

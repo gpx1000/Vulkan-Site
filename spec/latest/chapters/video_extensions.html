@@ -7799,8 +7799,9 @@ structure.</p>
 </li>
 <li>
 <p><code>maxLevelIdc</code> is a <code>StdVideoH264LevelIdc</code> value specifying the
-maximum H.264 level supported by the profile, as defined in section A.3
-of the <a href="introduction.html#itu-t-h264" class="xref page">ITU-T H.264 Specification</a>.</p>
+maximum H.264 level supported by the profile, where enum constant
+<code>STD_VIDEO_H264_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;</code> identifies H.264 level
+<code>&lt;major&gt;.&lt;minor&gt;</code> as defined in section A.3 of the <a href="introduction.html#itu-t-h264" class="xref page">ITU-T    H.264 Specification</a>.</p>
 </li>
 <li>
 <p><code>fieldOffsetGranularity</code> is the minimum alignment for
@@ -7848,6 +7849,11 @@ are otherwise ignored;</p>
 </li>
 <li>
 <p><code>seq_parameter_set_id</code> is used as the key of the SPS entry;</p>
+</li>
+<li>
+<p><code>level_idc</code> is one of the enum constants
+<code>STD_VIDEO_H264_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;</code> identifying the H.264 level
+<code>&lt;major&gt;.&lt;minor&gt;</code> as defined in section A.3 of the <a href="introduction.html#itu-t-h264" class="xref page">ITU-T    H.264 Specification</a>;</p>
 </li>
 <li>
 <p>if <code>flags.seq_scaling_matrix_present_flag</code> is set, then the
@@ -8825,8 +8831,9 @@ structure.</p>
 </li>
 <li>
 <p><code>maxLevelIdc</code> is a <code>StdVideoH265LevelIdc</code> value specifying the
-maximum H.265 level supported by the profile, as defined in section A.4
-of the <a href="introduction.html#itu-t-h265" class="xref page">ITU-T H.265 Specification</a>.</p>
+maximum H.265 level supported by the profile, where enum constant
+<code>STD_VIDEO_H265_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;</code> identifies H.265 level
+<code>&lt;major&gt;.&lt;minor&gt;</code> as defined in section A.4 of the <a href="introduction.html#itu-t-h265" class="xref page">ITU-T    H.265 Specification</a>.</p>
 </li>
 </ul>
 </div>
@@ -8952,9 +8959,21 @@ defined in section E.3.2 of the <a href="introduction.html#itu-t-h265" class="xr
 </div>
 </li>
 <li>
-<p>the members of the <code>StdVideoH265ProfileTierLevel</code> structure pointed
-to by <code>pProfileTierLevel</code> are interpreted as defined in section 7.4.4
-of the <a href="introduction.html#itu-t-h265" class="xref page">ITU-T H.265 Specification</a>;</p>
+<p>the <code>StdVideoH265ProfileTierLevel</code> structure pointed to by
+<code>pProfileTierLevel</code> are interpreted as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>general_level_idc</code> is one of the enum constants
+<code>STD_VIDEO_H265_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;</code> identifying the H.265 level
+<code>&lt;major&gt;.&lt;minor&gt;</code> as defined in section A.4 of the <a href="introduction.html#itu-t-h265" class="xref page">ITU-T     H.265 Specification</a>;</p>
+</li>
+<li>
+<p>all other members of <code>StdVideoH265ProfileTierLevel</code> are interpreted
+as defined in section 7.4.4 of the <a href="introduction.html#itu-t-h265" class="xref page">ITU-T H.265     Specification</a>;</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>all other members of <code>StdVideoH265VideoParameterSet</code> are interpreted
@@ -8982,9 +9001,21 @@ are otherwise ignored;</p>
 <code>sps_seq_parameter_set_id</code> is used as the key of the SPS entry;</p>
 </li>
 <li>
-<p>the members of the <code>StdVideoH265ProfileTierLevel</code> structure pointed
-to by <code>pProfileTierLevel</code> are interpreted as defined in section 7.4.4
-of the <a href="introduction.html#itu-t-h265" class="xref page">ITU-T H.265 Specification</a>;</p>
+<p>the <code>StdVideoH265ProfileTierLevel</code> structure pointed to by
+<code>pProfileTierLevel</code> are interpreted as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>general_level_idc</code> is one of the enum constants
+<code>STD_VIDEO_H265_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;</code> identifying the H.265 level
+<code>&lt;major&gt;.&lt;minor&gt;</code> as defined in section A.4 of the <a href="introduction.html#itu-t-h265" class="xref page">ITU-T     H.265 Specification</a>;</p>
+</li>
+<li>
+<p>all other members of <code>StdVideoH265ProfileTierLevel</code> are interpreted
+as defined in section 7.4.4 of the <a href="introduction.html#itu-t-h265" class="xref page">ITU-T H.265     Specification</a>;</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>the <code>max_latency_increase_plus1</code>, <code>max_dec_pic_buffering_minus1</code>,
@@ -10142,6 +10173,7 @@ indicating the encoding tools supported, are:</p>
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_encode_queue
 typedef enum VkVideoEncodeCapabilityFlagBitsKHR {
     VK_VIDEO_ENCODE_CAPABILITY_PRECEDING_EXTERNALLY_ENCODED_BYTES_BIT_KHR = 0x00000001,
+    VK_VIDEO_ENCODE_CAPABILITY_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_DETECTION_BIT_KHR = 0x00000002,
 } VkVideoEncodeCapabilityFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -10151,6 +10183,44 @@ typedef enum VkVideoEncodeCapabilityFlagBitsKHR {
 <p><code>VK_VIDEO_ENCODE_CAPABILITY_PRECEDING_EXTERNALLY_ENCODED_BYTES_BIT_KHR</code>
 indicates that the implementation supports the use of
 <a href="#VkVideoEncodeInfoKHR">VkVideoEncodeInfoKHR</a>::<code>precedingExternallyEncodedBytes</code>.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_CAPABILITY_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_DETECTION_BIT_KHR</code>
+indicates that the implementation is able to detect and report when the
+destination video bitstream buffer range provided by the application is
+not sufficiently large to fit the encoded bitstream data produced by a
+video encode operation by reporting the
+<code>VK_QUERY_RESULT_STATUS_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR</code>
+<a href="queries.html#query-result-status-codes" class="xref page">query result status code</a>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>Some implementations <strong>may</strong> not be able to reliably detect insufficient
+bitstream buffer range conditions in all situations.
+Such implementations will not report support for the
+<code>VK_VIDEO_ENCODE_CAPABILITY_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_DETECTION_BIT_KHR</code>
+encode capability flag for the video profile, but <strong>may</strong> still report the
+<code>VK_QUERY_RESULT_STATUS_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR</code> query
+result status code in certain cases.
+Applications <strong>should</strong> always check for the specific query result status code
+<code>VK_QUERY_RESULT_STATUS_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR</code> even
+when this encode capability flag is not supported by the implementation for
+the video profile in question.
+However, applications <strong>must</strong> not assume that a different negative query
+result status code indicating an unsuccessful completion of a video encode
+operation is not the result of an insufficient bitstream buffer condition
+unless this encode capability flag is supported.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </li>
 </ul>
 </div>
@@ -11706,6 +11776,8 @@ typedef enum VkVideoEncodeH264StdFlagBitsEXT {
     VK_VIDEO_ENCODE_H264_STD_DEBLOCKING_FILTER_DISABLED_BIT_EXT = 0x00008000,
     VK_VIDEO_ENCODE_H264_STD_DEBLOCKING_FILTER_ENABLED_BIT_EXT = 0x00010000,
     VK_VIDEO_ENCODE_H264_STD_DEBLOCKING_FILTER_PARTIAL_BIT_EXT = 0x00020000,
+    VK_VIDEO_ENCODE_H264_STD_SLICE_QP_DELTA_BIT_EXT = 0x00080000,
+    VK_VIDEO_ENCODE_H264_STD_DIFFERENT_SLICE_QP_DELTA_BIT_EXT = 0x00100000,
 } VkVideoEncodeH264StdFlagBitsEXT;</code></pre>
 </div>
 </div>
@@ -11805,6 +11877,19 @@ indicates if using
 <code>STD_VIDEO_H264_DISABLE_DEBLOCKING_FILTER_IDC_PARTIAL</code> from
 StdVideoH264DisableDeblockingFilterIdc is supported.
 An implementation <strong>must</strong> support at least one deblocking filter mode.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_H264_STD_SLICE_QP_DELTA_BIT_EXT</code> indicates whether
+the implementation supports using the application-provided value for
+<code>StdVideoEncodeH264SliceHeader</code>::<code>slice_qp_delta</code> when that value
+is identical across the slices of the encoded frame.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_H264_STD_DIFFERENT_SLICE_QP_DELTA_BIT_EXT</code>
+indicates whether the implementation supports using the
+application-provided value for
+<code>StdVideoEncodeH264SliceHeader</code>::<code>slice_qp_delta</code> when that value
+is different across the slices of the encoded frame.</p>
 </li>
 </ul>
 </div>
@@ -12184,19 +12269,11 @@ SPS/PPS parameters <strong>must</strong> comply with the limits specified in
 </li>
 <li>
 <p><a id="VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-pStdSPSs-parameter" href="#VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-pStdSPSs-parameter"></a> <span class="vuid">VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-pStdSPSs-parameter</span><br>
- If <code>pStdSPSs</code> is not <code>NULL</code>, <code>pStdSPSs</code> <strong>must</strong> be a valid pointer to an array of <code>stdSPSCount</code> <code>StdVideoH264SequenceParameterSet</code> values</p>
+ If <code>stdSPSCount</code> is not <code>0</code>, and <code>pStdSPSs</code> is not <code>NULL</code>, <code>pStdSPSs</code> <strong>must</strong> be a valid pointer to an array of <code>stdSPSCount</code> <code>StdVideoH264SequenceParameterSet</code> values</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-pStdPPSs-parameter" href="#VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-pStdPPSs-parameter"></a> <span class="vuid">VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-pStdPPSs-parameter</span><br>
- If <code>pStdPPSs</code> is not <code>NULL</code>, <code>pStdPPSs</code> <strong>must</strong> be a valid pointer to an array of <code>stdPPSCount</code> <code>StdVideoH264PictureParameterSet</code> values</p>
-</li>
-<li>
-<p><a id="VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-stdSPSCount-arraylength" href="#VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-stdSPSCount-arraylength"></a> <span class="vuid">VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-stdSPSCount-arraylength</span><br>
- <code>stdSPSCount</code> <strong>must</strong> be greater than <code>0</code></p>
-</li>
-<li>
-<p><a id="VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-stdPPSCount-arraylength" href="#VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-stdPPSCount-arraylength"></a> <span class="vuid">VUID-VkVideoEncodeH264SessionParametersAddInfoEXT-stdPPSCount-arraylength</span><br>
- <code>stdPPSCount</code> <strong>must</strong> be greater than <code>0</code></p>
+ If <code>stdPPSCount</code> is not <code>0</code>, and <code>pStdPPSs</code> is not <code>NULL</code>, <code>pStdPPSs</code> <strong>must</strong> be a valid pointer to an array of <code>stdPPSCount</code> <code>StdVideoH264PictureParameterSet</code> values</p>
 </li>
 </ul>
 </div>
@@ -12635,10 +12712,6 @@ inferred picture type does not match the actual picture type.</p>
 <li>
 <p><a id="VUID-VkVideoEncodeH264RateControlInfoEXT-flags-parameter" href="#VUID-VkVideoEncodeH264RateControlInfoEXT-flags-parameter"></a> <span class="vuid">VUID-VkVideoEncodeH264RateControlInfoEXT-flags-parameter</span><br>
  <code>flags</code> <strong>must</strong> be a valid combination of <a href="#VkVideoEncodeH264RateControlFlagBitsEXT">VkVideoEncodeH264RateControlFlagBitsEXT</a> values</p>
-</li>
-<li>
-<p><a id="VUID-VkVideoEncodeH264RateControlInfoEXT-flags-requiredbitmask" href="#VUID-VkVideoEncodeH264RateControlInfoEXT-flags-requiredbitmask"></a> <span class="vuid">VUID-VkVideoEncodeH264RateControlInfoEXT-flags-requiredbitmask</span><br>
- <code>flags</code> <strong>must</strong> not be <code>0</code></p>
 </li>
 </ul>
 </div>
@@ -13336,6 +13409,8 @@ typedef enum VkVideoEncodeH265StdFlagBitsEXT {
     VK_VIDEO_ENCODE_H265_STD_DEBLOCKING_FILTER_OVERRIDE_ENABLED_FLAG_SET_BIT_EXT = 0x00010000,
     VK_VIDEO_ENCODE_H265_STD_DEPENDENT_SLICE_SEGMENTS_ENABLED_FLAG_SET_BIT_EXT = 0x00020000,
     VK_VIDEO_ENCODE_H265_STD_DEPENDENT_SLICE_SEGMENT_FLAG_SET_BIT_EXT = 0x00040000,
+    VK_VIDEO_ENCODE_H265_STD_SLICE_QP_DELTA_BIT_EXT = 0x00080000,
+    VK_VIDEO_ENCODE_H265_STD_DIFFERENT_SLICE_QP_DELTA_BIT_EXT = 0x00100000,
 } VkVideoEncodeH265StdFlagBitsEXT;</code></pre>
 </div>
 </div>
@@ -13442,6 +13517,19 @@ indicates if enabling <code>dependent_slice_segments_enabled_flag</code> in
 <p><code>VK_VIDEO_ENCODE_H265_STD_DEPENDENT_SLICE_SEGMENT_FLAG_SET_BIT_EXT</code>
 indicates if enabling <code>dependent_slice_segment_flag</code> in
 <code>StdVideoEncodeH265SliceHeaderFlags</code> is supported.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_H265_STD_SLICE_QP_DELTA_BIT_EXT</code> indicates whether
+the implementation supports using the application-provided value for
+<code>StdVideoEncodeH265SliceSegmentHeader</code>::<code>slice_qp_delta</code> when that
+value is identical across the slice segments of the encoded frame.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_H265_STD_DIFFERENT_SLICE_QP_DELTA_BIT_EXT</code>
+indicates whether the implementation supports using the
+application-provided value for
+<code>StdVideoEncodeH265SliceSegmentHeader</code>::<code>slice_qp_delta</code> when that
+value is different across the slice segments of the encoded frame.</p>
 </li>
 </ul>
 </div>
@@ -13893,27 +13981,15 @@ picture parameter sets.</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-pStdVPSs-parameter" href="#VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-pStdVPSs-parameter"></a> <span class="vuid">VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-pStdVPSs-parameter</span><br>
- If <code>pStdVPSs</code> is not <code>NULL</code>, <code>pStdVPSs</code> <strong>must</strong> be a valid pointer to an array of <code>stdVPSCount</code> <code>StdVideoH265VideoParameterSet</code> values</p>
+ If <code>stdVPSCount</code> is not <code>0</code>, and <code>pStdVPSs</code> is not <code>NULL</code>, <code>pStdVPSs</code> <strong>must</strong> be a valid pointer to an array of <code>stdVPSCount</code> <code>StdVideoH265VideoParameterSet</code> values</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-pStdSPSs-parameter" href="#VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-pStdSPSs-parameter"></a> <span class="vuid">VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-pStdSPSs-parameter</span><br>
- If <code>pStdSPSs</code> is not <code>NULL</code>, <code>pStdSPSs</code> <strong>must</strong> be a valid pointer to an array of <code>stdSPSCount</code> <code>StdVideoH265SequenceParameterSet</code> values</p>
+ If <code>stdSPSCount</code> is not <code>0</code>, and <code>pStdSPSs</code> is not <code>NULL</code>, <code>pStdSPSs</code> <strong>must</strong> be a valid pointer to an array of <code>stdSPSCount</code> <code>StdVideoH265SequenceParameterSet</code> values</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-pStdPPSs-parameter" href="#VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-pStdPPSs-parameter"></a> <span class="vuid">VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-pStdPPSs-parameter</span><br>
- If <code>pStdPPSs</code> is not <code>NULL</code>, <code>pStdPPSs</code> <strong>must</strong> be a valid pointer to an array of <code>stdPPSCount</code> <code>StdVideoH265PictureParameterSet</code> values</p>
-</li>
-<li>
-<p><a id="VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-stdVPSCount-arraylength" href="#VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-stdVPSCount-arraylength"></a> <span class="vuid">VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-stdVPSCount-arraylength</span><br>
- <code>stdVPSCount</code> <strong>must</strong> be greater than <code>0</code></p>
-</li>
-<li>
-<p><a id="VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-stdSPSCount-arraylength" href="#VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-stdSPSCount-arraylength"></a> <span class="vuid">VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-stdSPSCount-arraylength</span><br>
- <code>stdSPSCount</code> <strong>must</strong> be greater than <code>0</code></p>
-</li>
-<li>
-<p><a id="VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-stdPPSCount-arraylength" href="#VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-stdPPSCount-arraylength"></a> <span class="vuid">VUID-VkVideoEncodeH265SessionParametersAddInfoEXT-stdPPSCount-arraylength</span><br>
- <code>stdPPSCount</code> <strong>must</strong> be greater than <code>0</code></p>
+ If <code>stdPPSCount</code> is not <code>0</code>, and <code>pStdPPSs</code> is not <code>NULL</code>, <code>pStdPPSs</code> <strong>must</strong> be a valid pointer to an array of <code>stdPPSCount</code> <code>StdVideoH265PictureParameterSet</code> values</p>
 </li>
 </ul>
 </div>
@@ -14432,10 +14508,6 @@ inferred picture type does not match the actual picture type.</p>
 <li>
 <p><a id="VUID-VkVideoEncodeH265RateControlInfoEXT-flags-parameter" href="#VUID-VkVideoEncodeH265RateControlInfoEXT-flags-parameter"></a> <span class="vuid">VUID-VkVideoEncodeH265RateControlInfoEXT-flags-parameter</span><br>
  <code>flags</code> <strong>must</strong> be a valid combination of <a href="#VkVideoEncodeH265RateControlFlagBitsEXT">VkVideoEncodeH265RateControlFlagBitsEXT</a> values</p>
-</li>
-<li>
-<p><a id="VUID-VkVideoEncodeH265RateControlInfoEXT-flags-requiredbitmask" href="#VUID-VkVideoEncodeH265RateControlInfoEXT-flags-requiredbitmask"></a> <span class="vuid">VUID-VkVideoEncodeH265RateControlInfoEXT-flags-requiredbitmask</span><br>
- <code>flags</code> <strong>must</strong> not be <code>0</code></p>
 </li>
 </ul>
 </div>

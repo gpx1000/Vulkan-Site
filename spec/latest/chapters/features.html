@@ -14972,6 +14972,67 @@ corresponding feature is supported.
 </div>
 </div>
 </div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV</code> structure
+is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_descriptor_pool_overallocation
+typedef struct VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           descriptorPoolOverallocation;
+} VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-descriptorPoolOverallocation"></a>
+<code>descriptorPoolOverallocation</code> indicates that the implementation
+allows the application to opt into descriptor pool overallocation by
+creating the descriptor pool with
+<code>VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_SETS_BIT_NV</code> and/or
+<code>VK_DESCRIPTOR_POOL_CREATE_ALLOW_OVERALLOCATION_POOLS_BIT_NV</code> flags.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+<code>VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV</code> <strong>can</strong> also be used in the <code>pNext</code> chain of
+<a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> to selectively enable these features.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV-sType-sType" href="#VUID-VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceDescriptorPoolOverallocationFeaturesNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -15746,6 +15807,11 @@ supported.</p>
 <li>
 <p><a href="#features-ycbcr-degamma"><code>ycbcrDegamma</code></a>, if the
 <code><a href="../appendices/extensions.html#VK_QCOM_ycbcr_degamma" class="xref page">VK_QCOM_ycbcr_degamma</a></code> extension is supported.</p>
+</li>
+<li>
+<p><a href="#features-descriptorPoolOverallocation"><code>descriptorPoolOverallocation</code></a>,
+if the <code><a href="../appendices/extensions.html#VK_NV_descriptor_pool_overallocation" class="xref page">VK_NV_descriptor_pool_overallocation</a></code> extension is
+supported.</p>
 </li>
 </ul>
 </div>

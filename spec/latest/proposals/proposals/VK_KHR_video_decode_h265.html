@@ -456,6 +456,7 @@
 <li><a href="#_resolved_why_is_there_a_need_for_the_application_to_specify_the_offset_of_individual_slice_segments_of_the_decoded_pictures">5.5. RESOLVED: Why is there a need for the application to specify the offset of individual slice segments of the decoded pictures?</a></li>
 <li><a href="#_resolved_is_h_265_multiview_content_supported">5.6. RESOLVED: Is H.265 Multiview content supported?</a></li>
 <li><a href="#_resolved_is_the_worst_case_size_of_all_input_structures_for_h_265_vps_and_sps_entries_prohibitively_large_for_embedded_devices">5.7. RESOLVED: Is the worst case size of all input structures for H.265 VPS and SPS entries prohibitively large for embedded devices?</a></li>
+<li><a href="#_resolved_why_are_h_265_level_indicator_values_specified_differently_than_the_way_they_are_defined_in_the_codec_specification">5.8. RESOLVED: Why are H.265 level indicator values specified differently than the way they are defined in the codec specification?</a></li>
 </ul>
 </li>
 <li><a href="#_further_functionality">6. Further Functionality</a></li>
@@ -1027,6 +1028,12 @@ vkCmdEndVideoCodingKHR(commandBuffer, ...);</code></pre>
 </div>
 <div class="paragraph">
 <p>It is thus not recommended for applications to statically allocate for the worst case size of H.265 VPS and SPS entries. As these are out-of-band data entries anyway, applications should prefer to dynamically allocate sufficient space if atypical content may require larger input data entries.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_resolved_why_are_h_265_level_indicator_values_specified_differently_than_the_way_they_are_defined_in_the_codec_specification"><a class="anchor" href="#_resolved_why_are_h_265_level_indicator_values_specified_differently_than_the_way_they_are_defined_in_the_codec_specification"></a>5.8. RESOLVED: Why are H.265 level indicator values specified differently than the way they are defined in the codec specification?</h3>
+<div class="paragraph">
+<p>For historical reasons, the <code>StdVideoH265Level</code> type is defined with ordinal enum constant values, which does not match the decimal encoding used by the H.265/HEVC video compression standard specification. All APIs defined by this extension and the used video std headers accept and report H.265 levels using the enum constants <code>STD_VIDEO_H265_LEVEL_&lt;major&gt;.&lt;minor&gt;</code>, not the decimal encoding used within raw H.265/HEVC bitstreams.</p>
 </div>
 </div>
 </div>

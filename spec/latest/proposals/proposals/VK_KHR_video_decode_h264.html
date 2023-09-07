@@ -458,6 +458,7 @@
 <li><a href="#_resolved_how_should_dpb_images_be_created_in_case_of_interlaced_frame_support">5.7. RESOLVED: How should DPB images be created in case of interlaced frame support?</a></li>
 <li><a href="#_resolved_how_should_both_fields_of_an_interlaced_frame_be_specified_as_part_of_the_active_reference_picture_list">5.8. RESOLVED: How should both fields of an interlaced frame be specified as part of the active reference picture list?</a></li>
 <li><a href="#_resolved_is_h_264_multiview_content_supported">5.9. RESOLVED: Is H.264 Multiview content supported?</a></li>
+<li><a href="#_resolved_why_are_h_264_level_indicator_values_specified_differently_than_the_way_they_are_defined_in_the_codec_specification">5.10. RESOLVED: Why are H.264 level indicator values specified differently than the way they are defined in the codec specification?</a></li>
 </ul>
 </li>
 <li><a href="#_further_functionality">6. Further Functionality</a></li>
@@ -1129,6 +1130,12 @@ vkCmdEndVideoCodingKHR(commandBuffer, ...);</code></pre>
 <h3 id="_resolved_is_h_264_multiview_content_supported"><a class="anchor" href="#_resolved_is_h_264_multiview_content_supported"></a>5.9. RESOLVED: Is H.264 Multiview content supported?</h3>
 <div class="paragraph">
 <p>Not as part of this extension, but future extensions can add support for that. While the provisional <code>VK_EXT_video_decode_h264</code> this extension was promoted from did include support for H.264 MVC, the corresponding APIs were not considered to be mature enough to be included in this extension.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_resolved_why_are_h_264_level_indicator_values_specified_differently_than_the_way_they_are_defined_in_the_codec_specification"><a class="anchor" href="#_resolved_why_are_h_264_level_indicator_values_specified_differently_than_the_way_they_are_defined_in_the_codec_specification"></a>5.10. RESOLVED: Why are H.264 level indicator values specified differently than the way they are defined in the codec specification?</h3>
+<div class="paragraph">
+<p>For historical reasons, the <code>StdVideoH264Level</code> type is defined with ordinal enum constant values, which does not match the decimal encoding used by the H.264/AVC video compression standard specification. All APIs defined by this extension and the used video std headers accept and report H.264 levels using the enum constants <code>STD_VIDEO_H264_LEVEL_&lt;major&gt;.&lt;minor&gt;</code>, not the decimal encoding used within raw H.264/AVC bitstreams.</p>
 </div>
 </div>
 </div>

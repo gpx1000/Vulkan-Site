@@ -2137,6 +2137,18 @@ or <a href="primsrast.html#vkCmdSetDepthBias2EXT" class="xref page">vkCmdSetDept
 <li>
 <p><a href="fragops.html#vkCmdSetStencilOp" class="xref page">vkCmdSetStencilOp</a>, if <code>stencilTestEnable</code> is <code>VK_TRUE</code></p>
 </li>
+<li>
+<p><a href="fragops.html#vkCmdSetStencilCompareMask" class="xref page">vkCmdSetStencilCompareMask</a>, if <code>stencilTestEnable</code> is
+<code>VK_TRUE</code></p>
+</li>
+<li>
+<p><a href="fragops.html#vkCmdSetStencilWriteMask" class="xref page">vkCmdSetStencilWriteMask</a>, if <code>stencilTestEnable</code> is
+<code>VK_TRUE</code></p>
+</li>
+<li>
+<p><a href="fragops.html#vkCmdSetStencilReference" class="xref page">vkCmdSetStencilReference</a>, if <code>stencilTestEnable</code> is
+<code>VK_TRUE</code></p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -2204,8 +2216,8 @@ been called in the command buffer prior to drawing:</p>
 </div>
 <div class="paragraph">
 <p>If the <code><a href="../appendices/extensions.html#VK_EXT_discard_rectangles" class="xref page">VK_EXT_discard_rectangles</a></code> extension is enabled on the
-device, the following commands <strong>must</strong> have been called in the command buffer
-prior to drawing:</p>
+device, and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following
+commands <strong>must</strong> have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2269,8 +2281,9 @@ and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following
 </div>
 <div class="paragraph">
 <p>If the <code><a href="../appendices/extensions.html#VK_EXT_provoking_vertex" class="xref page">VK_EXT_provoking_vertex</a></code> extension is enabled on the device,
-and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following command
-<strong>must</strong> have been called in the command buffer prior to drawing:</p>
+and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, and a shader is bound
+to the <code>VK_SHADER_STAGE_VERTEX_BIT</code> stage, the following command <strong>must</strong>
+have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>

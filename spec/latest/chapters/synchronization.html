@@ -18658,10 +18658,17 @@ If the <code>aspectMask</code> member of <code>subresourceRange</code> includes
 <code>VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL</code></p>
 </li>
 <li>
-<p><a id="VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09056" href="#VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09056"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09056</span><br>
+<p><a id="VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09229" href="#VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09229"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09229</span><br>
 
-<code>oldLayout</code> <strong>must</strong> be either <code>VK_IMAGE_LAYOUT_UNDEFINED</code>,
-<code>VK_IMAGE_LAYOUT_PREINITIALIZED</code>, or one of the layouts in
+<code>oldLayout</code> <strong>must</strong> be either <code>VK_IMAGE_LAYOUT_UNDEFINED</code> or the
+current layout of the image subresources as specified in
+<code>subresourceRange</code></p>
+</li>
+<li>
+<p><a id="VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09230" href="#VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09230"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09230</span><br>
+
+If <code>oldLayout</code> is not <code>VK_IMAGE_LAYOUT_UNDEFINED</code> or
+<code>VK_IMAGE_LAYOUT_PREINITIALIZED</code>, it <strong>must</strong> be one of the layouts in
 <a href="limits.html#VkPhysicalDeviceHostImageCopyPropertiesEXT" class="xref page">VkPhysicalDeviceHostImageCopyPropertiesEXT</a>::<code>pCopySrcLayouts</code></p>
 </li>
 <li>
