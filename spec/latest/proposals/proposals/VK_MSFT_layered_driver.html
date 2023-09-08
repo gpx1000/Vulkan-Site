@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>VK_EXT_primitives_generated_query :: Vulkan Documentation Project Demo</title>
+    <title>Proposal Template :: Vulkan Documentation Project Demo</title>
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../../_/css/site.css">
     <script>var uiRootPath = '../../../../_'</script>
@@ -308,7 +308,7 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -402,12 +402,11 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../../index.html">Vulkan Specification and Proposals</a></li>
-    <li>Extension Proposals</li>
-    <li><a href="VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a></li>
+    <li><a href="VK_MSFT_layered_driver.html">Proposal Template</a></li>
   </ul>
 </nav>
     <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/proposals/pages/proposals/VK_EXT_primitives_generated_query.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/proposals/pages/proposals/VK_MSFT_layered_driver.adoc">Edit this Page</a></div>
       -->
 </div>
   <div class="content">
@@ -415,29 +414,26 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">VK_EXT_primitives_generated_query</h1>
+<h1 class="page">Proposal Template</h1>
 <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_problem_statement">1. Problem Statement</a></li>
-<li><a href="#_solution_space">2. Solution Space</a>
+<li><a href="#_solution_space">2. Solution Space</a></li>
+<li><a href="#_proposal">3. Proposal</a></li>
+<li><a href="#_issues">4. Issues</a>
 <ul class="sectlevel2">
-<li><a href="#_emulation_through_other_vulkan_queries">2.1. Emulation Through Other Vulkan Queries</a></li>
-<li><a href="#_a_new_query_type">2.2. A New Query Type</a></li>
+<li><a href="#_resolved_is_a_string_the_right_way_to_identify_an_underlying_api">4.1. RESOLVED: Is a string the right way to identify an underlying API?</a></li>
 </ul>
 </li>
-<li><a href="#_proposal">3. Proposal</a>
-<ul class="sectlevel2">
-<li><a href="#_features">3.1. Features</a></li>
-</ul>
-</li>
+<li><a href="#_further_functionality">5. Further Functionality</a></li>
 </ul>
 </div>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>This proposal regards layering OpenGL over Vulkan, and provides a convenience
-query for use by such layers.</p>
+<p>This document proposes an extension to allow the loader to understand
+driver layering, for improving physical device sorting.</p>
 </div>
 </div>
 </div>
@@ -445,65 +441,44 @@ query for use by such layers.</p>
 <h2 id="_problem_statement"><a class="anchor" href="#_problem_statement"></a>1. Problem Statement</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In OpenGL, the <code>GL_PRIMITIVES_GENERATED</code> query can be used independently from
-whether transform feedback is active or not.
-There is no direct equivalent in Vulkan.</p>
+<p>The Vulkan loader is able to sort physical devices according to
+platform-specific criteria. For example, on Windows, the loader uses LUIDs
+to put physical devices in the same order as DXGI adapters. However, it is
+possible to have multiple Vulkan drivers that provide support for the same
+physical device, for example, where one is a &#8220;native&#8221; vendor-provided
+implementation and another is a &#8220;layered&#8221; implementation on top of a
+different API. Examples of layered implementations would include VulkanOn12
+(aka Dozen), layered on D3D12, and MoltenVK, layered on Metal.</p>
 </div>
 <div class="paragraph">
-<p>This extension provides a simple and efficient way to implement this OpenGL
-query on top of Vulkan.</p>
+<p>On a system where a physical device has two possible drivers, the sort
+order between them is currently unspecified. An ideal sort order
+should place any native/un-layered drivers sorted-before any layered
+drivers, as it should be expected that native drivers will provide more
+functionality and higher performance, since layering inherently adds
+overhead. But the loader has no way of knowing which driver to prefer.</p>
+</div>
+<div class="paragraph">
+<p>An additional problem that is not addressed by this specification is the
+case where you have multiple &#8220;native&#8221; drivers for a single physical device.
+In that case, the sort order remains unspecified, as a correct ordering
+between drivers is non-obvious.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="_solution_space"><a class="anchor" href="#_solution_space"></a>2. Solution Space</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_emulation_through_other_vulkan_queries"><a class="anchor" href="#_emulation_through_other_vulkan_queries"></a>2.1. Emulation Through Other Vulkan Queries</h3>
 <div class="paragraph">
-<p>In Vulkan, the second result from the
-<code>VK_QUERY_TYPE_TRANSFORM_FEEDBACK_STREAM_EXT</code> query produces the same value as
-OpenGL&#8217;s <code>GL_PRIMITIVES_GENERATED</code> query.
-However, this can only be used when transform feedback is active, and thus is
-not suitable.</p>
+<p>Options that were considered include:
+* Special-casing well-known layered drivers in the Vulkan loader.
+* Extending the Loader-ICD interface to identify layered drivers.
+* Providing an extension to allow layered drivers to self-identify.</p>
 </div>
 <div class="paragraph">
-<p>The result of <code>VK_QUERY_PIPELINE_STATISTIC_CLIPPING_INVOCATIONS_BIT</code> from the
-<code>VK_QUERY_TYPE_PIPELINE_STATISTICS</code> query also produces the same result.
-Support for this query implies support for a number of other statistics that
-are not universally available, and so the <code>pipelineStatisticsQuery</code> feature is
-often not available on Android devices.
-Furthermore, emulating <code>GL_PRIMITIVES_GENERATED</code> and
-<code>GL_CLIPPING_INPUT_PRIMITIVES_ARB</code> through the same Vulkan query creates
-unnecessary complications, given that only one query of each type can be active
-at a time in Vulkan.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_a_new_query_type"><a class="anchor" href="#_a_new_query_type"></a>2.2. A New Query Type</h3>
-<div class="paragraph">
-<p>A new Vulkan query type can be introduced to provide identical results to
-OpenGL&#8217;s <code>GL_PRIMITIVES_GENERATED</code> query.
-There are a number of limitations to address:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Similarly to <code>VK_QUERY_PIPELINE_STATISTIC_CLIPPING_INVOCATIONS_BIT</code>, as
-stated by the Vulkan spec, if <code>rasterizerDiscardEnable</code> is enabled the query
-may not produce valid results on some hardware.</p>
-</li>
-<li>
-<p>Some hardware cannot produce a valid value when a non-zero transform feedback
-stream is used (i.e.
-<code>VkPipelineRasterizationStateStreamCreateInfoEXT::rasterizationStream</code> is not
-zero).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>This solution is adopted for this problem.</p>
-</div>
+<p>The latter solution is the more general, and also has the benefit of
+allowing applications to understand when they are running on a layered
+driver.</p>
 </div>
 </div>
 </div>
@@ -511,51 +486,57 @@ zero).</p>
 <h2 id="_proposal"><a class="anchor" href="#_proposal"></a>3. Proposal</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A new query type is added, namely <code>VK_QUERY_TYPE_PRIMITIVES_GENERATED_EXT</code>,
-that behaves identically to the OpenGL <code>GL_PRIMITIVES_GENERATED</code> query.</p>
+<p>The following properties are exposed by the <code>VK_MSFT_layered_driver</code>
+extension:</p>
 </div>
-<div class="sect2">
-<h3 id="_features"><a class="anchor" href="#_features"></a>3.1. Features</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c hljs" data-lang="c">typedef struct VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT {
-    VkStructureType    sType;
-    void*              pNext;
-    VkBool32           primitivesGeneratedQuery;
-    VkBool32           primitivesGeneratedQueryWithRasterizerDiscard;
-    VkBool32           primitivesGeneratedQueryWithNonZeroStreams;
-} VkPhysicalDevicePrimitivesGeneratedQueryFeaturesEXT;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c hljs" data-lang="c">typedef enum VkLayeredDriverUnderlyingApiMSFT {
+    VK_LAYERED_DRIVER_UNDERLYING_API_NONE_MSFT,
+    VK_LAYERED_DRIVER_UNDERLYING_API_D3D12_MSFT,
+} VkLayeredDriverUnderlyingApiMSFT;
+
+typedef struct VkPhysicalDeviceLayeredDriverPropertiesMSFT {
+    VkStructureType sType;
+    const void* pNext;
+    VkLayeredDriverUnderlyingApiMSFT underlyingAPI;
+} VkPhysicalDeviceLayeredDriverPropertiesMSFT;</code></pre>
 </div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>primitivesGeneratedQuery</code> specifies if the query is usable.</p>
-</li>
-<li>
-<p>If <code>primitivesGeneratedQueryWithRasterizerDiscard</code> is false, then rasterizer
-discard (through
-<code>VkPipelineRasterizationStateCreateInfo::rasterizerDiscardEnable</code> or
-equivalent dynamic state) must not be enabled.</p>
-</li>
-<li>
-<p>If <code>primitivesGeneratedQueryWithNonZeroStreams</code> is false, the query cannot be
-used in conjunction with non-zero transform feedback streams.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
-<p>On hardware where <code>primitivesGeneratedQueryWithRasterizerDiscard</code> is not
-available, the OpenGL layer can discard the rasterization result by some other
-means; for example by using an empty scissor.</p>
+<p>Layered drivers should implement this extension. The Vulkan loader can then
+be updated to query for the this structure. If the <code>underlyingAPI</code> is not
+<code>NONE</code>, then the driver should be considered layered. The specific value of
+<code>underlyingAPI</code> is simply informational for applications to query if they
+so choose.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_issues"><a class="anchor" href="#_issues"></a>4. Issues</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_resolved_is_a_string_the_right_way_to_identify_an_underlying_api"><a class="anchor" href="#_resolved_is_a_string_the_right_way_to_identify_an_underlying_api"></a>4.1. RESOLVED: Is a string the right way to identify an underlying API?</h3>
+<div class="paragraph">
+<p>No, an enum is a much better solution. The same conclusion was already
+reached with the <code>VkDriverId</code> enum.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_further_functionality"><a class="anchor" href="#_further_functionality"></a>5. Further Functionality</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Additional properties of the layering implementation, such as underlying
+API object pointers, could be exposed, but considering that the nature of
+those will depend on the underlying API, it seems like those should be
+exposed via separate extensions, if at all.</p>
 </div>
 <div class="paragraph">
-<p>On hardware where <code>primitivesGeneratedQueryWithNonZeroStreams</code> is not
-available, the transform feedback query can be used for non-zero streams since
-transform feedback is necessarily active.
-This is nonetheless not a concern for OpenGL layers as non-zero transform
-feedback streams are not supported in OpenGL.</p>
-</div>
+<p>It might make sense to add things like driver version for the underlying
+driver, since the version information exposed through existing properties
+would refer to the version of layered implementation.</p>
 </div>
 </div>
 </div>
