@@ -6,13 +6,23 @@
     <title>Untitled :: Vulkan Documentation Project Demo</title>
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
+    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
     <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_White_Dec16.svg" /></a>
+      <a class="navbar-item" href="../../..">Vulkan Documentation Project Demo</a>
+      <div class="navbar-item">
+        <img alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" height="100%" />
+      </div>
       <div class="navbar-item search hide-for-print">
         <div id="search-field" class="field">
           <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
@@ -31,29 +41,48 @@
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
-            <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Education</a>
+          <a class="navbar-link" href="#">Guides</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
+          </div>
+        </div>
+            <!--
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">TBD</a>
+          </div>
+        </div>
+            -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tutorial</a>
+          <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
-            <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
-            <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
-            <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Community</a>
+          <a class="navbar-link" href="#">Samples</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
-            <a class="navbar-item" href="https://reddit.com/r/vulkan">Reddit</a>
-            <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/vulkan">Stack Overflow</a>
-            <a class="navbar-item" href="https://fosstodon.org/@vulkan">Mastodon</a>
+            <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
           </div>
         </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Help</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
+            <a class="navbar-item" href="https://khr.io/khrdiscord">Khronos Discord</a>
+          </div>
+        </div>
+            <!--
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+            -->
       </div>
     </div>
   </nav>
@@ -181,10 +210,10 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="00_Descriptor_layout_and_buffer.html">Uniform buffers</a>
+    <a class="nav-link" href="00_Descriptor_set_layout_and_buffer.html">Uniform buffers</a>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="00_Descriptor_layout_and_buffer.html">Descriptor layout and buffer</a>
+    <a class="nav-link" href="00_Descriptor_set_layout_and_buffer.html">Descriptor layout and buffer</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="01_Descriptor_pool_and_sets.html">Descriptor pool and sets</a>
@@ -279,11 +308,11 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../00_Introduction.html">Khronos Vulkan Tutorial</a></li>
-    <li><a href="00_Descriptor_layout_and_buffer.html">Uniform buffers</a></li>
+    <li><a href="00_Descriptor_set_layout_and_buffer.html">Uniform buffers</a></li>
   </ul>
 </nav>
     <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial/edit/main/antora/modules/ROOT/pages/05_Uniform_buffers/00_Descriptor_layout_and_buffer.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Tutorial/edit/main/antora/modules/ROOT/pages/05_Uniform_buffers/00_Descriptor_set_layout_and_buffer.adoc">Edit this Page</a></div>
       -->
 </div>
   <div class="content">
@@ -309,7 +338,7 @@ Usage of descriptors consists of three parts:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Specify a descriptor layout during pipeline creation</p>
+<p>Specify a descriptor set layout during pipeline creation</p>
 </li>
 <li>
 <p>Allocate a descriptor set from a descriptor pool</p>
@@ -320,7 +349,7 @@ Usage of descriptors consists of three parts:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The <em>descriptor layout</em> specifies the types of resources that are going to be accessed by the pipeline, just like a render pass specifies the types of attachments that will be accessed.
+<p>The <em>descriptor set layout</em> specifies the types of resources that are going to be accessed by the pipeline, just like a render pass specifies the types of attachments that will be accessed.
 A <em>descriptor set</em> specifies the actual buffer or image resources that will be bound to the descriptors, just like a framebuffer specifies the actual image views to bind to render pass attachments.
 The descriptor set is then bound for the drawing commands just like the vertex buffers and framebuffer.</p>
 </div>
@@ -392,7 +421,7 @@ void main() {
 <div class="paragraph">
 <p>Note that the order of the <code>uniform</code>, <code>in</code> and <code>out</code> declarations doesn&#8217;t matter.
 The <code>binding</code> directive is similar to the <code>location</code> directive for attributes.
-We&#8217;re going to reference this binding in the descriptor layout.
+We&#8217;re going to reference this binding in the descriptor set layout.
 The line with <code>gl_Position</code> is changed to use the transformations to compute the final position in clip coordinates.
 Unlike the 2D triangles, the last component of the clip coordinates may not be <code>1</code>, which will result in a division when converted to the final normalized device coordinates on the screen.
 This is used in perspective projection as the <em>perspective division</em> and is essential for making closer objects look larger than objects that are further away.</p>
@@ -521,7 +550,7 @@ pipelineLayoutInfo.pSetLayouts = &amp;descriptorSetLayout;</code></pre>
 We&#8217;ll get back to that in the next chapter, where we&#8217;ll look into descriptor pools and descriptor sets.</p>
 </div>
 <div class="paragraph">
-<p>The descriptor layout should stick around while we may create new graphics pipelines i.e.
+<p>The descriptor set layout should stick around while we may create new graphics pipelines i.e.
 until the program ends:</p>
 </div>
 <div class="listingblock">
@@ -745,7 +774,7 @@ We may look at these in a future chapter.</p>
 <p>In the next chapter we&#8217;ll look at descriptor sets, which will actually bind the <code>VkBuffer</code>s to the uniform buffer descriptors so that the shader can access this transformation data.</p>
 </div>
 <div class="paragraph">
-<p><a href="../_attachments/22_descriptor_layout.cpp">C&#43;&#43; code</a> / <a href="../_attachments/22_shader_ubo.vert">Vertex shader</a> / <a href="../_attachments/22_shader_ubo.frag">Fragment shader</a></p>
+<p><a href="../_attachments/22_descriptor_set_layout.cpp">C&#43;&#43; code</a> / <a href="../_attachments/22_shader_ubo.vert">Vertex shader</a> / <a href="../_attachments/22_shader_ubo.frag">Fragment shader</a></p>
 </div>
 </div>
 </div>

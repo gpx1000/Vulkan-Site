@@ -6,13 +6,23 @@
     <title>Memory Allocation :: Vulkan Documentation Project Demo</title>
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
+    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
     <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_White_Dec16.svg" /></a>
+      <a class="navbar-item" href="../../..">Vulkan Documentation Project Demo</a>
+      <div class="navbar-item">
+        <img alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" height="100%" />
+      </div>
       <div class="navbar-item search hide-for-print">
         <div id="search-field" class="field">
           <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
@@ -31,29 +41,48 @@
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
-            <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Education</a>
+          <a class="navbar-link" href="#">Guides</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
+          </div>
+        </div>
+            <!--
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">TBD</a>
+          </div>
+        </div>
+            -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tutorial</a>
+          <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
-            <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
-            <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
-            <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Community</a>
+          <a class="navbar-link" href="#">Samples</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
-            <a class="navbar-item" href="https://reddit.com/r/vulkan">Reddit</a>
-            <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/vulkan">Stack Overflow</a>
-            <a class="navbar-item" href="https://fosstodon.org/@vulkan">Mastodon</a>
+            <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
           </div>
         </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Help</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
+            <a class="navbar-item" href="https://khr.io/khrdiscord">Khronos Discord</a>
+          </div>
+        </div>
+            <!--
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+            -->
       </div>
     </div>
   </nav>
@@ -689,7 +718,7 @@ parameter value, and <code>pMemory</code> equal to <code>pOriginal</code>.</p>
 </div>
 <div class="paragraph">
 <p><code>pfnReallocation</code> <strong>must</strong> follow the same
-<a href="#vkAllocationFunction_return_rules">rules for return values as<code>PFN_vkAllocationFunction</code></a>.</p>
+<a href="#vkAllocationFunction_return_rules">rules for return values as <code>PFN_vkAllocationFunction</code></a>.</p>
 </div>
 </div>
 </div>
@@ -1462,7 +1491,7 @@ implementation-specific manner)
 their <code>propertyFlags</code> members are not in a subset relation.
 That potentially allows more than one possible way to order the same set of
 memory types.
-Notice that the <a href="#memory-device-bitmask-list">list of all allowed memoryproperty flag combinations</a> is written in a valid order.
+Notice that the <a href="#memory-device-bitmask-list">list of all allowed memory property flag combinations</a> is written in a valid order.
 But if instead <code>VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT</code> was before
 <code>VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT</code> |
 <code>VK_MEMORY_PROPERTY_HOST_COHERENT_BIT</code>, the list would still be in a
@@ -5781,7 +5810,7 @@ as.</p>
 </li>
 <li>
 <p><a id="VUID-VkAndroidHardwareBufferPropertiesANDROID-pNext-pNext" href="#VUID-VkAndroidHardwareBufferPropertiesANDROID-pNext-pNext"></a> <span class="vuid">VUID-VkAndroidHardwareBufferPropertiesANDROID-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkAndroidHardwareBufferFormatProperties2ANDROID">VkAndroidHardwareBufferFormatProperties2ANDROID</a> or <a href="#VkAndroidHardwareBufferFormatPropertiesANDROID">VkAndroidHardwareBufferFormatPropertiesANDROID</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkAndroidHardwareBufferFormatProperties2ANDROID">VkAndroidHardwareBufferFormatProperties2ANDROID</a>, <a href="#VkAndroidHardwareBufferFormatPropertiesANDROID">VkAndroidHardwareBufferFormatPropertiesANDROID</a>, or <a href="#VkAndroidHardwareBufferFormatResolvePropertiesANDROID">VkAndroidHardwareBufferFormatResolvePropertiesANDROID</a></p>
 </li>
 <li>
 <p><a id="VUID-VkAndroidHardwareBufferPropertiesANDROID-sType-unique" href="#VUID-VkAndroidHardwareBufferPropertiesANDROID-sType-unique"></a> <span class="vuid">VUID-VkAndroidHardwareBufferPropertiesANDROID-sType-unique</span><br>
@@ -5866,7 +5895,7 @@ when used with an image bound to memory imported from <code>buffer</code>.</p>
 </div>
 <div class="paragraph">
 <p>If the Android hardware buffer has one of the formats listed in the
-<a href="#memory-external-android-hardware-buffer-formats">Format Equivalencetable</a>, then <code>format</code> <strong>must</strong> have the equivalent Vulkan format listed in
+<a href="#memory-external-android-hardware-buffer-formats">Format Equivalence table</a>, then <code>format</code> <strong>must</strong> have the equivalent Vulkan format listed in
 the table.
 Otherwise, <code>format</code> <strong>may</strong> be <code>VK_FORMAT_UNDEFINED</code>, indicating the
 Android hardware buffer <strong>can</strong> only be used with an external format.</p>
@@ -5890,15 +5919,15 @@ Android hardware buffer <strong>can</strong> only be used with an external forma
 <div class="paragraph">
 <p>The <code>formatFeatures</code> member only indicates the features available when
 using an
-<a href="#memory-external-android-hardware-buffer-external-formats">external-formatimage</a> created from the Android hardware buffer.
+<a href="#memory-external-android-hardware-buffer-external-formats">external-format image</a> created from the Android hardware buffer.
 Images from Android hardware buffers with a format other than
 <code>VK_FORMAT_UNDEFINED</code> are subject to the format capabilities obtained
 from <a href="formats.html#vkGetPhysicalDeviceFormatProperties2" class="xref page">vkGetPhysicalDeviceFormatProperties2</a>, and
 <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties2" class="xref page">vkGetPhysicalDeviceImageFormatProperties2</a> with appropriate parameters.
 These sets of features are independent of each other, e.g. the external
 format will support sampler Y′C<sub>B</sub>C<sub>R</sub> conversion even if the non-external
-format does not, and writing to non-external format images is possible but
-writing to external format images is not.</p>
+format does not, and rendering directly to the external format will not be
+supported even if the non-external format does support this.</p>
 </div>
 </td>
 </tr>
@@ -6061,6 +6090,79 @@ the corresponding fields of
 <li>
 <p><a id="VUID-VkAndroidHardwareBufferFormatProperties2ANDROID-sType-sType" href="#VUID-VkAndroidHardwareBufferFormatProperties2ANDROID-sType-sType"></a> <span class="vuid">VUID-VkAndroidHardwareBufferFormatProperties2ANDROID-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_FORMAT_PROPERTIES_2_ANDROID</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <a href="#VkAndroidHardwareBufferFormatResolvePropertiesANDROID">VkAndroidHardwareBufferFormatResolvePropertiesANDROID</a> structure is
+defined as:</p>
+</div>
+<div id="VkAndroidHardwareBufferFormatResolvePropertiesANDROID" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_ANDROID_external_format_resolve
+typedef struct VkAndroidHardwareBufferFormatResolvePropertiesANDROID {
+    VkStructureType    sType;
+    void*              pNext;
+    VkFormat           colorAttachmentFormat;
+} VkAndroidHardwareBufferFormatResolvePropertiesANDROID;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>colorAttachmentFormat</code> is a <a href="formats.html#VkFormat" class="xref page">VkFormat</a> specifying the format of
+color attachment images that <strong>must</strong> be used for color attachments when
+resolving to the specified external format.
+If the implementation supports external format resolves for the
+specified external format, this value will be set to a color format
+supporting the <code>VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT</code> in
+<a href="formats.html#VkFormatProperties" class="xref page">VkFormatProperties</a>::<code>optimalTilingFeatures</code> as returned by
+<a href="formats.html#vkGetPhysicalDeviceFormatProperties" class="xref page">vkGetPhysicalDeviceFormatProperties</a> with <code>format</code> equal to
+<code>colorAttachmentFormat</code> If external format resolves are not
+supported, this value will be set to <code>VK_FORMAT_UNDEFINED</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Any Android hardware buffer created with the <code>GRALLOC_USAGE_HW_RENDER</code>
+flag <strong>must</strong> be renderable in some way in Vulkan, either:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#VkAndroidHardwareBufferFormatPropertiesANDROID">VkAndroidHardwareBufferFormatPropertiesANDROID</a>::<code>format</code> <strong>must</strong>
+be a format that supports <code>VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT</code>
+or <code>VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT</code> in
+<a href="formats.html#VkFormatProperties" class="xref page">VkFormatProperties</a>::<code>optimalTilingFeatures</code>; or</p>
+</li>
+<li>
+<p><code>colorAttachmentFormat</code> <strong>must</strong> be a format that supports
+<code>VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT</code> in
+<a href="formats.html#VkFormatProperties" class="xref page">VkFormatProperties</a>::<code>optimalTilingFeatures</code>.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkAndroidHardwareBufferFormatResolvePropertiesANDROID-sType-sType" href="#VUID-VkAndroidHardwareBufferFormatResolvePropertiesANDROID-sType-sType"></a> <span class="vuid">VUID-VkAndroidHardwareBufferFormatResolvePropertiesANDROID-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_ANDROID_HARDWARE_BUFFER_FORMAT_RESOLVE_PROPERTIES_ANDROID</code></p>
 </li>
 </ul>
 </div>
@@ -6269,7 +6371,7 @@ type <code>zx_handle_t</code>.
 VMO handles to external memory are canonically obtained from Fuchsia&#8217;s
 Sysmem service or from syscalls such as <code>zx_vmo_create</code>().
 VMO handles for import can also be obtained by exporting them from another
-Vulkan instance as described in <a href="#exporting-fuchsia-device-memory">exportingfuchsia device memory</a>.</p>
+Vulkan instance as described in <a href="#exporting-fuchsia-device-memory">exporting fuchsia device memory</a>.</p>
 </div>
 <div class="paragraph">
 <p>Importing VMO handles to the Vulkan instance transfers ownership of the
@@ -8211,7 +8313,7 @@ when used with an image bound to memory imported from <code>buffer</code>.</p>
 </div>
 <div class="paragraph">
 <p>If the QNX Screen buffer has one of the formats listed in the
-<a href="#memory-external-qnx-screen-buffer-formats">QNX Screen Format Equivalencetable</a>, then <code>format</code> <strong>must</strong> have the equivalent Vulkan format listed in
+<a href="#memory-external-qnx-screen-buffer-formats">QNX Screen Format Equivalence table</a>, then <code>format</code> <strong>must</strong> have the equivalent Vulkan format listed in
 the table.
 Otherwise, <code>format</code> <strong>may</strong> be <code>VK_FORMAT_UNDEFINED</code>, indicating the
 QNX Screen buffer <strong>can</strong> only be used with an external format.
@@ -9184,8 +9286,8 @@ memory allocations: <code>vkFlushMappedMemoryRanges</code> and
 <code>VK_MEMORY_PROPERTY_HOST_COHERENT_BIT</code> set,
 <code>vkFlushMappedMemoryRanges</code> and <code>vkInvalidateMappedMemoryRanges</code> are
 unnecessary and <strong>may</strong> have a performance cost.
-However, <a href="synchronization.html#synchronization-dependencies-available-and-visible" class="xref page">availabilityand visibility operations</a> still need to be managed on the device.
-See the description of <a href="synchronization.html#synchronization-host-access-types" class="xref page">host accesstypes</a> for more information.</p>
+However, <a href="synchronization.html#synchronization-dependencies-available-and-visible" class="xref page">availability and visibility operations</a> still need to be managed on the device.
+See the description of <a href="synchronization.html#synchronization-host-access-types" class="xref page">host access types</a> for more information.</p>
 </div>
 </td>
 </tr>
@@ -9258,7 +9360,7 @@ flush.</p>
 <p><code>vkFlushMappedMemoryRanges</code> guarantees that host writes to the memory
 ranges described by <code>pMemoryRanges</code> are made available to the host
 memory domain, such that they <strong>can</strong> be made available to the device memory
-domain via <a href="synchronization.html#synchronization-dependencies-available-and-visible" class="xref page">memorydomain operations</a> using the <code>VK_ACCESS_HOST_WRITE_BIT</code>
+domain via <a href="synchronization.html#synchronization-dependencies-available-and-visible" class="xref page">memory domain operations</a> using the <code>VK_ACCESS_HOST_WRITE_BIT</code>
 <a href="synchronization.html#synchronization-access-types" class="xref page">access type</a>.</p>
 </div>
 <div class="paragraph">
@@ -9383,7 +9485,7 @@ invalidate.</p>
 <p><code>vkInvalidateMappedMemoryRanges</code> guarantees that device writes to the
 memory ranges described by <code>pMemoryRanges</code>, which have been made
 available to the host memory domain using the <code>VK_ACCESS_HOST_WRITE_BIT</code>
-and <code>VK_ACCESS_HOST_READ_BIT</code> <a href="synchronization.html#synchronization-access-types" class="xref page">accesstypes</a>, are made visible to the host.
+and <code>VK_ACCESS_HOST_READ_BIT</code> <a href="synchronization.html#synchronization-access-types" class="xref page">access types</a>, are made visible to the host.
 If a range of non-coherent memory is written by the host and then
 invalidated without first being flushed, its contents are <strong>undefined</strong>.</p>
 </div>
@@ -10235,9 +10337,11 @@ Such <em>external formats</em> are commonly used by external image sources such 
 video decoders or cameras.
 Vulkan <strong>can</strong> import Android hardware buffers that have external formats, but
 since the image contents are in an undiscoverable and possibly proprietary
-representation, images with external formats <strong>must</strong> only be used as sampled
-images, <strong>must</strong> only be sampled with a sampler that has Y′C<sub>B</sub>C<sub>R</sub> conversion
-enabled, and <strong>must</strong> have optimal tiling.</p>
+representation, images with external formats <strong>must</strong> only be used as
+resolve images or
+sampled images, and <strong>must</strong> have optimal tiling.
+Images with external formats <strong>must</strong> only be sampled with a sampler that has
+Y′C<sub>B</sub>C<sub>R</sub> conversion enabled.</p>
 </div>
 <div class="paragraph">
 <p>Images that will be backed by an Android hardware buffer <strong>can</strong> use an
@@ -10897,7 +11001,7 @@ Shader atomics are considered to be writes.</p>
 <div class="title">Note</div>
 <div class="paragraph">
 <p>The peer memory features of a memory heap also apply to any accesses that
-<strong>may</strong> be performed during <a href="synchronization.html#synchronization-image-layout-transitions" class="xref page">imagelayout transitions</a>.</p>
+<strong>may</strong> be performed during <a href="synchronization.html#synchronization-image-layout-transitions" class="xref page">image layout transitions</a>.</p>
 </div>
 </td>
 </tr>

@@ -6,13 +6,23 @@
     <title>Queries :: Vulkan Documentation Project Demo</title>
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
+    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
     <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_White_Dec16.svg" /></a>
+      <a class="navbar-item" href="../../..">Vulkan Documentation Project Demo</a>
+      <div class="navbar-item">
+        <img alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" height="100%" />
+      </div>
       <div class="navbar-item search hide-for-print">
         <div id="search-field" class="field">
           <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
@@ -31,29 +41,48 @@
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
-            <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Education</a>
+          <a class="navbar-link" href="#">Guides</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
+          </div>
+        </div>
+            <!--
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">TBD</a>
+          </div>
+        </div>
+            -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tutorial</a>
+          <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
-            <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
-            <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
-            <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Community</a>
+          <a class="navbar-link" href="#">Samples</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
-            <a class="navbar-item" href="https://reddit.com/r/vulkan">Reddit</a>
-            <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/vulkan">Stack Overflow</a>
-            <a class="navbar-item" href="https://fosstodon.org/@vulkan">Mastodon</a>
+            <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
           </div>
         </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Help</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
+            <a class="navbar-item" href="https://khr.io/khrdiscord">Khronos Discord</a>
+          </div>
+        </div>
+            <!--
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+            -->
       </div>
     </div>
   </nav>
@@ -1495,7 +1524,7 @@ command buffers during the query operation.
 For a secondary command buffer to be executed while a query is active, it
 <strong>must</strong> set the <code>occlusionQueryEnable</code>, <code>queryFlags</code>, and/or
 <code>pipelineStatistics</code> members of <a href="cmdbuffers.html#VkCommandBufferInheritanceInfo" class="xref page">VkCommandBufferInheritanceInfo</a> to
-conservative values, as described in the <a href="cmdbuffers.html#commandbuffers-recording" class="xref page">CommandBuffer Recording</a> section.
+conservative values, as described in the <a href="cmdbuffers.html#commandbuffers-recording" class="xref page">Command Buffer Recording</a> section.
 A query <strong>must</strong> either begin and end inside the same subpass of a render pass
 instance, or <strong>must</strong> both begin and end outside of a render pass instance
 (i.e. contain entire render pass instances).</p>
@@ -3879,7 +3908,7 @@ to the actual number of samples passing the per-fragment tests.</p>
 <p>Setting <code>VK_QUERY_CONTROL_PRECISE_BIT</code> does not guarantee that different
 implementations return the same number of samples in an occlusion query.
 Some implementations may kill fragments in the
-<a href="pipelines.html#pipelines-graphics-subsets-pre-rasterization" class="xref page">pre-rasterization shaderstage</a>, and these killed fragments do not contribute to the final result of
+<a href="pipelines.html#pipelines-graphics-subsets-pre-rasterization" class="xref page">pre-rasterization shader stage</a>, and these killed fragments do not contribute to the final result of
 the query.
 It is possible that some implementations generate a zero result value for
 the query, while others generate a non-zero value.</p>
@@ -4127,7 +4156,7 @@ multiple times, affecting some of the counts.</p>
 <div class="paragraph">
 <p>If a pipeline has <code>rasterizerDiscardEnable</code> enabled, implementations
 <strong>may</strong> discard primitives after the final
-<a href="pipelines.html#pipelines-graphics-subsets-pre-rasterization" class="xref page">pre-rasterization shaderstage</a>.
+<a href="pipelines.html#pipelines-graphics-subsets-pre-rasterization" class="xref page">pre-rasterization shader stage</a>.
 As a result, if <code>rasterizerDiscardEnable</code> is enabled, the clipping input
 and output primitives counters <strong>may</strong> not be incremented.</p>
 </div>

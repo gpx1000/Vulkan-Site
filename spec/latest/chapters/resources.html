@@ -6,13 +6,23 @@
     <title>Resource Creation :: Vulkan Documentation Project Demo</title>
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
+    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
     <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_White_Dec16.svg" /></a>
+      <a class="navbar-item" href="../../..">Vulkan Documentation Project Demo</a>
+      <div class="navbar-item">
+        <img alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" height="100%" />
+      </div>
       <div class="navbar-item search hide-for-print">
         <div id="search-field" class="field">
           <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
@@ -31,29 +41,48 @@
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
-            <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Education</a>
+          <a class="navbar-link" href="#">Guides</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
+          </div>
+        </div>
+            <!--
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">TBD</a>
+          </div>
+        </div>
+            -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tutorial</a>
+          <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
-            <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
-            <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
-            <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Community</a>
+          <a class="navbar-link" href="#">Samples</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
-            <a class="navbar-item" href="https://reddit.com/r/vulkan">Reddit</a>
-            <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/vulkan">Stack Overflow</a>
-            <a class="navbar-item" href="https://fosstodon.org/@vulkan">Mastodon</a>
+            <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
           </div>
         </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Help</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
+            <a class="navbar-item" href="https://khr.io/khrdiscord">Khronos Discord</a>
+          </div>
+        </div>
+            <!--
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+            -->
       </div>
     </div>
   </nav>
@@ -4551,10 +4580,7 @@ external memory handle types.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>To create an image with an
-<a href="memory.html#memory-external-android-hardware-buffer-external-formats" class="xref page">externalformat</a>, add a <code>VkExternalFormatANDROID</code> structure in the <code>pNext</code>
-chain of <a href="#VkImageCreateInfo">VkImageCreateInfo</a>.
-<code>VkExternalFormatANDROID</code> is defined as:</p>
+<p><code>VkExternalFormatANDROID</code> is defined as:</p>
 </div>
 <div id="VkExternalFormatANDROID" class="listingblock">
 <div class="content">
@@ -4582,9 +4608,13 @@ external format</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If <code>externalFormat</code> is zero, the effect is as if the
-<code>VkExternalFormatANDROID</code> structure was not present.
-Otherwise, the <code>image</code> will have the specified external format.</p>
+<p>When included in the <code>pNext</code> chain of another structure, it indicates
+<a href="memory.html#memory-external-android-hardware-buffer-external-formats" class="xref page">additional format information</a> beyond what is provided by <code>VkFormat</code> values for an
+Android hardware buffer.
+If <code>externalFormat</code> is zero, it indicates that no external format is
+used, and implementations should rely only on other format information.
+If this structure is not present, it is equivalent to setting
+<code>externalFormat</code> to zero.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -4622,7 +4652,7 @@ to <a href="memory.html#vkGetAndroidHardwareBufferPropertiesANDROID" class="xref
 <div class="content">
 <div class="paragraph">
 <p>To create an image with an
-<a href="memory.html#memory-external-screen-buffer-external-formats" class="xref page">QNX Screen externalformat</a>, add a <code>VkExternalFormatQNX</code> structure in the <code>pNext</code> chain
+<a href="memory.html#memory-external-screen-buffer-external-formats" class="xref page">QNX Screen external format</a>, add a <code>VkExternalFormatQNX</code> structure in the <code>pNext</code> chain
 of <a href="#VkImageCreateInfo">VkImageCreateInfo</a>.
 <code>VkExternalFormatQNX</code> is defined as:</p>
 </div>
@@ -4838,7 +4868,7 @@ not included in the <code>pNext</code> chain of <a href="#VkImageCreateInfo">VkI
 <div class="paragraph">
 <p>If the <code>pNext</code> chain of <a href="#VkImageCreateInfo">VkImageCreateInfo</a> includes a
 <a href="#VkImageDrmFormatModifierListCreateInfoEXT">VkImageDrmFormatModifierListCreateInfoEXT</a> structure, then the image
-will be created with one of the <a href="../appendices/glossary.html#glossary-drm-format-modifier" class="xref page">Linux DRMformat modifiers</a> listed in the structure.
+will be created with one of the <a href="../appendices/glossary.html#glossary-drm-format-modifier" class="xref page">Linux DRM format modifiers</a> listed in the structure.
 The choice of modifier is implementation-dependent.</p>
 </div>
 <div class="paragraph">
@@ -4919,7 +4949,7 @@ with <a href="capabilities.html#VkPhysicalDeviceImageDrmFormatModifierInfoEXT" c
 <div class="paragraph">
 <p>If the <code>pNext</code> chain of <a href="#VkImageCreateInfo">VkImageCreateInfo</a> includes a
 <a href="#VkImageDrmFormatModifierExplicitCreateInfoEXT">VkImageDrmFormatModifierExplicitCreateInfoEXT</a> structure, then the
-image will be created with the <a href="../appendices/glossary.html#glossary-drm-format-modifier" class="xref page">Linux DRMformat modifier</a> and memory layout defined by the structure.</p>
+image will be created with the <a href="../appendices/glossary.html#glossary-drm-format-modifier" class="xref page">Linux DRM format modifier</a> and memory layout defined by the structure.</p>
 </div>
 <div class="paragraph">
 <p>The <a href="#VkImageDrmFormatModifierExplicitCreateInfoEXT">VkImageDrmFormatModifierExplicitCreateInfoEXT</a> structure is defined
@@ -6094,7 +6124,7 @@ returned layout is valid for <a href="memory.html#memory-device-hostaccess" clas
 <div class="paragraph">
 <p>If the image&#8217;s
 tiling is <code>VK_IMAGE_TILING_LINEAR</code> and its
-format is a <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planarformat</a>, then <code>vkGetImageSubresourceLayout</code> describes one
+format is a <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar format</a>, then <code>vkGetImageSubresourceLayout</code> describes one
 <em>format plane</em>
 of the image.
 If the image&#8217;s tiling is <code>VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT</code>, then
@@ -6394,7 +6424,7 @@ same <code>offset</code> and <code>size</code> are returned and represent the in
 memory allocation.</p>
 </div>
 <div class="paragraph">
-<p>If the image has a <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planarformat</a>
+<p>If the image has a <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar format</a>
 and its tiling is <code>VK_IMAGE_TILING_LINEAR</code>
 , then the <code>aspectMask</code> member of <code>VkImageSubresource</code> <strong>must</strong> be
 <code>VK_IMAGE_ASPECT_PLANE_0_BIT</code>, <code>VK_IMAGE_ASPECT_PLANE_1_BIT</code>, or
@@ -7005,7 +7035,7 @@ associated with the image&#8217;s <code>format</code> and
 <div class="content">
 <div class="paragraph">
 <p>If an image was created with <code>VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT</code>,
-then the image has a <a href="../appendices/glossary.html#glossary-drm-format-modifier" class="xref page">Linux DRM formatmodifier</a>.
+then the image has a <a href="../appendices/glossary.html#glossary-drm-format-modifier" class="xref page">Linux DRM format modifier</a>.
 To query the <em>modifier</em>, call:</p>
 </div>
 <div id="vkGetImageDrmFormatModifierPropertiesEXT" class="listingblock">
@@ -8266,7 +8296,7 @@ floating point denorm or NaN <strong>may</strong> be flushed or canonicalized wh
 or read through a view with a floating point format.
 Similarly, a value written through a signed normalized format that has a bit
 pattern exactly equal to <span class="eq">-2<sup>b</sup></span> <strong>may</strong> be changed to <span class="eq">-2<sup>b</sup> +  1</span>
-as described in <a href="fundamentals.html#fundamentals-fixedfpconv" class="xref page">Conversion from NormalizedFixed-Point to Floating-Point</a>.</p>
+as described in <a href="fundamentals.html#fundamentals-fixedfpconv" class="xref page">Conversion from Normalized Fixed-Point to Floating-Point</a>.</p>
 </div>
 </td>
 </tr>
@@ -8289,7 +8319,7 @@ image instructions.
 This remapping <strong>must</strong> be the identity swizzle for storage image descriptors,
 input attachment descriptors,
 framebuffer attachments, and any <code>VkImageView</code> used with a combined
-image sampler that enables <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub>conversion</a>.</p>
+image sampler that enables <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>.</p>
 </div>
 <div class="paragraph">
 <p>If the image view is to be used with a sampler which supports
@@ -8308,7 +8338,7 @@ Conversely, if a <a href="samplers.html#VkSamplerYcbcrConversion" class="xref pa
 <code>subresourceRange.aspectMask</code> is <code>VK_IMAGE_ASPECT_COLOR_BIT</code>, and
 <code>usage</code> includes <code>VK_IMAGE_USAGE_SAMPLED_BIT</code>, then the <code>format</code>
 <strong>must</strong> be identical to the image <code>format</code> and the sampler to be used with
-the image view <strong>must</strong> enable <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub>conversion</a>.</p>
+the image view <strong>must</strong> enable <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>.</p>
 </div>
 <div class="paragraph">
 <p>When such an image is used in a <a href="video_extensions.html#video-coding" class="xref page">video coding</a> operation, the
@@ -8488,12 +8518,37 @@ If <code>usage</code> contains
 <code>VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-VkImageViewCreateInfo-usage-08932" href="#VUID-VkImageViewCreateInfo-usage-08932"></a> <span class="vuid">VUID-VkImageViewCreateInfo-usage-08932</span><br>
+<p><a id="VUID-VkImageViewCreateInfo-externalFormatResolve-09358" href="#VUID-VkImageViewCreateInfo-externalFormatResolve-09358"></a> <span class="vuid">VUID-VkImageViewCreateInfo-externalFormatResolve-09358</span><br>
 
-If <code>usage</code> contains <code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code>, then
-the image view&#8217;s <a href="#resources-image-view-format-features">format    features</a> <strong>must</strong> contain at least one of
+If the <a href="features.html#features-externalFormatResolve" class="xref page"><code>externalFormatResolve</code></a>
+feature is not enabled and <code>usage</code> contains
+<code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code>, then the image view&#8217;s
+<a href="#resources-image-view-format-features">format features</a> <strong>must</strong> contain
+at least one of <code>VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT</code>,
+<code>VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT</code>, or
+<code>VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageViewCreateInfo-nullColorAttachmentWithExternalFormatResolve-09359" href="#VUID-VkImageViewCreateInfo-nullColorAttachmentWithExternalFormatResolve-09359"></a> <span class="vuid">VUID-VkImageViewCreateInfo-nullColorAttachmentWithExternalFormatResolve-09359</span><br>
+
+If the <a href="limits.html#limits-nullColorAttachmentWithExternalFormatResolve" class="xref page">    <code>nullColorAttachmentWithExternalFormatResolve</code></a> property is
+<code>VK_FALSE</code> and <code>usage</code> contains
+<code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code>, then the image view&#8217;s
+<a href="#resources-image-view-format-features">format features</a> <strong>must</strong> contain
+at least one of <code>VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT</code>,
+<code>VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT</code>, or
+<code>VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageViewCreateInfo-image-09360" href="#VUID-VkImageViewCreateInfo-image-09360"></a> <span class="vuid">VUID-VkImageViewCreateInfo-image-09360</span><br>
+
+If <code>image</code> was created with a
+<a href="#VkExternalFormatANDROID">VkExternalFormatANDROID</a>::<code>externalFormat</code> value of 0 and
+<code>usage</code> contains <code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code>, then the
+image view&#8217;s <a href="#resources-image-view-format-features">format features</a>
+<strong>must</strong> contain at least one of
 <code>VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT</code>,
-<code>VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT</code> or,
+<code>VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT</code>, or
 <code>VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV</code></p>
 </li>
 <li>
@@ -9492,7 +9547,7 @@ framebuffer attachment, the <code>aspectMask</code> is ignored and both depth an
 stencil image subresources are used.</p>
 </div>
 <div class="paragraph">
-<p>When creating a <code>VkImageView</code>, if <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">samplerY′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled in the sampler, the <code>aspectMask</code> of a
+<p>When creating a <code>VkImageView</code>, if <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled in the sampler, the <code>aspectMask</code> of a
 <code>subresourceRange</code> used by the <code>VkImageView</code> <strong>must</strong> be
 <code>VK_IMAGE_ASPECT_COLOR_BIT</code>.</p>
 </div>
@@ -9954,7 +10009,7 @@ dimensions.</p>
 </div>
 <div class="paragraph">
 <p>The <code>filterCenter</code> specifies the origin or center of the filter kernel,
-as described in <a href="textures.html#textures-weightimage-filteroperation" class="xref page">Weight SamplingOperation</a>.
+as described in <a href="textures.html#textures-weightimage-filteroperation" class="xref page">Weight Sampling Operation</a>.
 The <code>numPhases</code> describes the number of sub-pixel filter phases as
 described in <a href="textures.html#textures-weightimage-filterphases" class="xref page">Weight Sampling Phases</a>.</p>
 </div>
@@ -10590,8 +10645,8 @@ structure.</p>
 <div class="paragraph">
 <p>If the <code>pNext</code> chain includes a <code>VkImageViewMinLodCreateInfoEXT</code>
 structure, then that structure includes a parameter specifying a value to
-clamp the minimum LOD value during <a href="textures.html#textures-image-level-selection" class="xref page">ImageLevel(s) Selection</a>, <a href="textures.html#textures-gather" class="xref page">Texel Gathering</a> and
-<a href="textures.html#textures-integer-coordinate-operations" class="xref page">Integer Texel CoordinateOperations</a>.</p>
+clamp the minimum LOD value during <a href="textures.html#textures-image-level-selection" class="xref page">Image Level(s) Selection</a>, <a href="textures.html#textures-gather" class="xref page">Texel Gathering</a> and
+<a href="textures.html#textures-integer-coordinate-operations" class="xref page">Integer Texel Coordinate Operations</a>.</p>
 </div>
 <div class="paragraph">
 <p>If the image view contains <code>VkImageViewMinLodCreateInfoEXT</code> and it is
@@ -15426,7 +15481,7 @@ set.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06416" href="#VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06416"></a> <span class="vuid">VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06416</span><br>
+<p><a id="VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06416" href="#VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06416"></a> <span class="vuid">VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06416</span><br>
 
 The <code>pCreateInfo</code>::<code>pNext</code> chain <strong>must</strong> not contain a
 <a href="#VkImageSwapchainCreateInfoKHR">VkImageSwapchainCreateInfoKHR</a> structure</p>
@@ -15454,14 +15509,14 @@ whose <code>pNext</code> chain includes a <a href="#VkExternalFormatQNX">VkExter
 with non-zero <code>externalFormat</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06417" href="#VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06417"></a> <span class="vuid">VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06417</span><br>
+<p><a id="VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06417" href="#VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06417"></a> <span class="vuid">VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06417</span><br>
 
 If <code>pCreateInfo</code>::<code>format</code> specifies a <em>multi-planar</em> format and
 <code>pCreateInfo</code>::<code>flags</code> has <code>VK_IMAGE_CREATE_DISJOINT_BIT</code>
 set then <code>planeAspect</code> <strong>must</strong> not be <code>VK_IMAGE_ASPECT_NONE_KHR</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06419" href="#VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06419"></a> <span class="vuid">VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06419</span><br>
+<p><a id="VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06419" href="#VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06419"></a> <span class="vuid">VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06419</span><br>
 
 If <code>pCreateInfo</code>::<code>flags</code> has <code>VK_IMAGE_CREATE_DISJOINT_BIT</code>
 set and if the <code>pCreateInfo</code>::<code>tiling</code> is
@@ -15470,7 +15525,7 @@ set and if the <code>pCreateInfo</code>::<code>tiling</code> is
 <a href="formats.html#formats-planes-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06420" href="#VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06420"></a> <span class="vuid">VUID-VkDeviceImageMemoryRequirementsKHR-pCreateInfo-06420</span><br>
+<p><a id="VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06420" href="#VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06420"></a> <span class="vuid">VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06420</span><br>
 
 If <code>pCreateInfo</code>::<code>tiling</code> is
 <code>VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT</code>, then <code>planeAspect</code>
@@ -18204,7 +18259,7 @@ the image subresources containing them <strong>must</strong> be transitioned.</p
 </div>
 <div class="paragraph">
 <p>Use of an overlapping range by two aliases <strong>must</strong> be separated by a memory
-dependency using the appropriate <a href="synchronization.html#synchronization-access-types" class="xref page">accesstypes</a> if at least one of those uses performs writes, whether the aliases
+dependency using the appropriate <a href="synchronization.html#synchronization-access-types" class="xref page">access types</a> if at least one of those uses performs writes, whether the aliases
 interpret memory consistently or not.
 If buffer or image memory barriers are used, the scope of the barrier <strong>must</strong>
 contain the entire range and/or set of image subresources that overlap.</p>

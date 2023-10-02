@@ -6,13 +6,23 @@
     <title>Sparse Resources :: Vulkan Documentation Project Demo</title>
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
+    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
+    <meta name="msapplication-TileColor" content="#ffc40d">
+    <meta name="theme-color" content="#ffffff">
     <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_White_Dec16.svg" /></a>
+      <a class="navbar-item" href="../../..">Vulkan Documentation Project Demo</a>
+      <div class="navbar-item">
+        <img alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" height="100%" />
+      </div>
       <div class="navbar-item search hide-for-print">
         <div id="search-field" class="field">
           <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
@@ -31,29 +41,48 @@
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
-            <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Education</a>
+          <a class="navbar-link" href="#">Guides</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
+          </div>
+        </div>
+            <!--
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tools</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">TBD</a>
+          </div>
+        </div>
+            -->
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Tutorial</a>
+          <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
-            <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
-            <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
-            <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Community</a>
+          <a class="navbar-link" href="#">Samples</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
-            <a class="navbar-item" href="https://reddit.com/r/vulkan">Reddit</a>
-            <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/vulkan">Stack Overflow</a>
-            <a class="navbar-item" href="https://fosstodon.org/@vulkan">Mastodon</a>
+            <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
           </div>
         </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Help</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
+            <a class="navbar-item" href="https://khr.io/khrdiscord">Khronos Discord</a>
+          </div>
+        </div>
+            <!--
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+            -->
       </div>
     </div>
   </nav>
@@ -718,7 +747,7 @@ image will return a value of <span class="eq">1.0f</span>.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>See <a href="devsandqueues.html#devsandqueues-physical-device-enumeration" class="xref page">Physical DeviceEnumeration</a> for instructions for retrieving physical device properties.</p>
+<p>See <a href="devsandqueues.html#devsandqueues-physical-device-enumeration" class="xref page">Physical Device Enumeration</a> for instructions for retrieving physical device properties.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2456,7 +2485,7 @@ corrupt the system.</p>
 support in queue families that also include graphics and compute support,
 other implementations <strong>may</strong> only expose a
 <code>VK_QUEUE_SPARSE_BINDING_BIT</code>-only queue family.
-In either case, applications <strong>must</strong> use <a href="synchronization.html#synchronization" class="xref page">synchronizationprimitives</a> to explicitly request any ordering dependencies between sparse
+In either case, applications <strong>must</strong> use <a href="synchronization.html#synchronization" class="xref page">synchronization primitives</a> to explicitly request any ordering dependencies between sparse
 memory binding operations and other graphics/compute/transfer operations, as
 sparse binding operations are not automatically ordered against command
 buffer execution, even within a single queue.</p>
@@ -3155,7 +3184,7 @@ If <code>fence</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HAN
 </ul>
 </div>
 <div class="paragraph">
-<p><code>vkQueueBindSparse</code> is a <a href="devsandqueues.html#devsandqueues-submission" class="xref page">queue submissioncommand</a>, with each batch defined by an element of <code>pBindInfo</code> as a
+<p><code>vkQueueBindSparse</code> is a <a href="devsandqueues.html#devsandqueues-submission" class="xref page">queue submission command</a>, with each batch defined by an element of <code>pBindInfo</code> as a
 <a href="#VkBindSparseInfo">VkBindSparseInfo</a> structure.
 Batches begin execution in the order they appear in <code>pBindInfo</code>, but
 <strong>may</strong> complete out of order.</p>
