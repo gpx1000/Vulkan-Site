@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Geometry shader to mesh shader :: Vulkan Documentation Project Demo</title>
+    <title>OpenCL common source files :: Vulkan Documentation Project Demo</title>
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../../../_/css/site.css">
     <link rel="apple-touch-icon" sizes="180x180" href="../../../../../_/img/apple-touch-icon.png">
@@ -235,8 +235,8 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../graphics_pipeline_library/README.html">Graphics pipeline library</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="README.html">Geometry shader to mesh shader</a>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../gshader_to_mshader/README.html">Geometry shader to mesh shader</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../logic_op_dynamic_state/README.html">Logic op dynamic state</a>
@@ -451,12 +451,11 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../../../README.html">Vulkan Samples</a></li>
-    <li><a href="../README.html">Extension usage samples</a></li>
-    <li><a href="README.html">Geometry shader to mesh shader</a></li>
+    <li><a href="README.html">OpenCL common source files</a></li>
   </ul>
 </nav>
     <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Samples/edit/main/antora/modules/ROOT/pages/samples/extensions/gshader_to_mshader/README.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Samples/edit/main/antora/modules/ROOT/pages/samples/extensions/open_cl_common/README.adoc">Edit this Page</a></div>
       -->
 </div>
   <div class="content">
@@ -464,108 +463,9 @@
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Geometry shader to mesh shader</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-The source for this sample can be found in the <a href="https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/gshader_to_mshader">Khronos Vulkan samples github repository</a>.
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../../../_images/samples/extensions/gshader_to_mshader/images/visualization_of_normals.png" alt="Sample">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_overview"><a class="anchor" href="#_overview"></a>Overview</h2>
-<div class="sectionbody">
+<h1 class="page">OpenCL common source files</h1>
 <div class="paragraph">
-<p>This sample demonstrates how a mesh shader can be used to achieve the same results as with geometry shader.
-It contains geometry and mesh shader pipelines visualizing normals in the teapot model.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_meshlets"><a class="anchor" href="#_meshlets"></a>Meshlets</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>To access model vertices from within mesh shader it needs to be stored within an <strong>S</strong>hader <strong>S</strong>torage <strong>B</strong>uffer <strong>O</strong>bject (SSBO).
-Indices need to be divided into meshlets and also stored within an SSBO so each work item can work on a single meshlet.
-Meshlets are created by spliting source geometry.
-Exemplary meshlet structure used in this sample:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-C++ hljs" data-lang="C++">struct Meshlet
-{
-	uint32_t vertices[64];
-	uint32_t indices[126];
-	uint32_t vertex_count;
-	uint32_t index_count;
-};</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>By linearly scanning the indices of the model, Meshlet-structures are created with up to 126 indices or 64 unique vertex indices, whatever is reached first.
-See prepare_meshlets() for an exemplary implementation.</p>
-</div>
-<div class="paragraph">
-<p>This sample expands function <code>load_model()</code> by adding a bool storage_buffer parameter, set to false by default.
-In that function model data is read from the file teapot.gltf.
-By setting storage_buffer to true, vertex position and normals are stored in an SSBO using the <code>AlignedVertex</code> structure (because of std430 memory layout).
-After that, indices are divided into meshlets using the <code>Meshlet</code> structure and also stored in SSBOs.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_enabling_the_extension"><a class="anchor" href="#_enabling_the_extension"></a>Enabling the Extension</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The device extension is provided by <code>VK_EXT_MESH_SHADER_EXTENSION_NAME</code>.
-It requires <code>VK_KHR_SPIRV_1_4_EXTENSION_NAME</code>, which in turn require VulkanAPI 1.1 and <code>VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME</code>.
-SPIRV needs to be set to 1.4.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-C++ hljs" data-lang="C++">set_api_version(VK_API_VERSION_1_1);
-add_device_extension(VK_EXT_MESH_SHADER_EXTENSION_NAME);
-add_device_extension(VK_KHR_SPIRV_1_4_EXTENSION_NAME);
-add_device_extension(VK_KHR_SHADER_FLOAT_CONTROLS_EXTENSION_NAME);
-vkb::GLSLCompiler::set_target_environment(glslang::EShTargetSpv, glslang::EShTargetSpv_1_4);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The <code>VkPhysicalDeviceMeshShaderFeaturesEXT</code> structure needs to be included in the pNext chain of the <code>VkPhysicalDeviceFeatures2</code> structure passed to vkGetPhysicalDeviceFeatures2</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-C++ hljs" data-lang="C++">auto &amp;requested_vertex_input_features      = gpu.request_extension_features&lt;VkPhysicalDeviceMeshShaderFeaturesEXT&gt;(VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MESH_SHADER_FEATURES_EXT);
-requested_vertex_input_features.meshShader = VK_TRUE;</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_pros_and_cons"><a class="anchor" href="#_pros_and_cons"></a>Pros and cons</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Usage of geometry shader is usually not advised for real-time rendering purposes as it leads to high memory bandwith and reduced performance.
-On the other hand it is part of traditional pipeline and doesn&#8217;t require additional pre-procesing of source geometry opposite to mesh shader.</p>
-</div>
-<div class="paragraph">
-<p>Mesh shader offers better performance and is more flexible in it potential usage but in case of working with a source geometry pre-processing is needed (meshlets).</p>
-</div>
-</div>
+<p>This folder does not contain a sample, but only OpenCL related units shared by the OpenCL interoperability samples in this repository.</p>
 </div>
 </article>
   </div>

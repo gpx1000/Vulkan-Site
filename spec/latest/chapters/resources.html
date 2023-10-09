@@ -19,10 +19,7 @@
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="../../..">Vulkan Documentation Project Demo</a>
-      <div class="navbar-item">
-        <img alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" height="100%" />
-      </div>
+      <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
         <div id="search-field" class="field">
           <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
@@ -41,48 +38,29 @@
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
+            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
+            <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Guides</a>
+          <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-          </div>
-        </div>
-            <!--
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Tools</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">TBD</a>
-          </div>
-        </div>
-            -->
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Tutorial</a>
-          <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
-          </div>
-        </div>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Samples</a>
-          <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
+            <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Help</a>
+          <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
-            <a class="navbar-item" href="https://khr.io/khrdiscord">Khronos Discord</a>
+            <a class="navbar-item" href="https://reddit.com/r/vulkan">Reddit</a>
+            <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/vulkan">Stack Overflow</a>
+            <a class="navbar-item" href="https://fosstodon.org/@vulkan">Mastodon</a>
           </div>
         </div>
-            <!--
-        <div class="navbar-item">
-          <span class="control">
-            <a class="button is-primary" href="#">Download</a>
-          </span>
-        </div>
-            -->
       </div>
     </div>
   </nav>
@@ -222,6 +200,12 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">chapters/VK_NV_low_latency2/low_latency2.adoc</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -510,10 +494,35 @@ resulting buffer object is returned.</p>
 <p><a id="VUID-vkCreateBuffer-flags-00911" href="#VUID-vkCreateBuffer-flags-00911"></a> <span class="vuid">VUID-vkCreateBuffer-flags-00911</span><br>
 
 If the <code>flags</code> member of <code>pCreateInfo</code> includes
-<code>VK_BUFFER_CREATE_SPARSE_BINDING_BIT</code>, creating this <code>VkBuffer</code>
-<strong>must</strong> not cause the total required sparse memory for all currently valid
-sparse resources on the device to exceed
+<code>VK_BUFFER_CREATE_SPARSE_BINDING_BIT</code>,
+and the <a href="features.html#features-extendedSparseAddressSpace" class="xref page">    <code>extendedSparseAddressSpace</code></a> feature is not enabled,
+creating this <code>VkBuffer</code> <strong>must</strong> not cause the total required sparse
+memory for all currently valid sparse resources on the device to exceed
 <code>VkPhysicalDeviceLimits</code>::<code>sparseAddressSpaceSize</code></p>
+</li>
+<li>
+<p>If the <code>flags</code> member of <code>pCreateInfo</code> includes
+<code>VK_BUFFER_CREATE_SPARSE_BINDING_BIT</code>, the
+<a href="features.html#features-extendedSparseAddressSpace" class="xref page">    <code>extendedSparseAddressSpace</code></a> feature is enabled, and the
+<code>usage</code> member of <code>pCreateInfo</code> contains bits not in
+<code>VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV</code>::<code>extendedSparseBufferUsageFlags</code>,
+creating this <code>VkBuffer</code> <strong>must</strong> not cause the total required sparse
+memory for all currently valid sparse resources on the device, excluding
+<code>VkBuffer</code> created with <code>usage</code> member of <code>pCreateInfo</code>
+containing bits in
+<code>VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV</code>::<code>extendedSparseBufferUsageFlags</code>
+and <code>VkImage</code> created with <code>usage</code> member of <code>pCreateInfo</code>
+containing bits in
+<code>VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV</code>::<code>extendedSparseImageUsageFlags</code>,
+to exceed <code>VkPhysicalDeviceLimits</code>::<code>sparseAddressSpaceSize</code></p>
+</li>
+<li>
+<p>If the <code>flags</code> member of <code>pCreateInfo</code> includes
+<code>VK_BUFFER_CREATE_SPARSE_BINDING_BIT</code> and the
+<a href="features.html#features-extendedSparseAddressSpace" class="xref page">    <code>extendedSparseAddressSpace</code></a> feature is enabled, creating this
+<code>VkBuffer</code> <strong>must</strong> not cause the total required sparse memory for all
+currently valid sparse resources on the device to exceed
+<code>VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV</code>::<code>extendedSparseAddressSpaceSize</code></p>
 </li>
 </ul>
 </div>
@@ -2547,10 +2556,35 @@ resulting image object is returned.</p>
 <p><a id="VUID-vkCreateImage-flags-00939" href="#VUID-vkCreateImage-flags-00939"></a> <span class="vuid">VUID-vkCreateImage-flags-00939</span><br>
 
 If the <code>flags</code> member of <code>pCreateInfo</code> includes
-<code>VK_IMAGE_CREATE_SPARSE_BINDING_BIT</code>, creating this <code>VkImage</code>
-<strong>must</strong> not cause the total required sparse memory for all currently valid
-sparse resources on the device to exceed
+<code>VK_IMAGE_CREATE_SPARSE_BINDING_BIT</code>,
+and the <a href="features.html#features-extendedSparseAddressSpace" class="xref page">    <code>extendedSparseAddressSpace</code></a> feature is not enabled,
+creating this <code>VkImage</code> <strong>must</strong> not cause the total required sparse
+memory for all currently valid sparse resources on the device to exceed
 <code>VkPhysicalDeviceLimits</code>::<code>sparseAddressSpaceSize</code></p>
+</li>
+<li>
+<p>If the <code>flags</code> member of <code>pCreateInfo</code> includes
+<code>VK_IMAGE_CREATE_SPARSE_BINDING_BIT</code>, the
+<a href="features.html#features-extendedSparseAddressSpace" class="xref page">    <code>extendedSparseAddressSpace</code></a> feature is enabled, and the
+<code>usage</code> member of <code>pCreateInfo</code> contains bits not in
+<code>VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV</code>::<code>extendedSparseImageUsageFlags</code>,
+creating this <code>VkImage</code> <strong>must</strong> not cause the total required sparse
+memory for all currently valid sparse resources on the device, excluding
+<code>VkBuffer</code> created with <code>usage</code> member of <code>pCreateInfo</code>
+containing bits in
+<code>VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV</code>::<code>extendedSparseBufferUsageFlags</code>
+and <code>VkImage</code> created with <code>usage</code> member of <code>pCreateInfo</code>
+containing bits in
+<code>VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV</code>::<code>extendedSparseImageUsageFlags</code>,
+to exceed <code>VkPhysicalDeviceLimits</code>::<code>sparseAddressSpaceSize</code></p>
+</li>
+<li>
+<p>If the <code>flags</code> member of <code>pCreateInfo</code> includes
+<code>VK_IMAGE_CREATE_SPARSE_BINDING_BIT</code> and the
+<a href="features.html#features-extendedSparseAddressSpace" class="xref page">    <code>extendedSparseAddressSpace</code></a> feature is enabled, creating this
+<code>VkImage</code> <strong>must</strong> not cause the total required sparse memory for all
+currently valid sparse resources on the device to exceed
+<code>VkPhysicalDeviceExtendedSparseAddressSpacePropertiesNV</code>::<code>extendedSparseAddressSpaceSize</code></p>
 </li>
 </ul>
 </div>

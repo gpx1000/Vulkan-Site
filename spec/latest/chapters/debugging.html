@@ -19,10 +19,7 @@
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="../../..">Vulkan Documentation Project Demo</a>
-      <div class="navbar-item">
-        <img alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" height="100%" />
-      </div>
+      <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
         <div id="search-field" class="field">
           <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
@@ -41,48 +38,29 @@
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
+            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
+            <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Guides</a>
+          <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-          </div>
-        </div>
-            <!--
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Tools</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">TBD</a>
-          </div>
-        </div>
-            -->
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Tutorial</a>
-          <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
-          </div>
-        </div>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Samples</a>
-          <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
+            <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Help</a>
+          <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
-            <a class="navbar-item" href="https://khr.io/khrdiscord">Khronos Discord</a>
+            <a class="navbar-item" href="https://reddit.com/r/vulkan">Reddit</a>
+            <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/vulkan">Stack Overflow</a>
+            <a class="navbar-item" href="https://fosstodon.org/@vulkan">Mastodon</a>
           </div>
         </div>
-            <!--
-        <div class="navbar-item">
-          <span class="control">
-            <a class="button is-primary" href="#">Download</a>
-          </span>
-        </div>
-            -->
       </div>
     </div>
   </nav>
@@ -222,6 +200,12 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">chapters/VK_NV_low_latency2/low_latency2.adoc</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -656,6 +640,10 @@ typedef enum VkObjectType {
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="descriptorsets.html#VkDescriptorUpdateTemplate" class="xref page">VkDescriptorUpdateTemplate</a></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_PRIVATE_DATA_SLOT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="VK_EXT_private_data.html#VkPrivateDataSlot" class="xref page">VkPrivateDataSlot</a></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_SURFACE_KHR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="VK_KHR_surface/wsi.html#VkSurfaceKHR" class="xref page">VkSurfaceKHR</a></p></td>
 </tr>
@@ -676,12 +664,20 @@ typedef enum VkObjectType {
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkDebugReportCallbackEXT">VkDebugReportCallbackEXT</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_NV</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="VK_NV_device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutNV" class="xref page">VkIndirectCommandsLayoutNV</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_VIDEO_SESSION_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="video_extensions.html#VkVideoSessionKHR" class="xref page">VkVideoSessionKHR</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_VIDEO_SESSION_PARAMETERS_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="video_extensions.html#VkVideoSessionParametersKHR" class="xref page">VkVideoSessionParametersKHR</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_DEBUG_UTILS_MESSENGER_EXT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkDebugUtilsMessengerEXT">VkDebugUtilsMessengerEXT</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="resources.html#VkAccelerationStructureKHR" class="xref page">VkAccelerationStructureKHR</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_VALIDATION_CACHE_EXT</code></p></td>
@@ -692,10 +688,6 @@ typedef enum VkObjectType {
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="resources.html#VkAccelerationStructureNV" class="xref page">VkAccelerationStructureNV</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="resources.html#VkAccelerationStructureKHR" class="xref page">VkAccelerationStructureKHR</a></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_PERFORMANCE_CONFIGURATION_INTEL</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="queries.html#VkPerformanceConfigurationINTEL" class="xref page">VkPerformanceConfigurationINTEL</a></p></td>
 </tr>
@@ -704,12 +696,24 @@ typedef enum VkObjectType {
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="VK_KHR_deferred_host_operations/deferred_host_operations.html#VkDeferredOperationKHR" class="xref page">VkDeferredOperationKHR</a></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_PRIVATE_DATA_SLOT</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="VK_EXT_private_data.html#VkPrivateDataSlot" class="xref page">VkPrivateDataSlot</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_NV</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="VK_NV_device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutNV" class="xref page">VkIndirectCommandsLayoutNV</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="resources.html#VkBufferCollectionFUCHSIA" class="xref page">VkBufferCollectionFUCHSIA</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_MICROMAP_EXT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="resources.html#VkMicromapEXT" class="xref page">VkMicromapEXT</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_OPTICAL_FLOW_SESSION_NV</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="VK_NV_optical_flow/optical_flow.html#VkOpticalFlowSessionNV" class="xref page">VkOpticalFlowSessionNV</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_SHADER_EXT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a></p></td>
 </tr>
 </tbody>
 </table>
@@ -6248,6 +6252,10 @@ This extra information is typically tool-specific.</p>
 <li>
 <p><a id="VUID-VkFrameBoundaryEXT-pBuffers-parameter" href="#VUID-VkFrameBoundaryEXT-pBuffers-parameter"></a> <span class="vuid">VUID-VkFrameBoundaryEXT-pBuffers-parameter</span><br>
  If <code>bufferCount</code> is not <code>0</code>, and <code>pBuffers</code> is not <code>NULL</code>, <code>pBuffers</code> <strong>must</strong> be a valid pointer to an array of <code>bufferCount</code> valid <a href="resources.html#VkBuffer" class="xref page">VkBuffer</a> handles</p>
+</li>
+<li>
+<p><a id="VUID-VkFrameBoundaryEXT-pTag-parameter" href="#VUID-VkFrameBoundaryEXT-pTag-parameter"></a> <span class="vuid">VUID-VkFrameBoundaryEXT-pTag-parameter</span><br>
+ If <code>tagSize</code> is not <code>0</code>, and <code>pTag</code> is not <code>NULL</code>, <code>pTag</code> <strong>must</strong> be a valid pointer to an array of <code>tagSize</code> bytes</p>
 </li>
 <li>
 <p><a id="VUID-VkFrameBoundaryEXT-commonparent" href="#VUID-VkFrameBoundaryEXT-commonparent"></a> <span class="vuid">VUID-VkFrameBoundaryEXT-commonparent</span><br>
