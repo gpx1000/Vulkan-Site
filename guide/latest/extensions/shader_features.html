@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:guide" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,6 +80,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="../index.html">Vulkan Guide</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -158,10 +168,16 @@
     <a class="nav-link" href="../pnext_and_stype.html">pNext and sType</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../synchronization.html">Synchronization</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="VK_KHR_synchronization2.html">VK_KHR_synchronization2</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../synchronization_examples.html">Synchronization Examples</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../memory_allocation.html">Memory Allocation</a>
@@ -213,6 +229,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../hlsl.html">HLSL in Vulkan</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../high_level_shader_language_comparison.html">Vulkan High Level Shader Language Comparison</a>
   </li>
 </ul>
   </li>
@@ -279,15 +298,23 @@
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
         </li>
       </ul>
     </li>
+    <li class="component">
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Guide</a>
+      <div class="title"><a href="../index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -295,7 +322,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -303,7 +330,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../spec/latest/index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../../../spec/latest/index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../spec/latest/index.html">latest</a>
@@ -326,9 +353,7 @@
     <li><a href="shader_features.html">Shader Features</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Guide/edit/main/antora/modules/ROOT/pages/extensions/shader_features.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Guide/edit/main/antora/modules/ROOT/pages/extensions/shader_features.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -382,10 +407,10 @@
 </td>
 <td class="content">
 <div class="paragraph">
-<p><a href="http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_8bit_storage.html">SPV_KHR_8bit_storage</a></p>
+<p><a href="http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_8bit_storage.html">SPV_KHR_8bit_storage</a></p>
 </div>
 <div class="paragraph">
-<p><a href="http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_16bit_storage.html">SPV_KHR_16bit_storage</a></p>
+<p><a href="http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_16bit_storage.html">SPV_KHR_16bit_storage</a></p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GL_EXT_shader_16bit_storage.txt">GLSL - GL_EXT_shader_16bit_storage</a> defines both</p>
@@ -475,7 +500,7 @@ void main() {
 <p>Promoted to core in Vulkan 1.2</p>
 </div>
 <div class="paragraph">
-<p><a href="http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_float_controls.html">SPV_KHR_float_controls</a></p>
+<p><a href="http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_float_controls.html">SPV_KHR_float_controls</a></p>
 </div>
 </td>
 </tr>
@@ -500,7 +525,7 @@ void main() {
 <p>Promoted to core in Vulkan 1.1</p>
 </div>
 <div class="paragraph">
-<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_storage_buffer_storage_class.html">SPV_KHR_storage_buffer_storage_class</a></p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_storage_buffer_storage_class.html">SPV_KHR_storage_buffer_storage_class</a></p>
 </div>
 </td>
 </tr>
@@ -557,7 +582,7 @@ void main() {
 <p>Promoted to core in Vulkan 1.1</p>
 </div>
 <div class="paragraph">
-<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_variable_pointers.html">SPV_KHR_variable_pointers</a></p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_variable_pointers.html">SPV_KHR_variable_pointers</a></p>
 </div>
 </td>
 </tr>
@@ -627,7 +652,7 @@ void main() {
 <p>Promoted to core in Vulkan 1.2</p>
 </div>
 <div class="paragraph">
-<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/EXT/SPV_EXT_shader_viewport_index_layer.html">SPV_EXT_shader_viewport_index_layer</a></p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/EXT/SPV_EXT_shader_viewport_index_layer.html">SPV_EXT_shader_viewport_index_layer</a></p>
 </div>
 <div class="paragraph">
 <p><a href="https://registry.khronos.org/OpenGL/extensions/ARB/ARB_shader_viewport_layer_array.txt">GLSL - GL_ARB_shader_viewport_layer_array</a></p>
@@ -661,7 +686,7 @@ void main() {
 <p>Promoted to core in Vulkan 1.1</p>
 </div>
 <div class="paragraph">
-<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_shader_draw_parameters.html">SPV_KHR_shader_draw_parameters</a></p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_shader_draw_parameters.html">SPV_KHR_shader_draw_parameters</a></p>
 </div>
 <div class="paragraph">
 <p><a href="https://registry.khronos.org/OpenGL/extensions/ARB/ARB_shader_draw_parameters.txt">GLSL - GL_ARB_shader_draw_parameters</a></p>
@@ -689,7 +714,7 @@ void main() {
 </td>
 <td class="content">
 <div class="paragraph">
-<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/EXT/SPV_EXT_shader_stencil_export.html">SPV_EXT_shader_stencil_export</a></p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/EXT/SPV_EXT_shader_stencil_export.html">SPV_EXT_shader_stencil_export</a></p>
 </div>
 <div class="paragraph">
 <p><a href="https://registry.khronos.org/OpenGL/extensions/ARB/ARB_shader_stencil_export.txt">GLSL - GL_ARB_shader_stencil_export</a></p>
@@ -720,7 +745,7 @@ void main() {
 <p>Promoted to core in Vulkan 1.3</p>
 </div>
 <div class="paragraph">
-<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/EXT/SPV_EXT_demote_to_helper_invocation.html">SPV_EXT_demote_to_helper_invocation</a></p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/EXT/SPV_EXT_demote_to_helper_invocation.html">SPV_EXT_demote_to_helper_invocation</a></p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GLSL_EXT_demote_to_helper_invocation.txt">GLSL - GL_EXT_demote_to_helper_invocation</a></p>
@@ -745,7 +770,7 @@ void main() {
 </td>
 <td class="content">
 <div class="paragraph">
-<p><a href="http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_shader_clock.html">SPV_KHR_shader_clock</a></p>
+<p><a href="http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_shader_clock.html">SPV_KHR_shader_clock</a></p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GL_EXT_shader_realtime_clock.txt">GLSL - GL_EXT_shader_realtime_clock</a></p>
@@ -773,14 +798,14 @@ void main() {
 <p>Promoted to core in Vulkan 1.3</p>
 </div>
 <div class="paragraph">
-<p><a href="http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_shader_clock.html">SPV_KHR_non_semantic_info</a></p>
+<p><a href="http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_shader_clock.html">SPV_KHR_non_semantic_info</a></p>
 </div>
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>This extension exposes <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_non_semantic_info.html">SPV_KHR_non_semantic_info</a> which <a href="https://github.com/KhronosGroup/SPIRV-Guide/blob/master/chapters/nonsemantic.md">adds the ability</a> to declare extended instruction sets that have no semantic impact and can be safely removed from a module.</p>
+<p>This extension exposes <a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_non_semantic_info.html">SPV_KHR_non_semantic_info</a> which <a href="https://github.com/KhronosGroup/SPIRV-Guide/blob/master/chapters/nonsemantic.md">adds the ability</a> to declare extended instruction sets that have no semantic impact and can be safely removed from a module.</p>
 </div>
 </div>
 </div>
@@ -798,7 +823,7 @@ void main() {
 <p>Promoted to core in Vulkan 1.3</p>
 </div>
 <div class="paragraph">
-<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_terminate_invocation.html">SPV_KHR_terminate_invocation</a></p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_terminate_invocation.html">SPV_KHR_terminate_invocation</a></p>
 </div>
 </td>
 </tr>
@@ -820,7 +845,7 @@ void main() {
 </td>
 <td class="content">
 <div class="paragraph">
-<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_workgroup_memory_explicit_layout.html">SPV_KHR_workgroup_memory_explicit_layout</a></p>
+<p><a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_workgroup_memory_explicit_layout.html">SPV_KHR_workgroup_memory_explicit_layout</a></p>
 </div>
 <div class="paragraph">
 <p><a href="https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GL_EXT_shared_memory_block.txt">GLSL - GL_EXT_shared_memory_block</a></p>

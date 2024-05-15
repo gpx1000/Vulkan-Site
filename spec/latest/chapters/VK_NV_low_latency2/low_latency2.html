@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="../VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="../videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../../index.html">Vulkan Specification</a></li>
     <li><a href="low_latency2.html">Low Latency 2</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/VK_NV_low_latency2/low_latency2.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/VK_NV_low_latency2/low_latency2.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -451,7 +376,13 @@ the latency sleep mode.</p>
 <p>If <code>pSleepModeInfo</code> is <code>NULL</code>, <code>vkSetLatencySleepModeNV</code> will
 disable low latency mode, low latency boost, and set the minimum present
 interval previously specified by <a href="#VkLatencySleepModeInfoNV">VkLatencySleepModeInfoNV</a> to zero on
-<code>swapchain</code>.</p>
+<code>swapchain</code>.
+As an exception to the normal rules for objects which are externally
+synchronized, the swapchain passed to <code>vkSetLatencySleepModeNV</code> <strong>may</strong> be
+simultaneously used by other threads in calls to functions other than
+<a href="../VK_KHR_surface/wsi.html#vkDestroySwapchainKHR" class="xref page">vkDestroySwapchainKHR</a>.
+Access to the swapchain data associated with this extension <strong>must</strong> be atomic
+within the implementation.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -545,7 +476,7 @@ increase performance to provide additional latency savings at a cost of
 increased power consumption.</p>
 </li>
 <li>
-<p><code>minimumPresentIntervalUs</code> is the microseconds between
+<p><code>minimumIntervalUs</code> is the microseconds between
 <a href="../VK_KHR_surface/wsi.html#vkQueuePresentKHR" class="xref page">vkQueuePresentKHR</a> calls for a given swapchain that
 <a href="#vkLatencySleepNV">vkLatencySleepNV</a> will enforce.</p>
 </li>
@@ -605,7 +536,7 @@ specifying the parameters of the latency sleep.</p>
 <div class="paragraph">
 <p><code>vkLatencySleepNV</code> returns immediately.
 Applications <strong>should</strong> use <a href="../synchronization.html#vkWaitSemaphores" class="xref page">vkWaitSemaphores</a> with
-<code>pSleepInfo</code>::<code>signalSemaphore</code> to delay host CPU work.
+<code>pSleepInfo-&gt;signalSemaphore</code> to delay host CPU work.
 CPU work refers to application work done before presenting which includes
 but is not limited to: input sampling, simulation, command buffer recording,
 command buffer submission, and present submission.
@@ -655,13 +586,7 @@ presents.</p>
 </dd>
 <dt class="hdlist1"><a href="../fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
 <dd>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VK_ERROR_UNKNOWN</code></p>
-</li>
-</ul>
-</div>
+<p>None</p>
 </dd>
 </dl>
 </div>
@@ -773,7 +698,13 @@ end of <a href="../VK_KHR_surface/wsi.html#vkQueuePresentKHR" class="xref page">
 called to provide timestamps for the application&#8217;s reference.
 These timestamps are returned with a call to <a href="#vkGetLatencyTimingsNV">vkGetLatencyTimingsNV</a>
 alongside driver provided timestamps at various points of interest with
-regards to latency within the application.</p>
+regards to latency within the application.
+As an exception to the normal rules for objects which are externally
+synchronized, the swapchain passed to <code>vkSetLatencyMarkerNV</code> <strong>may</strong> be
+simultaneously used by other threads in calls to functions other than
+<a href="../VK_KHR_surface/wsi.html#vkDestroySwapchainKHR" class="xref page">vkDestroySwapchainKHR</a>.
+Access to the swapchain data associated with this extension <strong>must</strong> be atomic
+within the implementation.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -938,7 +869,6 @@ occurs.</p>
 void vkGetLatencyTimingsNV(
     VkDevice                                    device,
     VkSwapchainKHR                              swapchain,
-    uint32_t*                                   pTimingCount,
     VkGetLatencyMarkerInfoNV*                   pLatencyMarkerInfo);</code></pre>
 </div>
 </div>
@@ -951,11 +881,6 @@ void vkGetLatencyTimingsNV(
 <p><code>swapchain</code> is the swapchain to return data from.</p>
 </li>
 <li>
-<p><code>pTimingCount</code> is a pointer to an integer related to the number of
-of previous frames of latency data available or queried, as described
-below.</p>
-</li>
-<li>
 <p><code>pGetLatencyMarkerInfo</code> is a pointer to a
 <a href="#VkGetLatencyMarkerInfoNV">VkGetLatencyMarkerInfoNV</a> structure specifying the parameters for
 returning latency information.</p>
@@ -966,13 +891,7 @@ returning latency information.</p>
 <p>The timings returned by <code>vkGetLatencyTimingsNV</code> contain the timestamps
 requested from <a href="#vkSetLatencyMarkerNV">vkSetLatencyMarkerNV</a> and additional
 implementation-specific markers defined in
-<a href="#VkLatencyTimingsFrameReportNV">VkLatencyTimingsFrameReportNV</a>.
-If <code>pTimings</code> is <code>NULL</code>, then the maximum number of queryable frame data
-is returned in <code>pTimingCount</code>.
-Otherwise, <code>pTimingCount</code> <strong>must</strong> point to a variable set by the user to
-the number of elements in the <code>pTimings</code> array in
-<code>pGetLatencyMarkerInfo</code>, and on return the variable is overwritten with
-the number of values actually written to <code>pTimings</code>.</p>
+<a href="#VkLatencyTimingsFrameReportNV">VkLatencyTimingsFrameReportNV</a>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -986,10 +905,6 @@ the number of values actually written to <code>pTimings</code>.</p>
 <li>
 <p><a id="VUID-vkGetLatencyTimingsNV-swapchain-parameter" href="#VUID-vkGetLatencyTimingsNV-swapchain-parameter"></a> <span class="vuid">VUID-vkGetLatencyTimingsNV-swapchain-parameter</span><br>
  <code>swapchain</code> <strong>must</strong> be a valid <a href="../VK_KHR_surface/wsi.html#VkSwapchainKHR" class="xref page">VkSwapchainKHR</a> handle</p>
-</li>
-<li>
-<p><a id="VUID-vkGetLatencyTimingsNV-pTimingCount-parameter" href="#VUID-vkGetLatencyTimingsNV-pTimingCount-parameter"></a> <span class="vuid">VUID-vkGetLatencyTimingsNV-pTimingCount-parameter</span><br>
- <code>pTimingCount</code> <strong>must</strong> be a valid pointer to a <code>uint32_t</code> value</p>
 </li>
 <li>
 <p><a id="VUID-vkGetLatencyTimingsNV-pLatencyMarkerInfo-parameter" href="#VUID-vkGetLatencyTimingsNV-pLatencyMarkerInfo-parameter"></a> <span class="vuid">VUID-vkGetLatencyTimingsNV-pLatencyMarkerInfo-parameter</span><br>
@@ -1016,6 +931,7 @@ the number of values actually written to <code>pTimings</code>.</p>
 typedef struct VkGetLatencyMarkerInfoNV {
     VkStructureType                   sType;
     const void*                       pNext;
+    uint32_t                          timingCount;
     VkLatencyTimingsFrameReportNV*    pTimings;
 } VkGetLatencyMarkerInfoNV;</code></pre>
 </div>
@@ -1030,13 +946,22 @@ typedef struct VkGetLatencyMarkerInfoNV {
 structure.</p>
 </li>
 <li>
+<p><code>timingCount</code> is an integer related to the number of previous frames
+of latency data available or queried, as described below.</p>
+</li>
+<li>
 <p><code>pTimings</code> is either <code>NULL</code> or a pointer to an array of
 <a href="#VkLatencyTimingsFrameReportNV">VkLatencyTimingsFrameReportNV</a> structures.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The elements of <code>pTimings</code> are arranged in the order they were requested
+<p>If <code>pTimings</code> is <code>NULL</code> then the maximum number of queryable frame data
+is returned in <code>timingCount</code>.
+Otherwise, <code>timingCount</code> <strong>must</strong> be set by the user to the number of
+elements in the <code>pTimings</code> array, and on return the variable is
+overwritten with the number of values actually written to <code>pTimings</code>.
+The elements of <code>pTimings</code> are arranged in the order they were requested
 in, with the oldest data in the first entry.</p>
 </div>
 <div class="sidebarblock">
@@ -1050,7 +975,7 @@ in, with the oldest data in the first entry.</p>
 </li>
 <li>
 <p><a id="VUID-VkGetLatencyMarkerInfoNV-pTimings-parameter" href="#VUID-VkGetLatencyMarkerInfoNV-pTimings-parameter"></a> <span class="vuid">VUID-VkGetLatencyMarkerInfoNV-pTimings-parameter</span><br>
- <code>pTimings</code> <strong>must</strong> be a valid pointer to a <a href="#VkLatencyTimingsFrameReportNV">VkLatencyTimingsFrameReportNV</a> structure</p>
+ If <code>timingCount</code> is not <code>0</code>, and <code>pTimings</code> is not <code>NULL</code>, <code>pTimings</code> <strong>must</strong> be a valid pointer to an array of <code>timingCount</code> <a href="#VkLatencyTimingsFrameReportNV">VkLatencyTimingsFrameReportNV</a> structures</p>
 </li>
 </ul>
 </div>
@@ -1203,7 +1128,7 @@ presentId used for a given <code>vkQueuePresentKHR</code> via
 <div class="paragraph">
 <p>For any submission to be tracked with low latency mode pacing, it needs to
 be associated with other submissions in a given present.
-Applications :must include the VkLatencySubmissionPresentIdNV in the pNext
+Applications <strong>must</strong> include the VkLatencySubmissionPresentIdNV in the pNext
 chain of <a href="../cmdbuffers.html#vkQueueSubmit" class="xref page">vkQueueSubmit</a> to associate that submission with the
 <code>presentId</code> present for low latency mode.</p>
 </div>
@@ -1280,7 +1205,7 @@ structure specifying the queue type.</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="../cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="../renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="../video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="../videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="../devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="../fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>

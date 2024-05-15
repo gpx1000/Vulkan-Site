@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="formats.html">Formats</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/formats.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/formats.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -754,7 +679,7 @@ typedef enum VkFormat {
   // Provided by VK_IMG_format_pvrtc
     VK_FORMAT_PVRTC2_4BPP_SRGB_BLOCK_IMG = 1000054007,
   // Provided by VK_NV_optical_flow
-    VK_FORMAT_R16G16_S10_5_NV = 1000464000,
+    VK_FORMAT_R16G16_SFIXED5_NV = 1000464000,
   // Provided by VK_KHR_maintenance5
     VK_FORMAT_A1B5G5R5_UNORM_PACK16_KHR = 1000470000,
   // Provided by VK_KHR_maintenance5
@@ -867,6 +792,8 @@ typedef enum VkFormat {
     VK_FORMAT_A4R4G4B4_UNORM_PACK16_EXT = VK_FORMAT_A4R4G4B4_UNORM_PACK16,
   // Provided by VK_EXT_4444_formats
     VK_FORMAT_A4B4G4R4_UNORM_PACK16_EXT = VK_FORMAT_A4B4G4R4_UNORM_PACK16,
+  // Provided by VK_NV_optical_flow
+    VK_FORMAT_R16G16_S10_5_NV = VK_FORMAT_R16G16_SFIXED5_NV,
 } VkFormat;</code></pre>
 </div>
 </div>
@@ -2593,17 +2520,20 @@ a 4×4 rectangle of unsigned normalized RGBA texel data with sRGB
 nonlinear encoding applied to the RGB components.</p>
 </li>
 <li>
-<p><code>VK_FORMAT_R16G16_S10_5_NV</code> specifies a two-component, fixed-point
-format where most significant bit specifies the sign bit, next 10 bits
-specify the integer value and last 5 bits represent the fractional
-value.</p>
+<p><code>VK_FORMAT_R16G16_SFIXED5_NV</code> specifies a two-component, 16-bit
+signed fixed-point format with linear encoding.
+The components are signed two&#8217;s-complement integers where the most
+significant bit specifies the sign bit, the next 10 bits specify the
+integer value, and the last 5 bits represent the fractional value.
+The signed 16-bit values <strong>can</strong> be converted to floats in the range
+<span class="eq">[-1024,1023.96875]</span> by dividing the value by 32 <span class="eq">(2<sup>5</sup>)</span>.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="formats-compatible-planes"><a class="anchor" href="#formats-compatible-planes"></a>Compatible formats of planes of multi-planar formats</h3>
+<h3 id="formats-compatible-planes"><a class="anchor" href="#formats-compatible-planes"></a>Compatible Formats of Planes of Multi-Planar Formats</h3>
 <div class="paragraph">
 <p>Individual planes of multi-planar formats are size-compatible with
 single-plane color formats if they occupy the same number of bits per texel
@@ -3072,7 +3002,7 @@ listed single-plane format.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="formats-planes-image-aspect"><a class="anchor" href="#formats-planes-image-aspect"></a>Multi-planar format image aspect</h3>
+<h3 id="formats-planes-image-aspect"><a class="anchor" href="#formats-planes-image-aspect"></a>Multi-planar Format Image Aspect</h3>
 <div class="paragraph">
 <p>When using <a href="resources.html#VkImageAspectFlagBits" class="xref page">VkImageAspectFlagBits</a> to select a plane of a multi-planar
 format, the following are the valid options:</p>
@@ -3401,6 +3331,12 @@ An X indicates a component that is unused, but <strong>may</strong> be present f
 <td class="tableblock halign-left valign-top"><p class="tableblock">The R, G, and B components are unsigned normalized values that represent values using sRGB nonlinear encoding, while the A component (if one exists) is a regular unsigned normalized value</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SFIXED5</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpTypeInt</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scaled signed integer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The components are signed fractional integer values that get converted to floating-point in the range <span class="eq">[-1024,1023.96875]</span></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock"><span class="eq">n</span> is the number of bits in the component.</p></td>
 </tr>
 </tbody>
@@ -3582,11 +3518,8 @@ endianness.</p>
 <td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><strong><code>VK_FORMAT_B8G8R8A8_*</code></strong></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock">0</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">A</p></td>
-<td class="tableblock halign-right valign-top" colspan="13"><p class="tableblock"><strong><code>VK_FORMAT_A8_UNORM_KHR</code></strong></p></td>
+<td class="tableblock halign-right valign-top" colspan="16"><p class="tableblock"><strong><code>VK_FORMAT_A8_UNORM_KHR</code></strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">G<sub>0</sub></p></td>
@@ -4555,7 +4488,7 @@ each texel block represents in each dimension.</p>
   1 texel/block</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R10X6G10X6_UNORM_2PACK16</code>,<br>
                     <code>VK_FORMAT_R12X4G12X4_UNORM_2PACK16</code>,<br>
-                    <code>VK_FORMAT_R16G16_S10_5_NV</code>,<br>
+                    <code>VK_FORMAT_R16G16_SFIXED5_NV</code>,<br>
                     <code>VK_FORMAT_R8G8B8A8_UNORM</code>,<br>
                     <code>VK_FORMAT_R8G8B8A8_SNORM</code>,<br>
                     <code>VK_FORMAT_R8G8B8A8_USCALED</code>,<br>
@@ -5462,14 +5395,10 @@ typedef enum VkFormatFeatureFlagBits {
     VK_FORMAT_FEATURE_FRAGMENT_DENSITY_MAP_BIT_EXT = 0x01000000,
   // Provided by VK_KHR_fragment_shading_rate
     VK_FORMAT_FEATURE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR = 0x40000000,
-#ifdef VK_ENABLE_BETA_EXTENSIONS
   // Provided by VK_KHR_video_encode_queue
     VK_FORMAT_FEATURE_VIDEO_ENCODE_INPUT_BIT_KHR = 0x08000000,
-#endif
-#ifdef VK_ENABLE_BETA_EXTENSIONS
   // Provided by VK_KHR_video_encode_queue
     VK_FORMAT_FEATURE_VIDEO_ENCODE_DPB_BIT_KHR = 0x10000000,
-#endif
   // Provided by VK_IMG_filter_cubic
     VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_IMG = VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT,
   // Provided by VK_KHR_maintenance1
@@ -5683,19 +5612,19 @@ it as a buffer feature.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_VIDEO_DECODE_OUTPUT_BIT_KHR</code> specifies that an
-image view with this format <strong>can</strong> be used as a <a href="video_extensions.html#decode-output-picture" class="xref page">    decode output picture</a> in <a href="video_extensions.html#video-decode-operations" class="xref page">video decode    operations</a>.</p>
+image view with this format <strong>can</strong> be used as a <a href="videocoding.html#decode-output-picture" class="xref page">    decode output picture</a> in <a href="videocoding.html#video-decode-operations" class="xref page">video decode    operations</a>.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_VIDEO_DECODE_DPB_BIT_KHR</code> specifies that an image
-view with this format <strong>can</strong> be used as an output <a href="video_extensions.html#reconstructed-picture" class="xref page">    reconstructed picture</a> or an input <a href="video_extensions.html#reference-picture" class="xref page">reference    picture</a> in <a href="video_extensions.html#video-decode-operations" class="xref page">video decode operations</a>.</p>
+view with this format <strong>can</strong> be used as an output <a href="videocoding.html#reconstructed-picture" class="xref page">    reconstructed picture</a> or an input <a href="videocoding.html#reference-picture" class="xref page">reference    picture</a> in <a href="videocoding.html#video-decode-operations" class="xref page">video decode operations</a>.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_VIDEO_ENCODE_INPUT_BIT_KHR</code> specifies that an
-image view with this format <strong>can</strong> be used as an <a href="video_extensions.html#encode-input-picture" class="xref page">    encode input picture</a> in <a href="video_extensions.html#video-encode-operations" class="xref page">video encode    operations</a>.</p>
+image view with this format <strong>can</strong> be used as an <a href="videocoding.html#encode-input-picture" class="xref page">    encode input picture</a> in <a href="videocoding.html#video-encode-operations" class="xref page">video encode    operations</a>.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_VIDEO_ENCODE_DPB_BIT_KHR</code> specifies that an image
-view with this format <strong>can</strong> be used as an output <a href="video_extensions.html#reconstructed-picture" class="xref page">    reconstructed picture</a> or an input <a href="video_extensions.html#reference-picture" class="xref page">reference    picture</a> in <a href="video_extensions.html#video-encode-operations" class="xref page">video encode operations</a>.</p>
+view with this format <strong>can</strong> be used as an output <a href="videocoding.html#reconstructed-picture" class="xref page">    reconstructed picture</a> or an input <a href="videocoding.html#reference-picture" class="xref page">reference    picture</a> in <a href="videocoding.html#video-encode-operations" class="xref page">video encode operations</a>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -5705,10 +5634,10 @@ view with this format <strong>can</strong> be used as an output <a href="video_e
 <td class="content">
 <div class="title">Note</div>
 <div class="paragraph">
-<p>Specific <a href="video_extensions.html#video-profiles" class="xref page">video profiles</a> <strong>may</strong> have additional restrictions
+<p>Specific <a href="videocoding.html#video-profiles" class="xref page">video profiles</a> <strong>may</strong> have additional restrictions
 on the format and other image creation parameters corresponding to image
 views used by video coding operations that <strong>can</strong> be enumerated using the
-<a href="video_extensions.html#vkGetPhysicalDeviceVideoFormatPropertiesKHR" class="xref page">vkGetPhysicalDeviceVideoFormatPropertiesKHR</a> command.</p>
+<a href="videocoding.html#vkGetPhysicalDeviceVideoFormatPropertiesKHR" class="xref page">vkGetPhysicalDeviceVideoFormatPropertiesKHR</a> command.</p>
 </div>
 </td>
 </tr>
@@ -6123,7 +6052,7 @@ chain of <a href="#VkFormatProperties2">VkFormatProperties2</a>.</p>
 </div>
 <div id="VkDrmFormatModifierPropertiesList2EXT" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_format_feature_flags2 with VK_EXT_image_drm_format_modifier
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_image_drm_format_modifier with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 typedef struct VkDrmFormatModifierPropertiesList2EXT {
     VkStructureType                       sType;
     void*                                 pNext;
@@ -6199,7 +6128,7 @@ of any particular image.</p>
 </div>
 <div id="VkDrmFormatModifierProperties2EXT" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_format_feature_flags2 with VK_EXT_image_drm_format_modifier
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_image_drm_format_modifier with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 typedef struct VkDrmFormatModifierProperties2EXT {
     uint64_t                 drmFormatModifier;
     uint32_t                 drmFormatModifierPlaneCount;
@@ -6362,35 +6291,31 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR = 0x100000000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT = 0x200000000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT_KHR = 0x200000000ULL;
-// Provided by VK_KHR_format_feature_flags2 with VK_KHR_video_decode_queue
+// Provided by VK_KHR_video_decode_queue with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_DECODE_OUTPUT_BIT_KHR = 0x02000000ULL;
-// Provided by VK_KHR_format_feature_flags2 with VK_KHR_video_decode_queue
+// Provided by VK_KHR_video_decode_queue with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_DECODE_DPB_BIT_KHR = 0x04000000ULL;
-// Provided by VK_KHR_acceleration_structure with VK_KHR_format_feature_flags2
+// Provided by VK_KHR_acceleration_structure with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_ACCELERATION_STRUCTURE_VERTEX_BUFFER_BIT_KHR = 0x20000000ULL;
-// Provided by VK_KHR_format_feature_flags2 with VK_EXT_fragment_density_map
+// Provided by VK_EXT_fragment_density_map with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_FRAGMENT_DENSITY_MAP_BIT_EXT = 0x01000000ULL;
-// Provided by VK_KHR_format_feature_flags2 with VK_KHR_fragment_shading_rate
+// Provided by VK_KHR_fragment_shading_rate with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR = 0x40000000ULL;
 // Provided by VK_EXT_host_image_copy
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT_EXT = 0x400000000000ULL;
-#ifdef VK_ENABLE_BETA_EXTENSIONS
-// Provided by VK_KHR_format_feature_flags2 with VK_KHR_video_encode_queue
+// Provided by VK_KHR_video_encode_queue with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_INPUT_BIT_KHR = 0x08000000ULL;
-#endif
-#ifdef VK_ENABLE_BETA_EXTENSIONS
-// Provided by VK_KHR_format_feature_flags2 with VK_KHR_video_encode_queue
+// Provided by VK_KHR_video_encode_queue with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_DPB_BIT_KHR = 0x10000000ULL;
-#endif
-// Provided by VK_KHR_format_feature_flags2 with VK_NV_linear_color_attachment
+// Provided by VK_NV_linear_color_attachment with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV = 0x4000000000ULL;
-// Provided by VK_KHR_format_feature_flags2 with VK_QCOM_image_processing
+// Provided by VK_QCOM_image_processing with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_WEIGHT_IMAGE_BIT_QCOM = 0x400000000ULL;
-// Provided by VK_KHR_format_feature_flags2 with VK_QCOM_image_processing
+// Provided by VK_QCOM_image_processing with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_WEIGHT_SAMPLED_IMAGE_BIT_QCOM = 0x800000000ULL;
-// Provided by VK_KHR_format_feature_flags2 with VK_QCOM_image_processing
+// Provided by VK_QCOM_image_processing with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BLOCK_MATCHING_BIT_QCOM = 0x1000000000ULL;
-// Provided by VK_KHR_format_feature_flags2 with VK_QCOM_image_processing
+// Provided by VK_QCOM_image_processing with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BOX_FILTER_SAMPLED_BIT_QCOM = 0x2000000000ULL;
 // Provided by VK_NV_optical_flow
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_IMAGE_BIT_NV = 0x10000000000ULL;
@@ -6587,25 +6512,25 @@ it as a buffer feature.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_2_VIDEO_DECODE_OUTPUT_BIT_KHR</code> specifies that an
-image view with this format <strong>can</strong> be used as a <a href="video_extensions.html#decode-output-picture" class="xref page">    decode output picture</a> in <a href="video_extensions.html#video-decode-operations" class="xref page">video decode    operations</a>.</p>
+image view with this format <strong>can</strong> be used as a <a href="videocoding.html#decode-output-picture" class="xref page">    decode output picture</a> in <a href="videocoding.html#video-decode-operations" class="xref page">video decode    operations</a>.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_2_VIDEO_DECODE_DPB_BIT_KHR</code> specifies that an
 image view with this format <strong>can</strong> be used as an output
-<a href="video_extensions.html#reconstructed-picture" class="xref page">reconstructed picture</a> or an input
-<a href="video_extensions.html#reference-picture" class="xref page">reference picture</a> in
-<a href="video_extensions.html#video-decode-operations" class="xref page">video decode operations</a>.</p>
+<a href="videocoding.html#reconstructed-picture" class="xref page">reconstructed picture</a> or an input
+<a href="videocoding.html#reference-picture" class="xref page">reference picture</a> in
+<a href="videocoding.html#video-decode-operations" class="xref page">video decode operations</a>.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_2_VIDEO_ENCODE_INPUT_BIT_KHR</code> specifies that an
-image view with this format <strong>can</strong> be used as an <a href="video_extensions.html#encode-input-picture" class="xref page">    encode input picture</a> in <a href="video_extensions.html#video-encode-operations" class="xref page">video encode    operations</a>.</p>
+image view with this format <strong>can</strong> be used as an <a href="videocoding.html#encode-input-picture" class="xref page">    encode input picture</a> in <a href="videocoding.html#video-encode-operations" class="xref page">video encode    operations</a>.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_2_VIDEO_ENCODE_DPB_BIT_KHR</code> specifies that an
 image view with this format <strong>can</strong> be used as an output
-<a href="video_extensions.html#reconstructed-picture" class="xref page">reconstructed picture</a> or an input
-<a href="video_extensions.html#reference-picture" class="xref page">reference picture</a> in
-<a href="video_extensions.html#video-encode-operations" class="xref page">video encode operations</a>.</p>
+<a href="videocoding.html#reconstructed-picture" class="xref page">reconstructed picture</a> or an input
+<a href="videocoding.html#reference-picture" class="xref page">reference picture</a> in
+<a href="videocoding.html#video-encode-operations" class="xref page">video encode operations</a>.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -6615,10 +6540,10 @@ image view with this format <strong>can</strong> be used as an output
 <td class="content">
 <div class="title">Note</div>
 <div class="paragraph">
-<p>Specific <a href="video_extensions.html#video-profiles" class="xref page">video profiles</a> <strong>may</strong> have additional restrictions
+<p>Specific <a href="videocoding.html#video-profiles" class="xref page">video profiles</a> <strong>may</strong> have additional restrictions
 on the format and other image creation parameters corresponding to image
 views used by video coding operations that <strong>can</strong> be enumerated using the
-<a href="video_extensions.html#vkGetPhysicalDeviceVideoFormatPropertiesKHR" class="xref page">vkGetPhysicalDeviceVideoFormatPropertiesKHR</a> command.</p>
+<a href="videocoding.html#vkGetPhysicalDeviceVideoFormatPropertiesKHR" class="xref page">vkGetPhysicalDeviceVideoFormatPropertiesKHR</a> command.</p>
 </div>
 </td>
 </tr>
@@ -6927,6 +6852,11 @@ where the symbol appears</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">‡</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This feature <strong>must</strong> be supported with some caveats or
+preconditions, with more information in the table where the symbol appears</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">§</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">This feature <strong>must</strong> be supported with some caveats or
 preconditions, with more information in the table where the symbol appears</p></td>
 </tr>
@@ -8861,15 +8791,15 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">‡</p></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">§</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
-<td class="tableblock halign-center valign-top"></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">§</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">§</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16B16_UNORM</code></p></td>
@@ -9085,7 +9015,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">§</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
@@ -9093,12 +9023,18 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
-<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">§</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">Format features marked with ‡ <strong>must</strong> be supported for
 <code>optimalTilingFeatures</code> if the <code>VkPhysicalDevice</code> supports the
 <a href="features.html#features-shaderStorageImageExtendedFormats" class="xref page"><code>shaderStorageImageExtendedFormats</code></a> feature.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="14"><p class="tableblock">Format features marked with § <strong>must</strong> be supported for
+<code>optimalTilingFeatures</code> if the <code>VkPhysicalDevice</code> supports
+the <a href="features.html#features-shaderFloat16VectorAtomics" class="xref page"><code>shaderFloat16VectorAtomics</code></a>
+feature.</p></td>
 </tr>
 </tbody>
 </table>
@@ -11797,7 +11733,7 @@ supported in <code>optimalTilingFeatures</code> or <code>linearTilingFeatures</c
 respectively.</p>
 </div>
 <div class="sect2">
-<h3 id="formats-without-shader-storage-format"><a class="anchor" href="#formats-without-shader-storage-format"></a>Formats without shader storage format</h3>
+<h3 id="formats-without-shader-storage-format"><a class="anchor" href="#formats-without-shader-storage-format"></a>Formats Without Shader Storage Format</h3>
 <div class="paragraph">
 <p>The device-level features for using a storage image or a storage texel
 buffer with an image format of <code>Unknown</code>,
@@ -11962,9 +11898,40 @@ for any format from the given list of formats and supports
 format if Vulkan 1.3 or the <code><a href="../appendices/extensions.html#VK_KHR_format_feature_flags2" class="xref page">VK_KHR_format_feature_flags2</a></code> extension
 is supported.</p>
 </div>
+<div class="paragraph">
+<p>An implementation that does not support either of
+<code>VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT</code> or
+<code>VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT</code> for a format
+<strong>must</strong> not report support for <code>VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT</code> or
+<code>VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT</code> for that format if it is
+not listed in the <a href="../appendices/spirvenv.html#spirvenv-image-formats" class="xref page">SPIR-V and Vulkan Image Format Compatibility</a> table.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>Some older implementations do not follow this restriction.
+They report support for formats as storage images even though they do not
+support access without the <code>Format</code> qualifier and there is no matching
+<code>Format</code> token.
+Such images cannot be either read from or written to.</p>
+</div>
+<div class="paragraph">
+<p>Drivers which pass Vulkan conformance test suite version 1.3.9.0, or any
+subsequent version will conform to the requirement above.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_depth_comparison_format_support"><a class="anchor" href="#_depth_comparison_format_support"></a>Depth comparison format support</h3>
+<h3 id="_depth_comparison_format_support"><a class="anchor" href="#_depth_comparison_format_support"></a>Depth Comparison Format Support</h3>
 <div class="paragraph">
 <p>If Vulkan 1.3 or the <code><a href="../appendices/extensions.html#VK_KHR_format_feature_flags2" class="xref page">VK_KHR_format_feature_flags2</a></code> extension is
 supported, a depth/stencil format with a depth component supporting
@@ -11973,7 +11940,7 @@ supported, a depth/stencil format with a depth component supporting
 </div>
 </div>
 <div class="sect2">
-<h3 id="format-feature-dependent-usage-flags"><a class="anchor" href="#format-feature-dependent-usage-flags"></a>Format feature dependent usage flags</h3>
+<h3 id="format-feature-dependent-usage-flags"><a class="anchor" href="#format-feature-dependent-usage-flags"></a>Format Feature Dependent Usage Flags</h3>
 <div class="paragraph">
 <p>Certain resource usage flags depend on support for the corresponding format
 feature flag for the format in question.

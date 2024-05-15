@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../.."><img class="navbar-item" alt="Vulkan White Label" src="../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:guide" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,6 +80,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="index.html">Vulkan Guide</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -158,10 +168,16 @@
     <a class="nav-link" href="pnext_and_stype.html">pNext and sType</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="synchronization.html">Synchronization</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="extensions/VK_KHR_synchronization2.html">VK_KHR_synchronization2</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="synchronization_examples.html">Synchronization Examples</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="memory_allocation.html">Memory Allocation</a>
@@ -213,6 +229,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="hlsl.html">HLSL in Vulkan</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="high_level_shader_language_comparison.html">Vulkan High Level Shader Language Comparison</a>
   </li>
 </ul>
   </li>
@@ -279,15 +298,23 @@
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../tutorial/latest/00_Introduction.html">latest</a>
         </li>
       </ul>
     </li>
+    <li class="component">
+      <div class="title"><a href="../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
     <li class="component is-current">
-      <a class="title" href="index.html">Vulkan Guide</a>
+      <div class="title"><a href="index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="index.html">latest</a>
@@ -295,7 +322,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../samples/latest/README.html">latest</a>
@@ -303,7 +330,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../spec/latest/index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../../spec/latest/index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../spec/latest/index.html">latest</a>
@@ -326,9 +353,7 @@
     <li><a href="layers.html">Layers</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Guide/edit/main/antora/modules/ROOT/pages/layers.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Guide/edit/main/antora/modules/ROOT/pages/layers.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -347,7 +372,7 @@
 <h2 id="_using_layers"><a class="anchor" href="#_using_layers"></a>Using Layers</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Layers are packaged as shared libraries that get dynamically loaded in by the loader and inserted between it and the application. The two things needed to use layers are the location of the binary files and which layers to enable. The layers to use can be either explicitly enabled by the application or implicitly enabled by telling the loader to use them. More details about implicit and explicit layers can be found in the <a href="https://github.com/KhronosGroup/Vulkan-Loader/blob/master/loader/LoaderAndLayerInterface.md#implicit-vs-explicit-layers">Loader and Layer Interface</a>.</p>
+<p>Layers are packaged as shared libraries that get dynamically loaded in by the loader and inserted between it and the application. The two things needed to use layers are the location of the binary files and which layers to enable. The layers to use can be either explicitly enabled by the application or implicitly enabled by telling the loader to use them. More details about implicit and explicit layers can be found in the <a href="https://github.com/KhronosGroup/Vulkan-Loader/blob/main/loader/LoaderAndLayerInterface.md#implicit-vs-explicit-layers">Loader and Layer Interface</a>.</p>
 </div>
 <div class="paragraph">
 <p>The <a href="https://vulkan.lunarg.com/sdk/home">Vulkan SDK</a> contains a <a href="https://vulkan.lunarg.com/doc/sdk/latest/windows/layer_configuration.html">layer configuration document</a> that is very specific to how to discover and configure layers on each of the platforms.</p>
@@ -375,7 +400,7 @@ Please see the <a href="https://vulkan.lunarg.com/doc/sdk/latest/windows/vkconfi
 <h2 id="_creating_a_layer"><a class="anchor" href="#_creating_a_layer"></a>Creating a Layer</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Anyone can create a layer as long as it follows the <a href="https://github.com/KhronosGroup/Vulkan-Loader/blob/master/loader/LoaderAndLayerInterface.md#loader-and-layer-interface">loader to layer interface</a> which is how the loader and layers agree to communicate with each other.</p>
+<p>Anyone can create a layer as long as it follows the <a href="https://github.com/KhronosGroup/Vulkan-Loader/blob/main/loader/LoaderAndLayerInterface.md#loader-and-layer-interface">loader to layer interface</a> which is how the loader and layers agree to communicate with each other.</p>
 </div>
 <div class="paragraph">
 <p>LunarG provides a framework for layer creation called the <a href="https://github.com/LunarG/VulkanTools/tree/master/layer_factory">Layer Factory</a> to help develop new layers (<a href="https://www.youtube.com/watch?v=gVT7nyXz6M8&amp;t=5m22s">Video presentation</a>).
@@ -394,7 +419,7 @@ For more information, see the <a href="https://github.com/LunarG/VulkanTools/blo
 <div class="sect2">
 <h3 id="_android"><a class="anchor" href="#_android"></a>Android</h3>
 <div class="paragraph">
-<p>As of Android P (Android 9 / API level 28), if a device is in a debuggable state such that <code>getprop ro.debuggable</code> <a href="hhttps://cs.android.com/android/platform/superproject//android-9.0.0_r1:frameworks/native/vulkan/libvulkan/layers_extensions.cpp;l=454[returns 1], then the loader will look in link:https://cs.android.com/android/platform/superproject//android-9.0.0_r1:frameworks/native/vulkan/libvulkan/layers_extensions.cpp;l=67">/data/local/debug/vulkan</a>.</p>
+<p>As of Android P (Android 9 / API level 28), if a device is in a debuggable state such that <code>getprop ro.debuggable</code> <a href="https://cs.android.com/android/platform/superproject//android-9.0.0_r1:frameworks/native/vulkan/libvulkan/layers_extensions.cpp;l=454[returns 1], then the loader will look in link:https://cs.android.com/android/platform/superproject//android-9.0.0_r1:frameworks/native/vulkan/libvulkan/layers_extensions.cpp;l=67">/data/local/debug/vulkan</a>.</p>
 </div>
 <div class="paragraph">
 <p>Starting in Android P (Android 9 / API level 28) implicit layers can be <a href="https://developer.android.com/ndk/guides/graphics/validation-layer#vl-adb">pushed using ADB</a> if the application was built in debug mode.</p>

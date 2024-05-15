@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="pipelines.html">Pipelines</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/pipelines.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/pipelines.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -548,6 +473,60 @@ VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkPipeline)</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="pipelines-multiple"><a class="anchor" href="#pipelines-multiple"></a>Multiple Pipeline Creation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Multiple pipelines <strong>can</strong> be created in a single call by commands such as
+<a href="executiongraphs.html#vkCreateExecutionGraphPipelinesAMDX" class="xref page">vkCreateExecutionGraphPipelinesAMDX</a>,
+<a href="#vkCreateRayTracingPipelinesKHR">vkCreateRayTracingPipelinesKHR</a>,
+<a href="#vkCreateRayTracingPipelinesNV">vkCreateRayTracingPipelinesNV</a>,
+<a href="#vkCreateComputePipelines">vkCreateComputePipelines</a>, and <a href="#vkCreateGraphicsPipelines">vkCreateGraphicsPipelines</a>.</p>
+</div>
+<div class="paragraph">
+<p>The creation commands are passed an array <code>pCreateInfos</code> of
+<code>Vk*PipelineCreateInfo</code> structures specifying parameters of each
+pipeline to be created, and return a corresponding array of handles in
+<code>pPipelines</code>.
+Each element index <em>i</em> of <code>pPipelines</code> is created based on the
+corresponding element <em>i</em> of <code>pCreateInfos</code>.</p>
+</div>
+<div class="paragraph">
+<p>Applications <strong>can</strong> group together similar pipelines to be created in a single
+call, and implementations are encouraged to look for reuse opportunities
+when creating a group.</p>
+</div>
+<div class="paragraph">
+<p>When attempting to create many pipelines in a single command, it is possible
+that creation <strong>may</strong> fail for a subset of them.
+In this case, the corresponding elements of <code>pPipelines</code> will be set to
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>.
+If creation fails for a pipeline despite valid arguments (for example, due
+to out of memory errors), the <a href="fundamentals.html#VkResult" class="xref page">VkResult</a> code returned by the pipeline
+creation command will indicate why.
+The implementation will attempt to create all pipelines, and only return
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> values for those that actually failed.</p>
+</div>
+<div class="paragraph">
+<p>If creation fails for a pipeline that has the
+<code>VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT</code> set in its
+<code>Vk*PipelineCreateInfo</code>, pipelines at an index in the <code>pPipelines</code>
+array greater than or equal to that of the failing pipeline will be set to
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>.</p>
+</div>
+<div class="paragraph">
+<p>If creation fails for multiple pipelines, the returned <a href="fundamentals.html#VkResult" class="xref page">VkResult</a> <strong>must</strong>
+be the return value of any one of the pipelines which did not succeed.
+An application <strong>can</strong> reliably clean up from a failed call by iterating over
+the <code>pPipelines</code> array and destroying every element that is not
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>.</p>
+</div>
+<div class="paragraph">
+<p>If the entire command fails and no pipelines are created, all elements of
+<code>pPipelines</code> will be set to <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="pipelines-compute"><a class="anchor" href="#pipelines-compute"></a>Compute Pipelines</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -607,6 +586,9 @@ cache is enabled for the duration of the command.</p>
 which the resulting compute pipeline objects are returned.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Pipelines are created and returned as described for <a href="#pipelines-multiple">Multiple Pipeline Creation</a>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -783,6 +765,15 @@ from that structure is used instead of <code>flags</code> from this structure.</
 <div class="ulist">
 <ul>
 <li>
+<p><a id="VUID-VkComputePipelineCreateInfo-None-09497" href="#VUID-VkComputePipelineCreateInfo-None-09497"></a> <span class="vuid">VUID-VkComputePipelineCreateInfo-None-09497</span><br>
+
+
+If the <code>pNext</code> chain does not include a
+<a href="#VkPipelineCreateFlags2CreateInfoKHR">VkPipelineCreateFlags2CreateInfoKHR</a> structure,
+<code>flags</code> must be a valid combination of
+<a href="#VkPipelineCreateFlagBits">VkPipelineCreateFlagBits</a> values</p>
+</li>
+<li>
 <p><a id="VUID-VkComputePipelineCreateInfo-flags-07984" href="#VUID-VkComputePipelineCreateInfo-flags-07984"></a> <span class="vuid">VUID-VkComputePipelineCreateInfo-flags-07984</span><br>
 
 If <code>flags</code> contains the <code>VK_PIPELINE_CREATE_DERIVATIVE_BIT</code>
@@ -820,9 +811,9 @@ shader, a descriptor slot in <code>layout</code> <strong>must</strong> match the
 <p><a id="VUID-VkComputePipelineCreateInfo-layout-07990" href="#VUID-VkComputePipelineCreateInfo-layout-07990"></a> <span class="vuid">VUID-VkComputePipelineCreateInfo-layout-07990</span><br>
 
 If a <a href="interfaces.html#interfaces-resources" class="xref page">resource variables</a> is declared in a
-shader, and the descriptor type is not
-<code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>, a descriptor slot in <code>layout</code>
-<strong>must</strong> match the descriptor type</p>
+shader,
+and the descriptor type is not <code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>,
+a descriptor slot in <code>layout</code> <strong>must</strong> match the descriptor type</p>
 </li>
 <li>
 <p><a id="VUID-VkComputePipelineCreateInfo-layout-07991" href="#VUID-VkComputePipelineCreateInfo-layout-07991"></a> <span class="vuid">VUID-VkComputePipelineCreateInfo-layout-07991</span><br>
@@ -886,10 +877,10 @@ descriptor count</p>
 <li>
 <p><a id="VUID-VkComputePipelineCreateInfo-flags-09007" href="#VUID-VkComputePipelineCreateInfo-flags-09007"></a> <span class="vuid">VUID-VkComputePipelineCreateInfo-flags-09007</span><br>
 
-If <code>flags</code> includes
-<code>VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV</code>, then the
-<a href="features.html#features-deviceGeneratedComputePipelines" class="xref page">    <code>VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV</code>::<code>deviceGeneratedComputePipelines</code></a>
-feature <strong>must</strong> be enabled</p>
+If the <a href="features.html#features-deviceGeneratedComputePipelines" class="xref page">    <code>VkPhysicalDeviceDeviceGeneratedCommandsComputeFeaturesNV</code>::<code>deviceGeneratedComputePipelines</code></a>
+is not enabled,
+<code>flags</code> <strong>must</strong> not include
+<code>VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV</code></p>
 </li>
 <li>
 <p><a id="VUID-VkComputePipelineCreateInfo-flags-09008" href="#VUID-VkComputePipelineCreateInfo-flags-09008"></a> <span class="vuid">VUID-VkComputePipelineCreateInfo-flags-09008</span><br>
@@ -976,15 +967,11 @@ is not <code>0</code>, it <strong>must</strong> be <code>1</code></p>
 </li>
 <li>
 <p><a id="VUID-VkComputePipelineCreateInfo-pNext-pNext" href="#VUID-VkComputePipelineCreateInfo-pNext-pNext"></a> <span class="vuid">VUID-VkComputePipelineCreateInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkPipelineCompilerControlCreateInfoAMD">VkPipelineCompilerControlCreateInfoAMD</a>, <a href="#VkPipelineCreateFlags2CreateInfoKHR">VkPipelineCreateFlags2CreateInfoKHR</a>, <a href="#VkPipelineCreationFeedbackCreateInfo">VkPipelineCreationFeedbackCreateInfo</a>, <a href="#VkPipelineRobustnessCreateInfoEXT">VkPipelineRobustnessCreateInfoEXT</a>, or <a href="#VkSubpassShadingPipelineCreateInfoHUAWEI">VkSubpassShadingPipelineCreateInfoHUAWEI</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkComputePipelineIndirectBufferInfoNV">VkComputePipelineIndirectBufferInfoNV</a>, <a href="#VkPipelineCompilerControlCreateInfoAMD">VkPipelineCompilerControlCreateInfoAMD</a>, <a href="#VkPipelineCreateFlags2CreateInfoKHR">VkPipelineCreateFlags2CreateInfoKHR</a>, <a href="#VkPipelineCreationFeedbackCreateInfo">VkPipelineCreationFeedbackCreateInfo</a>, <a href="#VkPipelineRobustnessCreateInfoEXT">VkPipelineRobustnessCreateInfoEXT</a>, or <a href="#VkSubpassShadingPipelineCreateInfoHUAWEI">VkSubpassShadingPipelineCreateInfoHUAWEI</a></p>
 </li>
 <li>
 <p><a id="VUID-VkComputePipelineCreateInfo-sType-unique" href="#VUID-VkComputePipelineCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkComputePipelineCreateInfo-sType-unique</span><br>
  The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
-</li>
-<li>
-<p><a id="VUID-VkComputePipelineCreateInfo-flags-parameter" href="#VUID-VkComputePipelineCreateInfo-flags-parameter"></a> <span class="vuid">VUID-VkComputePipelineCreateInfo-flags-parameter</span><br>
- <code>flags</code> <strong>must</strong> be a valid combination of <a href="#VkPipelineCreateFlagBits">VkPipelineCreateFlagBits</a> values</p>
 </li>
 <li>
 <p><a id="VUID-VkComputePipelineCreateInfo-stage-parameter" href="#VUID-VkComputePipelineCreateInfo-stage-parameter"></a> <span class="vuid">VUID-VkComputePipelineCreateInfo-stage-parameter</span><br>
@@ -1182,8 +1169,9 @@ that variable <strong>must</strong> not have an array size greater than
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-maxCombinedClipAndCullDistances-00710" href="#VUID-VkPipelineShaderStageCreateInfo-maxCombinedClipAndCullDistances-00710"></a> <span class="vuid">VUID-VkPipelineShaderStageCreateInfo-maxCombinedClipAndCullDistances-00710</span><br>
 
-If the identified entry point includes any variables in its interface
-that are declared with the <code>ClipDistance</code> or <code>CullDistance</code>
+If the identified entry point includes variables in its interface that
+are declared with the <code>ClipDistance</code> <code>BuiltIn</code> decoration and
+variables in its interface that are declared with the <code>CullDistance</code>
 <code>BuiltIn</code> decoration, those variables <strong>must</strong> not have array sizes
 which sum to more than
 <code>VkPhysicalDeviceLimits</code>::<code>maxCombinedClipAndCullDistances</code></p>
@@ -1280,8 +1268,10 @@ feature <strong>must</strong> be enabled</p>
 
 If <code>flags</code> includes
 <code>VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT</code>,
-<code>stage</code> <strong>must</strong> be one of <code>VK_SHADER_STAGE_MESH_BIT_EXT</code>,
-<code>VK_SHADER_STAGE_TASK_BIT_EXT</code>, or <code>VK_SHADER_STAGE_COMPUTE_BIT</code></p>
+<code>stage</code> <strong>must</strong> be
+one of <code>VK_SHADER_STAGE_MESH_BIT_EXT</code>,
+<code>VK_SHADER_STAGE_TASK_BIT_EXT</code>, or
+<code>VK_SHADER_STAGE_COMPUTE_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-pNext-02754" href="#VUID-VkPipelineShaderStageCreateInfo-pNext-02754"></a> <span class="vuid">VUID-VkPipelineShaderStageCreateInfo-pNext-02754</span><br>
@@ -1349,7 +1339,32 @@ dimension of the pipeline <strong>must</strong> be a multiple of <a href="devsan
 If <code>module</code> uses the <code>OpTypeCooperativeMatrixKHR</code> instruction
 with a <code>Scope</code> equal to <code>Subgroup</code>, then the local workgroup size
 in the X dimension of the pipeline <strong>must</strong> be a multiple of
-<a href="devsandqueues.html#limits-subgroup-size" class="xref page"><code>subgroupSize</code></a>.</p>
+<a href="devsandqueues.html#limits-subgroup-size" class="xref page"><code>subgroupSize</code></a></p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-08771" href="#VUID-VkPipelineShaderStageCreateInfo-stage-08771"></a> <span class="vuid">VUID-VkPipelineShaderStageCreateInfo-stage-08771</span><br>
+
+If a shader module identifier is not specified for this <code>stage</code>,
+<code>module</code> <strong>must</strong> be a valid <a href="shaders.html#VkShaderModule" class="xref page">VkShaderModule</a>
+if none of the following features are enabled:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="features.html#features-graphicsPipelineLibrary" class="xref page"><code>graphicsPipelineLibrary</code></a></p>
+</li>
+<li>
+<p><a href="features.html#features-maintenance5" class="xref page"><code>maintenance5</code></a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-06845" href="#VUID-VkPipelineShaderStageCreateInfo-stage-06845"></a> <span class="vuid">VUID-VkPipelineShaderStageCreateInfo-stage-06845</span><br>
+
+If a shader module identifier is not specified for this <code>stage</code>,
+<code>module</code> <strong>must</strong> be a valid <a href="shaders.html#VkShaderModule" class="xref page">VkShaderModule</a>, or
+there <strong>must</strong> be a valid <a href="shaders.html#VkShaderModuleCreateInfo" class="xref page">VkShaderModuleCreateInfo</a> structure in the
+<code>pNext</code> chain</p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-06844" href="#VUID-VkPipelineShaderStageCreateInfo-stage-06844"></a> <span class="vuid">VUID-VkPipelineShaderStageCreateInfo-stage-06844</span><br>
@@ -1357,21 +1372,6 @@ in the X dimension of the pipeline <strong>must</strong> be a multiple of
 If a shader module identifier is specified for this <code>stage</code>, a
 <a href="shaders.html#VkShaderModuleCreateInfo" class="xref page">VkShaderModuleCreateInfo</a> structure <strong>must</strong> not be present in the
 <code>pNext</code> chain</p>
-</li>
-<li>
-<p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-06845" href="#VUID-VkPipelineShaderStageCreateInfo-stage-06845"></a> <span class="vuid">VUID-VkPipelineShaderStageCreateInfo-stage-06845</span><br>
-
-If a shader module identifier is not specified for this <code>stage</code>,
-<code>module</code> <strong>must</strong> be a valid <a href="shaders.html#VkShaderModule" class="xref page">VkShaderModule</a> or there <strong>must</strong> be a
-valid <a href="shaders.html#VkShaderModuleCreateInfo" class="xref page">VkShaderModuleCreateInfo</a> structure in the <code>pNext</code> chain</p>
-</li>
-<li>
-<p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-08771" href="#VUID-VkPipelineShaderStageCreateInfo-stage-08771"></a> <span class="vuid">VUID-VkPipelineShaderStageCreateInfo-stage-08771</span><br>
-
-If a shader module identifier is not specified for this <code>stage</code>, and
-neither the <a href="features.html#features-maintenance5" class="xref page"><code>maintenance5</code></a> nor
-<a href="features.html#features-graphicsPipelineLibrary" class="xref page"><code>graphicsPipelineLibrary</code></a>
-feature are enabled, <code>module</code> <strong>must</strong> be a valid <a href="shaders.html#VkShaderModule" class="xref page">VkShaderModule</a></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-stage-06848" href="#VUID-VkPipelineShaderStageCreateInfo-stage-06848"></a> <span class="vuid">VUID-VkPipelineShaderStageCreateInfo-stage-06848</span><br>
@@ -1382,10 +1382,11 @@ If a shader module identifier is specified for this <code>stage</code>,
 <li>
 <p><a id="VUID-VkPipelineShaderStageCreateInfo-pSpecializationInfo-06849" href="#VUID-VkPipelineShaderStageCreateInfo-pSpecializationInfo-06849"></a> <span class="vuid">VUID-VkPipelineShaderStageCreateInfo-pSpecializationInfo-06849</span><br>
 
-If a shader module identifier is not specified, the shader code used by
-the pipeline <strong>must</strong> be valid as described by the <a href="introduction.html#spirv-spec" class="xref page">Khronos    SPIR-V Specification</a> after applying the specializations provided in
-<code>pSpecializationInfo</code>, if any, and then converting all
-specialization constants into fixed constants</p>
+If a shader module identifier is not specified, the
+shader code used by the pipeline <strong>must</strong> be valid as described by the
+<a href="introduction.html#spirv-spec" class="xref page">Khronos SPIR-V Specification</a> after applying the
+specializations provided in <code>pSpecializationInfo</code>, if any, and then
+converting all specialization constants into fixed constants</p>
 </li>
 </ul>
 </div>
@@ -1841,6 +1842,10 @@ pipeline will be used.</p>
 <p><a id="VUID-VkSubpassShadingPipelineCreateInfoHUAWEI-sType-sType" href="#VUID-VkSubpassShadingPipelineCreateInfoHUAWEI-sType-sType"></a> <span class="vuid">VUID-VkSubpassShadingPipelineCreateInfoHUAWEI-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SUBPASS_SHADING_PIPELINE_CREATE_INFO_HUAWEI</code></p>
 </li>
+<li>
+<p><a id="VUID-VkSubpassShadingPipelineCreateInfoHUAWEI-renderPass-parameter" href="#VUID-VkSubpassShadingPipelineCreateInfoHUAWEI-renderPass-parameter"></a> <span class="vuid">VUID-VkSubpassShadingPipelineCreateInfoHUAWEI-renderPass-parameter</span><br>
+ <code>renderPass</code> <strong>must</strong> be a valid <a href="renderpass.html#VkRenderPass" class="xref page">VkRenderPass</a> handle</p>
+</li>
 </ul>
 </div>
 </div>
@@ -1902,7 +1907,7 @@ information.</p>
 </li>
 <li>
 <p><a id="VUID-vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI-pMaxWorkgroupSize-parameter" href="#VUID-vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI-pMaxWorkgroupSize-parameter"></a> <span class="vuid">VUID-vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI-pMaxWorkgroupSize-parameter</span><br>
- <code>pMaxWorkgroupSize</code> <strong>must</strong> be a valid pointer to a <a href="fundamentals.html#VkExtent2D" class="xref page">VkExtent2D</a> structure</p>
+ <code>pMaxWorkgroupSize</code> <strong>must</strong> be a valid pointer to <a href="fundamentals.html#VkExtent2D" class="xref page">VkExtent2D</a> structures</p>
 </li>
 <li>
 <p><a id="VUID-vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI-renderpass-parent" href="#VUID-vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI-renderpass-parent"></a> <span class="vuid">VUID-vkGetDeviceSubpassShadingMaxWorkgroupSizeHUAWEI-renderpass-parent</span><br>
@@ -1923,9 +1928,6 @@ information.</p>
 <ul>
 <li>
 <p><code>VK_SUCCESS</code></p>
-</li>
-<li>
-<p><code>VK_INCOMPLETE</code></p>
 </li>
 </ul>
 </div>
@@ -1980,8 +1982,8 @@ typedef struct VkPipelineRobustnessCreateInfoEXT {
 structure.</p>
 </li>
 <li>
-<p><code>storageBuffers</code> sets the behaviour of out of bounds accesses made
-to resources bound as:</p>
+<p><code>storageBuffers</code> sets the behavior of out of bounds accesses made to
+resources bound as:</p>
 <div class="ulist">
 <ul>
 <li>
@@ -1997,7 +1999,7 @@ to resources bound as:</p>
 </div>
 </li>
 <li>
-<p><code>uniformBuffers</code> describes the behaviour of out of bounds accesses
+<p><code>uniformBuffers</code> describes the behavior of out of bounds accesses
 made to resources bound as:</p>
 <div class="ulist">
 <ul>
@@ -2017,11 +2019,11 @@ made to resources bound as:</p>
 </div>
 </li>
 <li>
-<p><code>vertexInputs</code> describes the behaviour of out of bounds accesses
-made to vertex input attributes</p>
+<p><code>vertexInputs</code> describes the behavior of out of bounds accesses made
+to vertex input attributes</p>
 </li>
 <li>
-<p><code>images</code> describes the behaviour of out of bounds accesses made to
+<p><code>images</code> describes the behavior of out of bounds accesses made to
 resources bound as:</p>
 <div class="ulist">
 <ul>
@@ -2505,10 +2507,6 @@ If <code>pipelineDeviceAddressCaptureReplay</code> is non-zero, the
 <p><a id="VUID-VkComputePipelineIndirectBufferInfoNV-sType-sType" href="#VUID-VkComputePipelineIndirectBufferInfoNV-sType-sType"></a> <span class="vuid">VUID-VkComputePipelineIndirectBufferInfoNV-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV</code></p>
 </li>
-<li>
-<p><a id="VUID-VkComputePipelineIndirectBufferInfoNV-pNext-pNext" href="#VUID-VkComputePipelineIndirectBufferInfoNV-pNext-pNext"></a> <span class="vuid">VUID-VkComputePipelineIndirectBufferInfoNV-pNext-pNext</span><br>
- <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
-</li>
 </ul>
 </div>
 </div>
@@ -2660,7 +2658,7 @@ feature <strong>must</strong> be enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -2742,6 +2740,9 @@ which the resulting graphics pipeline objects are returned.</p>
 <a href="#VkPipelineShaderStageCreateInfo">VkPipelineShaderStageCreateInfo</a> structures for each of the desired
 active shader stages, as well as creation information for all relevant
 fixed-function stages, and a pipeline layout.</p>
+</div>
+<div class="paragraph">
+<p>Pipelines are created and returned as described for <a href="#pipelines-multiple">Multiple Pipeline Creation</a>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -3250,6 +3251,9 @@ flag</p>
 <code>VK_PIPELINE_RASTERIZATION_STATE_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT</code>
 flag</p>
 </li>
+<li>
+<p><a href="interfaces.html#VkRenderingInputAttachmentIndexInfoKHR" class="xref page">VkRenderingInputAttachmentIndexInfoKHR</a></p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -3304,6 +3308,13 @@ any way, that pipeline <strong>must</strong> specify this state directly.</p>
 <code>VK_PIPELINE_CREATE_COLOR_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT</code> and
 <code>VK_PIPELINE_CREATE_DEPTH_STENCIL_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT</code>
 flags</p>
+</li>
+<li>
+<p>Inclusion/omission of the
+<code>VK_PIPELINE_CREATE_2_ENABLE_LEGACY_DITHERING_BIT_EXT</code> flag</p>
+</li>
+<li>
+<p><a href="interfaces.html#VkRenderingAttachmentLocationInfoKHR" class="xref page">VkRenderingAttachmentLocationInfoKHR</a></p>
 </li>
 </ul>
 </div>
@@ -3376,6 +3387,15 @@ from that structure is used instead of <code>flags</code> from this structure.</
 <div class="ulist">
 <ul>
 <li>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-None-09497" href="#VUID-VkGraphicsPipelineCreateInfo-None-09497"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-None-09497</span><br>
+
+
+If the <code>pNext</code> chain does not include a
+<a href="#VkPipelineCreateFlags2CreateInfoKHR">VkPipelineCreateFlags2CreateInfoKHR</a> structure,
+<code>flags</code> must be a valid combination of
+<a href="#VkPipelineCreateFlagBits">VkPipelineCreateFlagBits</a> values</p>
+</li>
+<li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-07984" href="#VUID-VkGraphicsPipelineCreateInfo-flags-07984"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-07984</span><br>
 
 If <code>flags</code> contains the <code>VK_PIPELINE_CREATE_DERIVATIVE_BIT</code>
@@ -3413,9 +3433,9 @@ shader, a descriptor slot in <code>layout</code> <strong>must</strong> match the
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-layout-07990" href="#VUID-VkGraphicsPipelineCreateInfo-layout-07990"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-layout-07990</span><br>
 
 If a <a href="interfaces.html#interfaces-resources" class="xref page">resource variables</a> is declared in a
-shader, and the descriptor type is not
-<code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>, a descriptor slot in <code>layout</code>
-<strong>must</strong> match the descriptor type</p>
+shader,
+and the descriptor type is not <code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>,
+a descriptor slot in <code>layout</code> <strong>must</strong> match the descriptor type</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-layout-07991" href="#VUID-VkGraphicsPipelineCreateInfo-layout-07991"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-layout-07991</span><br>
@@ -3423,6 +3443,13 @@ shader, and the descriptor type is not
 If a <a href="interfaces.html#interfaces-resources" class="xref page">resource variables</a> is declared in a shader
 as an array, a descriptor slot in <code>layout</code> <strong>must</strong> match the
 descriptor count</p>
+</li>
+<li>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-stage-02096" href="#VUID-VkGraphicsPipelineCreateInfo-stage-02096"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-stage-02096</span><br>
+
+If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a> the <code>stage</code> member of one element
+of <code>pStages</code> <strong>must</strong> be <code>VK_SHADER_STAGE_VERTEX_BIT</code>
+or <code>VK_SHADER_STAGE_MESH_BIT_EXT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pStages-02095" href="#VUID-VkGraphicsPipelineCreateInfo-pStages-02095"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pStages-02095</span><br>
@@ -3437,11 +3464,13 @@ pipeline (<code>stage</code> is <code>VK_SHADER_STAGE_VERTEX_BIT</code>,
 <code>VK_SHADER_STAGE_GEOMETRY_BIT</code>)</p>
 </li>
 <li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-stage-02096" href="#VUID-VkGraphicsPipelineCreateInfo-stage-02096"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-stage-02096</span><br>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-pStages-09631" href="#VUID-VkGraphicsPipelineCreateInfo-pStages-09631"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pStages-09631</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a> the <code>stage</code> member of one element
-of <code>pStages</code> <strong>must</strong> be either <code>VK_SHADER_STAGE_VERTEX_BIT</code> or
-<code>VK_SHADER_STAGE_MESH_BIT_EXT</code></p>
+If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a> and <code>pStages</code> contains both
+<code>VK_SHADER_STAGE_TASK_BIT_EXT</code> and
+<code>VK_SHADER_STAGE_MESH_BIT_EXT</code>, then the mesh shader&#8217;s entry point
+<strong>must</strong> not declare a variable with a <code>DrawIndex</code> <code>BuiltIn</code>
+decoration</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-TaskNV-07063" href="#VUID-VkGraphicsPipelineCreateInfo-TaskNV-07063"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-TaskNV-07063</span><br>
@@ -3469,10 +3498,11 @@ control shader stage</p>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pStages-09022" href="#VUID-VkGraphicsPipelineCreateInfo-pStages-09022"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pStages-09022</span><br>
 
 If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a> and <code>pStages</code> includes a
-tessellation control shader stage, and the
-<code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled or the
-<code>VK_DYNAMIC_STATE_PATCH_CONTROL_POINTS_EXT</code> dynamic state is not
-set, <code>pTessellationState</code> <strong>must</strong> be a valid pointer to a valid
+tessellation control shader stage,
+and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled
+or the <code>VK_DYNAMIC_STATE_PATCH_CONTROL_POINTS_EXT</code> dynamic state is
+not set,
+<code>pTessellationState</code> <strong>must</strong> be a valid pointer to a valid
 <a href="tessellation.html#VkPipelineTessellationStateCreateInfo" class="xref page">VkPipelineTessellationStateCreateInfo</a> structure</p>
 </li>
 <li>
@@ -3517,24 +3547,25 @@ pipeline, they <strong>must</strong> both specify the same patch size</p>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pStages-08888" href="#VUID-VkGraphicsPipelineCreateInfo-pStages-08888"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pStages-08888</span><br>
 
 If the pipeline is being created with
-<a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader    state</a> and <a href="#pipelines-graphics-subsets-vertex-input">vertex input    state</a> and <code>pStages</code> includes tessellation shader stages, and
-either <code>VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY</code> dynamic state is not
-enabled or
+<a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader    state</a> and <a href="#pipelines-graphics-subsets-vertex-input">vertex input    state</a> and <code>pStages</code> includes tessellation shader stages,
+and either <code>VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY</code> dynamic state is
+not enabled or
 <a href="limits.html#limits-dynamicPrimitiveTopologyUnrestricted" class="xref page"><code>dynamicPrimitiveTopologyUnrestricted</code></a>
-is <code>VK_FALSE</code>, the <code>topology</code> member of <code>pInputAssembly</code>
-<strong>must</strong> be <code>VK_PRIMITIVE_TOPOLOGY_PATCH_LIST</code></p>
+is <code>VK_FALSE</code>,
+the <code>topology</code> member of <code>pInputAssembly</code> <strong>must</strong> be
+<code>VK_PRIMITIVE_TOPOLOGY_PATCH_LIST</code></p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-topology-08889" href="#VUID-VkGraphicsPipelineCreateInfo-topology-08889"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-topology-08889</span><br>
 
 If the pipeline is being created with
 <a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader    state</a> and <a href="#pipelines-graphics-subsets-vertex-input">vertex input    state</a> and the <code>topology</code> member of <code>pInputAssembly</code> is
-<code>VK_PRIMITIVE_TOPOLOGY_PATCH_LIST</code>, and either
-<code>VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY</code> dynamic state is not enabled
-or
+<code>VK_PRIMITIVE_TOPOLOGY_PATCH_LIST</code>,
+and either <code>VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY</code> dynamic state is
+not enabled or
 <a href="limits.html#limits-dynamicPrimitiveTopologyUnrestricted" class="xref page"><code>dynamicPrimitiveTopologyUnrestricted</code></a>
-is <code>VK_FALSE</code>, then <code>pStages</code> <strong>must</strong> include tessellation shader
-stages</p>
+is <code>VK_FALSE</code>,
+then <code>pStages</code> <strong>must</strong> include tessellation shader stages</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07723" href="#VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07723"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07723</span><br>
@@ -3672,9 +3703,10 @@ of the format of the corresponding attachment description do not contain
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-07609" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-07609"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-07609</span><br>
 
-If <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, and the pipeline is
-being created with <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a>, and the <code>pColorBlendState</code>
-pointer is not <code>NULL</code>, and the subpass uses color attachments, the
+If <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the pipeline is being
+created with <a href="#pipelines-graphics-subsets-fragment-output">fragment    output interface state</a>, the <code>pColorBlendState</code> pointer is not
+<code>NULL</code>, the <code>attachmentCount</code> member of <code>pColorBlendState</code> is
+not ignored, and the subpass uses color attachments, the
 <code>attachmentCount</code> member of <code>pColorBlendState</code> <strong>must</strong> be equal to
 the <code>colorAttachmentCount</code> used to create <code>subpass</code></p>
 </li>
@@ -3705,12 +3737,13 @@ If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization"
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-rasterizerDiscardEnable-09024" href="#VUID-VkGraphicsPipelineCreateInfo-rasterizerDiscardEnable-09024"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-rasterizerDiscardEnable-09024</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>, and the
-<code>VK_DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE</code> dynamic state is
-enabled or the <code>rasterizerDiscardEnable</code> member of
-<code>pRasterizationState</code> is <code>VK_FALSE</code>, and either the
-<code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled, or
-either the <code>VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT</code> or
+If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>, and
+the <code>VK_DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE</code> dynamic state is
+enabled or
+the <code>rasterizerDiscardEnable</code> member of <code>pRasterizationState</code> is
+<code>VK_FALSE</code>,
+and either the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not
+enabled, or either the <code>VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT</code> or
 <code>VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT</code> dynamic states are not set,
 <code>pViewportState</code> <strong>must</strong> be a valid pointer to a valid
 <a href="vertexpostproc.html#VkPipelineViewportStateCreateInfo" class="xref page">VkPipelineViewportStateCreateInfo</a> structure</p>
@@ -3722,19 +3755,11 @@ If <code>pViewportState</code> is not <code>NULL</code> it <strong>must</strong>
 valid <a href="vertexpostproc.html#VkPipelineViewportStateCreateInfo" class="xref page">VkPipelineViewportStateCreateInfo</a> structure</p>
 </li>
 <li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-pViewportState-04892" href="#VUID-VkGraphicsPipelineCreateInfo-pViewportState-04892"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pViewportState-04892</span><br>
-
-If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>, and the graphics pipeline state was
-created with the <code>VK_DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE</code>
-dynamic state enabled, <code>pViewportState</code> <strong>must</strong> be a valid pointer to
-a valid <a href="vertexpostproc.html#VkPipelineViewportStateCreateInfo" class="xref page">VkPipelineViewportStateCreateInfo</a> structure</p>
-</li>
-<li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pMultisampleState-09026" href="#VUID-VkGraphicsPipelineCreateInfo-pMultisampleState-09026"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pMultisampleState-09026</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a>, and the
-<code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled or any
-of the <code>VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT</code>,
+If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a>,
+and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled
+or any of the <code>VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT</code>,
 <code>VK_DYNAMIC_STATE_SAMPLE_MASK_EXT</code>, or
 <code>VK_DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT</code> dynamic states is
 not set, or <a href="features.html#features-alphaToOne" class="xref page">alphaToOne</a> is enabled on the device
@@ -3745,7 +3770,7 @@ and <code>VK_DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT</code> is not set,
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pMultisampleState-09027" href="#VUID-VkGraphicsPipelineCreateInfo-pMultisampleState-09027"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pMultisampleState-09027</span><br>
 
-If <code>pMultisampleState</code> is not <code>NULL</code> is <strong>must</strong> be a valid pointer to
+If <code>pMultisampleState</code> is not <code>NULL</code> it <strong>must</strong> be a valid pointer to
 a valid <a href="primsrast.html#VkPipelineMultisampleStateCreateInfo" class="xref page">VkPipelineMultisampleStateCreateInfo</a> structure</p>
 </li>
 <li>
@@ -3764,9 +3789,9 @@ variable for the alpha <code>Component</code> word in <code>Location</code> 0 at
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-09028" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-09028"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-09028</span><br>
 
 If <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the pipeline is being
-created with <a href="#pipelines-graphics-subsets-fragment-shader">fragment    shader state</a>, and <code>subpass</code> uses a depth/stencil attachment, and
-the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled or,
-any of the <code>VK_DYNAMIC_STATE_DEPTH_TEST_ENABLE</code>,
+created with <a href="#pipelines-graphics-subsets-fragment-shader">fragment    shader state</a>, and <code>subpass</code> uses a depth/stencil attachment,
+and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled
+or, any of the <code>VK_DYNAMIC_STATE_DEPTH_TEST_ENABLE</code>,
 <code>VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE</code>,
 <code>VK_DYNAMIC_STATE_DEPTH_COMPARE_OP</code>,
 <code>VK_DYNAMIC_STATE_DEPTH_BOUNDS_TEST_ENABLE</code>,
@@ -3786,9 +3811,9 @@ a valid <a href="fragops.html#VkPipelineDepthStencilStateCreateInfo" class="xref
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-09030" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-09030"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-09030</span><br>
 
 If <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the pipeline is being
-created with <a href="#pipelines-graphics-subsets-fragment-output">fragment    output interface state</a>, and <code>subpass</code> uses color attachments, and
-<code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled, or any
-of the <code>VK_DYNAMIC_STATE_LOGIC_OP_ENABLE_EXT</code>,
+created with <a href="#pipelines-graphics-subsets-fragment-output">fragment    output interface state</a>, and <code>subpass</code> uses color attachments,
+and <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled, or
+any of the <code>VK_DYNAMIC_STATE_LOGIC_OP_ENABLE_EXT</code>,
 <code>VK_DYNAMIC_STATE_LOGIC_OP_EXT</code>,
 <code>VK_DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT</code>,
 <code>VK_DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT</code>,
@@ -3809,13 +3834,13 @@ member of <code>pRasterizationState</code> <strong>must</strong> be <code>0.0</c
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-02510" href="#VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-02510"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-02510</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader">    fragment shader state</a>, and the
-<code><a href="../appendices/extensions.html#VK_EXT_depth_range_unrestricted" class="xref page">VK_EXT_depth_range_unrestricted</a></code> extension is not enabled and no
-element of the <code>pDynamicStates</code> member of <code>pDynamicState</code> is
-<code>VK_DYNAMIC_STATE_DEPTH_BOUNDS</code>, and the <code>depthBoundsTestEnable</code>
-member of <code>pDepthStencilState</code> is <code>VK_TRUE</code>, the
-<code>minDepthBounds</code> and <code>maxDepthBounds</code> members of
-<code>pDepthStencilState</code> <strong>must</strong> be between <code>0.0</code> and <code>1.0</code>, inclusive</p>
+If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader">    fragment shader state</a>,
+the <code><a href="../appendices/extensions.html#VK_EXT_depth_range_unrestricted" class="xref page">VK_EXT_depth_range_unrestricted</a></code> extension is not enabled
+and no element of the <code>pDynamicStates</code> member of <code>pDynamicState</code>
+is <code>VK_DYNAMIC_STATE_DEPTH_BOUNDS</code>, and the
+<code>depthBoundsTestEnable</code> member of <code>pDepthStencilState</code> is
+<code>VK_TRUE</code>, the <code>minDepthBounds</code> and <code>maxDepthBounds</code> members
+of <code>pDepthStencilState</code> <strong>must</strong> be between <code>0.0</code> and <code>1.0</code>, inclusive</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-07610" href="#VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-07610"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-07610</span><br>
@@ -3965,28 +3990,12 @@ created with <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-ras
 not include a geometry shader</p>
 </li>
 <li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-06049" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-06049"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-06049</span><br>
-
-If <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the pipeline is being
-created with <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>, and <code>subpass</code> viewMask is not <code>0</code>,
-all of the shaders in the pipeline <strong>must</strong> not write to the <code>Layer</code>
-built-in output</p>
-</li>
-<li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-06050" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-06050"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-06050</span><br>
 
 If <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> and the pipeline is
 being created with <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>, and <code>subpass</code> viewMask is not <code>0</code>,
 then all of the shaders in the pipeline <strong>must</strong> not include variables
 decorated with the <code>Layer</code> built-in decoration in their interfaces</p>
-</li>
-<li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-07717" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-07717"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-07717</span><br>
-
-If <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> and the pipeline is
-being created with <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>, and <code>subpass</code> viewMask is not <code>0</code>,
-then all of the shaders in the pipeline <strong>must</strong> not include variables
-decorated with the <code>ViewMask</code> built-in decoration in their interfaces</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-07064" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-07064"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-07064</span><br>
@@ -4153,9 +4162,9 @@ component, then all <code>Input</code> variables at the corresponding
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-dynamicPrimitiveTopologyUnrestricted-09031" href="#VUID-VkGraphicsPipelineCreateInfo-dynamicPrimitiveTopologyUnrestricted-09031"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-dynamicPrimitiveTopologyUnrestricted-09031</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-vertex-input">    vertex input state</a>, and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code>
-extension is not enabled, or either
-<code>VK_DYNAMIC_STATE_PRIMITIVE_RESTART_ENABLE</code>, or
+If the pipeline requires <a href="#pipelines-graphics-subsets-vertex-input">    vertex input state</a>,
+and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not
+enabled, or either <code>VK_DYNAMIC_STATE_PRIMITIVE_RESTART_ENABLE</code>, or
 <code>VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY</code> dynamic states are not set, or
 <a href="limits.html#limits-dynamicPrimitiveTopologyUnrestricted" class="xref page">    <code>dynamicPrimitiveTopologyUnrestricted</code></a> is <code>VK_FALSE</code>,
 <code>pInputAssemblyState</code> <strong>must</strong> be a valid pointer to a valid
@@ -4224,10 +4233,10 @@ a <code>Xfb</code> execution mode</p>
 If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a> and at least one of
 <a href="#pipelines-graphics-subsets-fragment-output">fragment output interface    state</a> or <a href="#pipelines-graphics-subsets-fragment-shader">fragment shader    state</a>, and <code>pMultisampleState</code> is not <code>NULL</code>, the
 <code>lineRasterizationMode</code> member of a
-<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoEXT" class="xref page">VkPipelineRasterizationLineStateCreateInfoEXT</a> structure included
+<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoKHR" class="xref page">VkPipelineRasterizationLineStateCreateInfoKHR</a> structure included
 in the <code>pNext</code> chain of <code>pRasterizationState</code> is
-<code>VK_LINE_RASTERIZATION_MODE_BRESENHAM_EXT</code> or
-<code>VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_EXT</code>, then the
+<code>VK_LINE_RASTERIZATION_MODE_BRESENHAM_KHR</code> or
+<code>VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH_KHR</code>, then the
 <code>alphaToCoverageEnable</code>, <code>alphaToOneEnable</code>, and
 <code>sampleShadingEnable</code> members of <code>pMultisampleState</code> <strong>must</strong> all
 be <code>VK_FALSE</code></p>
@@ -4236,11 +4245,11 @@ be <code>VK_FALSE</code></p>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-stippledLineEnable-02767" href="#VUID-VkGraphicsPipelineCreateInfo-stippledLineEnable-02767"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-stippledLineEnable-02767</span><br>
 
 If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>, the <code>stippledLineEnable</code> member of
-<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoEXT" class="xref page">VkPipelineRasterizationLineStateCreateInfoEXT</a> is <code>VK_TRUE</code>,
+<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoKHR" class="xref page">VkPipelineRasterizationLineStateCreateInfoKHR</a> is <code>VK_TRUE</code>,
 and no element of the <code>pDynamicStates</code> member of <code>pDynamicState</code>
 is <code>VK_DYNAMIC_STATE_LINE_STIPPLE_EXT</code>, then the
 <code>lineStippleFactor</code> member of
-<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoEXT" class="xref page">VkPipelineRasterizationLineStateCreateInfoEXT</a> <strong>must</strong> be in the
+<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoKHR" class="xref page">VkPipelineRasterizationLineStateCreateInfoKHR</a> <strong>must</strong> be in the
 range <span class="eq">[1,256]</span></p>
 </li>
 <li>
@@ -4777,14 +4786,6 @@ If <code>flags</code> includes
 <strong>must</strong> be <code>VK_ATTACHMENT_UNUSED</code></p>
 </li>
 <li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-06575" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-06575"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-06575</span><br>
-
-If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>,
-<a href="#pipelines-graphics-subsets-fragment-shader">fragment shader state</a>,
-or <a href="#pipelines-graphics-subsets-fragment-output">fragment output    interface state</a>, <code>renderPass</code> <strong>must</strong> be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> or a
-valid render pass object</p>
-</li>
-<li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-dynamicRendering-06576" href="#VUID-VkGraphicsPipelineCreateInfo-dynamicRendering-06576"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-dynamicRendering-06576</span><br>
 
 If the <a href="features.html#features-dynamicRendering" class="xref page"><code>dynamicRendering</code></a> feature is
@@ -4837,8 +4838,8 @@ If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-output"> 
 <a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>::<code>pColorAttachmentFormats</code> is
 not <code>VK_FORMAT_UNDEFINED</code>, that format <strong>must</strong> be a format with
 <a href="formats.html#potential-format-features" class="xref page">potential format features</a> that include
-<code>VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT</code> or
-<code>VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV</code></p>
+<code>VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT</code>
+or <code>VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV</code></p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-06583" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-06583"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-06583</span><br>
@@ -4912,9 +4913,9 @@ If <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HA
 created with <a href="#pipelines-graphics-subsets-fragment-shader">fragment    shader state</a> and <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a>, and either of
 <a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>::<code>depthAttachmentFormat</code> or
 <a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>::<code>stencilAttachmentFormat</code> are
-not <code>VK_FORMAT_UNDEFINED</code>, and the
-<code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled or any
-of the <code>VK_DYNAMIC_STATE_DEPTH_TEST_ENABLE</code>,
+not <code>VK_FORMAT_UNDEFINED</code>,
+and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled
+or any of the <code>VK_DYNAMIC_STATE_DEPTH_TEST_ENABLE</code>,
 <code>VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE</code>,
 <code>VK_DYNAMIC_STATE_DEPTH_COMPARE_OP</code>,
 <code>VK_DYNAMIC_STATE_DEPTH_BOUNDS_TEST_ENABLE</code>,
@@ -4934,9 +4935,9 @@ a valid <a href="fragops.html#VkPipelineDepthStencilStateCreateInfo" class="xref
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-09035" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-09035"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-09035</span><br>
 
 If <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> and the pipeline is being
-created with <a href="#pipelines-graphics-subsets-fragment-shader">fragment    shader state</a> but not <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a>, and the
-<code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled, or any
-of the <code>VK_DYNAMIC_STATE_DEPTH_TEST_ENABLE</code>,
+created with <a href="#pipelines-graphics-subsets-fragment-shader">fragment    shader state</a> but not <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a>,
+and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not
+enabled, or any of the <code>VK_DYNAMIC_STATE_DEPTH_TEST_ENABLE</code>,
 <code>VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE</code>,
 <code>VK_DYNAMIC_STATE_DEPTH_COMPARE_OP</code>,
 <code>VK_DYNAMIC_STATE_DEPTH_BOUNDS_TEST_ENABLE</code>,
@@ -4956,11 +4957,11 @@ a valid <a href="fragops.html#VkPipelineDepthStencilStateCreateInfo" class="xref
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-09037" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-09037"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-09037</span><br>
 
 If <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the pipeline is being
-created with <a href="#pipelines-graphics-subsets-fragment-output">fragment    output interface state</a>, and
-<a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>::<code>colorAttachmentCount</code> is not
-equal to <code>0</code>, and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension
-is not enabled, or any of the
-<code>VK_DYNAMIC_STATE_LOGIC_OP_ENABLE_EXT</code>,
+created with <a href="#pipelines-graphics-subsets-fragment-output">fragment    output interface state</a>, and any element of
+<a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>::<code>pColorAttachmentFormats</code> is
+not <code>VK_FORMAT_UNDEFINED</code>,
+and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not
+enabled, or any of the <code>VK_DYNAMIC_STATE_LOGIC_OP_ENABLE_EXT</code>,
 <code>VK_DYNAMIC_STATE_LOGIC_OP_EXT</code>,
 <code>VK_DYNAMIC_STATE_COLOR_BLEND_ENABLE_EXT</code>,
 <code>VK_DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT</code>,
@@ -5003,15 +5004,6 @@ created with <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-ras
 enabled, then <code>pStages</code> <strong>must</strong> not include a geometry shader</p>
 </li>
 <li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-07718" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-07718"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-07718</span><br>
-
-If <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the pipeline is being
-created with <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>, and
-<a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>::<code>viewMask</code> is not <code>0</code>, all of
-the shaders in the pipeline <strong>must</strong> not write to the <code>Layer</code> built-in
-output</p>
-</li>
-<li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-06059" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-06059"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-06059</span><br>
 
 If <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the pipeline is being
@@ -5019,15 +5011,6 @@ created with <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-ras
 <a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>::<code>viewMask</code> is not <code>0</code>, all of
 the shaders in the pipeline <strong>must</strong> not include variables decorated with
 the <code>Layer</code> built-in decoration in their interfaces</p>
-</li>
-<li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-07719" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-07719"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-07719</span><br>
-
-If <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the pipeline is being
-created with <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>, and
-<a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>::<code>viewMask</code> is not <code>0</code>, all of
-the shaders in the pipeline <strong>must</strong> not include variables decorated with
-the <code>ViewIndex</code> built-in decoration in their interfaces</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-07720" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-07720"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-07720</span><br>
@@ -5041,7 +5024,9 @@ include a mesh shader</p>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-06061" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-06061"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-06061</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader">    fragment shader state</a> and <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
+If
+the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled,
+the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader">    fragment shader state</a>, and <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
 fragment shaders in <code>pStages</code> <strong>must</strong> not include the
 <code>InputAttachment</code> capability</p>
 </li>
@@ -5091,20 +5076,24 @@ or
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-06482" href="#VUID-VkGraphicsPipelineCreateInfo-flags-06482"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-06482</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a> and the <code>flags</code> member of
+If
+the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled,
+the pipeline requires <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a>, and the <code>flags</code> member of
 <a href="framebuffer.html#VkPipelineColorBlendStateCreateInfo" class="xref page">VkPipelineColorBlendStateCreateInfo</a> includes
 <code>VK_PIPELINE_COLOR_BLEND_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_BIT_EXT</code>,
-<code>renderpass</code> <strong>must</strong> not be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
+<code>renderPass</code> <strong>must</strong> not be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
 </li>
 <li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-06483" href="#VUID-VkGraphicsPipelineCreateInfo-flags-06483"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-06483</span><br>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-None-09526" href="#VUID-VkGraphicsPipelineCreateInfo-None-09526"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-None-09526</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a> and the <code>flags</code> member of
+If
+the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled,
+the pipeline requires <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a>, and the <code>flags</code> member of
 <a href="fragops.html#VkPipelineDepthStencilStateCreateInfo" class="xref page">VkPipelineDepthStencilStateCreateInfo</a> includes
 <code>VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_BIT_EXT</code>
 or
 <code>VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_EXT</code>,
-<code>renderpass</code> <strong>must</strong> not be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
+<code>renderPass</code> <strong>must</strong> not be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pColorAttachmentSamples-06592" href="#VUID-VkGraphicsPipelineCreateInfo-pColorAttachmentSamples-06592"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pColorAttachmentSamples-06592</span><br>
@@ -5123,27 +5112,30 @@ If the <a href="#pipelines-graphics-subsets-fragment-output">fragment output    
 <a href="limits.html#VkSampleCountFlagBits" class="xref page">VkSampleCountFlagBits</a> value</p>
 </li>
 <li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-06484" href="#VUID-VkGraphicsPipelineCreateInfo-flags-06484"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-06484</span><br>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-09527" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-09527"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-09527</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a> and the <code>flags</code> member of
+If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-output">    fragment output interface state</a>, <code>renderPass</code> is not
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, and the <code>flags</code> member of
 <a href="framebuffer.html#VkPipelineColorBlendStateCreateInfo" class="xref page">VkPipelineColorBlendStateCreateInfo</a> includes
 <code>VK_PIPELINE_COLOR_BLEND_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_ACCESS_BIT_EXT</code>
 <code>subpass</code> <strong>must</strong> have been created with
 <code>VK_SUBPASS_DESCRIPTION_RASTERIZATION_ORDER_ATTACHMENT_COLOR_ACCESS_BIT_EXT</code></p>
 </li>
 <li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-06485" href="#VUID-VkGraphicsPipelineCreateInfo-flags-06485"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-06485</span><br>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-09528" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-09528"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-09528</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader">    fragment shader state</a> and the <code>flags</code> member of
+If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader">    fragment shader state</a>, <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
+and the <code>flags</code> member of
 <a href="fragops.html#VkPipelineDepthStencilStateCreateInfo" class="xref page">VkPipelineDepthStencilStateCreateInfo</a> includes
 <code>VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_BIT_EXT</code>,
 <code>subpass</code> <strong>must</strong> have been created with
 <code>VK_SUBPASS_DESCRIPTION_RASTERIZATION_ORDER_ATTACHMENT_DEPTH_ACCESS_BIT_EXT</code></p>
 </li>
 <li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-06486" href="#VUID-VkGraphicsPipelineCreateInfo-flags-06486"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-06486</span><br>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-09529" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-09529"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-09529</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader">    fragment shader state</a> and the <code>flags</code> member of
+If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader">    fragment shader state</a>, <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
+and the <code>flags</code> member of
 <a href="fragops.html#VkPipelineDepthStencilStateCreateInfo" class="xref page">VkPipelineDepthStencilStateCreateInfo</a> includes
 <code>VK_PIPELINE_DEPTH_STENCIL_STATE_CREATE_RASTERIZATION_ORDER_ATTACHMENT_STENCIL_ACCESS_BIT_EXT</code>,
 <code>subpass</code> <strong>must</strong> have been created with
@@ -5223,10 +5215,20 @@ If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization"
 valid <a href="#VkPipelineShaderStageCreateInfo">VkPipelineShaderStageCreateInfo</a> structures</p>
 </li>
 <li>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-stageCount-09587" href="#VUID-VkGraphicsPipelineCreateInfo-stageCount-09587"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-stageCount-09587</span><br>
+
+If the pipeline does not require
+<a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader    state</a> or <a href="#pipelines-graphics-subsets-fragment-shader">fragment shader    state</a>, <code>stageCount</code> <strong>must</strong> be zero</p>
+</li>
+<li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pRasterizationState-09039" href="#VUID-VkGraphicsPipelineCreateInfo-pRasterizationState-09039"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pRasterizationState-09039</span><br>
 
-If the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled,
-or any of the <code>VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT</code>,
+If
+<a href="#VkGraphicsPipelineLibraryCreateInfoEXT">VkGraphicsPipelineLibraryCreateInfoEXT</a>::<code>flags</code> includes
+<code>VK_GRAPHICS_PIPELINE_LIBRARY_PRE_RASTERIZATION_SHADERS_BIT_EXT</code>,
+and
+the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled, or
+any of the <code>VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT</code>,
 <code>VK_DYNAMIC_STATE_SAMPLE_MASK_EXT</code>, or
 <code>VK_DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT</code> dynamic states are
 not set, or <a href="features.html#features-alphaToOne" class="xref page">alphaToOne</a> is enabled on the device
@@ -5249,22 +5251,23 @@ If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader"> 
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-06603" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-06603"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-06603</span><br>
 
-If <a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization    shader state</a>, <a href="#pipelines-graphics-subsets-fragment-shader">fragment    shader state</a>, or <a href="#pipelines-graphics-subsets-fragment-output">    fragment output state</a>, and <code>renderPass</code> is not
-<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>renderPass</code> <strong>must</strong> be a valid
-<a href="renderpass.html#VkRenderPass" class="xref page">VkRenderPass</a> handle</p>
+If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>,
+<a href="#pipelines-graphics-subsets-fragment-shader">fragment shader state</a>,
+or <a href="#pipelines-graphics-subsets-fragment-output">fragment output    state</a>,
+and <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
+<code>renderPass</code> <strong>must</strong> be a valid <a href="renderpass.html#VkRenderPass" class="xref page">VkRenderPass</a> handle</p>
 </li>
 <li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-stageCount-06604" href="#VUID-VkGraphicsPipelineCreateInfo-stageCount-06604"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-stageCount-06604</span><br>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-stageCount-09530" href="#VUID-VkGraphicsPipelineCreateInfo-stageCount-09530"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-stageCount-09530</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a> or
-<a href="#pipelines-graphics-subsets-fragment-shader">fragment shader state</a>,
-<code>stageCount</code> <strong>must</strong> be greater than <code>0</code></p>
+If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>, <code>stageCount</code> <strong>must</strong> be greater than
+<code>0</code></p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-graphicsPipelineLibrary-06606" href="#VUID-VkGraphicsPipelineCreateInfo-graphicsPipelineLibrary-06606"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-graphicsPipelineLibrary-06606</span><br>
 
-If the <a href="features.html#features-graphicsPipelineLibrary" class="xref page">    <code>graphicsPipelineLibrary</code></a> feature is not enabled, <code>flags</code>
-<strong>must</strong> not include <code>VK_PIPELINE_CREATE_LIBRARY_BIT_KHR</code></p>
+If the <a href="features.html#features-graphicsPipelineLibrary" class="xref page">    <code>graphicsPipelineLibrary</code></a> feature is not enabled,
+<code>flags</code> <strong>must</strong> not include <code>VK_PIPELINE_CREATE_LIBRARY_BIT_KHR</code></p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-06608" href="#VUID-VkGraphicsPipelineCreateInfo-flags-06608"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-06608</span><br>
@@ -5445,23 +5448,10 @@ only one of
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_PRE_RASTERIZATION_SHADERS_BIT_EXT</code> or
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT</code>, an element
 of <a href="#VkPipelineLibraryCreateInfoKHR">VkPipelineLibraryCreateInfoKHR</a>::<code>pLibraries</code> includes the
-other subset, and any element of the <code>pSetLayouts</code> array which
-<code>layout</code> was created with was <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, then the
-corresponding element of the <code>pSetLayouts</code> array used to create the
-library&#8217;s <code>layout</code> <strong>must</strong> not be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
-</li>
-<li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-06680" href="#VUID-VkGraphicsPipelineCreateInfo-flags-06680"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-06680</span><br>
-
-If <a href="#VkGraphicsPipelineLibraryCreateInfoEXT">VkGraphicsPipelineLibraryCreateInfoEXT</a>::<code>flags</code> includes
-only one of
-<code>VK_GRAPHICS_PIPELINE_LIBRARY_PRE_RASTERIZATION_SHADERS_BIT_EXT</code> or
-<code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT</code>, an element
-of <a href="#VkPipelineLibraryCreateInfoKHR">VkPipelineLibraryCreateInfoKHR</a>::<code>pLibraries</code> includes the
-other subset, and any element of the <code>pSetLayouts</code> array used to
-create the library&#8217;s <code>layout</code> was <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, then the
-corresponding element of the <code>pSetLayouts</code> array used to create this
-pipeline&#8217;s <code>layout</code> <strong>must</strong> not be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
+other subset, any element of the <code>pSetLayouts</code> array when
+<code>layout</code> was created and the corresponding element of the
+<code>pSetLayouts</code> array used to create the library&#8217;s <code>layout</code> <strong>must</strong>
+not both be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pLibraries-06681" href="#VUID-VkGraphicsPipelineCreateInfo-pLibraries-06681"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pLibraries-06681</span><br>
@@ -5631,25 +5621,33 @@ the other flags, the <code>renderPass</code> objects used to create each
 library <strong>must</strong> be compatible or all equal to <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
 </li>
 <li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-pMultisampleState-06629" href="#VUID-VkGraphicsPipelineCreateInfo-pMultisampleState-06629"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pMultisampleState-06629</span><br>
-
-If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader">    fragment shader state</a> <code>pMultisampleState</code> <strong>must</strong> be <code>NULL</code> or a
-valid pointer to a valid <a href="primsrast.html#VkPipelineMultisampleStateCreateInfo" class="xref page">VkPipelineMultisampleStateCreateInfo</a>
-structure</p>
-</li>
-<li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-renderpass-06631" href="#VUID-VkGraphicsPipelineCreateInfo-renderpass-06631"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderpass-06631</span><br>
 
-If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader">    fragment shader state</a> and <code>renderpass</code> is not
-<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, then <code>pMultisampleState</code> <strong>must</strong> not be <code>NULL</code></p>
+If <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the pipeline requires
+<a href="#pipelines-graphics-subsets-fragment-shader">fragment shader state</a>,
+and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled
+or any of the <code>VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT</code>,
+<code>VK_DYNAMIC_STATE_SAMPLE_MASK_EXT</code>, or
+<code>VK_DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT</code> dynamic states is
+not set, or <a href="features.html#features-alphaToOne" class="xref page">alphaToOne</a> is enabled on the device
+and <code>VK_DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT</code> is not set,
+then <code>pMultisampleState</code> <strong>must</strong> be a valid pointer to a valid
+<a href="primsrast.html#VkPipelineMultisampleStateCreateInfo" class="xref page">VkPipelineMultisampleStateCreateInfo</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-Input-06632" href="#VUID-VkGraphicsPipelineCreateInfo-Input-06632"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-Input-06632</span><br>
 
 If the pipeline requires <a href="#pipelines-graphics-subsets-fragment-shader">    fragment shader state</a> with a fragment shader that either enables
 <a href="primsrast.html#primsrast-sampleshading" class="xref page">sample shading</a> or decorates any variable in
-the <code>Input</code> storage class with <code>Sample</code>, then
-<code>pMultisampleState</code> <strong>must</strong> not be <code>NULL</code></p>
+the <code>Input</code> storage class with <code>Sample</code>,
+and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not enabled
+or any of the <code>VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT</code>,
+<code>VK_DYNAMIC_STATE_SAMPLE_MASK_EXT</code>, or
+<code>VK_DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT</code> dynamic states is
+not set, or <a href="features.html#features-alphaToOne" class="xref page">alphaToOne</a> is enabled on the device
+and <code>VK_DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT</code> is not set,
+then <code>pMultisampleState</code> <strong>must</strong> be a valid pointer to a valid
+<a href="primsrast.html#VkPipelineMultisampleStateCreateInfo" class="xref page">VkPipelineMultisampleStateCreateInfo</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-06633" href="#VUID-VkGraphicsPipelineCreateInfo-flags-06633"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-06633</span><br>
@@ -5693,8 +5691,8 @@ the <code>pMultisampleState</code> used to create each library <strong>must</str
 If one element of <a href="#VkPipelineLibraryCreateInfoKHR">VkPipelineLibraryCreateInfoKHR</a>::<code>pLibraries</code>
 was created with
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT</code> and
-a value of <code>pMultisampleState-&gt;sampleShading</code> equal <code>VK_TRUE</code>,
-and if a different element of
+a value of <code>pMultisampleState-&gt;sampleShadingEnable</code> equal
+<code>VK_TRUE</code>, and if a different element of
 <a href="#VkPipelineLibraryCreateInfoKHR">VkPipelineLibraryCreateInfoKHR</a>::<code>pLibraries</code> was created with
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT</code>, the
 <code>pMultisampleState</code> used to create each library <strong>must</strong> be
@@ -5705,11 +5703,24 @@ and if a different element of
 
 If <a href="#VkGraphicsPipelineLibraryCreateInfoEXT">VkGraphicsPipelineLibraryCreateInfoEXT</a>::<code>flags</code> includes
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT</code>,
-<code>pMultisampleState-&gt;sampleShading</code> is <code>VK_TRUE</code>, and an element
-of <a href="#VkPipelineLibraryCreateInfoKHR">VkPipelineLibraryCreateInfoKHR</a>::<code>pLibraries</code> was created
-with <code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT</code>, the
-<code>pMultisampleState</code> used to create that library <strong>must</strong> be
-<em>identically defined</em> <code>pMultisampleState</code></p>
+<code>pMultisampleState-&gt;sampleShadingEnable</code> is <code>VK_TRUE</code>, and an
+element of <a href="#VkPipelineLibraryCreateInfoKHR">VkPipelineLibraryCreateInfoKHR</a>::<code>pLibraries</code> was
+created with <code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT</code>,
+<code>pMultisampleState</code> <strong>must</strong> be <em>identically defined</em> to that used to
+create the library</p>
+</li>
+<li>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-pLibraries-09567" href="#VUID-VkGraphicsPipelineCreateInfo-pLibraries-09567"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pLibraries-09567</span><br>
+
+If one element of <a href="#VkPipelineLibraryCreateInfoKHR">VkPipelineLibraryCreateInfoKHR</a>::<code>pLibraries</code>
+was created with
+<code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT</code> and
+a value of <code>pMultisampleState-&gt;sampleShadingEnable</code> equal
+<code>VK_TRUE</code>, and if
+<a href="#VkGraphicsPipelineLibraryCreateInfoEXT">VkGraphicsPipelineLibraryCreateInfoEXT</a>::<code>flags</code> includes
+<code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT</code>,
+<code>pMultisampleState</code> <strong>must</strong> be <em>identically defined</em> to that used to
+create the library</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-06638" href="#VUID-VkGraphicsPipelineCreateInfo-flags-06638"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-06638</span><br>
@@ -5742,26 +5753,6 @@ If <a href="#VkGraphicsPipelineLibraryCreateInfoEXT">VkGraphicsPipelineLibraryCr
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT</code>,
 <code>pStages</code> <strong>must</strong> be a valid pointer to an array of <code>stageCount</code>
 valid <a href="#VkPipelineShaderStageCreateInfo">VkPipelineShaderStageCreateInfo</a> structures</p>
-</li>
-<li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-09041" href="#VUID-VkGraphicsPipelineCreateInfo-flags-09041"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-09041</span><br>
-
-If <a href="#VkGraphicsPipelineLibraryCreateInfoEXT">VkGraphicsPipelineLibraryCreateInfoEXT</a>::<code>flags</code> includes
-<code>VK_GRAPHICS_PIPELINE_LIBRARY_PRE_RASTERIZATION_SHADERS_BIT_EXT</code>,
-and the <code><a href="../appendices/extensions.html#VK_EXT_extended_dynamic_state3" class="xref page">VK_EXT_extended_dynamic_state3</a></code> extension is not
-enabled, or any of the <code>VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT</code>,
-<code>VK_DYNAMIC_STATE_SAMPLE_MASK_EXT</code>, or
-<code>VK_DYNAMIC_STATE_ALPHA_TO_COVERAGE_ENABLE_EXT</code> dynamic states are
-not set, or <a href="features.html#features-alphaToOne" class="xref page">alphaToOne</a> is enabled on the device
-and <code>VK_DYNAMIC_STATE_ALPHA_TO_ONE_ENABLE_EXT</code> is not set,
-<code>pMultisampleState</code> <strong>must</strong> be a valid pointer to a valid
-<a href="primsrast.html#VkPipelineMultisampleStateCreateInfo" class="xref page">VkPipelineMultisampleStateCreateInfo</a> structure</p>
-</li>
-<li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-pRasterizationState-09042" href="#VUID-VkGraphicsPipelineCreateInfo-pRasterizationState-09042"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pRasterizationState-09042</span><br>
-
-If <code>pRasterizationState</code> is not <code>NULL</code> it <strong>must</strong> be a valid pointer
-to a valid <a href="primsrast.html#VkPipelineRasterizationStateCreateInfo" class="xref page">VkPipelineRasterizationStateCreateInfo</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-06642" href="#VUID-VkGraphicsPipelineCreateInfo-flags-06642"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-06642</span><br>
@@ -5868,11 +5859,12 @@ pipeline is being created with
 of <a href="drawing.html#VkPipelineInputAssemblyStateCreateInfo" class="xref page">VkPipelineInputAssemblyStateCreateInfo</a>::<code>topology</code> is
 <code>VK_PRIMITIVE_TOPOLOGY_POINT_LIST</code>,
 <code>VK_PRIMITIVE_TOPOLOGY_LINE_LIST</code>, or
-<code>VK_PRIMITIVE_TOPOLOGY_LINE_STRIP</code>, and either
-<code>VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY</code> dynamic state is not enabled
-or
+<code>VK_PRIMITIVE_TOPOLOGY_LINE_STRIP</code>,
+and either <code>VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY</code> dynamic state is
+not enabled or
 <a href="limits.html#limits-dynamicPrimitiveTopologyUnrestricted" class="xref page"><code>dynamicPrimitiveTopologyUnrestricted</code></a>
-is <code>VK_FALSE</code>, then
+is <code>VK_FALSE</code>,
+then
 <a href="primsrast.html#VkPipelineRasterizationConservativeStateCreateInfoEXT" class="xref page">VkPipelineRasterizationConservativeStateCreateInfoEXT</a>::<code>conservativeRasterizationMode</code>
 <strong>must</strong> be <code>VK_CONSERVATIVE_RASTERIZATION_MODE_DISABLED_EXT</code></p>
 </li>
@@ -6033,6 +6025,17 @@ member of <code>pDynamicState</code> set to
 <code>VK_DYNAMIC_STATE_EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT</code></p>
 </li>
 <li>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-pDynamicState-09639" href="#VUID-VkGraphicsPipelineCreateInfo-pDynamicState-09639"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pDynamicState-09639</span><br>
+
+If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization">    pre-rasterization shader state</a>, <code>pDynamicState</code> includes
+<code>VK_DYNAMIC_STATE_CONSERVATIVE_RASTERIZATION_MODE_EXT</code>, and
+<code>pDynamicState</code> does not include
+<code>VK_DYNAMIC_STATE_EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT</code>,
+<code>pRasterizationState</code> <strong>must</strong> include a
+<a href="primsrast.html#VkPipelineRasterizationConservativeStateCreateInfoEXT" class="xref page">VkPipelineRasterizationConservativeStateCreateInfoEXT</a> in its
+<code>pNext</code> chain</p>
+</li>
+<li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-extendedDynamicState3DepthClipEnable-07384" href="#VUID-VkGraphicsPipelineCreateInfo-extendedDynamicState3DepthClipEnable-07384"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-extendedDynamicState3DepthClipEnable-07384</span><br>
 
 If the <a href="features.html#features-extendedDynamicState3DepthClipEnable" class="xref page">    <code>extendedDynamicState3DepthClipEnable</code></a> feature is not enabled,
@@ -6188,7 +6191,7 @@ If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization"
 <a href="features.html#features-multiview-per-view-viewports" class="xref page">    <code>multiviewPerViewViewports</code></a> is enabled, then the index of the most
 significant bit in each element of
 <a href="renderpass.html#VkRenderPassMultiviewCreateInfo" class="xref page">VkRenderPassMultiviewCreateInfo</a>::<code>pViewMasks</code> <strong>must</strong> be less
-than <code>pViewportState</code>::<code>viewportCount</code></p>
+than <code>pViewportState-&gt;viewportCount</code></p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-07731" href="#VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-07731"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-07731</span><br>
@@ -6200,7 +6203,7 @@ If the pipeline requires <a href="#pipelines-graphics-subsets-pre-rasterization"
 <a href="features.html#features-multiview-per-view-viewports" class="xref page">    <code>multiviewPerViewViewports</code></a> is enabled, then the index of the most
 significant bit in each element of
 <a href="renderpass.html#VkRenderPassMultiviewCreateInfo" class="xref page">VkRenderPassMultiviewCreateInfo</a>::<code>pViewMasks</code> <strong>must</strong> be less
-than <code>pViewportState</code>::<code>scissorCount</code></p>
+than <code>pViewportState-&gt;scissorCount</code></p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pStages-08711" href="#VUID-VkGraphicsPipelineCreateInfo-pStages-08711"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pStages-08711</span><br>
@@ -6232,8 +6235,8 @@ If <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HA
 the pipeline enables <a href="primsrast.html#primsrast-sampleshading" class="xref page">sample shading</a>,
 <code>rasterizationSamples</code> is not dynamic, and the <code>pNext</code> chain
 includes a <a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a> structure,
-<code>rasterizationSamples</code> <strong>must</strong> be a bit value that is set in
-<code>imageCreateSampleCounts</code> (as defined in
+<code>rasterizationSamples</code> <strong>must</strong> be a valid <a href="limits.html#VkSampleCountFlagBits" class="xref page">VkSampleCountFlagBits</a>
+value that is set in <code>imageCreateSampleCounts</code> (as defined in
 <a href="resources.html#resources-image-creation-limits" class="xref page">Image Creation Limits</a>) for every
 element of <code>depthAttachmentFormat</code>, <code>stencilAttachmentFormat</code>
 and the <code>pColorAttachmentFormats</code> array which is not
@@ -6265,8 +6268,7 @@ If <code>flags</code> does not include
 <a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader    state</a> is specified either in a library or by the inclusion of
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_PRE_RASTERIZATION_SHADERS_BIT_EXT</code>,
 and that state includes a vertex shader stage in <code>pStages</code>, the
-pipeline <strong>must</strong> either define
-<a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader    state</a> or include that state in a linked pipeline library</p>
+pipeline <strong>must</strong> either define <a href="#pipelines-graphics-subsets-vertex-input">    vertex input state</a> or include that state in a linked pipeline library</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-08900" href="#VUID-VkGraphicsPipelineCreateInfo-flags-08900"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-08900</span><br>
@@ -6289,9 +6291,9 @@ If <a href="#VkGraphicsPipelineLibraryCreateInfoEXT">VkGraphicsPipelineLibraryCr
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT</code>,
 <a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader    state</a> is specified either in a library or by the inclusion of
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_PRE_RASTERIZATION_SHADERS_BIT_EXT</code>,
-and that state either includes
-<code>VK_DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE</code> or has
-<code>pRasterizationState-&gt;rasterizerDiscardEnable</code> set to
+and that state
+either includes <code>VK_DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE</code> or
+has <code>pRasterizationState-&gt;rasterizerDiscardEnable</code> set to
 <code>VK_FALSE</code>, the pipeline <strong>must</strong> define
 <a href="#pipelines-graphics-subsets-fragment-shader">fragment shader state</a></p>
 </li>
@@ -6310,9 +6312,9 @@ If <a href="#VkGraphicsPipelineLibraryCreateInfoEXT">VkGraphicsPipelineLibraryCr
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT</code>,
 <a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader    state</a> is specified either in a library or by the inclusion of
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_OUTPUT_INTERFACE_BIT_EXT</code>,
-and that state either includes
-<code>VK_DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE</code> or has
-<code>pRasterizationState-&gt;rasterizerDiscardEnable</code> set to
+and that state
+either includes <code>VK_DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE</code> or
+has <code>pRasterizationState-&gt;rasterizerDiscardEnable</code> set to
 <code>VK_FALSE</code>, the pipeline <strong>must</strong> define
 <a href="#pipelines-graphics-subsets-fragment-output">fragment output interface    state</a></p>
 </li>
@@ -6323,6 +6325,19 @@ If <a href="#VkGraphicsPipelineLibraryCreateInfoEXT">VkGraphicsPipelineLibraryCr
 <code>VK_GRAPHICS_PIPELINE_LIBRARY_FRAGMENT_SHADER_BIT_EXT</code>, and
 <a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader    state</a> is not specified, the pipeline <strong>must</strong> define
 <a href="#pipelines-graphics-subsets-fragment-output">fragment output interface    state</a></p>
+</li>
+<li>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-08909" href="#VUID-VkGraphicsPipelineCreateInfo-flags-08909"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-08909</span><br>
+
+If <code>flags</code> does not include
+<code>VK_PIPELINE_CREATE_LIBRARY_BIT_KHR</code>,
+<a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization shader    state</a> is specified either in a library or by the inclusion of
+<code>VK_GRAPHICS_PIPELINE_LIBRARY_PRE_RASTERIZATION_SHADERS_BIT_EXT</code>,
+and that state
+either includes <code>VK_DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE</code> or
+has <code>pRasterizationState-&gt;rasterizerDiscardEnable</code> set to
+<code>VK_FALSE</code>, the pipeline <strong>must</strong> define
+<a href="#pipelines-graphics-subsets-fragment-output">fragment output interface    state</a> and <a href="#pipelines-graphics-subsets-fragment-shader">fragment    shader state</a> or include those states in linked pipeline libraries</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-None-09043" href="#VUID-VkGraphicsPipelineCreateInfo-None-09043"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-None-09043</span><br>
@@ -6429,7 +6444,7 @@ If the <a href="features.html#features-externalFormatResolve" class="xref page">
 feature is enabled, the pipeline requires
 <a href="#pipelines-graphics-subsets-fragment-output">fragment output interface    state</a>, <code>renderPass</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>subpass</code>
 includes an external format resolve attachment, and
-<code>rasterizationSamples</code> is not dynamic,,
+<code>rasterizationSamples</code> is not dynamic,
 <a href="primsrast.html#VkPipelineMultisampleStateCreateInfo" class="xref page">VkPipelineMultisampleStateCreateInfo</a>::<code>rasterizationSamples</code>
 <strong>must</strong> be <code>VK_SAMPLE_COUNT_1_BIT</code></p>
 </li>
@@ -6477,6 +6492,38 @@ and <code>subpass</code> includes an external format resolve attachment, the
 last <a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization    shader stage</a> <strong>must</strong> not statically use a variable with the
 <code>PrimitiveShadingRateKHR</code> built-in</p>
 </li>
+<li>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-09531" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-09531"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-09531</span><br>
+
+If the pipeline is being created with
+<a href="#pipelines-graphics-subsets-fragment-shader">fragment shader state</a>
+and <a href="#pipelines-graphics-subsets-fragment-output">fragment output    state</a>, the value of <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, and
+<a href="interfaces.html#VkRenderingInputAttachmentIndexInfoKHR" class="xref page">VkRenderingInputAttachmentIndexInfoKHR</a> is included,
+<a href="interfaces.html#VkRenderingInputAttachmentIndexInfoKHR" class="xref page">VkRenderingInputAttachmentIndexInfoKHR</a>::<code>colorAttachmentCount</code>
+<strong>must</strong> be equal to
+<a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>::<code>colorAttachmentCount</code></p>
+</li>
+<li>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-09652" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-09652"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-09652</span><br>
+
+If the pipeline is being created with
+<a href="#pipelines-graphics-subsets-fragment-shader">fragment shader state</a>
+and <a href="#pipelines-graphics-subsets-fragment-output">fragment output    state</a>, the value of <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, and
+<a href="interfaces.html#VkRenderingInputAttachmentIndexInfoKHR" class="xref page">VkRenderingInputAttachmentIndexInfoKHR</a> is not included, the
+fragment shader <strong>must</strong> not contain any input attachments with a
+<code>InputAttachmentIndex</code> greater than or equal to
+<a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>::<code>colorAttachmentCount</code></p>
+</li>
+<li>
+<p><a id="VUID-VkGraphicsPipelineCreateInfo-renderPass-09532" href="#VUID-VkGraphicsPipelineCreateInfo-renderPass-09532"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-renderPass-09532</span><br>
+
+If the pipeline is being created with
+<a href="#pipelines-graphics-subsets-fragment-output">fragment output state</a>,
+and the value of <code>renderPass</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
+<a href="interfaces.html#VkRenderingAttachmentLocationInfoKHR" class="xref page">VkRenderingAttachmentLocationInfoKHR</a>::<code>colorAttachmentCount</code>
+<strong>must</strong> be equal to
+<a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>::<code>colorAttachmentCount</code></p>
+</li>
 </ul>
 </div>
 </div>
@@ -6492,15 +6539,11 @@ last <a href="#pipelines-graphics-subsets-pre-rasterization">pre-rasterization  
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pNext-pNext" href="#VUID-VkGraphicsPipelineCreateInfo-pNext-pNext"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="cmdbuffers.html#VkAttachmentSampleCountInfoAMD" class="xref page">VkAttachmentSampleCountInfoAMD</a>, <a href="resources.html#VkExternalFormatANDROID" class="xref page">VkExternalFormatANDROID</a>, <a href="#VkGraphicsPipelineLibraryCreateInfoEXT">VkGraphicsPipelineLibraryCreateInfoEXT</a>, <a href="#VkGraphicsPipelineShaderGroupsCreateInfoNV">VkGraphicsPipelineShaderGroupsCreateInfoNV</a>, <a href="renderpass.html#VkMultiviewPerViewAttributesInfoNVX" class="xref page">VkMultiviewPerViewAttributesInfoNVX</a>, <a href="#VkPipelineCompilerControlCreateInfoAMD">VkPipelineCompilerControlCreateInfoAMD</a>, <a href="#VkPipelineCreateFlags2CreateInfoKHR">VkPipelineCreateFlags2CreateInfoKHR</a>, <a href="#VkPipelineCreationFeedbackCreateInfo">VkPipelineCreationFeedbackCreateInfo</a>, <a href="fragops.html#VkPipelineDiscardRectangleStateCreateInfoEXT" class="xref page">VkPipelineDiscardRectangleStateCreateInfoEXT</a>, <a href="primsrast.html#VkPipelineFragmentShadingRateEnumStateCreateInfoNV" class="xref page">VkPipelineFragmentShadingRateEnumStateCreateInfoNV</a>, <a href="primsrast.html#VkPipelineFragmentShadingRateStateCreateInfoKHR" class="xref page">VkPipelineFragmentShadingRateStateCreateInfoKHR</a>, <a href="#VkPipelineLibraryCreateInfoKHR">VkPipelineLibraryCreateInfoKHR</a>, <a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>, <a href="fragops.html#VkPipelineRepresentativeFragmentTestStateCreateInfoNV" class="xref page">VkPipelineRepresentativeFragmentTestStateCreateInfoNV</a>, or <a href="#VkPipelineRobustnessCreateInfoEXT">VkPipelineRobustnessCreateInfoEXT</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="cmdbuffers.html#VkAttachmentSampleCountInfoAMD" class="xref page">VkAttachmentSampleCountInfoAMD</a>, <a href="resources.html#VkExternalFormatANDROID" class="xref page">VkExternalFormatANDROID</a>, <a href="#VkGraphicsPipelineLibraryCreateInfoEXT">VkGraphicsPipelineLibraryCreateInfoEXT</a>, <a href="#VkGraphicsPipelineShaderGroupsCreateInfoNV">VkGraphicsPipelineShaderGroupsCreateInfoNV</a>, <a href="renderpass.html#VkMultiviewPerViewAttributesInfoNVX" class="xref page">VkMultiviewPerViewAttributesInfoNVX</a>, <a href="#VkPipelineCompilerControlCreateInfoAMD">VkPipelineCompilerControlCreateInfoAMD</a>, <a href="#VkPipelineCreateFlags2CreateInfoKHR">VkPipelineCreateFlags2CreateInfoKHR</a>, <a href="#VkPipelineCreationFeedbackCreateInfo">VkPipelineCreationFeedbackCreateInfo</a>, <a href="fragops.html#VkPipelineDiscardRectangleStateCreateInfoEXT" class="xref page">VkPipelineDiscardRectangleStateCreateInfoEXT</a>, <a href="primsrast.html#VkPipelineFragmentShadingRateEnumStateCreateInfoNV" class="xref page">VkPipelineFragmentShadingRateEnumStateCreateInfoNV</a>, <a href="primsrast.html#VkPipelineFragmentShadingRateStateCreateInfoKHR" class="xref page">VkPipelineFragmentShadingRateStateCreateInfoKHR</a>, <a href="#VkPipelineLibraryCreateInfoKHR">VkPipelineLibraryCreateInfoKHR</a>, <a href="#VkPipelineRenderingCreateInfo">VkPipelineRenderingCreateInfo</a>, <a href="fragops.html#VkPipelineRepresentativeFragmentTestStateCreateInfoNV" class="xref page">VkPipelineRepresentativeFragmentTestStateCreateInfoNV</a>, <a href="#VkPipelineRobustnessCreateInfoEXT">VkPipelineRobustnessCreateInfoEXT</a>, <a href="interfaces.html#VkRenderingAttachmentLocationInfoKHR" class="xref page">VkRenderingAttachmentLocationInfoKHR</a>, or <a href="interfaces.html#VkRenderingInputAttachmentIndexInfoKHR" class="xref page">VkRenderingInputAttachmentIndexInfoKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-sType-unique" href="#VUID-VkGraphicsPipelineCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-sType-unique</span><br>
  The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
-</li>
-<li>
-<p><a id="VUID-VkGraphicsPipelineCreateInfo-flags-parameter" href="#VUID-VkGraphicsPipelineCreateInfo-flags-parameter"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-flags-parameter</span><br>
- <code>flags</code> <strong>must</strong> be a valid combination of <a href="#VkPipelineCreateFlagBits">VkPipelineCreateFlagBits</a> values</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pDynamicState-parameter" href="#VUID-VkGraphicsPipelineCreateInfo-pDynamicState-parameter"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pDynamicState-parameter</span><br>
@@ -6601,6 +6644,21 @@ external format of the resolve attachment that will be used.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPipelineRenderingCreateInfo-colorAttachmentCount-09533" href="#VUID-VkPipelineRenderingCreateInfo-colorAttachmentCount-09533"></a> <span class="vuid">VUID-VkPipelineRenderingCreateInfo-colorAttachmentCount-09533</span><br>
+
+<code>colorAttachmentCount</code> <strong>must</strong> be less than or equal to
+<a href="limits.html#limits-maxColorAttachments" class="xref page"><code>maxColorAttachments</code></a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
 <div class="title">Valid Usage (Implicit)</div>
 <div class="ulist">
 <ul>
@@ -6688,6 +6746,8 @@ typedef VkFlags64 VkPipelineCreateFlagBits2KHR;
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_DISABLE_OPTIMIZATION_BIT_KHR = 0x00000001ULL;
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_ALLOW_DERIVATIVES_BIT_KHR = 0x00000002ULL;
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_DERIVATIVE_BIT_KHR = 0x00000004ULL;
+// Provided by VK_EXT_legacy_dithering with (VK_KHR_dynamic_rendering or VK_VERSION_1_3) and VK_KHR_maintenance5
+static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_ENABLE_LEGACY_DITHERING_BIT_EXT = 0x400000000ULL;
 // Provided by VK_KHR_maintenance5 with VK_VERSION_1_1 or VK_KHR_device_group
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_VIEW_INDEX_FROM_DEVICE_INDEX_BIT_KHR = 0x00000008ULL;
 // Provided by VK_KHR_maintenance5 with VK_VERSION_1_1 or VK_KHR_device_group
@@ -6726,9 +6786,9 @@ static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_RAY_TRACING_SHADE
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_INDIRECT_BINDABLE_BIT_NV = 0x00040000ULL;
 // Provided by VK_KHR_maintenance5 with VK_NV_ray_tracing_motion_blur
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_RAY_TRACING_ALLOW_MOTION_BIT_NV = 0x00100000ULL;
-// Provided by VK_KHR_maintenance5 with VK_KHR_dynamic_rendering and VK_KHR_fragment_shading_rate
+// Provided by VK_KHR_maintenance5 with (VK_KHR_dynamic_rendering or VK_VERSION_1_3) and VK_KHR_fragment_shading_rate
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR = 0x00200000ULL;
-// Provided by VK_KHR_maintenance5 with VK_KHR_dynamic_rendering and VK_EXT_fragment_density_map
+// Provided by VK_KHR_maintenance5 with (VK_KHR_dynamic_rendering or VK_VERSION_1_3) and VK_EXT_fragment_density_map
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT = 0x00400000ULL;
 // Provided by VK_KHR_maintenance5 with VK_EXT_opacity_micromap
 static const VkPipelineCreateFlagBits2KHR VK_PIPELINE_CREATE_2_RAY_TRACING_OPACITY_MICROMAP_BIT_EXT = 0x01000000ULL;
@@ -6848,12 +6908,12 @@ consisting entirely of zeros.</p>
 <li>
 <p><code>VK_PIPELINE_CREATE_2_RAY_TRACING_SKIP_TRIANGLES_BIT_KHR</code> specifies
 that triangle primitives will be skipped during traversal using
-<code>OpTraceRayKHR</code>.</p>
+<a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instructions.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_CREATE_2_RAY_TRACING_SKIP_AABBS_BIT_KHR</code> specifies that
 AABB primitives will be skipped during traversal using
-<code>OpTraceRayKHR</code>.</p>
+<a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instructions.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_CREATE_2_RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR</code>
@@ -6922,13 +6982,13 @@ loop including depth-stencil attachments.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_CREATE_2_RAY_TRACING_OPACITY_MICROMAP_BIT_EXT</code>
-specifies that the pipeline <strong>can</strong> be used with acceleration structures
-which reference an opacity micromap array.</p>
+specifies that the ray tracing pipeline <strong>can</strong> be used with acceleration
+structures which reference an opacity micromap array.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_CREATE_2_RAY_TRACING_DISPLACEMENT_MICROMAP_BIT_NV</code>
-specifies that the pipeline <strong>can</strong> be used with aceleration structures
-which reference a displacement micromap array.</p>
+specifies that the ray tracing pipeline <strong>can</strong> be used with acceleration
+structures which reference a displacement micromap array.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_CREATE_2_NO_PROTECTED_ACCESS_BIT_EXT</code> specifies that
@@ -6937,6 +6997,11 @@ the pipeline <strong>must</strong> not be bound to a protected command buffer.</
 <li>
 <p><code>VK_PIPELINE_CREATE_2_PROTECTED_ACCESS_ONLY_BIT_EXT</code> specifies that
 the pipeline <strong>must</strong> not be bound to an unprotected command buffer.</p>
+</li>
+<li>
+<p><code>VK_PIPELINE_CREATE_2_ENABLE_LEGACY_DITHERING_BIT_EXT</code> specifies
+that the pipeline will be used in a render pass that is begun with
+<code>VK_RENDERING_ENABLE_LEGACY_DITHERING_BIT_EXT</code>.</p>
 </li>
 </ul>
 </div>
@@ -7205,12 +7270,12 @@ consisting entirely of zeros.</p>
 <li>
 <p><code>VK_PIPELINE_CREATE_RAY_TRACING_SKIP_TRIANGLES_BIT_KHR</code> specifies
 that triangle primitives will be skipped during traversal using
-<code>OpTraceRayKHR</code>.</p>
+<a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instructions.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_CREATE_RAY_TRACING_SKIP_AABBS_BIT_KHR</code> specifies that
 AABB primitives will be skipped during traversal using
-<code>OpTraceRayKHR</code>.</p>
+<a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instructions.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_CREATE_RAY_TRACING_SHADER_GROUP_HANDLE_CAPTURE_REPLAY_BIT_KHR</code>
@@ -7285,13 +7350,13 @@ It is ignored if
 </li>
 <li>
 <p><code>VK_PIPELINE_CREATE_RAY_TRACING_OPACITY_MICROMAP_BIT_EXT</code> specifies
-that the pipeline <strong>can</strong> be used with acceleration structures which
-reference an opacity micromap array.</p>
+that the ray tracing pipeline <strong>can</strong> be used with acceleration structures
+which reference an opacity micromap array.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_CREATE_RAY_TRACING_DISPLACEMENT_MICROMAP_BIT_NV</code>
-specifies that the pipeline <strong>can</strong> be used with aceleration structures
-which reference a displacement micromap array.</p>
+specifies that the ray tracing pipeline <strong>can</strong> be used with acceleration
+structures which reference a displacement micromap array.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_CREATE_NO_PROTECTED_ACCESS_BIT_EXT</code> specifies that the
@@ -7660,8 +7725,6 @@ typedef enum VkDynamicState {
     VK_DYNAMIC_STATE_EXCLUSIVE_SCISSOR_NV = 1000205001,
   // Provided by VK_KHR_fragment_shading_rate
     VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR = 1000226000,
-  // Provided by VK_EXT_line_rasterization
-    VK_DYNAMIC_STATE_LINE_STIPPLE_EXT = 1000259000,
   // Provided by VK_EXT_vertex_input_dynamic_state
     VK_DYNAMIC_STATE_VERTEX_INPUT_EXT = 1000352000,
   // Provided by VK_EXT_extended_dynamic_state2
@@ -7670,8 +7733,6 @@ typedef enum VkDynamicState {
     VK_DYNAMIC_STATE_LOGIC_OP_EXT = 1000377003,
   // Provided by VK_EXT_color_write_enable
     VK_DYNAMIC_STATE_COLOR_WRITE_ENABLE_EXT = 1000381000,
-  // Provided by VK_EXT_extended_dynamic_state3
-    VK_DYNAMIC_STATE_TESSELLATION_DOMAIN_ORIGIN_EXT = 1000455002,
   // Provided by VK_EXT_extended_dynamic_state3
     VK_DYNAMIC_STATE_DEPTH_CLAMP_ENABLE_EXT = 1000455003,
   // Provided by VK_EXT_extended_dynamic_state3
@@ -7692,25 +7753,27 @@ typedef enum VkDynamicState {
     VK_DYNAMIC_STATE_COLOR_BLEND_EQUATION_EXT = 1000455011,
   // Provided by VK_EXT_extended_dynamic_state3
     VK_DYNAMIC_STATE_COLOR_WRITE_MASK_EXT = 1000455012,
-  // Provided by VK_EXT_extended_dynamic_state3
+  // Provided by VK_EXT_extended_dynamic_state3 with VK_KHR_maintenance2 or VK_VERSION_1_1
+    VK_DYNAMIC_STATE_TESSELLATION_DOMAIN_ORIGIN_EXT = 1000455002,
+  // Provided by VK_EXT_extended_dynamic_state3 with VK_EXT_transform_feedback
     VK_DYNAMIC_STATE_RASTERIZATION_STREAM_EXT = 1000455013,
-  // Provided by VK_EXT_extended_dynamic_state3
+  // Provided by VK_EXT_conservative_rasterization with VK_EXT_extended_dynamic_state3
     VK_DYNAMIC_STATE_CONSERVATIVE_RASTERIZATION_MODE_EXT = 1000455014,
-  // Provided by VK_EXT_extended_dynamic_state3
+  // Provided by VK_EXT_conservative_rasterization with VK_EXT_extended_dynamic_state3
     VK_DYNAMIC_STATE_EXTRA_PRIMITIVE_OVERESTIMATION_SIZE_EXT = 1000455015,
-  // Provided by VK_EXT_extended_dynamic_state3
+  // Provided by VK_EXT_depth_clip_enable with VK_EXT_extended_dynamic_state3
     VK_DYNAMIC_STATE_DEPTH_CLIP_ENABLE_EXT = 1000455016,
-  // Provided by VK_EXT_extended_dynamic_state3
+  // Provided by VK_EXT_extended_dynamic_state3 with VK_EXT_sample_locations
     VK_DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT = 1000455017,
-  // Provided by VK_EXT_extended_dynamic_state3
+  // Provided by VK_EXT_blend_operation_advanced with VK_EXT_extended_dynamic_state3
     VK_DYNAMIC_STATE_COLOR_BLEND_ADVANCED_EXT = 1000455018,
-  // Provided by VK_EXT_extended_dynamic_state3
+  // Provided by VK_EXT_extended_dynamic_state3 with VK_EXT_provoking_vertex
     VK_DYNAMIC_STATE_PROVOKING_VERTEX_MODE_EXT = 1000455019,
-  // Provided by VK_EXT_extended_dynamic_state3
+  // Provided by VK_EXT_extended_dynamic_state3 with VK_EXT_line_rasterization
     VK_DYNAMIC_STATE_LINE_RASTERIZATION_MODE_EXT = 1000455020,
-  // Provided by VK_EXT_extended_dynamic_state3
+  // Provided by VK_EXT_extended_dynamic_state3 with VK_EXT_line_rasterization
     VK_DYNAMIC_STATE_LINE_STIPPLE_ENABLE_EXT = 1000455021,
-  // Provided by VK_EXT_extended_dynamic_state3
+  // Provided by VK_EXT_depth_clip_control with VK_EXT_extended_dynamic_state3
     VK_DYNAMIC_STATE_DEPTH_CLIP_NEGATIVE_ONE_TO_ONE_EXT = 1000455022,
   // Provided by VK_EXT_extended_dynamic_state3 with VK_NV_clip_space_w_scaling
     VK_DYNAMIC_STATE_VIEWPORT_W_SCALING_ENABLE_NV = 1000455023,
@@ -7734,6 +7797,10 @@ typedef enum VkDynamicState {
     VK_DYNAMIC_STATE_COVERAGE_REDUCTION_MODE_NV = 1000455032,
   // Provided by VK_EXT_attachment_feedback_loop_dynamic_state
     VK_DYNAMIC_STATE_ATTACHMENT_FEEDBACK_LOOP_ENABLE_EXT = 1000524000,
+  // Provided by VK_KHR_line_rasterization
+    VK_DYNAMIC_STATE_LINE_STIPPLE_KHR = 1000259000,
+  // Provided by VK_EXT_line_rasterization
+    VK_DYNAMIC_STATE_LINE_STIPPLE_EXT = VK_DYNAMIC_STATE_LINE_STIPPLE_KHR,
   // Provided by VK_EXT_extended_dynamic_state
     VK_DYNAMIC_STATE_CULL_MODE_EXT = VK_DYNAMIC_STATE_CULL_MODE,
   // Provided by VK_EXT_extended_dynamic_state
@@ -7792,15 +7859,16 @@ and <strong>must</strong> be set dynamically with <a href="primsrast.html#vkCmdS
 drawing commands that generate line primitives for the rasterizer.</p>
 </li>
 <li>
-<p><code>VK_DYNAMIC_STATE_DEPTH_BIAS</code> specifies that any instance of
-<a href="primsrast.html#VkDepthBiasRepresentationInfoEXT" class="xref page">VkDepthBiasRepresentationInfoEXT</a> included in the <code>pNext</code> chain
-of <a href="primsrast.html#VkPipelineRasterizationStateCreateInfo" class="xref page">VkPipelineRasterizationStateCreateInfo</a> as well as the
-<code>depthBiasConstantFactor</code>, <code>depthBiasClamp</code> and
-<code>depthBiasSlopeFactor</code> states in
-<a href="primsrast.html#VkPipelineRasterizationStateCreateInfo" class="xref page">VkPipelineRasterizationStateCreateInfo</a> will be ignored and <strong>must</strong>
-be set dynamically with either <a href="primsrast.html#vkCmdSetDepthBias" class="xref page">vkCmdSetDepthBias</a> or
-<a href="primsrast.html#vkCmdSetDepthBias2EXT" class="xref page">vkCmdSetDepthBias2EXT</a> before any draws are performed with
-<a href="primsrast.html#primsrast-depthbias-enable" class="xref page">depth bias enabled</a>.</p>
+<p><code>VK_DYNAMIC_STATE_DEPTH_BIAS</code> specifies that
+    any instance of <a href="primsrast.html#VkDepthBiasRepresentationInfoEXT" class="xref page">VkDepthBiasRepresentationInfoEXT</a> included in the
+    <code>pNext</code> chain of <a href="primsrast.html#VkPipelineRasterizationStateCreateInfo" class="xref page">VkPipelineRasterizationStateCreateInfo</a> as
+    well as
+    the <code>depthBiasConstantFactor</code>, <code>depthBiasClamp</code> and
+    <code>depthBiasSlopeFactor</code> states in
+    <a href="primsrast.html#VkPipelineRasterizationStateCreateInfo" class="xref page">VkPipelineRasterizationStateCreateInfo</a> will be ignored and <strong>must</strong>
+    be set dynamically with <a href="primsrast.html#vkCmdSetDepthBias" class="xref page">vkCmdSetDepthBias</a>
+or <a href="primsrast.html#vkCmdSetDepthBias2EXT" class="xref page">vkCmdSetDepthBias2EXT</a>
+    before any draws are performed with <a href="primsrast.html#primsrast-depthbias-enable" class="xref page">depth    bias enabled</a>.</p>
 </li>
 <li>
 <p><code>VK_DYNAMIC_STATE_BLEND_CONSTANTS</code> specifies that the
@@ -7903,7 +7971,7 @@ ignored and <strong>must</strong> be set dynamically with
 </li>
 <li>
 <p><code>VK_DYNAMIC_STATE_EXCLUSIVE_SCISSOR_ENABLE_NV</code> specifies that the
-the exclusive scissors <strong>must</strong> be explicitly enabled with
+exclusive scissors <strong>must</strong> be explicitly enabled with
 <a href="fragops.html#vkCmdSetExclusiveScissorEnableNV" class="xref page">vkCmdSetExclusiveScissorEnableNV</a> and the
 <code>exclusiveScissorCount</code> value in
 <a href="fragops.html#VkPipelineViewportExclusiveScissorStateCreateInfoNV" class="xref page">VkPipelineViewportExclusiveScissorStateCreateInfoNV</a> will not
@@ -7928,10 +7996,10 @@ ignored and <strong>must</strong> be set dynamically with
 <li>
 <p><code>VK_DYNAMIC_STATE_LINE_STIPPLE_EXT</code> specifies that the
 <code>lineStippleFactor</code> and <code>lineStipplePattern</code> state in
-<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoEXT" class="xref page">VkPipelineRasterizationLineStateCreateInfoEXT</a> will be ignored and
-<strong>must</strong> be set dynamically with <a href="primsrast.html#vkCmdSetLineStippleEXT" class="xref page">vkCmdSetLineStippleEXT</a> before any
+<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoKHR" class="xref page">VkPipelineRasterizationLineStateCreateInfoKHR</a> will be ignored and
+<strong>must</strong> be set dynamically with <a href="primsrast.html#vkCmdSetLineStippleKHR" class="xref page">vkCmdSetLineStippleKHR</a> before any
 draws are performed with a pipeline state with
-<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoEXT" class="xref page">VkPipelineRasterizationLineStateCreateInfoEXT</a> member
+<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoKHR" class="xref page">VkPipelineRasterizationLineStateCreateInfoKHR</a> member
 <code>stippledLineEnable</code> set to <code>VK_TRUE</code>.</p>
 </li>
 <li>
@@ -8203,14 +8271,14 @@ ignored and <strong>must</strong> be set dynamically with
 <li>
 <p><code>VK_DYNAMIC_STATE_LINE_RASTERIZATION_MODE_EXT</code> specifies that the
 <code>lineRasterizationMode</code> state in
-<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoEXT" class="xref page">VkPipelineRasterizationLineStateCreateInfoEXT</a> will be ignored and
+<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoKHR" class="xref page">VkPipelineRasterizationLineStateCreateInfoKHR</a> will be ignored and
 <strong>must</strong> be set dynamically with <a href="primsrast.html#vkCmdSetLineRasterizationModeEXT" class="xref page">vkCmdSetLineRasterizationModeEXT</a>
 before any draw call.</p>
 </li>
 <li>
 <p><code>VK_DYNAMIC_STATE_LINE_STIPPLE_ENABLE_EXT</code> specifies that the
 <code>stippledLineEnable</code> state in
-<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoEXT" class="xref page">VkPipelineRasterizationLineStateCreateInfoEXT</a> will be ignored and
+<a href="primsrast.html#VkPipelineRasterizationLineStateCreateInfoKHR" class="xref page">VkPipelineRasterizationLineStateCreateInfoKHR</a> will be ignored and
 <strong>must</strong> be set dynamically with <a href="primsrast.html#vkCmdSetLineStippleEnableEXT" class="xref page">vkCmdSetLineStippleEnableEXT</a> before
 any draw call.</p>
 </li>
@@ -8645,8 +8713,9 @@ pipeline state yield a valid state configuration</p>
 <p><a id="VUID-VkGraphicsPipelineShaderGroupsCreateInfoNV-pGroups-02884" href="#VUID-VkGraphicsPipelineShaderGroupsCreateInfoNV-pGroups-02884"></a> <span class="vuid">VUID-VkGraphicsPipelineShaderGroupsCreateInfoNV-pGroups-02884</span><br>
 
 All elements of <code>pGroups</code> <strong>must</strong> use the same shader stage
-combinations unless any mesh shader stage is used, then either
-combination of task and mesh or just mesh shader is valid</p>
+combinations
+unless any mesh shader stage is used, then either combination of task
+and mesh or just mesh shader is valid</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineShaderGroupsCreateInfoNV-pGroups-02885" href="#VUID-VkGraphicsPipelineShaderGroupsCreateInfoNV-pGroups-02885"></a> <span class="vuid">VUID-VkGraphicsPipelineShaderGroupsCreateInfoNV-pGroups-02885</span><br>
@@ -8883,6 +8952,9 @@ tracing pipeline objects are returned.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Pipelines are created and returned as described for <a href="#pipelines-multiple">Multiple Pipeline Creation</a>.</p>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="title">Valid Usage</div>
@@ -9060,6 +9132,9 @@ when
 <a href="features.html#VkPhysicalDeviceRayTracingPipelineFeaturesKHR" class="xref page">VkPhysicalDeviceRayTracingPipelineFeaturesKHR</a>::<code>rayTracingPipelineShaderGroupHandleCaptureReplay</code>
 is enabled.</p>
 </div>
+<div class="paragraph">
+<p>Pipelines are created and returned as described for <a href="#pipelines-multiple">Multiple Pipeline Creation</a>.</p>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="title">Valid Usage</div>
@@ -9100,12 +9175,6 @@ to <code>pipelineCache</code> <strong>must</strong> be
 </div>
 <div class="ulist">
 <ul>
-<li>
-<p><a id="VUID-vkCreateRayTracingPipelinesKHR-deferredOperation-03677" href="#VUID-vkCreateRayTracingPipelinesKHR-deferredOperation-03677"></a> <span class="vuid">VUID-vkCreateRayTracingPipelinesKHR-deferredOperation-03677</span><br>
-
-If <code>deferredOperation</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be a
-valid <a href="VK_KHR_deferred_host_operations/deferred_host_operations.html#VkDeferredOperationKHR" class="xref page">VkDeferredOperationKHR</a> object</p>
-</li>
 <li>
 <p><a id="VUID-vkCreateRayTracingPipelinesKHR-deferredOperation-03678" href="#VUID-vkCreateRayTracingPipelinesKHR-deferredOperation-03678"></a> <span class="vuid">VUID-vkCreateRayTracingPipelinesKHR-deferredOperation-03678</span><br>
 
@@ -9304,6 +9373,15 @@ from that structure is used instead of <code>flags</code> from this structure.</
 <div class="ulist">
 <ul>
 <li>
+<p><a id="VUID-VkRayTracingPipelineCreateInfoNV-None-09497" href="#VUID-VkRayTracingPipelineCreateInfoNV-None-09497"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoNV-None-09497</span><br>
+
+
+If the <code>pNext</code> chain does not include a
+<a href="#VkPipelineCreateFlags2CreateInfoKHR">VkPipelineCreateFlags2CreateInfoKHR</a> structure,
+<code>flags</code> must be a valid combination of
+<a href="#VkPipelineCreateFlagBits">VkPipelineCreateFlagBits</a> values</p>
+</li>
+<li>
 <p><a id="VUID-VkRayTracingPipelineCreateInfoNV-flags-07984" href="#VUID-VkRayTracingPipelineCreateInfoNV-flags-07984"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoNV-flags-07984</span><br>
 
 If <code>flags</code> contains the <code>VK_PIPELINE_CREATE_DERIVATIVE_BIT</code>
@@ -9341,9 +9419,9 @@ shader, a descriptor slot in <code>layout</code> <strong>must</strong> match the
 <p><a id="VUID-VkRayTracingPipelineCreateInfoNV-layout-07990" href="#VUID-VkRayTracingPipelineCreateInfoNV-layout-07990"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoNV-layout-07990</span><br>
 
 If a <a href="interfaces.html#interfaces-resources" class="xref page">resource variables</a> is declared in a
-shader, and the descriptor type is not
-<code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>, a descriptor slot in <code>layout</code>
-<strong>must</strong> match the descriptor type</p>
+shader,
+and the descriptor type is not <code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>,
+a descriptor slot in <code>layout</code> <strong>must</strong> match the descriptor type</p>
 </li>
 <li>
 <p><a id="VUID-VkRayTracingPipelineCreateInfoNV-layout-07991" href="#VUID-VkRayTracingPipelineCreateInfoNV-layout-07991"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoNV-layout-07991</span><br>
@@ -9510,10 +9588,6 @@ The <code>stage</code> value in all <code>pStages</code> elements <strong>must</
  The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
-<p><a id="VUID-VkRayTracingPipelineCreateInfoNV-flags-parameter" href="#VUID-VkRayTracingPipelineCreateInfoNV-flags-parameter"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoNV-flags-parameter</span><br>
- <code>flags</code> <strong>must</strong> be a valid combination of <a href="#VkPipelineCreateFlagBits">VkPipelineCreateFlagBits</a> values</p>
-</li>
-<li>
 <p><a id="VUID-VkRayTracingPipelineCreateInfoNV-pStages-parameter" href="#VUID-VkRayTracingPipelineCreateInfoNV-pStages-parameter"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoNV-pStages-parameter</span><br>
  <code>pStages</code> <strong>must</strong> be a valid pointer to an array of <code>stageCount</code> valid <a href="#VkPipelineShaderStageCreateInfo">VkPipelineShaderStageCreateInfo</a> structures</p>
 </li>
@@ -9676,6 +9750,15 @@ from that structure is used instead of <code>flags</code> from this structure.</
 <div class="ulist">
 <ul>
 <li>
+<p><a id="VUID-VkRayTracingPipelineCreateInfoKHR-None-09497" href="#VUID-VkRayTracingPipelineCreateInfoKHR-None-09497"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoKHR-None-09497</span><br>
+
+
+If the <code>pNext</code> chain does not include a
+<a href="#VkPipelineCreateFlags2CreateInfoKHR">VkPipelineCreateFlags2CreateInfoKHR</a> structure,
+<code>flags</code> must be a valid combination of
+<a href="#VkPipelineCreateFlagBits">VkPipelineCreateFlagBits</a> values</p>
+</li>
+<li>
 <p><a id="VUID-VkRayTracingPipelineCreateInfoKHR-flags-07984" href="#VUID-VkRayTracingPipelineCreateInfoKHR-flags-07984"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoKHR-flags-07984</span><br>
 
 If <code>flags</code> contains the <code>VK_PIPELINE_CREATE_DERIVATIVE_BIT</code>
@@ -9713,9 +9796,9 @@ shader, a descriptor slot in <code>layout</code> <strong>must</strong> match the
 <p><a id="VUID-VkRayTracingPipelineCreateInfoKHR-layout-07990" href="#VUID-VkRayTracingPipelineCreateInfoKHR-layout-07990"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoKHR-layout-07990</span><br>
 
 If a <a href="interfaces.html#interfaces-resources" class="xref page">resource variables</a> is declared in a
-shader, and the descriptor type is not
-<code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>, a descriptor slot in <code>layout</code>
-<strong>must</strong> match the descriptor type</p>
+shader,
+and the descriptor type is not <code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>,
+a descriptor slot in <code>layout</code> <strong>must</strong> match the descriptor type</p>
 </li>
 <li>
 <p><a id="VUID-VkRayTracingPipelineCreateInfoKHR-layout-07991" href="#VUID-VkRayTracingPipelineCreateInfoKHR-layout-07991"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoKHR-layout-07991</span><br>
@@ -10011,10 +10094,6 @@ bit set</p>
 <li>
 <p><a id="VUID-VkRayTracingPipelineCreateInfoKHR-sType-unique" href="#VUID-VkRayTracingPipelineCreateInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoKHR-sType-unique</span><br>
  The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
-</li>
-<li>
-<p><a id="VUID-VkRayTracingPipelineCreateInfoKHR-flags-parameter" href="#VUID-VkRayTracingPipelineCreateInfoKHR-flags-parameter"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoKHR-flags-parameter</span><br>
- <code>flags</code> <strong>must</strong> be a valid combination of <a href="#VkPipelineCreateFlagBits">VkPipelineCreateFlagBits</a> values</p>
 </li>
 <li>
 <p><a id="VUID-VkRayTracingPipelineCreateInfoKHR-pStages-parameter" href="#VUID-VkRayTracingPipelineCreateInfoKHR-pStages-parameter"></a> <span class="vuid">VUID-VkRayTracingPipelineCreateInfoKHR-pStages-parameter</span><br>
@@ -10606,6 +10685,11 @@ will be written.</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>On success, an array of <code>groupCount</code> shader handles will be written to
+<code>pData</code>, with each element being of size
+<a href="limits.html#VkPhysicalDeviceRayTracingPipelinePropertiesKHR" class="xref page">VkPhysicalDeviceRayTracingPipelinePropertiesKHR</a>::<code>shaderGroupHandleSize</code>.</p>
+</div>
+<div class="paragraph">
 <p>If <code>pipeline</code> was created with <code>VK_PIPELINE_CREATE_LIBRARY_BIT_KHR</code>
 and the <a href="features.html#features-pipelineLibraryGroupHandles" class="xref page">pipelineLibraryGroupHandles</a>
 feature is enabled applications <strong>can</strong> query group handles from that pipeline,
@@ -10649,7 +10733,8 @@ equal to the number of shader groups in <code>pipeline</code></p>
 
 If the
 <a href="features.html#features-pipelineLibraryGroupHandles" class="xref page">pipelineLibraryGroupHandles</a>
-feature is not enabled, <code>pipeline</code> <strong>must</strong> not have been created with
+feature is not enabled,
+<code>pipeline</code> <strong>must</strong> not have been created with
 <code>VK_PIPELINE_CREATE_LIBRARY_BIT_KHR</code></p>
 </li>
 </ul>
@@ -10765,6 +10850,11 @@ will be written.</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>On success, an array of <code>groupCount</code> shader handles will be written to
+<code>pData</code>, with each element being of size
+<a href="limits.html#VkPhysicalDeviceRayTracingPipelinePropertiesKHR" class="xref page">VkPhysicalDeviceRayTracingPipelinePropertiesKHR</a>::<code>shaderGroupHandleCaptureReplaySize</code>.</p>
+</div>
+<div class="paragraph">
 <p>Once queried, this opaque data <strong>can</strong> be provided at pipeline creation time
 (in a subsequent execution), using
 <a href="#VkRayTracingShaderGroupCreateInfoKHR">VkRayTracingShaderGroupCreateInfoKHR</a>::<code>pShaderGroupCaptureReplayHandle</code>,
@@ -10826,7 +10916,8 @@ equal to the number of shader groups in <code>pipeline</code></p>
 
 If the
 <a href="features.html#features-pipelineLibraryGroupHandles" class="xref page">pipelineLibraryGroupHandles</a>
-feature is not enabled, <code>pipeline</code> <strong>must</strong> not have been created with
+feature is not enabled,
+<code>pipeline</code> <strong>must</strong> not have been created with
 <code>VK_PIPELINE_CREATE_LIBRARY_BIT_KHR</code></p>
 </li>
 </ul>
@@ -11251,7 +11342,7 @@ trace call</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -11369,46 +11460,6 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="pipelines-multiple"><a class="anchor" href="#pipelines-multiple"></a>Multiple Pipeline Creation</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Multiple pipelines <strong>can</strong> be created simultaneously by passing an array of
-<a href="#VkGraphicsPipelineCreateInfo">VkGraphicsPipelineCreateInfo</a>,
-<a href="#VkRayTracingPipelineCreateInfoKHR">VkRayTracingPipelineCreateInfoKHR</a>,
-<a href="#VkRayTracingPipelineCreateInfoNV">VkRayTracingPipelineCreateInfoNV</a>,
-or <a href="#VkComputePipelineCreateInfo">VkComputePipelineCreateInfo</a> structures into the
-<a href="#vkCreateGraphicsPipelines">vkCreateGraphicsPipelines</a>,
-<a href="#vkCreateRayTracingPipelinesKHR">vkCreateRayTracingPipelinesKHR</a>,
-<a href="#vkCreateRayTracingPipelinesNV">vkCreateRayTracingPipelinesNV</a>,
-and <a href="#vkCreateComputePipelines">vkCreateComputePipelines</a> commands, respectively.
-Applications <strong>can</strong> group together similar pipelines to be created in a single
-call, and implementations are encouraged to look for reuse opportunities
-within a group-create.</p>
-</div>
-<div class="paragraph">
-<p>When an application attempts to create many pipelines in a single command,
-it is possible that some subset <strong>may</strong> fail creation.
-In that case, the corresponding entries in the <code>pPipelines</code> output array
-will be filled with <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> values.
-If any pipeline fails creation despite valid arguments (for example, due to
-out of memory errors), the <a href="fundamentals.html#VkResult" class="xref page">VkResult</a> code returned by
-<code>vkCreate*Pipelines</code> will indicate why.
-The implementation will attempt to create all pipelines, and only return
-<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> values for those that actually failed.</p>
-</div>
-<div class="paragraph">
-<p>If creation fails for a pipeline that had
-<code>VK_PIPELINE_CREATE_EARLY_RETURN_ON_FAILURE_BIT</code> set, pipelines at an
-index in the <code>pPipelines</code> array greater than or equal to that of the
-failing pipeline <strong>must</strong> be set to <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>.</p>
-</div>
-<div class="paragraph">
-<p>If multiple pipelines fail to be created, the <a href="fundamentals.html#VkResult" class="xref page">VkResult</a> <strong>must</strong> be the
-return value of any of the pipelines which did not return <code>VK_SUCCESS</code>.</p>
 </div>
 </div>
 </div>
@@ -12949,13 +13000,6 @@ If <code>pipelineBindPoint</code> is
 <code>VK_PIPELINE_BIND_POINT_SUBPASS_SHADING_HUAWEI</code>, <code>pipeline</code>
 <strong>must</strong> be a subpass shading pipeline</p>
 </li>
-<li>
-<p><a id="VUID-vkCmdBindPipeline-pipelineBindPoint-06653" href="#VUID-vkCmdBindPipeline-pipelineBindPoint-06653"></a> <span class="vuid">VUID-vkCmdBindPipeline-pipelineBindPoint-06653</span><br>
-
-If <code>pipelineBindPoint</code> is <code>VK_PIPELINE_BIND_POINT_GRAPHICS</code>,
-<code>pipeline</code> <strong>must</strong> have been created without
-<code>VK_PIPELINE_CREATE_LIBRARY_BIT_KHR</code></p>
-</li>
 </ul>
 </div>
 </div>
@@ -13027,7 +13071,7 @@ If <code>pipelineBindPoint</code> is <code>VK_PIPELINE_BIND_POINT_GRAPHICS</code
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -13237,7 +13281,7 @@ feature <strong>must</strong> be enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -13259,7 +13303,7 @@ Compute</p></td>
 </div>
 </div>
 <div class="sect2">
-<h3 id="pipelines-shader-object-interaction"><a class="anchor" href="#pipelines-shader-object-interaction"></a>Interaction with Shader Objects</h3>
+<h3 id="pipelines-shader-object-interaction"><a class="anchor" href="#pipelines-shader-object-interaction"></a>Interaction With Shader Objects</h3>
 <div class="paragraph">
 <p>If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
 applications <strong>can</strong> use both pipelines and <a href="shaders.html#shaders-objects" class="xref page">shader objects</a>
@@ -13332,6 +13376,24 @@ and therefore do not disturb any such command buffer state.</p>
 <p>For example, if blending is disabled by the pipeline object state then the
 dynamic color blend constants do not need to be specified in the command
 buffer, even if this state is specified as dynamic in the pipeline object.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>Applications running on Vulkan implementations advertising an
+<a href="devsandqueues.html#VkPhysicalDeviceDriverProperties" class="xref page">VkPhysicalDeviceDriverProperties</a>::<code>conformanceVersion</code> less than
+1.3.8.0 should be aware that rebinding the currently bound pipeline object
+may not reapply static state.</p>
 </div>
 </td>
 </tr>
@@ -13598,7 +13660,7 @@ identifier is implementation specific.</p>
 <li>
 <p><a id="VUID-vkGetPipelinePropertiesEXT-pipeline-06738" href="#VUID-vkGetPipelinePropertiesEXT-pipeline-06738"></a> <span class="vuid">VUID-vkGetPipelinePropertiesEXT-pipeline-06738</span><br>
 
-The <code>pipeline</code> member of <code>pPipelineInfo</code> must have been created
+The <code>pipeline</code> member of <code>pPipelineInfo</code> <strong>must</strong> have been created
 with <code>device</code></p>
 </li>
 <li>
@@ -14461,7 +14523,7 @@ information and is described in further detail below.</p>
 </div>
 <div class="paragraph">
 <p>For <code>infoType</code> <code>VK_SHADER_INFO_TYPE_DISASSEMBLY_AMD</code>, <code>pInfo</code> is
-a pointer to a UTF-8 null-terminated string containing human-readable
+a pointer to a null-terminated UTF-8 string containing human-readable
 disassembly.
 The exact formatting and contents of the disassembly string are
 vendor-specific.</p>

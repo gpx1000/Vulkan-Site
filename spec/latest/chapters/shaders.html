@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="shaders.html">Shaders</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/shaders.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/shaders.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -553,13 +478,6 @@ The <a href="features.html#features-shaderObject" class="xref page"><code>shader
 enabled</p>
 </li>
 <li>
-<p><a id="VUID-vkCreateShadersEXT-pCreateInfos-08401" href="#VUID-vkCreateShadersEXT-pCreateInfos-08401"></a> <span class="vuid">VUID-vkCreateShadersEXT-pCreateInfos-08401</span><br>
-
-If <code>createInfoCount</code> is 1, there <strong>must</strong> be no element of
-<code>pCreateInfos</code> whose <code>flags</code> member includes
-<code>VK_SHADER_CREATE_LINK_STAGE_BIT_EXT</code></p>
-</li>
-<li>
 <p><a id="VUID-vkCreateShadersEXT-pCreateInfos-08402" href="#VUID-vkCreateShadersEXT-pCreateInfos-08402"></a> <span class="vuid">VUID-vkCreateShadersEXT-pCreateInfos-08402</span><br>
 
 If the <code>flags</code> member of any element of <code>pCreateInfos</code> includes
@@ -696,6 +614,15 @@ contains an <code>OpExecutionMode</code> instruction specifying the output patch
 size, it <strong>must</strong> match the output patch size specified in the
 <code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code> stage</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateShadersEXT-pCreateInfos-09632" href="#VUID-vkCreateShadersEXT-pCreateInfos-09632"></a> <span class="vuid">VUID-vkCreateShadersEXT-pCreateInfos-09632</span><br>
+
+If <code>pCreateInfos</code> contains a <code>VK_SHADER_STAGE_MESH_BIT_EXT</code> with
+<code>codeType</code> of <code>VK_SHADER_CODE_TYPE_SPIRV_EXT</code> and
+<code>VK_SHADER_CREATE_NO_TASK_SHADER_BIT_EXT</code> is not set, then the mesh
+shader&#8217;s entry point <strong>must</strong> not declare a variable with a <code>DrawIndex</code>
+<code>BuiltIn</code> decoration</p>
+</li>
 </ul>
 </div>
 </div>
@@ -741,6 +668,9 @@ size, it <strong>must</strong> match the output patch size specified in the
 <li>
 <p><code>VK_SUCCESS</code></p>
 </li>
+<li>
+<p><code>VK_INCOMPATIBLE_SHADER_BINARY_EXT</code></p>
+</li>
 </ul>
 </div>
 </dd>
@@ -756,9 +686,6 @@ size, it <strong>must</strong> match the output patch size specified in the
 </li>
 <li>
 <p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
-</li>
-<li>
-<p><code>VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT</code></p>
 </li>
 </ul>
 </div>
@@ -955,6 +882,22 @@ is not enabled, <code>flags</code> <strong>must</strong> not include
 <code>VK_SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT</code></p>
 </li>
 <li>
+<p><a id="VUID-VkShaderCreateInfoEXT-flags-09404" href="#VUID-VkShaderCreateInfoEXT-flags-09404"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-flags-09404</span><br>
+
+If <code>flags</code> includes
+<code>VK_SHADER_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT</code>, the
+<a href="features.html#features-subgroupSizeControl" class="xref page"><code>subgroupSizeControl</code></a> feature
+<strong>must</strong> be enabled</p>
+</li>
+<li>
+<p><a id="VUID-VkShaderCreateInfoEXT-flags-09405" href="#VUID-VkShaderCreateInfoEXT-flags-09405"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-flags-09405</span><br>
+
+If <code>flags</code> includes
+<code>VK_SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT</code>, the
+<a href="features.html#features-computeFullSubgroups" class="xref page"><code>computeFullSubgroups</code></a> feature
+<strong>must</strong> be enabled</p>
+</li>
+<li>
 <p><a id="VUID-VkShaderCreateInfoEXT-flags-08992" href="#VUID-VkShaderCreateInfoEXT-flags-08992"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-flags-08992</span><br>
 
 If <code>flags</code> includes
@@ -1144,10 +1087,12 @@ variable <strong>must</strong> not have an array size greater than
 <p><a id="VUID-VkShaderCreateInfoEXT-pCode-08450" href="#VUID-VkShaderCreateInfoEXT-pCode-08450"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-pCode-08450</span><br>
 
 If <code>codeType</code> is <code>VK_SHADER_CODE_TYPE_SPIRV_EXT</code>, and the
-identified entry point includes any variables in its interface that are
-declared with the <code>ClipDistance</code> or <code>CullDistance</code> <code>BuiltIn</code>
-decoration, those variables <strong>must</strong> not have array sizes which sum to more
-than <code>VkPhysicalDeviceLimits</code>::<code>maxCombinedClipAndCullDistances</code></p>
+identified entry point includes variables in its interface that are
+declared with the <code>ClipDistance</code> <code>BuiltIn</code> decoration and
+variables in its interface that are declared with the <code>CullDistance</code>
+<code>BuiltIn</code> decoration, those variables <strong>must</strong> not have array sizes
+which sum to more than
+<code>VkPhysicalDeviceLimits</code>::<code>maxCombinedClipAndCullDistances</code></p>
 </li>
 <li>
 <p><a id="VUID-VkShaderCreateInfoEXT-pCode-08451" href="#VUID-VkShaderCreateInfoEXT-pCode-08451"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-pCode-08451</span><br>
@@ -1543,7 +1488,7 @@ how some other getter-type commands work in Vulkan.
 Because shader binary data is only usable in its entirety, it would never be
 useful for the implementation to return partial data.
 Because of this, nothing is written to <code>pData</code> unless <code>pDataSize</code> is
-large enough to fit the data it its entirety.</p>
+large enough to fit the data in its entirety.</p>
 </div>
 </td>
 </tr>
@@ -1714,11 +1659,11 @@ code created on a device with a different or unknown <code>shaderBinaryUUID</cod
 and/or higher <code>shaderBinaryVersion</code>.
 In this case, the implementation <strong>may</strong> use any unspecified means of its
 choosing to determine whether the provided binary shader code is usable.
-If it is, the <a href="#vkCreateShadersEXT">vkCreateShadersEXT</a> call <strong>must</strong> return <code>VK_SUCCESS</code>,
-and the created shader object is guaranteed to be valid.
-Otherwise, in the absence of some other error, the <a href="#vkCreateShadersEXT">vkCreateShadersEXT</a>
-call <strong>must</strong> return <code>VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT</code> to indicate
-that the provided binary shader code is not compatible with the device.</p>
+If it is, <a href="#vkCreateShadersEXT">vkCreateShadersEXT</a> <strong>must</strong> return <code>VK_SUCCESS</code>, and the
+created shader object is guaranteed to be valid.
+Otherwise, in the absence of some error, <a href="#vkCreateShadersEXT">vkCreateShadersEXT</a> <strong>must</strong>
+return <code>VK_INCOMPATIBLE_SHADER_BINARY_EXT</code> to indicate that the provided
+binary shader code is not compatible with the device.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1980,7 +1925,7 @@ If <code>pStages</code> contains <code>VK_SHADER_STAGE_MESH_BIT_EXT</code> or
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -2090,10 +2035,7 @@ line primitives is bound to the
 <p><a href="primsrast.html#vkCmdSetCullMode" class="xref page">vkCmdSetCullMode</a></p>
 </li>
 <li>
-<p><a href="primsrast.html#vkCmdSetFrontFace" class="xref page">vkCmdSetFrontFace</a>, if <code>cullMode</code> is not
-<code>VK_CULL_MODE_NONE</code>, or if <code>stencilTestEnable</code> is <code>VK_TRUE</code>,
-or if the fragment shader uses a variable decorated with
-<code>FrontFacing</code></p>
+<p><a href="primsrast.html#vkCmdSetFrontFace" class="xref page">vkCmdSetFrontFace</a></p>
 </li>
 <li>
 <p><a href="fragops.html#vkCmdSetDepthTestEnable" class="xref page">vkCmdSetDepthTestEnable</a></p>
@@ -2115,9 +2057,8 @@ or if the fragment shader uses a variable decorated with
 <p><a href="primsrast.html#vkCmdSetDepthBiasEnable" class="xref page">vkCmdSetDepthBiasEnable</a></p>
 </li>
 <li>
-<p><a href="primsrast.html#vkCmdSetDepthBias" class="xref page">vkCmdSetDepthBias</a>
-or <a href="primsrast.html#vkCmdSetDepthBias2EXT" class="xref page">vkCmdSetDepthBias2EXT</a>
-    , if <code>depthBiasEnable</code> is <code>VK_TRUE</code></p>
+<p><a href="primsrast.html#vkCmdSetDepthBias" class="xref page">vkCmdSetDepthBias</a> or <a href="primsrast.html#vkCmdSetDepthBias2EXT" class="xref page">vkCmdSetDepthBias2EXT</a>,
+if <code>depthBiasEnable</code> is <code>VK_TRUE</code></p>
 </li>
 <li>
 <p><a href="vertexpostproc.html#vkCmdSetDepthClampEnableEXT" class="xref page">vkCmdSetDepthClampEnableEXT</a>, if the <a href="features.html#features-depthClamp" class="xref page">    depthClamp</a> feature is enabled on the device</p>
@@ -2156,14 +2097,15 @@ or <a href="primsrast.html#vkCmdSetDepthBias2EXT" class="xref page">vkCmdSetDept
 <p><a href="framebuffer.html#vkCmdSetLogicOpEXT" class="xref page">vkCmdSetLogicOpEXT</a>, if <code>logicOpEnable</code> is <code>VK_TRUE</code></p>
 </li>
 <li>
-<p><a href="framebuffer.html#vkCmdSetColorBlendEnableEXT" class="xref page">vkCmdSetColorBlendEnableEXT</a>, with values set for every color
+<p><a href="framebuffer.html#vkCmdSetColorBlendEnableEXT" class="xref page">vkCmdSetColorBlendEnableEXT</a> and <a href="framebuffer.html#vkCmdSetColorWriteMaskEXT" class="xref page">vkCmdSetColorWriteMaskEXT</a>,
+if color attachments are bound, with values set for every color
 attachment in the render pass instance active at draw time</p>
 </li>
 <li>
 <p><a href="framebuffer.html#vkCmdSetColorBlendEquationEXT" class="xref page">vkCmdSetColorBlendEquationEXT</a> or
 <a href="framebuffer.html#vkCmdSetColorBlendAdvancedEXT" class="xref page">vkCmdSetColorBlendAdvancedEXT</a>,
-for every attachment whose index in <code>pColorBlendEnables</code> is a
-pointer to a value of <code>VK_TRUE</code></p>
+if color attachments are bound, for every attachment whose index in
+<code>pColorBlendEnables</code> is a pointer to a value of <code>VK_TRUE</code></p>
 </li>
 <li>
 <p><a href="framebuffer.html#vkCmdSetBlendConstants" class="xref page">vkCmdSetBlendConstants</a>, if any index in <code>pColorBlendEnables</code>
@@ -2173,9 +2115,6 @@ member with a value of <code>VK_BLEND_FACTOR_CONSTANT_COLOR</code>,
 <code>VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_COLOR</code>,
 <code>VK_BLEND_FACTOR_CONSTANT_ALPHA</code>, or
 <code>VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_ALPHA</code></p>
-</li>
-<li>
-<p><a href="framebuffer.html#vkCmdSetColorWriteMaskEXT" class="xref page">vkCmdSetColorWriteMaskEXT</a></p>
 </li>
 </ul>
 </div>
@@ -2284,9 +2223,10 @@ have been called in the command buffer prior to drawing:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code><a href="../appendices/extensions.html#VK_EXT_line_rasterization" class="xref page">VK_EXT_line_rasterization</a></code> extension is enabled on the
-device, and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, and if
-<code>polygonMode</code> is <code>VK_POLYGON_MODE_LINE</code> or a shader is bound to the
+<p>If the <code><a href="../appendices/extensions.html#VK_KHR_line_rasterization" class="xref page">VK_KHR_line_rasterization</a></code> or
+<code><a href="../appendices/extensions.html#VK_EXT_line_rasterization" class="xref page">VK_EXT_line_rasterization</a></code> extension is enabled on the device, and
+<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, and if <code>polygonMode</code> is
+<code>VK_POLYGON_MODE_LINE</code> or a shader is bound to the
 <code>VK_SHADER_STAGE_VERTEX_BIT</code> stage and <code>primitiveTopology</code> is a line
 topology or a shader which outputs line primitives is bound to the
 <code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code> or
@@ -2302,7 +2242,7 @@ been called in the command buffer prior to drawing:</p>
 <p><a href="primsrast.html#vkCmdSetLineStippleEnableEXT" class="xref page">vkCmdSetLineStippleEnableEXT</a></p>
 </li>
 <li>
-<p><a href="primsrast.html#vkCmdSetLineStippleEXT" class="xref page">vkCmdSetLineStippleEXT</a>, if <code>stippledLineEnable</code> is
+<p><a href="primsrast.html#vkCmdSetLineStippleKHR" class="xref page">vkCmdSetLineStippleKHR</a>, if <code>stippledLineEnable</code> is
 <code>VK_TRUE</code></p>
 </li>
 </ul>
@@ -2321,7 +2261,7 @@ command buffer prior to drawing:</p>
 </div>
 <div class="paragraph">
 <p>If the <a href="features.html#features-colorWriteEnable" class="xref page"><code>colorWriteEnable</code></a> feature is
-enabled on the device, a shader is bound to the
+enabled on the device, and a shader is bound to the
 <code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage, and <code>rasterizerDiscardEnable</code>
 is <code>VK_FALSE</code>, the following command <strong>must</strong> have been called in the
 command buffer prior to drawing:</p>
@@ -2335,7 +2275,7 @@ attachment in the render pass instance active at draw time</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <a href="features.html#features-attachmentFeedbackLoopDynamicState" class="xref page">attachmentFeedbackLoopDynamicState</a> feature is enabled on the device, a
+<p>If the <a href="features.html#features-attachmentFeedbackLoopDynamicState" class="xref page">attachmentFeedbackLoopDynamicState</a> feature is enabled on the device, and a
 shader is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage, and
 <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following command <strong>must</strong>
 have been called in the command buffer prior to drawing:</p>
@@ -2343,9 +2283,7 @@ have been called in the command buffer prior to drawing:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="renderpass.html#vkCmdSetAttachmentFeedbackLoopEnableEXT" class="xref page">vkCmdSetAttachmentFeedbackLoopEnableEXT</a>, for each image aspect
-corresponding to an attachment type used by the render pass instance
-which <strong>can</strong> use feedback loops</p>
+<p><a href="renderpass.html#vkCmdSetAttachmentFeedbackLoopEnableEXT" class="xref page">vkCmdSetAttachmentFeedbackLoopEnableEXT</a></p>
 </li>
 </ul>
 </div>
@@ -2483,7 +2421,7 @@ commands.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="shaders-objects-pipeline-interaction"><a class="anchor" href="#shaders-objects-pipeline-interaction"></a>Interaction with Pipelines</h3>
+<h3 id="shaders-objects-pipeline-interaction"><a class="anchor" href="#shaders-objects-pipeline-interaction"></a>Interaction With Pipelines</h3>
 <div class="paragraph">
 <p>Calling <a href="#vkCmdBindShadersEXT">vkCmdBindShadersEXT</a> causes the pipeline bind points
 <a href="#shaders-binding">corresponding to each stage</a> in <code>pStages</code> to be
@@ -2582,7 +2520,7 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </li>
 <li>
 <p><a id="VUID-vkDestroyShaderEXT-shader-parameter" href="#VUID-vkDestroyShaderEXT-shader-parameter"></a> <span class="vuid">VUID-vkDestroyShaderEXT-shader-parameter</span><br>
- <code>shader</code> <strong>must</strong> be a valid <a href="#VkShaderEXT">VkShaderEXT</a> handle</p>
+ If <code>shader</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>shader</code> <strong>must</strong> be a valid <a href="#VkShaderEXT">VkShaderEXT</a> handle</p>
 </li>
 <li>
 <p><a id="VUID-vkDestroyShaderEXT-pAllocator-parameter" href="#VUID-vkDestroyShaderEXT-pAllocator-parameter"></a> <span class="vuid">VUID-vkDestroyShaderEXT-pAllocator-parameter</span><br>
@@ -2590,7 +2528,7 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </li>
 <li>
 <p><a id="VUID-vkDestroyShaderEXT-shader-parent" href="#VUID-vkDestroyShaderEXT-shader-parent"></a> <span class="vuid">VUID-vkDestroyShaderEXT-shader-parent</span><br>
- <code>shader</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+ If <code>shader</code> is a valid handle, it <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
 </li>
 </ul>
 </div>
@@ -2705,8 +2643,9 @@ This avoids the overhead of creating and managing an additional object.</p>
 <p><a id="VUID-vkCreateShaderModule-pCreateInfo-06904" href="#VUID-vkCreateShaderModule-pCreateInfo-06904"></a> <span class="vuid">VUID-vkCreateShaderModule-pCreateInfo-06904</span><br>
 
 If <code>pCreateInfo</code> is not <code>NULL</code>, <code>pCreateInfo-&gt;pNext</code> <strong>must</strong> be
-<code>NULL</code> or a pointer to a
-<a href="#VkShaderModuleValidationCacheCreateInfoEXT">VkShaderModuleValidationCacheCreateInfoEXT</a> structure</p>
+<code>NULL</code>
+or a pointer to a <a href="#VkShaderModuleValidationCacheCreateInfoEXT">VkShaderModuleValidationCacheCreateInfoEXT</a>
+structure</p>
 </li>
 </ul>
 </div>
@@ -3505,15 +3444,32 @@ executed in any function; otherwise it becomes a
 <a href="#shaders-helper-invocations">helper invocation</a>.</p>
 </div>
 <div class="paragraph">
-<p>In addition to the above conditions, <a href="#shaders-helper-invocations">helper invocations</a> are terminated when all non-helper invocations in the same
+<p>In addition to the above conditions, <a href="#shaders-helper-invocations">helper invocations</a> <strong>may</strong> be terminated when all non-helper invocations in the same
 <a href="#shaders-derivative-operations">derivative group</a> either terminate or
-become <a href="#shaders-helper-invocations">helper invocations</a> via
-<code>OpDemoteToHelperInvocationEXT</code> or
-<code>OpKill</code>.</p>
+become <a href="#shaders-helper-invocations">helper invocations</a>.</p>
 </div>
 <div class="paragraph">
 <p>A shader stage for a given command completes execution when all invocations
 for that stage have terminated.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p><code>OpKill</code> will behave the same as either <code>OpTerminateInvocation</code> or
+<code>OpDemoteToHelperInvocation</code> depending on the implementation.
+It is recommended that shader authors use <code>OpTerminateInvocation</code> or
+<code>OpDemoteToHelperInvocation</code> instead of <code>OpKill</code> whenever possible to
+produce more predictable behavior.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -3872,11 +3828,20 @@ used to create the currently active pipeline.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkCmdSetPatchControlPointsEXT-None-08574" href="#VUID-vkCmdSetPatchControlPointsEXT-None-08574"></a> <span class="vuid">VUID-vkCmdSetPatchControlPointsEXT-None-08574</span><br>
+<p><a id="VUID-vkCmdSetPatchControlPointsEXT-None-09422" href="#VUID-vkCmdSetPatchControlPointsEXT-None-09422"></a> <span class="vuid">VUID-vkCmdSetPatchControlPointsEXT-None-09422</span><br>
 
-Either the <a href="features.html#features-extendedDynamicState2PatchControlPoints" class="xref page">    <code>extendedDynamicState2PatchControlPoints</code></a> feature or the
-<a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature or both <strong>must</strong> be
+At least one of the following <strong>must</strong> be true:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="#features-extendedDynamicState2PatchControlPoints"><code>extendedDynamicState2PatchControlPoints</code></a> feature is
 enabled</p>
+</li>
+<li>
+<p>The <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetPatchControlPointsEXT-patchControlPoints-04874" href="#VUID-vkCmdSetPatchControlPointsEXT-patchControlPoints-04874"></a> <span class="vuid">VUID-vkCmdSetPatchControlPointsEXT-patchControlPoints-04874</span><br>
@@ -3943,7 +3908,7 @@ equal to <code>VkPhysicalDeviceLimits</code>::<code>maxTessellationPatchSize</co
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -4087,8 +4052,9 @@ flow barriers to synchronize with other members of the local workgroup.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A ray generation shader is similar to a compute shader.
-Its main purpose is to execute ray tracing queries using <code>OpTraceRayKHR</code>
-instructions and process the results.</p>
+Its main purpose is to execute ray tracing queries using
+<a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instructions (such as
+<code>OpTraceRayKHR</code>) and process the results.</p>
 </div>
 <div class="sect2">
 <h3 id="shaders-ray-generation-execution"><a class="anchor" href="#shaders-ray-generation-execution"></a>Ray Generation Shader Execution</h3>
@@ -4174,7 +4140,7 @@ point during traversal, unless the ray is forcibly terminated.</p>
 <p>Closest hit shaders have read-only access to the attributes generated by the
 corresponding intersection shader, and <strong>can</strong> read or modify the ray payload.
 They also have access to a number of system-generated values.
-Closest hit shaders <strong>can</strong> call <code>OpTraceRayKHR</code> to recursively trace rays.</p>
+Closest hit shaders <strong>can</strong> call <a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instructions to recursively trace rays.</p>
 </div>
 <div class="sect2">
 <h3 id="shaders-closest-hit-execution"><a class="anchor" href="#shaders-closest-hit-execution"></a>Closest Hit Shader Execution</h3>
@@ -4190,8 +4156,9 @@ intersection has been found and accepted.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Miss shaders <strong>can</strong> access the ray payload and <strong>can</strong> trace new rays through the
-<code>OpTraceRayKHR</code> instruction, but <strong>cannot</strong> access attributes since they are
-not associated with an intersection.</p>
+<a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instructions, but
+<strong>cannot</strong> access attributes since they are not associated with an
+intersection.</p>
 </div>
 <div class="sect2">
 <h3 id="shaders-miss-execution"><a class="anchor" href="#shaders-miss-execution"></a>Miss Shader Execution</h3>
@@ -4219,7 +4186,7 @@ allowed shader stage.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="shaders-interpolation-decorations"><a class="anchor" href="#shaders-interpolation-decorations"></a>Interpolation decorations</h2>
+<h2 id="shaders-interpolation-decorations"><a class="anchor" href="#shaders-interpolation-decorations"></a>Interpolation Decorations</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Variables in the <code>Input</code> storage class in a fragment shader&#8217;s interface
@@ -4792,7 +4759,7 @@ included.</p>
 <li>
 <p>If the <code>ShadingRateInterlockOrderedEXT</code> or
     <code>ShadingRateInterlockUnorderedEXT</code> execution modes are used,
-    fragments from neighbouring framebuffer locations are also included.
+    fragments from neighboring framebuffer locations are also included.
     The
 <a href="primsrast.html#primsrast-shading-rate-image" class="xref page">shading rate image</a>
 or
@@ -4976,6 +4943,21 @@ creation time.
 The operations supported are add, mul, min, max, and, or, xor.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="shaders-group-operations-rotate"><a class="anchor" href="#shaders-group-operations-rotate"></a>Rotate Group Operations</h3>
+<div class="paragraph">
+<p>The rotate group operations allow invocations to read values from other
+invocations within the group relative to the current invocation and modulo
+the size of the group.
+Clustered rotate group operations perform the same operation within
+individual partitions of a group.</p>
+</div>
+<div class="paragraph">
+<p>The partitions for clustered rotate group operations are consecutive
+power-of-two size groups of invocations and the cluster size <strong>must</strong> be known
+at pipeline creation time.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -4990,8 +4972,9 @@ always overridden; only the <a href="#shaders-scope-quad">quad scope instance</a
 included in its execution scope.</p>
 </div>
 <div class="paragraph">
-<p>Fragment shaders that statically execute quad group operations <strong>must</strong> launch
-sufficient invocations to ensure their correct operation; additional
+<p>Fragment shaders that statically execute either
+<code>OpGroupNonUniformQuadBroadcast</code> or <code>OpGroupNonUniformQuadSwap</code> <strong>must</strong>
+launch sufficient invocations to ensure their correct operation; additional
 <a href="#shaders-helper-invocations">helper invocations</a> are launched for
 framebuffer locations not covered by rasterized fragments if necessary.</p>
 </div>
@@ -5016,22 +4999,48 @@ used by each participating invocation.</p>
 </div>
 <div class="paragraph">
 <p>Derivative operations operate on a set of invocations known as a <em>derivative
-group</em> as defined in the <a href="introduction.html#spirv-spec" class="xref page">SPIR-V specification</a>.
-A derivative group is equivalent to
-the <a href="#shaders-scope-quad">quad scope instance</a> for a compute shader
-invocation, or
-the <a href="#shaders-scope-primitive">primitive scope instance</a> for a fragment
-shader invocation.</p>
+group</em> as defined in the <a href="introduction.html#spirv-spec" class="xref page">SPIR-V specification</a>.</p>
+</div>
+<div class="paragraph">
+<p>A derivative group in a fragment shader is equivalent to the
+<a href="#shaders-scope-quad">quad scope instance</a> if the <code>QuadDerivativesKHR</code>
+execution mode is specified, otherwise it is equivalent to the
+<a href="#shaders-scope-primitive">primitive scope instance</a>.
+A derivative group in a compute shader is equivalent to the
+<a href="#shaders-scope-quad">quad scope instance</a>.</p>
 </div>
 <div class="paragraph">
 <p>Derivatives are calculated assuming that <span class="eq">P</span> is piecewise linear and
-continuous within the derivative group.
-All dynamic instances of explicit derivative instructions (<code>OpDPdx*</code>,
-<code>OpDPdy*</code>, and <code>OpFwidth*</code>) <strong>must</strong> be executed in control flow that is
-uniform within a derivative group.
-For other derivative operations, results are <strong>undefined</strong> if a dynamic
-instance is executed in control flow that is not uniform within the
-derivative group.</p>
+continuous within the derivative group.</p>
+</div>
+<div class="paragraph">
+<p>The following control-flow restrictions apply to derivative operations:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the <code>QuadDerivativesKHR</code> execution mode is specified, dynamic
+instances of any derivative operations <strong>must</strong> be executed in control flow
+that is uniform within the current <a href="#shaders-scope-quad">quad scope    instance</a>.</p>
+</li>
+<li>
+<p>If the <code>QuadDerivativesKHR</code> execution mode is not specified:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>dynamic instances of explicit derivative instructions (<code>OpDPdx*</code>,
+<code>OpDPdy*</code>, and <code>OpFwidth*</code>) <strong>must</strong> be executed in control flow
+that is uniform within a derivative group.</p>
+</li>
+<li>
+<p>dynamic instances of implicit derivative operations <strong>can</strong> be executed in
+control flow that is not uniform within the derivative group, but
+results are <strong>undefined</strong>.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Fragment shaders that statically execute derivative operations <strong>must</strong> launch
@@ -5144,8 +5153,8 @@ each dimension as follows:</p>
 </div>
 <div class="paragraph">
 <p>The results for <code>OpDPdx</code> and <code>OpDPdy</code> <strong>may</strong> be calculated as either
-fine or coarse derivatives, with implementations favouring the most
-efficient approach.
+fine or coarse derivatives, with implementations favoring the most efficient
+approach.
 Implementations <strong>must</strong> choose coarse or fine consistently between the two.</p>
 </div>
 <div class="paragraph">
@@ -5213,15 +5222,16 @@ invocation.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>For <a href="#shaders-group-operations">group operations</a> other than
-<a href="#shaders-derivative-operations">derivative</a>
-and <a href="#shaders-quad-operations">quad group</a>
-operations, helper invocations <strong>may</strong> be treated as inactive even if they
-would be considered otherwise active.</p>
-</div>
-<div class="paragraph">
-<p>Helper invocations <strong>may</strong> become permanently inactive if all invocations in a
-quad scope instance become helper invocations.</p>
+<p>If the <code>MaximallyReconvergesKHR</code> execution mode is applied to the entry
+point, helper invocations <strong>must</strong> remain active for all instructions for the
+lifetime of the quad scope instance they are a part of.
+If the <code>MaximallyReconvergesKHR</code> execution mode is not applied to the
+entry point, helper
+invocations <strong>may</strong> be considered inactive for <a href="#shaders-group-operations">group operations</a> other than <a href="#shaders-derivative-operations">derivative</a>
+and <a href="#shaders-quad-operations">quad group</a> operations.
+All invocations in a quad scope instance <strong>may</strong> become permanently inactive at
+any point once the only remaining invocations in that quad scope instance
+are helper invocations.</p>
 </div>
 </div>
 </div>
@@ -5558,6 +5568,9 @@ structure.</p>
 <p>At least one entry in the list <strong>must</strong> have power of two values for all of
 <code>MSize</code>, <code>KSize</code>, and <code>NSize</code>.</p>
 </div>
+<div class="paragraph">
+<p><code>scope</code> <strong>must</strong> be <code>VK_SCOPE_SUBGROUP_KHR</code>.</p>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="title">Valid Usage (Implicit)</div>
@@ -5570,26 +5583,6 @@ structure.</p>
 <li>
 <p><a id="VUID-VkCooperativeMatrixPropertiesKHR-pNext-pNext" href="#VUID-VkCooperativeMatrixPropertiesKHR-pNext-pNext"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesKHR-pNext-pNext</span><br>
  <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
-</li>
-<li>
-<p><a id="VUID-VkCooperativeMatrixPropertiesKHR-AType-parameter" href="#VUID-VkCooperativeMatrixPropertiesKHR-AType-parameter"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesKHR-AType-parameter</span><br>
- <code>AType</code> <strong>must</strong> be a valid <a href="#VkComponentTypeKHR">VkComponentTypeKHR</a> value</p>
-</li>
-<li>
-<p><a id="VUID-VkCooperativeMatrixPropertiesKHR-BType-parameter" href="#VUID-VkCooperativeMatrixPropertiesKHR-BType-parameter"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesKHR-BType-parameter</span><br>
- <code>BType</code> <strong>must</strong> be a valid <a href="#VkComponentTypeKHR">VkComponentTypeKHR</a> value</p>
-</li>
-<li>
-<p><a id="VUID-VkCooperativeMatrixPropertiesKHR-CType-parameter" href="#VUID-VkCooperativeMatrixPropertiesKHR-CType-parameter"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesKHR-CType-parameter</span><br>
- <code>CType</code> <strong>must</strong> be a valid <a href="#VkComponentTypeKHR">VkComponentTypeKHR</a> value</p>
-</li>
-<li>
-<p><a id="VUID-VkCooperativeMatrixPropertiesKHR-ResultType-parameter" href="#VUID-VkCooperativeMatrixPropertiesKHR-ResultType-parameter"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesKHR-ResultType-parameter</span><br>
- <code>ResultType</code> <strong>must</strong> be a valid <a href="#VkComponentTypeKHR">VkComponentTypeKHR</a> value</p>
-</li>
-<li>
-<p><a id="VUID-VkCooperativeMatrixPropertiesKHR-scope-parameter" href="#VUID-VkCooperativeMatrixPropertiesKHR-scope-parameter"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesKHR-scope-parameter</span><br>
- <code>scope</code> <strong>must</strong> be a valid <a href="#VkScopeKHR">VkScopeKHR</a> value</p>
 </li>
 </ul>
 </div>
@@ -5680,26 +5673,6 @@ structure.</p>
 <li>
 <p><a id="VUID-VkCooperativeMatrixPropertiesNV-pNext-pNext" href="#VUID-VkCooperativeMatrixPropertiesNV-pNext-pNext"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesNV-pNext-pNext</span><br>
  <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
-</li>
-<li>
-<p><a id="VUID-VkCooperativeMatrixPropertiesNV-AType-parameter" href="#VUID-VkCooperativeMatrixPropertiesNV-AType-parameter"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesNV-AType-parameter</span><br>
- <code>AType</code> <strong>must</strong> be a valid <a href="#VkComponentTypeNV">VkComponentTypeNV</a> value</p>
-</li>
-<li>
-<p><a id="VUID-VkCooperativeMatrixPropertiesNV-BType-parameter" href="#VUID-VkCooperativeMatrixPropertiesNV-BType-parameter"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesNV-BType-parameter</span><br>
- <code>BType</code> <strong>must</strong> be a valid <a href="#VkComponentTypeNV">VkComponentTypeNV</a> value</p>
-</li>
-<li>
-<p><a id="VUID-VkCooperativeMatrixPropertiesNV-CType-parameter" href="#VUID-VkCooperativeMatrixPropertiesNV-CType-parameter"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesNV-CType-parameter</span><br>
- <code>CType</code> <strong>must</strong> be a valid <a href="#VkComponentTypeNV">VkComponentTypeNV</a> value</p>
-</li>
-<li>
-<p><a id="VUID-VkCooperativeMatrixPropertiesNV-DType-parameter" href="#VUID-VkCooperativeMatrixPropertiesNV-DType-parameter"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesNV-DType-parameter</span><br>
- <code>DType</code> <strong>must</strong> be a valid <a href="#VkComponentTypeNV">VkComponentTypeNV</a> value</p>
-</li>
-<li>
-<p><a id="VUID-VkCooperativeMatrixPropertiesNV-scope-parameter" href="#VUID-VkCooperativeMatrixPropertiesNV-scope-parameter"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesNV-scope-parameter</span><br>
- <code>scope</code> <strong>must</strong> be a valid <a href="#VkScopeNV">VkScopeNV</a> value</p>
 </li>
 </ul>
 </div>
@@ -6589,6 +6562,685 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="cuda-modules"><a class="anchor" href="#cuda-modules"></a>CUDA Modules</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="cuda-modules-creation"><a class="anchor" href="#cuda-modules-creation"></a>Creating a CUDA Module</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>CUDA modules <strong>must</strong> contain some kernel code and <strong>must</strong> expose at least one
+function entry point.</p>
+</div>
+<div class="paragraph">
+<p>CUDA modules are represented by <code>VkCudaModuleNV</code> handles:</p>
+</div>
+<div id="VkCudaModuleNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cuda_kernel_launch
+VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkCudaModuleNV)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To create a CUDA module, call:</p>
+</div>
+<div id="vkCreateCudaModuleNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cuda_kernel_launch
+VkResult vkCreateCudaModuleNV(
+    VkDevice                                    device,
+    const VkCudaModuleCreateInfoNV*             pCreateInfo,
+    const VkAllocationCallbacks*                pAllocator,
+    VkCudaModuleNV*                             pModule);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the logical device that creates the shader module.</p>
+</li>
+<li>
+<p><code>pCreateInfo</code> is a pointer to a <a href="#VkCudaModuleCreateInfoNV">VkCudaModuleCreateInfoNV</a>
+structure.</p>
+</li>
+<li>
+<p><code>pAllocator</code> controls host memory allocation as described in the
+<a href="memory.html#memory-allocation" class="xref page">Memory Allocation</a> chapter.</p>
+</li>
+<li>
+<p><code>pModule</code> is a pointer to a <a href="#VkCudaModuleNV">VkCudaModuleNV</a> handle in which the
+resulting CUDA module object is returned.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once a CUDA module has been created, the application <strong>may</strong> create the
+function entry point, which <strong>must</strong> refer to one function in the module.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkCreateCudaModuleNV-device-parameter" href="#VUID-vkCreateCudaModuleNV-device-parameter"></a> <span class="vuid">VUID-vkCreateCudaModuleNV-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkCreateCudaModuleNV-pCreateInfo-parameter" href="#VUID-vkCreateCudaModuleNV-pCreateInfo-parameter"></a> <span class="vuid">VUID-vkCreateCudaModuleNV-pCreateInfo-parameter</span><br>
+ <code>pCreateInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkCudaModuleCreateInfoNV">VkCudaModuleCreateInfoNV</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkCreateCudaModuleNV-pAllocator-parameter" href="#VUID-vkCreateCudaModuleNV-pAllocator-parameter"></a> <span class="vuid">VUID-vkCreateCudaModuleNV-pAllocator-parameter</span><br>
+ If <code>pAllocator</code> is not <code>NULL</code>, <code>pAllocator</code> <strong>must</strong> be a valid pointer to a valid <a href="memory.html#VkAllocationCallbacks" class="xref page">VkAllocationCallbacks</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkCreateCudaModuleNV-pModule-parameter" href="#VUID-vkCreateCudaModuleNV-pModule-parameter"></a> <span class="vuid">VUID-vkCreateCudaModuleNV-pModule-parameter</span><br>
+ <code>pModule</code> <strong>must</strong> be a valid pointer to a <a href="#VkCudaModuleNV">VkCudaModuleNV</a> handle</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkCudaModuleCreateInfoNV</code> structure is defined as:</p>
+</div>
+<div id="VkCudaModuleCreateInfoNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cuda_kernel_launch
+typedef struct VkCudaModuleCreateInfoNV {
+    VkStructureType    sType;
+    const void*        pNext;
+    size_t             dataSize;
+    const void*        pData;
+} VkCudaModuleCreateInfoNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> <strong>may</strong> be <code>NULL</code> or <strong>may</strong> be a pointer to a structure extending
+this structure.</p>
+</li>
+<li>
+<p><code>dataSize</code> is the length of the <code>pData</code> array.</p>
+</li>
+<li>
+<p><code>pData</code> is a pointer to CUDA code</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkCudaModuleCreateInfoNV-dataSize-09413" href="#VUID-VkCudaModuleCreateInfoNV-dataSize-09413"></a> <span class="vuid">VUID-VkCudaModuleCreateInfoNV-dataSize-09413</span><br>
+
+<code>dataSize</code> <strong>must</strong> be the total size in bytes of the PTX files or
+binary cache passed to <code>pData</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkCudaModuleCreateInfoNV-sType-sType" href="#VUID-VkCudaModuleCreateInfoNV-sType-sType"></a> <span class="vuid">VUID-VkCudaModuleCreateInfoNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_CUDA_MODULE_CREATE_INFO_NV</code></p>
+</li>
+<li>
+<p><a id="VUID-VkCudaModuleCreateInfoNV-pNext-pNext" href="#VUID-VkCudaModuleCreateInfoNV-pNext-pNext"></a> <span class="vuid">VUID-VkCudaModuleCreateInfoNV-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkCudaModuleCreateInfoNV-pData-parameter" href="#VUID-VkCudaModuleCreateInfoNV-pData-parameter"></a> <span class="vuid">VUID-VkCudaModuleCreateInfoNV-pData-parameter</span><br>
+ <code>pData</code> <strong>must</strong> be a valid pointer to an array of <code>dataSize</code> bytes</p>
+</li>
+<li>
+<p><a id="VUID-VkCudaModuleCreateInfoNV-dataSize-arraylength" href="#VUID-VkCudaModuleCreateInfoNV-dataSize-arraylength"></a> <span class="vuid">VUID-VkCudaModuleCreateInfoNV-dataSize-arraylength</span><br>
+ <code>dataSize</code> <strong>must</strong> be greater than <code>0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cuda-function-creation"><a class="anchor" href="#cuda-function-creation"></a>Creating a CUDA Function Handle</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>CUDA functions are represented by <code>VkCudaFunctionNV</code> handles.
+Handles to <code><em>global</em></code> functions <strong>may</strong> then be used to issue a kernel launch
+(i.e. dispatch) from a commandbuffer.
+See <a href="dispatch.html#cudadispatch" class="xref page">Dispatching Command for CUDA PTX kernel</a>.</p>
+</div>
+<div id="VkCudaFunctionNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cuda_kernel_launch
+VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkCudaFunctionNV)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To create a CUDA function, call:</p>
+</div>
+<div id="vkCreateCudaFunctionNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cuda_kernel_launch
+VkResult vkCreateCudaFunctionNV(
+    VkDevice                                    device,
+    const VkCudaFunctionCreateInfoNV*           pCreateInfo,
+    const VkAllocationCallbacks*                pAllocator,
+    VkCudaFunctionNV*                           pFunction);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the logical device that creates the shader module.</p>
+</li>
+<li>
+<p><code>pCreateInfo</code> is a pointer to a <a href="#VkCudaFunctionCreateInfoNV">VkCudaFunctionCreateInfoNV</a>
+structure.</p>
+</li>
+<li>
+<p><code>pAllocator</code> controls host memory allocation as described in the
+<a href="memory.html#memory-allocation" class="xref page">Memory Allocation</a> chapter.</p>
+</li>
+<li>
+<p><code>pFunction</code> is a pointer to a <a href="#VkCudaFunctionNV">VkCudaFunctionNV</a> handle in which
+the resulting CUDA function object is returned.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkCreateCudaFunctionNV-device-parameter" href="#VUID-vkCreateCudaFunctionNV-device-parameter"></a> <span class="vuid">VUID-vkCreateCudaFunctionNV-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkCreateCudaFunctionNV-pCreateInfo-parameter" href="#VUID-vkCreateCudaFunctionNV-pCreateInfo-parameter"></a> <span class="vuid">VUID-vkCreateCudaFunctionNV-pCreateInfo-parameter</span><br>
+ <code>pCreateInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkCudaFunctionCreateInfoNV">VkCudaFunctionCreateInfoNV</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkCreateCudaFunctionNV-pAllocator-parameter" href="#VUID-vkCreateCudaFunctionNV-pAllocator-parameter"></a> <span class="vuid">VUID-vkCreateCudaFunctionNV-pAllocator-parameter</span><br>
+ If <code>pAllocator</code> is not <code>NULL</code>, <code>pAllocator</code> <strong>must</strong> be a valid pointer to a valid <a href="memory.html#VkAllocationCallbacks" class="xref page">VkAllocationCallbacks</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkCreateCudaFunctionNV-pFunction-parameter" href="#VUID-vkCreateCudaFunctionNV-pFunction-parameter"></a> <span class="vuid">VUID-vkCreateCudaFunctionNV-pFunction-parameter</span><br>
+ <code>pFunction</code> <strong>must</strong> be a valid pointer to a <a href="#VkCudaFunctionNV">VkCudaFunctionNV</a> handle</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkCudaFunctionCreateInfoNV</code> structure is defined as:</p>
+</div>
+<div id="VkCudaFunctionCreateInfoNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cuda_kernel_launch
+typedef struct VkCudaFunctionCreateInfoNV {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkCudaModuleNV     module;
+    const char*        pName;
+} VkCudaFunctionCreateInfoNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>module</code> is the CUDA <a href="#VkCudaModuleNV">VkCudaModuleNV</a> module in which the
+function resides.</p>
+</li>
+<li>
+<p><code>pName</code> is a null-terminated UTF-8 string containing the name of the
+shader entry point for this stage.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkCudaFunctionCreateInfoNV-sType-sType" href="#VUID-VkCudaFunctionCreateInfoNV-sType-sType"></a> <span class="vuid">VUID-VkCudaFunctionCreateInfoNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_CUDA_FUNCTION_CREATE_INFO_NV</code></p>
+</li>
+<li>
+<p><a id="VUID-VkCudaFunctionCreateInfoNV-pNext-pNext" href="#VUID-VkCudaFunctionCreateInfoNV-pNext-pNext"></a> <span class="vuid">VUID-VkCudaFunctionCreateInfoNV-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkCudaFunctionCreateInfoNV-module-parameter" href="#VUID-VkCudaFunctionCreateInfoNV-module-parameter"></a> <span class="vuid">VUID-VkCudaFunctionCreateInfoNV-module-parameter</span><br>
+ <code>module</code> <strong>must</strong> be a valid <a href="#VkCudaModuleNV">VkCudaModuleNV</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-VkCudaFunctionCreateInfoNV-pName-parameter" href="#VUID-VkCudaFunctionCreateInfoNV-pName-parameter"></a> <span class="vuid">VUID-VkCudaFunctionCreateInfoNV-pName-parameter</span><br>
+ <code>pName</code> <strong>must</strong> be a null-terminated UTF-8 string</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cuda-function-destruction"><a class="anchor" href="#cuda-function-destruction"></a>Destroying a CUDA Function</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To destroy a CUDA function handle, call:</p>
+</div>
+<div id="vkDestroyCudaFunctionNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cuda_kernel_launch
+void vkDestroyCudaFunctionNV(
+    VkDevice                                    device,
+    VkCudaFunctionNV                            function,
+    const VkAllocationCallbacks*                pAllocator);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the logical device that destroys the Function.</p>
+</li>
+<li>
+<p><code>function</code> is the handle of the CUDA function to destroy.</p>
+</li>
+<li>
+<p><code>pAllocator</code> controls host memory allocation as described in the
+<a href="memory.html#memory-allocation" class="xref page">Memory Allocation</a> chapter.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkDestroyCudaFunctionNV-device-parameter" href="#VUID-vkDestroyCudaFunctionNV-device-parameter"></a> <span class="vuid">VUID-vkDestroyCudaFunctionNV-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkDestroyCudaFunctionNV-function-parameter" href="#VUID-vkDestroyCudaFunctionNV-function-parameter"></a> <span class="vuid">VUID-vkDestroyCudaFunctionNV-function-parameter</span><br>
+ <code>function</code> <strong>must</strong> be a valid <a href="#VkCudaFunctionNV">VkCudaFunctionNV</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkDestroyCudaFunctionNV-pAllocator-parameter" href="#VUID-vkDestroyCudaFunctionNV-pAllocator-parameter"></a> <span class="vuid">VUID-vkDestroyCudaFunctionNV-pAllocator-parameter</span><br>
+ If <code>pAllocator</code> is not <code>NULL</code>, <code>pAllocator</code> <strong>must</strong> be a valid pointer to a valid <a href="memory.html#VkAllocationCallbacks" class="xref page">VkAllocationCallbacks</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkDestroyCudaFunctionNV-function-parent" href="#VUID-vkDestroyCudaFunctionNV-function-parent"></a> <span class="vuid">VUID-vkDestroyCudaFunctionNV-function-parent</span><br>
+ <code>function</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cuda-modules-destruction"><a class="anchor" href="#cuda-modules-destruction"></a>Destroying a CUDA Module</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To destroy a CUDA shader module, call:</p>
+</div>
+<div id="vkDestroyCudaModuleNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cuda_kernel_launch
+void vkDestroyCudaModuleNV(
+    VkDevice                                    device,
+    VkCudaModuleNV                              module,
+    const VkAllocationCallbacks*                pAllocator);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the logical device that destroys the shader module.</p>
+</li>
+<li>
+<p><code>module</code> is the handle of the CUDA module to destroy.</p>
+</li>
+<li>
+<p><code>pAllocator</code> controls host memory allocation as described in the
+<a href="memory.html#memory-allocation" class="xref page">Memory Allocation</a> chapter.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkDestroyCudaModuleNV-device-parameter" href="#VUID-vkDestroyCudaModuleNV-device-parameter"></a> <span class="vuid">VUID-vkDestroyCudaModuleNV-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkDestroyCudaModuleNV-module-parameter" href="#VUID-vkDestroyCudaModuleNV-module-parameter"></a> <span class="vuid">VUID-vkDestroyCudaModuleNV-module-parameter</span><br>
+ <code>module</code> <strong>must</strong> be a valid <a href="#VkCudaModuleNV">VkCudaModuleNV</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkDestroyCudaModuleNV-pAllocator-parameter" href="#VUID-vkDestroyCudaModuleNV-pAllocator-parameter"></a> <span class="vuid">VUID-vkDestroyCudaModuleNV-pAllocator-parameter</span><br>
+ If <code>pAllocator</code> is not <code>NULL</code>, <code>pAllocator</code> <strong>must</strong> be a valid pointer to a valid <a href="memory.html#VkAllocationCallbacks" class="xref page">VkAllocationCallbacks</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkDestroyCudaModuleNV-module-parent" href="#VUID-vkDestroyCudaModuleNV-module-parent"></a> <span class="vuid">VUID-vkDestroyCudaModuleNV-module-parent</span><br>
+ <code>module</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cuda-modules-getcache"><a class="anchor" href="#cuda-modules-getcache"></a>Reading back CUDA Module Cache</h3>
+<div class="paragraph">
+<p>After uploading the PTX kernel code, the module compiles the code to
+generate a binary cache with all the necessary information for the device to
+execute it.
+It is possible to read back this cache for later use, such as accelerating
+the initialization of further executions.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To get the CUDA module cache call:</p>
+</div>
+<div id="vkGetCudaModuleCacheNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cuda_kernel_launch
+VkResult vkGetCudaModuleCacheNV(
+    VkDevice                                    device,
+    VkCudaModuleNV                              module,
+    size_t*                                     pCacheSize,
+    void*                                       pCacheData);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the logical device that destroys the Function.</p>
+</li>
+<li>
+<p><code>module</code> is the CUDA module.</p>
+</li>
+<li>
+<p><code>pCacheSize</code> is a pointer containing the amount of bytes to be
+copied in <code>pCacheData</code></p>
+</li>
+<li>
+<p><code>pCacheData</code> is a pointer to a buffer in which to copy the binary
+cache</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>pCacheData</code> is <code>NULL</code>, then the size of the binary cache, in bytes,
+is returned in <code>pCacheSize</code>.
+Otherwise, <code>pCacheSize</code> <strong>must</strong> point to a variable set by the user to the
+size of the buffer, in bytes, pointed to by <code>pCacheData</code>, and on return
+the variable is overwritten with the amount of data actually written to
+<code>pCacheData</code>.
+If <code>pCacheSize</code> is less than the size of the binary shader code, nothing
+is written to <code>pCacheData</code>, and <code>VK_INCOMPLETE</code> will be returned
+instead of <code>VK_SUCCESS</code>.</p>
+</div>
+<div class="paragraph">
+<p>The returned cache <strong>may</strong> then be used later for further initialization of the
+CUDA module, by sending this cache <em>instead</em> of the PTX code when using
+<a href="#vkCreateCudaModuleNV">vkCreateCudaModuleNV</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>Using the binary cache instead of the original PTX code <strong>should</strong>
+significantly speed up initialization of the CUDA module, given that the
+whole compilation and validation will not be necessary.</p>
+</div>
+<div class="paragraph">
+<p>As with <a href="pipelines.html#VkPipelineCache" class="xref page">VkPipelineCache</a>, the binary cache depends on the specific
+implementation.
+The application <strong>must</strong> assume the cache upload might fail in many
+circumstances and thus <strong>may</strong> have to get ready for falling back to the
+original PTX code if necessary.
+Most often, the cache <strong>may</strong> succeed if the same device driver and
+architecture is used between the cache generation from PTX and the use of
+this cache.
+In the event of a new driver version or if using a different device
+architecture, this cache <strong>may</strong> become invalid.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkGetCudaModuleCacheNV-device-parameter" href="#VUID-vkGetCudaModuleCacheNV-device-parameter"></a> <span class="vuid">VUID-vkGetCudaModuleCacheNV-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetCudaModuleCacheNV-module-parameter" href="#VUID-vkGetCudaModuleCacheNV-module-parameter"></a> <span class="vuid">VUID-vkGetCudaModuleCacheNV-module-parameter</span><br>
+ <code>module</code> <strong>must</strong> be a valid <a href="#VkCudaModuleNV">VkCudaModuleNV</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetCudaModuleCacheNV-pCacheSize-parameter" href="#VUID-vkGetCudaModuleCacheNV-pCacheSize-parameter"></a> <span class="vuid">VUID-vkGetCudaModuleCacheNV-pCacheSize-parameter</span><br>
+ <code>pCacheSize</code> <strong>must</strong> be a valid pointer to a <code>size_t</code> value</p>
+</li>
+<li>
+<p><a id="VUID-vkGetCudaModuleCacheNV-pCacheData-parameter" href="#VUID-vkGetCudaModuleCacheNV-pCacheData-parameter"></a> <span class="vuid">VUID-vkGetCudaModuleCacheNV-pCacheData-parameter</span><br>
+ If the value referenced by <code>pCacheSize</code> is not <code>0</code>, and <code>pCacheData</code> is not <code>NULL</code>, <code>pCacheData</code> <strong>must</strong> be a valid pointer to an array of <code>pCacheSize</code> bytes</p>
+</li>
+<li>
+<p><a id="VUID-vkGetCudaModuleCacheNV-module-parent" href="#VUID-vkGetCudaModuleCacheNV-module-parent"></a> <span class="vuid">VUID-vkGetCudaModuleCacheNV-module-parent</span><br>
+ <code>module</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+<li>
+<p><code>VK_INCOMPLETE</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cuda-modules-limitations"><a class="anchor" href="#cuda-modules-limitations"></a>Limitations</h3>
+<div class="paragraph">
+<p>CUDA and Vulkan do not use the device in the same configuration.
+The following limitations <strong>must</strong> be taken into account:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It is not possible to read or write global parameters from Vulkan.
+The only way to share resources or send values to the PTX kernel is to
+pass them as arguments of the function.
+See <a href="dispatch.html#cudadispatch_sharing_resources" class="xref page">Resources sharing between CUDA    Kernel and Vulkan</a> for more details.</p>
+</li>
+<li>
+<p>No calls to functions external to the module PTX are supported.</p>
+</li>
+<li>
+<p>Vulkan disables some shader/kernel exceptions, which could break CUDA
+kernels relying on exceptions.</p>
+</li>
+<li>
+<p>CUDA kernels submitted to Vulkan are limited to the amount of shared
+memory, which can be queried from the physical capabilities.
+It may be less than what CUDA can offer.</p>
+</li>
+<li>
+<p>CUDA instruction-level preemption (CILP) does not work.</p>
+</li>
+<li>
+<p>CUDA Unified Memory will not work in this extension.</p>
+</li>
+<li>
+<p>CUDA Dynamic parallelism is not supported.</p>
+</li>
+<li>
+<p><code>vk*DispatchIndirect</code> is not available.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

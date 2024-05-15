@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="accelstructures.html">Acceleration Structures</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/accelstructures.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/accelstructures.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -555,8 +480,8 @@ geometry which previously had them, or vice versa.</p>
 explicit micro-map triangles.</p>
 </li>
 <li>
-<p>Change the subdivision level or format of the micromap triangle associated
-with any acceleration-structure triangle.</p>
+<p>Change the subdivision level or format of the micromap triangle
+associated with any acceleration-structure triangle.</p>
 </li>
 </ul>
 </div>
@@ -905,7 +830,7 @@ If <code>update</code> is <code>VK_TRUE</code>, the <code>src</code> and <code>d
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -1322,17 +1247,26 @@ built</p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-primitiveCount-03769" href="#VUID-vkCmdBuildAccelerationStructuresKHR-primitiveCount-03769"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-primitiveCount-03769</span><br>
 
-For each <code>VkAccelerationStructureBuildRangeInfoKHR</code> referenced by
-this command, its <code>primitiveCount</code> member <strong>must</strong> have the same value
-which was specified when <code>srcAccelerationStructure</code> was last built</p>
+For each element of <code>pInfos</code>, if its <code>mode</code> member is
+<code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, then for each
+<code>VkAccelerationStructureGeometryKHR</code> structure referred to by its
+<code>pGeometries</code> or <code>ppGeometries</code> members, the
+<code>primitiveCount</code> member of its corresponding
+<code>VkAccelerationStructureBuildRangeInfoKHR</code> structure <strong>must</strong> have the
+same value which was specified when <code>srcAccelerationStructure</code> was
+last built</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-firstVertex-03770" href="#VUID-vkCmdBuildAccelerationStructuresKHR-firstVertex-03770"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-firstVertex-03770</span><br>
 
-For each <code>VkAccelerationStructureBuildRangeInfoKHR</code> referenced by
-this command, if the corresponding geometry uses indices, its
-<code>firstVertex</code> member <strong>must</strong> have the same value which was specified
-when <code>srcAccelerationStructure</code> was last built</p>
+For each element of <code>pInfos</code>, if its <code>mode</code> member is
+<code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, then for each
+<code>VkAccelerationStructureGeometryKHR</code> structure referred to by its
+<code>pGeometries</code> or <code>ppGeometries</code> members, if the geometry uses
+indices, the <code>firstVertex</code> member of its corresponding
+<code>VkAccelerationStructureBuildRangeInfoKHR</code> structure <strong>must</strong> have the
+same value which was specified when <code>srcAccelerationStructure</code> was
+last built</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03801" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03801"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03801</span><br>
@@ -1613,6 +1547,11 @@ value in <code>geometry.instances.data.deviceAddress</code> <strong>must</strong
 device address containing a value obtained from
 <a href="resources.html#vkGetAccelerationStructureDeviceAddressKHR" class="xref page">vkGetAccelerationStructureDeviceAddressKHR</a> or <code>0</code></p>
 </li>
+<li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-commandBuffer-09547" href="#VUID-vkCmdBuildAccelerationStructuresKHR-commandBuffer-09547"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-commandBuffer-09547</span><br>
+
+<code>commandBuffer</code> <strong>must</strong> not be a protected command buffer</p>
+</li>
 </ul>
 </div>
 <div class="ulist">
@@ -1712,7 +1651,7 @@ an array of <code>pInfos</code>[i].<code>geometryCount</code>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -2092,17 +2031,26 @@ built</p>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-primitiveCount-03769" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-primitiveCount-03769"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-primitiveCount-03769</span><br>
 
-For each <code>VkAccelerationStructureBuildRangeInfoKHR</code> referenced by
-this command, its <code>primitiveCount</code> member <strong>must</strong> have the same value
-which was specified when <code>srcAccelerationStructure</code> was last built</p>
+For each element of <code>pInfos</code>, if its <code>mode</code> member is
+<code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, then for each
+<code>VkAccelerationStructureGeometryKHR</code> structure referred to by its
+<code>pGeometries</code> or <code>ppGeometries</code> members, the
+<code>primitiveCount</code> member of its corresponding
+<code>VkAccelerationStructureBuildRangeInfoKHR</code> structure <strong>must</strong> have the
+same value which was specified when <code>srcAccelerationStructure</code> was
+last built</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-firstVertex-03770" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-firstVertex-03770"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-firstVertex-03770</span><br>
 
-For each <code>VkAccelerationStructureBuildRangeInfoKHR</code> referenced by
-this command, if the corresponding geometry uses indices, its
-<code>firstVertex</code> member <strong>must</strong> have the same value which was specified
-when <code>srcAccelerationStructure</code> was last built</p>
+For each element of <code>pInfos</code>, if its <code>mode</code> member is
+<code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, then for each
+<code>VkAccelerationStructureGeometryKHR</code> structure referred to by its
+<code>pGeometries</code> or <code>ppGeometries</code> members, if the geometry uses
+indices, the <code>firstVertex</code> member of its corresponding
+<code>VkAccelerationStructureBuildRangeInfoKHR</code> structure <strong>must</strong> have the
+same value which was specified when <code>srcAccelerationStructure</code> was
+last built</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03801" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03801"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03801</span><br>
@@ -2384,6 +2332,11 @@ device address containing a value obtained from
 <a href="resources.html#vkGetAccelerationStructureDeviceAddressKHR" class="xref page">vkGetAccelerationStructureDeviceAddressKHR</a> or <code>0</code></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-commandBuffer-09547" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-commandBuffer-09547"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-commandBuffer-09547</span><br>
+
+<code>commandBuffer</code> <strong>must</strong> not be a protected command buffer</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03645" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03645"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03645</span><br>
 
 For any element of <code>pIndirectDeviceAddresses</code>, if the buffer from
@@ -2416,11 +2369,6 @@ Each element of <code>pIndirectDeviceAddresses</code> <strong>must</strong> be a
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectStrides-03787" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectStrides-03787"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectStrides-03787</span><br>
 
 Each element of <code>pIndirectStrides</code> <strong>must</strong> be a multiple of <code>4</code></p>
-</li>
-<li>
-<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-commandBuffer-03649" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-commandBuffer-03649"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-commandBuffer-03649</span><br>
-
-<code>commandBuffer</code> <strong>must</strong> not be a protected command buffer</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03651" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03651"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03651</span><br>
@@ -2531,7 +2479,7 @@ the <code>primitiveCount</code> value specified by the
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -2599,8 +2547,8 @@ specifying the type of operation to perform.</p>
 </li>
 <li>
 <p><code>srcAccelerationStructure</code> is a pointer to an existing acceleration
-structure that is to be used to update the <code>dst</code> acceleration
-structure when <code>mode</code> is
+structure that is to be used to update the
+<code>dstAccelerationStructure</code> acceleration structure when <code>mode</code> is
 <code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>.</p>
 </li>
 <li>
@@ -2689,8 +2637,8 @@ not modified.</p>
 <li>
 <p><a id="VUID-VkAccelerationStructureBuildGeometryInfoKHR-pGeometries-03788" href="#VUID-VkAccelerationStructureBuildGeometryInfoKHR-pGeometries-03788"></a> <span class="vuid">VUID-VkAccelerationStructureBuildGeometryInfoKHR-pGeometries-03788</span><br>
 
-Only one of <code>pGeometries</code> or <code>ppGeometries</code> <strong>can</strong> be a valid
-pointer, the other <strong>must</strong> be <code>NULL</code></p>
+If <code>geometryCount</code> is not <code>0</code>, exactly one of <code>pGeometries</code> or
+<code>ppGeometries</code> <strong>must</strong> be a valid pointer, the other <strong>must</strong> be <code>NULL</code></p>
 </li>
 <li>
 <p><a id="VUID-VkAccelerationStructureBuildGeometryInfoKHR-type-03789" href="#VUID-VkAccelerationStructureBuildGeometryInfoKHR-type-03789"></a> <span class="vuid">VUID-VkAccelerationStructureBuildGeometryInfoKHR-type-03789</span><br>
@@ -3063,8 +3011,7 @@ structure.</p>
 data for this geometry.</p>
 </li>
 <li>
-<p><code>maxVertex</code> is the highest index of a vertex that will be addressed
-by a build command using this structure.</p>
+<p><code>maxVertex</code> is the number of vertices in <code>vertexData</code> minus one.</p>
 </li>
 <li>
 <p><code>vertexStride</code> is the stride in bytes between each vertex.</p>
@@ -3535,6 +3482,17 @@ the sum of matching <code>count</code> provided.</p>
 <div class="title">Valid Usage</div>
 <div class="ulist">
 <ul>
+<li>
+<p><a id="VUID-VkAccelerationStructureTrianglesDisplacementMicromapNV-displacementBiasAndScaleFormat-09501" href="#VUID-VkAccelerationStructureTrianglesDisplacementMicromapNV-displacementBiasAndScaleFormat-09501"></a> <span class="vuid">VUID-VkAccelerationStructureTrianglesDisplacementMicromapNV-displacementBiasAndScaleFormat-09501</span><br>
+
+<code>displacementBiasAndScaleFormat</code> <strong>must</strong> not be
+<code>VK_FORMAT_UNDEFINED</code></p>
+</li>
+<li>
+<p><a id="VUID-VkAccelerationStructureTrianglesDisplacementMicromapNV-displacementVectorFormat-09502" href="#VUID-VkAccelerationStructureTrianglesDisplacementMicromapNV-displacementVectorFormat-09502"></a> <span class="vuid">VUID-VkAccelerationStructureTrianglesDisplacementMicromapNV-displacementVectorFormat-09502</span><br>
+
+<code>displacementVectorFormat</code> <strong>must</strong> not be <code>VK_FORMAT_UNDEFINED</code></p>
+</li>
 <li>
 <p><a id="VUID-VkAccelerationStructureTrianglesDisplacementMicromapNV-pUsageCounts-07992" href="#VUID-VkAccelerationStructureTrianglesDisplacementMicromapNV-pUsageCounts-07992"></a> <span class="vuid">VUID-VkAccelerationStructureTrianglesDisplacementMicromapNV-pUsageCounts-07992</span><br>
 
@@ -4946,8 +4904,8 @@ The <code>buffer</code> used to create each acceleration structure in
 <li>
 <p><a id="VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-query-04880" href="#VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-query-04880"></a> <span class="vuid">VUID-vkCmdWriteAccelerationStructuresPropertiesKHR-query-04880</span><br>
 
-The sum of <code>query</code> plus <code>accelerationStructureCount</code> <strong>must</strong> be
-less than or equal to the number of queries in <code>queryPool</code></p>
+The sum of <code>firstQuery</code> plus <code>accelerationStructureCount</code> <strong>must</strong>
+be less than or equal to the number of queries in <code>queryPool</code></p>
 </li>
 </ul>
 </div>
@@ -4974,7 +4932,7 @@ been built with
 <code>queryType</code> <strong>must</strong> be
 <code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SIZE_KHR</code>,
 <code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR</code>,
-<code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR</code> or
+<code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR</code>, or
 <code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR</code></p>
 </li>
 </ul>
@@ -5060,7 +5018,7 @@ been built with
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -5261,7 +5219,7 @@ been built with
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -5455,7 +5413,7 @@ command</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -5606,7 +5564,7 @@ device memory</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -5708,13 +5666,6 @@ memory</p>
 The range of memory backing <code>dst</code> that is accessed by this command
 <strong>must</strong> not overlap the memory backing <code>src</code> that is accessed by this
 command</p>
-</li>
-<li>
-<p><a id="VUID-VkCopyAccelerationStructureInfoKHR-dst-07792" href="#VUID-VkCopyAccelerationStructureInfoKHR-dst-07792"></a> <span class="vuid">VUID-VkCopyAccelerationStructureInfoKHR-dst-07792</span><br>
-
-<code>dst</code> <strong>must</strong> be bound completely and contiguously to a single
-<code>VkDeviceMemory</code> object via
-<a href="resources.html#vkBindAccelerationStructureMemoryNV" class="xref page">vkBindAccelerationStructureMemoryNV</a></p>
 </li>
 </ul>
 </div>
@@ -6019,7 +5970,7 @@ device memory</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -6288,7 +6239,7 @@ device memory</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -7052,17 +7003,26 @@ built</p>
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-primitiveCount-03769" href="#VUID-vkBuildAccelerationStructuresKHR-primitiveCount-03769"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-primitiveCount-03769</span><br>
 
-For each <code>VkAccelerationStructureBuildRangeInfoKHR</code> referenced by
-this command, its <code>primitiveCount</code> member <strong>must</strong> have the same value
-which was specified when <code>srcAccelerationStructure</code> was last built</p>
+For each element of <code>pInfos</code>, if its <code>mode</code> member is
+<code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, then for each
+<code>VkAccelerationStructureGeometryKHR</code> structure referred to by its
+<code>pGeometries</code> or <code>ppGeometries</code> members, the
+<code>primitiveCount</code> member of its corresponding
+<code>VkAccelerationStructureBuildRangeInfoKHR</code> structure <strong>must</strong> have the
+same value which was specified when <code>srcAccelerationStructure</code> was
+last built</p>
 </li>
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-firstVertex-03770" href="#VUID-vkBuildAccelerationStructuresKHR-firstVertex-03770"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-firstVertex-03770</span><br>
 
-For each <code>VkAccelerationStructureBuildRangeInfoKHR</code> referenced by
-this command, if the corresponding geometry uses indices, its
-<code>firstVertex</code> member <strong>must</strong> have the same value which was specified
-when <code>srcAccelerationStructure</code> was last built</p>
+For each element of <code>pInfos</code>, if its <code>mode</code> member is
+<code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, then for each
+<code>VkAccelerationStructureGeometryKHR</code> structure referred to by its
+<code>pGeometries</code> or <code>ppGeometries</code> members, if the geometry uses
+indices, the <code>firstVertex</code> member of its corresponding
+<code>VkAccelerationStructureBuildRangeInfoKHR</code> structure <strong>must</strong> have the
+same value which was specified when <code>srcAccelerationStructure</code> was
+last built</p>
 </li>
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-03801" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-03801"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-03801</span><br>
@@ -7101,12 +7061,6 @@ an array of <code>pInfos</code>[i].<code>geometryCount</code>
 </div>
 <div class="ulist">
 <ul>
-<li>
-<p><a id="VUID-vkBuildAccelerationStructuresKHR-deferredOperation-03677" href="#VUID-vkBuildAccelerationStructuresKHR-deferredOperation-03677"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-deferredOperation-03677</span><br>
-
-If <code>deferredOperation</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be a
-valid <a href="VK_KHR_deferred_host_operations/deferred_host_operations.html#VkDeferredOperationKHR" class="xref page">VkDeferredOperationKHR</a> object</p>
-</li>
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-deferredOperation-03678" href="#VUID-vkBuildAccelerationStructuresKHR-deferredOperation-03678"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-deferredOperation-03678</span><br>
 
@@ -7238,7 +7192,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>pInfos</code>[i].<code>ppGeometries</code> with a <code>geometryType</code> of
 <code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code>, each
 <a href="#VkAccelerationStructureInstanceKHR">VkAccelerationStructureInstanceKHR</a>::<code>accelerationStructureReference</code>
-value in <code>geometry.instances.data.hostAddress</code> must be a valid
+value in <code>geometry.instances.data.hostAddress</code> <strong>must</strong> be a valid
 <a href="resources.html#VkAccelerationStructureKHR" class="xref page">VkAccelerationStructureKHR</a> object</p>
 </li>
 <li>
@@ -7250,7 +7204,7 @@ For any element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <code>VK_BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV</code> set, each
 <code>accelerationStructureReference</code> in any structure in
 <a href="#VkAccelerationStructureMotionInstanceNV">VkAccelerationStructureMotionInstanceNV</a> value in
-<code>geometry.instances.data.hostAddress</code> must be a valid
+<code>geometry.instances.data.hostAddress</code> <strong>must</strong> be a valid
 <a href="resources.html#VkAccelerationStructureKHR" class="xref page">VkAccelerationStructureKHR</a> object</p>
 </li>
 </ul>
@@ -7372,18 +7326,13 @@ structure defining the copy operation.</p>
 <li>
 <p><a id="VUID-vkCopyAccelerationStructureKHR-accelerationStructureHostCommands-03582" href="#VUID-vkCopyAccelerationStructureKHR-accelerationStructureHostCommands-03582"></a> <span class="vuid">VUID-vkCopyAccelerationStructureKHR-accelerationStructureHostCommands-03582</span><br>
 
-The <a href="features.html#features-accelerationStructureHostCommands" class="xref page">    <code>VkPhysicalDeviceAccelerationStructureFeaturesKHR</code>::<code>accelerationStructureHostCommands</code></a></p>
+The <a href="features.html#features-accelerationStructureHostCommands" class="xref page">    <code>VkPhysicalDeviceAccelerationStructureFeaturesKHR</code>::<code>accelerationStructureHostCommands</code></a>
+feature <strong>must</strong> be enabled</p>
 </li>
 </ul>
 </div>
 <div class="ulist">
 <ul>
-<li>
-<p><a id="VUID-vkCopyAccelerationStructureKHR-deferredOperation-03677" href="#VUID-vkCopyAccelerationStructureKHR-deferredOperation-03677"></a> <span class="vuid">VUID-vkCopyAccelerationStructureKHR-deferredOperation-03677</span><br>
-
-If <code>deferredOperation</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be a
-valid <a href="VK_KHR_deferred_host_operations/deferred_host_operations.html#VkDeferredOperationKHR" class="xref page">VkDeferredOperationKHR</a> object</p>
-</li>
 <li>
 <p><a id="VUID-vkCopyAccelerationStructureKHR-deferredOperation-03678" href="#VUID-vkCopyAccelerationStructureKHR-deferredOperation-03678"></a> <span class="vuid">VUID-vkCopyAccelerationStructureKHR-deferredOperation-03678</span><br>
 
@@ -7400,7 +7349,7 @@ host-visible device memory</p>
 <p><a id="VUID-vkCopyAccelerationStructureKHR-buffer-03728" href="#VUID-vkCopyAccelerationStructureKHR-buffer-03728"></a> <span class="vuid">VUID-vkCopyAccelerationStructureKHR-buffer-03728</span><br>
 
 The <code>buffer</code> used to create <code>pInfo-&gt;dst</code> <strong>must</strong> be bound to
-host-visible device memory feature <strong>must</strong> be enabled</p>
+host-visible device memory</p>
 </li>
 <li>
 <p><a id="VUID-vkCopyAccelerationStructureKHR-buffer-03780" href="#VUID-vkCopyAccelerationStructureKHR-buffer-03780"></a> <span class="vuid">VUID-vkCopyAccelerationStructureKHR-buffer-03780</span><br>
@@ -7538,12 +7487,6 @@ feature <strong>must</strong> be enabled</p>
 </div>
 <div class="ulist">
 <ul>
-<li>
-<p><a id="VUID-vkCopyMemoryToAccelerationStructureKHR-deferredOperation-03677" href="#VUID-vkCopyMemoryToAccelerationStructureKHR-deferredOperation-03677"></a> <span class="vuid">VUID-vkCopyMemoryToAccelerationStructureKHR-deferredOperation-03677</span><br>
-
-If <code>deferredOperation</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be a
-valid <a href="VK_KHR_deferred_host_operations/deferred_host_operations.html#VkDeferredOperationKHR" class="xref page">VkDeferredOperationKHR</a> object</p>
-</li>
 <li>
 <p><a id="VUID-vkCopyMemoryToAccelerationStructureKHR-deferredOperation-03678" href="#VUID-vkCopyMemoryToAccelerationStructureKHR-deferredOperation-03678"></a> <span class="vuid">VUID-vkCopyMemoryToAccelerationStructureKHR-deferredOperation-03678</span><br>
 
@@ -7700,12 +7643,6 @@ feature <strong>must</strong> be enabled</p>
 </div>
 <div class="ulist">
 <ul>
-<li>
-<p><a id="VUID-vkCopyAccelerationStructureToMemoryKHR-deferredOperation-03677" href="#VUID-vkCopyAccelerationStructureToMemoryKHR-deferredOperation-03677"></a> <span class="vuid">VUID-vkCopyAccelerationStructureToMemoryKHR-deferredOperation-03677</span><br>
-
-If <code>deferredOperation</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be a
-valid <a href="VK_KHR_deferred_host_operations/deferred_host_operations.html#VkDeferredOperationKHR" class="xref page">VkDeferredOperationKHR</a> object</p>
-</li>
 <li>
 <p><a id="VUID-vkCopyAccelerationStructureToMemoryKHR-deferredOperation-03678" href="#VUID-vkCopyAccelerationStructureToMemoryKHR-deferredOperation-03678"></a> <span class="vuid">VUID-vkCopyAccelerationStructureToMemoryKHR-deferredOperation-03678</span><br>
 
@@ -7894,7 +7831,7 @@ been built with
 <code>queryType</code> <strong>must</strong> be
 <code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SIZE_KHR</code>,
 <code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_BOTTOM_LEVEL_POINTERS_KHR</code>,
-<code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR</code> or
+<code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR</code>, or
 <code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_SERIALIZATION_SIZE_KHR</code></p>
 </li>
 <li>

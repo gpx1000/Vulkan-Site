@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="extensions.html">Extending Vulkan</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/extensions.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/extensions.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -1155,7 +1080,7 @@ the same as the properties when the layer was enumerated by
 <p>Due to platform details on Android, <code>vkEnumerateDeviceLayerProperties</code>
 may be called with <code>physicalDevice</code> equal to <code>NULL</code> during layer
 discovery.
-This behaviour will only be observed by layer implementations, and not the
+This behavior will only be observed by layer implementations, and not the
 underlying Vulkan driver.</p>
 </div>
 </td>
@@ -1487,6 +1412,56 @@ be enabled against the advertised version.</p>
 profile <strong>must</strong> advertise the <code><a href="../appendices/extensions.html#VK_KHR_global_priority" class="xref page">VK_KHR_global_priority</a></code> extension in
 <code>pProperties</code>.</p>
 </div>
+<div class="paragraph">
+<p>Implementations claiming support for the <a href="../appendices/roadmap.html#roadmap-2024" class="xref page">Roadmap 2024</a>
+profile <strong>must</strong> advertise the following extensions in <code>pProperties</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_load_store_op_none" class="xref page">VK_KHR_load_store_op_none</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_shader_quad_control" class="xref page">VK_KHR_shader_quad_control</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_shader_maximal_reconvergence" class="xref page">VK_KHR_shader_maximal_reconvergence</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_shader_subgroup_uniform_control_flow" class="xref page">VK_KHR_shader_subgroup_uniform_control_flow</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_shader_subgroup_rotate" class="xref page">VK_KHR_shader_subgroup_rotate</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_shader_float_controls2" class="xref page">VK_KHR_shader_float_controls2</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_shader_expect_assume" class="xref page">VK_KHR_shader_expect_assume</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_line_rasterization" class="xref page">VK_KHR_line_rasterization</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_vertex_attribute_divisor" class="xref page">VK_KHR_vertex_attribute_divisor</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_index_type_uint8" class="xref page">VK_KHR_index_type_uint8</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_map_memory2" class="xref page">VK_KHR_map_memory2</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_maintenance5" class="xref page">VK_KHR_maintenance5</a></p>
+</li>
+<li>
+<p><a href="../appendices/extensions.html#VK_KHR_push_descriptor" class="xref page">VK_KHR_push_descriptor</a></p>
+</li>
+</ul>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1499,7 +1474,7 @@ profile <strong>must</strong> advertise the <code><a href="../appendices/extensi
 <p>Due to platform details on Android,
 <code>vkEnumerateDeviceExtensionProperties</code> may be called with
 <code>physicalDevice</code> equal to <code>NULL</code> during layer discovery.
-This behaviour will only be observed by layer implementations, and not the
+This behavior will only be observed by layer implementations, and not the
 underlying Vulkan driver.</p>
 </div>
 </td>
@@ -1601,7 +1576,7 @@ It is an integer, incremented with backward compatible changes.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="extendingvulkan-accessing-device-physical-device"><a class="anchor" href="#extendingvulkan-accessing-device-physical-device"></a>Accessing device-level functionality from a <a href="devsandqueues.html#VkPhysicalDevice" class="xref page">VkPhysicalDevice</a></h4>
+<h4 id="extendingvulkan-accessing-device-physical-device"><a class="anchor" href="#extendingvulkan-accessing-device-physical-device"></a>Accessing Device-Level Functionality From a <a href="devsandqueues.html#VkPhysicalDevice" class="xref page">VkPhysicalDevice</a></h4>
 <div class="paragraph">
 <p>Some device extensions also add support for physical-device-level
 functionality.
@@ -1611,7 +1586,7 @@ a given <a href="devsandqueues.html#VkPhysicalDevice" class="xref page">VkPhysic
 </div>
 </div>
 <div class="sect3">
-<h4 id="extendingvulkan-accessing-device-logical-device"><a class="anchor" href="#extendingvulkan-accessing-device-logical-device"></a>Accessing device-level functionality from a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a></h4>
+<h4 id="extendingvulkan-accessing-device-logical-device"><a class="anchor" href="#extendingvulkan-accessing-device-logical-device"></a>Accessing Device-Level Functionality From a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a></h4>
 <div class="paragraph">
 <p>For commands that are dispatched from a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>, or from a child
 object of a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>, device extensions <strong>must</strong> be enabled in
@@ -1673,7 +1648,11 @@ especially <code>requires</code>, <code>promotedto</code> and <code>deprecatedby
 <code>&lt;extension&gt;</code> tags.
 However, the metadata does not yet fully describe this scenario.
 In the future, we may extend the XML schema to describe the full set of
-extensions and versions satisfying a dependency.</p>
+extensions and versions satisfying a dependency.
+As discussed in more detail for <a href="#extendingvulkan-compatibility-promotion">Promotion</a> below, when an extension is promoted it does not mean that a
+mechanical substitution of an extension API by the corresponding promoted
+API will work in exactly the same fashion; be supported at runtime; or even
+exist.</p>
 </div>
 </td>
 </tr>
@@ -1779,7 +1758,7 @@ increase the major version.</p>
 </div>
 <div class="paragraph">
 <p>The Vulkan Working Group intends to only issue a new major version of the
-Specification in order to realise significant improvements to the Vulkan API
+Specification in order to realize significant improvements to the Vulkan API
 that will necessarily require breaking compatibility.</p>
 </div>
 <div class="paragraph">
@@ -1821,7 +1800,7 @@ version or another extension, which will be highlighted in the
 <div class="paragraph">
 <p>Extensions, or features of an extension, <strong>may</strong> be promoted to a new
 <a href="../appendices/versions.html#versions" class="xref page">core version of the API</a>, or a newer extension which an equal or
-greater number of implementors are in favour of.</p>
+greater number of implementors are in favor of.</p>
 </div>
 <div class="paragraph">
 <p>When extension functionality is promoted, minor changes <strong>may</strong> be introduced,
@@ -1833,7 +1812,7 @@ limited to the following:</p>
 <p>Naming</p>
 </li>
 <li>
-<p>Non-intrusive parameters changes</p>
+<p>Non-intrusive parameter changes</p>
 </li>
 <li>
 <p><a href="features.html#features" class="xref page">Feature advertisement/enablement</a></p>
@@ -1860,7 +1839,7 @@ compatibility, however it should require little effort to port code from the
 original feature to the promoted one.</p>
 </div>
 <div class="paragraph">
-<p>The Vulkan Working Group endeavours to ensure that larger changes are marked
+<p>The Vulkan Working Group endeavors to ensure that larger changes are marked
 as either <a href="#extendingvulkan-compatibility-deprecation">deprecated</a> or
 <a href="#extendingvulkan-compatibility-obsoletion">obsoleted</a> as appropriate, and
 can do so retroactively if necessary.</p>

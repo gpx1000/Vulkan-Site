@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="debugging.html">Debugging</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/debugging.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/debugging.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -497,6 +422,10 @@ typedef enum VkObjectType {
     VK_OBJECT_TYPE_DEFERRED_OPERATION_KHR = 1000268000,
   // Provided by VK_NV_device_generated_commands
     VK_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_NV = 1000277000,
+  // Provided by VK_NV_cuda_kernel_launch
+    VK_OBJECT_TYPE_CUDA_MODULE_NV = 1000307000,
+  // Provided by VK_NV_cuda_kernel_launch
+    VK_OBJECT_TYPE_CUDA_FUNCTION_NV = 1000307001,
   // Provided by VK_FUCHSIA_buffer_collection
     VK_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA = 1000366000,
   // Provided by VK_EXT_opacity_micromap
@@ -665,11 +594,11 @@ typedef enum VkObjectType {
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_VIDEO_SESSION_KHR</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="video_extensions.html#VkVideoSessionKHR" class="xref page">VkVideoSessionKHR</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="videocoding.html#VkVideoSessionKHR" class="xref page">VkVideoSessionKHR</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_VIDEO_SESSION_PARAMETERS_KHR</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="video_extensions.html#VkVideoSessionParametersKHR" class="xref page">VkVideoSessionParametersKHR</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="videocoding.html#VkVideoSessionParametersKHR" class="xref page">VkVideoSessionParametersKHR</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_DEBUG_UTILS_MESSENGER_EXT</code></p></td>
@@ -1319,7 +1248,7 @@ specifying parameters of the label region to open.</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -1465,7 +1394,7 @@ command prior to the <code>vkQueueEndDebugUtilsLabelEXT</code> on the queue</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -1540,7 +1469,7 @@ specifying parameters of the label to insert.</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -1665,7 +1594,7 @@ specifying parameters of the label region to open.</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -1806,7 +1735,7 @@ outstanding <code>vkCmdBeginDebugUtilsLabelEXT</code> command recorded to
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -1912,7 +1841,7 @@ specifying parameters of the label to insert.</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -2173,21 +2102,6 @@ Vulkan call.</p>
 <div class="paragraph">
 <p>A callback <strong>can</strong> be called from multiple threads simultaneously (if the
 application is making Vulkan calls from multiple threads).</p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">Valid Usage</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a id="VUID-VkDebugUtilsMessengerCreateInfoEXT-pfnUserCallback-01914" href="#VUID-VkDebugUtilsMessengerCreateInfoEXT-pfnUserCallback-01914"></a> <span class="vuid">VUID-VkDebugUtilsMessengerCreateInfoEXT-pfnUserCallback-01914</span><br>
-
-<code>pfnUserCallback</code> <strong>must</strong> be a valid
-<a href="#PFN_vkDebugUtilsMessengerCallbackEXT">PFN_vkDebugUtilsMessengerCallbackEXT</a></p>
-</li>
-</ul>
-</div>
-</div>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -2496,8 +2410,9 @@ structure.</p>
 <p><code>flags</code> is <code>0</code> and is reserved for future use.</p>
 </li>
 <li>
-<p><code>pMessageIdName</code> is a null-terminated string that identifies the
-particular message ID that is associated with the provided message.
+<p><code>pMessageIdName</code> is <code>NULL</code> or a null-terminated UTF-8 string that
+identifies the particular message ID that is associated with the
+provided message.
 If the message corresponds to a validation layer message, then this
 string may contain the portion of the Vulkan specification that is
 believed to have been violated.</p>
@@ -2509,8 +2424,10 @@ number is related to the internal number associated with the message
 being triggered.</p>
 </li>
 <li>
-<p><code>pMessage</code> is a null-terminated string detailing the trigger
-conditions.</p>
+<p><code>pMessage</code> is
+<code>NULL</code> if <code>messageTypes</code> is equal to
+<code>VK_DEBUG_UTILS_MESSAGE_TYPE_DEVICE_ADDRESS_BINDING_BIT_EXT</code>, or
+a null-terminated UTF-8 string detailing the trigger conditions.</p>
 </li>
 <li>
 <p><code>queueLabelCount</code> is a count of items contained in the
@@ -2626,7 +2543,7 @@ triggered.</p>
 </li>
 <li>
 <p><a id="VUID-VkDebugUtilsMessengerCallbackDataEXT-pMessage-parameter" href="#VUID-VkDebugUtilsMessengerCallbackDataEXT-pMessage-parameter"></a> <span class="vuid">VUID-VkDebugUtilsMessengerCallbackDataEXT-pMessage-parameter</span><br>
- <code>pMessage</code> <strong>must</strong> be a null-terminated UTF-8 string</p>
+ If <code>pMessage</code> is not <code>NULL</code>, <code>pMessage</code> <strong>must</strong> be a null-terminated UTF-8 string</p>
 </li>
 <li>
 <p><a id="VUID-VkDebugUtilsMessengerCallbackDataEXT-pQueueLabels-parameter" href="#VUID-VkDebugUtilsMessengerCallbackDataEXT-pQueueLabels-parameter"></a> <span class="vuid">VUID-VkDebugUtilsMessengerCallbackDataEXT-pQueueLabels-parameter</span><br>
@@ -2721,7 +2638,7 @@ submit a debug message with the following properties:</p>
 <code>VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT</code></p>
 </li>
 <li>
-<p><code>messageType</code> equal to
+<p><code>messageTypes</code> equal to
 <code>VK_DEBUG_UTILS_MESSAGE_TYPE_DEVICE_ADDRESS_BINDING_BIT_EXT</code></p>
 </li>
 <li>
@@ -3550,7 +3467,7 @@ structure specifying the parameters of the marker region to open.</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -3739,7 +3656,7 @@ outstanding <a href="#vkCmdDebugMarkerBeginEXT">vkCmdDebugMarkerBeginEXT</a> com
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -3844,7 +3761,7 @@ structure specifying the parameters of the marker to insert.</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -4180,12 +4097,12 @@ This is an <strong>optional</strong> value.</p>
 triggered this callback.</p>
 </li>
 <li>
-<p><code>pLayerPrefix</code> is a null-terminated string that is an abbreviation
-of the name of the component making the callback.
+<p><code>pLayerPrefix</code> is a null-terminated UTF-8 string that is an
+abbreviation of the name of the component making the callback.
 <code>pLayerPrefix</code> is only valid for the duration of the callback.</p>
 </li>
 <li>
-<p><code>pMessage</code> is a null-terminated string detailing the trigger
+<p><code>pMessage</code> is a null-terminated UTF-8 string detailing the trigger
 conditions.
 <code>pMessage</code> is only valid for the duration of the callback.</p>
 </li>
@@ -4269,6 +4186,10 @@ typedef enum VkDebugReportObjectTypeEXT {
     VK_DEBUG_REPORT_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR_EXT = 1000150000,
   // Provided by VK_EXT_debug_report with VK_NV_ray_tracing
     VK_DEBUG_REPORT_OBJECT_TYPE_ACCELERATION_STRUCTURE_NV_EXT = 1000165000,
+  // Provided by VK_EXT_debug_report with VK_NV_cuda_kernel_launch
+    VK_DEBUG_REPORT_OBJECT_TYPE_CUDA_MODULE_NV_EXT = 1000307000,
+  // Provided by VK_EXT_debug_report with VK_NV_cuda_kernel_launch
+    VK_DEBUG_REPORT_OBJECT_TYPE_CUDA_FUNCTION_NV_EXT = 1000307001,
   // Provided by VK_EXT_debug_report with VK_FUCHSIA_buffer_collection
     VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA_EXT = 1000366000,
     VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_EXT = VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT_EXT,
@@ -4492,7 +4413,7 @@ associated with the event.</p>
 event/message.</p>
 </li>
 <li>
-<p><code>pMessage</code> is a null-terminated string detailing the trigger
+<p><code>pMessage</code> is a null-terminated UTF-8 string detailing the trigger
 conditions.</p>
 </li>
 </ul>
@@ -4745,7 +4666,7 @@ will be associated with the checkpoint.</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -5179,7 +5100,7 @@ written to <code>pFaultCounts</code>-&gt;vendorBinarySize.</p>
 
 If the value referenced by <code>pFaultCounts-&gt;addressInfoCount</code> is not
 <code>0</code>, and <code>pFaultInfo-&gt;pAddressInfos</code> is not <code>NULL</code>,
-<code>pFaultInfo-&gt;pAddressInfos</code> must be a valid pointer to an array of
+<code>pFaultInfo-&gt;pAddressInfos</code> <strong>must</strong> be a valid pointer to an array of
 <code>pFaultCounts-&gt;addressInfoCount</code> <a href="#VkDeviceFaultAddressInfoEXT">VkDeviceFaultAddressInfoEXT</a>
 structures</p>
 </li>
@@ -5188,7 +5109,7 @@ structures</p>
 
 If the value referenced by <code>pFaultCounts-&gt;vendorInfoCount</code> is not
 <code>0</code>, and <code>pFaultInfo-&gt;pVendorInfos</code> is not <code>NULL</code>,
-<code>pFaultInfo-&gt;pVendorInfos</code> must be a valid pointer to an array of
+<code>pFaultInfo-&gt;pVendorInfos</code> <strong>must</strong> be a valid pointer to an array of
 <code>pFaultCounts-&gt;vendorInfoCount</code> <a href="#VkDeviceFaultVendorInfoEXT">VkDeviceFaultVendorInfoEXT</a>
 structures</p>
 </li>
@@ -5197,7 +5118,7 @@ structures</p>
 
 If the value referenced by <code>pFaultCounts-&gt;vendorBinarySize</code> is not
 <code>0</code>, and <code>pFaultInfo-&gt;pVendorBinaryData</code> is not <code>NULL</code>,
-<code>pFaultInfo-&gt;pVendorBinaryData</code> must be a valid pointer to an array
+<code>pFaultInfo-&gt;pVendorBinaryData</code> <strong>must</strong> be a valid pointer to an array
 of <code>pFaultCounts-&gt;vendorBinarySize</code> bytes</p>
 </li>
 </ul>
@@ -5434,14 +5355,6 @@ resources internal to an implementation, which will not be reported via the
 <li>
 <p><a id="VUID-VkDeviceFaultInfoEXT-pNext-pNext" href="#VUID-VkDeviceFaultInfoEXT-pNext-pNext"></a> <span class="vuid">VUID-VkDeviceFaultInfoEXT-pNext-pNext</span><br>
  <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
-</li>
-<li>
-<p><a id="VUID-VkDeviceFaultInfoEXT-pAddressInfos-parameter" href="#VUID-VkDeviceFaultInfoEXT-pAddressInfos-parameter"></a> <span class="vuid">VUID-VkDeviceFaultInfoEXT-pAddressInfos-parameter</span><br>
- If <code>pAddressInfos</code> is not <code>NULL</code>, <code>pAddressInfos</code> <strong>must</strong> be a valid pointer to a <a href="#VkDeviceFaultAddressInfoEXT">VkDeviceFaultAddressInfoEXT</a> structure</p>
-</li>
-<li>
-<p><a id="VUID-VkDeviceFaultInfoEXT-pVendorInfos-parameter" href="#VUID-VkDeviceFaultInfoEXT-pVendorInfos-parameter"></a> <span class="vuid">VUID-VkDeviceFaultInfoEXT-pVendorInfos-parameter</span><br>
- If <code>pVendorInfos</code> is not <code>NULL</code>, <code>pVendorInfos</code> <strong>must</strong> be a valid pointer to a <a href="#VkDeviceFaultVendorInfoEXT">VkDeviceFaultVendorInfoEXT</a> structure</p>
 </li>
 </ul>
 </div>

@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="../VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="../videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../../index.html">Vulkan Specification</a></li>
     <li><a href="wsi.html">Window System Integration (WSI)</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/VK_KHR_surface/wsi.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/VK_KHR_surface/wsi.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -1061,6 +986,47 @@ created surface object is returned.</p>
 </dl>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>Some Vulkan functions <strong>may</strong> call the <code>SendMessage</code> system API when
+interacting with a <code>VkSurfaceKHR</code> through a <code>VkSwapchainKHR</code>.
+In a multithreaded environment, calling <code>SendMessage</code> from a thread that is
+not the thread associated with <code>pCreateInfo</code>::<code>hwnd</code> will block
+until the application has processed the window message.
+Thus, applications <strong>should</strong> either call these Vulkan functions on the message
+pump thread, or make sure their message pump is actively running.
+Failing to do so <strong>may</strong> result in deadlocks.</p>
+</div>
+<div class="paragraph">
+<p>The functions subject to this requirement are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#vkCreateSwapchainKHR">vkCreateSwapchainKHR</a></p>
+</li>
+<li>
+<p><a href="#vkDestroySwapchainKHR">vkDestroySwapchainKHR</a></p>
+</li>
+<li>
+<p><a href="#vkAcquireNextImageKHR">vkAcquireNextImageKHR</a> and <a href="#vkAcquireNextImage2KHR">vkAcquireNextImage2KHR</a></p>
+</li>
+<li>
+<p><a href="#vkQueuePresentKHR">vkQueuePresentKHR</a></p>
+</li>
+<li>
+<p><a href="#vkReleaseSwapchainImagesEXT">vkReleaseSwapchainImagesEXT</a></p>
+</li>
+<li>
+<p><a href="#vkAcquireFullScreenExclusiveModeEXT">vkAcquireFullScreenExclusiveModeEXT</a></p>
+</li>
+<li>
+<p><a href="#vkReleaseFullScreenExclusiveModeEXT">vkReleaseFullScreenExclusiveModeEXT</a></p>
+</li>
+<li>
+<p><a href="#vkSetHdrMetadataEXT">vkSetHdrMetadataEXT</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -2295,23 +2261,6 @@ VkResult vkCreateIOSSurfaceMVK(
     VkSurfaceKHR*                               pSurface);</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Note</div>
-<div class="paragraph">
-<p>The <code>vkCreateIOSSurfaceMVK</code> function is considered deprecated and has been
-superseded by <a href="#vkCreateMetalSurfaceEXT">vkCreateMetalSurfaceEXT</a> from the
-<code><a href="../../appendices/extensions.html#VK_EXT_metal_surface" class="xref page">VK_EXT_metal_surface</a></code> extension.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -2332,6 +2281,23 @@ surface object when there is no more specific allocator available (see
 created surface object is returned.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>The <code>vkCreateIOSSurfaceMVK</code> function is considered deprecated and has been
+superseded by <a href="#vkCreateMetalSurfaceEXT">vkCreateMetalSurfaceEXT</a> from the
+<code><a href="../../appendices/extensions.html#VK_EXT_metal_surface" class="xref page">VK_EXT_metal_surface</a></code> extension.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -2507,23 +2473,6 @@ VkResult vkCreateMacOSSurfaceMVK(
     VkSurfaceKHR*                               pSurface);</code></pre>
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Note</div>
-<div class="paragraph">
-<p>The <code>vkCreateMacOSSurfaceMVK</code> function is considered deprecated and has been
-superseded by <a href="#vkCreateMetalSurfaceEXT">vkCreateMetalSurfaceEXT</a> from the
-<code><a href="../../appendices/extensions.html#VK_EXT_metal_surface" class="xref page">VK_EXT_metal_surface</a></code> extension.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -2544,6 +2493,23 @@ surface object when there is no more specific allocator available (see
 created surface object is returned.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>The <code>vkCreateMacOSSurfaceMVK</code> function is considered deprecated and has been
+superseded by <a href="#vkCreateMetalSurfaceEXT">vkCreateMetalSurfaceEXT</a> from the
+<code><a href="../../appendices/extensions.html#VK_EXT_metal_surface" class="xref page">VK_EXT_metal_surface</a></code> extension.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -4299,7 +4265,7 @@ must return the error code <code>VK_ERROR_INITIALIZATION_FAILED</code>.</p>
 </div>
 <div class="paragraph">
 <p>The provided DRM fd should not be closed before the display is released,
-attempting to do it may result in <strong>undefined</strong> behaviour.</p>
+attempting to do it may result in <strong>undefined</strong> behavior.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -4512,6 +4478,10 @@ VkResult vkReleaseDisplayEXT(
 </li>
 </ul>
 </div>
+</dd>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<p>None</p>
 </dd>
 </dl>
 </div>
@@ -6487,7 +6457,7 @@ zero or more <a href="#VkDisplayPlaneAlphaFlagBitsKHR">VkDisplayPlaneAlphaFlagBi
 </div>
 </div>
 <div class="sect2">
-<h3 id="headless"><a class="anchor" href="#headless"></a>Presenting to headless surfaces</h3>
+<h3 id="headless"><a class="anchor" href="#headless"></a>Presenting to Headless Surfaces</h3>
 <div class="paragraph">
 <p>Vulkan rendering can be presented to a headless surface, where the
 presentation operation is a no-op producing no externally-visible result.</p>
@@ -6502,7 +6472,7 @@ presentation operation is a no-op producing no externally-visible result.</p>
 <div class="title">Note</div>
 <div class="paragraph">
 <p>Because there is no real presentation target, the headless presentation
-engine may be extended to impose an arbitrary or customisable set of
+engine may be extended to impose an arbitrary or customizable set of
 restrictions and features.
 This makes it a useful portable test target for applications targeting a
 wide range of presentation engines where the actual target presentation
@@ -7625,10 +7595,10 @@ If the <code><a href="../../appendices/extensions.html#VK_GOOGLE_surfaceless_que
 <li>
 <p><a id="VUID-vkGetPhysicalDeviceSurfaceCapabilities2KHR-pSurfaceInfo-06522" href="#VUID-vkGetPhysicalDeviceSurfaceCapabilities2KHR-pSurfaceInfo-06522"></a> <span class="vuid">VUID-vkGetPhysicalDeviceSurfaceCapabilities2KHR-pSurfaceInfo-06522</span><br>
 
-If <code>pSurfaceInfo-&gt;surface</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be
-supported by <code>physicalDevice</code>, as reported by
-<a href="#vkGetPhysicalDeviceSurfaceSupportKHR">vkGetPhysicalDeviceSurfaceSupportKHR</a> or an equivalent
-platform-specific mechanism</p>
+If <code>pSurfaceInfo-&gt;surface</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
+<code>pSurfaceInfo-&gt;surface</code> <strong>must</strong> be supported by <code>physicalDevice</code>,
+as reported by <a href="#vkGetPhysicalDeviceSurfaceSupportKHR">vkGetPhysicalDeviceSurfaceSupportKHR</a> or an
+equivalent platform-specific mechanism</p>
 </li>
 </ul>
 </div>
@@ -7802,7 +7772,8 @@ included in the <code>pNext</code> chain</p>
 <li>
 <p><a id="VUID-VkPhysicalDeviceSurfaceInfo2KHR-surface-07919" href="#VUID-VkPhysicalDeviceSurfaceInfo2KHR-surface-07919"></a> <span class="vuid">VUID-VkPhysicalDeviceSurfaceInfo2KHR-surface-07919</span><br>
 
-If the <code><a href="../../appendices/extensions.html#VK_GOOGLE_surfaceless_query" class="xref page">VK_GOOGLE_surfaceless_query</a></code> extension is not enabled,
+If surface is not VK_NULL_HANDLE,
+and the <code><a href="../../appendices/extensions.html#VK_GOOGLE_surfaceless_query" class="xref page">VK_GOOGLE_surfaceless_query</a></code> extension is not enabled,
 <code>surface</code> <strong>must</strong> be a valid <a href="#VkSurfaceKHR">VkSurfaceKHR</a> handle</p>
 </li>
 </ul>
@@ -7825,10 +7796,6 @@ If the <code><a href="../../appendices/extensions.html#VK_GOOGLE_surfaceless_que
 <li>
 <p><a id="VUID-VkPhysicalDeviceSurfaceInfo2KHR-sType-unique" href="#VUID-VkPhysicalDeviceSurfaceInfo2KHR-sType-unique"></a> <span class="vuid">VUID-VkPhysicalDeviceSurfaceInfo2KHR-sType-unique</span><br>
  The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
-</li>
-<li>
-<p><a id="VUID-VkPhysicalDeviceSurfaceInfo2KHR-surface-parameter" href="#VUID-VkPhysicalDeviceSurfaceInfo2KHR-surface-parameter"></a> <span class="vuid">VUID-VkPhysicalDeviceSurfaceInfo2KHR-surface-parameter</span><br>
- If <code>surface</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>surface</code> <strong>must</strong> be a valid <a href="#VkSurfaceKHR">VkSurfaceKHR</a> handle</p>
 </li>
 </ul>
 </div>
@@ -8480,7 +8447,7 @@ use of this feature.</p>
 
 <code>presentMode</code> <strong>must</strong> be a value reported by
 <a href="#vkGetPhysicalDeviceSurfacePresentModesKHR">vkGetPhysicalDeviceSurfacePresentModesKHR</a> for the specified
-surface.</p>
+surface</p>
 </li>
 </ul>
 </div>
@@ -9349,8 +9316,8 @@ If the <code><a href="../../appendices/extensions.html#VK_GOOGLE_surfaceless_que
 <li>
 <p><a id="VUID-vkGetPhysicalDeviceSurfaceFormatsKHR-surface-06525" href="#VUID-vkGetPhysicalDeviceSurfaceFormatsKHR-surface-06525"></a> <span class="vuid">VUID-vkGetPhysicalDeviceSurfaceFormatsKHR-surface-06525</span><br>
 
-If <code>surface</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be supported by
-<code>physicalDevice</code>, as reported by
+If <code>surface</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
+<code>surface</code> <strong>must</strong> be supported by <code>physicalDevice</code>, as reported by
 <a href="#vkGetPhysicalDeviceSurfaceSupportKHR">vkGetPhysicalDeviceSurfaceSupportKHR</a> or an equivalent
 platform-specific mechanism</p>
 </li>
@@ -9526,10 +9493,10 @@ If the <code><a href="../../appendices/extensions.html#VK_GOOGLE_surfaceless_que
 <li>
 <p><a id="VUID-vkGetPhysicalDeviceSurfaceFormats2KHR-pSurfaceInfo-06522" href="#VUID-vkGetPhysicalDeviceSurfaceFormats2KHR-pSurfaceInfo-06522"></a> <span class="vuid">VUID-vkGetPhysicalDeviceSurfaceFormats2KHR-pSurfaceInfo-06522</span><br>
 
-If <code>pSurfaceInfo-&gt;surface</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be
-supported by <code>physicalDevice</code>, as reported by
-<a href="#vkGetPhysicalDeviceSurfaceSupportKHR">vkGetPhysicalDeviceSurfaceSupportKHR</a> or an equivalent
-platform-specific mechanism</p>
+If <code>pSurfaceInfo-&gt;surface</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
+<code>pSurfaceInfo-&gt;surface</code> <strong>must</strong> be supported by <code>physicalDevice</code>,
+as reported by <a href="#vkGetPhysicalDeviceSurfaceSupportKHR">vkGetPhysicalDeviceSurfaceSupportKHR</a> or an
+equivalent platform-specific mechanism</p>
 </li>
 </ul>
 </div>
@@ -10083,8 +10050,8 @@ If the <code><a href="../../appendices/extensions.html#VK_GOOGLE_surfaceless_que
 <li>
 <p><a id="VUID-vkGetPhysicalDeviceSurfacePresentModesKHR-surface-06525" href="#VUID-vkGetPhysicalDeviceSurfacePresentModesKHR-surface-06525"></a> <span class="vuid">VUID-vkGetPhysicalDeviceSurfacePresentModesKHR-surface-06525</span><br>
 
-If <code>surface</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be supported by
-<code>physicalDevice</code>, as reported by
+If <code>surface</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
+<code>surface</code> <strong>must</strong> be supported by <code>physicalDevice</code>, as reported by
 <a href="#vkGetPhysicalDeviceSurfaceSupportKHR">vkGetPhysicalDeviceSurfaceSupportKHR</a> or an equivalent
 platform-specific mechanism</p>
 </li>
@@ -10220,10 +10187,10 @@ If the <code><a href="../../appendices/extensions.html#VK_GOOGLE_surfaceless_que
 <li>
 <p><a id="VUID-vkGetPhysicalDeviceSurfacePresentModes2EXT-pSurfaceInfo-06522" href="#VUID-vkGetPhysicalDeviceSurfacePresentModes2EXT-pSurfaceInfo-06522"></a> <span class="vuid">VUID-vkGetPhysicalDeviceSurfacePresentModes2EXT-pSurfaceInfo-06522</span><br>
 
-If <code>pSurfaceInfo-&gt;surface</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be
-supported by <code>physicalDevice</code>, as reported by
-<a href="#vkGetPhysicalDeviceSurfaceSupportKHR">vkGetPhysicalDeviceSurfaceSupportKHR</a> or an equivalent
-platform-specific mechanism</p>
+If <code>pSurfaceInfo-&gt;surface</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
+<code>pSurfaceInfo-&gt;surface</code> <strong>must</strong> be supported by <code>physicalDevice</code>,
+as reported by <a href="#vkGetPhysicalDeviceSurfaceSupportKHR">vkGetPhysicalDeviceSurfaceSupportKHR</a> or an
+equivalent platform-specific mechanism</p>
 </li>
 </ul>
 </div>
@@ -10635,7 +10602,7 @@ from.</p>
 <div class="paragraph">
 <p>Applications will not be able to present to <code>swapchain</code> after this call
 until exclusive full-screen access is reacquired.
-This is usually useful to handle when an application is minimised or
+This is usually useful to handle when an application is minimized or
 otherwise intends to stop presenting for a time.</p>
 </div>
 </td>
@@ -10661,6 +10628,62 @@ otherwise intends to stop presenting for a time.</p>
 <code>VK_FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT</code></p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkReleaseFullScreenExclusiveModeEXT-device-parameter" href="#VUID-vkReleaseFullScreenExclusiveModeEXT-device-parameter"></a> <span class="vuid">VUID-vkReleaseFullScreenExclusiveModeEXT-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="../devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkReleaseFullScreenExclusiveModeEXT-swapchain-parameter" href="#VUID-vkReleaseFullScreenExclusiveModeEXT-swapchain-parameter"></a> <span class="vuid">VUID-vkReleaseFullScreenExclusiveModeEXT-swapchain-parameter</span><br>
+ <code>swapchain</code> <strong>must</strong> be a valid <a href="#VkSwapchainKHR">VkSwapchainKHR</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkReleaseFullScreenExclusiveModeEXT-swapchain-parent" href="#VUID-vkReleaseFullScreenExclusiveModeEXT-swapchain-parent"></a> <span class="vuid">VUID-vkReleaseFullScreenExclusiveModeEXT-swapchain-parent</span><br>
+ <code>swapchain</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_SURFACE_LOST_KHR</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
 </div>
 </div>
 </div>
@@ -12737,7 +12760,8 @@ and <code>colorSpace</code> members, respectively, of one of the
 If a <a href="#VkSwapchainPresentScalingCreateInfoEXT">VkSwapchainPresentScalingCreateInfoEXT</a> structure was not
 included in the <code>pNext</code> chain, or it is included and
 <a href="#VkSwapchainPresentScalingCreateInfoEXT">VkSwapchainPresentScalingCreateInfoEXT</a>::<code>scalingBehavior</code> is
-zero then <code>imageExtent</code> <strong>must</strong> be between <code>minImageExtent</code> and
+zero then
+<code>imageExtent</code> <strong>must</strong> be between <code>minImageExtent</code> and
 <code>maxImageExtent</code>, inclusive, where <code>minImageExtent</code> and
 <code>maxImageExtent</code> are members of the <code>VkSurfaceCapabilitiesKHR</code>
 structure returned by <code>vkGetPhysicalDeviceSurfaceCapabilitiesKHR</code>
@@ -12810,9 +12834,9 @@ If <code>imageSharingMode</code> is <code>VK_SHARING_MODE_CONCURRENT</code>,
 If <code>imageSharingMode</code> is <code>VK_SHARING_MODE_CONCURRENT</code>, each
 element of <code>pQueueFamilyIndices</code> <strong>must</strong> be unique and <strong>must</strong> be less
 than <code>pQueueFamilyPropertyCount</code> returned by either
-<a href="../devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties" class="xref page">vkGetPhysicalDeviceQueueFamilyProperties</a> or
-<a href="../devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2" class="xref page">vkGetPhysicalDeviceQueueFamilyProperties2</a> for the
-<code>physicalDevice</code> that was used to create <code>device</code></p>
+<a href="../devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties" class="xref page">vkGetPhysicalDeviceQueueFamilyProperties</a>
+or <a href="../devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2" class="xref page">vkGetPhysicalDeviceQueueFamilyProperties2</a>
+for the <code>physicalDevice</code> that was used to create <code>device</code></p>
 </li>
 <li>
 <p><a id="VUID-VkSwapchainCreateInfoKHR-preTransform-01279" href="#VUID-VkSwapchainCreateInfoKHR-preTransform-01279"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-preTransform-01279</span><br>
@@ -12842,7 +12866,8 @@ surface</p>
 
 If the logical device was created with
 <a href="../devsandqueues.html#VkDeviceGroupDeviceCreateInfo" class="xref page">VkDeviceGroupDeviceCreateInfo</a>::<code>physicalDeviceCount</code> equal to
-1, <code>flags</code> <strong>must</strong> not contain
+1,
+<code>flags</code> <strong>must</strong> not contain
 <code>VK_SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR</code></p>
 </li>
 <li>
@@ -14479,6 +14504,15 @@ be acquired.</p>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>If the swapchain images no longer match native surface properties, either
+<code>VK_SUBOPTIMAL_KHR</code> or <code>VK_ERROR_OUT_OF_DATE_KHR</code> <strong>must</strong> be returned.
+If <code>VK_ERROR_OUT_OF_DATE_KHR</code> is returned, no image is acquired and
+attempts to present previously acquired images to the swapchain will also
+fail with <code>VK_ERROR_OUT_OF_DATE_KHR</code>.
+Applications need to create a new swapchain for the surface to continue
+presenting if <code>VK_ERROR_OUT_OF_DATE_KHR</code> is returned.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -14498,15 +14532,6 @@ match the platform surface properties.</p>
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>If the swapchain images no longer match native surface properties, either
-<code>VK_SUBOPTIMAL_KHR</code> or <code>VK_ERROR_OUT_OF_DATE_KHR</code> <strong>must</strong> be returned.
-If <code>VK_ERROR_OUT_OF_DATE_KHR</code> is returned, no image is acquired and
-attempts to present previously acquired images to the swapchain will also
-fail with <code>VK_ERROR_OUT_OF_DATE_KHR</code>.
-Applications need to create a new swapchain for the surface to continue
-presenting if <code>VK_ERROR_OUT_OF_DATE_KHR</code> is returned.</p>
 </div>
 <div class="paragraph">
 <p>If device loss occurs (see <a href="../devsandqueues.html#devsandqueues-lost-device" class="xref page">Lost Device</a>) before
@@ -15074,6 +15099,165 @@ image that is currently acquired.</p>
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>The origin of the native orientation of the surface coordinate system is not
+specified in the Vulkan specification; it depends on the platform.
+For most platforms the origin is by default upper-left, meaning the pixel of
+the presented <a href="../resources.html#VkImage" class="xref page">VkImage</a> at coordinates <span class="eq">(0,0)</span> would appear at the
+upper left pixel of the platform surface (assuming
+<code>VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR</code>, and the display standing the
+right way up).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The result codes <code>VK_ERROR_OUT_OF_DATE_KHR</code> and <code>VK_SUBOPTIMAL_KHR</code>
+have the same meaning when returned by <code>vkQueuePresentKHR</code> as they do
+when returned by <code>vkAcquireNextImageKHR</code>.
+If any <code>swapchain</code> member of <code>pPresentInfo</code> was created with
+<code>VK_FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT</code>,
+<code>VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT</code> will be returned if that
+swapchain does not have exclusive full-screen access, possibly for
+implementation-specific reasons outside of the application&#8217;s control.
+If multiple swapchains are presented, the result code is determined by
+applying the following rules in order:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>If the device is lost, <code>VK_ERROR_DEVICE_LOST</code> is returned.</p>
+</li>
+<li>
+<p>If any of the target surfaces are no longer available the error
+<code>VK_ERROR_SURFACE_LOST_KHR</code> is returned.</p>
+</li>
+<li>
+<p>If any of the presents would have a result of
+<code>VK_ERROR_OUT_OF_DATE_KHR</code> if issued separately then
+<code>VK_ERROR_OUT_OF_DATE_KHR</code> is returned.</p>
+</li>
+<li>
+<p>If any of the presents would have a result of
+<code>VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT</code> if issued separately
+then <code>VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT</code> is returned.</p>
+</li>
+<li>
+<p>If any of the presents would have a result of <code>VK_SUBOPTIMAL_KHR</code> if
+issued separately then <code>VK_SUBOPTIMAL_KHR</code> is returned.</p>
+</li>
+<li>
+<p>Otherwise <code>VK_SUCCESS</code> is returned.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Any writes to memory backing the images referenced by the
+<code>pImageIndices</code> and <code>pSwapchains</code> members of <code>pPresentInfo</code>,
+that are available before <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> is executed, are
+automatically made visible to the read access performed by the presentation
+engine.
+This automatic visibility operation for an image happens-after the semaphore
+signal operation, and happens-before the presentation engine accesses the
+image.</p>
+</div>
+<div class="paragraph">
+<p>Presentation is a read-only operation that will not affect the content of
+the presentable images.
+Upon reacquiring the image and transitioning it away from the
+<code>VK_IMAGE_LAYOUT_PRESENT_SRC_KHR</code> layout, the contents will be the same
+as they were prior to transitioning the image to the present source layout
+and presenting it.
+However, if a mechanism other than Vulkan is used to modify the platform
+window associated with the swapchain, the content of all presentable images
+in the swapchain becomes <strong>undefined</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Calls to <code>vkQueuePresentKHR</code> <strong>may</strong> block, but <strong>must</strong> return in finite
+time.
+The processing of the presentation happens in issue order with other queue
+operations, but semaphores <strong>must</strong> be used to ensure that prior rendering and
+other commands in the specified queue complete before the presentation
+begins.
+The presentation command itself does not delay processing of subsequent
+commands on the queue.
+However, presentation requests sent to a particular queue are always
+performed in order.
+Exact presentation timing is controlled by the semantics of the presentation
+engine and native platform in use.</p>
+</div>
+<div class="paragraph">
+<p>If an image is presented to a swapchain created from a display surface, the
+mode of the associated display will be updated, if necessary, to match the
+mode specified when creating the display surface.
+The mode switch and presentation of the specified image will be performed as
+one atomic operation.</p>
+</div>
+<div class="paragraph">
+<p>Queueing an image for presentation defines a set of <em>queue operations</em>,
+including waiting on the semaphores and submitting a presentation request to
+the presentation engine.
+However, the scope of this set of queue operations does not include the
+actual processing of the image by the presentation engine.</p>
+</div>
+<div class="paragraph">
+<p>If <code>vkQueuePresentKHR</code> fails to enqueue the corresponding set of queue
+operations, it <strong>may</strong> return <code>VK_ERROR_OUT_OF_HOST_MEMORY</code> or
+<code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code>.
+If it does, the implementation <strong>must</strong> ensure that the state and contents of
+any resources or synchronization primitives referenced is unaffected by the
+call or its failure.</p>
+</div>
+<div class="paragraph">
+<p>If <code>vkQueuePresentKHR</code> fails in such a way that the implementation is
+unable to make that guarantee, the implementation <strong>must</strong> return
+<code>VK_ERROR_DEVICE_LOST</code>.</p>
+</div>
+<div class="paragraph">
+<p>However, if the presentation request is rejected by the presentation engine
+with an error <code>VK_ERROR_OUT_OF_DATE_KHR</code>,
+<code>VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT</code>,
+or <code>VK_ERROR_SURFACE_LOST_KHR</code>, the set of queue operations are still
+considered to be enqueued and thus any semaphore wait operation specified in
+<a href="#VkPresentInfoKHR">VkPresentInfoKHR</a> will execute when the corresponding queue operation
+is complete.</p>
+</div>
+<div class="paragraph">
+<p><code>vkQueuePresentKHR</code> releases the acquisition of the images referenced by
+<code>imageIndices</code>.
+The queue family corresponding to the queue <code>vkQueuePresentKHR</code> is
+executed on <strong>must</strong> have ownership of the presented images as defined in
+<a href="../resources.html#resources-sharing" class="xref page">Resource Sharing</a>.
+<code>vkQueuePresentKHR</code> does not alter the queue family ownership, but the
+presented images <strong>must</strong> not be used again before they have been reacquired
+using <code>vkAcquireNextImageKHR</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>The application <strong>can</strong> continue to present any acquired images from a retired
+swapchain as long as the swapchain has not entered a state that causes
+<a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> to return <code>VK_ERROR_OUT_OF_DATE_KHR</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="title">Valid Usage</div>
@@ -15114,83 +15298,12 @@ All elements of the <code>pWaitSemaphores</code> member of <code>pPresentInfo</c
 
 All elements of the <code>pWaitSemaphores</code> member of <code>pPresentInfo</code>
 <strong>must</strong> reference a semaphore signal operation that has been submitted for
-execution and any <a href="../synchronization.html#synchronization-semaphores-signaling" class="xref page">semaphore    signal operations</a> on which it depends (if any) <strong>must</strong> have also been
-submitted for execution</p>
+execution and any <a href="../synchronization.html#synchronization-semaphores-signaling" class="xref page">semaphore    signal operations</a> on which it depends <strong>must</strong> have also been submitted
+for execution</p>
 </li>
 </ul>
 </div>
 </div>
-</div>
-<div class="paragraph">
-<p>Any writes to memory backing the images referenced by the
-<code>pImageIndices</code> and <code>pSwapchains</code> members of <code>pPresentInfo</code>,
-that are available before <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> is executed, are
-automatically made visible to the read access performed by the presentation
-engine.
-This automatic visibility operation for an image happens-after the semaphore
-signal operation, and happens-before the presentation engine accesses the
-image.</p>
-</div>
-<div class="paragraph">
-<p>Queueing an image for presentation defines a set of <em>queue operations</em>,
-including waiting on the semaphores and submitting a presentation request to
-the presentation engine.
-However, the scope of this set of queue operations does not include the
-actual processing of the image by the presentation engine.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Note</div>
-<div class="paragraph">
-<p>The origin of the native orientation of the surface coordinate system is not
-specified in the Vulkan specification; it depends on the platform.
-For most platforms the origin is by default upper-left, meaning the pixel of
-the presented <a href="../resources.html#VkImage" class="xref page">VkImage</a> at coordinates <span class="eq">(0,0)</span> would appear at the
-upper left pixel of the platform surface (assuming
-<code>VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR</code>, and the display standing the
-right way up).</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>If <code>vkQueuePresentKHR</code> fails to enqueue the corresponding set of queue
-operations, it <strong>may</strong> return <code>VK_ERROR_OUT_OF_HOST_MEMORY</code> or
-<code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code>.
-If it does, the implementation <strong>must</strong> ensure that the state and contents of
-any resources or synchronization primitives referenced is unaffected by the
-call or its failure.</p>
-</div>
-<div class="paragraph">
-<p>If <code>vkQueuePresentKHR</code> fails in such a way that the implementation is
-unable to make that guarantee, the implementation <strong>must</strong> return
-<code>VK_ERROR_DEVICE_LOST</code>.</p>
-</div>
-<div class="paragraph">
-<p>However, if the presentation request is rejected by the presentation engine
-with an error <code>VK_ERROR_OUT_OF_DATE_KHR</code>,
-<code>VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT</code>,
-or <code>VK_ERROR_SURFACE_LOST_KHR</code>, the set of queue operations are still
-considered to be enqueued and thus any semaphore wait operation specified in
-<a href="#VkPresentInfoKHR">VkPresentInfoKHR</a> will execute when the corresponding queue operation
-is complete.</p>
-</div>
-<div class="paragraph">
-<p>Calls to <code>vkQueuePresentKHR</code> <strong>may</strong> block, but <strong>must</strong> return in finite
-time.</p>
-</div>
-<div class="paragraph">
-<p>If any <code>swapchain</code> member of <code>pPresentInfo</code> was created with
-<code>VK_FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT</code>,
-<code>VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT</code> will be returned if that
-swapchain does not have exclusive full-screen access, possibly for
-implementation-specific reasons outside of the application&#8217;s control.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -15242,7 +15355,7 @@ implementation-specific reasons outside of the application&#8217;s control.</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="../cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="../renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="../video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="../videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="../devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="../fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -15418,9 +15531,9 @@ Elements of <code>pSwapchain</code> <strong>must</strong> be unique</p>
 Each element of <code>pImageIndices</code> <strong>must</strong> be the index of a presentable
 image acquired from the swapchain specified by the corresponding element
 of the <code>pSwapchains</code> array, and the presented image subresource
-<strong>must</strong> be in the <code>VK_IMAGE_LAYOUT_PRESENT_SRC_KHR</code> or
-<code>VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR</code> layout at the time the
-operation is executed on a <code>VkDevice</code></p>
+<strong>must</strong> be in the <code>VK_IMAGE_LAYOUT_PRESENT_SRC_KHR</code>
+or <code>VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR</code>
+layout at the time the operation is executed on a <code>VkDevice</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPresentInfoKHR-pNext-06235" href="#VUID-VkPresentInfoKHR-pNext-06235"></a> <span class="vuid">VUID-VkPresentInfoKHR-pNext-06235</span><br>
@@ -16763,97 +16876,6 @@ queue command that has not yet completed execution on that queue</p>
 </div>
 </div>
 </div>
-<div class="paragraph">
-<p><code>vkQueuePresentKHR</code> releases the acquisition of the images referenced by
-<code>imageIndices</code>.
-The queue family corresponding to the queue <code>vkQueuePresentKHR</code> is
-executed on <strong>must</strong> have ownership of the presented images as defined in
-<a href="../resources.html#resources-sharing" class="xref page">Resource Sharing</a>.
-<code>vkQueuePresentKHR</code> does not alter the queue family ownership, but the
-presented images <strong>must</strong> not be used again before they have been reacquired
-using <code>vkAcquireNextImageKHR</code>.</p>
-</div>
-<div class="paragraph">
-<p>The processing of the presentation happens in issue order with other queue
-operations, but semaphores have to be used to ensure that prior rendering
-and other commands in the specified queue complete before the presentation
-begins.
-The presentation command itself does not delay processing of subsequent
-commands on the queue, however, presentation requests sent to a particular
-queue are always performed in order.
-Exact presentation timing is controlled by the semantics of the presentation
-engine and native platform in use.</p>
-</div>
-<div class="paragraph">
-<p>If an image is presented to a swapchain created from a display surface, the
-mode of the associated display will be updated, if necessary, to match the
-mode specified when creating the display surface.
-The mode switch and presentation of the specified image will be performed as
-one atomic operation.</p>
-</div>
-<div class="paragraph">
-<p>The result codes <code>VK_ERROR_OUT_OF_DATE_KHR</code> and <code>VK_SUBOPTIMAL_KHR</code>
-have the same meaning when returned by <code>vkQueuePresentKHR</code> as they do
-when returned by <code>vkAcquireNextImageKHR</code>.
-If multiple swapchains are presented, the result code is determined applying
-the following rules in order:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>If the device is lost, <code>VK_ERROR_DEVICE_LOST</code> is returned.</p>
-</li>
-<li>
-<p>If any of the target surfaces are no longer available the error
-<code>VK_ERROR_SURFACE_LOST_KHR</code> is returned.</p>
-</li>
-<li>
-<p>If any of the presents would have a result of
-<code>VK_ERROR_OUT_OF_DATE_KHR</code> if issued separately then
-<code>VK_ERROR_OUT_OF_DATE_KHR</code> is returned.</p>
-</li>
-<li>
-<p>If any of the presents would have a result of
-<code>VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT</code> if issued separately
-then <code>VK_ERROR_FULL_SCREEN_EXCLUSIVE_MODE_LOST_EXT</code> is returned.</p>
-</li>
-<li>
-<p>If any of the presents would have a result of <code>VK_SUBOPTIMAL_KHR</code> if
-issued separately then <code>VK_SUBOPTIMAL_KHR</code> is returned.</p>
-</li>
-<li>
-<p>Otherwise <code>VK_SUCCESS</code> is returned.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Presentation is a read-only operation that will not affect the content of
-the presentable images.
-Upon reacquiring the image and transitioning it away from the
-<code>VK_IMAGE_LAYOUT_PRESENT_SRC_KHR</code> layout, the contents will be the same
-as they were prior to transitioning the image to the present source layout
-and presenting it.
-However, if a mechanism other than Vulkan is used to modify the platform
-window associated with the swapchain, the content of all presentable images
-in the swapchain becomes <strong>undefined</strong>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Note</div>
-<div class="paragraph">
-<p>The application <strong>can</strong> continue to present any acquired images from a retired
-swapchain as long as the swapchain has not entered a state that causes
-<a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> to return <code>VK_ERROR_OUT_OF_DATE_KHR</code>.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -17296,7 +17318,7 @@ barrier, whether or not that queued request has executed.
 A given presentation request is added, when created by calling
 <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> and specifying a swapchain using the present
 barrier, either to the oldest existing set of corresponding requests for
-which there is no existing member associated with the request&#8217;s swapcahin,
+which there is no existing member associated with the request&#8217;s swapchain,
 or to a new set of corresponding requests if no such set exists.</p>
 </div>
 <div class="paragraph">

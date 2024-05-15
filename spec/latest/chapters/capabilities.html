@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="capabilities.html">Additional Capabilities</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/capabilities.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/capabilities.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -1089,12 +1014,12 @@ extended information in a <code>pNext</code> chain of output structures.</p>
 </div>
 <div class="paragraph">
 <p>If the <code>pNext</code> chain of <code>pImageFormatInfo</code> includes a
-<a href="video_extensions.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a> structure with a <code>profileCount</code> member
+<a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a> structure with a <code>profileCount</code> member
 greater than <code>0</code>, then this command returns format capabilities specific to
-image types used in conjunction with the specified <a href="video_extensions.html#video-profiles" class="xref page">video profiles</a>.
+image types used in conjunction with the specified <a href="videocoding.html#video-profiles" class="xref page">video profiles</a>.
 In this case, this command will return one of the
-<a href="video_extensions.html#video-profile-error-codes" class="xref page">video-profile-specific error codes</a> if any of
-the profiles specified via <a href="video_extensions.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a>::<code>pProfiles</code>
+<a href="videocoding.html#video-profile-error-codes" class="xref page">video-profile-specific error codes</a> if any of
+the profiles specified via <a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a>::<code>pProfiles</code>
 are not supported.
 Furthermore, if <a href="#VkPhysicalDeviceImageFormatInfo2">VkPhysicalDeviceImageFormatInfo2</a>::<code>usage</code> includes
 any image usage flag not supported by the specified video profiles, then
@@ -1304,7 +1229,7 @@ structure with non-zero <code>viewFormatCount</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPhysicalDeviceImageFormatInfo2-pNext-pNext" href="#VUID-VkPhysicalDeviceImageFormatInfo2-pNext-pNext"></a> <span class="vuid">VUID-VkPhysicalDeviceImageFormatInfo2-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="resources.html#VkImageCompressionControlEXT" class="xref page">VkImageCompressionControlEXT</a>, <a href="resources.html#VkImageFormatListCreateInfo" class="xref page">VkImageFormatListCreateInfo</a>, <a href="resources.html#VkImageStencilUsageCreateInfo" class="xref page">VkImageStencilUsageCreateInfo</a>, <a href="VK_NV_optical_flow/optical_flow.html#VkOpticalFlowImageFormatInfoNV" class="xref page">VkOpticalFlowImageFormatInfoNV</a>, <a href="#VkPhysicalDeviceExternalImageFormatInfo">VkPhysicalDeviceExternalImageFormatInfo</a>, <a href="#VkPhysicalDeviceImageDrmFormatModifierInfoEXT">VkPhysicalDeviceImageDrmFormatModifierInfoEXT</a>, <a href="#VkPhysicalDeviceImageViewImageFormatInfoEXT">VkPhysicalDeviceImageViewImageFormatInfoEXT</a>, or <a href="video_extensions.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="resources.html#VkImageCompressionControlEXT" class="xref page">VkImageCompressionControlEXT</a>, <a href="resources.html#VkImageFormatListCreateInfo" class="xref page">VkImageFormatListCreateInfo</a>, <a href="resources.html#VkImageStencilUsageCreateInfo" class="xref page">VkImageStencilUsageCreateInfo</a>, <a href="VK_NV_optical_flow/optical_flow.html#VkOpticalFlowImageFormatInfoNV" class="xref page">VkOpticalFlowImageFormatInfoNV</a>, <a href="#VkPhysicalDeviceExternalImageFormatInfo">VkPhysicalDeviceExternalImageFormatInfo</a>, <a href="#VkPhysicalDeviceImageDrmFormatModifierInfoEXT">VkPhysicalDeviceImageDrmFormatModifierInfoEXT</a>, <a href="#VkPhysicalDeviceImageViewImageFormatInfoEXT">VkPhysicalDeviceImageViewImageFormatInfoEXT</a>, or <a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkPhysicalDeviceImageFormatInfo2-sType-unique" href="#VUID-VkPhysicalDeviceImageFormatInfo2-sType-unique"></a> <span class="vuid">VUID-VkPhysicalDeviceImageFormatInfo2-sType-unique</span><br>
@@ -2333,6 +2258,13 @@ this layout, <code>descriptorCount</code> must be at least <code>24</code>.</p>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Instead of querying all the potential formats that the application might use
+in the descriptor layout, the application <strong>can</strong> use the
+<a href="limits.html#VkPhysicalDeviceMaintenance6PropertiesKHR" class="xref page">VkPhysicalDeviceMaintenance6PropertiesKHR</a>::<code>maxCombinedImageSamplerDescriptorCount</code>
+property to determine the maximum descriptor size that will accommodate any
+and all <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the implementation.</p>
+</div>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -2796,7 +2728,7 @@ In this case, <code>sampleCounts</code> <strong>must</strong> include at least
 </div>
 </div>
 <div class="sect2">
-<h3 id="features-extentperimagetype"><a class="anchor" href="#features-extentperimagetype"></a>Allowed Extent Values Based On Image Type</h3>
+<h3 id="features-extentperimagetype"><a class="anchor" href="#features-extentperimagetype"></a>Allowed Extent Values Based on Image Type</h3>
 <div class="paragraph">
 <p>Implementations <strong>may</strong> support extent values larger than the <a href="limits.html#limits-minmax" class="xref page">required minimum/maximum values</a> for certain types of images.
 <a href="#VkImageFormatProperties">VkImageFormatProperties</a>::<code>maxExtent</code> for each type is subject to
@@ -3028,6 +2960,32 @@ If a <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page"
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceExternalBufferInfo-None-09499" href="#VUID-VkPhysicalDeviceExternalBufferInfo-None-09499"></a> <span class="vuid">VUID-VkPhysicalDeviceExternalBufferInfo-None-09499</span><br>
+
+
+If the <code>pNext</code> chain does not include a
+<a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a> structure,
+<code>usage</code> must be a valid combination of <a href="resources.html#VkBufferUsageFlagBits" class="xref page">VkBufferUsageFlagBits</a>
+values</p>
+</li>
+<li>
+<p><a id="VUID-VkPhysicalDeviceExternalBufferInfo-None-09500" href="#VUID-VkPhysicalDeviceExternalBufferInfo-None-09500"></a> <span class="vuid">VUID-VkPhysicalDeviceExternalBufferInfo-None-09500</span><br>
+
+
+If the <code>pNext</code> chain does not include a
+<a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a> structure,
+<code>usage</code> must not be 0</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
 <div class="title">Valid Usage (Implicit)</div>
 <div class="ulist">
 <ul>
@@ -3046,14 +3004,6 @@ If a <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page"
 <li>
 <p><a id="VUID-VkPhysicalDeviceExternalBufferInfo-flags-parameter" href="#VUID-VkPhysicalDeviceExternalBufferInfo-flags-parameter"></a> <span class="vuid">VUID-VkPhysicalDeviceExternalBufferInfo-flags-parameter</span><br>
  <code>flags</code> <strong>must</strong> be a valid combination of <a href="resources.html#VkBufferCreateFlagBits" class="xref page">VkBufferCreateFlagBits</a> values</p>
-</li>
-<li>
-<p><a id="VUID-VkPhysicalDeviceExternalBufferInfo-usage-parameter" href="#VUID-VkPhysicalDeviceExternalBufferInfo-usage-parameter"></a> <span class="vuid">VUID-VkPhysicalDeviceExternalBufferInfo-usage-parameter</span><br>
- <code>usage</code> <strong>must</strong> be a valid combination of <a href="resources.html#VkBufferUsageFlagBits" class="xref page">VkBufferUsageFlagBits</a> values</p>
-</li>
-<li>
-<p><a id="VUID-VkPhysicalDeviceExternalBufferInfo-usage-requiredbitmask" href="#VUID-VkPhysicalDeviceExternalBufferInfo-usage-requiredbitmask"></a> <span class="vuid">VUID-VkPhysicalDeviceExternalBufferInfo-usage-requiredbitmask</span><br>
- <code>usage</code> <strong>must</strong> not be <code>0</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPhysicalDeviceExternalBufferInfo-handleType-parameter" href="#VUID-VkPhysicalDeviceExternalBufferInfo-handleType-parameter"></a> <span class="vuid">VUID-VkPhysicalDeviceExternalBufferInfo-handleType-parameter</span><br>
@@ -4081,13 +4031,25 @@ zero or more <a href="#VkExternalFenceFeatureFlagBits">VkExternalFenceFeatureFla
 <p>To query the set of time domains for which a physical device supports
 timestamp calibration, call:</p>
 </div>
+<div id="vkGetPhysicalDeviceCalibrateableTimeDomainsKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_calibrated_timestamps
+VkResult vkGetPhysicalDeviceCalibrateableTimeDomainsKHR(
+    VkPhysicalDevice                            physicalDevice,
+    uint32_t*                                   pTimeDomainCount,
+    VkTimeDomainKHR*                            pTimeDomains);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent command</p>
+</div>
 <div id="vkGetPhysicalDeviceCalibrateableTimeDomainsEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_calibrated_timestamps
 VkResult vkGetPhysicalDeviceCalibrateableTimeDomainsEXT(
     VkPhysicalDevice                            physicalDevice,
     uint32_t*                                   pTimeDomainCount,
-    VkTimeDomainEXT*                            pTimeDomains);</code></pre>
+    VkTimeDomainKHR*                            pTimeDomains);</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -4102,7 +4064,7 @@ of calibrateable time domains available or queried, as described below.</p>
 </li>
 <li>
 <p><code>pTimeDomains</code> is either <code>NULL</code> or a pointer to an array of
-<a href="synchronization.html#VkTimeDomainEXT" class="xref page">VkTimeDomainEXT</a> values, indicating the supported calibrateable
+<a href="synchronization.html#VkTimeDomainKHR" class="xref page">VkTimeDomainKHR</a> values, indicating the supported calibrateable
 time domains.</p>
 </li>
 </ul>
@@ -4127,16 +4089,16 @@ time domains were returned.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsEXT-physicalDevice-parameter" href="#VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsEXT-physicalDevice-parameter"></a> <span class="vuid">VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsEXT-physicalDevice-parameter</span><br>
+<p><a id="VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsKHR-physicalDevice-parameter" href="#VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsKHR-physicalDevice-parameter"></a> <span class="vuid">VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsKHR-physicalDevice-parameter</span><br>
  <code>physicalDevice</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkPhysicalDevice" class="xref page">VkPhysicalDevice</a> handle</p>
 </li>
 <li>
-<p><a id="VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsEXT-pTimeDomainCount-parameter" href="#VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsEXT-pTimeDomainCount-parameter"></a> <span class="vuid">VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsEXT-pTimeDomainCount-parameter</span><br>
+<p><a id="VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsKHR-pTimeDomainCount-parameter" href="#VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsKHR-pTimeDomainCount-parameter"></a> <span class="vuid">VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsKHR-pTimeDomainCount-parameter</span><br>
  <code>pTimeDomainCount</code> <strong>must</strong> be a valid pointer to a <code>uint32_t</code> value</p>
 </li>
 <li>
-<p><a id="VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsEXT-pTimeDomains-parameter" href="#VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsEXT-pTimeDomains-parameter"></a> <span class="vuid">VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsEXT-pTimeDomains-parameter</span><br>
- If the value referenced by <code>pTimeDomainCount</code> is not <code>0</code>, and <code>pTimeDomains</code> is not <code>NULL</code>, <code>pTimeDomains</code> <strong>must</strong> be a valid pointer to an array of <code>pTimeDomainCount</code> <a href="synchronization.html#VkTimeDomainEXT" class="xref page">VkTimeDomainEXT</a> values</p>
+<p><a id="VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsKHR-pTimeDomains-parameter" href="#VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsKHR-pTimeDomains-parameter"></a> <span class="vuid">VUID-vkGetPhysicalDeviceCalibrateableTimeDomainsKHR-pTimeDomains-parameter</span><br>
+ If the value referenced by <code>pTimeDomainCount</code> is not <code>0</code>, and <code>pTimeDomains</code> is not <code>NULL</code>, <code>pTimeDomains</code> <strong>must</strong> be a valid pointer to an array of <code>pTimeDomainCount</code> <a href="synchronization.html#VkTimeDomainKHR" class="xref page">VkTimeDomainKHR</a> values</p>
 </li>
 </ul>
 </div>

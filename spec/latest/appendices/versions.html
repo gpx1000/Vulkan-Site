@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="../chapters/VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../chapters/video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="../chapters/videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="versions.html">Core Revisions (Informative)</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/appendices/versions.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/appendices/versions.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -442,139 +367,139 @@ number of key extensions into the core API:</p>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_copy_commands2" class="xref page">VK_KHR_copy_commands2</a></code></p>
+<p><a href="extensions.html#VK_KHR_copy_commands2" class="xref page">VK_KHR_copy_commands2</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_dynamic_rendering" class="xref page">VK_KHR_dynamic_rendering</a></code></p>
+<p><a href="extensions.html#VK_KHR_dynamic_rendering" class="xref page">VK_KHR_dynamic_rendering</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_format_feature_flags2" class="xref page">VK_KHR_format_feature_flags2</a></code></p>
+<p><a href="extensions.html#VK_KHR_format_feature_flags2" class="xref page">VK_KHR_format_feature_flags2</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_maintenance4" class="xref page">VK_KHR_maintenance4</a></code></p>
+<p><a href="extensions.html#VK_KHR_maintenance4" class="xref page">VK_KHR_maintenance4</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_shader_integer_dot_product" class="xref page">VK_KHR_shader_integer_dot_product</a></code></p>
+<p><a href="extensions.html#VK_KHR_shader_integer_dot_product" class="xref page">VK_KHR_shader_integer_dot_product</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_shader_non_semantic_info" class="xref page">VK_KHR_shader_non_semantic_info</a></code></p>
+<p><a href="extensions.html#VK_KHR_shader_non_semantic_info" class="xref page">VK_KHR_shader_non_semantic_info</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_shader_terminate_invocation" class="xref page">VK_KHR_shader_terminate_invocation</a></code></p>
+<p><a href="extensions.html#VK_KHR_shader_terminate_invocation" class="xref page">VK_KHR_shader_terminate_invocation</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_synchronization2" class="xref page">VK_KHR_synchronization2</a></code></p>
+<p><a href="extensions.html#VK_KHR_synchronization2" class="xref page">VK_KHR_synchronization2</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_zero_initialize_workgroup_memory" class="xref page">VK_KHR_zero_initialize_workgroup_memory</a></code></p>
+<p><a href="extensions.html#VK_KHR_zero_initialize_workgroup_memory" class="xref page">VK_KHR_zero_initialize_workgroup_memory</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_4444_formats" class="xref page">VK_EXT_4444_formats</a></code></p>
+<p><a href="extensions.html#VK_EXT_4444_formats" class="xref page">VK_EXT_4444_formats</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_extended_dynamic_state" class="xref page">VK_EXT_extended_dynamic_state</a></code></p>
+<p><a href="extensions.html#VK_EXT_extended_dynamic_state" class="xref page">VK_EXT_extended_dynamic_state</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_extended_dynamic_state2" class="xref page">VK_EXT_extended_dynamic_state2</a></code></p>
+<p><a href="extensions.html#VK_EXT_extended_dynamic_state2" class="xref page">VK_EXT_extended_dynamic_state2</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_image_robustness" class="xref page">VK_EXT_image_robustness</a></code></p>
+<p><a href="extensions.html#VK_EXT_image_robustness" class="xref page">VK_EXT_image_robustness</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_inline_uniform_block" class="xref page">VK_EXT_inline_uniform_block</a></code></p>
+<p><a href="extensions.html#VK_EXT_inline_uniform_block" class="xref page">VK_EXT_inline_uniform_block</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_pipeline_creation_cache_control" class="xref page">VK_EXT_pipeline_creation_cache_control</a></code></p>
+<p><a href="extensions.html#VK_EXT_pipeline_creation_cache_control" class="xref page">VK_EXT_pipeline_creation_cache_control</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_pipeline_creation_feedback" class="xref page">VK_EXT_pipeline_creation_feedback</a></code></p>
+<p><a href="extensions.html#VK_EXT_pipeline_creation_feedback" class="xref page">VK_EXT_pipeline_creation_feedback</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_private_data" class="xref page">VK_EXT_private_data</a></code></p>
+<p><a href="extensions.html#VK_EXT_private_data" class="xref page">VK_EXT_private_data</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_shader_demote_to_helper_invocation" class="xref page">VK_EXT_shader_demote_to_helper_invocation</a></code></p>
+<p><a href="extensions.html#VK_EXT_shader_demote_to_helper_invocation" class="xref page">VK_EXT_shader_demote_to_helper_invocation</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_subgroup_size_control" class="xref page">VK_EXT_subgroup_size_control</a></code></p>
+<p><a href="extensions.html#VK_EXT_subgroup_size_control" class="xref page">VK_EXT_subgroup_size_control</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_texel_buffer_alignment" class="xref page">VK_EXT_texel_buffer_alignment</a></code></p>
+<p><a href="extensions.html#VK_EXT_texel_buffer_alignment" class="xref page">VK_EXT_texel_buffer_alignment</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_texture_compression_astc_hdr" class="xref page">VK_EXT_texture_compression_astc_hdr</a></code></p>
+<p><a href="extensions.html#VK_EXT_texture_compression_astc_hdr" class="xref page">VK_EXT_texture_compression_astc_hdr</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_tooling_info" class="xref page">VK_EXT_tooling_info</a></code></p>
+<p><a href="extensions.html#VK_EXT_tooling_info" class="xref page">VK_EXT_tooling_info</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_ycbcr_2plane_444_formats" class="xref page">VK_EXT_ycbcr_2plane_444_formats</a></code></p>
+<p><a href="extensions.html#VK_EXT_ycbcr_2plane_444_formats" class="xref page">VK_EXT_ycbcr_2plane_444_formats</a></p>
 </div>
 </li>
 </ul>
@@ -584,7 +509,7 @@ number of key extensions into the core API:</p>
 Vulkan 1.3 functionality are summarized below.</p>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_ext_4444_formats"><a class="anchor" href="#_differences_relative_to_vk_ext_4444_formats"></a>Differences relative to <code>VK_EXT_4444_formats</code></h3>
+<h3 id="_differences_relative_to_vk_ext_4444_formats"><a class="anchor" href="#_differences_relative_to_vk_ext_4444_formats"></a>Differences Relative to <code>VK_EXT_4444_formats</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_EXT_4444_formats" class="xref page">VK_EXT_4444_formats</a></code> extension is not supported, support for
 all formats defined by it are optional in Vulkan 1.3.
@@ -593,7 +518,7 @@ corresponding to the <a href="../chapters/features.html#VkPhysicalDevice4444Form
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_ext_extended_dynamic_state"><a class="anchor" href="#_differences_relative_to_vk_ext_extended_dynamic_state"></a>Differences relative to <code>VK_EXT_extended_dynamic_state</code></h3>
+<h3 id="_differences_relative_to_vk_ext_extended_dynamic_state"><a class="anchor" href="#_differences_relative_to_vk_ext_extended_dynamic_state"></a>Differences Relative to <code>VK_EXT_extended_dynamic_state</code></h3>
 <div class="paragraph">
 <p>All dynamic state enumerants and entry points defined by
 <code><a href="extensions.html#VK_EXT_extended_dynamic_state" class="xref page">VK_EXT_extended_dynamic_state</a></code> are required in Vulkan 1.3.
@@ -603,7 +528,7 @@ structure.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_ext_extended_dynamic_state2"><a class="anchor" href="#_differences_relative_to_vk_ext_extended_dynamic_state2"></a>Differences relative to <code>VK_EXT_extended_dynamic_state2</code></h3>
+<h3 id="_differences_relative_to_vk_ext_extended_dynamic_state2"><a class="anchor" href="#_differences_relative_to_vk_ext_extended_dynamic_state2"></a>Differences Relative to <code>VK_EXT_extended_dynamic_state2</code></h3>
 <div class="paragraph">
 <p>The optional dynamic state enumerants and entry points defined by
 <code><a href="extensions.html#VK_EXT_extended_dynamic_state2" class="xref page">VK_EXT_extended_dynamic_state2</a></code> for patch control points and logic
@@ -614,7 +539,7 @@ structure.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_ext_texel_buffer_alignment"><a class="anchor" href="#_differences_relative_to_vk_ext_texel_buffer_alignment"></a>Differences relative to <code>VK_EXT_texel_buffer_alignment</code></h3>
+<h3 id="_differences_relative_to_vk_ext_texel_buffer_alignment"><a class="anchor" href="#_differences_relative_to_vk_ext_texel_buffer_alignment"></a>Differences Relative to <code>VK_EXT_texel_buffer_alignment</code></h3>
 <div class="paragraph">
 <p>The more specific alignment requirements defined by
 <a href="../chapters/limits.html#VkPhysicalDeviceTexelBufferAlignmentProperties" class="xref page">VkPhysicalDeviceTexelBufferAlignmentProperties</a> are required in Vulkan
@@ -627,7 +552,7 @@ instance.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_ext_texture_compression_astc_hdr"><a class="anchor" href="#_differences_relative_to_vk_ext_texture_compression_astc_hdr"></a>Differences relative to <code>VK_EXT_texture_compression_astc_hdr</code></h3>
+<h3 id="_differences_relative_to_vk_ext_texture_compression_astc_hdr"><a class="anchor" href="#_differences_relative_to_vk_ext_texture_compression_astc_hdr"></a>Differences Relative to <code>VK_EXT_texture_compression_astc_hdr</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_EXT_texture_compression_astc_hdr" class="xref page">VK_EXT_texture_compression_astc_hdr</a></code> extension is not
 supported, support for all formats defined by it are optional in Vulkan 1.3.
@@ -637,7 +562,7 @@ implementation supports these formats.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_ext_ycbcr_2plane_444_formats"><a class="anchor" href="#_differences_relative_to_vk_ext_ycbcr_2plane_444_formats"></a>Differences relative to <code>VK_EXT_ycbcr_2plane_444_formats</code></h3>
+<h3 id="_differences_relative_to_vk_ext_ycbcr_2plane_444_formats"><a class="anchor" href="#_differences_relative_to_vk_ext_ycbcr_2plane_444_formats"></a>Differences Relative to <code>VK_EXT_ycbcr_2plane_444_formats</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_EXT_ycbcr_2plane_444_formats" class="xref page">VK_EXT_ycbcr_2plane_444_formats</a></code> extension is not supported,
 support for all formats defined by it are optional in Vulkan 1.3.
@@ -1564,145 +1489,145 @@ number of key extensions into the core API:</p>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_8bit_storage" class="xref page">VK_KHR_8bit_storage</a></code></p>
+<p><a href="extensions.html#VK_KHR_8bit_storage" class="xref page">VK_KHR_8bit_storage</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_buffer_device_address" class="xref page">VK_KHR_buffer_device_address</a></code></p>
+<p><a href="extensions.html#VK_KHR_buffer_device_address" class="xref page">VK_KHR_buffer_device_address</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a></code></p>
+<p><a href="extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_depth_stencil_resolve" class="xref page">VK_KHR_depth_stencil_resolve</a></code></p>
+<p><a href="extensions.html#VK_KHR_depth_stencil_resolve" class="xref page">VK_KHR_depth_stencil_resolve</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_draw_indirect_count" class="xref page">VK_KHR_draw_indirect_count</a></code></p>
+<p><a href="extensions.html#VK_KHR_draw_indirect_count" class="xref page">VK_KHR_draw_indirect_count</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_driver_properties" class="xref page">VK_KHR_driver_properties</a></code></p>
+<p><a href="extensions.html#VK_KHR_driver_properties" class="xref page">VK_KHR_driver_properties</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_image_format_list" class="xref page">VK_KHR_image_format_list</a></code></p>
+<p><a href="extensions.html#VK_KHR_image_format_list" class="xref page">VK_KHR_image_format_list</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_imageless_framebuffer" class="xref page">VK_KHR_imageless_framebuffer</a></code></p>
+<p><a href="extensions.html#VK_KHR_imageless_framebuffer" class="xref page">VK_KHR_imageless_framebuffer</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_sampler_mirror_clamp_to_edge" class="xref page">VK_KHR_sampler_mirror_clamp_to_edge</a></code></p>
+<p><a href="extensions.html#VK_KHR_sampler_mirror_clamp_to_edge" class="xref page">VK_KHR_sampler_mirror_clamp_to_edge</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_separate_depth_stencil_layouts" class="xref page">VK_KHR_separate_depth_stencil_layouts</a></code></p>
+<p><a href="extensions.html#VK_KHR_separate_depth_stencil_layouts" class="xref page">VK_KHR_separate_depth_stencil_layouts</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_shader_atomic_int64" class="xref page">VK_KHR_shader_atomic_int64</a></code></p>
+<p><a href="extensions.html#VK_KHR_shader_atomic_int64" class="xref page">VK_KHR_shader_atomic_int64</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_shader_float16_int8" class="xref page">VK_KHR_shader_float16_int8</a></code></p>
+<p><a href="extensions.html#VK_KHR_shader_float16_int8" class="xref page">VK_KHR_shader_float16_int8</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_shader_float_controls" class="xref page">VK_KHR_shader_float_controls</a></code></p>
+<p><a href="extensions.html#VK_KHR_shader_float_controls" class="xref page">VK_KHR_shader_float_controls</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_shader_subgroup_extended_types" class="xref page">VK_KHR_shader_subgroup_extended_types</a></code></p>
+<p><a href="extensions.html#VK_KHR_shader_subgroup_extended_types" class="xref page">VK_KHR_shader_subgroup_extended_types</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_spirv_1_4" class="xref page">VK_KHR_spirv_1_4</a></code></p>
+<p><a href="extensions.html#VK_KHR_spirv_1_4" class="xref page">VK_KHR_spirv_1_4</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_timeline_semaphore" class="xref page">VK_KHR_timeline_semaphore</a></code></p>
+<p><a href="extensions.html#VK_KHR_timeline_semaphore" class="xref page">VK_KHR_timeline_semaphore</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_uniform_buffer_standard_layout" class="xref page">VK_KHR_uniform_buffer_standard_layout</a></code></p>
+<p><a href="extensions.html#VK_KHR_uniform_buffer_standard_layout" class="xref page">VK_KHR_uniform_buffer_standard_layout</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_vulkan_memory_model" class="xref page">VK_KHR_vulkan_memory_model</a></code></p>
+<p><a href="extensions.html#VK_KHR_vulkan_memory_model" class="xref page">VK_KHR_vulkan_memory_model</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_descriptor_indexing" class="xref page">VK_EXT_descriptor_indexing</a></code></p>
+<p><a href="extensions.html#VK_EXT_descriptor_indexing" class="xref page">VK_EXT_descriptor_indexing</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_host_query_reset" class="xref page">VK_EXT_host_query_reset</a></code></p>
+<p><a href="extensions.html#VK_EXT_host_query_reset" class="xref page">VK_EXT_host_query_reset</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_sampler_filter_minmax" class="xref page">VK_EXT_sampler_filter_minmax</a></code></p>
+<p><a href="extensions.html#VK_EXT_sampler_filter_minmax" class="xref page">VK_EXT_sampler_filter_minmax</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_scalar_block_layout" class="xref page">VK_EXT_scalar_block_layout</a></code></p>
+<p><a href="extensions.html#VK_EXT_scalar_block_layout" class="xref page">VK_EXT_scalar_block_layout</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_separate_stencil_usage" class="xref page">VK_EXT_separate_stencil_usage</a></code></p>
+<p><a href="extensions.html#VK_EXT_separate_stencil_usage" class="xref page">VK_EXT_separate_stencil_usage</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_EXT_shader_viewport_index_layer" class="xref page">VK_EXT_shader_viewport_index_layer</a></code></p>
+<p><a href="extensions.html#VK_EXT_shader_viewport_index_layer" class="xref page">VK_EXT_shader_viewport_index_layer</a></p>
 </div>
 </li>
 </ul>
@@ -1712,7 +1637,7 @@ number of key extensions into the core API:</p>
 Vulkan 1.2 functionality are summarized below.</p>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_khr_8bit_storage"><a class="anchor" href="#_differences_relative_to_vk_khr_8bit_storage"></a>Differences relative to <code>VK_KHR_8bit_storage</code></h3>
+<h3 id="_differences_relative_to_vk_khr_8bit_storage"><a class="anchor" href="#_differences_relative_to_vk_khr_8bit_storage"></a>Differences Relative to <code>VK_KHR_8bit_storage</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_KHR_8bit_storage" class="xref page">VK_KHR_8bit_storage</a></code> extension is not supported, support for
 the SPIR-V <a href="../chapters/features.html#features-storageBuffer8BitAccess" class="xref page"><code>storageBuffer8BitAccess</code></a> capability in shader modules is optional.
@@ -1722,7 +1647,7 @@ queried via <a href="../chapters/features.html#vkGetPhysicalDeviceFeatures2" cla
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_khr_draw_indirect_count"><a class="anchor" href="#_differences_relative_to_vk_khr_draw_indirect_count"></a>Differences relative to <code>VK_KHR_draw_indirect_count</code></h3>
+<h3 id="_differences_relative_to_vk_khr_draw_indirect_count"><a class="anchor" href="#_differences_relative_to_vk_khr_draw_indirect_count"></a>Differences Relative to <code>VK_KHR_draw_indirect_count</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_KHR_draw_indirect_count" class="xref page">VK_KHR_draw_indirect_count</a></code> extension is not supported,
 support for the entry points <a href="../chapters/drawing.html#vkCmdDrawIndirectCount" class="xref page">vkCmdDrawIndirectCount</a> and
@@ -1733,7 +1658,7 @@ via <a href="../chapters/features.html#vkGetPhysicalDeviceFeatures2" class="xref
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_khr_sampler_mirror_clamp_to_edge"><a class="anchor" href="#_differences_relative_to_vk_khr_sampler_mirror_clamp_to_edge"></a>Differences relative to <code>VK_KHR_sampler_mirror_clamp_to_edge</code></h3>
+<h3 id="_differences_relative_to_vk_khr_sampler_mirror_clamp_to_edge"><a class="anchor" href="#_differences_relative_to_vk_khr_sampler_mirror_clamp_to_edge"></a>Differences Relative to <code>VK_KHR_sampler_mirror_clamp_to_edge</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_KHR_sampler_mirror_clamp_to_edge" class="xref page">VK_KHR_sampler_mirror_clamp_to_edge</a></code> extension is not
 supported, support for the <a href="../chapters/samplers.html#VkSamplerAddressMode" class="xref page">VkSamplerAddressMode</a>
@@ -1744,7 +1669,7 @@ queried via <a href="../chapters/features.html#vkGetPhysicalDeviceFeatures2" cla
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_ext_descriptor_indexing"><a class="anchor" href="#_differences_relative_to_vk_ext_descriptor_indexing"></a>Differences relative to <code>VK_EXT_descriptor_indexing</code></h3>
+<h3 id="_differences_relative_to_vk_ext_descriptor_indexing"><a class="anchor" href="#_differences_relative_to_vk_ext_descriptor_indexing"></a>Differences Relative to <code>VK_EXT_descriptor_indexing</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_EXT_descriptor_indexing" class="xref page">VK_EXT_descriptor_indexing</a></code> extension is not supported,
 support for the <a href="../chapters/features.html#features-descriptorIndexing" class="xref page"><code>descriptorIndexing</code></a>
@@ -1755,7 +1680,7 @@ queried via <a href="../chapters/features.html#vkGetPhysicalDeviceFeatures2" cla
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_ext_scalar_block_layout"><a class="anchor" href="#_differences_relative_to_vk_ext_scalar_block_layout"></a>Differences relative to <code>VK_EXT_scalar_block_layout</code></h3>
+<h3 id="_differences_relative_to_vk_ext_scalar_block_layout"><a class="anchor" href="#_differences_relative_to_vk_ext_scalar_block_layout"></a>Differences Relative to <code>VK_EXT_scalar_block_layout</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_EXT_scalar_block_layout" class="xref page">VK_EXT_scalar_block_layout</a></code> extension is not supported,
 support for the <a href="../chapters/features.html#features-scalarBlockLayout" class="xref page"><code>scalarBlockLayout</code></a>
@@ -1766,7 +1691,7 @@ via <a href="../chapters/features.html#vkGetPhysicalDeviceFeatures2" class="xref
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_ext_shader_viewport_index_layer"><a class="anchor" href="#_differences_relative_to_vk_ext_shader_viewport_index_layer"></a>Differences relative to <code>VK_EXT_shader_viewport_index_layer</code></h3>
+<h3 id="_differences_relative_to_vk_ext_shader_viewport_index_layer"><a class="anchor" href="#_differences_relative_to_vk_ext_shader_viewport_index_layer"></a>Differences Relative to <code>VK_EXT_shader_viewport_index_layer</code></h3>
 <div class="paragraph">
 <p>The <code>ShaderViewportIndexLayerEXT</code> SPIR-V capability was replaced with the
 <code>ShaderViewportIndex</code> and <code>ShaderLayer</code> capabilities.
@@ -1781,7 +1706,7 @@ via <a href="../chapters/features.html#vkGetPhysicalDeviceFeatures2" class="xref
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_khr_buffer_device_address"><a class="anchor" href="#_differences_relative_to_vk_khr_buffer_device_address"></a>Differences relative to <code>VK_KHR_buffer_device_address</code></h3>
+<h3 id="_differences_relative_to_vk_khr_buffer_device_address"><a class="anchor" href="#_differences_relative_to_vk_khr_buffer_device_address"></a>Differences Relative to <code>VK_KHR_buffer_device_address</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_KHR_buffer_device_address" class="xref page">VK_KHR_buffer_device_address</a></code> extension is not supported,
 support for the <a href="../chapters/features.html#features-bufferDeviceAddress" class="xref page"><code>bufferDeviceAddress</code></a>
@@ -1792,7 +1717,7 @@ queried via <a href="../chapters/features.html#vkGetPhysicalDeviceFeatures2" cla
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_khr_shader_atomic_int64"><a class="anchor" href="#_differences_relative_to_vk_khr_shader_atomic_int64"></a>Differences relative to <code>VK_KHR_shader_atomic_int64</code></h3>
+<h3 id="_differences_relative_to_vk_khr_shader_atomic_int64"><a class="anchor" href="#_differences_relative_to_vk_khr_shader_atomic_int64"></a>Differences Relative to <code>VK_KHR_shader_atomic_int64</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_KHR_shader_atomic_int64" class="xref page">VK_KHR_shader_atomic_int64</a></code> extension is not supported,
 support for the <a href="../chapters/features.html#features-shaderBufferInt64Atomics" class="xref page"><code>shaderBufferInt64Atomics</code></a> feature is optional.
@@ -1802,7 +1727,7 @@ queried via <a href="../chapters/features.html#vkGetPhysicalDeviceFeatures2" cla
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_khr_shader_float16_int8"><a class="anchor" href="#_differences_relative_to_vk_khr_shader_float16_int8"></a>Differences relative to <code>VK_KHR_shader_float16_int8</code></h3>
+<h3 id="_differences_relative_to_vk_khr_shader_float16_int8"><a class="anchor" href="#_differences_relative_to_vk_khr_shader_float16_int8"></a>Differences Relative to <code>VK_KHR_shader_float16_int8</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_KHR_shader_float16_int8" class="xref page">VK_KHR_shader_float16_int8</a></code> extension is not supported,
 support for the <a href="../chapters/features.html#features-shaderFloat16" class="xref page"><code>shaderFloat16</code></a> and
@@ -1814,7 +1739,7 @@ Support for these features are defined by
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_khr_vulkan_memory_model"><a class="anchor" href="#_differences_relative_to_vk_khr_vulkan_memory_model"></a>Differences relative to <code>VK_KHR_vulkan_memory_model</code></h3>
+<h3 id="_differences_relative_to_vk_khr_vulkan_memory_model"><a class="anchor" href="#_differences_relative_to_vk_khr_vulkan_memory_model"></a>Differences Relative to <code>VK_KHR_vulkan_memory_model</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_KHR_vulkan_memory_model" class="xref page">VK_KHR_vulkan_memory_model</a></code> extension is not supported,
 support for the <a href="../chapters/features.html#features-vulkanMemoryModel" class="xref page"><code>vulkanMemoryModel</code></a>
@@ -2566,139 +2491,139 @@ number of key extensions into the core API:</p>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_16bit_storage" class="xref page">VK_KHR_16bit_storage</a></code></p>
+<p><a href="extensions.html#VK_KHR_16bit_storage" class="xref page">VK_KHR_16bit_storage</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_bind_memory2" class="xref page">VK_KHR_bind_memory2</a></code></p>
+<p><a href="extensions.html#VK_KHR_bind_memory2" class="xref page">VK_KHR_bind_memory2</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_dedicated_allocation" class="xref page">VK_KHR_dedicated_allocation</a></code></p>
+<p><a href="extensions.html#VK_KHR_dedicated_allocation" class="xref page">VK_KHR_dedicated_allocation</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_descriptor_update_template" class="xref page">VK_KHR_descriptor_update_template</a></code></p>
+<p><a href="extensions.html#VK_KHR_descriptor_update_template" class="xref page">VK_KHR_descriptor_update_template</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_device_group" class="xref page">VK_KHR_device_group</a></code></p>
+<p><a href="extensions.html#VK_KHR_device_group" class="xref page">VK_KHR_device_group</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_device_group_creation" class="xref page">VK_KHR_device_group_creation</a></code></p>
+<p><a href="extensions.html#VK_KHR_device_group_creation" class="xref page">VK_KHR_device_group_creation</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_external_fence" class="xref page">VK_KHR_external_fence</a></code></p>
+<p><a href="extensions.html#VK_KHR_external_fence" class="xref page">VK_KHR_external_fence</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_external_fence_capabilities" class="xref page">VK_KHR_external_fence_capabilities</a></code></p>
+<p><a href="extensions.html#VK_KHR_external_fence_capabilities" class="xref page">VK_KHR_external_fence_capabilities</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_external_memory" class="xref page">VK_KHR_external_memory</a></code></p>
+<p><a href="extensions.html#VK_KHR_external_memory" class="xref page">VK_KHR_external_memory</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_external_memory_capabilities" class="xref page">VK_KHR_external_memory_capabilities</a></code></p>
+<p><a href="extensions.html#VK_KHR_external_memory_capabilities" class="xref page">VK_KHR_external_memory_capabilities</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_external_semaphore" class="xref page">VK_KHR_external_semaphore</a></code></p>
+<p><a href="extensions.html#VK_KHR_external_semaphore" class="xref page">VK_KHR_external_semaphore</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_external_semaphore_capabilities" class="xref page">VK_KHR_external_semaphore_capabilities</a></code></p>
+<p><a href="extensions.html#VK_KHR_external_semaphore_capabilities" class="xref page">VK_KHR_external_semaphore_capabilities</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_get_memory_requirements2" class="xref page">VK_KHR_get_memory_requirements2</a></code></p>
+<p><a href="extensions.html#VK_KHR_get_memory_requirements2" class="xref page">VK_KHR_get_memory_requirements2</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_get_physical_device_properties2" class="xref page">VK_KHR_get_physical_device_properties2</a></code></p>
+<p><a href="extensions.html#VK_KHR_get_physical_device_properties2" class="xref page">VK_KHR_get_physical_device_properties2</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_maintenance1" class="xref page">VK_KHR_maintenance1</a></code></p>
+<p><a href="extensions.html#VK_KHR_maintenance1" class="xref page">VK_KHR_maintenance1</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_maintenance2" class="xref page">VK_KHR_maintenance2</a></code></p>
+<p><a href="extensions.html#VK_KHR_maintenance2" class="xref page">VK_KHR_maintenance2</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_maintenance3" class="xref page">VK_KHR_maintenance3</a></code></p>
+<p><a href="extensions.html#VK_KHR_maintenance3" class="xref page">VK_KHR_maintenance3</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_multiview" class="xref page">VK_KHR_multiview</a></code></p>
+<p><a href="extensions.html#VK_KHR_multiview" class="xref page">VK_KHR_multiview</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_relaxed_block_layout" class="xref page">VK_KHR_relaxed_block_layout</a></code></p>
+<p><a href="extensions.html#VK_KHR_relaxed_block_layout" class="xref page">VK_KHR_relaxed_block_layout</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_sampler_ycbcr_conversion" class="xref page">VK_KHR_sampler_ycbcr_conversion</a></code></p>
+<p><a href="extensions.html#VK_KHR_sampler_ycbcr_conversion" class="xref page">VK_KHR_sampler_ycbcr_conversion</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_shader_draw_parameters" class="xref page">VK_KHR_shader_draw_parameters</a></code></p>
+<p><a href="extensions.html#VK_KHR_shader_draw_parameters" class="xref page">VK_KHR_shader_draw_parameters</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_storage_buffer_storage_class" class="xref page">VK_KHR_storage_buffer_storage_class</a></code></p>
+<p><a href="extensions.html#VK_KHR_storage_buffer_storage_class" class="xref page">VK_KHR_storage_buffer_storage_class</a></p>
 </div>
 </li>
 <li>
 <p></p>
 <div class="paragraph">
-<p><code><a href="extensions.html#VK_KHR_variable_pointers" class="xref page">VK_KHR_variable_pointers</a></code></p>
+<p><a href="extensions.html#VK_KHR_variable_pointers" class="xref page">VK_KHR_variable_pointers</a></p>
 </div>
 </li>
 </ul>
@@ -2708,7 +2633,7 @@ number of key extensions into the core API:</p>
 Vulkan 1.1 functionality are summarized below.</p>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_khr_16bit_storage"><a class="anchor" href="#_differences_relative_to_vk_khr_16bit_storage"></a>Differences relative to <code>VK_KHR_16bit_storage</code></h3>
+<h3 id="_differences_relative_to_vk_khr_16bit_storage"><a class="anchor" href="#_differences_relative_to_vk_khr_16bit_storage"></a>Differences Relative to <code>VK_KHR_16bit_storage</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_KHR_16bit_storage" class="xref page">VK_KHR_16bit_storage</a></code> extension is not supported, support for
 the <a href="../chapters/features.html#features-storageBuffer16BitAccess" class="xref page"><code>storageBuffer16BitAccess</code></a>
@@ -2720,7 +2645,7 @@ when queried via <a href="../chapters/features.html#vkGetPhysicalDeviceFeatures2
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_khr_sampler_ycbcr_conversion"><a class="anchor" href="#_differences_relative_to_vk_khr_sampler_ycbcr_conversion"></a>Differences relative to <code>VK_KHR_sampler_ycbcr_conversion</code></h3>
+<h3 id="_differences_relative_to_vk_khr_sampler_ycbcr_conversion"><a class="anchor" href="#_differences_relative_to_vk_khr_sampler_ycbcr_conversion"></a>Differences Relative to <code>VK_KHR_sampler_ycbcr_conversion</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_KHR_sampler_ycbcr_conversion" class="xref page">VK_KHR_sampler_ycbcr_conversion</a></code> extension is not supported,
 support for the <a href="../chapters/features.html#features-samplerYcbcrConversion" class="xref page"><code>samplerYcbcrConversion</code></a> feature is optional.
@@ -2731,11 +2656,11 @@ when queried via <a href="../chapters/features.html#vkGetPhysicalDeviceFeatures2
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_khr_shader_draw_parameters"><a class="anchor" href="#_differences_relative_to_vk_khr_shader_draw_parameters"></a>Differences relative to <code>VK_KHR_shader_draw_parameters</code></h3>
+<h3 id="_differences_relative_to_vk_khr_shader_draw_parameters"><a class="anchor" href="#_differences_relative_to_vk_khr_shader_draw_parameters"></a>Differences Relative to <code>VK_KHR_shader_draw_parameters</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_KHR_shader_draw_parameters" class="xref page">VK_KHR_shader_draw_parameters</a></code> extension is not supported,
 support for the
-<a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/master/extensions/KHR/SPV_KHR_shader_draw_parameters.html"><code>SPV_KHR_shader_draw_parameters</code></a>
+<a href="https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_shader_draw_parameters.html"><code>SPV_KHR_shader_draw_parameters</code></a>
 SPIR-V extension is optional.
 Support for this feature is defined by
 <a href="../chapters/features.html#VkPhysicalDeviceShaderDrawParametersFeatures" class="xref page">VkPhysicalDeviceShaderDrawParametersFeatures</a>::<code>shaderDrawParameters</code>
@@ -2744,7 +2669,7 @@ when queried via <a href="../chapters/features.html#vkGetPhysicalDeviceFeatures2
 </div>
 </div>
 <div class="sect2">
-<h3 id="_differences_relative_to_vk_khr_variable_pointers"><a class="anchor" href="#_differences_relative_to_vk_khr_variable_pointers"></a>Differences relative to <code>VK_KHR_variable_pointers</code></h3>
+<h3 id="_differences_relative_to_vk_khr_variable_pointers"><a class="anchor" href="#_differences_relative_to_vk_khr_variable_pointers"></a>Differences Relative to <code>VK_KHR_variable_pointers</code></h3>
 <div class="paragraph">
 <p>If the <code><a href="extensions.html#VK_KHR_variable_pointers" class="xref page">VK_KHR_variable_pointers</a></code> extension is not supported, support
 for the <a href="../chapters/features.html#features-variablePointersStorageBuffer" class="xref page"><code>variablePointersStorageBuffer</code></a> feature is optional.
@@ -4728,9 +4653,6 @@ not have one).</p>
 <p><a href="../chapters/drawing.html#VkPipelineInputAssemblyStateCreateInfo" class="xref page">VkPipelineInputAssemblyStateCreateInfo</a></p>
 </li>
 <li>
-<p><a href="../chapters/descriptorsets.html#VkPipelineLayoutCreateInfo" class="xref page">VkPipelineLayoutCreateInfo</a></p>
-</li>
-<li>
 <p><a href="../chapters/primsrast.html#VkPipelineMultisampleStateCreateInfo" class="xref page">VkPipelineMultisampleStateCreateInfo</a></p>
 </li>
 <li>
@@ -4825,6 +4747,16 @@ not have one).</p>
 </li>
 <li>
 <p><a href="../chapters/descriptorsets.html#VkWriteDescriptorSet" class="xref page">VkWriteDescriptorSet</a></p>
+</li>
+<li>
+<p>Extending <a href="../chapters/descriptorsets.html#VkBindDescriptorSetsInfoKHR" class="xref page">VkBindDescriptorSetsInfoKHR</a>, <a href="../chapters/descriptorsets.html#VkPushConstantsInfoKHR" class="xref page">VkPushConstantsInfoKHR</a>, <a href="../chapters/descriptorsets.html#VkPushDescriptorSetInfoKHR" class="xref page">VkPushDescriptorSetInfoKHR</a>, <a href="../chapters/descriptorsets.html#VkPushDescriptorSetWithTemplateInfoKHR" class="xref page">VkPushDescriptorSetWithTemplateInfoKHR</a>, <a href="../chapters/descriptorsets.html#VkSetDescriptorBufferOffsetsInfoEXT" class="xref page">VkSetDescriptorBufferOffsetsInfoEXT</a>, <a href="../chapters/descriptorsets.html#VkBindDescriptorBufferEmbeddedSamplersInfoEXT" class="xref page">VkBindDescriptorBufferEmbeddedSamplersInfoEXT</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../chapters/descriptorsets.html#VkPipelineLayoutCreateInfo" class="xref page">VkPipelineLayoutCreateInfo</a></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p>Extending <a href="../chapters/pipelines.html#VkPipelineShaderStageCreateInfo" class="xref page">VkPipelineShaderStageCreateInfo</a>:</p>
@@ -5009,6 +4941,9 @@ not have one).</p>
 </li>
 <li>
 <p><a href="../chapters/memory.html#VkMemoryHeapFlagBits" class="xref page">VkMemoryHeapFlagBits</a></p>
+</li>
+<li>
+<p><a href="../chapters/memory.html#VkMemoryMapFlagBits" class="xref page">VkMemoryMapFlagBits</a></p>
 </li>
 <li>
 <p><a href="../chapters/memory.html#VkMemoryPropertyFlagBits" class="xref page">VkMemoryPropertyFlagBits</a></p>

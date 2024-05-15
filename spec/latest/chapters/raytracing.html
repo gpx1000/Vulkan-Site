@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="raytracing.html">Ray Tracing</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/raytracing.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/raytracing.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -435,10 +360,8 @@ compute pipelines (see <a href="pipelines.html#pipelines-ray-tracing" class="xre
 </div>
 </div>
 <div class="paragraph">
-<p>Within the ray tracing pipeline, <code>OpTraceRayKHR</code>
-or <code>OpTraceRayMotionNV</code>
-<strong>can</strong> be called to perform a <a href="raytraversal.html#ray-traversal" class="xref page">ray traversal</a> that invokes the
-various ray tracing shader stages during its execution.
+<p>Within the ray tracing pipeline, a <a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instruction <strong>can</strong> be called to perform a <a href="raytraversal.html#ray-traversal" class="xref page">ray traversal</a> that invokes the various ray tracing shader stages during its
+execution.
 The relationship between the ray tracing pipeline object and the geometries
 present in the acceleration structure traversed is passed into the ray
 tracing command in a <a href="resources.html#VkBuffer" class="xref page">VkBuffer</a> object known as a <em>shader binding
@@ -526,9 +449,8 @@ which may recurse (e.g. <code>OpExecuteCallableKHR</code>) but there is an upper
 bound determined by the <a href="#ray-tracing-pipeline-stack">stack size</a>.</p>
 </div>
 <div id="ray-tracing-repack" class="paragraph">
-<p>An <em>invocation repack instruction</em> is a ray tracing shader call instruction
-where the implementation <strong>may</strong> change the set of invocations that are
-executing.
+<p>An <em>invocation repack instruction</em> is a ray tracing instruction where the
+implementation <strong>may</strong> change the set of invocations that are executing.
 When a repack instruction is encountered, the invocation is suspended and a
 new invocation begins and executes the instruction.
 After executing the repack instruction (which <strong>may</strong> result in other ray
@@ -547,8 +469,8 @@ same <code>SubgroupLocalInvocationId</code>.</p>
 invocation repack instructions.</p>
 </div>
 <div class="paragraph">
-<p>The invocations that are executing before an invocation repack instruction,
-after the instruction, or are created by the instruction, are
+<p>The invocations that are executing before a shader call instruction, after
+the instruction, or are created by the instruction, are
 <a href="../appendices/memorymodel.html#shader-call-related" class="xref page">shader-call-related</a>.</p>
 </div>
 <div class="paragraph">
@@ -626,8 +548,8 @@ storage classes are <a href="../appendices/memorymodel.html#memory-model-shader-
 no application availability and visibility operations are required.</p>
 </li>
 <li>
-<p>memory operations within a single invocation before and after the
-invocation repack instruction are ordered by
+<p>memory operations within a single invocation before and after the shader
+call instruction are ordered by
 <a href="../appendices/memorymodel.html#memory-model-program-order" class="xref page">program-order</a> and do not require explicit
 synchronization.</p>
 </li>
@@ -750,21 +672,63 @@ binding table record in <code>callableShaderBindingTableBuffer</code>.</p>
 <p><a id="VUID-vkCmdTraceRaysNV-magFilter-04553" href="#VUID-vkCmdTraceRaysNV-magFilter-04553"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-magFilter-04553</span><br>
 
 If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>magFilter</code> or <code>minFilter</code>
-equal to <code>VK_FILTER_LINEAR</code> and <code>compareEnable</code> equal to
-<code>VK_FALSE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
-command, then the image view&#8217;s
+equal to <code>VK_FILTER_LINEAR</code>,
+<code>reductionMode</code> equal to
+<code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE</code>,
+and <code>compareEnable</code> equal to <code>VK_FALSE</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
 <a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysNV-magFilter-09598" href="#VUID-vkCmdTraceRaysNV-magFilter-09598"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-magFilter-09598</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>magFilter</code> or <code>minFilter</code>
+equal to <code>VK_FILTER_LINEAR</code> and <code>reductionMode</code> equal to either
+<code>VK_SAMPLER_REDUCTION_MODE_MIN</code> or
+<code>VK_SAMPLER_REDUCTION_MODE_MAX</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
+<a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
+<code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-mipmapMode-04770" href="#VUID-vkCmdTraceRaysNV-mipmapMode-04770"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-mipmapMode-04770</span><br>
 
 If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>mipmapMode</code> equal to
-<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code> and <code>compareEnable</code> equal to
-<code>VK_FALSE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
-command, then the image view&#8217;s
+<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code>,
+<code>reductionMode</code> equal to
+<code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE</code>,
+and <code>compareEnable</code> equal to <code>VK_FALSE</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
 <a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysNV-mipmapMode-09599" href="#VUID-vkCmdTraceRaysNV-mipmapMode-09599"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-mipmapMode-09599</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>mipmapMode</code> equal to
+<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code> and <code>reductionMode</code> equal to
+either <code>VK_SAMPLER_REDUCTION_MODE_MIN</code> or
+<code>VK_SAMPLER_REDUCTION_MODE_MAX</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
+<a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
+<code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysNV-unnormalizedCoordinates-09635" href="#VUID-vkCmdTraceRaysNV-unnormalizedCoordinates-09635"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-unnormalizedCoordinates-09635</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>unnormalizedCoordinates</code> equal to
+<code>VK_TRUE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
+command, then the image view&#8217;s <code>levelCount</code> and <code>layerCount</code>
+<strong>must</strong> be 1</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysNV-unnormalizedCoordinates-09636" href="#VUID-vkCmdTraceRaysNV-unnormalizedCoordinates-09636"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-unnormalizedCoordinates-09636</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>unnormalizedCoordinates</code> equal to
+<code>VK_TRUE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
+command, then the image view&#8217;s <code>viewType</code> <strong>must</strong> be
+<code>VK_IMAGE_VIEW_TYPE_1D</code> or <code>VK_IMAGE_VIEW_TYPE_2D</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-None-06479" href="#VUID-vkCmdTraceRaysNV-None-06479"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-06479</span><br>
@@ -833,16 +797,9 @@ returned by <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties2
 
 If the <a href="features.html#features-filter-cubic-range-clamp" class="xref page"><code>cubicRangeClamp</code></a>
 feature is not enabled, then any <a href="resources.html#VkImageView" class="xref page">VkImageView</a> being sampled with
-<code>VK_FILTER_CUBIC_EXT</code> as a result of this command</p>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><strong>must</strong> not have a <a href="samplers.html#VkSamplerReductionModeCreateInfo" class="xref page">VkSamplerReductionModeCreateInfo</a></dt>
-<dd>
-<p><code>reductionMode</code> equal to
+<code>VK_FILTER_CUBIC_EXT</code> as a result of this command <strong>must</strong> not have a
+<a href="samplers.html#VkSamplerReductionModeCreateInfo" class="xref page">VkSamplerReductionModeCreateInfo</a>::<code>reductionMode</code> equal to
 <code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE_RANGECLAMP_QCOM</code></p>
-</dd>
-</dl>
-</div>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-reductionMode-09213" href="#VUID-vkCmdTraceRaysNV-reductionMode-09213"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-reductionMode-09213</span><br>
@@ -907,20 +864,22 @@ view&#8217;s <a href="formats.html#VkFormatProperties3" class="xref page">buffer
 
 For each set <em>n</em> that is statically used by <a href="shaders.html#shaders-binding" class="xref page">a bound    shader</a>, a descriptor set <strong>must</strong> have been bound to <em>n</em> at the same
 pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> that is compatible
-for set <em>n</em>, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> or
-<a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array that was used to create the current
-<a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as described in
-<a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+for set <em>n</em>, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> used to create the current
+<a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array used to create the current
+<a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-None-08601" href="#VUID-vkCmdTraceRaysNV-None-08601"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08601</span><br>
 
 For each push constant that is statically used by <a href="shaders.html#shaders-binding" class="xref page">a    bound shader</a>, a push constant value <strong>must</strong> have been set for the same
 pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> that is compatible
-for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> or
-<a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays used to
-create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as described
-in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> used to create the
+current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array used to create the current
+<a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-maintenance4-08602" href="#VUID-vkCmdTraceRaysNV-maintenance4-08602"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-maintenance4-08602</span><br>
@@ -930,17 +889,20 @@ enabled, then for each push constant that is statically used by
 <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a>, a push constant value <strong>must</strong> have
 been set for the same pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a>
 that is compatible for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a>
-or <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays used
-to create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as
-described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+used to create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays
+used to create the current <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-None-08114" href="#VUID-vkCmdTraceRaysNV-None-08114"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08114</span><br>
 
 Descriptors in each bound descriptor set, specified via
-<a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a>, <strong>must</strong> be valid if they are statically
-used by the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by
-this command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
+<a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a>, <strong>must</strong> be valid as described by
+<a href="descriptorsets.html#descriptor-validity" class="xref page">descriptor validity</a> if they are statically used
+by
+the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
+command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
 </li>
 <li>
@@ -995,8 +957,57 @@ descriptor memory <strong>must</strong> be resident</p>
 <p><a id="VUID-vkCmdTraceRaysNV-None-08606" href="#VUID-vkCmdTraceRaysNV-None-08606"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08606</span><br>
 
 If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is not
-enabled, a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
-by this command</p>
+enabled, a
+valid pipeline <strong>must</strong> be bound to the pipeline bind point used by this
+command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysNV-None-08608" href="#VUID-vkCmdTraceRaysNV-None-08608"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08608</span><br>
+
+If a pipeline is bound to the pipeline bind point used by this command,
+there
+<strong>must</strong> not have been any calls to dynamic state setting commands for any
+state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to
+the pipeline bind point used by this command, since that pipeline was
+bound</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysNV-None-08609" href="#VUID-vkCmdTraceRaysNV-None-08609"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08609</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used to sample from any <a href="resources.html#VkImage" class="xref page">VkImage</a> with a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> of the type <code>VK_IMAGE_VIEW_TYPE_3D</code>,
+<code>VK_IMAGE_VIEW_TYPE_CUBE</code>, <code>VK_IMAGE_VIEW_TYPE_1D_ARRAY</code>,
+<code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code> or
+<code>VK_IMAGE_VIEW_TYPE_CUBE_ARRAY</code>, in any shader stage</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysNV-None-08610" href="#VUID-vkCmdTraceRaysNV-None-08610"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08610</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used with any of the SPIR-V <code>OpImageSample*</code>
+or <code>OpImageSparseSample*</code> instructions with <code>ImplicitLod</code>, <code>Dref</code>
+or <code>Proj</code> in their name, in any shader stage</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysNV-None-08611" href="#VUID-vkCmdTraceRaysNV-None-08611"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08611</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used with any of the SPIR-V <code>OpImageSample*</code>
+or <code>OpImageSparseSample*</code> instructions that includes a LOD bias or any
+offset values, in any shader stage</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-None-08607" href="#VUID-vkCmdTraceRaysNV-None-08607"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08607</span><br>
@@ -1008,59 +1019,18 @@ objects <strong>must</strong> be bound to every supported shader stage correspon
 the pipeline bind point used by this command</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdTraceRaysNV-None-08608" href="#VUID-vkCmdTraceRaysNV-None-08608"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08608</span><br>
-
-If a pipeline is bound to the pipeline bind point used by this command,
-there <strong>must</strong> not have been any calls to dynamic state setting commands
-for any state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object
-bound to the pipeline bind point used by this command, since that
-pipeline was bound</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysNV-None-08609" href="#VUID-vkCmdTraceRaysNV-None-08609"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08609</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used to sample from any <a href="resources.html#VkImage" class="xref page">VkImage</a> with a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> of the
-type <code>VK_IMAGE_VIEW_TYPE_3D</code>, <code>VK_IMAGE_VIEW_TYPE_CUBE</code>,
-<code>VK_IMAGE_VIEW_TYPE_1D_ARRAY</code>, <code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code> or
-<code>VK_IMAGE_VIEW_TYPE_CUBE_ARRAY</code>, in any shader stage</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysNV-None-08610" href="#VUID-vkCmdTraceRaysNV-None-08610"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08610</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used with any of the SPIR-V <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions with <code>ImplicitLod</code>, <code>Dref</code> or <code>Proj</code> in their
-name, in any shader stage</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysNV-None-08611" href="#VUID-vkCmdTraceRaysNV-None-08611"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08611</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used with any of the SPIR-V <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions that includes a LOD bias or any offset values, in any
-shader stage</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdTraceRaysNV-uniformBuffers-06935" href="#VUID-vkCmdTraceRaysNV-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-uniformBuffers-06935</span><br>
 
 If any stage of the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
-point used by this command accesses a uniform buffer, and that stage was
-created without enabling either
+point used by this command accesses a uniform buffer,
+and that stage was created without enabling either
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_EXT</code> or
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT</code>
-for <code>uniformBuffers</code>, and the <a href="features.html#features-robustBufferAccess" class="xref page">    <code>robustBufferAccess</code></a> feature is not enabled, that stage <strong>must</strong> not
-access values outside of the range of the buffer as specified in the
-descriptor set bound to the same pipeline bind point</p>
+for <code>uniformBuffers</code>,
+and the <a href="features.html#features-robustBufferAccess" class="xref page"><code>robustBufferAccess</code></a>
+feature is not enabled, that stage <strong>must</strong> not access values outside of
+the range of the buffer as specified in the descriptor set bound to the
+same pipeline bind point</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-None-08612" href="#VUID-vkCmdTraceRaysNV-None-08612"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08612</span><br>
@@ -1075,13 +1045,15 @@ specified in the descriptor set bound to the same pipeline bind point</p>
 <p><a id="VUID-vkCmdTraceRaysNV-storageBuffers-06936" href="#VUID-vkCmdTraceRaysNV-storageBuffers-06936"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-storageBuffers-06936</span><br>
 
 If any stage of the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
-point used by this command accesses a storage buffer, and that stage was
-created without enabling either
+point used by this command accesses a storage buffer,
+and that stage was created without enabling either
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_EXT</code> or
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT</code>
-for <code>storageBuffers</code>, and the <a href="features.html#features-robustBufferAccess" class="xref page">    <code>robustBufferAccess</code></a> feature is not enabled, that stage <strong>must</strong> not
-access values outside of the range of the buffer as specified in the
-descriptor set bound to the same pipeline bind point</p>
+for <code>storageBuffers</code>,
+and the <a href="features.html#features-robustBufferAccess" class="xref page"><code>robustBufferAccess</code></a>
+feature is not enabled, that stage <strong>must</strong> not access values outside of
+the range of the buffer as specified in the descriptor set bound to the
+same pipeline bind point</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-None-08613" href="#VUID-vkCmdTraceRaysNV-None-08613"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-08613</span><br>
@@ -1294,7 +1266,7 @@ If a <code>OpImageBlockMatchWindow*QCOM</code> or
 If a <code>OpImageBlockMatchWindow*QCOM</code> or
 <code>OpImageBlockMatchGather*QCOM</code> instruction is used to read from an
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
-format <strong>must</strong> be a single-component format.</p>
+format <strong>must</strong> be a single-component format</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-OpImageBlockMatchWindow-09217" href="#VUID-vkCmdTraceRaysNV-OpImageBlockMatchWindow-09217"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-OpImageBlockMatchWindow-09217</span><br>
@@ -1311,15 +1283,31 @@ Any shader invocation executed by this command <strong>must</strong>
 <a href="shaders.html#shaders-termination" class="xref page">terminate</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdTraceRaysNV-None-09600" href="#VUID-vkCmdTraceRaysNV-None-09600"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-09600</span><br>
+
+If a descriptor with type equal to any of
+<code>VK_DESCRIPTOR_TYPE_SAMPLE_WEIGHT_IMAGE_QCOM</code>,
+<code>VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM</code>,
+<code>VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE</code>,
+<code>VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</code>, or
+<code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code> is accessed as a result of
+this command, the image subresource identified by that descriptor <strong>must</strong>
+be in the image layout identified when the descriptor was written</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdTraceRaysNV-None-03429" href="#VUID-vkCmdTraceRaysNV-None-03429"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-03429</span><br>
 
 Any shader group handle referenced by this call <strong>must</strong> have been queried
 from the currently bound ray tracing pipeline</p>
 </li>
-</ul>
-</div>
-<div class="ulist">
-<ul>
+<li>
+<p><a id="VUID-vkCmdTraceRaysNV-None-09458" href="#VUID-vkCmdTraceRaysNV-None-09458"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-None-09458</span><br>
+
+If the bound ray tracing pipeline state was created with the
+<code>VK_DYNAMIC_STATE_RAY_TRACING_PIPELINE_STACK_SIZE_KHR</code> dynamic state
+enabled then <a href="pipelines.html#vkCmdSetRayTracingPipelineStackSizeKHR" class="xref page">vkCmdSetRayTracingPipelineStackSizeKHR</a> <strong>must</strong> have
+been called in the current command buffer prior to this trace command</p>
+</li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysNV-commandBuffer-04624" href="#VUID-vkCmdTraceRaysNV-commandBuffer-04624"></a> <span class="vuid">VUID-vkCmdTraceRaysNV-commandBuffer-04624</span><br>
 
@@ -1545,7 +1533,7 @@ object</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -1592,20 +1580,20 @@ recorded.</p>
 </li>
 <li>
 <p><code>pRaygenShaderBindingTable</code> is a
-<a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> that holds the shader binding
+<a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> that holds the shader binding
 table data for the ray generation shader stage.</p>
 </li>
 <li>
-<p><code>pMissShaderBindingTable</code> is a <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a>
+<p><code>pMissShaderBindingTable</code> is a <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a>
 that holds the shader binding table data for the miss shader stage.</p>
 </li>
 <li>
-<p><code>pHitShaderBindingTable</code> is a <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a>
+<p><code>pHitShaderBindingTable</code> is a <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a>
 that holds the shader binding table data for the hit shader stage.</p>
 </li>
 <li>
 <p><code>pCallableShaderBindingTable</code> is a
-<a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> that holds the shader binding
+<a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> that holds the shader binding
 table data for the callable shader stage.</p>
 </li>
 <li>
@@ -1632,21 +1620,63 @@ table data for the callable shader stage.</p>
 <p><a id="VUID-vkCmdTraceRaysKHR-magFilter-04553" href="#VUID-vkCmdTraceRaysKHR-magFilter-04553"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-magFilter-04553</span><br>
 
 If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>magFilter</code> or <code>minFilter</code>
-equal to <code>VK_FILTER_LINEAR</code> and <code>compareEnable</code> equal to
-<code>VK_FALSE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
-command, then the image view&#8217;s
+equal to <code>VK_FILTER_LINEAR</code>,
+<code>reductionMode</code> equal to
+<code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE</code>,
+and <code>compareEnable</code> equal to <code>VK_FALSE</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
 <a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysKHR-magFilter-09598" href="#VUID-vkCmdTraceRaysKHR-magFilter-09598"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-magFilter-09598</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>magFilter</code> or <code>minFilter</code>
+equal to <code>VK_FILTER_LINEAR</code> and <code>reductionMode</code> equal to either
+<code>VK_SAMPLER_REDUCTION_MODE_MIN</code> or
+<code>VK_SAMPLER_REDUCTION_MODE_MAX</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
+<a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
+<code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-mipmapMode-04770" href="#VUID-vkCmdTraceRaysKHR-mipmapMode-04770"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-mipmapMode-04770</span><br>
 
 If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>mipmapMode</code> equal to
-<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code> and <code>compareEnable</code> equal to
-<code>VK_FALSE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
-command, then the image view&#8217;s
+<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code>,
+<code>reductionMode</code> equal to
+<code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE</code>,
+and <code>compareEnable</code> equal to <code>VK_FALSE</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
 <a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysKHR-mipmapMode-09599" href="#VUID-vkCmdTraceRaysKHR-mipmapMode-09599"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-mipmapMode-09599</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>mipmapMode</code> equal to
+<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code> and <code>reductionMode</code> equal to
+either <code>VK_SAMPLER_REDUCTION_MODE_MIN</code> or
+<code>VK_SAMPLER_REDUCTION_MODE_MAX</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
+<a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
+<code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysKHR-unnormalizedCoordinates-09635" href="#VUID-vkCmdTraceRaysKHR-unnormalizedCoordinates-09635"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-unnormalizedCoordinates-09635</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>unnormalizedCoordinates</code> equal to
+<code>VK_TRUE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
+command, then the image view&#8217;s <code>levelCount</code> and <code>layerCount</code>
+<strong>must</strong> be 1</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysKHR-unnormalizedCoordinates-09636" href="#VUID-vkCmdTraceRaysKHR-unnormalizedCoordinates-09636"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-unnormalizedCoordinates-09636</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>unnormalizedCoordinates</code> equal to
+<code>VK_TRUE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
+command, then the image view&#8217;s <code>viewType</code> <strong>must</strong> be
+<code>VK_IMAGE_VIEW_TYPE_1D</code> or <code>VK_IMAGE_VIEW_TYPE_2D</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-None-06479" href="#VUID-vkCmdTraceRaysKHR-None-06479"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-06479</span><br>
@@ -1715,16 +1745,9 @@ returned by <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties2
 
 If the <a href="features.html#features-filter-cubic-range-clamp" class="xref page"><code>cubicRangeClamp</code></a>
 feature is not enabled, then any <a href="resources.html#VkImageView" class="xref page">VkImageView</a> being sampled with
-<code>VK_FILTER_CUBIC_EXT</code> as a result of this command</p>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><strong>must</strong> not have a <a href="samplers.html#VkSamplerReductionModeCreateInfo" class="xref page">VkSamplerReductionModeCreateInfo</a></dt>
-<dd>
-<p><code>reductionMode</code> equal to
+<code>VK_FILTER_CUBIC_EXT</code> as a result of this command <strong>must</strong> not have a
+<a href="samplers.html#VkSamplerReductionModeCreateInfo" class="xref page">VkSamplerReductionModeCreateInfo</a>::<code>reductionMode</code> equal to
 <code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE_RANGECLAMP_QCOM</code></p>
-</dd>
-</dl>
-</div>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-reductionMode-09213" href="#VUID-vkCmdTraceRaysKHR-reductionMode-09213"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-reductionMode-09213</span><br>
@@ -1789,20 +1812,22 @@ view&#8217;s <a href="formats.html#VkFormatProperties3" class="xref page">buffer
 
 For each set <em>n</em> that is statically used by <a href="shaders.html#shaders-binding" class="xref page">a bound    shader</a>, a descriptor set <strong>must</strong> have been bound to <em>n</em> at the same
 pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> that is compatible
-for set <em>n</em>, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> or
-<a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array that was used to create the current
-<a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as described in
-<a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+for set <em>n</em>, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> used to create the current
+<a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array used to create the current
+<a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-None-08601" href="#VUID-vkCmdTraceRaysKHR-None-08601"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08601</span><br>
 
 For each push constant that is statically used by <a href="shaders.html#shaders-binding" class="xref page">a    bound shader</a>, a push constant value <strong>must</strong> have been set for the same
 pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> that is compatible
-for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> or
-<a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays used to
-create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as described
-in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> used to create the
+current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array used to create the current
+<a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-maintenance4-08602" href="#VUID-vkCmdTraceRaysKHR-maintenance4-08602"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-maintenance4-08602</span><br>
@@ -1812,17 +1837,20 @@ enabled, then for each push constant that is statically used by
 <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a>, a push constant value <strong>must</strong> have
 been set for the same pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a>
 that is compatible for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a>
-or <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays used
-to create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as
-described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+used to create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays
+used to create the current <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-None-08114" href="#VUID-vkCmdTraceRaysKHR-None-08114"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08114</span><br>
 
 Descriptors in each bound descriptor set, specified via
-<a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a>, <strong>must</strong> be valid if they are statically
-used by the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by
-this command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
+<a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a>, <strong>must</strong> be valid as described by
+<a href="descriptorsets.html#descriptor-validity" class="xref page">descriptor validity</a> if they are statically used
+by
+the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
+command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
 </li>
 <li>
@@ -1877,8 +1905,57 @@ descriptor memory <strong>must</strong> be resident</p>
 <p><a id="VUID-vkCmdTraceRaysKHR-None-08606" href="#VUID-vkCmdTraceRaysKHR-None-08606"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08606</span><br>
 
 If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is not
-enabled, a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
-by this command</p>
+enabled, a
+valid pipeline <strong>must</strong> be bound to the pipeline bind point used by this
+command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysKHR-None-08608" href="#VUID-vkCmdTraceRaysKHR-None-08608"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08608</span><br>
+
+If a pipeline is bound to the pipeline bind point used by this command,
+there
+<strong>must</strong> not have been any calls to dynamic state setting commands for any
+state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to
+the pipeline bind point used by this command, since that pipeline was
+bound</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysKHR-None-08609" href="#VUID-vkCmdTraceRaysKHR-None-08609"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08609</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used to sample from any <a href="resources.html#VkImage" class="xref page">VkImage</a> with a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> of the type <code>VK_IMAGE_VIEW_TYPE_3D</code>,
+<code>VK_IMAGE_VIEW_TYPE_CUBE</code>, <code>VK_IMAGE_VIEW_TYPE_1D_ARRAY</code>,
+<code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code> or
+<code>VK_IMAGE_VIEW_TYPE_CUBE_ARRAY</code>, in any shader stage</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysKHR-None-08610" href="#VUID-vkCmdTraceRaysKHR-None-08610"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08610</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used with any of the SPIR-V <code>OpImageSample*</code>
+or <code>OpImageSparseSample*</code> instructions with <code>ImplicitLod</code>, <code>Dref</code>
+or <code>Proj</code> in their name, in any shader stage</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysKHR-None-08611" href="#VUID-vkCmdTraceRaysKHR-None-08611"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08611</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used with any of the SPIR-V <code>OpImageSample*</code>
+or <code>OpImageSparseSample*</code> instructions that includes a LOD bias or any
+offset values, in any shader stage</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-None-08607" href="#VUID-vkCmdTraceRaysKHR-None-08607"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08607</span><br>
@@ -1890,59 +1967,18 @@ objects <strong>must</strong> be bound to every supported shader stage correspon
 the pipeline bind point used by this command</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdTraceRaysKHR-None-08608" href="#VUID-vkCmdTraceRaysKHR-None-08608"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08608</span><br>
-
-If a pipeline is bound to the pipeline bind point used by this command,
-there <strong>must</strong> not have been any calls to dynamic state setting commands
-for any state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object
-bound to the pipeline bind point used by this command, since that
-pipeline was bound</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysKHR-None-08609" href="#VUID-vkCmdTraceRaysKHR-None-08609"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08609</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used to sample from any <a href="resources.html#VkImage" class="xref page">VkImage</a> with a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> of the
-type <code>VK_IMAGE_VIEW_TYPE_3D</code>, <code>VK_IMAGE_VIEW_TYPE_CUBE</code>,
-<code>VK_IMAGE_VIEW_TYPE_1D_ARRAY</code>, <code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code> or
-<code>VK_IMAGE_VIEW_TYPE_CUBE_ARRAY</code>, in any shader stage</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysKHR-None-08610" href="#VUID-vkCmdTraceRaysKHR-None-08610"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08610</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used with any of the SPIR-V <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions with <code>ImplicitLod</code>, <code>Dref</code> or <code>Proj</code> in their
-name, in any shader stage</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysKHR-None-08611" href="#VUID-vkCmdTraceRaysKHR-None-08611"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08611</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used with any of the SPIR-V <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions that includes a LOD bias or any offset values, in any
-shader stage</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdTraceRaysKHR-uniformBuffers-06935" href="#VUID-vkCmdTraceRaysKHR-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-uniformBuffers-06935</span><br>
 
 If any stage of the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
-point used by this command accesses a uniform buffer, and that stage was
-created without enabling either
+point used by this command accesses a uniform buffer,
+and that stage was created without enabling either
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_EXT</code> or
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT</code>
-for <code>uniformBuffers</code>, and the <a href="features.html#features-robustBufferAccess" class="xref page">    <code>robustBufferAccess</code></a> feature is not enabled, that stage <strong>must</strong> not
-access values outside of the range of the buffer as specified in the
-descriptor set bound to the same pipeline bind point</p>
+for <code>uniformBuffers</code>,
+and the <a href="features.html#features-robustBufferAccess" class="xref page"><code>robustBufferAccess</code></a>
+feature is not enabled, that stage <strong>must</strong> not access values outside of
+the range of the buffer as specified in the descriptor set bound to the
+same pipeline bind point</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-None-08612" href="#VUID-vkCmdTraceRaysKHR-None-08612"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08612</span><br>
@@ -1957,13 +1993,15 @@ specified in the descriptor set bound to the same pipeline bind point</p>
 <p><a id="VUID-vkCmdTraceRaysKHR-storageBuffers-06936" href="#VUID-vkCmdTraceRaysKHR-storageBuffers-06936"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-storageBuffers-06936</span><br>
 
 If any stage of the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
-point used by this command accesses a storage buffer, and that stage was
-created without enabling either
+point used by this command accesses a storage buffer,
+and that stage was created without enabling either
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_EXT</code> or
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT</code>
-for <code>storageBuffers</code>, and the <a href="features.html#features-robustBufferAccess" class="xref page">    <code>robustBufferAccess</code></a> feature is not enabled, that stage <strong>must</strong> not
-access values outside of the range of the buffer as specified in the
-descriptor set bound to the same pipeline bind point</p>
+for <code>storageBuffers</code>,
+and the <a href="features.html#features-robustBufferAccess" class="xref page"><code>robustBufferAccess</code></a>
+feature is not enabled, that stage <strong>must</strong> not access values outside of
+the range of the buffer as specified in the descriptor set bound to the
+same pipeline bind point</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-None-08613" href="#VUID-vkCmdTraceRaysKHR-None-08613"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-08613</span><br>
@@ -2176,7 +2214,7 @@ If a <code>OpImageBlockMatchWindow*QCOM</code> or
 If a <code>OpImageBlockMatchWindow*QCOM</code> or
 <code>OpImageBlockMatchGather*QCOM</code> instruction is used to read from an
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
-format <strong>must</strong> be a single-component format.</p>
+format <strong>must</strong> be a single-component format</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-OpImageBlockMatchWindow-09217" href="#VUID-vkCmdTraceRaysKHR-OpImageBlockMatchWindow-09217"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-OpImageBlockMatchWindow-09217</span><br>
@@ -2193,10 +2231,30 @@ Any shader invocation executed by this command <strong>must</strong>
 <a href="shaders.html#shaders-termination" class="xref page">terminate</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdTraceRaysKHR-None-09600" href="#VUID-vkCmdTraceRaysKHR-None-09600"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-09600</span><br>
+
+If a descriptor with type equal to any of
+<code>VK_DESCRIPTOR_TYPE_SAMPLE_WEIGHT_IMAGE_QCOM</code>,
+<code>VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM</code>,
+<code>VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE</code>,
+<code>VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</code>, or
+<code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code> is accessed as a result of
+this command, the image subresource identified by that descriptor <strong>must</strong>
+be in the image layout identified when the descriptor was written</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdTraceRaysKHR-None-03429" href="#VUID-vkCmdTraceRaysKHR-None-03429"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-03429</span><br>
 
 Any shader group handle referenced by this call <strong>must</strong> have been queried
 from the currently bound ray tracing pipeline</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysKHR-None-09458" href="#VUID-vkCmdTraceRaysKHR-None-09458"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-None-09458</span><br>
+
+If the bound ray tracing pipeline state was created with the
+<code>VK_DYNAMIC_STATE_RAY_TRACING_PIPELINE_STACK_SIZE_KHR</code> dynamic state
+enabled then <a href="pipelines.html#vkCmdSetRayTracingPipelineStackSizeKHR" class="xref page">vkCmdSetRayTracingPipelineStackSizeKHR</a> <strong>must</strong> have
+been called in the current command buffer prior to this trace command</p>
 </li>
 </ul>
 </div>
@@ -2464,19 +2522,19 @@ than or equal to
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-pRaygenShaderBindingTable-parameter" href="#VUID-vkCmdTraceRaysKHR-pRaygenShaderBindingTable-parameter"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-pRaygenShaderBindingTable-parameter</span><br>
- <code>pRaygenShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> structure</p>
+ <code>pRaygenShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-pMissShaderBindingTable-parameter" href="#VUID-vkCmdTraceRaysKHR-pMissShaderBindingTable-parameter"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-pMissShaderBindingTable-parameter</span><br>
- <code>pMissShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> structure</p>
+ <code>pMissShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-pHitShaderBindingTable-parameter" href="#VUID-vkCmdTraceRaysKHR-pHitShaderBindingTable-parameter"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-pHitShaderBindingTable-parameter</span><br>
- <code>pHitShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> structure</p>
+ <code>pHitShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-pCallableShaderBindingTable-parameter" href="#VUID-vkCmdTraceRaysKHR-pCallableShaderBindingTable-parameter"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-pCallableShaderBindingTable-parameter</span><br>
- <code>pCallableShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> structure</p>
+ <code>pCallableShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-commandBuffer-recording" href="#VUID-vkCmdTraceRaysKHR-commandBuffer-recording"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-commandBuffer-recording</span><br>
@@ -2528,7 +2586,7 @@ than or equal to
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -2544,61 +2602,6 @@ Secondary</p></td>
 </tr>
 </tbody>
 </table>
-</div>
-</div>
-</div>
-</div>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>The <code>VkStridedDeviceAddressRegionKHR</code> structure is defined as:</p>
-</div>
-<div id="VkStridedDeviceAddressRegionKHR" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_ray_tracing_pipeline
-typedef struct VkStridedDeviceAddressRegionKHR {
-    VkDeviceAddress    deviceAddress;
-    VkDeviceSize       stride;
-    VkDeviceSize       size;
-} VkStridedDeviceAddressRegionKHR;</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>deviceAddress</code> is the device address (as returned by the
-<a href="descriptorsets.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a> command) at which the region starts, or
-zero if the region is unused.</p>
-</li>
-<li>
-<p><code>stride</code> is the byte stride between consecutive elements.</p>
-</li>
-<li>
-<p><code>size</code> is the size in bytes of the region starting at
-<code>deviceAddress</code>.</p>
-</li>
-</ul>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">Valid Usage</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a id="VUID-VkStridedDeviceAddressRegionKHR-size-04631" href="#VUID-VkStridedDeviceAddressRegionKHR-size-04631"></a> <span class="vuid">VUID-VkStridedDeviceAddressRegionKHR-size-04631</span><br>
-
-If <code>size</code> is not zero, all addresses between <code>deviceAddress</code> and
-<span class="eq"><code>deviceAddress</code> +  <code>size</code> - 1</span> <strong>must</strong> be in the buffer
-device address range of the same buffer</p>
-</li>
-<li>
-<p><a id="VUID-VkStridedDeviceAddressRegionKHR-size-04632" href="#VUID-VkStridedDeviceAddressRegionKHR-size-04632"></a> <span class="vuid">VUID-VkStridedDeviceAddressRegionKHR-size-04632</span><br>
-
-If <code>size</code> is not zero, <code>stride</code> <strong>must</strong> be less than or equal to
-the size of the buffer from which <code>deviceAddress</code> was queried</p>
-</li>
-</ul>
-</div>
 </div>
 </div>
 </div>
@@ -2675,8 +2678,8 @@ be <code>VK_IMAGE_LAYOUT_GENERAL</code></p>
 <li>
 <p><a id="VUID-vkCmdBindInvocationMaskHUAWEI-width-04981" href="#VUID-vkCmdBindInvocationMaskHUAWEI-width-04981"></a> <span class="vuid">VUID-vkCmdBindInvocationMaskHUAWEI-width-04981</span><br>
 
-Thread mask image resolution must match the <code>width</code> and <code>height</code>
-in <a href="#vkCmdTraceRaysKHR">vkCmdTraceRaysKHR</a></p>
+Thread mask image resolution <strong>must</strong> match the <code>width</code> and
+<code>height</code> in <a href="#vkCmdTraceRaysKHR">vkCmdTraceRaysKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindInvocationMaskHUAWEI-None-04982" href="#VUID-vkCmdBindInvocationMaskHUAWEI-None-04982"></a> <span class="vuid">VUID-vkCmdBindInvocationMaskHUAWEI-None-04982</span><br>
@@ -2765,7 +2768,7 @@ The value 1 means the invocation is active</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -2810,20 +2813,20 @@ recorded.</p>
 </li>
 <li>
 <p><code>pRaygenShaderBindingTable</code> is a
-<a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> that holds the shader binding
+<a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> that holds the shader binding
 table data for the ray generation shader stage.</p>
 </li>
 <li>
-<p><code>pMissShaderBindingTable</code> is a <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a>
+<p><code>pMissShaderBindingTable</code> is a <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a>
 that holds the shader binding table data for the miss shader stage.</p>
 </li>
 <li>
-<p><code>pHitShaderBindingTable</code> is a <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a>
+<p><code>pHitShaderBindingTable</code> is a <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a>
 that holds the shader binding table data for the hit shader stage.</p>
 </li>
 <li>
 <p><code>pCallableShaderBindingTable</code> is a
-<a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> that holds the shader binding
+<a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> that holds the shader binding
 table data for the callable shader stage.</p>
 </li>
 <li>
@@ -2847,21 +2850,63 @@ except that the ray trace query dimensions are read by the device from
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-magFilter-04553" href="#VUID-vkCmdTraceRaysIndirectKHR-magFilter-04553"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-magFilter-04553</span><br>
 
 If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>magFilter</code> or <code>minFilter</code>
-equal to <code>VK_FILTER_LINEAR</code> and <code>compareEnable</code> equal to
-<code>VK_FALSE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
-command, then the image view&#8217;s
+equal to <code>VK_FILTER_LINEAR</code>,
+<code>reductionMode</code> equal to
+<code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE</code>,
+and <code>compareEnable</code> equal to <code>VK_FALSE</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
 <a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-magFilter-09598" href="#VUID-vkCmdTraceRaysIndirectKHR-magFilter-09598"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-magFilter-09598</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>magFilter</code> or <code>minFilter</code>
+equal to <code>VK_FILTER_LINEAR</code> and <code>reductionMode</code> equal to either
+<code>VK_SAMPLER_REDUCTION_MODE_MIN</code> or
+<code>VK_SAMPLER_REDUCTION_MODE_MAX</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
+<a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
+<code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-mipmapMode-04770" href="#VUID-vkCmdTraceRaysIndirectKHR-mipmapMode-04770"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-mipmapMode-04770</span><br>
 
 If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>mipmapMode</code> equal to
-<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code> and <code>compareEnable</code> equal to
-<code>VK_FALSE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
-command, then the image view&#8217;s
+<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code>,
+<code>reductionMode</code> equal to
+<code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE</code>,
+and <code>compareEnable</code> equal to <code>VK_FALSE</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
 <a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-mipmapMode-09599" href="#VUID-vkCmdTraceRaysIndirectKHR-mipmapMode-09599"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-mipmapMode-09599</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>mipmapMode</code> equal to
+<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code> and <code>reductionMode</code> equal to
+either <code>VK_SAMPLER_REDUCTION_MODE_MIN</code> or
+<code>VK_SAMPLER_REDUCTION_MODE_MAX</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
+<a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
+<code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-unnormalizedCoordinates-09635" href="#VUID-vkCmdTraceRaysIndirectKHR-unnormalizedCoordinates-09635"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-unnormalizedCoordinates-09635</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>unnormalizedCoordinates</code> equal to
+<code>VK_TRUE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
+command, then the image view&#8217;s <code>levelCount</code> and <code>layerCount</code>
+<strong>must</strong> be 1</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-unnormalizedCoordinates-09636" href="#VUID-vkCmdTraceRaysIndirectKHR-unnormalizedCoordinates-09636"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-unnormalizedCoordinates-09636</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>unnormalizedCoordinates</code> equal to
+<code>VK_TRUE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
+command, then the image view&#8217;s <code>viewType</code> <strong>must</strong> be
+<code>VK_IMAGE_VIEW_TYPE_1D</code> or <code>VK_IMAGE_VIEW_TYPE_2D</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-06479" href="#VUID-vkCmdTraceRaysIndirectKHR-None-06479"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-06479</span><br>
@@ -2930,16 +2975,9 @@ returned by <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties2
 
 If the <a href="features.html#features-filter-cubic-range-clamp" class="xref page"><code>cubicRangeClamp</code></a>
 feature is not enabled, then any <a href="resources.html#VkImageView" class="xref page">VkImageView</a> being sampled with
-<code>VK_FILTER_CUBIC_EXT</code> as a result of this command</p>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><strong>must</strong> not have a <a href="samplers.html#VkSamplerReductionModeCreateInfo" class="xref page">VkSamplerReductionModeCreateInfo</a></dt>
-<dd>
-<p><code>reductionMode</code> equal to
+<code>VK_FILTER_CUBIC_EXT</code> as a result of this command <strong>must</strong> not have a
+<a href="samplers.html#VkSamplerReductionModeCreateInfo" class="xref page">VkSamplerReductionModeCreateInfo</a>::<code>reductionMode</code> equal to
 <code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE_RANGECLAMP_QCOM</code></p>
-</dd>
-</dl>
-</div>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-reductionMode-09213" href="#VUID-vkCmdTraceRaysIndirectKHR-reductionMode-09213"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-reductionMode-09213</span><br>
@@ -3004,20 +3042,22 @@ view&#8217;s <a href="formats.html#VkFormatProperties3" class="xref page">buffer
 
 For each set <em>n</em> that is statically used by <a href="shaders.html#shaders-binding" class="xref page">a bound    shader</a>, a descriptor set <strong>must</strong> have been bound to <em>n</em> at the same
 pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> that is compatible
-for set <em>n</em>, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> or
-<a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array that was used to create the current
-<a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as described in
-<a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+for set <em>n</em>, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> used to create the current
+<a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array used to create the current
+<a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08601" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08601"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08601</span><br>
 
 For each push constant that is statically used by <a href="shaders.html#shaders-binding" class="xref page">a    bound shader</a>, a push constant value <strong>must</strong> have been set for the same
 pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> that is compatible
-for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> or
-<a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays used to
-create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as described
-in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> used to create the
+current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array used to create the current
+<a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-maintenance4-08602" href="#VUID-vkCmdTraceRaysIndirectKHR-maintenance4-08602"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-maintenance4-08602</span><br>
@@ -3027,17 +3067,20 @@ enabled, then for each push constant that is statically used by
 <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a>, a push constant value <strong>must</strong> have
 been set for the same pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a>
 that is compatible for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a>
-or <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays used
-to create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as
-described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+used to create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays
+used to create the current <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08114" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08114"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08114</span><br>
 
 Descriptors in each bound descriptor set, specified via
-<a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a>, <strong>must</strong> be valid if they are statically
-used by the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by
-this command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
+<a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a>, <strong>must</strong> be valid as described by
+<a href="descriptorsets.html#descriptor-validity" class="xref page">descriptor validity</a> if they are statically used
+by
+the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
+command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
 </li>
 <li>
@@ -3092,8 +3135,57 @@ descriptor memory <strong>must</strong> be resident</p>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08606" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08606"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08606</span><br>
 
 If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is not
-enabled, a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
-by this command</p>
+enabled, a
+valid pipeline <strong>must</strong> be bound to the pipeline bind point used by this
+command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08608" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08608"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08608</span><br>
+
+If a pipeline is bound to the pipeline bind point used by this command,
+there
+<strong>must</strong> not have been any calls to dynamic state setting commands for any
+state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to
+the pipeline bind point used by this command, since that pipeline was
+bound</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08609" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08609"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08609</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used to sample from any <a href="resources.html#VkImage" class="xref page">VkImage</a> with a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> of the type <code>VK_IMAGE_VIEW_TYPE_3D</code>,
+<code>VK_IMAGE_VIEW_TYPE_CUBE</code>, <code>VK_IMAGE_VIEW_TYPE_1D_ARRAY</code>,
+<code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code> or
+<code>VK_IMAGE_VIEW_TYPE_CUBE_ARRAY</code>, in any shader stage</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08610" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08610"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08610</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used with any of the SPIR-V <code>OpImageSample*</code>
+or <code>OpImageSparseSample*</code> instructions with <code>ImplicitLod</code>, <code>Dref</code>
+or <code>Proj</code> in their name, in any shader stage</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08611" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08611"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08611</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used with any of the SPIR-V <code>OpImageSample*</code>
+or <code>OpImageSparseSample*</code> instructions that includes a LOD bias or any
+offset values, in any shader stage</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08607" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08607"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08607</span><br>
@@ -3105,59 +3197,18 @@ objects <strong>must</strong> be bound to every supported shader stage correspon
 the pipeline bind point used by this command</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08608" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08608"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08608</span><br>
-
-If a pipeline is bound to the pipeline bind point used by this command,
-there <strong>must</strong> not have been any calls to dynamic state setting commands
-for any state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object
-bound to the pipeline bind point used by this command, since that
-pipeline was bound</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08609" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08609"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08609</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used to sample from any <a href="resources.html#VkImage" class="xref page">VkImage</a> with a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> of the
-type <code>VK_IMAGE_VIEW_TYPE_3D</code>, <code>VK_IMAGE_VIEW_TYPE_CUBE</code>,
-<code>VK_IMAGE_VIEW_TYPE_1D_ARRAY</code>, <code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code> or
-<code>VK_IMAGE_VIEW_TYPE_CUBE_ARRAY</code>, in any shader stage</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08610" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08610"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08610</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used with any of the SPIR-V <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions with <code>ImplicitLod</code>, <code>Dref</code> or <code>Proj</code> in their
-name, in any shader stage</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08611" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08611"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08611</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used with any of the SPIR-V <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions that includes a LOD bias or any offset values, in any
-shader stage</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-uniformBuffers-06935" href="#VUID-vkCmdTraceRaysIndirectKHR-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-uniformBuffers-06935</span><br>
 
 If any stage of the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
-point used by this command accesses a uniform buffer, and that stage was
-created without enabling either
+point used by this command accesses a uniform buffer,
+and that stage was created without enabling either
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_EXT</code> or
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT</code>
-for <code>uniformBuffers</code>, and the <a href="features.html#features-robustBufferAccess" class="xref page">    <code>robustBufferAccess</code></a> feature is not enabled, that stage <strong>must</strong> not
-access values outside of the range of the buffer as specified in the
-descriptor set bound to the same pipeline bind point</p>
+for <code>uniformBuffers</code>,
+and the <a href="features.html#features-robustBufferAccess" class="xref page"><code>robustBufferAccess</code></a>
+feature is not enabled, that stage <strong>must</strong> not access values outside of
+the range of the buffer as specified in the descriptor set bound to the
+same pipeline bind point</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08612" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08612"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08612</span><br>
@@ -3172,13 +3223,15 @@ specified in the descriptor set bound to the same pipeline bind point</p>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-storageBuffers-06936" href="#VUID-vkCmdTraceRaysIndirectKHR-storageBuffers-06936"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-storageBuffers-06936</span><br>
 
 If any stage of the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
-point used by this command accesses a storage buffer, and that stage was
-created without enabling either
+point used by this command accesses a storage buffer,
+and that stage was created without enabling either
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_EXT</code> or
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT</code>
-for <code>storageBuffers</code>, and the <a href="features.html#features-robustBufferAccess" class="xref page">    <code>robustBufferAccess</code></a> feature is not enabled, that stage <strong>must</strong> not
-access values outside of the range of the buffer as specified in the
-descriptor set bound to the same pipeline bind point</p>
+for <code>storageBuffers</code>,
+and the <a href="features.html#features-robustBufferAccess" class="xref page"><code>robustBufferAccess</code></a>
+feature is not enabled, that stage <strong>must</strong> not access values outside of
+the range of the buffer as specified in the descriptor set bound to the
+same pipeline bind point</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-08613" href="#VUID-vkCmdTraceRaysIndirectKHR-None-08613"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-08613</span><br>
@@ -3391,7 +3444,7 @@ If a <code>OpImageBlockMatchWindow*QCOM</code> or
 If a <code>OpImageBlockMatchWindow*QCOM</code> or
 <code>OpImageBlockMatchGather*QCOM</code> instruction is used to read from an
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
-format <strong>must</strong> be a single-component format.</p>
+format <strong>must</strong> be a single-component format</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-OpImageBlockMatchWindow-09217" href="#VUID-vkCmdTraceRaysIndirectKHR-OpImageBlockMatchWindow-09217"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-OpImageBlockMatchWindow-09217</span><br>
@@ -3408,10 +3461,30 @@ Any shader invocation executed by this command <strong>must</strong>
 <a href="shaders.html#shaders-termination" class="xref page">terminate</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-09600" href="#VUID-vkCmdTraceRaysIndirectKHR-None-09600"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-09600</span><br>
+
+If a descriptor with type equal to any of
+<code>VK_DESCRIPTOR_TYPE_SAMPLE_WEIGHT_IMAGE_QCOM</code>,
+<code>VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM</code>,
+<code>VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE</code>,
+<code>VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</code>, or
+<code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code> is accessed as a result of
+this command, the image subresource identified by that descriptor <strong>must</strong>
+be in the image layout identified when the descriptor was written</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-03429" href="#VUID-vkCmdTraceRaysIndirectKHR-None-03429"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-03429</span><br>
 
 Any shader group handle referenced by this call <strong>must</strong> have been queried
 from the currently bound ray tracing pipeline</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirectKHR-None-09458" href="#VUID-vkCmdTraceRaysIndirectKHR-None-09458"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-None-09458</span><br>
+
+If the bound ray tracing pipeline state was created with the
+<code>VK_DYNAMIC_STATE_RAY_TRACING_PIPELINE_STACK_SIZE_KHR</code> dynamic state
+enabled then <a href="pipelines.html#vkCmdSetRayTracingPipelineStackSizeKHR" class="xref page">vkCmdSetRayTracingPipelineStackSizeKHR</a> <strong>must</strong> have
+been called in the current command buffer prior to this trace command</p>
 </li>
 </ul>
 </div>
@@ -3689,19 +3762,19 @@ feature <strong>must</strong> be enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-pRaygenShaderBindingTable-parameter" href="#VUID-vkCmdTraceRaysIndirectKHR-pRaygenShaderBindingTable-parameter"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-pRaygenShaderBindingTable-parameter</span><br>
- <code>pRaygenShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> structure</p>
+ <code>pRaygenShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-pMissShaderBindingTable-parameter" href="#VUID-vkCmdTraceRaysIndirectKHR-pMissShaderBindingTable-parameter"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-pMissShaderBindingTable-parameter</span><br>
- <code>pMissShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> structure</p>
+ <code>pMissShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-pHitShaderBindingTable-parameter" href="#VUID-vkCmdTraceRaysIndirectKHR-pHitShaderBindingTable-parameter"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-pHitShaderBindingTable-parameter</span><br>
- <code>pHitShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> structure</p>
+ <code>pHitShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-pCallableShaderBindingTable-parameter" href="#VUID-vkCmdTraceRaysIndirectKHR-pCallableShaderBindingTable-parameter"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-pCallableShaderBindingTable-parameter</span><br>
- <code>pCallableShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkStridedDeviceAddressRegionKHR">VkStridedDeviceAddressRegionKHR</a> structure</p>
+ <code>pCallableShaderBindingTable</code> <strong>must</strong> be a valid pointer to a valid <a href="descriptorsets.html#VkStridedDeviceAddressRegionKHR" class="xref page">VkStridedDeviceAddressRegionKHR</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-commandBuffer-recording" href="#VUID-vkCmdTraceRaysIndirectKHR-commandBuffer-recording"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-commandBuffer-recording</span><br>
@@ -3753,7 +3826,7 @@ feature <strong>must</strong> be enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -3885,21 +3958,63 @@ as well as dispatch dimensions are read by the device from
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-magFilter-04553" href="#VUID-vkCmdTraceRaysIndirect2KHR-magFilter-04553"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-magFilter-04553</span><br>
 
 If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>magFilter</code> or <code>minFilter</code>
-equal to <code>VK_FILTER_LINEAR</code> and <code>compareEnable</code> equal to
-<code>VK_FALSE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
-command, then the image view&#8217;s
+equal to <code>VK_FILTER_LINEAR</code>,
+<code>reductionMode</code> equal to
+<code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE</code>,
+and <code>compareEnable</code> equal to <code>VK_FALSE</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
 <a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-magFilter-09598" href="#VUID-vkCmdTraceRaysIndirect2KHR-magFilter-09598"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-magFilter-09598</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>magFilter</code> or <code>minFilter</code>
+equal to <code>VK_FILTER_LINEAR</code> and <code>reductionMode</code> equal to either
+<code>VK_SAMPLER_REDUCTION_MODE_MIN</code> or
+<code>VK_SAMPLER_REDUCTION_MODE_MAX</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
+<a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
+<code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-mipmapMode-04770" href="#VUID-vkCmdTraceRaysIndirect2KHR-mipmapMode-04770"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-mipmapMode-04770</span><br>
 
 If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>mipmapMode</code> equal to
-<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code> and <code>compareEnable</code> equal to
-<code>VK_FALSE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
-command, then the image view&#8217;s
+<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code>,
+<code>reductionMode</code> equal to
+<code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE</code>,
+and <code>compareEnable</code> equal to <code>VK_FALSE</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
 <a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-mipmapMode-09599" href="#VUID-vkCmdTraceRaysIndirect2KHR-mipmapMode-09599"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-mipmapMode-09599</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>mipmapMode</code> equal to
+<code>VK_SAMPLER_MIPMAP_MODE_LINEAR</code> and <code>reductionMode</code> equal to
+either <code>VK_SAMPLER_REDUCTION_MODE_MIN</code> or
+<code>VK_SAMPLER_REDUCTION_MODE_MAX</code> is used to sample a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
+<a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> <strong>must</strong> contain
+<code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-unnormalizedCoordinates-09635" href="#VUID-vkCmdTraceRaysIndirect2KHR-unnormalizedCoordinates-09635"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-unnormalizedCoordinates-09635</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>unnormalizedCoordinates</code> equal to
+<code>VK_TRUE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
+command, then the image view&#8217;s <code>levelCount</code> and <code>layerCount</code>
+<strong>must</strong> be 1</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-unnormalizedCoordinates-09636" href="#VUID-vkCmdTraceRaysIndirect2KHR-unnormalizedCoordinates-09636"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-unnormalizedCoordinates-09636</span><br>
+
+If a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> created with <code>unnormalizedCoordinates</code> equal to
+<code>VK_TRUE</code> is used to sample a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this
+command, then the image view&#8217;s <code>viewType</code> <strong>must</strong> be
+<code>VK_IMAGE_VIEW_TYPE_1D</code> or <code>VK_IMAGE_VIEW_TYPE_2D</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-06479" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-06479"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-06479</span><br>
@@ -3968,16 +4083,9 @@ returned by <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties2
 
 If the <a href="features.html#features-filter-cubic-range-clamp" class="xref page"><code>cubicRangeClamp</code></a>
 feature is not enabled, then any <a href="resources.html#VkImageView" class="xref page">VkImageView</a> being sampled with
-<code>VK_FILTER_CUBIC_EXT</code> as a result of this command</p>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><strong>must</strong> not have a <a href="samplers.html#VkSamplerReductionModeCreateInfo" class="xref page">VkSamplerReductionModeCreateInfo</a></dt>
-<dd>
-<p><code>reductionMode</code> equal to
+<code>VK_FILTER_CUBIC_EXT</code> as a result of this command <strong>must</strong> not have a
+<a href="samplers.html#VkSamplerReductionModeCreateInfo" class="xref page">VkSamplerReductionModeCreateInfo</a>::<code>reductionMode</code> equal to
 <code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE_RANGECLAMP_QCOM</code></p>
-</dd>
-</dl>
-</div>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-reductionMode-09213" href="#VUID-vkCmdTraceRaysIndirect2KHR-reductionMode-09213"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-reductionMode-09213</span><br>
@@ -4042,20 +4150,22 @@ view&#8217;s <a href="formats.html#VkFormatProperties3" class="xref page">buffer
 
 For each set <em>n</em> that is statically used by <a href="shaders.html#shaders-binding" class="xref page">a bound    shader</a>, a descriptor set <strong>must</strong> have been bound to <em>n</em> at the same
 pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> that is compatible
-for set <em>n</em>, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> or
-<a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array that was used to create the current
-<a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as described in
-<a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+for set <em>n</em>, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> used to create the current
+<a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array used to create the current
+<a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08601" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08601"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08601</span><br>
 
 For each push constant that is statically used by <a href="shaders.html#shaders-binding" class="xref page">a    bound shader</a>, a push constant value <strong>must</strong> have been set for the same
 pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> that is compatible
-for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> or
-<a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays used to
-create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as described
-in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> used to create the
+current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> array used to create the current
+<a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-maintenance4-08602" href="#VUID-vkCmdTraceRaysIndirect2KHR-maintenance4-08602"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-maintenance4-08602</span><br>
@@ -4065,17 +4175,20 @@ enabled, then for each push constant that is statically used by
 <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a>, a push constant value <strong>must</strong> have
 been set for the same pipeline bind point, with a <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a>
 that is compatible for push constants, with the <a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a>
-or <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays used
-to create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> or <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>, as
-described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
+used to create the current <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a>
+or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> and <a href="descriptorsets.html#VkPushConstantRange" class="xref page">VkPushConstantRange</a> arrays
+used to create the current <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a>
+, as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08114" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08114"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08114</span><br>
 
 Descriptors in each bound descriptor set, specified via
-<a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a>, <strong>must</strong> be valid if they are statically
-used by the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by
-this command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
+<a href="descriptorsets.html#vkCmdBindDescriptorSets" class="xref page">vkCmdBindDescriptorSets</a>, <strong>must</strong> be valid as described by
+<a href="descriptorsets.html#descriptor-validity" class="xref page">descriptor validity</a> if they are statically used
+by
+the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> bound to the pipeline bind point used by this
+command and the bound <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> was not created with
 <code>VK_PIPELINE_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
 </li>
 <li>
@@ -4130,8 +4243,57 @@ descriptor memory <strong>must</strong> be resident</p>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08606" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08606"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08606</span><br>
 
 If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is not
-enabled, a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
-by this command</p>
+enabled, a
+valid pipeline <strong>must</strong> be bound to the pipeline bind point used by this
+command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08608" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08608"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08608</span><br>
+
+If a pipeline is bound to the pipeline bind point used by this command,
+there
+<strong>must</strong> not have been any calls to dynamic state setting commands for any
+state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to
+the pipeline bind point used by this command, since that pipeline was
+bound</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08609" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08609"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08609</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used to sample from any <a href="resources.html#VkImage" class="xref page">VkImage</a> with a
+<a href="resources.html#VkImageView" class="xref page">VkImageView</a> of the type <code>VK_IMAGE_VIEW_TYPE_3D</code>,
+<code>VK_IMAGE_VIEW_TYPE_CUBE</code>, <code>VK_IMAGE_VIEW_TYPE_1D_ARRAY</code>,
+<code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code> or
+<code>VK_IMAGE_VIEW_TYPE_CUBE_ARRAY</code>, in any shader stage</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08610" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08610"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08610</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used with any of the SPIR-V <code>OpImageSample*</code>
+or <code>OpImageSparseSample*</code> instructions with <code>ImplicitLod</code>, <code>Dref</code>
+or <code>Proj</code> in their name, in any shader stage</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08611" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08611"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08611</span><br>
+
+If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
+this command
+or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to the pipeline
+bind point used by this command
+accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> object that uses unnormalized coordinates,
+that sampler <strong>must</strong> not be used with any of the SPIR-V <code>OpImageSample*</code>
+or <code>OpImageSparseSample*</code> instructions that includes a LOD bias or any
+offset values, in any shader stage</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08607" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08607"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08607</span><br>
@@ -4143,59 +4305,18 @@ objects <strong>must</strong> be bound to every supported shader stage correspon
 the pipeline bind point used by this command</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08608" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08608"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08608</span><br>
-
-If a pipeline is bound to the pipeline bind point used by this command,
-there <strong>must</strong> not have been any calls to dynamic state setting commands
-for any state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object
-bound to the pipeline bind point used by this command, since that
-pipeline was bound</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08609" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08609"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08609</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used to sample from any <a href="resources.html#VkImage" class="xref page">VkImage</a> with a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> of the
-type <code>VK_IMAGE_VIEW_TYPE_3D</code>, <code>VK_IMAGE_VIEW_TYPE_CUBE</code>,
-<code>VK_IMAGE_VIEW_TYPE_1D_ARRAY</code>, <code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code> or
-<code>VK_IMAGE_VIEW_TYPE_CUBE_ARRAY</code>, in any shader stage</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08610" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08610"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08610</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used with any of the SPIR-V <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions with <code>ImplicitLod</code>, <code>Dref</code> or <code>Proj</code> in their
-name, in any shader stage</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08611" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08611"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08611</span><br>
-
-If the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind point used by
-this command or any <a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a> bound to a stage corresponding to
-the pipeline bind point used by this command accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a>
-object that uses unnormalized coordinates, that sampler <strong>must</strong> not be
-used with any of the SPIR-V <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions that includes a LOD bias or any offset values, in any
-shader stage</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-uniformBuffers-06935" href="#VUID-vkCmdTraceRaysIndirect2KHR-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-uniformBuffers-06935</span><br>
 
 If any stage of the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
-point used by this command accesses a uniform buffer, and that stage was
-created without enabling either
+point used by this command accesses a uniform buffer,
+and that stage was created without enabling either
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_EXT</code> or
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT</code>
-for <code>uniformBuffers</code>, and the <a href="features.html#features-robustBufferAccess" class="xref page">    <code>robustBufferAccess</code></a> feature is not enabled, that stage <strong>must</strong> not
-access values outside of the range of the buffer as specified in the
-descriptor set bound to the same pipeline bind point</p>
+for <code>uniformBuffers</code>,
+and the <a href="features.html#features-robustBufferAccess" class="xref page"><code>robustBufferAccess</code></a>
+feature is not enabled, that stage <strong>must</strong> not access values outside of
+the range of the buffer as specified in the descriptor set bound to the
+same pipeline bind point</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08612" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08612"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08612</span><br>
@@ -4210,13 +4331,15 @@ specified in the descriptor set bound to the same pipeline bind point</p>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-storageBuffers-06936" href="#VUID-vkCmdTraceRaysIndirect2KHR-storageBuffers-06936"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-storageBuffers-06936</span><br>
 
 If any stage of the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
-point used by this command accesses a storage buffer, and that stage was
-created without enabling either
+point used by this command accesses a storage buffer,
+and that stage was created without enabling either
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_EXT</code> or
 <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2_EXT</code>
-for <code>storageBuffers</code>, and the <a href="features.html#features-robustBufferAccess" class="xref page">    <code>robustBufferAccess</code></a> feature is not enabled, that stage <strong>must</strong> not
-access values outside of the range of the buffer as specified in the
-descriptor set bound to the same pipeline bind point</p>
+for <code>storageBuffers</code>,
+and the <a href="features.html#features-robustBufferAccess" class="xref page"><code>robustBufferAccess</code></a>
+feature is not enabled, that stage <strong>must</strong> not access values outside of
+the range of the buffer as specified in the descriptor set bound to the
+same pipeline bind point</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-08613" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-08613"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-08613</span><br>
@@ -4429,7 +4552,7 @@ If a <code>OpImageBlockMatchWindow*QCOM</code> or
 If a <code>OpImageBlockMatchWindow*QCOM</code> or
 <code>OpImageBlockMatchGather*QCOM</code> instruction is used to read from an
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> as a result of this command, then the image view&#8217;s
-format <strong>must</strong> be a single-component format.</p>
+format <strong>must</strong> be a single-component format</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-OpImageBlockMatchWindow-09217" href="#VUID-vkCmdTraceRaysIndirect2KHR-OpImageBlockMatchWindow-09217"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-OpImageBlockMatchWindow-09217</span><br>
@@ -4446,10 +4569,30 @@ Any shader invocation executed by this command <strong>must</strong>
 <a href="shaders.html#shaders-termination" class="xref page">terminate</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-09600" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-09600"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-09600</span><br>
+
+If a descriptor with type equal to any of
+<code>VK_DESCRIPTOR_TYPE_SAMPLE_WEIGHT_IMAGE_QCOM</code>,
+<code>VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM</code>,
+<code>VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE</code>,
+<code>VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</code>, or
+<code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code> is accessed as a result of
+this command, the image subresource identified by that descriptor <strong>must</strong>
+be in the image layout identified when the descriptor was written</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-03429" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-03429"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-03429</span><br>
 
 Any shader group handle referenced by this call <strong>must</strong> have been queried
 from the currently bound ray tracing pipeline</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdTraceRaysIndirect2KHR-None-09458" href="#VUID-vkCmdTraceRaysIndirect2KHR-None-09458"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-None-09458</span><br>
+
+If the bound ray tracing pipeline state was created with the
+<code>VK_DYNAMIC_STATE_RAY_TRACING_PIPELINE_STACK_SIZE_KHR</code> dynamic state
+enabled then <a href="pipelines.html#vkCmdSetRayTracingPipelineStackSizeKHR" class="xref page">vkCmdSetRayTracingPipelineStackSizeKHR</a> <strong>must</strong> have
+been called in the current command buffer prior to this trace command</p>
 </li>
 </ul>
 </div>
@@ -4572,7 +4715,7 @@ feature <strong>must</strong> be enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -5071,12 +5214,8 @@ calls made in the shaders.
 See Section 8.19 (Ray Tracing Functions) of the OpenGL Shading Language
 Specification for more details.
 In SPIR-V, these correspond to the <code>SBTOffset</code> and <code>SBTStride</code>
-parameters to the
-<code>OpTraceRayNV</code>
- or
-<code>OpTraceRayKHR</code>
- or <code>OpTraceRayMotionNV</code>
-instruction.</p>
+parameters to the <a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a>
+instructions.</p>
 </div>
 <div class="paragraph">
 <p>The result of this computation is then added to
@@ -5149,11 +5288,7 @@ calls made in the shaders.
 See Section 8.19 (Ray Tracing Functions) of the OpenGL Shading Language
 Specification for more details.
 In SPIR-V, this corresponds to the <code>MissIndex</code> parameter to the
-<code>OpTraceRayNV</code>
- or
-<code>OpTraceRayKHR</code>
- or <code>OpTraceRayMotionNV</code>
-instruction.</p>
+<a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instructions.</p>
 </div>
 <div class="paragraph">
 <p>For <a href="#vkCmdTraceRaysKHR">vkCmdTraceRaysKHR</a>, the complete rule to compute a miss shader
@@ -5352,6 +5487,23 @@ shader group handles to those in the capture phase, allowing capture/replay
 tools to reuse previously recorded shader binding table buffer contents or
 to obtain the same handles by calling
 <a href="pipelines.html#vkGetRayTracingCaptureReplayShaderGroupHandlesKHR" class="xref page">vkGetRayTracingCaptureReplayShaderGroupHandlesKHR</a> again.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="ray-tracing-validation"><a class="anchor" href="#ray-tracing-validation"></a>Ray Tracing Validation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ray tracing validation <strong>can</strong> help root cause application issues and improve
+performance.
+Unlike existing validation layers, ray tracing validation performs checks at
+an implementation level, which helps identify potential problems that <strong>may</strong>
+not be caught by the layer.</p>
+</div>
+<div class="paragraph">
+<p>By enabling the <a href="features.html#features-rayTracingValidation" class="xref page">ray tracing validation feature</a>, warnings and errors <strong>can</strong> be delivered straight from a ray tracing
+implementation to the application through a <a href="debugging.html#debugging-debug-messengers" class="xref page">messenger callback</a> registered with the implementation, where they <strong>can</strong> be
+processed through existing application-side debugging or logging systems.</p>
 </div>
 </div>
 </div>

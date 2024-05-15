@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="synchronization.html">Synchronization and Cache Control</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/synchronization.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/synchronization.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -458,10 +383,10 @@ operations.
 Pipeline barriers <strong>can</strong> be used to control resource access within a
 single queue.</p>
 </dd>
-<dt class="hdlist1"><a href="renderpass.html#renderpass" class="xref page">Render Passes</a></dt>
+<dt class="hdlist1"><a href="renderpass.html#renderpass-objects" class="xref page">Render Pass Objects</a></dt>
 <dd>
-<p>Render passes provide a useful synchronization framework for most
-rendering tasks, built upon the concepts in this chapter.
+<p>Render pass objects provide a synchronization framework for rendering
+tasks, built upon the concepts in this chapter.
 Many cases that would otherwise need an application to use other
 synchronization primitives <strong>can</strong> be expressed more efficiently as part of
 a render pass.
@@ -908,10 +833,8 @@ static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_PRE_RASTERIZATION_SHAD
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_PRE_RASTERIZATION_SHADERS_BIT_KHR = 0x4000000000ULL;
 // Provided by VK_KHR_video_decode_queue
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR = 0x04000000ULL;
-#ifdef VK_ENABLE_BETA_EXTENSIONS
 // Provided by VK_KHR_video_encode_queue
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR = 0x08000000ULL;
-#endif
 // Provided by VK_KHR_synchronization2 with VK_EXT_transform_feedback
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT = 0x01000000ULL;
 // Provided by VK_KHR_synchronization2 with VK_EXT_conditional_rendering
@@ -946,7 +869,7 @@ static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUA
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_SUBPASS_SHADING_BIT_HUAWEI = 0x8000000000ULL;
 // Provided by VK_HUAWEI_invocation_mask
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI = 0x10000000000ULL;
-// Provided by VK_KHR_ray_tracing_maintenance1 with VK_KHR_synchronization2
+// Provided by VK_KHR_ray_tracing_maintenance1 with VK_KHR_synchronization2 or VK_VERSION_1_3
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR = 0x10000000ULL;
 // Provided by VK_EXT_opacity_micromap
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT = 0x40000000ULL;
@@ -1244,11 +1167,11 @@ implementation to optimize the ray dispatch.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR</code> specifies the execution
-of <a href="video_extensions.html#video-decode-operations" class="xref page">video decode operations</a>.</p>
+of <a href="videocoding.html#video-decode-operations" class="xref page">video decode operations</a>.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR</code> specifies the execution
-of <a href="video_extensions.html#video-encode-operations" class="xref page">video encode operations</a>.</p>
+of <a href="videocoding.html#video-encode-operations" class="xref page">video encode operations</a>.</p>
 </li>
 <li>
 <p><code>VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV</code> specifies the stage of the
@@ -2237,14 +2160,10 @@ static const VkAccessFlagBits2 VK_ACCESS_2_SHADER_STORAGE_WRITE_BIT_KHR = 0x4000
 static const VkAccessFlagBits2 VK_ACCESS_2_VIDEO_DECODE_READ_BIT_KHR = 0x800000000ULL;
 // Provided by VK_KHR_video_decode_queue
 static const VkAccessFlagBits2 VK_ACCESS_2_VIDEO_DECODE_WRITE_BIT_KHR = 0x1000000000ULL;
-#ifdef VK_ENABLE_BETA_EXTENSIONS
 // Provided by VK_KHR_video_encode_queue
 static const VkAccessFlagBits2 VK_ACCESS_2_VIDEO_ENCODE_READ_BIT_KHR = 0x2000000000ULL;
-#endif
-#ifdef VK_ENABLE_BETA_EXTENSIONS
 // Provided by VK_KHR_video_encode_queue
 static const VkAccessFlagBits2 VK_ACCESS_2_VIDEO_ENCODE_WRITE_BIT_KHR = 0x4000000000ULL;
-#endif
 // Provided by VK_KHR_synchronization2 with VK_EXT_transform_feedback
 static const VkAccessFlagBits2 VK_ACCESS_2_TRANSFORM_FEEDBACK_WRITE_BIT_EXT = 0x02000000ULL;
 // Provided by VK_KHR_synchronization2 with VK_EXT_transform_feedback
@@ -2277,7 +2196,7 @@ static const VkAccessFlagBits2 VK_ACCESS_2_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT
 static const VkAccessFlagBits2 VK_ACCESS_2_DESCRIPTOR_BUFFER_READ_BIT_EXT = 0x20000000000ULL;
 // Provided by VK_HUAWEI_invocation_mask
 static const VkAccessFlagBits2 VK_ACCESS_2_INVOCATION_MASK_READ_BIT_HUAWEI = 0x8000000000ULL;
-// Provided by VK_KHR_ray_tracing_maintenance1 with VK_KHR_synchronization2 and VK_KHR_ray_tracing_pipeline
+// Provided by VK_KHR_ray_tracing_maintenance1 with (VK_KHR_synchronization2 or VK_VERSION_1_3) and VK_KHR_ray_tracing_pipeline
 static const VkAccessFlagBits2 VK_ACCESS_2_SHADER_BINDING_TABLE_READ_BIT_KHR = 0x10000000000ULL;
 // Provided by VK_EXT_opacity_micromap
 static const VkAccessFlagBits2 VK_ACCESS_2_MICROMAP_READ_BIT_EXT = 0x100000000000ULL;
@@ -2380,9 +2299,6 @@ is equivalent to the logical OR of:</p>
 </li>
 <li>
 <p><code>VK_ACCESS_2_SHADER_STORAGE_READ_BIT</code></p>
-</li>
-<li>
-<p><code>VK_ACCESS_2_SHADER_BINDING_TABLE_READ_BIT_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -2561,25 +2477,25 @@ It is equivalent to
 </li>
 <li>
 <p><code>VK_ACCESS_2_VIDEO_DECODE_READ_BIT_KHR</code> specifies read access to an
-image or buffer resource in a <a href="video_extensions.html#video-decode-operations" class="xref page">video decode    operation</a>.
+image or buffer resource in a <a href="videocoding.html#video-decode-operations" class="xref page">video decode    operation</a>.
 Such access occurs in the <code>VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR</code>
 pipeline stage.</p>
 </li>
 <li>
 <p><code>VK_ACCESS_2_VIDEO_DECODE_WRITE_BIT_KHR</code> specifies write access to
-an image or buffer resource in a <a href="video_extensions.html#video-decode-operations" class="xref page">video decode    operation</a>.
+an image or buffer resource in a <a href="videocoding.html#video-decode-operations" class="xref page">video decode    operation</a>.
 Such access occurs in the <code>VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR</code>
 pipeline stage.</p>
 </li>
 <li>
 <p><code>VK_ACCESS_2_VIDEO_ENCODE_READ_BIT_KHR</code> specifies read access to an
-image or buffer resource in a <a href="video_extensions.html#video-encode-operations" class="xref page">video encode    operation</a>.
+image or buffer resource in a <a href="videocoding.html#video-encode-operations" class="xref page">video encode    operation</a>.
 Such access occurs in the <code>VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR</code>
 pipeline stage.</p>
 </li>
 <li>
 <p><code>VK_ACCESS_2_VIDEO_ENCODE_WRITE_BIT_KHR</code> specifies write access to
-an image or buffer resource in a <a href="video_extensions.html#video-encode-operations" class="xref page">video encode    operation</a>.
+an image or buffer resource in a <a href="videocoding.html#video-encode-operations" class="xref page">video encode    operation</a>.
 Such access occurs in the <code>VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR</code>
 pipeline stage.</p>
 </li>
@@ -3256,20 +3172,6 @@ perform that type of access.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_ACCESS_2_SHADER_BINDING_TABLE_READ_BIT_KHR</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT</code>,
-	<code>VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT</code>,
-	<code>VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT</code>,
-	<code>VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT</code>,
-	<code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code>,
-	<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>,
-	<code>VK_PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_KHR</code>,
-	<code>VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT</code>,
-	<code>VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT</code>,
-	<code>VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI</code>,
-	<code>VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI</code></p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_ACCESS_2_MICROMAP_READ_BIT_EXT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT</code>,
 	<code>VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR</code></p></td>
@@ -3613,33 +3515,42 @@ or <a href="cmdbuffers.html#VkSubmitInfo2" class="xref page">VkSubmitInfo2</a>
 from lowest index to highest.</p>
 </li>
 <li>
-<p>The order in which commands were recorded to a command buffer on the
-host, from first to last:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>For commands recorded outside a render pass, this includes all other
-commands recorded outside a render pass, including
-<a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">vkCmdBeginRenderPass</a> and <a href="renderpass.html#vkCmdEndRenderPass" class="xref page">vkCmdEndRenderPass</a> commands; it
-does not directly include commands inside a render pass.</p>
+<p>The order in which commands outside of a render pass were recorded to a
+command buffer on the host, from first to last.</p>
 </li>
 <li>
-<p>For commands recorded inside a render pass, this includes all other
-     commands recorded inside the same subpass, including the
-     <a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">vkCmdBeginRenderPass</a> and <a href="renderpass.html#vkCmdEndRenderPass" class="xref page">vkCmdEndRenderPass</a> commands that
-     delimit the same render pass instance; it does not include commands
-     recorded to other subpasses.
-<a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">State commands</a> do not execute
+<p>The order in which commands inside a single subpass were recorded to a
+command buffer on the host, from first to last.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>When using a <a href="renderpass.html#renderpass-objects" class="xref page">render pass object</a> with multiple
+subpasses, commands in different subpasses have no defined submission order
+relative to each other, regardless of the order in which the subpasses were
+recorded.
+Commands within a subpass are still ordered relative to other commands in
+the same subpass, and those outside of the render pass.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">State commands</a> do not execute
 any operations on the device, instead they set the state of the command
 buffer when they execute on the host, in the order that they are recorded.
 <a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Action commands</a> consume the
 current state of the command buffer when they are recorded, and will execute
 state changes on the device as required to match the recorded state.</p>
-</li>
-</ul>
-</div>
-</li>
-</ol>
 </div>
 <div class="paragraph">
 <p><a href="drawing.html#drawing-primitive-order" class="xref page">The order of primitives passing through the graphics pipeline</a> and
@@ -7413,8 +7324,8 @@ transference semantics, <code>semaphore</code> <strong>must</strong> have been c
 If <code>handleType</code> refers to a handle type with copy payload
 transference semantics, <code>semaphore</code> <strong>must</strong> have an associated
 semaphore signal operation that has been submitted for execution and any
-semaphore signal operations on which it depends (if any) <strong>must</strong> have also
-been submitted for execution</p>
+semaphore signal operations on which it depends <strong>must</strong> have also been
+submitted for execution</p>
 </li>
 </ul>
 </div>
@@ -7716,10 +7627,11 @@ void vkDestroySemaphore(
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkDestroySemaphore-semaphore-01137" href="#VUID-vkDestroySemaphore-semaphore-01137"></a> <span class="vuid">VUID-vkDestroySemaphore-semaphore-01137</span><br>
+<p><a id="VUID-vkDestroySemaphore-semaphore-05149" href="#VUID-vkDestroySemaphore-semaphore-05149"></a> <span class="vuid">VUID-vkDestroySemaphore-semaphore-05149</span><br>
 
-All submitted batches that refer to <code>semaphore</code> <strong>must</strong> have completed
-execution</p>
+All
+    submitted batches that refer to <code>semaphore</code> <strong>must</strong> have completed
+    execution</p>
 </li>
 <li>
 <p><a id="VUID-vkDestroySemaphore-semaphore-01138" href="#VUID-vkDestroySemaphore-semaphore-01138"></a> <span class="vuid">VUID-vkDestroySemaphore-semaphore-01138</span><br>
@@ -7968,7 +7880,7 @@ performed in between.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="synchronization-semaphores-waiting-state"><a class="anchor" href="#synchronization-semaphores-waiting-state"></a>Semaphore State Requirements For Wait Operations</h3>
+<h3 id="synchronization-semaphores-waiting-state"><a class="anchor" href="#synchronization-semaphores-waiting-state"></a>Semaphore State Requirements for Wait Operations</h3>
 <div class="paragraph">
 <p>Before waiting on a semaphore, the application <strong>must</strong> ensure the semaphore is
 in a valid state for a wait operation.
@@ -10336,6 +10248,12 @@ as described in the <a href="cmdbuffers.html#commandbuffers-submission-progress"
 <code>event</code> <strong>must</strong> not have been created with
 <code>VK_EVENT_CREATE_DEVICE_ONLY_BIT</code></p>
 </li>
+<li>
+<p><a id="VUID-vkSetEvent-event-09543" href="#VUID-vkSetEvent-event-09543"></a> <span class="vuid">VUID-vkSetEvent-event-09543</span><br>
+
+<code>event</code> <strong>must</strong> not be waited on by a command buffer in the
+<a href="cmdbuffers.html#commandbuffers-lifecycle" class="xref page">pending state</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -10654,6 +10572,22 @@ be enabled</p>
 The <code>dependencyFlags</code> member of <code>pDependencyInfo</code> <strong>must</strong> be <code>0</code></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdSetEvent2-srcStageMask-09391" href="#VUID-vkCmdSetEvent2-srcStageMask-09391"></a> <span class="vuid">VUID-vkCmdSetEvent2-srcStageMask-09391</span><br>
+
+The <code>srcStageMask</code> member of any element of the
+<code>pMemoryBarriers</code>, <code>pBufferMemoryBarriers</code>, or
+<code>pImageMemoryBarriers</code> members of <code>pDependencyInfo</code> <strong>must</strong> not
+include <code>VK_PIPELINE_STAGE_2_HOST_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSetEvent2-dstStageMask-09392" href="#VUID-vkCmdSetEvent2-dstStageMask-09392"></a> <span class="vuid">VUID-vkCmdSetEvent2-dstStageMask-09392</span><br>
+
+The <code>dstStageMask</code> member of any element of the
+<code>pMemoryBarriers</code>, <code>pBufferMemoryBarriers</code>, or
+<code>pImageMemoryBarriers</code> members of <code>pDependencyInfo</code> <strong>must</strong> not
+include <code>VK_PIPELINE_STAGE_2_HOST_BIT</code></p>
+</li>
+<li>
 <p><a id="VUID-vkCmdSetEvent2-commandBuffer-03826" href="#VUID-vkCmdSetEvent2-commandBuffer-03826"></a> <span class="vuid">VUID-vkCmdSetEvent2-commandBuffer-03826</span><br>
 
 The current device mask of <code>commandBuffer</code> <strong>must</strong> include exactly one
@@ -10748,7 +10682,7 @@ create the command pool that <code>commandBuffer</code> was allocated from</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -10843,7 +10777,8 @@ between image subresources.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>This structure defines a set of <a href="#synchronization-dependencies-memory">memory dependencies</a>, as well as <a href="#synchronization-queue-transfers">queue family transfer operations</a> and <a href="#synchronization-image-layout-transitions">image layout transitions</a>.</p>
+<p>This structure defines a set of <a href="#synchronization-dependencies-memory">memory dependencies</a>, as well as <a href="#synchronization-queue-transfers">queue family ownership transfer operations</a> and
+<a href="#synchronization-image-layout-transitions">image layout transitions</a>.</p>
 </div>
 <div class="paragraph">
 <p>Each member of <code>pMemoryBarriers</code>, <code>pBufferMemoryBarriers</code>, and
@@ -11013,7 +10948,7 @@ from, as specified in the <a href="#synchronization-pipeline-stages-supported"> 
 <li>
 <p><a id="VUID-vkCmdSetEvent-commandBuffer-01152" href="#VUID-vkCmdSetEvent-commandBuffer-01152"></a> <span class="vuid">VUID-vkCmdSetEvent-commandBuffer-01152</span><br>
 
-<code>commandBuffer</code>&#8217;s current device mask <strong>must</strong> include exactly one
+The current device mask of <code>commandBuffer</code> <strong>must</strong> include exactly one
 physical device</p>
 </li>
 </ul>
@@ -11087,7 +11022,7 @@ physical device</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -11361,7 +11296,7 @@ physical device</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -11599,7 +11534,7 @@ physical device</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -11810,7 +11745,7 @@ The <code>srcStageMask</code> member of any element of the
 <code>pImageMemoryBarriers</code> members of <code>pDependencyInfos</code> <strong>must</strong>
 either include only pipeline stages valid for the queue family that was
 used to create the command pool that <code>commandBuffer</code> was allocated
-from, or include only <code>VK_PIPELINE_STAGE_2_HOST_BIT</code></p>
+from</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWaitEvents2-dstStageMask-03843" href="#VUID-vkCmdWaitEvents2-dstStageMask-03843"></a> <span class="vuid">VUID-vkCmdWaitEvents2-dstStageMask-03843</span><br>
@@ -11907,7 +11842,7 @@ physical device</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -12468,7 +12403,7 @@ Elements of <code>pEvents</code> <strong>must</strong> not have been signaled by
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -12551,11 +12486,8 @@ that occurred later in <a href="#synchronization-submission-order">submission or
 </div>
 <div class="paragraph">
 <p>If <code>vkCmdPipelineBarrier2</code> is recorded within a render pass instance,
-the synchronization scopes are limited to operations within the same subpass
-, or <strong>must</strong> follow the restrictions for
-<a href="#synchronization-pipeline-barriers-explicit-renderpass-tileimage">Tile Image Access Synchronization</a> if the render pass instance was started with
-<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>
-.</p>
+the synchronization scopes are limited to a subset of operations within the
+same subpass or render pass instance.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -12635,7 +12567,7 @@ destination stage masks of all memory barriers <strong>must</strong> only includ
 <li>
 <p><a id="VUID-vkCmdPipelineBarrier2-dependencyFlags-07891" href="#VUID-vkCmdPipelineBarrier2-dependencyFlags-07891"></a> <span class="vuid">VUID-vkCmdPipelineBarrier2-dependencyFlags-07891</span><br>
 
-If <code>vkCmdPipelineBarrier2</code> is called within a render pass instance, and and the
+If <code>vkCmdPipelineBarrier2</code> is called within a render pass instance, and the
 source stage masks of any memory barriers include
 <a href="#synchronization-framebuffer-regions">framebuffer-space stages</a>, then
 <code>dependencyFlags</code> <strong>must</strong> include <code>VK_DEPENDENCY_BY_REGION_BIT</code></p>
@@ -12661,21 +12593,57 @@ more than one view in the current subpass, dependency flags <strong>must</strong
 include <code>VK_DEPENDENCY_VIEW_LOCAL_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-vkCmdPipelineBarrier2-shaderTileImageColorReadAccess-08718" href="#VUID-vkCmdPipelineBarrier2-shaderTileImageColorReadAccess-08718"></a> <span class="vuid">VUID-vkCmdPipelineBarrier2-shaderTileImageColorReadAccess-08718</span><br>
+<p><a id="VUID-vkCmdPipelineBarrier2-None-09553" href="#VUID-vkCmdPipelineBarrier2-None-09553"></a> <span class="vuid">VUID-vkCmdPipelineBarrier2-None-09553</span><br>
 
-If <code>vkCmdPipelineBarrier2</code> is called within a render pass instance
-and none of the <a href="features.html#features-shaderTileImageColorReadAccess" class="xref page">    <code>shaderTileImageColorReadAccess</code></a>,
-<a href="features.html#features-shaderTileImageDepthReadAccess" class="xref page">    <code>shaderTileImageDepthReadAccess</code></a>,
-<a href="features.html#features-shaderTileImageStencilReadAccess" class="xref page">    <code>shaderTileImageStencilReadAccess</code></a> features are enabled,
-the render pass <strong>must</strong> not have been started with
-<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a></p>
+    
+    If
+    none of the <a href="features.html#features-shaderTileImageColorReadAccess" class="xref page">    <code>shaderTileImageColorReadAccess</code></a>,
+    <a href="features.html#features-shaderTileImageStencilReadAccess" class="xref page">    <code>shaderTileImageStencilReadAccess</code></a>, or
+    <a href="features.html#features-shaderTileImageDepthReadAccess" class="xref page">    <code>shaderTileImageDepthReadAccess</code></a> features are enabled,
+and
+    the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled,
+    <code>vkCmdPipelineBarrier2</code> <strong>must</strong> not be called within a render pass instance
+    started with <a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a></p>
 </li>
 <li>
-<p><a id="VUID-vkCmdPipelineBarrier2-None-08719" href="#VUID-vkCmdPipelineBarrier2-None-08719"></a> <span class="vuid">VUID-vkCmdPipelineBarrier2-None-08719</span><br>
+<p><a id="VUID-vkCmdPipelineBarrier2-None-09554" href="#VUID-vkCmdPipelineBarrier2-None-09554"></a> <span class="vuid">VUID-vkCmdPipelineBarrier2-None-09554</span><br>
+
+If
+the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled, and
+<code>vkCmdPipelineBarrier2</code> is called within a render pass instance started with
+<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, there <strong>must</strong> be no buffer or image memory
+barriers specified by this command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdPipelineBarrier2-None-09586" href="#VUID-vkCmdPipelineBarrier2-None-09586"></a> <span class="vuid">VUID-vkCmdPipelineBarrier2-None-09586</span><br>
+
+If
+the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled, and
+<code>vkCmdPipelineBarrier2</code> is called within a render pass instance started with
+<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, memory barriers specified by this command
+<strong>must</strong> only include <code>VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT</code>,
+<code>VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT</code>,
+<code>VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_READ_BIT</code>, or
+<code>VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT</code> in their access
+masks</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdPipelineBarrier2-image-09555" href="#VUID-vkCmdPipelineBarrier2-image-09555"></a> <span class="vuid">VUID-vkCmdPipelineBarrier2-image-09555</span><br>
 
 If <code>vkCmdPipelineBarrier2</code> is called within a render pass instance started with
-<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, it <strong>must</strong> adhere to the restrictions in
-<a href="#synchronization-pipeline-barriers-explicit-renderpass-tileimage">    Explicit Render Pass Tile Image Access Synchronization</a></p>
+<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, and the <code>image</code> member of any image
+memory barrier is used as an attachment in the current render pass
+instance, it <strong>must</strong> be in the
+<code>VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR</code> or
+<code>VK_IMAGE_LAYOUT_GENERAL</code> layout</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdPipelineBarrier2-srcStageMask-09556" href="#VUID-vkCmdPipelineBarrier2-srcStageMask-09556"></a> <span class="vuid">VUID-vkCmdPipelineBarrier2-srcStageMask-09556</span><br>
+
+If <code>vkCmdPipelineBarrier2</code> is called within a render pass instance started with
+<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, this command <strong>must</strong> only specify
+<a href="#synchronization-framebuffer-regions">framebuffer-space stages</a> in
+<code>srcStageMask</code> and <code>dstStageMask</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdPipelineBarrier2-synchronization2-03848" href="#VUID-vkCmdPipelineBarrier2-synchronization2-03848"></a> <span class="vuid">VUID-vkCmdPipelineBarrier2-synchronization2-03848</span><br>
@@ -12760,7 +12728,7 @@ create the command pool that <code>commandBuffer</code> was allocated from</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -12852,7 +12820,7 @@ structures.</p>
 <div class="paragraph">
 <p><code>vkCmdPipelineBarrier</code> operates almost identically to
 <a href="#vkCmdPipelineBarrier2">vkCmdPipelineBarrier2</a>, except that the scopes and barriers are defined
-as direct parameters rather than being defined by an <a href="#VkDependencyInfo">VkDependencyInfo</a>.</p>
+as direct parameters rather than being defined by a <a href="#VkDependencyInfo">VkDependencyInfo</a>.</p>
 </div>
 <div class="paragraph">
 <p>When <a href="#vkCmdPipelineBarrier">vkCmdPipelineBarrier</a> is submitted to a queue, it defines a memory
@@ -13245,7 +13213,7 @@ destination stage masks of all memory barriers <strong>must</strong> only includ
 <li>
 <p><a id="VUID-vkCmdPipelineBarrier-dependencyFlags-07891" href="#VUID-vkCmdPipelineBarrier-dependencyFlags-07891"></a> <span class="vuid">VUID-vkCmdPipelineBarrier-dependencyFlags-07891</span><br>
 
-If <code>vkCmdPipelineBarrier</code> is called within a render pass instance, and and the
+If <code>vkCmdPipelineBarrier</code> is called within a render pass instance, and the
 source stage masks of any memory barriers include
 <a href="#synchronization-framebuffer-regions">framebuffer-space stages</a>, then
 <code>dependencyFlags</code> <strong>must</strong> include <code>VK_DEPENDENCY_BY_REGION_BIT</code></p>
@@ -13271,21 +13239,57 @@ more than one view in the current subpass, dependency flags <strong>must</strong
 include <code>VK_DEPENDENCY_VIEW_LOCAL_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-vkCmdPipelineBarrier-shaderTileImageColorReadAccess-08718" href="#VUID-vkCmdPipelineBarrier-shaderTileImageColorReadAccess-08718"></a> <span class="vuid">VUID-vkCmdPipelineBarrier-shaderTileImageColorReadAccess-08718</span><br>
+<p><a id="VUID-vkCmdPipelineBarrier-None-09553" href="#VUID-vkCmdPipelineBarrier-None-09553"></a> <span class="vuid">VUID-vkCmdPipelineBarrier-None-09553</span><br>
 
-If <code>vkCmdPipelineBarrier</code> is called within a render pass instance
-and none of the <a href="features.html#features-shaderTileImageColorReadAccess" class="xref page">    <code>shaderTileImageColorReadAccess</code></a>,
-<a href="features.html#features-shaderTileImageDepthReadAccess" class="xref page">    <code>shaderTileImageDepthReadAccess</code></a>,
-<a href="features.html#features-shaderTileImageStencilReadAccess" class="xref page">    <code>shaderTileImageStencilReadAccess</code></a> features are enabled,
-the render pass <strong>must</strong> not have been started with
-<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a></p>
+    
+    If
+    none of the <a href="features.html#features-shaderTileImageColorReadAccess" class="xref page">    <code>shaderTileImageColorReadAccess</code></a>,
+    <a href="features.html#features-shaderTileImageStencilReadAccess" class="xref page">    <code>shaderTileImageStencilReadAccess</code></a>, or
+    <a href="features.html#features-shaderTileImageDepthReadAccess" class="xref page">    <code>shaderTileImageDepthReadAccess</code></a> features are enabled,
+and
+    the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled,
+    <code>vkCmdPipelineBarrier</code> <strong>must</strong> not be called within a render pass instance
+    started with <a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a></p>
 </li>
 <li>
-<p><a id="VUID-vkCmdPipelineBarrier-None-08719" href="#VUID-vkCmdPipelineBarrier-None-08719"></a> <span class="vuid">VUID-vkCmdPipelineBarrier-None-08719</span><br>
+<p><a id="VUID-vkCmdPipelineBarrier-None-09554" href="#VUID-vkCmdPipelineBarrier-None-09554"></a> <span class="vuid">VUID-vkCmdPipelineBarrier-None-09554</span><br>
+
+If
+the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled, and
+<code>vkCmdPipelineBarrier</code> is called within a render pass instance started with
+<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, there <strong>must</strong> be no buffer or image memory
+barriers specified by this command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdPipelineBarrier-None-09586" href="#VUID-vkCmdPipelineBarrier-None-09586"></a> <span class="vuid">VUID-vkCmdPipelineBarrier-None-09586</span><br>
+
+If
+the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled, and
+<code>vkCmdPipelineBarrier</code> is called within a render pass instance started with
+<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, memory barriers specified by this command
+<strong>must</strong> only include <code>VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT</code>,
+<code>VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT</code>,
+<code>VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_READ_BIT</code>, or
+<code>VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT</code> in their access
+masks</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdPipelineBarrier-image-09555" href="#VUID-vkCmdPipelineBarrier-image-09555"></a> <span class="vuid">VUID-vkCmdPipelineBarrier-image-09555</span><br>
 
 If <code>vkCmdPipelineBarrier</code> is called within a render pass instance started with
-<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, it <strong>must</strong> adhere to the restrictions in
-<a href="#synchronization-pipeline-barriers-explicit-renderpass-tileimage">    Explicit Render Pass Tile Image Access Synchronization</a></p>
+<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, and the <code>image</code> member of any image
+memory barrier is used as an attachment in the current render pass
+instance, it <strong>must</strong> be in the
+<code>VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR</code> or
+<code>VK_IMAGE_LAYOUT_GENERAL</code> layout</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdPipelineBarrier-srcStageMask-09556" href="#VUID-vkCmdPipelineBarrier-srcStageMask-09556"></a> <span class="vuid">VUID-vkCmdPipelineBarrier-srcStageMask-09556</span><br>
+
+If <code>vkCmdPipelineBarrier</code> is called within a render pass instance started with
+<a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, this command <strong>must</strong> only specify
+<a href="#synchronization-framebuffer-regions">framebuffer-space stages</a> in
+<code>srcStageMask</code> and <code>dstStageMask</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdPipelineBarrier-srcStageMask-06461" href="#VUID-vkCmdPipelineBarrier-srcStageMask-06461"></a> <span class="vuid">VUID-vkCmdPipelineBarrier-srcStageMask-06461</span><br>
@@ -13306,6 +13310,22 @@ the capabilities of the queue family specified by the
 structure that was used to create the <code>VkCommandPool</code> that
 <code>commandBuffer</code> was allocated from, as specified in the
 <a href="#synchronization-pipeline-stages-supported">table of supported pipeline    stages</a></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdPipelineBarrier-srcStageMask-09633" href="#VUID-vkCmdPipelineBarrier-srcStageMask-09633"></a> <span class="vuid">VUID-vkCmdPipelineBarrier-srcStageMask-09633</span><br>
+
+If either <code>srcStageMask</code> or <code>dstStageMask</code> includes
+<code>VK_PIPELINE_STAGE_HOST_BIT</code>, for any element of
+<code>pImageMemoryBarriers</code>, <code>srcQueueFamilyIndex</code> and
+<code>dstQueueFamilyIndex</code> <strong>must</strong> be equal</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdPipelineBarrier-srcStageMask-09634" href="#VUID-vkCmdPipelineBarrier-srcStageMask-09634"></a> <span class="vuid">VUID-vkCmdPipelineBarrier-srcStageMask-09634</span><br>
+
+If either <code>srcStageMask</code> or <code>dstStageMask</code> includes
+<code>VK_PIPELINE_STAGE_HOST_BIT</code>, for any element of
+<code>pBufferMemoryBarriers</code>, <code>srcQueueFamilyIndex</code> and
+<code>dstQueueFamilyIndex</code> <strong>must</strong> be equal</p>
 </li>
 </ul>
 </div>
@@ -13386,7 +13406,7 @@ structure that was used to create the <code>VkCommandPool</code> that
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -13469,59 +13489,6 @@ typedef VkFlags VkDependencyFlags;</code></pre>
 <p><code>VkDependencyFlags</code> is a bitmask type for setting a mask of zero or more
 <a href="#VkDependencyFlagBits">VkDependencyFlagBits</a>.</p>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="synchronization-pipeline-barriers-explicit-renderpass-tileimage"><a class="anchor" href="#synchronization-pipeline-barriers-explicit-renderpass-tileimage"></a>Explicit Render Pass Tile Image Access Synchronization</h3>
-<div class="paragraph">
-<p>A fragment shader <strong>can</strong> declare <code>NonCoherentColorAttachmentReadEXT</code>,
-<code>NonCoherentDepthAttachmentReadEXT</code>, or
-<code>NonCoherentStencilAttachmentReadEXT</code> execution modes to enable
-non-coherent tile image reads for color, depth, or stencil, respectively.
-When non-coherent tile image reads are enabled, writes via color, depth and
-stencil attachments are not automatically made visible to the corresponding
-attachment reads via tile images.
-For the writes to be made visible, an explicit memory dependency <strong>must</strong> be
-inserted between when the attachment is written to and when it is read from
-by later fragments.
-Such memory dependencies <strong>must</strong> be inserted every time a fragment will read
-values at a particular sample (x, y, layer, sample) coordinate, if those
-values have been written since the most recent pipeline barrier; or since
-the start of the render pass instance, if there have been no pipeline
-barriers since the start of the render pass instance.
-When such memory dependencies are used the values at all sample locations
-inside the fragment area are made visible, regardless of coverage.</p>
-</div>
-<div class="paragraph">
-<p>To insert a memory dependency for explicit render pass tile image
-synchronization, call <a href="#vkCmdPipelineBarrier2">vkCmdPipelineBarrier2</a> inside a render pass
-instance started with <a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>.
-The following restrictions apply for such pipeline barriers:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>dependencyFlags</code> <strong>must</strong> include <code>VK_DEPENDENCY_BY_REGION_BIT</code>.</p>
-</li>
-<li>
-<p>The pipeline barriers <strong>can</strong> only include memory barriers.
-That is, buffer memory barriers and image memory barriers <strong>must</strong> not be
-used.</p>
-</li>
-<li>
-<p>The stages in <a href="#VkMemoryBarrier2">VkMemoryBarrier2</a>::<code>srcStageMask</code> and
-<a href="#VkMemoryBarrier2">VkMemoryBarrier2</a>::<code>dstStageMask</code> are restricted to framebuffer
-space stages.</p>
-</li>
-<li>
-<p>The access types in <a href="#VkMemoryBarrier2">VkMemoryBarrier2</a>::<code>srcAccessMask</code> and
-<a href="#VkMemoryBarrier2">VkMemoryBarrier2</a>::<code>dstAccessMask</code> are restricted to the
-following types: <code>VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT</code>,
-<code>VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT</code>,
-<code>VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_READ_BIT</code>, and
-<code>VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT</code>.</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -14739,8 +14706,7 @@ to the end of the buffer.</p>
 </div>
 <div class="paragraph">
 <p>This structure defines a <a href="#synchronization-dependencies-memory">memory dependency</a> limited to a range of a buffer, and <strong>can</strong> define a
-<a href="#synchronization-queue-transfers">queue family transfer operation</a> for
-that range.</p>
+<a href="#synchronization-queue-transfers">queue family ownership transfer operation</a> for that range.</p>
 </div>
 <div class="paragraph">
 <p>The first <a href="#synchronization-dependencies-scopes">synchronization scope</a> and
@@ -14762,23 +14728,22 @@ limited to only memory accesses to <code>buffer</code> in the range defined by
 <div class="paragraph">
 <p>If <code>buffer</code> was created with <code>VK_SHARING_MODE_EXCLUSIVE</code>, and
 <code>srcQueueFamilyIndex</code> is not equal to <code>dstQueueFamilyIndex</code>, this
-memory barrier defines a <a href="#synchronization-queue-transfers">queue family transfer operation</a>.
+memory barrier defines a <a href="#synchronization-queue-transfers">queue family ownership transfer operation</a>.
 When executed on a queue in the family identified by
 <code>srcQueueFamilyIndex</code>, this barrier defines a
 <a href="#synchronization-queue-transfers-release">queue family release operation</a>
-for the specified buffer range, and the second synchronization and access
-scopes do not synchronize operations on that queue.
+for the specified buffer range, and the second synchronization scope does
+not apply to this operation.
 When executed on a queue in the family identified by
 <code>dstQueueFamilyIndex</code>, this barrier defines a
 <a href="#synchronization-queue-transfers-acquire">queue family acquire operation</a>
-for the specified buffer range, and the first synchronization and access
-scopes do not synchronize operations on that queue.</p>
+for the specified buffer range, and the first synchronization scope does not
+apply to this operation.</p>
 </div>
 <div class="paragraph">
-<p>A <a href="#synchronization-queue-transfers">queue family transfer operation</a> is
-also defined if the values are not equal, and either is one of the special
-queue family values reserved for external memory ownership transfers, as
-described in <a href="#synchronization-queue-transfers">Queue Family Ownership Transfer</a>.
+<p>A <a href="#synchronization-queue-transfers">queue family ownership transfer operation</a> is also defined if the values are not equal, and either is one
+of the special queue family values reserved for external memory ownership
+transfers, as described in <a href="#synchronization-queue-transfers">Queue Family Ownership Transfer</a>.
 A <a href="#synchronization-queue-transfers-release">queue family release operation</a> is defined when <code>dstQueueFamilyIndex</code> is one of those
 values, and a <a href="#synchronization-queue-transfers-acquire">queue family acquire operation</a> is defined when <code>srcQueueFamilyIndex</code> is one of
 those values.</p>
@@ -15951,17 +15916,19 @@ is automatically made available to host domain.</p>
 </tr>
 </table>
 </div>
-<div class="paragraph">
+<div id="buffer-memory-barrier-ownership-transfer" class="paragraph">
 <p>If <code>srcQueueFamilyIndex</code> is not equal to <code>dstQueueFamilyIndex</code>, and
 <code>srcQueueFamilyIndex</code> is equal to the current queue family, then the
 memory barrier defines a <a href="#synchronization-queue-transfers-release">queue family release operation</a> for the specified buffer range, and the second
-access scope includes no access, as if <code>dstAccessMask</code> was <code>0</code>.</p>
+synchronization scope of the calling command does not apply to this
+operation.</p>
 </div>
 <div class="paragraph">
 <p>If <code>dstQueueFamilyIndex</code> is not equal to <code>srcQueueFamilyIndex</code>, and
 <code>dstQueueFamilyIndex</code> is equal to the current queue family, then the
 memory barrier defines a <a href="#synchronization-queue-transfers-acquire">queue family acquire operation</a> for the specified buffer range, and the first
-access scope includes no access, as if <code>srcAccessMask</code> was <code>0</code>.</p>
+synchronization scope of the calling command does not apply to this
+operation.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -16234,9 +16201,7 @@ included in the <a href="#synchronization-dependencies-access-scopes">second    
 </div>
 <div class="paragraph">
 <p>This structure defines a <a href="#synchronization-dependencies-memory">memory dependency</a> limited to an image subresource range, and <strong>can</strong> define a
-<a href="#synchronization-queue-transfers">queue family transfer operation</a> and
-<a href="#synchronization-image-layout-transitions">image layout transition</a> for
-that subresource range.</p>
+<a href="#synchronization-queue-transfers">queue family ownership transfer operation</a> and <a href="#synchronization-image-layout-transitions">image layout transition</a> for that subresource range.</p>
 </div>
 <div class="paragraph">
 <p>The first <a href="#synchronization-dependencies-scopes">synchronization scope</a> and
@@ -16258,23 +16223,22 @@ defined by <code>subresourceRange</code>.</p>
 <div class="paragraph">
 <p>If <code>image</code> was created with <code>VK_SHARING_MODE_EXCLUSIVE</code>, and
 <code>srcQueueFamilyIndex</code> is not equal to <code>dstQueueFamilyIndex</code>, this
-memory barrier defines a <a href="#synchronization-queue-transfers">queue family transfer operation</a>.
+memory barrier defines a <a href="#synchronization-queue-transfers">queue family ownership transfer operation</a>.
 When executed on a queue in the family identified by
 <code>srcQueueFamilyIndex</code>, this barrier defines a
 <a href="#synchronization-queue-transfers-release">queue family release operation</a>
 for the specified image subresource range, and the second synchronization
-and access scopes do not synchronize operations on that queue.
+scope does not apply to this operation.
 When executed on a queue in the family identified by
 <code>dstQueueFamilyIndex</code>, this barrier defines a
 <a href="#synchronization-queue-transfers-acquire">queue family acquire operation</a>
-for the specified image subresource range, and the first synchronization and
-access scopes do not synchronize operations on that queue.</p>
+for the specified image subresource range, and the first synchronization,
+the first synchronization scope does not apply to this operation.</p>
 </div>
 <div class="paragraph">
-<p>A <a href="#synchronization-queue-transfers">queue family transfer operation</a> is
-also defined if the values are not equal, and either is one of the special
-queue family values reserved for external memory ownership transfers, as
-described in <a href="#synchronization-queue-transfers">Queue Family Ownership Transfer</a>.
+<p>A <a href="#synchronization-queue-transfers">queue family ownership transfer operation</a> is also defined if the values are not equal, and either is one
+of the special queue family values reserved for external memory ownership
+transfers, as described in <a href="#synchronization-queue-transfers">Queue Family Ownership Transfer</a>.
 A <a href="#synchronization-queue-transfers-release">queue family release operation</a> is defined when <code>dstQueueFamilyIndex</code> is one of those
 values, and a <a href="#synchronization-queue-transfers-acquire">queue family acquire operation</a> is defined when <code>srcQueueFamilyIndex</code> is one of
 those values.</p>
@@ -16282,8 +16246,8 @@ those values.</p>
 <div class="paragraph">
 <p>If <code>oldLayout</code> is not equal to <code>newLayout</code>, then the memory barrier
 defines an <a href="#synchronization-image-layout-transitions">image layout transition</a> for the specified image subresource range.
-If this memory barrier defines a <a href="#synchronization-queue-transfers">queue family transfer operation</a>, the layout transition is only executed once
-between the queues.</p>
+If this memory barrier defines a <a href="#synchronization-queue-transfers">queue family ownership transfer operation</a>, the layout transition is only
+executed once between the queues.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -17610,6 +17574,34 @@ If the <a href="features.html#features-attachmentFeedbackLoopLayout" class="xref
 <code>newLayout</code> <strong>must</strong> not be
 <code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code></p>
 </li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-09550" href="#VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-09550"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-srcQueueFamilyIndex-09550</span><br>
+
+If <code>srcQueueFamilyIndex</code> and <code>dstQueueFamilyIndex</code> define a
+<a href="#synchronization-queue-transfers">queue family ownership transfer</a> or
+<code>oldLayout</code> and <code>newLayout</code> define an
+<a href="#synchronization-image-layout-transitions">image layout transition</a>,
+and <code>oldLayout</code> or <code>newLayout</code> is
+<code>VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR</code> then <code>image</code> <strong>must</strong>
+have been created with either <code>VK_IMAGE_USAGE_STORAGE_BIT</code>, or with
+both <code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code> and either of
+<code>VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT</code> or
+<code>VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier2-dynamicRenderingLocalRead-09551" href="#VUID-VkImageMemoryBarrier2-dynamicRenderingLocalRead-09551"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-dynamicRenderingLocalRead-09551</span><br>
+
+If the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled,
+<code>oldLayout</code> <strong>must</strong> not be
+<code>VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier2-dynamicRenderingLocalRead-09552" href="#VUID-VkImageMemoryBarrier2-dynamicRenderingLocalRead-09552"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-dynamicRenderingLocalRead-09552</span><br>
+
+If the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled,
+<code>newLayout</code> <strong>must</strong> not be
+<code>VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR</code></p>
+</li>
 </ul>
 </div>
 <div class="ulist">
@@ -17656,8 +17648,9 @@ contiguously to a single <code>VkDeviceMemory</code> object</p>
 <li>
 <p><a id="VUID-VkImageMemoryBarrier2-image-09241" href="#VUID-VkImageMemoryBarrier2-image-09241"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-image-09241</span><br>
 
-If <code>image</code> has a color format that is single-plane, then the
-<code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> be
+If <code>image</code> has a color format
+that is single-plane,
+then the <code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> be
 <code>VK_IMAGE_ASPECT_COLOR_BIT</code></p>
 </li>
 <li>
@@ -17676,6 +17669,15 @@ at least one <a href="formats.html#formats-planes-image-aspect" class="xref page
 bit or <code>VK_IMAGE_ASPECT_COLOR_BIT</code></p>
 </li>
 <li>
+<p><a id="VUID-VkImageMemoryBarrier2-image-03320" href="#VUID-VkImageMemoryBarrier2-image-03320"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-image-03320</span><br>
+
+If <code>image</code> has a depth/stencil format with both depth and stencil
+and the <a href="features.html#features-separateDepthStencilLayouts" class="xref page">    <code>separateDepthStencilLayouts</code></a> feature is not enabled,
+then the <code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> include
+both <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> and
+<code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
+</li>
+<li>
 <p><a id="VUID-VkImageMemoryBarrier2-image-03319" href="#VUID-VkImageMemoryBarrier2-image-03319"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-image-03319</span><br>
 
 If <code>image</code> has a depth/stencil format with both depth and stencil
@@ -17683,14 +17685,6 @@ and the <a href="features.html#features-separateDepthStencilLayouts" class="xref
 <code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> include either
 or both <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> and
 <code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
-</li>
-<li>
-<p><a id="VUID-VkImageMemoryBarrier2-image-03320" href="#VUID-VkImageMemoryBarrier2-image-03320"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-image-03320</span><br>
-
-If <code>image</code> has a depth/stencil format with both depth and stencil
-and the <a href="features.html#features-separateDepthStencilLayouts" class="xref page">    <code>separateDepthStencilLayouts</code></a> feature is not enabled, then the
-<code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> include both
-<code>VK_IMAGE_ASPECT_DEPTH_BIT</code> and <code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkImageMemoryBarrier2-aspectMask-08702" href="#VUID-VkImageMemoryBarrier2-aspectMask-08702"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-aspectMask-08702</span><br>
@@ -17707,6 +17701,12 @@ If the <code>aspectMask</code> member of <code>subresourceRange</code> includes
 <code>VK_IMAGE_ASPECT_STENCIL_BIT</code>, <code>oldLayout</code> and <code>newLayout</code>
 <strong>must</strong> not be one of <code>VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL</code> or
 <code>VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier2-subresourceRange-09601" href="#VUID-VkImageMemoryBarrier2-subresourceRange-09601"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-subresourceRange-09601</span><br>
+
+<code>subresourceRange.aspectMask</code> <strong>must</strong> be valid for the <code>format</code>
+the <code>image</code> was created with</p>
 </li>
 <li>
 <p><a id="VUID-VkImageMemoryBarrier2-srcStageMask-03854" href="#VUID-VkImageMemoryBarrier2-srcStageMask-03854"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-srcStageMask-03854</span><br>
@@ -17866,19 +17866,19 @@ If <code>dstAccessMask</code> includes <code>VK_ACCESS_HOST_WRITE_BIT</code> or
 to accesses of those types, as those access types are not performed through
 a resource.</p>
 </div>
-<div class="paragraph">
+<div id="image-memory-barrier-ownership-transfer" class="paragraph">
 <p>If <code>srcQueueFamilyIndex</code> is not equal to <code>dstQueueFamilyIndex</code>, and
 <code>srcQueueFamilyIndex</code> is equal to the current queue family, then the
 memory barrier defines a <a href="#synchronization-queue-transfers-release">queue family release operation</a> for the specified image subresource range, and
-the second access scope includes no access, as if <code>dstAccessMask</code> was
-<code>0</code>.</p>
+the second synchronization scope of the calling command does not apply to
+this operation.</p>
 </div>
 <div class="paragraph">
 <p>If <code>dstQueueFamilyIndex</code> is not equal to <code>srcQueueFamilyIndex</code>, and
 <code>dstQueueFamilyIndex</code> is equal to the current queue family, then the
 memory barrier defines a <a href="#synchronization-queue-transfers-acquire">queue family acquire operation</a> for the specified image subresource range, and
-the first access scope includes no access, as if <code>srcAccessMask</code> was
-<code>0</code>.</p>
+the first synchronization scope of the calling command does not apply to
+this operation.</p>
 </div>
 <div class="paragraph">
 <p>If the <a href="features.html#features-synchronization2" class="xref page"><code>synchronization2</code></a> feature is not
@@ -18291,6 +18291,34 @@ If the <a href="features.html#features-attachmentFeedbackLoopLayout" class="xref
 <code>newLayout</code> <strong>must</strong> not be
 <code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code></p>
 </li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-09550" href="#VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-09550"></a> <span class="vuid">VUID-VkImageMemoryBarrier-srcQueueFamilyIndex-09550</span><br>
+
+If <code>srcQueueFamilyIndex</code> and <code>dstQueueFamilyIndex</code> define a
+<a href="#synchronization-queue-transfers">queue family ownership transfer</a> or
+<code>oldLayout</code> and <code>newLayout</code> define an
+<a href="#synchronization-image-layout-transitions">image layout transition</a>,
+and <code>oldLayout</code> or <code>newLayout</code> is
+<code>VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR</code> then <code>image</code> <strong>must</strong>
+have been created with either <code>VK_IMAGE_USAGE_STORAGE_BIT</code>, or with
+both <code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code> and either of
+<code>VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT</code> or
+<code>VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier-dynamicRenderingLocalRead-09551" href="#VUID-VkImageMemoryBarrier-dynamicRenderingLocalRead-09551"></a> <span class="vuid">VUID-VkImageMemoryBarrier-dynamicRenderingLocalRead-09551</span><br>
+
+If the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled,
+<code>oldLayout</code> <strong>must</strong> not be
+<code>VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier-dynamicRenderingLocalRead-09552" href="#VUID-VkImageMemoryBarrier-dynamicRenderingLocalRead-09552"></a> <span class="vuid">VUID-VkImageMemoryBarrier-dynamicRenderingLocalRead-09552</span><br>
+
+If the <a href="features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled,
+<code>newLayout</code> <strong>must</strong> not be
+<code>VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR</code></p>
+</li>
 </ul>
 </div>
 <div class="ulist">
@@ -18337,8 +18365,9 @@ contiguously to a single <code>VkDeviceMemory</code> object</p>
 <li>
 <p><a id="VUID-VkImageMemoryBarrier-image-09241" href="#VUID-VkImageMemoryBarrier-image-09241"></a> <span class="vuid">VUID-VkImageMemoryBarrier-image-09241</span><br>
 
-If <code>image</code> has a color format that is single-plane, then the
-<code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> be
+If <code>image</code> has a color format
+that is single-plane,
+then the <code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> be
 <code>VK_IMAGE_ASPECT_COLOR_BIT</code></p>
 </li>
 <li>
@@ -18357,6 +18386,15 @@ at least one <a href="formats.html#formats-planes-image-aspect" class="xref page
 bit or <code>VK_IMAGE_ASPECT_COLOR_BIT</code></p>
 </li>
 <li>
+<p><a id="VUID-VkImageMemoryBarrier-image-03320" href="#VUID-VkImageMemoryBarrier-image-03320"></a> <span class="vuid">VUID-VkImageMemoryBarrier-image-03320</span><br>
+
+If <code>image</code> has a depth/stencil format with both depth and stencil
+and the <a href="features.html#features-separateDepthStencilLayouts" class="xref page">    <code>separateDepthStencilLayouts</code></a> feature is not enabled,
+then the <code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> include
+both <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> and
+<code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
+</li>
+<li>
 <p><a id="VUID-VkImageMemoryBarrier-image-03319" href="#VUID-VkImageMemoryBarrier-image-03319"></a> <span class="vuid">VUID-VkImageMemoryBarrier-image-03319</span><br>
 
 If <code>image</code> has a depth/stencil format with both depth and stencil
@@ -18364,14 +18402,6 @@ and the <a href="features.html#features-separateDepthStencilLayouts" class="xref
 <code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> include either
 or both <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> and
 <code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
-</li>
-<li>
-<p><a id="VUID-VkImageMemoryBarrier-image-03320" href="#VUID-VkImageMemoryBarrier-image-03320"></a> <span class="vuid">VUID-VkImageMemoryBarrier-image-03320</span><br>
-
-If <code>image</code> has a depth/stencil format with both depth and stencil
-and the <a href="features.html#features-separateDepthStencilLayouts" class="xref page">    <code>separateDepthStencilLayouts</code></a> feature is not enabled, then the
-<code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> include both
-<code>VK_IMAGE_ASPECT_DEPTH_BIT</code> and <code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkImageMemoryBarrier-aspectMask-08702" href="#VUID-VkImageMemoryBarrier-aspectMask-08702"></a> <span class="vuid">VUID-VkImageMemoryBarrier-aspectMask-08702</span><br>
@@ -18388,6 +18418,12 @@ If the <code>aspectMask</code> member of <code>subresourceRange</code> includes
 <code>VK_IMAGE_ASPECT_STENCIL_BIT</code>, <code>oldLayout</code> and <code>newLayout</code>
 <strong>must</strong> not be one of <code>VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL</code> or
 <code>VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier-subresourceRange-09601" href="#VUID-VkImageMemoryBarrier-subresourceRange-09601"></a> <span class="vuid">VUID-VkImageMemoryBarrier-subresourceRange-09601</span><br>
+
+<code>subresourceRange.aspectMask</code> <strong>must</strong> be valid for the <code>format</code>
+the <code>image</code> was created with</p>
 </li>
 <li>
 <p><a id="VUID-VkImageMemoryBarrier-None-09052" href="#VUID-VkImageMemoryBarrier-None-09052"></a> <span class="vuid">VUID-VkImageMemoryBarrier-None-09052</span><br>
@@ -18688,8 +18724,9 @@ contiguously to a single <code>VkDeviceMemory</code> object</p>
 <li>
 <p><a id="VUID-VkHostImageLayoutTransitionInfoEXT-image-09241" href="#VUID-VkHostImageLayoutTransitionInfoEXT-image-09241"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfoEXT-image-09241</span><br>
 
-If <code>image</code> has a color format that is single-plane, then the
-<code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> be
+If <code>image</code> has a color format
+that is single-plane,
+then the <code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> be
 <code>VK_IMAGE_ASPECT_COLOR_BIT</code></p>
 </li>
 <li>
@@ -18708,6 +18745,15 @@ at least one <a href="formats.html#formats-planes-image-aspect" class="xref page
 bit or <code>VK_IMAGE_ASPECT_COLOR_BIT</code></p>
 </li>
 <li>
+<p><a id="VUID-VkHostImageLayoutTransitionInfoEXT-image-03320" href="#VUID-VkHostImageLayoutTransitionInfoEXT-image-03320"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfoEXT-image-03320</span><br>
+
+If <code>image</code> has a depth/stencil format with both depth and stencil
+and the <a href="features.html#features-separateDepthStencilLayouts" class="xref page">    <code>separateDepthStencilLayouts</code></a> feature is not enabled,
+then the <code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> include
+both <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> and
+<code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
+</li>
+<li>
 <p><a id="VUID-VkHostImageLayoutTransitionInfoEXT-image-03319" href="#VUID-VkHostImageLayoutTransitionInfoEXT-image-03319"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfoEXT-image-03319</span><br>
 
 If <code>image</code> has a depth/stencil format with both depth and stencil
@@ -18715,14 +18761,6 @@ and the <a href="features.html#features-separateDepthStencilLayouts" class="xref
 <code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> include either
 or both <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> and
 <code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
-</li>
-<li>
-<p><a id="VUID-VkHostImageLayoutTransitionInfoEXT-image-03320" href="#VUID-VkHostImageLayoutTransitionInfoEXT-image-03320"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfoEXT-image-03320</span><br>
-
-If <code>image</code> has a depth/stencil format with both depth and stencil
-and the <a href="features.html#features-separateDepthStencilLayouts" class="xref page">    <code>separateDepthStencilLayouts</code></a> feature is not enabled, then the
-<code>aspectMask</code> member of <code>subresourceRange</code> <strong>must</strong> include both
-<code>VK_IMAGE_ASPECT_DEPTH_BIT</code> and <code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkHostImageLayoutTransitionInfoEXT-aspectMask-08702" href="#VUID-VkHostImageLayoutTransitionInfoEXT-aspectMask-08702"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfoEXT-aspectMask-08702</span><br>
@@ -18739,6 +18777,12 @@ If the <code>aspectMask</code> member of <code>subresourceRange</code> includes
 <code>VK_IMAGE_ASPECT_STENCIL_BIT</code>, <code>oldLayout</code> and <code>newLayout</code>
 <strong>must</strong> not be one of <code>VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL</code> or
 <code>VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_OPTIMAL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkHostImageLayoutTransitionInfoEXT-subresourceRange-09601" href="#VUID-VkHostImageLayoutTransitionInfoEXT-subresourceRange-09601"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfoEXT-subresourceRange-09601</span><br>
+
+<code>subresourceRange.aspectMask</code> <strong>must</strong> be valid for the <code>format</code>
+the <code>image</code> was created with</p>
 </li>
 <li>
 <p><a id="VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09229" href="#VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09229"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfoEXT-oldLayout-09229</span><br>
@@ -18945,9 +18989,9 @@ the destination queue family index.
 <code>dstAccessMask</code> is ignored for such a barrier, such that no visibility
 operation is executed - the value of this mask does not affect the validity
 of the barrier.
-The release operation happens-after the availability operation, and
-happens-before operations specified in the second synchronization scope of
-the calling command.</p>
+The release operation happens-after the availability operation.
+<code>dstStageMask</code> is also ignored for such a barrier as defined by
+<a href="#buffer-memory-barrier-ownership-transfer">buffer memory ownership transfer</a> and <a href="#image-memory-barrier-ownership-transfer">image memory ownership transfer</a>.</p>
 </div>
 <div class="paragraph">
 <p><a id="synchronization-queue-transfers-acquire"></a> An <em>acquire operation</em> is used
@@ -18988,6 +19032,32 @@ use.
 In an earlier version of the specification, these were required to match on
 both sides - but this was subsequently relaxed.
 These masks <strong>should</strong> be set to 0.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>Since a release and acquire operation does not synchronize with second and
+first scopes respectively, the <code>VK_PIPELINE_STAGE_ALL_COMMANDS_BIT</code>
+stage must be used to wait for a release operation to complete.
+Typically, a release and acquire pair is performed by a <a href="#VkSemaphore">VkSemaphore</a>
+signal and wait in their respective queues.
+Signaling a semaphore with <a href="cmdbuffers.html#vkQueueSubmit" class="xref page">vkQueueSubmit</a> waits for
+<code>VK_PIPELINE_STAGE_ALL_COMMANDS_BIT</code>.
+With <a href="cmdbuffers.html#vkQueueSubmit2" class="xref page">vkQueueSubmit2</a>, <code>stageMask</code> for the signal semaphore must be
+<code>VK_PIPELINE_STAGE_ALL_COMMANDS_BIT</code>.
+Similarly, for the acquire operation, waiting for a semaphore must use
+<code>VK_PIPELINE_STAGE_ALL_COMMANDS_BIT</code> to make sure the acquire operation
+is synchronized.</p>
 </div>
 </td>
 </tr>
@@ -19154,7 +19224,7 @@ for external memory ownership transfers (as described in
 <a href="#synchronization-queue-transfers">Queue Family Ownership Transfer</a>), then each range of
 <a href="memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a> bound to the resource <strong>must</strong> have remained
 unmodified during all time since the resource&#8217;s most recent release of
-ownership to the queue family.</p>
+ownership to the queue family</p>
 </li>
 </ul>
 </div>
@@ -19247,7 +19317,7 @@ signal using <a href="#vkWaitForFences">vkWaitForFences</a> with an infinite tim
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -19466,7 +19536,7 @@ waited on by a different physical device.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="calibrated-timestamps"><a class="anchor" href="#calibrated-timestamps"></a>Calibrated timestamps</h2>
+<h2 id="calibrated-timestamps"><a class="anchor" href="#calibrated-timestamps"></a>Calibrated Timestamps</h2>
 <div class="sectionbody">
 <div class="openblock">
 <div class="content">
@@ -19479,13 +19549,27 @@ time domains.</p>
 <div class="paragraph">
 <p>To query calibrated timestamps from a set of time domains, call:</p>
 </div>
+<div id="vkGetCalibratedTimestampsKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_calibrated_timestamps
+VkResult vkGetCalibratedTimestampsKHR(
+    VkDevice                                    device,
+    uint32_t                                    timestampCount,
+    const VkCalibratedTimestampInfoKHR*         pTimestampInfos,
+    uint64_t*                                   pTimestamps,
+    uint64_t*                                   pMaxDeviation);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent command</p>
+</div>
 <div id="vkGetCalibratedTimestampsEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_calibrated_timestamps
 VkResult vkGetCalibratedTimestampsEXT(
     VkDevice                                    device,
     uint32_t                                    timestampCount,
-    const VkCalibratedTimestampInfoEXT*         pTimestampInfos,
+    const VkCalibratedTimestampInfoKHR*         pTimestampInfos,
     uint64_t*                                   pTimestamps,
     uint64_t*                                   pMaxDeviation);</code></pre>
 </div>
@@ -19500,7 +19584,7 @@ VkResult vkGetCalibratedTimestampsEXT(
 </li>
 <li>
 <p><code>pTimestampInfos</code> is a pointer to an array of <code>timestampCount</code>
-<a href="#VkCalibratedTimestampInfoEXT">VkCalibratedTimestampInfoEXT</a> structures, describing the time
+<a href="#VkCalibratedTimestampInfoKHR">VkCalibratedTimestampInfoKHR</a> structures, describing the time
 domains the calibrated timestamps should be captured from.</p>
 </li>
 <li>
@@ -19525,7 +19609,7 @@ calibrated timestamp values is returned.</p>
 <div class="title">Note</div>
 <div class="paragraph">
 <p>The maximum deviation <strong>may</strong> vary between calls to
-<code>vkGetCalibratedTimestampsEXT</code> even for the same set of time domains due
+<code>vkGetCalibratedTimestampsKHR</code> even for the same set of time domains due
 to implementation and platform specific reasons.
 It is the application&#8217;s responsibility to assess whether the returned
 maximum deviation makes the timestamp values suitable for any particular
@@ -19552,7 +19636,7 @@ timestamps on a regular basis.</p>
 <li>
 <p><a id="VUID-vkGetCalibratedTimestampsEXT-timeDomain-09246" href="#VUID-vkGetCalibratedTimestampsEXT-timeDomain-09246"></a> <span class="vuid">VUID-vkGetCalibratedTimestampsEXT-timeDomain-09246</span><br>
 
-The <code>timeDomain</code> value of each <a href="#VkCalibratedTimestampInfoEXT">VkCalibratedTimestampInfoEXT</a> in
+The <code>timeDomain</code> value of each <a href="#VkCalibratedTimestampInfoKHR">VkCalibratedTimestampInfoKHR</a> in
 <code>pTimestampInfos</code> <strong>must</strong> be unique</p>
 </li>
 </ul>
@@ -19565,23 +19649,23 @@ The <code>timeDomain</code> value of each <a href="#VkCalibratedTimestampInfoEXT
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkGetCalibratedTimestampsEXT-device-parameter" href="#VUID-vkGetCalibratedTimestampsEXT-device-parameter"></a> <span class="vuid">VUID-vkGetCalibratedTimestampsEXT-device-parameter</span><br>
+<p><a id="VUID-vkGetCalibratedTimestampsKHR-device-parameter" href="#VUID-vkGetCalibratedTimestampsKHR-device-parameter"></a> <span class="vuid">VUID-vkGetCalibratedTimestampsKHR-device-parameter</span><br>
  <code>device</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
 </li>
 <li>
-<p><a id="VUID-vkGetCalibratedTimestampsEXT-pTimestampInfos-parameter" href="#VUID-vkGetCalibratedTimestampsEXT-pTimestampInfos-parameter"></a> <span class="vuid">VUID-vkGetCalibratedTimestampsEXT-pTimestampInfos-parameter</span><br>
- <code>pTimestampInfos</code> <strong>must</strong> be a valid pointer to an array of <code>timestampCount</code> valid <a href="#VkCalibratedTimestampInfoEXT">VkCalibratedTimestampInfoEXT</a> structures</p>
+<p><a id="VUID-vkGetCalibratedTimestampsKHR-pTimestampInfos-parameter" href="#VUID-vkGetCalibratedTimestampsKHR-pTimestampInfos-parameter"></a> <span class="vuid">VUID-vkGetCalibratedTimestampsKHR-pTimestampInfos-parameter</span><br>
+ <code>pTimestampInfos</code> <strong>must</strong> be a valid pointer to an array of <code>timestampCount</code> valid <a href="#VkCalibratedTimestampInfoKHR">VkCalibratedTimestampInfoKHR</a> structures</p>
 </li>
 <li>
-<p><a id="VUID-vkGetCalibratedTimestampsEXT-pTimestamps-parameter" href="#VUID-vkGetCalibratedTimestampsEXT-pTimestamps-parameter"></a> <span class="vuid">VUID-vkGetCalibratedTimestampsEXT-pTimestamps-parameter</span><br>
+<p><a id="VUID-vkGetCalibratedTimestampsKHR-pTimestamps-parameter" href="#VUID-vkGetCalibratedTimestampsKHR-pTimestamps-parameter"></a> <span class="vuid">VUID-vkGetCalibratedTimestampsKHR-pTimestamps-parameter</span><br>
  <code>pTimestamps</code> <strong>must</strong> be a valid pointer to an array of <code>timestampCount</code> <code>uint64_t</code> values</p>
 </li>
 <li>
-<p><a id="VUID-vkGetCalibratedTimestampsEXT-pMaxDeviation-parameter" href="#VUID-vkGetCalibratedTimestampsEXT-pMaxDeviation-parameter"></a> <span class="vuid">VUID-vkGetCalibratedTimestampsEXT-pMaxDeviation-parameter</span><br>
+<p><a id="VUID-vkGetCalibratedTimestampsKHR-pMaxDeviation-parameter" href="#VUID-vkGetCalibratedTimestampsKHR-pMaxDeviation-parameter"></a> <span class="vuid">VUID-vkGetCalibratedTimestampsKHR-pMaxDeviation-parameter</span><br>
  <code>pMaxDeviation</code> <strong>must</strong> be a valid pointer to a <code>uint64_t</code> value</p>
 </li>
 <li>
-<p><a id="VUID-vkGetCalibratedTimestampsEXT-timestampCount-arraylength" href="#VUID-vkGetCalibratedTimestampsEXT-timestampCount-arraylength"></a> <span class="vuid">VUID-vkGetCalibratedTimestampsEXT-timestampCount-arraylength</span><br>
+<p><a id="VUID-vkGetCalibratedTimestampsKHR-timestampCount-arraylength" href="#VUID-vkGetCalibratedTimestampsKHR-timestampCount-arraylength"></a> <span class="vuid">VUID-vkGetCalibratedTimestampsKHR-timestampCount-arraylength</span><br>
  <code>timestampCount</code> <strong>must</strong> be greater than <code>0</code></p>
 </li>
 </ul>
@@ -19625,16 +19709,25 @@ The <code>timeDomain</code> value of each <a href="#VkCalibratedTimestampInfoEXT
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkCalibratedTimestampInfoEXT</code> structure is defined as:</p>
+<p>The <code>VkCalibratedTimestampInfoKHR</code> structure is defined as:</p>
+</div>
+<div id="VkCalibratedTimestampInfoKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_calibrated_timestamps
+typedef struct VkCalibratedTimestampInfoKHR {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkTimeDomainKHR    timeDomain;
+} VkCalibratedTimestampInfoKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
 </div>
 <div id="VkCalibratedTimestampInfoEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_calibrated_timestamps
-typedef struct VkCalibratedTimestampInfoEXT {
-    VkStructureType    sType;
-    const void*        pNext;
-    VkTimeDomainEXT    timeDomain;
-} VkCalibratedTimestampInfoEXT;</code></pre>
+typedef VkCalibratedTimestampInfoKHR VkCalibratedTimestampInfoEXT;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -19647,7 +19740,7 @@ typedef struct VkCalibratedTimestampInfoEXT {
 structure.</p>
 </li>
 <li>
-<p><code>timeDomain</code> is a <a href="#VkTimeDomainEXT">VkTimeDomainEXT</a> value specifying the time
+<p><code>timeDomain</code> is a <a href="#VkTimeDomainKHR">VkTimeDomainKHR</a> value specifying the time
 domain from which the calibrated timestamp value should be returned.</p>
 </li>
 </ul>
@@ -19660,8 +19753,8 @@ domain from which the calibrated timestamp value should be returned.</p>
 <li>
 <p><a id="VUID-VkCalibratedTimestampInfoEXT-timeDomain-02354" href="#VUID-VkCalibratedTimestampInfoEXT-timeDomain-02354"></a> <span class="vuid">VUID-VkCalibratedTimestampInfoEXT-timeDomain-02354</span><br>
 
-<code>timeDomain</code> <strong>must</strong> be one of the <a href="#VkTimeDomainEXT">VkTimeDomainEXT</a> values
-returned by <a href="capabilities.html#vkGetPhysicalDeviceCalibrateableTimeDomainsEXT" class="xref page">vkGetPhysicalDeviceCalibrateableTimeDomainsEXT</a></p>
+<code>timeDomain</code> <strong>must</strong> be one of the <a href="#VkTimeDomainKHR">VkTimeDomainKHR</a> values
+returned by <a href="capabilities.html#vkGetPhysicalDeviceCalibrateableTimeDomainsKHR" class="xref page">vkGetPhysicalDeviceCalibrateableTimeDomainsKHR</a></p>
 </li>
 </ul>
 </div>
@@ -19673,16 +19766,16 @@ returned by <a href="capabilities.html#vkGetPhysicalDeviceCalibrateableTimeDomai
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkCalibratedTimestampInfoEXT-sType-sType" href="#VUID-VkCalibratedTimestampInfoEXT-sType-sType"></a> <span class="vuid">VUID-VkCalibratedTimestampInfoEXT-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_EXT</code></p>
+<p><a id="VUID-VkCalibratedTimestampInfoKHR-sType-sType" href="#VUID-VkCalibratedTimestampInfoKHR-sType-sType"></a> <span class="vuid">VUID-VkCalibratedTimestampInfoKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_CALIBRATED_TIMESTAMP_INFO_KHR</code></p>
 </li>
 <li>
-<p><a id="VUID-VkCalibratedTimestampInfoEXT-pNext-pNext" href="#VUID-VkCalibratedTimestampInfoEXT-pNext-pNext"></a> <span class="vuid">VUID-VkCalibratedTimestampInfoEXT-pNext-pNext</span><br>
+<p><a id="VUID-VkCalibratedTimestampInfoKHR-pNext-pNext" href="#VUID-VkCalibratedTimestampInfoKHR-pNext-pNext"></a> <span class="vuid">VUID-VkCalibratedTimestampInfoKHR-pNext-pNext</span><br>
  <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
 </li>
 <li>
-<p><a id="VUID-VkCalibratedTimestampInfoEXT-timeDomain-parameter" href="#VUID-VkCalibratedTimestampInfoEXT-timeDomain-parameter"></a> <span class="vuid">VUID-VkCalibratedTimestampInfoEXT-timeDomain-parameter</span><br>
- <code>timeDomain</code> <strong>must</strong> be a valid <a href="#VkTimeDomainEXT">VkTimeDomainEXT</a> value</p>
+<p><a id="VUID-VkCalibratedTimestampInfoKHR-timeDomain-parameter" href="#VUID-VkCalibratedTimestampInfoKHR-timeDomain-parameter"></a> <span class="vuid">VUID-VkCalibratedTimestampInfoKHR-timeDomain-parameter</span><br>
+ <code>timeDomain</code> <strong>must</strong> be a valid <a href="#VkTimeDomainKHR">VkTimeDomainKHR</a> value</p>
 </li>
 </ul>
 </div>
@@ -19695,21 +19788,38 @@ returned by <a href="capabilities.html#vkGetPhysicalDeviceCalibrateableTimeDomai
 <div class="paragraph">
 <p>The set of supported time domains consists of:</p>
 </div>
+<div id="VkTimeDomainKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_calibrated_timestamps
+typedef enum VkTimeDomainKHR {
+    VK_TIME_DOMAIN_DEVICE_KHR = 0,
+    VK_TIME_DOMAIN_CLOCK_MONOTONIC_KHR = 1,
+    VK_TIME_DOMAIN_CLOCK_MONOTONIC_RAW_KHR = 2,
+    VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_KHR = 3,
+  // Provided by VK_EXT_calibrated_timestamps
+    VK_TIME_DOMAIN_DEVICE_EXT = VK_TIME_DOMAIN_DEVICE_KHR,
+  // Provided by VK_EXT_calibrated_timestamps
+    VK_TIME_DOMAIN_CLOCK_MONOTONIC_EXT = VK_TIME_DOMAIN_CLOCK_MONOTONIC_KHR,
+  // Provided by VK_EXT_calibrated_timestamps
+    VK_TIME_DOMAIN_CLOCK_MONOTONIC_RAW_EXT = VK_TIME_DOMAIN_CLOCK_MONOTONIC_RAW_KHR,
+  // Provided by VK_EXT_calibrated_timestamps
+    VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_EXT = VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_KHR,
+} VkTimeDomainKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
+</div>
 <div id="VkTimeDomainEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_calibrated_timestamps
-typedef enum VkTimeDomainEXT {
-    VK_TIME_DOMAIN_DEVICE_EXT = 0,
-    VK_TIME_DOMAIN_CLOCK_MONOTONIC_EXT = 1,
-    VK_TIME_DOMAIN_CLOCK_MONOTONIC_RAW_EXT = 2,
-    VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_EXT = 3,
-} VkTimeDomainEXT;</code></pre>
+typedef VkTimeDomainKHR VkTimeDomainEXT;</code></pre>
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_TIME_DOMAIN_DEVICE_EXT</code> specifies the device time domain.
+<p><code>VK_TIME_DOMAIN_DEVICE_KHR</code> specifies the device time domain.
 Timestamp values in this time domain use the same units and are
 comparable with device timestamp values captured using
 <a href="queries.html#vkCmdWriteTimestamp" class="xref page">vkCmdWriteTimestamp</a>
@@ -19718,7 +19828,7 @@ and are defined to be incrementing according to the
 <a href="limits.html#limits-timestampPeriod" class="xref page"><code>timestampPeriod</code></a> of the device.</p>
 </li>
 <li>
-<p><code>VK_TIME_DOMAIN_CLOCK_MONOTONIC_EXT</code> specifies the CLOCK_MONOTONIC
+<p><code>VK_TIME_DOMAIN_CLOCK_MONOTONIC_KHR</code> specifies the CLOCK_MONOTONIC
 time domain available on POSIX platforms.
 Timestamp values in this time domain are in units of nanoseconds and are
 comparable with platform timestamp values captured using the POSIX
@@ -19735,10 +19845,13 @@ clock_gettime API as computed by this example:</p>
 <td class="content">
 <div class="title">Note</div>
 <div class="paragraph">
-<p>An implementation supporting <code><a href="../appendices/extensions.html#VK_EXT_calibrated_timestamps" class="xref page">VK_EXT_calibrated_timestamps</a></code> will use
-the same time domain for all its <a href="devsandqueues.html#VkQueue" class="xref page">VkQueue</a> so that timestamp values
-reported for <code>VK_TIME_DOMAIN_DEVICE_EXT</code> can be matched to any timestamp
-captured through <a href="queries.html#vkCmdWriteTimestamp" class="xref page">vkCmdWriteTimestamp</a>
+<p>An implementation supporting
+<code><a href="../appendices/extensions.html#VK_KHR_calibrated_timestamps" class="xref page">VK_KHR_calibrated_timestamps</a></code>
+or
+<code><a href="../appendices/extensions.html#VK_EXT_calibrated_timestamps" class="xref page">VK_EXT_calibrated_timestamps</a></code>
+will use the same time domain for all its <a href="devsandqueues.html#VkQueue" class="xref page">VkQueue</a> so that timestamp
+values reported for <code>VK_TIME_DOMAIN_DEVICE_KHR</code> can be matched to any
+timestamp captured through <a href="queries.html#vkCmdWriteTimestamp" class="xref page">vkCmdWriteTimestamp</a>
 or <a href="queries.html#vkCmdWriteTimestamp2" class="xref page">vkCmdWriteTimestamp2</a>
 .</p>
 </div>
@@ -19756,7 +19869,7 @@ return tv.tv_nsec + tv.tv_sec*1000000000ull;</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_TIME_DOMAIN_CLOCK_MONOTONIC_RAW_EXT</code> specifies the
+<p><code>VK_TIME_DOMAIN_CLOCK_MONOTONIC_RAW_KHR</code> specifies the
 CLOCK_MONOTONIC_RAW time domain available on POSIX platforms.
 Timestamp values in this time domain are in units of nanoseconds and are
 comparable with platform timestamp values captured using the POSIX
@@ -19774,7 +19887,7 @@ return tv.tv_nsec + tv.tv_sec*1000000000ull;</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_EXT</code> specifies the
+<p><code>VK_TIME_DOMAIN_QUERY_PERFORMANCE_COUNTER_KHR</code> specifies the
 performance counter (QPC) time domain available on Windows.
 Timestamp values in this time domain are in the same units as those
 provided by the Windows QueryPerformanceCounter API and are comparable

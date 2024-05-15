@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="../chapters/VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../chapters/video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="../chapters/videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="spirvenv.html">Vulkan Environment for SPIR-V</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/appendices/spirvenv.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/appendices/spirvenv.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -573,6 +498,10 @@ the <a href="../chapters/devsandqueues.html#VkDevice" class="xref page">VkDevice
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-AtomicFloat64MinMaxEXT"></a><code>AtomicFloat64MinMaxEXT</code><br>
 &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderBufferFloat64AtomicMinMax" class="xref page"><code>VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT</code>::<code>shaderBufferFloat64AtomicMinMax</code></a><br>
 &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderSharedFloat64AtomicMinMax" class="xref page"><code>VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT</code>::<code>shaderSharedFloat64AtomicMinMax</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-AtomicFloat16VectorNV"></a><code>AtomicFloat16VectorNV</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderFloat16VectorAtomics" class="xref page"><code>VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV</code>::<code>shaderFloat16VectorAtomics</code></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-Int64ImageEXT"></a><code>Int64ImageEXT</code><br>
@@ -1107,6 +1036,10 @@ the <a href="../chapters/devsandqueues.html#VkDevice" class="xref page">VkDevice
 &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-rayTracingPositionFetch" class="xref page"><code>VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR</code>::<code>rayTracingPositionFetch</code></a></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-RayQueryPositionFetchKHR"></a><code>RayQueryPositionFetchKHR</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-rayTracingPositionFetch" class="xref page"><code>VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR</code>::<code>rayTracingPositionFetch</code></a></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-TileImageColorReadAccessEXT"></a><code>TileImageColorReadAccessEXT</code><br>
 &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderTileImageColorReadAccess" class="xref page"><code>VkPhysicalDeviceShaderTileImageFeaturesEXT</code>::<code>shaderTileImageColorReadAccess</code></a></p></td>
 </tr>
@@ -1125,6 +1058,26 @@ the <a href="../chapters/devsandqueues.html#VkDevice" class="xref page">VkDevice
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-ShaderEnqueueAMDX"></a><code>ShaderEnqueueAMDX</code><br>
 &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderEnqueue" class="xref page"><code>VkPhysicalDeviceShaderEnqueueFeaturesAMDX</code>::<code>shaderEnqueue</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-GroupNonUniformRotateKHR"></a><code>GroupNonUniformRotateKHR</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderSubgroupRotate" class="xref page"><code>VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR</code>::<code>shaderSubgroupRotate</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-ExpectAssumeKHR"></a><code>ExpectAssumeKHR</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderExpectAssume" class="xref page"><code>VkPhysicalDeviceShaderExpectAssumeFeaturesKHR</code>::<code>shaderExpectAssume</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-FloatControls2"></a><code>FloatControls2</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderFloatControls2" class="xref page"><code>VkPhysicalDeviceShaderFloatControls2FeaturesKHR</code>::<code>shaderFloatControls2</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-QuadControlKHR"></a><code>QuadControlKHR</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderQuadControl" class="xref page"><code>VkPhysicalDeviceShaderQuadControlFeaturesKHR</code>::<code>shaderQuadControl</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-RawAccessChainsNV"></a><code>RawAccessChainsNV</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderRawAccessChains" class="xref page"><code>VkPhysicalDeviceRawAccessChainsFeaturesNV</code>::<code>shaderRawAccessChains</code></a></p></td>
 </tr>
 </tbody>
 </table>
@@ -1435,6 +1388,10 @@ parameter of <a href="../chapters/shaders.html#vkCreateShaderModule" class="xref
 &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_EXT_shader_atomic_float2" class="xref page">VK_EXT_shader_atomic_float2</a></code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_NV_shader_atomic_fp16_vector</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_NV_shader_atomic_float16_vector" class="xref page">VK_NV_shader_atomic_float16_vector</a></code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_EXT_fragment_fully_covered</code><br>
 &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_EXT_conservative_rasterization" class="xref page">VK_EXT_conservative_rasterization</a></code></p></td>
 </tr>
@@ -1488,13 +1445,49 @@ parameter of <a href="../chapters/shaders.html#vkCreateShaderModule" class="xref
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_AMDX_shader_enqueue</code><br>
 &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_AMDX_shader_enqueue" class="xref page">VK_AMDX_shader_enqueue</a></code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_HUAWEI_cluster_culling_shader</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_HUAWEI_cluster_culling_shader" class="xref page">VK_HUAWEI_cluster_culling_shader</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_HUAWEI_subpass_shading</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_HUAWEI_subpass_shading" class="xref page">VK_HUAWEI_subpass_shading</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_NV_ray_tracing_motion_blur</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_NV_ray_tracing_motion_blur" class="xref page">VK_NV_ray_tracing_motion_blur</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_KHR_maximal_reconvergence</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_KHR_shader_maximal_reconvergence" class="xref page">VK_KHR_shader_maximal_reconvergence</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_KHR_subgroup_rotate</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_KHR_shader_subgroup_rotate" class="xref page">VK_KHR_shader_subgroup_rotate</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_KHR_expect_assume</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_KHR_shader_expect_assume" class="xref page">VK_KHR_shader_expect_assume</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_KHR_float_controls2</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_KHR_shader_float_controls2" class="xref page">VK_KHR_shader_float_controls2</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_KHR_quad_control</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_KHR_shader_quad_control" class="xref page">VK_KHR_shader_quad_control</a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_NV_raw_access_chains</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_NV_raw_access_chains" class="xref page">VK_NV_raw_access_chains</a></code></p></td>
+</tr>
 </tbody>
 </table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="spirvenv-module-validation"><a class="anchor" href="#spirvenv-module-validation"></a>Validation Rules within a Module</h2>
+<h2 id="spirvenv-module-validation"><a class="anchor" href="#spirvenv-module-validation"></a>Validation Rules Within a Module</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A SPIR-V module passed to <a href="../chapters/shaders.html#vkCreateShaderModule" class="xref page">vkCreateShaderModule</a> <strong>must</strong> conform to the
@@ -1744,6 +1737,11 @@ an image format of <code>R64i</code>, <code>R64ui</code>, <code>R32f</code>, <co
 type has its &#8220;Sampled&#8221; operand set to 1</p>
 </li>
 <li>
+<p><a id="VUID-StandaloneSpirv-OpTypeImage-09638" href="#VUID-StandaloneSpirv-OpTypeImage-09638"></a> <span class="vuid">VUID-StandaloneSpirv-OpTypeImage-09638</span><br>
+
+An <code>OpTypeImage</code> <strong>must</strong> not have a &#8220;Dim&#8221; operand of <code>Rect</code></p>
+</li>
+<li>
 <p><a id="VUID-StandaloneSpirv-OpTypeImage-06214" href="#VUID-StandaloneSpirv-OpTypeImage-06214"></a> <span class="vuid">VUID-StandaloneSpirv-OpTypeImage-06214</span><br>
 
 An <code>OpTypeImage</code> with a &#8220;Dim&#8221; operand of <code>SubpassData</code> <strong>must</strong>
@@ -1754,9 +1752,7 @@ of 2 (storage image)</p>
 <p><a id="VUID-StandaloneSpirv-SubpassData-04660" href="#VUID-StandaloneSpirv-SubpassData-04660"></a> <span class="vuid">VUID-StandaloneSpirv-SubpassData-04660</span><br>
 
 The <span class="eq">(u,v)</span> coordinates used for a <code>SubpassData</code> <strong>must</strong> be the
-&lt;id&gt; of a constant vector <span class="eq">(0,0)</span>, or if a layer coordinate is used,
-<strong>must</strong> be a vector that was formed with constant 0 for the <span class="eq">u</span> and
-<span class="eq">v</span> components</p>
+&lt;id&gt; of a constant vector <span class="eq">(0,0)</span>.</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-OpTypeImage-06924" href="#VUID-StandaloneSpirv-OpTypeImage-06924"></a> <span class="vuid">VUID-StandaloneSpirv-OpTypeImage-06924</span><br>
@@ -1806,6 +1802,18 @@ Structure types <strong>must</strong> not contain opaque types</p>
 
 Any <code>BuiltIn</code> decoration not listed in
 <a href="../chapters/interfaces.html#interfaces-builtin-variables" class="xref page">Built-In Variables</a> <strong>must</strong> not be used</p>
+</li>
+<li>
+<p><a id="VUID-StandaloneSpirv-OpEntryPoint-09658" href="#VUID-StandaloneSpirv-OpEntryPoint-09658"></a> <span class="vuid">VUID-StandaloneSpirv-OpEntryPoint-09658</span><br>
+
+For a given <code>OpEntryPoint</code>, any <code>BuiltIn</code> decoration <strong>must</strong> not be
+used more than once by the <code>Input</code> interface.</p>
+</li>
+<li>
+<p><a id="VUID-StandaloneSpirv-OpEntryPoint-09659" href="#VUID-StandaloneSpirv-OpEntryPoint-09659"></a> <span class="vuid">VUID-StandaloneSpirv-OpEntryPoint-09659</span><br>
+
+For a given <code>OpEntryPoint</code>, any <code>BuiltIn</code> decoration <strong>must</strong> not be
+used more than once by the <code>Output</code> interface.</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Location-06672" href="#VUID-StandaloneSpirv-Location-06672"></a> <span class="vuid">VUID-StandaloneSpirv-Location-06672</span><br>
@@ -1892,6 +1900,13 @@ not a scalar or vector, or an array of such a type</p>
 
 The <code>Component</code> decorations <strong>must</strong> not be used for a 64-bit vector
 type with more than two components</p>
+</li>
+<li>
+<p><a id="VUID-StandaloneSpirv-Input-09557" href="#VUID-StandaloneSpirv-Input-09557"></a> <span class="vuid">VUID-StandaloneSpirv-Input-09557</span><br>
+
+The pointers of any <code>Input</code> or <code>Output</code>
+<a href="../chapters/interfaces.html#interfaces-iointerfaces-user" class="xref page">Interface user-defined variables</a> <strong>must</strong>
+not contain any <code>PhysicalStorageBuffer</code> <code>Storage</code> <code>Class</code> pointers</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-GLSLShared-04669" href="#VUID-StandaloneSpirv-GLSLShared-04669"></a> <span class="vuid">VUID-StandaloneSpirv-GLSLShared-04669</span><br>
@@ -2423,7 +2438,7 @@ described in <a href="../chapters/interfaces.html#interfaces-fragmenttileimage" 
 <p><a id="VUID-StandaloneSpirv-None-08724" href="#VUID-StandaloneSpirv-None-08724"></a> <span class="vuid">VUID-StandaloneSpirv-None-08724</span><br>
 
 The <code>TileImageEXT</code> <code>Storage</code> <code>Class</code> <strong>must</strong> only be used for declaring
-tile image variables.</p>
+tile image variables</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Pointer-08973" href="#VUID-StandaloneSpirv-Pointer-08973"></a> <span class="vuid">VUID-StandaloneSpirv-Pointer-08973</span><br>
@@ -2431,7 +2446,7 @@ tile image variables.</p>
 The <code>Storage</code> <code>Class</code> of the <code>Pointer</code> operand to
 <code>OpCooperativeMatrixLoadKHR</code> or <code>OpCooperativeMatrixStoreKHR</code>
 <strong>must</strong> be limited to <code>Workgroup</code>, <code>StorageBuffer</code>, or
-<code>PhysicalStorageBuffer</code>.</p>
+<code>PhysicalStorageBuffer</code></p>
 </li>
 </ul>
 </div>
@@ -2479,6 +2494,22 @@ enabled, the <code>Subgroup</code> scope <strong>must</strong> not be used for
 
 If <a href="../chapters/features.html#features-shaderDeviceClock" class="xref page"><code>shaderDeviceClock</code></a> is not
 enabled, the <code>Device</code> scope <strong>must</strong> not be used for <code>OpReadClockKHR</code></p>
+</li>
+<li>
+<p><a id="VUID-RuntimeSpirv-None-09558" href="#VUID-RuntimeSpirv-None-09558"></a> <span class="vuid">VUID-RuntimeSpirv-None-09558</span><br>
+
+
+If <a href="../chapters/features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> is not enabled, any
+variable created with a &#8220;Type&#8221; of <code>OpTypeImage</code> that has a &#8220;Dim&#8221;
+operand of <code>SubpassData</code> <strong>must</strong> be decorated with
+<code>InputAttachmentIndex</code></p>
+</li>
+<li>
+<p><a id="VUID-RuntimeSpirv-OpTypeImage-09644" href="#VUID-RuntimeSpirv-OpTypeImage-09644"></a> <span class="vuid">VUID-RuntimeSpirv-OpTypeImage-09644</span><br>
+
+Any variable created with a &#8220;Type&#8221; of <code>OpTypeImage</code> that has a
+&#8220;Dim&#8221; operand of <code>SubpassData</code> and <code>Arrayed</code>=1 <strong>must</strong> be
+decorated with <code>InputAttachmentIndex</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-apiVersion-07954" href="#VUID-RuntimeSpirv-apiVersion-07954"></a> <span class="vuid">VUID-RuntimeSpirv-apiVersion-07954</span><br>
@@ -2578,14 +2609,15 @@ a <em>Pointer</em> with a <code>Storage</code> <code>Class</code> of <code>Workg
 <a href="../chapters/features.html#features-shaderBufferFloat32Atomics" class="xref page">    <code>shaderBufferFloat32Atomics</code></a>, or
 <a href="../chapters/features.html#features-shaderBufferFloat32AtomicAdd" class="xref page">    <code>shaderBufferFloat32AtomicAdd</code></a>, or
 <a href="../chapters/features.html#features-shaderBufferFloat64Atomics" class="xref page">    <code>shaderBufferFloat64Atomics</code></a>, or
-<a href="../chapters/features.html#features-shaderBufferFloat64AtomicAdd" class="xref page">    <code>shaderBufferFloat64AtomicAdd</code></a>, or
-<a href="../chapters/features.html#features-shaderBufferFloat16AtomicMinMax" class="xref page">    <code>shaderBufferFloat16Atomics</code></a>, or
+<a href="../chapters/features.html#features-shaderBufferFloat64AtomicAdd" class="xref page">    <code>shaderBufferFloat64AtomicAdd</code></a>,
+or <a href="../chapters/features.html#features-shaderBufferFloat16AtomicMinMax" class="xref page">    <code>shaderBufferFloat16Atomics</code></a>, or
 <a href="../chapters/features.html#features-shaderBufferFloat16AtomicMinMax" class="xref page">    <code>shaderBufferFloat16AtomicAdd</code></a>, or
 <a href="../chapters/features.html#features-shaderBufferFloat16AtomicMinMax" class="xref page">    <code>shaderBufferFloat16AtomicMinMax</code></a>, or
 <a href="../chapters/features.html#features-shaderBufferFloat32AtomicMinMax" class="xref page">    <code>shaderBufferFloat32AtomicMinMax</code></a>, or
-<a href="../chapters/features.html#features-shaderBufferFloat64AtomicMinMax" class="xref page">    <code>shaderBufferFloat64AtomicMinMax</code></a> <strong>must</strong> be enabled for
-floating-point atomic operations to be supported on a <em>Pointer</em> with a
-<code>Storage</code> <code>Class</code> of <code>StorageBuffer</code></p>
+<a href="../chapters/features.html#features-shaderBufferFloat64AtomicMinMax" class="xref page">    <code>shaderBufferFloat64AtomicMinMax</code></a>,
+or <a href="../chapters/features.html#features-shaderFloat16VectorAtomics" class="xref page">    <code>shaderFloat16VectorAtomics</code></a>
+<strong>must</strong> be enabled for floating-point atomic operations to be supported on
+a <em>Pointer</em> with a <code>Storage</code> <code>Class</code> of <code>StorageBuffer</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-None-06285" href="#VUID-RuntimeSpirv-None-06285"></a> <span class="vuid">VUID-RuntimeSpirv-None-06285</span><br>
@@ -2593,31 +2625,33 @@ floating-point atomic operations to be supported on a <em>Pointer</em> with a
 <a href="../chapters/features.html#features-shaderSharedFloat32Atomics" class="xref page">    <code>shaderSharedFloat32Atomics</code></a>, or
 <a href="../chapters/features.html#features-shaderSharedFloat32AtomicAdd" class="xref page">    <code>shaderSharedFloat32AtomicAdd</code></a>, or
 <a href="../chapters/features.html#features-shaderSharedFloat64Atomics" class="xref page">    <code>shaderSharedFloat64Atomics</code></a>, or
-<a href="../chapters/features.html#features-shaderSharedFloat64AtomicAdd" class="xref page">    <code>shaderSharedFloat64AtomicAdd</code></a>, or
-<a href="../chapters/features.html#features-shaderBufferFloat16AtomicMinMax" class="xref page">    <code>shaderSharedFloat16Atomics</code></a>, or
+<a href="../chapters/features.html#features-shaderSharedFloat64AtomicAdd" class="xref page">    <code>shaderSharedFloat64AtomicAdd</code></a>,
+or <a href="../chapters/features.html#features-shaderBufferFloat16AtomicMinMax" class="xref page">    <code>shaderSharedFloat16Atomics</code></a>, or
 <a href="../chapters/features.html#features-shaderBufferFloat16AtomicMinMax" class="xref page">    <code>shaderSharedFloat16AtomicAdd</code></a>, or
 <a href="../chapters/features.html#features-shaderBufferFloat16AtomicMinMax" class="xref page">    <code>shaderSharedFloat16AtomicMinMax</code></a>, or
 <a href="../chapters/features.html#features-shaderSharedFloat32AtomicMinMax" class="xref page">    <code>shaderSharedFloat32AtomicMinMax</code></a>, or
-<a href="../chapters/features.html#features-shaderSharedFloat64AtomicMinMax" class="xref page">    <code>shaderSharedFloat64AtomicMinMax</code></a> <strong>must</strong> be enabled for
-floating-point atomic operations to be supported on a <em>Pointer</em> with a
-<code>Storage</code> <code>Class</code> of <code>Workgroup</code></p>
+<a href="../chapters/features.html#features-shaderSharedFloat64AtomicMinMax" class="xref page">    <code>shaderSharedFloat64AtomicMinMax</code></a>,
+or <a href="../chapters/features.html#features-shaderFloat16VectorAtomics" class="xref page">    <code>shaderFloat16VectorAtomics</code></a>,
+<strong>must</strong> be enabled for floating-point atomic operations to be supported on
+a <em>Pointer</em> with a <code>Storage</code> <code>Class</code> of <code>Workgroup</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-None-06286" href="#VUID-RuntimeSpirv-None-06286"></a> <span class="vuid">VUID-RuntimeSpirv-None-06286</span><br>
 
 <a href="../chapters/features.html#features-shaderImageFloat32Atomics" class="xref page"><code>shaderImageFloat32Atomics</code></a>,
-or <a href="../chapters/features.html#features-shaderImageFloat32AtomicAdd" class="xref page">    <code>shaderImageFloat32AtomicAdd</code></a>, or
-<a href="../chapters/features.html#features-shaderImageFloat32AtomicMinMax" class="xref page">    <code>shaderImageFloat32AtomicMinMax</code></a> <strong>must</strong> be enabled for 32-bit
-floating-point atomic operations to be supported on a <em>Pointer</em> with a
-<code>Storage</code> <code>Class</code> of <code>Image</code></p>
+or <a href="../chapters/features.html#features-shaderImageFloat32AtomicAdd" class="xref page">    <code>shaderImageFloat32AtomicAdd</code></a>,
+or <a href="../chapters/features.html#features-shaderImageFloat32AtomicMinMax" class="xref page">    <code>shaderImageFloat32AtomicMinMax</code></a>,
+<strong>must</strong> be enabled for 32-bit floating-point atomic operations to be
+supported on a <em>Pointer</em> with a <code>Storage</code> <code>Class</code> of <code>Image</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-None-06287" href="#VUID-RuntimeSpirv-None-06287"></a> <span class="vuid">VUID-RuntimeSpirv-None-06287</span><br>
 
 <a href="../chapters/features.html#features-sparseImageFloat32Atomics" class="xref page"><code>sparseImageFloat32Atomics</code></a>,
-or <a href="../chapters/features.html#features-sparseImageFloat32AtomicAdd" class="xref page">    <code>sparseImageFloat32AtomicAdd</code></a>, or
-<a href="../chapters/features.html#features-sparseImageFloat32AtomicMinMax" class="xref page">    <code>sparseImageFloat32AtomicMinMax</code></a> <strong>must</strong> be enabled for 32-bit
-floating-point atomics to be supported on sparse images</p>
+or <a href="../chapters/features.html#features-sparseImageFloat32AtomicAdd" class="xref page">    <code>sparseImageFloat32AtomicAdd</code></a>,
+or <a href="../chapters/features.html#features-sparseImageFloat32AtomicMinMax" class="xref page">    <code>sparseImageFloat32AtomicMinMax</code></a>,
+<strong>must</strong> be enabled for 32-bit floating-point atomics to be supported on
+sparse images</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-None-06288" href="#VUID-RuntimeSpirv-None-06288"></a> <span class="vuid">VUID-RuntimeSpirv-None-06288</span><br>
@@ -2752,6 +2786,51 @@ If <a href="../chapters/devsandqueues.html#limits-shaderRoundingModeRTZFloat64" 
 <code>RoundingModeRTZ</code> for 64-bit floating-point type <strong>must</strong> not be used</p>
 </li>
 <li>
+<p><a id="VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat16-09559" href="#VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat16-09559"></a> <span class="vuid">VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat16-09559</span><br>
+
+If <a href="../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat16" class="xref page">    <code>shaderSignedZeroInfNanPreserveFloat16</code></a> is <code>VK_FALSE</code> then any
+<code>FPFastMathDefault</code> execution mode with a type of 16-bit float <strong>must</strong>
+include the <code>NSZ</code>, <code>NotInf</code>, and <code>NotNaN</code> flags</p>
+</li>
+<li>
+<p><a id="VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat16-09560" href="#VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat16-09560"></a> <span class="vuid">VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat16-09560</span><br>
+
+If <a href="../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat16" class="xref page">    <code>shaderSignedZeroInfNanPreserveFloat16</code></a> is <code>VK_FALSE</code> then any
+<code>FPFastMathMode</code> decoration on an instruction with result type or any
+operand type that includes a 16-bit float <strong>must</strong> include the <code>NSZ</code>,
+<code>NotInf</code>, and <code>NotNaN</code> flags</p>
+</li>
+<li>
+<p><a id="VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat32-09561" href="#VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat32-09561"></a> <span class="vuid">VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat32-09561</span><br>
+
+If <a href="../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat32" class="xref page">    <code>shaderSignedZeroInfNanPreserveFloat32</code></a> is <code>VK_FALSE</code> then any
+<code>FPFastMathDefault</code> execution mode with a type of 32-bit float <strong>must</strong>
+include the <code>NSZ</code>, <code>NotInf</code>, and <code>NotNaN</code> flags</p>
+</li>
+<li>
+<p><a id="VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat32-09562" href="#VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat32-09562"></a> <span class="vuid">VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat32-09562</span><br>
+
+If <a href="../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat32" class="xref page">    <code>shaderSignedZeroInfNanPreserveFloat32</code></a> is <code>VK_FALSE</code> then any
+<code>FPFastMathMode</code> decoration on an instruction with result type or any
+operand type that includes a 32-bit float <strong>must</strong> include the <code>NSZ</code>,
+<code>NotInf</code>, and <code>NotNaN</code> flags</p>
+</li>
+<li>
+<p><a id="VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat64-09563" href="#VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat64-09563"></a> <span class="vuid">VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat64-09563</span><br>
+
+If <a href="../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat64" class="xref page">    <code>shaderSignedZeroInfNanPreserveFloat64</code></a> is <code>VK_FALSE</code> then any
+<code>FPFastMathDefault</code> execution mode with a type of 64-bit float <strong>must</strong>
+include the <code>NSZ</code>, <code>NotInf</code>, and <code>NotNaN</code> flags</p>
+</li>
+<li>
+<p><a id="VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat64-09564" href="#VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat64-09564"></a> <span class="vuid">VUID-RuntimeSpirv-shaderSignedZeroInfNanPreserveFloat64-09564</span><br>
+
+If <a href="../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat64" class="xref page">    <code>shaderSignedZeroInfNanPreserveFloat64</code></a> is <code>VK_FALSE</code> then any
+<code>FPFastMathMode</code> decoration on an instruction with result type or any
+operand type that includes a 64-bit float <strong>must</strong> include the <code>NSZ</code>,
+<code>NotInf</code>, and <code>NotNaN</code> flags</p>
+</li>
+<li>
 <p><a id="VUID-RuntimeSpirv-Offset-06308" href="#VUID-RuntimeSpirv-Offset-06308"></a> <span class="vuid">VUID-RuntimeSpirv-Offset-06308</span><br>
 
 The <code>Offset</code> plus size of the type of each variable, in the output
@@ -2871,7 +2950,7 @@ instructions <strong>must</strong> not be used in shader stages not included in
 
 For <code>OpTypeCooperativeMatrixKHR</code>, the component type, scope, number
 of rows, and number of columns <strong>must</strong> match one of the matrices in any of
-the supported <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>.</p>
+the supported <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-MSize-08975" href="#VUID-RuntimeSpirv-MSize-08975"></a> <span class="vuid">VUID-RuntimeSpirv-MSize-08975</span><br>
@@ -2880,14 +2959,14 @@ For <code>OpCooperativeMatrixMulAddKHR</code>, the type of <code>A</code> <stron
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>MSize</code> rows and
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>KSize</code> columns and have a
 component type that matches
-<a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>AType</code>.</p>
+<a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>AType</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08976" href="#VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08976"></a> <span class="vuid">VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08976</span><br>
 
 For <code>OpCooperativeMatrixMulAddKHR</code>, when the component type of <code>A</code>
 is a signed integer type, the <code>MatrixASignedComponents</code> cooperative
-matrix operand <strong>must</strong> be present.</p>
+matrix operand <strong>must</strong> be present</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-KSize-08977" href="#VUID-RuntimeSpirv-KSize-08977"></a> <span class="vuid">VUID-RuntimeSpirv-KSize-08977</span><br>
@@ -2896,14 +2975,14 @@ For <code>OpCooperativeMatrixMulAddKHR</code>, the type of <code>B</code> <stron
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>KSize</code> rows and
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>NSize</code> columns and have a
 component type that matches
-<a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>BType</code>.</p>
+<a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>BType</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08978" href="#VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08978"></a> <span class="vuid">VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08978</span><br>
 
 For <code>OpCooperativeMatrixMulAddKHR</code>, when the component type of <code>B</code>
 is a signed integer type, the <code>MatrixBSignedComponents</code> cooperative
-matrix operand <strong>must</strong> be present.</p>
+matrix operand <strong>must</strong> be present</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-MSize-08979" href="#VUID-RuntimeSpirv-MSize-08979"></a> <span class="vuid">VUID-RuntimeSpirv-MSize-08979</span><br>
@@ -2912,14 +2991,14 @@ For <code>OpCooperativeMatrixMulAddKHR</code>, the type of <code>C</code> <stron
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>MSize</code> rows and
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>NSize</code> columns and have a
 component type that matches
-<a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>CType</code>.</p>
+<a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>CType</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08980" href="#VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08980"></a> <span class="vuid">VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08980</span><br>
 
 For <code>OpCooperativeMatrixMulAddKHR</code>, when the component type of <code>C</code>
 is a signed integer type, the <code>MatrixCSignedComponents</code> cooperative
-matrix operand <strong>must</strong> be present.</p>
+matrix operand <strong>must</strong> be present</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-MSize-08981" href="#VUID-RuntimeSpirv-MSize-08981"></a> <span class="vuid">VUID-RuntimeSpirv-MSize-08981</span><br>
@@ -2928,7 +3007,7 @@ For <code>OpCooperativeMatrixMulAddKHR</code>, the type of <code>Result</code> <
 have <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>MSize</code> rows and
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>NSize</code> columns and have a
 component type that matches
-<a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>ResultType</code>.</p>
+<a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>ResultType</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08982" href="#VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08982"></a> <span class="vuid">VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-08982</span><br>
@@ -2936,7 +3015,7 @@ component type that matches
 For <code>OpCooperativeMatrixMulAddKHR</code>, when the component type of
 <code>Result</code> is a signed integer type, the
 <code>MatrixResultSignedComponents</code> cooperative matrix operand <strong>must</strong> be
-present.</p>
+present</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-saturatingAccumulation-08983" href="#VUID-RuntimeSpirv-saturatingAccumulation-08983"></a> <span class="vuid">VUID-RuntimeSpirv-saturatingAccumulation-08983</span><br>
@@ -2944,20 +3023,20 @@ present.</p>
 For <code>OpCooperativeMatrixMulAddKHR</code>, the <code>SaturatingAccumulation</code>
 cooperative matrix operand <strong>must</strong> be present if and only if
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>::<code>saturatingAccumulation</code> is
-<code>VK_TRUE</code>.</p>
+<code>VK_TRUE</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-scope-08984" href="#VUID-RuntimeSpirv-scope-08984"></a> <span class="vuid">VUID-RuntimeSpirv-scope-08984</span><br>
 
 For <code>OpCooperativeMatrixMulAddKHR</code>, the type of <code>A</code>, <code>B</code>,
-<code>C</code>, and <code>Result</code> <strong>must</strong> all have a scope of <code>scope</code>.</p>
+<code>C</code>, and <code>Result</code> <strong>must</strong> all have a scope of <code>scope</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-cooperativeMatrixSupportedStages-08985" href="#VUID-RuntimeSpirv-cooperativeMatrixSupportedStages-08985"></a> <span class="vuid">VUID-RuntimeSpirv-cooperativeMatrixSupportedStages-08985</span><br>
 
 <code>OpTypeCooperativeMatrixKHR</code> and <code>OpCooperativeMatrix*</code>
 instructions <strong>must</strong> not be used in shader stages not included in
-<a href="../chapters/limits.html#VkPhysicalDeviceCooperativeMatrixPropertiesKHR" class="xref page">VkPhysicalDeviceCooperativeMatrixPropertiesKHR</a>::<code>cooperativeMatrixSupportedStages</code>.</p>
+<a href="../chapters/limits.html#VkPhysicalDeviceCooperativeMatrixPropertiesKHR" class="xref page">VkPhysicalDeviceCooperativeMatrixPropertiesKHR</a>::<code>cooperativeMatrixSupportedStages</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-DescriptorSet-06323" href="#VUID-RuntimeSpirv-DescriptorSet-06323"></a> <span class="vuid">VUID-RuntimeSpirv-DescriptorSet-06323</span><br>
@@ -3188,7 +3267,7 @@ instructions, the <code>Pointer</code> and <code>Stride</code> operands <strong>
 to at least the lesser of 16 bytes or the natural alignment of a row or
 column (depending on <code>ColumnMajor</code>) of the matrix (where the natural
 alignment is the number of columns/rows multiplied by the component
-size).</p>
+size)</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderSampleRateInterpolationFunctions-06325" href="#VUID-RuntimeSpirv-shaderSampleRateInterpolationFunctions-06325"></a> <span class="vuid">VUID-RuntimeSpirv-shaderSampleRateInterpolationFunctions-06325</span><br>
@@ -3309,6 +3388,13 @@ floating point atomic operations</p>
 floating point atomic operations</p>
 </li>
 <li>
+<p><a id="VUID-RuntimeSpirv-shaderFloat16VectorAtomics-09581" href="#VUID-RuntimeSpirv-shaderFloat16VectorAtomics-09581"></a> <span class="vuid">VUID-RuntimeSpirv-shaderFloat16VectorAtomics-09581</span><br>
+
+<a href="../chapters/features.html#features-shaderFloat16VectorAtomics" class="xref page"><code>shaderFloat16VectorAtomics</code></a>,
+<strong>must</strong> be enabled for 16-bit floating-point, 2- and 4-component vector
+atomic operations to be supported</p>
+</li>
+<li>
 <p><a id="VUID-RuntimeSpirv-NonWritable-06340" href="#VUID-RuntimeSpirv-NonWritable-06340"></a> <span class="vuid">VUID-RuntimeSpirv-NonWritable-06340</span><br>
 
 If <a href="../chapters/features.html#features-fragmentStoresAndAtomics" class="xref page"><code>fragmentStoresAndAtomics</code></a>
@@ -3370,7 +3456,7 @@ The second element of the <code>Offset</code> operand of
 <code>InterpolateAtOffset</code> <strong>must</strong> be less than or equal to<br>
 <span class="eq">frag<sub>height</sub> × (<a href="../chapters/limits.html#limits-maxInterpolationOffset" class="xref page">    <code>maxInterpolationOffset</code></a> +  ULP ) - ULP</span><br>
 where <span class="eq">frag<sub>height</sub></span> is the height of the current fragment in pixels
-and <span class="eq">ULP = 1 / 2^<a href="../chapters/limits.html#limits-subPixelInterpolationOffsetBits" class="xref page">    <code>subPixelInterpolationOffsetBits</code></a>^</span>.</p>
+and <span class="eq">ULP = 1 / 2^<a href="../chapters/limits.html#limits-subPixelInterpolationOffsetBits" class="xref page">    <code>subPixelInterpolationOffsetBits</code></a>^</span></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpRayQueryInitializeKHR-06348" href="#VUID-RuntimeSpirv-OpRayQueryInitializeKHR-06348"></a> <span class="vuid">VUID-RuntimeSpirv-OpRayQueryInitializeKHR-06348</span><br>
@@ -4123,7 +4209,28 @@ If a <code>OpImageBlockMatchWindow*QCOM</code> or
 If a <code>OpImageBlockMatchWindow*QCOM</code> operation is used, then
 <code>target</code> <code>sampled</code> <code>image</code> <strong>must</strong> have been created using
 asampler object that included
-<a href="../chapters/samplers.html#VkSamplerBlockMatchWindowCreateInfoQCOM" class="xref page">VkSamplerBlockMatchWindowCreateInfoQCOM</a> in the <code>pNext</code> chain.</p>
+<a href="../chapters/samplers.html#VkSamplerBlockMatchWindowCreateInfoQCOM" class="xref page">VkSamplerBlockMatchWindowCreateInfoQCOM</a> in the <code>pNext</code> chain</p>
+</li>
+<li>
+<p><a id="VUID-RuntimeSpirv-MaximallyReconvergesKHR-09565" href="#VUID-RuntimeSpirv-MaximallyReconvergesKHR-09565"></a> <span class="vuid">VUID-RuntimeSpirv-MaximallyReconvergesKHR-09565</span><br>
+
+The execution mode <code>MaximallyReconvergesKHR</code> <strong>must</strong> not be applied to
+an entry point unless the entry point does not execute any
+<a href="../chapters/raytracing.html#ray-tracing-repack" class="xref page"><em>invocation repack instructions</em></a></p>
+</li>
+<li>
+<p><a id="VUID-RuntimeSpirv-shaderSubgroupRotateClustered-09566" href="#VUID-RuntimeSpirv-shaderSubgroupRotateClustered-09566"></a> <span class="vuid">VUID-RuntimeSpirv-shaderSubgroupRotateClustered-09566</span><br>
+
+If <a href="../chapters/features.html#features-shaderSubgroupRotateClustered" class="xref page">    <code>shaderSubgroupRotateClustered</code></a> is <code>VK_FALSE</code>, then the
+<code>ClusterSize</code> operand to <code>OpGroupNonUniformRotateKHR</code> <strong>must</strong> not be
+used</p>
+</li>
+<li>
+<p><a id="VUID-RuntimeSpirv-protectedNoFault-09645" href="#VUID-RuntimeSpirv-protectedNoFault-09645"></a> <span class="vuid">VUID-RuntimeSpirv-protectedNoFault-09645</span><br>
+
+If <a href="../chapters/devsandqueues.html#limits-protectedNoFault" class="xref page"><code>protectedNoFault</code></a> is not supported,
+the <code>Storage</code> <code>Class</code> of the <code>PhysicalStorageBuffer</code> <strong>must</strong> not be used
+if the buffer being accessed is <a href="../chapters/memory.html#memory-protected-memory" class="xref page">protected</a></p>
 </li>
 </ul>
 </div>
@@ -4159,29 +4266,52 @@ Signaling <span class="eq">NaN</span> <strong>may</strong> be converted to quiet
 any floating point instruction.</p>
 </li>
 <li>
-<p>By default, the implementation <strong>may</strong> perform optimizations on half,
-single, or double-precision floating-point instructions that ignore sign
-of a zero, or assume that arguments and results are not NaNs or
-infinities.
-If the entry point is declared with the <code>SignedZeroInfNanPreserve</code>
-<code>Execution</code> <code>Mode</code>, then NaNs, infinities, and the sign of zero <strong>must</strong> not
-be ignored.</p>
+<p>The floating-point environment used for an instruction can be determined
+as follows:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The following core SPIR-V instructions <strong>must</strong> respect the
-<code>SignedZeroInfNanPreserve</code> <code>Execution</code> <code>Mode</code>: <code>OpPhi</code>,
-<code>OpSelect</code>, <code>OpReturnValue</code>, <code>OpVectorExtractDynamic</code>,
+<p>If the SPIR-V specifies it explicitly using the <code>FPFastMath</code>
+decoration or <code>FPFastMathDefault</code> <code>Execution</code> <code>Mode</code> then that is used.</p>
+</li>
+<li>
+<p>If the environment is not specified in the SPIR-V then it is determined
+as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>If the operation is not decorated <code>NoContraction</code> then the flags
+<code>AllowContract</code>, <code>AllowReassoc</code>, <code>AllowRecip</code>, and
+<code>AllowTransform</code> are assumed.</p>
+</li>
+<li>
+<p>If any of the following conditions are true then the flags <code>NSZ</code>,
+<code>NotInf</code>, and <code>NotNaN</code> are assumed:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The entry point does not use the <code>Execution</code> <code>Mode</code>
+<code>SignedZeroInfNanPreserve</code> with a bit-width corresponding to one
+of the operands or to the result type.</p>
+</li>
+<li>
+<p>The operation is not one of: <code>OpPhi</code>, <code>OpSelect</code>,
+<code>OpReturnValue</code>, <code>OpVectorExtractDynamic</code>,
 <code>OpVectorInsertDynamic</code>, <code>OpVectorShuffle</code>,
 <code>OpCompositeConstruct</code>, <code>OpCompositeExtract</code>,
 <code>OpCompositeInsert</code>, <code>OpCopyObject</code>, <code>OpTranspose</code>,
-<code>OpFConvert</code>, <code>OpFNegate</code>, <code>OpFAdd</code>, <code>OpFSub</code>, <code>OpFMul</code>,
-<code>OpStore</code>.
-This <code>Execution</code> <code>Mode</code> <strong>must</strong> also be respected by <code>OpLoad</code> except for
-loads from the <code>Input</code> <code>Storage</code> <code>Class</code> in the fragment shader stage
-with the floating-point result type.
-Other SPIR-V instructions <strong>may</strong> also respect the
-<code>SignedZeroInfNanPreserve</code> <code>Execution</code> <code>Mode</code>.</p>
+<code>OpFConvert</code>, <code>OpFNegate</code>, <code>OpFAdd</code>, <code>OpFSub</code>,
+<code>OpFMul</code>, <code>OpStore</code>, <code>OpLoad</code>.</p>
+</li>
+<li>
+<p>The operation is an <code>OpLoad</code> from the <code>Input</code> <code>Storage</code> <code>Class</code> in
+the fragment shader stage.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -5017,7 +5147,7 @@ Type-Declaration Instruction, Bit Width, and Signedness from above.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="spirvenv-image-formats"><a class="anchor" href="#spirvenv-image-formats"></a>Compatibility Between SPIR-V Image Formats And Vulkan Formats</h2>
+<h2 id="spirvenv-image-formats"><a class="anchor" href="#spirvenv-image-formats"></a>Compatibility Between SPIR-V Image Formats and Vulkan Formats</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>SPIR-V <code>Image</code> <code>Format</code> values are compatible with <a href="../chapters/formats.html#VkFormat" class="xref page">VkFormat</a>

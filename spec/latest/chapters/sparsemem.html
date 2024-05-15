@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="sparsemem.html">Sparse Resources</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/sparsemem.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/sparsemem.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -1495,8 +1420,9 @@ or more <a href="#VkSparseImageFormatFlagBits">VkSparseImageFormatFlagBits</a>.<
 <div class="paragraph">
 <p><code>vkGetPhysicalDeviceSparseImageFormatProperties</code> returns an array of
 <a href="#VkSparseImageFormatProperties">VkSparseImageFormatProperties</a>.
-Each element will describe properties for one set of image aspects that are
-bound simultaneously in the image.
+Each element describes properties for one set of image aspects that are
+bound simultaneously for a <code>VkImage</code> created with the provided image
+creation parameters.
 This is usually one element for each aspect in the image, but for
 interleaved depth/stencil images there is only one element describing the
 combined aspects.</p>
@@ -1525,7 +1451,7 @@ sparse image format properties.</p>
 <p><code>format</code> is the image format.</p>
 </li>
 <li>
-<p><code>type</code> is the dimensionality of image.</p>
+<p><code>type</code> is the dimensionality of the image.</p>
 </li>
 <li>
 <p><code>samples</code> is a <a href="limits.html#VkSampleCountFlagBits" class="xref page">VkSampleCountFlagBits</a> value specifying the
@@ -1582,12 +1508,10 @@ with the <code>aspectMask</code> set to <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> |
 <li>
 <p><a id="VUID-vkGetPhysicalDeviceSparseImageFormatProperties-samples-01094" href="#VUID-vkGetPhysicalDeviceSparseImageFormatProperties-samples-01094"></a> <span class="vuid">VUID-vkGetPhysicalDeviceSparseImageFormatProperties-samples-01094</span><br>
 
-<code>samples</code> <strong>must</strong> be a bit value that is set in
-<code>VkImageFormatProperties</code>::<code>sampleCounts</code> returned by
+<code>samples</code> <strong>must</strong> be a valid <a href="limits.html#VkSampleCountFlagBits" class="xref page">VkSampleCountFlagBits</a> value that is
+set in <code>VkImageFormatProperties</code>::<code>sampleCounts</code> returned by
 <code>vkGetPhysicalDeviceImageFormatProperties</code> with <code>format</code>,
-<code>type</code>, <code>tiling</code>, and <code>usage</code> equal to those in this command
-and <code>flags</code> equal to the value that is set in
-<a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a>::<code>flags</code> when the image is created</p>
+<code>type</code>, <code>tiling</code>, and <code>usage</code> equal to those in this command</p>
 </li>
 </ul>
 </div>
@@ -1645,8 +1569,9 @@ and <code>flags</code> equal to the value that is set in
 <div class="paragraph">
 <p><code>vkGetPhysicalDeviceSparseImageFormatProperties2</code> returns an array of
 <a href="#VkSparseImageFormatProperties2">VkSparseImageFormatProperties2</a>.
-Each element will describe properties for one set of image aspects that are
-bound simultaneously in the image.
+Each element describes properties for one set of image aspects that are
+bound simultaneously for a <code>VkImage</code> created with the provided image
+creation parameters.
 This is usually one element for each aspect in the image, but for
 interleaved depth/stencil images there is only one element describing the
 combined aspects.</p>
@@ -1769,7 +1694,7 @@ structure.</p>
 <p><code>format</code> is the image format.</p>
 </li>
 <li>
-<p><code>type</code> is the dimensionality of image.</p>
+<p><code>type</code> is the dimensionality of the image.</p>
 </li>
 <li>
 <p><code>samples</code> is a <a href="limits.html#VkSampleCountFlagBits" class="xref page">VkSampleCountFlagBits</a> value specifying the
@@ -1791,12 +1716,10 @@ number of samples per texel.</p>
 <li>
 <p><a id="VUID-VkPhysicalDeviceSparseImageFormatInfo2-samples-01095" href="#VUID-VkPhysicalDeviceSparseImageFormatInfo2-samples-01095"></a> <span class="vuid">VUID-VkPhysicalDeviceSparseImageFormatInfo2-samples-01095</span><br>
 
-<code>samples</code> <strong>must</strong> be a bit value that is set in
-<code>VkImageFormatProperties</code>::<code>sampleCounts</code> returned by
+<code>samples</code> <strong>must</strong> be a valid <a href="limits.html#VkSampleCountFlagBits" class="xref page">VkSampleCountFlagBits</a> value that is
+set in <code>VkImageFormatProperties</code>::<code>sampleCounts</code> returned by
 <code>vkGetPhysicalDeviceImageFormatProperties</code> with <code>format</code>,
-<code>type</code>, <code>tiling</code>, and <code>usage</code> equal to those in this command
-and <code>flags</code> equal to the value that is set in
-<a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a>::<code>flags</code> when the image is created</p>
+<code>type</code>, <code>tiling</code>, and <code>usage</code> equal to those in this command</p>
 </li>
 </ul>
 </div>
@@ -1955,7 +1878,7 @@ objects and <code>VkImage</code> objects.</p>
 <p>Buffers (both fully and partially resident) and fully-resident images <strong>can</strong>
 be bound to memory using only the data from <code>VkMemoryRequirements</code>.
 For all sparse resources the <code>VkMemoryRequirements</code>::<code>alignment</code>
-member specifies both the bindable sparse block size in bytes and <strong>required</strong>
+member specifies both the binding granularity in bytes and the <strong>required</strong>
 alignment of <code>VkDeviceMemory</code>.</p>
 </div>
 </div>
@@ -1964,8 +1887,8 @@ alignment of <code>VkDeviceMemory</code>.</p>
 <div class="paragraph">
 <p>Partially resident images have a different method for binding memory.
 As with buffers and fully resident images, the
-<code>VkMemoryRequirements</code>::<code>alignment</code> field specifies the bindable
-sparse block size in bytes for the image.</p>
+<code>VkMemoryRequirements</code>::<code>alignment</code> field specifies the binding
+granularity in bytes for the image.</p>
 </div>
 <div class="paragraph">
 <p>Requesting sparse memory requirements for <code>VkImage</code> objects using
@@ -2602,6 +2525,23 @@ If <code>memory</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HA
 as described in section <a href="resources.html#resources-association" class="xref page">Resource Memory Association</a></p>
 </li>
 <li>
+<p><a id="VUID-VkSparseMemoryBind-resourceOffset-09491" href="#VUID-VkSparseMemoryBind-resourceOffset-09491"></a> <span class="vuid">VUID-VkSparseMemoryBind-resourceOffset-09491</span><br>
+
+If the resource being bound is a <code>VkBuffer</code>, <code>resourceOffset</code>,
+<code>memoryOffset</code> and <code>size</code> <strong>must</strong> be an integer multiple of the
+<code>alignment</code> of the <a href="resources.html#VkMemoryRequirements" class="xref page">VkMemoryRequirements</a> structure returned
+from a call to <a href="resources.html#vkGetBufferMemoryRequirements" class="xref page">vkGetBufferMemoryRequirements</a> with the buffer
+resource</p>
+</li>
+<li>
+<p><a id="VUID-VkSparseMemoryBind-resourceOffset-09492" href="#VUID-VkSparseMemoryBind-resourceOffset-09492"></a> <span class="vuid">VUID-VkSparseMemoryBind-resourceOffset-09492</span><br>
+
+If the resource being bound is a <code>VkImage</code>, <code>resourceOffset</code> and
+<code>memoryOffset</code> <strong>must</strong> be an integer multiple of the <code>alignment</code>
+of the <a href="resources.html#VkMemoryRequirements" class="xref page">VkMemoryRequirements</a> structure returned from a call to
+<a href="resources.html#vkGetImageMemoryRequirements" class="xref page">vkGetImageMemoryRequirements</a> with the image resource</p>
+</li>
+<li>
 <p><a id="VUID-VkSparseMemoryBind-memory-01097" href="#VUID-VkSparseMemoryBind-memory-01097"></a> <span class="vuid">VUID-VkSparseMemoryBind-memory-01097</span><br>
 
 If <code>memory</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>memory</code> <strong>must</strong> not have
@@ -2935,6 +2875,13 @@ The <code>subresource.arrayLayer</code> member of each element of <code>pBinds</
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code> was created</p>
 </li>
 <li>
+<p><a id="VUID-VkSparseImageMemoryBindInfo-subresource-01106" href="#VUID-VkSparseImageMemoryBindInfo-subresource-01106"></a> <span class="vuid">VUID-VkSparseImageMemoryBindInfo-subresource-01106</span><br>
+
+The <code>subresource.aspectMask</code> member of each element of <code>pBinds</code>
+<strong>must</strong> be valid for the <code>format</code> specified in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a>
+when <code>image</code> was created</p>
+</li>
+<li>
 <p><a id="VUID-VkSparseImageMemoryBindInfo-image-02901" href="#VUID-VkSparseImageMemoryBindInfo-image-02901"></a> <span class="vuid">VUID-VkSparseImageMemoryBindInfo-image-02901</span><br>
 
 <code>image</code> <strong>must</strong> have been created with
@@ -3040,17 +2987,16 @@ of the calling command&#8217;s <code>image</code>, as described in section
 <a href="resources.html#resources-association" class="xref page">Resource Memory Association</a></p>
 </li>
 <li>
-<p><a id="VUID-VkSparseImageMemoryBind-subresource-01106" href="#VUID-VkSparseImageMemoryBind-subresource-01106"></a> <span class="vuid">VUID-VkSparseImageMemoryBind-subresource-01106</span><br>
-
-<code>subresource</code> <strong>must</strong> be a valid image subresource for <code>image</code>
-(see <a href="resources.html#resources-image-views" class="xref page">Image Views</a>)</p>
-</li>
-<li>
 <p><a id="VUID-VkSparseImageMemoryBind-offset-01107" href="#VUID-VkSparseImageMemoryBind-offset-01107"></a> <span class="vuid">VUID-VkSparseImageMemoryBind-offset-01107</span><br>
 
 <code>offset.x</code> <strong>must</strong> be a multiple of the sparse image block width
 (<code>VkSparseImageFormatProperties</code>::<code>imageGranularity.width</code>) of
 the image</p>
+</li>
+<li>
+<p><a id="VUID-VkSparseImageMemoryBind-extent-09388" href="#VUID-VkSparseImageMemoryBind-extent-09388"></a> <span class="vuid">VUID-VkSparseImageMemoryBind-extent-09388</span><br>
+
+<code>extent.width</code> <strong>must</strong> be greater than <code>0</code></p>
 </li>
 <li>
 <p><a id="VUID-VkSparseImageMemoryBind-extent-01108" href="#VUID-VkSparseImageMemoryBind-extent-01108"></a> <span class="vuid">VUID-VkSparseImageMemoryBind-extent-01108</span><br>
@@ -3067,6 +3013,11 @@ width of the image, or else <span class="eq">(<code>extent.width</code> +
 the image</p>
 </li>
 <li>
+<p><a id="VUID-VkSparseImageMemoryBind-extent-09389" href="#VUID-VkSparseImageMemoryBind-extent-09389"></a> <span class="vuid">VUID-VkSparseImageMemoryBind-extent-09389</span><br>
+
+<code>extent.height</code> <strong>must</strong> be greater than <code>0</code></p>
+</li>
+<li>
 <p><a id="VUID-VkSparseImageMemoryBind-extent-01110" href="#VUID-VkSparseImageMemoryBind-extent-01110"></a> <span class="vuid">VUID-VkSparseImageMemoryBind-extent-01110</span><br>
 
 <code>extent.height</code> <strong>must</strong> either be a multiple of the sparse image block
@@ -3079,6 +3030,11 @@ height of the image, or else <span class="eq">(<code>extent.height</code> +
 <code>offset.z</code> <strong>must</strong> be a multiple of the sparse image block depth
 (<code>VkSparseImageFormatProperties</code>::<code>imageGranularity.depth</code>) of
 the image</p>
+</li>
+<li>
+<p><a id="VUID-VkSparseImageMemoryBind-extent-09390" href="#VUID-VkSparseImageMemoryBind-extent-09390"></a> <span class="vuid">VUID-VkSparseImageMemoryBind-extent-09390</span><br>
+
+<code>extent.depth</code> <strong>must</strong> be greater than <code>0</code></p>
 </li>
 <li>
 <p><a id="VUID-VkSparseImageMemoryBind-extent-01112" href="#VUID-VkSparseImageMemoryBind-extent-01112"></a> <span class="vuid">VUID-VkSparseImageMemoryBind-extent-01112</span><br>
@@ -3228,11 +3184,11 @@ waiting on the same semaphore</p>
 <p><a id="VUID-vkQueueBindSparse-pWaitSemaphores-03245" href="#VUID-vkQueueBindSparse-pWaitSemaphores-03245"></a> <span class="vuid">VUID-vkQueueBindSparse-pWaitSemaphores-03245</span><br>
 
 All elements of the <code>pWaitSemaphores</code> member of all elements of
-<code>pBindInfo</code> created with a <a href="synchronization.html#VkSemaphoreType" class="xref page">VkSemaphoreType</a> of
-<code>VK_SEMAPHORE_TYPE_BINARY</code> <strong>must</strong> reference a semaphore signal
-operation that has been submitted for execution and any
-<a href="synchronization.html#synchronization-semaphores-signaling" class="xref page">semaphore signal operations</a> on
-which it depends (if any) <strong>must</strong> have also been submitted for execution</p>
+<code>pBindInfo</code> referring to a semaphore
+created with a <a href="synchronization.html#VkSemaphoreType" class="xref page">VkSemaphoreType</a> of <code>VK_SEMAPHORE_TYPE_BINARY</code>
+<strong>must</strong> reference a semaphore signal operation that has been submitted for
+execution and any <a href="synchronization.html#synchronization-semaphores-signaling" class="xref page">semaphore    signal operations</a> on which it depends <strong>must</strong> have also been submitted
+for execution</p>
 </li>
 </ul>
 </div>
@@ -3297,7 +3253,7 @@ which it depends (if any) <strong>must</strong> have also been submitted for exe
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>

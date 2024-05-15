@@ -13,7 +13,6 @@
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
     <meta name="theme-color" content="#ffffff">
-    <script>var uiRootPath = '../../../_'</script>
   </head>
   <body class="article">
 <header class="header">
@@ -21,11 +20,15 @@
     <div class="navbar-brand">
       <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -53,6 +56,12 @@
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
@@ -71,7 +80,8 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html">Vulkan Specification and Proposals</a></h3>
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
+    <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -196,7 +206,7 @@
     <a class="nav-link" href="VK_NV_memory_decompression.html">Memory Decompression</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="video_extensions.html">Video Coding</a>
+    <a class="nav-link" href="videocoding.html">Video Coding</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="VK_NV_optical_flow/optical_flow.html">Optical Flow</a>
@@ -257,108 +267,17 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../proposals/index.html">Vulkan Proposals</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Vulkan Roadmap</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/Roadmap.html">Vulkan Roadmap</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposals</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_AMD_shader_early_and_late_fragment_tests.html">VK_AMD_shader_early_and_late_fragment_tests</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_attachment_feedback_loop_layout.html">VK_EXT_attachment_feedback_loop_layout</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_graphics_pipeline_library.html">VK_EXT_graphics_pipeline_library</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_2d_array_of_3d.html">VK_EXT_image_2d_array_of_3d</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_image_compression_control.html">VK_EXT_image_compression_control</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_metal_objects.html">VK_EXT_metal_objects</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_multisampled_render_to_single_sampled.html">VK_EXT_multisampled_render_to_single_sampled</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_non_seamless_cube_map.html">VK_EXT_non_seamless_cube_map</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_primitives_generated_query.html">VK_EXT_primitives_generated_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_EXT_subpass_merge_feedback.html">VK_EXT_subpass_merge_feedback</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_GOOGLE_surfaceless_query.html">VK_GOOGLE_surfaceless_query</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_HUAWEI_invocation_mask.html">VK_HUAWEI_invocation_mask</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_dynamic_rendering.html">VK_KHR_dynamic_rendering</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shader_barycentric.html">VK_KHR_fragment_shader_barycentric</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_fragment_shading_rate.html">VK_KHR_fragment_shading_rate</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_KHR_shader_integer_dot_product.html">VK_KHR_shader_integer_dot_product</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_image_processing.html">VK_QCOM_image_processing</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <span class="nav-text">Extension Proposal Template</span>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../proposals/proposals/template.html">Proposal Template</a>
-  </li>
-</ul>
-  </li>
-</ul>
-  </li>
 </ul>
   </nav>
 </div>
 <div class="nav-panel-explore" data-panel="explore">
   <div class="context">
-    <span class="title">Vulkan Specification and Proposals</span>
+    <span class="title">Vulkan Specification</span>
     <span class="version">latest</span>
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -366,7 +285,15 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../features/latest/features/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -374,7 +301,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -382,7 +309,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification and Proposals</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -400,13 +327,11 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Vulkan Specification and Proposals</a></li>
+    <li><a href="../index.html">Vulkan Specification</a></li>
     <li><a href="vertexpostproc.html">Fixed-Function Vertex Post-Processing</a></li>
   </ul>
 </nav>
-    <!--
-  <div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/modules/ROOT/pages/chapters/vertexpostproc.adoc">Edit this Page</a></div>
-      -->
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/vertexpostproc.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -519,7 +444,7 @@ execute the <a href="drawing.html#drawing" class="xref page">drawing command</a>
 <p>If <a href="geometry.html#geometry" class="xref page">geometry shading</a> is active, vertices within a primitive
 are appended according to the winding order described by the
 <a href="drawing.html#drawing-primitive-topologies" class="xref page">primitive topology</a> defined by the
-<a href="drawing.html#drawing-point-lists" class="xref page"><code>OutputPoints</code></a>, <a href="drawing.html#drawing-line-strips" class="xref page">    <code>OutputLineStrips</code></a>, or <a href="drawing.html#drawing-triangle-strips" class="xref page">    <code>OutputTriangleStrips</code></a> execution mode.</p>
+<a href="drawing.html#drawing-point-lists" class="xref page"><code>OutputPoints</code></a>, <a href="drawing.html#drawing-line-strips" class="xref page">    <code>OutputLineStrip</code></a>, or <a href="drawing.html#drawing-triangle-strips" class="xref page">    <code>OutputTriangleStrip</code></a> execution mode.</p>
 </li>
 <li>
 <p>If <a href="tessellation.html#tessellation" class="xref page">tessellation shading</a> is active but
@@ -826,7 +751,7 @@ Transform feedback <strong>must</strong> not be active when the
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -972,9 +897,18 @@ containing
 <code>VK_BUFFER_USAGE_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT</code></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdBeginTransformFeedbackEXT-firstCounterBuffer-09630" href="#VUID-vkCmdBeginTransformFeedbackEXT-firstCounterBuffer-09630"></a> <span class="vuid">VUID-vkCmdBeginTransformFeedbackEXT-firstCounterBuffer-09630</span><br>
+
+The sum of <code>firstCounterBuffer</code> and <code>counterBufferCount</code> <strong>must</strong>
+be less than or equal to the number of transform feedback buffers
+currently bound by <a href="#vkCmdBindTransformFeedbackBuffersEXT">vkCmdBindTransformFeedbackBuffersEXT</a></p>
+</li>
+<li>
 <p><a id="VUID-vkCmdBeginTransformFeedbackEXT-None-06233" href="#VUID-vkCmdBeginTransformFeedbackEXT-None-06233"></a> <span class="vuid">VUID-vkCmdBeginTransformFeedbackEXT-None-06233</span><br>
 
-A valid graphics pipeline <strong>must</strong> be bound to
+If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is not
+enabled, a
+valid graphics pipeline <strong>must</strong> be bound to
 <code>VK_PIPELINE_BIND_POINT_GRAPHICS</code></p>
 </li>
 <li>
@@ -1061,7 +995,7 @@ with multiview enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -1267,7 +1201,7 @@ containing
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -1449,11 +1383,20 @@ values used to create the currently active pipeline.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkCmdSetViewportSwizzleNV-None-08578" href="#VUID-vkCmdSetViewportSwizzleNV-None-08578"></a> <span class="vuid">VUID-vkCmdSetViewportSwizzleNV-None-08578</span><br>
+<p><a id="VUID-vkCmdSetViewportSwizzleNV-None-09423" href="#VUID-vkCmdSetViewportSwizzleNV-None-09423"></a> <span class="vuid">VUID-vkCmdSetViewportSwizzleNV-None-09423</span><br>
 
-Either the <a href="features.html#features-extendedDynamicState3ViewportSwizzle" class="xref page">    <code>extendedDynamicState3ViewportSwizzle</code></a> feature or the
-<a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature or both <strong>must</strong> be
+At least one of the following <strong>must</strong> be true:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="#features-extendedDynamicState3ViewportSwizzle"><code>extendedDynamicState3ViewportSwizzle</code></a> feature is
 enabled</p>
+</li>
+<li>
+<p>The <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -1522,7 +1465,7 @@ enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -1705,8 +1648,7 @@ vertex is determined by the <a href="drawing.html#drawing-primitive-topologies" 
 <p>If <a href="geometry.html#geometry" class="xref page">geometry shading</a> is active, the provoking vertex is
 determined by the <a href="drawing.html#drawing-primitive-topologies" class="xref page">primitive topology</a>
 defined by the <a href="drawing.html#drawing-point-lists" class="xref page"><code>OutputPoints</code></a>,
-<a href="drawing.html#drawing-line-strips" class="xref page"><code>OutputLineStrips</code></a>, or
-<a href="drawing.html#drawing-triangle-strips" class="xref page"><code>OutputTriangleStrips</code></a> execution mode.</p>
+<a href="drawing.html#drawing-line-strips" class="xref page"><code>OutputLineStrip</code></a>, or <a href="drawing.html#drawing-triangle-strips" class="xref page"><code>OutputTriangleStrip</code></a> execution mode.</p>
 </div>
 <div class="paragraph">
 <p>If <a href="tessellation.html#tessellation" class="xref page">tessellation shading</a> is active but <a href="geometry.html#geometry" class="xref page">geometry shading</a> is not, the provoking vertex <strong>may</strong> be any of the vertices in each
@@ -1840,7 +1782,7 @@ vertices used by a primitive.</p>
 </div>
 <div id="vkCmdSetProvokingVertexModeEXT" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state3 with VK_EXT_provoking_vertex, VK_EXT_provoking_vertex with VK_EXT_shader_object
 void vkCmdSetProvokingVertexModeEXT(
     VkCommandBuffer                             commandBuffer,
     VkProvokingVertexModeEXT                    provokingVertexMode);</code></pre>
@@ -1874,11 +1816,20 @@ value used to create the currently active pipeline.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkCmdSetProvokingVertexModeEXT-None-08580" href="#VUID-vkCmdSetProvokingVertexModeEXT-None-08580"></a> <span class="vuid">VUID-vkCmdSetProvokingVertexModeEXT-None-08580</span><br>
+<p><a id="VUID-vkCmdSetProvokingVertexModeEXT-None-09423" href="#VUID-vkCmdSetProvokingVertexModeEXT-None-09423"></a> <span class="vuid">VUID-vkCmdSetProvokingVertexModeEXT-None-09423</span><br>
 
-Either the <a href="features.html#features-extendedDynamicState3ProvokingVertexMode" class="xref page">    <code>extendedDynamicState3ProvokingVertexMode</code></a> feature or the
-<a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature or both <strong>must</strong> be
+At least one of the following <strong>must</strong> be true:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="#features-extendedDynamicState3ProvokingVertexMode"><code>extendedDynamicState3ProvokingVertexMode</code></a> feature is
 enabled</p>
+</li>
+<li>
+<p>The <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetProvokingVertexModeEXT-provokingVertexMode-07447" href="#VUID-vkCmdSetProvokingVertexModeEXT-provokingVertexMode-07447"></a> <span class="vuid">VUID-vkCmdSetProvokingVertexModeEXT-provokingVertexMode-07447</span><br>
@@ -1951,7 +1902,7 @@ If <code>provokingVertexMode</code> is
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -2103,11 +2054,20 @@ depth clipping is enabled when depth clamping is disabled and vice versa.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkCmdSetDepthClampEnableEXT-None-08582" href="#VUID-vkCmdSetDepthClampEnableEXT-None-08582"></a> <span class="vuid">VUID-vkCmdSetDepthClampEnableEXT-None-08582</span><br>
+<p><a id="VUID-vkCmdSetDepthClampEnableEXT-None-09423" href="#VUID-vkCmdSetDepthClampEnableEXT-None-09423"></a> <span class="vuid">VUID-vkCmdSetDepthClampEnableEXT-None-09423</span><br>
 
-Either the <a href="features.html#features-extendedDynamicState3DepthClampEnable" class="xref page">    <code>extendedDynamicState3DepthClampEnable</code></a> feature or the
-<a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature or both <strong>must</strong> be
+At least one of the following <strong>must</strong> be true:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="#features-extendedDynamicState3DepthClampEnable"><code>extendedDynamicState3DepthClampEnable</code></a> feature is
 enabled</p>
+</li>
+<li>
+<p>The <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthClampEnableEXT-depthClamp-07449" href="#VUID-vkCmdSetDepthClampEnableEXT-depthClamp-07449"></a> <span class="vuid">VUID-vkCmdSetDepthClampEnableEXT-depthClamp-07449</span><br>
@@ -2174,7 +2134,7 @@ If the <a href="features.html#features-depthClamp" class="xref page"><code>depth
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -2202,7 +2162,7 @@ clipping, call:</p>
 </div>
 <div id="vkCmdSetDepthClipEnableEXT" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_depth_clip_enable with VK_EXT_extended_dynamic_state3, VK_EXT_depth_clip_enable with VK_EXT_shader_object
 void vkCmdSetDepthClipEnableEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    depthClipEnable);</code></pre>
@@ -2238,11 +2198,20 @@ of <a href="primsrast.html#VkPipelineRasterizationStateCreateInfo" class="xref p
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkCmdSetDepthClipEnableEXT-None-08584" href="#VUID-vkCmdSetDepthClipEnableEXT-None-08584"></a> <span class="vuid">VUID-vkCmdSetDepthClipEnableEXT-None-08584</span><br>
+<p><a id="VUID-vkCmdSetDepthClipEnableEXT-None-09423" href="#VUID-vkCmdSetDepthClipEnableEXT-None-09423"></a> <span class="vuid">VUID-vkCmdSetDepthClipEnableEXT-None-09423</span><br>
 
-Either the <a href="features.html#features-extendedDynamicState3DepthClipEnable" class="xref page">    <code>extendedDynamicState3DepthClipEnable</code></a> feature or the
-<a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature or both <strong>must</strong> be
+At least one of the following <strong>must</strong> be true:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="#features-extendedDynamicState3DepthClipEnable"><code>extendedDynamicState3DepthClipEnable</code></a> feature is
 enabled</p>
+</li>
+<li>
+<p>The <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthClipEnableEXT-depthClipEnable-07451" href="#VUID-vkCmdSetDepthClipEnableEXT-depthClipEnable-07451"></a> <span class="vuid">VUID-vkCmdSetDepthClipEnableEXT-depthClipEnable-07451</span><br>
@@ -2309,7 +2278,7 @@ enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -2516,7 +2485,7 @@ call:</p>
 </div>
 <div id="vkCmdSetDepthClipNegativeOneToOneEXT" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_extended_dynamic_state3, VK_EXT_shader_object
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_depth_clip_control with VK_EXT_extended_dynamic_state3, VK_EXT_depth_clip_control with VK_EXT_shader_object
 void vkCmdSetDepthClipNegativeOneToOneEXT(
     VkCommandBuffer                             commandBuffer,
     VkBool32                                    negativeOneToOne);</code></pre>
@@ -2550,11 +2519,20 @@ value used to create the currently active pipeline.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkCmdSetDepthClipNegativeOneToOneEXT-None-08586" href="#VUID-vkCmdSetDepthClipNegativeOneToOneEXT-None-08586"></a> <span class="vuid">VUID-vkCmdSetDepthClipNegativeOneToOneEXT-None-08586</span><br>
+<p><a id="VUID-vkCmdSetDepthClipNegativeOneToOneEXT-None-09423" href="#VUID-vkCmdSetDepthClipNegativeOneToOneEXT-None-09423"></a> <span class="vuid">VUID-vkCmdSetDepthClipNegativeOneToOneEXT-None-09423</span><br>
 
-Either the <a href="features.html#features-extendedDynamicState3DepthClipNegativeOneToOne" class="xref page">    <code>extendedDynamicState3DepthClipNegativeOneToOne</code></a> feature or the
-<a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature or both <strong>must</strong> be
+At least one of the following <strong>must</strong> be true:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="#features-extendedDynamicState3DepthClipNegativeOneToOne"><code>extendedDynamicState3DepthClipNegativeOneToOne</code></a> feature is
 enabled</p>
+</li>
+<li>
+<p>The <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetDepthClipNegativeOneToOneEXT-depthClipControl-07453" href="#VUID-vkCmdSetDepthClipNegativeOneToOneEXT-depthClipControl-07453"></a> <span class="vuid">VUID-vkCmdSetDepthClipNegativeOneToOneEXT-depthClipControl-07453</span><br>
@@ -2621,7 +2599,7 @@ be enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -2832,11 +2810,20 @@ value used to create the currently active pipeline.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkCmdSetViewportWScalingEnableNV-None-08594" href="#VUID-vkCmdSetViewportWScalingEnableNV-None-08594"></a> <span class="vuid">VUID-vkCmdSetViewportWScalingEnableNV-None-08594</span><br>
+<p><a id="VUID-vkCmdSetViewportWScalingEnableNV-None-09423" href="#VUID-vkCmdSetViewportWScalingEnableNV-None-09423"></a> <span class="vuid">VUID-vkCmdSetViewportWScalingEnableNV-None-09423</span><br>
 
-Either the <a href="features.html#features-extendedDynamicState3ViewportWScalingEnable" class="xref page">    <code>extendedDynamicState3ViewportWScalingEnable</code></a> feature or the
-<a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature or both <strong>must</strong> be
+At least one of the following <strong>must</strong> be true:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The <a href="#features-extendedDynamicState3ViewportWScalingEnable"><code>extendedDynamicState3ViewportWScalingEnable</code></a> feature is
 enabled</p>
+</li>
+<li>
+<p>The <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled</p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -2897,7 +2884,7 @@ enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -3047,7 +3034,7 @@ The sum of <code>firstViewport</code> and <code>viewportCount</code> <strong>mus
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -3274,7 +3261,7 @@ fractional bits retained is specified by
 <code>VkPhysicalDeviceLimits</code>::<code>subPixelPrecisionBits</code>.
 When rasterizing <a href="primsrast.html#primsrast-lines" class="xref page">line segments</a>, the number of fractional
 bits is specified by
-<code>VkPhysicalDeviceLineRasterizationPropertiesEXT</code>::<code>lineSubPixelPrecisionBits</code>.</p>
+<code>VkPhysicalDeviceLineRasterizationPropertiesKHR</code>::<code>lineSubPixelPrecisionBits</code>.</p>
 </div>
 <div class="openblock">
 <div class="content">
@@ -3387,14 +3374,16 @@ If <code>scissorCount</code> and <code>viewportCount</code> are both not dynamic
 
 If the graphics pipeline is being created with
 <code>VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT</code> set then <code>viewportCount</code>
-<strong>must</strong> be <code>0</code>, otherwise it <strong>must</strong> be greater than <code>0</code></p>
+<strong>must</strong> be <code>0</code>, otherwise
+<code>viewportCount</code> <strong>must</strong> be greater than <code>0</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineViewportStateCreateInfo-scissorCount-04136" href="#VUID-VkPipelineViewportStateCreateInfo-scissorCount-04136"></a> <span class="vuid">VUID-VkPipelineViewportStateCreateInfo-scissorCount-04136</span><br>
 
 If the graphics pipeline is being created with
 <code>VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT</code> set then <code>scissorCount</code>
-<strong>must</strong> be <code>0</code>, otherwise it <strong>must</strong> be greater than <code>0</code></p>
+<strong>must</strong> be <code>0</code>, otherwise
+<code>scissorCount</code> <strong>must</strong> be greater than <code>0</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineViewportStateCreateInfo-viewportWScalingEnable-01726" href="#VUID-VkPipelineViewportStateCreateInfo-viewportWScalingEnable-01726"></a> <span class="vuid">VUID-VkPipelineViewportStateCreateInfo-viewportWScalingEnable-01726</span><br>
@@ -3601,7 +3590,7 @@ enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -3805,7 +3794,7 @@ enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -4013,7 +4002,7 @@ enabled</p>
 <tr>
 <th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
 <th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
-<th class="tableblock halign-left valign-top"><a href="video_extensions.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
 <th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
 <th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
 </tr>
@@ -4226,13 +4215,15 @@ The absolute value of <code>height</code> <strong>must</strong> be less than or 
 <p><a id="VUID-VkViewport-minDepth-01234" href="#VUID-VkViewport-minDepth-01234"></a> <span class="vuid">VUID-VkViewport-minDepth-01234</span><br>
 
 If the <code><a href="../appendices/extensions.html#VK_EXT_depth_range_unrestricted" class="xref page">VK_EXT_depth_range_unrestricted</a></code> extension is not
-enabled, <code>minDepth</code> <strong>must</strong> be between <code>0.0</code> and <code>1.0</code>, inclusive</p>
+enabled,
+<code>minDepth</code> <strong>must</strong> be between <code>0.0</code> and <code>1.0</code>, inclusive</p>
 </li>
 <li>
 <p><a id="VUID-VkViewport-maxDepth-01235" href="#VUID-VkViewport-maxDepth-01235"></a> <span class="vuid">VUID-VkViewport-maxDepth-01235</span><br>
 
 If the <code><a href="../appendices/extensions.html#VK_EXT_depth_range_unrestricted" class="xref page">VK_EXT_depth_range_unrestricted</a></code> extension is not
-enabled, <code>maxDepth</code> <strong>must</strong> be between <code>0.0</code> and <code>1.0</code>, inclusive</p>
+enabled,
+<code>maxDepth</code> <strong>must</strong> be between <code>0.0</code> and <code>1.0</code>, inclusive</p>
 </li>
 </ul>
 </div>
