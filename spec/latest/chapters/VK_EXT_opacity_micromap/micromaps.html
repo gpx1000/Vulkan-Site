@@ -329,7 +329,6 @@
     <li><a href="micromaps.html">Micromap</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/VK_EXT_opacity_micromap/micromaps.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -337,13 +336,6 @@
 </aside>
 <article class="doc">
 <h1 class="page">Micromap</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/VK_EXT_opacity_micromap/micromaps.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
-</div>
-</div>
 <div class="sect1">
 <h2 id="micromap-def"><a class="anchor" href="#micromap-def"></a>Micromaps</h2>
 <div class="sectionbody">
@@ -520,7 +512,7 @@ For each element of <code>pInfos</code>, the <code>buffer</code> used to create 
 
 If <code>pInfos</code>[i].<code>mode</code> is <code>VK_BUILD_MICROMAP_MODE_BUILD_EXT</code>,
 all addresses between <code>pInfos</code>[i].<code>scratchData.deviceAddress</code>
-and <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> &#43; N - 1 <strong>must</strong>
+and <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> +  N - 1 <strong>must</strong>
 be in the buffer device address range of the same buffer, where N is
 given by the <code>buildScratchSize</code> member of the
 <a href="../resources.html#VkMicromapBuildSizesInfoEXT" class="xref page">VkMicromapBuildSizesInfoEXT</a> structure returned from a call to
@@ -615,14 +607,14 @@ and <code>data.deviceAddress</code> members <strong>must</strong> be a multiple 
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1335,14 +1327,14 @@ or <code>VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1477,14 +1469,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1809,14 +1801,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2055,14 +2047,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2308,7 +2300,7 @@ defined in <a href="#vkCmdCopyMicromapToMemoryEXT">vkCmdCopyMicromapToMemoryEXT<
 </td>
 <td class="content">
 <div class="paragraph">
-<p><code>pVersionData</code> is a <em>pointer</em> to an array of 2{times}<code>VK_UUID_SIZE</code>
+<p><code>pVersionData</code> is a <em>pointer</em> to an array of 2×<code>VK_UUID_SIZE</code>
 <code>uint8_t</code> values instead of two <code>VK_UUID_SIZE</code> arrays as the expected
 use case for this member is to be pointed at the header of a previously
 serialized micromap (via <a href="#vkCmdCopyMicromapToMemoryEXT">vkCmdCopyMicromapToMemoryEXT</a> or
@@ -3315,10 +3307,10 @@ assumed to be 0.0 and 1.0, respectively.</p>
 displacement vector used by the displacement are computed by:</p>
 </div>
 <div class="paragraph">
-<p><span class="eq">basePosition = inputPosition &#43; displacementVector {times} bias</span></p>
+<p><span class="eq">basePosition = inputPosition +  displacementVector × bias</span></p>
 </div>
 <div class="paragraph">
-<p><span class="eq">baseDisplacementVector = displacementVector {times} scale</span></p>
+<p><span class="eq">baseDisplacementVector = displacementVector × scale</span></p>
 </div>
 <div class="paragraph">
 <p>The parameters of each micro-vertex are derived from a combination of the
@@ -3334,8 +3326,8 @@ fetched from the displacement micromap corresponding to that micro-vertex.</p>
 microVertexBarycentrics)</span></p>
 </div>
 <div class="paragraph">
-<p><span class="eq">microVertexDisplacedPosition = microVertexBasePosition &#43;
-microVertexDisplacementVector {times} micromapDisplacementValue</span></p>
+<p><span class="eq">microVertexDisplacedPosition = microVertexBasePosition + 
+microVertexDisplacementVector × micromapDisplacementValue</span></p>
 </div>
 </div>
 <div class="sect3">
@@ -3431,13 +3423,13 @@ adjacent displacement values, the predicted value is given by the rounded
 average of the two adjacent values as integers:</p>
 </div>
 <div class="paragraph">
-<p><span class="eq">prediction = (A &#43; B &#43; 1) / 2</span></p>
+<p><span class="eq">prediction = (A +  B +  1) / 2</span></p>
 </div>
 <div class="paragraph">
 <p>The decoded value after applying the correction is given by:</p>
 </div>
 <div class="paragraph">
-<p><span class="eq">decoded = prediction &#43; ( SignExtend(correction) &lt;&lt; shift )</span></p>
+<p><span class="eq">decoded = prediction +  ( SignExtend(correction) &lt;&lt; shift )</span></p>
 </div>
 <div class="paragraph">
 <p>where <span class="eq">correction</span> is given by the corrections field for a given level

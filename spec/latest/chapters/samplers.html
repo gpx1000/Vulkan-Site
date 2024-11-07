@@ -329,7 +329,6 @@
     <li><a href="samplers.html">Samplers</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/samplers.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -339,9 +338,6 @@
 <h1 class="page">Samplers</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/samplers.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -663,7 +659,7 @@ emulated using <code>VK_SAMPLER_MIPMAP_MODE_NEAREST</code>, <code>minLod</code> 
 <a href="textures.html#textures-texel-filtering" class="xref page">magnification</a> to always be performed, and the
 <code>magFilter</code> to always be used.
 This is valid, just not an exact match for OpenGL behavior.
-Clamping the maximum LOD to 0.25 allows the <span class="eq">{lambda}</span> value to be
+Clamping the maximum LOD to 0.25 allows the <span class="eq">λ</span> value to be
 non-zero and minification to be performed, while still always rounding down
 to the base level.
 If the <code>minFilter</code> and <code>magFilter</code> are equal, then using a
@@ -742,12 +738,12 @@ between <code>1.0</code> and
 <li>
 <p><a id="VUID-VkSamplerCreateInfo-minFilter-01645" href="#VUID-VkSamplerCreateInfo-minFilter-01645"></a> <span class="vuid">VUID-VkSamplerCreateInfo-minFilter-01645</span><br>
 
-If <a href="#samplers-YCbCr-conversion">sampler {YCbCr} conversion</a> is enabled
+If <a href="#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled
 and the <a href="formats.html#potential-format-features" class="xref page">potential format features</a> of the
-sampler {YCbCr} conversion do not support
+sampler Y′C<sub>B</sub>C<sub>R</sub> conversion do not support
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT</code>,
 <code>minFilter</code> and <code>magFilter</code> <strong>must</strong> be equal to the sampler
-{YCbCr} conversion&#8217;s <code>chromaFilter</code></p>
+Y′C<sub>B</sub>C<sub>R</sub> conversion&#8217;s <code>chromaFilter</code></p>
 </li>
 <li>
 <p><a id="VUID-VkSamplerCreateInfo-unnormalizedCoordinates-01072" href="#VUID-VkSamplerCreateInfo-unnormalizedCoordinates-01072"></a> <span class="vuid">VUID-VkSamplerCreateInfo-unnormalizedCoordinates-01072</span><br>
@@ -797,7 +793,7 @@ are <code>VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_BORDER</code>, <code>borderColor</cod
 <li>
 <p><a id="VUID-VkSamplerCreateInfo-addressModeU-01646" href="#VUID-VkSamplerCreateInfo-addressModeU-01646"></a> <span class="vuid">VUID-VkSamplerCreateInfo-addressModeU-01646</span><br>
 
-If <a href="#samplers-YCbCr-conversion">sampler {YCbCr} conversion</a> is enabled,
+If <a href="#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled,
 <code>addressModeU</code>, <code>addressModeV</code>, and <code>addressModeW</code> <strong>must</strong> be
 <code>VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE</code>, <code>anisotropyEnable</code>
 <strong>must</strong> be <code>VK_FALSE</code>, and <code>unnormalizedCoordinates</code> <strong>must</strong> be
@@ -806,7 +802,7 @@ If <a href="#samplers-YCbCr-conversion">sampler {YCbCr} conversion</a> is enable
 <li>
 <p><a id="VUID-VkSamplerCreateInfo-None-01647" href="#VUID-VkSamplerCreateInfo-None-01647"></a> <span class="vuid">VUID-VkSamplerCreateInfo-None-01647</span><br>
 
-If <a href="#samplers-YCbCr-conversion">sampler {YCbCr} conversion</a> is enabled
+If <a href="#samplers-YCbCr-conversion">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled
 and the <code>pNext</code> chain includes a
 <a href="#VkSamplerReductionModeCreateInfo">VkSamplerReductionModeCreateInfo</a> structure, then the sampler
 reduction mode <strong>must</strong> be <code>VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE</code></p>
@@ -1564,7 +1560,7 @@ false.</p>
 </li>
 <li>
 <p><code>VK_COMPARE_OP_LESS_OR_EQUAL</code> specifies that the comparison
-evaluates <span class="eq"><em>reference</em> {leq} <em>test</em></span>.</p>
+evaluates <span class="eq"><em>reference</em> ≤ <em>test</em></span>.</p>
 </li>
 <li>
 <p><code>VK_COMPARE_OP_GREATER</code> specifies that the comparison evaluates
@@ -1572,11 +1568,11 @@ evaluates <span class="eq"><em>reference</em> {leq} <em>test</em></span>.</p>
 </li>
 <li>
 <p><code>VK_COMPARE_OP_NOT_EQUAL</code> specifies that the comparison evaluates
-<span class="eq"><em>reference</em> {neq} <em>test</em></span>.</p>
+<span class="eq"><em>reference</em> ≠ <em>test</em></span>.</p>
 </li>
 <li>
 <p><code>VK_COMPARE_OP_GREATER_OR_EQUAL</code> specifies that the comparison
-evaluates <span class="eq"><em>reference</em> {geq} <em>test</em></span>.</p>
+evaluates <span class="eq"><em>reference</em> ≥ <em>test</em></span>.</p>
 </li>
 <li>
 <p><code>VK_COMPARE_OP_ALWAYS</code> specifies that the comparison always
@@ -1763,11 +1759,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>sampler</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>sampler</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1778,15 +1774,15 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="samplers-YCbCr-conversion"><a class="anchor" href="#samplers-YCbCr-conversion"></a>Sampler {YCbCr} Conversion</h2>
+<h2 id="samplers-YCbCr-conversion"><a class="anchor" href="#samplers-YCbCr-conversion"></a>Sampler Y′C<sub>B</sub>C<sub>R</sub> Conversion</h2>
 <div class="sectionbody">
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>To create a sampler with {YCbCr} conversion enabled, add a
+<p>To create a sampler with Y′C<sub>B</sub>C<sub>R</sub> conversion enabled, add a
 <a href="#VkSamplerYcbcrConversionInfo">VkSamplerYcbcrConversionInfo</a> structure to the <code>pNext</code> chain of the
 <a href="#VkSamplerCreateInfo">VkSamplerCreateInfo</a> structure.
-To create a sampler {YCbCr} conversion, the
+To create a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion, the
 <a href="features.html#features-samplerYcbcrConversion" class="xref page"><code>samplerYcbcrConversion</code></a> feature
 <strong>must</strong> be enabled.
 Conversion <strong>must</strong> be fixed at pipeline creation time, through use of a
@@ -1796,7 +1792,7 @@ combined image sampler with an immutable sampler in
 <div class="paragraph">
 <p>A <a href="#VkSamplerYcbcrConversionInfo">VkSamplerYcbcrConversionInfo</a> <strong>must</strong> be provided for samplers to be
 used with image views that access <code>VK_IMAGE_ASPECT_COLOR_BIT</code> if the
-format is one of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler {YCbCr} conversion</a>
+format is one of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>
 , or if the image view has an
 <a href="memory.html#memory-external-android-hardware-buffer-external-formats" class="xref page">external format</a>
 .</p>
@@ -1860,8 +1856,8 @@ structure.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>A sampler {YCbCr} conversion is an opaque representation of a
-device-specific sampler {YCbCr} conversion description, represented as a
+<p>A sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is an opaque representation of a
+device-specific sampler Y′C<sub>B</sub>C<sub>R</sub> conversion description, represented as a
 <code>VkSamplerYcbcrConversion</code> handle:</p>
 </div>
 <div id="VkSamplerYcbcrConversion" class="listingblock">
@@ -1912,13 +1908,13 @@ VkResult vkCreateSamplerYcbcrConversionKHR(
 <div class="ulist">
 <ul>
 <li>
-<p><code>device</code> is the logical device that creates the sampler {YCbCr}
+<p><code>device</code> is the logical device that creates the sampler Y′C<sub>B</sub>C<sub>R</sub>
 conversion.</p>
 </li>
 <li>
 <p><code>pCreateInfo</code> is a pointer to a
 <a href="#VkSamplerYcbcrConversionCreateInfo">VkSamplerYcbcrConversionCreateInfo</a> structure specifying the
-requested sampler {YCbCr} conversion.</p>
+requested sampler Y′C<sub>B</sub>C<sub>R</sub> conversion.</p>
 </li>
 <li>
 <p><code>pAllocator</code> controls host memory allocation as described in the
@@ -1926,13 +1922,13 @@ requested sampler {YCbCr} conversion.</p>
 </li>
 <li>
 <p><code>pYcbcrConversion</code> is a pointer to a <a href="#VkSamplerYcbcrConversion">VkSamplerYcbcrConversion</a>
-handle in which the resulting sampler {YCbCr} conversion is returned.</p>
+handle in which the resulting sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is returned.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>The interpretation of the configured sampler {YCbCr} conversion is described
-in more detail in <a href="textures.html#textures-sampler-YCbCr-conversion" class="xref page">the description of sampler {YCbCr} conversion</a> in the <a href="textures.html#textures" class="xref page">Image Operations</a> chapter.</p>
+<p>The interpretation of the configured sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is described
+in more detail in <a href="textures.html#textures-sampler-YCbCr-conversion" class="xref page">the description of sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> in the <a href="textures.html#textures" class="xref page">Image Operations</a> chapter.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -2111,7 +2107,7 @@ the <code>forceExplicitReconstruction</code> value behaves as if it were
 </div>
 <div class="paragraph">
 <p>If the <code>pNext</code> chain includes a <a href="resources.html#VkExternalFormatANDROID" class="xref page">VkExternalFormatANDROID</a> structure
-with non-zero <code>externalFormat</code> member, the sampler {YCbCr} conversion
+with non-zero <code>externalFormat</code> member, the sampler Y′C<sub>B</sub>C<sub>R</sub> conversion
 object represents an <em>external format conversion</em>, and <code>format</code> <strong>must</strong> be
 <code>VK_FORMAT_UNDEFINED</code>.
 Such conversions <strong>must</strong> only be used to sample image views with a matching
@@ -2141,7 +2137,7 @@ If an external format conversion is not being created,
 <p><a id="VUID-VkSamplerYcbcrConversionCreateInfo-format-01650" href="#VUID-VkSamplerYcbcrConversionCreateInfo-format-01650"></a> <span class="vuid">VUID-VkSamplerYcbcrConversionCreateInfo-format-01650</span><br>
 
 The <a href="formats.html#potential-format-features" class="xref page">potential format features</a> of the
-sampler {YCbCr} conversion <strong>must</strong> support
+sampler Y′C<sub>B</sub>C<sub>R</sub> conversion <strong>must</strong> support
 <code>VK_FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT</code> or
 <code>VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT</code></p>
 </li>
@@ -2149,7 +2145,7 @@ sampler {YCbCr} conversion <strong>must</strong> support
 <p><a id="VUID-VkSamplerYcbcrConversionCreateInfo-xChromaOffset-01651" href="#VUID-VkSamplerYcbcrConversionCreateInfo-xChromaOffset-01651"></a> <span class="vuid">VUID-VkSamplerYcbcrConversionCreateInfo-xChromaOffset-01651</span><br>
 
 If the <a href="formats.html#potential-format-features" class="xref page">potential format features</a> of the
-sampler {YCbCr} conversion do not support
+sampler Y′C<sub>B</sub>C<sub>R</sub> conversion do not support
 <code>VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT</code>, <code>xChromaOffset</code>
 and <code>yChromaOffset</code> <strong>must</strong> not be
 <code>VK_CHROMA_LOCATION_COSITED_EVEN</code> if the corresponding components
@@ -2159,7 +2155,7 @@ are <a href="textures.html#textures-chroma-reconstruction" class="xref page">dow
 <p><a id="VUID-VkSamplerYcbcrConversionCreateInfo-xChromaOffset-01652" href="#VUID-VkSamplerYcbcrConversionCreateInfo-xChromaOffset-01652"></a> <span class="vuid">VUID-VkSamplerYcbcrConversionCreateInfo-xChromaOffset-01652</span><br>
 
 If the <a href="formats.html#potential-format-features" class="xref page">potential format features</a> of the
-sampler {YCbCr} conversion do not support
+sampler Y′C<sub>B</sub>C<sub>R</sub> conversion do not support
 <code>VK_FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT</code>, <code>xChromaOffset</code>
 and <code>yChromaOffset</code> <strong>must</strong> not be <code>VK_CHROMA_LOCATION_MIDPOINT</code>
 if the corresponding components are <a href="textures.html#textures-chroma-reconstruction" class="xref page">    downsampled</a></p>
@@ -2226,7 +2222,7 @@ to <code>format</code> <strong>must</strong> each have a bit-depth greater than 
 <p><a id="VUID-VkSamplerYcbcrConversionCreateInfo-forceExplicitReconstruction-01656" href="#VUID-VkSamplerYcbcrConversionCreateInfo-forceExplicitReconstruction-01656"></a> <span class="vuid">VUID-VkSamplerYcbcrConversionCreateInfo-forceExplicitReconstruction-01656</span><br>
 
 If the <a href="formats.html#potential-format-features" class="xref page">potential format features</a> of the
-sampler {YCbCr} conversion do not support
+sampler Y′C<sub>B</sub>C<sub>R</sub> conversion do not support
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT</code>
 <code>forceExplicitReconstruction</code> <strong>must</strong> be <code>VK_FALSE</code></p>
 </li>
@@ -2234,7 +2230,7 @@ sampler {YCbCr} conversion do not support
 <p><a id="VUID-VkSamplerYcbcrConversionCreateInfo-chromaFilter-01657" href="#VUID-VkSamplerYcbcrConversionCreateInfo-chromaFilter-01657"></a> <span class="vuid">VUID-VkSamplerYcbcrConversionCreateInfo-chromaFilter-01657</span><br>
 
 If the <a href="formats.html#potential-format-features" class="xref page">potential format features</a> of the
-sampler {YCbCr} conversion do not support
+sampler Y′C<sub>B</sub>C<sub>R</sub> conversion do not support
 <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT</code>,
 <code>chromaFilter</code> <strong>must</strong> not be <code>VK_FILTER_LINEAR</code></p>
 </li>
@@ -2322,7 +2318,7 @@ If the <code>pNext</code> chain includes a
 <p>If <code>chromaFilter</code> is <code>VK_FILTER_NEAREST</code>, chroma samples are
 reconstructed to luma component resolution using nearest-neighbour sampling.
 Otherwise, chroma samples are reconstructed using interpolation.
-More details can be found in <a href="textures.html#textures-sampler-YCbCr-conversion" class="xref page">the description of sampler {YCbCr} conversion</a> in the <a href="textures.html#textures" class="xref page">Image Operations</a> chapter.</p>
+More details can be found in <a href="textures.html#textures-sampler-YCbCr-conversion" class="xref page">the description of sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> in the <a href="textures.html#textures" class="xref page">Image Operations</a> chapter.</p>
 </div>
 </div>
 </div>
@@ -2372,36 +2368,36 @@ input values to the conversion are unmodified.</p>
 </li>
 <li>
 <p><code>VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_IDENTITY</code> specifies no
-model conversion but the inputs are range expanded as for {YCbCr}.</p>
+model conversion but the inputs are range expanded as for Y′C<sub>B</sub>C<sub>R</sub>.</p>
 </li>
 <li>
 <p><code>VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_709</code> specifies the color
-model conversion from {YCbCr} to {RGBprime} defined in BT.709 and
-described in the &#8220;BT.709 {YCbCr} conversion&#8221; section of the
+model conversion from Y′C<sub>B</sub>C<sub>R</sub> to R′G′B′ defined in BT.709 and
+described in the &#8220;BT.709 Y′C<sub>B</sub>C<sub>R</sub> conversion&#8221; section of the
 <a href="introduction.html#data-format" class="xref page">Khronos Data Format Specification</a>.</p>
 </li>
 <li>
 <p><code>VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_601</code> specifies the color
-model conversion from {YCbCr} to {RGBprime} defined in BT.601 and
-described in the &#8220;BT.601 {YCbCr} conversion&#8221; section of the
+model conversion from Y′C<sub>B</sub>C<sub>R</sub> to R′G′B′ defined in BT.601 and
+described in the &#8220;BT.601 Y′C<sub>B</sub>C<sub>R</sub> conversion&#8221; section of the
 <a href="introduction.html#data-format" class="xref page">Khronos Data Format Specification</a>.</p>
 </li>
 <li>
 <p><code>VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_2020</code> specifies the color
-model conversion from {YCbCr} to {RGBprime} defined in BT.2020 and
-described in the &#8220;BT.2020 {YCbCr} conversion&#8221; section of the
+model conversion from Y′C<sub>B</sub>C<sub>R</sub> to R′G′B′ defined in BT.2020 and
+described in the &#8220;BT.2020 Y′C<sub>B</sub>C<sub>R</sub> conversion&#8221; section of the
 <a href="introduction.html#data-format" class="xref page">Khronos Data Format Specification</a>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>In the <code>VK_SAMPLER_YCBCR_MODEL_CONVERSION_YCBCR_*</code> color models, for the
-input to the sampler {YCbCr} range expansion and model conversion:</p>
+input to the sampler Y′C<sub>B</sub>C<sub>R</sub> range expansion and model conversion:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>the Y (Y{prime} luma) component corresponds to the G component of an RGB
+<p>the Y (Y′ luma) component corresponds to the G component of an RGB
 image.</p>
 </li>
 <li>
@@ -2503,7 +2499,7 @@ quantization rules.</p>
 </div>
 <div class="paragraph">
 <p>The formulae for these conversions is described in the
-<a href="textures.html#textures-sampler-YCbCr-conversion-rangeexpand" class="xref page">Sampler {YCbCr} Range Expansion</a> section of the <a href="textures.html#textures" class="xref page">Image Operations</a> chapter.</p>
+<a href="textures.html#textures-sampler-YCbCr-conversion-rangeexpand" class="xref page">Sampler Y′C<sub>B</sub>C<sub>R</sub> Range Expansion</a> section of the <a href="textures.html#textures" class="xref page">Image Operations</a> chapter.</p>
 </div>
 <div class="paragraph">
 <p>No range modification takes place if <code>ycbcrModel</code> is
@@ -2559,7 +2555,7 @@ nearest higher odd luma sample.</p>
 <div class="content">
 <div class="paragraph">
 <p>Applications <strong>can</strong> enable sRGB to linear conversion for the R, G, and B
-components of a {YCbCr} image during <a href="textures.html#textures-ycbcr-degamma" class="xref page">format conversion</a> by including
+components of a Y′C<sub>B</sub>C<sub>R</sub> image during <a href="textures.html#textures-ycbcr-degamma" class="xref page">format conversion</a> by including
 <code>VkSamplerYcbcrConversionYcbcrDegammaCreateInfoQCOM</code> structure in the
 <code>pNext</code> chain of <a href="#VkSamplerYcbcrConversionCreateInfo">VkSamplerYcbcrConversionCreateInfo</a>.</p>
 </div>
@@ -2614,7 +2610,7 @@ conversion is enabled for the G component.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>To destroy a sampler {YCbCr} conversion, call:</p>
+<p>To destroy a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion, call:</p>
 </div>
 <div id="vkDestroySamplerYcbcrConversion" class="listingblock">
 <div class="content">
@@ -2640,7 +2636,7 @@ void vkDestroySamplerYcbcrConversionKHR(
 <div class="ulist">
 <ul>
 <li>
-<p><code>device</code> is the logical device that destroys the {YCbCr} conversion.</p>
+<p><code>device</code> is the logical device that destroys the Y′C<sub>B</sub>C<sub>R</sub> conversion.</p>
 </li>
 <li>
 <p><code>ycbcrConversion</code> is the conversion to destroy.</p>
@@ -2678,11 +2674,11 @@ void vkDestroySamplerYcbcrConversionKHR(
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>ycbcrConversion</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>ycbcrConversion</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

@@ -329,7 +329,6 @@
     <li><a href="dispatch.html">Dispatching Commands</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/dispatch.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -339,9 +338,6 @@
 <h1 class="page">Dispatching Commands</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/dispatch.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p><em>Dispatching commands</em> (commands with <code>Dispatch</code> in the name) provoke
 work in a compute pipeline.
@@ -388,7 +384,7 @@ dimension.</p>
 </div>
 <div class="paragraph">
 <p>When the command is executed, a global workgroup consisting of
-<span class="eq"><code>groupCountX</code> {times} <code>groupCountY</code> {times} <code>groupCountZ</code></span>
+<span class="eq"><code>groupCountX</code> × <code>groupCountY</code> × <code>groupCountZ</code></span>
 local workgroups is assembled.</p>
 </div>
 <div class="sidebarblock">
@@ -812,7 +808,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -821,7 +817,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -1113,14 +1109,14 @@ buffer</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1618,7 +1614,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -1627,7 +1623,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -1910,14 +1906,14 @@ The sum of <code>offset</code> and the size of <code>VkDispatchIndirectCommand</
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2091,9 +2087,9 @@ dimension.</p>
 </div>
 <div class="paragraph">
 <p>When the command is executed, a global workgroup consisting of
-<span class="eq"><code>groupCountX</code> {times} <code>groupCountY</code> {times} <code>groupCountZ</code></span>
+<span class="eq"><code>groupCountX</code> × <code>groupCountY</code> × <code>groupCountZ</code></span>
 local workgroups is assembled, with <code>WorkgroupId</code> values ranging from
-<span class="eq">[<code>baseGroup*</code>, <code>baseGroup*</code> &#43; <code>groupCount*</code>)</span> in each
+<span class="eq">[<code>baseGroup*</code>, <code>baseGroup*</code> +  <code>groupCount*</code>)</span> in each
 component.
 <a href="#vkCmdDispatch">vkCmdDispatch</a> is equivalent to
 <code>vkCmdDispatchBase(0,0,0,groupCountX,groupCountY,groupCountZ)</code>.</p>
@@ -2519,7 +2515,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -2528,7 +2524,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -2850,14 +2846,14 @@ or the bound compute shader object <strong>must</strong> have been created with 
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3349,7 +3345,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -3358,7 +3354,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -3610,14 +3606,14 @@ subpass</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3713,7 +3709,7 @@ related arguments are defined.</p>
 </div>
 <div class="paragraph">
 <p>When the command is executed, a global workgroup consisting of
-<span class="eq"><code>gridDimX</code> {times} <code>gridDimY</code> {times} <code>gridDimZ</code></span> local
+<span class="eq"><code>gridDimX</code> × <code>gridDimY</code> × <code>gridDimZ</code></span> local
 workgroups is assembled.</p>
 </div>
 <div class="sidebarblock">
@@ -3747,11 +3743,11 @@ workgroups is assembled.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

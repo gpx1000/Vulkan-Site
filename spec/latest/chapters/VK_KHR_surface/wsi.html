@@ -329,7 +329,6 @@
     <li><a href="wsi.html">Window System Integration (WSI)</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/VK_KHR_surface/wsi.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -339,9 +338,6 @@
 <h1 class="page">Window System Integration (WSI)</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/VK_KHR_surface/wsi.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>This chapter discusses the window system integration (WSI) between the
 Vulkan API and the various forms of displaying the results of rendering to a
@@ -378,10 +374,10 @@ it <strong>must</strong> either:</p>
 <ul>
 <li>
 <p><code>#define</code> the appropriate preprocessor symbol prior to including the
-<code>{full_header}</code> header file, or</p>
+<code>vulkan.h</code> header file, or</p>
 </li>
 <li>
-<p>include <code>{core_header}</code> and any native platform headers, followed by the
+<p>include <code>vulkan_core.h</code> and any native platform headers, followed by the
 appropriate platform-specific header.</p>
 </li>
 </ul>
@@ -3361,11 +3357,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>surface</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>surface</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5353,11 +5349,11 @@ mode created is returned.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>display</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>display</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5533,11 +5529,11 @@ are returned.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>mode</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>mode</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5847,11 +5843,11 @@ added for extensibility.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>mode</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>mode</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10999,11 +10995,11 @@ or an equivalent platform-specific mechanism</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>surface</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>surface</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11272,11 +11268,11 @@ platform-specific mechanism</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>surface</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>surface</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11422,11 +11418,11 @@ VkResult vkGetRefreshCycleDurationGOOGLE(
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11639,11 +11635,11 @@ were returned.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12076,11 +12072,11 @@ VkResult vkGetSwapchainStatusKHR(
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12424,14 +12420,14 @@ In this scenario <code>VK_ERROR_INITIALIZATION_FAILED</code> is returned.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>pCreateInfo-&gt;surface</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>pCreateInfo-&gt;surface</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>pCreateInfo-&gt;oldSwapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>pCreateInfo-&gt;oldSwapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -13931,11 +13927,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -14033,14 +14029,14 @@ the presentable images <strong>can</strong> continue to be used.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>pCreateInfos</code>[].surface <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>pCreateInfos</code>[].surface <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>pCreateInfos</code>[].oldSwapchain <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>pCreateInfos</code>[].oldSwapchain <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -14400,17 +14396,17 @@ member of <code>pAcquireInfo</code>, <code>timeout</code> <strong>must</strong> 
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>semaphore</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>semaphore</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>fence</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>fence</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -15080,17 +15076,17 @@ execution on that queue</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>semaphore</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>semaphore</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>fence</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>fence</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -15363,17 +15359,17 @@ for execution</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>queue</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>queue</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>pPresentInfo-&gt;pWaitSemaphores</code>[] <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>pPresentInfo-&gt;pWaitSemaphores</code>[] <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>pPresentInfo-&gt;pSwapchains</code>[] <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>pPresentInfo-&gt;pSwapchains</code>[] <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -16509,11 +16505,11 @@ The <a href="../features.html#features-presentWait" class="xref page"><code>pres
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -17141,11 +17137,11 @@ All uses of presentable images identified by elements of
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

@@ -329,7 +329,6 @@
     <li><a href="renderpass.html">Render Pass</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/renderpass.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -339,9 +338,6 @@
 <h1 class="page">Render Pass</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/renderpass.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p><a href="drawing.html#drawing" class="xref page">Draw commands</a> <strong>must</strong> be recorded within a <em>render pass
 instance</em>.
@@ -517,14 +513,14 @@ specified by <code>resolveImageLayout</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -793,7 +789,7 @@ If the <code>pNext</code> chain does not contain
 the width of the <code>imageView</code> member of any element of
 <code>pColorAttachments</code>, <code>pDepthAttachment</code>, or
 <code>pStencilAttachment</code> that is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> <strong>must</strong> be
-greater than or equal to <span class="eq"><code>renderArea.offset.x</code> &#43;
+greater than or equal to <span class="eq"><code>renderArea.offset.x</code> + 
 <code>renderArea.extent.width</code></span></p>
 </li>
 <li>
@@ -805,7 +801,7 @@ If the <code>pNext</code> chain does not contain
 the height of the <code>imageView</code> member of any element of
 <code>pColorAttachments</code>, <code>pDepthAttachment</code>, or
 <code>pStencilAttachment</code> that is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> <strong>must</strong> be
-greater than or equal to <span class="eq"><code>renderArea.offset.y</code> &#43;
+greater than or equal to <span class="eq"><code>renderArea.offset.y</code> + 
 <code>renderArea.extent.height</code></span></p>
 </li>
 <li>
@@ -2763,14 +2759,14 @@ within the same subpass</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3693,7 +3689,7 @@ subpass.
 Unlike pipeline barriers, a subpass dependency <strong>can</strong> potentially have a
 different view mask in the source subpass and the destination subpass.
 If the dependency is view-local, then each view (<span class="eq">dstView</span>) in the
-destination subpass depends on the view <span class="eq">dstView &#43;
+destination subpass depends on the view <span class="eq">dstView + 
 <code>pViewOffsets</code>[dependency]</span> in the source subpass.
 If there is not such a view in the source subpass, then this dependency does
 not affect that view in the destination subpass.
@@ -4644,7 +4640,7 @@ specific subpass in the render pass.</p>
 <p><a id="VUID-VkInputAttachmentAspectReference-aspectMask-02250" href="#VUID-VkInputAttachmentAspectReference-aspectMask-02250"></a> <span class="vuid">VUID-VkInputAttachmentAspectReference-aspectMask-02250</span><br>
 
 <code>aspectMask</code> <strong>must</strong> not include
-<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>{ibit}</em>BIT_EXT</code> for any index <em>i</em></p>
+<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> for any index <em>i</em></p>
 </li>
 </ul>
 </div>
@@ -5866,7 +5862,7 @@ attachments that happen to be layers in a single image.
 A view-local dependency between two multiview subpasses acts like a set of
 one-to-one dependencies between corresponding pairs of per-view subpasses.
 A view-global dependency between two multiview subpasses acts like a set of
-<span class="eq">N {times} M</span> dependencies between all pairs of per-view subpasses in
+<span class="eq">N × M</span> dependencies between all pairs of per-view subpasses in
 the source and destination.
 Thus, it is a more compact representation which also makes clear the
 commonality and reuse that is present between views in a subpass.
@@ -6166,14 +6162,14 @@ If the <a href="features.html#features-attachmentFeedbackLoopLayout" class="xref
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -7874,7 +7870,7 @@ is not <code>VK_ATTACHMENT_UNUSED</code>, then the <code>aspectMask</code> membe
 
 If the <code>attachment</code> member of any element of <code>pInputAttachments</code>
 is not <code>VK_ATTACHMENT_UNUSED</code>, then the <code>aspectMask</code> member
-<strong>must</strong> not include <code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>{ibit}</em>BIT_EXT</code> for
+<strong>must</strong> not include <code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> for
 any index <em>i</em></p>
 </li>
 <li>
@@ -7941,7 +7937,7 @@ enabled, <code>pResolveAttachments</code> is not <code>NULL</code>, and any elem
 <code>pResolveAttachments</code> is not <code>VK_ATTACHMENT_UNUSED</code> and has a
 format of <code>VK_FORMAT_UNDEFINED</code>, elements of <code>pInputAttachments</code>
 referencing either a color attachment or resolve attachment used in this
-subpass <strong>must</strong> not include <code>VK_IMAGE_ASPECT_PLANE<em>{ibit}</em>BIT</code> for any
+subpass <strong>must</strong> not include <code>VK_IMAGE_ASPECT_PLANE<em>_i_</em>BIT</code> for any
 index <em>i</em> in its <code>aspectMask</code></p>
 </li>
 </ul>
@@ -9200,11 +9196,11 @@ was created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code><
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>renderPass</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>renderPass</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9677,7 +9673,7 @@ than 0,
 <code>flags</code> does not include <code>VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT</code>,
 an element of <code>pAttachments</code> that is used as a
 <a href="primsrast.html#primsrast-fragment-shading-rate-attachment" class="xref page">fragment shading rate    attachment</a> <strong>must</strong> have a width at least as large as
-<span class="eq">{lceil}<code>width</code> / <code>texelWidth</code>{rceil}</span>, where <code>texelWidth</code>
+<span class="eq">⌈<code>width</code> / <code>texelWidth</code>⌉</span>, where <code>texelWidth</code>
 is the largest value of <code>shadingRateAttachmentTexelSize.width</code> in a
 <a href="#VkFragmentShadingRateAttachmentInfoKHR">VkFragmentShadingRateAttachmentInfoKHR</a> which references that
 attachment</p>
@@ -9695,7 +9691,7 @@ than 0,
 <code>flags</code> does not include <code>VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT</code>,
 an element of <code>pAttachments</code> that is used as a
 <a href="primsrast.html#primsrast-fragment-shading-rate-attachment" class="xref page">fragment shading rate    attachment</a> <strong>must</strong> have a height at least as large as
-<span class="eq">{lceil}<code>height</code> / <code>texelHeight</code>{rceil}</span>, where
+<span class="eq">⌈<code>height</code> / <code>texelHeight</code>⌉</span>, where
 <code>texelHeight</code> is the largest value of
 <code>shadingRateAttachmentTexelSize.height</code> in a
 <a href="#VkFragmentShadingRateAttachmentInfoKHR">VkFragmentShadingRateAttachmentInfoKHR</a> which references that
@@ -9839,8 +9835,8 @@ than 0, and
 <code>width</code> member of any element of the <code>pAttachmentImageInfos</code>
 member of a <a href="#VkFramebufferAttachmentsCreateInfo">VkFramebufferAttachmentsCreateInfo</a> structure in the
 <code>pNext</code> chain that is used as a
-<a href="primsrast.html#primsrast-fragment-shading-rate-attachment" class="xref page">fragment shading rate    attachment</a> <strong>must</strong> be greater than or equal to <span class="eq">{lceil}<code>width</code> /
-<code>texelWidth</code>{rceil}</span>, where <code>texelWidth</code> is the largest value of
+<a href="primsrast.html#primsrast-fragment-shading-rate-attachment" class="xref page">fragment shading rate    attachment</a> <strong>must</strong> be greater than or equal to <span class="eq">⌈<code>width</code> /
+<code>texelWidth</code>⌉</span>, where <code>texelWidth</code> is the largest value of
 <code>shadingRateAttachmentTexelSize.width</code> in a
 <a href="#VkFragmentShadingRateAttachmentInfoKHR">VkFragmentShadingRateAttachmentInfoKHR</a> which references that
 attachment</p>
@@ -9859,8 +9855,8 @@ than 0, and
 <code>height</code> member of any element of the <code>pAttachmentImageInfos</code>
 member of a <a href="#VkFramebufferAttachmentsCreateInfo">VkFramebufferAttachmentsCreateInfo</a> structure in the
 <code>pNext</code> chain that is used as a
-<a href="primsrast.html#primsrast-fragment-shading-rate-attachment" class="xref page">fragment shading rate    attachment</a> <strong>must</strong> be greater than or equal to <span class="eq">{lceil}<code>height</code>
-/ <code>texelHeight</code>{rceil}</span>, where <code>texelHeight</code> is the largest value
+<a href="primsrast.html#primsrast-fragment-shading-rate-attachment" class="xref page">fragment shading rate    attachment</a> <strong>must</strong> be greater than or equal to <span class="eq">⌈<code>height</code>
+/ <code>texelHeight</code>⌉</span>, where <code>texelHeight</code> is the largest value
 of <code>shadingRateAttachmentTexelSize.height</code> in a
 <a href="#VkFragmentShadingRateAttachmentInfoKHR">VkFragmentShadingRateAttachmentInfoKHR</a> which references that
 attachment</p>
@@ -10404,11 +10400,11 @@ was created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code><
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>framebuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>framebuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10823,7 +10819,7 @@ operation is the maximum of the sample values.</p>
 <li>
 <p><code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code> indicates that
 rather than a multisample resolve, a single sampled color attachment
-will be downsampled into a {YCbCr} format image specified by an external
+will be downsampled into a Y′C<sub>B</sub>C<sub>R</sub> format image specified by an external
 Android format.
 Unlike other resolve modes, implementations can resolve multiple times
 during rendering, or even bypass writing to the color attachment
@@ -10853,11 +10849,11 @@ is used.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>No range compression or {YCbCr} model conversion is performed by
+<p>No range compression or Y′C<sub>B</sub>C<sub>R</sub> model conversion is performed by
 <code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>; applications have
 to do these conversions themselves.
 Value outputs are expected to match those that would be read through a
-<a href="textures.html#textures-sampler-YCbCr-conversion-modelconversion" class="xref page">{YCbCr} sampler using <code>VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY</code></a>.
+<a href="textures.html#textures-sampler-YCbCr-conversion-modelconversion" class="xref page">Y′C<sub>B</sub>C<sub>R</sub> sampler using <code>VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY</code></a>.
 The color space that the values should be in is defined by the platform and
 is not exposed via Vulkan.</p>
 </div>
@@ -11203,14 +11199,14 @@ at least one of the following features <strong>must</strong> be enabled:</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11557,14 +11553,14 @@ specified in the <code>framebuffer</code> member of <code>pRenderPassBegin</code
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11777,7 +11773,7 @@ If the <code>pNext</code> chain does not contain
 If the <code>pNext</code> chain does not contain
 <a href="#VkDeviceGroupRenderPassBeginInfo">VkDeviceGroupRenderPassBeginInfo</a> or its
 <code>deviceRenderAreaCount</code> member is equal to 0,
-<span class="eq"><code>renderArea.offset.x</code> &#43; <code>renderArea.extent.width</code></span>
+<span class="eq"><code>renderArea.offset.x</code> +  <code>renderArea.extent.width</code></span>
 <strong>must</strong> be less than or equal to
 <a href="#VkFramebufferCreateInfo">VkFramebufferCreateInfo</a>::<code>width</code> the <code>framebuffer</code> was
 created with</p>
@@ -11788,7 +11784,7 @@ created with</p>
 If the <code>pNext</code> chain does not contain
 <a href="#VkDeviceGroupRenderPassBeginInfo">VkDeviceGroupRenderPassBeginInfo</a> or its
 <code>deviceRenderAreaCount</code> member is equal to 0,
-<span class="eq"><code>renderArea.offset.y</code> &#43; <code>renderArea.extent.height</code></span>
+<span class="eq"><code>renderArea.offset.y</code> +  <code>renderArea.extent.height</code></span>
 <strong>must</strong> be less than or equal to
 <a href="#VkFramebufferCreateInfo">VkFramebufferCreateInfo</a>::<code>height</code> the <code>framebuffer</code> was
 created with</p>
@@ -11797,7 +11793,7 @@ created with</p>
 <p><a id="VUID-VkRenderPassBeginInfo-pNext-02856" href="#VUID-VkRenderPassBeginInfo-pNext-02856"></a> <span class="vuid">VUID-VkRenderPassBeginInfo-pNext-02856</span><br>
 
 If the <code>pNext</code> chain contains
-<a href="#VkDeviceGroupRenderPassBeginInfo">VkDeviceGroupRenderPassBeginInfo</a>, <span class="eq"><code>offset.x</code> &#43;
+<a href="#VkDeviceGroupRenderPassBeginInfo">VkDeviceGroupRenderPassBeginInfo</a>, <span class="eq"><code>offset.x</code> + 
 <code>extent.width</code></span> of each element of <code>pDeviceRenderAreas</code> <strong>must</strong> be
 less than or equal to <a href="#VkFramebufferCreateInfo">VkFramebufferCreateInfo</a>::<code>width</code> the
 <code>framebuffer</code> was created with</p>
@@ -11806,7 +11802,7 @@ less than or equal to <a href="#VkFramebufferCreateInfo">VkFramebufferCreateInfo
 <p><a id="VUID-VkRenderPassBeginInfo-pNext-02857" href="#VUID-VkRenderPassBeginInfo-pNext-02857"></a> <span class="vuid">VUID-VkRenderPassBeginInfo-pNext-02857</span><br>
 
 If the <code>pNext</code> chain contains
-<a href="#VkDeviceGroupRenderPassBeginInfo">VkDeviceGroupRenderPassBeginInfo</a>, <span class="eq"><code>offset.y</code> &#43;
+<a href="#VkDeviceGroupRenderPassBeginInfo">VkDeviceGroupRenderPassBeginInfo</a>, <span class="eq"><code>offset.y</code> + 
 <code>extent.height</code></span> of each element of <code>pDeviceRenderAreas</code> <strong>must</strong>
 be less than or equal to <a href="#VkFramebufferCreateInfo">VkFramebufferCreateInfo</a>::<code>height</code> the
 <code>framebuffer</code> was created with</p>
@@ -13122,14 +13118,14 @@ This command <strong>must</strong> not be recorded when transform feedback is ac
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -13283,14 +13279,14 @@ This command <strong>must</strong> not be recorded when transform feedback is ac
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -13425,14 +13421,14 @@ subsequently within the same subpass</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -13587,14 +13583,14 @@ subsequently within the same subpass</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

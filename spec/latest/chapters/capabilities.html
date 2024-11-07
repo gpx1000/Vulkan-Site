@@ -329,7 +329,6 @@
     <li><a href="capabilities.html">Additional Capabilities</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/capabilities.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -339,9 +338,6 @@
 <h1 class="page">Additional Capabilities</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/capabilities.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>This chapter describes additional capabilities beyond the minimum
 capabilities described in the <a href="limits.html#limits" class="xref page">Limits</a> and <a href="formats.html#formats" class="xref page">Formats</a>
@@ -603,7 +599,7 @@ support is not required</p>
 </li>
 <li>
 <p>image <code>format</code> is one of the
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a     sampler {YCbCr} conversion</a></p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a     sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a></p>
 </li>
 <li>
 <p><code>flags</code> contains <code>VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT</code></p>
@@ -628,7 +624,7 @@ of the following conditions is true, in which case it <strong>may</strong> inste
 </li>
 <li>
 <p><code>format</code> is one of the
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a     sampler {YCbCr} conversion</a></p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a     sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a></p>
 </li>
 </ul>
 </div>
@@ -1663,8 +1659,8 @@ following table:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Handle type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>driverUUID</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>deviceUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>driverUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>deviceUUID</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT</code></p></td>
@@ -2212,7 +2208,7 @@ format.</p>
 <div class="paragraph">
 <p><code>combinedImageSamplerDescriptorCount</code> is a number between 1 and the
 number of planes in the format.
-A descriptor set layout binding with immutable {YCbCr} conversion samplers
+A descriptor set layout binding with immutable Y′C<sub>B</sub>C<sub>R</sub> conversion samplers
 will have a maximum <code>combinedImageSamplerDescriptorCount</code> which is the
 maximum across all formats supported by its samplers of the
 <code>combinedImageSamplerDescriptorCount</code> for each format.
@@ -2258,7 +2254,7 @@ this layout, <code>descriptorCount</code> must be at least <code>24</code>.</p>
 in the descriptor layout, the application <strong>can</strong> use the
 <a href="limits.html#VkPhysicalDeviceMaintenance6PropertiesKHR" class="xref page">VkPhysicalDeviceMaintenance6PropertiesKHR</a>::<code>maxCombinedImageSamplerDescriptorCount</code>
 property to determine the maximum descriptor size that will accommodate any
-and all <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler {YCbCr} conversion</a> supported by the implementation.</p>
+and all <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the implementation.</p>
 </div>
 <div class="openblock">
 <div class="content">
@@ -2645,7 +2641,7 @@ external handle type for which multisampled image support is not
 required.</p>
 </li>
 <li>
-<p><code>format</code> is one of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">    formats that require a sampler {YCbCr} conversion</a></p>
+<p><code>format</code> is one of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">    formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a></p>
 </li>
 <li>
 <p><code>usage</code> contains
@@ -2748,7 +2744,7 @@ values that are at least as large as the required values.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><span class="eq"><code>maxExtent.width</code> {geq}
+<p><span class="eq"><code>maxExtent.width</code> ≥
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension1D</code></span></p>
 </li>
 <li>
@@ -2766,11 +2762,11 @@ values that are at least as large as the required values.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><span class="eq"><code>maxExtent.width</code> {geq}
+<p><span class="eq"><code>maxExtent.width</code> ≥
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension2D</code></span></p>
 </li>
 <li>
-<p><span class="eq"><code>maxExtent.height</code> {geq}
+<p><span class="eq"><code>maxExtent.height</code> ≥
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension2D</code></span></p>
 </li>
 <li>
@@ -2785,11 +2781,11 @@ values that are at least as large as the required values.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><span class="eq"><code>maxExtent.width</code> {geq}
+<p><span class="eq"><code>maxExtent.width</code> ≥
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimensionCube</code></span></p>
 </li>
 <li>
-<p><span class="eq"><code>maxExtent.height</code> {geq}
+<p><span class="eq"><code>maxExtent.height</code> ≥
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimensionCube</code></span></p>
 </li>
 <li>
@@ -2803,15 +2799,15 @@ values that are at least as large as the required values.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><span class="eq"><code>maxExtent.width</code> {geq}
+<p><span class="eq"><code>maxExtent.width</code> ≥
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension3D</code></span></p>
 </li>
 <li>
-<p><span class="eq"><code>maxExtent.height</code> {geq}
+<p><span class="eq"><code>maxExtent.height</code> ≥
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension3D</code></span></p>
 </li>
 <li>
-<p><span class="eq"><code>maxExtent.depth</code> {geq}
+<p><span class="eq"><code>maxExtent.depth</code> ≥
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension3D</code></span></p>
 </li>
 </ul>
@@ -3352,8 +3348,8 @@ following table:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Handle type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>driverUUID</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>deviceUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>driverUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>deviceUUID</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT</code></p></td>
@@ -3822,8 +3818,8 @@ following table:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Handle type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>driverUUID</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>deviceUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>driverUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>deviceUUID</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_FD_BIT</code></p></td>

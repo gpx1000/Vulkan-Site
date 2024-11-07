@@ -329,7 +329,6 @@
     <li><a href="framebuffer.html">The Framebuffer</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/framebuffer.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -337,13 +336,6 @@
 </aside>
 <article class="doc">
 <h1 class="page">The Framebuffer</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/framebuffer.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
-</div>
-</div>
 <div class="sect1">
 <h2 id="framebuffer-blending"><a class="anchor" href="#framebuffer-blending"></a>Blending</h2>
 <div class="sectionbody">
@@ -949,14 +941,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1110,14 +1102,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1459,14 +1451,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1750,14 +1742,14 @@ to create the currently active pipeline.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1967,24 +1959,24 @@ below:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_BLEND_OP_ADD</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">R = R<sub>s0</sub> {times} S<sub>r</sub> &#43; R<sub>d</sub> {times} D<sub>r</sub></span><br>
-  <span class="eq">G = G<sub>s0</sub> {times} S<sub>g</sub> &#43; G<sub>d</sub> {times} D<sub>g</sub></span><br>
-  <span class="eq">B = B<sub>s0</sub> {times} S<sub>b</sub> &#43; B<sub>d</sub> {times} D<sub>b</sub></span></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">A = A<sub>s0</sub> {times} S<sub>a</sub> &#43; A<sub>d</sub> {times} D<sub>a</sub></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">R = R<sub>s0</sub> × S<sub>r</sub> +  R<sub>d</sub> × D<sub>r</sub></span><br>
+  <span class="eq">G = G<sub>s0</sub> × S<sub>g</sub> +  G<sub>d</sub> × D<sub>g</sub></span><br>
+  <span class="eq">B = B<sub>s0</sub> × S<sub>b</sub> +  B<sub>d</sub> × D<sub>b</sub></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">A = A<sub>s0</sub> × S<sub>a</sub> +  A<sub>d</sub> × D<sub>a</sub></span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_BLEND_OP_SUBTRACT</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">R = R<sub>s0</sub> {times} S<sub>r</sub> - R<sub>d</sub> {times} D<sub>r</sub></span><br>
-  <span class="eq">G = G<sub>s0</sub> {times} S<sub>g</sub> - G<sub>d</sub> {times} D<sub>g</sub></span><br>
-  <span class="eq">B = B<sub>s0</sub> {times} S<sub>b</sub> - B<sub>d</sub> {times} D<sub>b</sub></span></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">A = A<sub>s0</sub> {times} S<sub>a</sub> - A<sub>d</sub> {times} D<sub>a</sub></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">R = R<sub>s0</sub> × S<sub>r</sub> - R<sub>d</sub> × D<sub>r</sub></span><br>
+  <span class="eq">G = G<sub>s0</sub> × S<sub>g</sub> - G<sub>d</sub> × D<sub>g</sub></span><br>
+  <span class="eq">B = B<sub>s0</sub> × S<sub>b</sub> - B<sub>d</sub> × D<sub>b</sub></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">A = A<sub>s0</sub> × S<sub>a</sub> - A<sub>d</sub> × D<sub>a</sub></span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_BLEND_OP_REVERSE_SUBTRACT</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">R = R<sub>d</sub> {times} D<sub>r</sub> - R<sub>s0</sub> {times} S<sub>r</sub></span><br>
-  <span class="eq">G = G<sub>d</sub> {times} D<sub>g</sub> - G<sub>s0</sub> {times} S<sub>g</sub></span><br>
-  <span class="eq">B = B<sub>d</sub> {times} D<sub>b</sub> - B<sub>s0</sub> {times} S<sub>b</sub></span></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">A = A<sub>d</sub> {times} D<sub>a</sub> - A<sub>s0</sub> {times} S<sub>a</sub></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">R = R<sub>d</sub> × D<sub>r</sub> - R<sub>s0</sub> × S<sub>r</sub></span><br>
+  <span class="eq">G = G<sub>d</sub> × D<sub>g</sub> - G<sub>s0</sub> × S<sub>g</sub></span><br>
+  <span class="eq">B = B<sub>d</sub> × D<sub>b</sub> - B<sub>s0</sub> × S<sub>b</sub></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">A = A<sub>d</sub> × D<sub>a</sub> - A<sub>s0</sub> × S<sub>a</sub></span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_BLEND_OP_MIN</code></p></td>
@@ -2294,14 +2286,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3168,16 +3160,16 @@ table in which</p>
 <div class="ulist">
 <ul>
 <li>
-<p><span class="eq">{lnot}</span> is bitwise invert,</p>
+<p><span class="eq">¬</span> is bitwise invert,</p>
 </li>
 <li>
-<p><span class="eq">{land}</span> is bitwise and,</p>
+<p><span class="eq">∧</span> is bitwise and,</p>
 </li>
 <li>
-<p><span class="eq">{lor}</span> is bitwise or,</p>
+<p><span class="eq">∨</span> is bitwise or,</p>
 </li>
 <li>
-<p><span class="eq">{oplus}</span> is bitwise exclusive or,</p>
+<p><span class="eq">⊕</span> is bitwise exclusive or,</p>
 </li>
 <li>
 <p><span class="eq">s</span> is the fragment&#8217;s <span class="eq">R<sub>s0</sub>, G<sub>s0</sub>, B<sub>s0</sub></span> or <span class="eq">A<sub>s0</sub></span>
@@ -3209,11 +3201,11 @@ value:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_AND</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">s {land} d</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">s ∧ d</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_AND_REVERSE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">s {land} {lnot} d</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">s ∧ ¬ d</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_COPY</code></p></td>
@@ -3221,7 +3213,7 @@ value:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_AND_INVERTED</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">{lnot} s {land} d</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">¬ s ∧ d</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_NO_OP</code></p></td>
@@ -3229,39 +3221,39 @@ value:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_XOR</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">s {oplus} d</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">s ⊕ d</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_OR</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">s {lor} d</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">s ∨ d</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_NOR</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">{lnot} (s {lor} d)</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">¬ (s ∨ d)</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_EQUIVALENT</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">{lnot} (s {oplus} d)</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">¬ (s ⊕ d)</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_INVERT</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">{lnot} d</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">¬ d</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_OR_REVERSE</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">s {lor} {lnot} d</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">s ∨ ¬ d</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_COPY_INVERTED</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">{lnot} s</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">¬ s</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_OR_INVERTED</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">{lnot} s {lor} d</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">¬ s ∨ d</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_NAND</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">{lnot} (s {land} d)</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">¬ (s ∧ d)</span></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_LOGIC_OP_SET</code></p></td>
@@ -3370,14 +3362,14 @@ If the <a href="features.html#features-logicOp" class="xref page"><code>logicOp<
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3510,14 +3502,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3856,14 +3848,14 @@ be enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

@@ -329,7 +329,6 @@
     <li><a href="copies.html">Copy Commands</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/copies.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -339,9 +338,6 @@
 <h1 class="page">Copy Commands</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/copies.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>An application <strong>can</strong> copy buffer and image data using several methods
 described in this chapter, depending on the type of data transfer.</p>
@@ -547,14 +543,14 @@ contiguously to a single <code>VkDeviceMemory</code> object</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -755,14 +751,14 @@ If <code>commandBuffer</code> is a protected command buffer and
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1349,7 +1345,7 @@ For each element of <code>pRegions</code>, <code>dstSubresource.aspectMask</code
 <p><a id="VUID-vkCmdCopyImage-srcOffset-00144" href="#VUID-vkCmdCopyImage-srcOffset-00144"></a> <span class="vuid">VUID-vkCmdCopyImage-srcOffset-00144</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.x</code> and
-<span class="eq">(<code>extent.width</code> &#43; <code>srcOffset.x</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.width</code> +  <code>srcOffset.x</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the width of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -1357,7 +1353,7 @@ specified <code>srcSubresource</code> of <code>srcImage</code></p>
 <p><a id="VUID-vkCmdCopyImage-srcOffset-00145" href="#VUID-vkCmdCopyImage-srcOffset-00145"></a> <span class="vuid">VUID-vkCmdCopyImage-srcOffset-00145</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.y</code> and
-<span class="eq">(<code>extent.height</code> &#43; <code>srcOffset.y</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.height</code> +  <code>srcOffset.y</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the height of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -1373,7 +1369,7 @@ element of <code>pRegions</code>, <code>srcOffset.y</code> <strong>must</strong>
 
 If <code>srcImage</code> is of type <code>VK_IMAGE_TYPE_3D</code>, then for each
 element of <code>pRegions</code>, <code>srcOffset.z</code> and
-<span class="eq">(<code>extent.depth</code> &#43; <code>srcOffset.z</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.depth</code> +  <code>srcOffset.z</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the depth of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -1479,7 +1475,7 @@ is of type <code>VK_IMAGE_TYPE_3D</code>, then for each element of
 <p><a id="VUID-vkCmdCopyImage-dstOffset-00150" href="#VUID-vkCmdCopyImage-dstOffset-00150"></a> <span class="vuid">VUID-vkCmdCopyImage-dstOffset-00150</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.x</code> and
-<span class="eq">(<code>extent.width</code> &#43; <code>dstOffset.x</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.width</code> +  <code>dstOffset.x</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the width of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -1487,7 +1483,7 @@ specified <code>dstSubresource</code> of <code>dstImage</code></p>
 <p><a id="VUID-vkCmdCopyImage-dstOffset-00151" href="#VUID-vkCmdCopyImage-dstOffset-00151"></a> <span class="vuid">VUID-vkCmdCopyImage-dstOffset-00151</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.y</code> and
-<span class="eq">(<code>extent.height</code> &#43; <code>dstOffset.y</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.height</code> +  <code>dstOffset.y</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the height of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -1503,7 +1499,7 @@ element of <code>pRegions</code>, <code>dstOffset.y</code> <strong>must</strong>
 
 If <code>dstImage</code> is of type <code>VK_IMAGE_TYPE_3D</code>, then for each
 element of <code>pRegions</code>, <code>dstOffset.z</code> and
-<span class="eq">(<code>extent.depth</code> &#43; <code>dstOffset.z</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.depth</code> +  <code>dstOffset.z</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the depth of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -1657,7 +1653,7 @@ The <code>srcSubresource.mipLevel</code> member of each element of
 
 If <code>srcSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>srcSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>srcSubresource.baseArrayLayer</code> + 
 <code>srcSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>srcImage</code> was created</p>
@@ -1692,7 +1688,7 @@ The <code>dstSubresource.mipLevel</code> member of each element of
 
 If <code>dstSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>dstSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>dstSubresource.baseArrayLayer</code> + 
 <code>dstSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>dstImage</code> was created</p>
@@ -1766,14 +1762,14 @@ containing <code>VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1971,7 +1967,7 @@ not contain either of <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> or
 <p><a id="VUID-VkImageSubresourceLayers-aspectMask-02247" href="#VUID-VkImageSubresourceLayers-aspectMask-02247"></a> <span class="vuid">VUID-VkImageSubresourceLayers-aspectMask-02247</span><br>
 
 <code>aspectMask</code> <strong>must</strong> not include
-<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>{ibit}</em>BIT_EXT</code> for any index <em>i</em></p>
+<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> for any index <em>i</em></p>
 </li>
 <li>
 <p><a id="VUID-VkImageSubresourceLayers-layerCount-09243" href="#VUID-VkImageSubresourceLayers-layerCount-09243"></a> <span class="vuid">VUID-VkImageSubresourceLayers-layerCount-09243</span><br>
@@ -2119,14 +2115,14 @@ If <code>commandBuffer</code> is a protected command buffer and
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2425,7 +2421,7 @@ For each element of <code>pRegions</code>, <code>dstSubresource.aspectMask</code
 <p><a id="VUID-VkCopyImageInfo2-srcOffset-00144" href="#VUID-VkCopyImageInfo2-srcOffset-00144"></a> <span class="vuid">VUID-VkCopyImageInfo2-srcOffset-00144</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.x</code> and
-<span class="eq">(<code>extent.width</code> &#43; <code>srcOffset.x</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.width</code> +  <code>srcOffset.x</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the width of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -2433,7 +2429,7 @@ specified <code>srcSubresource</code> of <code>srcImage</code></p>
 <p><a id="VUID-VkCopyImageInfo2-srcOffset-00145" href="#VUID-VkCopyImageInfo2-srcOffset-00145"></a> <span class="vuid">VUID-VkCopyImageInfo2-srcOffset-00145</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.y</code> and
-<span class="eq">(<code>extent.height</code> &#43; <code>srcOffset.y</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.height</code> +  <code>srcOffset.y</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the height of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -2449,7 +2445,7 @@ element of <code>pRegions</code>, <code>srcOffset.y</code> <strong>must</strong>
 
 If <code>srcImage</code> is of type <code>VK_IMAGE_TYPE_3D</code>, then for each
 element of <code>pRegions</code>, <code>srcOffset.z</code> and
-<span class="eq">(<code>extent.depth</code> &#43; <code>srcOffset.z</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.depth</code> +  <code>srcOffset.z</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the depth of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -2555,7 +2551,7 @@ is of type <code>VK_IMAGE_TYPE_3D</code>, then for each element of
 <p><a id="VUID-VkCopyImageInfo2-dstOffset-00150" href="#VUID-VkCopyImageInfo2-dstOffset-00150"></a> <span class="vuid">VUID-VkCopyImageInfo2-dstOffset-00150</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.x</code> and
-<span class="eq">(<code>extent.width</code> &#43; <code>dstOffset.x</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.width</code> +  <code>dstOffset.x</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the width of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -2563,7 +2559,7 @@ specified <code>dstSubresource</code> of <code>dstImage</code></p>
 <p><a id="VUID-VkCopyImageInfo2-dstOffset-00151" href="#VUID-VkCopyImageInfo2-dstOffset-00151"></a> <span class="vuid">VUID-VkCopyImageInfo2-dstOffset-00151</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.y</code> and
-<span class="eq">(<code>extent.height</code> &#43; <code>dstOffset.y</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.height</code> +  <code>dstOffset.y</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the height of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -2579,7 +2575,7 @@ element of <code>pRegions</code>, <code>dstOffset.y</code> <strong>must</strong>
 
 If <code>dstImage</code> is of type <code>VK_IMAGE_TYPE_3D</code>, then for each
 element of <code>pRegions</code>, <code>dstOffset.z</code> and
-<span class="eq">(<code>extent.depth</code> &#43; <code>dstOffset.z</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.depth</code> +  <code>dstOffset.z</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the depth of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -2733,7 +2729,7 @@ The <code>srcSubresource.mipLevel</code> member of each element of
 
 If <code>srcSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>srcSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>srcSubresource.baseArrayLayer</code> + 
 <code>srcSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>srcImage</code> was created</p>
@@ -2768,7 +2764,7 @@ The <code>dstSubresource.mipLevel</code> member of each element of
 
 If <code>dstSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>dstSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>dstSubresource.baseArrayLayer</code> + 
 <code>dstSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>dstImage</code> was created</p>
@@ -2982,58 +2978,58 @@ accessed, where:</p>
 <dt class="hdlist1"></dt>
 <dd>
 <p><span class="eq">x</span> is in the range <span class="eq">[<code>imageOffset.x</code>,
-<code>imageOffset.x</code> &#43; <code>imageExtent.width</code>)</span>,</p>
+<code>imageOffset.x</code> +  <code>imageExtent.width</code>)</span>,</p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
 <p><span class="eq">y</span> is in the range <span class="eq">[<code>imageOffset.y</code>,
-<code>imageOffset.y</code> &#43; <code>imageExtent.height</code>)</span>,</p>
+<code>imageOffset.y</code> +  <code>imageExtent.height</code>)</span>,</p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
 <p><span class="eq">z</span> is in the range <span class="eq">[<code>imageOffset.z</code>,
-<code>imageOffset.z</code> &#43; <code>imageExtent.depth</code>)</span>,</p>
+<code>imageOffset.z</code> +  <code>imageExtent.depth</code>)</span>,</p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
 <p><span class="eq">layer</span> is in the range
 [eq]#[<code>imageSubresource.baseArrayLayer</code>,
-<code>imageSubresource.baseArrayLayer</code> &#43;
+<code>imageSubresource.baseArrayLayer</code> + 
 <code>imageSubresource.layerCount</code>)</p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
 <p>For each <span class="eq">(x,y,z,layer)</span> coordinate in the image, bytes in the buffer
-are accessed at offsets in the range <span class="eq">[texelOffset, texelOffset &#43;
+are accessed at offsets in the range <span class="eq">[texelOffset, texelOffset + 
 blockSize)</span>, where:</p>
 </div>
 <div class="dlist">
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">texelOffset = <code>bufferOffset</code> &#43; ({lfloor}(x -
-imageOffset.x) / blockWidth{rfloor} {times} blockSize) &#43;
-({lfloor}(y - imageOffset.y) / blockHeight{rfloor} {times}
-rowExtent) &#43; ({lfloor}(z - imageOffset.z) /
-blockDepth{rfloor} {times} sliceExtent) &#43; ((layer -
-<code>imageSubresource.baseArrayLayer</code>) {times} layerExtent)</span></p>
+<p><span class="eq">texelOffset = <code>bufferOffset</code> +  (⌊(x -
+imageOffset.x) / blockWidth⌋ × blockSize) + 
+(⌊(y - imageOffset.y) / blockHeight⌋ ×
+rowExtent) +  (⌊(z - imageOffset.z) /
+blockDepth⌋ × sliceExtent) +  ((layer -
+<code>imageSubresource.baseArrayLayer</code>) × layerExtent)</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">rowExtent = {lceil} max(<code>bufferRowLength</code>,
-<code>imageExtent.width</code>) / blockWidth {rceil} {times} blockSize</span></p>
+<p><span class="eq">rowExtent = ⌈ max(<code>bufferRowLength</code>,
+<code>imageExtent.width</code>) / blockWidth ⌉ × blockSize</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">sliceExtent = {lceil} max(<code>bufferImageHeight</code>,
-<code>imageExtent.height</code>) / blockHeight {rceil} {times}
+<p><span class="eq">sliceExtent = ⌈ max(<code>bufferImageHeight</code>,
+<code>imageExtent.height</code>) / blockHeight ⌉ ×
 rowExtent</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">layerExtent = {lceil} <code>imageExtent.depth</code> / blockDepth
-{rceil} {times} sliceExtent</span></p>
+<p><span class="eq">layerExtent = ⌈ <code>imageExtent.depth</code> / blockDepth
+⌉ × sliceExtent</span></p>
 </dd>
 </dl>
 </div>
@@ -3072,13 +3068,13 @@ is performed:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">x'</span> is in the range <span class="eq">[<code>imageOffset.x</code> {minus}
+<p><span class="eq">x'</span> is in the range <span class="eq">[<code>imageOffset.x</code> - 
 <code>imageExtent.height</code>, <code>imageOffset.x</code>)</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
 <p><span class="eq">y'</span> is in the range <span class="eq">[<code>imageOffset.y</code>,
-<code>imageOffset.y</code> &#43; <code>imageExtent.width</code>)</span></p>
+<code>imageOffset.y</code> +  <code>imageExtent.width</code>)</span></p>
 </dd>
 </dl>
 </div>
@@ -3089,12 +3085,12 @@ is performed:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">x'</span> is in the range <span class="eq">[<code>imageOffset.x</code> {minus}
+<p><span class="eq">x'</span> is in the range <span class="eq">[<code>imageOffset.x</code> - 
 <code>imageExtent.width</code>, <code>imageOffset.x</code>)</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">y'</span> is in the range <span class="eq">[<code>imageOffset.y</code> {minus}
+<p><span class="eq">y'</span> is in the range <span class="eq">[<code>imageOffset.y</code> - 
 <code>imageExtent.height</code>, <code>imageOffset.y</code>)</span></p>
 </dd>
 </dl>
@@ -3107,11 +3103,11 @@ is performed:</p>
 <dt class="hdlist1"></dt>
 <dd>
 <p><span class="eq">x'</span> is in the range <span class="eq">[<code>imageOffset.x</code>,
-<code>imageOffset.x</code> &#43; <code>imageExtent.height</code>)</span></p>
+<code>imageOffset.x</code> +  <code>imageExtent.height</code>)</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">y'</span> is in the range <span class="eq">[<code>imageOffset.y</code> {minus}
+<p><span class="eq">y'</span> is in the range <span class="eq">[<code>imageOffset.y</code> - 
 <code>imageExtent.width</code>, <code>imageOffset.y</code>)</span></p>
 </dd>
 </dl>
@@ -3276,7 +3272,7 @@ The <code>imageSubresource.mipLevel</code> member of each element of
 
 If <code>imageSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>imageSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>imageSubresource.baseArrayLayer</code> + 
 <code>imageSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>dstImage</code> was created</p>
@@ -3302,7 +3298,7 @@ contained within the specified <code>imageSubresource</code> of
 <p><a id="VUID-vkCmdCopyBufferToImage-imageSubresource-07971" href="#VUID-vkCmdCopyBufferToImage-imageSubresource-07971"></a> <span class="vuid">VUID-vkCmdCopyBufferToImage-imageSubresource-07971</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.x</code> and
-<span class="eq">(<code>imageExtent.width</code> &#43; <code>imageOffset.x</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.width</code> +  <code>imageOffset.x</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the width
 of the specified <code>imageSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -3310,7 +3306,7 @@ of the specified <code>imageSubresource</code> of <code>dstImage</code></p>
 <p><a id="VUID-vkCmdCopyBufferToImage-imageSubresource-07972" href="#VUID-vkCmdCopyBufferToImage-imageSubresource-07972"></a> <span class="vuid">VUID-vkCmdCopyBufferToImage-imageSubresource-07972</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.y</code> and
-<span class="eq">(<code>imageExtent.height</code> &#43; <code>imageOffset.y</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.height</code> +  <code>imageOffset.y</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the
 height of the specified <code>imageSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -3454,7 +3450,7 @@ element of <code>pRegions</code>, <code>imageOffset.y</code> <strong>must</stron
 <p><a id="VUID-vkCmdCopyBufferToImage-imageOffset-09104" href="#VUID-vkCmdCopyBufferToImage-imageOffset-09104"></a> <span class="vuid">VUID-vkCmdCopyBufferToImage-imageOffset-09104</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.z</code> and
-<span class="eq">(<code>imageExtent.depth</code> &#43; <code>imageOffset.z</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.depth</code> +  <code>imageOffset.z</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the depth
 of the specified <code>imageSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -3746,14 +3742,14 @@ member of any element of <code>pRegions</code> <strong>must</strong> be a multip
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3877,7 +3873,7 @@ The <code>imageSubresource.mipLevel</code> member of each element of
 
 If <code>imageSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>imageSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>imageSubresource.baseArrayLayer</code> + 
 <code>imageSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>srcImage</code> was created</p>
@@ -3903,7 +3899,7 @@ contained within the specified <code>imageSubresource</code> of
 <p><a id="VUID-vkCmdCopyImageToBuffer-imageSubresource-07971" href="#VUID-vkCmdCopyImageToBuffer-imageSubresource-07971"></a> <span class="vuid">VUID-vkCmdCopyImageToBuffer-imageSubresource-07971</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.x</code> and
-<span class="eq">(<code>imageExtent.width</code> &#43; <code>imageOffset.x</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.width</code> +  <code>imageOffset.x</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the width
 of the specified <code>imageSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -3911,7 +3907,7 @@ of the specified <code>imageSubresource</code> of <code>srcImage</code></p>
 <p><a id="VUID-vkCmdCopyImageToBuffer-imageSubresource-07972" href="#VUID-vkCmdCopyImageToBuffer-imageSubresource-07972"></a> <span class="vuid">VUID-vkCmdCopyImageToBuffer-imageSubresource-07972</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.y</code> and
-<span class="eq">(<code>imageExtent.height</code> &#43; <code>imageOffset.y</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.height</code> +  <code>imageOffset.y</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the
 height of the specified <code>imageSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -4038,7 +4034,7 @@ element of <code>pRegions</code>, <code>imageOffset.y</code> <strong>must</stron
 <p><a id="VUID-vkCmdCopyImageToBuffer-imageOffset-09104" href="#VUID-vkCmdCopyImageToBuffer-imageOffset-09104"></a> <span class="vuid">VUID-vkCmdCopyImageToBuffer-imageOffset-09104</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.z</code> and
-<span class="eq">(<code>imageExtent.depth</code> &#43; <code>imageOffset.z</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.depth</code> +  <code>imageOffset.z</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the depth
 of the specified <code>imageSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -4330,14 +4326,14 @@ member of any element of <code>pRegions</code> <strong>must</strong> be a multip
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4620,14 +4616,14 @@ If the queue family used to create the <a href="cmdbuffers.html#VkCommandPool" c
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4857,7 +4853,7 @@ The <code>imageSubresource.mipLevel</code> member of each element of
 
 If <code>imageSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>imageSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>imageSubresource.baseArrayLayer</code> + 
 <code>imageSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>dstImage</code> was created</p>
@@ -4893,7 +4889,7 @@ element of <code>pRegions</code>, <code>imageOffset.y</code> <strong>must</stron
 <p><a id="VUID-VkCopyBufferToImageInfo2-imageOffset-09104" href="#VUID-VkCopyBufferToImageInfo2-imageOffset-09104"></a> <span class="vuid">VUID-VkCopyBufferToImageInfo2-imageOffset-09104</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.z</code> and
-<span class="eq">(<code>imageExtent.depth</code> &#43; <code>imageOffset.z</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.depth</code> +  <code>imageOffset.z</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the depth
 of the specified <code>imageSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -5131,7 +5127,7 @@ member of any element of <code>pRegions</code> <strong>must</strong> be a multip
 
 For each element of <code>pRegions</code> not containing
 <code>VkCopyCommandTransformInfoQCOM</code> in its <code>pNext</code> chain,
-<code>imageOffset.x</code> and <span class="eq">(<code>imageExtent.width</code> &#43;
+<code>imageOffset.x</code> and <span class="eq">(<code>imageExtent.width</code> + 
 <code>imageOffset.x</code>)</span> <strong>must</strong> both be greater than or equal to <code>0</code> and
 less than or equal to the width of the specified <code>imageSubresource</code>
 of <code>dstImage</code></p>
@@ -5141,7 +5137,7 @@ of <code>dstImage</code></p>
 
 For each element of <code>pRegions</code> not containing
 <code>VkCopyCommandTransformInfoQCOM</code> in its <code>pNext</code> chain,
-<code>imageOffset.y</code> and <span class="eq">(<code>imageExtent.height</code> &#43;
+<code>imageOffset.y</code> and <span class="eq">(<code>imageExtent.height</code> + 
 <code>imageOffset.y</code>)</span> <strong>must</strong> both be greater than or equal to <code>0</code> and
 less than or equal to the height of the specified <code>imageSubresource</code>
 of <code>dstImage</code></p>
@@ -5316,14 +5312,14 @@ of <code>commandBuffer</code>&#8217;s command pool&#8217;s queue family, as desc
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5546,7 +5542,7 @@ The <code>imageSubresource.mipLevel</code> member of each element of
 
 If <code>imageSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>imageSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>imageSubresource.baseArrayLayer</code> + 
 <code>imageSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>srcImage</code> was created</p>
@@ -5582,7 +5578,7 @@ element of <code>pRegions</code>, <code>imageOffset.y</code> <strong>must</stron
 <p><a id="VUID-VkCopyImageToBufferInfo2-imageOffset-09104" href="#VUID-VkCopyImageToBufferInfo2-imageOffset-09104"></a> <span class="vuid">VUID-VkCopyImageToBufferInfo2-imageOffset-09104</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.z</code> and
-<span class="eq">(<code>imageExtent.depth</code> &#43; <code>imageOffset.z</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.depth</code> +  <code>imageOffset.z</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the depth
 of the specified <code>imageSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -5820,7 +5816,7 @@ member of any element of <code>pRegions</code> <strong>must</strong> be a multip
 
 For each element of <code>pRegions</code> not containing
 <code>VkCopyCommandTransformInfoQCOM</code> in its <code>pNext</code> chain,
-<code>imageOffset.x</code> and <span class="eq">(<code>imageExtent.width</code> &#43;
+<code>imageOffset.x</code> and <span class="eq">(<code>imageExtent.width</code> + 
 <code>imageOffset.x</code>)</span> <strong>must</strong> both be greater than or equal to <code>0</code> and
 less than or equal to the width of the specified <code>imageSubresource</code>
 of <code>srcImage</code></p>
@@ -5830,7 +5826,7 @@ of <code>srcImage</code></p>
 
 For each element of <code>pRegions</code> not containing
 <code>VkCopyCommandTransformInfoQCOM</code> in its <code>pNext</code> chain,
-<code>imageOffset.y</code> and <span class="eq">(<code>imageExtent.height</code> &#43;
+<code>imageOffset.y</code> and <span class="eq">(<code>imageExtent.height</code> + 
 <code>imageOffset.y</code>)</span> <strong>must</strong> both be greater than or equal to <code>0</code> and
 less than or equal to the height of the specified <code>imageSubresource</code>
 of <code>srcImage</code></p>
@@ -6352,7 +6348,7 @@ The <code>imageSubresource.mipLevel</code> member of each element of
 
 If <code>imageSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>imageSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>imageSubresource.baseArrayLayer</code> + 
 <code>imageSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>dstImage</code> was created</p>
@@ -6378,7 +6374,7 @@ contained within the specified <code>imageSubresource</code> of
 <p><a id="VUID-VkCopyMemoryToImageInfoEXT-imageSubresource-07971" href="#VUID-VkCopyMemoryToImageInfoEXT-imageSubresource-07971"></a> <span class="vuid">VUID-VkCopyMemoryToImageInfoEXT-imageSubresource-07971</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.x</code> and
-<span class="eq">(<code>imageExtent.width</code> &#43; <code>imageOffset.x</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.width</code> +  <code>imageOffset.x</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the width
 of the specified <code>imageSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -6386,7 +6382,7 @@ of the specified <code>imageSubresource</code> of <code>dstImage</code></p>
 <p><a id="VUID-VkCopyMemoryToImageInfoEXT-imageSubresource-07972" href="#VUID-VkCopyMemoryToImageInfoEXT-imageSubresource-07972"></a> <span class="vuid">VUID-VkCopyMemoryToImageInfoEXT-imageSubresource-07972</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.y</code> and
-<span class="eq">(<code>imageExtent.height</code> &#43; <code>imageOffset.y</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.height</code> +  <code>imageOffset.y</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the
 height of the specified <code>imageSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -6415,7 +6411,7 @@ element of <code>pRegions</code>, <code>imageOffset.y</code> <strong>must</stron
 <p><a id="VUID-VkCopyMemoryToImageInfoEXT-imageOffset-09104" href="#VUID-VkCopyMemoryToImageInfoEXT-imageOffset-09104"></a> <span class="vuid">VUID-VkCopyMemoryToImageInfoEXT-imageOffset-09104</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.z</code> and
-<span class="eq">(<code>imageExtent.depth</code> &#43; <code>imageOffset.z</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.depth</code> +  <code>imageOffset.z</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the depth
 of the specified <code>imageSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -7079,7 +7075,7 @@ The <code>imageSubresource.mipLevel</code> member of each element of
 
 If <code>imageSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>imageSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>imageSubresource.baseArrayLayer</code> + 
 <code>imageSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>srcImage</code> was created</p>
@@ -7105,7 +7101,7 @@ contained within the specified <code>imageSubresource</code> of
 <p><a id="VUID-VkCopyImageToMemoryInfoEXT-imageSubresource-07971" href="#VUID-VkCopyImageToMemoryInfoEXT-imageSubresource-07971"></a> <span class="vuid">VUID-VkCopyImageToMemoryInfoEXT-imageSubresource-07971</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.x</code> and
-<span class="eq">(<code>imageExtent.width</code> &#43; <code>imageOffset.x</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.width</code> +  <code>imageOffset.x</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the width
 of the specified <code>imageSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -7113,7 +7109,7 @@ of the specified <code>imageSubresource</code> of <code>srcImage</code></p>
 <p><a id="VUID-VkCopyImageToMemoryInfoEXT-imageSubresource-07972" href="#VUID-VkCopyImageToMemoryInfoEXT-imageSubresource-07972"></a> <span class="vuid">VUID-VkCopyImageToMemoryInfoEXT-imageSubresource-07972</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.y</code> and
-<span class="eq">(<code>imageExtent.height</code> &#43; <code>imageOffset.y</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.height</code> +  <code>imageOffset.y</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the
 height of the specified <code>imageSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -7142,7 +7138,7 @@ element of <code>pRegions</code>, <code>imageOffset.y</code> <strong>must</stron
 <p><a id="VUID-VkCopyImageToMemoryInfoEXT-imageOffset-09104" href="#VUID-VkCopyImageToMemoryInfoEXT-imageOffset-09104"></a> <span class="vuid">VUID-VkCopyImageToMemoryInfoEXT-imageOffset-09104</span><br>
 
 For each element of <code>pRegions</code>, <code>imageOffset.z</code> and
-<span class="eq">(<code>imageExtent.depth</code> &#43; <code>imageOffset.z</code>)</span> <strong>must</strong>
+<span class="eq">(<code>imageExtent.depth</code> +  <code>imageOffset.z</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the depth
 of the specified <code>imageSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -7876,7 +7872,7 @@ The <code>srcSubresource.mipLevel</code> member of each element of
 
 If <code>srcSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>srcSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>srcSubresource.baseArrayLayer</code> + 
 <code>srcSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>srcImage</code> was created</p>
@@ -7902,7 +7898,7 @@ contained within the specified <code>srcSubresource</code> of
 <p><a id="VUID-VkCopyImageToImageInfoEXT-srcSubresource-07971" href="#VUID-VkCopyImageToImageInfoEXT-srcSubresource-07971"></a> <span class="vuid">VUID-VkCopyImageToImageInfoEXT-srcSubresource-07971</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.x</code> and
-<span class="eq">(<code>extent.width</code> &#43; <code>srcOffset.x</code>)</span> <strong>must</strong>
+<span class="eq">(<code>extent.width</code> +  <code>srcOffset.x</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the width
 of the specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -7910,7 +7906,7 @@ of the specified <code>srcSubresource</code> of <code>srcImage</code></p>
 <p><a id="VUID-VkCopyImageToImageInfoEXT-srcSubresource-07972" href="#VUID-VkCopyImageToImageInfoEXT-srcSubresource-07972"></a> <span class="vuid">VUID-VkCopyImageToImageInfoEXT-srcSubresource-07972</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.y</code> and
-<span class="eq">(<code>extent.height</code> &#43; <code>srcOffset.y</code>)</span> <strong>must</strong>
+<span class="eq">(<code>extent.height</code> +  <code>srcOffset.y</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the
 height of the specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -7929,7 +7925,7 @@ element of <code>pRegions</code>, <code>srcOffset.y</code> <strong>must</strong>
 <p><a id="VUID-VkCopyImageToImageInfoEXT-srcOffset-09104" href="#VUID-VkCopyImageToImageInfoEXT-srcOffset-09104"></a> <span class="vuid">VUID-VkCopyImageToImageInfoEXT-srcOffset-09104</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.z</code> and
-<span class="eq">(<code>extent.depth</code> &#43; <code>srcOffset.z</code>)</span> <strong>must</strong>
+<span class="eq">(<code>extent.depth</code> +  <code>srcOffset.z</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the depth
 of the specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -8187,7 +8183,7 @@ The <code>dstSubresource.mipLevel</code> member of each element of
 
 If <code>dstSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>dstSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>dstSubresource.baseArrayLayer</code> + 
 <code>dstSubresource.layerCount</code></span> of each element of <code>pRegions</code>
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>dstImage</code> was created</p>
@@ -8213,7 +8209,7 @@ contained within the specified <code>dstSubresource</code> of
 <p><a id="VUID-VkCopyImageToImageInfoEXT-dstSubresource-07971" href="#VUID-VkCopyImageToImageInfoEXT-dstSubresource-07971"></a> <span class="vuid">VUID-VkCopyImageToImageInfoEXT-dstSubresource-07971</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.x</code> and
-<span class="eq">(<code>extent.width</code> &#43; <code>dstOffset.x</code>)</span> <strong>must</strong>
+<span class="eq">(<code>extent.width</code> +  <code>dstOffset.x</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the width
 of the specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -8221,7 +8217,7 @@ of the specified <code>dstSubresource</code> of <code>dstImage</code></p>
 <p><a id="VUID-VkCopyImageToImageInfoEXT-dstSubresource-07972" href="#VUID-VkCopyImageToImageInfoEXT-dstSubresource-07972"></a> <span class="vuid">VUID-VkCopyImageToImageInfoEXT-dstSubresource-07972</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.y</code> and
-<span class="eq">(<code>extent.height</code> &#43; <code>dstOffset.y</code>)</span> <strong>must</strong>
+<span class="eq">(<code>extent.height</code> +  <code>dstOffset.y</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the
 height of the specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -8240,7 +8236,7 @@ element of <code>pRegions</code>, <code>dstOffset.y</code> <strong>must</strong>
 <p><a id="VUID-VkCopyImageToImageInfoEXT-dstOffset-09104" href="#VUID-VkCopyImageToImageInfoEXT-dstOffset-09104"></a> <span class="vuid">VUID-VkCopyImageToImageInfoEXT-dstOffset-09104</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.z</code> and
-<span class="eq">(<code>extent.depth</code> &#43; <code>dstOffset.z</code>)</span> <strong>must</strong>
+<span class="eq">(<code>extent.depth</code> +  <code>dstOffset.z</code>)</span> <strong>must</strong>
 both be greater than or equal to <code>0</code> and less than or equal to the depth
 of the specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -8616,14 +8612,14 @@ The <a href="cmdbuffers.html#VkCommandPool" class="xref page">VkCommandPool</a> 
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8861,7 +8857,7 @@ was created</p>
 <p><a id="VUID-vkCmdCopyMemoryToImageIndirectNV-layerCount-08764" href="#VUID-vkCmdCopyMemoryToImageIndirectNV-layerCount-08764"></a> <span class="vuid">VUID-vkCmdCopyMemoryToImageIndirectNV-layerCount-08764</span><br>
 
 If <code>layerCount</code> is not <code>VK_REMAINING_ARRAY_LAYERS</code>, the
-specified <code>baseArrayLayer</code> &#43; <code>layerCount</code> of each region
+specified <code>baseArrayLayer</code> +  <code>layerCount</code> of each region
 <strong>must</strong> be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>dstImage</code> was created</p>
 </li>
@@ -8892,7 +8888,7 @@ member of <code>pImageSubresources</code> <strong>must</strong> not be
 <p><a id="VUID-vkCmdCopyMemoryToImageIndirectNV-imageOffset-07675" href="#VUID-vkCmdCopyMemoryToImageIndirectNV-imageOffset-07675"></a> <span class="vuid">VUID-vkCmdCopyMemoryToImageIndirectNV-imageOffset-07675</span><br>
 
 For each region in <code>copyBufferAddress</code>, <code>imageOffset.y</code> and
-<span class="eq">(<code>imageExtent.height</code> &#43; <code>imageOffset.y</code>)</span> <strong>must</strong> both
+<span class="eq">(<code>imageExtent.height</code> +  <code>imageOffset.y</code>)</span> <strong>must</strong> both
 be greater than or equal to <code>0</code> and less than or equal to the height of
 the specified subresource</p>
 </li>
@@ -8962,14 +8958,14 @@ equal to sizeof(<code>VkCopyMemoryToImageIndirectCommandNV</code>)</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9192,15 +9188,15 @@ inverse of the equations described in
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">u<sub>base</sub> = i &#43; {onehalf}</span></p>
+<p><span class="eq">u<sub>base</sub> = i +  ½</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">v<sub>base</sub> = j &#43; {onehalf}</span></p>
+<p><span class="eq">v<sub>base</sub> = j +  ½</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">w<sub>base</sub> = k &#43; {onehalf}</span></p>
+<p><span class="eq">w<sub>base</sub> = k +  ½</span></p>
 </dd>
 </dl>
 </div>
@@ -9247,15 +9243,15 @@ applied to the offset coordinates:</p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">u<sub>scaled</sub> = u<sub>offset</sub> {times} scale<sub>u</sub></span></p>
+<p><span class="eq">u<sub>scaled</sub> = u<sub>offset</sub> × scale<sub>u</sub></span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">v<sub>scaled</sub> = v<sub>offset</sub> {times} scale<sub>v</sub></span></p>
+<p><span class="eq">v<sub>scaled</sub> = v<sub>offset</sub> × scale<sub>v</sub></span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">w<sub>scaled</sub> = w<sub>offset</sub> {times} scale<sub>w</sub></span></p>
+<p><span class="eq">w<sub>scaled</sub> = w<sub>offset</sub> × scale<sub>w</sub></span></p>
 </dd>
 </dl>
 </div>
@@ -9268,15 +9264,15 @@ determine the final unnormalized coordinates used to sample from
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">u = u<sub>scaled</sub> &#43; x<sub>src0</sub></span></p>
+<p><span class="eq">u = u<sub>scaled</sub> +  x<sub>src0</sub></span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">v = v<sub>scaled</sub> &#43; y<sub>src0</sub></span></p>
+<p><span class="eq">v = v<sub>scaled</sub> +  y<sub>src0</sub></span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">w = w<sub>scaled</sub> &#43; z<sub>src0</sub></span></p>
+<p><span class="eq">w = w<sub>scaled</sub> +  z<sub>src0</sub></span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
@@ -9284,7 +9280,7 @@ determine the final unnormalized coordinates used to sample from
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">a = a<sub>offset</sub> &#43; <code>baseArrayCount</code><sub>src</sub></span></p>
+<p><span class="eq">a = a<sub>offset</sub> +  <code>baseArrayCount</code><sub>src</sub></span></p>
 </dd>
 </dl>
 </div>
@@ -9428,7 +9424,7 @@ The <a href="resources.html#resources-image-format-features" class="xref page">f
 <p><a id="VUID-vkCmdBlitImage-srcImage-06421" href="#VUID-vkCmdBlitImage-srcImage-06421"></a> <span class="vuid">VUID-vkCmdBlitImage-srcImage-06421</span><br>
 
 <code>srcImage</code> <strong>must</strong> not use a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">format that requires a    sampler {YCbCr} conversion</a></p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">format that requires a    sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBlitImage-srcImage-00219" href="#VUID-vkCmdBlitImage-srcImage-00219"></a> <span class="vuid">VUID-vkCmdBlitImage-srcImage-00219</span><br>
@@ -9476,7 +9472,7 @@ The <a href="resources.html#resources-image-format-features" class="xref page">f
 <p><a id="VUID-vkCmdBlitImage-dstImage-06422" href="#VUID-vkCmdBlitImage-dstImage-06422"></a> <span class="vuid">VUID-vkCmdBlitImage-dstImage-06422</span><br>
 
 <code>dstImage</code> <strong>must</strong> not use a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">format that requires a    sampler {YCbCr} conversion</a></p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">format that requires a    sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBlitImage-dstImage-00224" href="#VUID-vkCmdBlitImage-dstImage-00224"></a> <span class="vuid">VUID-vkCmdBlitImage-dstImage-00224</span><br>
@@ -9581,7 +9577,7 @@ The <code>dstSubresource.mipLevel</code> member of each element of
 
 If <code>srcSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>srcSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>srcSubresource.baseArrayLayer</code> + 
 <code>srcSubresource.layerCount</code></span> of each element of <code>pRegions</code> <strong>must</strong>
 be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>srcImage</code> was created</p>
@@ -9591,7 +9587,7 @@ be less than or equal to the <code>arrayLayers</code> specified in
 
 If <code>srcSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>dstSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>dstSubresource.baseArrayLayer</code> + 
 <code>dstSubresource.layerCount</code></span> of each element of <code>pRegions</code> <strong>must</strong>
 be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>dstImage</code> was created</p>
@@ -9769,14 +9765,14 @@ If <code>dstImage</code> is of type <code>VK_IMAGE_TYPE_1D</code> or
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10018,14 +10014,14 @@ If <code>commandBuffer</code> is a protected command buffer and
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10166,7 +10162,7 @@ The <a href="resources.html#resources-image-format-features" class="xref page">f
 <p><a id="VUID-VkBlitImageInfo2-srcImage-06421" href="#VUID-VkBlitImageInfo2-srcImage-06421"></a> <span class="vuid">VUID-VkBlitImageInfo2-srcImage-06421</span><br>
 
 <code>srcImage</code> <strong>must</strong> not use a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">format that requires a    sampler {YCbCr} conversion</a></p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">format that requires a    sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a></p>
 </li>
 <li>
 <p><a id="VUID-VkBlitImageInfo2-srcImage-00219" href="#VUID-VkBlitImageInfo2-srcImage-00219"></a> <span class="vuid">VUID-VkBlitImageInfo2-srcImage-00219</span><br>
@@ -10214,7 +10210,7 @@ The <a href="resources.html#resources-image-format-features" class="xref page">f
 <p><a id="VUID-VkBlitImageInfo2-dstImage-06422" href="#VUID-VkBlitImageInfo2-dstImage-06422"></a> <span class="vuid">VUID-VkBlitImageInfo2-dstImage-06422</span><br>
 
 <code>dstImage</code> <strong>must</strong> not use a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">format that requires a    sampler {YCbCr} conversion</a></p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">format that requires a    sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a></p>
 </li>
 <li>
 <p><a id="VUID-VkBlitImageInfo2-dstImage-00224" href="#VUID-VkBlitImageInfo2-dstImage-00224"></a> <span class="vuid">VUID-VkBlitImageInfo2-dstImage-00224</span><br>
@@ -10319,7 +10315,7 @@ The <code>dstSubresource.mipLevel</code> member of each element of
 
 If <code>srcSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>srcSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>srcSubresource.baseArrayLayer</code> + 
 <code>srcSubresource.layerCount</code></span> of each element of <code>pRegions</code> <strong>must</strong>
 be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>srcImage</code> was created</p>
@@ -10329,7 +10325,7 @@ be less than or equal to the <code>arrayLayers</code> specified in
 
 If <code>srcSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>dstSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>dstSubresource.baseArrayLayer</code> + 
 <code>dstSubresource.layerCount</code></span> of each element of <code>pRegions</code> <strong>must</strong>
 be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>dstImage</code> was created</p>
@@ -10768,15 +10764,15 @@ inverse of the equations described in
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">u<sub>base</sub> = i &#43; {onehalf}</span></p>
+<p><span class="eq">u<sub>base</sub> = i +  ½</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">v<sub>base</sub> = j &#43; {onehalf}</span></p>
+<p><span class="eq">v<sub>base</sub> = j +  ½</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">w<sub>base</sub> = k &#43; {onehalf}</span></p>
+<p><span class="eq">w<sub>base</sub> = k +  ½</span></p>
 </dd>
 </dl>
 </div>
@@ -10825,11 +10821,11 @@ rotated, and scaled by the source region.</p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">u<sub>scaled</sub> = u<sub>src_scaled</sub> {times} (x<sub>Src1</sub> - x<sub>Src0</sub>)</span></p>
+<p><span class="eq">u<sub>scaled</sub> = u<sub>src_scaled</sub> × (x<sub>Src1</sub> - x<sub>Src0</sub>)</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">v<sub>scaled</sub> = v<sub>src_scaled</sub> {times} (y<sub>Src1</sub> - y<sub>Src0</sub>)</span></p>
+<p><span class="eq">v<sub>scaled</sub> = v<sub>src_scaled</sub> × (y<sub>Src1</sub> - y<sub>Src0</sub>)</span></p>
 </dd>
 </dl>
 </div>
@@ -10846,7 +10842,7 @@ regions, and applied to the offset coordinate:</p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">w<sub>scaled</sub> = w<sub>offset</sub> {times} scale<sub>w</sub></span></p>
+<p><span class="eq">w<sub>scaled</sub> = w<sub>offset</sub> × scale<sub>w</sub></span></p>
 </dd>
 </dl>
 </div>
@@ -10859,15 +10855,15 @@ determine the final unnormalized coordinates used to sample from
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">u = u<sub>scaled</sub> &#43; x<sub>Src0</sub></span></p>
+<p><span class="eq">u = u<sub>scaled</sub> +  x<sub>Src0</sub></span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">v = v<sub>scaled</sub> &#43; y<sub>Src0</sub></span></p>
+<p><span class="eq">v = v<sub>scaled</sub> +  y<sub>Src0</sub></span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">w = w<sub>scaled</sub> &#43; z<sub>Src0</sub></span></p>
+<p><span class="eq">w = w<sub>scaled</sub> +  z<sub>Src0</sub></span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
@@ -10875,7 +10871,7 @@ determine the final unnormalized coordinates used to sample from
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">a = a<sub>offset</sub> &#43; <code>baseArrayCount</code><sub>src</sub></span></p>
+<p><span class="eq">a = a<sub>offset</sub> +  <code>baseArrayCount</code><sub>src</sub></span></p>
 </dd>
 </dl>
 </div>
@@ -11099,7 +11095,7 @@ The <code>dstSubresource.mipLevel</code> member of each element of
 
 If <code>srcSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>srcSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>srcSubresource.baseArrayLayer</code> + 
 <code>srcSubresource.layerCount</code></span> of each element of <code>pRegions</code> <strong>must</strong>
 be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>srcImage</code> was created</p>
@@ -11109,7 +11105,7 @@ be less than or equal to the <code>arrayLayers</code> specified in
 
 If <code>dstSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>dstSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>dstSubresource.baseArrayLayer</code> + 
 <code>dstSubresource.layerCount</code></span> of each element of <code>pRegions</code> <strong>must</strong>
 be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>dstImage</code> was created</p>
@@ -11137,7 +11133,7 @@ element of <code>pRegions</code>, <code>dstSubresource.baseArrayLayer</code> <st
 <p><a id="VUID-vkCmdResolveImage-srcOffset-00269" href="#VUID-vkCmdResolveImage-srcOffset-00269"></a> <span class="vuid">VUID-vkCmdResolveImage-srcOffset-00269</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.x</code> and
-<span class="eq">(<code>extent.width</code> &#43; <code>srcOffset.x</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.width</code> +  <code>srcOffset.x</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the width of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -11145,7 +11141,7 @@ specified <code>srcSubresource</code> of <code>srcImage</code></p>
 <p><a id="VUID-vkCmdResolveImage-srcOffset-00270" href="#VUID-vkCmdResolveImage-srcOffset-00270"></a> <span class="vuid">VUID-vkCmdResolveImage-srcOffset-00270</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.y</code> and
-<span class="eq">(<code>extent.height</code> &#43; <code>srcOffset.y</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.height</code> +  <code>srcOffset.y</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the height of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -11160,7 +11156,7 @@ element of <code>pRegions</code>, <code>srcOffset.y</code> <strong>must</strong>
 <p><a id="VUID-vkCmdResolveImage-srcOffset-00272" href="#VUID-vkCmdResolveImage-srcOffset-00272"></a> <span class="vuid">VUID-vkCmdResolveImage-srcOffset-00272</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.z</code> and
-<span class="eq">(<code>extent.depth</code> &#43; <code>srcOffset.z</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.depth</code> +  <code>srcOffset.z</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the depth of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -11175,7 +11171,7 @@ If <code>srcImage</code> is of type <code>VK_IMAGE_TYPE_1D</code> or
 <p><a id="VUID-vkCmdResolveImage-dstOffset-00274" href="#VUID-vkCmdResolveImage-dstOffset-00274"></a> <span class="vuid">VUID-vkCmdResolveImage-dstOffset-00274</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.x</code> and
-<span class="eq">(<code>extent.width</code> &#43; <code>dstOffset.x</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.width</code> +  <code>dstOffset.x</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the width of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -11183,7 +11179,7 @@ specified <code>dstSubresource</code> of <code>dstImage</code></p>
 <p><a id="VUID-vkCmdResolveImage-dstOffset-00275" href="#VUID-vkCmdResolveImage-dstOffset-00275"></a> <span class="vuid">VUID-vkCmdResolveImage-dstOffset-00275</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.y</code> and
-<span class="eq">(<code>extent.height</code> &#43; <code>dstOffset.y</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.height</code> +  <code>dstOffset.y</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the height of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -11198,7 +11194,7 @@ element of <code>pRegions</code>, <code>dstOffset.y</code> <strong>must</strong>
 <p><a id="VUID-vkCmdResolveImage-dstOffset-00277" href="#VUID-vkCmdResolveImage-dstOffset-00277"></a> <span class="vuid">VUID-vkCmdResolveImage-dstOffset-00277</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.z</code> and
-<span class="eq">(<code>extent.depth</code> &#43; <code>dstOffset.z</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.depth</code> +  <code>dstOffset.z</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the depth of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -11296,14 +11292,14 @@ The <a href="resources.html#resources-image-format-features" class="xref page">f
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11541,14 +11537,14 @@ If <code>commandBuffer</code> is a protected command buffer and
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11757,7 +11753,7 @@ The <code>dstSubresource.mipLevel</code> member of each element of
 
 If <code>srcSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>srcSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>srcSubresource.baseArrayLayer</code> + 
 <code>srcSubresource.layerCount</code></span> of each element of <code>pRegions</code> <strong>must</strong>
 be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>srcImage</code> was created</p>
@@ -11767,7 +11763,7 @@ be less than or equal to the <code>arrayLayers</code> specified in
 
 If <code>dstSubresource.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
-<span class="eq"><code>dstSubresource.baseArrayLayer</code> &#43;
+<span class="eq"><code>dstSubresource.baseArrayLayer</code> + 
 <code>dstSubresource.layerCount</code></span> of each element of <code>pRegions</code> <strong>must</strong>
 be less than or equal to the <code>arrayLayers</code> specified in
 <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>dstImage</code> was created</p>
@@ -11795,7 +11791,7 @@ element of <code>pRegions</code>, <code>dstSubresource.baseArrayLayer</code> <st
 <p><a id="VUID-VkResolveImageInfo2-srcOffset-00269" href="#VUID-VkResolveImageInfo2-srcOffset-00269"></a> <span class="vuid">VUID-VkResolveImageInfo2-srcOffset-00269</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.x</code> and
-<span class="eq">(<code>extent.width</code> &#43; <code>srcOffset.x</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.width</code> +  <code>srcOffset.x</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the width of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -11803,7 +11799,7 @@ specified <code>srcSubresource</code> of <code>srcImage</code></p>
 <p><a id="VUID-VkResolveImageInfo2-srcOffset-00270" href="#VUID-VkResolveImageInfo2-srcOffset-00270"></a> <span class="vuid">VUID-VkResolveImageInfo2-srcOffset-00270</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.y</code> and
-<span class="eq">(<code>extent.height</code> &#43; <code>srcOffset.y</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.height</code> +  <code>srcOffset.y</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the height of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -11818,7 +11814,7 @@ element of <code>pRegions</code>, <code>srcOffset.y</code> <strong>must</strong>
 <p><a id="VUID-VkResolveImageInfo2-srcOffset-00272" href="#VUID-VkResolveImageInfo2-srcOffset-00272"></a> <span class="vuid">VUID-VkResolveImageInfo2-srcOffset-00272</span><br>
 
 For each element of <code>pRegions</code>, <code>srcOffset.z</code> and
-<span class="eq">(<code>extent.depth</code> &#43; <code>srcOffset.z</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.depth</code> +  <code>srcOffset.z</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the depth of the
 specified <code>srcSubresource</code> of <code>srcImage</code></p>
 </li>
@@ -11833,7 +11829,7 @@ If <code>srcImage</code> is of type <code>VK_IMAGE_TYPE_1D</code> or
 <p><a id="VUID-VkResolveImageInfo2-dstOffset-00274" href="#VUID-VkResolveImageInfo2-dstOffset-00274"></a> <span class="vuid">VUID-VkResolveImageInfo2-dstOffset-00274</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.x</code> and
-<span class="eq">(<code>extent.width</code> &#43; <code>dstOffset.x</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.width</code> +  <code>dstOffset.x</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the width of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -11841,7 +11837,7 @@ specified <code>dstSubresource</code> of <code>dstImage</code></p>
 <p><a id="VUID-VkResolveImageInfo2-dstOffset-00275" href="#VUID-VkResolveImageInfo2-dstOffset-00275"></a> <span class="vuid">VUID-VkResolveImageInfo2-dstOffset-00275</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.y</code> and
-<span class="eq">(<code>extent.height</code> &#43; <code>dstOffset.y</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.height</code> +  <code>dstOffset.y</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the height of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -11856,7 +11852,7 @@ element of <code>pRegions</code>, <code>dstOffset.y</code> <strong>must</strong>
 <p><a id="VUID-VkResolveImageInfo2-dstOffset-00277" href="#VUID-VkResolveImageInfo2-dstOffset-00277"></a> <span class="vuid">VUID-VkResolveImageInfo2-dstOffset-00277</span><br>
 
 For each element of <code>pRegions</code>, <code>dstOffset.z</code> and
-<span class="eq">(<code>extent.depth</code> &#43; <code>dstOffset.z</code>)</span> <strong>must</strong> both be
+<span class="eq">(<code>extent.depth</code> +  <code>dstOffset.z</code>)</span> <strong>must</strong> both be
 greater than or equal to <code>0</code> and less than or equal to the depth of the
 specified <code>dstSubresource</code> of <code>dstImage</code></p>
 </li>
@@ -12320,14 +12316,14 @@ contiguously to a single <code>VkDeviceMemory</code> object</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12611,14 +12607,14 @@ contiguously to a single <code>VkDeviceMemory</code> object</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

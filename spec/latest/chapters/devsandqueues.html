@@ -329,7 +329,6 @@
     <li><a href="devsandqueues.html">Devices and Queues</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/devsandqueues.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -339,9 +338,6 @@
 <h1 class="page">Devices and Queues</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/devsandqueues.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>Once Vulkan is initialized, devices and queues are the primary objects used
 to interact with a Vulkan implementation.</p>
@@ -744,7 +740,7 @@ typedef enum VkVendorId {
 <p>Khronos vendor IDs may be allocated by vendors at any time.
 Only the latest canonical versions of this Specification, of the
 corresponding <code>vk.xml</code> API Registry, and of the corresponding
-<code>{core_header}</code> header file <strong>must</strong> contain all reserved Khronos vendor IDs.</p>
+<code>vulkan_core.h</code> header file <strong>must</strong> contain all reserved Khronos vendor IDs.</p>
 </div>
 <div class="paragraph">
 <p>Only Khronos vendor IDs are given symbolic names at present.
@@ -2515,7 +2511,7 @@ There may be multiple driver IDs for the same vendor, representing different
 drivers (for e.g. different platforms, proprietary or open source, etc.).
 Only the latest canonical versions of this Specification, of the
 corresponding <code>vk.xml</code> API Registry, and of the corresponding
-<code>{core_header}</code> header file <strong>must</strong> contain all reserved Khronos driver IDs.</p>
+<code>vulkan_core.h</code> header file <strong>must</strong> contain all reserved Khronos driver IDs.</p>
 </div>
 <div class="paragraph">
 <p>Only driver IDs registered with Khronos are given symbolic names.
@@ -3591,19 +3587,19 @@ respectively.</p>
 </li>
 <li>
 <p><code>width</code> of a <a href="fundamentals.html#VkExtent3D" class="xref page">VkExtent3D</a> parameter <strong>must</strong> be an integer
-multiple of <span class="eq">A<sub>x</sub></span>, or else <span class="eq"><code>x</code> &#43; <code>width</code></span> <strong>must</strong>
+multiple of <span class="eq">A<sub>x</sub></span>, or else <span class="eq"><code>x</code> +  <code>width</code></span> <strong>must</strong>
 equal the width of the image subresource corresponding to the
 parameter.</p>
 </li>
 <li>
 <p><code>height</code> of a <a href="fundamentals.html#VkExtent3D" class="xref page">VkExtent3D</a> parameter <strong>must</strong> be an integer
-multiple of <span class="eq">A<sub>y</sub></span>, or else <span class="eq"><code>y</code> &#43; <code>height</code></span> <strong>must</strong>
+multiple of <span class="eq">A<sub>y</sub></span>, or else <span class="eq"><code>y</code> +  <code>height</code></span> <strong>must</strong>
 equal the height of the image subresource corresponding to the
 parameter.</p>
 </li>
 <li>
 <p><code>depth</code> of a <a href="fundamentals.html#VkExtent3D" class="xref page">VkExtent3D</a> parameter <strong>must</strong> be an integer
-multiple of <span class="eq">A<sub>z</sub></span>, or else <span class="eq"><code>z</code> &#43; <code>depth</code></span> <strong>must</strong>
+multiple of <span class="eq">A<sub>z</sub></span>, or else <span class="eq"><code>z</code> +  <code>depth</code></span> <strong>must</strong>
 equal the depth of the image subresource corresponding to the
 parameter.</p>
 </li>
@@ -6576,14 +6572,14 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>device</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>device</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} all <code>VkQueue</code> objects created from <code>device</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to all <code>VkQueue</code> objects created from <code>device</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

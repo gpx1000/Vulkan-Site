@@ -329,7 +329,6 @@
     <li><a href="generatedcommands.html">Device-Generated Commands</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/device_generated_commands/generatedcommands.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -339,9 +338,6 @@
 <h1 class="page">Device-Generated Commands</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/device_generated_commands/generatedcommands.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>This chapter discusses the generation of command buffer content on the
 device, for which these principle steps are to be taken:</p>
@@ -1043,11 +1039,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>indirectCommandsLayout</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>indirectCommandsLayout</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1567,11 +1563,11 @@ feature <strong>must</strong> be enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>indirectCommandsLayout</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>indirectCommandsLayout</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3639,7 +3635,7 @@ that contained the
 <li>
 <p><a id="VUID-VkGeneratedCommandsMemoryRequirementsInfoEXT-maxDrawCount-11146" href="#VUID-VkGeneratedCommandsMemoryRequirementsInfoEXT-maxDrawCount-11146"></a> <span class="vuid">VUID-VkGeneratedCommandsMemoryRequirementsInfoEXT-maxDrawCount-11146</span><br>
 
-When not ignored, <span class="eq"><code>maxDrawCount</code> {times}
+When not ignored, <span class="eq"><code>maxDrawCount</code> ×
 <code>maxSequenceCount</code></span> <strong>must</strong> be less than <span class="eq">2^24</span></p>
 </li>
 <li>
@@ -4898,11 +4894,11 @@ have completed execution</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>indirectExecutionSet</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>indirectExecutionSet</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5233,11 +5229,11 @@ use of <code>StencilExportEXT</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>indirectExecutionSet</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>indirectExecutionSet</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5373,11 +5369,11 @@ its use of <code>StencilExportEXT</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>indirectExecutionSet</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>indirectExecutionSet</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5868,7 +5864,7 @@ a protected resource</p>
 
 If <a href="../shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="../samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="../resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -5877,7 +5873,7 @@ instructions</p>
 
 If <a href="../shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="../samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="../resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -8819,7 +8815,7 @@ or
 If <a href="../framebuffer.html#framebuffer-blending" class="xref page">blending</a> is enabled for any attachment where
 either the source or destination blend factors for that attachment
 <a href="../framebuffer.html#framebuffer-dsb" class="xref page">use the secondary color input</a>, the maximum value of
-<code>Location</code> for any output attachment <a href="../shaders.html#shaders-staticuse" class="xref page">statically    used</a> in the <code>Fragment</code> {ExecutionModel} executed by this command
+<code>Location</code> for any output attachment <a href="../shaders.html#shaders-staticuse" class="xref page">statically    used</a> in the <code>Fragment</code> <code>Execution</code> <code>Model</code> executed by this command
 <strong>must</strong> be less than <a href="../limits.html#limits-maxFragmentDualSrcAttachments" class="xref page">    <code>maxFragmentDualSrcAttachments</code></a></p>
 </li>
 <li>
@@ -8948,7 +8944,7 @@ or
     the bound graphics pipeline state was created with the
     <code>VK_DYNAMIC_STATE_VERTEX_INPUT_EXT</code> dynamic state enabled
     then all variables with the <code>Input</code> storage class decorated with
-    <code>Location</code> in the <code>Vertex</code> {ExecutionModel} <code>OpEntryPoint</code>
+    <code>Location</code> in the <code>Vertex</code> <code>Execution</code> <code>Model</code> <code>OpEntryPoint</code>
     <strong>must</strong> contain a location in
     <a href="../fxvertex.html#VkVertexInputAttributeDescription2EXT" class="xref page">VkVertexInputAttributeDescription2EXT</a>::<code>location</code></p>
 </li>
@@ -8963,10 +8959,10 @@ or
     <code>VK_DYNAMIC_STATE_VERTEX_INPUT_EXT</code> dynamic state enabled
     and either <a href="../features.html#features-legacyVertexAttributes" class="xref page">    <code>legacyVertexAttributes</code></a> is not enabled or the SPIR-V Type
     associated with a given <code>Input</code> variable of the corresponding
-    <code>Location</code> in the <code>Vertex</code> {ExecutionModel} <code>OpEntryPoint</code> is
+    <code>Location</code> in the <code>Vertex</code> <code>Execution</code> <code>Model</code> <code>OpEntryPoint</code> is
     64-bit,
     then the numeric type associated with all <code>Input</code> variables of the
-    corresponding <code>Location</code> in the <code>Vertex</code> {ExecutionModel}
+    corresponding <code>Location</code> in the <code>Vertex</code> <code>Execution</code> <code>Model</code>
     <code>OpEntryPoint</code> <strong>must</strong> be the same as
     <a href="../fxvertex.html#VkVertexInputAttributeDescription2EXT" class="xref page">VkVertexInputAttributeDescription2EXT</a>::<code>format</code></p>
 </li>
@@ -8982,7 +8978,7 @@ or
     and <a href="../fxvertex.html#VkVertexInputAttributeDescription2EXT" class="xref page">VkVertexInputAttributeDescription2EXT</a>::<code>format</code> has a
     64-bit component, then the scalar width associated with all <code>Input</code>
     variables of the corresponding <code>Location</code> in the <code>Vertex</code>
-    {ExecutionModel} <code>OpEntryPoint</code> <strong>must</strong> be 64-bit</p>
+    <code>Execution</code> <code>Model</code> <code>OpEntryPoint</code> <strong>must</strong> be 64-bit</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-format-08937" href="#VUID-vkCmdExecuteGeneratedCommandsNV-format-08937"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-format-08937</span><br>
@@ -8994,7 +8990,7 @@ or
     the bound graphics pipeline state was created with the
     <code>VK_DYNAMIC_STATE_VERTEX_INPUT_EXT</code> dynamic state enabled
     and the scalar width associated with a <code>Location</code> decorated
-    <code>Input</code> variable in the <code>Vertex</code> {ExecutionModel}
+    <code>Input</code> variable in the <code>Vertex</code> <code>Execution</code> <code>Model</code>
     <code>OpEntryPoint</code> is 64-bit, then the corresponding
     <a href="../fxvertex.html#VkVertexInputAttributeDescription2EXT" class="xref page">VkVertexInputAttributeDescription2EXT</a>::<code>format</code> <strong>must</strong> have a
     64-bit component</p>
@@ -9010,7 +9006,7 @@ or
     <code>VK_DYNAMIC_STATE_VERTEX_INPUT_EXT</code> dynamic state enabled
     and <a href="../fxvertex.html#VkVertexInputAttributeDescription2EXT" class="xref page">VkVertexInputAttributeDescription2EXT</a>::<code>format</code> has a
     64-bit component, then all <code>Input</code> variables at the corresponding
-    <code>Location</code> in the <code>Vertex</code> {ExecutionModel} <code>OpEntryPoint</code>
+    <code>Location</code> in the <code>Vertex</code> <code>Execution</code> <code>Model</code> <code>OpEntryPoint</code>
     <strong>must</strong> not use components that are not present in the format</p>
 </li>
 <li>
@@ -9148,14 +9144,14 @@ feature <strong>must</strong> be enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9466,7 +9462,7 @@ single <code>VkDeviceMemory</code> object</p>
 If the <code>indirectCommandsLayout</code> uses a token of
 <code>VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_TASKS_NV</code>, then the
 <code>pipeline</code> <strong>must</strong> contain a shader stage using the <code>MeshNV</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-VkGeneratedCommandsInfoNV-indirectCommandsLayout-07079" href="#VUID-VkGeneratedCommandsInfoNV-indirectCommandsLayout-07079"></a> <span class="vuid">VUID-VkGeneratedCommandsInfoNV-indirectCommandsLayout-07079</span><br>
@@ -9474,7 +9470,7 @@ If the <code>indirectCommandsLayout</code> uses a token of
 If the <code>indirectCommandsLayout</code> uses a token of
 <code>VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV</code>, then the
 <code>pipeline</code> <strong>must</strong> contain a shader stage using the <code>MeshEXT</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 </ul>
 </div>
@@ -9659,14 +9655,14 @@ feature <strong>must</strong> be enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10230,7 +10226,7 @@ a protected resource</p>
 
 If <a href="../shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="../samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="../resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -10239,7 +10235,7 @@ instructions</p>
 
 If <a href="../shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="../samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="../resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -13181,7 +13177,7 @@ or
 If <a href="../framebuffer.html#framebuffer-blending" class="xref page">blending</a> is enabled for any attachment where
 either the source or destination blend factors for that attachment
 <a href="../framebuffer.html#framebuffer-dsb" class="xref page">use the secondary color input</a>, the maximum value of
-<code>Location</code> for any output attachment <a href="../shaders.html#shaders-staticuse" class="xref page">statically    used</a> in the <code>Fragment</code> {ExecutionModel} executed by this command
+<code>Location</code> for any output attachment <a href="../shaders.html#shaders-staticuse" class="xref page">statically    used</a> in the <code>Fragment</code> <code>Execution</code> <code>Model</code> executed by this command
 <strong>must</strong> be less than <a href="../limits.html#limits-maxFragmentDualSrcAttachments" class="xref page">    <code>maxFragmentDualSrcAttachments</code></a></p>
 </li>
 <li>
@@ -13450,14 +13446,14 @@ If a rendering pass is currently active, the view mask <strong>must</strong> be 
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -13737,7 +13733,7 @@ then it <strong>must</strong> be bound completely and contiguously to a single
 <li>
 <p><a id="VUID-VkGeneratedCommandsInfoEXT-maxDrawCount-11078" href="#VUID-VkGeneratedCommandsInfoEXT-maxDrawCount-11078"></a> <span class="vuid">VUID-VkGeneratedCommandsInfoEXT-maxDrawCount-11078</span><br>
 
-When not ignored, <span class="eq"><code>maxDrawCount</code> {times}
+When not ignored, <span class="eq"><code>maxDrawCount</code> ×
 <code>maxSequenceCount</code></span> <strong>must</strong> be less than <span class="eq">2^24</span></p>
 </li>
 <li>
@@ -13999,17 +13995,17 @@ Only stages specified in <a href="../limits.html#limits-supportedIndirectCommand
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>stateCommandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>stateCommandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

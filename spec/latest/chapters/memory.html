@@ -329,7 +329,6 @@
     <li><a href="memory.html">Memory Allocation</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/memory.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -339,9 +338,6 @@
 <h1 class="page">Memory Allocation</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/memory.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>Vulkan memory is broken up into two categories, <em>host memory</em> and <em>device
 memory</em>.</p>
@@ -5868,7 +5864,7 @@ Images from Android hardware buffers with a format other than
 from <a href="formats.html#vkGetPhysicalDeviceFormatProperties2" class="xref page">vkGetPhysicalDeviceFormatProperties2</a>, and
 <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties2" class="xref page">vkGetPhysicalDeviceImageFormatProperties2</a> with appropriate parameters.
 These sets of features are independent of each other, e.g. the external
-format will support sampler {YCbCr} conversion even if the non-external
+format will support sampler Y′C<sub>B</sub>C<sub>R</sub> conversion even if the non-external
 format does not, and rendering directly to the external format will not be
 supported even if the non-external format does support this.</p>
 </div>
@@ -5908,7 +5904,7 @@ numerical range, or chroma offsets of the image contents, so the values in
 Applications <strong>should</strong> treat these values as sensible defaults to use in the
 absence of more reliable information obtained through some other means.
 If the underlying physical device is also usable via OpenGL ES with the
-{GLregistry}/OES/OES_EGL_image_external.txt[<code>GL_OES_EGL_image_external</code>]
+<a href="https://registry.khronos.org/OpenGL/extensions/OES/OES_EGL_image_external.txt"><code>GL_OES_EGL_image_external</code></a>
 extension, the implementation <strong>should</strong> suggest values that will produce
 similar sampled values as would be obtained by sampling the same external
 image via <code>samplerExternalOES</code> in OpenGL ES using equivalent sampler
@@ -5923,7 +5919,7 @@ parameters.</p>
 <td class="content">
 <div class="paragraph">
 <p>Since
-{GLregistry}/OES/OES_EGL_image_external.txt[<code>GL_OES_EGL_image_external</code>]
+<a href="https://registry.khronos.org/OpenGL/extensions/OES/OES_EGL_image_external.txt"><code>GL_OES_EGL_image_external</code></a>
 does not require the same sampling and conversion calculations as Vulkan
 does, achieving identical results between APIs <strong>may</strong> not be possible on some
 implementations.</p>
@@ -8695,11 +8691,11 @@ buffers) <strong>must</strong> have completed execution</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>memory</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>memory</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8929,11 +8925,11 @@ less than or equal to the size of the <code>memory</code> minus <code>offset</co
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>memory</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>memory</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9297,11 +9293,11 @@ object <strong>must</strong> not have been imported from a handle type of
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>memory</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>memory</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9997,11 +9993,11 @@ with an empty <code>pNext</code> chain and <code>flags</code> set to zero.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>memory</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>memory</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10177,11 +10173,11 @@ memory object <strong>must</strong> not have been imported from a handle type of
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>memory</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>memory</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10653,7 +10649,7 @@ since the image contents are in a possibly proprietary representation,
 images with external formats <strong>must</strong> have optimal tiling, and their use is
 restricted.
 Images with external formats <strong>must</strong> only be sampled with a sampler that has
-{YCbCr} conversion enabled.</p>
+Y′C<sub>B</sub>C<sub>R</sub> conversion enabled.</p>
 </div>
 <div class="paragraph">
 <p>Images that will be backed by an Android hardware buffer <strong>can</strong> use an
@@ -11012,7 +11008,7 @@ video decoders or cameras.
 Vulkan <strong>can</strong> import QNX Screen buffers that have external formats, but since
 the image contents are in an undiscoverable and possibly proprietary
 representation, images with external formats <strong>must</strong> only be used as sampled
-images, <strong>must</strong> only be sampled with a sampler that has {YCbCr} conversion
+images, <strong>must</strong> only be sampled with a sampler that has Y′C<sub>B</sub>C<sub>R</sub> conversion
 enabled, and <strong>must</strong> have optimal tiling.</p>
 </div>
 <div class="paragraph">

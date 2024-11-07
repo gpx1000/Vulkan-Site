@@ -329,7 +329,6 @@
     <li><a href="features.html">Features</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/features.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -339,9 +338,6 @@
 <h1 class="page">Features</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/features.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p><em>Features</em> advertise additional functionality which <strong>can</strong> be enabled in the
 API.
@@ -1986,9 +1982,9 @@ supported.</p>
 <li>
 <p><a id="features-samplerYcbcrConversion"></a>
 <code>samplerYcbcrConversion</code> specifies whether the implementation
-supports <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>.
-If <code>samplerYcbcrConversion</code> is <code>VK_FALSE</code>, sampler {YCbCr}
-conversion is not supported, and samplers using sampler {YCbCr}
+supports <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>.
+If <code>samplerYcbcrConversion</code> is <code>VK_FALSE</code>, sampler Y′C<sub>B</sub>C<sub>R</sub>
+conversion is not supported, and samplers using sampler Y′C<sub>B</sub>C<sub>R</sub>
 conversion <strong>must</strong> not be used.</p>
 </li>
 <li>
@@ -3903,9 +3899,9 @@ structure.</p>
 <li>
 <p><a id="extension-features-samplerYcbcrConversion"></a>
 <code>samplerYcbcrConversion</code> specifies whether the implementation
-supports <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>.
-If <code>samplerYcbcrConversion</code> is <code>VK_FALSE</code>, sampler {YCbCr}
-conversion is not supported, and samplers using sampler {YCbCr}
+supports <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>.
+If <code>samplerYcbcrConversion</code> is <code>VK_FALSE</code>, sampler Y′C<sub>B</sub>C<sub>R</sub>
+conversion is not supported, and samplers using sampler Y′C<sub>B</sub>C<sub>R</sub>
 conversion <strong>must</strong> not be used.</p>
 </li>
 </ul>
@@ -6815,7 +6811,7 @@ structure.</p>
 <li>
 <p><a id="features-ycbcrImageArrays"></a> <code>ycbcrImageArrays</code> indicates that the
 implementation supports creating images with a format that requires
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">{YCbCr} conversion</a> and
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">Y′C<sub>B</sub>C<sub>R</sub> conversion</a> and
 has multiple array layers.</p>
 </li>
 </ul>
@@ -10033,7 +10029,7 @@ from images will return zero values, with <span class="eq">(0,0,1)</span> values
 <a href="textures.html#textures-conversion-to-rgba" class="xref page">inserted for missing G, B, or A    components</a> based on the format.</p>
 </li>
 <li>
-<p>[[{vuprefix}features-nullDescriptor]] <code>nullDescriptor</code> indicates
+<p><a id="features-nullDescriptor"></a> <code>nullDescriptor</code> indicates
 whether descriptors <strong>can</strong> be written with a <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> resource
 or view, which are considered valid to access and act as if the
 descriptor were bound to nothing.</p>
@@ -11597,7 +11593,7 @@ structure.</p>
 </li>
 <li>
 <p><a id="features-ycbcr2plane444Formats"></a> <code>ycbcr2plane444Formats</code> indicates
-that the implementation supports the following 2-plane 444 {YCbCr}
+that the implementation supports the following 2-plane 444 Y′C<sub>B</sub>C<sub>R</sub>
 formats:</p>
 <div class="ulist">
 <ul>
@@ -13000,7 +12996,7 @@ the <code>layerCount</code> member of <code>subresourceRange</code> is greater t
 <li>
 <p><a href="limits.html#VkPhysicalDeviceMaintenance6PropertiesKHR" class="xref page">VkPhysicalDeviceMaintenance6PropertiesKHR</a>::<code>maxCombinedImageSamplerDescriptorCount</code>
 property which indicates the maximum descriptor size required for any
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">format that requires a     sampler {YCbCr} conversion</a> supported by the implementation.</p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">format that requires a     sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the implementation.</p>
 </li>
 <li>
 <p>A
@@ -13232,7 +13228,7 @@ structure.</p>
 <code>formatRgba10x6WithoutYCbCrSampler</code> indicates that
 <code>VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16</code> <strong>can</strong> be used with a
 <code>VkImageView</code> with <code>subresourceRange.aspectMask</code> equal to
-<code>VK_IMAGE_ASPECT_COLOR_BIT</code> without a <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">    sampler {YCbCr} conversion</a> enabled.</p>
+<code>VK_IMAGE_ASPECT_COLOR_BIT</code> without a <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">    sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> enabled.</p>
 </li>
 </ul>
 </div>
@@ -14265,7 +14261,7 @@ structure.</p>
 <p><a id="features-shaderEarlyAndLateFragmentTests"></a>
 <code>shaderEarlyAndLateFragmentTests</code> indicates whether the
 implementation supports the <code>EarlyAndLateFragmentTestsAMD</code>
-{ExecutionMode}.</p>
+<code>Execution</code> <code>Mode</code>.</p>
 </li>
 </ul>
 </div>
@@ -15980,7 +15976,7 @@ structure.</p>
 </li>
 <li>
 <p><a id="features-ycbcrDegamma"></a> <code>ycbcrDegamma</code> indicates whether the
-implementation supports <a href="textures.html#textures-ycbcr-degamma" class="xref page">{YCbCr} degamma</a>.</p>
+implementation supports <a href="textures.html#textures-ycbcr-degamma" class="xref page">Y′C<sub>B</sub>C<sub>R</sub> degamma</a>.</p>
 </li>
 </ul>
 </div>

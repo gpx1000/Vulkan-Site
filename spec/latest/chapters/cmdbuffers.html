@@ -329,7 +329,6 @@
     <li><a href="cmdbuffers.html">Command Buffers</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/cmdbuffers.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -339,9 +338,6 @@
 <h1 class="page">Command Buffers</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/cmdbuffers.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -902,11 +898,11 @@ cost of trimming is &#8220;worth&#8221; it.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandPool</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1019,11 +1015,11 @@ not be in the <a href="#commandbuffers-lifecycle">pending state</a></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandPool</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1191,11 +1187,11 @@ was created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code><
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandPool</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1295,11 +1291,11 @@ contents.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>pAllocateInfo-&gt;commandPool</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>pAllocateInfo-&gt;commandPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1505,14 +1501,14 @@ created with the <code>VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT</code></p
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1682,14 +1678,14 @@ which <strong>must</strong> either be a valid handle or <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandPool</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} each member of <code>pCommandBuffers</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to each member of <code>pCommandBuffers</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1794,14 +1790,14 @@ If <code>commandBuffer</code> is a primary command buffer, then
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2544,7 +2540,7 @@ state is not inherited.</p>
 </li>
 <li>
 <p>If the provisional inherited state is a viewport, with <span class="eq">n</span> being its
-viewport index, then if <span class="eq">n {geq} <code>viewportDepthCount</code></span>, or if
+viewport index, then if <span class="eq">n ≥ <code>viewportDepthCount</code></span>, or if
 either <a href="vertexpostproc.html#VkViewport" class="xref page">VkViewport</a>::<code>minDepth</code> or
 <a href="vertexpostproc.html#VkViewport" class="xref page">VkViewport</a>::<code>maxDepth</code> are not equal to the respective values
 of the <span class="eq">n<sup>th</sup></span> element of <code>pViewportDepths</code>, then the state is
@@ -3062,14 +3058,14 @@ an outstanding <a href="debugging.html#vkCmdDebugMarkerBeginEXT" class="xref pag
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3399,14 +3395,14 @@ any element of <code>pSubmits</code> <strong>must</strong> not include
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>queue</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>queue</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>fence</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>fence</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4402,14 +4398,14 @@ its <code>pNext</code> chain with <code>protectedSubmit</code> equal to <code>VK
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>queue</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>queue</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>fence</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>fence</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6268,14 +6264,14 @@ the current state of <code>commandBuffer</code> <strong>must</strong> match</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6592,14 +6588,14 @@ render pass instance began recording</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
