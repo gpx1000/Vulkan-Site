@@ -329,6 +329,7 @@
     <li><a href="fxvertex.html">Fixed-Function Vertex Processing</a></li>
   </ul>
 </nav>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/fxvertex.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -338,6 +339,9 @@
 <h1 class="page">Fixed-Function Vertex Processing</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/fxvertex.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>Vertex fetching is controlled via configurable state, as a logically
 distinct graphics pipeline stage.</p>
@@ -1290,14 +1294,14 @@ distinct attribute locations</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1607,7 +1611,7 @@ updated by the command.</p>
 <div class="paragraph">
 <p>The values taken from elements <span class="eq">i</span> of <code>pBuffers</code> and <code>pOffsets</code>
 replace the current state for the vertex input binding
-<span class="eq"><code>firstBinding</code> +  i</span>, for <span class="eq">i</span> in <span class="eq">[0,
+<span class="eq"><code>firstBinding</code> &#43; i</span>, for <span class="eq">i</span> in <span class="eq">[0,
 <code>bindingCount</code>)</span>.
 The vertex input binding is updated to start at the offset indicated by
 <code>pOffsets</code>[i] from the start of the buffer <code>pBuffers</code>[i].
@@ -1717,14 +1721,14 @@ corresponding element of <code>pOffsets</code> <strong>must</strong> be zero</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1832,7 +1836,7 @@ vertex data bound from <code>pBuffers</code>.</p>
 <div class="paragraph">
 <p>The values taken from elements <span class="eq">i</span> of <code>pBuffers</code> and <code>pOffsets</code>
 replace the current state for the vertex input binding
-<span class="eq"><code>firstBinding</code> +  i</span>, for <span class="eq">i</span> in <span class="eq">[0,
+<span class="eq"><code>firstBinding</code> &#43; i</span>, for <span class="eq">i</span> in <span class="eq">[0,
 <code>bindingCount</code>)</span>.
 The vertex input binding is updated to start at the offset indicated by
 <code>pOffsets</code>[i] from the start of the buffer <code>pBuffers</code>[i].
@@ -2020,14 +2024,14 @@ extent is calculated as the
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

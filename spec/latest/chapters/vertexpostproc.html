@@ -329,6 +329,7 @@
     <li><a href="vertexpostproc.html">Fixed-Function Vertex Post-Processing</a></li>
   </ul>
 </nav>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/vertexpostproc.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -338,6 +339,9 @@
 <h1 class="page">Fixed-Function Vertex Post-Processing</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/vertexpostproc.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>After <a href="pipelines.html#pipelines-graphics-subsets-pre-rasterization" class="xref page">pre-rasterization shader stages</a>, the following fixed-function operations are applied to
 vertices of the resulting primitives:</p>
@@ -593,7 +597,7 @@ offset.</p>
 <div class="paragraph">
 <p>The values taken from elements <span class="eq">i</span> of <code>pBuffers</code>, <code>pOffsets</code> and
 <code>pSizes</code> replace the current state for the transform feedback binding
-<span class="eq"><code>firstBinding</code> +  i</span>, for <span class="eq">i</span> in <span class="eq">[0,
+<span class="eq"><code>firstBinding</code> &#43; i</span>, for <span class="eq">i</span> in <span class="eq">[0,
 <code>bindingCount</code>)</span>.
 The transform feedback binding is updated to start at the offset indicated
 by <code>pOffsets</code>[i] from the start of the buffer <code>pBuffers</code>[i].</p>
@@ -720,14 +724,14 @@ Transform feedback <strong>must</strong> not be active when the
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -964,14 +968,14 @@ with multiview enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1170,14 +1174,14 @@ containing
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1434,14 +1438,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1632,12 +1636,12 @@ the provoking vertex is determined by the <a href="drawing.html#drawing-primitiv
 the <a href="drawing.html#drawing" class="xref page">drawing command</a>.</p>
 </div>
 <div class="paragraph">
-<p>If a shader using <code>MeshNV</code> <code>Execution</code> <code>Model</code> is active, the provoking
+<p>If a shader using <code>MeshNV</code> {ExecutionModel} is active, the provoking
 vertex is determined by the <a href="drawing.html#drawing-primitive-topologies" class="xref page">primitive topology</a> defined by the <a href="drawing.html#drawing-point-lists" class="xref page"><code>OutputPoints</code></a>,
 <a href="drawing.html#drawing-line-lists" class="xref page"><code>OutputLinesNV</code></a>, or <a href="drawing.html#drawing-triangle-lists" class="xref page"><code>OutputTrianglesNV</code></a> execution mode.</p>
 </div>
 <div class="paragraph">
-<p>If a shader using <code>MeshEXT</code> <code>Execution</code> <code>Model</code> is active, the provoking
+<p>If a shader using <code>MeshEXT</code> {ExecutionModel} is active, the provoking
 vertex is determined by the <a href="drawing.html#drawing-primitive-topologies" class="xref page">primitive topology</a> defined by the <a href="drawing.html#drawing-point-lists" class="xref page"><code>OutputPoints</code></a>,
 <a href="drawing.html#drawing-line-lists" class="xref page"><code>OutputLinesEXT</code></a>, or <a href="drawing.html#drawing-triangle-lists" class="xref page"><code>OutputTrianglesEXT</code></a> execution mode.</p>
 </div>
@@ -1871,14 +1875,14 @@ If <code>provokingVertexMode</code> is
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1976,7 +1980,7 @@ inequality</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">c<sub>i</sub>(<strong>P</strong>) ≥ 0</span></p>
+<p><span class="eq">c<sub>i</sub>(<strong>P</strong>) {geq} 0</span></p>
 </dd>
 </dl>
 </div>
@@ -2103,14 +2107,14 @@ If the <a href="features.html#features-depthClamp" class="xref page"><code>depth
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2247,14 +2251,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2302,7 +2306,7 @@ Secondary</p></td>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">z<sub>m</sub> ≤ z<sub>c</sub> ≤ w<sub>c</sub></span></p>
+<p><span class="eq">z<sub>m</sub> {leq} z<sub>c</sub> {leq} w<sub>c</sub></span></p>
 </dd>
 </dl>
 </div>
@@ -2369,7 +2373,7 @@ A clipped line segment endpoint lies on both the original line segment and
 the boundary of the clip volume.</p>
 </div>
 <div class="paragraph">
-<p>This clipping produces a value, <span class="eq">0 ≤ t ≤ 1</span>, for each clipped
+<p>This clipping produces a value, <span class="eq">0 {leq} t {leq} 1</span>, for each clipped
 vertex.
 If the coordinates of a clipped vertex are <span class="eq"><strong>P</strong></span> and the unclipped
 line segment&#8217;s vertex coordinates are <span class="eq"><strong>P</strong><sub>1</sub></span> and <span class="eq"><strong>P</strong><sub>2</sub></span>,
@@ -2379,7 +2383,7 @@ then <span class="eq">t</span> satisfies the following equation</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><strong>P</strong> = t <strong>P</strong><sub>1</sub> +  (1-t) <strong>P</strong><sub>2</sub></span>.</p>
+<p><span class="eq"><strong>P</strong> = t <strong>P</strong><sub>1</sub> &#43; (1-t) <strong>P</strong><sub>2</sub></span>.</p>
 </dd>
 </dl>
 </div>
@@ -2568,14 +2572,14 @@ be enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2639,7 +2643,7 @@ associated with <span class="eq"><strong>P</strong></span> as</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><strong>c</strong> = t <strong>c</strong><sub>1</sub> +  (1-t) <strong>c</strong><sub>2</sub></span>.</p>
+<p><span class="eq"><strong>c</strong> = t <strong>c</strong><sub>1</sub> &#43; (1-t) <strong>c</strong><sub>2</sub></span>.</p>
 </dd>
 </dl>
 </div>
@@ -2691,7 +2695,7 @@ follows.</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">w<sub>c</sub>' = x<sub>coeff</sub> x<sub>c</sub> +  y<sub>coeff</sub> y<sub>c</sub> +  w<sub>c</sub></span></p>
+<p><span class="eq">w<sub>c</sub>' = x<sub>coeff</sub> x<sub>c</sub> &#43; y<sub>coeff</sub> y<sub>c</sub> &#43; w<sub>c</sub></span></p>
 </dd>
 </dl>
 </div>
@@ -2853,14 +2857,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2940,7 +2944,7 @@ updated by the command.</p>
 <div class="paragraph">
 <p>The viewport parameters taken from element <span class="eq">i</span> of
 <code>pViewportWScalings</code> replace the current state for the viewport index
-<span class="eq"><code>firstViewport</code> +  i</span>, for <span class="eq">i</span> in <span class="eq">[0,
+<span class="eq"><code>firstViewport</code> &#43; i</span>, for <span class="eq">i</span> in <span class="eq">[0,
 <code>viewportCount</code>)</span>.</p>
 </div>
 <div class="paragraph">
@@ -3003,14 +3007,14 @@ The sum of <code>firstViewport</code> and <code>viewportCount</code> <strong>mus
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3138,19 +3142,19 @@ The transformed vertex in clip coordinates has a position given by</p>
 <div class="ulist">
 <ul>
 <li>
-<p><em><span class="eq">θ</span></em> is 0 degrees for
+<p><em><span class="eq">{theta}</span></em> is 0 degrees for
 <code>VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR</code></p>
 </li>
 <li>
-<p><em><span class="eq">θ</span></em> is 90 degrees for
+<p><em><span class="eq">{theta}</span></em> is 90 degrees for
 <code>VK_SURFACE_TRANSFORM_ROTATE_90_BIT_KHR</code></p>
 </li>
 <li>
-<p><em><span class="eq">θ</span></em> is 180 degrees for
+<p><em><span class="eq">{theta}</span></em> is 180 degrees for
 <code>VK_SURFACE_TRANSFORM_ROTATE_180_BIT_KHR</code></p>
 </li>
 <li>
-<p><em><span class="eq">θ</span></em> is 270 degrees for
+<p><em><span class="eq">{theta}</span></em> is 270 degrees for
 <code>VK_SURFACE_TRANSFORM_ROTATE_270_BIT_KHR</code></p>
 </li>
 </ul>
@@ -3233,15 +3237,15 @@ The vertex&#8217;s framebuffer coordinates <span class="eq">(x<sub>f</sub>, y<su
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">x<sub>f</sub> = (p<sub>x</sub> / 2) x<sub>d</sub> +  o<sub>x</sub></span></p>
+<p><span class="eq">x<sub>f</sub> = (p<sub>x</sub> / 2) x<sub>d</sub> &#43; o<sub>x</sub></span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">y<sub>f</sub> = (p<sub>y</sub> / 2) y<sub>d</sub> +  o<sub>y</sub></span></p>
+<p><span class="eq">y<sub>f</sub> = (p<sub>y</sub> / 2) y<sub>d</sub> &#43; o<sub>y</sub></span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">z<sub>f</sub> = p<sub>z</sub> × z<sub>d</sub> +  o<sub>z</sub></span></p>
+<p><span class="eq">z<sub>f</sub> = p<sub>z</sub> {times} z<sub>d</sub> &#43; o<sub>z</sub></span></p>
 </dd>
 </dl>
 </div>
@@ -3349,14 +3353,14 @@ The <code>x</code> and <code>y</code> members of <code>offset</code> member of a
 <li>
 <p><a id="VUID-VkPipelineViewportStateCreateInfo-offset-02822" href="#VUID-VkPipelineViewportStateCreateInfo-offset-02822"></a> <span class="vuid">VUID-VkPipelineViewportStateCreateInfo-offset-02822</span><br>
 
-Evaluation of <span class="eq">(<code>offset.x</code> +  <code>extent.width</code>)</span> <strong>must</strong> not
+Evaluation of <span class="eq">(<code>offset.x</code> &#43; <code>extent.width</code>)</span> <strong>must</strong> not
 cause a signed integer addition overflow for any element of
 <code>pScissors</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineViewportStateCreateInfo-offset-02823" href="#VUID-VkPipelineViewportStateCreateInfo-offset-02823"></a> <span class="vuid">VUID-VkPipelineViewportStateCreateInfo-offset-02823</span><br>
 
-Evaluation of <span class="eq">(<code>offset.y</code> +  <code>extent.height</code>)</span> <strong>must</strong>
+Evaluation of <span class="eq">(<code>offset.y</code> &#43; <code>extent.height</code>)</span> <strong>must</strong>
 not cause a signed integer addition overflow for any element of
 <code>pScissors</code></p>
 </li>
@@ -3559,14 +3563,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3706,14 +3710,14 @@ The <code>x</code> and <code>y</code> members of <code>offset</code> member of a
 <li>
 <p><a id="VUID-vkCmdSetScissorWithCount-offset-03400" href="#VUID-vkCmdSetScissorWithCount-offset-03400"></a> <span class="vuid">VUID-vkCmdSetScissorWithCount-offset-03400</span><br>
 
-Evaluation of <span class="eq">(<code>offset.x</code> +  <code>extent.width</code>)</span> <strong>must</strong> not
+Evaluation of <span class="eq">(<code>offset.x</code> &#43; <code>extent.width</code>)</span> <strong>must</strong> not
 cause a signed integer addition overflow for any element of
 <code>pScissors</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetScissorWithCount-offset-03401" href="#VUID-vkCmdSetScissorWithCount-offset-03401"></a> <span class="vuid">VUID-vkCmdSetScissorWithCount-offset-03401</span><br>
 
-Evaluation of <span class="eq">(<code>offset.y</code> +  <code>extent.height</code>)</span> <strong>must</strong>
+Evaluation of <span class="eq">(<code>offset.y</code> &#43; <code>extent.height</code>)</span> <strong>must</strong>
 not cause a signed integer addition overflow for any element of
 <code>pScissors</code></p>
 </li>
@@ -3763,14 +3767,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3900,7 +3904,7 @@ create the currently active pipeline.</p>
 <div class="paragraph">
 <p>The viewport parameters taken from element <span class="eq">i</span> of <code>pViewports</code>
 replace the current state for the viewport index <span class="eq"><code>firstViewport</code>
-+  i</span>, for <span class="eq">i</span> in <span class="eq">[0, <code>viewportCount</code>)</span>.</p>
+&#43; i</span>, for <span class="eq">i</span> in <span class="eq">[0, <code>viewportCount</code>)</span>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -3971,14 +3975,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4076,7 +4080,7 @@ either a fixed-point or floating-point representation.
 However, a floating-point representation <strong>must</strong> be used if the depth/stencil
 attachment has a floating-point depth component.
 If an <span class="eq">m</span>-bit fixed-point representation is used, we assume that it
-represents each value <span class="steminline"> <svg style="vertical-align: -0.912ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="4.966ex" height="2.913ex" role="img" focusable="false" viewBox="0 -884.7 2194.9 1287.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mi" transform="translate(913.3,394) scale(0.707)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g><g data-mml-node="mrow" transform="translate(220,-345) scale(0.707)"><g data-mml-node="msup"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(533,289) scale(0.707)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(1203.8,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1981.8,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><rect width="1954.9" height="60" x="120" y="220"></rect></g></g></g></svg> </span>, where <span class="eq">k ∈ {
+represents each value <span class="steminline"> <svg style="vertical-align: -0.912ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="4.966ex" height="2.913ex" role="img" focusable="false" viewBox="0 -884.7 2194.9 1287.7"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mfrac"><g data-mml-node="mi" transform="translate(913.3,394) scale(0.707)"><path data-c="1D458" d="M121 647Q121 657 125 670T137 683Q138 683 209 688T282 694Q294 694 294 686Q294 679 244 477Q194 279 194 272Q213 282 223 291Q247 309 292 354T362 415Q402 442 438 442Q468 442 485 423T503 369Q503 344 496 327T477 302T456 291T438 288Q418 288 406 299T394 328Q394 353 410 369T442 390L458 393Q446 405 434 405H430Q398 402 367 380T294 316T228 255Q230 254 243 252T267 246T293 238T320 224T342 206T359 180T365 147Q365 130 360 106T354 66Q354 26 381 26Q429 26 459 145Q461 153 479 153H483Q499 153 499 144Q499 139 496 130Q455 -11 378 -11Q333 -11 305 15T277 90Q277 108 280 121T283 145Q283 167 269 183T234 206T200 217T182 220H180Q168 178 159 139T145 81T136 44T129 20T122 7T111 -2Q98 -11 83 -11Q66 -11 57 -1T48 16Q48 26 85 176T158 471L195 616Q196 629 188 632T149 637H144Q134 637 131 637T124 640T121 647Z"></path></g><g data-mml-node="mrow" transform="translate(220,-345) scale(0.707)"><g data-mml-node="msup"><g data-mml-node="mn"><path data-c="32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path></g><g data-mml-node="mi" transform="translate(533,289) scale(0.707)"><path data-c="1D45A" d="M21 287Q22 293 24 303T36 341T56 388T88 425T132 442T175 435T205 417T221 395T229 376L231 369Q231 367 232 367L243 378Q303 442 384 442Q401 442 415 440T441 433T460 423T475 411T485 398T493 385T497 373T500 364T502 357L510 367Q573 442 659 442Q713 442 746 415T780 336Q780 285 742 178T704 50Q705 36 709 31T724 26Q752 26 776 56T815 138Q818 149 821 151T837 153Q857 153 857 145Q857 144 853 130Q845 101 831 73T785 17T716 -10Q669 -10 648 17T627 73Q627 92 663 193T700 345Q700 404 656 404H651Q565 404 506 303L499 291L466 157Q433 26 428 16Q415 -11 385 -11Q372 -11 364 -4T353 8T350 18Q350 29 384 161L420 307Q423 322 423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 181Q151 335 151 342Q154 357 154 369Q154 405 129 405Q107 405 92 377T69 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(1203.8,0)"><path data-c="2212" d="M84 237T84 250T98 270H679Q694 262 694 250T679 230H98Q84 237 84 250Z"></path></g><g data-mml-node="mn" transform="translate(1981.8,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g><rect width="1954.9" height="60" x="120" y="220"></rect></g></g></g></svg> </span>, where <span class="eq">k {elem} {
 0, 1, &#8230;&#8203;, 2<sup>m</sup>-1 }</span>, as <span class="eq">k</span> (e.g. 1.0 is represented in binary as a
 string of all ones).</p>
 </div>
@@ -4088,11 +4092,11 @@ values as</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">o<sub>x</sub> = <code>x</code> +  <code>width</code> / 2</span></p>
+<p><span class="eq">o<sub>x</sub> = <code>x</code> &#43; <code>width</code> / 2</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">o<sub>y</sub> = <code>y</code> +  <code>height</code> / 2</span></p>
+<p><span class="eq">o<sub>y</sub> = <code>y</code> &#43; <code>height</code> / 2</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
@@ -4182,7 +4186,7 @@ The absolute value of <code>height</code> <strong>must</strong> be less than or 
 <li>
 <p><a id="VUID-VkViewport-x-01232" href="#VUID-VkViewport-x-01232"></a> <span class="vuid">VUID-VkViewport-x-01232</span><br>
 
-<span class="eq">(<code>x</code> +  <code>width</code>)</span> <strong>must</strong> be less than or equal to
+<span class="eq">(<code>x</code> &#43; <code>width</code>)</span> <strong>must</strong> be less than or equal to
 <code>viewportBoundsRange</code>[1]</p>
 </li>
 <li>
@@ -4198,13 +4202,13 @@ The absolute value of <code>height</code> <strong>must</strong> be less than or 
 <li>
 <p><a id="VUID-VkViewport-y-01777" href="#VUID-VkViewport-y-01777"></a> <span class="vuid">VUID-VkViewport-y-01777</span><br>
 
-<span class="eq">(<code>y</code> +  <code>height</code>)</span> <strong>must</strong> be greater than or equal to
+<span class="eq">(<code>y</code> &#43; <code>height</code>)</span> <strong>must</strong> be greater than or equal to
 <code>viewportBoundsRange</code>[0]</p>
 </li>
 <li>
 <p><a id="VUID-VkViewport-y-01233" href="#VUID-VkViewport-y-01233"></a> <span class="vuid">VUID-VkViewport-y-01233</span><br>
 
-<span class="eq">(<code>y</code> +  <code>height</code>)</span> <strong>must</strong> be less than or equal to
+<span class="eq">(<code>y</code> &#43; <code>height</code>)</span> <strong>must</strong> be less than or equal to
 <code>viewportBoundsRange</code>[1]</p>
 </li>
 <li>

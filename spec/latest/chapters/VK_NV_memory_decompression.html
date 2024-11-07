@@ -329,6 +329,7 @@
     <li><a href="VK_NV_memory_decompression.html">Memory Decompression</a></li>
   </ul>
 </nav>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/VK_NV_memory_decompression.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -336,6 +337,9 @@
 </aside>
 <article class="doc">
 <h1 class="page">Memory Decompression</h1>
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/VK_NV_memory_decompression.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -426,14 +430,14 @@ The <a href="features.html#features-memoryDecompression" class="xref page"><code
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -527,7 +531,7 @@ The <code>srcAddress</code> <strong>must</strong> be 4 byte aligned</p>
 <li>
 <p><a id="VUID-VkDecompressMemoryRegionNV-srcAddress-07686" href="#VUID-VkDecompressMemoryRegionNV-srcAddress-07686"></a> <span class="vuid">VUID-VkDecompressMemoryRegionNV-srcAddress-07686</span><br>
 
-The memory in range <code>srcAddress</code> and <code>srcAddress</code> + 
+The memory in range <code>srcAddress</code> and <code>srcAddress</code> &#43;
 <code>compressedSize</code> <strong>must</strong> be valid and bound to a <code>VkDeviceMemory</code>
 object</p>
 </li>
@@ -546,7 +550,7 @@ If <code>decompressionMethod</code> is
 <li>
 <p><a id="VUID-VkDecompressMemoryRegionNV-dstAddress-07688" href="#VUID-VkDecompressMemoryRegionNV-dstAddress-07688"></a> <span class="vuid">VUID-VkDecompressMemoryRegionNV-dstAddress-07688</span><br>
 
-The memory in range <code>dstAddress</code> and <code>dstAddress</code> + 
+The memory in range <code>dstAddress</code> and <code>dstAddress</code> &#43;
 <code>decompressedSize</code> <strong>must</strong> be valid and bound to a
 <code>VkDeviceMemory</code> object</p>
 </li>
@@ -564,9 +568,9 @@ The <code>decompressionMethod</code> <strong>must</strong> have a single bit set
 <li>
 <p><a id="VUID-VkDecompressMemoryRegionNV-srcAddress-07691" href="#VUID-VkDecompressMemoryRegionNV-srcAddress-07691"></a> <span class="vuid">VUID-VkDecompressMemoryRegionNV-srcAddress-07691</span><br>
 
-The <code>srcAddress</code> to <code>srcAddress</code> +  <code>compressedSize</code>
+The <code>srcAddress</code> to <code>srcAddress</code> &#43; <code>compressedSize</code>
 region <strong>must</strong> not overlap with the <code>dstAddress</code> and <code>dstAddress</code>
-+  <code>decompressedSize</code> region</p>
+&#43; <code>decompressedSize</code> region</p>
 </li>
 </ul>
 </div>
@@ -699,7 +703,7 @@ equal to sizeof(<code>VkDecompressMemoryRegionNV</code>)</p>
 <p><a id="VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07701" href="#VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07701"></a> <span class="vuid">VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07701</span><br>
 
 If the count stored in <code>indirectCommandsCountAddress</code> is equal to
-<code>1</code>, <span class="eq">(<code>offset</code> + 
+<code>1</code>, <span class="eq">(<code>offset</code> &#43;
 sizeof(<code>VkDecompressMemoryRegionNV</code>))</span> <strong>must</strong> be less than or equal
 to the size of the <a href="resources.html#VkBuffer" class="xref page">VkBuffer</a> that <code>indirectCommandsAddress</code>
 comes from</p>
@@ -708,9 +712,9 @@ comes from</p>
 <p><a id="VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07702" href="#VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07702"></a> <span class="vuid">VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07702</span><br>
 
 If the count stored in <code>indirectCommandsCountAddress</code> is greater
-than <code>1</code>, <code>indirectCommandsAddress</code> + 
-sizeof(<code>VkDecompressMemoryRegionNV</code>) +  <span class="eq">(<code>stride</code>
-× (count stored in <code>countBuffer</code> - 1))</span> <strong>must</strong> be less than or
+than <code>1</code>, <code>indirectCommandsAddress</code> &#43;
+sizeof(<code>VkDecompressMemoryRegionNV</code>) &#43; <span class="eq">(<code>stride</code>
+{times} (count stored in <code>countBuffer</code> - 1))</span> <strong>must</strong> be less than or
 equal to the last valid address in the <a href="resources.html#VkBuffer" class="xref page">VkBuffer</a> that
 <code>indirectCommandsAddress</code> was created from</p>
 </li>
@@ -749,14 +753,14 @@ equal to the last valid address in the <a href="resources.html#VkBuffer" class="
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

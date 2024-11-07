@@ -329,6 +329,7 @@
     <li><a href="glossary.html">Lexicon</a></li>
   </ul>
 </nav>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/appendices/glossary.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -338,6 +339,9 @@
 <h1 class="page">Lexicon</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/appendices/glossary.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>This appendix defines terms, abbreviations, and API prefixes used in the
 Specification.</p>
@@ -989,7 +993,7 @@ execution dependency.</p>
 </dd>
 <dt class="hdlist1">Explicit chroma reconstruction</dt>
 <dd>
-<p>An implementation of sampler Y′C<sub>B</sub>C<sub>R</sub> conversion which reconstructs
+<p>An implementation of sampler {YCbCr} conversion which reconstructs
 reduced-resolution chroma samples to luma resolution and then separately
 performs texture sample interpolation.
 This is distinct from an implicit implementation, which incorporates
@@ -1317,7 +1321,7 @@ allocated with the layout, and it <strong>cannot</strong> be changed.</p>
 </dd>
 <dt class="hdlist1">Implicit chroma reconstruction</dt>
 <dd>
-<p>An implementation of sampler Y′C<sub>B</sub>C<sub>R</sub> conversion which reconstructs the
+<p>An implementation of sampler {YCbCr} conversion which reconstructs the
 reduced-resolution chroma samples directly at the sample point, as part
 of the normal texture sampling operation.
 This is distinct from an <em>explicit chroma reconstruction</em>

@@ -329,6 +329,7 @@
     <li><a href="videocoding.html">Video Coding</a></li>
   </ul>
 </nav>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/videocoding.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -338,6 +339,9 @@
 <h1 class="page">Video Coding</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/videocoding.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>Vulkan implementations <strong>may</strong> expose one or more queue families supporting
 video coding operations.
@@ -1067,7 +1071,7 @@ horizontally at half the sample rate of luma component.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_CHROMA_SUBSAMPLING_444_BIT_KHR</code> - the format is 4:4:4
-chroma sampled, i.e. all three components of the Y′C<sub>B</sub>C<sub>R</sub> format are
+chroma sampled, i.e. all three components of the {YCbCr} format are
 sampled at the same rate, thus there is no chroma subsampling.</p>
 </li>
 </ul>
@@ -1886,7 +1890,7 @@ hence for video decode profiles the values returned in <code>maxDpbSlots</code> 
 <code>maxActiveReferencePictures</code> are often equal.
 Similarly, in case of video decode profiles supporting field pictures the
 value of <code>maxActiveReferencePictures</code> often equals
-<span class="eq"><code>maxDpbSlots</code> × 2</span>.</p>
+<span class="eq"><code>maxDpbSlots</code> {times} 2</span>.</p>
 </div>
 </td>
 </tr>
@@ -2207,7 +2211,7 @@ containing the following information:</p>
 </div>
 <div class="paragraph">
 <p>The <code>componentMapping</code> member of <code>VkVideoFormatPropertiesKHR</code>
-defines the ordering of the Y′C<sub>B</sub>C<sub>R</sub> color channels from the perspective of
+defines the ordering of the {YCbCr} color channels from the perspective of
 the video codec operations specified in <a href="#VkVideoProfileListInfoKHR">VkVideoProfileListInfoKHR</a>.
 For example, if the implementation produces video decode output with the
 format <code>VK_FORMAT_G8_B8R8_2PLANE_420_UNORM</code> where the blue and red
@@ -3123,11 +3127,11 @@ was created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code><
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>videoSession</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>videoSession</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3459,11 +3463,11 @@ structure</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>videoSession</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>videoSession</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4996,11 +5000,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>videoSessionParameters</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>videoSessionParameters</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5956,14 +5960,14 @@ chain of <code>pBeginInfo</code> <strong>must</strong> include an instance of th
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6432,14 +6436,14 @@ There <strong>must</strong> be no <a href="queries.html#queries-operation-active
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6685,14 +6689,14 @@ then <code>pCodingControlInfo-&gt;flags</code> <strong>must</strong> not include
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8394,14 +8398,14 @@ the <code>referenceNameSlotIndices</code> array member of the
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8789,7 +8793,7 @@ range:</p>
 nearest integer multiple of <code>pictureAccessGranularity.width</code>;</p>
 </li>
 <li>
-<p><span class="eq"><code>endX</code></span> equals <span class="eq"><code>imageOffset.x</code> + 
+<p><span class="eq"><code>endX</code></span> equals <span class="eq"><code>imageOffset.x</code> &#43;
 <code>imageExtent.width</code></span> rounded up to the nearest integer multiple of
 <code>pictureAccessGranularity.width</code> and clamped to the width of the
 image subresource <a href="#video-image-subresource-reference">referred</a> to by
@@ -8800,7 +8804,7 @@ the corresponding <a href="#VkVideoPictureResourceInfoKHR">VkVideoPictureResourc
 integer multiple of <code>pictureAccessGranularity.height</code>;</p>
 </li>
 <li>
-<p><span class="eq">endY</span> equals <span class="eq"><code>imageOffset.y</code> + 
+<p><span class="eq">endY</span> equals <span class="eq"><code>imageOffset.y</code> &#43;
 <code>imageExtent.height</code></span> rounded up to the nearest integer multiple of
 <code>pictureAccessGranularity.height</code> and clamped to the height of the
 image subresource <a href="#video-image-subresource-reference">referred</a> to by
@@ -8821,12 +8825,12 @@ specified below:</p>
 <p><span class="eq">(<code>x</code>,<code>y</code>)</span>, if the accessed picture represents a frame.</p>
 </li>
 <li>
-<p><span class="eq">(<code>x</code>,<code>y</code> × 2)</span>, if the accessed picture represents a
+<p><span class="eq">(<code>x</code>,<code>y</code> {times} 2)</span>, if the accessed picture represents a
 top field and the picture layout of the used <a href="#decode-h264-profile">H.264    decode profile</a> is
 <code>VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_INTERLEAVED_LINES_BIT_KHR</code>.</p>
 </li>
 <li>
-<p><span class="eq">(<code>x</code>,<code>y</code> × 2 +  1)</span>, if the accessed picture
+<p><span class="eq">(<code>x</code>,<code>y</code> {times} 2 &#43; 1)</span>, if the accessed picture
 represents a bottom field and the picture layout of the used
 <a href="#decode-h264-profile">H.264 decode profile</a> is
 <code>VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_INTERLEAVED_LINES_BIT_KHR</code>.</p>
@@ -8837,7 +8841,7 @@ and the picture layout of the used <a href="#decode-h264-profile">H.264 decode  
 <code>VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR</code>.</p>
 </li>
 <li>
-<p><span class="eq">(<code>codedOffset.x</code> +  <code>x</code>,<code>codedOffset.y</code> + 
+<p><span class="eq">(<code>codedOffset.x</code> &#43; <code>x</code>,<code>codedOffset.y</code> &#43;
 <code>y</code>)</span>, if the accessed picture represents a bottom field and the
 picture layout of the used <a href="#decode-h264-profile">H.264 decode profile</a>
 is
@@ -14926,14 +14930,14 @@ profile the bound video session was created with, then each element of
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -21394,8 +21398,8 @@ active <a href="#encode-h265-pps">PPS</a> as follows:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">(<code>num_tile_columns_minus1</code> +  1) ×
-(<code>num_tile_rows_minus1</code> +  1)</span></p>
+<p><span class="eq">(<code>num_tile_columns_minus1</code> &#43; 1) {times}
+(<code>num_tile_rows_minus1</code> &#43; 1)</span></p>
 </dd>
 </dl>
 </div>

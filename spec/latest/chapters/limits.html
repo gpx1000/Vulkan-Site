@@ -329,6 +329,7 @@
     <li><a href="limits.html">Limits</a></li>
   </ul>
 </nav>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/limits.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -338,6 +339,9 @@
 <h1 class="page">Limits</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/limits.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p><em>Limits</em> are implementation-dependent minimums, maximums, and other device
 characteristics that an application <strong>may</strong> need to be aware of.</p>
@@ -559,7 +563,7 @@ maximum value that <strong>can</strong> be specified in the <code>range</code> m
 maximum size, in bytes, of the pool of push constant memory.
 For each of the push constant ranges indicated by the
 <code>pPushConstantRanges</code> member of the <a href="descriptorsets.html#VkPipelineLayoutCreateInfo" class="xref page">VkPipelineLayoutCreateInfo</a>
-structure, <span class="eq">(<code>offset</code> +  <code>size</code>)</span> <strong>must</strong> be less than or
+structure, <span class="eq">(<code>offset</code> &#43; <code>size</code>)</span> <strong>must</strong> be less than or
 equal to this limit.</p>
 </li>
 <li>
@@ -1087,7 +1091,7 @@ See <a href="vertexpostproc.html#vertexpostproc-viewport" class="xref page">Cont
 <p><a id="limits-viewportboundsrange"></a> <code>viewportBoundsRange</code>[2] is the
 <span class="eq">[minimum, maximum]</span> range that the corners of a viewport <strong>must</strong> be
 contained in.
-This range <strong>must</strong> be at least <span class="eq">[-2 × <code>size</code>, 2 ×
+This range <strong>must</strong> be at least <span class="eq">[-2 {times} <code>size</code>, 2 {times}
 <code>size</code> - 1]</span>, where <span class="eq"><code>size</code> =
 max(<code>maxViewportDimensions</code>[0], <code>maxViewportDimensions</code>[1])</span>.
 See <a href="vertexpostproc.html#vertexpostproc-viewport" class="xref page">Controlling the Viewport</a>.</p>
@@ -1102,7 +1106,7 @@ See <a href="vertexpostproc.html#vertexpostproc-viewport" class="xref page">Cont
 <p>The intent of the <code>viewportBoundsRange</code> limit is to allow a maximum
 sized viewport to be arbitrarily shifted relative to the output target as
 long as at least some portion intersects.
-This would give a bounds limit of <span class="eq">[-<code>size</code> +  1, 2 ×
+This would give a bounds limit of <span class="eq">[-<code>size</code> &#43; 1, 2 {times}
 <code>size</code> - 1]</span> which would allow all possible non-empty-set intersections
 of the output target and the viewport.
 Since these numbers are typically powers of two, picking the signed number
@@ -3271,7 +3275,7 @@ indicating that an implementation supports creating image views with
 <li>
 <p><code>maxCombinedImageSamplerDescriptorCount</code> is the maximum number of
 combined image sampler descriptors that the implementation uses to
-access any of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats    that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the
+access any of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats    that require a sampler {YCbCr} conversion</a> supported by the
 implementation.</p>
 </li>
 <li>
@@ -6844,7 +6848,7 @@ to the product of the <code>width</code> and <code>height</code> members of
 <code>maxFragmentSize</code>, and the sample count reported by
 <code>maxFragmentShadingRateRasterizationSamples</code>.
 <code>maxFragmentShadingRateCoverageSamples</code> <strong>must</strong> be less than or equal
-to <span class="eq"><code>maxSampleMaskWords</code> × 32</span> if
+to <span class="eq"><code>maxSampleMaskWords</code> {times} 32</span> if
 <code>fragmentShadingRateWithShaderSampleMask</code> is supported.
 This limit is purely informational, and is not validated.</p>
 </li>
@@ -9629,7 +9633,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxComputeWorkGroupCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
@@ -9639,7 +9643,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxComputeWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
@@ -9684,12 +9688,12 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>multiViewport</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxViewportDimensions</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>float</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>viewportBoundsRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
@@ -9859,12 +9863,12 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>float</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>pointSizeRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>largePoints</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>float</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>lineWidthRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>wideLines</code></p></td>
 </tr>
@@ -10111,7 +10115,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_mesh_shader" class="xref page">VK_NV_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesNV">VkPhysicalDeviceMeshShaderPropertiesNV</a>::<code>maxTaskWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_mesh_shader" class="xref page">VK_NV_mesh_shader</a></code></p></td>
 </tr>
@@ -10131,7 +10135,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_mesh_shader" class="xref page">VK_NV_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesNV">VkPhysicalDeviceMeshShaderPropertiesNV</a>::<code>maxMeshWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_mesh_shader" class="xref page">VK_NV_mesh_shader</a></code></p></td>
 </tr>
@@ -10171,7 +10175,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesEXT">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxTaskWorkGroupCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
@@ -10181,7 +10185,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesEXT">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxTaskWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
@@ -10206,7 +10210,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesEXT">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
@@ -10216,7 +10220,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesEXT">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
@@ -10506,12 +10510,12 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_robustness2" class="xref page">VK_EXT_robustness2</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>minFragmentShadingRateAttachmentTexelSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-attachmentFragmentShadingRate" class="xref page"><code>attachmentFragmentShadingRate</code></a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxFragmentShadingRateAttachmentTexelSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-attachmentFragmentShadingRate" class="xref page"><code>attachmentFragmentShadingRate</code></a></code></p></td>
 </tr>
@@ -10536,7 +10540,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-pipelineFragmentShadingRate" class="xref page"><code>pipelineFragmentShadingRate</code></a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxFragmentSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-pipelineFragmentShadingRate" class="xref page"><code>pipelineFragmentShadingRate</code></a></code></p></td>
 </tr>
@@ -10791,17 +10795,17 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-textureSampleWeighted" class="xref page"><code>textureSampleWeighted</code></a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxWeightFilterDimension</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-textureSampleWeighted" class="xref page"><code>textureSampleWeighted</code></a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxBlockMatchRegion</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-textureBlockMatch" class="xref page"><code>textureBlockMatch</code></a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxBoxFilterBlockSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-textureBoxFilter" class="xref page"><code>textureBoxFilter</code></a></code></p></td>
 </tr>
@@ -10826,12 +10830,12 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_memory_decompression" class="xref page">VK_NV_memory_decompression</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxWorkGroupCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader" class="xref page">VK_HUAWEI_cluster_culling_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader" class="xref page">VK_HUAWEI_cluster_culling_shader</a></code></p></td>
 </tr>
@@ -10876,7 +10880,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-shaderEnqueue" class="xref page"><code>shaderEnqueue</code></a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxExecutionGraphWorkgroupCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-shaderEnqueue" class="xref page"><code>shaderEnqueue</code></a></code></p></td>
 </tr>
@@ -11099,13 +11103,13 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetSamplers</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">96 <sup>8</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUniformBuffers</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">72 <sup>8</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUniformBuffersDynamic</code></p></td>
@@ -11117,7 +11121,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetStorageBuffers</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">24 <sup>8</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetStorageBuffersDynamic</code></p></td>
@@ -11140,20 +11144,20 @@ whether or not the feature is enabled.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetTotalBuffersDynamic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq"><code>maxDescriptorSetUniformBuffersDynamic</code> +  <code>maxDescriptorSetStorageBuffersDynamic</code></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq"><code>maxDescriptorSetUniformBuffersDynamic</code> &#43; <code>maxDescriptorSetStorageBuffersDynamic</code></span></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetSampledImages</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">96 <sup>8</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetStorageImages</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">24 <sup>8</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetInputAttachments</code></p></td>
@@ -11909,7 +11913,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindUniformBuffers</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">72 <sup>8</sup> <sup>9</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindUniformBuffersDynamic</code></p></td>
@@ -11944,7 +11948,7 @@ whether or not the feature is enabled.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindTotalBuffersDynamic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq"><code>maxDescriptorSetUpdateAfterBindUniformBuffersDynamic</code> +  <code>maxDescriptorSetUpdateAfterBindStorageBuffersDynamic</code></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq"><code>maxDescriptorSetUpdateAfterBindUniformBuffersDynamic</code> &#43; <code>maxDescriptorSetUpdateAfterBindStorageBuffersDynamic</code></span></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
@@ -12892,13 +12896,13 @@ whether or not the feature is enabled.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxSamplerDescriptorBufferRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">2<sup>11</sup> × <code>samplerDescriptorSize</code></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">2<sup>11</sup> {times} <code>samplerDescriptorSize</code></span></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxResourceDescriptorBufferRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">(2<sup>20</sup> - 2<sup>15</sup>) × <code>maxResourceDescriptorSize</code></span> <sup>12</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">(2<sup>20</sup> - 2<sup>15</sup>) {times} <code>maxResourceDescriptorSize</code></span> <sup>12</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
@@ -13120,7 +13124,7 @@ whether or not the feature is enabled.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>cooperativeMatrixWorkgroupScopeMaxWorkgroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">subgroupSize × 2</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">subgroupSize {times} 2</span></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>

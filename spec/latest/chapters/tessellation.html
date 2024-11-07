@@ -329,6 +329,7 @@
     <li><a href="tessellation.html">Tessellation</a></li>
   </ul>
 </nav>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/tessellation.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -338,6 +339,9 @@
 <h1 class="page">Tessellation</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/tessellation.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>Tessellation involves three pipeline stages.
 First, a <a href="shaders.html#shaders-tessellation-control" class="xref page">tessellation control shader</a>
@@ -499,7 +503,7 @@ subdivisions along each edge of the domain.</p>
 </div>
 <div class="paragraph">
 <p>For triangles, the vertex&#8217;s position is a barycentric coordinate
-<span class="eq">(u,v,w)</span>, where <span class="eq">u +  v +  w = 1.0</span>, and indicates the
+<span class="eq">(u,v,w)</span>, where <span class="eq">u &#43; v &#43; w = 1.0</span>, and indicates the
 relative influence of the three vertices of the triangle on the position of
 the vertex.
 For quads and isolines, the position is a <span class="eq">(u,v)</span> coordinate indicating
@@ -629,8 +633,8 @@ triangle have counter-clockwise ordering if</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">a = u<sub>0</sub> v<sub>1</sub> - u<sub>1</sub> v<sub>0</sub> +  u<sub>1</sub> v<sub>2</sub> - u<sub>2</sub> v<sub>1</sub>
-+  u<sub>2</sub> v<sub>0</sub> - u<sub>0</sub> v<sub>2</sub></span></p>
+<p><span class="eq">a = u<sub>0</sub> v<sub>1</sub> - u<sub>1</sub> v<sub>0</sub> &#43; u<sub>1</sub> v<sub>2</sub> - u<sub>2</sub> v<sub>1</sub>
+&#43; u<sub>2</sub> v<sub>0</sub> - u<sub>0</sub> v<sub>2</sub></span></p>
 </dd>
 </dl>
 </div>
@@ -693,7 +697,7 @@ with <span class="eq">(u,v,w)</span> coordinates of <span class="eq">(0,0,1)</sp
 <span class="eq">(0,1,0)</span> is generated.
 If the inner tessellation level is one and any of the outer tessellation
 levels is greater than one, the inner tessellation level is treated as
-though it were originally specified as <span class="eq">1 +  ε</span> and will
+though it were originally specified as <span class="eq">1 &#43; {epsilon}</span> and will
 result in a two- or three-segment subdivision depending on the tessellation
 spacing.
 When used with fractional odd spacing, the three-segment subdivision <strong>may</strong>
@@ -821,7 +825,7 @@ tessellation levels are exactly one, only a single triangle pair covering
 the outer rectangle is generated.
 Otherwise, if either clamped inner tessellation level is one, that
 tessellation level is treated as though it was originally specified as
-<span class="eq">1 +  ε</span> and will result in a two- or three-segment
+<span class="eq">1 &#43; {epsilon}</span> and will result in a two- or three-segment
 subdivision depending on the tessellation spacing.
 When used with fractional odd spacing, the three-segment subdivision <strong>may</strong>
 produce <em>inner vertices</em> positioned on the edge of the rectangle.</p>
@@ -1300,14 +1304,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

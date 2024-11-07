@@ -329,6 +329,7 @@
     <li><a href="pipelines.html">Pipelines</a></li>
   </ul>
 </nav>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/pipelines.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -338,6 +339,9 @@
 <h1 class="page">Pipelines</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/pipelines.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>The following <a href="#pipelines-block-diagram">figure</a> shows a block diagram of
 the Vulkan pipelines.
@@ -2723,14 +2727,14 @@ feature <strong>must</strong> be enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3631,8 +3635,8 @@ decoration</p>
 
 The shader stages for <code>VK_SHADER_STAGE_TASK_BIT_EXT</code> or
 <code>VK_SHADER_STAGE_MESH_BIT_EXT</code> <strong>must</strong> use either the <code>TaskNV</code> and
-<code>MeshNV</code> <code>Execution</code> <code>Model</code> or the <code>TaskEXT</code> and <code>MeshEXT</code>
-<code>Execution</code> <code>Model</code>, but <strong>must</strong> not use both</p>
+<code>MeshNV</code> {ExecutionModel} or the <code>TaskEXT</code> and <code>MeshEXT</code>
+{ExecutionModel}, but <strong>must</strong> not use both</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pStages-00729" href="#VUID-VkGraphicsPipelineCreateInfo-pStages-00729"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pStages-00729</span><br>
@@ -3725,8 +3729,8 @@ then <code>pStages</code> <strong>must</strong> include tessellation shader stag
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07723" href="#VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07723"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07723</span><br>
 
 If the pipeline is being created with a <code>TessellationEvaluation</code>
-<code>Execution</code> <code>Model</code>, no <code>Geometry</code> <code>Execution</code> <code>Model</code>, uses the
-<code>PointMode</code> <code>Execution</code> <code>Mode</code>, and
+{ExecutionModel}, no <code>Geometry</code> {ExecutionModel}, uses the
+<code>PointMode</code> {ExecutionMode}, and
 <a href="features.html#features-shaderTessellationAndGeometryPointSize" class="xref page">    <code>shaderTessellationAndGeometryPointSize</code></a> is enabled, a
 <code>PointSize</code> decorated variable <strong>must</strong> be written to
 if <a href="features.html#features-maintenance5" class="xref page"><code>maintenance5</code></a> is not enabled</p>
@@ -3734,8 +3738,8 @@ if <a href="features.html#features-maintenance5" class="xref page"><code>mainten
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-topology-08773" href="#VUID-VkGraphicsPipelineCreateInfo-topology-08773"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-topology-08773</span><br>
 
-If the pipeline is being created with a <code>Vertex</code> <code>Execution</code> <code>Model</code> and
-no <code>TessellationEvaluation</code> or <code>Geometry</code> <code>Execution</code> <code>Model</code>, and
+If the pipeline is being created with a <code>Vertex</code> {ExecutionModel} and
+no <code>TessellationEvaluation</code> or <code>Geometry</code> {ExecutionModel}, and
 the <code>topology</code> member of <code>pInputAssembly</code> is
 <code>VK_PRIMITIVE_TOPOLOGY_POINT_LIST</code>,
 and either <code>VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY</code> dynamic state is
@@ -3756,16 +3760,16 @@ If <a href="features.html#features-maintenance5" class="xref page"><code>mainten
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07724" href="#VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07724"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-TessellationEvaluation-07724</span><br>
 
 If the pipeline is being created with a <code>TessellationEvaluation</code>
-<code>Execution</code> <code>Model</code>, no <code>Geometry</code> <code>Execution</code> <code>Model</code>, uses the
-<code>PointMode</code> <code>Execution</code> <code>Mode</code>, and
+{ExecutionModel}, no <code>Geometry</code> {ExecutionModel}, uses the
+<code>PointMode</code> {ExecutionMode}, and
 <a href="features.html#features-shaderTessellationAndGeometryPointSize" class="xref page">    <code>shaderTessellationAndGeometryPointSize</code></a> is not enabled, a
 <code>PointSize</code> decorated variable <strong>must</strong> not be written to</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-shaderTessellationAndGeometryPointSize-08776" href="#VUID-VkGraphicsPipelineCreateInfo-shaderTessellationAndGeometryPointSize-08776"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-shaderTessellationAndGeometryPointSize-08776</span><br>
 
-If the pipeline is being created with a <code>Geometry</code> <code>Execution</code> <code>Model</code>,
-uses the <code>OutputPoints</code> <code>Execution</code> <code>Mode</code>, and
+If the pipeline is being created with a <code>Geometry</code> {ExecutionModel},
+uses the <code>OutputPoints</code> {ExecutionMode}, and
 <a href="features.html#features-shaderTessellationAndGeometryPointSize" class="xref page">    <code>shaderTessellationAndGeometryPointSize</code></a> is enabled, a
 <code>PointSize</code> decorated variable <strong>must</strong> be written to for every vertex
 emitted
@@ -3774,8 +3778,8 @@ if <a href="features.html#features-maintenance5" class="xref page"><code>mainten
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-Geometry-07726" href="#VUID-VkGraphicsPipelineCreateInfo-Geometry-07726"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-Geometry-07726</span><br>
 
-If the pipeline is being created with a <code>Geometry</code> <code>Execution</code> <code>Model</code>,
-uses the <code>OutputPoints</code> <code>Execution</code> <code>Mode</code>, and
+If the pipeline is being created with a <code>Geometry</code> {ExecutionModel},
+uses the <code>OutputPoints</code> {ExecutionMode}, and
 <a href="features.html#features-shaderTessellationAndGeometryPointSize" class="xref page">    <code>shaderTessellationAndGeometryPointSize</code></a> is not enabled, a
 <code>PointSize</code> decorated variable <strong>must</strong> not be written to</p>
 </li>
@@ -4253,7 +4257,7 @@ If the pipeline is being created with
 <a href="#pipelines-graphics-subsets-vertex-input">vertex input state</a> and
 <code>pVertexInputState</code> is not dynamic, then all variables with the
 <code>Input</code> storage class decorated with <code>Location</code> in the <code>Vertex</code>
-<code>Execution</code> <code>Model</code> <code>OpEntryPoint</code> <strong>must</strong> contain a location in
+{ExecutionModel} <code>OpEntryPoint</code> <strong>must</strong> contain a location in
 <a href="fxvertex.html#VkVertexInputAttributeDescription" class="xref page">VkVertexInputAttributeDescription</a>::<code>location</code></p>
 </li>
 <li>
@@ -4261,7 +4265,7 @@ If the pipeline is being created with
 
 If the pipeline requires <a href="#pipelines-graphics-subsets-vertex-input">    vertex input state</a> and <code>pVertexInputState</code> is not dynamic, then
 the numeric type associated with all <code>Input</code> variables of the
-corresponding <code>Location</code> in the <code>Vertex</code> <code>Execution</code> <code>Model</code>
+corresponding <code>Location</code> in the <code>Vertex</code> {ExecutionModel}
 <code>OpEntryPoint</code> <strong>must</strong> be the same as
 <a href="fxvertex.html#VkVertexInputAttributeDescription" class="xref page">VkVertexInputAttributeDescription</a>::<code>format</code></p>
 </li>
@@ -4274,7 +4278,7 @@ If the pipeline is being created with
 <a href="fxvertex.html#VkVertexInputAttributeDescription" class="xref page">VkVertexInputAttributeDescription</a>::<code>format</code> has a 64-bit
 component, then the scalar width associated with all <code>Input</code>
 variables of the corresponding <code>Location</code> in the <code>Vertex</code>
-<code>Execution</code> <code>Model</code> <code>OpEntryPoint</code> <strong>must</strong> be 64-bit</p>
+{ExecutionModel} <code>OpEntryPoint</code> <strong>must</strong> be 64-bit</p>
 </li>
 <li>
 <p><a id="VUID-VkGraphicsPipelineCreateInfo-pVertexInputState-08930" href="#VUID-VkGraphicsPipelineCreateInfo-pVertexInputState-08930"></a> <span class="vuid">VUID-VkGraphicsPipelineCreateInfo-pVertexInputState-08930</span><br>
@@ -4283,7 +4287,7 @@ If the pipeline is being created with
 <a href="#pipelines-graphics-subsets-vertex-input">vertex input state</a> and
 <code>pVertexInputState</code> is not dynamic, and the scalar width associated
 with a <code>Location</code> decorated <code>Input</code> variable in the <code>Vertex</code>
-<code>Execution</code> <code>Model</code> <code>OpEntryPoint</code> is 64-bit, then the corresponding
+{ExecutionModel} <code>OpEntryPoint</code> is 64-bit, then the corresponding
 <a href="fxvertex.html#VkVertexInputAttributeDescription" class="xref page">VkVertexInputAttributeDescription</a>::<code>format</code> <strong>must</strong> have a
 64-bit component</p>
 </li>
@@ -4295,7 +4299,7 @@ If the pipeline is being created with
 <code>pVertexInputState</code> is not dynamic, and
 <a href="fxvertex.html#VkVertexInputAttributeDescription" class="xref page">VkVertexInputAttributeDescription</a>::<code>format</code> has a 64-bit
 component, then all <code>Input</code> variables at the corresponding
-<code>Location</code> in the <code>Vertex</code> <code>Execution</code> <code>Model</code> <code>OpEntryPoint</code>
+<code>Location</code> in the <code>Vertex</code> {ExecutionModel} <code>OpEntryPoint</code>
 <strong>must</strong> not use components that are not present in the format</p>
 </li>
 <li>
@@ -11182,7 +11186,7 @@ equal to the number of shader groups in <code>pipeline</code></p>
 <p><a id="VUID-vkGetRayTracingShaderGroupHandlesKHR-dataSize-02420" href="#VUID-vkGetRayTracingShaderGroupHandlesKHR-dataSize-02420"></a> <span class="vuid">VUID-vkGetRayTracingShaderGroupHandlesKHR-dataSize-02420</span><br>
 
 <code>dataSize</code> <strong>must</strong> be at least
-<span class="eq"><a href="limits.html#VkPhysicalDeviceRayTracingPipelinePropertiesKHR" class="xref page">VkPhysicalDeviceRayTracingPipelinePropertiesKHR</a>::<code>shaderGroupHandleSize</code> ×
+<span class="eq"><a href="limits.html#VkPhysicalDeviceRayTracingPipelinePropertiesKHR" class="xref page">VkPhysicalDeviceRayTracingPipelinePropertiesKHR</a>::<code>shaderGroupHandleSize</code> {times}
 <code>groupCount</code></span></p>
 </li>
 <li>
@@ -11354,7 +11358,7 @@ equal to the number of shader groups in <code>pipeline</code></p>
 
 <code>dataSize</code> <strong>must</strong> be at least
 <span class="eq"><a href="limits.html#VkPhysicalDeviceRayTracingPipelinePropertiesKHR" class="xref page">VkPhysicalDeviceRayTracingPipelinePropertiesKHR</a>::<code>shaderGroupHandleCaptureReplaySize</code>
-× <code>groupCount</code></span></p>
+{times} <code>groupCount</code></span></p>
 </li>
 <li>
 <p><a id="VUID-vkGetRayTracingCaptureReplayShaderGroupHandlesKHR-rayTracingPipelineShaderGroupHandleCaptureReplay-03606" href="#VUID-vkGetRayTracingCaptureReplayShaderGroupHandlesKHR-rayTracingPipelineShaderGroupHandleCaptureReplay-03606"></a> <span class="vuid">VUID-vkGetRayTracingCaptureReplayShaderGroupHandlesKHR-rayTracingPipelineShaderGroupHandleCaptureReplay-03606</span><br>
@@ -11771,14 +11775,14 @@ trace call</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11906,11 +11910,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>pipeline</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pipeline</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12379,11 +12383,11 @@ prune duplicate entries.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>dstCache</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>dstCache</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12790,11 +12794,11 @@ was created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code><
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>pipelineCache</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pipelineCache</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -13845,11 +13849,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>pInfo-&gt;pipeline</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pInfo-&gt;pipeline</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -14035,11 +14039,11 @@ If no <a href="memory.html#VkAllocationCallbacks" class="xref page">VkAllocation
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>pipelineBinary</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pipelineBinary</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -14740,14 +14744,14 @@ If <code>pipelineBindPoint</code> is
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -14950,14 +14954,14 @@ feature <strong>must</strong> be enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

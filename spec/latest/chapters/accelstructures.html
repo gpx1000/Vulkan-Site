@@ -329,6 +329,7 @@
     <li><a href="accelstructures.html">Acceleration Structures</a></li>
   </ul>
 </nav>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/accelstructures.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -336,6 +337,13 @@
 </aside>
 <article class="doc">
 <h1 class="page">Acceleration Structures</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/accelstructures.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="acceleration-structure-def"><a class="anchor" href="#acceleration-structure-def"></a>Acceleration Structures</h2>
 <div class="sectionbody">
@@ -845,14 +853,14 @@ If <code>update</code> is <code>VK_TRUE</code>, the <code>src</code> and <code>d
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1340,7 +1348,7 @@ bound to device memory</p>
 If <code>pInfos</code>[i].<code>mode</code> is
 <code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR</code>, all addresses
 between <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> and
-<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> +  N - 1 <strong>must</strong> be in
+<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> &#43; N - 1 <strong>must</strong> be in
 the buffer device address range of the same buffer, where N is given by
 the <code>buildScratchSize</code> member of the
 <a href="resources.html#VkAccelerationStructureBuildSizesInfoKHR" class="xref page">VkAccelerationStructureBuildSizesInfoKHR</a> structure returned from a
@@ -1354,7 +1362,7 @@ primitive count</p>
 If <code>pInfos</code>[i].<code>mode</code> is
 <code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, all addresses
 between <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> and
-<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> +  N - 1 <strong>must</strong> be in
+<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> &#43; N - 1 <strong>must</strong> be in
 the buffer device address range of the same buffer, where N is given by
 the <code>updateScratchSize</code> member of the
 <a href="resources.html#VkAccelerationStructureBuildSizesInfoKHR" class="xref page">VkAccelerationStructureBuildSizesInfoKHR</a> structure returned from a
@@ -1665,14 +1673,14 @@ an array of <code>pInfos</code>[i].<code>geometryCount</code>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2124,7 +2132,7 @@ bound to device memory</p>
 If <code>pInfos</code>[i].<code>mode</code> is
 <code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR</code>, all addresses
 between <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> and
-<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> +  N - 1 <strong>must</strong> be in
+<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> &#43; N - 1 <strong>must</strong> be in
 the buffer device address range of the same buffer, where N is given by
 the <code>buildScratchSize</code> member of the
 <a href="resources.html#VkAccelerationStructureBuildSizesInfoKHR" class="xref page">VkAccelerationStructureBuildSizesInfoKHR</a> structure returned from a
@@ -2138,7 +2146,7 @@ primitive count</p>
 If <code>pInfos</code>[i].<code>mode</code> is
 <code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, all addresses
 between <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> and
-<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> +  N - 1 <strong>must</strong> be in
+<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> &#43; N - 1 <strong>must</strong> be in
 the buffer device address range of the same buffer, where N is given by
 the <code>updateScratchSize</code> member of the
 <a href="resources.html#VkAccelerationStructureBuildSizesInfoKHR" class="xref page">VkAccelerationStructureBuildSizesInfoKHR</a> structure returned from a
@@ -2378,8 +2386,8 @@ contiguously to a single <a href="memory.html#VkDeviceMemory" class="xref page">
 
 For any element of <code>pIndirectDeviceAddresses</code>[i], all device
 addresses between <code>pIndirectDeviceAddresses</code>[i] and
-<span class="eq"><code>pIndirectDeviceAddresses</code>[i] + 
-(<code>pInfos</code>[i].<code>geometryCount</code> × <code>pIndirectStrides</code>[i]) -
+<span class="eq"><code>pIndirectDeviceAddresses</code>[i] &#43;
+(<code>pInfos</code>[i].<code>geometryCount</code> {times} <code>pIndirectStrides</code>[i]) -
 1</span> <strong>must</strong> be in the buffer device address range of the same buffer</p>
 </li>
 <li>
@@ -2423,7 +2431,7 @@ with <span class="eq"><code>pBuildInfo</code> = <code>pInfos</code>[i]</span> an
 Each <code>ppMaxPrimitiveCounts</code>[i][j] <strong>must</strong> be greater than or equal to
 the <code>primitiveCount</code> value specified by the
 <a href="#VkAccelerationStructureBuildRangeInfoKHR">VkAccelerationStructureBuildRangeInfoKHR</a> structure located at
-<span class="eq"><code>pIndirectDeviceAddresses</code>[i] +  (<code>j</code> ×
+<span class="eq"><code>pIndirectDeviceAddresses</code>[i] &#43; (<code>j</code> {times}
 <code>pIndirectStrides</code>[i])</span></p>
 </li>
 </ul>
@@ -2481,14 +2489,14 @@ the <code>primitiveCount</code> value specified by the
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4365,8 +4373,8 @@ That is, for a <code>time</code> in [0,1] the resulting transform is</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>transformT0</code> × (1 - <code>time</code>) + 
-<code>transformT1</code> × <code>time</code></span></p>
+<p><span class="eq"><code>transformT0</code> {times} (1 - <code>time</code>) &#43;
+<code>transformT1</code> {times} <code>time</code></span></p>
 </dd>
 </dl>
 </div>
@@ -4504,8 +4512,8 @@ That is, for a <code>time</code> in [0,1] the resulting transform is</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>transformT0</code> × (1 - <code>time</code>) + 
-<code>transformT1</code> × <code>time</code></span></p>
+<p><span class="eq"><code>transformT0</code> {times} (1 - <code>time</code>) &#43;
+<code>transformT1</code> {times} <code>time</code></span></p>
 </dd>
 </dl>
 </div>
@@ -4635,7 +4643,7 @@ of amount <code>theta</code> such that:</p>
 <dt class="hdlist1"></dt>
 <dd>
 <p><span class="eq">[ <code>qx</code>, <code>qy</code>, <code>qz</code> ] = sin(<code>theta</code>/2)
-× [ <code>ax</code>, <code>ay</code>, <code>az</code> ]</span></p>
+{times} [ <code>ax</code>, <code>ay</code>, <code>az</code> ]</span></p>
 </dd>
 </dl>
 </div>
@@ -4666,7 +4674,7 @@ above by:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>T</code> × <code>R</code> × <code>S</code></span></p>
+<p><span class="eq"><code>T</code> {times} <code>R</code> {times} <code>S</code></span></p>
 </dd>
 </dl>
 </div>
@@ -4721,7 +4729,7 @@ triangle is treated as 3 vertices.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>If the geometry uses indices, <span class="eq"><code>primitiveCount</code> × 3</span>
+<p>If the geometry uses indices, <span class="eq"><code>primitiveCount</code> {times} 3</span>
 indices are consumed from
 <a href="#VkAccelerationStructureGeometryTrianglesDataKHR">VkAccelerationStructureGeometryTrianglesDataKHR</a>::<code>indexData</code>,
 starting at an offset of <code>primitiveOffset</code>.
@@ -4729,12 +4737,12 @@ The value of <code>firstVertex</code> is added to the index values before
 fetching vertices.</p>
 </li>
 <li>
-<p>If the geometry does not use indices, <span class="eq"><code>primitiveCount</code> ×
+<p>If the geometry does not use indices, <span class="eq"><code>primitiveCount</code> {times}
 3</span> vertices are consumed from
 <a href="#VkAccelerationStructureGeometryTrianglesDataKHR">VkAccelerationStructureGeometryTrianglesDataKHR</a>::<code>vertexData</code>,
-starting at an offset of <span class="eq"><code>primitiveOffset</code> + 
+starting at an offset of <span class="eq"><code>primitiveOffset</code> &#43;
 <a href="#VkAccelerationStructureGeometryTrianglesDataKHR">VkAccelerationStructureGeometryTrianglesDataKHR</a>::<code>vertexStride</code>
-× <code>firstVertex</code></span>.</p>
+{times} <code>firstVertex</code></span>.</p>
 </li>
 <li>
 <p>If
@@ -5021,14 +5029,14 @@ been built with
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5222,14 +5230,14 @@ been built with
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5416,14 +5424,14 @@ command</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5567,14 +5575,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5977,14 +5985,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6246,14 +6254,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6505,7 +6513,7 @@ structure as defined in <a href="#vkCmdCopyAccelerationStructureToMemoryKHR">vkC
 </td>
 <td class="content">
 <div class="paragraph">
-<p><code>pVersionData</code> is a <em>pointer</em> to an array of 2×<code>VK_UUID_SIZE</code>
+<p><code>pVersionData</code> is a <em>pointer</em> to an array of 2{times}<code>VK_UUID_SIZE</code>
 <code>uint8_t</code> values instead of two <code>VK_UUID_SIZE</code> arrays as the expected
 use case for this member is to be pointed at the header of a previously
 serialized acceleration structure (via

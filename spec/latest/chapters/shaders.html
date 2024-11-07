@@ -329,6 +329,7 @@
     <li><a href="shaders.html">Shaders</a></li>
   </ul>
 </nav>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/shaders.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -338,6 +339,9 @@
 <h1 class="page">Shaders</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/shaders.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>A shader specifies programmable operations that execute for each vertex,
 control point, tessellated vertex, primitive, fragment, or workgroup in the
@@ -1957,14 +1961,14 @@ If <code>pStages</code> contains <code>VK_SHADER_STAGE_MESH_BIT_EXT</code> or
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2626,11 +2630,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>shader</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>shader</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3106,11 +3110,11 @@ was created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code><
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>shaderModule</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>shaderModule</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3686,9 +3690,9 @@ invocations.</p>
 <div class="paragraph">
 <p>The task shader has no fixed-function inputs other than variables
 identifying the specific workgroup and invocation.
-In the <code>TaskNV</code> <code>Execution</code> <code>Model</code> the number of mesh shader workgroups to
+In the <code>TaskNV</code> {ExecutionModel} the number of mesh shader workgroups to
 create is specified via a <code>TaskCountNV</code> decorated output variable.
-In the <code>TaskEXT</code> <code>Execution</code> <code>Model</code> the number of mesh shader workgroups to
+In the <code>TaskEXT</code> {ExecutionModel} the number of mesh shader workgroups to
 create is specified via the <code>OpEmitMeshTasksEXT</code> instruction.</p>
 </div>
 <div class="paragraph">
@@ -3712,7 +3716,7 @@ An invocation within a local workgroup <strong>can</strong> share data with othe
 the local workgroup through shared variables and issue memory and control
 flow barriers to synchronize with other members of the local workgroup.
 If the subpass includes multiple views in its view mask, a Task shader using
-<code>TaskEXT</code> <code>Execution</code> <code>Model</code> <strong>may</strong> be invoked separately for each view.</p>
+<code>TaskEXT</code> {ExecutionModel} <strong>may</strong> be invoked separately for each view.</p>
 </div>
 </div>
 </div>
@@ -3766,7 +3770,7 @@ flow barriers to synchronize with other members of the local workgroup.</p>
 <p>The <em>global workgroups</em> may be generated explicitly via the API, or
 implicitly through the task shader&#8217;s work creation mechanism.
 If the subpass includes multiple views in its view mask, a Mesh shader using
-<code>MeshEXT</code> <code>Execution</code> <code>Model</code> <strong>may</strong> be invoked separately for each view.</p>
+<code>MeshEXT</code> {ExecutionModel} <strong>may</strong> be invoked separately for each view.</p>
 </div>
 </div>
 </div>
@@ -3976,14 +3980,14 @@ equal to <code>VkPhysicalDeviceLimits</code>::<code>maxTessellationPatchSize</co
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6507,11 +6511,11 @@ caches and prune duplicate entries.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>dstCache</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>dstCache</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6840,11 +6844,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>validationCache</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>validationCache</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

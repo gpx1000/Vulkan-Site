@@ -329,6 +329,7 @@
     <li><a href="descriptorsets.html">Resource Descriptors</a></li>
   </ul>
 </nav>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/descriptorsets.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -338,6 +339,9 @@
 <h1 class="page">Resource Descriptors</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/descriptorsets.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>A <em>descriptor</em> is an opaque data structure representing a shader resource
 such as a buffer, buffer view, image view, sampler, or combined image
@@ -499,7 +503,7 @@ an <a href="resources.html#resources-images" class="xref page">image resource</a
 </div>
 <div class="paragraph">
 <p>If the descriptor refers to a sampler that performs
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">Y′C<sub>B</sub>C<sub>R</sub> conversion</a> or samples a
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">{YCbCr} conversion</a> or samples a
 <a href="samplers.html#samplers-subsamplesampler" class="xref page">subsampled image</a>,
 the sampler <strong>must</strong> only be used to sample the image in the same descriptor.
 Otherwise, the
@@ -2654,11 +2658,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>descriptorSetLayout</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>descriptorSetLayout</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3764,11 +3768,11 @@ command for any command buffers that are still in the
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>pipelineLayout</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pipelineLayout</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4449,7 +4453,7 @@ value, as indicated by
 <p>For simplicity the application <strong>can</strong> use the
 <a href="limits.html#VkPhysicalDeviceMaintenance6PropertiesKHR" class="xref page">VkPhysicalDeviceMaintenance6PropertiesKHR</a>::<code>maxCombinedImageSamplerDescriptorCount</code>
 property, which is sized to accommodate any and all
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the implementation.</p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler {YCbCr} conversion</a> supported by the implementation.</p>
 </div>
 </td>
 </tr>
@@ -4578,11 +4582,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4731,11 +4735,11 @@ from this command, set all entries of the <code>pDescriptorSets</code> array to
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>pAllocateInfo-&gt;descriptorPool</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pAllocateInfo-&gt;descriptorPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5129,14 +5133,14 @@ which <strong>must</strong> either be a valid handle or <a href="../appendices/b
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to each member of <code>pDescriptorSets</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} each member of <code>pDescriptorSets</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5242,14 +5246,14 @@ All uses of <code>descriptorPool</code> (via any allocated descriptor sets)
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to any <code>VkDescriptorSet</code> objects allocated from <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} any <code>VkDescriptorSet</code> objects allocated from <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5890,7 +5894,7 @@ If <code>descriptorType</code> is
 allocated with a layout that included immutable samplers for
 <code>dstBinding</code>, then the <code>imageView</code> member of each element of
 <code>pImageInfo</code> which corresponds to an immutable sampler that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> <strong>must</strong> have been
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a> <strong>must</strong> have been
 created with a <code>VkSamplerYcbcrConversionInfo</code> structure in its
 <code>pNext</code> chain with an <em>identically defined</em>
 <code>VkSamplerYcbcrConversionInfo</code> to the corresponding immutable
@@ -5903,7 +5907,7 @@ If <code>descriptorType</code> is
 <code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code>, <code>dstSet</code> was
 allocated with a layout that included immutable samplers for
 <code>dstBinding</code>, and those samplers enable
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, then
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, then
 <code>imageView</code> <strong>must</strong> not be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
 </li>
 <li>
@@ -7747,11 +7751,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>descriptorUpdateTemplate</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>descriptorUpdateTemplate</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8262,14 +8266,14 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8384,14 +8388,14 @@ queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8854,14 +8858,14 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8975,14 +8979,14 @@ queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9334,14 +9338,14 @@ uses a descriptor set layout that was created with
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9489,14 +9493,14 @@ recorded in.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9907,14 +9911,14 @@ for each push constant range that overlaps that byte, <code>stageFlags</code>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10012,14 +10016,14 @@ structure.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10575,7 +10579,7 @@ zero if the region is unused.</p>
 <p><a id="VUID-VkStridedDeviceAddressRegionKHR-size-04631" href="#VUID-VkStridedDeviceAddressRegionKHR-size-04631"></a> <span class="vuid">VUID-VkStridedDeviceAddressRegionKHR-size-04631</span><br>
 
 If <code>size</code> is not zero, all addresses between <code>deviceAddress</code> and
-<span class="eq"><code>deviceAddress</code> +  <code>size</code> - 1</span> <strong>must</strong> be in the buffer
+<span class="eq"><code>deviceAddress</code> &#43; <code>size</code> - 1</span> <strong>must</strong> be in the buffer
 device address range of the same buffer</p>
 </li>
 <li>
@@ -10656,7 +10660,7 @@ To compute the required size of a descriptor set with a
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">size = offset + descriptorSize ×
+<p><span class="eq">size = offset + descriptorSize {times}
 variableDescriptorCount</span></p>
 </dd>
 </dl>
@@ -10774,8 +10778,8 @@ follows:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">location = bufferAddress +  setOffset + 
-descriptorOffset +  (arrayElement × descriptorSize)</span></p>
+<p><span class="eq">location = bufferAddress &#43; setOffset &#43;
+descriptorOffset &#43; (arrayElement {times} descriptorSize)</span></p>
 </dd>
 </dl>
 </div>
@@ -11128,8 +11132,8 @@ not zero, <code>pStorageBuffer-&gt;address</code> <strong>must</strong> be an ad
 
 If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER</code>,
 <code>pUniformBuffer</code> is not <code>NULL</code> , the number of texel buffer elements
-given by <span class="eq">(⌊<code>pUniformBuffer-&gt;range</code> / (texel block
-size)⌋ × (texels per block))</span> where texel block size and
+given by <span class="eq">({lfloor}<code>pUniformBuffer-&gt;range</code> / (texel block
+size){rfloor} {times} (texels per block))</span> where texel block size and
 texels per block are as defined in the <a href="formats.html#formats-compatibility" class="xref page">    Compatible Formats</a> table for <code>pUniformBuffer-&gt;format</code>, <strong>must</strong> be
 less than or equal to
 <code>VkPhysicalDeviceLimits</code>::<code>maxTexelBufferElements</code></p>
@@ -11139,8 +11143,8 @@ less than or equal to
 
 If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER</code>,
 <code>pStorageBuffer</code> is not <code>NULL</code> , the number of texel buffer elements
-given by <span class="eq">(⌊<code>pStorageBuffer-&gt;range</code> / (texel block
-size)⌋ × (texels per block))</span> where texel block size and
+given by <span class="eq">({lfloor}<code>pStorageBuffer-&gt;range</code> / (texel block
+size){rfloor} {times} (texels per block))</span> where texel block size and
 texels per block are as defined in the <a href="formats.html#formats-compatibility" class="xref page">    Compatible Formats</a> table for <code>pStorageBuffer-&gt;format</code>, <strong>must</strong> be
 less than or equal to
 <code>VkPhysicalDeviceLimits</code>::<code>maxTexelBufferElements</code></p>
@@ -11775,14 +11779,14 @@ buffer from which <code>address</code> was queried</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12228,7 +12232,7 @@ to <a href="#VkPipelineLayoutCreateInfo">VkPipelineLayoutCreateInfo</a>::<code>s
 <p><a id="VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-09006" href="#VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-09006"></a> <span class="vuid">VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-09006</span><br>
 
 The <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> for each set from <code>firstSet</code> to
-<span class="eq"><code>firstSet</code> +  <code>setCount</code></span> when <code>layout</code> was created
+<span class="eq"><code>firstSet</code> &#43; <code>setCount</code></span> when <code>layout</code> was created
 <strong>must</strong> have been created with the
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code> bit set</p>
 </li>
@@ -12299,14 +12303,14 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12426,14 +12430,14 @@ stage supported by the <code>commandBuffer</code>&#8217;s parent
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12605,7 +12609,7 @@ to <a href="#VkPipelineLayoutCreateInfo">VkPipelineLayoutCreateInfo</a>::<code>s
 <p><a id="VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-09006" href="#VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-09006"></a> <span class="vuid">VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-09006</span><br>
 
 The <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> for each set from <code>firstSet</code> to
-<span class="eq"><code>firstSet</code> +  <code>setCount</code></span> when <code>layout</code> was created
+<span class="eq"><code>firstSet</code> &#43; <code>setCount</code></span> when <code>layout</code> was created
 <strong>must</strong> have been created with the
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code> bit set</p>
 </li>
@@ -12800,14 +12804,14 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12928,14 +12932,14 @@ Each bit in <code>pBindDescriptorBufferEmbeddedSamplersInfo-&gt;stageFlags</code
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
