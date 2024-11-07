@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -412,7 +413,7 @@ The former is specified in the <code>topology</code> member and can have values 
 <p><code>VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST</code>: triangle from every 3 vertices without reuse</p>
 </li>
 <li>
-<p>`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP `: the second and third vertex of every triangle are used as first two vertices of the next triangle</p>
+<p><code>VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP</code>: the second and third vertex of every triangle are used as first two vertices of the next triangle</p>
 </li>
 </ul>
 </div>
@@ -537,7 +538,7 @@ viewportState.pScissors = &amp;scissor;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Independent of how you set them, it&#8217;s is possible to use multiple viewports and scissor rectangles on some graphics cards, so the structure members reference an array of them.
+<p>Independent of how you set them, it&#8217;s possible to use multiple viewports and scissor rectangles on some graphics cards, so the structure members reference an array of them.
 Using multiple requires enabling a GPU feature (see logical device creation).</p>
 </div>
 </div>
@@ -847,12 +848,6 @@ This reduces the chance of running into unexpected behavior because the default 
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
 <script async src="../../../../_/js/vendor/highlight.js"></script>
 <script src="../../../../_/js/vendor/lunr.js"></script>

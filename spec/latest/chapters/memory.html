@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -342,6 +340,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/memory.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+<div class="paragraph">
 <p>Vulkan memory is broken up into two categories, <em>host memory</em> and <em>device
 memory</em>.</p>
 </div>
@@ -361,7 +362,6 @@ non-device-visible storage.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This memory <strong>may</strong> be used to store the implementation&#8217;s representation and
 state of Vulkan objects.</p>
@@ -444,19 +444,19 @@ when the implementation frees internal allocations.</p>
 <li>
 <p><a id="VUID-VkAllocationCallbacks-pfnAllocation-00632" href="#VUID-VkAllocationCallbacks-pfnAllocation-00632"></a> <span class="vuid">VUID-VkAllocationCallbacks-pfnAllocation-00632</span><br>
 
-<code>pfnAllocation</code> <strong>must</strong> be a valid pointer to a valid user-defined
-<a href="#PFN_vkAllocationFunction">PFN_vkAllocationFunction</a></p>
+<code>pfnAllocation</code> <strong>must</strong> be a valid pointer to a valid
+application-defined <a href="#PFN_vkAllocationFunction">PFN_vkAllocationFunction</a></p>
 </li>
 <li>
 <p><a id="VUID-VkAllocationCallbacks-pfnReallocation-00633" href="#VUID-VkAllocationCallbacks-pfnReallocation-00633"></a> <span class="vuid">VUID-VkAllocationCallbacks-pfnReallocation-00633</span><br>
 
-<code>pfnReallocation</code> <strong>must</strong> be a valid pointer to a valid user-defined
-<a href="#PFN_vkReallocationFunction">PFN_vkReallocationFunction</a></p>
+<code>pfnReallocation</code> <strong>must</strong> be a valid pointer to a valid
+application-defined <a href="#PFN_vkReallocationFunction">PFN_vkReallocationFunction</a></p>
 </li>
 <li>
 <p><a id="VUID-VkAllocationCallbacks-pfnFree-00634" href="#VUID-VkAllocationCallbacks-pfnFree-00634"></a> <span class="vuid">VUID-VkAllocationCallbacks-pfnFree-00634</span><br>
 
-<code>pfnFree</code> <strong>must</strong> be a valid pointer to a valid user-defined
+<code>pfnFree</code> <strong>must</strong> be a valid pointer to a valid application-defined
 <a href="#PFN_vkFreeFunction">PFN_vkFreeFunction</a></p>
 </li>
 <li>
@@ -521,7 +521,6 @@ being a multiple of <code>alignment</code>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Correct Vulkan operation <strong>cannot</strong> be assumed if the application does not
 follow these rules.</p>
@@ -1394,7 +1393,6 @@ implementation-specific manner)
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>There is no ordering requirement between <strong>X</strong> and <strong>Y</strong> elements for the case
 their <code>propertyFlags</code> members are not in a subset relation.
@@ -1759,10 +1757,11 @@ allocated with this type <strong>can</strong> be mapped for host access using
 <a href="#vkMapMemory">vkMapMemory</a>.</p>
 </li>
 <li>
-<p><code>VK_MEMORY_PROPERTY_HOST_COHERENT_BIT</code> bit specifies that the host
-cache management commands <a href="#vkFlushMappedMemoryRanges">vkFlushMappedMemoryRanges</a> and
-<a href="#vkInvalidateMappedMemoryRanges">vkInvalidateMappedMemoryRanges</a> are not needed to flush host writes
-to the device or make device writes visible to the host, respectively.</p>
+<p><a id="memory-coherent"></a> <code>VK_MEMORY_PROPERTY_HOST_COHERENT_BIT</code> bit
+specifies that the host cache management commands
+<a href="#vkFlushMappedMemoryRanges">vkFlushMappedMemoryRanges</a> and <a href="#vkInvalidateMappedMemoryRanges">vkInvalidateMappedMemoryRanges</a>
+are not needed to manage
+<a href="synchronization.html#synchronization-dependencies-available-and-visible" class="xref page">availability and    visibility</a> on the host.</p>
 </li>
 <li>
 <p><code>VK_MEMORY_PROPERTY_HOST_CACHED_BIT</code> bit specifies that memory
@@ -1791,7 +1790,9 @@ and any of <code>VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT</code> set, or
 <li>
 <p><code>VK_MEMORY_PROPERTY_DEVICE_COHERENT_BIT_AMD</code> bit specifies that
 device accesses to allocations of this memory type are automatically
-made available and visible.</p>
+made <a href="synchronization.html#synchronization-dependencies-available-and-visible" class="xref page">available and    visible</a> on the device.
+If paired with <code>VK_MEMORY_PROPERTY_HOST_COHERENT_BIT</code>,
+<a href="synchronization.html#synchronization-dependencies-available-and-visible" class="xref page">memory domain    operations</a> are also performed automatically between host and device.</p>
 </li>
 <li>
 <p><code>VK_MEMORY_PROPERTY_DEVICE_UNCACHED_BIT_AMD</code> bit specifies that
@@ -1819,7 +1820,6 @@ memory domains.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Device coherence is a useful property for certain debugging use cases (e.g.
 crash analysis, where performing separate coherence actions could mean
@@ -2010,7 +2010,6 @@ were previously freed.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The contents of memory allocated by one application <strong>should</strong> not be a
 function of data from protected memory objects of another application, even
@@ -2035,7 +2034,6 @@ before encountering these internal limits.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For historical reasons, if <code>maxMemoryAllocationCount</code> is exceeded, some
 implementations may return <code>VK_ERROR_TOO_MANY_OBJECTS</code>.
@@ -2054,7 +2052,6 @@ when the limit is reached.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Many protected memory implementations involve complex hardware and system
 software support, and often have additional and much lower limits on the
@@ -2124,7 +2121,7 @@ promoted to device-local memory by the operating system.</p>
 <p><a id="VUID-vkAllocateMemory-pAllocateInfo-01713" href="#VUID-vkAllocateMemory-pAllocateInfo-01713"></a> <span class="vuid">VUID-vkAllocateMemory-pAllocateInfo-01713</span><br>
 
 <code>pAllocateInfo-&gt;allocationSize</code> <strong>must</strong> be less than or equal to
-<a href="#VkPhysicalDeviceMemoryProperties">VkPhysicalDeviceMemoryProperties</a>::<code>memoryHeaps</code>[<code>memindex</code>].<code>size</code>
+<a href="#VkPhysicalDeviceMemoryProperties">VkPhysicalDeviceMemoryProperties</a>::<code>memoryHeaps</code>[memindex].<code>size</code>
 where <code>memindex</code> =
 <a href="#VkPhysicalDeviceMemoryProperties">VkPhysicalDeviceMemoryProperties</a>::<code>memoryTypes</code>[<code>pAllocateInfo-&gt;memoryTypeIndex</code>].<code>heapIndex</code>
 as returned by <a href="#vkGetPhysicalDeviceMemoryProperties">vkGetPhysicalDeviceMemoryProperties</a> for the
@@ -2323,7 +2320,6 @@ from the exporting Vulkan instance or vice-versa.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>How exported and imported memory is isolated is left to the implementation,
 but applications should be aware that such isolation <strong>may</strong> prevent
@@ -2343,7 +2339,7 @@ However, it <strong>must</strong> affect the following per-process values:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="limits.html#VkPhysicalDeviceMaintenance3Properties" class="xref page">VkPhysicalDeviceMaintenance3Properties</a>::<code>maxMemoryAllocationCount</code></p>
+<p><a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxMemoryAllocationCount</code></p>
 </li>
 <li>
 <p><a href="#VkPhysicalDeviceMemoryBudgetPropertiesEXT">VkPhysicalDeviceMemoryBudgetPropertiesEXT</a>::<code>heapUsage</code></p>
@@ -2368,7 +2364,7 @@ implementations <strong>should</strong> not strictly follow <code>memoryTypeInde
 Instead, they <strong>should</strong> modify the allocation internally to use the required
 memory type for the application&#8217;s given usage.
 This is because for an export operation, there is currently no way for the
-client to know the memory type index before allocating.</p>
+application to know the memory type index before allocating.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -2402,7 +2398,7 @@ If the parameters define an import operation from an
 <a href="resources.html#VkBufferCollectionFUCHSIA" class="xref page">VkBufferCollectionFUCHSIA</a>, and
 <a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a>::<code>buffer</code> is present and
 non-NULL, <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>::<code>collection</code>
-and <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>::<code>index</code> must match
+and <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>::<code>index</code> <strong>must</strong> match
 <a href="resources.html#VkBufferCollectionBufferCreateInfoFUCHSIA" class="xref page">VkBufferCollectionBufferCreateInfoFUCHSIA</a>::<code>collection</code> and
 <a href="resources.html#VkBufferCollectionBufferCreateInfoFUCHSIA" class="xref page">VkBufferCollectionBufferCreateInfoFUCHSIA</a>::<code>index</code>,
 respectively, of the <a href="resources.html#VkBufferCollectionBufferCreateInfoFUCHSIA" class="xref page">VkBufferCollectionBufferCreateInfoFUCHSIA</a>
@@ -2416,7 +2412,7 @@ If the parameters define an import operation from an
 <a href="resources.html#VkBufferCollectionFUCHSIA" class="xref page">VkBufferCollectionFUCHSIA</a>, and
 <a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a>::<code>image</code> is present and
 non-NULL, <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>::<code>collection</code>
-and <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>::<code>index</code> must match
+and <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>::<code>index</code> <strong>must</strong> match
 <a href="resources.html#VkBufferCollectionImageCreateInfoFUCHSIA" class="xref page">VkBufferCollectionImageCreateInfoFUCHSIA</a>::<code>collection</code> and
 <a href="resources.html#VkBufferCollectionImageCreateInfoFUCHSIA" class="xref page">VkBufferCollectionImageCreateInfoFUCHSIA</a>::<code>index</code>,
 respectively, of the <a href="resources.html#VkBufferCollectionImageCreateInfoFUCHSIA" class="xref page">VkBufferCollectionImageCreateInfoFUCHSIA</a>
@@ -2763,7 +2759,7 @@ type is <code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_SCREEN_BUFFER_BIT_QNX</code>,
 If the parameters define an import operation, the external handle is a
 QNX Screen buffer, and the <code>pNext</code> chain includes a
 <a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a> with <code>image</code> that is not
-<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the QNX Screen&#8217;s buffer must be a
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the QNX Screen&#8217;s buffer <strong>must</strong> be a
 <a href="#memory-external-screen-buffer-validity">valid QNX Screen buffer</a></p>
 </li>
 <li>
@@ -2785,7 +2781,7 @@ If the parameters define an import operation, the external handle is a
 QNX Screen buffer, and the <code>pNext</code> chain includes a
 <a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a> structure with <code>image</code> that is
 not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the width, height, and array layer dimensions
-of <code>image</code> and the QNX Screen buffer&#8217;s <code>_screen_buffer</code> must be
+of <code>image</code> and the QNX Screen buffer&#8217;s <code>_screen_buffer</code> <strong>must</strong> be
 identical</p>
 </li>
 <li>
@@ -3687,7 +3683,6 @@ reference to its payload.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Non-NT handle import operations do not add a reference to their associated
 payload.
@@ -3841,7 +3836,6 @@ using the <code>CloseHandle</code> system call when they are no longer needed.</
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Non-NT handle types do not add a reference to their associated payload.
 If the original object owning the payload is destroyed, all resources and
@@ -4205,9 +4199,9 @@ structure specifying security attributes of the handle.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If this structure is not present, or if <code>pAttributes</code> is set to <code>NULL</code>,
-default security descriptor values will be used, and child processes created
-by the application will not inherit the handle, as described in the MSDN
+<p>If this structure is not present, or if <code>pAttributes</code> is <code>NULL</code>, default
+security descriptor values will be used, and child processes created by the
+application will not inherit the handle, as described in the MSDN
 documentation for &#8220;Synchronization Object Security and Access Rights&#8221;<sup>1</sup>.
 Further, if the structure is not present, the access rights will be</p>
 </div>
@@ -4594,7 +4588,7 @@ type specified by <code>handleType</code></p>
 The memory represented by <code>fd</code> <strong>must</strong> have been created from a
 physical device and driver that is compatible with <code>device</code> and
 <code>handleType</code>, as described in
-<a href="capabilities.html#external-memory-handle-types-compatibility" class="xref page">External memory handle types compatibility</a></p>
+<a href="capabilities.html#external-memory-handle-types-compatibility" class="xref page">External Memory Handle Types Compatibility</a></p>
 </li>
 <li>
 <p><a id="VUID-VkImportMemoryFdInfoKHR-fd-01520" href="#VUID-VkImportMemoryFdInfoKHR-fd-01520"></a> <span class="vuid">VUID-VkImportMemoryFdInfoKHR-fd-01520</span><br>
@@ -4770,7 +4764,6 @@ properties of the defined external memory handle types.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The size of the exported file <strong>may</strong> be larger than the size requested by
 <a href="#VkMemoryAllocateInfo">VkMemoryAllocateInfo</a>::<code>allocationSize</code>.
@@ -5081,7 +5074,6 @@ support importing host pointers for memory types which are not host-visible.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Using host pointers to back non-host visible allocations is a
 platform-specific use case, and applications should not attempt to do this
@@ -5867,7 +5859,6 @@ Android hardware buffer <strong>can</strong> only be used with an external forma
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The <code>formatFeatures</code> member only indicates the features available when
 using an
@@ -5877,7 +5868,7 @@ Images from Android hardware buffers with a format other than
 from <a href="formats.html#vkGetPhysicalDeviceFormatProperties2" class="xref page">vkGetPhysicalDeviceFormatProperties2</a>, and
 <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties2" class="xref page">vkGetPhysicalDeviceImageFormatProperties2</a> with appropriate parameters.
 These sets of features are independent of each other, e.g. the external
-format will support sampler Y′C<sub>B</sub>C<sub>R</sub> conversion even if the non-external
+format will support sampler {YCbCr} conversion even if the non-external
 format does not, and rendering directly to the external format will not be
 supported even if the non-external format does support this.</p>
 </div>
@@ -5917,7 +5908,7 @@ numerical range, or chroma offsets of the image contents, so the values in
 Applications <strong>should</strong> treat these values as sensible defaults to use in the
 absence of more reliable information obtained through some other means.
 If the underlying physical device is also usable via OpenGL ES with the
-<a href="https://registry.khronos.org/OpenGL/extensions/OES/OES_EGL_image_external.txt"><code>GL_OES_EGL_image_external</code></a>
+{GLregistry}/OES/OES_EGL_image_external.txt[<code>GL_OES_EGL_image_external</code>]
 extension, the implementation <strong>should</strong> suggest values that will produce
 similar sampled values as would be obtained by sampling the same external
 image via <code>samplerExternalOES</code> in OpenGL ES using equivalent sampler
@@ -5930,10 +5921,9 @@ parameters.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Since
-<a href="https://registry.khronos.org/OpenGL/extensions/OES/OES_EGL_image_external.txt"><code>GL_OES_EGL_image_external</code></a>
+{GLregistry}/OES/OES_EGL_image_external.txt[<code>GL_OES_EGL_image_external</code>]
 does not require the same sampling and conversion calculations as Vulkan
 does, achieving identical results between APIs <strong>may</strong> not be possible on some
 implementations.</p>
@@ -6079,12 +6069,12 @@ structure.</p>
 color attachment images that <strong>must</strong> be used for color attachments when
 resolving to the specified external format.
 If the implementation supports external format resolves for the
-specified external format, this value will be set to a color format
-supporting the <code>VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT</code> in
+specified external format, this value will be a color format supporting
+the <code>VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT</code> in
 <a href="formats.html#VkFormatProperties" class="xref page">VkFormatProperties</a>::<code>optimalTilingFeatures</code> as returned by
 <a href="formats.html#vkGetPhysicalDeviceFormatProperties" class="xref page">vkGetPhysicalDeviceFormatProperties</a> with <code>format</code> equal to
 <code>colorAttachmentFormat</code> If external format resolves are not
-supported, this value will be set to <code>VK_FORMAT_UNDEFINED</code>.</p>
+supported, this value will be <code>VK_FORMAT_UNDEFINED</code>.</p>
 </li>
 </ul>
 </div>
@@ -6464,7 +6454,7 @@ result will be stored.</p>
 <li>
 <p><a id="VUID-vkGetMemoryZirconHandlePropertiesFUCHSIA-zirconHandle-04774" href="#VUID-vkGetMemoryZirconHandlePropertiesFUCHSIA-zirconHandle-04774"></a> <span class="vuid">VUID-vkGetMemoryZirconHandlePropertiesFUCHSIA-zirconHandle-04774</span><br>
 
-<code>zirconHandle</code> must reference a valid VMO</p>
+<code>zirconHandle</code> <strong>must</strong> reference a valid VMO</p>
 </li>
 </ul>
 </div>
@@ -6591,8 +6581,8 @@ The application is responsible for closing the handle with
 <div class="content">
 <div class="paragraph">
 <p>To export device memory as a Zircon handle that can be used by another
-instance, device, or process, the handle to the <a href="#VkDeviceMemory">VkDeviceMemory</a> must be
-retrieved using <a href="#vkGetMemoryZirconHandleFUCHSIA">vkGetMemoryZirconHandleFUCHSIA</a>:</p>
+instance, device, or process, retrieve the handle to the
+<a href="#VkDeviceMemory">VkDeviceMemory</a> using the command:</p>
 </div>
 <div id="vkGetMemoryZirconHandleFUCHSIA" class="listingblock">
 <div class="content">
@@ -6796,8 +6786,8 @@ those Metal objects in either <a href="#VkImportMetalIOSurfaceInfoEXT">VkImportM
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>To export Metal objects from Vulkan objects, the app <strong>must</strong> first indicate
-the intention to do so during the creation of the Vulkan object, by
+<p>To export Metal objects from Vulkan objects, the application <strong>must</strong> first
+indicate the intention to do so during the creation of the Vulkan object, by
 including one or more <a href="#VkExportMetalObjectCreateInfoEXT">VkExportMetalObjectCreateInfoEXT</a> structures in
 the <code>pNext</code> chain of the <a href="initialization.html#VkInstanceCreateInfo" class="xref page">VkInstanceCreateInfo</a>,
 <a href="#VkMemoryAllocateInfo">VkMemoryAllocateInfo</a>, <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a>,
@@ -7437,8 +7427,8 @@ the <a href="#VkDeviceMemory">VkDeviceMemory</a>.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The app <strong>must</strong> ensure that the configuration of the <code>id&lt;MTLBuffer&gt;</code> object is
-compatible with the configuration of the <a href="#VkDeviceMemory">VkDeviceMemory</a>.
+<p>The application <strong>must</strong> ensure that the configuration of the <code>id&lt;MTLBuffer&gt;</code>
+object is compatible with the configuration of the <a href="#VkDeviceMemory">VkDeviceMemory</a>.
 Failure to do so results in <strong>undefined</strong> behavior.</p>
 </div>
 <div class="sidebarblock">
@@ -7614,8 +7604,9 @@ underlie the <a href="resources.html#VkImage" class="xref page">VkImage</a> plan
 <div class="paragraph">
 <p>The <code>pNext</code> chain <strong>must</strong> include one <code>VkImportMetalTextureInfoEXT</code>
 structure for each plane in the <a href="resources.html#VkImage" class="xref page">VkImage</a>.
-The app <strong>must</strong> ensure that the configuration of the Metal <code>id&lt;MTLTexture&gt;</code>
-objects are compatible with the configuration of the <a href="resources.html#VkImage" class="xref page">VkImage</a>.
+The application <strong>must</strong> ensure that the configuration of the Metal
+<code>id&lt;MTLTexture&gt;</code> objects are compatible with the configuration of the
+<a href="resources.html#VkImage" class="xref page">VkImage</a>.
 Failure to do so results in <strong>undefined</strong> behavior.</p>
 </div>
 <div class="sidebarblock">
@@ -7762,7 +7753,7 @@ If <code>ioSurface</code> is <a href="../appendices/boilerplate.html#VK_NULL_HAN
 new <code>IOSurface</code> to underlie the <a href="resources.html#VkImage" class="xref page">VkImage</a>.</p>
 </div>
 <div class="paragraph">
-<p>If provided, the app <strong>must</strong> ensure that the configuration of the
+<p>If provided, the application <strong>must</strong> ensure that the configuration of the
 <code>IOSurfaceRef</code> object is compatible with the configuration of the
 <a href="resources.html#VkImage" class="xref page">VkImage</a>.
 Failure to do so results in <strong>undefined</strong> behavior.</p>
@@ -7914,8 +7905,8 @@ underlie the <a href="synchronization.html#VkSemaphore" class="xref page">VkSema
 <p>If the <code>pNext</code> chain of the <a href="synchronization.html#VkSemaphoreCreateInfo" class="xref page">VkSemaphoreCreateInfo</a> structure
 includes both <code>VkImportMetalSharedEventInfoEXT</code> and
 <a href="synchronization.html#VkSemaphoreTypeCreateInfo" class="xref page">VkSemaphoreTypeCreateInfo</a>, the <code>signaledValue</code> property of the
-imported <code>id&lt;MTLSharedEvent&gt;</code> object will be set to <code>initialValue</code> of
-<a href="synchronization.html#VkSemaphoreTypeCreateInfo" class="xref page">VkSemaphoreTypeCreateInfo</a>.</p>
+imported <code>id&lt;MTLSharedEvent&gt;</code> object will be set to
+<a href="synchronization.html#VkSemaphoreTypeCreateInfo" class="xref page">VkSemaphoreTypeCreateInfo</a>::<code>initialValue</code>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -8368,7 +8359,6 @@ mask.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>In practice, most allocations on a multi-instance heap will be allocated
 across all physical devices.
@@ -8559,7 +8549,6 @@ created memory allocation on the same implementation.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>In most cases, it is expected that a non-zero <code>opaqueAddress</code> is an
 address retrieved from <a href="#vkGetDeviceMemoryOpaqueCaptureAddress">vkGetDeviceMemoryOpaqueCaptureAddress</a> on an
@@ -8654,7 +8643,6 @@ unmapped.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>As described <a href="#memory-device-unmap-does-not-flush">below</a>, host writes are
 not implicitly flushed when the memory object is unmapped, but the
@@ -8707,11 +8695,11 @@ buffers) <strong>must</strong> have completed execution</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>memory</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>memory</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8775,7 +8763,7 @@ additional parameters of the memory map operation.</p>
 <p><code>ppData</code> is a pointer to a <code>void*</code> variable in which a
 host-accessible pointer to the beginning of the mapped range is
 returned.
-This pointer minus <code>offset</code> <strong>must</strong> be aligned to at least
+The value of the returned pointer minus <code>offset</code> <strong>must</strong> be aligned to
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>minMemoryMapAlignment</code>.</p>
 </li>
 </ul>
@@ -8791,7 +8779,6 @@ is considered to be currently <em>host mapped</em>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>It is an application error to call <code>vkMapMemory</code> on a memory object that
 is already <em>host mapped</em>.</p>
@@ -8807,7 +8794,6 @@ is already <em>host mapped</em>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p><code>vkMapMemory</code> will fail if the implementation is unable to allocate an
 appropriately sized contiguous virtual address range, e.g. due to virtual
@@ -8851,7 +8837,6 @@ range.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>It is important for the application developer to become meticulously
 familiar with all of the mechanisms described in the chapter on
@@ -8944,11 +8929,11 @@ less than or equal to the size of the <code>memory</code> minus <code>offset</co
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>memory</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>memory</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9011,8 +8996,8 @@ typedef enum VkMemoryMapFlagBits {
 <ul>
 <li>
 <p><code>VK_MEMORY_MAP_PLACED_BIT_EXT</code> requests that the implementation
-place the memory map at the virtual address specified by the client via
-<a href="#VkMemoryMapPlacedInfoEXT">VkMemoryMapPlacedInfoEXT</a>::<code>pPlacedAddress</code>, replacing any
+place the memory map at the virtual address specified by the application
+via <a href="#VkMemoryMapPlacedInfoEXT">VkMemoryMapPlacedInfoEXT</a>::<code>pPlacedAddress</code>, replacing any
 existing mapping at that address.
 This flag <strong>must</strong> not be used with <a href="#vkMapMemory">vkMapMemory</a> as there is no way to
 specify the placement address.</p>
@@ -9312,11 +9297,11 @@ object <strong>must</strong> not have been imported from a handle type of
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>memory</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>memory</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9336,8 +9321,8 @@ The implementation will place the memory map at the specified address,
 replacing any existing maps in the specified memory range.
 Replacing memory maps in this way does not implicitly unmap Vulkan memory
 objects.
-Instead, the client <strong>must</strong> ensure no other Vulkan memory objects are mapped
-anywhere in the specified virtual address range.
+Instead, the application <strong>must</strong> ensure no other Vulkan memory objects are
+mapped anywhere in the specified virtual address range.
 If successful, <code>ppData</code> will be set to the same value as
 <code>VkMemoryMapPlacedInfoEXT</code>::<code>pPlacedAddress</code> and
 <code>vkMapMemory2KHR</code> will return <code>VK_SUCCESS</code>.
@@ -9431,7 +9416,6 @@ memory allocations: <code>vkFlushMappedMemoryRanges</code> and
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>If the memory object was created with the
 <code>VK_MEMORY_PROPERTY_HOST_COHERENT_BIT</code> set,
@@ -9451,7 +9435,6 @@ See the description of <a href="synchronization.html#synchronization-host-access
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>While memory objects imported from a handle type of
 <code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT</code> or
@@ -9515,13 +9498,62 @@ domain via <a href="synchronization.html#synchronization-dependencies-available-
 <a href="synchronization.html#synchronization-access-types" class="xref page">access type</a>.</p>
 </div>
 <div class="paragraph">
-<p>Within each range described by <code>pMemoryRanges</code>, each set of
-<code>nonCoherentAtomSize</code> bytes in that range is flushed if any byte in that
-set has been written by the host since it was first host mapped, or the last
-time it was flushed.
-If <code>pMemoryRanges</code> includes sets of <code>nonCoherentAtomSize</code> bytes
-where no bytes have been written by the host, those bytes <strong>must</strong> not be
-flushed.</p>
+<p>The first <a href="synchronization.html#synchronization-dependencies-scopes" class="xref page">synchronization scope</a>
+includes all host operations that happened-before it, as defined by the host
+memory model.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>Some systems allow writes that do not directly integrate with the host
+memory model; these have to be synchronized by the application manually.
+One example of this is non-temporal store instructions on x86; to ensure
+these happen-before submission, applications should call <code>_mm_sfence()</code>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The second <a href="synchronization.html#synchronization-dependencies-scopes" class="xref page">synchronization scope</a> is
+empty.</p>
+</div>
+<div class="paragraph">
+<p>The first <a href="synchronization.html#synchronization-dependencies-access-scopes" class="xref page">access scope</a>
+includes host writes to the specified memory ranges.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>When a host write to a memory location is made available in this way, each
+whole aligned set of <a href="limits.html#limits-nonCoherentAtomSize" class="xref page"><code>nonCoherentAtomSize</code></a> bytes that the memory location exists in will
+also be made available as if they were written by the host.
+For example, with a <code>nonCoherentAtomSize</code> of 128, if an application
+writes to the first byte of a memory object via a host mapping, the first
+128 bytes of the memory object will be made available by this command.
+While the value of the following 127 bytes will be unchanged, this does
+count as an access for the purpose of synchronization, so care must be taken
+to avoid data races.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The second <a href="synchronization.html#synchronization-dependencies-access-scopes" class="xref page">access scope</a> is
+empty.</p>
 </div>
 <div id="memory-device-unmap-does-not-flush" class="paragraph">
 <p>Unmapping non-coherent memory does not implicitly flush the host mapped
@@ -9537,7 +9569,6 @@ do not become visible to any other memory.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The above guarantee avoids a potential memory corruption in scenarios where
 host writes to a mapped memory object have not been flushed before the
@@ -9641,10 +9672,9 @@ If a range of non-coherent memory is written by the host and then
 invalidated without first being flushed, its contents are <strong>undefined</strong>.</p>
 </div>
 <div class="paragraph">
-<p>Within each range described by <code>pMemoryRanges</code>, each set of
-<code>nonCoherentAtomSize</code> bytes in that range is invalidated if any byte in
-that set has been written by the device since it was first host mapped, or
-the last time it was invalidated.</p>
+<p>The first <a href="synchronization.html#synchronization-dependencies-scopes" class="xref page">synchronization scope</a>
+includes all host operations that happened-before it, as defined by the host
+memory model.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -9654,6 +9684,79 @@ the last time it was invalidated.</p>
 </td>
 <td class="content">
 <div class="title">Note</div>
+<div class="paragraph">
+<p>This function does not synchronize with device operations directly - other
+host <a href="synchronization.html#synchronization" class="xref page">synchronization operations</a> that depend on device
+operations such as <a href="synchronization.html#vkWaitForFences" class="xref page">vkWaitForFences</a> must be executed beforehand.
+So for any non-coherent device write to be made visible to the host, there
+has to be a dependency chain along the following lines:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Device write</p>
+</li>
+<li>
+<p>Device memory barrier including host reads in its second scope</p>
+</li>
+<li>
+<p>Signal on the device (e.g. a <a href="synchronization.html#synchronization-fences-signaling" class="xref page">fence    signal operation</a>)</p>
+</li>
+<li>
+<p>Wait on the host (e.g. <a href="synchronization.html#vkWaitForFences" class="xref page">vkWaitForFences</a>)</p>
+</li>
+<li>
+<p><a href="#vkInvalidateMappedMemoryRanges">vkInvalidateMappedMemoryRanges</a></p>
+</li>
+</ol>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The second <a href="synchronization.html#synchronization-dependencies-scopes" class="xref page">synchronization scope</a>
+includes all host operations that happen-after it, as defined by the host
+memory model.</p>
+</div>
+<div class="paragraph">
+<p>The first <a href="synchronization.html#synchronization-dependencies-access-scopes" class="xref page">access scope</a> is
+empty.</p>
+</div>
+<div class="paragraph">
+<p>The second <a href="synchronization.html#synchronization-dependencies-access-scopes" class="xref page">access scope</a>
+includes host reads to the specified memory ranges.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Note</div>
+<div class="paragraph">
+<p>When a device write to a memory location is made visible to the host in this
+way, each whole aligned set of <a href="limits.html#limits-nonCoherentAtomSize" class="xref page"><code>nonCoherentAtomSize</code></a> bytes that the memory location exists in will
+also be made visible as if they were written by the device.
+For example, with a <code>nonCoherentAtomSize</code> of 128, if an application
+writes to the first byte of a memory object on the device, the first 128
+bytes of the memory object will be made visible by this command.
+While the value of the following 127 bytes will be unchanged, this does
+count as an access for the purpose of synchronization, so care must be taken
+to avoid data races.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
 <div class="paragraph">
 <p>Mapping non-coherent memory does not implicitly invalidate that memory.</p>
 </div>
@@ -9855,7 +9958,7 @@ void vkUnmapMemory(
 </div>
 <div class="paragraph">
 <p>Calling <code>vkUnmapMemory</code> is equivalent to calling <a href="#vkUnmapMemory2KHR">vkUnmapMemory2KHR</a>
-with an empty <code>pNext</code> chain and the flags parameter set to zero.</p>
+with an empty <code>pNext</code> chain and <code>flags</code> set to zero.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -9894,11 +9997,11 @@ with an empty <code>pNext</code> chain and the flags parameter set to zero.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>memory</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>memory</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10074,11 +10177,11 @@ memory object <strong>must</strong> not have been imported from a handle type of
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>memory</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>memory</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10109,7 +10212,7 @@ range currently occupied by the memory map remain reserved after the
 <a href="#vkUnmapMemory2KHR">vkUnmapMemory2KHR</a> call completes.
 Future system memory map operations or calls to <a href="#vkMapMemory">vkMapMemory</a> or
 <a href="#vkMapMemory2KHR">vkMapMemory2KHR</a> will not return addresses in that range unless the
-range has since been unreserved by the client or the mapping is
+range has since been unreserved by the application or the mapping is
 explicitly placed in that range by calling <a href="#vkMapMemory2KHR">vkMapMemory2KHR</a> with
 <code>VK_MEMORY_MAP_PLACED_BIT_EXT</code>, or doing the system memory map
 equivalent.
@@ -10159,7 +10262,6 @@ additional memory is needed.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Using lazily allocated memory objects for framebuffer attachments that are
 not needed once a render pass instance has completed <strong>may</strong> allow some
@@ -10359,7 +10461,6 @@ buffers <strong>can</strong> be submitted</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>When the <a href="features.html#features-protectedMemory" class="xref page"><code>protectedMemory</code></a> feature is
 enabled, all pipelines <strong>may</strong> be recorded in either protected or unprotected
@@ -10462,7 +10563,6 @@ struct AHardwareBuffer;</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The NDK format, usage, and size/dimensions of an <code>AHardwareBuffer</code>
 object can be obtained with the <code>AHardwareBuffer_describe</code> function.
@@ -10549,12 +10649,11 @@ formats, layouts, color models, etc., which do not have Vulkan equivalents.
 Such <em>external formats</em> are commonly used by external image sources such as
 video decoders or cameras.
 Vulkan <strong>can</strong> import Android hardware buffers that have external formats, but
-since the image contents are in an undiscoverable and possibly proprietary
-representation, images with external formats <strong>must</strong> only be used as
-resolve images or
-sampled images, and <strong>must</strong> have optimal tiling.
+since the image contents are in a possibly proprietary representation,
+images with external formats <strong>must</strong> have optimal tiling, and their use is
+restricted.
 Images with external formats <strong>must</strong> only be sampled with a sampler that has
-Y′C<sub>B</sub>C<sub>R</sub> conversion enabled.</p>
+{YCbCr} conversion enabled.</p>
 </div>
 <div class="paragraph">
 <p>Images that will be backed by an Android hardware buffer <strong>can</strong> use an
@@ -10813,7 +10912,6 @@ image with <code>VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT</code>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>When using <code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code> with Android hardware
 buffer images, applications <strong>should</strong> use <a href="resources.html#VkImageFormatListCreateInfo" class="xref page">VkImageFormatListCreateInfo</a> to
@@ -10914,7 +11012,7 @@ video decoders or cameras.
 Vulkan <strong>can</strong> import QNX Screen buffers that have external formats, but since
 the image contents are in an undiscoverable and possibly proprietary
 representation, images with external formats <strong>must</strong> only be used as sampled
-images, <strong>must</strong> only be sampled with a sampler that has Y′C<sub>B</sub>C<sub>R</sub> conversion
+images, <strong>must</strong> only be sampled with a sampler that has {YCbCr} conversion
 enabled, and <strong>must</strong> have optimal tiling.</p>
 </div>
 <div class="paragraph">
@@ -11211,7 +11309,6 @@ Shader atomics are considered to be writes.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The peer memory features of a memory heap also apply to any accesses that
 <strong>may</strong> be performed during <a href="synchronization.html#synchronization-image-layout-transitions" class="xref page">image layout transitions</a>.</p>
@@ -11314,7 +11411,6 @@ the return value <strong>must</strong> be the same address.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The expected usage for these opaque addresses is only for trace
 capture/replay tools to store these addresses in a trace and subsequently
@@ -11447,12 +11543,6 @@ structure.</p>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

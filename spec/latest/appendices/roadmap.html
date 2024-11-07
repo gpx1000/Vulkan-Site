@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="../chapters/dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../chapters/VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="../chapters/device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../chapters/VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/extensions.html">Extending Vulkan</a>
@@ -341,6 +339,9 @@
 <h1 class="page">Vulkan Roadmap Milestones</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/appendices/roadmap.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>Roadmap milestones are intended to be supported by mid-to-high-end
 smartphones, tablets, laptops, consoles, and desktop devices.</p>
@@ -616,35 +617,35 @@ hardware shipping by the end of the target year or shortly thereafter.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">96</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">576</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUniformBuffers</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">72</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">90</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetStorageBuffers</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">24</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">96</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetSampledImages</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">96</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1800</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetStorageImages</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">24</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">144</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxFragmentCombinedOutputResources</code></p></td>
@@ -859,7 +860,7 @@ hardware shipping by the end of the target year or shortly thereafter.</p>
 <p>Two of the core aims of this roadmap profile are to enable developers to rely on a number of important rasterization and shader features have been available for a long time, but until now have not enjoyed wide support.</p>
 </div>
 <div class="paragraph">
-<p>Shader features required include smaller types (<a href="../chapters/features.html#features-shaderInt8" class="xref page">8/16-bit integers</a> and <a href="../chapters/features.html#features-shaderFloat16" class="xref page">16-bit floats</a>), reconvergence guarantees for subgroup ops (<a href="extensions.html#VK_KHR_shader_maximal_reconvergence" class="xref page">VK_KHR_shader_maximal_reconvergence</a> and <a href="extensions.html#VK_KHR_shader_quad_control" class="xref page">VK_KHR_shader_quad_control</a>), and more consistent floating point handling (<a href="extensions.html#VK_KHR_shader_float_controls2" class="xref page">VK_KHR_shader_float_controls2</a> and <a href="../chapters/devsandqueues.html#limits-shaderRoundingModeRTEFloat32" class="xref page">round-to-nearest-even for 32-/16-bit floats</a>).
+<p>Shader features required include smaller types (<a href="../chapters/features.html#features-shaderInt8" class="xref page">8/16-bit integers</a> and <a href="../chapters/features.html#features-shaderFloat16" class="xref page">16-bit floats</a>), reconvergence guarantees for subgroup ops (<a href="extensions.html#VK_KHR_shader_maximal_reconvergence" class="xref page">VK_KHR_shader_maximal_reconvergence</a> and <a href="extensions.html#VK_KHR_shader_quad_control" class="xref page">VK_KHR_shader_quad_control</a>), and more consistent floating-point handling (<a href="extensions.html#VK_KHR_shader_float_controls2" class="xref page">VK_KHR_shader_float_controls2</a> and <a href="../chapters/devsandqueues.html#limits-shaderRoundingModeRTEFloat32" class="xref page">round-to-nearest-even for 32-/16-bit floats</a>).
 Rasterization features include requiring support for multi-draw indirect, shader draw parameters, 8-bit indices, better line rasterization definitions, and local reads when using dynamic rendering.
 A few other features have been added opportunistically, in lieu of shipping a Vulkan 1.4 in the same time frame, such as <a href="extensions.html#VK_KHR_push_descriptor" class="xref page">push descriptors</a> and the various minor improvements included in <a href="extensions.html#VK_KHR_maintenance5" class="xref page">VK_KHR_maintenance5</a>.</p>
 </div>
@@ -1008,7 +1009,7 @@ A few other features have been added opportunistically, in lieu of shipping a Vu
 </table>
 </div>
 <div class="sect2">
-<h3 id="_required_extensions_2"><a class="anchor" href="#_required_extensions_2"></a>Required extensions</h3>
+<h3 id="_required_extensions_2"><a class="anchor" href="#_required_extensions_2"></a>Required Extensions</h3>
 <div class="paragraph">
 <p>The following extensions are <strong>required</strong></p>
 </div>
@@ -1065,12 +1066,6 @@ A few other features have been added opportunistically, in lieu of shipping a Vu
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

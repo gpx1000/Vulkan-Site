@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -609,8 +610,7 @@ Run these to confirm your machine supports Vulkan.</p>
 The loader looks up the functions in the driver at runtime, similarly to GLEW for OpenGL - if you&#8217;re familiar with that.</p>
 </li>
 <li>
-<p><code>sudo apt install vulkan-validationlayers-dev spirv-tools</code> or <code>sudo dnf install mesa-vulkan-devel vulkan-validation-layers-devel</code>: Installs the standard validation layers and required SPIR-V tools.
-These are crucial when debugging Vulkan applications, and we&#8217;ll discuss them in the upcoming chapter.</p>
+<p><code>sudo apt install vulkan-validationlayers spirv-tools</code> or <code>sudo dnf install mesa-vulkan-devel vulkan-validation-layers-devel</code>: Installs the standard validation layers and required SPIR-V tools. These are crucial when debugging Vulkan applications, and we&#8217;ll discuss them in the upcoming chapter.</p>
 </li>
 </ul>
 </div>
@@ -675,7 +675,7 @@ There are other libraries available for this purpose, like <a href="https://www.
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo pacman -S glfw-wayland # glfw-x11 for X11 users</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sudo pacman -S glfw</code></pre>
 </div>
 </div>
 </div>
@@ -1131,12 +1131,6 @@ The other logs are from the libraries, you might get different messages from tho
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>

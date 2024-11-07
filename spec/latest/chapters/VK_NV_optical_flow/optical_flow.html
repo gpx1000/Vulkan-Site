@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="../dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="../device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../extensions.html">Extending Vulkan</a>
@@ -339,11 +337,18 @@
 </aside>
 <article class="doc">
 <h1 class="page">Optical Flow</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/VK_NV_optical_flow/optical_flow.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="_optical_flow_queues"><a class="anchor" href="#_optical_flow_queues"></a>Optical Flow Queues</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><code><a href="../../appendices/extensions.html#VK_NV_optical_flow" class="xref page">VK_NV_optical_flow</a></code> adds a optical flow queue type bit
+<p><code><a href="../../appendices/extensions.html#VK_NV_optical_flow" class="xref page">VK_NV_optical_flow</a></code> adds an optical flow queue type bit
 <code>VK_QUEUE_OPTICAL_FLOW_BIT_NV</code> to <a href="../devsandqueues.html#VkQueueFlagBits" class="xref page">VkQueueFlagBits</a>.
 Optical flow operations are supported by queues with an advertised queue
 capability of <code>VK_QUEUE_OPTICAL_FLOW_BIT_NV</code>.
@@ -403,10 +408,10 @@ formats and image parameters are returned.</p>
 <p>If <code>pImageFormatProperties</code> is <code>NULL</code>, then the number of optical flow
 properties supported for the given <code>physicalDevice</code> is returned in
 <code>pFormatCount</code>.
-Otherwise, <code>pFormatCount</code> must point to a variable set by the user to
-the number of elements in the <code>pImageFormatProperties</code> array, and on
-return the variable is overwritten with the number of values actually
-written to <code>pImageFormatProperties</code>.
+Otherwise, <code>pFormatCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pImageFormatProperties</code>
+array, and on return the variable is overwritten with the number of values
+actually written to <code>pImageFormatProperties</code>.
 If the value of <code>pFormatCount</code> is less than the number of optical flow
 properties supported, at most <code>pFormatCount</code> values will be written to
 <code>pImageFormatProperties</code>, and <code>VK_INCOMPLETE</code> will be returned
@@ -414,7 +419,7 @@ instead of <code>VK_SUCCESS</code>, to indicate that not all the available value
 were returned.</p>
 </div>
 <div class="paragraph">
-<p>Before creating an image to be used as a optical flow frame, obtain the
+<p>Before creating an image to be used as an optical flow frame, obtain the
 supported image creation parameters by querying with
 <a href="../formats.html#vkGetPhysicalDeviceFormatProperties2" class="xref page">vkGetPhysicalDeviceFormatProperties2</a> and
 <a href="../capabilities.html#vkGetPhysicalDeviceImageFormatProperties2" class="xref page">vkGetPhysicalDeviceImageFormatProperties2</a> using one of the reported
@@ -498,7 +503,6 @@ flow operations, the <a href="#VkOpticalFlowImageFormatInfoNV">VkOpticalFlowImag
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p><code>VK_FORMAT_B8G8R8A8_UNORM</code>, <code>VK_FORMAT_R8_UNORM</code> and
 <code>VK_FORMAT_G8_B8R8_2PLANE_420_UNORM</code> are initially supported for images
@@ -1172,8 +1176,8 @@ zero or more <a href="#VkOpticalFlowGridSizeFlagBitsNV">VkOpticalFlowGridSizeFla
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>Optical flow exposes performance levels which the user can choose based on
-the desired performance and quality requirement.</p>
+<p>Optical flow exposes performance levels which the application <strong>can</strong> choose
+based on the desired performance and quality requirement.</p>
 </div>
 <div class="paragraph">
 <p>The optical flow performance level types are defined with the following:</p>
@@ -1289,7 +1293,7 @@ typedef VkFlags   VkOpticalFlowSessionCreateFlagsNV;</code></pre>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>To destroy a optical flow session object, call:</p>
+<p>To destroy an optical flow session object, call:</p>
 </div>
 <div id="vkDestroyOpticalFlowSessionNV" class="listingblock">
 <div class="content">
@@ -1607,11 +1611,11 @@ is operating.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1787,12 +1791,6 @@ typedef VkFlags   VkOpticalFlowExecuteFlagsNV;</code></pre>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
 <script async src="../../../../_/js/vendor/highlight.js"></script>
 <script src="../../../../_/js/vendor/lunr.js"></script>

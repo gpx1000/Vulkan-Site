@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="../dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="../device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../extensions.html">Extending Vulkan</a>
@@ -339,6 +337,13 @@
 </aside>
 <article class="doc">
 <h1 class="page">Micromap</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/VK_EXT_opacity_micromap/micromaps.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="micromap-def"><a class="anchor" href="#micromap-def"></a>Micromaps</h2>
 <div class="sectionbody">
@@ -408,7 +413,6 @@ implied between any of the individual micromap builds.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This means that there <strong>cannot</strong> be any memory aliasing between any micromap
 memories or scratch memories being used by any of the builds.</p>
@@ -516,7 +520,7 @@ For each element of <code>pInfos</code>, the <code>buffer</code> used to create 
 
 If <code>pInfos</code>[i].<code>mode</code> is <code>VK_BUILD_MICROMAP_MODE_BUILD_EXT</code>,
 all addresses between <code>pInfos</code>[i].<code>scratchData.deviceAddress</code>
-and <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> +  N - 1 <strong>must</strong>
+and <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> &#43; N - 1 <strong>must</strong>
 be in the buffer device address range of the same buffer, where N is
 given by the <code>buildScratchSize</code> member of the
 <a href="../resources.html#VkMicromapBuildSizesInfoEXT" class="xref page">VkMicromapBuildSizesInfoEXT</a> structure returned from a call to
@@ -611,14 +615,14 @@ and <code>data.deviceAddress</code> members <strong>must</strong> be a multiple 
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -695,7 +699,6 @@ can be interpreted as described in <a href="../raytraversal.html#ray-opacity-mic
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For compactness, these values are stored as 16-bit in some structures.</p>
 </div>
@@ -750,7 +753,6 @@ worth of displacements in 128 bytes as described in
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For compactness, these values are stored as 16-bit in some structures.</p>
 </div>
@@ -1333,14 +1335,14 @@ or <code>VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1475,14 +1477,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1807,14 +1809,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1967,7 +1969,7 @@ void vkCmdCopyMemoryToMicromapEXT(
 recorded.</p>
 </li>
 <li>
-<p><code>pInfo</code> is a pointer to a <a href="#VkCopyMicromapToMemoryInfoEXT">VkCopyMicromapToMemoryInfoEXT</a>
+<p><code>pInfo</code> is a pointer to a <a href="#VkCopyMemoryToMicromapInfoEXT">VkCopyMemoryToMicromapInfoEXT</a>
 structure defining the copy operation.</p>
 </li>
 </ul>
@@ -2053,14 +2055,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2305,9 +2307,8 @@ defined in <a href="#vkCmdCopyMicromapToMemoryEXT">vkCmdCopyMicromapToMemoryEXT<
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
-<p><code>pVersionData</code> is a <em>pointer</em> to an array of 2×<code>VK_UUID_SIZE</code>
+<p><code>pVersionData</code> is a <em>pointer</em> to an array of 2{times}<code>VK_UUID_SIZE</code>
 <code>uint8_t</code> values instead of two <code>VK_UUID_SIZE</code> arrays as the expected
 use case for this member is to be pointed at the header of a previously
 serialized micromap (via <a href="#vkCmdCopyMicromapToMemoryEXT">vkCmdCopyMicromapToMemoryEXT</a> or
@@ -2392,7 +2393,6 @@ commands.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The <a href="#vkBuildMicromapsEXT">vkBuildMicromapsEXT</a> and <a href="#vkCmdBuildMicromapsEXT">vkCmdBuildMicromapsEXT</a> <strong>may</strong> use
 different algorithms, and thus are not required to produce identical
@@ -2413,7 +2413,6 @@ interchangeable.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For efficient execution, micromaps manipulated using these commands should
 always be bound to host cached memory, as the implementation may need to
@@ -2476,7 +2475,6 @@ implied between any of the individual micromap builds.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This means that there <strong>cannot</strong> be any memory aliasing between any micromap
 memories or scratch memories being used by any of the builds.</p>
@@ -3143,8 +3141,8 @@ be queried.</p>
 <code>pData</code>.</p>
 </li>
 <li>
-<p><code>pData</code> is a pointer to a user-allocated buffer where the results
-will be written.</p>
+<p><code>pData</code> is a pointer to an application-allocated buffer where the
+results will be written.</p>
 </li>
 <li>
 <p><code>stride</code> is the stride in bytes between results for individual
@@ -3181,23 +3179,20 @@ All micromaps in <code>pMicromaps</code> <strong>must</strong> have been constru
 or <code>VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT</code></p>
 </li>
 <li>
-<p><a id="VUID-vkWriteMicromapsPropertiesEXT-queryType-07573" href="#VUID-vkWriteMicromapsPropertiesEXT-queryType-07573"></a> <span class="vuid">VUID-vkWriteMicromapsPropertiesEXT-queryType-07573</span><br>
+<p><a id="VUID-vkWriteMicromapsPropertiesEXT-queryType-10071" href="#VUID-vkWriteMicromapsPropertiesEXT-queryType-10071"></a> <span class="vuid">VUID-vkWriteMicromapsPropertiesEXT-queryType-10071</span><br>
 
 If <code>queryType</code> is
-<code>VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT</code>, then <code>stride</code>
-<strong>must</strong> be a multiple of the size of <code>VkDeviceSize</code></p>
+<code>VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT</code> or
+<code>VK_QUERY_TYPE_MICROMAP_COMPACTED_SIZE_EXT</code> then <code>stride</code> <strong>must</strong>
+be a multiple of the size of <code>VkDeviceSize</code></p>
 </li>
 <li>
-<p><a id="VUID-vkWriteMicromapsPropertiesEXT-queryType-07574" href="#VUID-vkWriteMicromapsPropertiesEXT-queryType-07574"></a> <span class="vuid">VUID-vkWriteMicromapsPropertiesEXT-queryType-07574</span><br>
+<p><a id="VUID-vkWriteMicromapsPropertiesEXT-queryType-10072" href="#VUID-vkWriteMicromapsPropertiesEXT-queryType-10072"></a> <span class="vuid">VUID-vkWriteMicromapsPropertiesEXT-queryType-10072</span><br>
 
 If <code>queryType</code> is
-<code>VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT</code>, then <code>pData</code>
-<strong>must</strong> point to a <code>VkDeviceSize</code></p>
-</li>
-<li>
-<p><a id="VUID-vkWriteMicromapsPropertiesEXT-queryType-07575" href="#VUID-vkWriteMicromapsPropertiesEXT-queryType-07575"></a> <span class="vuid">VUID-vkWriteMicromapsPropertiesEXT-queryType-07575</span><br>
-
-If <code>queryType</code> is</p>
+<code>VK_QUERY_TYPE_MICROMAP_SERIALIZATION_SIZE_EXT</code> or
+<code>VK_QUERY_TYPE_MICROMAP_COMPACTED_SIZE_EXT</code> then <code>pData</code> <strong>must</strong>
+point to a <code>VkDeviceSize</code></p>
 </li>
 <li>
 <p><a id="VUID-vkWriteMicromapsPropertiesEXT-dataSize-07576" href="#VUID-vkWriteMicromapsPropertiesEXT-dataSize-07576"></a> <span class="vuid">VUID-vkWriteMicromapsPropertiesEXT-dataSize-07576</span><br>
@@ -3320,10 +3315,10 @@ assumed to be 0.0 and 1.0, respectively.</p>
 displacement vector used by the displacement are computed by:</p>
 </div>
 <div class="paragraph">
-<p><span class="eq">basePosition = inputPosition +  displacementVector × bias</span></p>
+<p><span class="eq">basePosition = inputPosition &#43; displacementVector {times} bias</span></p>
 </div>
 <div class="paragraph">
-<p><span class="eq">baseDisplacementVector = displacementVector × scale</span></p>
+<p><span class="eq">baseDisplacementVector = displacementVector {times} scale</span></p>
 </div>
 <div class="paragraph">
 <p>The parameters of each micro-vertex are derived from a combination of the
@@ -3339,13 +3334,13 @@ fetched from the displacement micromap corresponding to that micro-vertex.</p>
 microVertexBarycentrics)</span></p>
 </div>
 <div class="paragraph">
-<p><span class="eq">microVertexDisplacedPosition = microVertexBasePosition + 
-microVertexDisplacementVector × micromapDisplacementValue</span></p>
+<p><span class="eq">microVertexDisplacedPosition = microVertexBasePosition &#43;
+microVertexDisplacementVector {times} micromapDisplacementValue</span></p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_displacement_micromap_encoding"><a class="anchor" href="#_displacement_micromap_encoding"></a>Displacement Micromap Encoding</h4>
-<div id="displacement-micromap-encoding" class="paragraph">
+<h4 id="displacement-micromap-encoding"><a class="anchor" href="#displacement-micromap-encoding"></a>Displacement Micromap Encoding</h4>
+<div class="paragraph">
 <p>Displacement amounts are stored in displacement blocks, each covering a
 triangular region of microvertices.
 Depending on the subdivision level and encoding format, one or more
@@ -3436,13 +3431,13 @@ adjacent displacement values, the predicted value is given by the rounded
 average of the two adjacent values as integers:</p>
 </div>
 <div class="paragraph">
-<p><span class="eq">prediction = (A +  B +  1) / 2</span></p>
+<p><span class="eq">prediction = (A &#43; B &#43; 1) / 2</span></p>
 </div>
 <div class="paragraph">
 <p>The decoded value after applying the correction is given by:</p>
 </div>
 <div class="paragraph">
-<p><span class="eq">decoded = prediction +  ( SignExtend(correction) &lt;&lt; shift )</span></p>
+<p><span class="eq">decoded = prediction &#43; ( SignExtend(correction) &lt;&lt; shift )</span></p>
 </div>
 <div class="paragraph">
 <p>where <span class="eq">correction</span> is given by the corrections field for a given level
@@ -3653,12 +3648,6 @@ order in that order.</p>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
 <script async src="../../../../_/js/vendor/highlight.js"></script>
 <script src="../../../../_/js/vendor/lunr.js"></script>

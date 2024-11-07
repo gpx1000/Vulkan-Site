@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -422,6 +423,9 @@
 </div>
 <div class="sect2">
 <h3 id="_glsl"><a class="anchor" href="#_glsl"></a>GLSL</h3>
+<div class="paragraph">
+<p><a href="https://godbolt.org/z/jcPofTK9j">Try Online</a></p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">#version 450
@@ -448,6 +452,9 @@ void main()
 </div>
 <div class="sect2">
 <h3 id="_hlsl"><a class="anchor" href="#_hlsl"></a>HLSL</h3>
+<div class="paragraph">
+<p><a href="https://godbolt.org/z/Y4sd9anMY">Try Online</a></p>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-hlsl hljs" data-lang="hlsl">struct VSInput
@@ -475,7 +482,7 @@ VSOutput main(VSInput input, uint VertexIndex : SV_VertexID)
 {
 	VSOutput output = (VSOutput)0;
 	output.Color = input.Color * float(VertexIndex);
-	output.Position = mul(ubo.projectionMatrix, mul(ubo.viewMatrix, mul(ubo.modelMatrix, float4(input.Position.xyz, 1.0))));
+	output.Pos = mul(ubo.projectionMatrix, mul(ubo.viewMatrix, mul(ubo.modelMatrix, float4(input.Position.xyz, 1.0))));
 	return output;
 }</code></pre>
 </div>
@@ -769,13 +776,18 @@ vkCreateShaderModule(device, &amp;shaderModuleCI, nullptr, &amp;shaderModule);</
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.5">Shader Model 6.5</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">❌ (partially)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">⚠️ (partially)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">DXR1.1 (KHR ray tracing), Mesh and Amplification shaders, additional Wave intrinsics</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.6">Shader Model 6.6</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">❌ (partially)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">VK_NV_compute_shader_derivatives, VK_KHR_shader_atomic_int64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">⚠️ (partially)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_NV_compute_shader_derivatives, VK_KHR_shader_atomic_int64, VK_EXT_descriptor_buffer, VK_EXT_mutable_descriptor_type</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://microsoft.github.io/DirectX-Specs/d3d/HLSL_ShaderModel6_7.html">Shader Model 6.7</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">⚠️ (partially)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VK_KHR_shader_quad_control, VkPhysicalDeviceFeatures::shaderStorageImageMultisample</p></td>
 </tr>
 </tbody>
 </table>
@@ -785,12 +797,6 @@ vkCreateShaderModule(device, &amp;shaderModuleCI, nullptr, &amp;shaderModule);</
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>

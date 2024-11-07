@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -470,6 +471,52 @@ vkEndCommandBuffer();</code></pre>
 </div>
 </div>
 <div class="sect1">
+<h2 id="dynamic-state-lifetime"><a class="anchor" href="#dynamic-state-lifetime"></a>Dynamic state lifetime</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The spec talks about how there is a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#dynamic-state-lifetime">dynamic state lifetime</a>. The following best describes it in some examples:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">// example 1 - valid
+vkCmdSetViewport()
+vkCmdBindPipeline() // static state
+vkCmdDraw()
+
+// example 2 - valid
+vkCmdBindPipeline() // static state
+vkCmdSetViewport()
+vkCmdBindPipeline() // dynamic state
+vkCmdDraw()
+
+// example 3 - invalid (VUID-vkCmdDraw-None-07831)
+vkCmdBindPipeline() // static state
+vkCmdBindPipeline() // dynamic state
+vkCmdDraw()
+
+// example 4 - invalid (VUID-vkCmdDraw-None-08608)
+vkCmdBindPipeline() // dynamic state
+vkCmdBindPipeline() // static state
+vkCmdSetViewport()
+vkCmdDraw()
+
+// example 5 - invalid (VUID-vkCmdDraw-None-07831)
+vkCmdSetViewport()
+vkCmdBindPipeline() // static state
+vkCmdBindPipeline() // dynamic state
+vkCmdDraw()
+
+// example 6 - invalid (VUID-vkCmdDraw-None-07831)
+vkCmdSetViewport()
+vkCmdBindPipeline() // static state
+vkCmdDraw()
+vkCmdBindPipeline() // dynamic state
+vkCmdDraw()</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="states-that-are-dynamic"><a class="anchor" href="#states-that-are-dynamic"></a>What states are dynamic</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -484,12 +531,6 @@ vkEndCommandBuffer();</code></pre>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>

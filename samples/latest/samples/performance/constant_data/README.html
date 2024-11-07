@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -90,6 +91,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../vulkan_basics.html">Vulkan basics</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../shaders/README.html">Shaders</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -213,7 +217,13 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../api/oit_depth_peeling/README.html">OIT depth peeling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../api/hpp_oit_depth_peeling/README.html">OIT depth peeling (Vulkan-Hpp)</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -252,6 +262,9 @@
     <a class="nav-link" href="../../extensions/dynamic_rendering/README.html">Dynamic rendering</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../extensions/dynamic_rendering_local_read/README.html">Dynamic rendering local read</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -271,6 +284,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/gshader_to_mshader/README.html">Geometry shader to mesh shader</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../extensions/host_image_copy/README.html">Host image copy</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/logic_op_dynamic_state/README.html">Logic op dynamic state</a>
@@ -310,6 +326,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/ray_tracing_reflection/README.html">Ray tracing reflection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../extensions/ray_tracing_position_fetch/README.html">Ray tracing position fetch</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../extensions/shader_object/README.html">Shader Object</a>
@@ -408,7 +427,13 @@
     <a class="nav-link" href="../texture_compression_basisu/README.html">Texture compression basisu</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../texture_compression_comparison/README.html">Texture compression comparison</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../hpp_texture_compression_comparison/README.html">Texture compression comparison (Vulkan-Hpp)</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../wait_idle/README.html">Wait idle</a>
@@ -430,6 +455,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../general/mobile_nerf/README.html">Mobile NeRF</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../general/mobile_nerf_rayquery/README.html">Mobile NeRF Ray Query</a>
   </li>
 </ul>
   </li>
@@ -678,7 +706,7 @@ However, generally their use is to feed values from one stage to the next (e.g.
 from vertex shader to fragment shader).</p>
 </div>
 <div class="paragraph">
-<p><em>You can read more about shader stage inputs and outputs <a href="https://www.khronos.org/opengl/wiki/Type_Qualifier" class="bare">https://www.khronos.org/opengl/wiki/Type_Qualifier</a></em>(GLSL)#Shader_stage_inputs_and_outputs[here]._</p>
+<p><em>You can read more about shader stage inputs and outputs <a href="https://www.khronos.org/opengl/wiki/Type_Qualifier" class="bare">https://www.khronos.org/opengl/wiki/Type_Qualifier</a></em>%28GLSL%29#Shader_stage_inputs_and_outputs[here]._</p>
 </div>
 </div>
 <div class="sect3">
@@ -730,7 +758,7 @@ They work exactly the same way as a <code>struct</code> in GLSL/C&#43;&#43;.
 For example, to access the model matrix in this interface block, you&#8217;d use <code>per_mesh_data.model_matrix</code>.</p>
 </div>
 <div class="paragraph">
-<p><em>You can read more about interface blocks <a href="https://www.khronos.org/opengl/wiki/Interface_Block" class="bare">https://www.khronos.org/opengl/wiki/Interface_Block</a></em>(GLSL)[here]._</p>
+<p><em>You can read more about interface blocks <a href="https://www.khronos.org/opengl/wiki/Interface_Block" class="bare">https://www.khronos.org/opengl/wiki/Interface_Block</a></em>%28GLSL%29[here]._</p>
 </div>
 </div>
 </div>
@@ -1249,11 +1277,6 @@ This <code>uint32_t</code> will be substituted in wherever <code>gl_InstanceInde
 </li>
 <li>
 <p>On Mali, register mapped uniforms are effectively free.
-Any spilling to buffers in memory will increase load/store cache accesses to the per thread uniform fetches.
- reduced FPS and/or increased BW and load/store activity.</p>
-</li>
-<li>
-<p>On Mali, register mapped uniforms are effectively free.
 Any spilling to buffers in memory will increase load/store cache accesses to the per thread uniform fetches.</p>
 </li>
 </ul>
@@ -1264,12 +1287,6 @@ Any spilling to buffers in memory will increase load/store cache accesses to the
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../../../_/js/site.js" data-ui-root-path="../../../../../_"></script>
 <script async src="../../../../../_/js/vendor/highlight.js"></script>
 <script src="../../../../../_/js/vendor/lunr.js"></script>

@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -339,6 +337,9 @@
 </aside>
 <article class="doc">
 <h1 class="page">Memory Decompression</h1>
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/VK_NV_memory_decompression.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
@@ -429,14 +430,14 @@ The <a href="features.html#features-memoryDecompression" class="xref page"><code
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -530,7 +531,7 @@ The <code>srcAddress</code> <strong>must</strong> be 4 byte aligned</p>
 <li>
 <p><a id="VUID-VkDecompressMemoryRegionNV-srcAddress-07686" href="#VUID-VkDecompressMemoryRegionNV-srcAddress-07686"></a> <span class="vuid">VUID-VkDecompressMemoryRegionNV-srcAddress-07686</span><br>
 
-The memory in range <code>srcAddress</code> and <code>srcAddress</code> + 
+The memory in range <code>srcAddress</code> and <code>srcAddress</code> &#43;
 <code>compressedSize</code> <strong>must</strong> be valid and bound to a <code>VkDeviceMemory</code>
 object</p>
 </li>
@@ -549,7 +550,7 @@ If <code>decompressionMethod</code> is
 <li>
 <p><a id="VUID-VkDecompressMemoryRegionNV-dstAddress-07688" href="#VUID-VkDecompressMemoryRegionNV-dstAddress-07688"></a> <span class="vuid">VUID-VkDecompressMemoryRegionNV-dstAddress-07688</span><br>
 
-The memory in range <code>dstAddress</code> and <code>dstAddress</code> + 
+The memory in range <code>dstAddress</code> and <code>dstAddress</code> &#43;
 <code>decompressedSize</code> <strong>must</strong> be valid and bound to a
 <code>VkDeviceMemory</code> object</p>
 </li>
@@ -567,9 +568,9 @@ The <code>decompressionMethod</code> <strong>must</strong> have a single bit set
 <li>
 <p><a id="VUID-VkDecompressMemoryRegionNV-srcAddress-07691" href="#VUID-VkDecompressMemoryRegionNV-srcAddress-07691"></a> <span class="vuid">VUID-VkDecompressMemoryRegionNV-srcAddress-07691</span><br>
 
-The <code>srcAddress</code> to <code>srcAddress</code> +  <code>compressedSize</code>
+The <code>srcAddress</code> to <code>srcAddress</code> &#43; <code>compressedSize</code>
 region <strong>must</strong> not overlap with the <code>dstAddress</code> and <code>dstAddress</code>
-+  <code>decompressedSize</code> region</p>
+&#43; <code>decompressedSize</code> region</p>
 </li>
 </ul>
 </div>
@@ -702,7 +703,7 @@ equal to sizeof(<code>VkDecompressMemoryRegionNV</code>)</p>
 <p><a id="VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07701" href="#VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07701"></a> <span class="vuid">VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07701</span><br>
 
 If the count stored in <code>indirectCommandsCountAddress</code> is equal to
-<code>1</code>, <span class="eq">(<code>offset</code> + 
+<code>1</code>, <span class="eq">(<code>offset</code> &#43;
 sizeof(<code>VkDecompressMemoryRegionNV</code>))</span> <strong>must</strong> be less than or equal
 to the size of the <a href="resources.html#VkBuffer" class="xref page">VkBuffer</a> that <code>indirectCommandsAddress</code>
 comes from</p>
@@ -711,9 +712,9 @@ comes from</p>
 <p><a id="VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07702" href="#VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07702"></a> <span class="vuid">VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07702</span><br>
 
 If the count stored in <code>indirectCommandsCountAddress</code> is greater
-than <code>1</code>, <code>indirectCommandsAddress</code> + 
-sizeof(<code>VkDecompressMemoryRegionNV</code>) +  <span class="eq">(<code>stride</code>
-× (count stored in <code>countBuffer</code> - 1))</span> <strong>must</strong> be less than or
+than <code>1</code>, <code>indirectCommandsAddress</code> &#43;
+sizeof(<code>VkDecompressMemoryRegionNV</code>) &#43; <span class="eq">(<code>stride</code>
+{times} (count stored in <code>countBuffer</code> - 1))</span> <strong>must</strong> be less than or
 equal to the last valid address in the <a href="resources.html#VkBuffer" class="xref page">VkBuffer</a> that
 <code>indirectCommandsAddress</code> was created from</p>
 </li>
@@ -752,14 +753,14 @@ equal to the last valid address in the <a href="resources.html#VkBuffer" class="
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -846,12 +847,6 @@ mask of one or more <code>VkMemoryDecompressionMethodFlagBitsNV</code>:</p>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

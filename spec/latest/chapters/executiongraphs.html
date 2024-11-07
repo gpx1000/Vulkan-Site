@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -342,6 +340,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/executiongraphs.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+<div class="paragraph">
 <p><em>Execution graphs</em> provide a way for applications to dispatch multiple
 operations dynamically from a single initial command on the host.
 To achieve this, a new execution graph pipeline is provided, that links
@@ -443,6 +444,49 @@ If <code>pipelineCache</code> was created with
 <code>VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT</code>, host access
 to <code>pipelineCache</code> <strong>must</strong> be
 <a href="fundamentals.html#fundamentals-threadingbehavior" class="xref page">externally synchronized</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkCreateExecutionGraphPipelinesAMDX-pNext-09616" href="#VUID-vkCreateExecutionGraphPipelinesAMDX-pNext-09616"></a> <span class="vuid">VUID-vkCreateExecutionGraphPipelinesAMDX-pNext-09616</span><br>
+
+If <a href="pipelines.html#VkPipelineBinaryInfoKHR" class="xref page">VkPipelineBinaryInfoKHR</a>::<code>binaryCount</code> is not <code>0</code> for any
+element of <code>pCreateInfos</code>, <code>pipelineCache</code> <strong>must</strong> be
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
+</li>
+<li>
+<p><a id="VUID-vkCreateExecutionGraphPipelinesAMDX-pNext-09617" href="#VUID-vkCreateExecutionGraphPipelinesAMDX-pNext-09617"></a> <span class="vuid">VUID-vkCreateExecutionGraphPipelinesAMDX-pNext-09617</span><br>
+
+If a <a href="pipelines.html#VkPipelineCreateFlags2CreateInfoKHR" class="xref page">VkPipelineCreateFlags2CreateInfoKHR</a> structure with the
+<code>VK_PIPELINE_CREATE_2_CAPTURE_DATA_BIT_KHR</code> flag set is included in
+the <code>pNext</code> chain of any element of <code>pCreateInfos</code>,
+<code>pipelineCache</code> <strong>must</strong> be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
+</li>
+<li>
+<p><a id="VUID-vkCreateExecutionGraphPipelinesAMDX-binaryCount-09620" href="#VUID-vkCreateExecutionGraphPipelinesAMDX-binaryCount-09620"></a> <span class="vuid">VUID-vkCreateExecutionGraphPipelinesAMDX-binaryCount-09620</span><br>
+
+If <a href="pipelines.html#VkPipelineBinaryInfoKHR" class="xref page">VkPipelineBinaryInfoKHR</a>::<code>binaryCount</code> is not <code>0</code> for any
+element of <code>pCreateInfos</code>,
+<code>VK_PIPELINE_CREATION_FEEDBACK_APPLICATION_PIPELINE_CACHE_HIT_BIT</code>
+<strong>must</strong> not be set in the <code>flags</code> of that element</p>
+</li>
+<li>
+<p><a id="VUID-vkCreateExecutionGraphPipelinesAMDX-binaryCount-09621" href="#VUID-vkCreateExecutionGraphPipelinesAMDX-binaryCount-09621"></a> <span class="vuid">VUID-vkCreateExecutionGraphPipelinesAMDX-binaryCount-09621</span><br>
+
+If <a href="pipelines.html#VkPipelineBinaryInfoKHR" class="xref page">VkPipelineBinaryInfoKHR</a>::<code>binaryCount</code> is not <code>0</code> for any
+element of <code>pCreateInfos</code>,
+<code>VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT</code> <strong>must</strong>
+not be set in the <code>flags</code> of that element</p>
+</li>
+<li>
+<p><a id="VUID-vkCreateExecutionGraphPipelinesAMDX-binaryCount-09622" href="#VUID-vkCreateExecutionGraphPipelinesAMDX-binaryCount-09622"></a> <span class="vuid">VUID-vkCreateExecutionGraphPipelinesAMDX-binaryCount-09622</span><br>
+
+If <a href="pipelines.html#VkPipelineBinaryInfoKHR" class="xref page">VkPipelineBinaryInfoKHR</a>::<code>binaryCount</code> is not <code>0</code> for any
+element of <code>pCreateInfos</code>,
+<code>VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT_EXT</code> <strong>must</strong>
+not be set in the <code>flags</code> of that element</p>
 </li>
 </ul>
 </div>
@@ -591,7 +635,12 @@ described in more detail in <a href="pipelines.html#pipelines-pipeline-derivativ
 (including those in libraries) is associated with a name and an index,
 determined by the inclusion or omission of a
 <a href="#VkPipelineShaderStageNodeCreateInfoAMDX">VkPipelineShaderStageNodeCreateInfoAMDX</a> structure in its <code>pNext</code>
-chain.</p>
+chain.
+For any graphics pipeline libraries, only the name and index of the vertex
+or mesh shader stage is linked directly to the graph as a node - other
+shader stages in the pipeline will be executed after those shader stages as
+normal.
+Task shaders cannot be included in a graphics pipeline used for a draw node.</p>
 </div>
 <div class="paragraph">
 <p>In addition to the shader name and index, an internal "node index" is also
@@ -610,7 +659,7 @@ initial dispatch of an execution graph.</p>
 
 If the <code>pNext</code> chain does not include a
 <a href="pipelines.html#VkPipelineCreateFlags2CreateInfoKHR" class="xref page">VkPipelineCreateFlags2CreateInfoKHR</a> structure,
-<code>flags</code> must be a valid combination of
+<code>flags</code> <strong>must</strong> be a valid combination of
 <a href="pipelines.html#VkPipelineCreateFlagBits" class="xref page">VkPipelineCreateFlagBits</a> values</p>
 </li>
 <li>
@@ -639,7 +688,14 @@ flag, <code>basePipelineIndex</code> <strong>must</strong> be -1 or <code>basePi
 <p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-07987" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-07987"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-07987</span><br>
 
 If a push constant block is declared in a shader, a push constant range
-in <code>layout</code> <strong>must</strong> match both the shader stage and range</p>
+in <code>layout</code> <strong>must</strong> match the shader stage</p>
+</li>
+<li>
+<p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-10069" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-10069"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-10069</span><br>
+
+If a push constant block is declared in a shader, the block must be
+contained inside the push constant range in <code>layout</code> that matches
+the stage</p>
 </li>
 <li>
 <p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-07988" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-07988"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-layout-07988</span><br>
@@ -732,6 +788,14 @@ chain <strong>must</strong> include a pointer to a valid instance of
 the pipeline&#8217;s metadata will be saved</p>
 </li>
 <li>
+<p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-11007" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-11007"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-11007</span><br>
+
+If <code>flags</code> includes
+<code>VK_PIPELINE_CREATE_2_INDIRECT_BINDABLE_BIT_EXT</code>, then the
+<a href="features.html#features-deviceGeneratedCommands" class="xref page">    <code>VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT</code>::<code>deviceGeneratedCommands</code></a>
+feature <strong>must</strong> be enabled</p>
+</li>
+<li>
 <p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-pipelineCreationCacheControl-02875" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-pipelineCreationCacheControl-02875"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-pipelineCreationCacheControl-02875</span><br>
 
 If the <a href="features.html#features-pipelineCreationCacheControl" class="xref page">    <code>pipelineCreationCacheControl</code></a> feature is not enabled, <code>flags</code>
@@ -778,8 +842,30 @@ that is used by the pipeline <strong>must</strong> be less than or equal to
 <p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-pLibraryInfo-09133" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-pLibraryInfo-09133"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-pLibraryInfo-09133</span><br>
 
 If <code>pLibraryInfo</code> is not <code>NULL</code>, each element of
-<code>pLibraryInfo-&gt;libraries</code> <strong>must</strong> be either a compute pipeline or an
-execution graph pipeline</p>
+<code>pLibraryInfo-&gt;pLibraries</code> <strong>must</strong> be either a compute pipeline, an
+execution graph pipeline, or a graphics pipeline</p>
+</li>
+<li>
+<p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-pLibraryInfo-10181" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-pLibraryInfo-10181"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-pLibraryInfo-10181</span><br>
+
+If <code>pLibraryInfo</code> is not <code>NULL</code>, each element of
+<code>pLibraryInfo-&gt;pLibraries</code> that is a compute pipeline or a graphics
+pipeline <strong>must</strong> have been created with
+<code>VK_PIPELINE_CREATE_2_EXECUTION_GRAPH_BIT_AMDX</code> set</p>
+</li>
+<li>
+<p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-shaderMeshEnqueue-10182" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-shaderMeshEnqueue-10182"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-shaderMeshEnqueue-10182</span><br>
+
+If the <a href="features.html#features-shaderMeshEnqueue" class="xref page"><code>shaderMeshEnqueue</code></a> feature is
+not enabled, and <code>pLibraryInfo-&gt;pLibraries</code> is not <code>NULL</code>,
+<code>pLibraryInfo-&gt;pLibraries</code> <strong>must</strong> not contain any graphics pipelines</p>
+</li>
+<li>
+<p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-pLibraryInfo-10183" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-pLibraryInfo-10183"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-pLibraryInfo-10183</span><br>
+
+Any element of <code>pLibraryInfo-&gt;pLibraries</code> identifying a graphics
+pipeline <strong>must</strong> have been created with
+<a href="pipelines.html#pipelines-graphics-subsets-complete" class="xref page">all possible state subsets</a></p>
 </li>
 <li>
 <p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-None-09134" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-None-09134"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-None-09134</span><br>
@@ -820,6 +906,16 @@ If an output payload declared in any shader in the pipeline has a
 matches the shader name of any other node in the graph, the size of the
 output payload <strong>must</strong> match the size of the input payload in the matching
 node</p>
+</li>
+<li>
+<p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-10184" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-10184"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-flags-10184</span><br>
+
+If <code>flags</code> does not include
+<code>VK_PIPELINE_CREATE_LIBRARY_BIT_KHR</code>, and an output payload declared
+in any shader in the pipeline does not have a
+<code>PayloadNodeSparseArrayAMDX</code> decoration, there <strong>must</strong> be a node in the
+graph corresponding to every index from 0 to its
+<code>PayloadNodeArraySizeAMDX</code> decoration</p>
 </li>
 </ul>
 </div>
@@ -934,6 +1030,22 @@ By associating multiple shaders with the same name but different indexes,
 applications can dynamically select different nodes to execute.
 Applications <strong>must</strong> ensure each node has a unique name and index.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Shaders with the same name <strong>must</strong> be of the same type - e.g. a compute and
+graphics shader, or even two compute shaders where one is coalescing and the
+other is not, cannot share the same name.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="title">Valid Usage (Implicit)</div>
@@ -972,7 +1084,8 @@ VkResult vkGetExecutionGraphPipelineNodeIndexAMDX(
 <div class="ulist">
 <ul>
 <li>
-<p><code>device</code> is the that <code>executionGraph</code> was created on.</p>
+<p><code>device</code> is the logical device that <code>executionGraph</code> was created
+on.</p>
 </li>
 <li>
 <p><code>executionGraph</code> is the execution graph pipeline to query the
@@ -1105,7 +1218,8 @@ VkResult vkGetExecutionGraphPipelineScratchSizeAMDX(
 <div class="ulist">
 <ul>
 <li>
-<p><code>device</code> is the that <code>executionGraph</code> was created on.</p>
+<p><code>device</code> is the logical device that <code>executionGraph</code> was created
+on.</p>
 </li>
 <li>
 <p><code>executionGraph</code> is the execution graph pipeline to query the
@@ -1189,7 +1303,9 @@ will be returned in <code>pSizeInfo</code>.</p>
 typedef struct VkExecutionGraphPipelineScratchSizeAMDX {
     VkStructureType    sType;
     void*              pNext;
-    VkDeviceSize       size;
+    VkDeviceSize       minSize;
+    VkDeviceSize       maxSize;
+    VkDeviceSize       sizeGranularity;
 } VkExecutionGraphPipelineScratchSizeAMDX;</code></pre>
 </div>
 </div>
@@ -1203,10 +1319,25 @@ typedef struct VkExecutionGraphPipelineScratchSizeAMDX {
 structure.</p>
 </li>
 <li>
-<p><code>size</code> indicates the scratch space required for dispatch the queried
-execution graph.</p>
+<p><code>minSize</code> indicates the minimum scratch space required for
+dispatching the queried execution graph.</p>
+</li>
+<li>
+<p><code>maxSize</code> indicates the maximum scratch space that can be used for
+dispatching the queried execution graph.</p>
+</li>
+<li>
+<p><code>sizeGranularity</code> indicates the granularity at which the scratch
+space can be increased from <code>minSize</code>.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Applications <strong>can</strong> use any amount of scratch memory greater than
+<code>minSize</code> for dispatching a graph, however only the values equal to
+<code>minSize</code> + an integer multiple of <code>sizeGranularity</code> will be used.
+Greater values <strong>may</strong> result in higher performance, up to <code>maxSize</code> which
+indicates the most memory that an implementation can use effectively.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -1233,7 +1364,9 @@ execution graph.</p>
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_AMDX_shader_enqueue
 void vkCmdInitializeGraphScratchMemoryAMDX(
     VkCommandBuffer                             commandBuffer,
-    VkDeviceAddress                             scratch);</code></pre>
+    VkPipeline                                  executionGraph,
+    VkDeviceAddress                             scratch,
+    VkDeviceSize                                scratchSize);</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -1243,7 +1376,15 @@ void vkCmdInitializeGraphScratchMemoryAMDX(
 recorded.</p>
 </li>
 <li>
-<p><code>scratch</code> is a pointer to the scratch memory to be initialized.</p>
+<p><code>executionGraph</code> is the execution graph pipeline to initialize the
+scratch memory for.</p>
+</li>
+<li>
+<p><code>scratch</code> is the address of scratch memory to be initialized.</p>
+</li>
+<li>
+<p><code>scratchSize</code> is a range in bytes of scratch memory to be
+initialized.</p>
 </li>
 </ul>
 </div>
@@ -1253,10 +1394,7 @@ currently bound execution graph pipeline.</p>
 </div>
 <div class="paragraph">
 <p>Execution of this command <strong>may</strong> modify any memory locations in the range
-[<code>scratch</code>,<code>scratch</code> + <code>size</code>), where <code>size</code> is the value
-returned in <a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>size</code> by
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
-execution graph pipeline.
+[<code>scratch</code>,<code>scratch</code> + <code>scratchSize</code>).
 Accesses to this memory range are performed in the
 <code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code> pipeline stage with the
 <code>VK_ACCESS_2_SHADER_STORAGE_READ_BIT</code> and
@@ -1266,7 +1404,7 @@ Accesses to this memory range are performed in the
 <p>If any portion of <code>scratch</code> is modified by any command other than
 <a href="#vkCmdDispatchGraphAMDX">vkCmdDispatchGraphAMDX</a>, <a href="#vkCmdDispatchGraphIndirectAMDX">vkCmdDispatchGraphIndirectAMDX</a>,
 <a href="#vkCmdDispatchGraphIndirectCountAMDX">vkCmdDispatchGraphIndirectCountAMDX</a>, or
-<code>vkCmdInitializeGraphScratchMemoryAMDX</code> with the same execution graph,
+<a href="#vkCmdInitializeGraphScratchMemoryAMDX">vkCmdInitializeGraphScratchMemoryAMDX</a> with the same execution graph,
 it <strong>must</strong> be reinitialized for the execution graph again before dispatching
 against it.</p>
 </div>
@@ -1276,13 +1414,18 @@ against it.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-09143" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-09143"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-09143</span><br>
+<p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-10185" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-10185"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-10185</span><br>
 
 <code>scratch</code> <strong>must</strong> be the device address of an allocated memory range
-at least as large as the value of
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>size</code> returned by
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
-execution graph pipeline.</p>
+at least as large as <code>scratchSize</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratchSize-10186" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratchSize-10186"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratchSize-10186</span><br>
+
+<code>scratchSize</code> <strong>must</strong> be greater than or equal to
+<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>minSize</code> returned by
+<a href="#vkGetExecutionGraphPipelineScratchSizeAMDX">vkGetExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
+execution graph pipeline</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-09144" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-09144"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-09144</span><br>
@@ -1303,16 +1446,16 @@ execution graph pipeline.</p>
  <code>commandBuffer</code> <strong>must</strong> be a valid <a href="cmdbuffers.html#VkCommandBuffer" class="xref page">VkCommandBuffer</a> handle</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-executionGraph-parameter" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-executionGraph-parameter"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-executionGraph-parameter</span><br>
+ <code>executionGraph</code> <strong>must</strong> be a valid <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> handle</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-recording" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-recording"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-recording</span><br>
  <code>commandBuffer</code> <strong>must</strong> be in the <a href="cmdbuffers.html#commandbuffers-lifecycle" class="xref page">recording state</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-cmdpool" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-cmdpool</span><br>
  The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-renderpass" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-renderpass"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-renderpass</span><br>
- This command <strong>must</strong> only be called outside of a render pass instance</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-videocoding" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-videocoding"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-videocoding</span><br>
@@ -1322,17 +1465,21 @@ execution graph pipeline.</p>
 <p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-bufferlevel" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-bufferlevel"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-bufferlevel</span><br>
  <code>commandBuffer</code> <strong>must</strong> be a primary <code>VkCommandBuffer</code></p>
 </li>
+<li>
+<p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-commonparent" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-commonparent"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-commonparent</span><br>
+ Both of <code>commandBuffer</code>, and <code>executionGraph</code> <strong>must</strong> have been created, allocated, or retrieved from the same <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a></p>
+</li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1361,7 +1508,7 @@ execution graph pipeline.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
 Compute</p></td>
@@ -1394,6 +1541,7 @@ commands, with indirect variants available.</p>
 void vkCmdDispatchGraphAMDX(
     VkCommandBuffer                             commandBuffer,
     VkDeviceAddress                             scratch,
+    VkDeviceSize                                scratchSize,
     const VkDispatchGraphCountInfoAMDX*         pCountInfo);</code></pre>
 </div>
 </div>
@@ -1404,7 +1552,10 @@ void vkCmdDispatchGraphAMDX(
 recorded.</p>
 </li>
 <li>
-<p><code>scratch</code> is a pointer to the scratch memory to be used.</p>
+<p><code>scratch</code> is the address of scratch memory to be used.</p>
+</li>
+<li>
+<p><code>scratchSize</code> is a range in bytes of scratch memory to be used.</p>
 </li>
 <li>
 <p><code>pCountInfo</code> is a host pointer to a
@@ -1417,7 +1568,12 @@ will be initially executed.</p>
 <p>When this command is executed, the nodes specified in <code>pCountInfo</code> are
 executed.
 Nodes executed as part of this command are not implicitly synchronized in
-any way against each other once they are dispatched.</p>
+any way against each other once they are dispatched.
+There are no rasterization order guarantees between separately dispatched
+graphics nodes, though individual primitives within a single dispatch do
+adhere to rasterization order.
+Draw calls executed before or after the execution graph also execute
+relative to each graphics node with respect to rasterization order.</p>
 </div>
 <div class="paragraph">
 <p>For this command, all device/host pointers in substructures are treated as
@@ -1427,13 +1583,14 @@ retained.</p>
 </div>
 <div class="paragraph">
 <p>Execution of this command <strong>may</strong> modify any memory locations in the range
-[<code>scratch</code>,<code>scratch</code> + <code>size</code>), where <code>size</code> is the value
-returned in <a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>size</code> by
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
-execution graph pipeline Accesses to this memory range are performed in the
+[<code>scratch</code>,<code>scratch</code> + <code>scratchSize</code>).
+Accesses to this memory range are performed in the
 <code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code> pipeline stage with the
 <code>VK_ACCESS_2_SHADER_STORAGE_READ_BIT</code> and
 <code>VK_ACCESS_2_SHADER_STORAGE_WRITE_BIT</code> access flags.</p>
+</div>
+<div class="paragraph">
+<p>This command <a href="#executiongraphs-meshnodes-statecapture">captures command buffer state</a> for mesh nodes similarly to draw commands.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -1654,6 +1811,13 @@ or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkD
 , as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-None-10068" href="#VUID-vkCmdDispatchGraphAMDX-None-10068"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-None-10068</span><br>
+
+For each array of resources that is used by <a href="shaders.html#shaders-binding" class="xref page">a bound    shader</a>, the indices used to access members of the array <strong>must</strong> be less
+than the descriptor count for the identified binding in the descriptor
+sets used by this command</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-maintenance4-08602" href="#VUID-vkCmdDispatchGraphAMDX-maintenance4-08602"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-maintenance4-08602</span><br>
 
 If the <a href="features.html#features-maintenance4" class="xref page"><code>maintenance4</code></a> feature is not
@@ -1739,9 +1903,8 @@ command</p>
 If a pipeline is bound to the pipeline bind point used by this command,
 there
 <strong>must</strong> not have been any calls to dynamic state setting commands for any
-state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to
-the pipeline bind point used by this command, since that pipeline was
-bound</p>
+state specified statically in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the
+pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-None-08609" href="#VUID-vkCmdDispatchGraphAMDX-None-08609"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-None-08609</span><br>
@@ -1784,11 +1947,12 @@ offset values, in any shader stage</p>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-None-08607" href="#VUID-vkCmdDispatchGraphAMDX-None-08607"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-None-08607</span><br>
 
-If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> is enabled, either
-a valid pipeline <strong>must</strong> be bound to the pipeline bind point used by this
-command, or a valid combination of valid and <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader
-objects <strong>must</strong> be bound to every supported shader stage corresponding to
-the pipeline bind point used by this command</p>
+If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
+either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
+by this command, or a valid combination of valid and
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
+shader stage corresponding to the pipeline bind point used by this
+command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-uniformBuffers-06935" href="#VUID-vkCmdDispatchGraphAMDX-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-uniformBuffers-06935</span><br>
@@ -1849,7 +2013,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -1858,7 +2022,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -1866,7 +2030,7 @@ If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> a
 
 If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
 image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>Dim</code> operand of the
-<code>OpTypeImage</code> as described in <a href="textures.html#textures-operation-validation" class="xref page">Instruction/Sampler/Image View Validation</a></p>
+<code>OpTypeImage</code> as described in <a href="../appendices/spirvenv.html#spirvenv-image-dimensions" class="xref page">Compatibility Between SPIR-V Image Dimensions and Vulkan ImageView Types</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-format-07753" href="#VUID-vkCmdDispatchGraphAMDX-format-07753"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-format-07753</span><br>
@@ -2077,12 +2241,17 @@ be in the image layout identified when the descriptor was written</p>
 <code>commandBuffer</code> <strong>must</strong> be a primary command buffer</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphAMDX-scratch-09183" href="#VUID-vkCmdDispatchGraphAMDX-scratch-09183"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-scratch-09183</span><br>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-scratch-10192" href="#VUID-vkCmdDispatchGraphAMDX-scratch-10192"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-scratch-10192</span><br>
 
 <code>scratch</code> <strong>must</strong> be the device address of an allocated memory range
-at least as large as the value of
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>size</code> returned by
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
+at least as large as <code>scratchSize</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-scratchSize-10193" href="#VUID-vkCmdDispatchGraphAMDX-scratchSize-10193"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-scratchSize-10193</span><br>
+
+<code>scratchSize</code> <strong>must</strong> be greater than or equal to
+<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>minSize</code> returned by
+<a href="#vkGetExecutionGraphPipelineScratchSizeAMDX">vkGetExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
 execution graph pipeline</p>
 </li>
 <li>
@@ -2094,13 +2263,13 @@ or <code>VK_BUFFER_USAGE_2_EXECUTION_GRAPH_SCRATCH_BIT_AMDX</code>
 flag</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphAMDX-scratch-09185" href="#VUID-vkCmdDispatchGraphAMDX-scratch-09185"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-scratch-09185</span><br>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-scratch-10194" href="#VUID-vkCmdDispatchGraphAMDX-scratch-10194"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-scratch-10194</span><br>
 
-Device memory in the range [<code>scratch</code>,<code>scratch</code><br>
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>size</code>) <strong>must</strong> have
-been initialized with <a href="#vkCmdInitializeGraphScratchMemoryAMDX">vkCmdInitializeGraphScratchMemoryAMDX</a> using
-the currently bound execution graph pipeline, and not modified after
-that by anything other than another execution graph dispatch command</p>
+The device memory range [<code>scratch</code>,<code>scratch</code><br>
+<code>scratchSize</code>] <strong>must</strong> have been initialized with
+<a href="#vkCmdInitializeGraphScratchMemoryAMDX">vkCmdInitializeGraphScratchMemoryAMDX</a> using the currently bound
+execution graph pipeline, and not modified after that by anything other
+than another execution graph dispatch command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-maxComputeWorkGroupCount-09186" href="#VUID-vkCmdDispatchGraphAMDX-maxComputeWorkGroupCount-09186"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-maxComputeWorkGroupCount-09186</span><br>
@@ -2124,6 +2293,13 @@ Execution of this command <strong>must</strong> not cause any shader that declar
 specified by the max number of payloads for that decoration.
 This requirement applies to each <code>NodeMaxPayloadsAMDX</code> decoration
 separately</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-None-10195" href="#VUID-vkCmdDispatchGraphAMDX-None-10195"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-None-10195</span><br>
+
+   If the currently bound execution graph pipeline includes draw nodes,
+   this command <strong>must</strong> be called within a render pass instance that is
+compatible with the graphics pipeline used to create each of those nodes</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-pCountInfo-09145" href="#VUID-vkCmdDispatchGraphAMDX-pCountInfo-09145"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-pCountInfo-09145</span><br>
@@ -2191,10 +2367,6 @@ node in <code>nodeIndex</code> in the first bytes</p>
  The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphAMDX-renderpass" href="#VUID-vkCmdDispatchGraphAMDX-renderpass"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-renderpass</span><br>
- This command <strong>must</strong> only be called outside of a render pass instance</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-videocoding" href="#VUID-vkCmdDispatchGraphAMDX-videocoding"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-videocoding</span><br>
  This command <strong>must</strong> only be called outside of a video coding scope</p>
 </li>
@@ -2208,11 +2380,11 @@ node in <code>nodeIndex</code> in the first bytes</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2241,7 +2413,7 @@ node in <code>nodeIndex</code> in the first bytes</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
 Compute</p></td>
@@ -2265,6 +2437,7 @@ on device, call:</p>
 void vkCmdDispatchGraphIndirectAMDX(
     VkCommandBuffer                             commandBuffer,
     VkDeviceAddress                             scratch,
+    VkDeviceSize                                scratchSize,
     const VkDispatchGraphCountInfoAMDX*         pCountInfo);</code></pre>
 </div>
 </div>
@@ -2275,7 +2448,10 @@ void vkCmdDispatchGraphIndirectAMDX(
 recorded.</p>
 </li>
 <li>
-<p><code>scratch</code> is a pointer to the scratch memory to be used.</p>
+<p><code>scratch</code> is the address of scratch memory to be used.</p>
+</li>
+<li>
+<p><code>scratchSize</code> is a range in bytes of scratch memory to be used.</p>
 </li>
 <li>
 <p><code>pCountInfo</code> is a host pointer to a
@@ -2288,7 +2464,12 @@ will be initially executed.</p>
 <p>When this command is executed, the nodes specified in <code>pCountInfo</code> are
 executed.
 Nodes executed as part of this command are not implicitly synchronized in
-any way against each other once they are dispatched.</p>
+any way against each other once they are dispatched.
+There are no rasterization order guarantees between separately dispatched
+graphics nodes, though individual primitives within a single dispatch do
+adhere to rasterization order.
+Draw calls executed before or after the execution graph also execute
+relative to each graphics node with respect to rasterization order.</p>
 </div>
 <div class="paragraph">
 <p>For this command, all device/host pointers in substructures are treated as
@@ -2301,14 +2482,14 @@ All of these addresses will be read in the
 </div>
 <div class="paragraph">
 <p>Execution of this command <strong>may</strong> modify any memory locations in the range
-[<code>scratch</code>,<code>scratch</code> + <code>size</code>), where <code>size</code> is the value
-returned in <a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>size</code> by
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
-execution graph pipeline.
+[<code>scratch</code>,<code>scratch</code> + <code>scratchSize</code>).
 Accesses to this memory range are performed in the
 <code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code> pipeline stage with the
 <code>VK_ACCESS_2_SHADER_STORAGE_READ_BIT</code> and
 <code>VK_ACCESS_2_SHADER_STORAGE_WRITE_BIT</code> access flags.</p>
+</div>
+<div class="paragraph">
+<p>This command <a href="#executiongraphs-meshnodes-statecapture">captures command buffer state</a> for mesh nodes similarly to draw commands.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -2529,6 +2710,13 @@ or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkD
 , as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-None-10068" href="#VUID-vkCmdDispatchGraphIndirectAMDX-None-10068"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-None-10068</span><br>
+
+For each array of resources that is used by <a href="shaders.html#shaders-binding" class="xref page">a bound    shader</a>, the indices used to access members of the array <strong>must</strong> be less
+than the descriptor count for the identified binding in the descriptor
+sets used by this command</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-maintenance4-08602" href="#VUID-vkCmdDispatchGraphIndirectAMDX-maintenance4-08602"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-maintenance4-08602</span><br>
 
 If the <a href="features.html#features-maintenance4" class="xref page"><code>maintenance4</code></a> feature is not
@@ -2614,9 +2802,8 @@ command</p>
 If a pipeline is bound to the pipeline bind point used by this command,
 there
 <strong>must</strong> not have been any calls to dynamic state setting commands for any
-state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to
-the pipeline bind point used by this command, since that pipeline was
-bound</p>
+state specified statically in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the
+pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-None-08609" href="#VUID-vkCmdDispatchGraphIndirectAMDX-None-08609"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-None-08609</span><br>
@@ -2659,11 +2846,12 @@ offset values, in any shader stage</p>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-None-08607" href="#VUID-vkCmdDispatchGraphIndirectAMDX-None-08607"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-None-08607</span><br>
 
-If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> is enabled, either
-a valid pipeline <strong>must</strong> be bound to the pipeline bind point used by this
-command, or a valid combination of valid and <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader
-objects <strong>must</strong> be bound to every supported shader stage corresponding to
-the pipeline bind point used by this command</p>
+If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
+either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
+by this command, or a valid combination of valid and
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
+shader stage corresponding to the pipeline bind point used by this
+command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-uniformBuffers-06935" href="#VUID-vkCmdDispatchGraphIndirectAMDX-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-uniformBuffers-06935</span><br>
@@ -2724,7 +2912,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -2733,7 +2921,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -2741,7 +2929,7 @@ If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> a
 
 If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
 image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>Dim</code> operand of the
-<code>OpTypeImage</code> as described in <a href="textures.html#textures-operation-validation" class="xref page">Instruction/Sampler/Image View Validation</a></p>
+<code>OpTypeImage</code> as described in <a href="../appendices/spirvenv.html#spirvenv-image-dimensions" class="xref page">Compatibility Between SPIR-V Image Dimensions and Vulkan ImageView Types</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-format-07753" href="#VUID-vkCmdDispatchGraphIndirectAMDX-format-07753"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-format-07753</span><br>
@@ -2952,12 +3140,17 @@ be in the image layout identified when the descriptor was written</p>
 <code>commandBuffer</code> <strong>must</strong> be a primary command buffer</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-scratch-09183" href="#VUID-vkCmdDispatchGraphIndirectAMDX-scratch-09183"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-scratch-09183</span><br>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-scratch-10192" href="#VUID-vkCmdDispatchGraphIndirectAMDX-scratch-10192"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-scratch-10192</span><br>
 
 <code>scratch</code> <strong>must</strong> be the device address of an allocated memory range
-at least as large as the value of
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>size</code> returned by
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
+at least as large as <code>scratchSize</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-scratchSize-10193" href="#VUID-vkCmdDispatchGraphIndirectAMDX-scratchSize-10193"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-scratchSize-10193</span><br>
+
+<code>scratchSize</code> <strong>must</strong> be greater than or equal to
+<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>minSize</code> returned by
+<a href="#vkGetExecutionGraphPipelineScratchSizeAMDX">vkGetExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
 execution graph pipeline</p>
 </li>
 <li>
@@ -2969,13 +3162,13 @@ or <code>VK_BUFFER_USAGE_2_EXECUTION_GRAPH_SCRATCH_BIT_AMDX</code>
 flag</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-scratch-09185" href="#VUID-vkCmdDispatchGraphIndirectAMDX-scratch-09185"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-scratch-09185</span><br>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-scratch-10194" href="#VUID-vkCmdDispatchGraphIndirectAMDX-scratch-10194"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-scratch-10194</span><br>
 
-Device memory in the range [<code>scratch</code>,<code>scratch</code><br>
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>size</code>) <strong>must</strong> have
-been initialized with <a href="#vkCmdInitializeGraphScratchMemoryAMDX">vkCmdInitializeGraphScratchMemoryAMDX</a> using
-the currently bound execution graph pipeline, and not modified after
-that by anything other than another execution graph dispatch command</p>
+The device memory range [<code>scratch</code>,<code>scratch</code><br>
+<code>scratchSize</code>] <strong>must</strong> have been initialized with
+<a href="#vkCmdInitializeGraphScratchMemoryAMDX">vkCmdInitializeGraphScratchMemoryAMDX</a> using the currently bound
+execution graph pipeline, and not modified after that by anything other
+than another execution graph dispatch command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-maxComputeWorkGroupCount-09186" href="#VUID-vkCmdDispatchGraphIndirectAMDX-maxComputeWorkGroupCount-09186"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-maxComputeWorkGroupCount-09186</span><br>
@@ -2999,6 +3192,13 @@ Execution of this command <strong>must</strong> not cause any shader that declar
 specified by the max number of payloads for that decoration.
 This requirement applies to each <code>NodeMaxPayloadsAMDX</code> decoration
 separately</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-None-10195" href="#VUID-vkCmdDispatchGraphIndirectAMDX-None-10195"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-None-10195</span><br>
+
+   If the currently bound execution graph pipeline includes draw nodes,
+   this command <strong>must</strong> be called within a render pass instance that is
+compatible with the graphics pipeline used to create each of those nodes</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-09150" href="#VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-09150"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-09150</span><br>
@@ -3098,10 +3298,6 @@ on the device</p>
  The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-renderpass" href="#VUID-vkCmdDispatchGraphIndirectAMDX-renderpass"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-renderpass</span><br>
- This command <strong>must</strong> only be called outside of a render pass instance</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-videocoding" href="#VUID-vkCmdDispatchGraphIndirectAMDX-videocoding"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-videocoding</span><br>
  This command <strong>must</strong> only be called outside of a video coding scope</p>
 </li>
@@ -3115,11 +3311,11 @@ on the device</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3148,7 +3344,7 @@ on the device</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
 Compute</p></td>
@@ -3172,6 +3368,7 @@ call:</p>
 void vkCmdDispatchGraphIndirectCountAMDX(
     VkCommandBuffer                             commandBuffer,
     VkDeviceAddress                             scratch,
+    VkDeviceSize                                scratchSize,
     VkDeviceAddress                             countInfo);</code></pre>
 </div>
 </div>
@@ -3182,7 +3379,10 @@ void vkCmdDispatchGraphIndirectCountAMDX(
 recorded.</p>
 </li>
 <li>
-<p><code>scratch</code> is a pointer to the scratch memory to be used.</p>
+<p><code>scratch</code> is the address of scratch memory to be used.</p>
+</li>
+<li>
+<p><code>scratchSize</code> is a range in bytes of scratch memory to be used.</p>
 </li>
 <li>
 <p><code>countInfo</code> is a device address of a
@@ -3208,10 +3408,7 @@ All of these addresses will be read in the
 </div>
 <div class="paragraph">
 <p>Execution of this command <strong>may</strong> modify any memory locations in the range
-[<code>scratch</code>,<code>scratch</code> + <code>size</code>), where <code>size</code> is the value
-returned in <a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>size</code> by
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
-execution graph pipeline.
+[<code>scratch</code>,<code>scratch</code> + <code>scratchSize</code>).
 Accesses to this memory range are performed in the
 <code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code> pipeline stage with the
 <code>VK_ACCESS_2_SHADER_STORAGE_READ_BIT</code> and
@@ -3436,6 +3633,13 @@ or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkD
 , as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10068" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10068"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10068</span><br>
+
+For each array of resources that is used by <a href="shaders.html#shaders-binding" class="xref page">a bound    shader</a>, the indices used to access members of the array <strong>must</strong> be less
+than the descriptor count for the identified binding in the descriptor
+sets used by this command</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-maintenance4-08602" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-maintenance4-08602"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-maintenance4-08602</span><br>
 
 If the <a href="features.html#features-maintenance4" class="xref page"><code>maintenance4</code></a> feature is not
@@ -3521,9 +3725,8 @@ command</p>
 If a pipeline is bound to the pipeline bind point used by this command,
 there
 <strong>must</strong> not have been any calls to dynamic state setting commands for any
-state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to
-the pipeline bind point used by this command, since that pipeline was
-bound</p>
+state specified statically in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the
+pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08609" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08609"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08609</span><br>
@@ -3566,11 +3769,12 @@ offset values, in any shader stage</p>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08607" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08607"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08607</span><br>
 
-If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> is enabled, either
-a valid pipeline <strong>must</strong> be bound to the pipeline bind point used by this
-command, or a valid combination of valid and <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader
-objects <strong>must</strong> be bound to every supported shader stage corresponding to
-the pipeline bind point used by this command</p>
+If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
+either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
+by this command, or a valid combination of valid and
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
+shader stage corresponding to the pipeline bind point used by this
+command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-uniformBuffers-06935" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-uniformBuffers-06935</span><br>
@@ -3631,7 +3835,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -3640,7 +3844,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -3648,7 +3852,7 @@ If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> a
 
 If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
 image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>Dim</code> operand of the
-<code>OpTypeImage</code> as described in <a href="textures.html#textures-operation-validation" class="xref page">Instruction/Sampler/Image View Validation</a></p>
+<code>OpTypeImage</code> as described in <a href="../appendices/spirvenv.html#spirvenv-image-dimensions" class="xref page">Compatibility Between SPIR-V Image Dimensions and Vulkan ImageView Types</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-format-07753" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-format-07753"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-format-07753</span><br>
@@ -3859,12 +4063,17 @@ be in the image layout identified when the descriptor was written</p>
 <code>commandBuffer</code> <strong>must</strong> be a primary command buffer</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-09183" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-09183"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-09183</span><br>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-10192" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-10192"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-10192</span><br>
 
 <code>scratch</code> <strong>must</strong> be the device address of an allocated memory range
-at least as large as the value of
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>size</code> returned by
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
+at least as large as <code>scratchSize</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-scratchSize-10193" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-scratchSize-10193"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-scratchSize-10193</span><br>
+
+<code>scratchSize</code> <strong>must</strong> be greater than or equal to
+<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>minSize</code> returned by
+<a href="#vkGetExecutionGraphPipelineScratchSizeAMDX">vkGetExecutionGraphPipelineScratchSizeAMDX</a> for the currently bound
 execution graph pipeline</p>
 </li>
 <li>
@@ -3876,13 +4085,13 @@ or <code>VK_BUFFER_USAGE_2_EXECUTION_GRAPH_SCRATCH_BIT_AMDX</code>
 flag</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-09185" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-09185"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-09185</span><br>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-10194" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-10194"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-10194</span><br>
 
-Device memory in the range [<code>scratch</code>,<code>scratch</code><br>
-<a href="#VkExecutionGraphPipelineScratchSizeAMDX">VkExecutionGraphPipelineScratchSizeAMDX</a>::<code>size</code>) <strong>must</strong> have
-been initialized with <a href="#vkCmdInitializeGraphScratchMemoryAMDX">vkCmdInitializeGraphScratchMemoryAMDX</a> using
-the currently bound execution graph pipeline, and not modified after
-that by anything other than another execution graph dispatch command</p>
+The device memory range [<code>scratch</code>,<code>scratch</code><br>
+<code>scratchSize</code>] <strong>must</strong> have been initialized with
+<a href="#vkCmdInitializeGraphScratchMemoryAMDX">vkCmdInitializeGraphScratchMemoryAMDX</a> using the currently bound
+execution graph pipeline, and not modified after that by anything other
+than another execution graph dispatch command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-maxComputeWorkGroupCount-09186" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-maxComputeWorkGroupCount-09186"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-maxComputeWorkGroupCount-09186</span><br>
@@ -3906,6 +4115,13 @@ Execution of this command <strong>must</strong> not cause any shader that declar
 specified by the max number of payloads for that decoration.
 This requirement applies to each <code>NodeMaxPayloadsAMDX</code> decoration
 separately</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10195" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10195"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10195</span><br>
+
+   If the currently bound execution graph pipeline includes draw nodes,
+   this command <strong>must</strong> be called within a render pass instance that is
+compatible with the graphics pipeline used to create each of those nodes</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09159" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09159"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-09159</span><br>
@@ -4019,10 +4235,6 @@ on the device</p>
  The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-renderpass" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-renderpass"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-renderpass</span><br>
- This command <strong>must</strong> only be called outside of a render pass instance</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-videocoding" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-videocoding"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-videocoding</span><br>
  This command <strong>must</strong> only be called outside of a video coding scope</p>
 </li>
@@ -4036,11 +4248,11 @@ on the device</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4069,7 +4281,7 @@ on the device</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
 Compute</p></td>
@@ -4257,18 +4469,61 @@ be queried via the <a href="interfaces.html#interfaces-builtin-variables-coalesc
 Any values in the payload have no effect on execution.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="executiongraphs-meshnodes"><a class="anchor" href="#executiongraphs-meshnodes"></a>Mesh Nodes</h3>
+<div class="paragraph">
+<p>Graphics pipelines added as nodes to an execution graph are executed in a
+manner similar to a <a href="drawing.html#vkCmdDrawMeshTasksIndirectEXT" class="xref page">vkCmdDrawMeshTasksIndirectEXT</a>, using the same
+payloads as compute shaders, but capturing some state from the command
+buffer.</p>
+</div>
+<div id="executiongraphs-meshnodes-statecapture" class="paragraph">
+<p>When an execution graph dispatch is recorded into a command buffer, it
+captures the following dynamic state for use with draw nodes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_DYNAMIC_STATE_VIEWPORT</code></p>
+</li>
+<li>
+<p><code>VK_DYNAMIC_STATE_SCISSOR</code></p>
+</li>
+<li>
+<p><code>VK_DYNAMIC_STATE_LINE_WIDTH</code></p>
+</li>
+<li>
+<p><code>VK_DYNAMIC_STATE_DEPTH_BIAS</code></p>
+</li>
+<li>
+<p><code>VK_DYNAMIC_STATE_BLEND_CONSTANTS</code></p>
+</li>
+<li>
+<p><code>VK_DYNAMIC_STATE_DEPTH_BOUNDS</code></p>
+</li>
+<li>
+<p><code>VK_DYNAMIC_STATE_VIEWPORT_WITH_COUNT</code></p>
+</li>
+<li>
+<p><code>VK_DYNAMIC_STATE_SCISSOR_WITH_COUNT</code></p>
+</li>
+<li>
+<p><code>VK_DYNAMIC_STATE_FRAGMENT_SHADING_RATE_KHR</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Other state is not captured, and graphics pipelines <strong>must</strong> not be created
+with other dynamic states when used as a library in an execution graph
+pipeline.</p>
+</div>
+</div>
 </div>
 </div>
 </article>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

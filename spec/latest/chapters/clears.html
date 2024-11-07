@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -339,6 +337,13 @@
 </aside>
 <article class="doc">
 <h1 class="page">Clear Commands</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/clears.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="clears-outside"><a class="anchor" href="#clears-outside"></a>Clearing Images Outside a Render Pass Instance</h2>
 <div class="sectionbody">
@@ -422,7 +427,7 @@ The <a href="resources.html#resources-image-format-features" class="xref page">f
 <p><a id="VUID-vkCmdClearColorImage-image-01545" href="#VUID-vkCmdClearColorImage-image-01545"></a> <span class="vuid">VUID-vkCmdClearColorImage-image-01545</span><br>
 
 <code>image</code> <strong>must</strong> not use any of the
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a    sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a></p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a    sampler {YCbCr} conversion</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdClearColorImage-image-00003" href="#VUID-vkCmdClearColorImage-image-00003"></a> <span class="vuid">VUID-vkCmdClearColorImage-image-00003</span><br>
@@ -465,7 +470,7 @@ was created</p>
 
 For each <a href="resources.html#VkImageSubresourceRange" class="xref page">VkImageSubresourceRange</a> element of <code>pRanges</code>, if the
 <code>levelCount</code> member is not <code>VK_REMAINING_MIP_LEVELS</code>, then
-<span class="eq"><code>baseMipLevel</code> +  <code>levelCount</code></span> <strong>must</strong> be less than or
+<span class="eq"><code>baseMipLevel</code> &#43; <code>levelCount</code></span> <strong>must</strong> be less than or
 equal to the <code>mipLevels</code> specified in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when
 <code>image</code> was created</p>
 </li>
@@ -482,7 +487,7 @@ was created</p>
 
 For each <a href="resources.html#VkImageSubresourceRange" class="xref page">VkImageSubresourceRange</a> element of <code>pRanges</code>, if the
 <code>layerCount</code> member is not <code>VK_REMAINING_ARRAY_LAYERS</code>, then
-<span class="eq"><code>baseArrayLayer</code> +  <code>layerCount</code></span> <strong>must</strong> be less than or
+<span class="eq"><code>baseArrayLayer</code> &#43; <code>layerCount</code></span> <strong>must</strong> be less than or
 equal to the <code>arrayLayers</code> specified in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when
 <code>image</code> was created</p>
 </li>
@@ -509,6 +514,12 @@ If <code>commandBuffer</code> is an unprotected command buffer and
 If <code>commandBuffer</code> is a protected command buffer and
 <a href="devsandqueues.html#limits-protectedNoFault" class="xref page"><code>protectedNoFault</code></a> is not supported,
 <strong>must</strong> not be an unprotected image</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdClearColorImage-image-09678" href="#VUID-vkCmdClearColorImage-image-09678"></a> <span class="vuid">VUID-vkCmdClearColorImage-image-09678</span><br>
+
+If <code>image</code>&#8217;s format has components other than R and G, it <strong>must</strong> not
+have a 64-bit component width</p>
 </li>
 </ul>
 </div>
@@ -565,14 +576,14 @@ If <code>commandBuffer</code> is a protected command buffer and
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -756,7 +767,7 @@ was created</p>
 
 For each <a href="resources.html#VkImageSubresourceRange" class="xref page">VkImageSubresourceRange</a> element of <code>pRanges</code>, if the
 <code>levelCount</code> member is not <code>VK_REMAINING_MIP_LEVELS</code>, then
-<span class="eq"><code>baseMipLevel</code> +  <code>levelCount</code></span> <strong>must</strong> be less than or
+<span class="eq"><code>baseMipLevel</code> &#43; <code>levelCount</code></span> <strong>must</strong> be less than or
 equal to the <code>mipLevels</code> specified in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when
 <code>image</code> was created</p>
 </li>
@@ -773,7 +784,7 @@ was created</p>
 
 For each <a href="resources.html#VkImageSubresourceRange" class="xref page">VkImageSubresourceRange</a> element of <code>pRanges</code>, if the
 <code>layerCount</code> member is not <code>VK_REMAINING_ARRAY_LAYERS</code>, then
-<span class="eq"><code>baseArrayLayer</code> +  <code>layerCount</code></span> <strong>must</strong> be less than or
+<span class="eq"><code>baseArrayLayer</code> &#43; <code>layerCount</code></span> <strong>must</strong> be less than or
 equal to the <code>arrayLayers</code> specified in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when
 <code>image</code> was created</p>
 </li>
@@ -855,14 +866,14 @@ If <code>commandBuffer</code> is a protected command buffer and
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -982,7 +993,6 @@ the <code>VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT</code> and
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>It is generally preferable to clear attachments by using the
 <code>VK_ATTACHMENT_LOAD_OP_CLEAR</code> load operation at the start of rendering,
@@ -1061,7 +1071,7 @@ be contained within the render area of the current render pass instance</p>
 
 The layers specified by each element of <code>pRects</code> <strong>must</strong> be contained
 within every attachment that <code>pAttachments</code> refers to, i.e. for each
-element of <code>pRects</code>, <a href="#VkClearRect">VkClearRect</a>::<code>baseArrayLayer</code> + 
+element of <code>pRects</code>, <a href="#VkClearRect">VkClearRect</a>::<code>baseArrayLayer</code> &#43;
 <a href="#VkClearRect">VkClearRect</a>::<code>layerCount</code> <strong>must</strong> be less than or equal to the
 number of layers rendered to in the current render pass instance</p>
 </li>
@@ -1104,7 +1114,13 @@ The <code>colorAttachment</code> member of each element of <code>pAttachments</c
 
 If the subpass this is recorded in performs an external format resolve,
 the <code>aspectMask</code> member of any element of <code>pAttachments</code> <strong>must</strong>
-not include <code>VK_IMAGE_ASPECT_PLANE<em>_i_</em>BIT</code> for any index <em>i</em></p>
+not include <code>VK_IMAGE_ASPECT_PLANE<em>{ibit}</em>BIT</code> for any index <em>i</em></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdClearAttachments-None-09679" href="#VUID-vkCmdClearAttachments-None-09679"></a> <span class="vuid">VUID-vkCmdClearAttachments-None-09679</span><br>
+
+If the attachment format has components other than R and G, it <strong>must</strong> not
+have a 64-bit component width</p>
 </li>
 </ul>
 </div>
@@ -1157,14 +1173,14 @@ not include <code>VK_IMAGE_ASPECT_PLANE<em>_i_</em>BIT</code> for any index <em>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1234,7 +1250,7 @@ typedef struct VkClearRect {
 </ul>
 </div>
 <div class="paragraph">
-<p>The layers <span class="eq">[<code>baseArrayLayer</code>, <code>baseArrayLayer</code> + 
+<p>The layers <span class="eq">[<code>baseArrayLayer</code>, <code>baseArrayLayer</code> &#43;
 <code>layerCount</code>)</span> counting from the base layer of the attachment image view
 are cleared.</p>
 </div>
@@ -1293,7 +1309,7 @@ not include <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> or
 <p><a id="VUID-VkClearAttachment-aspectMask-02246" href="#VUID-VkClearAttachment-aspectMask-02246"></a> <span class="vuid">VUID-VkClearAttachment-aspectMask-02246</span><br>
 
 <code>aspectMask</code> <strong>must</strong> not include
-<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> for any index <em>i</em></p>
+<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>{ibit}</em>BIT_EXT</code> for any index <em>i</em></p>
 </li>
 </ul>
 </div>
@@ -1344,7 +1360,7 @@ typedef union VkClearColorValue {
 <p><code>float32</code> are the color clear values when the format of the image or
 attachment is one of the <a href="formats.html#formats-numericformat" class="xref page">numeric formats</a> with
 a numeric type that is floating-point.
-Floating point values are automatically converted to the format of the
+Floating-point values are automatically converted to the format of the
 image, with the clear value being treated as linear if the image is
 sRGB.</p>
 </li>
@@ -1373,6 +1389,21 @@ of image formats, in order.</p>
 <div class="paragraph">
 <p>If the image has more than one sample, the same value is written to all
 samples for any pixels being cleared.</p>
+</div>
+<div class="paragraph">
+<p>If the image or attachment format has a 64-bit component width, the first 2
+array elements of each of the arrays above are reinterpreted as a single
+64-bit element for the R component.
+The next 2 array elements are used in the same way for the G component.
+In other words, the union behaves as if it had the following additional
+members:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c hljs" data-lang="c">double float64[2];
+int64_t int64[2];
+uint64_t uint64[2];</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -1622,14 +1653,14 @@ If <code>commandBuffer</code> is a protected command buffer and
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1728,7 +1759,6 @@ For larger updates, applications <strong>can</strong> use buffer to buffer
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Buffer updates performed with <code>vkCmdUpdateBuffer</code> first copy the data
 into command buffer memory when the command is recorded (which requires
@@ -1750,8 +1780,8 @@ it is strongly recommended that they <strong>should</strong> not.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>The source data is copied from the user pointer to the command buffer when
-the command is called.</p>
+<p>The source data is copied from <code>pData</code> to the command buffer when the
+command is called.</p>
 </div>
 <div class="paragraph">
 <p><code>vkCmdUpdateBuffer</code> is only allowed outside of a render pass.
@@ -1869,14 +1899,14 @@ If <code>commandBuffer</code> is a protected command buffer and
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1926,7 +1956,6 @@ Compute</p></td>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The <code>pData</code> parameter was of type <code>uint32_t*</code> instead of <code>void*</code>
 prior to version 1.0.19 of the Specification and <a href="../appendices/boilerplate.html#VK_HEADER_VERSION" class="xref page">VK_HEADER_VERSION</a> 19
@@ -1943,12 +1972,6 @@ This was a historical anomaly, as the source data may be of other types.</p>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -341,6 +339,9 @@
 <h1 class="page">Resource Descriptors</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/descriptorsets.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>A <em>descriptor</em> is an opaque data structure representing a shader resource
 such as a buffer, buffer view, image view, sampler, or combined image
@@ -502,7 +503,7 @@ an <a href="resources.html#resources-images" class="xref page">image resource</a
 </div>
 <div class="paragraph">
 <p>If the descriptor refers to a sampler that performs
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">Y′C<sub>B</sub>C<sub>R</sub> conversion</a> or samples a
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">{YCbCr} conversion</a> or samples a
 <a href="samplers.html#samplers-subsamplesampler" class="xref page">subsampled image</a>,
 the sampler <strong>must</strong> only be used to sample the image in the same descriptor.
 Otherwise, the
@@ -554,7 +555,6 @@ following layouts:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>On some implementations, it <strong>may</strong> be more efficient to sample from an image
 using a combination of sampler and sampled image that are stored together in
@@ -643,7 +643,6 @@ and atomic operations <strong>can</strong> be performed on.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Atomic operations <strong>can</strong> only be performed on members of certain types as
 defined in the <a href="../appendices/spirvenv.html#spirvenv" class="xref page">SPIR-V environment appendix</a>.</p>
@@ -713,7 +712,7 @@ binding specifies the binding&#8217;s capacity in bytes.</p>
 is a descriptor type associated with an <a href="resources.html#resources-images" class="xref page">image resource</a>
 via an <a href="resources.html#resources-image-views" class="xref page">image view</a> that <strong>can</strong> be used in
 <a href="textures.html#textures-weightimage" class="xref page">weight image sampling</a>.
-The image view must have been created with
+The image view <strong>must</strong> have been created with
 <a href="resources.html#VkImageViewSampleWeightCreateInfoQCOM" class="xref page">VkImageViewSampleWeightCreateInfoQCOM</a>.</p>
 </div>
 <div class="paragraph">
@@ -859,11 +858,10 @@ descriptor.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>To find which descriptor types are supported as
 <code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>, the application <strong>can</strong> use
-<a href="#vkGetDescriptorSetLayoutSupport">vkGetDescriptorSetLayoutSupport</a> with an
+<a href="#vkGetDescriptorSetLayoutSupport">vkGetDescriptorSetLayoutSupport</a> with a
 <code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code> binding, with the list of descriptor
 types to query in the
 <a href="#VkMutableDescriptorTypeCreateInfoEXT">VkMutableDescriptorTypeCreateInfoEXT</a>::<code>pDescriptorTypes</code> array for
@@ -880,7 +878,6 @@ that binding.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The intention of a mutable descriptor type is that implementations allocate
 N bytes per descriptor, where N is determined by the maximum descriptor size
@@ -1176,10 +1173,9 @@ If <code>flags</code> contains
 <p><a id="VUID-VkDescriptorSetLayoutCreateInfo-pBindings-07303" href="#VUID-VkDescriptorSetLayoutCreateInfo-pBindings-07303"></a> <span class="vuid">VUID-VkDescriptorSetLayoutCreateInfo-pBindings-07303</span><br>
 
 If any element <code>pBindings</code>[i] has a <code>descriptorType</code> of
-<code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>, then a
-<a href="#VkMutableDescriptorTypeCreateInfoEXT">VkMutableDescriptorTypeCreateInfoEXT</a> <strong>must</strong> be present in the
-<code>pNext</code> chain, and <code>mutableDescriptorTypeListCount</code> <strong>must</strong> be
-greater than i</p>
+<code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>, then the <code>pNext</code> chain <strong>must</strong>
+include a <a href="#VkMutableDescriptorTypeCreateInfoEXT">VkMutableDescriptorTypeCreateInfoEXT</a> structure, and
+<code>mutableDescriptorTypeListCount</code> <strong>must</strong> be greater than i</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorSetLayoutCreateInfo-descriptorType-04594" href="#VUID-VkDescriptorSetLayoutCreateInfo-descriptorType-04594"></a> <span class="vuid">VUID-VkDescriptorSetLayoutCreateInfo-descriptorType-04594</span><br>
@@ -1532,7 +1528,7 @@ higher than the non-UpdateAfterBind limits.</p>
 that descriptor sets using this layout allows them to be bound with
 compute pipelines that are created with
 <code>VK_PIPELINE_CREATE_INDIRECT_BINDABLE_BIT_NV</code> flag set to be used in
-<a href="VK_NV_device_generated_commands/generatedcommands.html#device-generated-commands" class="xref page">Device-Generated Commands</a>.</p>
+<a href="device_generated_commands/generatedcommands.html#device-generated-commands" class="xref page">Device-Generated Commands</a>.</p>
 </li>
 <li>
 <p><code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code>
@@ -1681,7 +1677,6 @@ pool.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The maximum binding number specified <strong>should</strong> be as compact as possible to
 avoid wasted memory.</p>
@@ -2146,7 +2141,6 @@ instead.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Note that while <code>VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT</code> and
 <code>VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT</code> both involve
@@ -2261,7 +2255,6 @@ pipeline layout.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This is a <code>VkDevice</code> query rather than <code>VkPhysicalDevice</code> because
 the answer <strong>may</strong> depend on enabled features.</p>
@@ -2334,8 +2327,8 @@ created.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p><code>supported</code> is set to <code>VK_TRUE</code> if the descriptor set <strong>can</strong> be
-created, or else is set to <code>VK_FALSE</code>.</p>
+<p><code>supported</code> will be <code>VK_TRUE</code> if the descriptor set <strong>can</strong> be created,
+or else <code>VK_FALSE</code>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -2412,14 +2405,13 @@ supported for the binding, if that binding is variable-sized.</p>
 <a href="#vkGetDescriptorSetLayoutSupport">vkGetDescriptorSetLayoutSupport</a>::<code>pCreateInfo</code> includes a
 variable-sized descriptor, then <code>supported</code> is determined assuming the
 requested size of the variable-sized descriptor, and
-<code>maxVariableDescriptorCount</code> is set to the maximum size of that
-descriptor that <strong>can</strong> be successfully created (which is greater than or equal
-to the requested size passed in).
+<code>maxVariableDescriptorCount</code> is the maximum size of that descriptor that
+<strong>can</strong> be successfully created (which is greater than or equal to the
+requested size passed in).
 If the <a href="#VkDescriptorSetLayoutCreateInfo">VkDescriptorSetLayoutCreateInfo</a> structure does not include a
 variable-sized descriptor, or if the
 <a href="features.html#VkPhysicalDeviceDescriptorIndexingFeatures" class="xref page">VkPhysicalDeviceDescriptorIndexingFeatures</a>::<code>descriptorBindingVariableDescriptorCount</code>
-feature is not enabled, then <code>maxVariableDescriptorCount</code> is set to
-zero.
+feature is not enabled, then <code>maxVariableDescriptorCount</code> is zero.
 For the purposes of this command, a variable-sized descriptor binding with a
 <code>descriptorCount</code> of zero is treated as having a <code>descriptorCount</code>
 of
@@ -2450,7 +2442,7 @@ If the layout is not supported, then the value written to
 application code that creates corresponding descriptor set layouts.</p>
 </div>
 <div class="listingblock">
-<div class="title">GLSL example</div>
+<div class="title">GLSL Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">//
 // binding to a single sampled image descriptor in set 0
@@ -2472,7 +2464,7 @@ layout (set=1, binding=0) uniform myUniformBuffer
 </div>
 </div>
 <div class="listingblock">
-<div class="title">SPIR-V example</div>
+<div class="title">SPIR-V Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-spirv hljs" data-lang="spirv">               ...
           %1 = OpExtInstImport "GLSL.std.450"
@@ -2512,7 +2504,7 @@ layout (set=1, binding=0) uniform myUniformBuffer
 </div>
 </div>
 <div class="listingblock">
-<div class="title">API example</div>
+<div class="title">API Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">VkResult myResult;
 
@@ -2666,11 +2658,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>descriptorSetLayout</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>descriptorSetLayout</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2856,7 +2848,6 @@ how many push constants <strong>can</strong> be accessed by each stage of the pi
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Push constants represent a high speed path to modify constant data in
 pipelines that is expected to outperform memory-backed resource updates.</p>
@@ -3062,7 +3053,9 @@ accessible across all shader stages and across all elements of
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-03030" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-03030"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-03030</span><br>
 
-The total number of descriptors in descriptor set layouts
+If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is not
+enabled, the
+total number of descriptors in descriptor set layouts
 created without the
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit set
 with a <code>descriptorType</code> of
@@ -3070,6 +3063,18 @@ with a <code>descriptorType</code> of
 shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
 than or equal to
 <code>VkPhysicalDeviceLimits</code>::<code>maxDescriptorSetUniformBuffersDynamic</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineLayoutCreateInfo-maintenance7-10003" href="#VUID-VkPipelineLayoutCreateInfo-maintenance7-10003"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-maintenance7-10003</span><br>
+
+If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is enabled,
+the total number of descriptors in descriptor set layouts
+created without the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit set
+with a <code>descriptorType</code> of
+<code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> accessible across all
+shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
+than or equal to <a href="limits.html#limits-maxDescriptorSetTotalUniformBuffersDynamic" class="xref page">    <code>VkPhysicalDeviceMaintenance7PropertiesKHR</code>::<code>maxDescriptorSetTotalUniformBuffersDynamic</code></a></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-03031" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-03031"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-03031</span><br>
@@ -3085,7 +3090,9 @@ accessible across all shader stages and across all elements of
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-03032" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-03032"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-03032</span><br>
 
-The total number of descriptors in descriptor set layouts
+If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is not
+enabled, the
+total number of descriptors in descriptor set layouts
 created without the
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit set
 with a <code>descriptorType</code> of
@@ -3093,6 +3100,40 @@ with a <code>descriptorType</code> of
 shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
 than or equal to
 <code>VkPhysicalDeviceLimits</code>::<code>maxDescriptorSetStorageBuffersDynamic</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineLayoutCreateInfo-maintenance7-10004" href="#VUID-VkPipelineLayoutCreateInfo-maintenance7-10004"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-maintenance7-10004</span><br>
+
+If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is enabled,
+the total number of descriptors in descriptor set layouts
+created without the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit set
+with a <code>descriptorType</code> of
+<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> accessible across all
+shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
+than or equal to <a href="limits.html#limits-maxDescriptorSetTotalStorageBuffersDynamic" class="xref page">    <code>VkPhysicalDeviceMaintenance7PropertiesKHR</code>::<code>maxDescriptorSetTotalStorageBuffersDynamic</code></a></p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineLayoutCreateInfo-None-10005" href="#VUID-VkPipelineLayoutCreateInfo-None-10005"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-None-10005</span><br>
+
+The total number of descriptors in descriptor set layouts
+created without the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit set
+with a <code>descriptorType</code> of
+<code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> or
+<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> accessible across all
+shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
+than or equal to <a href="limits.html#limits-maxDescriptorSetTotalBuffersDynamic" class="xref page">    <code>VkPhysicalDeviceMaintenance7PropertiesKHR</code>::<code>maxDescriptorSetTotalBuffersDynamic</code></a></p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-10006" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-10006"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-10006</span><br>
+
+The total number of descriptors of the type
+<code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> or
+<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> accessible across all
+shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
+than or equal to
+<a href="limits.html#limits-maxDescriptorSetUpdateAfterBindTotalBuffersDynamic" class="xref page">    <code>VkPhysicalDeviceMaintenance7PropertiesKHR</code>::<code>maxDescriptorSetUpdateAfterBindTotalBuffersDynamic</code></a></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-03033" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-03033"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-03033</span><br>
@@ -3165,11 +3206,23 @@ or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03038" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03038"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03038</span><br>
 
-The total number of descriptors of the type
+If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is not
+enabled, the
+total number of descriptors of the type
 <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> accessible across all
 shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
 than or equal to
-<code>VkPhysicalDeviceDescriptorIndexingProperties</code>::<code>maxDescriptorSetUpdateAfterBindUniformBuffersDynamic</code></p>
+<code>VkPhysicalDeviceLimits</code>::<code>maxDescriptorSetUpdateAfterBindUniformBuffersDynamic</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineLayoutCreateInfo-maintenance7-10007" href="#VUID-VkPipelineLayoutCreateInfo-maintenance7-10007"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-maintenance7-10007</span><br>
+
+If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is enabled,
+the total number of descriptors of the type
+<code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> accessible across all
+shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
+than or equal to
+<a href="limits.html#limits-maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic" class="xref page">    <code>VkPhysicalDeviceMaintenance7PropertiesKHR</code>::<code>maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic</code></a></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03039" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03039"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03039</span><br>
@@ -3183,11 +3236,23 @@ or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03040" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03040"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03040</span><br>
 
-The total number of descriptors of the type
+If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is not
+enabled, the
+total number of descriptors of the type
 <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> accessible across all
 shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
 than or equal to
-<code>VkPhysicalDeviceDescriptorIndexingProperties</code>::<code>maxDescriptorSetUpdateAfterBindStorageBuffersDynamic</code></p>
+<code>VkPhysicalDeviceLimits</code>::<code>maxDescriptorSetUpdateAfterBindStorageBuffersDynamic</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPipelineLayoutCreateInfo-maintenance7-10008" href="#VUID-VkPipelineLayoutCreateInfo-maintenance7-10008"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-maintenance7-10008</span><br>
+
+If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is enabled,
+the total number of descriptors of the type
+<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> accessible across all
+shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
+than or equal to
+<a href="limits.html#limits-maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic" class="xref page">    <code>VkPhysicalDeviceMaintenance7PropertiesKHR</code>::<code>maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic</code></a></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03041" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03041"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03041</span><br>
@@ -3584,7 +3649,8 @@ or <code>maxDescriptorSetUpdateAfterBindUniformBuffers</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUniformBuffersDynamic</code>
-or <code>maxDescriptorSetUpdateAfterBindUniformBuffersDynamic</code></p></td>
+or <code>maxDescriptorSetUpdateAfterBindUniformBuffersDynamic</code>
+or <code>maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">uniform buffer dynamic</p></td>
 </tr>
 <tr>
@@ -3597,7 +3663,8 @@ or <code>maxDescriptorSetUpdateAfterBindStorageBuffers</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetStorageBuffersDynamic</code>
-or <code>maxDescriptorSetUpdateAfterBindStorageBuffersDynamic</code></p></td>
+or <code>maxDescriptorSetUpdateAfterBindStorageBuffersDynamic</code>
+or <code>maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">storage buffer dynamic</p></td>
 </tr>
 <tr>
@@ -3701,11 +3768,11 @@ command for any command buffers that are still in the
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>pipelineLayout</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pipelineLayout</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3762,7 +3829,6 @@ pipeline layout as the disturbing descriptor set.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Place the least frequently changing descriptor sets near the start of the
 pipeline layout, and place the descriptor sets representing the most
@@ -3781,7 +3847,7 @@ layout is queried from physical device properties (see
 <code>maxBoundDescriptorSets</code> in <a href="limits.html#limits" class="xref page">Limits</a>).</p>
 </div>
 <div class="listingblock">
-<div class="title">API example</div>
+<div class="title">API Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">const VkDescriptorSetLayout layouts[] = { layout1, layout2 };
 
@@ -4067,7 +4133,6 @@ The application <strong>must</strong> ensure that partial overlap does not exist
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The requirement of no partial overlap is intended to resolve ambiguity for
 validation as there is no confusion which <code>pPoolSizes</code> entries will be
@@ -4377,7 +4442,6 @@ of this type.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>When creating a descriptor pool that will contain descriptors for combined
 image samplers of multi-planar formats, an application needs to account for
@@ -4389,7 +4453,7 @@ value, as indicated by
 <p>For simplicity the application <strong>can</strong> use the
 <a href="limits.html#VkPhysicalDeviceMaintenance6PropertiesKHR" class="xref page">VkPhysicalDeviceMaintenance6PropertiesKHR</a>::<code>maxCombinedImageSamplerDescriptorCount</code>
 property, which is sized to accommodate any and all
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the implementation.</p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler {YCbCr} conversion</a> supported by the implementation.</p>
 </div>
 </td>
 </tr>
@@ -4518,11 +4582,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4671,11 +4735,11 @@ from this command, set all entries of the <code>pDescriptorSets</code> array to
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>pAllocateInfo-&gt;descriptorPool</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pAllocateInfo-&gt;descriptorPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5069,14 +5133,14 @@ which <strong>must</strong> either be a valid handle or <a href="../appendices/b
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to each member of <code>pDescriptorSets</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} each member of <code>pDescriptorSets</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5182,14 +5246,14 @@ All uses of <code>descriptorPool</code> (via any allocated descriptor sets)
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to any <code>VkDescriptorSet</code> objects allocated from <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} any <code>VkDescriptorSet</code> objects allocated from <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5530,8 +5594,10 @@ Otherwise,
 </li>
 <li>
 <p>a value matching the <code>accelerationStructureCount</code> of a
-<a href="#VkWriteDescriptorSetAccelerationStructureKHR">VkWriteDescriptorSetAccelerationStructureKHR</a> structure in the
-<code>pNext</code> chain</p>
+<a href="#VkWriteDescriptorSetAccelerationStructureKHR">VkWriteDescriptorSetAccelerationStructureKHR</a>
+or
+<a href="#VkWriteDescriptorSetAccelerationStructureNV">VkWriteDescriptorSetAccelerationStructureNV</a>
+     structure in the <code>pNext</code> chain</p>
 </li>
 </ul>
 </div>
@@ -5601,6 +5667,7 @@ invoked.</p>
 type for the destination descriptor becomes <code>descriptorType</code>.</p>
 </div>
 <div id="descriptorsets-updates-consecutive" class="paragraph">
+<div class="title">Consecutive Binding Updates</div>
 <p>If the <code>dstBinding</code> has fewer than <code>descriptorCount</code> array elements
 remaining starting from <code>dstArrayElement</code>, then the remainder will be
 used to update the subsequent binding - <span class="eq"><code>dstBinding</code>+1</span> starting at
@@ -5623,7 +5690,6 @@ In addition, if the <a href="#VkDescriptorType">VkDescriptorType</a> is
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The same behavior applies to bindings with a descriptor type of
 <code>VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK</code> where <code>descriptorCount</code>
@@ -5658,6 +5724,12 @@ specified when <code>dstSet</code>&#8217;s descriptor set layout was created</p>
 <code>descriptorCount</code></p>
 </li>
 <li>
+<p><a id="VUID-VkWriteDescriptorSet-dstBinding-10009" href="#VUID-VkWriteDescriptorSet-dstBinding-10009"></a> <span class="vuid">VUID-VkWriteDescriptorSet-dstBinding-10009</span><br>
+
+<code>dstBinding</code> <strong>must</strong> be a binding with a non-zero
+<a href="#VkDescriptorSetLayoutCreateInfo">VkDescriptorSetLayoutCreateInfo</a>::<code>bindingCount</code></p>
+</li>
+<li>
 <p><a id="VUID-VkWriteDescriptorSet-descriptorCount-00317" href="#VUID-VkWriteDescriptorSet-descriptorCount-00317"></a> <span class="vuid">VUID-VkWriteDescriptorSet-descriptorCount-00317</span><br>
 
 All consecutive bindings updated via a single <code>VkWriteDescriptorSet</code>
@@ -5687,8 +5759,8 @@ either use immutable samplers or <strong>must</strong> all not use immutable sam
 
 The sum of <code>dstArrayElement</code> and <code>descriptorCount</code> <strong>must</strong> be less
 than or equal to the number of array elements in the descriptor set
-binding specified by <code>dstBinding</code>, and all applicable consecutive
-bindings, as described by <a href="#descriptorsets-updates-consecutive">descriptorsets-updates-consecutive</a></p>
+binding specified by <code>dstBinding</code>, and all applicable
+<a href="#descriptorsets-updates-consecutive">consecutive bindings</a></p>
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSet-descriptorType-02219" href="#VUID-VkWriteDescriptorSet-descriptorType-02219"></a> <span class="vuid">VUID-VkWriteDescriptorSet-descriptorType-02219</span><br>
@@ -5822,7 +5894,7 @@ If <code>descriptorType</code> is
 allocated with a layout that included immutable samplers for
 <code>dstBinding</code>, then the <code>imageView</code> member of each element of
 <code>pImageInfo</code> which corresponds to an immutable sampler that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> <strong>must</strong> have been
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a> <strong>must</strong> have been
 created with a <code>VkSamplerYcbcrConversionInfo</code> structure in its
 <code>pNext</code> chain with an <em>identically defined</em>
 <code>VkSamplerYcbcrConversionInfo</code> to the corresponding immutable
@@ -5835,7 +5907,7 @@ If <code>descriptorType</code> is
 <code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code>, <code>dstSet</code> was
 allocated with a layout that included immutable samplers for
 <code>dstBinding</code>, and those samplers enable
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, then
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, then
 <code>imageView</code> <strong>must</strong> not be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
 </li>
 <li>
@@ -6258,7 +6330,6 @@ end of the buffer.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>When setting <code>range</code> to <code>VK_WHOLE_SIZE</code>, the
 <a href="#buffer-info-effective-range">effective range</a> <strong>must</strong> not be larger than
@@ -6848,7 +6919,6 @@ The active descriptor type <strong>can</strong> be different for each source des
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The intention is that copies to and from mutable descriptors is a simple
 memcpy.
@@ -6875,8 +6945,8 @@ case with more than one <code>descriptorCount</code> is considered rare.</p>
 
 The sum of <code>srcArrayElement</code> and <code>descriptorCount</code> <strong>must</strong> be less
 than or equal to the number of array elements in the descriptor set
-binding specified by <code>srcBinding</code>, and all applicable consecutive
-bindings, as described by <a href="#descriptorsets-updates-consecutive">descriptorsets-updates-consecutive</a></p>
+binding specified by <code>srcBinding</code>, and all applicable
+<a href="#descriptorsets-updates-consecutive">consecutive bindings</a></p>
 </li>
 <li>
 <p><a id="VUID-VkCopyDescriptorSet-dstBinding-00347" href="#VUID-VkCopyDescriptorSet-dstBinding-00347"></a> <span class="vuid">VUID-VkCopyDescriptorSet-dstBinding-00347</span><br>
@@ -6888,8 +6958,8 @@ bindings, as described by <a href="#descriptorsets-updates-consecutive">descript
 
 The sum of <code>dstArrayElement</code> and <code>descriptorCount</code> <strong>must</strong> be less
 than or equal to the number of array elements in the descriptor set
-binding specified by <code>dstBinding</code>, and all applicable consecutive
-bindings, as described by <a href="#descriptorsets-updates-consecutive">descriptorsets-updates-consecutive</a></p>
+binding specified by <code>dstBinding</code>, and all applicable
+<a href="#descriptorsets-updates-consecutive">consecutive bindings</a></p>
 </li>
 <li>
 <p><a id="VUID-VkCopyDescriptorSet-dstBinding-02632" href="#VUID-VkCopyDescriptorSet-dstBinding-02632"></a> <span class="vuid">VUID-VkCopyDescriptorSet-dstBinding-02632</span><br>
@@ -6902,8 +6972,7 @@ type of <code>srcBinding</code> within <code>srcSet</code></p>
 
 If <code>srcSet</code> is equal to <code>dstSet</code>, then the source and
 destination ranges of descriptors <strong>must</strong> not overlap, where the ranges
-<strong>may</strong> include array elements from consecutive bindings as described by
-<a href="#descriptorsets-updates-consecutive">descriptorsets-updates-consecutive</a></p>
+<strong>may</strong> include array elements from <a href="#descriptorsets-updates-consecutive">    consecutive bindings</a></p>
 </li>
 <li>
 <p><a id="VUID-VkCopyDescriptorSet-srcBinding-02223" href="#VUID-VkCopyDescriptorSet-srcBinding-02223"></a> <span class="vuid">VUID-VkCopyDescriptorSet-srcBinding-02223</span><br>
@@ -7425,7 +7494,7 @@ which takes the following values:</p>
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_1
 typedef enum VkDescriptorUpdateTemplateType {
     VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET = 0,
-  // Provided by VK_VERSION_1_1 with VK_KHR_push_descriptor, VK_KHR_descriptor_update_template with VK_KHR_push_descriptor
+  // Provided by VK_KHR_descriptor_update_template with VK_KHR_push_descriptor, VK_KHR_push_descriptor with VK_VERSION_1_1 or VK_KHR_descriptor_update_template
     VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_PUSH_DESCRIPTORS_KHR = 1,
   // Provided by VK_KHR_descriptor_update_template
     VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET_KHR = VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET,
@@ -7555,8 +7624,7 @@ descriptors</p>
 <code>dstArrayElement</code> and <code>descriptorCount</code> <strong>must</strong> be less than or
 equal to the number of array elements in the descriptor set binding
 implicitly specified when using a descriptor update template to update
-descriptors, and all applicable consecutive bindings, as described by
-<a href="#descriptorsets-updates-consecutive">descriptorsets-updates-consecutive</a></p>
+descriptors, and all applicable <a href="#descriptorsets-updates-consecutive">    consecutive bindings</a></p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorUpdateTemplateEntry-descriptor-02226" href="#VUID-VkDescriptorUpdateTemplateEntry-descriptor-02226"></a> <span class="vuid">VUID-VkDescriptorUpdateTemplateEntry-descriptor-02226</span><br>
@@ -7683,11 +7751,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>descriptorUpdateTemplate</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>descriptorUpdateTemplate</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -7803,7 +7871,7 @@ unless explicitly denoted otherwise for specific flags</p>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">API example</div>
+<div class="title">API Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">struct AppBufferView {
     VkBufferView bufferView;
@@ -7814,8 +7882,8 @@ struct AppDataStructure
 {
     VkDescriptorImageInfo  imageInfo;          // a single image info
     VkDescriptorBufferInfo bufferInfoArray[3]; // 3 buffer infos in an array
-    AppBufferView          bufferView[2];      // An application defined structure containing a bufferView
-    // ... some more application related data
+    AppBufferView          bufferView[2];      // An application-defined structure containing a bufferView
+    // ... some more application-related data
 };
 
 const VkDescriptorUpdateTemplateEntry descriptorUpdateTemplateEntries[] =
@@ -7992,7 +8060,6 @@ considered valid.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Further validation may be carried out beyond validation for descriptor
 types, e.g. <a href="textures.html#textures-input-validation" class="xref page">Texel Input Validation</a>.</p>
@@ -8199,14 +8266,14 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8321,14 +8388,14 @@ queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8791,14 +8858,14 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8912,14 +8979,14 @@ queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9137,7 +9204,7 @@ To do so, call:</p>
 </div>
 <div id="vkCmdPushDescriptorSetWithTemplateKHR" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_1 with VK_KHR_push_descriptor, VK_KHR_descriptor_update_template with VK_KHR_push_descriptor
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_descriptor_update_template with VK_KHR_push_descriptor, VK_KHR_push_descriptor with VK_VERSION_1_1 or VK_KHR_descriptor_update_template
 void vkCmdPushDescriptorSetWithTemplateKHR(
     VkCommandBuffer                             commandBuffer,
     VkDescriptorUpdateTemplate                  descriptorUpdateTemplate,
@@ -9271,14 +9338,14 @@ uses a descriptor set layout that was created with
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9319,12 +9386,12 @@ Compute</p></td>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">API example</div>
+<div class="title">API Example</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">struct AppDataStructure
 {
     VkDescriptorImageInfo  imageInfo;          // a single image info
-    // ... some more application related data
+    // ... some more application-related data
 };
 
 const VkDescriptorUpdateTemplateEntry descriptorUpdateTemplateEntries[] =
@@ -9426,14 +9493,14 @@ recorded in.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9658,7 +9725,6 @@ commands.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Push constants represent a high speed path to modify constant data in
 pipelines that is expected to outperform memory-backed resource updates.</p>
@@ -9737,7 +9803,6 @@ constant layout does not disturb the push constant values.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>As <code>stageFlags</code> needs to include all flags the relevant push constant
 ranges were created with, any flags that are not supported by the queue
@@ -9846,14 +9911,14 @@ for each push constant range that overlaps that byte, <code>stageFlags</code>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9951,14 +10016,14 @@ structure.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -10514,7 +10579,7 @@ zero if the region is unused.</p>
 <p><a id="VUID-VkStridedDeviceAddressRegionKHR-size-04631" href="#VUID-VkStridedDeviceAddressRegionKHR-size-04631"></a> <span class="vuid">VUID-VkStridedDeviceAddressRegionKHR-size-04631</span><br>
 
 If <code>size</code> is not zero, all addresses between <code>deviceAddress</code> and
-<span class="eq"><code>deviceAddress</code> +  <code>size</code> - 1</span> <strong>must</strong> be in the buffer
+<span class="eq"><code>deviceAddress</code> &#43; <code>size</code> - 1</span> <strong>must</strong> be in the buffer
 device address range of the same buffer</p>
 </li>
 <li>
@@ -10595,7 +10660,7 @@ To compute the required size of a descriptor set with a
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">size = offset + descriptorSize ×
+<p><span class="eq">size = offset + descriptorSize {times}
 variableDescriptorCount</span></p>
 </dd>
 </dl>
@@ -10713,8 +10778,8 @@ follows:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">location = bufferAddress +  setOffset + 
-descriptorOffset +  (arrayElement × descriptorSize)</span></p>
+<p><span class="eq">location = bufferAddress &#43; setOffset &#43;
+descriptorOffset &#43; (arrayElement {times} descriptorSize)</span></p>
 </dd>
 </dl>
 </div>
@@ -10827,8 +10892,8 @@ structure specifying the parameters of the descriptor to get.</p>
 <p><code>dataSize</code> is the amount of the descriptor data to get in bytes.</p>
 </li>
 <li>
-<p><code>pDescriptor</code> is a pointer to a user-allocated buffer where the
-descriptor will be written.</p>
+<p><code>pDescriptor</code> is a pointer to an application-allocated buffer where
+the descriptor will be written.</p>
 </li>
 </ul>
 </div>
@@ -11067,8 +11132,8 @@ not zero, <code>pStorageBuffer-&gt;address</code> <strong>must</strong> be an ad
 
 If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER</code>,
 <code>pUniformBuffer</code> is not <code>NULL</code> , the number of texel buffer elements
-given by <span class="eq">(⌊<code>pUniformBuffer-&gt;range</code> / (texel block
-size)⌋ × (texels per block))</span> where texel block size and
+given by <span class="eq">({lfloor}<code>pUniformBuffer-&gt;range</code> / (texel block
+size){rfloor} {times} (texels per block))</span> where texel block size and
 texels per block are as defined in the <a href="formats.html#formats-compatibility" class="xref page">    Compatible Formats</a> table for <code>pUniformBuffer-&gt;format</code>, <strong>must</strong> be
 less than or equal to
 <code>VkPhysicalDeviceLimits</code>::<code>maxTexelBufferElements</code></p>
@@ -11078,8 +11143,8 @@ less than or equal to
 
 If <code>type</code> is <code>VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER</code>,
 <code>pStorageBuffer</code> is not <code>NULL</code> , the number of texel buffer elements
-given by <span class="eq">(⌊<code>pStorageBuffer-&gt;range</code> / (texel block
-size)⌋ × (texels per block))</span> where texel block size and
+given by <span class="eq">({lfloor}<code>pStorageBuffer-&gt;range</code> / (texel block
+size){rfloor} {times} (texels per block))</span> where texel block size and
 texels per block are as defined in the <a href="formats.html#formats-compatibility" class="xref page">    Compatible Formats</a> table for <code>pStorageBuffer-&gt;format</code>, <strong>must</strong> be
 less than or equal to
 <code>VkPhysicalDeviceLimits</code>::<code>maxTexelBufferElements</code></p>
@@ -11522,7 +11587,6 @@ consumes the sampler.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>If the descriptor set layout was created with
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT</code>,
@@ -11541,7 +11605,6 @@ The implementation handles allocation of these descriptors internally.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>As descriptors are now in regular memory, drivers cannot hide copies of
 immutable samplers that end up in descriptor sets from the application.
@@ -11716,14 +11779,14 @@ buffer from which <code>address</code> was queried</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11776,7 +11839,7 @@ Compute</p></td>
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_descriptor_buffer
 typedef struct VkDescriptorBufferBindingInfoEXT {
     VkStructureType       sType;
-    void*                 pNext;
+    const void*           pNext;
     VkDeviceAddress       address;
     VkBufferUsageFlags    usage;
 } VkDescriptorBufferBindingInfoEXT;</code></pre>
@@ -11803,9 +11866,9 @@ address defining the descriptor buffer to be bound.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If a <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a> structure is present in the
-<code>pNext</code> chain, <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a>::<code>usage</code> from
-that structure is used instead of <code>usage</code> from this structure.</p>
+<p>If the <code>pNext</code> chain includes a <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a>
+structure, <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a>::<code>usage</code> from that
+structure is used instead of <code>usage</code> from this structure.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -11818,7 +11881,7 @@ that structure is used instead of <code>usage</code> from this structure.</p>
 
 If the <code>pNext</code> chain does not include a
 <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a> structure,
-<code>usage</code> must be a valid combination of <a href="resources.html#VkBufferUsageFlagBits" class="xref page">VkBufferUsageFlagBits</a>
+<code>usage</code> <strong>must</strong> be a valid combination of <a href="resources.html#VkBufferUsageFlagBits" class="xref page">VkBufferUsageFlagBits</a>
 values</p>
 </li>
 <li>
@@ -11827,7 +11890,7 @@ values</p>
 
 If the <code>pNext</code> chain does not include a
 <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a> structure,
-<code>usage</code> must not be 0</p>
+<code>usage</code> <strong>must</strong> not be 0</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorBufferBindingInfoEXT-bufferlessPushDescriptors-08056" href="#VUID-VkDescriptorBufferBindingInfoEXT-bufferlessPushDescriptors-08056"></a> <span class="vuid">VUID-VkDescriptorBufferBindingInfoEXT-bufferlessPushDescriptors-08056</span><br>
@@ -11908,7 +11971,7 @@ descriptors is passed in a
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_descriptor_buffer
 typedef struct VkDescriptorBufferBindingPushDescriptorBufferHandleEXT {
     VkStructureType    sType;
-    void*              pNext;
+    const void*        pNext;
     VkBuffer           buffer;
 } VkDescriptorBufferBindingPushDescriptorBufferHandleEXT;</code></pre>
 </div>
@@ -12057,7 +12120,6 @@ read <strong>must</strong> be in-bounds of the underlying descriptor buffer bind
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Applications can freely decide how large a variable descriptor buffer
 binding is, so it may not be safe to read such descriptor payloads
@@ -12081,7 +12143,6 @@ read, and therefore <strong>undefined</strong> behavior.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For descriptors written by the host, visibility is implied through the
 automatic visibility operation on queue submit, and there is no need to
@@ -12100,7 +12161,6 @@ are updated on the device.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The requirements above imply that all descriptor bindings have been defined
 with the equivalent of <code>VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT</code>,
@@ -12172,7 +12232,7 @@ to <a href="#VkPipelineLayoutCreateInfo">VkPipelineLayoutCreateInfo</a>::<code>s
 <p><a id="VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-09006" href="#VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-09006"></a> <span class="vuid">VUID-vkCmdSetDescriptorBufferOffsetsEXT-firstSet-09006</span><br>
 
 The <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> for each set from <code>firstSet</code> to
-<span class="eq"><code>firstSet</code> +  <code>setCount</code></span> when <code>layout</code> was created
+<span class="eq"><code>firstSet</code> &#43; <code>setCount</code></span> when <code>layout</code> was created
 <strong>must</strong> have been created with the
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code> bit set</p>
 </li>
@@ -12243,14 +12303,14 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12370,14 +12430,14 @@ stage supported by the <code>commandBuffer</code>&#8217;s parent
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12549,7 +12609,7 @@ to <a href="#VkPipelineLayoutCreateInfo">VkPipelineLayoutCreateInfo</a>::<code>s
 <p><a id="VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-09006" href="#VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-09006"></a> <span class="vuid">VUID-VkSetDescriptorBufferOffsetsInfoEXT-firstSet-09006</span><br>
 
 The <a href="#VkDescriptorSetLayout">VkDescriptorSetLayout</a> for each set from <code>firstSet</code> to
-<span class="eq"><code>firstSet</code> +  <code>setCount</code></span> when <code>layout</code> was created
+<span class="eq"><code>firstSet</code> &#43; <code>setCount</code></span> when <code>layout</code> was created
 <strong>must</strong> have been created with the
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT</code> bit set</p>
 </li>
@@ -12744,14 +12804,14 @@ parent <code>VkCommandPool</code>&#8217;s queue family</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12872,14 +12932,14 @@ Each bit in <code>pBindDescriptorBufferEmbeddedSamplersInfo-&gt;stageFlags</code
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -13121,8 +13181,8 @@ VkResult vkGetBufferOpaqueCaptureDescriptorDataEXT(
 structure specifying the buffer.</p>
 </li>
 <li>
-<p><code>pData</code> is a pointer to a user-allocated buffer where the data will
-be written.</p>
+<p><code>pData</code> is a pointer to an application-allocated buffer where the
+data will be written.</p>
 </li>
 </ul>
 </div>
@@ -13134,8 +13194,7 @@ be written.</p>
 <li>
 <p><a id="VUID-vkGetBufferOpaqueCaptureDescriptorDataEXT-None-08072" href="#VUID-vkGetBufferOpaqueCaptureDescriptorDataEXT-None-08072"></a> <span class="vuid">VUID-vkGetBufferOpaqueCaptureDescriptorDataEXT-None-08072</span><br>
 
-The <a href="features.html#features-descriptorBuffer" class="xref page"><code>descriptorBufferCaptureReplay</code></a>
-feature <strong>must</strong> be enabled</p>
+The <a href="features.html#features-descriptorBufferCaptureReplay" class="xref page">    <code>descriptorBufferCaptureReplay</code></a> feature <strong>must</strong> be enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkGetBufferOpaqueCaptureDescriptorDataEXT-pData-08073" href="#VUID-vkGetBufferOpaqueCaptureDescriptorDataEXT-pData-08073"></a> <span class="vuid">VUID-vkGetBufferOpaqueCaptureDescriptorDataEXT-pData-08073</span><br>
@@ -13303,8 +13362,8 @@ VkResult vkGetImageOpaqueCaptureDescriptorDataEXT(
 structure specifying the image.</p>
 </li>
 <li>
-<p><code>pData</code> is a pointer to a user-allocated buffer where the data will
-be written.</p>
+<p><code>pData</code> is a pointer to an application-allocated buffer where the
+data will be written.</p>
 </li>
 </ul>
 </div>
@@ -13316,8 +13375,7 @@ be written.</p>
 <li>
 <p><a id="VUID-vkGetImageOpaqueCaptureDescriptorDataEXT-None-08076" href="#VUID-vkGetImageOpaqueCaptureDescriptorDataEXT-None-08076"></a> <span class="vuid">VUID-vkGetImageOpaqueCaptureDescriptorDataEXT-None-08076</span><br>
 
-The <a href="features.html#features-descriptorBuffer" class="xref page"><code>descriptorBufferCaptureReplay</code></a>
-feature <strong>must</strong> be enabled</p>
+The <a href="features.html#features-descriptorBufferCaptureReplay" class="xref page">    <code>descriptorBufferCaptureReplay</code></a> feature <strong>must</strong> be enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkGetImageOpaqueCaptureDescriptorDataEXT-pData-08077" href="#VUID-vkGetImageOpaqueCaptureDescriptorDataEXT-pData-08077"></a> <span class="vuid">VUID-vkGetImageOpaqueCaptureDescriptorDataEXT-pData-08077</span><br>
@@ -13486,8 +13544,8 @@ VkResult vkGetImageViewOpaqueCaptureDescriptorDataEXT(
 image view.</p>
 </li>
 <li>
-<p><code>pData</code> is a pointer to a user-allocated buffer where the data will
-be written.</p>
+<p><code>pData</code> is a pointer to an application-allocated buffer where the
+data will be written.</p>
 </li>
 </ul>
 </div>
@@ -13499,8 +13557,7 @@ be written.</p>
 <li>
 <p><a id="VUID-vkGetImageViewOpaqueCaptureDescriptorDataEXT-None-08080" href="#VUID-vkGetImageViewOpaqueCaptureDescriptorDataEXT-None-08080"></a> <span class="vuid">VUID-vkGetImageViewOpaqueCaptureDescriptorDataEXT-None-08080</span><br>
 
-The <a href="features.html#features-descriptorBuffer" class="xref page"><code>descriptorBufferCaptureReplay</code></a>
-feature <strong>must</strong> be enabled</p>
+The <a href="features.html#features-descriptorBufferCaptureReplay" class="xref page">    <code>descriptorBufferCaptureReplay</code></a> feature <strong>must</strong> be enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkGetImageViewOpaqueCaptureDescriptorDataEXT-pData-08081" href="#VUID-vkGetImageViewOpaqueCaptureDescriptorDataEXT-pData-08081"></a> <span class="vuid">VUID-vkGetImageViewOpaqueCaptureDescriptorDataEXT-pData-08081</span><br>
@@ -13669,8 +13726,8 @@ VkResult vkGetSamplerOpaqueCaptureDescriptorDataEXT(
 sampler.</p>
 </li>
 <li>
-<p><code>pData</code> is a pointer to a user-allocated buffer where the data will
-be written.</p>
+<p><code>pData</code> is a pointer to an application-allocated buffer where the
+data will be written.</p>
 </li>
 </ul>
 </div>
@@ -13682,8 +13739,7 @@ be written.</p>
 <li>
 <p><a id="VUID-vkGetSamplerOpaqueCaptureDescriptorDataEXT-None-08084" href="#VUID-vkGetSamplerOpaqueCaptureDescriptorDataEXT-None-08084"></a> <span class="vuid">VUID-vkGetSamplerOpaqueCaptureDescriptorDataEXT-None-08084</span><br>
 
-The <a href="features.html#features-descriptorBuffer" class="xref page"><code>descriptorBufferCaptureReplay</code></a>
-feature <strong>must</strong> be enabled</p>
+The <a href="features.html#features-descriptorBufferCaptureReplay" class="xref page">    <code>descriptorBufferCaptureReplay</code></a> feature <strong>must</strong> be enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkGetSamplerOpaqueCaptureDescriptorDataEXT-pData-08085" href="#VUID-vkGetSamplerOpaqueCaptureDescriptorDataEXT-pData-08085"></a> <span class="vuid">VUID-vkGetSamplerOpaqueCaptureDescriptorDataEXT-pData-08085</span><br>
@@ -13853,8 +13909,8 @@ VkResult vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT(
 specifying the acceleration structure.</p>
 </li>
 <li>
-<p><code>pData</code> is a pointer to a user-allocated buffer where the data will
-be written.</p>
+<p><code>pData</code> is a pointer to an application-allocated buffer where the
+data will be written.</p>
 </li>
 </ul>
 </div>
@@ -13866,8 +13922,7 @@ be written.</p>
 <li>
 <p><a id="VUID-vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT-None-08088" href="#VUID-vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT-None-08088"></a> <span class="vuid">VUID-vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT-None-08088</span><br>
 
-The <a href="features.html#features-descriptorBuffer" class="xref page"><code>descriptorBufferCaptureReplay</code></a>
-feature <strong>must</strong> be enabled</p>
+The <a href="features.html#features-descriptorBufferCaptureReplay" class="xref page">    <code>descriptorBufferCaptureReplay</code></a> feature <strong>must</strong> be enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT-pData-08089" href="#VUID-vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT-pData-08089"></a> <span class="vuid">VUID-vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT-pData-08089</span><br>
@@ -14072,9 +14127,9 @@ typedef struct VkOpaqueCaptureDescriptorDataCreateInfoEXT {
 structure.</p>
 </li>
 <li>
-<p><code>opaqueCaptureDescriptorData</code> is a pointer to a user-allocated
-buffer containing opaque capture data retrieved using
-<a href="#vkGetBufferOpaqueCaptureDescriptorDataEXT">vkGetBufferOpaqueCaptureDescriptorDataEXT</a>,
+<p><code>opaqueCaptureDescriptorData</code> is a pointer to an
+application-allocated buffer containing opaque capture data retrieved
+using <a href="#vkGetBufferOpaqueCaptureDescriptorDataEXT">vkGetBufferOpaqueCaptureDescriptorDataEXT</a>,
 <a href="#vkGetImageOpaqueCaptureDescriptorDataEXT">vkGetImageOpaqueCaptureDescriptorDataEXT</a>,
 <a href="#vkGetImageViewOpaqueCaptureDescriptorDataEXT">vkGetImageViewOpaqueCaptureDescriptorDataEXT</a>,
 <a href="#vkGetSamplerOpaqueCaptureDescriptorDataEXT">vkGetSamplerOpaqueCaptureDescriptorDataEXT</a>, or
@@ -14116,12 +14171,6 @@ buffer containing opaque capture data retrieved using
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

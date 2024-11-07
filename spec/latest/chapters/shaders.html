@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -341,6 +339,9 @@
 <h1 class="page">Shaders</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/shaders.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>A shader specifies programmable operations that execute for each vertex,
 control point, tessellated vertex, primitive, fragment, or workgroup in the
@@ -471,6 +472,31 @@ is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page"
 <div class="title">Valid Usage</div>
 <div class="ulist">
 <ul>
+<li>
+<p><a id="VUID-vkCreateShadersEXT-device-09669" href="#VUID-vkCreateShadersEXT-device-09669"></a> <span class="vuid">VUID-vkCreateShadersEXT-device-09669</span><br>
+
+<code>device</code> <strong>must</strong> support at least one queue family with one of the
+<code>VK_QUEUE_COMPUTE_BIT</code> or <code>VK_QUEUE_GRAPHICS_BIT</code> capabilities</p>
+</li>
+<li>
+<p><a id="VUID-vkCreateShadersEXT-stage-09670" href="#VUID-vkCreateShadersEXT-stage-09670"></a> <span class="vuid">VUID-vkCreateShadersEXT-stage-09670</span><br>
+
+If the <code>stage</code> member of any element of <code>pCreateInfos</code> is
+<code>VK_SHADER_STAGE_COMPUTE_BIT</code>, <code>device</code> <strong>must</strong> support at least
+one queue family with the <code>VK_QUEUE_COMPUTE_BIT</code> capability</p>
+</li>
+<li>
+<p><a id="VUID-vkCreateShadersEXT-stage-09671" href="#VUID-vkCreateShadersEXT-stage-09671"></a> <span class="vuid">VUID-vkCreateShadersEXT-stage-09671</span><br>
+
+If the <code>stage</code> member of any element of <code>pCreateInfos</code> is
+<code>VK_SHADER_STAGE_TASK_BIT_EXT</code>, <code>VK_SHADER_STAGE_MESH_BIT_EXT</code>,
+<code>VK_SHADER_STAGE_VERTEX_BIT</code>,
+<code>VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT</code>,
+<code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code>,
+<code>VK_SHADER_STAGE_GEOMETRY_BIT</code>, or
+<code>VK_SHADER_STAGE_FRAGMENT_BIT</code>, <code>device</code> <strong>must</strong> support at least
+one queue family with the <code>VK_QUEUE_GRAPHICS_BIT</code> capability</p>
+</li>
 <li>
 <p><a id="VUID-vkCreateShadersEXT-None-08400" href="#VUID-vkCreateShadersEXT-None-08400"></a> <span class="vuid">VUID-vkCreateShadersEXT-None-08400</span><br>
 
@@ -898,6 +924,21 @@ If <code>flags</code> includes
 <strong>must</strong> be enabled</p>
 </li>
 <li>
+<p><a id="VUID-VkShaderCreateInfoEXT-flags-11005" href="#VUID-VkShaderCreateInfoEXT-flags-11005"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-flags-11005</span><br>
+
+If <code>flags</code> includes
+<code>VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT</code>, then the
+<a href="features.html#features-deviceGeneratedCommands" class="xref page">    <code>VkPhysicalDeviceDeviceGeneratedCommandsFeaturesEXT</code>::<code>deviceGeneratedCommands</code></a>
+feature <strong>must</strong> be enabled</p>
+</li>
+<li>
+<p><a id="VUID-VkShaderCreateInfoEXT-flags-11006" href="#VUID-VkShaderCreateInfoEXT-flags-11006"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-flags-11006</span><br>
+
+If <code>flags</code> includes
+<code>VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT</code>, then the identified
+entry point <strong>must</strong> not specify <code>Xfb</code> execution mode</p>
+</li>
+<li>
 <p><a id="VUID-VkShaderCreateInfoEXT-flags-08992" href="#VUID-VkShaderCreateInfoEXT-flags-08992"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-flags-08992</span><br>
 
 If <code>flags</code> includes
@@ -937,7 +978,7 @@ If <code>flags</code> includes
 <a href="pipelines.html#VkShaderRequiredSubgroupSizeCreateInfoEXT" class="xref page">VkShaderRequiredSubgroupSizeCreateInfoEXT</a> structure is included in
 the <code>pNext</code> chain, the local workgroup size in the X dimension of
 the shader <strong>must</strong> be a multiple of
-<a href="devsandqueues.html#limits-subgroup-size" class="xref page"><code>subgroupSize</code></a></p>
+<a href="devsandqueues.html#limits-subgroupSize" class="xref page"><code>subgroupSize</code></a></p>
 </li>
 <li>
 <p><a id="VUID-VkShaderCreateInfoEXT-stage-08418" href="#VUID-VkShaderCreateInfoEXT-stage-08418"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-stage-08418</span><br>
@@ -1217,6 +1258,26 @@ If <code>codeType</code> is <code>VK_SHADER_CODE_TYPE_SPIRV_EXT</code>, and
 <code>pCode</code> <strong>must</strong> contain an <code>OpExecutionMode</code> instruction specifying
 the output patch size</p>
 </li>
+<li>
+<p><a id="VUID-VkShaderCreateInfoEXT-pPushConstantRanges-10063" href="#VUID-VkShaderCreateInfoEXT-pPushConstantRanges-10063"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-pPushConstantRanges-10063</span><br>
+
+Any two elements of <code>pPushConstantRanges</code> <strong>must</strong> not include the same
+stage in <code>stageFlags</code></p>
+</li>
+<li>
+<p><a id="VUID-VkShaderCreateInfoEXT-codeType-10064" href="#VUID-VkShaderCreateInfoEXT-codeType-10064"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-codeType-10064</span><br>
+
+If <code>codeType</code> is <code>VK_SHADER_CODE_TYPE_SPIRV_EXT</code>, and if a push
+constant block is declared in a shader, then an element of
+<code>pPushConstantRanges</code>::<code>stageFlags</code> <strong>must</strong> match pname::stage</p>
+</li>
+<li>
+<p><a id="VUID-VkShaderCreateInfoEXT-codeType-10065" href="#VUID-VkShaderCreateInfoEXT-codeType-10065"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-codeType-10065</span><br>
+
+If <code>codeType</code> is <code>VK_SHADER_CODE_TYPE_SPIRV_EXT</code>, and if a push
+constant block is declared in a shader, the block must be contained
+inside the element of <code>pPushConstantRanges</code> that matches the stage</p>
+</li>
 </ul>
 </div>
 </div>
@@ -1232,7 +1293,7 @@ the output patch size</p>
 </li>
 <li>
 <p><a id="VUID-VkShaderCreateInfoEXT-pNext-pNext" href="#VUID-VkShaderCreateInfoEXT-pNext-pNext"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-pNext-pNext</span><br>
- <code>pNext</code> <strong>must</strong> be <code>NULL</code> or a pointer to a valid instance of <a href="pipelines.html#VkPipelineShaderStageRequiredSubgroupSizeCreateInfo" class="xref page">VkPipelineShaderStageRequiredSubgroupSizeCreateInfo</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="pipelines.html#VkPipelineShaderStageRequiredSubgroupSizeCreateInfo" class="xref page">VkPipelineShaderStageRequiredSubgroupSizeCreateInfo</a> or <a href="initialization.html#VkValidationFeaturesEXT" class="xref page">VkValidationFeaturesEXT</a></p>
 </li>
 <li>
 <p><a id="VUID-VkShaderCreateInfoEXT-sType-unique" href="#VUID-VkShaderCreateInfoEXT-sType-unique"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-sType-unique</span><br>
@@ -1321,6 +1382,8 @@ typedef enum VkShaderCreateFlagBitsEXT {
     VK_SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT = 0x00000020,
   // Provided by VK_EXT_fragment_density_map with VK_EXT_shader_object
     VK_SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT = 0x00000040,
+  // Provided by VK_EXT_device_generated_commands
+    VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT = 0x00000080,
 } VkShaderCreateFlagBitsEXT;</code></pre>
 </div>
 </div>
@@ -1365,6 +1428,10 @@ rate attachment.</p>
 that a fragment shader <strong>can</strong> be used with a fragment density map
 attachment.</p>
 </li>
+<li>
+<p><code>VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT</code> specifies that the
+shader <strong>can</strong> be used in combination with <a href="device_generated_commands/generatedcommands.html#device-generated-commands" class="xref page">Device-Generated Commands</a>.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -1376,7 +1443,6 @@ attachment.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The behavior of
 <code>VK_SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT</code>
@@ -1466,10 +1532,10 @@ of the binary shader code, as described below.</p>
 <div class="paragraph">
 <p>If <code>pData</code> is <code>NULL</code>, then the size of the binary shader code of the
 shader object, in bytes, is returned in <code>pDataSize</code>.
-Otherwise, <code>pDataSize</code> <strong>must</strong> point to a variable set by the user to the
-size of the buffer, in bytes, pointed to by <code>pData</code>, and on return the
-variable is overwritten with the amount of data actually written to
-<code>pData</code>.
+Otherwise, <code>pDataSize</code> <strong>must</strong> point to a variable set by the application
+to the size of the buffer, in bytes, pointed to by <code>pData</code>, and on
+return the variable is overwritten with the amount of data actually written
+to <code>pData</code>.
 If <code>pDataSize</code> is less than the size of the binary shader code, nothing
 is written to <code>pData</code>, and <code>VK_INCOMPLETE</code> will be returned instead
 of <code>VK_SUCCESS</code>.</p>
@@ -1481,7 +1547,6 @@ of <code>VK_SUCCESS</code>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The behavior of this command when <code>pDataSize</code> is too small differs from
 how some other getter-type commands work in Vulkan.
@@ -1640,7 +1705,6 @@ object(s).</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Implementations are encouraged to share <code>shaderBinaryUUID</code> between
 devices and driver versions to the maximum extent their hardware naturally
@@ -1897,14 +1961,14 @@ If <code>pStages</code> contains <code>VK_SHADER_STAGE_MESH_BIT_EXT</code> or
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1981,11 +2045,20 @@ drawing:</p>
 <p><a href="drawing.html#vkCmdSetPrimitiveTopology" class="xref page">vkCmdSetPrimitiveTopology</a></p>
 </li>
 <li>
+<p><a href="drawing.html#vkCmdSetPrimitiveRestartEnable" class="xref page">vkCmdSetPrimitiveRestartEnable</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If a shader is bound to the <code>VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT</code>
+stage, the following command <strong>must</strong> have been called in the command buffer
+prior to drawing:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
 <p><a href="#vkCmdSetPatchControlPointsEXT">vkCmdSetPatchControlPointsEXT</a>, if <code>primitiveTopology</code> is
 <code>VK_PRIMITIVE_TOPOLOGY_PATCH_LIST</code></p>
-</li>
-<li>
-<p><a href="drawing.html#vkCmdSetPrimitiveRestartEnable" class="xref page">vkCmdSetPrimitiveRestartEnable</a></p>
 </li>
 </ul>
 </div>
@@ -2223,8 +2296,10 @@ have been called in the command buffer prior to drawing:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code><a href="../appendices/extensions.html#VK_KHR_line_rasterization" class="xref page">VK_KHR_line_rasterization</a></code> or
-<code><a href="../appendices/extensions.html#VK_EXT_line_rasterization" class="xref page">VK_EXT_line_rasterization</a></code> extension is enabled on the device, and
+<p>If any of the &lt;features-stippledRectangularLines,
+<code>stippledRectangularLines</code>&gt;&gt;, &lt;features-stippledBresenhamLines,
+<code>stippledBresenhamLines</code>&gt;&gt;, or &lt;features-stippledSmoothLines,
+<code>stippledSmoothLines</code>&gt;&gt; features are enabled on the device, and
 <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, and if <code>polygonMode</code> is
 <code>VK_POLYGON_MODE_LINE</code> or a shader is bound to the
 <code>VK_SHADER_STAGE_VERTEX_BIT</code> stage and <code>primitiveTopology</code> is a line
@@ -2300,6 +2375,18 @@ prior to drawing:</p>
 <li>
 <p><a href="vertexpostproc.html#vkCmdSetViewportWScalingNV" class="xref page">vkCmdSetViewportWScalingNV</a>, if <code>viewportWScalingEnable</code> is
 <code>VK_TRUE</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <a href="features.html#features-depthClamp" class="xref page">depthClamp</a> and <a href="features.html#features-depthClampControl" class="xref page"><code>depthClampControl</code></a> feature are enabled on the device, and
+<code>depthClampEnable</code> is <code>VK_TRUE</code>, the following command <strong>must</strong> have
+been called in the command buffer prior to drawing:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="fragops.html#vkCmdSetDepthClampRangeEXT" class="xref page">vkCmdSetDepthClampRangeEXT</a></p>
 </li>
 </ul>
 </div>
@@ -2419,6 +2506,13 @@ command buffer prior to drawing:</p>
 bound, but all required state <strong>must</strong> be set prior to issuing drawing
 commands.</p>
 </div>
+<div class="paragraph">
+<p>If the <a href="features.html#features-commandBufferInheritance" class="xref page"><code>commandBufferInheritance</code></a>
+feature is enabled, graphics and compute state is inherited from the
+previously executed command buffer in the queue.
+Any valid state inherited in this way does not need to be set again in the
+current command buffer.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="shaders-objects-pipeline-interaction"><a class="anchor" href="#shaders-objects-pipeline-interaction"></a>Interaction With Pipelines</h3>
@@ -2536,11 +2630,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>shader</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>shader</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2620,7 +2714,6 @@ used in pipeline shader stages as described in <a href="pipelines.html#pipelines
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>If
 the <a href="features.html#features-maintenance5" class="xref page"><code>maintenance5</code></a> feature
@@ -2644,8 +2737,17 @@ This avoids the overhead of creating and managing an additional object.</p>
 
 If <code>pCreateInfo</code> is not <code>NULL</code>, <code>pCreateInfo-&gt;pNext</code> <strong>must</strong> be
 <code>NULL</code>
-or a pointer to a <a href="#VkShaderModuleValidationCacheCreateInfoEXT">VkShaderModuleValidationCacheCreateInfoEXT</a>
-structure</p>
+or a pointer to a valid instance of</p>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#VkShaderModuleValidationCacheCreateInfoEXT">VkShaderModuleValidationCacheCreateInfoEXT</a></p>
+</li>
+<li>
+<p><a href="initialization.html#VkValidationFeaturesEXT" class="xref page">VkValidationFeaturesEXT</a></p>
+</li>
+</ul>
+</div>
 </li>
 </ul>
 </div>
@@ -3008,11 +3110,11 @@ was created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code><
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>shaderModule</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>shaderModule</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3376,7 +3478,8 @@ pipeline bind points:</p>
 </ul>
 </div></div></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="raytracing.html#vkCmdTraceRaysKHR" class="xref page">vkCmdTraceRaysKHR</a> and <a href="raytracing.html#vkCmdTraceRaysIndirectKHR" class="xref page">vkCmdTraceRaysIndirectKHR</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="raytracing.html#vkCmdTraceRaysNV" class="xref page">vkCmdTraceRaysNV</a>
+<a href="raytracing.html#vkCmdTraceRaysKHR" class="xref page">vkCmdTraceRaysKHR</a> and <a href="raytracing.html#vkCmdTraceRaysIndirectKHR" class="xref page">vkCmdTraceRaysIndirectKHR</a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="ulist">
@@ -3459,7 +3562,6 @@ for that stage have terminated.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p><code>OpKill</code> will behave the same as either <code>OpTerminateInvocation</code> or
 <code>OpDemoteToHelperInvocation</code> depending on the implementation.
@@ -3522,7 +3624,6 @@ largely <strong>undefined</strong>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The above limitations on shader invocation order make some forms of
 synchronization between shader invocations within a single set of primitives
@@ -3589,9 +3690,9 @@ invocations.</p>
 <div class="paragraph">
 <p>The task shader has no fixed-function inputs other than variables
 identifying the specific workgroup and invocation.
-In the <code>TaskNV</code> <code>Execution</code> <code>Model</code> the number of mesh shader workgroups to
+In the <code>TaskNV</code> {ExecutionModel} the number of mesh shader workgroups to
 create is specified via a <code>TaskCountNV</code> decorated output variable.
-In the <code>TaskEXT</code> <code>Execution</code> <code>Model</code> the number of mesh shader workgroups to
+In the <code>TaskEXT</code> {ExecutionModel} the number of mesh shader workgroups to
 create is specified via the <code>OpEmitMeshTasksEXT</code> instruction.</p>
 </div>
 <div class="paragraph">
@@ -3615,7 +3716,7 @@ An invocation within a local workgroup <strong>can</strong> share data with othe
 the local workgroup through shared variables and issue memory and control
 flow barriers to synchronize with other members of the local workgroup.
 If the subpass includes multiple views in its view mask, a Task shader using
-<code>TaskEXT</code> <code>Execution</code> <code>Model</code> <strong>may</strong> be invoked separately for each view.</p>
+<code>TaskEXT</code> {ExecutionModel} <strong>may</strong> be invoked separately for each view.</p>
 </div>
 </div>
 </div>
@@ -3669,7 +3770,7 @@ flow barriers to synchronize with other members of the local workgroup.</p>
 <p>The <em>global workgroups</em> may be generated explicitly via the API, or
 implicitly through the task shader&#8217;s work creation mechanism.
 If the subpass includes multiple views in its view mask, a Mesh shader using
-<code>MeshEXT</code> <code>Execution</code> <code>Model</code> <strong>may</strong> be invoked separately for each view.</p>
+<code>MeshEXT</code> {ExecutionModel} <strong>may</strong> be invoked separately for each view.</p>
 </div>
 </div>
 </div>
@@ -3754,7 +3855,6 @@ determine that the vertex shader invocations will produce identical results.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>It is implementation-dependent when and if results of vertex shading are
 reused, and thus how many times the vertex shader will be executed.
@@ -3880,14 +3980,14 @@ equal to <code>VkPhysicalDeviceLimits</code>::<code>maxTessellationPatchSize</co
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4200,7 +4300,6 @@ rasterized.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Interpolation decorations can be present on input and output variables in
 pre-rasterization shaders but have no effect on the interpolation performed.</p>
@@ -4259,7 +4358,6 @@ the center of the fragment area.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>As <code>Centroid</code> restricts the possible interpolation position to the
 covered area of the primitive, the position can be forced to vary between
@@ -4520,7 +4618,7 @@ invocation in a subgroup <strong>must</strong> be in the same <a href="#shaders-
 <a href="#shaders-scope-device">device scope instance</a>.</p>
 </div>
 <div class="paragraph">
-<p>Only <a href="limits.html#limits-subgroup-supportedStages" class="xref page">shader stages that support subgroup operations</a> have defined subgroups.</p>
+<p>Only <a href="devsandqueues.html#limits-subgroupSupportedStages" class="xref page">shader stages that support subgroup operations</a> have defined subgroups.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -4529,96 +4627,37 @@ invocation in a subgroup <strong>must</strong> be in the same <a href="#shaders-
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
-<p>In shaders, there are two kinds of uniformity that are of primary interest
-to applications: uniform within an invocation group (a.k.a.
-dynamically uniform), and uniform within a subgroup scope.</p>
+<p>Subgroups are not guaranteed to be a subset of a single command in
+<a href="#shaders-scope-workgroup">shaders that do not have defined workgroups</a>.
+Values that are guaranteed to be uniform for a given command or sub command
+may then not be uniform for the subgroup, and vice versa.
+As such, applications must take care when dealing with mixed uniformity.</p>
 </div>
 <div class="paragraph">
-<p>While one could make the assumption that being uniform in invocation group
-implies being uniform in subgroup scope, it is not necessarily the case for
-shader stages without defined workgroups.</p>
-</div>
-<div class="paragraph">
-<p>For shader stages with defined workgroups however, the relationship between
-invocation group and subgroup scope is well defined as a subgroup is a
-subset of the workgroup, and the workgroup is the invocation group.
-If a value is uniform in invocation group, it is by definition also uniform
-in subgroup scope.
-This is important if writing code like:</p>
+<p>A somewhat common example of this would something like trying to optimize
+access to per-draw data using subgroup operations:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">uniform texture2D Textures[];
-uint dynamicallyUniformValue = gl_WorkGroupID.x;
-vec4 value = texelFetch(Textures[dynamicallyUniformValue], coord, 0);
+<pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">buffer { uint draw_data[]; };
 
-// subgroupUniformValue is guaranteed to be uniform within the subgroup.
-// This value also happens to be dynamically uniform.
-vec4 subgroupUniformValue = subgroupBroadcastFirst(dynamicallyUniformValue);</code></pre>
+flat in int vDrawID; // Passed through from vertex shader
+
+void main()
+{
+    uint local_draw_data = subgroupBroadcastFirst(draw_data[local_draw_data]);
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In shader stages without defined workgroups, this gets complicated.
-Due to scoping rules, there is no guarantee that a subgroup is a subset of
-the invocation group, which in turn defines the scope for dynamically
-uniform.
-In graphics, the invocation group is a single draw command, except for
-multi-draw situations, and indirect draws with drawCount &gt; 1, where there
-are multiple invocation groups, one per <code>DrawIndex</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">// Assume SubgroupSize = 8, where 3 draws are packed together.
-// Two subgroups were generated.
-uniform texture2D Textures[];
-
-// DrawIndex builtin is dynamically uniform
-uint dynamicallyUniformValue = gl_DrawID;
-//              | gl_DrawID = 0 | gl_DrawID = 1 | }
-// Subgroup 0: { 0, 0, 0, 0,      1, 1, 1, 1 }
-//              | DrawID = 2 | DrawID = 1 | }
-// Subgroup 1: { 2, 2, 2, 2,      1, 1, 1, 1 }
-
-uint notActuallyDynamicallyUniformAnymore =
-    subgroupBroadcastFirst(dynamicallyUniformValue);
-//              | gl_DrawID = 0 | gl_DrawID = 1 | }
-// Subgroup 0: { 0, 0, 0, 0,      0, 0, 0, 0 }
-//              | gl_DrawID = 2 | gl_DrawID = 1 | }
-// Subgroup 1: { 2, 2, 2, 2,      2, 2, 2, 2 }
-
-// Bug. gl_DrawID = 1's invocation group observes both index 0 and 2.
-vec4 value = texelFetch(Textures[notActuallyDynamicallyUniformAnymore],
-                        coord, 0);</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Another problematic scenario is when a shader attempts to help the compiler
-notice that a value is uniform in subgroup scope to potentially improve
-performance.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-c hljs" data-lang="c">layout(location = 0) flat in dynamicallyUniformIndex;
-// Vertex shader might have emitted a value that depends only on gl_DrawID,
-// making it dynamically uniform.
-// Give knowledge to compiler that the flat input is dynamically uniform,
-// as this is not a guarantee otherwise.
-
-uint uniformIndex = subgroupBroadcastFirst(dynamicallyUniformIndex);
-// Hazard: If different draw commands are packed into one subgroup, the uniformIndex is wrong.
-
-DrawData d = UBO.perDrawData[uniformIndex];</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For implementations where subgroups are packed across draws, the
-implementation must make sure to handle descriptor indexing correctly.
-From the specification&#8217;s point of view, a dynamically uniform index does not
-require <code>NonUniform</code> decoration, and such an implementation will likely
-either promote descriptor indexing into <code>NonUniform</code> on its own, or
-handle non-uniformity implicitly.</p>
+<p>This can be done in an attempt to optimize the shader to only perform the
+loads once per subgroup.
+However, if the implementation packs multiple draws into a single subgroup,
+invocations from draws with a different drawID are now receiving data from
+the wrong invocation.
+Applications should rely on implementations to do this kind of optimization
+automatically where the implementation can, rather than trying to force it.</p>
 </div>
 </td>
 </tr>
@@ -4658,7 +4697,9 @@ invocations in neighboring framebuffer locations <span class="eq">(x<sub>i</sub>
 </ul>
 </div>
 <div class="paragraph">
-<p>In a compute shader, if the <code>DerivativeGroupQuadsNV</code> execution mode is
+<p>In a
+mesh, task, or
+compute shader, if the <code>DerivativeGroupQuadsKHR</code> execution mode is
 specified, each invocation in a quad scope instance is formed of invocations
 with adjacent local invocation IDs <span class="eq">(x<sub>i</sub>, y<sub>i</sub>)</span>, where:</p>
 </div>
@@ -4682,7 +4723,9 @@ with adjacent local invocation IDs <span class="eq">(x<sub>i</sub>, y<sub>i</sub
 </ul>
 </div>
 <div class="paragraph">
-<p>In a compute shader, if the <code>DerivativeGroupLinearNV</code> execution mode is
+<p>In a
+mesh, task, or
+compute shader, if the <code>DerivativeGroupLinearKHR</code> execution mode is
 specified, each invocation in a quad scope instance is formed of invocations
 with adjacent local invocation indices <span class="eq">(l<sub>i</sub>)</span>, where:</p>
 </div>
@@ -4726,10 +4769,11 @@ the same <a href="#shaders-scope-primitive">primitive scope instance</a>.</p>
 </div>
 <div class="paragraph">
 <p>Fragment
+, mesh, task,
 and compute
 shaders have defined quad scope instances.
-If the <a href="limits.html#limits-subgroup-quadOperationsInAllStages" class="xref page"><code>quadOperationsInAllStages</code></a> limit is supported, any
-<a href="limits.html#limits-subgroup-supportedStages" class="xref page">shader stages that support subgroup operations</a> also have defined quad scope instances.</p>
+If the <a href="devsandqueues.html#limits-subgroupQuadOperationsInAllStages" class="xref page"><code>quadOperationsInAllStages</code></a> limit is supported, any
+<a href="devsandqueues.html#limits-subgroupSupportedStages" class="xref page">shader stages that support subgroup operations</a> also have defined quad scope instances.</p>
 </div>
 </div>
 <div class="sect2">
@@ -4825,7 +4869,7 @@ a particular scope instance.</p>
 <p>Group operations all take a <code>Scope</code> defining the desired
 <a href="#shaders-scope">scope instance</a> to operate within.
 Only the <code>Subgroup</code> scope <strong>can</strong> be used for these operations; the
-<a href="limits.html#limits-subgroupSupportedOperations" class="xref page"><code>subgroupSupportedOperations</code></a>
+<a href="devsandqueues.html#limits-subgroupSupportedOperations" class="xref page"><code>subgroupSupportedOperations</code></a>
 limit defines which types of operation <strong>can</strong> be used.</p>
 </div>
 <div class="sect2">
@@ -4871,7 +4915,6 @@ The types of votes enabled are:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>These operations are useful in combination with control flow in that they
 allow for developers to check whether conditions match across the group and
@@ -5006,8 +5049,9 @@ group</em> as defined in the <a href="introduction.html#spirv-spec" class="xref 
 <a href="#shaders-scope-quad">quad scope instance</a> if the <code>QuadDerivativesKHR</code>
 execution mode is specified, otherwise it is equivalent to the
 <a href="#shaders-scope-primitive">primitive scope instance</a>.
-A derivative group in a compute shader is equivalent to the
-<a href="#shaders-scope-quad">quad scope instance</a>.</p>
+A derivative group in a
+mesh, task, or
+compute shader is equivalent to the <a href="#shaders-scope-quad">quad scope instance</a>.</p>
 </div>
 <div class="paragraph">
 <p>Derivatives are calculated assuming that <span class="eq">P</span> is piecewise linear and
@@ -5055,9 +5099,10 @@ framebuffer locations not covered by rasterized fragments if necessary.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
-<p>In a compute shader, it is the application&#8217;s responsibility to ensure that
+<p>In a
+mesh, task, or
+compute shader, it is the application&#8217;s responsibility to ensure that
 sufficient invocations are launched.</p>
 </div>
 </td>
@@ -5116,7 +5161,6 @@ calculations described for <span class="eq">P<sub>0</sub></span>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Derivative values are calculated between fragments rather than pixels.
 If the fragment shader invocations involved in the calculation cover
@@ -5174,7 +5218,6 @@ passing the results as the <code>Grad</code> operands <code>dx</code> and <code>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>It is expected that using the <code>ImplicitLod</code> variants of sampling
 functions will be substantially more efficient than using the
@@ -5208,7 +5251,6 @@ are <strong>undefined</strong>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>While storage to <code>Output</code> storage class has an effect even in helper
 invocations, it does not mean that helper invocations have an effect on the
@@ -5236,7 +5278,7 @@ are helper invocations.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_cooperative_matrices"><a class="anchor" href="#_cooperative_matrices"></a>Cooperative Matrices</h2>
+<h2 id="cooperative-matrices"><a class="anchor" href="#cooperative-matrices"></a>Cooperative Matrices</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <em>cooperative matrix</em> type is a SPIR-V type where the storage for and
@@ -5282,10 +5324,10 @@ cooperative matrix properties available or queried.</p>
 <div class="paragraph">
 <p>If <code>pProperties</code> is <code>NULL</code>, then the number of cooperative matrix
 properties available is returned in <code>pPropertyCount</code>.
-Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the user to
-the number of elements in the <code>pProperties</code> array, and on return the
-variable is overwritten with the number of structures actually written to
-<code>pProperties</code>.
+Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pProperties</code> array, and on
+return the variable is overwritten with the number of structures actually
+written to <code>pProperties</code>.
 If <code>pPropertyCount</code> is less than the number of cooperative matrix
 properties available, at most <code>pPropertyCount</code> structures will be
 written, and <code>VK_INCOMPLETE</code> will be returned instead of
@@ -5308,6 +5350,112 @@ properties were returned.</p>
 <li>
 <p><a id="VUID-vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR-pProperties-parameter" href="#VUID-vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR-pProperties-parameter"></a> <span class="vuid">VUID-vkGetPhysicalDeviceCooperativeMatrixPropertiesKHR-pProperties-parameter</span><br>
  If the value referenced by <code>pPropertyCount</code> is not <code>0</code>, and <code>pProperties</code> is not <code>NULL</code>, <code>pProperties</code> <strong>must</strong> be a valid pointer to an array of <code>pPropertyCount</code> <a href="#VkCooperativeMatrixPropertiesKHR">VkCooperativeMatrixPropertiesKHR</a> structures</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+<li>
+<p><code>VK_INCOMPLETE</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To enumerate additional supported cooperative matrix types and operations,
+call:</p>
+</div>
+<div id="vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cooperative_matrix2
+VkResult vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV(
+    VkPhysicalDevice                            physicalDevice,
+    uint32_t*                                   pPropertyCount,
+    VkCooperativeMatrixFlexibleDimensionsPropertiesNV* pProperties);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>physicalDevice</code> is the physical device.</p>
+</li>
+<li>
+<p><code>pPropertyCount</code> is a pointer to an integer related to the number of
+cooperative matrix properties available or queried.</p>
+</li>
+<li>
+<p><code>pProperties</code> is either <code>NULL</code> or a pointer to an array of
+<a href="#VkCooperativeMatrixFlexibleDimensionsPropertiesNV">VkCooperativeMatrixFlexibleDimensionsPropertiesNV</a> structures.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>pProperties</code> is <code>NULL</code>, then the number of flexible dimensions
+properties available is returned in <code>pPropertyCount</code>.
+Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pProperties</code> array, and on
+return the variable is overwritten with the number of structures actually
+written to <code>pProperties</code>.
+If <code>pPropertyCount</code> is less than the number flexible dimensions
+properties available, at most <code>pPropertyCount</code> structures will be
+written, and <code>VK_INCOMPLETE</code> will be returned instead of
+<code>VK_SUCCESS</code>, to indicate that not all the available flexible dimensions
+properties were returned.</p>
+</div>
+<div class="paragraph">
+<p>If
+<a href="features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page"><code>cooperativeMatrixFlexibleDimensions</code></a>
+is not supported, the implementation <strong>must</strong> advertise zero properties.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV-physicalDevice-parameter" href="#VUID-vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV-physicalDevice-parameter"></a> <span class="vuid">VUID-vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV-physicalDevice-parameter</span><br>
+ <code>physicalDevice</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkPhysicalDevice" class="xref page">VkPhysicalDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV-pPropertyCount-parameter" href="#VUID-vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV-pPropertyCount-parameter"></a> <span class="vuid">VUID-vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV-pPropertyCount-parameter</span><br>
+ <code>pPropertyCount</code> <strong>must</strong> be a valid pointer to a <code>uint32_t</code> value</p>
+</li>
+<li>
+<p><a id="VUID-vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV-pProperties-parameter" href="#VUID-vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV-pProperties-parameter"></a> <span class="vuid">VUID-vkGetPhysicalDeviceCooperativeMatrixFlexibleDimensionsPropertiesNV-pProperties-parameter</span><br>
+ If the value referenced by <code>pPropertyCount</code> is not <code>0</code>, and <code>pProperties</code> is not <code>NULL</code>, <code>pProperties</code> <strong>must</strong> be a valid pointer to an array of <code>pPropertyCount</code> <a href="#VkCooperativeMatrixFlexibleDimensionsPropertiesNV">VkCooperativeMatrixFlexibleDimensionsPropertiesNV</a> structures</p>
 </li>
 </ul>
 </div>
@@ -5382,10 +5530,10 @@ cooperative matrix properties available or queried.</p>
 <div class="paragraph">
 <p>If <code>pProperties</code> is <code>NULL</code>, then the number of cooperative matrix
 properties available is returned in <code>pPropertyCount</code>.
-Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the user to
-the number of elements in the <code>pProperties</code> array, and on return the
-variable is overwritten with the number of structures actually written to
-<code>pProperties</code>.
+Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pProperties</code> array, and on
+return the variable is overwritten with the number of structures actually
+written to <code>pProperties</code>.
 If <code>pPropertyCount</code> is less than the number of cooperative matrix
 properties available, at most <code>pPropertyCount</code> structures will be
 written, and <code>VK_INCOMPLETE</code> will be returned instead of
@@ -5551,7 +5699,11 @@ structure.</p>
 <li>
 <p><code>saturatingAccumulation</code> indicates whether the
 <code>SaturatingAccumulation</code> operand to <code>OpCooperativeMatrixMulAddKHR</code>
-<strong>must</strong> be present.</p>
+<strong>must</strong> be present or not.
+If it is <code>VK_TRUE</code>, the <code>SaturatingAccumulation</code> operand <strong>must</strong> be
+present.
+If it is <code>VK_FALSE</code>, the <code>SaturatingAccumulation</code> operand <strong>must</strong>
+not be present.</p>
 </li>
 <li>
 <p><code>scope</code> is the scope of all the matrix types, of type
@@ -5569,7 +5721,10 @@ structure.</p>
 <code>MSize</code>, <code>KSize</code>, and <code>NSize</code>.</p>
 </div>
 <div class="paragraph">
-<p><code>scope</code> <strong>must</strong> be <code>VK_SCOPE_SUBGROUP_KHR</code>.</p>
+<p>If
+<a href="features.html#features-cooperativeMatrixWorkgroupScope" class="xref page"><code>cooperativeMatrixWorkgroupScope</code></a>
+is not supported,
+<code>scope</code> <strong>must</strong> be <code>VK_SCOPE_SUBGROUP_KHR</code>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -5582,6 +5737,144 @@ structure.</p>
 </li>
 <li>
 <p><a id="VUID-VkCooperativeMatrixPropertiesKHR-pNext-pNext" href="#VUID-VkCooperativeMatrixPropertiesKHR-pNext-pNext"></a> <span class="vuid">VUID-VkCooperativeMatrixPropertiesKHR-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkCooperativeMatrixFlexibleDimensionsPropertiesNV</code> structure is
+defined as:</p>
+</div>
+<div id="VkCooperativeMatrixFlexibleDimensionsPropertiesNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cooperative_matrix2
+typedef struct VkCooperativeMatrixFlexibleDimensionsPropertiesNV {
+    VkStructureType       sType;
+    void*                 pNext;
+    uint32_t              MGranularity;
+    uint32_t              NGranularity;
+    uint32_t              KGranularity;
+    VkComponentTypeKHR    AType;
+    VkComponentTypeKHR    BType;
+    VkComponentTypeKHR    CType;
+    VkComponentTypeKHR    ResultType;
+    VkBool32              saturatingAccumulation;
+    VkScopeKHR            scope;
+    uint32_t              workgroupInvocations;
+} VkCooperativeMatrixFlexibleDimensionsPropertiesNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>MGranularity</code> is the granularity of the number of rows in matrices
+<code>A</code>, <code>C</code>, and <code>Result</code>.
+The rows <strong>must</strong> be an integer multiple of this value.</p>
+</li>
+<li>
+<p><code>KGranularity</code> is the granularity of columns in matrix <code>A</code> and
+rows in matrix <code>B</code>.
+The columns/rows <strong>must</strong> be an integer multiple of this value.</p>
+</li>
+<li>
+<p><code>NGranularity</code> is the granularity of columns in matrices <code>B</code>,
+<code>C</code>, <code>Result</code>.
+The columns <strong>must</strong> be an integer multiple of this value.</p>
+</li>
+<li>
+<p><code>AType</code> is the component type of matrix <code>A</code>, of type
+<a href="#VkComponentTypeKHR">VkComponentTypeKHR</a>.</p>
+</li>
+<li>
+<p><code>BType</code> is the component type of matrix <code>B</code>, of type
+<a href="#VkComponentTypeKHR">VkComponentTypeKHR</a>.</p>
+</li>
+<li>
+<p><code>CType</code> is the component type of matrix <code>C</code>, of type
+<a href="#VkComponentTypeKHR">VkComponentTypeKHR</a>.</p>
+</li>
+<li>
+<p><code>ResultType</code> is the component type of matrix <code>Result</code>, of type
+<a href="#VkComponentTypeKHR">VkComponentTypeKHR</a>.</p>
+</li>
+<li>
+<p><code>saturatingAccumulation</code> indicates whether the
+<code>SaturatingAccumulation</code> operand to <code>OpCooperativeMatrixMulAddKHR</code>
+<strong>must</strong> be present or not.
+If it is <code>VK_TRUE</code>, the <code>SaturatingAccumulation</code> operand <strong>must</strong> be
+present.
+If it is <code>VK_FALSE</code>, the <code>SaturatingAccumulation</code> operand <strong>must</strong>
+not be present.</p>
+</li>
+<li>
+<p><code>scope</code> is the scope of all the matrix types, of type
+<a href="#VkScopeKHR">VkScopeKHR</a>.</p>
+</li>
+<li>
+<p><code>workgroupInvocations</code> is the number of invocations in the local
+workgroup when this combination of values is supported.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Rather than explicitly enumerating a list of supported sizes,
+<code>VkCooperativeMatrixFlexibleDimensionsPropertiesNV</code> advertises size
+granularities, where the matrix <strong>must</strong> be a multiple of the advertised size.
+The M and K granularities apply to rows and columns of matrices with
+<code>Use</code> of <code>MatrixA</code>, K, and N apply to rows and columns of matrices
+with <code>Use</code> of <code>MatrixB</code>, M, and N apply to rows and columns of
+matrices with <code>Use</code> of <code>MatrixAccumulator</code>.</p>
+</div>
+<div class="paragraph">
+<p>For a given type combination, if multiple workgroup sizes are supported
+there <strong>may</strong> be multiple
+<code>VkCooperativeMatrixFlexibleDimensionsPropertiesNV</code> structures with
+different granularities.</p>
+</div>
+<div class="paragraph">
+<p>All granularity values <strong>must</strong> be powers of two.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Different A/B types may require different granularities but share the same
+accumulator type.
+In such a case, the supported granularity for a matrix with the accumulator
+type would be the smallest advertised granularity.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkCooperativeMatrixFlexibleDimensionsPropertiesNV-sType-sType" href="#VUID-VkCooperativeMatrixFlexibleDimensionsPropertiesNV-sType-sType"></a> <span class="vuid">VUID-VkCooperativeMatrixFlexibleDimensionsPropertiesNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_FLEXIBLE_DIMENSIONS_PROPERTIES_NV</code></p>
+</li>
+<li>
+<p><a id="VUID-VkCooperativeMatrixFlexibleDimensionsPropertiesNV-pNext-pNext" href="#VUID-VkCooperativeMatrixFlexibleDimensionsPropertiesNV-pNext-pNext"></a> <span class="vuid">VUID-VkCooperativeMatrixFlexibleDimensionsPropertiesNV-pNext-pNext</span><br>
  <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
 </li>
 </ul>
@@ -5804,34 +6097,36 @@ typedef VkComponentTypeKHR VkComponentTypeNV;</code></pre>
 <code>OpTypeFloat</code> 64.</p>
 </li>
 <li>
-<p><code>VK_COMPONENT_TYPE_SINT8_KHR</code> corresponds to SPIR-V <code>OpTypeInt</code> 8 1.</p>
+<p><code>VK_COMPONENT_TYPE_SINT8_KHR</code> corresponds to SPIR-V <code>OpTypeInt</code> 8
+0/1.</p>
 </li>
 <li>
 <p><code>VK_COMPONENT_TYPE_SINT16_KHR</code> corresponds to SPIR-V <code>OpTypeInt</code>
-16 1.</p>
+16 0/1.</p>
 </li>
 <li>
 <p><code>VK_COMPONENT_TYPE_SINT32_KHR</code> corresponds to SPIR-V <code>OpTypeInt</code>
-32 1.</p>
+32 0/1.</p>
 </li>
 <li>
 <p><code>VK_COMPONENT_TYPE_SINT64_KHR</code> corresponds to SPIR-V <code>OpTypeInt</code>
-64 1.</p>
+64 0/1.</p>
 </li>
 <li>
-<p><code>VK_COMPONENT_TYPE_UINT8_KHR</code> corresponds to SPIR-V <code>OpTypeInt</code> 8 0.</p>
+<p><code>VK_COMPONENT_TYPE_UINT8_KHR</code> corresponds to SPIR-V <code>OpTypeInt</code> 8
+0/1.</p>
 </li>
 <li>
 <p><code>VK_COMPONENT_TYPE_UINT16_KHR</code> corresponds to SPIR-V <code>OpTypeInt</code>
-16 0.</p>
+16 0/1.</p>
 </li>
 <li>
 <p><code>VK_COMPONENT_TYPE_UINT32_KHR</code> corresponds to SPIR-V <code>OpTypeInt</code>
-32 0.</p>
+32 0/1.</p>
 </li>
 <li>
 <p><code>VK_COMPONENT_TYPE_UINT64_KHR</code> corresponds to SPIR-V <code>OpTypeInt</code>
-64 0.</p>
+64 0/1.</p>
 </li>
 </ul>
 </div>
@@ -5913,7 +6208,6 @@ handle in which the resulting validation cache object is returned.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Applications <strong>can</strong> track and manage the total host memory size of a
 validation cache object using the <code>pAllocator</code>.
@@ -5946,7 +6240,6 @@ threads simultaneously.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Implementations <strong>should</strong> make every effort to limit any critical sections to
 the actual accesses to the cache, which is expected to be significantly
@@ -6160,7 +6453,6 @@ The previous contents of <code>dstCache</code> are included after the merge.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The details of the merge operation are implementation-dependent, but
 implementations <strong>should</strong> merge the contents of the specified validation
@@ -6219,11 +6511,11 @@ caches and prune duplicate entries.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>dstCache</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>dstCache</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6299,10 +6591,10 @@ the validation cache, as described below.</p>
 <p>If <code>pData</code> is <code>NULL</code>, then the maximum size of the data that <strong>can</strong> be
 retrieved from the validation cache, in bytes, is returned in
 <code>pDataSize</code>.
-Otherwise, <code>pDataSize</code> <strong>must</strong> point to a variable set by the user to the
-size of the buffer, in bytes, pointed to by <code>pData</code>, and on return the
-variable is overwritten with the amount of data actually written to
-<code>pData</code>.
+Otherwise, <code>pDataSize</code> <strong>must</strong> point to a variable set by the application
+to the size of the buffer, in bytes, pointed to by <code>pData</code>, and on
+return the variable is overwritten with the amount of data actually written
+to <code>pData</code>.
 If <code>pDataSize</code> is less than the maximum size that <strong>can</strong> be retrieved by
 the validation cache, at most <code>pDataSize</code> bytes will be written to
 <code>pData</code>, and <code>vkGetValidationCacheDataEXT</code> will return
@@ -6330,7 +6622,7 @@ incompatible with the device, the initial bytes written to <code>pData</code> <s
 be a header consisting of the following members:</p>
 </div>
 <table class="tableblock frame-all grid-all" style="width: 85%;">
-<caption class="title">Table 1. Layout for validation cache header version <code>VK_VALIDATION_CACHE_HEADER_VERSION_ONE_EXT</code></caption>
+<caption class="title">Table 1. Layout for Validation Cache Header Version <code>VK_VALIDATION_CACHE_HEADER_VERSION_ONE_EXT</code></caption>
 <colgroup>
 <col style="width: 8%;">
 <col style="width: 21%;">
@@ -6552,11 +6844,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>validationCache</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>validationCache</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -7096,10 +7388,10 @@ cache</p>
 <div class="paragraph">
 <p>If <code>pCacheData</code> is <code>NULL</code>, then the size of the binary cache, in bytes,
 is returned in <code>pCacheSize</code>.
-Otherwise, <code>pCacheSize</code> <strong>must</strong> point to a variable set by the user to the
-size of the buffer, in bytes, pointed to by <code>pCacheData</code>, and on return
-the variable is overwritten with the amount of data actually written to
-<code>pCacheData</code>.
+Otherwise, <code>pCacheSize</code> <strong>must</strong> point to a variable set by the application
+to the size of the buffer, in bytes, pointed to by <code>pCacheData</code>, and on
+return the variable is overwritten with the amount of data actually written
+to <code>pCacheData</code>.
 If <code>pCacheSize</code> is less than the size of the binary shader code, nothing
 is written to <code>pCacheData</code>, and <code>VK_INCOMPLETE</code> will be returned
 instead of <code>VK_SUCCESS</code>.</p>
@@ -7116,7 +7408,6 @@ CUDA module, by sending this cache <em>instead</em> of the PTX code when using
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Using the binary cache instead of the original PTX code <strong>should</strong>
 significantly speed up initialization of the CUDA module, given that the
@@ -7249,12 +7540,6 @@ It may be less than what CUDA can offer.</p>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

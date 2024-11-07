@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -90,6 +91,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../vulkan_basics.html">Vulkan basics</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../../shaders/README.html">Shaders</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -213,7 +217,13 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../api/oit_depth_peeling/README.html">OIT depth peeling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../api/hpp_oit_depth_peeling/README.html">OIT depth peeling (Vulkan-Hpp)</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -252,6 +262,9 @@
     <a class="nav-link" href="../dynamic_rendering/README.html">Dynamic rendering</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../dynamic_rendering_local_read/README.html">Dynamic rendering local read</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -271,6 +284,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../gshader_to_mshader/README.html">Geometry shader to mesh shader</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../host_image_copy/README.html">Host image copy</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../logic_op_dynamic_state/README.html">Logic op dynamic state</a>
@@ -310,6 +326,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../ray_tracing_reflection/README.html">Ray tracing reflection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../ray_tracing_position_fetch/README.html">Ray tracing position fetch</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../shader_object/README.html">Shader Object</a>
@@ -408,7 +427,13 @@
     <a class="nav-link" href="../../performance/texture_compression_basisu/README.html">Texture compression basisu</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../../performance/texture_compression_comparison/README.html">Texture compression comparison</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../../performance/hpp_texture_compression_comparison/README.html">Texture compression comparison (Vulkan-Hpp)</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../performance/wait_idle/README.html">Wait idle</a>
@@ -430,6 +455,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../../general/mobile_nerf/README.html">Mobile NeRF</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../general/mobile_nerf_rayquery/README.html">Mobile NeRF Ray Query</a>
   </li>
 </ul>
   </li>
@@ -617,6 +645,49 @@ The source for this sample can be found in the <a href="https://github.com/Khron
     instance_create_info.pNext = &amp;validation_features;</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p><strong>UPDATE:</strong> This sample now leverages an alternative mechanism provided by the Vulkan Samples framework to simplify enablement of the <code>VK_LAYER_KHRONOS_validation</code> layer and the <code>VK_VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT</code> feature:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">const std::vector&lt;const char *&gt; ShaderDebugPrintf::get_validation_layers()
+{
+	// Initialize validation layer override list to default (empty)
+	std::vector&lt;const char *&gt; validation_layers = ApiVulkanSample::get_validation_layers();
+
+	// Force activation of validation layer for access to debugPrintfEXT feature
+	validation_layers.push_back("VK_LAYER_KHRONOS_validation");
+
+	return validation_layers;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>VK_VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT</code> feature is enabled by the new <code>VK_EXT_layer_settings</code> extension which is supported by the Vulkan Samples framework and used during instance creation. If the layer settings extension is available at runtime, the Vulkan Samples framework will enable the requested <code>debugPrintfEXT</code> feature using the <code>VkLayerSettingEXT</code> structure shown below.  If <code>VK_EXT_layer_settings</code> is not available at runtime, the sample falls back to the custom <code>create_instance()</code> logic described above.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">ShaderDebugPrintf::ShaderDebugPrintf()
+{
+	...
+
+	// If layer settings available, use it to configure validation layer for debugPrintfEXT
+	add_instance_extension(VK_EXT_LAYER_SETTINGS_EXTENSION_NAME, /*optional*/ true);
+
+	VkLayerSettingEXT layerSetting;
+	layerSetting.pLayerName   = "VK_LAYER_KHRONOS_validation";
+	layerSetting.pSettingName = "enables";
+	layerSetting.type         = VK_LAYER_SETTING_TYPE_STRING_EXT;
+	layerSetting.valueCount   = 1;
+
+	// Make this static so layer setting reference remains valid after leaving constructor scope
+	static const char *layerEnables = "VK_VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT";
+	layerSetting.pValues            = &amp;layerEnables;
+
+	add_layer_setting(layerSetting);
+}</code></pre>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -784,12 +855,6 @@ if (gl_VertexIndex == 0) {
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../../../_/js/site.js" data-ui-root-path="../../../../../_"></script>
 <script async src="../../../../../_/js/vendor/highlight.js"></script>
 <script src="../../../../../_/js/vendor/lunr.js"></script>

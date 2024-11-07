@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -342,6 +340,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/dispatch.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+<div class="paragraph">
 <p><em>Dispatching commands</em> (commands with <code>Dispatch</code> in the name) provoke
 work in a compute pipeline.
 Dispatching commands are recorded into a command buffer and when executed by
@@ -387,7 +388,7 @@ dimension.</p>
 </div>
 <div class="paragraph">
 <p>When the command is executed, a global workgroup consisting of
-<span class="eq"><code>groupCountX</code> × <code>groupCountY</code> × <code>groupCountZ</code></span>
+<span class="eq"><code>groupCountX</code> {times} <code>groupCountY</code> {times} <code>groupCountZ</code></span>
 local workgroups is assembled.</p>
 </div>
 <div class="sidebarblock">
@@ -609,6 +610,13 @@ or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkD
 , as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatch-None-10068" href="#VUID-vkCmdDispatch-None-10068"></a> <span class="vuid">VUID-vkCmdDispatch-None-10068</span><br>
+
+For each array of resources that is used by <a href="shaders.html#shaders-binding" class="xref page">a bound    shader</a>, the indices used to access members of the array <strong>must</strong> be less
+than the descriptor count for the identified binding in the descriptor
+sets used by this command</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatch-maintenance4-08602" href="#VUID-vkCmdDispatch-maintenance4-08602"></a> <span class="vuid">VUID-vkCmdDispatch-maintenance4-08602</span><br>
 
 If the <a href="features.html#features-maintenance4" class="xref page"><code>maintenance4</code></a> feature is not
@@ -694,9 +702,8 @@ command</p>
 If a pipeline is bound to the pipeline bind point used by this command,
 there
 <strong>must</strong> not have been any calls to dynamic state setting commands for any
-state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to
-the pipeline bind point used by this command, since that pipeline was
-bound</p>
+state specified statically in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the
+pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatch-None-08609" href="#VUID-vkCmdDispatch-None-08609"></a> <span class="vuid">VUID-vkCmdDispatch-None-08609</span><br>
@@ -739,11 +746,12 @@ offset values, in any shader stage</p>
 <li>
 <p><a id="VUID-vkCmdDispatch-None-08607" href="#VUID-vkCmdDispatch-None-08607"></a> <span class="vuid">VUID-vkCmdDispatch-None-08607</span><br>
 
-If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> is enabled, either
-a valid pipeline <strong>must</strong> be bound to the pipeline bind point used by this
-command, or a valid combination of valid and <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader
-objects <strong>must</strong> be bound to every supported shader stage corresponding to
-the pipeline bind point used by this command</p>
+If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
+either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
+by this command, or a valid combination of valid and
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
+shader stage corresponding to the pipeline bind point used by this
+command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatch-uniformBuffers-06935" href="#VUID-vkCmdDispatch-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdDispatch-uniformBuffers-06935</span><br>
@@ -804,7 +812,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -813,7 +821,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -821,7 +829,7 @@ If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> a
 
 If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
 image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>Dim</code> operand of the
-<code>OpTypeImage</code> as described in <a href="textures.html#textures-operation-validation" class="xref page">Instruction/Sampler/Image View Validation</a></p>
+<code>OpTypeImage</code> as described in <a href="../appendices/spirvenv.html#spirvenv-image-dimensions" class="xref page">Compatibility Between SPIR-V Image Dimensions and Vulkan ImageView Types</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatch-format-07753" href="#VUID-vkCmdDispatch-format-07753"></a> <span class="vuid">VUID-vkCmdDispatch-format-07753</span><br>
@@ -1105,14 +1113,14 @@ buffer</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1408,6 +1416,13 @@ or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkD
 , as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchIndirect-None-10068" href="#VUID-vkCmdDispatchIndirect-None-10068"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-None-10068</span><br>
+
+For each array of resources that is used by <a href="shaders.html#shaders-binding" class="xref page">a bound    shader</a>, the indices used to access members of the array <strong>must</strong> be less
+than the descriptor count for the identified binding in the descriptor
+sets used by this command</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchIndirect-maintenance4-08602" href="#VUID-vkCmdDispatchIndirect-maintenance4-08602"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-maintenance4-08602</span><br>
 
 If the <a href="features.html#features-maintenance4" class="xref page"><code>maintenance4</code></a> feature is not
@@ -1493,9 +1508,8 @@ command</p>
 If a pipeline is bound to the pipeline bind point used by this command,
 there
 <strong>must</strong> not have been any calls to dynamic state setting commands for any
-state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to
-the pipeline bind point used by this command, since that pipeline was
-bound</p>
+state specified statically in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the
+pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchIndirect-None-08609" href="#VUID-vkCmdDispatchIndirect-None-08609"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-None-08609</span><br>
@@ -1538,11 +1552,12 @@ offset values, in any shader stage</p>
 <li>
 <p><a id="VUID-vkCmdDispatchIndirect-None-08607" href="#VUID-vkCmdDispatchIndirect-None-08607"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-None-08607</span><br>
 
-If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> is enabled, either
-a valid pipeline <strong>must</strong> be bound to the pipeline bind point used by this
-command, or a valid combination of valid and <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader
-objects <strong>must</strong> be bound to every supported shader stage corresponding to
-the pipeline bind point used by this command</p>
+If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
+either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
+by this command, or a valid combination of valid and
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
+shader stage corresponding to the pipeline bind point used by this
+command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchIndirect-uniformBuffers-06935" href="#VUID-vkCmdDispatchIndirect-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-uniformBuffers-06935</span><br>
@@ -1603,7 +1618,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -1612,7 +1627,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -1620,7 +1635,7 @@ If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> a
 
 If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
 image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>Dim</code> operand of the
-<code>OpTypeImage</code> as described in <a href="textures.html#textures-operation-validation" class="xref page">Instruction/Sampler/Image View Validation</a></p>
+<code>OpTypeImage</code> as described in <a href="../appendices/spirvenv.html#spirvenv-image-dimensions" class="xref page">Compatibility Between SPIR-V Image Dimensions and Vulkan ImageView Types</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchIndirect-format-07753" href="#VUID-vkCmdDispatchIndirect-format-07753"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-format-07753</span><br>
@@ -1895,14 +1910,14 @@ The sum of <code>offset</code> and the size of <code>VkDispatchIndirectCommand</
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2076,9 +2091,9 @@ dimension.</p>
 </div>
 <div class="paragraph">
 <p>When the command is executed, a global workgroup consisting of
-<span class="eq"><code>groupCountX</code> × <code>groupCountY</code> × <code>groupCountZ</code></span>
+<span class="eq"><code>groupCountX</code> {times} <code>groupCountY</code> {times} <code>groupCountZ</code></span>
 local workgroups is assembled, with <code>WorkgroupId</code> values ranging from
-<span class="eq">[<code>baseGroup*</code>, <code>baseGroup*</code> +  <code>groupCount*</code>)</span> in each
+<span class="eq">[<code>baseGroup*</code>, <code>baseGroup*</code> &#43; <code>groupCount*</code>)</span> in each
 component.
 <a href="#vkCmdDispatch">vkCmdDispatch</a> is equivalent to
 <code>vkCmdDispatchBase(0,0,0,groupCountX,groupCountY,groupCountZ)</code>.</p>
@@ -2302,6 +2317,13 @@ or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkD
 , as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchBase-None-10068" href="#VUID-vkCmdDispatchBase-None-10068"></a> <span class="vuid">VUID-vkCmdDispatchBase-None-10068</span><br>
+
+For each array of resources that is used by <a href="shaders.html#shaders-binding" class="xref page">a bound    shader</a>, the indices used to access members of the array <strong>must</strong> be less
+than the descriptor count for the identified binding in the descriptor
+sets used by this command</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchBase-maintenance4-08602" href="#VUID-vkCmdDispatchBase-maintenance4-08602"></a> <span class="vuid">VUID-vkCmdDispatchBase-maintenance4-08602</span><br>
 
 If the <a href="features.html#features-maintenance4" class="xref page"><code>maintenance4</code></a> feature is not
@@ -2387,9 +2409,8 @@ command</p>
 If a pipeline is bound to the pipeline bind point used by this command,
 there
 <strong>must</strong> not have been any calls to dynamic state setting commands for any
-state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to
-the pipeline bind point used by this command, since that pipeline was
-bound</p>
+state specified statically in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the
+pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchBase-None-08609" href="#VUID-vkCmdDispatchBase-None-08609"></a> <span class="vuid">VUID-vkCmdDispatchBase-None-08609</span><br>
@@ -2432,11 +2453,12 @@ offset values, in any shader stage</p>
 <li>
 <p><a id="VUID-vkCmdDispatchBase-None-08607" href="#VUID-vkCmdDispatchBase-None-08607"></a> <span class="vuid">VUID-vkCmdDispatchBase-None-08607</span><br>
 
-If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> is enabled, either
-a valid pipeline <strong>must</strong> be bound to the pipeline bind point used by this
-command, or a valid combination of valid and <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader
-objects <strong>must</strong> be bound to every supported shader stage corresponding to
-the pipeline bind point used by this command</p>
+If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
+either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
+by this command, or a valid combination of valid and
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
+shader stage corresponding to the pipeline bind point used by this
+command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchBase-uniformBuffers-06935" href="#VUID-vkCmdDispatchBase-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdDispatchBase-uniformBuffers-06935</span><br>
@@ -2497,7 +2519,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -2506,7 +2528,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -2514,7 +2536,7 @@ If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> a
 
 If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
 image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>Dim</code> operand of the
-<code>OpTypeImage</code> as described in <a href="textures.html#textures-operation-validation" class="xref page">Instruction/Sampler/Image View Validation</a></p>
+<code>OpTypeImage</code> as described in <a href="../appendices/spirvenv.html#spirvenv-image-dimensions" class="xref page">Compatibility Between SPIR-V Image Dimensions and Vulkan ImageView Types</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchBase-format-07753" href="#VUID-vkCmdDispatchBase-format-07753"></a> <span class="vuid">VUID-vkCmdDispatchBase-format-07753</span><br>
@@ -2828,14 +2850,14 @@ or the bound compute shader object <strong>must</strong> have been created with 
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3125,6 +3147,13 @@ or the <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkD
 , as described in <a href="descriptorsets.html#descriptorsets-compatibility" class="xref page">Pipeline Layout Compatibility</a></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdSubpassShadingHUAWEI-None-10068" href="#VUID-vkCmdSubpassShadingHUAWEI-None-10068"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-None-10068</span><br>
+
+For each array of resources that is used by <a href="shaders.html#shaders-binding" class="xref page">a bound    shader</a>, the indices used to access members of the array <strong>must</strong> be less
+than the descriptor count for the identified binding in the descriptor
+sets used by this command</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdSubpassShadingHUAWEI-maintenance4-08602" href="#VUID-vkCmdSubpassShadingHUAWEI-maintenance4-08602"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-maintenance4-08602</span><br>
 
 If the <a href="features.html#features-maintenance4" class="xref page"><code>maintenance4</code></a> feature is not
@@ -3210,9 +3239,8 @@ command</p>
 If a pipeline is bound to the pipeline bind point used by this command,
 there
 <strong>must</strong> not have been any calls to dynamic state setting commands for any
-state not specified as dynamic in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to
-the pipeline bind point used by this command, since that pipeline was
-bound</p>
+state specified statically in the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the
+pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSubpassShadingHUAWEI-None-08609" href="#VUID-vkCmdSubpassShadingHUAWEI-None-08609"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-None-08609</span><br>
@@ -3255,11 +3283,12 @@ offset values, in any shader stage</p>
 <li>
 <p><a id="VUID-vkCmdSubpassShadingHUAWEI-None-08607" href="#VUID-vkCmdSubpassShadingHUAWEI-None-08607"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-None-08607</span><br>
 
-If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> is enabled, either
-a valid pipeline <strong>must</strong> be bound to the pipeline bind point used by this
-command, or a valid combination of valid and <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader
-objects <strong>must</strong> be bound to every supported shader stage corresponding to
-the pipeline bind point used by this command</p>
+If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
+either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
+by this command, or a valid combination of valid and
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
+shader stage corresponding to the pipeline bind point used by this
+command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSubpassShadingHUAWEI-uniformBuffers-06935" href="#VUID-vkCmdSubpassShadingHUAWEI-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-uniformBuffers-06935</span><br>
@@ -3320,7 +3349,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -3329,7 +3358,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -3337,7 +3366,7 @@ If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> a
 
 If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
 image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>Dim</code> operand of the
-<code>OpTypeImage</code> as described in <a href="textures.html#textures-operation-validation" class="xref page">Instruction/Sampler/Image View Validation</a></p>
+<code>OpTypeImage</code> as described in <a href="../appendices/spirvenv.html#spirvenv-image-dimensions" class="xref page">Compatibility Between SPIR-V Image Dimensions and Vulkan ImageView Types</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSubpassShadingHUAWEI-format-07753" href="#VUID-vkCmdSubpassShadingHUAWEI-format-07753"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-format-07753</span><br>
@@ -3540,7 +3569,7 @@ be in the image layout identified when the descriptor was written</p>
 <li>
 <p><a id="VUID-vkCmdSubpassShadingHUAWEI-None-04931" href="#VUID-vkCmdSubpassShadingHUAWEI-None-04931"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-None-04931</span><br>
 
-This command must be called in a subpass with bind point
+This command <strong>must</strong> be called in a subpass with bind point
 <code>VK_PIPELINE_BIND_POINT_SUBPASS_SHADING_HUAWEI</code>.
 No draw commands can be called in the same subpass.
 Only one <a href="#vkCmdSubpassShadingHUAWEI">vkCmdSubpassShadingHUAWEI</a> command can be called in a
@@ -3581,14 +3610,14 @@ subpass</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3684,7 +3713,7 @@ related arguments are defined.</p>
 </div>
 <div class="paragraph">
 <p>When the command is executed, a global workgroup consisting of
-<span class="eq"><code>gridDimX</code> × <code>gridDimY</code> × <code>gridDimZ</code></span> local
+<span class="eq"><code>gridDimX</code> {times} <code>gridDimY</code> {times} <code>gridDimZ</code></span> local
 workgroups is assembled.</p>
 </div>
 <div class="sidebarblock">
@@ -3718,11 +3747,11 @@ workgroups is assembled.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3815,19 +3844,19 @@ structure.</p>
 <li>
 <p><code>gridDimX</code> is the number of local workgroups to dispatch in the X
 dimension.
-It must be less than or equal to
+It <strong>must</strong> be less than or equal to
 <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[0]</p>
 </li>
 <li>
 <p><code>gridDimY</code> is the number of local workgroups to dispatch in the Y
 dimension.
-It must be less than or equal to
+It <strong>must</strong> be less than or equal to
 <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[1]</p>
 </li>
 <li>
 <p><code>gridDimZ</code> is the number of local workgroups to dispatch in the Z
 dimension.
-It must be less than or equal to
+It <strong>must</strong> be less than or equal to
 <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[2]</p>
 </li>
 <li>
@@ -3865,9 +3894,9 @@ much the same way as described in
 </div>
 <div class="paragraph">
 <p>If <code>function</code> has N parameters, then <code>pParams</code> <strong>must</strong> be an array of
-N pointers and <code>paramCount</code> <strong>must</strong> be set to N. Each of
-<code>kernelParams</code>[0] through <code>kernelParams</code>[N-1] <strong>must</strong> point to a
-region of memory from which the actual kernel parameter will be copied.
+N pointers and <code>paramCount</code> <strong>must</strong> be N. Each of <code>kernelParams</code>[0]
+through <code>kernelParams</code>[N-1] <strong>must</strong> point to a region of memory from which
+the actual kernel parameter will be copied.
 The number of kernel parameters and their offsets and sizes are not
 specified here as that information is stored in the <a href="shaders.html#VkCudaFunctionNV" class="xref page">VkCudaFunctionNV</a>
 object.</p>
@@ -3916,12 +3945,12 @@ parameters, corresponding to the arguments of <code>function</code></p>
 <li>
 <p><a id="VUID-VkCudaLaunchInfoNV-extraCount-09411" href="#VUID-VkCudaLaunchInfoNV-extraCount-09411"></a> <span class="vuid">VUID-VkCudaLaunchInfoNV-extraCount-09411</span><br>
 
-<code>extraCount</code> must be 0</p>
+<code>extraCount</code> <strong>must</strong> be 0</p>
 </li>
 <li>
 <p><a id="VUID-VkCudaLaunchInfoNV-pExtras-09412" href="#VUID-VkCudaLaunchInfoNV-pExtras-09412"></a> <span class="vuid">VUID-VkCudaLaunchInfoNV-pExtras-09412</span><br>
 
-<code>pExtras</code> must be NULL</p>
+<code>pExtras</code> <strong>must</strong> be NULL</p>
 </li>
 </ul>
 </div>
@@ -4078,12 +4107,6 @@ vkCmdCudaLaunchKernelNV(commandBuffer, &amp;launchInfo);</code></pre>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

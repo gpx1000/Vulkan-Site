@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -341,6 +339,9 @@
 <h1 class="page">Rasterization</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/primsrast.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>Rasterization is the process by which a primitive is converted to a
 two-dimensional image.
@@ -685,7 +686,7 @@ described below.</p>
 </li>
 <li>
 <p><code>minSampleShading</code> specifies a minimum fraction of sample shading if
-<code>sampleShadingEnable</code> is set to <code>VK_TRUE</code>.</p>
+<code>sampleShadingEnable</code> is <code>VK_TRUE</code>.</p>
 </li>
 <li>
 <p><code>pSampleMask</code> is a pointer to an array of <code>VkSampleMask</code>
@@ -709,9 +710,9 @@ fragment&#8217;s first color output is replaced with one as described in
 <a href="#primsrast-multisampling-coverage-mask">sample index</a> as defined for the
 <a href="#primsrast-multisampling-coverage-mask">coverage mask</a>.
 Each bit <span class="eq">b</span> for mask word <span class="eq">w</span> in the sample mask corresponds to
-sample index <span class="eq">i</span>, where <span class="eq">i = 32 × w +  b</span>.
-<code>pSampleMask</code> has a length equal to <span class="eq">⌈
-<code>rasterizationSamples</code> / 32 ⌉</span> words.</p>
+sample index <span class="eq">i</span>, where <span class="eq">i = 32 {times} w &#43; b</span>.
+<code>pSampleMask</code> has a length equal to <span class="eq">{lceil}
+<code>rasterizationSamples</code> / 32 {rceil}</span> words.</p>
 </div>
 <div class="paragraph">
 <p>If <code>pSampleMask</code> is <code>NULL</code>, it is treated as if the mask has all bits
@@ -944,14 +945,14 @@ equal to Version 1.3</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1257,14 +1258,14 @@ is <code>VK_FALSE</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1591,14 +1592,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1641,7 +1642,7 @@ Secondary</p></td>
 </div>
 <div id="primsrast-multisampling-coverageindex" class="paragraph">
 <p>Each sample in a fragment is also assigned a unique <em>coverage index</em> <span class="eq">j</span>
-in the range <span class="eq">[0, n × <code>rasterizationSamples</code>)</span>, where <span class="eq">n</span>
+in the range <span class="eq">[0, n {times} <code>rasterizationSamples</code>)</span>, where <span class="eq">n</span>
 is the number of sets in the fragment.
 If the fragment contains a single set of samples, the <em>coverage index</em> is
 always equal to the <em>sample index</em>.
@@ -1660,7 +1661,7 @@ the coverage index <span class="eq">j</span> is determined as a function of the 
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">j = i + r × ((f<sub>w</sub> × f<sub>h</sub>) - 1 - p)</span></p>
+<p><span class="eq">j = i + r {times} ((f<sub>w</sub> {times} f<sub>h</sub>) - 1 - p)</span></p>
 </dd>
 </dl>
 </div>
@@ -1680,15 +1681,15 @@ framebuffer location <span class="eq">(x,y)</span> and the fragment size <span c
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">p = p<sub>x</sub> + (p<sub>y</sub> × f<sub>w</sub>)</span></p>
+<p><span class="eq">p = p<sub>x</sub> + (p<sub>y</sub> {times} f<sub>w</sub>)</span></p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
-<p>The table below illustrates the pixel index for multi-pixel fragments:</p>
+<p>The tables below illustrate the pixel index for multi-pixel fragments:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. Pixel indices - 1 wide</caption>
+<caption class="title">Table 1. Pixel Indices - 1 Wide</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1710,7 +1711,7 @@ framebuffer location <span class="eq">(x,y)</span> and the fragment size <span c
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Pixel indices - 2 wide</caption>
+<caption class="title">Table 2. Pixel Indices - 2 Wide</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1732,7 +1733,7 @@ framebuffer location <span class="eq">(x,y)</span> and the fragment size <span c
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. Pixel indices - 4 wide</caption>
+<caption class="title">Table 3. Pixel Indices - 4 Wide</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1761,17 +1762,17 @@ as:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">B = n × <code>rasterizationSamples</code></span></p>
+<p><span class="eq">B = n {times} <code>rasterizationSamples</code></span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">W = ⌈B/32⌉</span></p>
+<p><span class="eq">W = {lceil}B/32{rceil}</span></p>
 </dd>
 </dl>
 </div>
 <div class="paragraph">
 <p>Bit <span class="eq">b</span> in coverage mask word <span class="eq">w</span> is <code>1</code> if the sample with coverage
-index <span class="eq">j = 32×w + b</span> is covered, and <code>0</code> otherwise.</p>
+index <span class="eq">j = 32{times}w + b</span> is covered, and <code>0</code> otherwise.</p>
 </div>
 <div class="paragraph">
 <p>If the <code>standardSampleLocations</code> member of <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>
@@ -1786,8 +1787,8 @@ Locations are defined relative to an origin in the upper left corner of the
 fragment.</p>
 </div>
 <div style="page-break-after: always;"></div>
-<table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 4. Standard sample locations</caption>
+<table id="standard-sample-locations" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 4. Standard Sample Locations</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -2008,9 +2009,9 @@ transitions of depth/stencil images created with
 <code>sampleLocationsPerPixel</code> number of sample locations for each pixel in
 the grid of the size specified in <code>sampleLocationGridSize</code>.
 The sample location for sample <span class="eq">i</span> at the pixel grid location
-<span class="eq">(x,y)</span> is taken from <span class="eq"><code>pSampleLocations</code>[(x +  y ×
-<code>sampleLocationGridSize.width</code>) × <code>sampleLocationsPerPixel</code>
-+  i]</span>.</p>
+<span class="eq">(x,y)</span> is taken from <span class="eq"><code>pSampleLocations</code>[(x &#43; y {times}
+<code>sampleLocationGridSize.width</code>) {times} <code>sampleLocationsPerPixel</code>
+&#43; i]</span>.</p>
 </div>
 <div class="paragraph">
 <p>If the render pass has a fragment density map, the implementation will
@@ -2033,8 +2034,8 @@ choose the sample locations for the fragment and the contents of
 <p><a id="VUID-VkSampleLocationsInfoEXT-sampleLocationsCount-01527" href="#VUID-VkSampleLocationsInfoEXT-sampleLocationsCount-01527"></a> <span class="vuid">VUID-VkSampleLocationsInfoEXT-sampleLocationsCount-01527</span><br>
 
 <code>sampleLocationsCount</code> <strong>must</strong> equal
-<span class="eq"><code>sampleLocationsPerPixel</code> ×
-<code>sampleLocationGridSize.width</code> ×
+<span class="eq"><code>sampleLocationsPerPixel</code> {times}
+<code>sampleLocationGridSize.width</code> {times}
 <code>sampleLocationGridSize.height</code></span></p>
 </li>
 </ul>
@@ -2186,14 +2187,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2324,14 +2325,14 @@ locations state pointed to by <code>pSampleLocationsInfo</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2422,9 +2423,9 @@ below.</p>
 <p>If <code>pFragmentShadingRates</code> is <code>NULL</code>, then the number of fragment
 shading rates available is returned in <code>pFragmentShadingRateCount</code>.
 Otherwise, <code>pFragmentShadingRateCount</code> <strong>must</strong> point to a variable set by
-the user to the number of elements in the <code>pFragmentShadingRates</code> array,
-and on return the variable is overwritten with the number of structures
-actually written to <code>pFragmentShadingRates</code>.
+the application to the number of elements in the <code>pFragmentShadingRates</code>
+array, and on return the variable is overwritten with the number of
+structures actually written to <code>pFragmentShadingRates</code>.
 If <code>pFragmentShadingRateCount</code> is less than the number of fragment
 shading rates available, at most <code>pFragmentShadingRateCount</code> structures
 will be written, and <code>VK_INCOMPLETE</code> will be returned instead of
@@ -2517,7 +2518,6 @@ the required rates <strong>must</strong> also include <code>VK_SAMPLE_COUNT_2_BI
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Including the {1,1} fragment size is done for completeness; it has no actual
 effect on the support of rendering without setting the fragment size.
@@ -2544,7 +2544,6 @@ system to get the supported rates for that transform.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For example, consider an implementation returning support for 4x2, but not
 2x4 in the set of supported fragment shading rates.
@@ -2906,14 +2905,14 @@ elements of <code>combinerOps</code> <strong>must</strong> be either
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2961,7 +2960,7 @@ Secondary</p></td>
 <p>The <em>primitive fragment shading rate</em> <strong>can</strong> be set via the
 <a href="interfaces.html#interfaces-builtin-variables-primitiveshadingrate" class="xref page"><code>PrimitiveShadingRateKHR</code></a> built-in in the last active
 <a href="pipelines.html#pipelines-graphics-subsets-pre-rasterization" class="xref page">pre-rasterization shader stage</a>.
-If the last <a href="pipelines.html#pipelines-graphics-subsets-pre-rasterization" class="xref page">pre-rasterization shader stage</a> is using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code>, the rate
+If the last <a href="pipelines.html#pipelines-graphics-subsets-pre-rasterization" class="xref page">pre-rasterization shader stage</a> is using the <code>MeshEXT</code> {ExecutionModel}, the rate
 associated with a given primitive is sourced from the value written to the
 per-primitive <code>PrimitiveShadingRateKHR</code>.
 Otherwise the
@@ -3003,18 +3002,21 @@ size of the region each texel corresponds to, as defined by the
 <div class="paragraph">
 <p>If <a href="renderpass.html#VkRenderPassMultiviewCreateInfo" class="xref page">multiview is enabled</a> and the shading
 rate attachment has multiple layers, the shading rate attachment texel is
-selected from the layer determined by the
-<a href="interfaces.html#interfaces-builtin-variables-viewindex" class="xref page"><code>ViewIndex</code></a> built-in.
+selected using <span class="eq">layer =
+<a href="interfaces.html#interfaces-builtin-variables-viewindex" class="xref page"><code>ViewIndex</code></a></span>.
 If <a href="renderpass.html#VkRenderPassMultiviewCreateInfo" class="xref page">multiview is disabled</a>, and both the
 shading rate attachment and the framebuffer have multiple layers, the
-shading rate attachment texel is selected from the layer determined by the
-<a href="interfaces.html#interfaces-builtin-variables-layer" class="xref page"><code>Layer</code></a> built-in.
-Otherwise, the texel is unconditionally selected from the first layer of the
-attachment.</p>
+shading rate attachment texel is selected using <span class="eq">layer =
+<a href="interfaces.html#interfaces-builtin-variables-layer" class="xref page"><code>Layer</code></a></span>.
+Otherwise, <span class="eq">layer = 0</span>.</p>
 </div>
 <div class="paragraph">
-<p>The fragment size is encoded into the first component of the identified
-texel as follows:</p>
+<p>The texel is read from the fragment shading rate attachment image as a
+<a href="textures.html#textures-input" class="xref page">texture input operation</a> without a sampler, using integer
+coordinates <span class="eq">i = x'</span>, <span class="eq">j = y'</span>, <span class="eq">k = 0</span>, <span class="eq">l = layer</span>, and
+<span class="eq">s = 0</span>.
+The fragment size is encoded into the first component of the result of that
+operation as follows:</p>
 </div>
 <div class="dlist">
 <dl>
@@ -3029,9 +3031,9 @@ texel as follows:</p>
 </dl>
 </div>
 <div class="paragraph">
-<p>where <span class="eq">texel</span> is the value in the first component of the identified
-texel, and <span class="eq">size<sub>w</sub></span> and <span class="eq">size<sub>h</sub></span> are the width and height of the
-fragment size, decoded from the texel.</p>
+<p>where <span class="eq">texel</span> is the value in the first component of the returned value,
+and <span class="eq">size<sub>w</sub></span> and <span class="eq">size<sub>h</sub></span> are the width and height of the fragment
+size, decoded from the texel.</p>
 </div>
 <div class="paragraph">
 <p>If no fragment shading rate attachment is specified, this size is calculated
@@ -3054,8 +3056,8 @@ and render pass transform
 used by rasterization.</p>
 </div>
 <div class="paragraph">
-<p>If any of the following conditions are met, <span class="eq">C<sub>xy</sub>'</span> <strong>must</strong> be set to
-<span class="eq">{1,1}</span>:</p>
+<p>If any of the following conditions are met, <span class="eq">C<sub>xy</sub>'</span> is set to
+<span class="eq">{1,1}</span> by the implementation:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3202,7 +3204,7 @@ rate, reported via the <a href="interfaces.html#interfaces-builtin-variables-pri
 <span class="eq">A<sub>xy</sub></span> and <span class="eq">B<sub>xy</sub></span>, and <strong>must</strong>
 do so if
 <code>VkPhysicalDeviceMaintenance6PropertiesKHR</code>::<code>fragmentShadingRateClampCombinerInputs</code>
-is set to <code>VK_TRUE</code>.
+is <code>VK_TRUE</code>.
 All implementations <strong>must</strong>
 clamp the result of the second combiner operation.</p>
 </div>
@@ -3223,21 +3225,21 @@ to select a single value:</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Keep only rates where <span class="eq">R<sub>x</sub>' ≤ R<sub>x</sub></span> and <span class="eq">R<sub>y</sub>' ≤ R<sub>y</sub></span>.</p>
+<p>Keep only rates where <span class="eq">R<sub>x</sub>' {leq} R<sub>x</sub></span> and <span class="eq">R<sub>y</sub>' {leq} R<sub>y</sub></span>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Implementations <strong>may</strong> also keep rates where <span class="eq">R<sub>x</sub>' ≤ R<sub>y</sub></span> and
-<span class="eq">R<sub>y</sub>' ≤ R<sub>x</sub></span>.</p>
+<p>Implementations <strong>may</strong> also keep rates where <span class="eq">R<sub>x</sub>' {leq} R<sub>y</sub></span> and
+<span class="eq">R<sub>y</sub>' {leq} R<sub>x</sub></span>.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p>Keep only rates with the highest area (<span class="eq">R<sub>x</sub>' × R<sub>y</sub>'</span>).</p>
+<p>Keep only rates with the highest area (<span class="eq">R<sub>x</sub>' {times} R<sub>y</sub>'</span>).</p>
 </li>
 <li>
-<p>Keep only rates with the lowest aspect ratio (<span class="eq">R<sub>x</sub>' +  R<sub>y</sub>'</span>).</p>
+<p>Keep only rates with the lowest aspect ratio (<span class="eq">R<sub>x</sub>' &#43; R<sub>y</sub>'</span>).</p>
 </li>
 <li>
 <p>In cases where a wide (e.g. 4x1) and tall (e.g. 1x4) rate remain, the
@@ -3533,7 +3535,6 @@ create the currently active pipeline.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This command allows specifying additional shading rates beyond those
 supported by <a href="#vkCmdSetFragmentShadingRateKHR">vkCmdSetFragmentShadingRateKHR</a>.
@@ -3645,14 +3646,14 @@ elements of <code>combinerOps</code> <strong>must</strong> be either
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3890,8 +3891,8 @@ recorded.</p>
 <li>
 <p><code>imageView</code> is an image view handle specifying the shading rate
 image.
-<code>imageView</code> <strong>may</strong> be set to <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, which is equivalent
-to specifying a view of an image filled with zero values.</p>
+<code>imageView</code> <strong>may</strong> be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, which is equivalent to
+specifying a view of an image filled with zero values.</p>
 </li>
 <li>
 <p><code>imageLayout</code> is the layout that the image subresources accessible
@@ -3987,14 +3988,14 @@ be <code>VK_IMAGE_LAYOUT_SHADING_RATE_OPTIMAL_NV</code> or
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4161,14 +4162,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -4325,14 +4326,14 @@ enabled, <code>viewportCount</code> <strong>must</strong> be <code>1</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5113,14 +5114,14 @@ with matching values for both the <code>shadingRate</code> and
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5192,12 +5193,12 @@ samples of the fragment will be updated.</p>
 <p>Sample shading <strong>can</strong> be used to specify a minimum number of unique samples to
 process for each fragment.
 If sample shading is enabled, an implementation <strong>must</strong> invoke the fragment
-shader at least <span class="eq">max(⌈
-<a href="#VkPipelineMultisampleStateCreateInfo">VkPipelineMultisampleStateCreateInfo</a>::<code>minSampleShading</code> ×
+shader at least <span class="eq">max({lceil}
+<a href="#VkPipelineMultisampleStateCreateInfo">VkPipelineMultisampleStateCreateInfo</a>::<code>minSampleShading</code> {times}
 <a href="#VkPipelineMultisampleStateCreateInfo">VkPipelineMultisampleStateCreateInfo</a>::<code>rasterizationSamples</code>
-⌉, 1)</span> times per fragment.
+{rceil}, 1)</span> times per fragment.
 If <a href="#VkPipelineMultisampleStateCreateInfo">VkPipelineMultisampleStateCreateInfo</a>::<code>sampleShadingEnable</code> is
-set to <code>VK_TRUE</code>, sample shading is enabled.</p>
+<code>VK_TRUE</code>, sample shading is enabled.</p>
 </div>
 <div class="paragraph">
 <p>If a fragment shader entry point <a href="shaders.html#shaders-staticuse" class="xref page">statically uses</a> an
@@ -5219,7 +5220,6 @@ color attachment is used instead of <code>rasterizationSamples</code>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>If a shader decorates an input variable with <code>Sample</code> and that value
 meaningfully impacts the output of a shader, sample shading will be enabled
@@ -5875,14 +5875,14 @@ If <code>lineRasterizationMode</code> is
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6011,14 +6011,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6134,14 +6134,14 @@ If the <a href="features.html#features-wideLines" class="xref page"><code>wideLi
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6268,7 +6268,7 @@ and an interpolated value <span class="eq">f</span> can be determined by</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">f = (1 - t) f<sub>a</sub> +  t f<sub>b</sub></span></p>
+<p><span class="eq">f = (1 - t) f<sub>a</sub> &#43; t f<sub>b</sub></span></p>
 </dd>
 </dl>
 </div>
@@ -6427,15 +6427,15 @@ produces those fragments <span class="eq">f</span> for which the segment interse
 Let <span class="eq">p<sub>a</sub></span> and <span class="eq">p<sub>b</sub></span> have framebuffer coordinates <span class="eq">(x<sub>a</sub>,
 y<sub>a</sub>)</span> and <span class="eq">(x<sub>b</sub>, y<sub>b</sub>)</span>, respectively.
 Obtain the perturbed endpoints <span class="eq">p<sub>a</sub>'</span> given by <span class="eq">(x<sub>a</sub>, y<sub>a</sub>) -
-(ε, ε<sup>2</sup>)</span> and <span class="eq">p<sub>b</sub>'</span> given by <span class="eq">(x<sub>b</sub>, y<sub>b</sub>) -
-(ε, ε<sup>2</sup>)</span>.
+({epsilon}, {epsilon}<sup>2</sup>)</span> and <span class="eq">p<sub>b</sub>'</span> given by <span class="eq">(x<sub>b</sub>, y<sub>b</sub>) -
+({epsilon}, {epsilon}<sup>2</sup>)</span>.
 Rasterizing the line segment starting at <span class="eq">p<sub>a</sub></span> and ending at <span class="eq">p<sub>b</sub></span>
 produces those fragments <span class="eq">f</span> for which the segment starting at
 <span class="eq">p<sub>a</sub>'</span> and ending on <span class="eq">p<sub>b</sub>'</span> intersects <span class="eq">R<sub>f</sub></span>, except if
 <span class="eq">p<sub>b</sub>'</span> is contained in <span class="eq">R<sub>f</sub></span>.
-<span class="eq">ε</span> is chosen to be so small that rasterizing the line segment
-produces the same fragments when <span class="eq">δ</span> is substituted for
-<span class="eq">ε</span> for any <span class="eq">0 &lt; δ ≤ ε</span>.</p>
+<span class="eq">{epsilon}</span> is chosen to be so small that rasterizing the line segment
+produces the same fragments when <span class="eq">{delta}</span> is substituted for
+<span class="eq">{epsilon}</span> for any <span class="eq">0 &lt; {delta} {leq} {epsilon}</span>.</p>
 </div>
 <div class="paragraph">
 <p>When <span class="eq">p<sub>a</sub></span> and <span class="eq">p<sub>b</sub></span> lie on fragment centers, this
@@ -6519,7 +6519,6 @@ interpolation).</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The sample locations described above are <strong>not</strong> used for determining
 coverage, they are only used for things like attribute interpolation.
@@ -6689,14 +6688,14 @@ values used to create the currently active pipeline.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6763,7 +6762,6 @@ location 0&#8217;s alpha value after fragment shading, as described in
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The details of the rasterization rules and area calculation are left
 intentionally vague, to allow implementations to generate coverage and
@@ -6806,7 +6804,7 @@ One way to compute this area is:</p>
 <p>where <span class="steminline"> <svg style="vertical-align: -1.059ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="2.362ex" height="2.938ex" role="img" focusable="false" viewBox="0 -830.4 1043.9 1298.6"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msubsup"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mi" transform="translate(605,363) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(605,-323.3) scale(0.707)"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g></g></g></g></svg> </span> and <span class="steminline"> <svg style="vertical-align: -1.059ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="2.176ex" height="2.938ex" role="img" focusable="false" viewBox="0 -830.4 961.9 1298.6"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msubsup"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(523,363) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(523,-323.3) scale(0.707)"><path data-c="1D453" d="M118 -162Q120 -162 124 -164T135 -167T147 -168Q160 -168 171 -155T187 -126Q197 -99 221 27T267 267T289 382V385H242Q195 385 192 387Q188 390 188 397L195 425Q197 430 203 430T250 431Q298 431 298 432Q298 434 307 482T319 540Q356 705 465 705Q502 703 526 683T550 630Q550 594 529 578T487 561Q443 561 443 603Q443 622 454 636T478 657L487 662Q471 668 457 668Q445 668 434 658T419 630Q412 601 403 552T387 469T380 433Q380 431 435 431Q480 431 487 430T498 424Q499 420 496 407T491 391Q489 386 482 386T428 385H372L349 263Q301 15 282 -47Q255 -132 212 -173Q175 -205 139 -205Q107 -205 81 -186T55 -132Q55 -95 76 -78T118 -61Q162 -61 162 -103Q162 -122 151 -136T127 -157L118 -162Z"></path></g></g></g></g></svg> </span> are the <span class="eq">x</span> and <span class="eq">y</span>
 framebuffer coordinates of the <span class="eq">i</span>th vertex of the <span class="eq">n</span>-vertex
 polygon (vertices are numbered starting at zero for the purposes of this
-computation) and <span class="eq">i ⊕ 1</span> is <span class="eq">(i +  1) mod n</span>.</p>
+computation) and <span class="eq">i {oplus} 1</span> is <span class="eq">(i &#43; 1) mod n</span>.</p>
 </div>
 <div class="paragraph">
 <p>The interpretation of the sign of <span class="eq">a</span> is determined by the
@@ -6948,14 +6946,14 @@ equal to Version 1.3</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -7159,14 +7157,14 @@ equal to Version 1.3</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -7228,7 +7226,7 @@ in a triangle.</p>
 </div>
 <div id="primsrast-polygon-barycentrics" class="paragraph">
 <p><em>Barycentric coordinates</em> are a set of three numbers, <span class="eq">a</span>, <span class="eq">b</span>, and
-<span class="eq">c</span>, each in the range <span class="eq">[0,1]</span>, with <span class="eq">a +  b +  c = 1</span>.
+<span class="eq">c</span>, each in the range <span class="eq">[0,1]</span>, with <span class="eq">a &#43; b &#43; c = 1</span>.
 These coordinates uniquely specify any point <span class="eq">p</span> within the triangle or
 on the triangle&#8217;s boundary as</p>
 </div>
@@ -7236,7 +7234,7 @@ on the triangle&#8217;s boundary as</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">p = a p<sub>a</sub> +  b p<sub>b</sub> +  c p<sub>c</sub></span></p>
+<p><span class="eq">p = a p<sub>a</sub> &#43; b p<sub>b</sub> &#43; c p<sub>c</sub></span></p>
 </dd>
 </dl>
 </div>
@@ -7283,7 +7281,7 @@ and an interpolated value <span class="eq">f</span> can be determined by</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">f = a f<sub>a</sub> +  b f<sub>b</sub> +  c f<sub>c</sub></span></p>
+<p><span class="eq">f = a f<sub>a</sub> &#43; b f<sub>b</sub> &#43; c f<sub>c</sub></span></p>
 </dd>
 </dl>
 </div>
@@ -7314,10 +7312,10 @@ That is, it <strong>must</strong> be the case that at every fragment</p>
 <div class="paragraph">
 <p>where <span class="eq">n</span> is the number of vertices in the polygon and <span class="eq">f<sub>i</sub></span> is the
 value of <span class="eq">f</span> at vertex <span class="eq">i</span>.
-For each <span class="eq">i</span>, <span class="eq">0 ≤ a<sub>i</sub> ≤ 1</span> and
+For each <span class="eq">i</span>, <span class="eq">0 {leq} a<sub>i</sub> {leq} 1</span> and
 <span class="steminline"> <svg style="vertical-align: -0.777ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="11.635ex" height="2.563ex" role="img" focusable="false" viewBox="0 -789.6 5142.8 1132.9"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="munderover"><g data-mml-node="mo"><path data-c="2211" d="M61 748Q64 750 489 750H913L954 640Q965 609 976 579T993 533T999 516H979L959 517Q936 579 886 621T777 682Q724 700 655 705T436 710H319Q183 710 183 709Q186 706 348 484T511 259Q517 250 513 244L490 216Q466 188 420 134T330 27L149 -187Q149 -188 362 -188Q388 -188 436 -188T506 -189Q679 -189 778 -162T936 -43Q946 -27 959 6H999L913 -249L489 -250Q65 -250 62 -248Q56 -246 56 -239Q56 -234 118 -161Q186 -81 245 -11L428 206Q428 207 242 462L57 717L56 728Q56 744 61 748Z"></path></g><g data-mml-node="TeXAtom" transform="translate(1089,477.1) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D45B" d="M21 287Q22 293 24 303T36 341T56 388T89 425T135 442Q171 442 195 424T225 390T231 369Q231 367 232 367L243 378Q304 442 382 442Q436 442 469 415T503 336T465 179T427 52Q427 26 444 26Q450 26 453 27Q482 32 505 65T540 145Q542 153 560 153Q580 153 580 145Q580 144 576 130Q568 101 554 73T508 17T439 -10Q392 -10 371 17T350 73Q350 92 386 193T423 345Q423 404 379 404H374Q288 404 229 303L222 291L189 157Q156 26 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 112 180T152 343Q153 348 153 366Q153 405 129 405Q91 405 66 305Q60 285 60 284Q58 278 41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="TeXAtom" transform="translate(1089,-285.4) scale(0.707)" data-mjx-texclass="ORD"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mo" transform="translate(345,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(1123,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g><g data-mml-node="msub" transform="translate(2453.3,0)"><g data-mml-node="mi"><path data-c="1D44E" d="M33 157Q33 258 109 349T280 441Q331 441 370 392Q386 422 416 422Q429 422 439 414T449 394Q449 381 412 234T374 68Q374 43 381 35T402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487Q506 153 506 144Q506 138 501 117T481 63T449 13Q436 0 417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157ZM351 328Q351 334 346 350T323 385T277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q217 26 254 59T298 110Q300 114 325 217T351 328Z"></path></g><g data-mml-node="mi" transform="translate(562,-150) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g></g><g data-mml-node="mo" transform="translate(3587,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="mn" transform="translate(4642.8,0)"><path data-c="31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path></g></g></g></svg> </span>.
 The values of <span class="eq">a<sub>i</sub></span> <strong>may</strong> differ from fragment to fragment, but at
-vertex <span class="eq">i</span>, <span class="eq">a<sub>i</sub> = 1</span> and <span class="eq">a<sub>j</sub> = 0</span> for <span class="eq">j ≠ i</span>.</p>
+vertex <span class="eq">i</span>, <span class="eq">a<sub>i</sub> = 1</span> and <span class="eq">a<sub>j</sub> = 0</span> for <span class="eq">j {neq} i</span>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -7326,7 +7324,6 @@ vertex <span class="eq">i</span>, <span class="eq">a<sub>i</sub> = 1</span> and 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>One algorithm that achieves the required behavior is to triangulate a
 polygon (without adding any vertices) and then treat each triangle
@@ -7411,14 +7408,15 @@ culled before these modes are applied.</p>
 <div class="paragraph">
 <p>If
 <code>VkPhysicalDeviceMaintenance5PropertiesKHR</code>::<code>polygonModePointSize</code>
-is set to <code>VK_TRUE</code>, the point size of the final rasterization of
-polygons is taken from <code>PointSize</code> when <a href="#primsrast-polygonmode">polygon mode</a> is <code>VK_POLYGON_MODE_POINT</code>.</p>
+is <code>VK_TRUE</code>, the point size of the final rasterization of polygons is
+taken from <code>PointSize</code> when <a href="#primsrast-polygonmode">polygon mode</a> is
+<code>VK_POLYGON_MODE_POINT</code>.</p>
 </div>
 <div class="paragraph">
 <p>Otherwise, if
 <code>VkPhysicalDeviceMaintenance5PropertiesKHR</code>::<code>polygonModePointSize</code>
-is set to <code>VK_FALSE</code>, the point size of the final rasterization of
-polygons is 1.0 when <a href="#primsrast-polygonmode">polygon mode</a> is
+is <code>VK_FALSE</code>, the point size of the final rasterization of polygons is
+1.0 when <a href="#primsrast-polygonmode">polygon mode</a> is
 <code>VK_POLYGON_MODE_POINT</code>.</p>
 </div>
 </div>
@@ -7526,14 +7524,14 @@ If the <code><a href="../appendices/extensions.html#VK_NV_fill_rectangle" class=
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -7697,14 +7695,14 @@ equal to Version 1.3</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -7840,7 +7838,7 @@ If <code>VkDepthBiasRepresentationInfoEXT</code>::<code>depthBiasExact</code> is
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">r = 2 × 2<sup>-n</sup></span></p>
+<p><span class="eq">r = 2 {times} 2<sup>-n</sup></span></p>
 </dd>
 </dl>
 </div>
@@ -7989,14 +7987,14 @@ enabled, <code>depthBiasClamp</code> <strong>must</strong> be <code>0.0</code></
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8305,14 +8303,14 @@ parameters, allowing them to be more easily extended.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8428,7 +8426,6 @@ rasterization is disabled.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>If <a href="limits.html#limits-conservativePointAndLineRasterization" class="xref page"><code>conservativePointAndLineRasterization</code></a> is supported, conservative
 rasterization can be applied to line and point primitives, otherwise it must
@@ -8620,14 +8617,14 @@ enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8764,14 +8761,14 @@ inclusive</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8957,12 +8954,6 @@ fully covered by the generating primitive.</p>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

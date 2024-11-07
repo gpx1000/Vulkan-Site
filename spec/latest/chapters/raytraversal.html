@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -342,12 +340,15 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/raytraversal.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+<div class="paragraph">
 <p>The ray traversal process identifies and handles intersections between a ray
 and geometries in an acceleration structure.</p>
 </div>
 <div class="paragraph">
 <p>Ray traversal cannot be started by a Vulkan API command directly - a shader
-must execute
+<strong>must</strong> execute
 <code>OpRayQueryProceedKHR</code>
 or
 a <a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instruction
@@ -368,7 +369,7 @@ When the <a href="features.html#features-rayQuery" class="xref page"><code>rayQu
 acceleration structure.
 A ray that intersects an instance will be transformed into the space of the
 instance to continue traversal within that instance; therefore the transform
-matrix stored in the instance must be invertible.</p>
+matrix stored in the instance <strong>must</strong> be invertible.</p>
 </div>
 <div class="paragraph">
 <p>In case multiple instances are intersected by a ray, the ray transformation
@@ -382,7 +383,6 @@ instances are encountered in the top-level acceleration structure.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Applying multiple forward and reverse transforms to a ray to transition from
 one instance to another could result in accumulated errors.
@@ -475,7 +475,6 @@ bound which includes the specified box.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The bounds of the AABB including all points internal to the bound implies
 that a ray started within the AABB will hit that AABB.</p>
@@ -492,7 +491,7 @@ that a ray started within the AABB will hit that AABB.</p>
 </div>
 <div class="paragraph">
 <p>The determination of this condition is performed in an implementation
-specific manner, and <strong>may</strong> be performed with floating point operations.
+specific manner, and <strong>may</strong> be performed with floating-point operations.
 Due to the complexity and number of operations involved, inaccuracies are
 expected, particularly as the scale of values involved begins to diverge.
 Implementations <strong>should</strong> take efforts to maintain as much precision as
@@ -505,7 +504,6 @@ possible.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>One very common case is when geometries are close to each other at some
 distance from the origin in acceleration structure space, where an effect
@@ -542,7 +540,7 @@ application.</p>
 <a href="primsrast.html#primsrast-polygon-barycentrics" class="xref page">barycentric coordinates</a> on the triangle
 where the above condition is met are made available to future shading.
 If the ray was traced with a <a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instruction, these values are available as a vector of 2 32-bit
-floating point values in the <code>HitAttributeKHR</code> storage class.</p>
+floating-point values in the <code>HitAttributeKHR</code> storage class.</p>
 </div>
 <div class="paragraph">
 <p>Once an intersection candidate is determined, it proceeds through the
@@ -699,8 +697,8 @@ One way to compute this area is:</p>
 <p>where <span class="steminline"> <svg style="vertical-align: -0.576ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="2.203ex" height="2.455ex" role="img" focusable="false" viewBox="0 -830.4 973.9 1085.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msubsup"><g data-mml-node="mi"><path data-c="1D465" d="M52 289Q59 331 106 386T222 442Q257 442 286 424T329 379Q371 442 430 442Q467 442 494 420T522 361Q522 332 508 314T481 292T458 288Q439 288 427 299T415 328Q415 374 465 391Q454 404 425 404Q412 404 406 402Q368 386 350 336Q290 115 290 78Q290 50 306 38T341 26Q378 26 414 59T463 140Q466 150 469 151T485 153H489Q504 153 504 145Q504 144 502 134Q486 77 440 33T333 -11Q263 -11 227 52Q186 -10 133 -10H127Q78 -10 57 16T35 71Q35 103 54 123T99 143Q142 143 142 101Q142 81 130 66T107 46T94 41L91 40Q91 39 97 36T113 29T132 26Q168 26 194 71Q203 87 217 139T245 247T261 313Q266 340 266 352Q266 380 251 392T217 404Q177 404 142 372T93 290Q91 281 88 280T72 278H58Q52 284 52 289Z"></path></g><g data-mml-node="mi" transform="translate(605,363) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(605,-247) scale(0.707)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg> </span> and <span class="steminline"> <svg style="vertical-align: -0.576ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="2.018ex" height="2.455ex" role="img" focusable="false" viewBox="0 -830.4 891.9 1085.2"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="msubsup"><g data-mml-node="mi"><path data-c="1D466" d="M21 287Q21 301 36 335T84 406T158 442Q199 442 224 419T250 355Q248 336 247 334Q247 331 231 288T198 191T182 105Q182 62 196 45T238 27Q261 27 281 38T312 61T339 94Q339 95 344 114T358 173T377 247Q415 397 419 404Q432 431 462 431Q475 431 483 424T494 412T496 403Q496 390 447 193T391 -23Q363 -106 294 -155T156 -205Q111 -205 77 -183T43 -117Q43 -95 50 -80T69 -58T89 -48T106 -45Q150 -45 150 -87Q150 -107 138 -122T115 -142T102 -147L99 -148Q101 -153 118 -160T152 -167H160Q177 -167 186 -165Q219 -156 247 -127T290 -65T313 -9T321 21L315 17Q309 13 296 6T270 -6Q250 -11 231 -11Q185 -11 150 11T104 82Q103 89 103 113Q103 170 138 262T173 379Q173 380 173 381Q173 390 173 393T169 400T158 404H154Q131 404 112 385T82 344T65 302T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(523,363) scale(0.707)"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(523,-247) scale(0.707)"><path data-c="1D45F" d="M21 287Q22 290 23 295T28 317T38 348T53 381T73 411T99 433T132 442Q161 442 183 430T214 408T225 388Q227 382 228 382T236 389Q284 441 347 441H350Q398 441 422 400Q430 381 430 363Q430 333 417 315T391 292T366 288Q346 288 334 299T322 328Q322 376 378 392Q356 405 342 405Q286 405 239 331Q229 315 224 298T190 165Q156 25 151 16Q138 -11 108 -11Q95 -11 87 -5T76 7T74 17Q74 30 114 189T154 366Q154 405 128 405Q107 405 92 377T68 316T57 280Q55 278 41 278H27Q21 284 21 287Z"></path></g></g></g></g></svg> </span> are the <span class="eq">x</span> and <span class="eq">y</span>
 <a href="#ray-intersection-candidate-determination">ray space coordinates</a> of the
 <span class="eq">i</span>th vertex of the <span class="eq">n</span>-vertex polygon (vertices are numbered
-starting at zero for the purposes of this computation) and <span class="eq">i ⊕ 1</span>
-is <span class="eq">(i +  1) mod n</span>.</p>
+starting at zero for the purposes of this computation) and <span class="eq">i {oplus} 1</span>
+is <span class="eq">(i &#43; 1) mod n</span>.</p>
 </div>
 <div class="paragraph">
 <p>By default, if <span class="eq">a</span> is negative then the intersection is with the front
@@ -718,7 +716,6 @@ intersecting with any face, irrespective of the sign.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>In a left-handed coordinate system, an intersection will be with the front
 face of a triangle if the vertices of the triangle, as defined in index
@@ -785,8 +782,11 @@ Intersection candidates <strong>can</strong> also be culled based on their opaci
 <div class="title">Determination</div>
 <p>Each individual intersection candidate is initially determined as opaque if
 <code>VK_GEOMETRY_OPAQUE_BIT_KHR</code> was included in the
-<a href="accelstructures.html#VkAccelerationStructureGeometryKHR" class="xref page">VkAccelerationStructureGeometryKHR</a>::<code>flags</code> when the geometry it
-intersected with was built, otherwise it is considered non-opaque.</p>
+<a href="resources.html#VkGeometryNV" class="xref page">VkGeometryNV</a>::<code>flags</code>
+or
+<a href="accelstructures.html#VkAccelerationStructureGeometryKHR" class="xref page">VkAccelerationStructureGeometryKHR</a>::<code>flags</code>
+when the geometry it intersected with was built, otherwise it is considered
+non-opaque.</p>
 </div>
 <div class="paragraph">
 <p>If the geometry includes an opacity micromap, the opacity of the
@@ -852,8 +852,8 @@ instead of the <code>VK_GEOMETRY_OPAQUE_BIT_KHR</code> flag in the geometry.</p>
 <div class="paragraph">
 <p>The opacity information in the micromap object is accessed using the
 candidate intersection <span class="eq">u</span> and <span class="eq">v</span> coordinates.
-The integer <span class="eq">u</span> and <span class="eq">v</span> are computed from <span class="eq">⌊u⌋
-+  ⌊v⌋</span>, clamping <span class="eq">⌊u⌋</span> as needed to
+The integer <span class="eq">u</span> and <span class="eq">v</span> are computed from <span class="eq">{lfloor}u{rfloor}
+&#43; {lfloor}v{rfloor}</span>, clamping <span class="eq">{lfloor}u{rfloor}</span> as needed to
 keep the sum less than or equal to <span class="eq">1 &lt;&lt; subdivisionlevel</span>.
 These values are mapped into a linear index with a space filling curve which
 is defined recursively by traversing into the sub-triangle nearest vertex 0,
@@ -873,7 +873,6 @@ nearest vertex 2.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This encoding is spatially coherent, purely hierarchical, and allows a
 bit-parallel conversion between barycentric address and index values.</p>
@@ -1006,7 +1005,11 @@ infrastructure; no further processing of this intersection candidate occurs.
 The occurrence of an AABB intersection candidate does not guarantee the ray
 intersects the primitive bounds.
 To avoid propagating false intersections the application <strong>should</strong> verify the
-intersection candidate before reporting any hits.</p>
+intersection candidate before reporting any hits and only report
+intersections within the bounds of the AABB.
+Reporting an intersection outside the AABB either through the implementation
+giving a conservative bound or reporting a <span class="eq">t</span> out of range is legal but
+<strong>may</strong> result in unpredictable closest hit results.</p>
 </div>
 <div class="paragraph">
 <p>If the ray was traced with a <a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instruction, an <a href="shaders.html#shaders-intersection" class="xref page">intersection shader</a> is
@@ -1022,9 +1025,9 @@ intersection candidate occurs.</p>
 </div>
 <div id="aabb-intersection-candidate-generation" class="paragraph">
 <p>Each new candidate generated as a result of this processing is a generated
-intersection candidate that intersects the AABB geometry, with a <span class="eq">t</span>
-value equal to the <code>Hit</code> parameter of the <code>OpReportIntersectionKHR</code>
-instruction.
+intersection candidate from the intersection with AABB geometry, with a
+<span class="eq">t</span> value equal to the <code>Hit</code> parameter of the
+<code>OpReportIntersectionKHR</code> instruction.
 The new generated candidate is then independently run through
 <a href="#ray-intersection-confirmation">Ray Intersection Confirmation</a> as a
 <a href="#ray-triangle-and-generated-intersection-candidates">generated intersection</a>.</p>
@@ -1182,12 +1185,6 @@ If no closest hit was identified, the committed intersection type will be
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -342,6 +340,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/extensions.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+<div class="paragraph">
 <p>New functionality <strong>may</strong> be added to Vulkan via either new extensions or new
 versions of the core, or new versions of an extension in some cases.</p>
 </div>
@@ -385,7 +386,6 @@ considered device-level functionality.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Applications usually interface to Vulkan using a loader that implements only
 instance-level functionality, passing device-level functionality to
@@ -408,7 +408,6 @@ enumerates device and instance level functionality separately - they have
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Vulkan 1.0 initially specified new physical device enumeration functionality
 as instance-level, requiring it to be included in an instance extension.
@@ -457,7 +456,6 @@ This is always 0 for the Vulkan API.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>A non-zero variant indicates the API is a variant of the Vulkan API and
 applications will typically need to be modified to run against it.
@@ -553,6 +551,7 @@ version number:</p>
 <div id="VK_VERSION_MAJOR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_0
+// VK_VERSION_MAJOR is deprecated, but no reason was given in the API XML
 // DEPRECATED: This define is deprecated. VK_API_VERSION_MAJOR should be used instead.
 #define VK_VERSION_MAJOR(version) ((uint32_t)(version) &gt;&gt; 22U)</code></pre>
 </div>
@@ -582,6 +581,7 @@ version number:</p>
 <div id="VK_VERSION_MINOR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_0
+// VK_VERSION_MINOR is deprecated, but no reason was given in the API XML
 // DEPRECATED: This define is deprecated. VK_API_VERSION_MINOR should be used instead.
 #define VK_VERSION_MINOR(version) (((uint32_t)(version) &gt;&gt; 12U) &amp; 0x3FFU)</code></pre>
 </div>
@@ -611,6 +611,7 @@ version number:</p>
 <div id="VK_VERSION_PATCH" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_0
+// VK_VERSION_PATCH is deprecated, but no reason was given in the API XML
 // DEPRECATED: This define is deprecated. VK_API_VERSION_PATCH should be used instead.
 #define VK_VERSION_PATCH(version) ((uint32_t)(version) &amp; 0xFFFU)</code></pre>
 </div>
@@ -655,6 +656,7 @@ version number:</p>
 <div id="VK_MAKE_VERSION" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_0
+// VK_MAKE_VERSION is deprecated, but no reason was given in the API XML
 // DEPRECATED: This define is deprecated. VK_MAKE_API_VERSION should be used instead.
 #define VK_MAKE_VERSION(major, minor, patch) \
     ((((uint32_t)(major)) &lt;&lt; 22U) | (((uint32_t)(minor)) &lt;&lt; 12U) | ((uint32_t)(patch)))</code></pre>
@@ -765,7 +767,6 @@ tracing, validation, or providing additional extensions.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For example, an implementation is not expected to check that the value of
 enums used by the application fall within allowed ranges.
@@ -784,7 +785,6 @@ because those layers would not be enabled in production.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Vulkan layers <strong>may</strong> wrap object handles (i.e. return a different handle value
 to the application than that generated by the implementation).
@@ -826,10 +826,10 @@ layer properties available or queried, as described below.</p>
 <div class="paragraph">
 <p>If <code>pProperties</code> is <code>NULL</code>, then the number of layer properties
 available is returned in <code>pPropertyCount</code>.
-Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the user to
-the number of elements in the <code>pProperties</code> array, and on return the
-variable is overwritten with the number of structures actually written to
-<code>pProperties</code>.
+Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pProperties</code> array, and on
+return the variable is overwritten with the number of structures actually
+written to <code>pProperties</code>.
 If <code>pPropertyCount</code> is less than the number of layer properties
 available, at most <code>pPropertyCount</code> structures will be written, and
 <code>VK_INCOMPLETE</code> will be returned instead of <code>VK_SUCCESS</code>, to
@@ -1052,10 +1052,10 @@ layer properties available or queried.</p>
 <div class="paragraph">
 <p>If <code>pProperties</code> is <code>NULL</code>, then the number of layer properties
 available is returned in <code>pPropertyCount</code>.
-Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the user to
-the number of elements in the <code>pProperties</code> array, and on return the
-variable is overwritten with the number of structures actually written to
-<code>pProperties</code>.
+Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pProperties</code> array, and on
+return the variable is overwritten with the number of structures actually
+written to <code>pProperties</code>.
 If <code>pPropertyCount</code> is less than the number of layer properties
 available, at most <code>pPropertyCount</code> structures will be written, and
 <code>VK_INCOMPLETE</code> will be returned instead of <code>VK_SUCCESS</code>, to
@@ -1075,7 +1075,6 @@ the same as the properties when the layer was enumerated by
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Due to platform details on Android, <code>vkEnumerateDeviceLayerProperties</code>
 may be called with <code>physicalDevice</code> equal to <code>NULL</code> during layer
@@ -1169,7 +1168,7 @@ layers enabled when the parent instance was created.</p>
 <p>Extensions <strong>may</strong> define new Vulkan commands, structures, and enumerants.
 For compilation purposes, the interfaces defined by registered extensions,
 including new structures and enumerants as well as function pointer types
-for new commands, are defined in the Khronos-supplied <code>vulkan_core.h</code>
+for new commands, are defined in the Khronos-supplied <code>{core_header}</code>
 together with the core API.
 However, commands defined by extensions <strong>may</strong> not be available for static
 linking - in which case function pointers to these commands <strong>should</strong> be
@@ -1191,7 +1190,6 @@ See the <a href="introduction.html#LoaderInterfaceArchitecture" class="xref page
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>To enable an instance extension, the name of the extension <strong>can</strong> be added to
 the <code>ppEnabledExtensionNames</code> member of <a href="initialization.html#VkInstanceCreateInfo" class="xref page">VkInstanceCreateInfo</a> when
@@ -1268,10 +1266,10 @@ provided by that layer are returned.</p>
 <div class="paragraph">
 <p>If <code>pProperties</code> is <code>NULL</code>, then the number of extensions properties
 available is returned in <code>pPropertyCount</code>.
-Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the user to
-the number of elements in the <code>pProperties</code> array, and on return the
-variable is overwritten with the number of structures actually written to
-<code>pProperties</code>.
+Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pProperties</code> array, and on
+return the variable is overwritten with the number of structures actually
+written to <code>pProperties</code>.
 If <code>pPropertyCount</code> is less than the number of extension properties
 available, at most <code>pPropertyCount</code> structures will be written, and
 <code>VK_INCOMPLETE</code> will be returned instead of <code>VK_SUCCESS</code>, to
@@ -1408,6 +1406,10 @@ enabled together due to behavioral differences, or any extension that cannot
 be enabled against the advertised version.</p>
 </div>
 <div class="paragraph">
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_ray_tracing_pipeline" class="xref page">VK_KHR_ray_tracing_pipeline</a></code> is advertised as supported by this
+query, <code><a href="../appendices/extensions.html#VK_KHR_pipeline_library" class="xref page">VK_KHR_pipeline_library</a></code> <strong>must</strong> also be supported.</p>
+</div>
+<div class="paragraph">
 <p>Implementations claiming support for the <a href="../appendices/roadmap.html#roadmap-2022" class="xref page">Roadmap 2022</a>
 profile <strong>must</strong> advertise the <code><a href="../appendices/extensions.html#VK_KHR_global_priority" class="xref page">VK_KHR_global_priority</a></code> extension in
 <code>pProperties</code>.</p>
@@ -1469,7 +1471,6 @@ profile <strong>must</strong> advertise the following extensions in <code>pPrope
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Due to platform details on Android,
 <code>vkEnumerateDeviceExtensionProperties</code> may be called with
@@ -1641,7 +1642,6 @@ dependency and the promoted version in the <a href="../appendices/extensions.htm
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>There is metadata in <code>vk.xml</code> describing some aspects of promotion,
 especially <code>requires</code>, <code>promotedto</code> and <code>deprecatedby</code> attributes of
@@ -1702,7 +1702,6 @@ application written against one will work with an implementation of another.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>If a patch version includes a bug fix or clarification that could have a
 significant impact on developer expectations, these will be highlighted in
@@ -1832,7 +1831,6 @@ limited to the following:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>If extension functionality is promoted, there is no guarantee of direct
 compatibility, however it should require little effort to port code from the
@@ -1863,7 +1861,6 @@ exist in the extension will <strong>not</strong> be promoted.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>As a hypothetical example, if the <code><a href="../appendices/extensions.html#VK_KHR_surface" class="xref page">VK_KHR_surface</a></code> extension were
 promoted to part of a future core version, the
@@ -1895,7 +1892,6 @@ another extension or core version of the API, but it is not guaranteed.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Features that are intended to replace deprecated functionality have no
 guarantees of compatibility, and applications may require drastic
@@ -1945,20 +1941,19 @@ application with no compatibility issues.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For promoted types, the aliased extension type is semantically identical to
 the new core type.
 The C99 headers simply <code>typedef</code> the older aliases to the promoted types.</p>
 </div>
 <div class="paragraph">
-<p>For promoted command aliases, however, there are two separate entry point
+<p>For promoted command aliases, however, there are two separate command
 definitions, due to the fact that the C99 ABI has no way to alias command
 definitions without resorting to macros.
-Calling via either entry point definition will produce identical behavior
-within the bounds of the specification, and should still invoke the same
-entry point in the implementation.
-Debug tools may use separate entry points with different debug behavior; to
+Calling either command will produce identical behavior within the bounds of
+the specification, and should still invoke the same path in the
+implementation.
+Debug tools may use separate commands with different debug behavior; to
 write the appropriate command name to an output log, for instance.</p>
 </div>
 </td>
@@ -1995,30 +1990,30 @@ describe extensions:</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CAD support</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{cadsupport}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cadsupport</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension is intended to support specialized functionality used by
       CAD/CAM applications.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">D3D support</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{d3demulation}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">d3demulation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension is intended to support D3D emulation layers, and
       applications ported from D3D, by adding functionality specific to D3D.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Developer tools</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{devtools}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">devtools</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension is intended to support developer tools such as
       capture-replay libraries.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Debugging tools</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{debugging}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">debugging</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension is intended for use by applications when debugging.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OpenGL / ES support</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">{glemulation}</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">glemulation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension is intended to support OpenGL and/or OpenGL ES emulation
       layers, and applications ported from those APIs, by adding
@@ -2044,12 +2039,6 @@ in &#8220;XML Tag&#8221; column above, as described in the &#8220;API Extensions
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Testing Guides :: Vulkan Documentation Project</title>
+    <title>Shaders :: Vulkan Documentation Project</title>
     <meta name="generator" content="Antora 3.1.4">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -90,6 +91,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../samples/vulkan_basics.html">Vulkan basics</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <a class="nav-link" href="README.html">Shaders</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -213,7 +217,13 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../samples/api/oit_depth_peeling/README.html">OIT depth peeling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../samples/api/hpp_oit_depth_peeling/README.html">OIT depth peeling (Vulkan-Hpp)</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -252,6 +262,9 @@
     <a class="nav-link" href="../samples/extensions/dynamic_rendering/README.html">Dynamic rendering</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../samples/extensions/dynamic_rendering_local_read/README.html">Dynamic rendering local read</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/extensions/extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -271,6 +284,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/extensions/gshader_to_mshader/README.html">Geometry shader to mesh shader</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../samples/extensions/host_image_copy/README.html">Host image copy</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/extensions/logic_op_dynamic_state/README.html">Logic op dynamic state</a>
@@ -310,6 +326,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/extensions/ray_tracing_reflection/README.html">Ray tracing reflection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../samples/extensions/ray_tracing_position_fetch/README.html">Ray tracing position fetch</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/extensions/shader_object/README.html">Shader Object</a>
@@ -408,7 +427,13 @@
     <a class="nav-link" href="../samples/performance/texture_compression_basisu/README.html">Texture compression basisu</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="../samples/performance/texture_compression_comparison/README.html">Texture compression comparison</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../samples/performance/hpp_texture_compression_comparison/README.html">Texture compression comparison (Vulkan-Hpp)</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/performance/wait_idle/README.html">Wait idle</a>
@@ -431,20 +456,23 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../samples/general/mobile_nerf/README.html">Mobile NeRF</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../samples/general/mobile_nerf_rayquery/README.html">Mobile NeRF Ray Query</a>
+  </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="README.html">General documentation</a>
+    <a class="nav-link" href="../docs/README.html">General documentation</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="build.html">Build guide</a>
+    <a class="nav-link" href="../docs/build.html">Build guide</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="memory_limits.html">Memory limits</a>
+    <a class="nav-link" href="../docs/memory_limits.html">Memory limits</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="misc.html">Miscellaneous</a>
+    <a class="nav-link" href="../docs/misc.html">Miscellaneous</a>
   </li>
 </ul>
   </li>
@@ -511,133 +539,40 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../README.html">Vulkan Samples</a></li>
-    <li><a href="testing.html">Testing Guides</a></li>
+    <li><a href="README.html">Shaders</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Samples/edit/main/antora/modules/ROOT/pages/docs/testing.adoc">Edit this Page</a></div>
+<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Samples/edit/main/antora/modules/ROOT/pages/shaders/README.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
 </aside>
 <article class="doc">
-<h1 class="page">Testing Guides</h1>
+<h1 class="page">Shaders</h1>
 <div class="sect1">
-<h2 id="_contents"><a class="anchor" href="#_contents"></a>Contents</h2>
+<h2 id="_shader_languages"><a class="anchor" href="#_shader_languages"></a>Shader languages</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#testing-guides">Testing Guides</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#contents">Contents</a></p>
-</li>
-<li>
-<p><a href="#system-test">System Test</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#android">Android</a></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="#generate-sample-test">Generate Sample Test</a></p>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#to-run">To run</a></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
+<div class="paragraph">
+<p>This folder contains the textual shaders for the samples. All samples come with GLSL shaders and some optionally with HLSL shaders. For samples that support both shader language this is a good way to compare GLSL to HLSL syntax when targeting SPIR-V for Vulkan.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_system_test"><a class="anchor" href="#_system_test"></a>System Test</h2>
+<h2 id="_further_information"><a class="anchor" href="#_further_information"></a>Further information</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In order for the script to work you will need to install and add to your Path:</p>
+<p>The <a href="../../../guide/latest/index.html" class="xref page">Vulkan Guide</a> contains further information on how to use HLSL with Vulkan and how it compares to GLSL:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>Python 3.x</code></p>
+<p><a href="../../../guide/latest/hlsl.html" class="xref page">HLSL in Vulkan</a></p>
 </li>
 <li>
-<p><code>imagemagick</code></p>
-</li>
-<li>
-<p><code>git</code></p>
-</li>
-<li>
-<p><code>cmake</code></p>
-</li>
-<li>
-<p>(Optional) <code>adb</code> if you plan to use Android</p>
+<p><a href="../../../guide/latest/high_level_shader_language_comparison.html" class="xref page">High level shading language comparison</a></p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>You will also need to have built the Vulkan Best Practices in 64 bit, with the CMake flag <code>VKB_BUILD_SAMPLES</code>, <code>VKB_BUILD_TESTS</code> and in addition to this install a working <code>.apk</code> onto a device if you plan on testing on Android.</p>
-</div>
-<div class="paragraph">
-<p><strong>Before you begin a system test on Android, ensure that the device is held in landscape, and there isn&#8217;t an instance of Vulkan Best Practice running already.</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>From the root of the project: <code>cd tests/system_test</code></p>
-</li>
-<li>
-<p>To run: <code>python system_test.py -B &lt;build dir&gt; -C &lt;Debug|Release&gt;</code></p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>e.g. <code>python system_test.py -Bbuild/windows -CRelease</code> (build path is relative to root)</p>
-</li>
-<li>
-<p>To target just testing on desktop, add a <code>-D</code> flag, or to target just Android, an <code>-A</code> flag. If no flag is specified it will run for both.</p>
-</li>
-<li>
-<p>To run a specific sub test(s), use the <code>-S</code> flag (e.g. <code>python system_test.py ... -S sponza bonza</code> runs sponza and bonza)</p>
-</li>
-</ol>
-</div>
-</li>
-</ol>
-</div>
-<div class="sect2">
-<h3 id="_android"><a class="anchor" href="#_android"></a>Android</h3>
-<div class="paragraph">
-<p>We currently support FHD resolutions (2280x1080), if testing on another device or resolution the test may fail.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_generate_sample_test"><a class="anchor" href="#_generate_sample_test"></a>Generate Sample Test</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>There is a test for the <code>generate_sample</code> script, to ensure that it generates a sample that builds within the project.</p>
-</div>
-<h4 id="_to_run" class="discrete">To run</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-asciidoc hljs" data-lang="asciidoc">cd tests/generate_sample
-python generate_sample_test.py</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>It will print out the result of the test</p>
 </div>
 </div>
 </div>
@@ -645,12 +580,6 @@ python generate_sample_test.py</code></pre>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

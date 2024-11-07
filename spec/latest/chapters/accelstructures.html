@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -339,6 +337,13 @@
 </aside>
 <article class="doc">
 <h1 class="page">Acceleration Structures</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/accelstructures.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="acceleration-structure-def"><a class="anchor" href="#acceleration-structure-def"></a>Acceleration Structures</h2>
 <div class="sectionbody">
@@ -555,6 +560,52 @@ acceleration structure rebuild.
 Applications <strong>must</strong> not perform an acceleration structure update where an
 object is active in the source acceleration structure but would be inactive
 in the destination, or vice versa.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="acceleration-structure-degenerate-prims"><a class="anchor" href="#acceleration-structure-degenerate-prims"></a>Degenerate Primitives and Instances</h3>
+<div class="paragraph">
+<p><em>Degenerate</em> primitives and instances behave differently to
+<a href="#acceleration-structure-inactive-prims">inactive primitives and instances</a>,
+and are defined as:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>triangles that have one or more vertices whose respective (X), (Y), (Z)
+components are identical, or have three vertices that have at least two
+of the (X), (Y), or (Z) components identical, therefore forming a line
+or point.
+Degenerate triangles do not generate any intersections.</p>
+</li>
+<li>
+<p>AABBs whose <code>minX</code>=<code>maxX</code>, <code>minY</code>=<code>maxY</code>, and
+<code>minZ</code>=<code>maxZ</code>.
+Degenerate AABBs <strong>may</strong> invoke the intersection shader.</p>
+</li>
+<li>
+<p>instances that reference bottom level acceleration structures that
+contain no active primitives.
+When building an acceleration structure, implementations <strong>should</strong> treat
+degenerate instances as though they are a point at the instance origin,
+specified by <a href="#VkAccelerationStructureInstanceKHR">VkAccelerationStructureInstanceKHR</a>::<code>transform</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Unlike <em>inactive</em> primitives and instances, <em>degenerate</em> primitives and
+instances <strong>may</strong> transition from the degenerate to the non-degenerate state,
+or vice versa, when performing an acceleration structure update.</p>
+</div>
+<div class="paragraph">
+<p>If an acceleration structure is built without
+<code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR</code> set in
+<a href="resources.html#VkAccelerationStructureInfoNV" class="xref page">VkAccelerationStructureInfoNV</a>::<code>flags</code>
+or
+<a href="#VkAccelerationStructureBuildGeometryInfoKHR">VkAccelerationStructureBuildGeometryInfoKHR</a>::<code>flags</code>
+, degenerate primitives <strong>may</strong> be discarded.
+Primitives that are defined with the same index value for more than one
+vertex <strong>can</strong> always be discarded.</p>
 </div>
 </div>
 <div class="sect2">
@@ -802,14 +853,14 @@ If <code>update</code> is <code>VK_TRUE</code>, the <code>src</code> and <code>d
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -906,7 +957,6 @@ acceleration structure builds.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This means that an application <strong>cannot</strong> build a top-level acceleration
 structure in the same <a href="#vkCmdBuildAccelerationStructuresKHR">vkCmdBuildAccelerationStructuresKHR</a> call as the
@@ -1257,18 +1307,6 @@ same value which was specified when <code>srcAccelerationStructure</code> was
 last built</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-firstVertex-03770" href="#VUID-vkCmdBuildAccelerationStructuresKHR-firstVertex-03770"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-firstVertex-03770</span><br>
-
-For each element of <code>pInfos</code>, if its <code>mode</code> member is
-<code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, then for each
-<code>VkAccelerationStructureGeometryKHR</code> structure referred to by its
-<code>pGeometries</code> or <code>ppGeometries</code> members, if the geometry uses
-indices, the <code>firstVertex</code> member of its corresponding
-<code>VkAccelerationStructureBuildRangeInfoKHR</code> structure <strong>must</strong> have the
-same value which was specified when <code>srcAccelerationStructure</code> was
-last built</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03801" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03801"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03801</span><br>
 
 For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
@@ -1310,7 +1348,7 @@ bound to device memory</p>
 If <code>pInfos</code>[i].<code>mode</code> is
 <code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR</code>, all addresses
 between <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> and
-<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> +  N - 1 <strong>must</strong> be in
+<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> &#43; N - 1 <strong>must</strong> be in
 the buffer device address range of the same buffer, where N is given by
 the <code>buildScratchSize</code> member of the
 <a href="resources.html#VkAccelerationStructureBuildSizesInfoKHR" class="xref page">VkAccelerationStructureBuildSizesInfoKHR</a> structure returned from a
@@ -1324,7 +1362,7 @@ primitive count</p>
 If <code>pInfos</code>[i].<code>mode</code> is
 <code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, all addresses
 between <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> and
-<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> +  N - 1 <strong>must</strong> be in
+<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> &#43; N - 1 <strong>must</strong> be in
 the buffer device address range of the same buffer, where N is given by
 the <code>updateScratchSize</code> member of the
 <a href="resources.html#VkAccelerationStructureBuildSizesInfoKHR" class="xref page">VkAccelerationStructureBuildSizesInfoKHR</a> structure returned from a
@@ -1557,17 +1595,29 @@ device address containing a value obtained from
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03675" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03675"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03675</span><br>
+<p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10126" href="#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10126"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10126</span><br>
 
 For each <code>pInfos</code>[i], <code>dstAccelerationStructure</code> <strong>must</strong> have been
 created with a value of
 <a href="resources.html#VkAccelerationStructureCreateInfoKHR" class="xref page">VkAccelerationStructureCreateInfoKHR</a>::<code>size</code> greater than or
-equal to the memory size required by the build operation, as returned by
-<a href="resources.html#vkGetAccelerationStructureBuildSizesKHR" class="xref page">vkGetAccelerationStructureBuildSizesKHR</a> with <span class="eq"><code>pBuildInfo</code>
-= <code>pInfos</code>[i]</span> and with each element of the
+equal to either:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>the memory size required by the build operation, as returned by
+<a href="resources.html#vkGetAccelerationStructureBuildSizesKHR" class="xref page">vkGetAccelerationStructureBuildSizesKHR</a> with
+<span class="eq"><code>pBuildInfo</code> = <code>pInfos</code>[i]</span> and with each element of the
 <code>pMaxPrimitiveCounts</code> array greater than or equal to the equivalent
 <code>ppBuildRangeInfos</code>[i][j].<code>primitiveCount</code> values for <code>j</code> in
-<span class="eq">[0,<code>pInfos</code>[i].<code>geometryCount</code>)</span></p>
+<span class="eq">[0,<code>pInfos</code>[i].<code>geometryCount</code>)</span> or,</p>
+</li>
+<li>
+<p>the result of querying the corresponding
+<code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR</code>, if
+updating a compacted acceleration structure</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresKHR-ppBuildRangeInfos-03676" href="#VUID-vkCmdBuildAccelerationStructuresKHR-ppBuildRangeInfos-03676"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresKHR-ppBuildRangeInfos-03676</span><br>
@@ -1623,14 +1673,14 @@ an array of <code>pInfos</code>[i].<code>geometryCount</code>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1725,7 +1775,7 @@ command for each geometry.</p>
 </div>
 <div class="paragraph">
 <p>Accesses to acceleration structures, scratch buffers, vertex buffers, index
-buffers, and instance buffers must be synchronized as with
+buffers, and instance buffers <strong>must</strong> be synchronized as with
 <a href="#acceleration-structure-scratch">vkCmdBuildAccelerationStructuresKHR</a>.</p>
 </div>
 <div class="paragraph">
@@ -2041,18 +2091,6 @@ same value which was specified when <code>srcAccelerationStructure</code> was
 last built</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-firstVertex-03770" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-firstVertex-03770"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-firstVertex-03770</span><br>
-
-For each element of <code>pInfos</code>, if its <code>mode</code> member is
-<code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, then for each
-<code>VkAccelerationStructureGeometryKHR</code> structure referred to by its
-<code>pGeometries</code> or <code>ppGeometries</code> members, if the geometry uses
-indices, the <code>firstVertex</code> member of its corresponding
-<code>VkAccelerationStructureBuildRangeInfoKHR</code> structure <strong>must</strong> have the
-same value which was specified when <code>srcAccelerationStructure</code> was
-last built</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03801" href="#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03801"></a> <span class="vuid">VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03801</span><br>
 
 For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
@@ -2094,7 +2132,7 @@ bound to device memory</p>
 If <code>pInfos</code>[i].<code>mode</code> is
 <code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_BUILD_KHR</code>, all addresses
 between <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> and
-<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> +  N - 1 <strong>must</strong> be in
+<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> &#43; N - 1 <strong>must</strong> be in
 the buffer device address range of the same buffer, where N is given by
 the <code>buildScratchSize</code> member of the
 <a href="resources.html#VkAccelerationStructureBuildSizesInfoKHR" class="xref page">VkAccelerationStructureBuildSizesInfoKHR</a> structure returned from a
@@ -2108,7 +2146,7 @@ primitive count</p>
 If <code>pInfos</code>[i].<code>mode</code> is
 <code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, all addresses
 between <code>pInfos</code>[i].<code>scratchData.deviceAddress</code> and
-<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> +  N - 1 <strong>must</strong> be in
+<code>pInfos</code>[i].<code>scratchData.deviceAddress</code> &#43; N - 1 <strong>must</strong> be in
 the buffer device address range of the same buffer, where N is given by
 the <code>updateScratchSize</code> member of the
 <a href="resources.html#VkAccelerationStructureBuildSizesInfoKHR" class="xref page">VkAccelerationStructureBuildSizesInfoKHR</a> structure returned from a
@@ -2348,8 +2386,8 @@ contiguously to a single <a href="memory.html#VkDeviceMemory" class="xref page">
 
 For any element of <code>pIndirectDeviceAddresses</code>[i], all device
 addresses between <code>pIndirectDeviceAddresses</code>[i] and
-<span class="eq"><code>pIndirectDeviceAddresses</code>[i] + 
-(<code>pInfos</code>[i].<code>geometryCount</code> × <code>pIndirectStrides</code>[i]) -
+<span class="eq"><code>pIndirectDeviceAddresses</code>[i] &#43;
+(<code>pInfos</code>[i].<code>geometryCount</code> {times} <code>pIndirectStrides</code>[i]) -
 1</span> <strong>must</strong> be in the buffer device address range of the same buffer</p>
 </li>
 <li>
@@ -2393,7 +2431,7 @@ with <span class="eq"><code>pBuildInfo</code> = <code>pInfos</code>[i]</span> an
 Each <code>ppMaxPrimitiveCounts</code>[i][j] <strong>must</strong> be greater than or equal to
 the <code>primitiveCount</code> value specified by the
 <a href="#VkAccelerationStructureBuildRangeInfoKHR">VkAccelerationStructureBuildRangeInfoKHR</a> structure located at
-<span class="eq"><code>pIndirectDeviceAddresses</code>[i] +  (<code>j</code> ×
+<span class="eq"><code>pIndirectDeviceAddresses</code>[i] &#43; (<code>j</code> {times}
 <code>pIndirectStrides</code>[i])</span></p>
 </li>
 </ul>
@@ -2451,14 +2489,14 @@ the <code>primitiveCount</code> value specified by the
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3039,7 +3077,6 @@ defined.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Unlike the stride for vertex buffers in
 <a href="fxvertex.html#VkVertexInputBindingDescription" class="xref page">VkVertexInputBindingDescription</a> for graphics pipelines which must not
@@ -3850,7 +3887,7 @@ typedef VkAccelerationStructureInstanceKHR VkAccelerationStructureInstanceNV;</c
 transformation to be applied to the acceleration structure.</p>
 </li>
 <li>
-<p><code>instanceCustomIndex</code> is a 24-bit user-specified index value
+<p><code>instanceCustomIndex</code> is a 24-bit application-specified index value
 accessible to ray shaders in the <code>InstanceCustomIndexKHR</code> built-in.</p>
 </li>
 <li>
@@ -3866,7 +3903,9 @@ calculating the hit shader binding table index.</p>
 values to apply to this instance.</p>
 </li>
 <li>
-<p><code>accelerationStructureReference</code> is either:</p>
+<p><code>accelerationStructureReference</code> is
+either
+    :</p>
 <div class="ulist">
 <ul>
 <li>
@@ -3874,7 +3913,8 @@ values to apply to this instance.</p>
 <a href="resources.html#vkGetAccelerationStructureDeviceAddressKHR" class="xref page">vkGetAccelerationStructureDeviceAddressKHR</a>
 or
 <a href="resources.html#vkGetAccelerationStructureHandleNV" class="xref page">vkGetAccelerationStructureHandleNV</a>
-     (used by device operations which reference acceleration structures) or,</p>
+     (used by device operations which reference acceleration structures)
+or,</p>
 </li>
 <li>
 <p>a <a href="resources.html#VkAccelerationStructureKHR" class="xref page">VkAccelerationStructureKHR</a> object (used by host operations
@@ -4089,7 +4129,6 @@ containing motion instance data for this instance.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>If writing this other than with a standard C compiler, note that the final
 structure should be 152 bytes in size.</p>
@@ -4245,7 +4284,7 @@ transformation to be applied to the acceleration structure at time 0.</p>
 transformation to be applied to the acceleration structure at time 1.</p>
 </li>
 <li>
-<p><code>instanceCustomIndex</code> is a 24-bit user-specified index value
+<p><code>instanceCustomIndex</code> is a 24-bit application-specified index value
 accessible to ray shaders in the <code>InstanceCustomIndexKHR</code> built-in.</p>
 </li>
 <li>
@@ -4334,8 +4373,8 @@ That is, for a <code>time</code> in [0,1] the resulting transform is</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>transformT0</code> × (1 - <code>time</code>) + 
-<code>transformT1</code> × <code>time</code></span></p>
+<p><span class="eq"><code>transformT0</code> {times} (1 - <code>time</code>) &#43;
+<code>transformT1</code> {times} <code>time</code></span></p>
 </dd>
 </dl>
 </div>
@@ -4384,7 +4423,7 @@ transformation to be applied to the acceleration structure at time 0.</p>
 transformation to be applied to the acceleration structure at time 1.</p>
 </li>
 <li>
-<p><code>instanceCustomIndex</code> is a 24-bit user-specified index value
+<p><code>instanceCustomIndex</code> is a 24-bit application-specified index value
 accessible to ray shaders in the <code>InstanceCustomIndexKHR</code> built-in.</p>
 </li>
 <li>
@@ -4473,8 +4512,8 @@ That is, for a <code>time</code> in [0,1] the resulting transform is</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>transformT0</code> × (1 - <code>time</code>) + 
-<code>transformT1</code> × <code>time</code></span></p>
+<p><span class="eq"><code>transformT0</code> {times} (1 - <code>time</code>) &#43;
+<code>transformT1</code> {times} <code>time</code></span></p>
 </dd>
 </dl>
 </div>
@@ -4604,7 +4643,7 @@ of amount <code>theta</code> such that:</p>
 <dt class="hdlist1"></dt>
 <dd>
 <p><span class="eq">[ <code>qx</code>, <code>qy</code>, <code>qz</code> ] = sin(<code>theta</code>/2)
-× [ <code>ax</code>, <code>ay</code>, <code>az</code> ]</span></p>
+{times} [ <code>ax</code>, <code>ay</code>, <code>az</code> ]</span></p>
 </dd>
 </dl>
 </div>
@@ -4635,7 +4674,7 @@ above by:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>T</code> × <code>R</code> × <code>S</code></span></p>
+<p><span class="eq"><code>T</code> {times} <code>R</code> {times} <code>S</code></span></p>
 </dd>
 </dl>
 </div>
@@ -4690,7 +4729,7 @@ triangle is treated as 3 vertices.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>If the geometry uses indices, <span class="eq"><code>primitiveCount</code> × 3</span>
+<p>If the geometry uses indices, <span class="eq"><code>primitiveCount</code> {times} 3</span>
 indices are consumed from
 <a href="#VkAccelerationStructureGeometryTrianglesDataKHR">VkAccelerationStructureGeometryTrianglesDataKHR</a>::<code>indexData</code>,
 starting at an offset of <code>primitiveOffset</code>.
@@ -4698,12 +4737,12 @@ The value of <code>firstVertex</code> is added to the index values before
 fetching vertices.</p>
 </li>
 <li>
-<p>If the geometry does not use indices, <span class="eq"><code>primitiveCount</code> ×
+<p>If the geometry does not use indices, <span class="eq"><code>primitiveCount</code> {times}
 3</span> vertices are consumed from
 <a href="#VkAccelerationStructureGeometryTrianglesDataKHR">VkAccelerationStructureGeometryTrianglesDataKHR</a>::<code>vertexData</code>,
-starting at an offset of <span class="eq"><code>primitiveOffset</code> + 
+starting at an offset of <span class="eq"><code>primitiveOffset</code> &#43;
 <a href="#VkAccelerationStructureGeometryTrianglesDataKHR">VkAccelerationStructureGeometryTrianglesDataKHR</a>::<code>vertexStride</code>
-× <code>firstVertex</code></span>.</p>
+{times} <code>firstVertex</code></span>.</p>
 </li>
 <li>
 <p>If
@@ -4990,14 +5029,14 @@ been built with
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5191,14 +5230,14 @@ been built with
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5385,14 +5424,14 @@ command</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5536,14 +5575,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5718,7 +5757,9 @@ during the copy, are:</p>
 typedef enum VkCopyAccelerationStructureModeKHR {
     VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_KHR = 0,
     VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_KHR = 1,
+  // Provided by VK_KHR_acceleration_structure
     VK_COPY_ACCELERATION_STRUCTURE_MODE_SERIALIZE_KHR = 2,
+  // Provided by VK_KHR_acceleration_structure
     VK_COPY_ACCELERATION_STRUCTURE_MODE_DESERIALIZE_KHR = 3,
   // Provided by VK_NV_ray_tracing
     VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_NV = VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_KHR,
@@ -5749,14 +5790,16 @@ If <code>src</code> contains references to other acceleration structures,
 </li>
 <li>
 <p><code>VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_KHR</code> creates a more
-compact version of an acceleration structure <code>src</code> into <code>dst</code>.
-The acceleration structure <code>dst</code> <strong>must</strong> have been created with a size
-at least as large as that returned by
-<a href="#vkCmdWriteAccelerationStructuresPropertiesKHR">vkCmdWriteAccelerationStructuresPropertiesKHR</a>
-or <a href="#vkWriteAccelerationStructuresPropertiesKHR">vkWriteAccelerationStructuresPropertiesKHR</a>
-after the build of the acceleration structure specified by <code>src</code>.
-If <code>src</code> contains references to other acceleration structures,
-<code>dst</code> will reference the same acceleration structures.</p>
+    compact version of an acceleration structure <code>src</code> into <code>dst</code>.
+    The acceleration structure <code>dst</code> <strong>must</strong> have been created with a size
+    at least as large as that returned by
+<a href="#vkCmdWriteAccelerationStructuresPropertiesNV">vkCmdWriteAccelerationStructuresPropertiesNV</a>
+,
+    <a href="#vkCmdWriteAccelerationStructuresPropertiesKHR">vkCmdWriteAccelerationStructuresPropertiesKHR</a>, or
+    <a href="#vkWriteAccelerationStructuresPropertiesKHR">vkWriteAccelerationStructuresPropertiesKHR</a>
+    after the build of the acceleration structure specified by <code>src</code>.
+    If <code>src</code> contains references to other acceleration structures,
+    <code>dst</code> will reference the same acceleration structures.</p>
 </li>
 <li>
 <p><code>VK_COPY_ACCELERATION_STRUCTURE_MODE_SERIALIZE_KHR</code> serializes the
@@ -5942,14 +5985,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6211,14 +6254,14 @@ device memory</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6469,9 +6512,8 @@ structure as defined in <a href="#vkCmdCopyAccelerationStructureToMemoryKHR">vkC
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
-<p><code>pVersionData</code> is a <em>pointer</em> to an array of 2×<code>VK_UUID_SIZE</code>
+<p><code>pVersionData</code> is a <em>pointer</em> to an array of 2{times}<code>VK_UUID_SIZE</code>
 <code>uint8_t</code> values instead of two <code>VK_UUID_SIZE</code> arrays as the expected
 use case for this member is to be pointed at the header of a previously
 serialized acceleration structure (via
@@ -6591,7 +6633,6 @@ using the host commands.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The <a href="#vkBuildAccelerationStructuresKHR">vkBuildAccelerationStructuresKHR</a> and
 <a href="#vkCmdBuildAccelerationStructuresKHR">vkCmdBuildAccelerationStructuresKHR</a> <strong>may</strong> use different algorithms, and
@@ -6619,7 +6660,6 @@ to build a structure, compact it on the device using
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For efficient execution, acceleration structures manipulated using these
 commands should always be bound to host cached memory, as the implementation
@@ -6696,7 +6736,6 @@ acceleration structure builds.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This means that an application <strong>cannot</strong> build a top-level acceleration
 structure in the same <a href="#vkBuildAccelerationStructuresKHR">vkBuildAccelerationStructuresKHR</a> call as the
@@ -7013,18 +7052,6 @@ same value which was specified when <code>srcAccelerationStructure</code> was
 last built</p>
 </li>
 <li>
-<p><a id="VUID-vkBuildAccelerationStructuresKHR-firstVertex-03770" href="#VUID-vkBuildAccelerationStructuresKHR-firstVertex-03770"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-firstVertex-03770</span><br>
-
-For each element of <code>pInfos</code>, if its <code>mode</code> member is
-<code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code>, then for each
-<code>VkAccelerationStructureGeometryKHR</code> structure referred to by its
-<code>pGeometries</code> or <code>ppGeometries</code> members, if the geometry uses
-indices, the <code>firstVertex</code> member of its corresponding
-<code>VkAccelerationStructureBuildRangeInfoKHR</code> structure <strong>must</strong> have the
-same value which was specified when <code>srcAccelerationStructure</code> was
-last built</p>
-</li>
-<li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-03801" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-03801"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-03801</span><br>
 
 For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
@@ -7038,17 +7065,29 @@ For each element of <code>pInfos</code>[i].<code>pGeometries</code> or
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-03675" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-03675"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-03675</span><br>
+<p><a id="VUID-vkBuildAccelerationStructuresKHR-pInfos-10126" href="#VUID-vkBuildAccelerationStructuresKHR-pInfos-10126"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-pInfos-10126</span><br>
 
 For each <code>pInfos</code>[i], <code>dstAccelerationStructure</code> <strong>must</strong> have been
 created with a value of
 <a href="resources.html#VkAccelerationStructureCreateInfoKHR" class="xref page">VkAccelerationStructureCreateInfoKHR</a>::<code>size</code> greater than or
-equal to the memory size required by the build operation, as returned by
-<a href="resources.html#vkGetAccelerationStructureBuildSizesKHR" class="xref page">vkGetAccelerationStructureBuildSizesKHR</a> with <span class="eq"><code>pBuildInfo</code>
-= <code>pInfos</code>[i]</span> and with each element of the
+equal to either:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>the memory size required by the build operation, as returned by
+<a href="resources.html#vkGetAccelerationStructureBuildSizesKHR" class="xref page">vkGetAccelerationStructureBuildSizesKHR</a> with
+<span class="eq"><code>pBuildInfo</code> = <code>pInfos</code>[i]</span> and with each element of the
 <code>pMaxPrimitiveCounts</code> array greater than or equal to the equivalent
 <code>ppBuildRangeInfos</code>[i][j].<code>primitiveCount</code> values for <code>j</code> in
-<span class="eq">[0,<code>pInfos</code>[i].<code>geometryCount</code>)</span></p>
+<span class="eq">[0,<code>pInfos</code>[i].<code>geometryCount</code>)</span> or,</p>
+</li>
+<li>
+<p>the result of querying the corresponding
+<code>VK_QUERY_TYPE_ACCELERATION_STRUCTURE_COMPACTED_SIZE_KHR</code>, if
+updating a compacted acceleration structure</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><a id="VUID-vkBuildAccelerationStructuresKHR-ppBuildRangeInfos-03676" href="#VUID-vkBuildAccelerationStructuresKHR-ppBuildRangeInfos-03676"></a> <span class="vuid">VUID-vkBuildAccelerationStructuresKHR-ppBuildRangeInfos-03676</span><br>
@@ -7781,8 +7820,8 @@ be queried.</p>
 <code>pData</code>.</p>
 </li>
 <li>
-<p><code>pData</code> is a pointer to a user-allocated buffer where the results
-will be written.</p>
+<p><code>pData</code> is a pointer to an application-allocated buffer where the
+results will be written.</p>
 </li>
 <li>
 <p><code>stride</code> is the stride in bytes between results for individual
@@ -7992,12 +8031,6 @@ allocated with multiple instances</p>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

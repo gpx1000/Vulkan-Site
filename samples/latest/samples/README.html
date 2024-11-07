@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -90,6 +91,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="vulkan_basics.html">Vulkan basics</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../shaders/README.html">Shaders</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -213,7 +217,13 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="api/oit_depth_peeling/README.html">OIT depth peeling</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="api/hpp_oit_depth_peeling/README.html">OIT depth peeling (Vulkan-Hpp)</a>
+  </li>
+</ul>
   </li>
 </ul>
   </li>
@@ -252,6 +262,9 @@
     <a class="nav-link" href="extensions/dynamic_rendering/README.html">Dynamic rendering</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="extensions/dynamic_rendering_local_read/README.html">Dynamic rendering local read</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="extensions/extended_dynamic_state2/README.html">Extended dynamic state2</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -271,6 +284,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="extensions/gshader_to_mshader/README.html">Geometry shader to mesh shader</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="extensions/host_image_copy/README.html">Host image copy</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="extensions/logic_op_dynamic_state/README.html">Logic op dynamic state</a>
@@ -310,6 +326,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="extensions/ray_tracing_reflection/README.html">Ray tracing reflection</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="extensions/ray_tracing_position_fetch/README.html">Ray tracing position fetch</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="extensions/shader_object/README.html">Shader Object</a>
@@ -408,7 +427,13 @@
     <a class="nav-link" href="performance/texture_compression_basisu/README.html">Texture compression basisu</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="performance/texture_compression_comparison/README.html">Texture compression comparison</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="performance/hpp_texture_compression_comparison/README.html">Texture compression comparison (Vulkan-Hpp)</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="performance/wait_idle/README.html">Wait idle</a>
@@ -430,6 +455,9 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="general/mobile_nerf/README.html">Mobile NeRF</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="general/mobile_nerf_rayquery/README.html">Mobile NeRF Ray Query</a>
   </li>
 </ul>
   </li>
@@ -530,7 +558,6 @@
 <li><a href="#api-samples">API samples</a></li>
 <li><a href="#extension-samples">Extension samples</a></li>
 <li><a href="#tooling-samples">Tooling Samples</a></li>
-<li><a href="#general-samples">General Samples</a></li>
 </ul>
 </div>
 <div class="sect1">
@@ -586,9 +613,21 @@ This sample will explore a few options to improve both descriptor and buffer man
 </div>
 </div>
 <div class="sect2">
+<h3 id="_hpp_pipeline_cache"><a class="anchor" href="#_hpp_pipeline_cache"></a><a href="performance/hpp_pipeline_cache/README.html" class="xref page">HPP Pipeline cache</a></h3>
+<div class="paragraph">
+<p>A transcoded version of the Performance sample <a href="#pipeline_cache">Pipeline cache</a> that illustrates the usage of the C&#43;&#43; bindings of vulkan provided by vulkan.hpp.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_hpp_swapchain_images"><a class="anchor" href="#_hpp_swapchain_images"></a><a href="performance/hpp_swapchain_images/README.html" class="xref page">HPP Swapchain images</a></h3>
 <div class="paragraph">
 <p>A transcoded version of the Performance sample <a href="#swapchain_images">Swapchain images</a> that illustrates the usage of the C&#43;&#43; bindings of vulkan provided by vulkan.hpp.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_hpp_texture_compression_comparison"><a class="anchor" href="#_hpp_texture_compression_comparison"></a><a href="performance/hpp_texture_compression_comparison/README.html" class="xref page">HPP Texture compression comparison</a></h3>
+<div class="paragraph">
+<p>A transcoded version of the Performance sample <a href="#texture_compression_comparison">Texture compression comparison</a> that illustrates the usage of the C&#43;&#43; bindings of vulkan provided by vulkan.hpp.</p>
 </div>
 </div>
 <div class="sect2">
@@ -797,6 +836,12 @@ The sample also shows how to enable 16-bit storage for SSBOs and push constants.
 </div>
 </div>
 <div class="sect2">
+<h3 id="_hpp_oit_depth_peeling"><a class="anchor" href="#_hpp_oit_depth_peeling"></a><a href="api/hpp_oit_depth_peeling/README.html" class="xref page">HPP OIT Depth Peeling</a></h3>
+<div class="paragraph">
+<p>A transcoded version of the API sample <a href="#oit_depth_peeling">OIT Depth Peeling</a> that illustrates the usage of the C&#43;&#43; bindings of Vulkan provided by vulkan.hpp.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_hpp_oit_linked_lists"><a class="anchor" href="#_hpp_oit_linked_lists"></a><a href="api/hpp_oit_linked_lists/README.html" class="xref page">HPP OIT Linked Lists</a></h3>
 <div class="paragraph">
 <p>A transcoded version of the API sample <a href="#oit_linked_lists">OIT Linked Lists</a> that illustrates the usage of the C&#43;&#43; bindings of Vulkan provided by vulkan.hpp.</p>
@@ -919,6 +964,16 @@ Enables overestimation to generate fragments for every pixel touched instead of 
 <div class="paragraph">
 <p>Demonstrates how to use Dynamic Rendering.
 Read the blog post here for discussion: (<a href="https://www.khronos.org/blog/streamlining-render-passes" class="bare">https://www.khronos.org/blog/streamlining-render-passes</a>)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_dynamic_rendering_local_read"><a class="anchor" href="#_dynamic_rendering_local_read"></a><a href="extensions/dynamic_rendering_local_read/README.html" class="xref page">Dynamic Rendering local read</a></h3>
+<div class="paragraph">
+<p><strong>Extension</strong>: <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VK_KHR_dynamic_rendering_local_read"><code>VK_KHR_dynamic_rendering_local_read</code></a></p>
+</div>
+<div class="paragraph">
+<p>Demonstrates how to use Dynamic Rendering with local reads to fully replace render passses with multiple subpasses.
+See this <a href="https://www.khronos.org/blog/streamlining-subpasses">this blogpost</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1115,6 +1170,15 @@ The sample creates some geometries and create a bottom acceleration structure fo
 </div>
 </div>
 <div class="sect2">
+<h3 id="_ray_tracing_position_fetch"><a class="anchor" href="#_ray_tracing_position_fetch"></a><a href="extensions/ray_tracing_position_fetch/README.html" class="xref page">Ray tracing position fetch</a></h3>
+<div class="paragraph">
+<p><strong>Extensions</strong>: <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VK_KHR_ray_tracing_position_fetch"><code>VK_KHR_ray_tracing_position_fetch</code></a></p>
+</div>
+<div class="paragraph">
+<p>Shows how to use the ray tracing position fetch extension to directly access vertex positions for a hit triangle from the acceleration structure, instead of having to explicitly pass and unpack that information</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_portability"><a class="anchor" href="#_portability"></a><a href="extensions/portability/README.html" class="xref page">Portability</a></h3>
 <div class="paragraph">
 <p><strong>Extensions</strong>: <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VK_KHR_portability_subset"><code>VK_KHR_portability_subset</code></a></p>
@@ -1263,6 +1327,15 @@ This is done by sourcing conditional rendering blocks from a dedicated buffer th
 <p>Rendering using primitive clipping and depth clipping configured by dynamic pipeline state.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_host_image_copies"><a class="anchor" href="#_host_image_copies"></a><a href="extensions/host_image_copy/README.html" class="xref page">Host image copies</a></h3>
+<div class="paragraph">
+<p><strong>Extension:</strong> <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_host_image_copy.html"><code>VK_EXT_extended_dynamic_state3</code></a></p>
+</div>
+<div class="paragraph">
+<p>Demonstrate the use of the host image extension to directly copy from a host buffer to an image on the device without going through a staging buffer.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1280,30 +1353,10 @@ The library defines a common baseline of features, extensions, etc.</p>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="general-samples"><a class="anchor" href="#general-samples"></a>General Samples</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The goal of these samples is to demonstrate different techniques or showcase complex scenarios that doesn&#8217;t necessarily fit any of the main categories.</p>
-</div>
-<div class="sect2">
-<h3 id="_mobile_nerf"><a class="anchor" href="#_mobile_nerf"></a><a href="general/mobile_nerf/README.html" class="xref page">Mobile NeRF</a></h3>
-<div class="paragraph">
-<p>A Neural Radiance Field synthesizer sample, based on textured polygons.</p>
-</div>
-</div>
-</div>
-</div>
 </article>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

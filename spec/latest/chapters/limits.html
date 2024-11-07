@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -342,6 +340,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/limits.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+<div class="paragraph">
 <p><em>Limits</em> are implementation-dependent minimums, maximums, and other device
 characteristics that an application <strong>may</strong> need to be aware of.</p>
 </div>
@@ -352,7 +353,6 @@ characteristics that an application <strong>may</strong> need to be aware of.</p
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Limits are reported via the basic <a href="#VkPhysicalDeviceLimits">VkPhysicalDeviceLimits</a> structure as
 well as the extensible structure <code>VkPhysicalDeviceProperties2</code>, which
@@ -563,7 +563,7 @@ maximum value that <strong>can</strong> be specified in the <code>range</code> m
 maximum size, in bytes, of the pool of push constant memory.
 For each of the push constant ranges indicated by the
 <code>pPushConstantRanges</code> member of the <a href="descriptorsets.html#VkPipelineLayoutCreateInfo" class="xref page">VkPipelineLayoutCreateInfo</a>
-structure, <span class="eq">(<code>offset</code> +  <code>size</code>)</span> <strong>must</strong> be less than or
+structure, <span class="eq">(<code>offset</code> &#43; <code>size</code>)</span> <strong>must</strong> be less than or
 equal to this limit.</p>
 </li>
 <li>
@@ -1091,7 +1091,7 @@ See <a href="vertexpostproc.html#vertexpostproc-viewport" class="xref page">Cont
 <p><a id="limits-viewportboundsrange"></a> <code>viewportBoundsRange</code>[2] is the
 <span class="eq">[minimum, maximum]</span> range that the corners of a viewport <strong>must</strong> be
 contained in.
-This range <strong>must</strong> be at least <span class="eq">[-2 × <code>size</code>, 2 ×
+This range <strong>must</strong> be at least <span class="eq">[-2 {times} <code>size</code>, 2 {times}
 <code>size</code> - 1]</span>, where <span class="eq"><code>size</code> =
 max(<code>maxViewportDimensions</code>[0], <code>maxViewportDimensions</code>[1])</span>.
 See <a href="vertexpostproc.html#vertexpostproc-viewport" class="xref page">Controlling the Viewport</a>.</p>
@@ -1102,12 +1102,11 @@ See <a href="vertexpostproc.html#vertexpostproc-viewport" class="xref page">Cont
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The intent of the <code>viewportBoundsRange</code> limit is to allow a maximum
 sized viewport to be arbitrarily shifted relative to the output target as
 long as at least some portion intersects.
-This would give a bounds limit of <span class="eq">[-<code>size</code> +  1, 2 ×
+This would give a bounds limit of <span class="eq">[-<code>size</code> &#43; 1, 2 {times}
 <code>size</code> - 1]</span> which would allow all possible non-empty-set intersections
 of the output target and the viewport.
 Since these numbers are typically powers of two, picking the signed number
@@ -1315,7 +1314,7 @@ number of array elements of a variable decorated with the
 <li>
 <p><a id="limits-timestampComputeAndGraphics"></a> <code>timestampComputeAndGraphics</code>
 specifies support for timestamps on all graphics and compute queues.
-If this limit is set to <code>VK_TRUE</code>, all queues that advertise the
+If this limit is <code>VK_TRUE</code>, all queues that advertise the
 <code>VK_QUEUE_GRAPHICS_BIT</code> or <code>VK_QUEUE_COMPUTE_BIT</code> in the
 <code>VkQueueFamilyProperties</code>::<code>queueFlags</code> support
 <code>VkQueueFamilyProperties</code>::<code>timestampValidBits</code> of at least 36.
@@ -1887,7 +1886,7 @@ typedef VkShaderFloatControlsIndependence VkShaderFloatControlsIndependenceKHR;<
 <ul>
 <li>
 <p><code>VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_32_BIT_ONLY</code> specifies that
-shader float controls for 32-bit floating point <strong>can</strong> be set
+shader float controls for 32-bit floating-point <strong>can</strong> be set
 independently; other bit widths <strong>must</strong> be set identically to each other.</p>
 </li>
 <li>
@@ -2299,24 +2298,25 @@ structure.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="extension-limits-subgroup-size"></a> <code>subgroupSize</code> is the
-default number of invocations in each subgroup.
+<p><a id="extension-limits-subgroupSize"></a> <code>subgroupSize</code> is the default
+number of invocations in each subgroup.
 <code>subgroupSize</code> is at least 1 if any of the physical device&#8217;s queues
 support <code>VK_QUEUE_GRAPHICS_BIT</code> or <code>VK_QUEUE_COMPUTE_BIT</code>.
 <code>subgroupSize</code> is a power-of-two.</p>
 </li>
 <li>
-<p><a id="limits-subgroup-supportedStages"></a> <code>supportedStages</code> is a bitfield
-of <a href="pipelines.html#VkShaderStageFlagBits" class="xref page">VkShaderStageFlagBits</a> describing the shader stages that
-<a href="shaders.html#shaders-group-operations" class="xref page">group operations</a> with
-<a href="shaders.html#shaders-scope-subgroup" class="xref page">subgroup scope</a> are supported in.
+<p><a id="extension-limits-subgroupSupportedStages"></a>
+<code>supportedStages</code> is a bitfield of <a href="pipelines.html#VkShaderStageFlagBits" class="xref page">VkShaderStageFlagBits</a>
+describing the shader stages that <a href="shaders.html#shaders-group-operations" class="xref page">group    operations</a> with <a href="shaders.html#shaders-scope-subgroup" class="xref page">subgroup scope</a> are
+supported in.
 <code>supportedStages</code> will have the <code>VK_SHADER_STAGE_COMPUTE_BIT</code>
 bit set if any of the physical device&#8217;s queues support
 <code>VK_QUEUE_COMPUTE_BIT</code>.</p>
 </li>
 <li>
-<p><a id="limits-subgroupSupportedOperations"></a> <code>supportedOperations</code> is a
-bitmask of <a href="#VkSubgroupFeatureFlagBits">VkSubgroupFeatureFlagBits</a> specifying the sets of
+<p><a id="extension-limits-subgroupSupportedOperations"></a>
+<code>supportedOperations</code> is a bitmask of
+<a href="#VkSubgroupFeatureFlagBits">VkSubgroupFeatureFlagBits</a> specifying the sets of
 <a href="shaders.html#shaders-group-operations" class="xref page">group operations</a> with
 <a href="shaders.html#shaders-scope-subgroup" class="xref page">subgroup scope</a> supported on this device.
 <code>supportedOperations</code> will have the
@@ -2325,7 +2325,7 @@ device&#8217;s queues support <code>VK_QUEUE_GRAPHICS_BIT</code> or
 <code>VK_QUEUE_COMPUTE_BIT</code>.</p>
 </li>
 <li>
-<p><a id="limits-subgroup-quadOperationsInAllStages"></a>
+<p><a id="extension-limits-subgroupQuadOperationsInAllStages"></a>
 <code>quadOperationsInAllStages</code> is a boolean specifying whether
 <a href="shaders.html#shaders-quad-operations" class="xref page">quad group operations</a> are available in all
 stages, or are restricted to fragment and compute stages.</p>
@@ -2352,12 +2352,12 @@ supported, <code>supportedOperations</code> <strong>must</strong> include <a hre
 advertises support with a <a href="extensions.html#VkExtensionProperties" class="xref page">VkExtensionProperties</a>::<code>specVersion</code>
 greater than or equal to 2, and <a href="features.html#features-shaderSubgroupRotate" class="xref page"><code>shaderSubgroupRotate</code></a> is supported,
 <code>VK_SUBGROUP_FEATURE_ROTATE_BIT_KHR</code> <strong>must</strong> be returned in
-<code>subgroupSupportedOperations</code>.
+<code>supportedOperations</code>.
 If <a href="../appendices/extensions.html#VK_KHR_shader_subgroup_rotate" class="xref page">VK_KHR_shader_subgroup_rotate</a> is supported, and the implementation
 advertises support with a <a href="extensions.html#VkExtensionProperties" class="xref page">VkExtensionProperties</a>::<code>specVersion</code>
 greater than or equal to 2, and <a href="features.html#features-shaderSubgroupRotateClustered" class="xref page"><code>shaderSubgroupRotateClustered</code></a> is supported,
 <code>VK_SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT_KHR</code> <strong>must</strong> be returned in
-<code>subgroupSupportedOperations</code>.</p>
+<code>supportedOperations</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2366,7 +2366,6 @@ greater than or equal to 2, and <a href="features.html#features-shaderSubgroupRo
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p><code>VK_SUBGROUP_FEATURE_ROTATE_BIT_KHR</code> and
 <code>VK_SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT_KHR</code> were added in version 2
@@ -2554,7 +2553,7 @@ queues support <code>VK_QUEUE_GRAPHICS_BIT</code> or
 <code>VK_QUEUE_COMPUTE_BIT</code>.
 <code>minSubgroupSize</code> is a power-of-two.
 <code>minSubgroupSize</code> is less than or equal to <code>maxSubgroupSize</code>.
-<code>minSubgroupSize</code> is less than or equal to <a href="devsandqueues.html#limits-subgroup-size" class="xref page">    <code>subgroupSize</code></a>.</p>
+<code>minSubgroupSize</code> is less than or equal to <a href="devsandqueues.html#limits-subgroupSize" class="xref page">    <code>subgroupSize</code></a>.</p>
 </li>
 <li>
 <p><a id="extension-limits-maxSubgroupSize"></a> <code>maxSubgroupSize</code> is the
@@ -2564,8 +2563,7 @@ queues support <code>VK_QUEUE_GRAPHICS_BIT</code> or
 <code>VK_QUEUE_COMPUTE_BIT</code>.
 <code>maxSubgroupSize</code> is a power-of-two.
 <code>maxSubgroupSize</code> is greater than or equal to <code>minSubgroupSize</code>.
-<code>maxSubgroupSize</code> is greater than or equal to
-<a href="devsandqueues.html#limits-subgroup-size" class="xref page"><code>subgroupSize</code></a>.</p>
+<code>maxSubgroupSize</code> is greater than or equal to <a href="devsandqueues.html#limits-subgroupSize" class="xref page">    <code>subgroupSize</code></a>.</p>
 </li>
 <li>
 <p><a id="extension-limits-maxComputeWorkgroupSubgroups"></a>
@@ -3277,7 +3275,7 @@ indicating that an implementation supports creating image views with
 <li>
 <p><code>maxCombinedImageSamplerDescriptorCount</code> is the maximum number of
 combined image sampler descriptors that the implementation uses to
-access any of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats    that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the
+access any of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats    that require a sampler {YCbCr} conversion</a> supported by the
 implementation.</p>
 </li>
 <li>
@@ -3301,6 +3299,428 @@ corresponding implementation-dependent property.</p>
 <li>
 <p><a id="VUID-VkPhysicalDeviceMaintenance6PropertiesKHR-sType-sType" href="#VUID-VkPhysicalDeviceMaintenance6PropertiesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceMaintenance6PropertiesKHR-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_6_PROPERTIES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceMaintenance7PropertiesKHR</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceMaintenance7PropertiesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance7
+typedef struct VkPhysicalDeviceMaintenance7PropertiesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           robustFragmentShadingRateAttachmentAccess;
+    VkBool32           separateDepthStencilAttachmentAccess;
+    uint32_t           maxDescriptorSetTotalUniformBuffersDynamic;
+    uint32_t           maxDescriptorSetTotalStorageBuffersDynamic;
+    uint32_t           maxDescriptorSetTotalBuffersDynamic;
+    uint32_t           maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic;
+    uint32_t           maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic;
+    uint32_t           maxDescriptorSetUpdateAfterBindTotalBuffersDynamic;
+} VkPhysicalDeviceMaintenance7PropertiesKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="limits-robustFragmentShadingRateAttachmentAccess"></a>
+<code>robustFragmentShadingRateAttachmentAccess</code> indicates whether the
+scaled size of a fragment shading rate attachment <strong>can</strong> be less than the
+size of the render area.
+If <code>robustFragmentShadingRateAttachmentAccess</code> is <code>VK_FALSE</code>,
+the size of the attachment multiplied by the texel size <strong>must</strong> be greater
+than or equal to the size of the render area.
+If it is <code>VK_TRUE</code> and the fragment shading rate attachment was
+created with <a href="resources.html#VkImageSubresourceRange" class="xref page">VkImageSubresourceRange</a>::<code>baseMipLevel</code> equal to
+0, the scaled size <strong>can</strong> be smaller than the render area, and shading
+rates for missing texels are defined by <a href="textures.html#textures-texel-replacement" class="xref page">    texel replacement for invalid texels</a>.</p>
+</li>
+<li>
+<p><a id="limits-separateDepthStencilAttachmentAccess"></a>
+<code>separateDepthStencilAttachmentAccess</code> indicates support for writing
+to one aspect of a depth/stencil attachment without performing
+read-modify-write operations on the other aspect.
+If this property is <code>VK_TRUE</code>, writes to one aspect <strong>must</strong> not result
+in read-modify-write operations on the other aspect.
+If <code>VK_FALSE</code>, writes to one aspect <strong>may</strong> result in writes to the
+other aspect as defined by <a href="renderpass.html#renderpass-load-operations" class="xref page">render pass load    operations</a>, <a href="renderpass.html#renderpass-store-operations" class="xref page">render pass store    operations</a> and <a href="renderpass.html#renderpass-resolve-operations" class="xref page">render pass resolve    operations</a>.</p>
+</li>
+<li>
+<p><a id="limits-maxDescriptorSetTotalUniformBuffersDynamic"></a>
+<code>maxDescriptorSetTotalUniformBuffersDynamic</code> is the maximum total
+count of dynamic uniform buffers that <strong>can</strong> be included in a pipeline
+layout.
+Descriptors with a type of
+<code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> count against this
+limit.
+Only descriptors in descriptor set layouts created without the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit set
+count against this limit.
+See <a href="descriptorsets.html#descriptorsets-uniformbufferdynamic" class="xref page">Dynamic Uniform Buffer</a>.</p>
+</li>
+<li>
+<p><a id="limits-maxDescriptorSetTotalStorageBuffersDynamic"></a>
+<code>maxDescriptorSetTotalStorageBuffersDynamic</code> is the maximum total
+count of dynamic storage buffers that <strong>can</strong> be included in a pipeline
+layout.
+Descriptors with a type of
+<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> count against this
+limit.
+Only descriptors in descriptor set layouts created without the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit set
+count against this limit.
+See <a href="descriptorsets.html#descriptorsets-storagebufferdynamic" class="xref page">Dynamic Storage Buffer</a>.</p>
+</li>
+<li>
+<p><a id="limits-maxDescriptorSetTotalBuffersDynamic"></a>
+<code>maxDescriptorSetTotalBuffersDynamic</code> is the maximum total count of
+dynamic uniform buffers and storage buffers that <strong>can</strong> be included in a
+pipeline layout.
+Descriptors with a type of
+<code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> or
+<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> count against this
+limit.
+Only descriptors in descriptor set layouts created without the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit set
+count against this limit.</p>
+</li>
+<li>
+<p><a id="limits-maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic"></a>
+<code>maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic</code> is
+similar to <code>maxDescriptorSetTotalUniformBuffersDynamic</code> but counts
+descriptors from descriptor sets created with or without the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit
+set.</p>
+</li>
+<li>
+<p><a id="limits-maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic"></a>
+<code>maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic</code> is
+similar to <code>maxDescriptorSetTotalStorageBuffersDynamic</code> but counts
+descriptors from descriptor sets created with or without the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit
+set.</p>
+</li>
+<li>
+<p><a id="limits-maxDescriptorSetUpdateAfterBindTotalBuffersDynamic"></a>
+<code>maxDescriptorSetUpdateAfterBindTotalBuffersDynamic</code> is similar to
+<code>maxDescriptorSetTotalBuffersDynamic</code> but counts descriptors from
+descriptor sets created with or without the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit
+set.
+While an application <strong>can</strong> allocate dynamic storage buffer descriptors
+from a pool created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code>,
+bindings for these descriptors <strong>must</strong> not be present in any descriptor
+set layout that includes bindings created with
+<code>VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceMaintenance7PropertiesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> structure passed to
+<a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>, it is filled in with each
+corresponding implementation-dependent property.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceMaintenance7PropertiesKHR-sType-sType" href="#VUID-VkPhysicalDeviceMaintenance7PropertiesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceMaintenance7PropertiesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_7_PROPERTIES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceLayeredApiPropertiesListKHR</code> structure is defined
+as:</p>
+</div>
+<div id="VkPhysicalDeviceLayeredApiPropertiesListKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance7
+typedef struct VkPhysicalDeviceLayeredApiPropertiesListKHR {
+    VkStructureType                             sType;
+    void*                                       pNext;
+    uint32_t                                    layeredApiCount;
+    VkPhysicalDeviceLayeredApiPropertiesKHR*    pLayeredApis;
+} VkPhysicalDeviceLayeredApiPropertiesListKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>layeredApiCount</code> is an integer related to the number of layered
+implementations underneath the Vulkan physical device, as described
+below.</p>
+</li>
+<li>
+<p><code>pLayeredApis</code> is a pointer to an array of
+<a href="#VkPhysicalDeviceLayeredApiPropertiesKHR">VkPhysicalDeviceLayeredApiPropertiesKHR</a> in which information
+regarding the layered implementations underneath the Vulkan physical
+device are returned.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>pLayeredApis</code> is <code>NULL</code>, then the number of layered implementations
+that are underneath the top-most Vulkan physical device (i.e. the one
+returned by <a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>) is returned in
+<code>layeredApiCount</code>.
+Otherwise, <code>layeredApiCount</code> <strong>must</strong> be set by the application to the
+number of elements in the <code>pLayeredApis</code> array, and on return the
+variable is overwritten with the number of values actually written to
+<code>pLayeredApis</code>.
+If the value of <code>layeredApiCount</code> is less than the number of layered
+implementations underneath the Vulkan physical device, at most
+<code>layeredApiCount</code> values will be written to <code>pLayeredApis</code>.
+An implementation that is not a layer will return 0 in
+<code>layeredApiCount</code>.</p>
+</div>
+<div class="paragraph">
+<p>In the presence of multiple layered implementations, each element of
+<code>pLayeredApis</code> corresponds to an API implementation that is implemented
+on top of the API at the previous index.
+If there are layered implementations underneath a non-Vulkan implementation,
+they may not be visible in this query as the corresponding APIs may lack
+such a query.</p>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceLayeredApiPropertiesListKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> structure passed to
+<a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>, it is filled in with each
+corresponding implementation-dependent property.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceLayeredApiPropertiesListKHR-sType-sType" href="#VUID-VkPhysicalDeviceLayeredApiPropertiesListKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceLayeredApiPropertiesListKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_LIST_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPhysicalDeviceLayeredApiPropertiesListKHR-pLayeredApis-parameter" href="#VUID-VkPhysicalDeviceLayeredApiPropertiesListKHR-pLayeredApis-parameter"></a> <span class="vuid">VUID-VkPhysicalDeviceLayeredApiPropertiesListKHR-pLayeredApis-parameter</span><br>
+ If <code>layeredApiCount</code> is not <code>0</code>, and <code>pLayeredApis</code> is not <code>NULL</code>, <code>pLayeredApis</code> <strong>must</strong> be a valid pointer to an array of <code>layeredApiCount</code> <a href="#VkPhysicalDeviceLayeredApiPropertiesKHR">VkPhysicalDeviceLayeredApiPropertiesKHR</a> structures</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceLayeredApiPropertiesKHR</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceLayeredApiPropertiesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance7
+typedef struct VkPhysicalDeviceLayeredApiPropertiesKHR {
+    VkStructureType                  sType;
+    void*                            pNext;
+    uint32_t                         vendorID;
+    uint32_t                         deviceID;
+    VkPhysicalDeviceLayeredApiKHR    layeredAPI;
+    char                             deviceName[VK_MAX_PHYSICAL_DEVICE_NAME_SIZE];
+} VkPhysicalDeviceLayeredApiPropertiesKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>vendorID</code> is a unique identifier for the vendor of the layered
+implementation.</p>
+</li>
+<li>
+<p><code>deviceID</code> is a unique identifier for the layered implementation
+among devices available from the vendor.</p>
+</li>
+<li>
+<p><code>layeredAPI</code> is a <a href="#VkPhysicalDeviceLayeredApiKHR">VkPhysicalDeviceLayeredApiKHR</a> specifying the
+API implemented by the layered implementation.</p>
+</li>
+<li>
+<p><code>deviceName</code> is an array of <code>VK_MAX_PHYSICAL_DEVICE_NAME_SIZE</code>
+<code>char</code> containing a null-terminated UTF-8 string which is the name of
+the device.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>layeredAPI</code> is <code>VK_PHYSICAL_DEVICE_LAYERED_API_VULKAN_KHR</code>,
+additional Vulkan-specific information can be queried by including the
+<a href="#VkPhysicalDeviceLayeredApiVulkanPropertiesKHR">VkPhysicalDeviceLayeredApiVulkanPropertiesKHR</a> structure in the
+<code>pNext</code> chain.
+Otherwise if such a structure is included in the <code>pNext</code> chain, it is
+ignored.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceLayeredApiPropertiesKHR-sType-sType" href="#VUID-VkPhysicalDeviceLayeredApiPropertiesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceLayeredApiPropertiesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_API_PROPERTIES_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-VkPhysicalDeviceLayeredApiPropertiesKHR-pNext-pNext" href="#VUID-VkPhysicalDeviceLayeredApiPropertiesKHR-pNext-pNext"></a> <span class="vuid">VUID-VkPhysicalDeviceLayeredApiPropertiesKHR-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code> or a pointer to a valid instance of <a href="#VkPhysicalDeviceLayeredApiVulkanPropertiesKHR">VkPhysicalDeviceLayeredApiVulkanPropertiesKHR</a></p>
+</li>
+<li>
+<p><a id="VUID-VkPhysicalDeviceLayeredApiPropertiesKHR-sType-unique" href="#VUID-VkPhysicalDeviceLayeredApiPropertiesKHR-sType-unique"></a> <span class="vuid">VUID-VkPhysicalDeviceLayeredApiPropertiesKHR-sType-unique</span><br>
+ The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The list of possible API implementations of a layered implementation
+underneath the Vulkan physical device, as returned in
+<a href="#VkPhysicalDeviceLayeredApiPropertiesKHR">VkPhysicalDeviceLayeredApiPropertiesKHR</a>::<code>layeredAPI</code>, are:</p>
+</div>
+<div id="VkPhysicalDeviceLayeredApiKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance7
+typedef enum VkPhysicalDeviceLayeredApiKHR {
+    VK_PHYSICAL_DEVICE_LAYERED_API_VULKAN_KHR = 0,
+    VK_PHYSICAL_DEVICE_LAYERED_API_D3D12_KHR = 1,
+    VK_PHYSICAL_DEVICE_LAYERED_API_METAL_KHR = 2,
+    VK_PHYSICAL_DEVICE_LAYERED_API_OPENGL_KHR = 3,
+    VK_PHYSICAL_DEVICE_LAYERED_API_OPENGLES_KHR = 4,
+} VkPhysicalDeviceLayeredApiKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_PHYSICAL_DEVICE_LAYERED_API_VULKAN_KHR</code> - the device implements
+the Vulkan API.</p>
+</li>
+<li>
+<p><code>VK_PHYSICAL_DEVICE_LAYERED_API_D3D12_KHR</code> - the device implements
+the D3D12 API.</p>
+</li>
+<li>
+<p><code>VK_PHYSICAL_DEVICE_LAYERED_API_METAL_KHR</code> - the device implements
+the Metal API.</p>
+</li>
+<li>
+<p><code>VK_PHYSICAL_DEVICE_LAYERED_API_OPENGL_KHR</code> - the device implements
+the OpenGL API.</p>
+</li>
+<li>
+<p><code>VK_PHYSICAL_DEVICE_LAYERED_API_OPENGLES_KHR</code> - the device
+implements the OpenGL ES API.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceLayeredApiVulkanPropertiesKHR</code> structure is defined
+as:</p>
+</div>
+<div id="VkPhysicalDeviceLayeredApiVulkanPropertiesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance7
+typedef struct VkPhysicalDeviceLayeredApiVulkanPropertiesKHR {
+    VkStructureType                sType;
+    void*                          pNext;
+    VkPhysicalDeviceProperties2    properties;
+} VkPhysicalDeviceLayeredApiVulkanPropertiesKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>properties</code> is a <a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> in which
+properties of the underlying layered Vulkan implementation are returned.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The implementation <strong>must</strong> zero-fill the contents of
+<code>properties.properties.limits</code> and
+<code>properties.properties.sparseProperties</code>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceLayeredApiVulkanPropertiesKHR-pNext-10011" href="#VUID-VkPhysicalDeviceLayeredApiVulkanPropertiesKHR-pNext-10011"></a> <span class="vuid">VUID-VkPhysicalDeviceLayeredApiVulkanPropertiesKHR-pNext-10011</span><br>
+
+Only <a href="devsandqueues.html#VkPhysicalDeviceDriverProperties" class="xref page">VkPhysicalDeviceDriverProperties</a> and
+<a href="devsandqueues.html#VkPhysicalDeviceIDProperties" class="xref page">VkPhysicalDeviceIDProperties</a> are allowed in the <code>pNext</code> chain
+of <code>properties</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceLayeredApiVulkanPropertiesKHR-sType-sType" href="#VUID-VkPhysicalDeviceLayeredApiVulkanPropertiesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceLayeredApiVulkanPropertiesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -3419,14 +3839,14 @@ a mesh shader can use.</p>
 <p><code>meshOutputPerVertexGranularity</code> is the granularity with which mesh
 vertex outputs are allocated.
 The value can be used to compute the memory size used by the mesh
-shader, which must be less than or equal to
+shader, which <strong>must</strong> be less than or equal to
 <code>maxMeshTotalMemorySize</code>.</p>
 </li>
 <li>
 <p><code>meshOutputPerPrimitiveGranularity</code> is the granularity with which
 mesh outputs qualified as per-primitive are allocated.
 The value can be used to compute the memory size used by the mesh
-shader, which must be less than or equal to
+shader, which <strong>must</strong> be less than or equal to
 <code>maxMeshTotalMemorySize</code>.</p>
 </li>
 </ul>
@@ -3811,46 +4231,46 @@ fragmentation.</p>
 <p><a id="extension-limits-shaderUniformBufferArrayNonUniformIndexingNative"></a>
 <code>shaderUniformBufferArrayNonUniformIndexingNative</code> is a boolean
 value indicating whether uniform buffer descriptors natively support
-nonuniform indexing.
+non-uniform indexing.
 If this is <code>VK_FALSE</code>, then a single dynamic instance of an
-instruction that nonuniformly indexes an array of uniform buffers <strong>may</strong>
+instruction that non-uniformly indexes an array of uniform buffers <strong>may</strong>
 execute multiple times in order to access all the descriptors.</p>
 </li>
 <li>
 <p><a id="extension-limits-shaderSampledImageArrayNonUniformIndexingNative"></a>
 <code>shaderSampledImageArrayNonUniformIndexingNative</code> is a boolean value
 indicating whether sampler and image descriptors natively support
-nonuniform indexing.
+non-uniform indexing.
 If this is <code>VK_FALSE</code>, then a single dynamic instance of an
-instruction that nonuniformly indexes an array of samplers or images
+instruction that non-uniformly indexes an array of samplers or images
 <strong>may</strong> execute multiple times in order to access all the descriptors.</p>
 </li>
 <li>
 <p><a id="extension-limits-shaderStorageBufferArrayNonUniformIndexingNative"></a>
 <code>shaderStorageBufferArrayNonUniformIndexingNative</code> is a boolean
 value indicating whether storage buffer descriptors natively support
-nonuniform indexing.
+non-uniform indexing.
 If this is <code>VK_FALSE</code>, then a single dynamic instance of an
-instruction that nonuniformly indexes an array of storage buffers <strong>may</strong>
+instruction that non-uniformly indexes an array of storage buffers <strong>may</strong>
 execute multiple times in order to access all the descriptors.</p>
 </li>
 <li>
 <p><a id="extension-limits-shaderStorageImageArrayNonUniformIndexingNative"></a>
 <code>shaderStorageImageArrayNonUniformIndexingNative</code> is a boolean value
-indicating whether storage image descriptors natively support nonuniform
-indexing.
+indicating whether storage image descriptors natively support
+non-uniform indexing.
 If this is <code>VK_FALSE</code>, then a single dynamic instance of an
-instruction that nonuniformly indexes an array of storage images <strong>may</strong>
+instruction that non-uniformly indexes an array of storage images <strong>may</strong>
 execute multiple times in order to access all the descriptors.</p>
 </li>
 <li>
 <p><a id="extension-limits-shaderInputAttachmentArrayNonUniformIndexingNative"></a>
 <code>shaderInputAttachmentArrayNonUniformIndexingNative</code> is a boolean
 value indicating whether input attachment descriptors natively support
-nonuniform indexing.
+non-uniform indexing.
 If this is <code>VK_FALSE</code>, then a single dynamic instance of an
-instruction that nonuniformly indexes an array of input attachments <strong>may</strong>
-execute multiple times in order to access all the descriptors.</p>
+instruction that non-uniformly indexes an array of input attachments
+<strong>may</strong> execute multiple times in order to access all the descriptors.</p>
 </li>
 <li>
 <p><a id="extension-limits-robustBufferAccessUpdateAfterBind"></a>
@@ -5007,7 +5427,7 @@ is the maximum number of vertex streams that can be output from geometry
 shaders declared with the <code>GeometryStreams</code> capability.
 If the implementation does not support
 <code>VkPhysicalDeviceTransformFeedbackFeaturesEXT</code>::<code>geometryStreams</code>
-then <code>maxTransformFeedbackStreams</code> <strong>must</strong> be set to <code>1</code>.</p>
+then <code>maxTransformFeedbackStreams</code> <strong>must</strong> be <code>1</code>.</p>
 </li>
 <li>
 <p><a id="limits-maxTransformFeedbackBuffers"></a> <code>maxTransformFeedbackBuffers</code>
@@ -5588,6 +6008,76 @@ corresponding implementation-dependent property.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceCooperativeMatrix2PropertiesNV</code> structure is
+defined as:</p>
+</div>
+<div id="VkPhysicalDeviceCooperativeMatrix2PropertiesNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_cooperative_matrix2
+typedef struct VkPhysicalDeviceCooperativeMatrix2PropertiesNV {
+    VkStructureType    sType;
+    void*              pNext;
+    uint32_t           cooperativeMatrixWorkgroupScopeMaxWorkgroupSize;
+    uint32_t           cooperativeMatrixFlexibleDimensionsMaxDimension;
+    uint32_t           cooperativeMatrixWorkgroupScopeReservedSharedMemory;
+} VkPhysicalDeviceCooperativeMatrix2PropertiesNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="limits-cooperativeMatrixWorkgroupScopeMaxWorkgroupSize"></a>
+<code>cooperativeMatrixWorkgroupScopeMaxWorkgroupSize</code> is the maximum
+number of invocations in a workgroup when the module uses
+<code>OpTypeCooperativeMatrixKHR</code> with <code>Scope</code> equal to <code>Workgroup</code>.</p>
+</li>
+<li>
+<p><a id="limits-cooperativeMatrixFlexibleDimensionsMaxDimension"></a>
+<code>cooperativeMatrixFlexibleDimensionsMaxDimension</code> is the maximum
+supported dimension for cooperative matrix types when
+<a href="features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page"><code>cooperativeMatrixFlexibleDimensions</code></a>
+is enabled.</p>
+</li>
+<li>
+<p><a id="limits-cooperativeMatrixWorkgroupScopeReservedSharedMemory"></a>
+<code>cooperativeMatrixWorkgroupScopeReservedSharedMemory</code> is the number
+of bytes of shared memory reserved for the implementation when the
+module uses <code>OpTypeCooperativeMatrixKHR</code> with <code>Scope</code> equal to
+<code>Workgroup</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceCooperativeMatrix2PropertiesNV</code> structure is included in the <code>pNext</code> chain of the
+<a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> structure passed to
+<a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>, it is filled in with each
+corresponding implementation-dependent property.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceCooperativeMatrix2PropertiesNV-sType-sType" href="#VUID-VkPhysicalDeviceCooperativeMatrix2PropertiesNV-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceCooperativeMatrix2PropertiesNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceShaderSMBuiltinsPropertiesNV</code> structure is defined
 as:</p>
 </div>
@@ -5976,39 +6466,39 @@ in <a href="pipelines.html#VkGraphicsPipelineShaderGroupsCreateInfoNV" class="xr
 </li>
 <li>
 <p><code>maxIndirectSequenceCount</code> is the maximum number of sequences in
-<a href="VK_NV_device_generated_commands/generatedcommands.html#VkGeneratedCommandsInfoNV" class="xref page">VkGeneratedCommandsInfoNV</a> and in
-<a href="VK_NV_device_generated_commands/generatedcommands.html#VkGeneratedCommandsMemoryRequirementsInfoNV" class="xref page">VkGeneratedCommandsMemoryRequirementsInfoNV</a>.</p>
+<a href="device_generated_commands/generatedcommands.html#VkGeneratedCommandsInfoNV" class="xref page">VkGeneratedCommandsInfoNV</a> and in
+<a href="device_generated_commands/generatedcommands.html#VkGeneratedCommandsMemoryRequirementsInfoNV" class="xref page">VkGeneratedCommandsMemoryRequirementsInfoNV</a>.</p>
 </li>
 <li>
 <p><code>maxIndirectCommandsTokenCount</code> is the maximum number of tokens in
-<a href="VK_NV_device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutCreateInfoNV" class="xref page">VkIndirectCommandsLayoutCreateInfoNV</a>.</p>
+<a href="device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutCreateInfoNV" class="xref page">VkIndirectCommandsLayoutCreateInfoNV</a>.</p>
 </li>
 <li>
 <p><code>maxIndirectCommandsStreamCount</code> is the maximum number of streams in
-<a href="VK_NV_device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutCreateInfoNV" class="xref page">VkIndirectCommandsLayoutCreateInfoNV</a>.</p>
+<a href="device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutCreateInfoNV" class="xref page">VkIndirectCommandsLayoutCreateInfoNV</a>.</p>
 </li>
 <li>
 <p><code>maxIndirectCommandsTokenOffset</code> is the maximum offset in
-<a href="VK_NV_device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutTokenNV" class="xref page">VkIndirectCommandsLayoutTokenNV</a>.</p>
+<a href="device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutTokenNV" class="xref page">VkIndirectCommandsLayoutTokenNV</a>.</p>
 </li>
 <li>
 <p><code>maxIndirectCommandsStreamStride</code> is the maximum stream stride in
-<a href="VK_NV_device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutCreateInfoNV" class="xref page">VkIndirectCommandsLayoutCreateInfoNV</a>.</p>
+<a href="device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutCreateInfoNV" class="xref page">VkIndirectCommandsLayoutCreateInfoNV</a>.</p>
 </li>
 <li>
 <p><code>minSequencesCountBufferOffsetAlignment</code> is the minimum alignment
 for memory addresses which <strong>can</strong> be used in
-<a href="VK_NV_device_generated_commands/generatedcommands.html#VkGeneratedCommandsInfoNV" class="xref page">VkGeneratedCommandsInfoNV</a>.</p>
+<a href="device_generated_commands/generatedcommands.html#VkGeneratedCommandsInfoNV" class="xref page">VkGeneratedCommandsInfoNV</a>.</p>
 </li>
 <li>
 <p><code>minSequencesIndexBufferOffsetAlignment</code> is the minimum alignment
 for memory addresses which <strong>can</strong> be used in
-<a href="VK_NV_device_generated_commands/generatedcommands.html#VkGeneratedCommandsInfoNV" class="xref page">VkGeneratedCommandsInfoNV</a>.</p>
+<a href="device_generated_commands/generatedcommands.html#VkGeneratedCommandsInfoNV" class="xref page">VkGeneratedCommandsInfoNV</a>.</p>
 </li>
 <li>
 <p><code>minIndirectCommandsBufferOffsetAlignment</code> is the minimum alignment
-for memory addresses used in <a href="VK_NV_device_generated_commands/generatedcommands.html#VkIndirectCommandsStreamNV" class="xref page">VkIndirectCommandsStreamNV</a>, and as
-preprocess buffer in <a href="VK_NV_device_generated_commands/generatedcommands.html#VkGeneratedCommandsInfoNV" class="xref page">VkGeneratedCommandsInfoNV</a>.</p>
+for memory addresses used in <a href="device_generated_commands/generatedcommands.html#VkIndirectCommandsStreamNV" class="xref page">VkIndirectCommandsStreamNV</a>, and as
+preprocess buffer in <a href="device_generated_commands/generatedcommands.html#VkGeneratedCommandsInfoNV" class="xref page">VkGeneratedCommandsInfoNV</a>.</p>
 </li>
 </ul>
 </div>
@@ -6026,6 +6516,135 @@ corresponding implementation-dependent property.</p>
 <li>
 <p><a id="VUID-VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV-sType-sType" href="#VUID-VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT</code> structure is
+defined as:</p>
+</div>
+<div id="VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_device_generated_commands
+typedef struct VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT {
+    VkStructureType                        sType;
+    void*                                  pNext;
+    uint32_t                               maxIndirectPipelineCount;
+    uint32_t                               maxIndirectShaderObjectCount;
+    uint32_t                               maxIndirectSequenceCount;
+    uint32_t                               maxIndirectCommandsTokenCount;
+    uint32_t                               maxIndirectCommandsTokenOffset;
+    uint32_t                               maxIndirectCommandsIndirectStride;
+    VkIndirectCommandsInputModeFlagsEXT    supportedIndirectCommandsInputModes;
+    VkShaderStageFlags                     supportedIndirectCommandsShaderStages;
+    VkShaderStageFlags                     supportedIndirectCommandsShaderStagesPipelineBinding;
+    VkShaderStageFlags                     supportedIndirectCommandsShaderStagesShaderBinding;
+    VkBool32                               deviceGeneratedCommandsTransformFeedback;
+    VkBool32                               deviceGeneratedCommandsMultiDrawIndirectCount;
+} VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="limits-maxIndirectPipelineCount"></a> <code>maxIndirectPipelineCount</code> is
+the maximum number of pipelines passed to
+<a href="device_generated_commands/generatedcommands.html#vkCreateIndirectExecutionSetEXT" class="xref page">vkCreateIndirectExecutionSetEXT</a>.</p>
+</li>
+<li>
+<p><a id="limits-maxIndirectShaderObjectCount"></a>
+<code>maxIndirectShaderObjectCount</code> is the maximum number of shader
+objects passed to <a href="device_generated_commands/generatedcommands.html#vkCreateIndirectExecutionSetEXT" class="xref page">vkCreateIndirectExecutionSetEXT</a>.
+If this value is zero, binding shader objects indirectly is not
+supported.</p>
+</li>
+<li>
+<p><a id="limits-maxIndirectSequenceCount"></a> <code>maxIndirectSequenceCount</code> is
+the maximum number of sequences in <a href="device_generated_commands/generatedcommands.html#VkGeneratedCommandsInfoEXT" class="xref page">VkGeneratedCommandsInfoEXT</a> and
+in <a href="device_generated_commands/generatedcommands.html#VkGeneratedCommandsMemoryRequirementsInfoEXT" class="xref page">VkGeneratedCommandsMemoryRequirementsInfoEXT</a>.</p>
+</li>
+<li>
+<p><a id="limits-maxIndirectCommandsTokenCount"></a>
+<code>maxIndirectCommandsTokenCount</code> is the maximum number of tokens in
+<a href="device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutCreateInfoEXT" class="xref page">VkIndirectCommandsLayoutCreateInfoEXT</a>.</p>
+</li>
+<li>
+<p><a id="limits-maxIndirectCommandsTokenOffset"></a>
+<code>maxIndirectCommandsTokenOffset</code> is the maximum offset in
+<a href="device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutTokenEXT" class="xref page">VkIndirectCommandsLayoutTokenEXT</a>.</p>
+</li>
+<li>
+<p><a id="limits-maxIndirectCommandsIndirectStride"></a>
+<code>maxIndirectCommandsIndirectStride</code> is the maximum stream stride in
+<a href="device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutCreateInfoEXT" class="xref page">VkIndirectCommandsLayoutCreateInfoEXT</a>.</p>
+</li>
+<li>
+<p><a id="limits-supportedIndirectCommandsInputModes"></a>
+<code>supportedIndirectCommandsInputModes</code> indicates the supported input
+modes.</p>
+</li>
+<li>
+<p><a id="limits-supportedIndirectCommandsShaderStages"></a>
+<code>supportedIndirectCommandsShaderStages</code> indicates the stages which
+<strong>can</strong> be used to generate indirect commands.
+Implementations are required to support, at minimum:
+<code>VK_SHADER_STAGE_VERTEX_BIT</code>, <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>,
+<code>VK_SHADER_STAGE_COMPUTE_BIT</code>.</p>
+</li>
+<li>
+<p><a id="limits-supportedIndirectCommandsShaderStagesPipelineBinding"></a>
+<code>supportedIndirectCommandsShaderStagesPipelineBinding</code> indicates the
+stages which <strong>can</strong> be used within indirect execution sets for indirectly
+binding shader stages using pipelines.</p>
+</li>
+<li>
+<p><a id="limits-supportedIndirectCommandsShaderStagesShaderBinding"></a>
+<code>supportedIndirectCommandsShaderStagesShaderBinding</code> indicates the
+stages which <strong>can</strong> be used within indirect execution sets for indirectly
+binding shader stages using shader objects.</p>
+</li>
+<li>
+<p><a id="limits-deviceGeneratedCommandsTransformFeedback"></a>
+<code>deviceGeneratedCommandsTransformFeedback</code> indicates whether the
+implementation supports interactions with
+<code><a href="../appendices/extensions.html#VK_EXT_transform_feedback" class="xref page">VK_EXT_transform_feedback</a></code> for pipelines not created with
+<code>VK_PIPELINE_CREATE_2_INDIRECT_BINDABLE_BIT_EXT</code>.</p>
+</li>
+<li>
+<p><a id="limits-deviceGeneratedCommandsMultiDrawIndirectCount"></a>
+<code>deviceGeneratedCommandsMultiDrawIndirectCount</code> indicates whether
+the implementation supports COUNT variants of multi-draw indirect
+tokens.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT</code> structure is included in the <code>pNext</code> chain of the
+<a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> structure passed to
+<a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>, it is filled in with each
+corresponding implementation-dependent property.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT-sType-sType" href="#VUID-VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_EXT</code></p>
 </li>
 </ul>
 </div>
@@ -6229,7 +6848,7 @@ to the product of the <code>width</code> and <code>height</code> members of
 <code>maxFragmentSize</code>, and the sample count reported by
 <code>maxFragmentShadingRateRasterizationSamples</code>.
 <code>maxFragmentShadingRateCoverageSamples</code> <strong>must</strong> be less than or equal
-to <span class="eq"><code>maxSampleMaskWords</code> × 32</span> if
+to <span class="eq"><code>maxSampleMaskWords</code> {times} 32</span> if
 <code>fragmentShadingRateWithShaderSampleMask</code> is supported.
 This limit is purely informational, and is not validated.</p>
 </li>
@@ -6315,7 +6934,6 @@ implementations <strong>should</strong> report this as <code>VK_TRUE</code>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Multiplication of the combiner rates using the fragment width/height in
 linear space is equivalent to an addition of those values in log2 space.
@@ -6951,9 +7569,9 @@ corresponding implementation-dependent property.</p>
 are supported in <a href="copies.html#VkCopyMemoryToImageInfoEXT" class="xref page">VkCopyMemoryToImageInfoEXT</a>::<code>dstImageLayout</code> and
 <a href="copies.html#VkCopyImageToImageInfoEXT" class="xref page">VkCopyImageToImageInfoEXT</a>::<code>dstImageLayout</code> is returned in
 <code>copyDstLayoutCount</code>.
-Otherwise, <code>copyDstLayoutCount</code> <strong>must</strong> be set by the user to the number
-of elements in the <code>pCopyDstLayouts</code> array, and on return the variable
-is overwritten with the number of values actually written to
+Otherwise, <code>copyDstLayoutCount</code> <strong>must</strong> be set by the application to the
+number of elements in the <code>pCopyDstLayouts</code> array, and on return the
+variable is overwritten with the number of values actually written to
 <code>pCopyDstLayouts</code>.
 If the value of <code>copyDstLayoutCount</code> is less than the number of image
 layouts that are supported, at most <code>copyDstLayoutCount</code> values will be
@@ -6966,9 +7584,9 @@ layout in <code>pCopyDstLayouts</code>.</p>
 are supported in <a href="copies.html#VkCopyImageToMemoryInfoEXT" class="xref page">VkCopyImageToMemoryInfoEXT</a>::<code>srcImageLayout</code> and
 <a href="copies.html#VkCopyImageToImageInfoEXT" class="xref page">VkCopyImageToImageInfoEXT</a>::<code>srcImageLayout</code> is returned in
 <code>copySrcLayoutCount</code>.
-Otherwise, <code>copySrcLayoutCount</code> <strong>must</strong> be set by the user to the number
-of elements in the <code>pCopySrcLayouts</code> array, and on return the variable
-is overwritten with the number of values actually written to
+Otherwise, <code>copySrcLayoutCount</code> <strong>must</strong> be set by the application to the
+number of elements in the <code>pCopySrcLayouts</code> array, and on return the
+variable is overwritten with the number of values actually written to
 <code>pCopySrcLayouts</code>.
 If the value of <code>copySrcLayoutCount</code> is less than the number of image
 layouts that are supported, at most <code>copySrcLayoutCount</code> values will be
@@ -7318,7 +7936,6 @@ versions if the algorithm used to compute an identifier is the same.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The algorithm UUID may be the same in different ICDs if the algorithms are
 guaranteed to produce the same results.
@@ -7835,7 +8452,6 @@ the implementation will actually reorder at the reorder calls.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Because the extension changes how hits are managed there is a compatibility
 reason to expose the extension even when an implementation does not have
@@ -7901,7 +8517,7 @@ These three value represent the maximum local workgroup count in the X,
 Y and Z dimensions, respectively.
 In the current implementation, the values of Y and Z are both implicitly
 set as one.
-groupCountX of DrawCluster command must be less than or equal to
+groupCountX of DrawCluster command <strong>must</strong> be less than or equal to
 maxWorkGroupCount[0].</p>
 </li>
 <li>
@@ -7911,7 +8527,7 @@ maxWorkGroupCount[0].</p>
     The x, y and z sizes, as specified by the <code>LocalSize</code>
 or <code>LocalSizeId</code>
     execution mode or by the object decorated by the WorkgroupSize
-    decoration in shader modules, must be less than or equal to the
+    decoration in shader modules, <strong>must</strong> be less than or equal to the
     corresponding limit.
     In the current implementation, the maximum workgroup size of the X
     dimension is 32, the others are 1.</p>
@@ -7923,8 +8539,8 @@ single cluster culling shader workgroup can emit.</p>
 <li>
 <p><code>indirectBufferOffsetAlignment</code> indicates the alignment for cluster
 drawing command buffer stride.
-<a href="drawing.html#vkCmdDrawClusterIndirectHUAWEI" class="xref page">vkCmdDrawClusterIndirectHUAWEI</a>::<code>offset</code> must be a multiple of
-this value.</p>
+<a href="drawing.html#vkCmdDrawClusterIndirectHUAWEI" class="xref page">vkCmdDrawClusterIndirectHUAWEI</a>::<code>offset</code> <strong>must</strong> be a multiple
+of this value.</p>
 </li>
 </ul>
 </div>
@@ -8095,6 +8711,8 @@ typedef struct VkPhysicalDeviceShaderEnqueuePropertiesAMDX {
     uint32_t           maxExecutionGraphShaderPayloadSize;
     uint32_t           maxExecutionGraphShaderPayloadCount;
     uint32_t           executionGraphDispatchAddressAlignment;
+    uint32_t           maxExecutionGraphWorkgroupCount[3];
+    uint32_t           maxExecutionGraphWorkgroups;
 } VkPhysicalDeviceShaderEnqueuePropertiesAMDX;</code></pre>
 </div>
 </div>
@@ -8122,8 +8740,8 @@ If a node enqueues itself, each recursive enqueue increases the depth by
 <li>
 <p><a id="limits-maxExecutionGraphShaderOutputNodes"></a>
 <code>maxExecutionGraphShaderOutputNodes</code> specifies the maximum number of
-unique nodes that can be dispatched from a single shader, and must be at
-least 256.</p>
+unique nodes that can be dispatched from a single shader, and <strong>must</strong> be
+at least 256.</p>
 </li>
 <li>
 <p><a id="limits-maxExecutionGraphShaderPayloadSize"></a>
@@ -8145,6 +8763,17 @@ of output payloads that can be initialized in a single workgroup.</p>
 <code>executionGraphDispatchAddressAlignment</code> specifies the alignment of
 non-scratch <code>VkDeviceAddress</code> arguments consumed by graph
 dispatch commands.</p>
+</li>
+<li>
+<p><a id="limits-maxExecutionGraphWorkgroupCount"></a>
+<code>maxExecutionGraphWorkgroupCount</code>[3] is the maximum number of local
+workgroups that a shader <strong>can</strong> be dispatched with in X, Y, and Z
+dimensions, respectively.</p>
+</li>
+<li>
+<p><a id="limits-maxExecutionGraphWorkgroups"></a> <code>maxExecutionGraphWorkgroups</code>
+is the total number of local workgroups that a shader <strong>can</strong> be dispatched
+with.</p>
 </li>
 </ul>
 </div>
@@ -8375,6 +9004,124 @@ corresponding implementation-dependent property.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDevicePipelineBinaryPropertiesKHR</code> structure is defined
+as:</p>
+</div>
+<div id="VkPhysicalDevicePipelineBinaryPropertiesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_pipeline_binary
+typedef struct VkPhysicalDevicePipelineBinaryPropertiesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           pipelineBinaryInternalCache;
+    VkBool32           pipelineBinaryInternalCacheControl;
+    VkBool32           pipelineBinaryPrefersInternalCache;
+    VkBool32           pipelineBinaryPrecompiledInternalCache;
+    VkBool32           pipelineBinaryCompressedData;
+} VkPhysicalDevicePipelineBinaryPropertiesKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="limits-pipelineBinaryInternalCache"></a> <code>pipelineBinaryInternalCache</code>
+specifies that the implementation maintains a pipeline cache internal to
+the implementation.
+If this is <code>VK_TRUE</code>, applications <strong>can</strong> create pipeline binaries
+with only a pipeline create info, and in this case, an implementation
+<strong>may</strong> be able to create a pipeline binary directly without application
+needing to capture the binary itself.</p>
+</li>
+<li>
+<p><a id="limits-pipelineBinaryInternalCacheControl"></a>
+<code>pipelineBinaryInternalCacheControl</code> specifies whether the driver&#8217;s
+internal cache <strong>can</strong> be disabled.
+If this property is <code>VK_TRUE</code>
+<a href="devsandqueues.html#VkDevicePipelineBinaryInternalCacheControlKHR" class="xref page">VkDevicePipelineBinaryInternalCacheControlKHR</a>::<code>disableInternalCache</code>
+<strong>can</strong> be used to disable the driver&#8217;s internal cache, allowing an
+application to take full control of both memory and disk usage.</p>
+</li>
+<li>
+<p><a id="limits-pipelineBinaryPrefersInternalCache"></a>
+<code>pipelineBinaryPrefersInternalCache</code> specifies that the
+implementation prefers to maintain an internal cache, and applications
+<strong>should</strong> not store pipeline binaries in their own on-disk caches to avoid
+increased on-disk storage requirements.
+Applications are encouraged to only store pipeline keys instead, and aim
+to create pipeline binaries from key alone on subsequent runs of the
+application.</p>
+</li>
+<li>
+<p><a id="limits-pipelineBinaryPrecompiledInternalCache"></a>
+<code>pipelineBinaryPrecompiledInternalCache</code> specifies that the
+implementation <strong>may</strong> have pipeline binaries in its internal cache, which
+is populated without the application ever having generated that pipeline
+itself.
+Applications <strong>can</strong> attempt to create binaries without extracting pipeline
+binary data from the pipeline prior for a set of pipeline keys,
+including from previous runs of the application.</p>
+</li>
+<li>
+<p><a id="limits-pipelineBinaryCompressedData"></a>
+<code>pipelineBinaryCompressedData</code> specifies that the binary data is
+already compressed and so applications <strong>should</strong> not attempt to compress
+it.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>These properties tend to be platform specific and may change depending on
+external configuration which is outside the scope of this specification.
+These properties are intended to guide applications when implementations
+have dedicated caching solutions available.
+In particular, if the <code>pipelineBinaryPrefersInternalCache</code> limit is
+exposed, relying on the internal cache may provide some advantage compared
+to an application-specific solution.
+An application with its own dedicated solution may still use its own caching
+system even with this limit exposed.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDevicePipelineBinaryPropertiesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> structure passed to
+<a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>, it is filled in with each
+corresponding implementation-dependent property.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDevicePipelineBinaryPropertiesKHR-sType-sType" href="#VUID-VkPhysicalDevicePipelineBinaryPropertiesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDevicePipelineBinaryPropertiesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_BINARY_PROPERTIES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceRenderPassStripedPropertiesARM</code> structure is
 defined as:</p>
 </div>
@@ -8427,6 +9174,58 @@ corresponding implementation-dependent property.</p>
 <li>
 <p><a id="VUID-VkPhysicalDeviceRenderPassStripedPropertiesARM-sType-sType" href="#VUID-VkPhysicalDeviceRenderPassStripedPropertiesARM-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceRenderPassStripedPropertiesARM-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RENDER_PASS_STRIPED_PROPERTIES_ARM</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR</code> structure is
+defined as:</p>
+</div>
+<div id="VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_compute_shader_derivatives
+typedef struct VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           meshAndTaskShaderDerivatives;
+} VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The members of the
+<code>VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR</code> structure
+describe the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="limits-meshAndTaskShaderDerivatives"></a>
+<code>meshAndTaskShaderDerivatives</code> indicates whether the mesh and task
+shader stages support the <code>ComputeDerivativeGroupQuadsKHR</code> and
+<code>ComputeDerivativeGroupLinearKHR</code> SPIR-V capabilities.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="devsandqueues.html#VkPhysicalDeviceProperties2" class="xref page">VkPhysicalDeviceProperties2</a> structure passed to
+<a href="devsandqueues.html#vkGetPhysicalDeviceProperties2" class="xref page">vkGetPhysicalDeviceProperties2</a>, it is filled in with each
+corresponding implementation-dependent property.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR-sType-sType" href="#VUID-VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceComputeShaderDerivativesPropertiesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COMPUTE_SHADER_DERIVATIVES_PROPERTIES_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -8547,6 +9346,8 @@ corresponding implementation-dependent property.</p>
 <div class="sect1">
 <h2 id="limits-minmax"><a class="anchor" href="#limits-minmax"></a>Limit Requirements</h2>
 <div class="sectionbody">
+<div class="openblock">
+<div class="content">
 <div class="paragraph">
 <p>The following table specifies the <strong>required</strong> minimum/maximum for all Vulkan
 graphics implementations.
@@ -8832,7 +9633,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxComputeWorkGroupCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
@@ -8842,7 +9643,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxComputeWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
@@ -8887,12 +9688,12 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>multiViewport</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxViewportDimensions</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>float</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>viewportBoundsRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
@@ -9062,12 +9863,12 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>float</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>pointSizeRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>largePoints</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>float</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>float</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>lineWidthRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>wideLines</code></p></td>
 </tr>
@@ -9314,7 +10115,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_mesh_shader" class="xref page">VK_NV_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesNV">VkPhysicalDeviceMeshShaderPropertiesNV</a>::<code>maxTaskWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_mesh_shader" class="xref page">VK_NV_mesh_shader</a></code></p></td>
 </tr>
@@ -9334,7 +10135,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_mesh_shader" class="xref page">VK_NV_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesNV">VkPhysicalDeviceMeshShaderPropertiesNV</a>::<code>maxMeshWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_mesh_shader" class="xref page">VK_NV_mesh_shader</a></code></p></td>
 </tr>
@@ -9374,7 +10175,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesEXT">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxTaskWorkGroupCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
@@ -9384,7 +10185,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesEXT">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxTaskWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
@@ -9409,7 +10210,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesEXT">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
@@ -9419,7 +10220,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkPhysicalDeviceMeshShaderPropertiesEXT">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_mesh_shader" class="xref page">VK_EXT_mesh_shader</a></code></p></td>
 </tr>
@@ -9596,7 +10397,7 @@ whether or not the feature is enabled.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="fundamentals.html#VkExtent2D" class="xref page">VkExtent2D</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>fragmentDensityOffsetGranularity</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-fragmentDensityMapOffsets" class="xref page"><code>fragmentDensityMapOffset</code></a></code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-fragmentDensityMapOffset" class="xref page"><code>fragmentDensityMapOffset</code></a></code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
@@ -9709,12 +10510,12 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_EXT_robustness2" class="xref page">VK_EXT_robustness2</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>minFragmentShadingRateAttachmentTexelSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-attachmentFragmentShadingRate" class="xref page"><code>attachmentFragmentShadingRate</code></a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxFragmentShadingRateAttachmentTexelSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-attachmentFragmentShadingRate" class="xref page"><code>attachmentFragmentShadingRate</code></a></code></p></td>
 </tr>
@@ -9739,7 +10540,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-pipelineFragmentShadingRate" class="xref page"><code>pipelineFragmentShadingRate</code></a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxFragmentSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-pipelineFragmentShadingRate" class="xref page"><code>pipelineFragmentShadingRate</code></a></code></p></td>
 </tr>
@@ -9994,17 +10795,17 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-textureSampleWeighted" class="xref page"><code>textureSampleWeighted</code></a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxWeightFilterDimension</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-textureSampleWeighted" class="xref page"><code>textureSampleWeighted</code></a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxBlockMatchRegion</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-textureBlockMatch" class="xref page"><code>textureBlockMatch</code></a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxBoxFilterBlockSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-textureBoxFilter" class="xref page"><code>textureBoxFilter</code></a></code></p></td>
 </tr>
@@ -10029,12 +10830,12 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_NV_memory_decompression" class="xref page">VK_NV_memory_decompression</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxWorkGroupCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader" class="xref page">VK_HUAWEI_cluster_culling_shader</a></code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3 × <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxWorkGroupSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader" class="xref page">VK_HUAWEI_cluster_culling_shader</a></code></p></td>
 </tr>
@@ -10074,6 +10875,26 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-shaderEnqueue" class="xref page"><code>shaderEnqueue</code></a></code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxExecutionGraphVertexBufferBindings</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-shaderEnqueue" class="xref page"><code>shaderEnqueue</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 {times} <code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxExecutionGraphWorkgroupCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-shaderEnqueue" class="xref page"><code>shaderEnqueue</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxExecutionGraphWorkgroups</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-shaderEnqueue" class="xref page"><code>shaderEnqueue</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectShaderObjectCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a></code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkDeviceSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>extendedSparseAddressSpaceSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sparseBinding</code>, <code><a href="features.html#features-extendedSparseAddressSpace" class="xref page"><code>extendedSparseAddressSpace</code></a></code></p></td>
@@ -10082,6 +10903,56 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>supportedImageAlignmentMask</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-imageAlignmentControl" class="xref page"><code>imageAlignmentControl</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkBool32</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>separateDepthStencilAttachmentAccess</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetTotalUniformBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetTotalStorageBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetTotalBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindTotalBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cooperativeMatrixWorkgroupScopeMaxWorkgroupSize</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-cooperativeMatrixWorkgroupScope" class="xref page"><code>cooperativeMatrixWorkgroupScope</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cooperativeMatrixFlexibleDimensionsMaxDimension</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page"><code>cooperativeMatrixFlexibleDimensions</code></a></code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>uint32_t</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cooperativeMatrixWorkgroupScopeReservedSharedMemory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code><a href="features.html#features-cooperativeMatrixWorkgroupScope" class="xref page"><code>cooperativeMatrixWorkgroupScope</code></a></code></p></td>
 </tr>
 </tbody>
 </table>
@@ -10232,13 +11103,13 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetSamplers</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">96 <sup>8</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUniformBuffers</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">72 <sup>8</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUniformBuffersDynamic</code></p></td>
@@ -10250,7 +11121,7 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetStorageBuffers</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">24 <sup>8</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetStorageBuffersDynamic</code></p></td>
@@ -10259,16 +11130,34 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetTotalUniformBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUniformBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetTotalStorageBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetStorageBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetTotalBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq"><code>maxDescriptorSetUniformBuffersDynamic</code> &#43; <code>maxDescriptorSetStorageBuffersDynamic</code></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetSampledImages</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">96 <sup>8</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetStorageImages</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">24 <sup>8</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetInputAttachments</code></p></td>
@@ -10693,13 +11582,13 @@ whether or not the feature is enabled.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>pointSizeRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">(1.0,1.0)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(1.0,64.0 - ULP)<sup>6</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(1.0,64.0 - ULP) <sup>6</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">(max,min)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>lineWidthRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">(1.0,1.0)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">(1.0,8.0 - ULP)<sup>7</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(1.0,8.0 - ULP) <sup>7</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">(max,min)</p></td>
 </tr>
 <tr>
@@ -10974,91 +11863,109 @@ whether or not the feature is enabled.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxPerStageDescriptorUpdateAfterBindSamplers</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500000 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxPerStageDescriptorUpdateAfterBindUniformBuffers</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">12 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxPerStageDescriptorUpdateAfterBindStorageBuffers</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500000 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxPerStageDescriptorUpdateAfterBindSampledImages</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500000 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxPerStageDescriptorUpdateAfterBindStorageImages</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500000 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxPerStageDescriptorUpdateAfterBindInputAttachments</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxPerStageUpdateAfterBindResources</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500000 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindSamplers</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500000 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindUniformBuffers</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">72 <sup>8</sup> <sup>9</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> × PerStage</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min, <em>n</em> {times} PerStage</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindUniformBuffersDynamic</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">8 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindStorageBuffers</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500000 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindStorageBuffersDynamic</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindUniformBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindStorageBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindTotalBuffersDynamic</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq"><code>maxDescriptorSetUpdateAfterBindUniformBuffersDynamic</code> &#43; <code>maxDescriptorSetUpdateAfterBindStorageBuffersDynamic</code></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindSampledImages</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500000 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindStorageImages</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">500000 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDescriptorSetUpdateAfterBindInputAttachments</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0<sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4 <sup>9</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
@@ -11591,27 +12498,9 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectSequenceCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectCommandsStreamCount</code> +  (for NV extension)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2<sup>20</sup></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectCommandsTokenCount</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectCommandsStreamCount</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectCommandsTokenOffset</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2047</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2<sup>12</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
@@ -11619,6 +12508,12 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2048</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>minIndirectCommandsBufferOffsetAlignment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">256</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>minSequencesCountBufferOffsetAlignment</code></p></td>
@@ -11633,10 +12528,76 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>minIndirectCommandsBufferOffsetAlignment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectSequenceCount</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">256</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2<sup>20</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectCommandsTokenCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectCommandsTokenOffset</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2047</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectPipelineCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2<sup>12</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>deviceGeneratedCommandsTransformFeedback</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">implementation-dependent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>deviceGeneratedCommandsMultiDrawIndirectCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">implementation-dependent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectShaderObjectCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2<sup>12</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">implementation-dependent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIndirectCommandsIndirectStride</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2048</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>supportedIndirectCommandsInputModes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_INDIRECT_COMMANDS_INPUT_MODE_VULKAN_INDEX_BUFFER_EXT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>supportedIndirectCommandsShaderStages</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(<code>VK_SHADER_STAGE_COMPUTE_BIT</code> | <code>VK_SHADER_STAGE_VERTEX_BIT</code> | <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>supportedIndirectCommandsShaderStagesPipelineBinding</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>supportedIndirectCommandsShaderStagesShaderBinding</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxCustomBorderColorSamplers</code></p></td>
@@ -11935,13 +12896,13 @@ whether or not the feature is enabled.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxSamplerDescriptorBufferRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">2<sup>11</sup> × <code>samplerDescriptorSize</code></span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">2<sup>11</sup> {times} <code>samplerDescriptorSize</code></span></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxResourceDescriptorBufferRange</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">(2<sup>20</sup> - 2<sup>15</sup>) × <code>maxResourceDescriptorSize</code></span> <sup>12</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">(2<sup>20</sup> - 2<sup>15</sup>) {times} <code>maxResourceDescriptorSize</code></span> <sup>12</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
 <tr>
@@ -12107,6 +13068,24 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxExecutionGraphVertexBufferBindings</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1024</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxExecutionGraphWorkgroupCount</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(65535,65535,65535)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxExecutionGraphWorkgroups</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2<sup>24</sup>-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>extendedSparseAddressSpaceSize</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sparseAddressSpaceSize</code></p></td>
@@ -12135,6 +13114,30 @@ whether or not the feature is enabled.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>separateDepthStencilAttachmentAccess</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">false</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">implementation-dependent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cooperativeMatrixWorkgroupScopeMaxWorkgroupSize</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq">subgroupSize {times} 2</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cooperativeMatrixFlexibleDimensionsMaxDimension</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">256</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>cooperativeMatrixWorkgroupScopeReservedSharedMemory</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><span class="eq"><code>maxComputeSharedMemorySize</code> / 2</span></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
 </tr>
 </tbody>
 </table>
@@ -12233,6 +13236,8 @@ required minimum value of <code>maxVertexInputBindings</code> is <code>8</code>.
 <code>accelerationStructureDescriptorSize</code>.</p>
 </dd>
 </dl>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -12614,12 +13619,6 @@ profile <strong>must</strong> satisfy the following additional limit requirement
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

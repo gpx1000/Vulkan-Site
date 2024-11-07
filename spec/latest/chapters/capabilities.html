@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -341,6 +339,9 @@
 <h1 class="page">Additional Capabilities</h1>
 <div id="preamble">
 <div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/capabilities.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
 <div class="paragraph">
 <p>This chapter describes additional capabilities beyond the minimum
 capabilities described in the <a href="limits.html#limits" class="xref page">Limits</a> and <a href="formats.html#formats" class="xref page">Formats</a>
@@ -602,7 +603,7 @@ support is not required</p>
 </li>
 <li>
 <p>image <code>format</code> is one of the
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a     sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a></p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a     sampler {YCbCr} conversion</a></p>
 </li>
 <li>
 <p><code>flags</code> contains <code>VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT</code></p>
@@ -627,7 +628,7 @@ of the following conditions is true, in which case it <strong>may</strong> inste
 </li>
 <li>
 <p><code>format</code> is one of the
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a     sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a></p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a     sampler {YCbCr} conversion</a></p>
 </li>
 </ul>
 </div>
@@ -657,7 +658,6 @@ resource, which is advertised by this property.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>There is no mechanism to query the size of an image before creating it, to
 compare that size against <code>maxResourceSize</code>.
@@ -685,7 +685,6 @@ implementation for use in <a href="resources.html#vkCreateImage" class="xref pag
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Filling <code>VkImageFormatProperties</code> with zero for unsupported formats is
 an exception to the usual rule that output structures have <strong>undefined</strong>
@@ -1320,7 +1319,6 @@ implementation for use in <a href="resources.html#vkCreateImage" class="xref pag
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Filling <code>imageFormatProperties</code> with zero for unsupported formats is an
 exception to the usual rule that output structures have <strong>undefined</strong> contents
@@ -1393,7 +1391,7 @@ structure.</p>
 used with texture gather bias/LOD functions, as introduced by the
 <code><a href="../appendices/extensions.html#VK_AMD_texture_gather_bias_lod" class="xref page">VK_AMD_texture_gather_bias_lod</a></code> extension.
 This field is set by the implementation.
-User-specified value is ignored.</p>
+An application-specified value is ignored.</p>
 </li>
 </ul>
 </div>
@@ -1656,7 +1654,7 @@ underlying physical device and/or the same driver version, as defined in the
 following table:</p>
 </div>
 <table id="external-memory-handle-types-compatibility" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 1. External memory handle types compatibility</caption>
+<caption class="title">Table 1. External Memory Handle Types Compatibility</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -1665,8 +1663,8 @@ following table:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Handle type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>driverUUID</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>deviceUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>driverUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>deviceUUID</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT</code></p></td>
@@ -1747,7 +1745,6 @@ following table:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The above table does not restrict the drivers and devices with which
 <code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT</code> and
@@ -1767,7 +1764,6 @@ device, respectively.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Even though the above table does not restrict the drivers and devices with
 which <code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT</code> <strong>may</strong> be shared,
@@ -2216,7 +2212,7 @@ format.</p>
 <div class="paragraph">
 <p><code>combinedImageSamplerDescriptorCount</code> is a number between 1 and the
 number of planes in the format.
-A descriptor set layout binding with immutable Y′C<sub>B</sub>C<sub>R</sub> conversion samplers
+A descriptor set layout binding with immutable {YCbCr} conversion samplers
 will have a maximum <code>combinedImageSamplerDescriptorCount</code> which is the
 maximum across all formats supported by its samplers of the
 <code>combinedImageSamplerDescriptorCount</code> for each format.
@@ -2236,7 +2232,6 @@ pool when a descriptor set is allocated, and counts towards the
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>All descriptors in a binding use the same maximum
 <code>combinedImageSamplerDescriptorCount</code> descriptors to allow
@@ -2263,7 +2258,7 @@ this layout, <code>descriptorCount</code> must be at least <code>24</code>.</p>
 in the descriptor layout, the application <strong>can</strong> use the
 <a href="limits.html#VkPhysicalDeviceMaintenance6PropertiesKHR" class="xref page">VkPhysicalDeviceMaintenance6PropertiesKHR</a>::<code>maxCombinedImageSamplerDescriptorCount</code>
 property to determine the maximum descriptor size that will accommodate any
-and all <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> supported by the implementation.</p>
+and all <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler {YCbCr} conversion</a> supported by the implementation.</p>
 </div>
 <div class="openblock">
 <div class="content">
@@ -2316,7 +2311,6 @@ usages or flags are requested.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Requiring at least one GPU usage flag ensures that Android hardware buffer
 memory will be allocated in a memory pool accessible to the Vulkan
@@ -2421,7 +2415,6 @@ returns <code>VK_SUCCESS</code>, the implementation <strong>must</strong> return
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Applications can make use of <code>optimalDeviceAccess</code> to determine their
 resource copying strategy.
@@ -2440,7 +2433,6 @@ likely better to use device copies instead.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Layout not being identical yet still considered optimal for device access
 could happen if the implementation has different memory layout patterns,
@@ -2457,7 +2449,6 @@ some of which are easier to access on the host.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The most practical reason for <code>optimalDeviceAccess</code> to be <code>VK_FALSE</code>
 is that host image access may disable framebuffer compression where it would
@@ -2576,13 +2567,13 @@ structure.</p>
 <p><code>filterCubic</code> tells if image format, image type and image view type
 <strong>can</strong> be used with cubic filtering.
 This field is set by the implementation.
-User-specified value is ignored.</p>
+An application-specified value is ignored.</p>
 </li>
 <li>
 <p><code>filterCubicMinmax</code> tells if image format, image type and image view
 type <strong>can</strong> be used with cubic filtering and minmax filtering.
 This field is set by the implementation.
-User-specified value is ignored.</p>
+An application-specified value is ignored.</p>
 </li>
 </ul>
 </div>
@@ -2628,8 +2619,8 @@ structure, the <code>pNext</code> chain of the
 sample counts for the image parameters.</p>
 </div>
 <div class="paragraph">
-<p><code>sampleCounts</code> will be set to <code>VK_SAMPLE_COUNT_1_BIT</code> if at least
-one of the following conditions is true:</p>
+<p><code>sampleCounts</code> will be <code>VK_SAMPLE_COUNT_1_BIT</code> if at least one of
+the following conditions is true:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2654,7 +2645,7 @@ external handle type for which multisampled image support is not
 required.</p>
 </li>
 <li>
-<p><code>format</code> is one of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">    formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a></p>
+<p><code>format</code> is one of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">    formats that require a sampler {YCbCr} conversion</a></p>
 </li>
 <li>
 <p><code>usage</code> contains
@@ -2741,7 +2732,6 @@ the constraints below.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Implementations <strong>must</strong> support images with dimensions up to the
 <a href="limits.html#limits-minmax" class="xref page">required minimum/maximum values</a> for all types of images.
@@ -2758,7 +2748,7 @@ values that are at least as large as the required values.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><span class="eq"><code>maxExtent.width</code> ≥
+<p><span class="eq"><code>maxExtent.width</code> {geq}
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension1D</code></span></p>
 </li>
 <li>
@@ -2776,11 +2766,11 @@ values that are at least as large as the required values.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><span class="eq"><code>maxExtent.width</code> ≥
+<p><span class="eq"><code>maxExtent.width</code> {geq}
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension2D</code></span></p>
 </li>
 <li>
-<p><span class="eq"><code>maxExtent.height</code> ≥
+<p><span class="eq"><code>maxExtent.height</code> {geq}
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension2D</code></span></p>
 </li>
 <li>
@@ -2795,11 +2785,11 @@ values that are at least as large as the required values.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><span class="eq"><code>maxExtent.width</code> ≥
+<p><span class="eq"><code>maxExtent.width</code> {geq}
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimensionCube</code></span></p>
 </li>
 <li>
-<p><span class="eq"><code>maxExtent.height</code> ≥
+<p><span class="eq"><code>maxExtent.height</code> {geq}
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimensionCube</code></span></p>
 </li>
 <li>
@@ -2813,15 +2803,15 @@ values that are at least as large as the required values.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><span class="eq"><code>maxExtent.width</code> ≥
+<p><span class="eq"><code>maxExtent.width</code> {geq}
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension3D</code></span></p>
 </li>
 <li>
-<p><span class="eq"><code>maxExtent.height</code> ≥
+<p><span class="eq"><code>maxExtent.height</code> {geq}
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension3D</code></span></p>
 </li>
 <li>
-<p><span class="eq"><code>maxExtent.depth</code> ≥
+<p><span class="eq"><code>maxExtent.depth</code> {geq}
 <a href="limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxImageDimension3D</code></span></p>
 </li>
 </ul>
@@ -2954,8 +2944,8 @@ associated with the buffer.</p>
 <div class="paragraph">
 <p>Only usage flags representable in <a href="resources.html#VkBufferUsageFlagBits" class="xref page">VkBufferUsageFlagBits</a> are returned
 in this structure&#8217;s <code>usage</code>.
-If a <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a> structure is present in the
-<code>pNext</code> chain, all usage flags of the buffer are returned in
+If the <code>pNext</code> chain includes a <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a>
+structure, all usage flags of the buffer are returned in
 <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a>::<code>usage</code>.</p>
 </div>
 <div class="sidebarblock">
@@ -2969,7 +2959,7 @@ If a <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page"
 
 If the <code>pNext</code> chain does not include a
 <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a> structure,
-<code>usage</code> must be a valid combination of <a href="resources.html#VkBufferUsageFlagBits" class="xref page">VkBufferUsageFlagBits</a>
+<code>usage</code> <strong>must</strong> be a valid combination of <a href="resources.html#VkBufferUsageFlagBits" class="xref page">VkBufferUsageFlagBits</a>
 values</p>
 </li>
 <li>
@@ -2978,7 +2968,7 @@ values</p>
 
 If the <code>pNext</code> chain does not include a
 <a href="resources.html#VkBufferUsageFlags2CreateInfoKHR" class="xref page">VkBufferUsageFlags2CreateInfoKHR</a> structure,
-<code>usage</code> must not be 0</p>
+<code>usage</code> <strong>must</strong> not be 0</p>
 </li>
 </ul>
 </div>
@@ -3333,7 +3323,6 @@ waiting.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Handles of type <code>VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT</code>
 generated by the implementation may represent either Linux Sync Files or
@@ -3354,7 +3343,7 @@ underlying physical device and/or the same driver version, as defined in the
 following table:</p>
 </div>
 <table id="external-semaphore-handle-types-compatibility" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. External semaphore handle types compatibility</caption>
+<caption class="title">Table 2. External Semaphore Handle Types Compatibility</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -3363,8 +3352,8 @@ following table:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Handle type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>driverUUID</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>deviceUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>driverUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>deviceUUID</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT</code></p></td>
@@ -3479,7 +3468,7 @@ creating a semaphore.</p>
 <div class="paragraph">
 <p>If <code>handleType</code> is not supported by the implementation, then
 <a href="#VkExternalSemaphoreProperties">VkExternalSemaphoreProperties</a>::<code>externalSemaphoreFeatures</code> will be
-set to zero.</p>
+zero.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -3687,7 +3676,6 @@ returned.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Handles of type <code>VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT</code> generated by
 the implementation may represent either Linux Sync Files or Android Fences
@@ -3825,7 +3813,7 @@ underlying physical device and/or the same driver version, as defined in the
 following table:</p>
 </div>
 <table id="external-fence-handle-types-compatibility" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 3. External fence handle types compatibility</caption>
+<caption class="title">Table 3. External Fence Handle Types Compatibility</caption>
 <colgroup>
 <col style="width: 33.3333%;">
 <col style="width: 33.3333%;">
@@ -3834,8 +3822,8 @@ following table:</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Handle type</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>driverUUID</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code><wbr>::<code>deviceUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>driverUUID</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VkPhysicalDeviceIDProperties</code>{wbro}::<code>deviceUUID</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_FD_BIT</code></p></td>
@@ -3932,8 +3920,7 @@ fence.</p>
 </div>
 <div class="paragraph">
 <p>If <code>handleType</code> is not supported by the implementation, then
-<a href="#VkExternalFenceProperties">VkExternalFenceProperties</a>::<code>externalFenceFeatures</code> will be set to
-zero.</p>
+<a href="#VkExternalFenceProperties">VkExternalFenceProperties</a>::<code>externalFenceFeatures</code> will be zero.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -4073,10 +4060,10 @@ time domains.</p>
 <p>If <code>pTimeDomains</code> is <code>NULL</code>, then the number of calibrateable time
 domains supported for the given <code>physicalDevice</code> is returned in
 <code>pTimeDomainCount</code>.
-Otherwise, <code>pTimeDomainCount</code> <strong>must</strong> point to a variable set by the user
-to the number of elements in the <code>pTimeDomains</code> array, and on return the
-variable is overwritten with the number of values actually written to
-<code>pTimeDomains</code>.
+Otherwise, <code>pTimeDomainCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pTimeDomains</code> array, and
+on return the variable is overwritten with the number of values actually
+written to <code>pTimeDomains</code>.
 If the value of <code>pTimeDomainCount</code> is less than the number of
 calibrateable time domains supported, at most <code>pTimeDomainCount</code> values
 will be written to <code>pTimeDomains</code>, and <code>VK_INCOMPLETE</code> will be
@@ -4147,12 +4134,6 @@ time domains were returned.</p>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

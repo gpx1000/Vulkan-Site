@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
@@ -342,6 +340,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/initialization.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+<div class="paragraph">
 <p>Before using Vulkan, an application <strong>must</strong> initialize it by loading the
 Vulkan commands, and creating a <code>VkInstance</code> object.</p>
 </div>
@@ -361,7 +362,6 @@ Commands to query function pointers for Vulkan commands are described below.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>When extensions are <a href="extensions.html#extendingvulkan-compatibility-promotion" class="xref page">promoted</a> or
 otherwise incorporated into another extension or Vulkan core version,
@@ -417,7 +417,7 @@ A valid returned function pointer (&#8220;fp&#8221;) <strong>must</strong> not b
 <p>The returned function pointer is of type <a href="#PFN_vkVoidFunction">PFN_vkVoidFunction</a>, and <strong>must</strong>
 be cast to the type of the command being queried before use.</p>
 </div>
-<table class="tableblock frame-all grid-all" style="width: 80%;">
+<table id="vkGetInstanceProcAddr-behavior" class="tableblock frame-all grid-all" style="width: 80%;">
 <caption class="title">Table 1. <code>vkGetInstanceProcAddr</code> behavior</caption>
 <colgroup>
 <col style="width: 33.3333%;">
@@ -563,7 +563,7 @@ be cast to the type of the command being queried before use.
 The function pointer <strong>must</strong> only be called with a dispatchable object (the
 first parameter) that is <code>device</code> or a child of <code>device</code>.</p>
 </div>
-<table class="tableblock frame-all grid-all" style="width: 80%;">
+<table id="vkGetDeviceProcAddr-behavior" class="tableblock frame-all grid-all" style="width: 80%;">
 <caption class="title">Table 2. <code>vkGetDeviceProcAddr</code> behavior</caption>
 <colgroup>
 <col style="width: 33.3333%;">
@@ -680,9 +680,10 @@ cast to an actual command function pointer before use.</p>
 <div class="sect2">
 <h3 id="_extending_physical_device_core_functionality"><a class="anchor" href="#_extending_physical_device_core_functionality"></a>Extending Physical Device Core Functionality</h3>
 <div class="paragraph">
-<p>New core physical-device-level functionality <strong>can</strong> be used when the
-physical-device version is greater than or equal to the version of Vulkan
-that added the new functionality.
+<p>New core physical-device-level functionality <strong>can</strong> be used when both
+<a href="devsandqueues.html#VkPhysicalDeviceProperties" class="xref page">VkPhysicalDeviceProperties</a>::<code>apiVersion</code> and
+<a href="#VkApplicationInfo">VkApplicationInfo</a>::<code>apiVersion</code> are greater than or equal to the
+version of Vulkan that added the new functionality.
 The Vulkan version supported by a physical device <strong>can</strong> be obtained by
 calling <a href="devsandqueues.html#vkGetPhysicalDeviceProperties" class="xref page">vkGetPhysicalDeviceProperties</a>.</p>
 </div>
@@ -764,7 +765,6 @@ described in <a href="extensions.html#extendingvulkan-coreversions-versionnumber
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The intended behavior of <a href="#vkEnumerateInstanceVersion">vkEnumerateInstanceVersion</a> is that an
 implementation <strong>should</strong> not need to perform memory allocations and <strong>should</strong>
@@ -1037,7 +1037,6 @@ the <code>VkInstanceCreateInfo</code> structure given to <code>vkCreateInstance<
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p><a href="#VkDirectDriverLoadingListLUNARG">VkDirectDriverLoadingListLUNARG</a> allows applications to ship drivers
 with themselves.
@@ -1060,7 +1059,7 @@ drivers.</p>
 <p><a id="VUID-VkInstanceCreateInfo-pNext-04925" href="#VUID-VkInstanceCreateInfo-pNext-04925"></a> <span class="vuid">VUID-VkInstanceCreateInfo-pNext-04925</span><br>
 
 If the <code>pNext</code> chain of <code>VkInstanceCreateInfo</code> includes a
-<code>VkDebugReportCallbackCreateInfoEXT</code> structure, the list of enabled
+<a href="debugging.html#VkDebugReportCallbackCreateInfoEXT" class="xref page">VkDebugReportCallbackCreateInfoEXT</a> structure, the list of enabled
 extensions in <code>ppEnabledExtensionNames</code> <strong>must</strong> contain
 <code><a href="../appendices/extensions.html#VK_EXT_debug_report" class="xref page">VK_EXT_debug_report</a></code></p>
 </li>
@@ -1068,7 +1067,7 @@ extensions in <code>ppEnabledExtensionNames</code> <strong>must</strong> contain
 <p><a id="VUID-VkInstanceCreateInfo-pNext-04926" href="#VUID-VkInstanceCreateInfo-pNext-04926"></a> <span class="vuid">VUID-VkInstanceCreateInfo-pNext-04926</span><br>
 
 If the <code>pNext</code> chain of <code>VkInstanceCreateInfo</code> includes a
-<code>VkDebugUtilsMessengerCreateInfoEXT</code> structure, the list of enabled
+<a href="debugging.html#VkDebugUtilsMessengerCreateInfoEXT" class="xref page">VkDebugUtilsMessengerCreateInfoEXT</a> structure, the list of enabled
 extensions in <code>ppEnabledExtensionNames</code> <strong>must</strong> contain
 <code><a href="../appendices/extensions.html#VK_EXT_debug_utils" class="xref page">VK_EXT_debug_utils</a></code></p>
 </li>
@@ -1096,6 +1095,30 @@ If the <code>pNext</code> chain of <code>VkInstanceCreateInfo</code> includes a
 <a href="#VkDirectDriverLoadingListLUNARG">VkDirectDriverLoadingListLUNARG</a> structure, the list of enabled
 extensions in <code>ppEnabledExtensionNames</code> <strong>must</strong> contain
 <a href="../appendices/extensions.html#VK_LUNARG_direct_driver_loading" class="xref page">VK_LUNARG_direct_driver_loading</a></p>
+</li>
+<li>
+<p><a id="VUID-VkInstanceCreateInfo-pNext-10242" href="#VUID-VkInstanceCreateInfo-pNext-10242"></a> <span class="vuid">VUID-VkInstanceCreateInfo-pNext-10242</span><br>
+
+If the <code>pNext</code> chain of <code>VkInstanceCreateInfo</code> includes a
+<a href="#VkLayerSettingsCreateInfoEXT">VkLayerSettingsCreateInfoEXT</a> structure, the list of enabled
+extensions in <code>ppEnabledExtensionNames</code> <strong>must</strong> contain
+<a href="../appendices/extensions.html#VK_EXT_layer_settings" class="xref page">VK_EXT_layer_settings</a></p>
+</li>
+<li>
+<p><a id="VUID-VkInstanceCreateInfo-pNext-10243" href="#VUID-VkInstanceCreateInfo-pNext-10243"></a> <span class="vuid">VUID-VkInstanceCreateInfo-pNext-10243</span><br>
+
+If the <code>pNext</code> chain of <code>VkInstanceCreateInfo</code> includes a
+<a href="#VkValidationFeaturesEXT">VkValidationFeaturesEXT</a> structure, the list of enabled extensions
+in <code>ppEnabledExtensionNames</code> <strong>must</strong> contain
+<a href="../appendices/extensions.html#VK_EXT_validation_features" class="xref page">VK_EXT_validation_features</a></p>
+</li>
+<li>
+<p><a id="VUID-VkInstanceCreateInfo-pNext-10244" href="#VUID-VkInstanceCreateInfo-pNext-10244"></a> <span class="vuid">VUID-VkInstanceCreateInfo-pNext-10244</span><br>
+
+If the <code>pNext</code> chain of <code>VkInstanceCreateInfo</code> includes a
+<a href="#VkValidationFlagsEXT">VkValidationFlagsEXT</a> structure, the list of enabled extensions in
+<code>ppEnabledExtensionNames</code> <strong>must</strong> contain
+<a href="../appendices/extensions.html#VK_EXT_validation_flags" class="xref page">VK_EXT_validation_flags</a></p>
 </li>
 </ul>
 </div>
@@ -1328,7 +1351,8 @@ features to be disabled.</p>
 If the <code>pEnabledValidationFeatures</code> array contains
 <code>VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_RESERVE_BINDING_SLOT_EXT</code>,
 then it <strong>must</strong> also contain
-<code>VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT</code></p>
+<code>VK_VALIDATION_FEATURE_ENABLE_GPU_ASSISTED_EXT</code> or
+<code>VK_VALIDATION_FEATURE_ENABLE_DEBUG_PRINTF_EXT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkValidationFeaturesEXT-pEnabledValidationFeatures-02968" href="#VUID-VkValidationFeaturesEXT-pEnabledValidationFeatures-02968"></a> <span class="vuid">VUID-VkValidationFeaturesEXT-pEnabledValidationFeatures-02968</span><br>
@@ -1459,7 +1483,10 @@ validation checks are disabled.</p>
 </li>
 <li>
 <p><code>VK_VALIDATION_FEATURE_DISABLE_SHADERS_EXT</code> specifies that shader
-validation is disabled.
+validation, both runtime and standalone, is disabled.
+This validation occurs inside
+<a href="shaders.html#VkShaderCreateInfoEXT" class="xref page">VkShaderCreateInfoEXT</a> and
+<a href="shaders.html#VkShaderModuleCreateInfo" class="xref page">VkShaderModuleCreateInfo</a>.
 This feature is enabled by default.</p>
 </li>
 <li>
@@ -1481,8 +1508,8 @@ This feature is enabled by default.</p>
 <p><code>VK_VALIDATION_FEATURE_DISABLE_CORE_CHECKS_EXT</code> specifies that core
 validation checks are disabled.
 This feature is enabled by default.
-If this feature is disabled, the shader validation and GPU-assisted
-validation features are also disabled.</p>
+If this feature is disabled,
+<code>VK_VALIDATION_FEATURE_DISABLE_SHADERS_EXT</code> is implied.</p>
 </li>
 <li>
 <p><code>VK_VALIDATION_FEATURE_DISABLE_UNIQUE_HANDLES_EXT</code> specifies that
@@ -1507,7 +1534,6 @@ Shader validation caching is enabled by default.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Disabling checks such as parameter validation and object lifetime validation
 prevents the reporting of error conditions that can cause other validation
@@ -1526,7 +1552,6 @@ always revalidate them.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The <code><a href="../appendices/extensions.html#VK_EXT_validation_features" class="xref page">VK_EXT_validation_features</a></code> extension subsumes all the
 functionality provided in the <code><a href="../appendices/extensions.html#VK_EXT_validation_flags" class="xref page">VK_EXT_validation_flags</a></code> extension.</p>
@@ -1568,7 +1593,7 @@ structure.</p>
 </li>
 <li>
 <p><code>pSettings</code> is a pointer to an array of <code>settingCount</code>
-<a href="#VkLayerSettingEXT">VkLayerSettingEXT</a> values specifying the setting to be configured.</p>
+<a href="#VkLayerSettingEXT">VkLayerSettingEXT</a> values specifying the settings to be configured.</p>
 </li>
 </ul>
 </div>
@@ -1619,18 +1644,19 @@ the layer to configure the setting from.</p>
 <li>
 <p><code>pSettingName</code> is a pointer to a null-terminated UTF-8 string naming
 the setting to configure.
-Unknown <code>pSettingName</code> by the layer are ignored.</p>
+Values of <code>pSettingName</code> that are unknown to the layer are ignored.</p>
 </li>
 <li>
 <p><code>type</code> is a <a href="#VkLayerSettingTypeEXT">VkLayerSettingTypeEXT</a> value specifying the type of
 the <code>pValues</code> values.</p>
 </li>
 <li>
-<p><code>count</code> is the number of values used to configure the layer setting.</p>
+<p><code>valueCount</code> is the number of values used to configure the layer
+setting.</p>
 </li>
 <li>
-<p><code>pValues</code> is a pointer to an array of <code>count</code> values of the type
-indicated by <code>type</code> to configure the layer setting.</p>
+<p><code>pValues</code> is a pointer to an array of <code>valueCount</code> values of the
+type indicated by <code>type</code> to configure the layer setting.</p>
 </li>
 </ul>
 </div>
@@ -1638,6 +1664,22 @@ indicated by <code>type</code> to configure the layer setting.</p>
 <p>When multiple <a href="#VkLayerSettingsCreateInfoEXT">VkLayerSettingsCreateInfoEXT</a> structures are chained and
 the same <code>pSettingName</code> is referenced for the same <code>pLayerName</code>, the
 value of the first reference of the layer setting is used.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkLayerSettingEXT-valueCount-10070" href="#VUID-VkLayerSettingEXT-valueCount-10070"></a> <span class="vuid">VUID-VkLayerSettingEXT-valueCount-10070</span><br>
+
+If <code>valueCount</code> is not <code>0</code>, <code>pValues</code> <strong>must</strong> be a valid pointer
+to an array of <code>valueCount</code> values of the type indicated by
+<code>type</code></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -1655,10 +1697,6 @@ value of the first reference of the layer setting is used.</p>
 <li>
 <p><a id="VUID-VkLayerSettingEXT-type-parameter" href="#VUID-VkLayerSettingEXT-type-parameter"></a> <span class="vuid">VUID-VkLayerSettingEXT-type-parameter</span><br>
  <code>type</code> <strong>must</strong> be a valid <a href="#VkLayerSettingTypeEXT">VkLayerSettingTypeEXT</a> value</p>
-</li>
-<li>
-<p><a id="VUID-VkLayerSettingEXT-pValues-parameter" href="#VUID-VkLayerSettingEXT-pValues-parameter"></a> <span class="vuid">VUID-VkLayerSettingEXT-pValues-parameter</span><br>
- If <code>valueCount</code> is not <code>0</code>, <code>pValues</code> <strong>must</strong> be a valid pointer to an array of <code>valueCount</code> bytes</p>
 </li>
 </ul>
 </div>
@@ -1928,7 +1966,6 @@ driver addresses in
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This type exists only because of limitations in the XML schema and
 processing scripts, and its name may change in the future.
@@ -2012,7 +2049,6 @@ Implementations that support Vulkan 1.1 or later <strong>must</strong> not retur
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Because Vulkan 1.0 implementations <strong>may</strong> fail with
 <code>VK_ERROR_INCOMPATIBLE_DRIVER</code>, applications <strong>should</strong> determine the
@@ -2038,7 +2074,6 @@ or physical device.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The Khronos validation layers will treat <code>apiVersion</code> as the highest API
 version the application targets, and will validate API usage against the
@@ -2084,7 +2119,6 @@ physical device that supports Vulkan 1.2.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Providing a <code>NULL</code> <a href="#VkInstanceCreateInfo">VkInstanceCreateInfo</a>::<code>pApplicationInfo</code> or
 providing an <code>apiVersion</code> of 0 is equivalent to providing an
@@ -2207,14 +2241,14 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>instance</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>instance</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to all <code>VkPhysicalDevice</code> objects enumerated from <code>instance</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} all <code>VkPhysicalDevice</code> objects enumerated from <code>instance</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2228,12 +2262,6 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>

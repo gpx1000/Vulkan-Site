@@ -48,9 +48,10 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../../guide/latest/index.html">Vulkan Guide</a>
-            <a class="navbar-item" href="../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="../../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../../tutorial/latest/index.html">Vulkan Tutorial</a>
             <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
             <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
@@ -176,7 +177,7 @@
     <a class="nav-link" href="../dispatch.html">Dispatching Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_NV_device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
+    <a class="nav-link" href="../device_generated_commands/generatedcommands.html">Device-Generated Commands</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../sparsemem.html">Sparse Resources</a>
@@ -213,9 +214,6 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../executiongraphs.html">Execution Graphs</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../VK_NV_low_latency2/low_latency2.html">Low Latency 2</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../extensions.html">Extending Vulkan</a>
@@ -342,6 +340,9 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
+<p>Unresolved include directive in modules/ROOT/pages/chapters/VK_KHR_surface/wsi.adoc - include::partial$config/attribs.adoc[]</p>
+</div>
+<div class="paragraph">
 <p>This chapter discusses the window system integration (WSI) between the
 Vulkan API and the various forms of displaying the results of rendering to a
 user.
@@ -371,16 +372,16 @@ Use of these extensions is guarded by preprocessor symbols as defined in the
 </div>
 <div class="paragraph">
 <p>In order for an application to be compiled to use WSI with a given platform,
-it must either:</p>
+it <strong>must</strong> either:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
 <p><code>#define</code> the appropriate preprocessor symbol prior to including the
-<code>vulkan.h</code> header file, or</p>
+<code>{full_header}</code> header file, or</p>
 </li>
 <li>
-<p>include <code>vulkan_core.h</code> and any native platform headers, followed by the
+<p>include <code>{core_header}</code> and any native platform headers, followed by the
 appropriate platform-specific header.</p>
 </li>
 </ul>
@@ -473,7 +474,6 @@ same <code>ANativeWindow</code> and any attempts to connect to the same
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>In particular, only one <code>VkSurfaceKHR</code> <strong>can</strong> exist at a time for a given
 window.
@@ -991,8 +991,8 @@ created surface object is returned.</p>
 <p>Some Vulkan functions <strong>may</strong> call the <code>SendMessage</code> system API when
 interacting with a <code>VkSurfaceKHR</code> through a <code>VkSwapchainKHR</code>.
 In a multithreaded environment, calling <code>SendMessage</code> from a thread that is
-not the thread associated with <code>pCreateInfo</code>::<code>hwnd</code> will block
-until the application has processed the window message.
+not the thread associated with <code>pCreateInfo-&gt;hwnd</code> will block until the
+application has processed the window message.
 Thus, applications <strong>should</strong> either call these Vulkan functions on the message
 pump thread, or make sure their message pump is actively running.
 Failing to do so <strong>may</strong> result in deadlocks.</p>
@@ -1126,7 +1126,6 @@ surface with.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Due to above restrictions,
 unless <a href="#VkSwapchainPresentScalingCreateInfoEXT">VkSwapchainPresentScalingCreateInfoEXT</a> is used to specify
@@ -1353,7 +1352,6 @@ the surface with.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Due to above restrictions,
 unless <a href="#VkSwapchainPresentScalingCreateInfoEXT">VkSwapchainPresentScalingCreateInfoEXT</a> is used to specify
@@ -1599,7 +1597,6 @@ server.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Due to above restrictions,
 unless <a href="#VkSwapchainPresentScalingCreateInfoEXT">VkSwapchainPresentScalingCreateInfoEXT</a> is used to specify
@@ -2289,7 +2286,6 @@ created surface object is returned.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The <code>vkCreateIOSSurfaceMVK</code> function is considered deprecated and has been
 superseded by <a href="#vkCreateMetalSurfaceEXT">vkCreateMetalSurfaceEXT</a> from the
@@ -2501,7 +2497,6 @@ created surface object is returned.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The <code>vkCreateMacOSSurfaceMVK</code> function is considered deprecated and has been
 superseded by <a href="#vkCreateMetalSurfaceEXT">vkCreateMetalSurfaceEXT</a> from the
@@ -3366,11 +3361,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>surface</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>surface</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3435,17 +3430,17 @@ display devices available or queried, as described below.</p>
 </li>
 <li>
 <p><code>pProperties</code> is either <code>NULL</code> or a pointer to an array of
-<code>VkDisplayPropertiesKHR</code> structures.</p>
+<a href="#VkDisplayPropertiesKHR">VkDisplayPropertiesKHR</a> structures.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>If <code>pProperties</code> is <code>NULL</code>, then the number of display devices available
 for <code>physicalDevice</code> is returned in <code>pPropertyCount</code>.
-Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the user to
-the number of elements in the <code>pProperties</code> array, and on return the
-variable is overwritten with the number of structures actually written to
-<code>pProperties</code>.
+Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pProperties</code> array, and on
+return the variable is overwritten with the number of structures actually
+written to <code>pProperties</code>.
 If the value of <code>pPropertyCount</code> is less than the number of display
 devices for <code>physicalDevice</code>, at most <code>pPropertyCount</code> structures
 will be written, and <code>VK_INCOMPLETE</code> will be returned instead of
@@ -3561,7 +3556,6 @@ resolution of the display.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For devices which have no natural value to return here, implementations
 <strong>should</strong> return the maximum resolution supported.</p>
@@ -3598,7 +3592,6 @@ operations on swapchains created against this display.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Persistent presents <strong>may</strong> have higher latency, and <strong>may</strong> use less power when
 the screen content is updated infrequently, or when only a portion of the
@@ -3808,7 +3801,6 @@ call <strong>must</strong> return the error code <code>VK_ERROR_INITIALIZATION_F
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>One example of when an X11 server loses access to a display is when it loses
 ownership of its virtual terminal.</p>
@@ -4013,7 +4005,6 @@ entity, the call <strong>must</strong> return the error code
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The Vulkan instance acquires control of a
 <a href="https://docs.microsoft.com/en-us/uwp/api/windows.devices.display.core.displaytarget">&#8220;winrt::Windows::Devices::Display::Core::DisplayTarget&#8221;</a>
@@ -4032,7 +4023,6 @@ on the &#8220;DisplayTarget&#8221;.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>One example of when Windows 10 loses access to a display is when the display
 is hot-unplugged.</p>
@@ -4048,7 +4038,6 @@ is hot-unplugged.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>One example of when a display has already been acquired by another entity is
 when the Windows desktop compositor (DWM) is in control of the display.
@@ -4256,12 +4245,12 @@ VkResult vkAcquireDrmDisplayEXT(
 <p>All permissions necessary to control the display are granted to the Vulkan
 instance associated with the provided <code>physicalDevice</code> until the display
 is either released or the connector is unplugged.
-The provided <code>drmFd</code> must correspond to the one owned by the
+The provided <code>drmFd</code> <strong>must</strong> correspond to the one owned by the
 <code>physicalDevice</code>.
-If not, the error code <code>VK_ERROR_UNKNOWN</code> must be returned.
+If not, the error code <code>VK_ERROR_UNKNOWN</code> <strong>must</strong> be returned.
 The DRM FD must have DRM master permissions.
 If any error is encountered during the acquisition of the display, the call
-must return the error code <code>VK_ERROR_INITIALIZATION_FAILED</code>.</p>
+<strong>must</strong> return the error code <code>VK_ERROR_INITIALIZATION_FAILED</code>.</p>
 </div>
 <div class="paragraph">
 <p>The provided DRM fd should not be closed before the display is released,
@@ -4356,18 +4345,18 @@ returned here.</p>
 </div>
 <div class="paragraph">
 <p>If there is no <a href="#VkDisplayKHR">VkDisplayKHR</a> corresponding to the <code>connectorId</code> on
-the <code>physicalDevice</code>, the returning <code>display</code> must be set to
+the <code>physicalDevice</code>, the returning <code>display</code> <strong>must</strong> be
 <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>.
-The provided <code>drmFd</code> must correspond to the one owned by the
+The provided <code>drmFd</code> <strong>must</strong> correspond to the one owned by the
 <code>physicalDevice</code>.
-If not, the error code <code>VK_ERROR_UNKNOWN</code> must be returned.
+If not, the error code <code>VK_ERROR_UNKNOWN</code> <strong>must</strong> be returned.
 Master permissions are not required, because the file descriptor is just
 used for information gathering purposes.
-The given <code>connectorId</code> must be a resource owned by the provided
+The given <code>connectorId</code> <strong>must</strong> be a resource owned by the provided
 <code>drmFd</code>.
-If not, the error code <code>VK_ERROR_UNKNOWN</code> must be returned.
+If not, the error code <code>VK_ERROR_UNKNOWN</code> <strong>must</strong> be returned.
 If any error is encountered during the identification of the display, the
-call must return the error code <code>VK_ERROR_INITIALIZATION_FAILED</code>.</p>
+call <strong>must</strong> return the error code <code>VK_ERROR_INITIALIZATION_FAILED</code>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -4500,7 +4489,7 @@ Devices <strong>must</strong> support at least one plane on each display.
 Planes <strong>can</strong> be stacked and blended to composite multiple images on one
 display.
 Devices <strong>may</strong> support only a fixed stacking order and fixed mapping between
-planes and displays, or they <strong>may</strong> allow arbitrary application specified
+planes and displays, or they <strong>may</strong> allow arbitrary application-specified
 stacking orders and mappings between planes and displays.
 To query the properties of device display planes, call:</p>
 </div>
@@ -4531,10 +4520,10 @@ display planes available or queried, as described below.</p>
 <div class="paragraph">
 <p>If <code>pProperties</code> is <code>NULL</code>, then the number of display planes available
 for <code>physicalDevice</code> is returned in <code>pPropertyCount</code>.
-Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the user to
-the number of elements in the <code>pProperties</code> array, and on return the
-variable is overwritten with the number of structures actually written to
-<code>pProperties</code>.
+Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pProperties</code> array, and on
+return the variable is overwritten with the number of structures actually
+written to <code>pProperties</code>.
 If the value of <code>pPropertyCount</code> is less than the number of display
 planes for <code>physicalDevice</code>, at most <code>pPropertyCount</code> structures
 will be written.</p>
@@ -4808,10 +4797,10 @@ displays available or queried, as described below.</p>
 <p>If <code>pDisplays</code> is <code>NULL</code>, then the number of displays usable with the
 specified <code>planeIndex</code> for <code>physicalDevice</code> is returned in
 <code>pDisplayCount</code>.
-Otherwise, <code>pDisplayCount</code> <strong>must</strong> point to a variable set by the user to
-the number of elements in the <code>pDisplays</code> array, and on return the
-variable is overwritten with the number of handles actually written to
-<code>pDisplays</code>.
+Otherwise, <code>pDisplayCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pDisplays</code> array, and on
+return the variable is overwritten with the number of handles actually
+written to <code>pDisplays</code>.
 If the value of <code>pDisplayCount</code> is less than the number of usable
 display-plane pairs for <code>physicalDevice</code>, at most <code>pDisplayCount</code>
 handles will be written, and <code>VK_INCOMPLETE</code> will be returned instead of
@@ -4951,10 +4940,10 @@ display modes available or queried, as described below.</p>
 <p>If <code>pProperties</code> is <code>NULL</code>, then the number of display modes available
 on the specified <code>display</code> for <code>physicalDevice</code> is returned in
 <code>pPropertyCount</code>.
-Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the user to
-the number of elements in the <code>pProperties</code> array, and on return the
-variable is overwritten with the number of structures actually written to
-<code>pProperties</code>.
+Otherwise, <code>pPropertyCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pProperties</code> array, and on
+return the variable is overwritten with the number of structures actually
+written to <code>pProperties</code>.
 If the value of <code>pPropertyCount</code> is less than the number of display
 modes for <code>physicalDevice</code>, at most <code>pPropertyCount</code> structures will
 be written, and <code>VK_INCOMPLETE</code> will be returned instead of
@@ -5256,7 +5245,6 @@ display is refreshed each second multiplied by 1000.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For example, a 60Hz display mode would report a <code>refreshRate</code> of 60,000.</p>
 </div>
@@ -5365,11 +5353,11 @@ mode created is returned.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>display</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>display</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5545,11 +5533,11 @@ are returned.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>mode</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>mode</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5816,7 +5804,6 @@ using the specified plane.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This parameter also implicitly specifies a display.</p>
 </div>
@@ -5860,11 +5847,11 @@ added for extensibility.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>mode</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>mode</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6273,7 +6260,6 @@ surface.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Creating a display surface <strong>must</strong> not modify the state of the displays,
 planes, or other resources it names.
@@ -6469,7 +6455,6 @@ presentation operation is a no-op producing no externally-visible result.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Because there is no real presentation target, the headless presentation
 engine may be extended to impose an arbitrary or customizable set of
@@ -6698,8 +6683,9 @@ VkResult vkGetPhysicalDeviceSurfaceSupportKHR(
 <p><code>surface</code> is the surface.</p>
 </li>
 <li>
-<p><code>pSupported</code> is a pointer to a <code>VkBool32</code>, which is set to
-<code>VK_TRUE</code> to indicate support, and <code>VK_FALSE</code> otherwise.</p>
+<p><code>pSupported</code> is a pointer to a <code>VkBool32</code>.
+<code>VK_TRUE</code> indicates support, and <code>VK_FALSE</code> indicates no
+support.</p>
 </li>
 </ul>
 </div>
@@ -7273,7 +7259,6 @@ this section.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>In addition to the surface capabilities as obtained by surface queries
 below, swapchain images are also subject to ordinary image creation limits
@@ -7494,9 +7479,10 @@ that all pixels in the presentable images have an alpha value of 1.0.</p>
 <p><code>supportedUsageFlags</code> is a bitmask of <a href="../resources.html#VkImageUsageFlagBits" class="xref page">VkImageUsageFlagBits</a>
 representing the ways the application <strong>can</strong> use the presentable images of
 a swapchain created
-with <a href="#VkPresentModeKHR">VkPresentModeKHR</a> set to <code>VK_PRESENT_MODE_IMMEDIATE_KHR</code>,
-<code>VK_PRESENT_MODE_MAILBOX_KHR</code>, <code>VK_PRESENT_MODE_FIFO_KHR</code> or
-<code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>
+with <a href="#VkPresentModeKHR">VkPresentModeKHR</a> set to
+<code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code>,
+<code>VK_PRESENT_MODE_IMMEDIATE_KHR</code>, <code>VK_PRESENT_MODE_MAILBOX_KHR</code>,
+<code>VK_PRESENT_MODE_FIFO_KHR</code> or <code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>
 for the surface on the specified device.
 <code>VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT</code> <strong>must</strong> be included in the set.
 Implementations <strong>may</strong> support additional usages.</p>
@@ -7510,7 +7496,6 @@ Implementations <strong>may</strong> support additional usages.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Supported usage flags of a presentable image when using
 <code>VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR</code> or
@@ -7529,7 +7514,6 @@ provided by
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Formulas such as <span class="eq">min(N, <code>maxImageCount</code>)</span> are not correct, since
 <code>maxImageCount</code> <strong>may</strong> be zero.</p>
@@ -7945,7 +7929,6 @@ to create the surface with.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>If <code>hmonitor</code> is invalidated (e.g. the monitor is unplugged) during the
 lifetime of a swapchain created with this structure, operations on that
@@ -7962,7 +7945,6 @@ swapchain will return <code>VK_ERROR_OUT_OF_DATE_KHR</code>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>It is the responsibility of the application to change the display settings
 of the targeted Win32 display using the appropriate platform APIs.
@@ -8065,7 +8047,7 @@ not reflect that of any surface and will instead be as such:</p>
 </li>
 <li>
 <p><a id="VUID-VkSurfaceCapabilities2KHR-pNext-pNext" href="#VUID-VkSurfaceCapabilities2KHR-pNext-pNext"></a> <span class="vuid">VUID-VkSurfaceCapabilities2KHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDisplayNativeHdrSurfaceCapabilitiesAMD">VkDisplayNativeHdrSurfaceCapabilitiesAMD</a>, <a href="../VK_NV_low_latency2/low_latency2.html#VkLatencySurfaceCapabilitiesNV" class="xref page">VkLatencySurfaceCapabilitiesNV</a>, <a href="#VkSharedPresentSurfaceCapabilitiesKHR">VkSharedPresentSurfaceCapabilitiesKHR</a>, <a href="#VkSurfaceCapabilitiesFullScreenExclusiveEXT">VkSurfaceCapabilitiesFullScreenExclusiveEXT</a>, <a href="#VkSurfaceCapabilitiesPresentBarrierNV">VkSurfaceCapabilitiesPresentBarrierNV</a>, <a href="#VkSurfacePresentModeCompatibilityEXT">VkSurfacePresentModeCompatibilityEXT</a>, <a href="#VkSurfacePresentScalingCapabilitiesEXT">VkSurfacePresentScalingCapabilitiesEXT</a>, or <a href="#VkSurfaceProtectedCapabilitiesKHR">VkSurfaceProtectedCapabilitiesKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDisplayNativeHdrSurfaceCapabilitiesAMD">VkDisplayNativeHdrSurfaceCapabilitiesAMD</a>, <a href="#VkLatencySurfaceCapabilitiesNV">VkLatencySurfaceCapabilitiesNV</a>, <a href="#VkSharedPresentSurfaceCapabilitiesKHR">VkSharedPresentSurfaceCapabilitiesKHR</a>, <a href="#VkSurfaceCapabilitiesFullScreenExclusiveEXT">VkSurfaceCapabilitiesFullScreenExclusiveEXT</a>, <a href="#VkSurfaceCapabilitiesPresentBarrierNV">VkSurfaceCapabilitiesPresentBarrierNV</a>, <a href="#VkSurfacePresentModeCompatibilityEXT">VkSurfacePresentModeCompatibilityEXT</a>, <a href="#VkSurfacePresentScalingCapabilitiesEXT">VkSurfacePresentScalingCapabilitiesEXT</a>, or <a href="#VkSurfaceProtectedCapabilitiesKHR">VkSurfaceProtectedCapabilitiesKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkSurfaceCapabilities2KHR-sType-unique" href="#VUID-VkSurfaceCapabilities2KHR-sType-unique"></a> <span class="vuid">VUID-VkSurfaceCapabilities2KHR-sType-unique</span><br>
@@ -8229,18 +8211,6 @@ present modes as obtained through
 <li>
 <p><a id="VUID-VkSurfacePresentScalingCapabilitiesEXT-sType-sType" href="#VUID-VkSurfacePresentScalingCapabilitiesEXT-sType-sType"></a> <span class="vuid">VUID-VkSurfacePresentScalingCapabilitiesEXT-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT</code></p>
-</li>
-<li>
-<p><a id="VUID-VkSurfacePresentScalingCapabilitiesEXT-supportedPresentScaling-parameter" href="#VUID-VkSurfacePresentScalingCapabilitiesEXT-supportedPresentScaling-parameter"></a> <span class="vuid">VUID-VkSurfacePresentScalingCapabilitiesEXT-supportedPresentScaling-parameter</span><br>
- <code>supportedPresentScaling</code> <strong>must</strong> be a valid combination of <a href="#VkPresentScalingFlagBitsEXT">VkPresentScalingFlagBitsEXT</a> values</p>
-</li>
-<li>
-<p><a id="VUID-VkSurfacePresentScalingCapabilitiesEXT-supportedPresentGravityX-parameter" href="#VUID-VkSurfacePresentScalingCapabilitiesEXT-supportedPresentGravityX-parameter"></a> <span class="vuid">VUID-VkSurfacePresentScalingCapabilitiesEXT-supportedPresentGravityX-parameter</span><br>
- <code>supportedPresentGravityX</code> <strong>must</strong> be a valid combination of <a href="#VkPresentGravityFlagBitsEXT">VkPresentGravityFlagBitsEXT</a> values</p>
-</li>
-<li>
-<p><a id="VUID-VkSurfacePresentScalingCapabilitiesEXT-supportedPresentGravityY-parameter" href="#VUID-VkSurfacePresentScalingCapabilitiesEXT-supportedPresentGravityY-parameter"></a> <span class="vuid">VUID-VkSurfacePresentScalingCapabilitiesEXT-supportedPresentGravityY-parameter</span><br>
- <code>supportedPresentGravityY</code> <strong>must</strong> be a valid combination of <a href="#VkPresentGravityFlagBitsEXT">VkPresentGravityFlagBitsEXT</a> values</p>
 </li>
 </ul>
 </div>
@@ -8411,7 +8381,6 @@ image counts returned when <code>VkSurfacePresentModeEXT</code> is not provided.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>If <a href="#VkSwapchainPresentModesCreateInfoEXT">VkSwapchainPresentModesCreateInfoEXT</a> is provided to swapchain
 creation, the requirements for forward progress may be less strict.
@@ -8512,10 +8481,10 @@ returned.</p>
 <p>If <code>pPresentModes</code> is <code>NULL</code>, then the number of present modes that are
 compatible with the one specified in <a href="#VkSurfacePresentModeEXT">VkSurfacePresentModeEXT</a> is
 returned in <code>presentModeCount</code>.
-Otherwise, <code>presentModeCount</code> must be set by the user to the number of
-elements in the <code>pPresentModes</code> array, and on return the variable is
-overwritten with the number of values actually written to
-<code>pPresentModes</code>.
+Otherwise, <code>presentModeCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pPresentModes</code> array, and
+on return the variable is overwritten with the number of values actually
+written to <code>pPresentModes</code>.
 If the value of <code>presentModeCount</code> is less than the number of compatible
 present modes that are supported, at most <code>presentModeCount</code> values will
 be written to <code>pPresentModes</code>.
@@ -8984,9 +8953,10 @@ that all pixels in the presentable images have an alpha value of 1.0.</p>
 <p><code>supportedUsageFlags</code> is a bitmask of <a href="../resources.html#VkImageUsageFlagBits" class="xref page">VkImageUsageFlagBits</a>
 representing the ways the application <strong>can</strong> use the presentable images of
 a swapchain created
-with <a href="#VkPresentModeKHR">VkPresentModeKHR</a> set to <code>VK_PRESENT_MODE_IMMEDIATE_KHR</code>,
-<code>VK_PRESENT_MODE_MAILBOX_KHR</code>, <code>VK_PRESENT_MODE_FIFO_KHR</code> or
-<code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>
+with <a href="#VkPresentModeKHR">VkPresentModeKHR</a> set to
+<code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code>,
+<code>VK_PRESENT_MODE_IMMEDIATE_KHR</code>, <code>VK_PRESENT_MODE_MAILBOX_KHR</code>,
+<code>VK_PRESENT_MODE_FIFO_KHR</code> or <code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>
 for the surface on the specified device.
 <code>VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT</code> <strong>must</strong> be included in the set.
 Implementations <strong>may</strong> support additional usages.</p>
@@ -9045,6 +9015,7 @@ supported surface counter types, are:</p>
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_display_surface_counter
 typedef enum VkSurfaceCounterFlagBitsEXT {
     VK_SURFACE_COUNTER_VBLANK_BIT_EXT = 0x00000001,
+  // VK_SURFACE_COUNTER_VBLANK_EXT is a deprecated alias
     VK_SURFACE_COUNTER_VBLANK_EXT = VK_SURFACE_COUNTER_VBLANK_BIT_EXT,
 } VkSurfaceCounterFlagBitsEXT;</code></pre>
 </div>
@@ -9273,9 +9244,9 @@ number of format pairs available or queried, as described below.</p>
 supported for the given <code>surface</code> is returned in
 <code>pSurfaceFormatCount</code>.
 Otherwise, <code>pSurfaceFormatCount</code> <strong>must</strong> point to a variable set by the
-user to the number of elements in the <code>pSurfaceFormats</code> array, and on
-return the variable is overwritten with the number of structures actually
-written to <code>pSurfaceFormats</code>.
+application to the number of elements in the <code>pSurfaceFormats</code> array,
+and on return the variable is overwritten with the number of structures
+actually written to <code>pSurfaceFormats</code>.
 If the value of <code>pSurfaceFormatCount</code> is less than the number of format
 pairs supported, at most <code>pSurfaceFormatCount</code> structures will be
 written, and <code>VK_INCOMPLETE</code> will be returned instead of
@@ -9470,9 +9441,9 @@ via <code>pNext</code> chains.</p>
 supported for the given <code>surface</code> is returned in
 <code>pSurfaceFormatCount</code>.
 Otherwise, <code>pSurfaceFormatCount</code> <strong>must</strong> point to a variable set by the
-user to the number of elements in the <code>pSurfaceFormats</code> array, and on
-return the variable is overwritten with the number of structures actually
-written to <code>pSurfaceFormats</code>.
+application to the number of elements in the <code>pSurfaceFormats</code> array,
+and on return the variable is overwritten with the number of structures
+actually written to <code>pSurfaceFormats</code>.
 If the value of <code>pSurfaceFormatCount</code> is less than the number of format
 tuples supported, at most <code>pSurfaceFormatCount</code> structures will be
 written, and <code>VK_INCOMPLETE</code> will be returned instead of
@@ -9647,15 +9618,15 @@ If the <a href="../features.html#features-imageCompressionControlSwapchain" clas
 pixel, the <code>colorSpace</code> determines how the presentation engine
 interprets the pixel values.
 A color space in this document refers to a specific color space (defined by
-the chromaticities of its primaries and a white point in CIE Lab), and a
-transfer function that is applied before storing or transmitting color data
-in the given color space.</p>
+the chromaticities of its primaries and a white point in CIE Lab), and
+transfer functions indicating the mapping between the image data and the
+colorimetry with respect to the given color space.</p>
 </div>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
 <p>Possible values of <a href="#VkSurfaceFormatKHR">VkSurfaceFormatKHR</a>::<code>colorSpace</code>, specifying
-supported color spaces of a presentation engine, are:</p>
+the color spaces that a presentation engine can accept, are:</p>
 </div>
 <div id="VkColorSpaceKHR" class="listingblock">
 <div class="content">
@@ -9679,6 +9650,7 @@ typedef enum VkColorSpaceKHR {
   // Provided by VK_EXT_swapchain_colorspace
     VK_COLOR_SPACE_HDR10_ST2084_EXT = 1000104008,
   // Provided by VK_EXT_swapchain_colorspace
+  // VK_COLOR_SPACE_DOLBYVISION_EXT is deprecated, but no reason was given in the API XML
     VK_COLOR_SPACE_DOLBYVISION_EXT = 1000104009,
   // Provided by VK_EXT_swapchain_colorspace
     VK_COLOR_SPACE_HDR10_HLG_EXT = 1000104010,
@@ -9692,8 +9664,10 @@ typedef enum VkColorSpaceKHR {
     VK_COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT = 1000104014,
   // Provided by VK_AMD_display_native_hdr
     VK_COLOR_SPACE_DISPLAY_NATIVE_AMD = 1000213000,
+  // VK_COLORSPACE_SRGB_NONLINEAR_KHR is a deprecated alias
     VK_COLORSPACE_SRGB_NONLINEAR_KHR = VK_COLOR_SPACE_SRGB_NONLINEAR_KHR,
   // Provided by VK_EXT_swapchain_colorspace
+  // VK_COLOR_SPACE_DCI_P3_LINEAR_EXT is a deprecated alias
     VK_COLOR_SPACE_DCI_P3_LINEAR_EXT = VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT,
 } VkColorSpaceKHR;</code></pre>
 </div>
@@ -9701,66 +9675,67 @@ typedef enum VkColorSpaceKHR {
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_COLOR_SPACE_SRGB_NONLINEAR_KHR</code> specifies support for the sRGB
-color space.</p>
+<p><code>VK_COLOR_SPACE_SRGB_NONLINEAR_KHR</code> specifies support for the images
+in sRGB color space, encoded according to the sRGB specification.</p>
 </li>
 <li>
 <p><code>VK_COLOR_SPACE_DISPLAY_P3_NONLINEAR_EXT</code> specifies support for the
-Display-P3 color space to be displayed using an sRGB-like EOTF (defined
-below).</p>
+images in Display-P3 color space, encoded using a Display-P3 transfer
+function.</p>
 </li>
 <li>
 <p><code>VK_COLOR_SPACE_EXTENDED_SRGB_LINEAR_EXT</code> specifies support for the
-extended sRGB color space to be displayed using a linear EOTF.</p>
+images in extended sRGB color space, encoded using a linear transfer
+function.</p>
 </li>
 <li>
 <p><code>VK_COLOR_SPACE_EXTENDED_SRGB_NONLINEAR_EXT</code> specifies support for
-the extended sRGB color space to be displayed using an sRGB EOTF.</p>
+the images in extended sRGB color space, encoded according to the scRGB
+specification.</p>
 </li>
 <li>
 <p><code>VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT</code> specifies support for the
-Display-P3 color space to be displayed using a linear EOTF.</p>
+images in Display-P3 color space, encoded using a linear transfer
+function.</p>
 </li>
 <li>
 <p><code>VK_COLOR_SPACE_DCI_P3_NONLINEAR_EXT</code> specifies support for the
-DCI-P3 color space to be displayed using the DCI-P3 EOTF.
+images in DCI-P3 color space, encoded according to the DCI-P3
+specification.
 Note that values in such an image are interpreted as XYZ encoded color
 data by the presentation engine.</p>
 </li>
 <li>
-<p><code>VK_COLOR_SPACE_BT709_LINEAR_EXT</code> specifies support for the BT709
-color space to be displayed using a linear EOTF.</p>
+<p><code>VK_COLOR_SPACE_BT709_LINEAR_EXT</code> specifies support for the images
+in BT709 color space, encoded using a linear transfer function.</p>
 </li>
 <li>
-<p><code>VK_COLOR_SPACE_BT709_NONLINEAR_EXT</code> specifies support for the BT709
-color space to be displayed using the SMPTE 170M EOTF.</p>
+<p><code>VK_COLOR_SPACE_BT709_NONLINEAR_EXT</code> specifies support for the
+images in BT709 color space, encoded according to the BT709
+specification.</p>
 </li>
 <li>
-<p><code>VK_COLOR_SPACE_BT2020_LINEAR_EXT</code> specifies support for the BT2020
-color space to be displayed using a linear EOTF.</p>
+<p><code>VK_COLOR_SPACE_BT2020_LINEAR_EXT</code> specifies support for the images
+in BT2020 color space, encoded using a linear transfer function.</p>
 </li>
 <li>
-<p><code>VK_COLOR_SPACE_HDR10_ST2084_EXT</code> specifies support for the HDR10
-(BT2020 color) space to be displayed using the SMPTE ST2084 Perceptual
-Quantizer (PQ) EOTF.</p>
+<p><code>VK_COLOR_SPACE_HDR10_ST2084_EXT</code> specifies support for the images
+in HDR10 (BT2020) color space, encoded according to SMPTE ST2084
+Perceptual Quantizer (PQ) specification.</p>
 </li>
 <li>
-<p><code>VK_COLOR_SPACE_DOLBYVISION_EXT</code> specifies support for the Dolby
-Vision (BT2020 color space), proprietary encoding, to be displayed using
-the SMPTE ST2084 EOTF.</p>
+<p><code>VK_COLOR_SPACE_HDR10_HLG_EXT</code> specifies support for the images in
+HDR10 (BT2020) color space, encoded according to the Hybrid Log Gamma
+(HLG) specification.</p>
 </li>
 <li>
-<p><code>VK_COLOR_SPACE_HDR10_HLG_EXT</code> specifies support for the HDR10
-(BT2020 color space) to be displayed using the Hybrid Log Gamma (HLG)
-EOTF.</p>
-</li>
-<li>
-<p><code>VK_COLOR_SPACE_ADOBERGB_LINEAR_EXT</code> specifies support for the
-AdobeRGB color space to be displayed using a linear EOTF.</p>
+<p><code>VK_COLOR_SPACE_ADOBERGB_LINEAR_EXT</code> specifies support for images in
+Adobe RGB color space, encoded using a linear transfer function.</p>
 </li>
 <li>
 <p><code>VK_COLOR_SPACE_ADOBERGB_NONLINEAR_EXT</code> specifies support for the
-AdobeRGB color space to be displayed using the Gamma 2.2 EOTF.</p>
+images in Adobe RGB color space, encoded according to the Adobe RGB
+specification (approximately Gamma 2.2).</p>
 </li>
 <li>
 <p><code>VK_COLOR_SPACE_PASS_THROUGH_EXT</code> specifies that color components
@@ -9783,7 +9758,6 @@ for displays supporting it.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>In the initial release of the <code><a href="../../appendices/extensions.html#VK_KHR_surface" class="xref page">VK_KHR_surface</a></code> and
 <code><a href="../../appendices/extensions.html#VK_KHR_swapchain" class="xref page">VK_KHR_swapchain</a></code> extensions, the token
@@ -9805,13 +9779,34 @@ The older enum is still available for backwards compatibility.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>In older versions of this extension
 <code>VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT</code> was misnamed
 <code>VK_COLOR_SPACE_DCI_P3_LINEAR_EXT</code>.
 This has been updated to indicate that it uses RGB color encoding, not XYZ.
 The old name is deprecated but is maintained for backwards compatibility.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In older versions of the <code><a href="../../appendices/extensions.html#VK_EXT_swapchain_colorspace" class="xref page">VK_EXT_swapchain_colorspace</a></code> extension,
+<code>VK_COLOR_SPACE_DOLBYVISION_EXT</code> was exposed.
+The intent was to indicate the presentation engine shall decode an image
+using the SMPTE ST 2084 Perceptual Quantizer (PQ) EOTF, and then apply a
+proprietary OOTF to process the image.
+However, Dolby Vision profile 8.4 describes an encoding using the Hybrid Log
+Gamma (HLG) OETF, and there is no swapchain extension for signaling Dolby
+Vision metadata to be used by a proprietary OOTF.
+This enum is deprecated but is maintained for backwards compatibility.</p>
 </div>
 </td>
 </tr>
@@ -9834,15 +9829,21 @@ The old name is deprecated but is maintained for backwards compatibility.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>The color components of non-linear color space swapchain images <strong>must</strong> have
-had the appropriate transfer function applied.
-The color space selected for the swapchain image will not affect the
-processing of data written into the image by the implementation.
-Vulkan requires that all implementations support the sRGB transfer function
-by use of an SRGB pixel format.
-Other transfer functions, such as SMPTE 170M or SMPTE2084, <strong>can</strong> be performed
-by the application shader.
-This extension defines enums for <a href="#VkColorSpaceKHR">VkColorSpaceKHR</a> that correspond to
+<p>The presentation engine interprets the pixel values of the R, G, and B
+components as having been encoded using an appropriate transfer function.
+Applications <strong>should</strong> ensure that the appropriate transfer function has been
+applied.
+<a href="../textures.html#textures-output-format-conversion" class="xref page">Textures Output Format Conversion</a>
+requires that all implementations implicitly apply the sRGB EOTF<sup>-1</sup> on R,
+G, and B components when shaders write to an sRGB pixel format image, which
+is useful for sRGB color spaces.
+For sRGB color spaces with other pixel formats, or other non-linear color
+spaces, applications <strong>can</strong> apply the transfer function explicitly in a
+shader.
+The A channel is always interpreted as linearly encoded.</p>
+</div>
+<div class="paragraph">
+<p>This extension defines enums for <a href="#VkColorSpaceKHR">VkColorSpaceKHR</a> that correspond to
 the following color spaces:</p>
 </div>
 <table id="VK_EXT_swapchain_colorspace-table" class="tableblock frame-all grid-all stretch">
@@ -9888,7 +9889,7 @@ the following color spaces:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.300, 0.600</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.150, 0.060</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.3127, 0.3290 (D65)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ITU (SMPTE 170M)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BT709</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">sRGB</p></td>
@@ -9904,18 +9905,10 @@ the following color spaces:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.300, 0.600</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.150, 0.060</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.3127, 0.3290 (D65)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">extended sRGB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">scRGB</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HDR10_ST2084</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.708, 0.292</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.170, 0.797</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.131, 0.046</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0.3127, 0.3290 (D65)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ST2084 PQ</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">DOLBYVISION</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.708, 0.292</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.170, 0.797</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.131, 0.046</p></td>
@@ -9931,12 +9924,12 @@ the following color spaces:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HLG</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AdobeRGB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adobe RGB</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.640, 0.330</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.210, 0.710</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.150, 0.060</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0.3127, 0.3290 (D65)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AdobeRGB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adobe RGB</p></td>
 </tr>
 </tbody>
 </table>
@@ -9963,7 +9956,6 @@ encoded value (as stored in the image in memory).</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For most uses, the sRGB OETF is equivalent.</p>
 </div>
@@ -10016,10 +10008,10 @@ modes.</p>
 <p>If <code>pPresentModes</code> is <code>NULL</code>, then the number of presentation modes
 supported for the given <code>surface</code> is returned in
 <code>pPresentModeCount</code>.
-Otherwise, <code>pPresentModeCount</code> <strong>must</strong> point to a variable set by the user
-to the number of elements in the <code>pPresentModes</code> array, and on return
-the variable is overwritten with the number of values actually written to
-<code>pPresentModes</code>.
+Otherwise, <code>pPresentModeCount</code> <strong>must</strong> point to a variable set by the
+application to the number of elements in the <code>pPresentModes</code> array, and
+on return the variable is overwritten with the number of values actually
+written to <code>pPresentModes</code>.
 If the value of <code>pPresentModeCount</code> is less than the number of
 presentation modes supported, at most <code>pPresentModeCount</code> values will be
 written, and <code>VK_INCOMPLETE</code> will be returned instead of
@@ -10280,6 +10272,8 @@ typedef enum VkPresentModeKHR {
     VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR = 1000111000,
   // Provided by VK_KHR_shared_presentable_image
     VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR = 1000111001,
+  // Provided by VK_EXT_present_mode_fifo_latest_ready
+    VK_PRESENT_MODE_FIFO_LATEST_READY_EXT = 1000361000,
 } VkPresentModeKHR;</code></pre>
 </div>
 </div>
@@ -10333,6 +10327,24 @@ removed from the beginning of the queue and processed during or after
 each vertical blanking period in which the queue is non-empty.</p>
 </li>
 <li>
+<p><code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code> specifies that the
+presentation engine waits for the next vertical blanking period to
+update the current image.
+Tearing <strong>cannot</strong> be observed.
+An internal queue is used to hold pending presentation requests.
+New requests are appended to the end of the queue.
+At each vertical blanking period, the presentation engine dequeues all
+successive requests that are ready to be presented from the beginning of
+the queue.
+If using <code><a href="../../appendices/extensions.html#VK_GOOGLE_display_timing" class="xref page">VK_GOOGLE_display_timing</a></code> to provide a target present
+time, the presentation engine will check the specified time for each
+image.
+If the target present time is less-than or equal-to the current time,
+the presentation engine will dequeue the image and check the next one.
+The image of the last dequeued request will be presented.
+The other dequeued requests will be dropped.</p>
+</li>
+<li>
 <p><code>VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR</code> specifies that the
 presentation engine and application have concurrent access to a single
 image, which is referred to as a <em>shared presentable image</em>.
@@ -10366,7 +10378,7 @@ swapchain created for a surface <strong>may</strong> differ depending on the pre
 mode, and can be determined as per the table below:</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 2. Presentable image usage queries</caption>
+<caption class="title">Table 2. Presentable Image Usage Queries</caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -10395,6 +10407,10 @@ mode, and can be determined as per the table below:</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkSurfaceCapabilitiesKHR">VkSurfaceCapabilitiesKHR</a>::<code>supportedUsageFlags</code></p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkSurfaceCapabilitiesKHR">VkSurfaceCapabilitiesKHR</a>::<code>supportedUsageFlags</code></p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#VkSharedPresentSurfaceCapabilitiesKHR">VkSharedPresentSurfaceCapabilitiesKHR</a>::<code>sharedPresentSupportedUsageFlags</code></p></td>
 </tr>
@@ -10411,7 +10427,6 @@ mode, and can be determined as per the table below:</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For reference, the mode indicated by <code>VK_PRESENT_MODE_FIFO_KHR</code> is
 equivalent to the behavior of {wgl|glX|egl}SwapBuffers with a swap interval
@@ -10598,7 +10613,6 @@ from.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Applications will not be able to present to <code>swapchain</code> after this call
 until exclusive full-screen access is reacquired.
@@ -10985,11 +10999,11 @@ or an equivalent platform-specific mechanism</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>surface</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>surface</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11041,7 +11055,7 @@ call:</p>
 </div>
 <div id="vkGetDeviceGroupSurfacePresentModes2EXT" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_1 with VK_EXT_full_screen_exclusive, VK_KHR_device_group with VK_EXT_full_screen_exclusive
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_full_screen_exclusive with VK_KHR_device_group or VK_VERSION_1_1
 VkResult vkGetDeviceGroupSurfacePresentModes2EXT(
     VkDevice                                    device,
     const VkPhysicalDeviceSurfaceInfo2KHR*      pSurfaceInfo,
@@ -11190,9 +11204,10 @@ structures.</p>
 <div class="paragraph">
 <p>If <code>pRects</code> is <code>NULL</code>, then the number of rectangles used when
 presenting the given <code>surface</code> is returned in <code>pRectCount</code>.
-Otherwise, <code>pRectCount</code> <strong>must</strong> point to a variable set by the user to the
-number of elements in the <code>pRects</code> array, and on return the variable is
-overwritten with the number of structures actually written to <code>pRects</code>.
+Otherwise, <code>pRectCount</code> <strong>must</strong> point to a variable set by the application
+to the number of elements in the <code>pRects</code> array, and on return the
+variable is overwritten with the number of structures actually written to
+<code>pRects</code>.
 If the value of <code>pRectCount</code> is less than the number of rectangles, at
 most <code>pRectCount</code> structures will be written, and <code>VK_INCOMPLETE</code>
 will be returned instead of <code>VK_SUCCESS</code>, to indicate that not all the
@@ -11257,11 +11272,11 @@ platform-specific mechanism</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>surface</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>surface</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11407,11 +11422,11 @@ VkResult vkGetRefreshCycleDurationGOOGLE(
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11484,7 +11499,6 @@ refresh cycle to the next.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The rate at which an application renders and presents new images is known as
 the image present rate (IPR, aka frame rate).
@@ -11625,11 +11639,11 @@ were returned.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11809,7 +11823,7 @@ display new images.</p>
 <p><code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>.
 For images that are presented in time to be displayed at the next
 vertical blanking period, the semantics are identical as for
-<code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>.
+<code>VK_PRESENT_MODE_FIFO_KHR</code>.
 For images that are presented late, and are displayed after the start of
 the vertical blanking period (i.e. with tearing), the values of
 <code>VkPastPresentationTimingGOOGLE</code> <strong>may</strong> be treated as if the image was
@@ -11852,7 +11866,7 @@ presentation is finished.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_wsi_swapchain"><a class="anchor" href="#_wsi_swapchain"></a>WSI Swapchain</h2>
+<h2 id="wsi-swapchain"><a class="anchor" href="#wsi-swapchain"></a>WSI Swapchain</h2>
 <div class="sectionbody">
 <div class="openblock">
 <div class="content">
@@ -11891,7 +11905,6 @@ non-Vulkan graphics API surface associated with them.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The presentation engine is an abstraction for the platform&#8217;s compositor or
 display engine.</p>
@@ -11942,7 +11955,6 @@ acquired for use by the application.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This allows the platform to handle situations which require out-of-order
 return of images after presentation.
@@ -12008,7 +12020,6 @@ they are intended for.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The <code><a href="../../appendices/extensions.html#VK_KHR_shared_presentable_image" class="xref page">VK_KHR_shared_presentable_image</a></code> extension does not provide
 functionality for determining the timing of the presentation engine&#8217;s
@@ -12065,11 +12076,11 @@ VkResult vkGetSwapchainStatusKHR(
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12157,11 +12168,10 @@ that it is no longer compatible with the swapchain.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The swapchain state <strong>may</strong> be cached by implementations, so applications
 <strong>should</strong> regularly call <code>vkGetSwapchainStatusKHR</code> when using a swapchain
-with <a href="#VkPresentModeKHR">VkPresentModeKHR</a> set to
+with <a href="#VkPresentModeKHR">VkPresentModeKHR</a> equal to
 <code>VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR</code>.</p>
 </div>
 </td>
@@ -12333,7 +12343,6 @@ automatically acquire exclusive full-screen access from
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This implicit transfer is intended to avoid exiting and entering full-screen
 exclusive mode, which may otherwise cause unwanted visual updates to the
@@ -12357,13 +12366,12 @@ If this occurs, <code>VK_ERROR_INITIALIZATION_FAILED</code> will be returned.</p
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>In particular, it will fail if the <code>imageExtent</code> member of
 <code>pCreateInfo</code> does not match the extents of the monitor.
-Other reasons for failure may include the app not being set as high-dpi
-aware, or if the physical device and monitor are not compatible in this
-mode.</p>
+Other reasons for failure may include the application not being set as
+high-dpi aware, or if the physical device and monitor are not compatible in
+this mode.</p>
 </div>
 </td>
 </tr>
@@ -12416,14 +12424,14 @@ In this scenario <code>VK_ERROR_INITIALIZATION_FAILED</code> is returned.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>pCreateInfo-&gt;surface</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pCreateInfo-&gt;surface</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to <code>pCreateInfo-&gt;oldSwapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pCreateInfo-&gt;oldSwapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -12553,7 +12561,6 @@ the surface&#8217;s <code>currentExtent</code> as returned by
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>On some platforms, it is normal that <code>maxImageExtent</code> <strong>may</strong> become <code>(0,
 0)</code>, for example when the window is minimized.
@@ -12616,8 +12623,8 @@ not visible.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>If set to <code>VK_TRUE</code>, the presentable images associated with the
-swapchain <strong>may</strong> not own all of their pixels.
+<p>If <code>clipped</code> is <code>VK_TRUE</code>, the presentable images associated
+with the swapchain <strong>may</strong> not own all of their pixels.
 Pixels in the presentable images that correspond to regions of the
 target surface obscured by another window on the desktop, or subject to
 some other clipping mechanism will have <strong>undefined</strong> content when read
@@ -12629,8 +12636,8 @@ allows more efficient presentation methods to be used on some
 platforms.</p>
 </li>
 <li>
-<p>If set to <code>VK_FALSE</code>, presentable images associated with the
-swapchain will own all of the pixels they contain.</p>
+<p>If <code>clipped</code> is <code>VK_FALSE</code>, presentable images associated with
+the swapchain will own all of the pixels they contain.</p>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -12638,7 +12645,6 @@ swapchain will own all of the pixels they contain.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Applications <strong>should</strong> set this value to <code>VK_TRUE</code> if they do not expect
 to read back the content of presentable images before presenting them or
@@ -12684,7 +12690,6 @@ associated with <code>oldSwapchain</code>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Multiple retired swapchains <strong>can</strong> be associated with the same
 <code>VkSurfaceKHR</code> through multiple uses of <code>oldSwapchain</code> that
@@ -12727,6 +12732,13 @@ determined using <a href="#vkGetPhysicalDeviceSurfaceSupportKHR">vkGetPhysicalDe
 the <code>maxImageCount</code> member of the <code>VkSurfaceCapabilitiesKHR</code>
 structure returned by <code>vkGetPhysicalDeviceSurfaceCapabilitiesKHR</code>
 for the surface if the returned <code>maxImageCount</code> is not zero</p>
+</li>
+<li>
+<p><a id="VUID-VkSwapchainCreateInfoKHR-swapchainMaintenance1-10155" href="#VUID-VkSwapchainCreateInfoKHR-swapchainMaintenance1-10155"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-swapchainMaintenance1-10155</span><br>
+
+If the <a href="../features.html#features-swapchainMaintenance1" class="xref page"><code>swapchainMaintenance1</code></a>
+feature is not enabled, then the <code>pNext</code> chain <strong>must</strong> not include a
+<a href="#VkSwapchainPresentModesCreateInfoEXT">VkSwapchainPresentModesCreateInfoEXT</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-VkSwapchainCreateInfoKHR-presentMode-02839" href="#VUID-VkSwapchainCreateInfoKHR-presentMode-02839"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-presentMode-02839</span><br>
@@ -12781,6 +12793,13 @@ returned by <code>vkGetPhysicalDeviceSurfaceCapabilities2KHR</code> for the
 surface and <code>presentMode</code></p>
 </li>
 <li>
+<p><a id="VUID-VkSwapchainCreateInfoKHR-swapchainMaintenance1-10157" href="#VUID-VkSwapchainCreateInfoKHR-swapchainMaintenance1-10157"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-swapchainMaintenance1-10157</span><br>
+
+If the <a href="../features.html#features-swapchainMaintenance1" class="xref page"><code>swapchainMaintenance1</code></a>
+feature is not enabled, then <code>flags</code> <strong>must</strong> not include
+<code>VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT</code></p>
+</li>
+<li>
 <p><a id="VUID-VkSwapchainCreateInfoKHR-imageExtent-01689" href="#VUID-VkSwapchainCreateInfoKHR-imageExtent-01689"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-imageExtent-01689</span><br>
 
 <code>imageExtent</code> members <code>width</code> and <code>height</code> <strong>must</strong> both be
@@ -12797,8 +12816,10 @@ to the <code>maxImageArrayLayers</code> member of the
 <li>
 <p><a id="VUID-VkSwapchainCreateInfoKHR-presentMode-01427" href="#VUID-VkSwapchainCreateInfoKHR-presentMode-01427"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-presentMode-01427</span><br>
 
-If <code>presentMode</code> is <code>VK_PRESENT_MODE_IMMEDIATE_KHR</code>,
-<code>VK_PRESENT_MODE_MAILBOX_KHR</code>, <code>VK_PRESENT_MODE_FIFO_KHR</code> or
+If <code>presentMode</code> is
+<code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code>,
+<code>VK_PRESENT_MODE_IMMEDIATE_KHR</code>, <code>VK_PRESENT_MODE_MAILBOX_KHR</code>,
+<code>VK_PRESENT_MODE_FIFO_KHR</code> or
 <code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>, <code>imageUsage</code> <strong>must</strong> be a
 subset of the supported usage flags present in the
 <code>supportedUsageFlags</code> member of the <a href="#VkSurfaceCapabilitiesKHR">VkSurfaceCapabilitiesKHR</a>
@@ -12860,6 +12881,13 @@ for the surface</p>
 <code>presentMode</code> <strong>must</strong> be one of the <a href="#VkPresentModeKHR">VkPresentModeKHR</a> values
 returned by <code>vkGetPhysicalDeviceSurfacePresentModesKHR</code> for the
 surface</p>
+</li>
+<li>
+<p><a id="VUID-VkSwapchainCreateInfoKHR-presentModeFifoLatestReady-10161" href="#VUID-VkSwapchainCreateInfoKHR-presentModeFifoLatestReady-10161"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-presentModeFifoLatestReady-10161</span><br>
+
+If the <a href="../features.html#features-presentModeFifoLatestReady" class="xref page">    <code>presentModeFifoLatestReady</code></a> feature is not enabled,
+<code>presentMode</code> <strong>must</strong> not be
+<code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkSwapchainCreateInfoKHR-physicalDeviceCount-01429" href="#VUID-VkSwapchainCreateInfoKHR-physicalDeviceCount-01429"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-physicalDeviceCount-01429</span><br>
@@ -12954,7 +12982,7 @@ If the <a href="../features.html#features-imageCompressionControlSwapchain" clas
 </li>
 <li>
 <p><a id="VUID-VkSwapchainCreateInfoKHR-pNext-pNext" href="#VUID-VkSwapchainCreateInfoKHR-pNext-pNext"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDeviceGroupSwapchainCreateInfoKHR">VkDeviceGroupSwapchainCreateInfoKHR</a>, <a href="../resources.html#VkImageCompressionControlEXT" class="xref page">VkImageCompressionControlEXT</a>, <a href="../resources.html#VkImageFormatListCreateInfo" class="xref page">VkImageFormatListCreateInfo</a>, <a href="#VkSurfaceFullScreenExclusiveInfoEXT">VkSurfaceFullScreenExclusiveInfoEXT</a>, <a href="#VkSurfaceFullScreenExclusiveWin32InfoEXT">VkSurfaceFullScreenExclusiveWin32InfoEXT</a>, <a href="#VkSwapchainCounterCreateInfoEXT">VkSwapchainCounterCreateInfoEXT</a>, <a href="#VkSwapchainDisplayNativeHdrCreateInfoAMD">VkSwapchainDisplayNativeHdrCreateInfoAMD</a>, <a href="../VK_NV_low_latency2/low_latency2.html#VkSwapchainLatencyCreateInfoNV" class="xref page">VkSwapchainLatencyCreateInfoNV</a>, <a href="#VkSwapchainPresentBarrierCreateInfoNV">VkSwapchainPresentBarrierCreateInfoNV</a>, <a href="#VkSwapchainPresentModesCreateInfoEXT">VkSwapchainPresentModesCreateInfoEXT</a>, or <a href="#VkSwapchainPresentScalingCreateInfoEXT">VkSwapchainPresentScalingCreateInfoEXT</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDeviceGroupSwapchainCreateInfoKHR">VkDeviceGroupSwapchainCreateInfoKHR</a>, <a href="../resources.html#VkImageCompressionControlEXT" class="xref page">VkImageCompressionControlEXT</a>, <a href="../resources.html#VkImageFormatListCreateInfo" class="xref page">VkImageFormatListCreateInfo</a>, <a href="#VkSurfaceFullScreenExclusiveInfoEXT">VkSurfaceFullScreenExclusiveInfoEXT</a>, <a href="#VkSurfaceFullScreenExclusiveWin32InfoEXT">VkSurfaceFullScreenExclusiveWin32InfoEXT</a>, <a href="#VkSwapchainCounterCreateInfoEXT">VkSwapchainCounterCreateInfoEXT</a>, <a href="#VkSwapchainDisplayNativeHdrCreateInfoAMD">VkSwapchainDisplayNativeHdrCreateInfoAMD</a>, <a href="#VkSwapchainLatencyCreateInfoNV">VkSwapchainLatencyCreateInfoNV</a>, <a href="#VkSwapchainPresentBarrierCreateInfoNV">VkSwapchainPresentBarrierCreateInfoNV</a>, <a href="#VkSwapchainPresentModesCreateInfoEXT">VkSwapchainPresentModesCreateInfoEXT</a>, or <a href="#VkSwapchainPresentScalingCreateInfoEXT">VkSwapchainPresentScalingCreateInfoEXT</a></p>
 </li>
 <li>
 <p><a id="VUID-VkSwapchainCreateInfoKHR-sType-unique" href="#VUID-VkSwapchainCreateInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-sType-unique</span><br>
@@ -13541,6 +13569,12 @@ values returned by <code>vkGetPhysicalDeviceSurfacePresentModesKHR</code> for
 the surface</p>
 </li>
 <li>
+<p><a id="VUID-VkSwapchainPresentModesCreateInfoEXT-presentModeFifoLatestReady-10160" href="#VUID-VkSwapchainPresentModesCreateInfoEXT-presentModeFifoLatestReady-10160"></a> <span class="vuid">VUID-VkSwapchainPresentModesCreateInfoEXT-presentModeFifoLatestReady-10160</span><br>
+
+If the <a href="../features.html#features-presentModeFifoLatestReady" class="xref page">    <code>presentModeFifoLatestReady</code></a> feature is not enabled, pPresentModes
+<strong>must</strong> not contain <code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code></p>
+</li>
+<li>
 <p><a id="VUID-VkSwapchainPresentModesCreateInfoEXT-pPresentModes-07763" href="#VUID-VkSwapchainPresentModesCreateInfoEXT-pPresentModes-07763"></a> <span class="vuid">VUID-VkSwapchainPresentModesCreateInfoEXT-pPresentModes-07763</span><br>
 
 The entries in pPresentModes <strong>must</strong> be a subset of the present modes
@@ -13693,8 +13727,8 @@ If <code>presentGravityX</code> is not <code>0</code>, <code>presentGravityY</co
 <li>
 <p><a id="VUID-VkSwapchainPresentScalingCreateInfoEXT-scalingBehavior-07770" href="#VUID-VkSwapchainPresentScalingCreateInfoEXT-scalingBehavior-07770"></a> <span class="vuid">VUID-VkSwapchainPresentScalingCreateInfoEXT-scalingBehavior-07770</span><br>
 
-<code>scalingBehavior</code> <strong>must</strong> be a valid scaling method for the surface as
-returned in
+<code>scalingBehavior</code> <strong>must</strong> be <code>0</code> or a valid scaling method for the
+surface as returned in
 <a href="#VkSurfacePresentScalingCapabilitiesEXT">VkSurfacePresentScalingCapabilitiesEXT</a>::<code>supportedPresentScaling</code>,
 given <a href="#VkSwapchainCreateInfoKHR">VkSwapchainCreateInfoKHR</a>::<code>presentMode</code> in
 <a href="#VkSurfacePresentModeEXT">VkSurfacePresentModeEXT</a></p>
@@ -13704,7 +13738,7 @@ given <a href="#VkSwapchainCreateInfoKHR">VkSwapchainCreateInfoKHR</a>::<code>pr
 
 If the swapchain is created with
 <a href="#VkSwapchainPresentModesCreateInfoEXT">VkSwapchainPresentModesCreateInfoEXT</a>, <code>scalingBehavior</code> <strong>must</strong>
-be a valid scaling method for the surface as returned in
+be <code>0</code> or a valid scaling method for the surface as returned in
 <a href="#VkSurfacePresentScalingCapabilitiesEXT">VkSurfacePresentScalingCapabilitiesEXT</a>::<code>supportedPresentScaling</code>,
 given each present mode in
 <a href="#VkSwapchainPresentModesCreateInfoEXT">VkSwapchainPresentModesCreateInfoEXT</a>::<code>pPresentModes</code> in
@@ -13713,8 +13747,8 @@ given each present mode in
 <li>
 <p><a id="VUID-VkSwapchainPresentScalingCreateInfoEXT-presentGravityX-07772" href="#VUID-VkSwapchainPresentScalingCreateInfoEXT-presentGravityX-07772"></a> <span class="vuid">VUID-VkSwapchainPresentScalingCreateInfoEXT-presentGravityX-07772</span><br>
 
-<code>presentGravityX</code> <strong>must</strong> be a valid x-axis present gravity for the
-surface as returned in
+<code>presentGravityX</code> <strong>must</strong> be <code>0</code> or a valid x-axis present gravity for
+the surface as returned in
 <a href="#VkSurfacePresentScalingCapabilitiesEXT">VkSurfacePresentScalingCapabilitiesEXT</a>::<code>supportedPresentGravityX</code>,
 given <a href="#VkSwapchainCreateInfoKHR">VkSwapchainCreateInfoKHR</a>::<code>presentMode</code> in
 <a href="#VkSurfacePresentModeEXT">VkSurfacePresentModeEXT</a></p>
@@ -13724,7 +13758,7 @@ given <a href="#VkSwapchainCreateInfoKHR">VkSwapchainCreateInfoKHR</a>::<code>pr
 
 If the swapchain is created with
 <a href="#VkSwapchainPresentModesCreateInfoEXT">VkSwapchainPresentModesCreateInfoEXT</a>, <code>presentGravityX</code> <strong>must</strong>
-be a valid x-axis present gravity for the surface as returned in
+be <code>0</code> or a valid x-axis present gravity for the surface as returned in
 <a href="#VkSurfacePresentScalingCapabilitiesEXT">VkSurfacePresentScalingCapabilitiesEXT</a>::<code>supportedPresentGravityX</code>,
 given each present mode in
 <a href="#VkSwapchainPresentModesCreateInfoEXT">VkSwapchainPresentModesCreateInfoEXT</a>::<code>pPresentModes</code> in
@@ -13733,8 +13767,8 @@ given each present mode in
 <li>
 <p><a id="VUID-VkSwapchainPresentScalingCreateInfoEXT-presentGravityY-07774" href="#VUID-VkSwapchainPresentScalingCreateInfoEXT-presentGravityY-07774"></a> <span class="vuid">VUID-VkSwapchainPresentScalingCreateInfoEXT-presentGravityY-07774</span><br>
 
-<code>presentGravityY</code> <strong>must</strong> be a valid y-axis present gravity for the
-surface as returned in
+<code>presentGravityY</code> <strong>must</strong> be <code>0</code> or a valid y-axis present gravity for
+the surface as returned in
 <a href="#VkSurfacePresentScalingCapabilitiesEXT">VkSurfacePresentScalingCapabilitiesEXT</a>::<code>supportedPresentGravityY</code>,
 given <a href="#VkSwapchainCreateInfoKHR">VkSwapchainCreateInfoKHR</a>::<code>presentMode</code> in
 <a href="#VkSurfacePresentModeEXT">VkSurfacePresentModeEXT</a></p>
@@ -13744,11 +13778,18 @@ given <a href="#VkSwapchainCreateInfoKHR">VkSwapchainCreateInfoKHR</a>::<code>pr
 
 If the swapchain is created with
 <a href="#VkSwapchainPresentModesCreateInfoEXT">VkSwapchainPresentModesCreateInfoEXT</a>, <code>presentGravityY</code> <strong>must</strong>
-be a valid y-axis present gravity for the surface as returned in
+be <code>0</code> or a valid y-axis present gravity for the surface as returned in
 <a href="#VkSurfacePresentScalingCapabilitiesEXT">VkSurfacePresentScalingCapabilitiesEXT</a>::<code>supportedPresentGravityY</code>,
 given each present mode in
 <a href="#VkSwapchainPresentModesCreateInfoEXT">VkSwapchainPresentModesCreateInfoEXT</a>::<code>pPresentModes</code> in
 <a href="#VkSurfacePresentModeEXT">VkSurfacePresentModeEXT</a></p>
+</li>
+<li>
+<p><a id="VUID-VkSwapchainPresentScalingCreateInfoEXT-swapchainMaintenance1-10154" href="#VUID-VkSwapchainPresentScalingCreateInfoEXT-swapchainMaintenance1-10154"></a> <span class="vuid">VUID-VkSwapchainPresentScalingCreateInfoEXT-swapchainMaintenance1-10154</span><br>
+
+If the <a href="../features.html#features-swapchainMaintenance1" class="xref page"><code>swapchainMaintenance1</code></a>
+feature is not enabled, then <code>presentScaling</code>,
+<code>presentGravityX</code>, and <code>presentGravityY</code> <strong>must</strong> be <code>0</code></p>
 </li>
 </ul>
 </div>
@@ -13890,11 +13931,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -13992,14 +14033,14 @@ the presentable images <strong>can</strong> continue to be used.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>pCreateInfos</code>[].surface <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pCreateInfos</code>[].surface <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to <code>pCreateInfos</code>[].oldSwapchain <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pCreateInfos</code>[].oldSwapchain <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -14085,9 +14126,9 @@ number of presentable images available or queried, as described below.</p>
 <p>If <code>pSwapchainImages</code> is <code>NULL</code>, then the number of presentable images
 for <code>swapchain</code> is returned in <code>pSwapchainImageCount</code>.
 Otherwise, <code>pSwapchainImageCount</code> <strong>must</strong> point to a variable set by the
-user to the number of elements in the <code>pSwapchainImages</code> array, and on
-return the variable is overwritten with the number of structures actually
-written to <code>pSwapchainImages</code>.
+application to the number of elements in the <code>pSwapchainImages</code> array,
+and on return the variable is overwritten with the number of structures
+actually written to <code>pSwapchainImages</code>.
 If the value of <code>pSwapchainImageCount</code> is less than the number of
 presentable images for <code>swapchain</code>, at most <code>pSwapchainImageCount</code>
 structures will be written, and <code>VK_INCOMPLETE</code> will be returned instead
@@ -14167,7 +14208,6 @@ images were returned.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>By knowing all presentable images used in the swapchain, the application can
 create command buffers that reference these images prior to entering its
@@ -14273,20 +14313,26 @@ and contiguously to a single <code>VkDeviceMemory</code> object.</p>
 <li>
 <p><a id="VUID-vkAcquireNextImageKHR-semaphore-01286" href="#VUID-vkAcquireNextImageKHR-semaphore-01286"></a> <span class="vuid">VUID-vkAcquireNextImageKHR-semaphore-01286</span><br>
 
-If <code>semaphore</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> it <strong>must</strong> be unsignaled</p>
+If <code>semaphore</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be unsignaled</p>
 </li>
 <li>
 <p><a id="VUID-vkAcquireNextImageKHR-semaphore-01779" href="#VUID-vkAcquireNextImageKHR-semaphore-01779"></a> <span class="vuid">VUID-vkAcquireNextImageKHR-semaphore-01779</span><br>
 
-If <code>semaphore</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> it <strong>must</strong> not have any
+If <code>semaphore</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> not have any
 uncompleted signal or wait operations pending</p>
 </li>
 <li>
 <p><a id="VUID-vkAcquireNextImageKHR-fence-01287" href="#VUID-vkAcquireNextImageKHR-fence-01287"></a> <span class="vuid">VUID-vkAcquireNextImageKHR-fence-01287</span><br>
 
-If <code>fence</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> it <strong>must</strong> be unsignaled and
-<strong>must</strong> not be associated with any other queue command that has not yet
-completed execution on that queue</p>
+If <code>fence</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>fence</code> <strong>must</strong> be
+unsignaled</p>
+</li>
+<li>
+<p><a id="VUID-vkAcquireNextImageKHR-fence-10066" href="#VUID-vkAcquireNextImageKHR-fence-10066"></a> <span class="vuid">VUID-vkAcquireNextImageKHR-fence-10066</span><br>
+
+If <code>fence</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>fence</code> <strong>must</strong> not be
+associated with any other queue command that has not yet completed
+execution on that queue</p>
 </li>
 <li>
 <p><a id="VUID-vkAcquireNextImageKHR-semaphore-01780" href="#VUID-vkAcquireNextImageKHR-semaphore-01780"></a> <span class="vuid">VUID-vkAcquireNextImageKHR-semaphore-01780</span><br>
@@ -14299,8 +14345,7 @@ completed execution on that queue</p>
 
 If <a href="#swapchain-acquire-forward-progress">forward progress</a> cannot be
 guaranteed for the <code>surface</code> used to create the <code>swapchain</code>
-member of <code>pAcquireInfo</code>, the <code>timeout</code> member of
-<code>pAcquireInfo</code> <strong>must</strong> not be <code>UINT64_MAX</code></p>
+member of <code>pAcquireInfo</code>, <code>timeout</code> <strong>must</strong> not be <code>UINT64_MAX</code></p>
 </li>
 <li>
 <p><a id="VUID-vkAcquireNextImageKHR-semaphore-03265" href="#VUID-vkAcquireNextImageKHR-semaphore-03265"></a> <span class="vuid">VUID-vkAcquireNextImageKHR-semaphore-03265</span><br>
@@ -14355,17 +14400,17 @@ member of <code>pAcquireInfo</code>, the <code>timeout</code> member of
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to <code>semaphore</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>semaphore</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to <code>fence</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>fence</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -14489,7 +14534,6 @@ application has currently acquired is less than or equal to <span class="eq">S-M
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Returning a result in finite time guarantees that the implementation cannot
 deadlock an application, or suspend its execution indefinitely with correct
@@ -14520,7 +14564,6 @@ presenting if <code>VK_ERROR_OUT_OF_DATE_KHR</code> is returned.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p><code>VK_SUBOPTIMAL_KHR</code> <strong>may</strong> happen, for example, if the platform surface
 has been resized but the platform is able to scale the presented images to
@@ -14551,7 +14594,6 @@ It will become signaled when the application <strong>can</strong> use the image.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Use of <code>semaphore</code> allows rendering operations to be recorded and
 submitted before the presentation engine has completed its use of the image.</p>
@@ -14572,7 +14614,6 @@ It will become signaled when the application <strong>can</strong> use the image.
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Applications <strong>should</strong> not rely on <code>vkAcquireNextImageKHR</code> blocking in
 order to meter their rendering speed.
@@ -14597,7 +14638,6 @@ signaled before accessing the image&#8217;s data.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>When the presentable image will be accessed by some stage <span class="eq">S</span>, the
 recommended idiom for ensuring correct synchronization is:</p>
@@ -14632,7 +14672,6 @@ data will be unmodified compared to when it was presented.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Exclusive ownership of presentable images corresponding to a swapchain
 created with <code>VK_SHARING_MODE_EXCLUSIVE</code> as defined in
@@ -14683,7 +14722,6 @@ still be used to present to the surface successfully.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This <strong>may</strong> happen, for example, if the platform surface has been resized but
 the platform is able to scale the presented images to the new size to
@@ -14731,7 +14769,6 @@ image sizes, a <code>VK_ERROR_OUT_OF_DATE_KHR</code> error will be returned.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For example, consider a 4x3 window/surface that gets resized to be 3x4
 (taller than wider).
@@ -14771,7 +14808,7 @@ VkResult vkAcquireNextImage2KHR(
 structure containing parameters of the acquire.</p>
 </li>
 <li>
-<p><code>pImageIndex</code> is a pointer to a <code>uint32_t</code> that is set to the
+<p><code>pImageIndex</code> is a pointer to a <code>uint32_t</code> value specifying the
 index of the next image to use.</p>
 </li>
 </ul>
@@ -14933,7 +14970,6 @@ include all physical devices in the logical device.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p><a href="#vkAcquireNextImage2KHR">vkAcquireNextImage2KHR</a> signals at most one semaphore, even if the
 application requests waiting for multiple physical devices to be ready via
@@ -14962,20 +14998,26 @@ succeeds, which the other physical device(s) <strong>can</strong> wait upon.</p>
 <li>
 <p><a id="VUID-VkAcquireNextImageInfoKHR-semaphore-01288" href="#VUID-VkAcquireNextImageInfoKHR-semaphore-01288"></a> <span class="vuid">VUID-VkAcquireNextImageInfoKHR-semaphore-01288</span><br>
 
-If <code>semaphore</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> it <strong>must</strong> be unsignaled</p>
+If <code>semaphore</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> be unsignaled</p>
 </li>
 <li>
 <p><a id="VUID-VkAcquireNextImageInfoKHR-semaphore-01781" href="#VUID-VkAcquireNextImageInfoKHR-semaphore-01781"></a> <span class="vuid">VUID-VkAcquireNextImageInfoKHR-semaphore-01781</span><br>
 
-If <code>semaphore</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> it <strong>must</strong> not have any
+If <code>semaphore</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, it <strong>must</strong> not have any
 uncompleted signal or wait operations pending</p>
 </li>
 <li>
 <p><a id="VUID-VkAcquireNextImageInfoKHR-fence-01289" href="#VUID-VkAcquireNextImageInfoKHR-fence-01289"></a> <span class="vuid">VUID-VkAcquireNextImageInfoKHR-fence-01289</span><br>
 
-If <code>fence</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> it <strong>must</strong> be unsignaled and
-<strong>must</strong> not be associated with any other queue command that has not yet
-completed execution on that queue</p>
+If <code>fence</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>fence</code> <strong>must</strong> be
+unsignaled</p>
+</li>
+<li>
+<p><a id="VUID-VkAcquireNextImageInfoKHR-fence-10067" href="#VUID-VkAcquireNextImageInfoKHR-fence-10067"></a> <span class="vuid">VUID-VkAcquireNextImageInfoKHR-fence-10067</span><br>
+
+If <code>fence</code> is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>fence</code> <strong>must</strong> not be
+associated with any other queue command that has not yet completed
+execution on that queue</p>
 </li>
 <li>
 <p><a id="VUID-VkAcquireNextImageInfoKHR-semaphore-01782" href="#VUID-VkAcquireNextImageInfoKHR-semaphore-01782"></a> <span class="vuid">VUID-VkAcquireNextImageInfoKHR-semaphore-01782</span><br>
@@ -15038,17 +15080,17 @@ completed execution on that queue</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to <code>semaphore</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>semaphore</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to <code>fence</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>fence</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -15089,7 +15131,6 @@ specifying parameters of the presentation.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>There is no requirement for an application to present images in the same
 order that they were acquired - applications can arbitrarily present any
@@ -15106,7 +15147,6 @@ image that is currently acquired.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The origin of the native orientation of the surface coordinate system is not
 specified in the Vulkan specification; it depends on the platform.
@@ -15248,7 +15288,6 @@ using <code>vkAcquireNextImageKHR</code>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>The application <strong>can</strong> continue to present any acquired images from a retired
 swapchain as long as the swapchain has not entered a state that causes
@@ -15324,17 +15363,17 @@ for execution</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>queue</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>queue</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to <code>pPresentInfo-&gt;pWaitSemaphores</code>[] <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pPresentInfo-&gt;pWaitSemaphores</code>[] <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>Host access to <code>pPresentInfo-&gt;pSwapchains</code>[] <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>pPresentInfo-&gt;pSwapchains</code>[] <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -15500,7 +15539,6 @@ layout.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>When transitioning the image to
 <code>VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR</code> or
@@ -15508,8 +15546,8 @@ layout.</p>
 processing, or perform any visibility operations (as <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a>
 performs automatic visibility operations).
 To achieve this, the <code>dstAccessMask</code> member of the
-<a href="../synchronization.html#VkImageMemoryBarrier" class="xref page">VkImageMemoryBarrier</a> <strong>should</strong> be set to <code>0</code>, and the <code>dstStageMask</code>
-parameter <strong>should</strong> be set to <code>VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT</code>.</p>
+<a href="../synchronization.html#VkImageMemoryBarrier" class="xref page">VkImageMemoryBarrier</a> <strong>should</strong> be <code>0</code>, and the <code>dstStageMask</code>
+parameter <strong>should</strong> be <code>VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT</code>.</p>
 </div>
 </td>
 </tr>
@@ -15541,6 +15579,13 @@ layout at the time the operation is executed on a <code>VkDevice</code></p>
 If a <a href="#VkPresentIdKHR">VkPresentIdKHR</a> structure is included in the <code>pNext</code>
 chain, and the <a href="../features.html#features-presentId" class="xref page"><code>presentId</code></a> feature is not
 enabled, each <code>presentIds</code> entry in that structure <strong>must</strong> be NULL</p>
+</li>
+<li>
+<p><a id="VUID-VkPresentInfoKHR-swapchainMaintenance1-10158" href="#VUID-VkPresentInfoKHR-swapchainMaintenance1-10158"></a> <span class="vuid">VUID-VkPresentInfoKHR-swapchainMaintenance1-10158</span><br>
+
+If the <a href="../features.html#features-swapchainMaintenance1" class="xref page"><code>swapchainMaintenance1</code></a>
+feature is not enabled, then the <code>pNext</code> chain <strong>must</strong> not include a
+<a href="#VkSwapchainPresentFenceInfoEXT">VkSwapchainPresentFenceInfoEXT</a> structure</p>
 </li>
 <li>
 <p><a id="VUID-VkPresentInfoKHR-pSwapchains-09199" href="#VUID-VkPresentInfoKHR-pSwapchains-09199"></a> <span class="vuid">VUID-VkPresentInfoKHR-pSwapchains-09199</span><br>
@@ -16274,8 +16319,7 @@ identifiers.</p>
 </div>
 <div class="paragraph">
 <p>Each <code>VkSwapchainKHR</code> has a presentId associated with it.
-This value is initially set to zero when the <code>VkSwapchainKHR</code> is
-created.</p>
+This value is initially zero when the <code>VkSwapchainKHR</code> is created.</p>
 </div>
 <div class="paragraph">
 <p>When a <code>VkPresentIdKHR</code> structure with a non-NULL <code>pPresentIds</code> is
@@ -16465,11 +16509,11 @@ The <a href="../features.html#features-presentWait" class="xref page"><code>pres
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -16666,33 +16710,43 @@ subsequent images.</p>
 </li>
 <li>
 <p>Transition from <code>VK_PRESENT_MODE_IMMEDIATE_KHR</code> to
-<code>VK_PRESENT_MODE_FIFO_KHR</code> or
-<code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>: As all prior present requests in
-the <code>VK_PRESENT_MODE_IMMEDIATE_KHR</code> mode are applied immediately,
-there are no outstanding present operations in this mode, and current
-and subsequent images are appended to the FIFO queue and presented
-according to the new mode.</p>
+<code>VK_PRESENT_MODE_FIFO_KHR</code> or <code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>
+or <code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code>
+: As all prior present requests in the
+<code>VK_PRESENT_MODE_IMMEDIATE_KHR</code> mode are applied immediately, there
+are no outstanding present operations in this mode, and current and
+subsequent images are appended to the FIFO queue and presented according
+to the new mode.</p>
 </li>
 <li>
 <p>Transition from <code>VK_PRESENT_MODE_MAILBOX_KHR</code> to
-<code>VK_PRESENT_MODE_FIFO_KHR</code> or
-<code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>: Presentation in both modes
-require waiting for the next vertical blanking period, with
-<code>VK_PRESENT_MODE_MAILBOX_KHR</code> allowing the pending present operation
-to be replaced by a new one.
+<code>VK_PRESENT_MODE_FIFO_KHR</code> or <code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>
+or <code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code>
+: Presentation in FIFO modes require waiting for the next vertical
+blanking period, with <code>VK_PRESENT_MODE_MAILBOX_KHR</code> allowing the
+pending present operation to be replaced by a new one.
 In this case, the current present operation will replace the pending
 present operation and is applied according to the new mode.</p>
 </li>
 <li>
 <p>Transition from <code>VK_PRESENT_MODE_FIFO_KHR</code> or
-<code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code> to
-<code>VK_PRESENT_MODE_IMMEDIATE_KHR</code> or
+<code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>
+or <code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code>
+to <code>VK_PRESENT_MODE_IMMEDIATE_KHR</code> or
 <code>VK_PRESENT_MODE_MAILBOX_KHR</code>: If the FIFO queue is empty,
 presentation is done according to the behavior of the new mode.
 If there are present operations in the FIFO queue, once the last present
 operation is performed based on the respective vertical blanking period,
 the current and subsequent updates are applied according to the new
 mode.</p>
+</li>
+<li>
+<p>Transition between <code>VK_PRESENT_MODE_FIFO_KHR</code> or
+<code>VK_PRESENT_MODE_FIFO_RELAXED_KHR</code>, and
+<code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code>: Images continue to be
+appended to the same FIFO queue, and the behavior with respect to
+waiting for vertical blanking period and dequeuing requests will follow
+the new mode for current and subsequent images.</p>
 </li>
 <li>
 <p>The behavior during transition between any other present modes, if
@@ -16714,7 +16768,7 @@ possible, is implementation defined.</p>
 <li>
 <p><a id="VUID-VkSwapchainPresentModeInfoEXT-pPresentModes-07761" href="#VUID-VkSwapchainPresentModeInfoEXT-pPresentModes-07761"></a> <span class="vuid">VUID-VkSwapchainPresentModeInfoEXT-pPresentModes-07761</span><br>
 
-Each entry in <code>pPresentModes</code> must be a presentation mode specified
+Each entry in <code>pPresentModes</code> <strong>must</strong> be a presentation mode specified
 in <a href="#VkSwapchainPresentModesCreateInfoEXT">VkSwapchainPresentModesCreateInfoEXT</a>::<code>pPresentModes</code> when
 creating the entry&#8217;s corresponding swapchain</p>
 </li>
@@ -16841,13 +16895,15 @@ the <a href="#VkPresentInfoKHR">VkPresentInfoKHR</a> structure.</p>
 <li>
 <p><a id="VUID-VkSwapchainPresentFenceInfoEXT-pFences-07758" href="#VUID-VkSwapchainPresentFenceInfoEXT-pFences-07758"></a> <span class="vuid">VUID-VkSwapchainPresentFenceInfoEXT-pFences-07758</span><br>
 
-Each element of <code>pFences</code> <strong>must</strong> be unsignaled</p>
+Each element of <code>pFences</code> that is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> <strong>must</strong> be
+unsignaled</p>
 </li>
 <li>
 <p><a id="VUID-VkSwapchainPresentFenceInfoEXT-pFences-07759" href="#VUID-VkSwapchainPresentFenceInfoEXT-pFences-07759"></a> <span class="vuid">VUID-VkSwapchainPresentFenceInfoEXT-pFences-07759</span><br>
 
-Each element of <code>pFences</code> <strong>must</strong> not be associated with any other
-queue command that has not yet completed execution on that queue</p>
+Each element of <code>pFences</code> that is not <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> <strong>must</strong> not
+be associated with any other queue command that has not yet completed
+execution on that queue</p>
 </li>
 </ul>
 </div>
@@ -16923,7 +16979,6 @@ in the swapchain becomes <strong>undefined</strong>.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This functionality is useful during swapchain recreation, where acquired
 images from the old swapchain can be released instead of presented.</p>
@@ -16931,6 +16986,21 @@ images from the old swapchain can be released instead of presented.</p>
 </td>
 </tr>
 </table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkReleaseSwapchainImagesEXT-swapchainMaintenance1-10159" href="#VUID-vkReleaseSwapchainImagesEXT-swapchainMaintenance1-10159"></a> <span class="vuid">VUID-vkReleaseSwapchainImagesEXT-swapchainMaintenance1-10159</span><br>
+
+Feature <a href="../features.html#features-swapchainMaintenance1" class="xref page"><code>swapchainMaintenance1</code></a>
+<strong>must</strong> be enabled</p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -17071,11 +17141,11 @@ All uses of presentable images identified by elements of
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
+<div class="title">{externsynctitle}</div>
 <div class="ulist">
 <ul>
 <li>
-<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -17086,18 +17156,17 @@ All uses of presentable images identified by elements of
 </div>
 </div>
 <div class="sect1">
-<h2 id="_hdr_metadata"><a class="anchor" href="#_hdr_metadata"></a>Hdr Metadata</h2>
+<h2 id="_hdr_metadata"><a class="anchor" href="#_hdr_metadata"></a>HDR Metadata</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This section describes how to improve color reproduction of content to
-better reproduce colors as seen on the reference monitor.
-Definitions below are from the associated SMPTE 2086, CTA 861.3 and CIE
-15:2004 specifications.</p>
+better reproduce colors as seen on the display used to originally optimize
+the content.</p>
 </div>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>To provide Hdr metadata to an implementation, call:</p>
+<p>To provide HDR metadata to an implementation, call:</p>
 </div>
 <div id="vkSetHdrMetadataEXT" class="listingblock">
 <div class="content">
@@ -17130,7 +17199,7 @@ void vkSetHdrMetadataEXT(
 </div>
 <div class="paragraph">
 <p>The metadata will be applied to the specified <a href="#VkSwapchainKHR">VkSwapchainKHR</a> objects
-at the next <code>vkQueuePresentKHR</code> call using that <a href="#VkSwapchainKHR">VkSwapchainKHR</a>
+at the next <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> call using that <a href="#VkSwapchainKHR">VkSwapchainKHR</a>
 object.
 The metadata will persist until a subsequent <code>vkSetHdrMetadataEXT</code>
 changes it.</p>
@@ -17199,36 +17268,57 @@ structure.</p>
 </li>
 <li>
 <p><code>displayPrimaryRed</code> is a <a href="#VkXYColorEXT">VkXYColorEXT</a> structure specifying the
-reference monitor&#8217;s red primary in chromaticity coordinates</p>
+red primary of the display used to optimize the content</p>
 </li>
 <li>
 <p><code>displayPrimaryGreen</code> is a <a href="#VkXYColorEXT">VkXYColorEXT</a> structure specifying
-the reference monitor&#8217;s green primary in chromaticity coordinates</p>
+the green primary of the display used to optimize the content</p>
 </li>
 <li>
 <p><code>displayPrimaryBlue</code> is a <a href="#VkXYColorEXT">VkXYColorEXT</a> structure specifying
-the reference monitor&#8217;s blue primary in chromaticity coordinates</p>
+the blue primary of the display used to optimize the content</p>
 </li>
 <li>
 <p><code>whitePoint</code> is a <a href="#VkXYColorEXT">VkXYColorEXT</a> structure specifying the
-reference monitor&#8217;s white-point in chromaticity coordinates</p>
+white-point of the display used to optimize the content</p>
 </li>
 <li>
-<p><code>maxLuminance</code> is the maximum luminance of the reference monitor in
-nits</p>
+<p><code>maxLuminance</code> is the maximum luminance of the display used to
+optimize the content in nits</p>
 </li>
 <li>
-<p><code>minLuminance</code> is the minimum luminance of the reference monitor in
-nits</p>
+<p><code>minLuminance</code> is the minimum luminance of the display used to
+optimize the content in nits</p>
 </li>
 <li>
-<p><code>maxContentLightLevel</code> is content&#8217;s maximum luminance in nits</p>
+<p><code>maxContentLightLevel</code> is the value in nits of the desired luminance
+for the brightest pixels in the displayed image.</p>
 </li>
 <li>
-<p><code>maxFrameAverageLightLevel</code> is the maximum frame average light level
-in nits</p>
+<p><code>maxFrameAverageLightLevel</code> is the value in nits of the average
+luminance of the frame which has the brightest average luminance
+anywhere in the content.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>If any of the above values are unknown, they <strong>can</strong> be set to 0.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The meta-data provided here is intended to be used as defined in the SMPTE
+2086, CTA 861.3 and CIE 15:2004 specifications.
+The validity and use of this data is outside the scope of Vulkan.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -17241,11 +17331,56 @@ in nits</p>
 </li>
 <li>
 <p><a id="VUID-VkHdrMetadataEXT-pNext-pNext" href="#VUID-VkHdrMetadataEXT-pNext-pNext"></a> <span class="vuid">VUID-VkHdrMetadataEXT-pNext-pNext</span><br>
- <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code> or a pointer to a valid instance of <a href="#VkHdrVividDynamicMetadataHUAWEI">VkHdrVividDynamicMetadataHUAWEI</a></p>
+</li>
+<li>
+<p><a id="VUID-VkHdrMetadataEXT-sType-unique" href="#VUID-VkHdrMetadataEXT-sType-unique"></a> <span class="vuid">VUID-VkHdrMetadataEXT-sType-unique</span><br>
+ The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>When <a href="../features.html#features-hdrVivid" class="xref page"><code>hdrVivid</code></a> feature is enabled, HDR Vivid
+dynamic metadata <strong>can</strong> be set to control the reproduction of content by
+including the <code>VkHdrVividDynamicMetadataHUAWEI</code> in the <code>pNext</code> chain
+of <a href="#VkHdrMetadataEXT">VkHdrMetadataEXT</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkHdrVividDynamicMetadataHUAWEI</code> structure is defined as:</p>
+</div>
+<div id="VkHdrVividDynamicMetadataHUAWEI" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_HUAWEI_hdr_vivid
+typedef struct VkHdrVividDynamicMetadataHUAWEI {
+    VkStructureType    sType;
+    const void*        pNext;
+    size_t             dynamicMetadataSize;
+    const void*        pDynamicMetadata;
+} VkHdrVividDynamicMetadataHUAWEI;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>dynamicMetadataSize</code> is the size in bytes of the dynamic metadata.</p>
+</li>
+<li>
+<p><code>pDynamicMetadata</code> is a pointer to the dynamic metadata.</p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -17254,13 +17389,35 @@ in nits</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
-<p>The validity and use of this data is outside the scope of Vulkan.</p>
+<p>The HDR Vivid metadata is intended to be used as defined in the T/UWA
+005.1-2022 specification.
+The validity and use of this data is outside the scope of Vulkan.</p>
 </div>
 </td>
 </tr>
 </table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkHdrVividDynamicMetadataHUAWEI-sType-sType" href="#VUID-VkHdrVividDynamicMetadataHUAWEI-sType-sType"></a> <span class="vuid">VUID-VkHdrVividDynamicMetadataHUAWEI-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_HDR_VIVID_DYNAMIC_METADATA_HUAWEI</code></p>
+</li>
+<li>
+<p><a id="VUID-VkHdrVividDynamicMetadataHUAWEI-pDynamicMetadata-parameter" href="#VUID-VkHdrVividDynamicMetadataHUAWEI-pDynamicMetadata-parameter"></a> <span class="vuid">VUID-VkHdrVividDynamicMetadataHUAWEI-pDynamicMetadata-parameter</span><br>
+ <code>pDynamicMetadata</code> <strong>must</strong> be a valid pointer to an array of <code>dynamicMetadataSize</code> bytes</p>
+</li>
+<li>
+<p><a id="VUID-VkHdrVividDynamicMetadataHUAWEI-dynamicMetadataSize-arraylength" href="#VUID-VkHdrVividDynamicMetadataHUAWEI-dynamicMetadataSize-arraylength"></a> <span class="vuid">VUID-VkHdrVividDynamicMetadataHUAWEI-dynamicMetadataSize-arraylength</span><br>
+ <code>dynamicMetadataSize</code> <strong>must</strong> be greater than <code>0</code></p>
+</li>
+</ul>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -17291,7 +17448,1364 @@ typedef struct VkXYColorEXT {
 <div class="paragraph">
 <p>Chromaticity coordinates are as specified in CIE 15:2004 &#8220;Calculation of
 chromaticity coordinates&#8221; (Section 7.3) and are limited to between 0 and 1
-for real colors for the reference monitor.</p>
+for real colors.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="lag-control"><a class="anchor" href="#lag-control"></a>Lag Control</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Some implementations support extensions to reduce display latency and
+control the swapchain present interval, as described in the remainder of
+this section.</p>
+</div>
+<div class="sect2">
+<h3 id="anti-lag"><a class="anchor" href="#anti-lag"></a>Anti-Lag</h3>
+<div class="paragraph">
+<p>The <a href="../../appendices/extensions.html#VK_AMD_anti_lag" class="xref page">VK_AMD_anti_lag</a> extension lowers latency between receiving input
+and displaying on the screen.
+It adds a command to indicate when input is being processed for a frame, and
+when that frame&#8217;s images are presented.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To lower latency, call:</p>
+</div>
+<div id="vkAntiLagUpdateAMD" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_AMD_anti_lag
+void vkAntiLagUpdateAMD(
+    VkDevice                                    device,
+    const VkAntiLagDataAMD*                     pData);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the logical device</p>
+</li>
+<li>
+<p><code>pData</code> is a pointer to a <a href="#VkAntiLagDataAMD">VkAntiLagDataAMD</a> structure
+containing latency reduction parameters.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This command should be executed immediately before the application processes
+user input.
+If <code>pData</code> is not <code>NULL</code> and
+<a href="#VkAntiLagDataAMD">VkAntiLagDataAMD</a>::<code>presentationInfo</code> is not <code>NULL</code>, this command
+<strong>should</strong> be executed again before <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a>, with
+<code>pPresentationInfo</code> set to matching values.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkAntiLagUpdateAMD-antiLag-10061" href="#VUID-vkAntiLagUpdateAMD-antiLag-10061"></a> <span class="vuid">VUID-vkAntiLagUpdateAMD-antiLag-10061</span><br>
+
+The <a href="../features.html#features-antiLag" class="xref page"><code>antiLag</code></a> feature <strong>must</strong> be enabled</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkAntiLagUpdateAMD-device-parameter" href="#VUID-vkAntiLagUpdateAMD-device-parameter"></a> <span class="vuid">VUID-vkAntiLagUpdateAMD-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="../devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkAntiLagUpdateAMD-pData-parameter" href="#VUID-vkAntiLagUpdateAMD-pData-parameter"></a> <span class="vuid">VUID-vkAntiLagUpdateAMD-pData-parameter</span><br>
+ <code>pData</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkAntiLagDataAMD">VkAntiLagDataAMD</a> structure</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkAntiLagDataAMD</code> structure is defined as:</p>
+</div>
+<div id="VkAntiLagDataAMD" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_AMD_anti_lag
+typedef struct VkAntiLagDataAMD {
+    VkStructureType                        sType;
+    const void*                            pNext;
+    VkAntiLagModeAMD                       mode;
+    uint32_t                               maxFPS;
+    const VkAntiLagPresentationInfoAMD*    pPresentationInfo;
+} VkAntiLagDataAMD;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>mode</code> is a <a href="#VkAntiLagModeAMD">VkAntiLagModeAMD</a> value specifying the anti-lag
+status.</p>
+</li>
+<li>
+<p><code>maxFPS</code> is the framerate limit, in frames per second, used by the
+application.
+This limit will be imposed if anti-lag is enabled.
+If the application tries to render faster, the framerate will be reduced
+to match this limit.
+A value of 0 will disable the limit.</p>
+</li>
+<li>
+<p><code>pPresentationInfo</code> is a pointer to a
+<a href="#VkAntiLagPresentationInfoAMD">VkAntiLagPresentationInfoAMD</a> structure containing information
+about the application stage.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This structure specifies anti-lag parameters.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkAntiLagDataAMD-sType-sType" href="#VUID-VkAntiLagDataAMD-sType-sType"></a> <span class="vuid">VUID-VkAntiLagDataAMD-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_ANTI_LAG_DATA_AMD</code></p>
+</li>
+<li>
+<p><a id="VUID-VkAntiLagDataAMD-mode-parameter" href="#VUID-VkAntiLagDataAMD-mode-parameter"></a> <span class="vuid">VUID-VkAntiLagDataAMD-mode-parameter</span><br>
+ <code>mode</code> <strong>must</strong> be a valid <a href="#VkAntiLagModeAMD">VkAntiLagModeAMD</a> value</p>
+</li>
+<li>
+<p><a id="VUID-VkAntiLagDataAMD-pPresentationInfo-parameter" href="#VUID-VkAntiLagDataAMD-pPresentationInfo-parameter"></a> <span class="vuid">VUID-VkAntiLagDataAMD-pPresentationInfo-parameter</span><br>
+ If <code>pPresentationInfo</code> is not <code>NULL</code>, <code>pPresentationInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkAntiLagPresentationInfoAMD">VkAntiLagPresentationInfoAMD</a> structure</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Possible values of <a href="#VkAntiLagDataAMD">VkAntiLagDataAMD</a>::<code>mode</code>, specifying the
+anti-lag status, are:</p>
+</div>
+<div id="VkAntiLagModeAMD" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_AMD_anti_lag
+typedef enum VkAntiLagModeAMD {
+    VK_ANTI_LAG_MODE_DRIVER_CONTROL_AMD = 0,
+    VK_ANTI_LAG_MODE_ON_AMD = 1,
+    VK_ANTI_LAG_MODE_OFF_AMD = 2,
+} VkAntiLagModeAMD;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ANTI_LAG_MODE_DRIVER_CONTROL_AMD</code> specifies that anti-lag will
+be enabled or disabled depending on driver settings.</p>
+</li>
+<li>
+<p><code>VK_ANTI_LAG_MODE_ON_AMD</code> specifies that anti-lag will be enabled.</p>
+</li>
+<li>
+<p><code>VK_ANTI_LAG_MODE_OFF_AMD</code> specifies that anti-lag will be disabled.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkAntiLagPresentationInfoAMD</code> structure is defined as:</p>
+</div>
+<div id="VkAntiLagPresentationInfoAMD" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_AMD_anti_lag
+typedef struct VkAntiLagPresentationInfoAMD {
+    VkStructureType      sType;
+    void*                pNext;
+    VkAntiLagStageAMD    stage;
+    uint64_t             frameIndex;
+} VkAntiLagPresentationInfoAMD;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>stage</code> is a <a href="#VkAntiLagStageAMD">VkAntiLagStageAMD</a> value specifying the current
+application stage.</p>
+</li>
+<li>
+<p><code>frameIndex</code> is set just before the application processes input data
+(<code>VK_ANTI_LAG_STAGE_INPUT_AMD</code>).
+The same <code>frameIndex</code> value <strong>should</strong> be set before the frame with
+current input data will be presented by <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a>
+(<code>VK_ANTI_LAG_STAGE_PRESENT_AMD</code>).
+This <strong>should</strong> be done for each frame.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This structure specifies information about the presentation stage for which
+anti-lag parameters are being set.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkAntiLagPresentationInfoAMD-sType-sType" href="#VUID-VkAntiLagPresentationInfoAMD-sType-sType"></a> <span class="vuid">VUID-VkAntiLagPresentationInfoAMD-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_ANTI_LAG_PRESENTATION_INFO_AMD</code></p>
+</li>
+<li>
+<p><a id="VUID-VkAntiLagPresentationInfoAMD-stage-parameter" href="#VUID-VkAntiLagPresentationInfoAMD-stage-parameter"></a> <span class="vuid">VUID-VkAntiLagPresentationInfoAMD-stage-parameter</span><br>
+ <code>stage</code> <strong>must</strong> be a valid <a href="#VkAntiLagStageAMD">VkAntiLagStageAMD</a> value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Possible values of <a href="#VkAntiLagPresentationInfoAMD">VkAntiLagPresentationInfoAMD</a>::<code>stage</code>,
+specifying the current application stage, are:</p>
+</div>
+<div id="VkAntiLagStageAMD" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_AMD_anti_lag
+typedef enum VkAntiLagStageAMD {
+    VK_ANTI_LAG_STAGE_INPUT_AMD = 0,
+    VK_ANTI_LAG_STAGE_PRESENT_AMD = 1,
+} VkAntiLagStageAMD;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ANTI_LAG_STAGE_INPUT_AMD</code> specifies the stage before processing
+input.</p>
+</li>
+<li>
+<p><code>VK_ANTI_LAG_STAGE_PRESENT_AMD</code> specifies the stage before
+<a href="#vkQueuePresentKHR">vkQueuePresentKHR</a>.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="low-latency2"><a class="anchor" href="#low-latency2"></a>Latency Reduction</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To enable or disable low latency mode on a swapchain, call:</p>
+</div>
+<div id="vkSetLatencySleepModeNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+VkResult vkSetLatencySleepModeNV(
+    VkDevice                                    device,
+    VkSwapchainKHR                              swapchain,
+    const VkLatencySleepModeInfoNV*             pSleepModeInfo);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the device associated with <code>swapchain</code>.</p>
+</li>
+<li>
+<p><code>swapchain</code> is the swapchain to enable or disable low latency mode
+on.</p>
+</li>
+<li>
+<p><code>pSleepModeInfo</code> is <code>NULL</code> or a pointer to a
+<a href="#VkLatencySleepModeInfoNV">VkLatencySleepModeInfoNV</a> structure specifying the parameters of
+the latency sleep mode.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>pSleepModeInfo</code> is <code>NULL</code>, <code>vkSetLatencySleepModeNV</code> will
+disable low latency mode, low latency boost, and set the minimum present
+interval previously specified by <a href="#VkLatencySleepModeInfoNV">VkLatencySleepModeInfoNV</a> to zero on
+<code>swapchain</code>.
+As an exception to the normal rules for objects which are externally
+synchronized, the swapchain passed to <code>vkSetLatencySleepModeNV</code> <strong>may</strong> be
+simultaneously used by other threads in calls to functions other than
+<a href="#vkDestroySwapchainKHR">vkDestroySwapchainKHR</a>.
+Access to the swapchain data associated with this extension <strong>must</strong> be atomic
+within the implementation.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkSetLatencySleepModeNV-device-parameter" href="#VUID-vkSetLatencySleepModeNV-device-parameter"></a> <span class="vuid">VUID-vkSetLatencySleepModeNV-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="../devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkSetLatencySleepModeNV-swapchain-parameter" href="#VUID-vkSetLatencySleepModeNV-swapchain-parameter"></a> <span class="vuid">VUID-vkSetLatencySleepModeNV-swapchain-parameter</span><br>
+ <code>swapchain</code> <strong>must</strong> be a valid <a href="#VkSwapchainKHR">VkSwapchainKHR</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkSetLatencySleepModeNV-pSleepModeInfo-parameter" href="#VUID-vkSetLatencySleepModeNV-pSleepModeInfo-parameter"></a> <span class="vuid">VUID-vkSetLatencySleepModeNV-pSleepModeInfo-parameter</span><br>
+ <code>pSleepModeInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkLatencySleepModeInfoNV">VkLatencySleepModeInfoNV</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkSetLatencySleepModeNV-swapchain-parent" href="#VUID-vkSetLatencySleepModeNV-swapchain-parent"></a> <span class="vuid">VUID-vkSetLatencySleepModeNV-swapchain-parent</span><br>
+ <code>swapchain</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkLatencySleepModeInfoNV</code> structure is defined as:</p>
+</div>
+<div id="VkLatencySleepModeInfoNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+typedef struct VkLatencySleepModeInfoNV {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkBool32           lowLatencyMode;
+    VkBool32           lowLatencyBoost;
+    uint32_t           minimumIntervalUs;
+} VkLatencySleepModeInfoNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>lowLatencyMode</code> is the toggle to enable or disable low latency
+mode.</p>
+</li>
+<li>
+<p><code>lowLatencyBoost</code> allows an application to hint to the GPU to
+increase performance to provide additional latency savings at a cost of
+increased power consumption.</p>
+</li>
+<li>
+<p><code>minimumIntervalUs</code> is the microseconds between
+<a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> calls for a given swapchain that
+<a href="#vkLatencySleepNV">vkLatencySleepNV</a> will enforce.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>lowLatencyMode</code> is <code>VK_FALSE</code>, <code>lowLatencyBoost</code> will still
+hint to the GPU to increase its power state and <code>vkLatencySleepNV</code> will
+still enforce <code>minimumIntervalUs</code> between <code>vkQueuePresentKHR</code> calls.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkLatencySleepModeInfoNV-sType-sType" href="#VUID-VkLatencySleepModeInfoNV-sType-sType"></a> <span class="vuid">VUID-VkLatencySleepModeInfoNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_LATENCY_SLEEP_MODE_INFO_NV</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To provide the synchronization primitive used to delay host CPU work for
+lower latency rendering, call:</p>
+</div>
+<div id="vkLatencySleepNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+VkResult vkLatencySleepNV(
+    VkDevice                                    device,
+    VkSwapchainKHR                              swapchain,
+    const VkLatencySleepInfoNV*                 pSleepInfo);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the device associated with <code>swapchain</code>.</p>
+</li>
+<li>
+<p><code>swapchain</code> is the swapchain to delay associated CPU work based on
+<a href="#VkLatencySubmissionPresentIdNV">VkLatencySubmissionPresentIdNV</a> submissions.</p>
+</li>
+<li>
+<p><code>pSleepInfo</code> is a pointer to a <a href="#VkLatencySleepInfoNV">VkLatencySleepInfoNV</a> structure
+specifying the parameters of the latency sleep.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>vkLatencySleepNV</code> returns immediately.
+Applications <strong>should</strong> use <a href="../synchronization.html#vkWaitSemaphores" class="xref page">vkWaitSemaphores</a> with
+<code>pSleepInfo-&gt;signalSemaphore</code> to delay host CPU work.
+CPU work refers to application work done before presenting which includes
+but is not limited to: input sampling, simulation, command buffer recording,
+command buffer submission, and present submission.
+It is recommended to call this function before input sampling.
+When using this function, it <strong>should</strong> be called exactly once between
+presents.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkLatencySleepNV-device-parameter" href="#VUID-vkLatencySleepNV-device-parameter"></a> <span class="vuid">VUID-vkLatencySleepNV-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="../devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkLatencySleepNV-swapchain-parameter" href="#VUID-vkLatencySleepNV-swapchain-parameter"></a> <span class="vuid">VUID-vkLatencySleepNV-swapchain-parameter</span><br>
+ <code>swapchain</code> <strong>must</strong> be a valid <a href="#VkSwapchainKHR">VkSwapchainKHR</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkLatencySleepNV-pSleepInfo-parameter" href="#VUID-vkLatencySleepNV-pSleepInfo-parameter"></a> <span class="vuid">VUID-vkLatencySleepNV-pSleepInfo-parameter</span><br>
+ <code>pSleepInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkLatencySleepInfoNV">VkLatencySleepInfoNV</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkLatencySleepNV-swapchain-parent" href="#VUID-vkLatencySleepNV-swapchain-parent"></a> <span class="vuid">VUID-vkLatencySleepNV-swapchain-parent</span><br>
+ <code>swapchain</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="../fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<p>None</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkLatencySleepInfoNV</code> structure is defined as:</p>
+</div>
+<div id="VkLatencySleepInfoNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+typedef struct VkLatencySleepInfoNV {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkSemaphore        signalSemaphore;
+    uint64_t           value;
+} VkLatencySleepInfoNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>signalSemaphore</code> is a semaphore that is signaled to indicate that
+the application <strong>should</strong> resume input sampling work.</p>
+</li>
+<li>
+<p><code>value</code> is the value that <code>signalSemaphore</code> is set to for
+resuming sampling work.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkLatencySleepInfoNV-signalSemaphore-09361" href="#VUID-VkLatencySleepInfoNV-signalSemaphore-09361"></a> <span class="vuid">VUID-VkLatencySleepInfoNV-signalSemaphore-09361</span><br>
+
+<code>signalSemaphore</code> <strong>must</strong> be a timeline semaphore</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkLatencySleepInfoNV-sType-sType" href="#VUID-VkLatencySleepInfoNV-sType-sType"></a> <span class="vuid">VUID-VkLatencySleepInfoNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_LATENCY_SLEEP_INFO_NV</code></p>
+</li>
+<li>
+<p><a id="VUID-VkLatencySleepInfoNV-signalSemaphore-parameter" href="#VUID-VkLatencySleepInfoNV-signalSemaphore-parameter"></a> <span class="vuid">VUID-VkLatencySleepInfoNV-signalSemaphore-parameter</span><br>
+ <code>signalSemaphore</code> <strong>must</strong> be a valid <a href="../synchronization.html#VkSemaphore" class="xref page">VkSemaphore</a> handle</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>An application <strong>can</strong> provide timestamps at various stages of its frame
+generation work by calling:</p>
+</div>
+<div id="vkSetLatencyMarkerNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+void vkSetLatencyMarkerNV(
+    VkDevice                                    device,
+    VkSwapchainKHR                              swapchain,
+    const VkSetLatencyMarkerInfoNV*             pLatencyMarkerInfo);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the device associated with <code>swapchain</code>.</p>
+</li>
+<li>
+<p><code>swapchain</code> is the swapchain to capture timestamps on.</p>
+</li>
+<li>
+<p><code>pSetLatencyMarkerInfo</code> is a pointer to a
+<a href="#VkSetLatencyMarkerInfoNV">VkSetLatencyMarkerInfoNV</a> structure specifying the parameters of
+the marker to set.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>At the beginning and end of simulation and render threads and beginning and
+end of <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> calls, <code>vkSetLatencyMarkerNV</code> <strong>can</strong> be
+called to provide timestamps for the application&#8217;s reference.
+These timestamps are returned with a call to <a href="#vkGetLatencyTimingsNV">vkGetLatencyTimingsNV</a>
+alongside driver provided timestamps at various points of interest with
+regards to latency within the application.
+As an exception to the normal rules for objects which are externally
+synchronized, the swapchain passed to <code>vkSetLatencyMarkerNV</code> <strong>may</strong> be
+simultaneously used by other threads in calls to functions other than
+<a href="#vkDestroySwapchainKHR">vkDestroySwapchainKHR</a>.
+Access to the swapchain data associated with this extension <strong>must</strong> be atomic
+within the implementation.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkSetLatencyMarkerNV-device-parameter" href="#VUID-vkSetLatencyMarkerNV-device-parameter"></a> <span class="vuid">VUID-vkSetLatencyMarkerNV-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="../devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkSetLatencyMarkerNV-swapchain-parameter" href="#VUID-vkSetLatencyMarkerNV-swapchain-parameter"></a> <span class="vuid">VUID-vkSetLatencyMarkerNV-swapchain-parameter</span><br>
+ <code>swapchain</code> <strong>must</strong> be a valid <a href="#VkSwapchainKHR">VkSwapchainKHR</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkSetLatencyMarkerNV-pLatencyMarkerInfo-parameter" href="#VUID-vkSetLatencyMarkerNV-pLatencyMarkerInfo-parameter"></a> <span class="vuid">VUID-vkSetLatencyMarkerNV-pLatencyMarkerInfo-parameter</span><br>
+ <code>pLatencyMarkerInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkSetLatencyMarkerInfoNV">VkSetLatencyMarkerInfoNV</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkSetLatencyMarkerNV-swapchain-parent" href="#VUID-vkSetLatencyMarkerNV-swapchain-parent"></a> <span class="vuid">VUID-vkSetLatencyMarkerNV-swapchain-parent</span><br>
+ <code>swapchain</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkSetLatencyMarkerInfoNV</code> structure is defined as:</p>
+</div>
+<div id="VkSetLatencyMarkerInfoNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+typedef struct VkSetLatencyMarkerInfoNV {
+    VkStructureType      sType;
+    const void*          pNext;
+    uint64_t             presentID;
+    VkLatencyMarkerNV    marker;
+} VkSetLatencyMarkerInfoNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>presentID</code> is an application provided value that is used to
+associate the timestamp with a <code>vkQueuePresentKHR</code> command using
+<a href="#VkPresentIdKHR">VkPresentIdKHR</a>::<code>pPresentIds</code> for a given present.</p>
+</li>
+<li>
+<p><code>marker</code> is the type of timestamp to be recorded.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkSetLatencyMarkerInfoNV-sType-sType" href="#VUID-VkSetLatencyMarkerInfoNV-sType-sType"></a> <span class="vuid">VUID-VkSetLatencyMarkerInfoNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SET_LATENCY_MARKER_INFO_NV</code></p>
+</li>
+<li>
+<p><a id="VUID-VkSetLatencyMarkerInfoNV-marker-parameter" href="#VUID-VkSetLatencyMarkerInfoNV-marker-parameter"></a> <span class="vuid">VUID-VkSetLatencyMarkerInfoNV-marker-parameter</span><br>
+ <code>marker</code> <strong>must</strong> be a valid <a href="#VkLatencyMarkerNV">VkLatencyMarkerNV</a> value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <a href="#VkLatencyMarkerNV">VkLatencyMarkerNV</a> enum is defined as:</p>
+</div>
+<div id="VkLatencyMarkerNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+typedef enum VkLatencyMarkerNV {
+    VK_LATENCY_MARKER_SIMULATION_START_NV = 0,
+    VK_LATENCY_MARKER_SIMULATION_END_NV = 1,
+    VK_LATENCY_MARKER_RENDERSUBMIT_START_NV = 2,
+    VK_LATENCY_MARKER_RENDERSUBMIT_END_NV = 3,
+    VK_LATENCY_MARKER_PRESENT_START_NV = 4,
+    VK_LATENCY_MARKER_PRESENT_END_NV = 5,
+    VK_LATENCY_MARKER_INPUT_SAMPLE_NV = 6,
+    VK_LATENCY_MARKER_TRIGGER_FLASH_NV = 7,
+    VK_LATENCY_MARKER_OUT_OF_BAND_RENDERSUBMIT_START_NV = 8,
+    VK_LATENCY_MARKER_OUT_OF_BAND_RENDERSUBMIT_END_NV = 9,
+    VK_LATENCY_MARKER_OUT_OF_BAND_PRESENT_START_NV = 10,
+    VK_LATENCY_MARKER_OUT_OF_BAND_PRESENT_END_NV = 11,
+} VkLatencyMarkerNV;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The members of the <a href="#VkLatencyMarkerNV">VkLatencyMarkerNV</a> are used as arguments for
+<a href="#vkSetLatencyMarkerNV">vkSetLatencyMarkerNV</a> in the use cases described below:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_LATENCY_MARKER_SIMULATION_START_NV</code> <strong>should</strong> be called at the
+start of the simulation execution each frame, but after the call to
+<code>vkLatencySleepNV</code>.</p>
+</li>
+<li>
+<p><code>VK_LATENCY_MARKER_SIMULATION_END_NV</code> <strong>should</strong> be called at the end
+of the simulation execution each frame.</p>
+</li>
+<li>
+<p><code>VK_LATENCY_MARKER_RENDERSUBMIT_START_NV</code> <strong>should</strong> be called at the
+beginning of the render submission execution each frame.
+This <strong>should</strong> be wherever Vulkan API calls are made and <strong>must</strong> not span
+into asynchronous rendering.</p>
+</li>
+<li>
+<p><code>VK_LATENCY_MARKER_RENDERSUBMIT_END_NV</code> <strong>should</strong> be called at the end
+of the render submission execution each frame.</p>
+</li>
+<li>
+<p><code>VK_LATENCY_MARKER_PRESENT_START_NV</code> <strong>should</strong> be called just before
+<code>vkQueuePresentKHR</code>.</p>
+</li>
+<li>
+<p><code>VK_LATENCY_MARKER_PRESENT_END_NV</code> <strong>should</strong> be called when
+<code>vkQueuePresentKHR</code> returns.</p>
+</li>
+<li>
+<p><code>VK_LATENCY_MARKER_INPUT_SAMPLE_NV</code> <strong>should</strong> be called just before
+the application gathers input data.</p>
+</li>
+<li>
+<p><code>VK_LATENCY_MARKER_TRIGGER_FLASH_NV</code> <strong>should</strong> be called anywhere
+between <code>VK_LATENCY_MARKER_SIMULATION_START_NV</code> and
+<code>VK_LATENCY_MARKER_SIMULATION_END_NV</code> whenever a left mouse click
+occurs.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To get an array containing the newest collected latency data, call:</p>
+</div>
+<div id="vkGetLatencyTimingsNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+void vkGetLatencyTimingsNV(
+    VkDevice                                    device,
+    VkSwapchainKHR                              swapchain,
+    VkGetLatencyMarkerInfoNV*                   pLatencyMarkerInfo);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the device associated with <code>swapchain</code>.</p>
+</li>
+<li>
+<p><code>swapchain</code> is the swapchain to return data from.</p>
+</li>
+<li>
+<p><code>pGetLatencyMarkerInfo</code> is a pointer to a
+<a href="#VkGetLatencyMarkerInfoNV">VkGetLatencyMarkerInfoNV</a> structure specifying the parameters for
+returning latency information.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The timings returned by <code>vkGetLatencyTimingsNV</code> contain the timestamps
+requested from <a href="#vkSetLatencyMarkerNV">vkSetLatencyMarkerNV</a> and additional
+implementation-specific markers defined in
+<a href="#VkLatencyTimingsFrameReportNV">VkLatencyTimingsFrameReportNV</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkGetLatencyTimingsNV-device-parameter" href="#VUID-vkGetLatencyTimingsNV-device-parameter"></a> <span class="vuid">VUID-vkGetLatencyTimingsNV-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="../devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetLatencyTimingsNV-swapchain-parameter" href="#VUID-vkGetLatencyTimingsNV-swapchain-parameter"></a> <span class="vuid">VUID-vkGetLatencyTimingsNV-swapchain-parameter</span><br>
+ <code>swapchain</code> <strong>must</strong> be a valid <a href="#VkSwapchainKHR">VkSwapchainKHR</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetLatencyTimingsNV-pLatencyMarkerInfo-parameter" href="#VUID-vkGetLatencyTimingsNV-pLatencyMarkerInfo-parameter"></a> <span class="vuid">VUID-vkGetLatencyTimingsNV-pLatencyMarkerInfo-parameter</span><br>
+ <code>pLatencyMarkerInfo</code> <strong>must</strong> be a valid pointer to a <a href="#VkGetLatencyMarkerInfoNV">VkGetLatencyMarkerInfoNV</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkGetLatencyTimingsNV-swapchain-parent" href="#VUID-vkGetLatencyTimingsNV-swapchain-parent"></a> <span class="vuid">VUID-vkGetLatencyTimingsNV-swapchain-parent</span><br>
+ <code>swapchain</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkGetLatencyMarkerInfoNV</code> structure is defined as:</p>
+</div>
+<div id="VkGetLatencyMarkerInfoNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+typedef struct VkGetLatencyMarkerInfoNV {
+    VkStructureType                   sType;
+    const void*                       pNext;
+    uint32_t                          timingCount;
+    VkLatencyTimingsFrameReportNV*    pTimings;
+} VkGetLatencyMarkerInfoNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is either <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>timingCount</code> is an integer related to the number of previous frames
+of latency data available or queried, as described below.</p>
+</li>
+<li>
+<p><code>pTimings</code> is either <code>NULL</code> or a pointer to an array of
+<a href="#VkLatencyTimingsFrameReportNV">VkLatencyTimingsFrameReportNV</a> structures.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>pTimings</code> is <code>NULL</code> then the maximum number of queryable frame data
+is returned in <code>timingCount</code>.
+Otherwise, <code>timingCount</code> <strong>must</strong> be set by the application to the number
+of elements in the <code>pTimings</code> array, and on return the variable is
+overwritten with the number of values actually written to <code>pTimings</code>.
+The elements of <code>pTimings</code> are arranged in the order they were requested
+in, with the oldest data in the first entry.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkGetLatencyMarkerInfoNV-sType-sType" href="#VUID-VkGetLatencyMarkerInfoNV-sType-sType"></a> <span class="vuid">VUID-VkGetLatencyMarkerInfoNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_GET_LATENCY_MARKER_INFO_NV</code></p>
+</li>
+<li>
+<p><a id="VUID-VkGetLatencyMarkerInfoNV-pTimings-parameter" href="#VUID-VkGetLatencyMarkerInfoNV-pTimings-parameter"></a> <span class="vuid">VUID-VkGetLatencyMarkerInfoNV-pTimings-parameter</span><br>
+ If <code>timingCount</code> is not <code>0</code>, and <code>pTimings</code> is not <code>NULL</code>, <code>pTimings</code> <strong>must</strong> be a valid pointer to an array of <code>timingCount</code> <a href="#VkLatencyTimingsFrameReportNV">VkLatencyTimingsFrameReportNV</a> structures</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <a href="#VkLatencyTimingsFrameReportNV">VkLatencyTimingsFrameReportNV</a> structure describes latency data
+returned by <a href="#vkGetLatencyTimingsNV">vkGetLatencyTimingsNV</a></p>
+</div>
+<div id="VkLatencyTimingsFrameReportNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+typedef struct VkLatencyTimingsFrameReportNV {
+    VkStructureType    sType;
+    const void*        pNext;
+    uint64_t           presentID;
+    uint64_t           inputSampleTimeUs;
+    uint64_t           simStartTimeUs;
+    uint64_t           simEndTimeUs;
+    uint64_t           renderSubmitStartTimeUs;
+    uint64_t           renderSubmitEndTimeUs;
+    uint64_t           presentStartTimeUs;
+    uint64_t           presentEndTimeUs;
+    uint64_t           driverStartTimeUs;
+    uint64_t           driverEndTimeUs;
+    uint64_t           osRenderQueueStartTimeUs;
+    uint64_t           osRenderQueueEndTimeUs;
+    uint64_t           gpuRenderStartTimeUs;
+    uint64_t           gpuRenderEndTimeUs;
+} VkLatencyTimingsFrameReportNV;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The members of the <a href="#VkLatencyTimingsFrameReportNV">VkLatencyTimingsFrameReportNV</a> structure describe
+the following:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>presentID</code> is the application provided value that is used to
+associate the timestamp with a <code>vkQueuePresentKHR</code> command using
+<a href="#VkPresentIdKHR">VkPresentIdKHR</a>::<code>pPresentIds</code> for a given present.</p>
+</li>
+<li>
+<p><code>simStartTimeUs</code> is the timestamp written when
+<code>vkSetLatencyMarkerNV</code> is called with the <code>VkLatencyMarkerNV</code>
+enum <code>VK_LATENCY_MARKER_SIMULATION_START_NV</code>.</p>
+</li>
+<li>
+<p><code>simEndTimeUs</code> is the timestamp written when
+<code>vkSetLatencyMarkerNV</code> is called with the <code>VkLatencyMarkerNV</code>
+enum <code>VK_LATENCY_MARKER_SIMULATION_END_NV</code></p>
+</li>
+<li>
+<p><code>renderStartTimeUs</code> is the timestamp written when
+<code>vkSetLatencyMarkerNV</code> is called with the <code>VkLatencyMarkerNV</code>
+enum <code>VK_LATENCY_MARKER_RENDERSUBMIT_START_NV</code>.</p>
+</li>
+<li>
+<p><code>renderEndTimeUs</code> is the timestamp written when
+<code>vkSetLatencyMarkerNV</code> is called with the <code>VkLatencyMarkerNV</code>
+enum <code>VK_LATENCY_MARKER_RENDERSUBMIT_END_NV</code>.</p>
+</li>
+<li>
+<p><code>presentStartTimeUs</code> is the timestamp written when
+<code>vkSetLatencyMarkerNV</code> is called with the <code>VkLatencyMarkerNV</code>
+enum <code>VK_LATENCY_MARKER_PRESENT_START_NV</code>.</p>
+</li>
+<li>
+<p><code>presentEndTimeUs</code> is the timestamp written when
+<code>vkSetLatencyMarkerNV</code> is called with the <code>VkLatencyMarkerNV</code>
+enum <code>VK_LATENCY_MARKER_PRESENT_END_NV</code>.</p>
+</li>
+<li>
+<p><code>driverStartTimeUs</code> is the timestamp written when the first
+<code>vkQueueSubmit</code> for the frame is called.</p>
+</li>
+<li>
+<p><code>driverEndTimeUs</code> is the timestamp written when the final
+<code>vkQueueSubmit</code> hands off from the Vulkan Driver.</p>
+</li>
+<li>
+<p><code>osRenderQueueStartTimeUs</code> is the timestamp written when the final
+<code>vkQueueSubmit</code> hands off from the Vulkan Driver.</p>
+</li>
+<li>
+<p><code>osRenderQueueEndTimeUs</code> is the timestamp written when the first
+submission reaches the GPU.</p>
+</li>
+<li>
+<p><code>gpuRenderStartTimeUs</code> is the timestamp written when the first
+submission reaches the GPU.</p>
+</li>
+<li>
+<p><code>gpuRenderEndTimeUs</code> is the timestamp written when the final
+submission finishes on the GPU for the frame.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkLatencyTimingsFrameReportNV-sType-sType" href="#VUID-VkLatencyTimingsFrameReportNV-sType-sType"></a> <span class="vuid">VUID-VkLatencyTimingsFrameReportNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_LATENCY_TIMINGS_FRAME_REPORT_NV</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <a href="#VkLatencySubmissionPresentIdNV">VkLatencySubmissionPresentIdNV</a> structure is defined as:</p>
+</div>
+<div id="VkLatencySubmissionPresentIdNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+typedef struct VkLatencySubmissionPresentIdNV {
+    VkStructureType    sType;
+    const void*        pNext;
+    uint64_t           presentID;
+} VkLatencySubmissionPresentIdNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>presentID</code> is used to associate the <code>vkQueueSubmit</code> with the
+presentId used for a given <code>vkQueuePresentKHR</code> via
+<a href="#VkPresentIdKHR">VkPresentIdKHR</a>::<code>pPresentIds</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>For any submission to be tracked with low latency mode pacing, it needs to
+be associated with other submissions in a given present.
+To associate a submission with <code>presentID</code> for low latency mode, the
+<code>pNext</code> chain of <a href="../cmdbuffers.html#vkQueueSubmit" class="xref page">vkQueueSubmit</a> <strong>must</strong> include a
+<code>VkLatencySubmissionPresentIdNV</code> structure.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkLatencySubmissionPresentIdNV-sType-sType" href="#VUID-VkLatencySubmissionPresentIdNV-sType-sType"></a> <span class="vuid">VUID-VkLatencySubmissionPresentIdNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_LATENCY_SUBMISSION_PRESENT_ID_NV</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>An application can mark a queue as Out of Band to indicate that all
+<code>vkQueueSubmit</code> calls on this queue are ignored for latency evaluation
+by calling:</p>
+</div>
+<div id="vkQueueNotifyOutOfBandNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+void vkQueueNotifyOutOfBandNV(
+    VkQueue                                     queue,
+    const VkOutOfBandQueueTypeInfoNV*           pQueueTypeInfo);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>queue</code> is the VkQueue to be marked as out of band.</p>
+</li>
+<li>
+<p><code>pQueueTypeInfo</code> is a pointer to a <a href="#VkOutOfBandQueueTypeInfoNV">VkOutOfBandQueueTypeInfoNV</a>
+structure specifying the queue type.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkQueueNotifyOutOfBandNV-queue-parameter" href="#VUID-vkQueueNotifyOutOfBandNV-queue-parameter"></a> <span class="vuid">VUID-vkQueueNotifyOutOfBandNV-queue-parameter</span><br>
+ <code>queue</code> <strong>must</strong> be a valid <a href="../devsandqueues.html#VkQueue" class="xref page">VkQueue</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkQueueNotifyOutOfBandNV-pQueueTypeInfo-parameter" href="#VUID-vkQueueNotifyOutOfBandNV-pQueueTypeInfo-parameter"></a> <span class="vuid">VUID-vkQueueNotifyOutOfBandNV-pQueueTypeInfo-parameter</span><br>
+ <code>pQueueTypeInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkOutOfBandQueueTypeInfoNV">VkOutOfBandQueueTypeInfoNV</a> structure</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Command Properties</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><a href="../cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
+<th class="tableblock halign-left valign-top"><a href="../renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="../videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="../devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
+<th class="tableblock halign-left valign-top"><a href="../fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <a href="#VkOutOfBandQueueTypeInfoNV">VkOutOfBandQueueTypeInfoNV</a> structure is defined as:</p>
+</div>
+<div id="VkOutOfBandQueueTypeInfoNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+typedef struct VkOutOfBandQueueTypeInfoNV {
+    VkStructureType           sType;
+    const void*               pNext;
+    VkOutOfBandQueueTypeNV    queueType;
+} VkOutOfBandQueueTypeInfoNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>queueType</code> describes the usage of the queue to be marked as out of
+band.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkOutOfBandQueueTypeInfoNV-sType-sType" href="#VUID-VkOutOfBandQueueTypeInfoNV-sType-sType"></a> <span class="vuid">VUID-VkOutOfBandQueueTypeInfoNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_OUT_OF_BAND_QUEUE_TYPE_INFO_NV</code></p>
+</li>
+<li>
+<p><a id="VUID-VkOutOfBandQueueTypeInfoNV-queueType-parameter" href="#VUID-VkOutOfBandQueueTypeInfoNV-queueType-parameter"></a> <span class="vuid">VUID-VkOutOfBandQueueTypeInfoNV-queueType-parameter</span><br>
+ <code>queueType</code> <strong>must</strong> be a valid <a href="#VkOutOfBandQueueTypeNV">VkOutOfBandQueueTypeNV</a> value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <a href="#VkOutOfBandQueueTypeNV">VkOutOfBandQueueTypeNV</a> enum is defined as:</p>
+</div>
+<div id="VkOutOfBandQueueTypeNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+typedef enum VkOutOfBandQueueTypeNV {
+    VK_OUT_OF_BAND_QUEUE_TYPE_RENDER_NV = 0,
+    VK_OUT_OF_BAND_QUEUE_TYPE_PRESENT_NV = 1,
+} VkOutOfBandQueueTypeNV;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The members of the <a href="#VkOutOfBandQueueTypeNV">VkOutOfBandQueueTypeNV</a> are used to describe the
+queue type in <a href="#VkOutOfBandQueueTypeInfoNV">VkOutOfBandQueueTypeInfoNV</a> as described below:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_OUT_OF_BAND_QUEUE_TYPE_RENDER_NV</code> indicates that work will be
+submitted to this queue.</p>
+</li>
+<li>
+<p><code>VK_OUT_OF_BAND_QUEUE_TYPE_PRESENT_NV</code> indicates that this queue
+will be presented from.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To allow low latency mode to be used by a swapchain, add a
+<code>VkSwapchainLatencyCreateInfoNV</code> structure to the <code>pNext</code> chain of
+<a href="#VkSwapchainCreateInfoKHR">VkSwapchainCreateInfoKHR</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkSwapchainLatencyCreateInfoNV</code> structure is defined as:</p>
+</div>
+<div id="VkSwapchainLatencyCreateInfoNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+typedef struct VkSwapchainLatencyCreateInfoNV {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkBool32           latencyModeEnable;
+} VkSwapchainLatencyCreateInfoNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>lowLatencyModeEnable</code> indicates if the swapchain created will
+utilize low latency mode.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkSwapchainLatencyCreateInfoNV-sType-sType" href="#VUID-VkSwapchainLatencyCreateInfoNV-sType-sType"></a> <span class="vuid">VUID-VkSwapchainLatencyCreateInfoNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SWAPCHAIN_LATENCY_CREATE_INFO_NV</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkLatencySurfaceCapabilitiesNV</code> structure is defined as:</p>
+</div>
+<div id="VkLatencySurfaceCapabilitiesNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_low_latency2
+typedef struct VkLatencySurfaceCapabilitiesNV {
+    VkStructureType      sType;
+    const void*          pNext;
+    uint32_t             presentModeCount;
+    VkPresentModeKHR*    pPresentModes;
+} VkLatencySurfaceCapabilitiesNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>presentModeCount</code> is the number of presentation modes provided.</p>
+</li>
+<li>
+<p><code>pPresentModes</code> is list of presentation modes optimized for use with
+low latency mode with <code>presentModeCount</code> entries.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If <code>pPresentModes</code> is <code>NULL</code>, then the number of present modes that are
+optimized for use with low latency mode returned in <code>presentModeCount</code>.
+Otherwise, <code>presentModeCount</code> <strong>must</strong> be set by the application to the
+number of elements in the <code>pPresentModes</code> array, and on return the
+variable is overwritten with the number of values actually written to
+<code>pPresentModes</code>.
+If the value of <code>presentModeCount</code> is less than the number of optimized
+present modes, at most <code>presentModeCount</code> values will be written to
+<code>pPresentModes</code>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkLatencySurfaceCapabilitiesNV-sType-sType" href="#VUID-VkLatencySurfaceCapabilitiesNV-sType-sType"></a> <span class="vuid">VUID-VkLatencySurfaceCapabilitiesNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_LATENCY_SURFACE_CAPABILITIES_NV</code></p>
+</li>
+<li>
+<p><a id="VUID-VkLatencySurfaceCapabilitiesNV-pPresentModes-parameter" href="#VUID-VkLatencySurfaceCapabilitiesNV-pPresentModes-parameter"></a> <span class="vuid">VUID-VkLatencySurfaceCapabilitiesNV-pPresentModes-parameter</span><br>
+ If <code>presentModeCount</code> is not <code>0</code>, and <code>pPresentModes</code> is not <code>NULL</code>, <code>pPresentModes</code> <strong>must</strong> be a valid pointer to an array of <code>presentModeCount</code> <a href="#VkPresentModeKHR">VkPresentModeKHR</a> values</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -17401,12 +18915,6 @@ present barrier.</p>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
 <script async src="../../../../_/js/vendor/highlight.js"></script>
 <script src="../../../../_/js/vendor/lunr.js"></script>
