@@ -315,6 +315,14 @@
       </ul>
     </li>
     <li class="component">
+      <div class="title"><a href="../../../glsl/latest/index.html">OpenGL Shading Language Specification</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
@@ -361,7 +369,6 @@
     <li><a href="videocoding.html">Video Coding</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/videocoding.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -371,9 +378,6 @@
 <h1 class="page">Video Coding</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/videocoding.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>Vulkan implementations <strong>may</strong> expose one or more queue families supporting
 video coding operations.
@@ -1116,7 +1120,7 @@ horizontally at half the sample rate of luma component.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_CHROMA_SUBSAMPLING_444_BIT_KHR</code> - the format is 4:4:4
-chroma sampled, i.e. all three components of the {YCbCr} format are
+chroma sampled, i.e. all three components of the Y′C<sub>B</sub>C<sub>R</sub> format are
 sampled at the same rate, thus there is no chroma subsampling.</p>
 </li>
 </ul>
@@ -1943,7 +1947,7 @@ hence for video decode profiles the values returned in <code>maxDpbSlots</code> 
 <code>maxActiveReferencePictures</code> are often equal.
 Similarly, in case of video decode profiles supporting field pictures the
 value of <code>maxActiveReferencePictures</code> often equals
-<span class="eq"><code>maxDpbSlots</code> {times} 2</span>.</p>
+<span class="eq"><code>maxDpbSlots</code> × 2</span>.</p>
 </div>
 </td>
 </tr>
@@ -2275,7 +2279,7 @@ containing the following information:</p>
 </div>
 <div class="paragraph">
 <p>The <code>componentMapping</code> member of <code>VkVideoFormatPropertiesKHR</code>
-defines the ordering of the {YCbCr} color channels from the perspective of
+defines the ordering of the Y′C<sub>B</sub>C<sub>R</sub> color channels from the perspective of
 the video codec operations specified in <a href="#VkVideoProfileListInfoKHR">VkVideoProfileListInfoKHR</a>.
 For example, if the implementation produces video decode output with the
 format <code>VK_FORMAT_G8_B8R8_2PLANE_420_UNORM</code> where the blue and red
@@ -3286,11 +3290,11 @@ was created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code><
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>videoSession</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>videoSession</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3622,11 +3626,11 @@ structure</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>videoSession</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>videoSession</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5438,11 +5442,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>videoSessionParameters</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>videoSessionParameters</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6420,14 +6424,14 @@ chain of <code>pBeginInfo</code> <strong>must</strong> include an instance of th
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -6903,14 +6907,14 @@ There <strong>must</strong> be no <a href="queries.html#queries-operation-active
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -7156,14 +7160,14 @@ then <code>pCodingControlInfo-&gt;flags</code> <strong>must</strong> not include
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -8858,14 +8862,14 @@ the <code>referenceNameSlotIndices</code> array member of the
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -9253,7 +9257,7 @@ range:</p>
 nearest integer multiple of <code>pictureAccessGranularity.width</code>;</p>
 </li>
 <li>
-<p><span class="eq"><code>endX</code></span> equals <span class="eq"><code>imageOffset.x</code> &#43;
+<p><span class="eq"><code>endX</code></span> equals <span class="eq"><code>imageOffset.x</code> + 
 <code>imageExtent.width</code></span> rounded up to the nearest integer multiple of
 <code>pictureAccessGranularity.width</code> and clamped to the width of the
 image subresource <a href="#video-image-subresource-reference">referred</a> to by
@@ -9264,7 +9268,7 @@ the corresponding <a href="#VkVideoPictureResourceInfoKHR">VkVideoPictureResourc
 integer multiple of <code>pictureAccessGranularity.height</code>;</p>
 </li>
 <li>
-<p><span class="eq">endY</span> equals <span class="eq"><code>imageOffset.y</code> &#43;
+<p><span class="eq">endY</span> equals <span class="eq"><code>imageOffset.y</code> + 
 <code>imageExtent.height</code></span> rounded up to the nearest integer multiple of
 <code>pictureAccessGranularity.height</code> and clamped to the height of the
 image subresource <a href="#video-image-subresource-reference">referred</a> to by
@@ -9285,12 +9289,12 @@ specified below:</p>
 <p><span class="eq">(<code>x</code>,<code>y</code>)</span>, if the accessed picture represents a frame.</p>
 </li>
 <li>
-<p><span class="eq">(<code>x</code>,<code>y</code> {times} 2)</span>, if the accessed picture represents a
+<p><span class="eq">(<code>x</code>,<code>y</code> × 2)</span>, if the accessed picture represents a
 top field and the picture layout of the used <a href="#decode-h264-profile">H.264    decode profile</a> is
 <code>VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_INTERLEAVED_LINES_BIT_KHR</code>.</p>
 </li>
 <li>
-<p><span class="eq">(<code>x</code>,<code>y</code> {times} 2 &#43; 1)</span>, if the accessed picture
+<p><span class="eq">(<code>x</code>,<code>y</code> × 2 +  1)</span>, if the accessed picture
 represents a bottom field and the picture layout of the used
 <a href="#decode-h264-profile">H.264 decode profile</a> is
 <code>VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_INTERLEAVED_LINES_BIT_KHR</code>.</p>
@@ -9301,7 +9305,7 @@ and the picture layout of the used <a href="#decode-h264-profile">H.264 decode  
 <code>VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR</code>.</p>
 </li>
 <li>
-<p><span class="eq">(<code>codedOffset.x</code> &#43; <code>x</code>,<code>codedOffset.y</code> &#43;
+<p><span class="eq">(<code>codedOffset.x</code> +  <code>x</code>,<code>codedOffset.y</code> + 
 <code>y</code>)</span>, if the accessed picture represents a bottom field and the
 picture layout of the used <a href="#decode-h264-profile">H.264 decode profile</a>
 is
@@ -15082,8 +15086,8 @@ structure is included in the <code>pNext</code> chain of <code>pEncodeInfo</code
 bound video session parameters object created with
 <code>VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR</code>,
 then <code>quantizationMapExtent</code> <strong>must</strong> equal
-<span class="eq">{lceil}<code>pEncodeInfo-&gt;srcPictureResource.codedExtent</code> /
-<code>quantizationMapTexelSize</code>{rceil}</span></p>
+<span class="eq">⌈<code>pEncodeInfo-&gt;srcPictureResource.codedExtent</code> /
+<code>quantizationMapTexelSize</code>⌉</span></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-pNext-08225" href="#VUID-vkCmdEncodeVideoKHR-pNext-08225"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pNext-08225</span><br>
@@ -15588,7 +15592,7 @@ If the bound video session was created with the video codec operation
 returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video
 profile the bound video session was created with, then
 <code>pEncodeInfo-&gt;srcPictureResource.codedExtent.width</code> <strong>must</strong> equal
-<span class="eq"><code>StdVideoAV1SequenceHeader</code>::<code>max_frame_width_minus_1</code> &#43;
+<span class="eq"><code>StdVideoAV1SequenceHeader</code>::<code>max_frame_width_minus_1</code> + 
 1</span> of the <a href="#encode-av1-active-sequence-header">active AV1 sequence    header</a></p>
 </li>
 <li>
@@ -15602,7 +15606,7 @@ returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDevi
 profile the bound video session was created with, then
 <code>pEncodeInfo-&gt;srcPictureResource.codedExtent.height</code> <strong>must</strong> equal
 <span class="eq"><code>StdVideoAV1SequenceHeader</code>::<code>max_frame_height_minus_1</code>
-&#43; 1</span> of the <a href="#encode-av1-active-sequence-header">active AV1 sequence    header</a></p>
++  1</span> of the <a href="#encode-av1-active-sequence-header">active AV1 sequence    header</a></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-flags-10325" href="#VUID-vkCmdEncodeVideoKHR-flags-10325"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-flags-10325</span><br>
@@ -15693,7 +15697,7 @@ structure included in the <code>pNext</code> chain of <code>pEncodeInfo</code> i
 <code>VK_VIDEO_ENCODE_AV1_PREDICTION_MODE_UNIDIRECTIONAL_COMPOUND_KHR</code>,
 then there <strong>must</strong> be at least two non-negative elements of
 <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR</a>::<code>referenceNameSlotIndices</code>
-with element indices <span class="eq">i</span> and <span class="eq">j</span> where <span class="eq">(i,j) {elem}
+with element indices <span class="eq">i</span> and <span class="eq">j</span> where <span class="eq">(i,j) ∈
 {(0,1),(0,2),(0,3),(4,6)}</span>, such that neither element equals
 <code>cdfOnlyReferenceIndex</code> and for which bit indices <span class="eq">i</span> and
 <span class="eq">j</span> are set in
@@ -15724,7 +15728,7 @@ structure included in the <code>pNext</code> chain of <code>pEncodeInfo</code> i
 <code>VK_VIDEO_ENCODE_AV1_PREDICTION_MODE_BIDIRECTIONAL_COMPOUND_KHR</code>,
 then there <strong>must</strong> be at least two non-negative elements of
 <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR</a>::<code>referenceNameSlotIndices</code>
-with element indices <span class="eq">i {elem} {0,1,2,3}</span> and <span class="eq">j {elem}
+with element indices <span class="eq">i ∈ {0,1,2,3}</span> and <span class="eq">j ∈
 {4,5,6}</span>, respectively, such that neither element equals
 <code>cdfOnlyReferenceIndex</code>, and for which bit indices <span class="eq">i</span> and
 <span class="eq">j</span> are set in
@@ -15915,8 +15919,8 @@ If the bound video session was created with the video codec operation
 <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR</a>::<code>pStdPictureInfo</code> for the
 <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR</a> structure included in the
 <code>pNext</code> chain of <code>pEncodeInfo</code> is not <code>NULL</code>, then
-<span class="eq">{lceil}<code>pEncodeInfo-&gt;srcPictureResource.codedExtent.width</code> /
-<code>pTileInfo-&gt;TileCols</code>{rceil}</span> <strong>must</strong> be between
+<span class="eq">⌈<code>pEncodeInfo-&gt;srcPictureResource.codedExtent.width</code> /
+<code>pTileInfo-&gt;TileCols</code>⌉</span> <strong>must</strong> be between
 <a href="#VkVideoEncodeAV1CapabilitiesKHR">VkVideoEncodeAV1CapabilitiesKHR</a>::<code>minTileSize.width</code> and
 <a href="#VkVideoEncodeAV1CapabilitiesKHR">VkVideoEncodeAV1CapabilitiesKHR</a>::<code>maxTileSize.width</code>,
 inclusive, as returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a>
@@ -15931,8 +15935,8 @@ If the bound video session was created with the video codec operation
 <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR</a>::<code>pStdPictureInfo</code> for the
 <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR</a> structure included in the
 <code>pNext</code> chain of <code>pEncodeInfo</code> is not <code>NULL</code>, then
-<span class="eq">{lceil}<code>pEncodeInfo-&gt;srcPictureResource.codedExtent.height</code> /
-<code>pTileInfo-&gt;TileRows</code>{rceil}</span> <strong>must</strong> be between
+<span class="eq">⌈<code>pEncodeInfo-&gt;srcPictureResource.codedExtent.height</code> /
+<code>pTileInfo-&gt;TileRows</code>⌉</span> <strong>must</strong> be between
 <a href="#VkVideoEncodeAV1CapabilitiesKHR">VkVideoEncodeAV1CapabilitiesKHR</a>::<code>minTileSize.height</code> and
 <a href="#VkVideoEncodeAV1CapabilitiesKHR">VkVideoEncodeAV1CapabilitiesKHR</a>::<code>maxTileSize.height</code>,
 inclusive, as returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a>
@@ -15999,14 +16003,14 @@ for the <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -17157,8 +17161,8 @@ covers is referred to as the <em>quantization map texel size</em>.</p>
 <div class="paragraph">
 <p>The extent of the image subresource used as a quantization map when encoding
 a picture with a coded extent of <span class="eq">(<code>width</code>,<code>height</code>)</span> thus has
-to be at least <span class="eq">({lceil}<code>width</code> / <code>texelSize.width</code>{rceil},
-{lceil}<code>height</code> / <code>texelSize.height</code>{rceil})</span>, where <code>texelSize</code>
+to be at least <span class="eq">(⌈<code>width</code> / <code>texelSize.width</code>⌉,
+⌈<code>height</code> / <code>texelSize.height</code>⌉)</span>, where <code>texelSize</code>
 is the used quantization map texel size.</p>
 </div>
 <div class="paragraph">
@@ -17166,7 +17170,7 @@ is the used quantization map texel size.</p>
 <span class="eq">(<code>x</code>,<code>y</code>)</span> contains relative quantization parameter values used
 when encoding the <code>texelSize</code> sized rectangular block of the
 <a href="#encode-input-picture">encode input picture</a> starting at the texel location
-<span class="eq">(<code>x</code> {times} <code>texelSize.width</code>, <code>y</code> {times}
+<span class="eq">(<code>x</code> × <code>texelSize.width</code>, <code>y</code> ×
 <code>texelSize.height</code>)</span>.</p>
 </div>
 <div id="encode-quantization-map-fetched-texel" class="paragraph">
@@ -17195,9 +17199,9 @@ the texel location <span class="eq">(<code>x</code> / <code>texelSize.width</cod
 <p>If the size of the codec-specific coding block is smaller than the used
 quantization map texel size, then the fetched quantization map value
 corresponding to the codec-specific coding block is the texel value at
-the texel location <span class="eq">({lfloor}<code>x</code> /
-<code>texelSize.width</code>{rfloor}, {lfloor}<code>y</code> /
-<code>texelSize.height</code>{rfloor})</span>.</p>
+the texel location <span class="eq">(⌊<code>x</code> /
+<code>texelSize.width</code>⌋, ⌊<code>y</code> /
+<code>texelSize.height</code>⌋)</span>.</p>
 </li>
 <li>
 <p>If the size of the codec-specific coding block is larger than the used
@@ -17206,8 +17210,8 @@ corresponding to the codec-specific coding block <strong>may</strong> be any val
 determined as the linear interpolation of the quantization map texel
 values in the subregion starting at texel location <span class="eq">(<code>x</code> /
 <code>texelSize.width</code>,<code>y</code> / <code>texelSize.height</code>)</span> with a size
-<span class="eq">({lceil}<code>width</code> / <code>texelSize.width</code>{rceil},
-{lceil}<code>height</code> / <code>texelSize.height</code>{rceil})</span>.</p>
+<span class="eq">(⌈<code>width</code> / <code>texelSize.width</code>⌉,
+⌈<code>height</code> / <code>texelSize.height</code>⌉)</span>.</p>
 </li>
 </ul>
 </div>
@@ -18523,7 +18527,7 @@ of subsequently encoded macroblocks, as defined in equation 7-37 of the
 <a href="introduction.html#itu-t-h264" class="xref page">ITU-T H.264 Specification</a>.
 If not supported, equation 7-37 of the <a href="introduction.html#itu-t-h264" class="xref page">ITU-T H.264    Specification</a> is effectively reduced to the following:</p>
 <div class="paragraph">
-<p><span class="eq">QP<sub>Y</sub> = QP<sub>Y,PREV</sub> &#43; <code>mb_qp_delta</code></span></p>
+<p><span class="eq">QP<sub>Y</sub> = QP<sub>Y,PREV</sub> +  <code>mb_qp_delta</code></span></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -18534,8 +18538,8 @@ If not supported, equation 7-37 of the <a href="introduction.html#itu-t-h264" cl
 <td class="content">
 <div class="paragraph">
 <p>The effect of this is that the maximum QP difference across subsequent
-macroblocks is limited to the <span class="eq">[-(26 &#43; QpBdOffset<sub>Y</sub> / 2), 25
-&#43; QpBdOffset<sub>Y</sub> / 2]</span> range.</p>
+macroblocks is limited to the <span class="eq">[-(26 +  QpBdOffset<sub>Y</sub> / 2), 25
++  QpBdOffset<sub>Y</sub> / 2]</span> range.</p>
 </div>
 </td>
 </tr>
@@ -20947,7 +20951,7 @@ to the macroblock, and <span class="eq">f</span> is an implementation-defined fu
 which the following implication is true:</p>
 </div>
 <div class="paragraph">
-<p><span class="eq">e<sub>1</sub> &lt; e<sub>2</sub> &#8658; f(QP,e<sub>1</sub>) {geq} f(QP,e<sub>2</sub>)</span></p>
+<p><span class="eq">e<sub>1</sub> &lt; e<sub>2</sub> &#8658; f(QP,e<sub>1</sub>) ≥ f(QP,e<sub>2</sub>)</span></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -20995,8 +20999,8 @@ the <a href="#encode-h264-mb-qp-delta-wraparound">modified version</a> of equati
 <td class="content">
 <div class="paragraph">
 <p>The effect of this is that the maximum QP difference across subsequent
-macroblocks is limited to the <span class="eq">[-(26 &#43; QpBdOffset<sub>Y</sub> / 2), 25
-&#43; QpBdOffset<sub>Y</sub> / 2]</span> range and only has an observable change in
+macroblocks is limited to the <span class="eq">[-(26 +  QpBdOffset<sub>Y</sub> / 2), 25
++  QpBdOffset<sub>Y</sub> / 2]</span> range and only has an observable change in
 behavior when the video encode operation is issued with a
 <a href="#encode-quantization-delta-map">QP delta map</a>.</p>
 </div>
@@ -21984,7 +21988,7 @@ of subsequently encoded coding units, as defined in section 7.4.9.14 of
 the <a href="introduction.html#itu-t-h265" class="xref page">ITU-T H.265 Specification</a>.
 If not supported, equation 8-283 of the <a href="introduction.html#itu-t-h265" class="xref page">ITU-T H.265    Specification</a> is effectively reduced to the following:</p>
 <div class="paragraph">
-<p><span class="eq">Qp<sub>Y</sub> = qP<sub>Y_PRED</sub> &#43; <code>CuQpDeltaVal</code></span></p>
+<p><span class="eq">Qp<sub>Y</sub> = qP<sub>Y_PRED</sub> +  <code>CuQpDeltaVal</code></span></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -21995,8 +21999,8 @@ If not supported, equation 8-283 of the <a href="introduction.html#itu-t-h265" c
 <td class="content">
 <div class="paragraph">
 <p>The effect of this is that the maximum QP difference across subsequent
-coding units is limited to the <span class="eq">[-(26 &#43; QpBdOffset<sub>Y</sub> / 2), 25
-&#43; QpBdOffset<sub>Y</sub> / 2]</span> range.</p>
+coding units is limited to the <span class="eq">[-(26 +  QpBdOffset<sub>Y</sub> / 2), 25
++  QpBdOffset<sub>Y</sub> / 2]</span> range.</p>
 </div>
 </td>
 </tr>
@@ -23599,8 +23603,8 @@ active <a href="#encode-h265-pps">PPS</a> as follows:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">(<code>num_tile_columns_minus1</code> &#43; 1) {times}
-(<code>num_tile_rows_minus1</code> &#43; 1)</span></p>
+<p><span class="eq">(<code>num_tile_columns_minus1</code> +  1) ×
+(<code>num_tile_rows_minus1</code> +  1)</span></p>
 </dd>
 </dl>
 </div>
@@ -24860,7 +24864,7 @@ to the coding unit, and <span class="eq">f</span> is an implementation-defined f
 which the following implication is true:</p>
 </div>
 <div class="paragraph">
-<p><span class="eq">e<sub>1</sub> &lt; e<sub>2</sub> &#8658; f(QP,e<sub>1</sub>) {geq} f(QP,e<sub>2</sub>)</span></p>
+<p><span class="eq">e<sub>1</sub> &lt; e<sub>2</sub> &#8658; f(QP,e<sub>1</sub>) ≥ f(QP,e<sub>2</sub>)</span></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -24908,8 +24912,8 @@ the <a href="#encode-h265-cu-qp-delta-wraparound">modified version</a> of equati
 <td class="content">
 <div class="paragraph">
 <p>The effect of this is that the maximum QP difference across subsequent
-coding units is limited to the <span class="eq">[-(26 &#43; QpBdOffset<sub>Y</sub> / 2), 25
-&#43; QpBdOffset<sub>Y</sub> / 2]</span> range and only has an observable change in
+coding units is limited to the <span class="eq">[-(26 +  QpBdOffset<sub>Y</sub> / 2), 25
++  QpBdOffset<sub>Y</sub> / 2]</span> range and only has an observable change in
 behavior when the video encode operation is issued with a
 <a href="#encode-quantization-delta-map">QP delta map</a>.</p>
 </div>
@@ -26133,7 +26137,7 @@ AV1 syntax elements.</p>
 <code>bidirectionalCompoundReferenceNameMask</code> are encoded such that when bit
 index <span class="eq">i</span> is set, it indicates support for the
 <a href="#encode-av1-reference-names">AV1 reference name</a>
-<span class="eq"><code>STD_VIDEO_AV1_REFERENCE_NAME_LAST_FRAME</code> &#43; i</span>.</p>
+<span class="eq"><code>STD_VIDEO_AV1_REFERENCE_NAME_LAST_FRAME</code> +  i</span>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -26258,8 +26262,8 @@ from the maximum frame size defined in the
 If this capability is not supported, then <code>frame_size_override_flag</code>
 <strong>must</strong> not be set in the <a href="#encode-av1-picture-info">AV1 picture    information</a> of the encoded frame and the coded extent of the
 <a href="#encode-input-picture">encode input picture</a> <strong>must</strong> match the maximum
-coded extent allowed by the <a href="#encode-av1-active-sequence-header">active    AV1 sequence header</a>, i.e. <span class="eq">(<code>max_frame_width_minus_1</code> &#43; 1,
-<code>max_frame_height_minus_1</code> &#43; 1)</span>.</p>
+coded extent allowed by the <a href="#encode-av1-active-sequence-header">active    AV1 sequence header</a>, i.e. <span class="eq">(<code>max_frame_width_minus_1</code> +  1,
+<code>max_frame_height_minus_1</code> +  1)</span>.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_ENCODE_AV1_CAPABILITY_MOTION_VECTOR_SCALING_BIT_KHR</code>
@@ -26547,7 +26551,7 @@ preferred <a href="#encode-av1-reference-names">AV1 reference names</a> when usi
 <code>preferredBidirectionalCompoundReferenceNameMask</code> are encoded such that
 when bit index <span class="eq">i</span> is set, it indicates preference for using the
 <a href="#encode-av1-reference-names">AV1 reference name</a>
-<span class="eq"><code>STD_VIDEO_AV1_REFERENCE_NAME_LAST_FRAME</code> &#43; i</span>.</p>
+<span class="eq"><code>STD_VIDEO_AV1_REFERENCE_NAME_LAST_FRAME</code> +  i</span>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -28470,7 +28474,7 @@ is an implementation-defined function for which the following implication is
 true:</p>
 </div>
 <div class="paragraph">
-<p><span class="eq">e<sub>1</sub> &lt; e<sub>2</sub> &#8658; f(QIndex,e<sub>1</sub>) {geq} f(QIndex,e<sub>2</sub>)</span></p>
+<p><span class="eq">e<sub>1</sub> &lt; e<sub>2</sub> &#8658; f(QIndex,e<sub>1</sub>) ≥ f(QIndex,e<sub>2</sub>)</span></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -28802,7 +28806,7 @@ set, but they <strong>may</strong> have additional bits set beyond this minimum.
 <dd>
 <p>These masks <strong>must</strong> only have bits set in the least significant
 <code>VK_MAX_VIDEO_AV1_REFERENCES_PER_FRAME_KHR</code> bits (bit index <span class="eq">i</span>
-indicates support for the <a href="#encode-av1-reference-names">AV1 reference    name</a> <span class="eq"><code>STD_VIDEO_AV1_REFERENCE_NAME_LAST_FRAME</code> &#43; i</span> when
+indicates support for the <a href="#encode-av1-reference-names">AV1 reference    name</a> <span class="eq"><code>STD_VIDEO_AV1_REFERENCE_NAME_LAST_FRAME</code> +  i</span> when
 using the corresponding <a href="#encode-av1-prediction-modes">AV1 prediction    mode</a>), and <strong>must</strong> have at least as many bits set in any
 <code>*ReferenceNameMask</code> capability as the value of the corresponding
 <code>max*ReferenceCount</code> capability.</p>

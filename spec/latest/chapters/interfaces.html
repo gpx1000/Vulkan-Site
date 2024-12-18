@@ -315,6 +315,14 @@
       </ul>
     </li>
     <li class="component">
+      <div class="title"><a href="../../../glsl/latest/index.html">OpenGL Shading Language Specification</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
@@ -361,7 +369,6 @@
     <li><a href="interfaces.html">Shader Interfaces</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/interfaces.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -371,9 +378,6 @@
 <h1 class="page">Shader Interfaces</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/interfaces.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>When a pipeline is created, the set of shaders specified in the
 corresponding <code>VkPipelineCreateInfo</code> structure are implicitly linked at
@@ -661,11 +665,11 @@ Only types with widths of
 </div>
 <div class="paragraph">
 <p>If a declared input or output is an array of size <em>n</em> and each element takes
-<em>m</em> <code>Location</code> slots, it will be assigned <em>m</em> {times} <em>n</em> consecutive
+<em>m</em> <code>Location</code> slots, it will be assigned <em>m</em> × <em>n</em> consecutive
 <code>Location</code> slots starting with the specified <code>Location</code>.</p>
 </div>
 <div class="paragraph">
-<p>If the declared input or output is an <em>n</em> {times} <em>m</em>
+<p>If the declared input or output is an <em>n</em> × <em>m</em>
 16-,
 32- or 64-bit matrix, it will be assigned multiple <code>Location</code> slots
 starting with the specified <code>Location</code>.
@@ -1005,14 +1009,14 @@ The current render pass instance <strong>must</strong> have been started or resu
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1505,14 +1509,14 @@ The current render pass instance <strong>must</strong> have been started or resu
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2286,7 +2290,7 @@ as expected if they advertise the respective feature.</p>
 </div>
 <div class="paragraph">
 <p>A combined image sampler in an array that
-enables sampler {YCbCr} conversion
+enables sampler Y′C<sub>B</sub>C<sub>R</sub> conversion
 or
 samples a <a href="samplers.html#samplers-subsamplesampler" class="xref page">subsampled image</a>
 <strong>must</strong> only be indexed by constant integral expressions.</p>
@@ -3013,13 +3017,13 @@ perspective interpolation.</p>
 <p><a id="VUID-BaryCoordKHR-BaryCoordKHR-04154" href="#VUID-BaryCoordKHR-BaryCoordKHR-04154"></a> <span class="vuid">VUID-BaryCoordKHR-BaryCoordKHR-04154</span><br>
 
 The <code>BaryCoordKHR</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordKHR-BaryCoordKHR-04155" href="#VUID-BaryCoordKHR-BaryCoordKHR-04155"></a> <span class="vuid">VUID-BaryCoordKHR-BaryCoordKHR-04155</span><br>
 
 The variable decorated with <code>BaryCoordKHR</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordKHR-BaryCoordKHR-04156" href="#VUID-BaryCoordKHR-BaryCoordKHR-04156"></a> <span class="vuid">VUID-BaryCoordKHR-BaryCoordKHR-04156</span><br>
@@ -3045,7 +3049,7 @@ This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using linear interpolation at the
 fragment&#8217;s center.
 The K coordinate of the barycentric coordinates <strong>can</strong> be derived given the
-identity I &#43; J &#43; K = 1.0.</p>
+identity I +  J +  K = 1.0.</p>
 </dd>
 </dl>
 </div>
@@ -3058,13 +3062,13 @@ identity I &#43; J &#43; K = 1.0.</p>
 <p><a id="VUID-BaryCoordNoPerspAMD-BaryCoordNoPerspAMD-04157" href="#VUID-BaryCoordNoPerspAMD-BaryCoordNoPerspAMD-04157"></a> <span class="vuid">VUID-BaryCoordNoPerspAMD-BaryCoordNoPerspAMD-04157</span><br>
 
 The <code>BaryCoordNoPerspAMD</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordNoPerspAMD-BaryCoordNoPerspAMD-04158" href="#VUID-BaryCoordNoPerspAMD-BaryCoordNoPerspAMD-04158"></a> <span class="vuid">VUID-BaryCoordNoPerspAMD-BaryCoordNoPerspAMD-04158</span><br>
 
 The variable decorated with <code>BaryCoordNoPerspAMD</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordNoPerspAMD-BaryCoordNoPerspAMD-04159" href="#VUID-BaryCoordNoPerspAMD-BaryCoordNoPerspAMD-04159"></a> <span class="vuid">VUID-BaryCoordNoPerspAMD-BaryCoordNoPerspAMD-04159</span><br>
@@ -3102,13 +3106,13 @@ linear interpolation.</p>
 <p><a id="VUID-BaryCoordNoPerspKHR-BaryCoordNoPerspKHR-04160" href="#VUID-BaryCoordNoPerspKHR-BaryCoordNoPerspKHR-04160"></a> <span class="vuid">VUID-BaryCoordNoPerspKHR-BaryCoordNoPerspKHR-04160</span><br>
 
 The <code>BaryCoordNoPerspKHR</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordNoPerspKHR-BaryCoordNoPerspKHR-04161" href="#VUID-BaryCoordNoPerspKHR-BaryCoordNoPerspKHR-04161"></a> <span class="vuid">VUID-BaryCoordNoPerspKHR-BaryCoordNoPerspKHR-04161</span><br>
 
 The variable decorated with <code>BaryCoordNoPerspKHR</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordNoPerspKHR-BaryCoordNoPerspKHR-04162" href="#VUID-BaryCoordNoPerspKHR-BaryCoordNoPerspKHR-04162"></a> <span class="vuid">VUID-BaryCoordNoPerspKHR-BaryCoordNoPerspKHR-04162</span><br>
@@ -3134,7 +3138,7 @@ This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using linear interpolation at the
 centroid.
 The K coordinate of the barycentric coordinates <strong>can</strong> be derived given the
-identity I &#43; J &#43; K = 1.0.</p>
+identity I +  J +  K = 1.0.</p>
 </dd>
 </dl>
 </div>
@@ -3147,13 +3151,13 @@ identity I &#43; J &#43; K = 1.0.</p>
 <p><a id="VUID-BaryCoordNoPerspCentroidAMD-BaryCoordNoPerspCentroidAMD-04163" href="#VUID-BaryCoordNoPerspCentroidAMD-BaryCoordNoPerspCentroidAMD-04163"></a> <span class="vuid">VUID-BaryCoordNoPerspCentroidAMD-BaryCoordNoPerspCentroidAMD-04163</span><br>
 
 The <code>BaryCoordNoPerspCentroidAMD</code> decoration <strong>must</strong> be used only
-within the <code>Fragment</code> {ExecutionModel}</p>
+within the <code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordNoPerspCentroidAMD-BaryCoordNoPerspCentroidAMD-04164" href="#VUID-BaryCoordNoPerspCentroidAMD-BaryCoordNoPerspCentroidAMD-04164"></a> <span class="vuid">VUID-BaryCoordNoPerspCentroidAMD-BaryCoordNoPerspCentroidAMD-04164</span><br>
 
 The variable decorated with <code>BaryCoordNoPerspCentroidAMD</code> <strong>must</strong> be
-declared using the <code>Input</code> {StorageClass}</p>
+declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordNoPerspCentroidAMD-BaryCoordNoPerspCentroidAMD-04165" href="#VUID-BaryCoordNoPerspCentroidAMD-BaryCoordNoPerspCentroidAMD-04165"></a> <span class="vuid">VUID-BaryCoordNoPerspCentroidAMD-BaryCoordNoPerspCentroidAMD-04165</span><br>
@@ -3179,7 +3183,7 @@ This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using linear interpolation at each
 covered sample.
 The K coordinate of the barycentric coordinates <strong>can</strong> be derived given the
-identity I &#43; J &#43; K = 1.0.</p>
+identity I +  J +  K = 1.0.</p>
 </dd>
 </dl>
 </div>
@@ -3192,13 +3196,13 @@ identity I &#43; J &#43; K = 1.0.</p>
 <p><a id="VUID-BaryCoordNoPerspSampleAMD-BaryCoordNoPerspSampleAMD-04166" href="#VUID-BaryCoordNoPerspSampleAMD-BaryCoordNoPerspSampleAMD-04166"></a> <span class="vuid">VUID-BaryCoordNoPerspSampleAMD-BaryCoordNoPerspSampleAMD-04166</span><br>
 
 The <code>BaryCoordNoPerspSampleAMD</code> decoration <strong>must</strong> be used only within
-the <code>Fragment</code> {ExecutionModel}</p>
+the <code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordNoPerspSampleAMD-BaryCoordNoPerspSampleAMD-04167" href="#VUID-BaryCoordNoPerspSampleAMD-BaryCoordNoPerspSampleAMD-04167"></a> <span class="vuid">VUID-BaryCoordNoPerspSampleAMD-BaryCoordNoPerspSampleAMD-04167</span><br>
 
 The variable decorated with <code>BaryCoordNoPerspSampleAMD</code> <strong>must</strong> be
-declared using the <code>Input</code> {StorageClass}</p>
+declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordNoPerspSampleAMD-BaryCoordNoPerspSampleAMD-04168" href="#VUID-BaryCoordNoPerspSampleAMD-BaryCoordNoPerspSampleAMD-04168"></a> <span class="vuid">VUID-BaryCoordNoPerspSampleAMD-BaryCoordNoPerspSampleAMD-04168</span><br>
@@ -3235,13 +3239,13 @@ any desired sample location.</p>
 <p><a id="VUID-BaryCoordPullModelAMD-BaryCoordPullModelAMD-04169" href="#VUID-BaryCoordPullModelAMD-BaryCoordPullModelAMD-04169"></a> <span class="vuid">VUID-BaryCoordPullModelAMD-BaryCoordPullModelAMD-04169</span><br>
 
 The <code>BaryCoordPullModelAMD</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordPullModelAMD-BaryCoordPullModelAMD-04170" href="#VUID-BaryCoordPullModelAMD-BaryCoordPullModelAMD-04170"></a> <span class="vuid">VUID-BaryCoordPullModelAMD-BaryCoordPullModelAMD-04170</span><br>
 
 The variable decorated with <code>BaryCoordPullModelAMD</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordPullModelAMD-BaryCoordPullModelAMD-04171" href="#VUID-BaryCoordPullModelAMD-BaryCoordPullModelAMD-04171"></a> <span class="vuid">VUID-BaryCoordPullModelAMD-BaryCoordPullModelAMD-04171</span><br>
@@ -3267,7 +3271,7 @@ This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using perspective interpolation at
 the fragment&#8217;s center.
 The K coordinate of the barycentric coordinates <strong>can</strong> be derived given the
-identity I &#43; J &#43; K = 1.0.</p>
+identity I +  J +  K = 1.0.</p>
 </dd>
 </dl>
 </div>
@@ -3280,13 +3284,13 @@ identity I &#43; J &#43; K = 1.0.</p>
 <p><a id="VUID-BaryCoordSmoothAMD-BaryCoordSmoothAMD-04172" href="#VUID-BaryCoordSmoothAMD-BaryCoordSmoothAMD-04172"></a> <span class="vuid">VUID-BaryCoordSmoothAMD-BaryCoordSmoothAMD-04172</span><br>
 
 The <code>BaryCoordSmoothAMD</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordSmoothAMD-BaryCoordSmoothAMD-04173" href="#VUID-BaryCoordSmoothAMD-BaryCoordSmoothAMD-04173"></a> <span class="vuid">VUID-BaryCoordSmoothAMD-BaryCoordSmoothAMD-04173</span><br>
 
 The variable decorated with <code>BaryCoordSmoothAMD</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordSmoothAMD-BaryCoordSmoothAMD-04174" href="#VUID-BaryCoordSmoothAMD-BaryCoordSmoothAMD-04174"></a> <span class="vuid">VUID-BaryCoordSmoothAMD-BaryCoordSmoothAMD-04174</span><br>
@@ -3312,7 +3316,7 @@ This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using perspective interpolation at
 the centroid.
 The K coordinate of the barycentric coordinates <strong>can</strong> be derived given the
-identity I &#43; J &#43; K = 1.0.</p>
+identity I +  J +  K = 1.0.</p>
 </dd>
 </dl>
 </div>
@@ -3325,13 +3329,13 @@ identity I &#43; J &#43; K = 1.0.</p>
 <p><a id="VUID-BaryCoordSmoothCentroidAMD-BaryCoordSmoothCentroidAMD-04175" href="#VUID-BaryCoordSmoothCentroidAMD-BaryCoordSmoothCentroidAMD-04175"></a> <span class="vuid">VUID-BaryCoordSmoothCentroidAMD-BaryCoordSmoothCentroidAMD-04175</span><br>
 
 The <code>BaryCoordSmoothCentroidAMD</code> decoration <strong>must</strong> be used only within
-the <code>Fragment</code> {ExecutionModel}</p>
+the <code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordSmoothCentroidAMD-BaryCoordSmoothCentroidAMD-04176" href="#VUID-BaryCoordSmoothCentroidAMD-BaryCoordSmoothCentroidAMD-04176"></a> <span class="vuid">VUID-BaryCoordSmoothCentroidAMD-BaryCoordSmoothCentroidAMD-04176</span><br>
 
 The variable decorated with <code>BaryCoordSmoothCentroidAMD</code> <strong>must</strong> be
-declared using the <code>Input</code> {StorageClass}</p>
+declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordSmoothCentroidAMD-BaryCoordSmoothCentroidAMD-04177" href="#VUID-BaryCoordSmoothCentroidAMD-BaryCoordSmoothCentroidAMD-04177"></a> <span class="vuid">VUID-BaryCoordSmoothCentroidAMD-BaryCoordSmoothCentroidAMD-04177</span><br>
@@ -3357,7 +3361,7 @@ This variable will contain the (I,J) pair of the barycentric coordinates
 corresponding to the fragment evaluated using perspective interpolation at
 each covered sample.
 The K coordinate of the barycentric coordinates <strong>can</strong> be derived given the
-identity I &#43; J &#43; K = 1.0.</p>
+identity I +  J +  K = 1.0.</p>
 </dd>
 </dl>
 </div>
@@ -3370,13 +3374,13 @@ identity I &#43; J &#43; K = 1.0.</p>
 <p><a id="VUID-BaryCoordSmoothSampleAMD-BaryCoordSmoothSampleAMD-04178" href="#VUID-BaryCoordSmoothSampleAMD-BaryCoordSmoothSampleAMD-04178"></a> <span class="vuid">VUID-BaryCoordSmoothSampleAMD-BaryCoordSmoothSampleAMD-04178</span><br>
 
 The <code>BaryCoordSmoothSampleAMD</code> decoration <strong>must</strong> be used only within
-the <code>Fragment</code> {ExecutionModel}</p>
+the <code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordSmoothSampleAMD-BaryCoordSmoothSampleAMD-04179" href="#VUID-BaryCoordSmoothSampleAMD-BaryCoordSmoothSampleAMD-04179"></a> <span class="vuid">VUID-BaryCoordSmoothSampleAMD-BaryCoordSmoothSampleAMD-04179</span><br>
 
 The variable decorated with <code>BaryCoordSmoothSampleAMD</code> <strong>must</strong> be
-declared using the <code>Input</code> {StorageClass}</p>
+declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-BaryCoordSmoothSampleAMD-BaryCoordSmoothSampleAMD-04180" href="#VUID-BaryCoordSmoothSampleAMD-BaryCoordSmoothSampleAMD-04180"></a> <span class="vuid">VUID-BaryCoordSmoothSampleAMD-BaryCoordSmoothSampleAMD-04180</span><br>
@@ -3414,13 +3418,13 @@ command</em> or the <code>firstInstance</code> member of a structure consumed by
 <p><a id="VUID-BaseInstance-BaseInstance-04181" href="#VUID-BaseInstance-BaseInstance-04181"></a> <span class="vuid">VUID-BaseInstance-BaseInstance-04181</span><br>
 
 The <code>BaseInstance</code> decoration <strong>must</strong> be used only within the
-<code>Vertex</code> {ExecutionModel}</p>
+<code>Vertex</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-BaseInstance-BaseInstance-04182" href="#VUID-BaseInstance-BaseInstance-04182"></a> <span class="vuid">VUID-BaseInstance-BaseInstance-04182</span><br>
 
 The variable decorated with <code>BaseInstance</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-BaseInstance-BaseInstance-04183" href="#VUID-BaseInstance-BaseInstance-04183"></a> <span class="vuid">VUID-BaseInstance-BaseInstance-04183</span><br>
@@ -3462,13 +3466,13 @@ the structure consumed by an <em>indirect drawing command</em>.</p>
 <p><a id="VUID-BaseVertex-BaseVertex-04184" href="#VUID-BaseVertex-BaseVertex-04184"></a> <span class="vuid">VUID-BaseVertex-BaseVertex-04184</span><br>
 
 The <code>BaseVertex</code> decoration <strong>must</strong> be used only within the <code>Vertex</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-BaseVertex-BaseVertex-04185" href="#VUID-BaseVertex-BaseVertex-04185"></a> <span class="vuid">VUID-BaseVertex-BaseVertex-04185</span><br>
 
 The variable decorated with <code>BaseVertex</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-BaseVertex-BaseVertex-04186" href="#VUID-BaseVertex-BaseVertex-04186"></a> <span class="vuid">VUID-BaseVertex-BaseVertex-04186</span><br>
@@ -3542,27 +3546,27 @@ contains these linearly interpolated values.</p>
 The <code>ClipDistance</code> decoration <strong>must</strong> be used only within the
 <code>MeshEXT</code>, <code>MeshNV</code>, <code>Vertex</code>, <code>Fragment</code>,
 <code>TessellationControl</code>, <code>TessellationEvaluation</code>, or <code>Geometry</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ClipDistance-ClipDistance-04188" href="#VUID-ClipDistance-ClipDistance-04188"></a> <span class="vuid">VUID-ClipDistance-ClipDistance-04188</span><br>
 
 The variable decorated with <code>ClipDistance</code> within the <code>MeshEXT</code>,
-<code>MeshNV</code>, or <code>Vertex</code> {ExecutionModel} <strong>must</strong> be declared using the
-<code>Output</code> {StorageClass}</p>
+<code>MeshNV</code>, or <code>Vertex</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the
+<code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ClipDistance-ClipDistance-04189" href="#VUID-ClipDistance-ClipDistance-04189"></a> <span class="vuid">VUID-ClipDistance-ClipDistance-04189</span><br>
 
 The variable decorated with <code>ClipDistance</code> within the <code>Fragment</code>
-{ExecutionModel} <strong>must</strong> be declared using the <code>Input</code> {StorageClass}</p>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ClipDistance-ClipDistance-04190" href="#VUID-ClipDistance-ClipDistance-04190"></a> <span class="vuid">VUID-ClipDistance-ClipDistance-04190</span><br>
 
 The variable decorated with <code>ClipDistance</code> within the
 <code>TessellationControl</code>, <code>TessellationEvaluation</code>, or <code>Geometry</code>
-{ExecutionModel} <strong>must</strong> not be declared in a {StorageClass} other than
+<code>Execution</code> <code>Model</code> <strong>must</strong> not be declared in a <code>Storage</code> <code>Class</code> other than
 <code>Input</code> or <code>Output</code></p>
 </li>
 <li>
@@ -3598,13 +3602,13 @@ The per-view clip distances have the same semantics as <code>ClipDistance</code>
 <p><a id="VUID-ClipDistancePerViewNV-ClipDistancePerViewNV-04192" href="#VUID-ClipDistancePerViewNV-ClipDistancePerViewNV-04192"></a> <span class="vuid">VUID-ClipDistancePerViewNV-ClipDistancePerViewNV-04192</span><br>
 
 The <code>ClipDistancePerViewNV</code> decoration <strong>must</strong> be used only within the
-<code>MeshNV</code> {ExecutionModel}</p>
+<code>MeshNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ClipDistancePerViewNV-ClipDistancePerViewNV-04193" href="#VUID-ClipDistancePerViewNV-ClipDistancePerViewNV-04193"></a> <span class="vuid">VUID-ClipDistancePerViewNV-ClipDistancePerViewNV-04193</span><br>
 
 The variable decorated with <code>ClipDistancePerViewNV</code> <strong>must</strong> be declared
-using the <code>Output</code> {StorageClass}</p>
+using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ClipDistancePerViewNV-ClipDistancePerViewNV-04194" href="#VUID-ClipDistancePerViewNV-ClipDistancePerViewNV-04194"></a> <span class="vuid">VUID-ClipDistancePerViewNV-ClipDistancePerViewNV-04194</span><br>
@@ -3647,7 +3651,7 @@ gl_DrawID pass to vertex shader for cluster-related information fetching.</p>
 <p><a id="VUID-ClusterIDHUAWEI-ClusterIDHUAWEI-07797" href="#VUID-ClusterIDHUAWEI-ClusterIDHUAWEI-07797"></a> <span class="vuid">VUID-ClusterIDHUAWEI-ClusterIDHUAWEI-07797</span><br>
 
 The <code>ClusterIDHUAWEI</code> decoration <strong>must</strong> be used only within the
-<code>ClusterCullingHUAWEI</code> {ExecutionModel}</p>
+<code>ClusterCullingHUAWEI</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ClusterIDHUAWEI-ClusterIDHUAWEI-07798" href="#VUID-ClusterIDHUAWEI-ClusterIDHUAWEI-07798"></a> <span class="vuid">VUID-ClusterIDHUAWEI-ClusterIDHUAWEI-07798</span><br>
@@ -3683,7 +3687,7 @@ rendering cluster.</p>
 <p><a id="VUID-ClusterShadingRateHUAWEI-ClusterShadingRateHUAWEI-09448" href="#VUID-ClusterShadingRateHUAWEI-ClusterShadingRateHUAWEI-09448"></a> <span class="vuid">VUID-ClusterShadingRateHUAWEI-ClusterShadingRateHUAWEI-09448</span><br>
 
 The <code>ClusterShadingRateHUAWEI</code> decoration <strong>must</strong> be used only within
-the <code>ClusterCullingHUAWEI</code> {ExecutionModel}</p>
+the <code>ClusterCullingHUAWEI</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ClusterShadingRateHUAWEI-ClusterShadingRateHUAWEI-09449" href="#VUID-ClusterShadingRateHUAWEI-ClusterShadingRateHUAWEI-09449"></a> <span class="vuid">VUID-ClusterShadingRateHUAWEI-ClusterShadingRateHUAWEI-09449</span><br>
@@ -3753,27 +3757,27 @@ from the previous shader stage.</p>
 The <code>CullDistance</code> decoration <strong>must</strong> be used only within the
 <code>MeshEXT</code>, <code>MeshNV</code>, <code>Vertex</code>, <code>Fragment</code>,
 <code>TessellationControl</code>, <code>TessellationEvaluation</code>, or <code>Geometry</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-CullDistance-CullDistance-04197" href="#VUID-CullDistance-CullDistance-04197"></a> <span class="vuid">VUID-CullDistance-CullDistance-04197</span><br>
 
 The variable decorated with <code>CullDistance</code> within the <code>MeshEXT</code>,
-<code>MeshNV</code> or <code>Vertex</code> {ExecutionModel} <strong>must</strong> be declared using the
-<code>Output</code> {StorageClass}</p>
+<code>MeshNV</code> or <code>Vertex</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the
+<code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-CullDistance-CullDistance-04198" href="#VUID-CullDistance-CullDistance-04198"></a> <span class="vuid">VUID-CullDistance-CullDistance-04198</span><br>
 
 The variable decorated with <code>CullDistance</code> within the <code>Fragment</code>
-{ExecutionModel} <strong>must</strong> be declared using the <code>Input</code> {StorageClass}</p>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-CullDistance-CullDistance-04199" href="#VUID-CullDistance-CullDistance-04199"></a> <span class="vuid">VUID-CullDistance-CullDistance-04199</span><br>
 
 The variable decorated with <code>CullDistance</code> within the
 <code>TessellationControl</code>, <code>TessellationEvaluation</code>, or <code>Geometry</code>
-{ExecutionModel} <strong>must</strong> not be declared using a {StorageClass} other than
+<code>Execution</code> <code>Model</code> <strong>must</strong> not be declared using a <code>Storage</code> <code>Class</code> other than
 <code>Input</code> or <code>Output</code></p>
 </li>
 <li>
@@ -3809,13 +3813,13 @@ The per-view cull distances have the same semantics as <code>CullDistance</code>
 <p><a id="VUID-CullDistancePerViewNV-CullDistancePerViewNV-04201" href="#VUID-CullDistancePerViewNV-CullDistancePerViewNV-04201"></a> <span class="vuid">VUID-CullDistancePerViewNV-CullDistancePerViewNV-04201</span><br>
 
 The <code>CullDistancePerViewNV</code> decoration <strong>must</strong> be used only within the
-<code>MeshNV</code> {ExecutionModel}</p>
+<code>MeshNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-CullDistancePerViewNV-CullDistancePerViewNV-04202" href="#VUID-CullDistancePerViewNV-CullDistancePerViewNV-04202"></a> <span class="vuid">VUID-CullDistancePerViewNV-CullDistancePerViewNV-04202</span><br>
 
 The variable decorated with <code>CullDistancePerViewNV</code> <strong>must</strong> be declared
-using the <code>Output</code> {StorageClass}</p>
+using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-CullDistancePerViewNV-CullDistancePerViewNV-04203" href="#VUID-CullDistancePerViewNV-CullDistancePerViewNV-04203"></a> <span class="vuid">VUID-CullDistancePerViewNV-CullDistancePerViewNV-04203</span><br>
@@ -3857,13 +3861,13 @@ culled, if it is <code>false</code> it will not be culled.</p>
 <p><a id="VUID-CullPrimitiveEXT-CullPrimitiveEXT-07034" href="#VUID-CullPrimitiveEXT-CullPrimitiveEXT-07034"></a> <span class="vuid">VUID-CullPrimitiveEXT-CullPrimitiveEXT-07034</span><br>
 
 The <code>CullPrimitiveEXT</code> decoration <strong>must</strong> be used only within the
-<code>MeshEXT</code> {ExecutionModel}</p>
+<code>MeshEXT</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-CullPrimitiveEXT-CullPrimitiveEXT-07035" href="#VUID-CullPrimitiveEXT-CullPrimitiveEXT-07035"></a> <span class="vuid">VUID-CullPrimitiveEXT-CullPrimitiveEXT-07035</span><br>
 
 The variable decorated with <code>CullPrimitiveEXT</code> <strong>must</strong> be declared
-using the <code>Output</code> {StorageClass}</p>
+using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-CullPrimitiveEXT-CullPrimitiveEXT-07036" href="#VUID-CullPrimitiveEXT-CullPrimitiveEXT-07036"></a> <span class="vuid">VUID-CullPrimitiveEXT-CullPrimitiveEXT-07036</span><br>
@@ -3881,7 +3885,7 @@ the value specified by <code>OutputPrimitivesEXT</code></p>
 <p><a id="VUID-CullPrimitiveEXT-CullPrimitiveEXT-07038" href="#VUID-CullPrimitiveEXT-CullPrimitiveEXT-07038"></a> <span class="vuid">VUID-CullPrimitiveEXT-CullPrimitiveEXT-07038</span><br>
 
 The variable decorated with <code>CullPrimitiveEXT</code> within the
-<code>MeshEXT</code> {ExecutionModel} <strong>must</strong> also be decorated with the
+<code>MeshEXT</code> <code>Execution</code> <code>Model</code> <strong>must</strong> also be decorated with the
 <code>PerPrimitiveEXT</code> decoration</p>
 </li>
 </ul>
@@ -3913,13 +3917,13 @@ The value is given by the <code>Cull Mask</code> parameter passed into one of th
 
 The <code>CullMaskKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, <code>ClosestHitKHR</code>, or
-<code>MissKHR</code> {ExecutionModel}</p>
+<code>MissKHR</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-CullMaskKHR-CullMaskKHR-06736" href="#VUID-CullMaskKHR-CullMaskKHR-06736"></a> <span class="vuid">VUID-CullMaskKHR-CullMaskKHR-06736</span><br>
 
 The variable decorated with <code>CullMaskKHR</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-CullMaskKHR-CullMaskKHR-06737" href="#VUID-CullMaskKHR-CullMaskKHR-06737"></a> <span class="vuid">VUID-CullMaskKHR-CullMaskKHR-06737</span><br>
@@ -3954,13 +3958,13 @@ time value passed in to <code>OpTraceRayMotionNV</code> which called this shader
 
 The <code>CurrentRayTimeNV</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, <code>ClosestHitKHR</code>, or
-<code>MissKHR</code> {ExecutionModel}</p>
+<code>MissKHR</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-CurrentRayTimeNV-CurrentRayTimeNV-04943" href="#VUID-CurrentRayTimeNV-CurrentRayTimeNV-04943"></a> <span class="vuid">VUID-CurrentRayTimeNV-CurrentRayTimeNV-04943</span><br>
 
 The variable decorated with <code>CurrentRayTimeNV</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-CurrentRayTimeNV-CurrentRayTimeNV-04944" href="#VUID-CurrentRayTimeNV-CurrentRayTimeNV-04944"></a> <span class="vuid">VUID-CurrentRayTimeNV-CurrentRayTimeNV-04944</span><br>
@@ -3998,7 +4002,7 @@ where physicalDeviceCount is the <code>physicalDeviceCount</code> member of
 <p><a id="VUID-DeviceIndex-DeviceIndex-04205" href="#VUID-DeviceIndex-DeviceIndex-04205"></a> <span class="vuid">VUID-DeviceIndex-DeviceIndex-04205</span><br>
 
 The variable decorated with <code>DeviceIndex</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-DeviceIndex-DeviceIndex-04206" href="#VUID-DeviceIndex-DeviceIndex-04206"></a> <span class="vuid">VUID-DeviceIndex-DeviceIndex-04206</span><br>
@@ -4050,13 +4054,13 @@ The value read by other stages is <strong>undefined</strong>.</p>
 <p><a id="VUID-DrawIndex-DrawIndex-04207" href="#VUID-DrawIndex-DrawIndex-04207"></a> <span class="vuid">VUID-DrawIndex-DrawIndex-04207</span><br>
 
 The <code>DrawIndex</code> decoration <strong>must</strong> be used only within the <code>Vertex</code>,
-<code>MeshEXT</code>, <code>TaskEXT</code>, <code>MeshNV</code>, or <code>TaskNV</code> {ExecutionModel}</p>
+<code>MeshEXT</code>, <code>TaskEXT</code>, <code>MeshNV</code>, or <code>TaskNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-DrawIndex-DrawIndex-04208" href="#VUID-DrawIndex-DrawIndex-04208"></a> <span class="vuid">VUID-DrawIndex-DrawIndex-04208</span><br>
 
 The variable decorated with <code>DrawIndex</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-DrawIndex-DrawIndex-04209" href="#VUID-DrawIndex-DrawIndex-04209"></a> <span class="vuid">VUID-DrawIndex-DrawIndex-04209</span><br>
@@ -4092,7 +4096,7 @@ buffer corresponding to a cluster.</p>
 <p><a id="VUID-FirstIndexHUAWEI-FirstIndexHUAWEI-07799" href="#VUID-FirstIndexHUAWEI-FirstIndexHUAWEI-07799"></a> <span class="vuid">VUID-FirstIndexHUAWEI-FirstIndexHUAWEI-07799</span><br>
 
 The <code>FirstIndexHUAWEI</code> decoration <strong>must</strong> be used only within the
-<code>ClusterCullingHUAWEI</code> {ExecutionModel}</p>
+<code>ClusterCullingHUAWEI</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-FirstIndexHUAWEI-FirstIndexHUAWEI-07800" href="#VUID-FirstIndexHUAWEI-FirstIndexHUAWEI-07800"></a> <span class="vuid">VUID-FirstIndexHUAWEI-FirstIndexHUAWEI-07800</span><br>
@@ -4151,13 +4155,13 @@ the primitive.</p>
 <p><a id="VUID-FragCoord-FragCoord-04210" href="#VUID-FragCoord-FragCoord-04210"></a> <span class="vuid">VUID-FragCoord-FragCoord-04210</span><br>
 
 The <code>FragCoord</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-FragCoord-FragCoord-04211" href="#VUID-FragCoord-FragCoord-04211"></a> <span class="vuid">VUID-FragCoord-FragCoord-04211</span><br>
 
 The variable decorated with <code>FragCoord</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-FragCoord-FragCoord-04212" href="#VUID-FragCoord-FragCoord-04212"></a> <span class="vuid">VUID-FragCoord-FragCoord-04212</span><br>
@@ -4199,13 +4203,13 @@ for details.</p>
 <p><a id="VUID-FragDepth-FragDepth-04213" href="#VUID-FragDepth-FragDepth-04213"></a> <span class="vuid">VUID-FragDepth-FragDepth-04213</span><br>
 
 The <code>FragDepth</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-FragDepth-FragDepth-04214" href="#VUID-FragDepth-FragDepth-04214"></a> <span class="vuid">VUID-FragDepth-FragDepth-04214</span><br>
 
 The variable decorated with <code>FragDepth</code> <strong>must</strong> be declared using the
-<code>Output</code> {StorageClass}</p>
+<code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-FragDepth-FragDepth-04215" href="#VUID-FragDepth-FragDepth-04215"></a> <span class="vuid">VUID-FragDepth-FragDepth-04215</span><br>
@@ -4217,7 +4221,7 @@ The variable decorated with <code>FragDepth</code> <strong>must</strong> be decl
 <p><a id="VUID-FragDepth-FragDepth-04216" href="#VUID-FragDepth-FragDepth-04216"></a> <span class="vuid">VUID-FragDepth-FragDepth-04216</span><br>
 
 If the shader dynamically writes to the variable decorated with
-<code>FragDepth</code>, the <code>DepthReplacing</code> {ExecutionMode} <strong>must</strong> be
+<code>FragDepth</code>, the <code>DepthReplacing</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> be
 declared</p>
 </li>
 </ul>
@@ -4247,7 +4251,7 @@ that specifies the instance ID of the first instance to draw.</p>
 <p><a id="VUID-FirstInstanceHUAWEI-FirstInstanceHUAWEI-07801" href="#VUID-FirstInstanceHUAWEI-FirstInstanceHUAWEI-07801"></a> <span class="vuid">VUID-FirstInstanceHUAWEI-FirstInstanceHUAWEI-07801</span><br>
 
 The <code>FirstInstanceHUAWEI</code> decoration <strong>must</strong> be used only within the
-<code>ClusterCullingHUAWEI</code> {ExecutionModel}</p>
+<code>ClusterCullingHUAWEI</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-FirstInstanceHUAWEI-FirstInstanceHUAWEI-07802" href="#VUID-FirstInstanceHUAWEI-FirstInstanceHUAWEI-07802"></a> <span class="vuid">VUID-FirstInstanceHUAWEI-FirstInstanceHUAWEI-07802</span><br>
@@ -4283,7 +4287,7 @@ cluster to draw.</p>
 <p><a id="VUID-FirstVertexHUAWEI-FirstVertexHUAWEI-07803" href="#VUID-FirstVertexHUAWEI-FirstVertexHUAWEI-07803"></a> <span class="vuid">VUID-FirstVertexHUAWEI-FirstVertexHUAWEI-07803</span><br>
 
 The <code>FirstVertexHUAWEI</code> decoration <strong>must</strong> be used only within the
-<code>FirstVertexHUAWEI</code> {ExecutionModel}</p>
+<code>FirstVertexHUAWEI</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-FirstVertexHUAWEI-FirstVertexHUAWEI-07804" href="#VUID-FirstVertexHUAWEI-FirstVertexHUAWEI-07804"></a> <span class="vuid">VUID-FirstVertexHUAWEI-FirstVertexHUAWEI-07804</span><br>
@@ -4323,13 +4327,13 @@ shader invocations for the fragment, as determined by
 <p><a id="VUID-FragInvocationCountEXT-FragInvocationCountEXT-04217" href="#VUID-FragInvocationCountEXT-FragInvocationCountEXT-04217"></a> <span class="vuid">VUID-FragInvocationCountEXT-FragInvocationCountEXT-04217</span><br>
 
 The <code>FragInvocationCountEXT</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-FragInvocationCountEXT-FragInvocationCountEXT-04218" href="#VUID-FragInvocationCountEXT-FragInvocationCountEXT-04218"></a> <span class="vuid">VUID-FragInvocationCountEXT-FragInvocationCountEXT-04218</span><br>
 
 The variable decorated with <code>FragInvocationCountEXT</code> <strong>must</strong> be
-declared using the <code>Input</code> {StorageClass}</p>
+declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-FragInvocationCountEXT-FragInvocationCountEXT-04219" href="#VUID-FragInvocationCountEXT-FragInvocationCountEXT-04219"></a> <span class="vuid">VUID-FragInvocationCountEXT-FragInvocationCountEXT-04219</span><br>
@@ -4369,13 +4373,13 @@ a value of <span class="eq">(1,1)</span>.</p>
 <p><a id="VUID-FragSizeEXT-FragSizeEXT-04220" href="#VUID-FragSizeEXT-FragSizeEXT-04220"></a> <span class="vuid">VUID-FragSizeEXT-FragSizeEXT-04220</span><br>
 
 The <code>FragSizeEXT</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-FragSizeEXT-FragSizeEXT-04221" href="#VUID-FragSizeEXT-FragSizeEXT-04221"></a> <span class="vuid">VUID-FragSizeEXT-FragSizeEXT-04221</span><br>
 
 The variable decorated with <code>FragSizeEXT</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-FragSizeEXT-FragSizeEXT-04222" href="#VUID-FragSizeEXT-FragSizeEXT-04222"></a> <span class="vuid">VUID-FragSizeEXT-FragSizeEXT-04222</span><br>
@@ -4429,13 +4433,13 @@ higher order bits are discarded.</p>
 <p><a id="VUID-FragStencilRefEXT-FragStencilRefEXT-04223" href="#VUID-FragStencilRefEXT-FragStencilRefEXT-04223"></a> <span class="vuid">VUID-FragStencilRefEXT-FragStencilRefEXT-04223</span><br>
 
 The <code>FragStencilRefEXT</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-FragStencilRefEXT-FragStencilRefEXT-04224" href="#VUID-FragStencilRefEXT-FragStencilRefEXT-04224"></a> <span class="vuid">VUID-FragStencilRefEXT-FragStencilRefEXT-04224</span><br>
 
 The variable decorated with <code>FragStencilRefEXT</code> <strong>must</strong> be declared
-using the <code>Output</code> {StorageClass}</p>
+using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-FragStencilRefEXT-FragStencilRefEXT-04225" href="#VUID-FragStencilRefEXT-FragStencilRefEXT-04225"></a> <span class="vuid">VUID-FragStencilRefEXT-FragStencilRefEXT-04225</span><br>
@@ -4469,13 +4473,13 @@ make that variable contain the width and height of the fragment.</p>
 <p><a id="VUID-FragmentSizeNV-FragmentSizeNV-04226" href="#VUID-FragmentSizeNV-FragmentSizeNV-04226"></a> <span class="vuid">VUID-FragmentSizeNV-FragmentSizeNV-04226</span><br>
 
 The <code>FragmentSizeNV</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-FragmentSizeNV-FragmentSizeNV-04227" href="#VUID-FragmentSizeNV-FragmentSizeNV-04227"></a> <span class="vuid">VUID-FragmentSizeNV-FragmentSizeNV-04227</span><br>
 
 The variable decorated with <code>FragmentSizeNV</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-FragmentSizeNV-FragmentSizeNV-04228" href="#VUID-FragmentSizeNV-FragmentSizeNV-04228"></a> <span class="vuid">VUID-FragmentSizeNV-FragmentSizeNV-04228</span><br>
@@ -4513,13 +4517,13 @@ of a back-facing polygon primitive.</p>
 <p><a id="VUID-FrontFacing-FrontFacing-04229" href="#VUID-FrontFacing-FrontFacing-04229"></a> <span class="vuid">VUID-FrontFacing-FrontFacing-04229</span><br>
 
 The <code>FrontFacing</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-FrontFacing-FrontFacing-04230" href="#VUID-FrontFacing-FrontFacing-04230"></a> <span class="vuid">VUID-FrontFacing-FrontFacing-04230</span><br>
 
 The variable decorated with <code>FrontFacing</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-FrontFacing-FrontFacing-04231" href="#VUID-FrontFacing-FrontFacing-04231"></a> <span class="vuid">VUID-FrontFacing-FrontFacing-04231</span><br>
@@ -4557,13 +4561,13 @@ rasterization is disabled.</p>
 <p><a id="VUID-FullyCoveredEXT-FullyCoveredEXT-04232" href="#VUID-FullyCoveredEXT-FullyCoveredEXT-04232"></a> <span class="vuid">VUID-FullyCoveredEXT-FullyCoveredEXT-04232</span><br>
 
 The <code>FullyCoveredEXT</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-FullyCoveredEXT-FullyCoveredEXT-04233" href="#VUID-FullyCoveredEXT-FullyCoveredEXT-04233"></a> <span class="vuid">VUID-FullyCoveredEXT-FullyCoveredEXT-04233</span><br>
 
 The variable decorated with <code>FullyCoveredEXT</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-FullyCoveredEXT-FullyCoveredEXT-04234" href="#VUID-FullyCoveredEXT-FullyCoveredEXT-04234"></a> <span class="vuid">VUID-FullyCoveredEXT-FullyCoveredEXT-04234</span><br>
@@ -4576,7 +4580,7 @@ boolean value</p>
 
 If
 <code>VkPhysicalDeviceConservativeRasterizationPropertiesEXT</code>::<code>conservativeRasterizationPostDepthCoverage</code>
-is not supported the <code>PostDepthCoverage</code> {ExecutionMode} <strong>must</strong> not be
+is not supported the <code>PostDepthCoverage</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> not be
 declared, when a variable with the <code>FullyCoveredEXT</code> decoration is
 declared</p>
 </li>
@@ -4610,13 +4614,13 @@ the size of the local workgroup plus <code>LocalInvocationId</code>.</p>
 
 The <code>GlobalInvocationId</code> decoration <strong>must</strong> be used only within the
 <code>GLCompute</code>, <code>MeshEXT</code>, <code>TaskEXT</code>, <code>MeshNV</code>, or <code>TaskNV</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-GlobalInvocationId-GlobalInvocationId-04237" href="#VUID-GlobalInvocationId-GlobalInvocationId-04237"></a> <span class="vuid">VUID-GlobalInvocationId-GlobalInvocationId-04237</span><br>
 
 The variable decorated with <code>GlobalInvocationId</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-GlobalInvocationId-GlobalInvocationId-04238" href="#VUID-GlobalInvocationId-GlobalInvocationId-04238"></a> <span class="vuid">VUID-GlobalInvocationId-GlobalInvocationId-04238</span><br>
@@ -4670,13 +4674,13 @@ satisfy internal requirements such as the generation of derivatives.</p>
 <p><a id="VUID-HelperInvocation-HelperInvocation-04239" href="#VUID-HelperInvocation-HelperInvocation-04239"></a> <span class="vuid">VUID-HelperInvocation-HelperInvocation-04239</span><br>
 
 The <code>HelperInvocation</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-HelperInvocation-HelperInvocation-04240" href="#VUID-HelperInvocation-HelperInvocation-04240"></a> <span class="vuid">VUID-HelperInvocation-HelperInvocation-04240</span><br>
 
 The variable decorated with <code>HelperInvocation</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-HelperInvocation-HelperInvocation-04241" href="#VUID-HelperInvocation-HelperInvocation-04241"></a> <span class="vuid">VUID-HelperInvocation-HelperInvocation-04241</span><br>
@@ -4715,13 +4719,13 @@ For triangle intersection candidates, this will be one of
 <p><a id="VUID-HitKindKHR-HitKindKHR-04242" href="#VUID-HitKindKHR-HitKindKHR-04242"></a> <span class="vuid">VUID-HitKindKHR-HitKindKHR-04242</span><br>
 
 The <code>HitKindKHR</code> decoration <strong>must</strong> be used only within the
-<code>AnyHitKHR</code> or <code>ClosestHitKHR</code> {ExecutionModel}</p>
+<code>AnyHitKHR</code> or <code>ClosestHitKHR</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-HitKindKHR-HitKindKHR-04243" href="#VUID-HitKindKHR-HitKindKHR-04243"></a> <span class="vuid">VUID-HitKindKHR-HitKindKHR-04243</span><br>
 
 The variable decorated with <code>HitKindKHR</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-HitKindKHR-HitKindKHR-04244" href="#VUID-HitKindKHR-HitKindKHR-04244"></a> <span class="vuid">VUID-HitKindKHR-HitKindKHR-04244</span><br>
@@ -4755,13 +4759,13 @@ variable decorated with the <code>RayTmaxKHR</code> decoration.</p>
 <p><a id="VUID-HitTNV-HitTNV-04245" href="#VUID-HitTNV-HitTNV-04245"></a> <span class="vuid">VUID-HitTNV-HitTNV-04245</span><br>
 
 The <code>HitTNV</code> decoration <strong>must</strong> be used only within the <code>AnyHitNV</code>
-or <code>ClosestHitNV</code> {ExecutionModel}</p>
+or <code>ClosestHitNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-HitTNV-HitTNV-04246" href="#VUID-HitTNV-HitTNV-04246"></a> <span class="vuid">VUID-HitTNV-HitTNV-04246</span><br>
 
 The variable decorated with <code>HitTNV</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-HitTNV-HitTNV-04247" href="#VUID-HitTNV-HitTNV-04247"></a> <span class="vuid">VUID-HitTNV-HitTNV-04247</span><br>
@@ -4800,13 +4804,13 @@ operations to perform the matrix multiplication.</p>
 <p><a id="VUID-HitTriangleVertexPositionsKHR-HitTriangleVertexPositionsKHR-08747" href="#VUID-HitTriangleVertexPositionsKHR-HitTriangleVertexPositionsKHR-08747"></a> <span class="vuid">VUID-HitTriangleVertexPositionsKHR-HitTriangleVertexPositionsKHR-08747</span><br>
 
 The <code>HitTriangleVertexPositionsKHR</code> decoration <strong>must</strong> be used only
-within the <code>AnyHitKHR</code> or <code>ClosestHitKHR</code> {ExecutionModel}</p>
+within the <code>AnyHitKHR</code> or <code>ClosestHitKHR</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-HitTriangleVertexPositionsKHR-HitTriangleVertexPositionsKHR-08748" href="#VUID-HitTriangleVertexPositionsKHR-HitTriangleVertexPositionsKHR-08748"></a> <span class="vuid">VUID-HitTriangleVertexPositionsKHR-HitTriangleVertexPositionsKHR-08748</span><br>
 
 The variable decorated with <code>HitTriangleVertexPositionsKHR</code> <strong>must</strong> be
-declared using the <code>Input</code> {StorageClass}</p>
+declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-HitTriangleVertexPositionsKHR-HitTriangleVertexPositionsKHR-08749" href="#VUID-HitTriangleVertexPositionsKHR-HitTriangleVertexPositionsKHR-08749"></a> <span class="vuid">VUID-HitTriangleVertexPositionsKHR-HitTriangleVertexPositionsKHR-08749</span><br>
@@ -4857,13 +4861,13 @@ corresponding flags to be set in variables with this decoration.</p>
 
 The <code>IncomingRayFlagsKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, <code>ClosestHitKHR</code>, or
-<code>MissKHR</code> {ExecutionModel}</p>
+<code>MissKHR</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-IncomingRayFlagsKHR-IncomingRayFlagsKHR-04249" href="#VUID-IncomingRayFlagsKHR-IncomingRayFlagsKHR-04249"></a> <span class="vuid">VUID-IncomingRayFlagsKHR-IncomingRayFlagsKHR-04249</span><br>
 
 The variable decorated with <code>IncomingRayFlagsKHR</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-IncomingRayFlagsKHR-IncomingRayFlagsKHR-04250" href="#VUID-IncomingRayFlagsKHR-IncomingRayFlagsKHR-04250"></a> <span class="vuid">VUID-IncomingRayFlagsKHR-IncomingRayFlagsKHR-04250</span><br>
@@ -4899,7 +4903,7 @@ cluster to draw.</p>
 <p><a id="VUID-IndexCountHUAWEI-IndexCountHUAWEI-07805" href="#VUID-IndexCountHUAWEI-IndexCountHUAWEI-07805"></a> <span class="vuid">VUID-IndexCountHUAWEI-IndexCountHUAWEI-07805</span><br>
 
 The <code>IndexCountHUAWEI</code> decoration <strong>must</strong> be used only within the
-<code>ClusterCullingHUAWEI</code> {ExecutionModel}</p>
+<code>ClusterCullingHUAWEI</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-IndexCountHUAWEI-IndexCountHUAWEI-07806" href="#VUID-IndexCountHUAWEI-IndexCountHUAWEI-07806"></a> <span class="vuid">VUID-IndexCountHUAWEI-IndexCountHUAWEI-07806</span><br>
@@ -4934,7 +4938,7 @@ that specifies the number of instance to draw in a cluster.</p>
 <p><a id="VUID-InstanceCountHUAWEI-InstanceCountHUAWEI-07807" href="#VUID-InstanceCountHUAWEI-InstanceCountHUAWEI-07807"></a> <span class="vuid">VUID-InstanceCountHUAWEI-InstanceCountHUAWEI-07807</span><br>
 
 The <code>InstanceCountHUAWEI</code> decoration <strong>must</strong> be used only within the
-<code>ClusterCullingHUAWEI</code> {ExecutionModel}</p>
+<code>ClusterCullingHUAWEI</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-InstanceCountHUAWEI-InstanceCountHUAWEI-07808" href="#VUID-InstanceCountHUAWEI-InstanceCountHUAWEI-07808"></a> <span class="vuid">VUID-InstanceCountHUAWEI-InstanceCountHUAWEI-07808</span><br>
@@ -4974,13 +4978,13 @@ bits will be zero.</p>
 
 The <code>InstanceCustomIndexKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, or <code>ClosestHitKHR</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-InstanceCustomIndexKHR-InstanceCustomIndexKHR-04252" href="#VUID-InstanceCustomIndexKHR-InstanceCustomIndexKHR-04252"></a> <span class="vuid">VUID-InstanceCustomIndexKHR-InstanceCustomIndexKHR-04252</span><br>
 
 The variable decorated with <code>InstanceCustomIndexKHR</code> <strong>must</strong> be
-declared using the <code>Input</code> {StorageClass}</p>
+declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-InstanceCustomIndexKHR-InstanceCustomIndexKHR-04253" href="#VUID-InstanceCustomIndexKHR-InstanceCustomIndexKHR-04253"></a> <span class="vuid">VUID-InstanceCustomIndexKHR-InstanceCustomIndexKHR-04253</span><br>
@@ -5016,13 +5020,13 @@ index of the instance that intersects the current ray.</p>
 
 The <code>InstanceId</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, or <code>ClosestHitKHR</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-InstanceId-InstanceId-04255" href="#VUID-InstanceId-InstanceId-04255"></a> <span class="vuid">VUID-InstanceId-InstanceId-04255</span><br>
 
 The variable decorated with <code>InstanceId</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-InstanceId-InstanceId-04256" href="#VUID-InstanceId-InstanceId-04256"></a> <span class="vuid">VUID-InstanceId-InstanceId-04256</span><br>
@@ -5065,13 +5069,13 @@ then <code>InvocationId</code> will be zero.</p>
 <p><a id="VUID-InvocationId-InvocationId-04257" href="#VUID-InvocationId-InvocationId-04257"></a> <span class="vuid">VUID-InvocationId-InvocationId-04257</span><br>
 
 The <code>InvocationId</code> decoration <strong>must</strong> be used only within the
-<code>TessellationControl</code> or <code>Geometry</code> {ExecutionModel}</p>
+<code>TessellationControl</code> or <code>Geometry</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-InvocationId-InvocationId-04258" href="#VUID-InvocationId-InvocationId-04258"></a> <span class="vuid">VUID-InvocationId-InvocationId-04258</span><br>
 
 The variable decorated with <code>InvocationId</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-InvocationId-InvocationId-04259" href="#VUID-InvocationId-InvocationId-04259"></a> <span class="vuid">VUID-InvocationId-InvocationId-04259</span><br>
@@ -5112,13 +5116,13 @@ If the shading rate indicates a fragment covering multiple pixels, then
 <p><a id="VUID-InvocationsPerPixelNV-InvocationsPerPixelNV-04260" href="#VUID-InvocationsPerPixelNV-InvocationsPerPixelNV-04260"></a> <span class="vuid">VUID-InvocationsPerPixelNV-InvocationsPerPixelNV-04260</span><br>
 
 The <code>InvocationsPerPixelNV</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-InvocationsPerPixelNV-InvocationsPerPixelNV-04261" href="#VUID-InvocationsPerPixelNV-InvocationsPerPixelNV-04261"></a> <span class="vuid">VUID-InvocationsPerPixelNV-InvocationsPerPixelNV-04261</span><br>
 
 The variable decorated with <code>InvocationsPerPixelNV</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-InvocationsPerPixelNV-InvocationsPerPixelNV-04262" href="#VUID-InvocationsPerPixelNV-InvocationsPerPixelNV-04262"></a> <span class="vuid">VUID-InvocationsPerPixelNV-InvocationsPerPixelNV-04262</span><br>
@@ -5157,13 +5161,13 @@ member of a structure consumed by <a href="drawing.html#vkCmdDrawIndirect" class
 <p><a id="VUID-InstanceIndex-InstanceIndex-04263" href="#VUID-InstanceIndex-InstanceIndex-04263"></a> <span class="vuid">VUID-InstanceIndex-InstanceIndex-04263</span><br>
 
 The <code>InstanceIndex</code> decoration <strong>must</strong> be used only within the
-<code>Vertex</code> {ExecutionModel}</p>
+<code>Vertex</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-InstanceIndex-InstanceIndex-04264" href="#VUID-InstanceIndex-InstanceIndex-04264"></a> <span class="vuid">VUID-InstanceIndex-InstanceIndex-04264</span><br>
 
 The variable decorated with <code>InstanceIndex</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-InstanceIndex-InstanceIndex-04265" href="#VUID-InstanceIndex-InstanceIndex-04265"></a> <span class="vuid">VUID-InstanceIndex-InstanceIndex-04265</span><br>
@@ -5185,8 +5189,8 @@ scalar 32-bit integer value</p>
 <dd>
 <p>A variable decorated with the <code>LaunchIdKHR</code> decoration will specify the
 index of the work item being processed.
-One work item is generated for each of the <code>width</code> {times} <code>height</code>
-{times} <code>depth</code> items dispatched by a
+One work item is generated for each of the <code>width</code> × <code>height</code>
+× <code>depth</code> items dispatched by a
 <a href="raytracing.html#vkCmdTraceRaysKHR" class="xref page">vkCmdTraceRaysKHR</a>
 or
 <a href="raytracing.html#vkCmdTraceRaysNV" class="xref page">vkCmdTraceRaysNV</a>
@@ -5206,13 +5210,13 @@ All shader invocations inherit the same value for variables decorated with
 
 The <code>LaunchIdKHR</code> decoration <strong>must</strong> be used only within the
 <code>RayGenerationKHR</code>, <code>IntersectionKHR</code>, <code>AnyHitKHR</code>,
-<code>ClosestHitKHR</code>, <code>MissKHR</code>, or <code>CallableKHR</code> {ExecutionModel}</p>
+<code>ClosestHitKHR</code>, <code>MissKHR</code>, or <code>CallableKHR</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-LaunchIdKHR-LaunchIdKHR-04267" href="#VUID-LaunchIdKHR-LaunchIdKHR-04267"></a> <span class="vuid">VUID-LaunchIdKHR-LaunchIdKHR-04267</span><br>
 
 The variable decorated with <code>LaunchIdKHR</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-LaunchIdKHR-LaunchIdKHR-04268" href="#VUID-LaunchIdKHR-LaunchIdKHR-04268"></a> <span class="vuid">VUID-LaunchIdKHR-LaunchIdKHR-04268</span><br>
@@ -5253,13 +5257,13 @@ component, and the <code>depth</code> is in the third component.</p>
 
 The <code>LaunchSizeKHR</code> decoration <strong>must</strong> be used only within the
 <code>RayGenerationKHR</code>, <code>IntersectionKHR</code>, <code>AnyHitKHR</code>,
-<code>ClosestHitKHR</code>, <code>MissKHR</code>, or <code>CallableKHR</code> {ExecutionModel}</p>
+<code>ClosestHitKHR</code>, <code>MissKHR</code>, or <code>CallableKHR</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-LaunchSizeKHR-LaunchSizeKHR-04270" href="#VUID-LaunchSizeKHR-LaunchSizeKHR-04270"></a> <span class="vuid">VUID-LaunchSizeKHR-LaunchSizeKHR-04270</span><br>
 
 The variable decorated with <code>LaunchSizeKHR</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-LaunchSizeKHR-LaunchSizeKHR-04271" href="#VUID-LaunchSizeKHR-LaunchSizeKHR-04271"></a> <span class="vuid">VUID-LaunchSizeKHR-LaunchSizeKHR-04271</span><br>
@@ -5343,27 +5347,27 @@ layer index of the primitive that the fragment invocation belongs to.</p>
 
 The <code>Layer</code> decoration <strong>must</strong> be used only within the <code>MeshEXT</code>,
 <code>MeshNV</code>, <code>Vertex</code>, <code>TessellationEvaluation</code>, <code>Geometry</code>, or
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-Layer-Layer-04273" href="#VUID-Layer-Layer-04273"></a> <span class="vuid">VUID-Layer-Layer-04273</span><br>
 
 If the <a href="features.html#features-shaderOutputLayer" class="xref page"><code>shaderOutputLayer</code></a> feature
 is not enabled then the <code>Layer</code> decoration <strong>must</strong> be used only within
-the <code>Geometry</code> or <code>Fragment</code> {ExecutionModel}</p>
+the <code>Geometry</code> or <code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-Layer-Layer-04274" href="#VUID-Layer-Layer-04274"></a> <span class="vuid">VUID-Layer-Layer-04274</span><br>
 
 The variable decorated with <code>Layer</code> within the <code>MeshEXT</code>,
 <code>MeshNV</code>, <code>Vertex</code>, <code>TessellationEvaluation</code>, or <code>Geometry</code>
-{ExecutionModel} <strong>must</strong> be declared using the <code>Output</code> {StorageClass}</p>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-Layer-Layer-04275" href="#VUID-Layer-Layer-04275"></a> <span class="vuid">VUID-Layer-Layer-04275</span><br>
 
 The variable decorated with <code>Layer</code> within the <code>Fragment</code>
-{ExecutionModel} <strong>must</strong> be declared using the <code>Input</code> {StorageClass}</p>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-Layer-Layer-04276" href="#VUID-Layer-Layer-04276"></a> <span class="vuid">VUID-Layer-Layer-04276</span><br>
@@ -5375,7 +5379,7 @@ The variable decorated with <code>Layer</code> <strong>must</strong> be declared
 <p><a id="VUID-Layer-Layer-07039" href="#VUID-Layer-Layer-07039"></a> <span class="vuid">VUID-Layer-Layer-07039</span><br>
 
 The variable decorated with <code>Layer</code> within the <code>MeshEXT</code>
-{ExecutionModel} <strong>must</strong> also be decorated with the <code>PerPrimitiveEXT</code>
+<code>Execution</code> <code>Model</code> <strong>must</strong> also be decorated with the <code>PerPrimitiveEXT</code>
 decoration</p>
 </li>
 </ul>
@@ -5405,13 +5409,13 @@ The per-view layer has the same semantics as <code>Layer</code>, for each view.<
 <p><a id="VUID-LayerPerViewNV-LayerPerViewNV-04277" href="#VUID-LayerPerViewNV-LayerPerViewNV-04277"></a> <span class="vuid">VUID-LayerPerViewNV-LayerPerViewNV-04277</span><br>
 
 The <code>LayerPerViewNV</code> decoration <strong>must</strong> be used only within the
-<code>MeshNV</code> {ExecutionModel}</p>
+<code>MeshNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-LayerPerViewNV-LayerPerViewNV-04278" href="#VUID-LayerPerViewNV-LayerPerViewNV-04278"></a> <span class="vuid">VUID-LayerPerViewNV-LayerPerViewNV-04278</span><br>
 
 The variable decorated with <code>LayerPerViewNV</code> <strong>must</strong> be declared using
-the <code>Output</code> {StorageClass}</p>
+the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-LayerPerViewNV-LayerPerViewNV-04279" href="#VUID-LayerPerViewNV-LayerPerViewNV-04279"></a> <span class="vuid">VUID-LayerPerViewNV-LayerPerViewNV-04279</span><br>
@@ -5476,13 +5480,13 @@ If the workgroup is effectively one-dimensional, then both
 
 The <code>LocalInvocationId</code> decoration <strong>must</strong> be used only within the
 <code>GLCompute</code>, <code>MeshEXT</code>, <code>TaskEXT</code>, <code>MeshNV</code>, or <code>TaskNV</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-LocalInvocationId-LocalInvocationId-04282" href="#VUID-LocalInvocationId-LocalInvocationId-04282"></a> <span class="vuid">VUID-LocalInvocationId-LocalInvocationId-04282</span><br>
 
 The variable decorated with <code>LocalInvocationId</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-LocalInvocationId-LocalInvocationId-04283" href="#VUID-LocalInvocationId-LocalInvocationId-04283"></a> <span class="vuid">VUID-LocalInvocationId-LocalInvocationId-04283</span><br>
@@ -5527,13 +5531,13 @@ This is computed as:</p>
 
 The <code>LocalInvocationIndex</code> decoration <strong>must</strong> be used only within the
 <code>GLCompute</code>, <code>MeshEXT</code>, <code>TaskEXT</code>, <code>MeshNV</code>, or <code>TaskNV</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-LocalInvocationIndex-LocalInvocationIndex-04285" href="#VUID-LocalInvocationIndex-LocalInvocationIndex-04285"></a> <span class="vuid">VUID-LocalInvocationIndex-LocalInvocationIndex-04285</span><br>
 
 The variable decorated with <code>LocalInvocationIndex</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-LocalInvocationIndex-LocalInvocationIndex-04286" href="#VUID-LocalInvocationIndex-LocalInvocationIndex-04286"></a> <span class="vuid">VUID-LocalInvocationIndex-LocalInvocationIndex-04286</span><br>
@@ -5568,13 +5572,13 @@ or task shader invocations.</p>
 <p><a id="VUID-MeshViewCountNV-MeshViewCountNV-04287" href="#VUID-MeshViewCountNV-MeshViewCountNV-04287"></a> <span class="vuid">VUID-MeshViewCountNV-MeshViewCountNV-04287</span><br>
 
 The <code>MeshViewCountNV</code> decoration <strong>must</strong> be used only within the
-<code>MeshNV</code> or <code>TaskNV</code> {ExecutionModel}</p>
+<code>MeshNV</code> or <code>TaskNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-MeshViewCountNV-MeshViewCountNV-04288" href="#VUID-MeshViewCountNV-MeshViewCountNV-04288"></a> <span class="vuid">VUID-MeshViewCountNV-MeshViewCountNV-04288</span><br>
 
 The variable decorated with <code>MeshViewCountNV</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-MeshViewCountNV-MeshViewCountNV-04289" href="#VUID-MeshViewCountNV-MeshViewCountNV-04289"></a> <span class="vuid">VUID-MeshViewCountNV-MeshViewCountNV-04289</span><br>
@@ -5616,13 +5620,13 @@ decorated with <code>PerViewNV</code> will take on the value of array element
 <p><a id="VUID-MeshViewIndicesNV-MeshViewIndicesNV-04290" href="#VUID-MeshViewIndicesNV-MeshViewIndicesNV-04290"></a> <span class="vuid">VUID-MeshViewIndicesNV-MeshViewIndicesNV-04290</span><br>
 
 The <code>MeshViewIndicesNV</code> decoration <strong>must</strong> be used only within the
-<code>MeshNV</code> or <code>TaskNV</code> {ExecutionModel}</p>
+<code>MeshNV</code> or <code>TaskNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-MeshViewIndicesNV-MeshViewIndicesNV-04291" href="#VUID-MeshViewIndicesNV-MeshViewIndicesNV-04291"></a> <span class="vuid">VUID-MeshViewIndicesNV-MeshViewIndicesNV-04291</span><br>
 
 The variable decorated with <code>MeshViewIndicesNV</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-MeshViewIndicesNV-MeshViewIndicesNV-04292" href="#VUID-MeshViewIndicesNV-MeshViewIndicesNV-04292"></a> <span class="vuid">VUID-MeshViewIndicesNV-MeshViewIndicesNV-04292</span><br>
@@ -5657,13 +5661,13 @@ make that variable contain the number of subgroups in the local workgroup.</p>
 
 The <code>NumSubgroups</code> decoration <strong>must</strong> be used only within the
 <code>GLCompute</code>, <code>MeshEXT</code>, <code>TaskEXT</code>, <code>MeshNV</code>, or <code>TaskNV</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-NumSubgroups-NumSubgroups-04294" href="#VUID-NumSubgroups-NumSubgroups-04294"></a> <span class="vuid">VUID-NumSubgroups-NumSubgroups-04294</span><br>
 
 The variable decorated with <code>NumSubgroups</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-NumSubgroups-NumSubgroups-04295" href="#VUID-NumSubgroups-NumSubgroups-04295"></a> <span class="vuid">VUID-NumSubgroups-NumSubgroups-04295</span><br>
@@ -5700,13 +5704,13 @@ passed into the dispatching commands.</p>
 <p><a id="VUID-NumWorkgroups-NumWorkgroups-04296" href="#VUID-NumWorkgroups-NumWorkgroups-04296"></a> <span class="vuid">VUID-NumWorkgroups-NumWorkgroups-04296</span><br>
 
 The <code>NumWorkgroups</code> decoration <strong>must</strong> be used only within the
-<code>GLCompute</code>, <code>MeshEXT</code>, or <code>TaskEXT</code> {ExecutionModel}</p>
+<code>GLCompute</code>, <code>MeshEXT</code>, or <code>TaskEXT</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-NumWorkgroups-NumWorkgroups-04297" href="#VUID-NumWorkgroups-NumWorkgroups-04297"></a> <span class="vuid">VUID-NumWorkgroups-NumWorkgroups-04297</span><br>
 
 The variable decorated with <code>NumWorkgroups</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-NumWorkgroups-NumWorkgroups-04298" href="#VUID-NumWorkgroups-NumWorkgroups-04298"></a> <span class="vuid">VUID-NumWorkgroups-NumWorkgroups-04298</span><br>
@@ -5741,13 +5745,13 @@ specify the direction of the ray being processed, in object space.</p>
 
 The <code>ObjectRayDirectionKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, or <code>ClosestHitKHR</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ObjectRayDirectionKHR-ObjectRayDirectionKHR-04300" href="#VUID-ObjectRayDirectionKHR-ObjectRayDirectionKHR-04300"></a> <span class="vuid">VUID-ObjectRayDirectionKHR-ObjectRayDirectionKHR-04300</span><br>
 
 The variable decorated with <code>ObjectRayDirectionKHR</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ObjectRayDirectionKHR-ObjectRayDirectionKHR-04301" href="#VUID-ObjectRayDirectionKHR-ObjectRayDirectionKHR-04301"></a> <span class="vuid">VUID-ObjectRayDirectionKHR-ObjectRayDirectionKHR-04301</span><br>
@@ -5782,13 +5786,13 @@ specify the origin of the ray being processed, in object space.</p>
 
 The <code>ObjectRayOriginKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, or <code>ClosestHitKHR</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ObjectRayOriginKHR-ObjectRayOriginKHR-04303" href="#VUID-ObjectRayOriginKHR-ObjectRayOriginKHR-04303"></a> <span class="vuid">VUID-ObjectRayOriginKHR-ObjectRayOriginKHR-04303</span><br>
 
 The variable decorated with <code>ObjectRayOriginKHR</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ObjectRayOriginKHR-ObjectRayOriginKHR-04304" href="#VUID-ObjectRayOriginKHR-ObjectRayOriginKHR-04304"></a> <span class="vuid">VUID-ObjectRayOriginKHR-ObjectRayOriginKHR-04304</span><br>
@@ -5824,13 +5828,13 @@ the instance of the current intersection.</p>
 
 The <code>ObjectToWorldKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, or <code>ClosestHitKHR</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ObjectToWorldKHR-ObjectToWorldKHR-04306" href="#VUID-ObjectToWorldKHR-ObjectToWorldKHR-04306"></a> <span class="vuid">VUID-ObjectToWorldKHR-ObjectToWorldKHR-04306</span><br>
 
 The variable decorated with <code>ObjectToWorldKHR</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ObjectToWorldKHR-ObjectToWorldKHR-04307" href="#VUID-ObjectToWorldKHR-ObjectToWorldKHR-04307"></a> <span class="vuid">VUID-ObjectToWorldKHR-ObjectToWorldKHR-04307</span><br>
@@ -5874,13 +5878,13 @@ will also differ.</p>
 <p><a id="VUID-PatchVertices-PatchVertices-04308" href="#VUID-PatchVertices-PatchVertices-04308"></a> <span class="vuid">VUID-PatchVertices-PatchVertices-04308</span><br>
 
 The <code>PatchVertices</code> decoration <strong>must</strong> be used only within the
-<code>TessellationControl</code> or <code>TessellationEvaluation</code> {ExecutionModel}</p>
+<code>TessellationControl</code> or <code>TessellationEvaluation</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-PatchVertices-PatchVertices-04309" href="#VUID-PatchVertices-PatchVertices-04309"></a> <span class="vuid">VUID-PatchVertices-PatchVertices-04309</span><br>
 
 The variable decorated with <code>PatchVertices</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PatchVertices-PatchVertices-04310" href="#VUID-PatchVertices-PatchVertices-04310"></a> <span class="vuid">VUID-PatchVertices-PatchVertices-04310</span><br>
@@ -5935,13 +5939,13 @@ value.</p>
 <p><a id="VUID-PointCoord-PointCoord-04311" href="#VUID-PointCoord-PointCoord-04311"></a> <span class="vuid">VUID-PointCoord-PointCoord-04311</span><br>
 
 The <code>PointCoord</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-PointCoord-PointCoord-04312" href="#VUID-PointCoord-PointCoord-04312"></a> <span class="vuid">VUID-PointCoord-PointCoord-04312</span><br>
 
 The variable decorated with <code>PointCoord</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PointCoord-PointCoord-04313" href="#VUID-PointCoord-PointCoord-04313"></a> <span class="vuid">VUID-PointCoord-PointCoord-04313</span><br>
@@ -5984,7 +5988,7 @@ of 1.0 is used as the size of points.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>When <code>PointSize</code> decorates a variable in the <code>Input</code> {StorageClass},
+<p>When <code>PointSize</code> decorates a variable in the <code>Input</code> <code>Storage</code> <code>Class</code>,
 it contains the data written to the output variable decorated with
 <code>PointSize</code> from the previous shader stage.</p>
 </div>
@@ -6002,21 +6006,21 @@ it contains the data written to the output variable decorated with
 
 The <code>PointSize</code> decoration <strong>must</strong> be used only within the
 <code>MeshEXT</code>, <code>MeshNV</code>, <code>Vertex</code>, <code>TessellationControl</code>,
-<code>TessellationEvaluation</code>, or <code>Geometry</code> {ExecutionModel}</p>
+<code>TessellationEvaluation</code>, or <code>Geometry</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-PointSize-PointSize-04315" href="#VUID-PointSize-PointSize-04315"></a> <span class="vuid">VUID-PointSize-PointSize-04315</span><br>
 
 The variable decorated with <code>PointSize</code> within the <code>MeshEXT</code>,
-<code>MeshNV</code>, or <code>Vertex</code> {ExecutionModel} <strong>must</strong> be declared using the
-<code>Output</code> {StorageClass}</p>
+<code>MeshNV</code>, or <code>Vertex</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the
+<code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PointSize-PointSize-04316" href="#VUID-PointSize-PointSize-04316"></a> <span class="vuid">VUID-PointSize-PointSize-04316</span><br>
 
 The variable decorated with <code>PointSize</code> within the
 <code>TessellationControl</code>, <code>TessellationEvaluation</code>, or <code>Geometry</code>
-{ExecutionModel} <strong>must</strong> not be declared using a {StorageClass} other than
+<code>Execution</code> <code>Model</code> <strong>must</strong> not be declared using a <code>Storage</code> <code>Class</code> other than
 <code>Input</code> or <code>Output</code></p>
 </li>
 <li>
@@ -6053,7 +6057,7 @@ operations.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>When <code>Position</code> decorates a variable in the <code>Input</code> {StorageClass}, it
+<p>When <code>Position</code> decorates a variable in the <code>Input</code> <code>Storage</code> <code>Class</code>, it
 contains the data written to the output variable decorated with
 <code>Position</code> from the previous shader stage.</p>
 </div>
@@ -6071,21 +6075,21 @@ contains the data written to the output variable decorated with
 
 The <code>Position</code> decoration <strong>must</strong> be used only within the <code>MeshEXT</code>,
 <code>MeshNV</code>, <code>Vertex</code>, <code>TessellationControl</code>,
-<code>TessellationEvaluation</code>, or <code>Geometry</code> {ExecutionModel}</p>
+<code>TessellationEvaluation</code>, or <code>Geometry</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-Position-Position-04319" href="#VUID-Position-Position-04319"></a> <span class="vuid">VUID-Position-Position-04319</span><br>
 
 The variable decorated with <code>Position</code> within the <code>MeshEXT</code>,
-<code>MeshNV</code>, or <code>Vertex</code> {ExecutionModel} <strong>must</strong> be declared using the
-<code>Output</code> {StorageClass}</p>
+<code>MeshNV</code>, or <code>Vertex</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the
+<code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-Position-Position-04320" href="#VUID-Position-Position-04320"></a> <span class="vuid">VUID-Position-Position-04320</span><br>
 
 The variable decorated with <code>Position</code> within the
 <code>TessellationControl</code>, <code>TessellationEvaluation</code>, or <code>Geometry</code>
-{ExecutionModel} <strong>must</strong> not be declared using a {StorageClass} other than
+<code>Execution</code> <code>Model</code> <strong>must</strong> not be declared using a <code>Storage</code> <code>Class</code> other than
 <code>Input</code> or <code>Output</code></p>
 </li>
 <li>
@@ -6142,21 +6146,21 @@ manner.</p>
 
 The <code>PositionPerViewNV</code> decoration <strong>must</strong> be used only within the
 <code>MeshNV</code>, <code>Vertex</code>, <code>TessellationControl</code>,
-<code>TessellationEvaluation</code>, or <code>Geometry</code> {ExecutionModel}</p>
+<code>TessellationEvaluation</code>, or <code>Geometry</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-PositionPerViewNV-PositionPerViewNV-04323" href="#VUID-PositionPerViewNV-PositionPerViewNV-04323"></a> <span class="vuid">VUID-PositionPerViewNV-PositionPerViewNV-04323</span><br>
 
 The variable decorated with <code>PositionPerViewNV</code> within the
-<code>Vertex</code>, or <code>MeshNV</code> {ExecutionModel} <strong>must</strong> be declared using the
-<code>Output</code> {StorageClass}</p>
+<code>Vertex</code>, or <code>MeshNV</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the
+<code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PositionPerViewNV-PositionPerViewNV-04324" href="#VUID-PositionPerViewNV-PositionPerViewNV-04324"></a> <span class="vuid">VUID-PositionPerViewNV-PositionPerViewNV-04324</span><br>
 
 The variable decorated with <code>PositionPerViewNV</code> within the
 <code>TessellationControl</code>, <code>TessellationEvaluation</code>, or <code>Geometry</code>
-{ExecutionModel} <strong>must</strong> not be declared using a {StorageClass} other than
+<code>Execution</code> <code>Model</code> <strong>must</strong> not be declared using a <code>Storage</code> <code>Class</code> other than
 <code>Input</code> or <code>Output</code></p>
 </li>
 <li>
@@ -6204,13 +6208,13 @@ stages.</p>
 <p><a id="VUID-PrimitiveCountNV-PrimitiveCountNV-04327" href="#VUID-PrimitiveCountNV-PrimitiveCountNV-04327"></a> <span class="vuid">VUID-PrimitiveCountNV-PrimitiveCountNV-04327</span><br>
 
 The <code>PrimitiveCountNV</code> decoration <strong>must</strong> be used only within the
-<code>MeshNV</code> {ExecutionModel}</p>
+<code>MeshNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveCountNV-PrimitiveCountNV-04328" href="#VUID-PrimitiveCountNV-PrimitiveCountNV-04328"></a> <span class="vuid">VUID-PrimitiveCountNV-PrimitiveCountNV-04328</span><br>
 
 The variable decorated with <code>PrimitiveCountNV</code> <strong>must</strong> be declared
-using the <code>Output</code> {StorageClass}</p>
+using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveCountNV-PrimitiveCountNV-04329" href="#VUID-PrimitiveCountNV-PrimitiveCountNV-04329"></a> <span class="vuid">VUID-PrimitiveCountNV-PrimitiveCountNV-04329</span><br>
@@ -6310,13 +6314,13 @@ The <code>PrimitiveId</code> decoration <strong>must</strong> be used only withi
 <code>MeshEXT</code>, <code>MeshNV</code>, <code>IntersectionKHR</code>, <code>AnyHitKHR</code>,
 <code>ClosestHitKHR</code>, <code>TessellationControl</code>,
 <code>TessellationEvaluation</code>, <code>Geometry</code>, or <code>Fragment</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveId-Fragment-04331" href="#VUID-PrimitiveId-Fragment-04331"></a> <span class="vuid">VUID-PrimitiveId-Fragment-04331</span><br>
 
 If pipeline contains both the <code>Fragment</code> and <code>Geometry</code>
-{ExecutionModel} and a variable decorated with <code>PrimitiveId</code> is read
+<code>Execution</code> <code>Model</code> and a variable decorated with <code>PrimitiveId</code> is read
 from <code>Fragment</code> shader, then the <code>Geometry</code> shader <strong>must</strong> write to
 the output variables decorated with <code>PrimitiveId</code> in all execution
 paths</p>
@@ -6325,7 +6329,7 @@ paths</p>
 <p><a id="VUID-PrimitiveId-Fragment-04332" href="#VUID-PrimitiveId-Fragment-04332"></a> <span class="vuid">VUID-PrimitiveId-Fragment-04332</span><br>
 
 If pipeline contains both the <code>Fragment</code> and <code>MeshEXT</code> or
-<code>MeshNV</code> {ExecutionModel} and a variable decorated with
+<code>MeshNV</code> <code>Execution</code> <code>Model</code> and a variable decorated with
 <code>PrimitiveId</code> is read from <code>Fragment</code> shader, then the
 <code>MeshEXT</code> or <code>MeshNV</code> shader <strong>must</strong> write to the output variables
 decorated with <code>PrimitiveId</code> in all execution paths</p>
@@ -6333,7 +6337,7 @@ decorated with <code>PrimitiveId</code> in all execution paths</p>
 <li>
 <p><a id="VUID-PrimitiveId-Fragment-04333" href="#VUID-PrimitiveId-Fragment-04333"></a> <span class="vuid">VUID-PrimitiveId-Fragment-04333</span><br>
 
-If <code>Fragment</code> {ExecutionModel} contains a variable decorated with
+If <code>Fragment</code> <code>Execution</code> <code>Model</code> contains a variable decorated with
 <code>PrimitiveId</code>, then either the <code>MeshShadingEXT</code>,
 <code>MeshShadingNV</code>, <code>Geometry</code> or <code>Tessellation</code> capability <strong>must</strong>
 also be declared</p>
@@ -6344,21 +6348,21 @@ also be declared</p>
 The variable decorated with <code>PrimitiveId</code> within the
 <code>TessellationControl</code>, <code>TessellationEvaluation</code>, <code>Fragment</code>,
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, or <code>ClosestHitKHR</code>
-{ExecutionModel} <strong>must</strong> be declared using the <code>Input</code> {StorageClass}</p>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveId-PrimitiveId-04335" href="#VUID-PrimitiveId-PrimitiveId-04335"></a> <span class="vuid">VUID-PrimitiveId-PrimitiveId-04335</span><br>
 
 The variable decorated with <code>PrimitiveId</code> within the <code>Geometry</code>
-{ExecutionModel} <strong>must</strong> be declared using the <code>Input</code> or <code>Output</code>
-{StorageClass}</p>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the <code>Input</code> or <code>Output</code>
+<code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveId-PrimitiveId-04336" href="#VUID-PrimitiveId-PrimitiveId-04336"></a> <span class="vuid">VUID-PrimitiveId-PrimitiveId-04336</span><br>
 
 The variable decorated with <code>PrimitiveId</code> within the <code>MeshEXT</code> or
-<code>MeshNV</code> {ExecutionModel} <strong>must</strong> be declared using the <code>Output</code>
-{StorageClass}</p>
+<code>MeshNV</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the <code>Output</code>
+<code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveId-PrimitiveId-04337" href="#VUID-PrimitiveId-PrimitiveId-04337"></a> <span class="vuid">VUID-PrimitiveId-PrimitiveId-04337</span><br>
@@ -6370,7 +6374,7 @@ scalar 32-bit integer value</p>
 <p><a id="VUID-PrimitiveId-PrimitiveId-07040" href="#VUID-PrimitiveId-PrimitiveId-07040"></a> <span class="vuid">VUID-PrimitiveId-PrimitiveId-07040</span><br>
 
 The variable decorated with <code>PrimitiveId</code> within the <code>MeshEXT</code>
-{ExecutionModel} <strong>must</strong> also be decorated with the <code>PerPrimitiveEXT</code>
+<code>Execution</code> <code>Model</code> <strong>must</strong> also be decorated with the <code>PerPrimitiveEXT</code>
 decoration</p>
 </li>
 </ul>
@@ -6405,13 +6409,13 @@ group generates a primitive.</p>
 <p><a id="VUID-PrimitiveIndicesNV-PrimitiveIndicesNV-04338" href="#VUID-PrimitiveIndicesNV-PrimitiveIndicesNV-04338"></a> <span class="vuid">VUID-PrimitiveIndicesNV-PrimitiveIndicesNV-04338</span><br>
 
 The <code>PrimitiveIndicesNV</code> decoration <strong>must</strong> be used only within the
-<code>MeshNV</code> {ExecutionModel}</p>
+<code>MeshNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveIndicesNV-PrimitiveIndicesNV-04339" href="#VUID-PrimitiveIndicesNV-PrimitiveIndicesNV-04339"></a> <span class="vuid">VUID-PrimitiveIndicesNV-PrimitiveIndicesNV-04339</span><br>
 
 The variable decorated with <code>PrimitiveIndicesNV</code> <strong>must</strong> be declared
-using the <code>Output</code> {StorageClass}</p>
+using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveIndicesNV-PrimitiveIndicesNV-04340" href="#VUID-PrimitiveIndicesNV-PrimitiveIndicesNV-04340"></a> <span class="vuid">VUID-PrimitiveIndicesNV-PrimitiveIndicesNV-04340</span><br>
@@ -6424,26 +6428,26 @@ an array of scalar 32-bit integer values</p>
 
 All index values of the array decorated with <code>PrimitiveIndicesNV</code>
 <strong>must</strong> be in the range <span class="eq">[0, N-1]</span>, where <span class="eq">N</span> is the value
-specified by the <code>OutputVertices</code> {ExecutionMode}</p>
+specified by the <code>OutputVertices</code> <code>Execution</code> <code>Mode</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveIndicesNV-OutputPoints-04342" href="#VUID-PrimitiveIndicesNV-OutputPoints-04342"></a> <span class="vuid">VUID-PrimitiveIndicesNV-OutputPoints-04342</span><br>
 
-If the {ExecutionMode} is <code>OutputPoints</code>, then the array decorated
+If the <code>Execution</code> <code>Mode</code> is <code>OutputPoints</code>, then the array decorated
 with <code>PrimitiveIndicesNV</code> <strong>must</strong> be the size of the value specified by
 <code>OutputPrimitivesNV</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveIndicesNV-OutputLinesNV-04343" href="#VUID-PrimitiveIndicesNV-OutputLinesNV-04343"></a> <span class="vuid">VUID-PrimitiveIndicesNV-OutputLinesNV-04343</span><br>
 
-If the {ExecutionMode} is <code>OutputLinesNV</code>, then the array decorated
+If the <code>Execution</code> <code>Mode</code> is <code>OutputLinesNV</code>, then the array decorated
 with <code>PrimitiveIndicesNV</code> <strong>must</strong> be the size of two times the value
 specified by <code>OutputPrimitivesNV</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveIndicesNV-OutputTrianglesNV-04344" href="#VUID-PrimitiveIndicesNV-OutputTrianglesNV-04344"></a> <span class="vuid">VUID-PrimitiveIndicesNV-OutputTrianglesNV-04344</span><br>
 
-If the {ExecutionMode} is <code>OutputTrianglesNV</code>, then the array
+If the <code>Execution</code> <code>Mode</code> is <code>OutputTrianglesNV</code>, then the array
 decorated with <code>PrimitiveIndicesNV</code> <strong>must</strong> be the size of three times
 the value specified by <code>OutputPrimitivesNV</code></p>
 </li>
@@ -6476,19 +6480,19 @@ primitives.</p>
 <p><a id="VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07041" href="#VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07041"></a> <span class="vuid">VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07041</span><br>
 
 The <code>PrimitivePointIndicesEXT</code> decoration <strong>must</strong> be used only within
-the <code>MeshEXT</code> {ExecutionModel}</p>
+the <code>MeshEXT</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07042" href="#VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07042"></a> <span class="vuid">VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07042</span><br>
 
 The <code>PrimitivePointIndicesEXT</code> decoration <strong>must</strong> be used with the
-<code>OutputPoints</code> {ExecutionMode}</p>
+<code>OutputPoints</code> <code>Execution</code> <code>Mode</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07043" href="#VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07043"></a> <span class="vuid">VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07043</span><br>
 
 The variable decorated with <code>PrimitivePointIndicesEXT</code> <strong>must</strong> be
-declared using the <code>Output</code> {StorageClass}</p>
+declared using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07044" href="#VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07044"></a> <span class="vuid">VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07044</span><br>
@@ -6502,7 +6506,7 @@ declared as an array of scalar 32-bit integer values</p>
 All index values of the array decorated with
 <code>PrimitivePointIndicesEXT</code> <strong>must</strong> be in the range <span class="eq">[0, N-1]</span>,
 where <span class="eq">N</span> is the value specified by the <code>OutputVertices</code>
-{ExecutionMode}</p>
+<code>Execution</code> <code>Mode</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07046" href="#VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07046"></a> <span class="vuid">VUID-PrimitivePointIndicesEXT-PrimitivePointIndicesEXT-07046</span><br>
@@ -6539,19 +6543,19 @@ primitives.</p>
 <p><a id="VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07047" href="#VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07047"></a> <span class="vuid">VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07047</span><br>
 
 The <code>PrimitiveLineIndicesEXT</code> decoration <strong>must</strong> be used only within
-the <code>MeshEXT</code> {ExecutionModel}</p>
+the <code>MeshEXT</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07048" href="#VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07048"></a> <span class="vuid">VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07048</span><br>
 
 The <code>PrimitiveLineIndicesEXT</code> decoration <strong>must</strong> be used with the
-<code>OutputLinesEXT</code> {ExecutionMode}</p>
+<code>OutputLinesEXT</code> <code>Execution</code> <code>Mode</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07049" href="#VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07049"></a> <span class="vuid">VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07049</span><br>
 
 The variable decorated with <code>PrimitiveLineIndicesEXT</code> <strong>must</strong> be
-declared using the <code>Output</code> {StorageClass}</p>
+declared using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07050" href="#VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07050"></a> <span class="vuid">VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07050</span><br>
@@ -6565,7 +6569,7 @@ declared as an array of two component vector 32-bit integer values</p>
 All index values of the array decorated with
 <code>PrimitiveLineIndicesEXT</code> <strong>must</strong> be in the range <span class="eq">[0, N-1]</span>, where
 <span class="eq">N</span> is the value specified by the <code>OutputVertices</code>
-{ExecutionMode}</p>
+<code>Execution</code> <code>Mode</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07052" href="#VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07052"></a> <span class="vuid">VUID-PrimitiveLineIndicesEXT-PrimitiveLineIndicesEXT-07052</span><br>
@@ -6602,19 +6606,19 @@ triangle primitives.</p>
 <p><a id="VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07053" href="#VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07053"></a> <span class="vuid">VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07053</span><br>
 
 The <code>PrimitiveTriangleIndicesEXT</code> decoration <strong>must</strong> be used only
-within the <code>MeshEXT</code> {ExecutionModel}</p>
+within the <code>MeshEXT</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07054" href="#VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07054"></a> <span class="vuid">VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07054</span><br>
 
 The <code>PrimitiveTriangleIndicesEXT</code> decoration <strong>must</strong> be used with the
-<code>OutputTrianglesEXT</code> {ExecutionMode}</p>
+<code>OutputTrianglesEXT</code> <code>Execution</code> <code>Mode</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07055" href="#VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07055"></a> <span class="vuid">VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07055</span><br>
 
 The variable decorated with <code>PrimitiveTriangleIndicesEXT</code> <strong>must</strong> be
-declared using the <code>Output</code> {StorageClass}</p>
+declared using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07056" href="#VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07056"></a> <span class="vuid">VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07056</span><br>
@@ -6628,7 +6632,7 @@ declared as an array of three component vector 32-bit integer values</p>
 All index values of the array decorated with
 <code>PrimitiveTriangleIndicesEXT</code> <strong>must</strong> be in the range <span class="eq">[0, N-1]</span>,
 where <span class="eq">N</span> is the value specified by the <code>OutputVertices</code>
-{ExecutionMode}</p>
+<code>Execution</code> <code>Mode</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07058" href="#VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07058"></a> <span class="vuid">VUID-PrimitiveTriangleIndicesEXT-PrimitiveTriangleIndicesEXT-07058</span><br>
@@ -6683,13 +6687,13 @@ value is <strong>undefined</strong> for executions of the shader that take that 
 
 The <code>PrimitiveShadingRateKHR</code> decoration <strong>must</strong> be used only within
 the <code>MeshEXT</code>, <code>MeshNV</code>, <code>Vertex</code>, or <code>Geometry</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-04485" href="#VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-04485"></a> <span class="vuid">VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-04485</span><br>
 
 The variable decorated with <code>PrimitiveShadingRateKHR</code> <strong>must</strong> be
-declared using the <code>Output</code> {StorageClass}</p>
+declared using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-04486" href="#VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-04486"></a> <span class="vuid">VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-04486</span><br>
@@ -6720,7 +6724,7 @@ enumerants in the SPIR-V specification</p>
 <p><a id="VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-07059" href="#VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-07059"></a> <span class="vuid">VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-07059</span><br>
 
 The variable decorated with <code>PrimitiveShadingRateKHR</code> within the
-<code>MeshEXT</code> {ExecutionModel} <strong>must</strong> also be decorated with the
+<code>MeshEXT</code> <code>Execution</code> <code>Model</code> <strong>must</strong> also be decorated with the
 <code>PerPrimitiveEXT</code> decoration</p>
 </li>
 </ul>
@@ -6751,13 +6755,13 @@ the acceleration structure geometry currently being shaded.</p>
 
 The <code>RayGeometryIndexKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, or <code>ClosestHitKHR</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-RayGeometryIndexKHR-RayGeometryIndexKHR-04346" href="#VUID-RayGeometryIndexKHR-RayGeometryIndexKHR-04346"></a> <span class="vuid">VUID-RayGeometryIndexKHR-RayGeometryIndexKHR-04346</span><br>
 
 The variable decorated with <code>RayGeometryIndexKHR</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-RayGeometryIndexKHR-RayGeometryIndexKHR-04347" href="#VUID-RayGeometryIndexKHR-RayGeometryIndexKHR-04347"></a> <span class="vuid">VUID-RayGeometryIndexKHR-RayGeometryIndexKHR-04347</span><br>
@@ -6811,13 +6815,13 @@ In a miss shader, the value is identical to the parameter passed into the
 
 The <code>RayTmaxKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, <code>ClosestHitKHR</code>, or
-<code>MissKHR</code> {ExecutionModel}</p>
+<code>MissKHR</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-RayTmaxKHR-RayTmaxKHR-04349" href="#VUID-RayTmaxKHR-RayTmaxKHR-04349"></a> <span class="vuid">VUID-RayTmaxKHR-RayTmaxKHR-04349</span><br>
 
 The variable decorated with <code>RayTmaxKHR</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-RayTmaxKHR-RayTmaxKHR-04350" href="#VUID-RayTmaxKHR-RayTmaxKHR-04350"></a> <span class="vuid">VUID-RayTmaxKHR-RayTmaxKHR-04350</span><br>
@@ -6858,13 +6862,13 @@ The value is the parameter passed into the <a href="../appendices/glossary.html#
 
 The <code>RayTminKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, <code>ClosestHitKHR</code>, or
-<code>MissKHR</code> {ExecutionModel}</p>
+<code>MissKHR</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-RayTminKHR-RayTminKHR-04352" href="#VUID-RayTminKHR-RayTminKHR-04352"></a> <span class="vuid">VUID-RayTminKHR-RayTminKHR-04352</span><br>
 
 The variable decorated with <code>RayTminKHR</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-RayTminKHR-RayTminKHR-04353" href="#VUID-RayTminKHR-RayTminKHR-04353"></a> <span class="vuid">VUID-RayTminKHR-RayTminKHR-04353</span><br>
@@ -6903,13 +6907,13 @@ considered enabled with a <code>minSampleShading</code> value of 1.0.</p>
 <p><a id="VUID-SampleId-SampleId-04354" href="#VUID-SampleId-SampleId-04354"></a> <span class="vuid">VUID-SampleId-SampleId-04354</span><br>
 
 The <code>SampleId</code> decoration <strong>must</strong> be used only within the <code>Fragment</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-SampleId-SampleId-04355" href="#VUID-SampleId-SampleId-04355"></a> <span class="vuid">VUID-SampleId-SampleId-04355</span><br>
 
 The variable decorated with <code>SampleId</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SampleId-SampleId-04356" href="#VUID-SampleId-SampleId-04356"></a> <span class="vuid">VUID-SampleId-SampleId-04356</span><br>
@@ -6940,7 +6944,7 @@ It has a sample bit set if and only if the sample is considered covered for
 this fragment shader invocation.
 <code>SampleMask</code>[] is an array of integers.
 Bits are mapped to samples in a manner where bit B of mask M
-(<code>SampleMask[M]</code>) corresponds to sample <span class="eq">32 {times} M &#43; B</span>.</p>
+(<code>SampleMask[M]</code>) corresponds to sample <span class="eq">32 × M +  B</span>.</p>
 </div>
 <div class="paragraph">
 <p>A variable in the <code>Output</code> storage class decorated with <code>SampleMask</code>
@@ -6977,13 +6981,13 @@ the processing of a fragment.</p>
 <p><a id="VUID-SampleMask-SampleMask-04357" href="#VUID-SampleMask-SampleMask-04357"></a> <span class="vuid">VUID-SampleMask-SampleMask-04357</span><br>
 
 The <code>SampleMask</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-SampleMask-SampleMask-04358" href="#VUID-SampleMask-SampleMask-04358"></a> <span class="vuid">VUID-SampleMask-SampleMask-04358</span><br>
 
 The variable decorated with <code>SampleMask</code> <strong>must</strong> be declared using the
-<code>Input</code> or <code>Output</code> {StorageClass}</p>
+<code>Input</code> or <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SampleMask-SampleMask-04359" href="#VUID-SampleMask-SampleMask-04359"></a> <span class="vuid">VUID-SampleMask-SampleMask-04359</span><br>
@@ -7035,13 +7039,13 @@ built-in decoration is <strong>undefined</strong>.</p>
 <p><a id="VUID-SamplePosition-SamplePosition-04360" href="#VUID-SamplePosition-SamplePosition-04360"></a> <span class="vuid">VUID-SamplePosition-SamplePosition-04360</span><br>
 
 The <code>SamplePosition</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-SamplePosition-SamplePosition-04361" href="#VUID-SamplePosition-SamplePosition-04361"></a> <span class="vuid">VUID-SamplePosition-SamplePosition-04361</span><br>
 
 The variable decorated with <code>SamplePosition</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SamplePosition-SamplePosition-04362" href="#VUID-SamplePosition-SamplePosition-04362"></a> <span class="vuid">VUID-SamplePosition-SamplePosition-04362</span><br>
@@ -7075,13 +7079,13 @@ make that variable contain the <a href="primsrast.html#primsrast-fragment-shadin
 <p><a id="VUID-ShadingRateKHR-ShadingRateKHR-04490" href="#VUID-ShadingRateKHR-ShadingRateKHR-04490"></a> <span class="vuid">VUID-ShadingRateKHR-ShadingRateKHR-04490</span><br>
 
 The <code>ShadingRateKHR</code> decoration <strong>must</strong> be used only within the
-<code>Fragment</code> {ExecutionModel}</p>
+<code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ShadingRateKHR-ShadingRateKHR-04491" href="#VUID-ShadingRateKHR-ShadingRateKHR-04491"></a> <span class="vuid">VUID-ShadingRateKHR-ShadingRateKHR-04491</span><br>
 
 The variable decorated with <code>ShadingRateKHR</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ShadingRateKHR-ShadingRateKHR-04492" href="#VUID-ShadingRateKHR-ShadingRateKHR-04492"></a> <span class="vuid">VUID-ShadingRateKHR-ShadingRateKHR-04492</span><br>
@@ -7115,7 +7119,7 @@ that variable contain the number of SMs on the device.</p>
 <p><a id="VUID-SMCountNV-SMCountNV-04363" href="#VUID-SMCountNV-SMCountNV-04363"></a> <span class="vuid">VUID-SMCountNV-SMCountNV-04363</span><br>
 
 The variable decorated with <code>SMCountNV</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SMCountNV-SMCountNV-04364" href="#VUID-SMCountNV-SMCountNV-04364"></a> <span class="vuid">VUID-SMCountNV-SMCountNV-04364</span><br>
@@ -7151,7 +7155,7 @@ This variable is in the range <span class="eq">[0, <code>SMCountNV</code>-1]</sp
 <p><a id="VUID-SMIDNV-SMIDNV-04365" href="#VUID-SMIDNV-SMIDNV-04365"></a> <span class="vuid">VUID-SMIDNV-SMIDNV-04365</span><br>
 
 The variable decorated with <code>SMIDNV</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SMIDNV-SMIDNV-04366" href="#VUID-SMIDNV-SMIDNV-04366"></a> <span class="vuid">VUID-SMIDNV-SMIDNV-04366</span><br>
@@ -7189,13 +7193,13 @@ This variable is in range [0, <code>NumSubgroups</code>-1].</p>
 
 The <code>SubgroupId</code> decoration <strong>must</strong> be used only within the
 <code>GLCompute</code>, <code>MeshEXT</code>, <code>TaskEXT</code>, <code>MeshNV</code>, or <code>TaskNV</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-SubgroupId-SubgroupId-04368" href="#VUID-SubgroupId-SubgroupId-04368"></a> <span class="vuid">VUID-SubgroupId-SubgroupId-04368</span><br>
 
 The variable decorated with <code>SubgroupId</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SubgroupId-SubgroupId-04369" href="#VUID-SubgroupId-SubgroupId-04369"></a> <span class="vuid">VUID-SubgroupId-SubgroupId-04369</span><br>
@@ -7238,7 +7242,7 @@ All other bits are set to zero.</p>
 <p><a id="VUID-SubgroupEqMask-SubgroupEqMask-04370" href="#VUID-SubgroupEqMask-SubgroupEqMask-04370"></a> <span class="vuid">VUID-SubgroupEqMask-SubgroupEqMask-04370</span><br>
 
 The variable decorated with <code>SubgroupEqMask</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SubgroupEqMask-SubgroupEqMask-04371" href="#VUID-SubgroupEqMask-SubgroupEqMask-04371"></a> <span class="vuid">VUID-SubgroupEqMask-SubgroupEqMask-04371</span><br>
@@ -7282,7 +7286,7 @@ All other bits are set to zero.</p>
 <p><a id="VUID-SubgroupGeMask-SubgroupGeMask-04372" href="#VUID-SubgroupGeMask-SubgroupGeMask-04372"></a> <span class="vuid">VUID-SubgroupGeMask-SubgroupGeMask-04372</span><br>
 
 The variable decorated with <code>SubgroupGeMask</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SubgroupGeMask-SubgroupGeMask-04373" href="#VUID-SubgroupGeMask-SubgroupGeMask-04373"></a> <span class="vuid">VUID-SubgroupGeMask-SubgroupGeMask-04373</span><br>
@@ -7326,7 +7330,7 @@ All other bits are set to zero.</p>
 <p><a id="VUID-SubgroupGtMask-SubgroupGtMask-04374" href="#VUID-SubgroupGtMask-SubgroupGtMask-04374"></a> <span class="vuid">VUID-SubgroupGtMask-SubgroupGtMask-04374</span><br>
 
 The variable decorated with <code>SubgroupGtMask</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SubgroupGtMask-SubgroupGtMask-04375" href="#VUID-SubgroupGtMask-SubgroupGtMask-04375"></a> <span class="vuid">VUID-SubgroupGtMask-SubgroupGtMask-04375</span><br>
@@ -7370,7 +7374,7 @@ All other bits are set to zero.</p>
 <p><a id="VUID-SubgroupLeMask-SubgroupLeMask-04376" href="#VUID-SubgroupLeMask-SubgroupLeMask-04376"></a> <span class="vuid">VUID-SubgroupLeMask-SubgroupLeMask-04376</span><br>
 
 The variable decorated with <code>SubgroupLeMask</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SubgroupLeMask-SubgroupLeMask-04377" href="#VUID-SubgroupLeMask-SubgroupLeMask-04377"></a> <span class="vuid">VUID-SubgroupLeMask-SubgroupLeMask-04377</span><br>
@@ -7414,7 +7418,7 @@ All other bits are set to zero.</p>
 <p><a id="VUID-SubgroupLtMask-SubgroupLtMask-04378" href="#VUID-SubgroupLtMask-SubgroupLtMask-04378"></a> <span class="vuid">VUID-SubgroupLtMask-SubgroupLtMask-04378</span><br>
 
 The variable decorated with <code>SubgroupLtMask</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SubgroupLtMask-SubgroupLtMask-04379" href="#VUID-SubgroupLtMask-SubgroupLtMask-04379"></a> <span class="vuid">VUID-SubgroupLtMask-SubgroupLtMask-04379</span><br>
@@ -7471,7 +7475,7 @@ was created with full subgroups applications can compute their own local
 invocation index to serve the same purpose:</p>
 </div>
 <div class="paragraph">
-<p><span class="eq">index = <code>SubgroupLocalInvocationId</code> + <code>SubgroupId</code> {times}
+<p><span class="eq">index = <code>SubgroupLocalInvocationId</code> + <code>SubgroupId</code> ×
 <code>SubgroupSize</code></span></p>
 </div>
 <div class="paragraph">
@@ -7511,7 +7515,7 @@ unexpectedly breaking in the future.</p>
 <p><a id="VUID-SubgroupLocalInvocationId-SubgroupLocalInvocationId-04380" href="#VUID-SubgroupLocalInvocationId-SubgroupLocalInvocationId-04380"></a> <span class="vuid">VUID-SubgroupLocalInvocationId-SubgroupLocalInvocationId-04380</span><br>
 
 The variable decorated with <code>SubgroupLocalInvocationId</code> <strong>must</strong> be
-declared using the <code>Input</code> {StorageClass}</p>
+declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SubgroupLocalInvocationId-SubgroupLocalInvocationId-04381" href="#VUID-SubgroupLocalInvocationId-SubgroupLocalInvocationId-04381"></a> <span class="vuid">VUID-SubgroupLocalInvocationId-SubgroupLocalInvocationId-04381</span><br>
@@ -7606,7 +7610,7 @@ compute algorithms cannot be easily implemented without the guarantees of
 <p><a id="VUID-SubgroupSize-SubgroupSize-04382" href="#VUID-SubgroupSize-SubgroupSize-04382"></a> <span class="vuid">VUID-SubgroupSize-SubgroupSize-04382</span><br>
 
 The variable decorated with <code>SubgroupSize</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-SubgroupSize-SubgroupSize-04383" href="#VUID-SubgroupSize-SubgroupSize-04383"></a> <span class="vuid">VUID-SubgroupSize-SubgroupSize-04383</span><br>
@@ -7644,13 +7648,13 @@ that get generated upon completion of the task shader.</p>
 <p><a id="VUID-TaskCountNV-TaskCountNV-04384" href="#VUID-TaskCountNV-TaskCountNV-04384"></a> <span class="vuid">VUID-TaskCountNV-TaskCountNV-04384</span><br>
 
 The <code>TaskCountNV</code> decoration <strong>must</strong> be used only within the
-<code>TaskNV</code> {ExecutionModel}</p>
+<code>TaskNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-TaskCountNV-TaskCountNV-04385" href="#VUID-TaskCountNV-TaskCountNV-04385"></a> <span class="vuid">VUID-TaskCountNV-TaskCountNV-04385</span><br>
 
 The variable decorated with <code>TaskCountNV</code> <strong>must</strong> be declared using the
-<code>Output</code> {StorageClass}</p>
+<code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-TaskCountNV-TaskCountNV-04386" href="#VUID-TaskCountNV-TaskCountNV-04386"></a> <span class="vuid">VUID-TaskCountNV-TaskCountNV-04386</span><br>
@@ -7689,13 +7693,13 @@ component is always zero.</p>
 <p><a id="VUID-TessCoord-TessCoord-04387" href="#VUID-TessCoord-TessCoord-04387"></a> <span class="vuid">VUID-TessCoord-TessCoord-04387</span><br>
 
 The <code>TessCoord</code> decoration <strong>must</strong> be used only within the
-<code>TessellationEvaluation</code> {ExecutionModel}</p>
+<code>TessellationEvaluation</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-TessCoord-TessCoord-04388" href="#VUID-TessCoord-TessCoord-04388"></a> <span class="vuid">VUID-TessCoord-TessCoord-04388</span><br>
 
 The variable decorated with <code>TessCoord</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-TessCoord-TessCoord-04389" href="#VUID-TessCoord-TessCoord-04389"></a> <span class="vuid">VUID-TessCoord-TessCoord-04389</span><br>
@@ -7742,21 +7746,21 @@ shader.</p>
 <p><a id="VUID-TessLevelOuter-TessLevelOuter-04390" href="#VUID-TessLevelOuter-TessLevelOuter-04390"></a> <span class="vuid">VUID-TessLevelOuter-TessLevelOuter-04390</span><br>
 
 The <code>TessLevelOuter</code> decoration <strong>must</strong> be used only within the
-<code>TessellationControl</code> or <code>TessellationEvaluation</code> {ExecutionModel}</p>
+<code>TessellationControl</code> or <code>TessellationEvaluation</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-TessLevelOuter-TessLevelOuter-04391" href="#VUID-TessLevelOuter-TessLevelOuter-04391"></a> <span class="vuid">VUID-TessLevelOuter-TessLevelOuter-04391</span><br>
 
 The variable decorated with <code>TessLevelOuter</code> within the
-<code>TessellationControl</code> {ExecutionModel} <strong>must</strong> be declared using the
-<code>Output</code> {StorageClass}</p>
+<code>TessellationControl</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the
+<code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-TessLevelOuter-TessLevelOuter-04392" href="#VUID-TessLevelOuter-TessLevelOuter-04392"></a> <span class="vuid">VUID-TessLevelOuter-TessLevelOuter-04392</span><br>
 
 The variable decorated with <code>TessLevelOuter</code> within the
-<code>TessellationEvaluation</code> {ExecutionModel} <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>TessellationEvaluation</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-TessLevelOuter-TessLevelOuter-04393" href="#VUID-TessLevelOuter-TessLevelOuter-04393"></a> <span class="vuid">VUID-TessLevelOuter-TessLevelOuter-04393</span><br>
@@ -7803,21 +7807,21 @@ shader.</p>
 <p><a id="VUID-TessLevelInner-TessLevelInner-04394" href="#VUID-TessLevelInner-TessLevelInner-04394"></a> <span class="vuid">VUID-TessLevelInner-TessLevelInner-04394</span><br>
 
 The <code>TessLevelInner</code> decoration <strong>must</strong> be used only within the
-<code>TessellationControl</code> or <code>TessellationEvaluation</code> {ExecutionModel}</p>
+<code>TessellationControl</code> or <code>TessellationEvaluation</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-TessLevelInner-TessLevelInner-04395" href="#VUID-TessLevelInner-TessLevelInner-04395"></a> <span class="vuid">VUID-TessLevelInner-TessLevelInner-04395</span><br>
 
 The variable decorated with <code>TessLevelInner</code> within the
-<code>TessellationControl</code> {ExecutionModel} <strong>must</strong> be declared using the
-<code>Output</code> {StorageClass}</p>
+<code>TessellationControl</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the
+<code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-TessLevelInner-TessLevelInner-04396" href="#VUID-TessLevelInner-TessLevelInner-04396"></a> <span class="vuid">VUID-TessLevelInner-TessLevelInner-04396</span><br>
 
 The variable decorated with <code>TessLevelInner</code> within the
-<code>TessellationEvaluation</code> {ExecutionModel} <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>TessellationEvaluation</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-TessLevelInner-TessLevelInner-04397" href="#VUID-TessLevelInner-TessLevelInner-04397"></a> <span class="vuid">VUID-TessLevelInner-TessLevelInner-04397</span><br>
@@ -7853,7 +7857,7 @@ to draw.</p>
 <p><a id="VUID-VertexCountHUAWEI-VertexCountHUAWEI-07809" href="#VUID-VertexCountHUAWEI-VertexCountHUAWEI-07809"></a> <span class="vuid">VUID-VertexCountHUAWEI-VertexCountHUAWEI-07809</span><br>
 
 The <code>VertexCountHUAWEI</code> decoration <strong>must</strong> be used only within the
-<code>ClusterCullingHUAWEI</code> {ExecutionModel}</p>
+<code>ClusterCullingHUAWEI</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-VertexCountHUAWEI-VertexCountHUAWEI-07810" href="#VUID-VertexCountHUAWEI-VertexCountHUAWEI-07810"></a> <span class="vuid">VUID-VertexCountHUAWEI-VertexCountHUAWEI-07810</span><br>
@@ -7910,13 +7914,13 @@ the <code>vertexOffset</code> member of the structure consumed by
 <p><a id="VUID-VertexIndex-VertexIndex-04398" href="#VUID-VertexIndex-VertexIndex-04398"></a> <span class="vuid">VUID-VertexIndex-VertexIndex-04398</span><br>
 
 The <code>VertexIndex</code> decoration <strong>must</strong> be used only within the
-<code>Vertex</code> {ExecutionModel}</p>
+<code>Vertex</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-VertexIndex-VertexIndex-04399" href="#VUID-VertexIndex-VertexIndex-04399"></a> <span class="vuid">VUID-VertexIndex-VertexIndex-04399</span><br>
 
 The variable decorated with <code>VertexIndex</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-VertexIndex-VertexIndex-04400" href="#VUID-VertexIndex-VertexIndex-04400"></a> <span class="vuid">VUID-VertexIndex-VertexIndex-04400</span><br>
@@ -7952,7 +7956,7 @@ index of a cluster before indexing into the vertex buffer.</p>
 <p><a id="VUID-VertexOffsetHUAWEI-VertexOffsetHUAWEI-07811" href="#VUID-VertexOffsetHUAWEI-VertexOffsetHUAWEI-07811"></a> <span class="vuid">VUID-VertexOffsetHUAWEI-VertexOffsetHUAWEI-07811</span><br>
 
 The <code>VertexOffsetHUAWEI</code> decoration <strong>must</strong> be used only within the
-<code>ClusterCullingHUAWEI</code> {ExecutionModel}</p>
+<code>ClusterCullingHUAWEI</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-VertexOffsetHUAWEI-VertexOffsetHUAWEI-07812" href="#VUID-VertexOffsetHUAWEI-VertexOffsetHUAWEI-07812"></a> <span class="vuid">VUID-VertexOffsetHUAWEI-VertexOffsetHUAWEI-07812</span><br>
@@ -7994,13 +7998,13 @@ If multiview is not enabled in the render pass, this value will be zero.</p>
 
 The <code>ViewIndex</code> decoration <strong>must</strong> be used only within the
 <code>MeshEXT</code>, <code>Vertex</code>, <code>Geometry</code>, <code>TessellationControl</code>,
-<code>TessellationEvaluation</code> or <code>Fragment</code> {ExecutionModel}</p>
+<code>TessellationEvaluation</code> or <code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ViewIndex-ViewIndex-04402" href="#VUID-ViewIndex-ViewIndex-04402"></a> <span class="vuid">VUID-ViewIndex-ViewIndex-04402</span><br>
 
 The variable decorated with <code>ViewIndex</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ViewIndex-ViewIndex-04403" href="#VUID-ViewIndex-ViewIndex-04403"></a> <span class="vuid">VUID-ViewIndex-ViewIndex-04403</span><br>
@@ -8076,27 +8080,27 @@ of <code>ViewportIndex</code> in the fragment shader is <strong>undefined</stron
 
 The <code>ViewportIndex</code> decoration <strong>must</strong> be used only within the
 <code>MeshEXT</code>, <code>MeshNV</code>, <code>Vertex</code>, <code>TessellationEvaluation</code>,
-<code>Geometry</code>, or <code>Fragment</code> {ExecutionModel}</p>
+<code>Geometry</code>, or <code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ViewportIndex-ViewportIndex-04405" href="#VUID-ViewportIndex-ViewportIndex-04405"></a> <span class="vuid">VUID-ViewportIndex-ViewportIndex-04405</span><br>
 
 If the <a href="features.html#features-shaderOutputViewportIndex" class="xref page">    <code>shaderOutputViewportIndex</code></a> feature is not enabled then the
 <code>ViewportIndex</code> decoration <strong>must</strong> be used only within the
-<code>Geometry</code> or <code>Fragment</code> {ExecutionModel}</p>
+<code>Geometry</code> or <code>Fragment</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ViewportIndex-ViewportIndex-04406" href="#VUID-ViewportIndex-ViewportIndex-04406"></a> <span class="vuid">VUID-ViewportIndex-ViewportIndex-04406</span><br>
 
 The variable decorated with <code>ViewportIndex</code> within the <code>MeshEXT</code>,
 <code>MeshNV</code>, <code>Vertex</code>, <code>TessellationEvaluation</code>, or <code>Geometry</code>
-{ExecutionModel} <strong>must</strong> be declared using the <code>Output</code> {StorageClass}</p>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ViewportIndex-ViewportIndex-04407" href="#VUID-ViewportIndex-ViewportIndex-04407"></a> <span class="vuid">VUID-ViewportIndex-ViewportIndex-04407</span><br>
 
 The variable decorated with <code>ViewportIndex</code> within the <code>Fragment</code>
-{ExecutionModel} <strong>must</strong> be declared using the <code>Input</code> {StorageClass}</p>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ViewportIndex-ViewportIndex-04408" href="#VUID-ViewportIndex-ViewportIndex-04408"></a> <span class="vuid">VUID-ViewportIndex-ViewportIndex-04408</span><br>
@@ -8108,7 +8112,7 @@ scalar 32-bit integer value</p>
 <p><a id="VUID-ViewportIndex-ViewportIndex-07060" href="#VUID-ViewportIndex-ViewportIndex-07060"></a> <span class="vuid">VUID-ViewportIndex-ViewportIndex-07060</span><br>
 
 The variable decorated with <code>ViewportIndex</code> within the <code>MeshEXT</code>
-{ExecutionModel} <strong>must</strong> also be decorated with the <code>PerPrimitiveEXT</code>
+<code>Execution</code> <code>Model</code> <strong>must</strong> also be decorated with the <code>PerPrimitiveEXT</code>
 decoration</p>
 </li>
 </ul>
@@ -8134,10 +8138,10 @@ the primitive produced by that shader will directed.</p>
 </div>
 <div class="paragraph">
 <p>The <code>ViewportMaskNV</code> variable <strong>must</strong> be an array that has
-<span class="eq">{lceil}(<code>VkPhysicalDeviceLimits</code>::<code>maxViewports</code> / 32){rceil}</span>
+<span class="eq">⌈(<code>VkPhysicalDeviceLimits</code>::<code>maxViewports</code> / 32)⌉</span>
 elements.
 When a shader writes to this variable, bit B of element M controls whether a
-primitive is emitted to viewport <span class="eq">32 {times} M &#43; B</span>.
+primitive is emitted to viewport <span class="eq">32 × M +  B</span>.
 The viewports indicated by the mask are used to select the
 viewport transform, scissor rectangle, and exclusive
 scissor rectangle that a primitive will be transformed by.</p>
@@ -8170,13 +8174,13 @@ for all output vertices of a given primitive.</p>
 
 The <code>ViewportMaskNV</code> decoration <strong>must</strong> be used only within the
 <code>Vertex</code>, <code>MeshNV</code>, <code>TessellationEvaluation</code>, or <code>Geometry</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ViewportMaskNV-ViewportMaskNV-04410" href="#VUID-ViewportMaskNV-ViewportMaskNV-04410"></a> <span class="vuid">VUID-ViewportMaskNV-ViewportMaskNV-04410</span><br>
 
 The variable decorated with <code>ViewportMaskNV</code> <strong>must</strong> be declared using
-the <code>Output</code> {StorageClass}</p>
+the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ViewportMaskNV-ViewportMaskNV-04411" href="#VUID-ViewportMaskNV-ViewportMaskNV-04411"></a> <span class="vuid">VUID-ViewportMaskNV-ViewportMaskNV-04411</span><br>
@@ -8236,13 +8240,13 @@ Instead, <code>ViewportMaskPerViewNV</code> is limited to 32 viewports.</p>
 
 The <code>ViewportMaskPerViewNV</code> decoration <strong>must</strong> be used only within the
 <code>Vertex</code>, <code>MeshNV</code>, <code>TessellationControl</code>,
-<code>TessellationEvaluation</code>, or <code>Geometry</code> {ExecutionModel}</p>
+<code>TessellationEvaluation</code>, or <code>Geometry</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-ViewportMaskPerViewNV-ViewportMaskPerViewNV-04413" href="#VUID-ViewportMaskPerViewNV-ViewportMaskPerViewNV-04413"></a> <span class="vuid">VUID-ViewportMaskPerViewNV-ViewportMaskPerViewNV-04413</span><br>
 
 The variable decorated with <code>ViewportMaskPerViewNV</code> <strong>must</strong> be declared
-using the <code>Output</code> {StorageClass}</p>
+using the <code>Output</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ViewportMaskPerViewNV-ViewportMaskPerViewNV-04414" href="#VUID-ViewportMaskPerViewNV-ViewportMaskPerViewNV-04414"></a> <span class="vuid">VUID-ViewportMaskPerViewNV-ViewportMaskPerViewNV-04414</span><br>
@@ -8294,7 +8298,7 @@ make that variable contain the maximum number of warps executing on a SM.</p>
 <p><a id="VUID-WarpsPerSMNV-WarpsPerSMNV-04418" href="#VUID-WarpsPerSMNV-WarpsPerSMNV-04418"></a> <span class="vuid">VUID-WarpsPerSMNV-WarpsPerSMNV-04418</span><br>
 
 The variable decorated with <code>WarpsPerSMNV</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-WarpsPerSMNV-WarpsPerSMNV-04419" href="#VUID-WarpsPerSMNV-WarpsPerSMNV-04419"></a> <span class="vuid">VUID-WarpsPerSMNV-WarpsPerSMNV-04419</span><br>
@@ -8330,7 +8334,7 @@ This variable is in the range <span class="eq">[0, <code>WarpsPerSMNV</code>-1]<
 <p><a id="VUID-WarpIDNV-WarpIDNV-04420" href="#VUID-WarpIDNV-WarpIDNV-04420"></a> <span class="vuid">VUID-WarpIDNV-WarpIDNV-04420</span><br>
 
 The variable decorated with <code>WarpIDNV</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-WarpIDNV-WarpIDNV-04421" href="#VUID-WarpIDNV-WarpIDNV-04421"></a> <span class="vuid">VUID-WarpIDNV-WarpIDNV-04421</span><br>
@@ -8353,7 +8357,7 @@ The variable decorated with <code>WarpIDNV</code> <strong>must</strong> be decla
 <p>Decorating a variable with the <code>WorkgroupId</code> built-in decoration will
 make that variable contain the global workgroup that the current invocation
 is a member of.
-Each component ranges from a base value to a <span class="eq">base &#43; count</span> value,
+Each component ranges from a base value to a <span class="eq">base +  count</span> value,
 based on the parameters passed into the dispatching commands.</p>
 </dd>
 </dl>
@@ -8368,13 +8372,13 @@ based on the parameters passed into the dispatching commands.</p>
 
 The <code>WorkgroupId</code> decoration <strong>must</strong> be used only within the
 <code>GLCompute</code>, <code>MeshEXT</code>, <code>TaskEXT</code>, <code>MeshNV</code>, or <code>TaskNV</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-WorkgroupId-WorkgroupId-04423" href="#VUID-WorkgroupId-WorkgroupId-04423"></a> <span class="vuid">VUID-WorkgroupId-WorkgroupId-04423</span><br>
 
 The variable decorated with <code>WorkgroupId</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-WorkgroupId-WorkgroupId-04424" href="#VUID-WorkgroupId-WorkgroupId-04424"></a> <span class="vuid">VUID-WorkgroupId-WorkgroupId-04424</span><br>
@@ -8430,7 +8434,7 @@ execution mode.</p>
 
 The <code>WorkgroupSize</code> decoration <strong>must</strong> be used only within the
 <code>GLCompute</code>, <code>MeshEXT</code>, <code>TaskEXT</code>, <code>MeshNV</code>, or <code>TaskNV</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-WorkgroupSize-WorkgroupSize-04426" href="#VUID-WorkgroupSize-WorkgroupSize-04426"></a> <span class="vuid">VUID-WorkgroupSize-WorkgroupSize-04426</span><br>
@@ -8472,13 +8476,13 @@ The value is the parameter passed into the <a href="../appendices/glossary.html#
 
 The <code>WorldRayDirectionKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, <code>ClosestHitKHR</code>, or
-<code>MissKHR</code> {ExecutionModel}</p>
+<code>MissKHR</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-WorldRayDirectionKHR-WorldRayDirectionKHR-04429" href="#VUID-WorldRayDirectionKHR-WorldRayDirectionKHR-04429"></a> <span class="vuid">VUID-WorldRayDirectionKHR-WorldRayDirectionKHR-04429</span><br>
 
 The variable decorated with <code>WorldRayDirectionKHR</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-WorldRayDirectionKHR-WorldRayDirectionKHR-04430" href="#VUID-WorldRayDirectionKHR-WorldRayDirectionKHR-04430"></a> <span class="vuid">VUID-WorldRayDirectionKHR-WorldRayDirectionKHR-04430</span><br>
@@ -8514,13 +8518,13 @@ The value is the parameter passed into the <a href="../appendices/glossary.html#
 
 The <code>WorldRayOriginKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, <code>ClosestHitKHR</code>, or
-<code>MissKHR</code> {ExecutionModel}</p>
+<code>MissKHR</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-WorldRayOriginKHR-WorldRayOriginKHR-04432" href="#VUID-WorldRayOriginKHR-WorldRayOriginKHR-04432"></a> <span class="vuid">VUID-WorldRayOriginKHR-WorldRayOriginKHR-04432</span><br>
 
 The variable decorated with <code>WorldRayOriginKHR</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-WorldRayOriginKHR-WorldRayOriginKHR-04433" href="#VUID-WorldRayOriginKHR-WorldRayOriginKHR-04433"></a> <span class="vuid">VUID-WorldRayOriginKHR-WorldRayOriginKHR-04433</span><br>
@@ -8556,13 +8560,13 @@ the instance of the current intersection.</p>
 
 The <code>WorldToObjectKHR</code> decoration <strong>must</strong> be used only within the
 <code>IntersectionKHR</code>, <code>AnyHitKHR</code>, or <code>ClosestHitKHR</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-WorldToObjectKHR-WorldToObjectKHR-04435" href="#VUID-WorldToObjectKHR-WorldToObjectKHR-04435"></a> <span class="vuid">VUID-WorldToObjectKHR-WorldToObjectKHR-04435</span><br>
 
 The variable decorated with <code>WorldToObjectKHR</code> <strong>must</strong> be declared
-using the <code>Input</code> {StorageClass}</p>
+using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-WorldToObjectKHR-WorldToObjectKHR-04436" href="#VUID-WorldToObjectKHR-WorldToObjectKHR-04436"></a> <span class="vuid">VUID-WorldToObjectKHR-WorldToObjectKHR-04436</span><br>
@@ -8597,7 +8601,7 @@ make that variable contain the number of cores on the device.</p>
 <p><a id="VUID-CoreCountARM-CoreCountARM-07595" href="#VUID-CoreCountARM-CoreCountARM-07595"></a> <span class="vuid">VUID-CoreCountARM-CoreCountARM-07595</span><br>
 
 The variable decorated with <code>CoreCountARM</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-CoreCountARM-CoreCountARM-07596" href="#VUID-CoreCountARM-CoreCountARM-07596"></a> <span class="vuid">VUID-CoreCountARM-CoreCountARM-07596</span><br>
@@ -8632,7 +8636,7 @@ which the current shader invocation is running.</p>
 <p><a id="VUID-CoreMaxIDARM-CoreMaxIDARM-07597" href="#VUID-CoreMaxIDARM-CoreMaxIDARM-07597"></a> <span class="vuid">VUID-CoreMaxIDARM-CoreMaxIDARM-07597</span><br>
 
 The variable decorated with <code>CoreMaxIDARM</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-CoreMaxIDARM-CoreMaxIDARM-07598" href="#VUID-CoreMaxIDARM-CoreMaxIDARM-07598"></a> <span class="vuid">VUID-CoreMaxIDARM-CoreMaxIDARM-07598</span><br>
@@ -8668,7 +8672,7 @@ This variable is in the range <span class="eq">[0, <code>CoreMaxIDARM</code>]</s
 <p><a id="VUID-CoreIDARM-CoreIDARM-07599" href="#VUID-CoreIDARM-CoreIDARM-07599"></a> <span class="vuid">VUID-CoreIDARM-CoreIDARM-07599</span><br>
 
 The variable decorated with <code>CoreIDARM</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-CoreIDARM-CoreIDARM-07600" href="#VUID-CoreIDARM-CoreIDARM-07600"></a> <span class="vuid">VUID-CoreIDARM-CoreIDARM-07600</span><br>
@@ -8703,7 +8707,7 @@ current invocation is running.</p>
 <p><a id="VUID-WarpMaxIDARM-WarpMaxIDARM-07601" href="#VUID-WarpMaxIDARM-WarpMaxIDARM-07601"></a> <span class="vuid">VUID-WarpMaxIDARM-WarpMaxIDARM-07601</span><br>
 
 The variable decorated with <code>WarpMaxIDARM</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-WarpMaxIDARM-WarpMaxIDARM-07602" href="#VUID-WarpMaxIDARM-WarpMaxIDARM-07602"></a> <span class="vuid">VUID-WarpMaxIDARM-WarpMaxIDARM-07602</span><br>
@@ -8739,7 +8743,7 @@ This variable is in the range <span class="eq">[0, <code>WarpMaxIDARM</code>]</s
 <p><a id="VUID-WarpIDARM-WarpIDARM-07603" href="#VUID-WarpIDARM-WarpIDARM-07603"></a> <span class="vuid">VUID-WarpIDARM-WarpIDARM-07603</span><br>
 
 The variable decorated with <code>WarpIDARM</code> <strong>must</strong> be declared using the
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-WarpIDARM-WarpIDARM-07604" href="#VUID-WarpIDARM-WarpIDARM-07604"></a> <span class="vuid">VUID-WarpIDARM-WarpIDARM-07604</span><br>
@@ -8777,7 +8781,7 @@ shader.</p>
 <p><a id="VUID-CoalescedInputCountAMDX-CoalescedInputCountAMDX-09172" href="#VUID-CoalescedInputCountAMDX-CoalescedInputCountAMDX-09172"></a> <span class="vuid">VUID-CoalescedInputCountAMDX-CoalescedInputCountAMDX-09172</span><br>
 
 The variable decorated with <code>CoalescedInputCountAMDX</code> <strong>must</strong> be
-declared using the <code>Input</code> {StorageClass}</p>
+declared using the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-CoalescedInputCountAMDX-CoalescedInputCountAMDX-09173" href="#VUID-CoalescedInputCountAMDX-CoalescedInputCountAMDX-09173"></a> <span class="vuid">VUID-CoalescedInputCountAMDX-CoalescedInputCountAMDX-09173</span><br>
@@ -8820,7 +8824,7 @@ compiled, either via
 <p><a id="VUID-ShaderIndexAMDX-ShaderIndexAMDX-09175" href="#VUID-ShaderIndexAMDX-ShaderIndexAMDX-09175"></a> <span class="vuid">VUID-ShaderIndexAMDX-ShaderIndexAMDX-09175</span><br>
 
 The variable decorated with <code>ShaderIndexAMDX</code> <strong>must</strong> be declared using
-the <code>Input</code> {StorageClass}</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-ShaderIndexAMDX-ShaderIndexAMDX-09176" href="#VUID-ShaderIndexAMDX-ShaderIndexAMDX-09176"></a> <span class="vuid">VUID-ShaderIndexAMDX-ShaderIndexAMDX-09176</span><br>

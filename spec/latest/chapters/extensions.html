@@ -315,6 +315,14 @@
       </ul>
     </li>
     <li class="component">
+      <div class="title"><a href="../../../glsl/latest/index.html">OpenGL Shading Language Specification</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
@@ -361,7 +369,6 @@
     <li><a href="extensions.html">Extending Vulkan</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/extensions.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -371,9 +378,6 @@
 <h1 class="page">Extending Vulkan</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/extensions.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>New functionality <strong>may</strong> be added to Vulkan via either new extensions or new
 versions of the core, or new versions of an extension in some cases.</p>
@@ -1214,7 +1218,7 @@ layers enabled when the parent instance was created.</p>
 <p>Extensions <strong>may</strong> define new Vulkan commands, structures, and enumerants.
 For compilation purposes, the interfaces defined by registered extensions,
 including new structures and enumerants as well as function pointer types
-for new commands, are defined in the Khronos-supplied <code>{core_header}</code>
+for new commands, are defined in the Khronos-supplied <code>vulkan_core.h</code>
 together with the core API.
 However, commands defined by extensions <strong>may</strong> not be available for static
 linking - in which case function pointers to these commands <strong>should</strong> be
@@ -2055,30 +2059,30 @@ describe extensions:</p>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">{cadsupport}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CAD support</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">cadsupport</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension is intended to support specialized functionality used by
       CAD/CAM applications.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">{d3demulation}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">D3D support</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">d3demulation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension is intended to support D3D emulation layers, and
       applications ported from D3D, by adding functionality specific to D3D.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">{devtools}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Developer tools</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">devtools</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension is intended to support developer tools such as
       capture-replay libraries.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">{debugging}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Debugging tools</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">debugging</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension is intended for use by applications when debugging.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">{glemulation}</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenGL / ES support</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">glemulation</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Extension is intended to support OpenGL and/or OpenGL ES emulation
       layers, and applications ported from those APIs, by adding

@@ -315,6 +315,14 @@
       </ul>
     </li>
     <li class="component">
+      <div class="title"><a href="../../../glsl/latest/index.html">OpenGL Shading Language Specification</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
@@ -361,7 +369,6 @@
     <li><a href="boilerplate.html">API Boilerplate</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/appendices/boilerplate.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -371,9 +378,6 @@
 <h1 class="page">API Boilerplate</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/appendices/boilerplate.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>This appendix defines Vulkan API features that are infrastructure required
 for a complete functional description of Vulkan, but do not logically belong
@@ -403,10 +407,10 @@ Khronos does not provide any such bindings, but third-party developers have
 created some additional bindings.</p>
 </div>
 <div class="sect2">
-<h3 id="boilerplate-vulkan-h"><a class="anchor" href="#boilerplate-vulkan-h"></a>Vulkan Combined API Header <code>{full_header}</code> (Informative)</h3>
+<h3 id="boilerplate-vulkan-h"><a class="anchor" href="#boilerplate-vulkan-h"></a>Vulkan Combined API Header <code>vulkan.h</code> (Informative)</h3>
 <div class="paragraph">
-<p>Applications normally will include the header <code>{full_header}</code>.
-In turn, <code>{full_header}</code> always includes the following headers:</p>
+<p>Applications normally will include the header <code>vulkan.h</code>.
+In turn, <code>vulkan.h</code> always includes the following headers:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -415,7 +419,7 @@ In turn, <code>{full_header}</code> always includes the following headers:</p>
 platform-specific macros and headers.</p>
 </li>
 <li>
-<p><a href="#boilerplate-vulkan-core"><code>{core_header}</code></a>, defining APIs for the
+<p><a href="#boilerplate-vulkan-core"><code>vulkan_core.h</code></a>, defining APIs for the
 Vulkan core and all registered extensions <em>other</em> than
 <a href="#boilerplate-wsi-header">window system-specific</a> and
 <a href="#boilerplate-provisional-header">provisional</a> extensions, which are
@@ -425,7 +429,7 @@ included in separate header files.</p>
 </div>
 <div class="paragraph">
 <p>In addition, specific preprocessor macros defined at the time
-<code>{full_header}</code> is included cause header files for the corresponding window
+<code>vulkan.h</code> is included cause header files for the corresponding window
 system-specific and provisional interfaces to be included, as described
 below.</p>
 </div>
@@ -521,12 +525,12 @@ define this type.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="boilerplate-vulkan-core"><a class="anchor" href="#boilerplate-vulkan-core"></a>Vulkan Core API Header <code>{core_header}</code></h3>
+<h3 id="boilerplate-vulkan-core"><a class="anchor" href="#boilerplate-vulkan-core"></a>Vulkan Core API Header <code>vulkan_core.h</code></h3>
 <div class="paragraph">
 <p>Applications that do not make use of window system-specific extensions may
-simply include <code>{core_header}</code> instead of <code>{full_header}</code>, although there is
+simply include <code>vulkan_core.h</code> instead of <code>vulkan.h</code>, although there is
 usually no reason to do so.
-In addition to the Vulkan API, <code>{core_header}</code> also defines a small number
+In addition to the Vulkan API, <code>vulkan_core.h</code> also defines a small number
 of C preprocessor macros that are described below.</p>
 </div>
 <div class="sect3">
@@ -534,7 +538,7 @@ of C preprocessor macros that are described below.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p><code>VK_HEADER_VERSION</code> is the version number of the <code>{core_header}</code> header.
+<p><code>VK_HEADER_VERSION</code> is the version number of the <code>vulkan_core.h</code> header.
 This value is kept synchronized with the patch version of the released
 Specification.</p>
 </div>
@@ -551,7 +555,7 @@ Specification.</p>
 <div class="content">
 <div class="paragraph">
 <p><code>VK_HEADER_VERSION_COMPLETE</code> is the complete version number of the
-<code>{core_header}</code> header, comprising the major, minor, and patch versions.
+<code>vulkan_core.h</code> header, comprising the major, minor, and patch versions.
 The major/minor values are kept synchronized with the complete version of
 the released Specification.
 This value is intended for use by automated tools to identify exactly which
@@ -575,7 +579,7 @@ API version using, for example, one of the <code>VK_API_VERSION_</code>*_* value
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p><code>VK_API_VERSION</code> is now commented out of <code>{core_header}</code> and <strong>cannot</strong> be
+<p><code>VK_API_VERSION</code> is now commented out of <code>vulkan_core.h</code> and <strong>cannot</strong> be
 used.</p>
 </div>
 <div id="VK_API_VERSION" class="listingblock">
@@ -652,11 +656,11 @@ management, such as <a href="../chapters/devsandqueues.html#VkDevice" class="xre
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The <code>{core_header}</code> header allows the
+<p>The <code>vulkan_core.h</code> header allows the
 <a href="#VK_DEFINE_NON_DISPATCHABLE_HANDLE">VK_DEFINE_NON_DISPATCHABLE_HANDLE</a> and <a href="#VK_NULL_HANDLE">VK_NULL_HANDLE</a> definitions
 to be overridden by the application.
 If <a href="#VK_DEFINE_NON_DISPATCHABLE_HANDLE">VK_DEFINE_NON_DISPATCHABLE_HANDLE</a> is already defined when
-<code>{core_header}</code> is compiled, the default definitions for
+<code>vulkan_core.h</code> is compiled, the default definitions for
 <a href="#VK_DEFINE_NON_DISPATCHABLE_HANDLE">VK_DEFINE_NON_DISPATCHABLE_HANDLE</a> and <a href="#VK_NULL_HANDLE">VK_NULL_HANDLE</a> are
 skipped.
 This allows the application to define a binary-compatible custom handle
@@ -733,7 +737,7 @@ or any other value to use a 64-bit unsigned integer type.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The <code>{core_header}</code> header allows the <code>VK_USE_64_BIT_PTR_DEFINES</code>
+<p>The <code>vulkan_core.h</code> header allows the <code>VK_USE_64_BIT_PTR_DEFINES</code>
 definition to be overridden by the application.
 This allows the application to select either a 64-bit pointer type or a
 64-bit unsigned integer type for non-dispatchable handles in the case where
@@ -792,21 +796,21 @@ defined and how the external headers are included.</p>
 forward-declare platform-specific types, are declared in a header named for
 that platform.
 Before including these platform-specific Vulkan headers, applications <strong>must</strong>
-include both <code>{core_header}</code> and any external native headers the platform
+include both <code>vulkan_core.h</code> and any external native headers the platform
 extensions depend on.</p>
 </div>
 <div class="paragraph">
 <p>As a convenience for applications that do not need the flexibility of
-separate platform-specific Vulkan headers, <code>{full_header}</code> includes
-<code>{core_header}</code>, and then conditionally includes platform-specific Vulkan
+separate platform-specific Vulkan headers, <code>vulkan.h</code> includes
+<code>vulkan_core.h</code>, and then conditionally includes platform-specific Vulkan
 headers and the external headers they depend on.
 Applications control which platform-specific headers are included by
-#defining macros before including <code>{full_header}</code>.</p>
+#defining macros before including <code>vulkan.h</code>.</p>
 </div>
 <div class="paragraph">
 <p>The correspondence between platform-specific extensions, external headers
 they require, the platform-specific header which declares them, and the
-preprocessor macros which enable inclusion by <code>{full_header}</code> are shown in
+preprocessor macros which enable inclusion by <code>vulkan.h</code> are shown in
 the <a href="#boilerplate-wsi-header-table">following table</a>.</p>
 </div>
 <table id="boilerplate-wsi-header-table" class="tableblock frame-all grid-all stretch">
@@ -824,7 +828,7 @@ the <a href="#boilerplate-wsi-header-table">following table</a>.</p>
 <th class="tableblock halign-left valign-top">Window System Name</th>
 <th class="tableblock halign-left valign-top">Platform-specific Header</th>
 <th class="tableblock halign-left valign-top">Required External Headers</th>
-<th class="tableblock halign-left valign-top">Controlling <code>{full_header}</code> Macro</th>
+<th class="tableblock halign-left valign-top">Controlling <code>vulkan.h</code> Macro</th>
 </tr>
 </thead>
 <tbody>
@@ -881,7 +885,7 @@ the <a href="#boilerplate-wsi-header-table">following table</a>.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">X11 XRAndR</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>vulkan_xlib_xrandr.h</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;X11/Xlib.h&gt;</code>,
-                                                                                       <code>&lt;X11/extensions{wbro}/Xrandr.h&gt;</code></p></td>
+                                                                                       <code>&lt;X11/extensions<wbr>/Xrandr.h&gt;</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_USE_PLATFORM_XLIB_XRANDR_EXT</code></p></td>
 </tr>
 <tr>
@@ -974,7 +978,7 @@ non-provisional version of that extension.</p>
 <code>vulkan_beta.h</code>, allowing applications to decide whether or not to include
 them.
 The mechanism is similar to <a href="#boilerplate-wsi-header">window system-specific headers</a>: before including <code>vulkan_beta.h</code>, applications <strong>must</strong> include
-<code>{core_header}</code>.</p>
+<code>vulkan_core.h</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -985,7 +989,7 @@ The mechanism is similar to <a href="#boilerplate-wsi-header">window system-spec
 <td class="content">
 <div class="paragraph">
 <p>Sometimes a provisional extension will include a subset of its interfaces in
-<code>{core_header}</code>.
+<code>vulkan_core.h</code>.
 This may occur if the provisional extension is promoted from an existing
 vendor or EXT extension and some of the existing interfaces are defined as
 aliases of the provisional extension interfaces.
@@ -997,10 +1001,10 @@ will be included in <code>vulkan_beta.h</code>.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>As a convenience for applications, <code>{full_header}</code> conditionally includes
+<p>As a convenience for applications, <code>vulkan.h</code> conditionally includes
 <code>vulkan_beta.h</code>.
 Applications <strong>can</strong> control inclusion of <code>vulkan_beta.h</code> by #defining the
-macro <code>VK_ENABLE_BETA_EXTENSIONS</code> before including <code>{full_header}</code>.</p>
+macro <code>VK_ENABLE_BETA_EXTENSIONS</code> before including <code>vulkan.h</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>

@@ -315,6 +315,14 @@
       </ul>
     </li>
     <li class="component">
+      <div class="title"><a href="../../../glsl/latest/index.html">OpenGL Shading Language Specification</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
@@ -361,7 +369,6 @@
     <li><a href="raytracing.html">Ray Tracing</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/raytracing.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -371,9 +378,6 @@
 <h1 class="page">Ray Tracing</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/raytracing.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>Ray tracing uses a separate rendering pipeline from both the graphics and
 compute pipelines (see <a href="pipelines.html#pipelines-ray-tracing" class="xref page">Ray Tracing Pipeline</a>).</p>
@@ -749,7 +753,7 @@ binding table record in <code>callableShaderBindingTableBuffer</code>.</p>
 </div>
 <div class="paragraph">
 <p>When the command is executed, a ray generation group of <span class="eq"><code>width</code>
-{times} <code>height</code> {times} <code>depth</code></span> rays is assembled.</p>
+× <code>height</code> × <code>depth</code></span> rays is assembled.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -1172,7 +1176,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -1181,7 +1185,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -1600,14 +1604,14 @@ object</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -1704,7 +1708,7 @@ table data for the callable shader stage.</p>
 </div>
 <div class="paragraph">
 <p>When the command is executed, a ray generation group of <span class="eq"><code>width</code>
-{times} <code>height</code> {times} <code>depth</code></span> rays is assembled.</p>
+× <code>height</code> × <code>depth</code></span> rays is assembled.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -2127,7 +2131,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -2136,7 +2140,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -2586,26 +2590,26 @@ been created with
 
 <code>width</code> <strong>must</strong> be less than or equal to
 <span class="eq"><code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[0]
-{times} <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[0]</span></p>
+× <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[0]</span></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-height-03639" href="#VUID-vkCmdTraceRaysKHR-height-03639"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-height-03639</span><br>
 
 <code>height</code> <strong>must</strong> be less than or equal to
 <span class="eq"><code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[1]
-{times} <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[1]</span></p>
+× <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[1]</span></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-depth-03640" href="#VUID-vkCmdTraceRaysKHR-depth-03640"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-depth-03640</span><br>
 
 <code>depth</code> <strong>must</strong> be less than or equal to
 <span class="eq"><code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[2]
-{times} <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[2]</span></p>
+× <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[2]</span></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdTraceRaysKHR-width-03641" href="#VUID-vkCmdTraceRaysKHR-width-03641"></a> <span class="vuid">VUID-vkCmdTraceRaysKHR-width-03641</span><br>
 
-<span class="eq"><code>width</code> {times} <code>height</code> {times} <code>depth</code></span> <strong>must</strong> be less
+<span class="eq"><code>width</code> × <code>height</code> × <code>depth</code></span> <strong>must</strong> be less
 than or equal to
 <code>VkPhysicalDeviceRayTracingPipelinePropertiesKHR</code>::<code>maxRayDispatchInvocationCount</code></p>
 </li>
@@ -2660,14 +2664,14 @@ than or equal to
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2842,14 +2846,14 @@ The value 1 means the invocation is active</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3364,7 +3368,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -3373,7 +3377,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -3840,7 +3844,7 @@ been created with the <code>VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT</code> bit set</
 <p><a id="VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03636" href="#VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03636"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirectKHR-indirectDeviceAddress-03636</span><br>
 
 All device addresses between <code>indirectDeviceAddress</code> and
-<span class="eq"><code>indirectDeviceAddress</code> &#43; <code>sizeof</code>(<code>VkTraceRaysIndirectCommandKHR</code>) -
+<span class="eq"><code>indirectDeviceAddress</code> +  <code>sizeof</code>(<code>VkTraceRaysIndirectCommandKHR</code>) -
 1</span> <strong>must</strong> be in the buffer device address range of the same buffer</p>
 </li>
 <li>
@@ -3907,14 +3911,14 @@ feature <strong>must</strong> be enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -3997,26 +4001,26 @@ the similarly named parameters of <a href="#vkCmdTraceRaysKHR">vkCmdTraceRaysKHR
 
 <code>width</code> <strong>must</strong> be less than or equal to
 <span class="eq"><code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[0]
-{times} <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[0]</span></p>
+× <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[0]</span></p>
 </li>
 <li>
 <p><a id="VUID-VkTraceRaysIndirectCommandKHR-height-03639" href="#VUID-VkTraceRaysIndirectCommandKHR-height-03639"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommandKHR-height-03639</span><br>
 
 <code>height</code> <strong>must</strong> be less than or equal to
 <span class="eq"><code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[1]
-{times} <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[1]</span></p>
+× <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[1]</span></p>
 </li>
 <li>
 <p><a id="VUID-VkTraceRaysIndirectCommandKHR-depth-03640" href="#VUID-VkTraceRaysIndirectCommandKHR-depth-03640"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommandKHR-depth-03640</span><br>
 
 <code>depth</code> <strong>must</strong> be less than or equal to
 <span class="eq"><code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[2]
-{times} <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[2]</span></p>
+× <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[2]</span></p>
 </li>
 <li>
 <p><a id="VUID-VkTraceRaysIndirectCommandKHR-width-03641" href="#VUID-VkTraceRaysIndirectCommandKHR-width-03641"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommandKHR-width-03641</span><br>
 
-<span class="eq"><code>width</code> {times} <code>height</code> {times} <code>depth</code></span> <strong>must</strong> be less
+<span class="eq"><code>width</code> × <code>height</code> × <code>depth</code></span> <strong>must</strong> be less
 than or equal to
 <code>VkPhysicalDeviceRayTracingPipelinePropertiesKHR</code>::<code>maxRayDispatchInvocationCount</code></p>
 </li>
@@ -4479,7 +4483,7 @@ a protected resource</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
 instructions</p>
 </li>
@@ -4488,7 +4492,7 @@ instructions</p>
 
 If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
 <a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, that object
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
 <strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
 </li>
 <li>
@@ -4752,7 +4756,7 @@ been created with the <code>VK_BUFFER_USAGE_INDIRECT_BUFFER_BIT</code> bit set</
 <p><a id="VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03636" href="#VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03636"></a> <span class="vuid">VUID-vkCmdTraceRaysIndirect2KHR-indirectDeviceAddress-03636</span><br>
 
 All device addresses between <code>indirectDeviceAddress</code> and
-<span class="eq"><code>indirectDeviceAddress</code> &#43; <code>sizeof</code>(<code>VkTraceRaysIndirectCommand2KHR</code>) -
+<span class="eq"><code>indirectDeviceAddress</code> +  <code>sizeof</code>(<code>VkTraceRaysIndirectCommand2KHR</code>) -
 1</span> <strong>must</strong> be in the buffer device address range of the same buffer</p>
 </li>
 <li>
@@ -4803,14 +4807,14 @@ feature <strong>must</strong> be enabled</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5153,26 +5157,26 @@ been created with
 
 <code>width</code> <strong>must</strong> be less than or equal to
 <span class="eq"><code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[0]
-{times} <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[0]</span></p>
+× <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[0]</span></p>
 </li>
 <li>
 <p><a id="VUID-VkTraceRaysIndirectCommand2KHR-height-03639" href="#VUID-VkTraceRaysIndirectCommand2KHR-height-03639"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommand2KHR-height-03639</span><br>
 
 <code>height</code> <strong>must</strong> be less than or equal to
 <span class="eq"><code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[1]
-{times} <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[1]</span></p>
+× <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[1]</span></p>
 </li>
 <li>
 <p><a id="VUID-VkTraceRaysIndirectCommand2KHR-depth-03640" href="#VUID-VkTraceRaysIndirectCommand2KHR-depth-03640"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommand2KHR-depth-03640</span><br>
 
 <code>depth</code> <strong>must</strong> be less than or equal to
 <span class="eq"><code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupCount</code>[2]
-{times} <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[2]</span></p>
+× <code>VkPhysicalDeviceLimits</code>::<code>maxComputeWorkGroupSize</code>[2]</span></p>
 </li>
 <li>
 <p><a id="VUID-VkTraceRaysIndirectCommand2KHR-width-03641" href="#VUID-VkTraceRaysIndirectCommand2KHR-width-03641"></a> <span class="vuid">VUID-VkTraceRaysIndirectCommand2KHR-width-03641</span><br>
 
-<span class="eq"><code>width</code> {times} <code>height</code> {times} <code>depth</code></span> <strong>must</strong> be less
+<span class="eq"><code>width</code> × <code>height</code> × <code>depth</code></span> <strong>must</strong> be less
 than or equal to
 <code>VkPhysicalDeviceRayTracingPipelinePropertiesKHR</code>::<code>maxRayDispatchInvocationCount</code></p>
 </li>
@@ -5350,10 +5354,10 @@ binding table record address in the <code>pHitShaderBindingTable</code> is:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>pHitShaderBindingTable-&gt;deviceAddress</code> &#43;
-<code>pHitShaderBindingTable-&gt;stride</code> {times} (
-<code>instanceShaderBindingTableRecordOffset</code> &#43;
-<code>geometryIndex</code> {times} <code>sbtRecordStride</code> &#43;
+<p><span class="eq"><code>pHitShaderBindingTable-&gt;deviceAddress</code> + 
+<code>pHitShaderBindingTable-&gt;stride</code> × (
+<code>instanceShaderBindingTableRecordOffset</code> + 
+<code>geometryIndex</code> × <code>sbtRecordStride</code> + 
 <code>sbtRecordOffset</code> )</span></p>
 </dd>
 </dl>
@@ -5371,10 +5375,10 @@ address in the <code>hitShaderBindingTableBuffer</code> is:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>hitShaderBindingOffset</code> &#43;
-<code>hitShaderBindingStride</code> {times} (
-<code>instanceShaderBindingTableRecordOffset</code> &#43;
-<code>geometryIndex</code> {times} <code>sbtRecordStride</code> &#43;
+<p><span class="eq"><code>hitShaderBindingOffset</code> + 
+<code>hitShaderBindingStride</code> × (
+<code>instanceShaderBindingTableRecordOffset</code> + 
+<code>geometryIndex</code> × <code>sbtRecordStride</code> + 
 <code>sbtRecordOffset</code> )</span></p>
 </dd>
 </dl>
@@ -5415,8 +5419,8 @@ binding table record address in the <code>pMissShaderBindingTable</code> is:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>pMissShaderBindingTable-&gt;deviceAddress</code> &#43;
-<code>pMissShaderBindingTable-&gt;stride</code> {times} <code>missIndex</code></span></p>
+<p><span class="eq"><code>pMissShaderBindingTable-&gt;deviceAddress</code> + 
+<code>pMissShaderBindingTable-&gt;stride</code> × <code>missIndex</code></span></p>
 </dd>
 </dl>
 </div>
@@ -5433,8 +5437,8 @@ address in the <code>missShaderBindingTableBuffer</code> is:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>missShaderBindingOffset</code> &#43;
-<code>missShaderBindingStride</code> {times} <code>missIndex</code></span></p>
+<p><span class="eq"><code>missShaderBindingOffset</code> + 
+<code>missShaderBindingStride</code> × <code>missIndex</code></span></p>
 </dd>
 </dl>
 </div>
@@ -5477,8 +5481,8 @@ binding table record address in the <code>pCallableShaderBindingTable</code> is:
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>pCallableShaderBindingTable-&gt;deviceAddress</code> &#43;
-<code>pCallableShaderBindingTable-&gt;stride</code> {times}
+<p><span class="eq"><code>pCallableShaderBindingTable-&gt;deviceAddress</code> + 
+<code>pCallableShaderBindingTable-&gt;stride</code> ×
 <code>sbtRecordIndex</code></span></p>
 </dd>
 </dl>
@@ -5496,8 +5500,8 @@ record address in the <code>callableShaderBindingTableBuffer</code> is:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>callableShaderBindingOffset</code> &#43;
-<code>callableShaderBindingStride</code> {times} <code>sbtRecordIndex</code></span></p>
+<p><span class="eq"><code>callableShaderBindingOffset</code> + 
+<code>callableShaderBindingStride</code> × <code>sbtRecordIndex</code></span></p>
 </dd>
 </dl>
 </div>
@@ -5523,12 +5527,12 @@ any call chain executed by the application.</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">rayGenStackMax &#43; min(1,
-<code>maxPipelineRayRecursionDepth</code>) {times}
+<p><span class="eq">rayGenStackMax +  min(1,
+<code>maxPipelineRayRecursionDepth</code>) ×
 max(closestHitStackMax, missStackMax, intersectionStackMax
-&#43; anyHitStackMax) &#43; max(0,
-<code>maxPipelineRayRecursionDepth</code>-1) {times}
-max(closestHitStackMax, missStackMax) &#43; 2 {times}
++  anyHitStackMax) +  max(0,
+<code>maxPipelineRayRecursionDepth</code>-1) ×
+max(closestHitStackMax, missStackMax) +  2 ×
 callableStackMax</span></p>
 </dd>
 </dl>
@@ -5565,8 +5569,8 @@ stack size by something similar to:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>rayGenStack</code> &#43; max(<code>closestHit1Stack</code>,
-<code>miss1Stack</code>) &#43; max(<code>closestHit2Stack</code>,
+<p><span class="eq"><code>rayGenStack</code> +  max(<code>closestHit1Stack</code>,
+<code>miss1Stack</code>) +  max(<code>closestHit2Stack</code>,
 <code>miss2Stack</code>)</span></p>
 </dd>
 </dl>

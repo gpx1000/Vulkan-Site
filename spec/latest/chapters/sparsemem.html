@@ -315,6 +315,14 @@
       </ul>
     </li>
     <li class="component">
+      <div class="title"><a href="../../../glsl/latest/index.html">OpenGL Shading Language Specification</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
@@ -361,7 +369,6 @@
     <li><a href="sparsemem.html">Sparse Resources</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/sparsemem.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -371,9 +378,6 @@
 <h1 class="page">Sparse Resources</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/sparsemem.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>As documented in <a href="resources.html#resources-association" class="xref page">Resource Memory Association</a>,
 <code>VkBuffer</code> and <code>VkImage</code> resources in Vulkan <strong>must</strong> be bound
@@ -886,28 +890,28 @@ dimensions by the compressed texel block dimensions.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>8-Bit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">256 {times} 256 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64 {times} 32 {times} 32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">256 × 256 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64 × 32 × 32</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>16-Bit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">256 {times} 128 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32 {times} 32 {times} 32</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">256 × 128 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32 × 32 × 32</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>32-Bit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">128 {times} 128 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32 {times} 32 {times} 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128 × 128 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32 × 32 × 16</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>64-Bit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">128 {times} 64 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32 {times} 16 {times} 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128 × 64 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32 × 16 × 16</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>128-Bit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64 {times} 64 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">16 {times} 16 {times} 16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64 × 64 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 × 16 × 16</p></td>
 </tr>
 </tbody>
 </table>
@@ -932,38 +936,38 @@ dimensions by the compressed texel block dimensions.</p>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>8-Bit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">128 {times} 256 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">128 {times} 128 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64 {times} 128 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64 {times} 64 {times} 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128 × 256 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128 × 128 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64 × 128 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64 × 64 × 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>16-Bit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">128 {times} 128 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">128 {times} 64 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64 {times} 64 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64 {times} 32 {times} 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128 × 128 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">128 × 64 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64 × 64 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64 × 32 × 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>32-Bit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64 {times} 128 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64 {times} 64 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32 {times} 64 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32 {times} 32 {times} 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64 × 128 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64 × 64 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32 × 64 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32 × 32 × 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>64-Bit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64 {times} 64 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">64 {times} 32 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32 {times} 32 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32 {times} 16 {times} 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64 × 64 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64 × 32 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32 × 32 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32 × 16 × 1</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>128-Bit</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32 {times} 64 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">32 {times} 32 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">16 {times} 32 {times} 1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">16 {times} 16 {times} 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32 × 64 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32 × 32 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 × 32 × 1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">16 × 16 × 1</p></td>
 </tr>
 </tbody>
 </table>
@@ -1056,8 +1060,8 @@ sparse blocks.</p>
 <div class="paragraph">
 <p>In the figure above the depth, stencil, and metadata aspects all have unique
 sparse properties.
-The per-texel stencil data is <span class="eq">{onequarter}</span> the size of the depth data,
-hence the stencil sparse blocks include <span class="eq">4 {times}</span> the number of
+The per-texel stencil data is <span class="eq">¼</span> the size of the depth data,
+hence the stencil sparse blocks include <span class="eq">4 ×</span> the number of
 texels.
 The sparse block size in bytes for all of the aspects is identical and
 defined by <code>VkMemoryRequirements</code>::<code>alignment</code>.</p>
@@ -2500,7 +2504,7 @@ usage of the binding operation.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The <em>binding range</em> <span class="eq">[<code>resourceOffset</code>, <code>resourceOffset</code> &#43;
+<p>The <em>binding range</em> <span class="eq">[<code>resourceOffset</code>, <code>resourceOffset</code> + 
 <code>size</code>)</span> has different constraints based on <code>flags</code>.
 If <code>flags</code> contains <code>VK_SPARSE_MEMORY_BIND_METADATA_BIT</code>, the
 binding range <strong>must</strong> be within the mip tail region of the metadata aspect.
@@ -2510,13 +2514,13 @@ This metadata region is defined by:</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">metadataRegion = [base, base &#43;
+<p><span class="eq">metadataRegion = [base, base + 
 <code>imageMipTailSize</code>)</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">base = <code>imageMipTailOffset</code> &#43;
-<code>imageMipTailStride</code> {times} n</span></p>
+<p><span class="eq">base = <code>imageMipTailOffset</code> + 
+<code>imageMipTailStride</code> × n</span></p>
 </dd>
 </dl>
 </div>
@@ -2797,7 +2801,7 @@ be within the mip tail region of the metadata aspect.
 In this case the <code>resourceOffset</code> is not <strong>required</strong> to be a simple device
 address offset within the resource.
 However, it <em>is</em> defined to be within <span class="eq">[<code>imageMipTailOffset</code>,
-<code>imageMipTailOffset</code> &#43; <code>imageMipTailSize</code>)</span> for the metadata
+<code>imageMipTailOffset</code> +  <code>imageMipTailSize</code>)</span> for the metadata
 aspect.
 See <a href="#VkSparseMemoryBind">VkSparseMemoryBind</a> for the full constraints on binding region with
 this flag present.</p>
@@ -2971,7 +2975,7 @@ subresource to bind.
 The extent <strong>must</strong> be a multiple of the sparse image block dimensions,
 except when binding sparse image blocks along the edge of an image
 subresource it <strong>can</strong> instead be such that any coordinate of
-<span class="eq"><code>offset</code> &#43; <code>extent</code></span> equals the corresponding
+<span class="eq"><code>offset</code> +  <code>extent</code></span> equals the corresponding
 dimensions of the image subresource.</p>
 </li>
 <li>
@@ -3025,7 +3029,7 @@ the image</p>
 <p><a id="VUID-VkSparseImageMemoryBind-extent-01108" href="#VUID-VkSparseImageMemoryBind-extent-01108"></a> <span class="vuid">VUID-VkSparseImageMemoryBind-extent-01108</span><br>
 
 <code>extent.width</code> <strong>must</strong> either be a multiple of the sparse image block
-width of the image, or else <span class="eq">(<code>extent.width</code> &#43;
+width of the image, or else <span class="eq">(<code>extent.width</code> + 
 <code>offset.x</code>)</span> <strong>must</strong> equal the width of the image subresource</p>
 </li>
 <li>
@@ -3044,7 +3048,7 @@ the image</p>
 <p><a id="VUID-VkSparseImageMemoryBind-extent-01110" href="#VUID-VkSparseImageMemoryBind-extent-01110"></a> <span class="vuid">VUID-VkSparseImageMemoryBind-extent-01110</span><br>
 
 <code>extent.height</code> <strong>must</strong> either be a multiple of the sparse image block
-height of the image, or else <span class="eq">(<code>extent.height</code> &#43;
+height of the image, or else <span class="eq">(<code>extent.height</code> + 
 <code>offset.y</code>)</span> <strong>must</strong> equal the height of the image subresource</p>
 </li>
 <li>
@@ -3063,7 +3067,7 @@ the image</p>
 <p><a id="VUID-VkSparseImageMemoryBind-extent-01112" href="#VUID-VkSparseImageMemoryBind-extent-01112"></a> <span class="vuid">VUID-VkSparseImageMemoryBind-extent-01112</span><br>
 
 <code>extent.depth</code> <strong>must</strong> either be a multiple of the sparse image block
-depth of the image, or else <span class="eq">(<code>extent.depth</code> &#43;
+depth of the image, or else <span class="eq">(<code>extent.depth</code> + 
 <code>offset.z</code>)</span> <strong>must</strong> equal the depth of the image subresource</p>
 </li>
 <li>
@@ -3248,14 +3252,14 @@ for execution</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>queue</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>queue</code> <strong>must</strong> be externally synchronized</p>
 </li>
 <li>
-<p>{externsyncprefix} <code>fence</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>fence</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>

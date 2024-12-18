@@ -315,6 +315,14 @@
       </ul>
     </li>
     <li class="component">
+      <div class="title"><a href="../../../glsl/latest/index.html">OpenGL Shading Language Specification</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
@@ -361,7 +369,6 @@
     <li><a href="resources.html">Resource Creation</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/resources.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -371,9 +378,6 @@
 <h1 class="page">Resource Creation</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/resources.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>Vulkan supports two primary resource types: <em>buffers</em> and <em>images</em>.
 Resources are views of memory with associated formatting and dimensionality.
@@ -2076,11 +2080,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>buffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>buffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2322,8 +2326,8 @@ an integer multiple of the texel block size of <code>format</code></p>
 <p><a id="VUID-VkBufferViewCreateInfo-range-00930" href="#VUID-VkBufferViewCreateInfo-range-00930"></a> <span class="vuid">VUID-VkBufferViewCreateInfo-range-00930</span><br>
 
 If <code>range</code> is not equal to <code>VK_WHOLE_SIZE</code>, the number of texel
-buffer elements given by <span class="eq">({lfloor}<code>range</code> / (texel block
-size){rfloor} {times} (texels per block))</span> where texel block size and
+buffer elements given by <span class="eq">(⌊<code>range</code> / (texel block
+size)⌋ × (texels per block))</span> where texel block size and
 texels per block are as defined in the <a href="formats.html#formats-compatibility" class="xref page">    Compatible Formats</a> table for <code>format</code>, <strong>must</strong> be less than or equal
 to <code>VkPhysicalDeviceLimits</code>::<code>maxTexelBufferElements</code></p>
 </li>
@@ -2338,8 +2342,8 @@ If <code>range</code> is not equal to <code>VK_WHOLE_SIZE</code>, the sum of
 <p><a id="VUID-VkBufferViewCreateInfo-range-04059" href="#VUID-VkBufferViewCreateInfo-range-04059"></a> <span class="vuid">VUID-VkBufferViewCreateInfo-range-04059</span><br>
 
 If <code>range</code> is equal to <code>VK_WHOLE_SIZE</code>, the number of texel
-buffer elements given by <span class="eq">({lfloor}(size - <code>offset</code>) / (texel
-block size){rfloor} {times} (texels per block))</span> where size is the size
+buffer elements given by <span class="eq">(⌊(size - <code>offset</code>) / (texel
+block size)⌋ × (texels per block))</span> where size is the size
 of <code>buffer</code>, and texel block size and texels per block are as
 defined in the <a href="formats.html#formats-compatibility" class="xref page">Compatible Formats</a> table for
 <code>format</code>, <strong>must</strong> be less than or equal to
@@ -2572,11 +2576,11 @@ was created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code><
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>bufferView</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>bufferView</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -2922,11 +2926,11 @@ supported unless other parameters meet all of the constraints:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Images created with one of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler {YCbCr} conversion</a>, have further
+<p>Images created with one of the <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, have further
 restrictions on their limits and capabilities compared to images created
 with other formats.
 Creation of images with a format requiring
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">{YCbCr} conversion</a> <strong>may</strong> not
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">Y′C<sub>B</sub>C<sub>R</sub> conversion</a> <strong>may</strong> not
 be supported unless other parameters meet all of the constraints:</p>
 </div>
 <div class="ulist">
@@ -3242,8 +3246,8 @@ contains a single element where:</p>
 <ul>
 <li>
 <p><code>VkImageFormatProperties</code>::<code>maxMipLevels</code> is
-<span class="eq">{lfloor}log<sub>2</sub>(max(<code>extent.width</code>, <code>extent.height</code>,
-<code>extent.depth</code>)){rfloor} &#43; 1</span>.</p>
+<span class="eq">⌊log<sub>2</sub>(max(<code>extent.width</code>, <code>extent.height</code>,
+<code>extent.depth</code>))⌋ +  1</span>.</p>
 </li>
 <li>
 <p><code>VkImageFormatProperties</code>::<code>maxArrayLayers</code> is
@@ -3829,20 +3833,20 @@ If the <code>pNext</code> chain includes a
 <p><a id="VUID-VkImageCreateInfo-format-06410" href="#VUID-VkImageCreateInfo-format-06410"></a> <span class="vuid">VUID-VkImageCreateInfo-format-06410</span><br>
 
 If the image <code>format</code> is one of the
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a    sampler {YCbCr} conversion</a>, <code>mipLevels</code> <strong>must</strong> be 1</p>
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a    sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, <code>mipLevels</code> <strong>must</strong> be 1</p>
 </li>
 <li>
 <p><a id="VUID-VkImageCreateInfo-format-06411" href="#VUID-VkImageCreateInfo-format-06411"></a> <span class="vuid">VUID-VkImageCreateInfo-format-06411</span><br>
 
 If the image <code>format</code> is one of the
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a    sampler {YCbCr} conversion</a>, <code>samples</code> <strong>must</strong> be
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a    sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, <code>samples</code> <strong>must</strong> be
 <code>VK_SAMPLE_COUNT_1_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkImageCreateInfo-format-06412" href="#VUID-VkImageCreateInfo-format-06412"></a> <span class="vuid">VUID-VkImageCreateInfo-format-06412</span><br>
 
 If the image <code>format</code> is one of the
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a    sampler {YCbCr} conversion</a>, <code>imageType</code> <strong>must</strong> be
+<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">formats that require a    sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, <code>imageType</code> <strong>must</strong> be
 <code>VK_IMAGE_TYPE_2D</code></p>
 </li>
 <li>
@@ -5378,7 +5382,7 @@ planes</em>.</p>
 <div class="paragraph">
 <p>The <code>i</code><sup>th</sup> member of <code>pPlaneLayouts</code> describes the layout of the
 image&#8217;s <code>i</code><sup>th</sup> <em>memory plane</em> (that is,
-<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>{ibit}</em>BIT_EXT</code>).
+<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code>).
 In each element of <code>pPlaneLayouts</code>, the implementation <strong>must</strong> ignore
 <code>size</code>.
 The implementation calculates the size of each plane, which the application
@@ -6786,7 +6790,7 @@ external memory handle type, then <code>image</code> <strong>must</strong> be bo
 If the <code>tiling</code> of the <code>image</code> is
 <code>VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT</code>, then the <code>aspectMask</code>
 member of <code>pSubresource</code> <strong>must</strong> be
-<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>{ibit}</em>BIT_EXT</code> and the index <em>i</em> <strong>must</strong>
+<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> and the index <em>i</em> <strong>must</strong>
 be less than the
 <a href="formats.html#VkDrmFormatModifierPropertiesEXT" class="xref page">VkDrmFormatModifierPropertiesEXT</a>::<code>drmFormatModifierPlaneCount</code>
 associated with the image&#8217;s <code>format</code> and
@@ -6996,7 +7000,7 @@ base address of the image.</p>
 <div class="paragraph">
 <p>If the image&#8217;s tiling is <code>VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT</code>, then
 the <code>aspectMask</code> member of <code>VkImageSubresource</code> <strong>must</strong> be one of
-<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>{ibit}</em>BIT_EXT</code>, where the maximum allowed
+<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code>, where the maximum allowed
 plane index <em>i</em> is defined by the
 <a href="formats.html#VkDrmFormatModifierPropertiesEXT" class="xref page">VkDrmFormatModifierPropertiesEXT</a>::<code>drmFormatModifierPlaneCount</code>
 associated with the image&#8217;s <a href="#VkImageCreateInfo">VkImageCreateInfo</a>::<code>format</code> and
@@ -7175,7 +7179,7 @@ external memory handle type, then <code>image</code> <strong>must</strong> be bo
 If the <code>tiling</code> of the <code>image</code> is
 <code>VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT</code>, then the <code>aspectMask</code>
 member of <code>pSubresource</code> <strong>must</strong> be
-<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>{ibit}</em>BIT_EXT</code> and the index <em>i</em> <strong>must</strong>
+<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> and the index <em>i</em> <strong>must</strong>
 be less than the
 <a href="formats.html#VkDrmFormatModifierPropertiesEXT" class="xref page">VkDrmFormatModifierPropertiesEXT</a>::<code>drmFormatModifierPlaneCount</code>
 associated with the image&#8217;s <code>format</code> and
@@ -7878,11 +7882,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>image</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>image</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -7985,19 +7989,19 @@ texture image:</p>
 See <a href="textures.html#textures-unnormalized-to-integer" class="xref page">Unnormalized Texel Coordinate    Operations</a></p>
 </li>
 <li>
-<p>Normalized coordinates are scaled using <span class="eq">coord {times} (dim - 1)</span>
-rather than <span class="eq">coord {times} dim</span>, where dim is the size of one
+<p>Normalized coordinates are scaled using <span class="eq">coord × (dim - 1)</span>
+rather than <span class="eq">coord × dim</span>, where dim is the size of one
 dimension of the image.
 See <a href="textures.html#textures-normalized-to-unnormalized" class="xref page">normalized texel coordinate    transform</a>.</p>
 </li>
 <li>
-<p>Partial derivatives are scaled using <span class="eq">coord {times} (dim - 1)</span>
-rather than <span class="eq">coord {times} dim</span>.
+<p>Partial derivatives are scaled using <span class="eq">coord × (dim - 1)</span>
+rather than <span class="eq">coord × dim</span>.
 See <a href="textures.html#textures-scale-factor" class="xref page">Scale Factor Operation</a>.</p>
 </li>
 <li>
 <p>Calculation of the next higher LOD size goes according to
-<span class="eq">{lceil}dim / 2{rceil}</span> rather than <span class="eq">{lfloor}dim / 2{rfloor}</span>.
+<span class="eq">⌈dim / 2⌉</span> rather than <span class="eq">⌊dim / 2⌋</span>.
 See <a href="#resources-image-mip-level-sizing">Image Mip Level Sizing</a>.</p>
 </li>
 <li>
@@ -8030,17 +8034,17 @@ mip level provided, down to the <em>minimum mip level size</em>.</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>width</code><sub>n+1</sub> = max({lfloor}<code>width</code><sub>n</sub>/2{rfloor},
+<p><span class="eq"><code>width</code><sub>n+1</sub> = max(⌊<code>width</code><sub>n</sub>/2⌋,
 1)</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>height</code><sub>n+1</sub> = max({lfloor}<code>height</code><sub>n</sub>/2{rfloor},
+<p><span class="eq"><code>height</code><sub>n+1</sub> = max(⌊<code>height</code><sub>n</sub>/2⌋,
 1)</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>depth</code><sub>n+1</sub> = max({lfloor}<code>depth</code><sub>n</sub>/2{rfloor},
+<p><span class="eq"><code>depth</code><sub>n+1</sub> = max(⌊<code>depth</code><sub>n</sub>/2⌋,
 1)</span></p>
 </dd>
 </dl>
@@ -8072,8 +8076,8 @@ are the dimensions of the next larger mip level, <span class="eq">n</span>.</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">{lfloor}log<sub>2</sub>(max(<code>width</code><sub>0</sub>, <code>height</code><sub>0</sub>,
-<code>depth</code><sub>0</sub>)){rfloor} &#43; 1</span></p>
+<p><span class="eq">⌊log<sub>2</sub>(max(<code>width</code><sub>0</sub>, <code>height</code><sub>0</sub>,
+<code>depth</code><sub>0</sub>))⌋ +  1</span></p>
 </dd>
 </dl>
 </div>
@@ -8092,16 +8096,16 @@ are the dimensions of the largest (most detailed) mip level, <code>0</code>.</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>width</code><sub>n+1</sub> = max({lceil}<code>width</code><sub>n</sub>/2{rceil}, 2)</span></p>
+<p><span class="eq"><code>width</code><sub>n+1</sub> = max(⌈<code>width</code><sub>n</sub>/2⌉, 2)</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>height</code><sub>n+1</sub> = max({lceil}<code>height</code><sub>n</sub>/2{rceil},
+<p><span class="eq"><code>height</code><sub>n+1</sub> = max(⌈<code>height</code><sub>n</sub>/2⌉,
 2)</span></p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq"><code>depth</code><sub>n+1</sub> = max({lceil}<code>depth</code><sub>n</sub>/2{rceil}, 2)</span></p>
+<p><span class="eq"><code>depth</code><sub>n+1</sub> = max(⌈<code>depth</code><sub>n</sub>/2⌉, 2)</span></p>
 </dd>
 </dl>
 </div>
@@ -8129,8 +8133,8 @@ are the dimensions of the next larger mip level, <span class="eq">n</span>.</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">{lceil}log<sub>2</sub>(max(<code>width</code><sub>0</sub>, <code>height</code><sub>0</sub>,
-<code>depth</code><sub>0</sub>)){rceil}</span></p>
+<p><span class="eq">⌈log<sub>2</sub>(max(<code>width</code><sub>0</sub>, <code>height</code><sub>0</sub>,
+<code>depth</code><sub>0</sub>))⌉</span></p>
 </dd>
 </dl>
 </div>
@@ -8981,7 +8985,7 @@ For example, an integer value that happens to have the bit pattern of a
 floating-point denorm or NaN <strong>may</strong> be flushed or canonicalized when written
 or read through a view with a floating-point format.
 Similarly, a value written through a signed normalized format that has a bit
-pattern exactly equal to <span class="eq">-2<sup>b</sup></span> <strong>may</strong> be changed to <span class="eq">-2<sup>b</sup> &#43; 1</span>
+pattern exactly equal to <span class="eq">-2<sup>b</sup></span> <strong>may</strong> be changed to <span class="eq">-2<sup>b</sup> +  1</span>
 as described in <a href="fundamentals.html#fundamentals-fixedfpconv" class="xref page">Conversion from Normalized Fixed-Point to Floating-Point</a>.</p>
 </div>
 </td>
@@ -9005,11 +9009,11 @@ image instructions.
 This remapping <strong>must</strong> be the identity swizzle for storage image descriptors,
 input attachment descriptors,
 framebuffer attachments, and any <code>VkImageView</code> used with a combined
-image sampler that enables <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>.</p>
+image sampler that enables <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>.</p>
 </div>
 <div class="paragraph">
 <p>If the image view is to be used with a sampler which supports
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>, an <em>identically
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, an <em>identically
 defined object</em> of type <a href="samplers.html#VkSamplerYcbcrConversion" class="xref page">VkSamplerYcbcrConversion</a> to that used to
 create the sampler <strong>must</strong> be passed to <a href="#vkCreateImageView">vkCreateImageView</a> in a
 <a href="samplers.html#VkSamplerYcbcrConversionInfo" class="xref page">VkSamplerYcbcrConversionInfo</a> included in the <code>pNext</code> chain of
@@ -9024,11 +9028,11 @@ Conversely, if a <a href="samplers.html#VkSamplerYcbcrConversion" class="xref pa
 <code>subresourceRange.aspectMask</code> is <code>VK_IMAGE_ASPECT_COLOR_BIT</code>, and
 <code>usage</code> includes <code>VK_IMAGE_USAGE_SAMPLED_BIT</code>, then the <code>format</code>
 <strong>must</strong> be identical to the image <code>format</code> and the sampler to be used with
-the image view <strong>must</strong> enable <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>.</p>
+the image view <strong>must</strong> enable <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>.</p>
 </div>
 <div class="paragraph">
 <p>When such an image is used in a <a href="videocoding.html#video-coding" class="xref page">video coding</a> operation, the
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a> has no effect.</p>
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> has no effect.</p>
 </div>
 <div class="paragraph">
 <p>If <code>image</code> was created with the <code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code>
@@ -9039,7 +9043,7 @@ and if <code>subresourceRange.aspectMask</code> is
 <code>VK_IMAGE_ASPECT_PLANE_2_BIT</code>, <code>format</code> <strong>must</strong> be
 <a href="formats.html#formats-compatible-planes" class="xref page">compatible</a> with the corresponding plane of the
 image, and the sampler to be used with the image view <strong>must</strong> not enable
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a>.
+<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>.
 The <code>width</code> and <code>height</code> of the single-plane image view <strong>must</strong> be
 derived from the multi-planar image&#8217;s dimensions in the manner listed for
 <a href="formats.html#formats-compatible-planes" class="xref page">plane compatibility</a> for the plane.</p>
@@ -9300,7 +9304,7 @@ was created</p>
 
 If <code>subresourceRange.levelCount</code> is not
 <code>VK_REMAINING_MIP_LEVELS</code>, <span class="eq"><code>subresourceRange.baseMipLevel</code>
-&#43; <code>subresourceRange.levelCount</code></span> <strong>must</strong> be less than or equal to
++  <code>subresourceRange.levelCount</code></span> <strong>must</strong> be less than or equal to
 the <code>mipLevels</code> specified in <a href="#VkImageCreateInfo">VkImageCreateInfo</a> when
 <code>image</code> was created</p>
 </li>
@@ -9331,7 +9335,7 @@ with <code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> or
 <code>VK_IMAGE_CREATE_2D_VIEW_COMPATIBLE_BIT_EXT</code> set, or <code>viewType</code>
 is not <code>VK_IMAGE_VIEW_TYPE_2D</code> or <code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code>,
 <code>subresourceRange.layerCount</code> <strong>must</strong> be non-zero and
-<span class="eq"><code>subresourceRange.baseArrayLayer</code> &#43;
+<span class="eq"><code>subresourceRange.baseArrayLayer</code> + 
 <code>subresourceRange.layerCount</code></span> <strong>must</strong> be less than or equal to the
 <code>arrayLayers</code> specified in <a href="#VkImageCreateInfo">VkImageCreateInfo</a> when <code>image</code>
 was created</p>
@@ -9355,7 +9359,7 @@ If <code>subresourceRange.layerCount</code> is not
 <code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set, and <code>viewType</code> is
 <code>VK_IMAGE_VIEW_TYPE_2D</code> or <code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code>,
 <code>subresourceRange.layerCount</code> <strong>must</strong> be non-zero and
-<span class="eq"><code>subresourceRange.baseArrayLayer</code> &#43;
+<span class="eq"><code>subresourceRange.baseArrayLayer</code> + 
 <code>subresourceRange.layerCount</code></span> <strong>must</strong> be less than or equal to the
 depth computed from <code>baseMipLevel</code> and <code>extent.depth</code> specified
 in <a href="#VkImageCreateInfo">VkImageCreateInfo</a> when <code>image</code> was created, according to
@@ -9444,7 +9448,7 @@ if <code>subresourceRange.aspectMask</code> is <code>VK_IMAGE_ASPECT_COLOR_BIT</
 <li>
 <p><a id="VUID-VkImageViewCreateInfo-format-06415" href="#VUID-VkImageViewCreateInfo-format-06415"></a> <span class="vuid">VUID-VkImageViewCreateInfo-format-06415</span><br>
 
-If the image view <a href="#image-views-requiring-sampler-ycbcr-conversion">    requires a sampler {YCbCr} conversion</a> and <code>usage</code> contains
+If the image view <a href="#image-views-requiring-sampler-ycbcr-conversion">    requires a sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> and <code>usage</code> contains
 <code>VK_IMAGE_USAGE_SAMPLED_BIT</code>, then the <code>pNext</code> chain <strong>must</strong>
 include a <a href="samplers.html#VkSamplerYcbcrConversionInfo" class="xref page">VkSamplerYcbcrConversionInfo</a> structure with a conversion
 value other than <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
@@ -10154,7 +10158,7 @@ specified in <a href="#resources-image-mip-level-sizing">Image Mip Level Sizing<
 <p><a id="VUID-VkImageViewSlicedCreateInfoEXT-sliceCount-07868" href="#VUID-VkImageViewSlicedCreateInfoEXT-sliceCount-07868"></a> <span class="vuid">VUID-VkImageViewSlicedCreateInfoEXT-sliceCount-07868</span><br>
 
 If <code>sliceCount</code> is not <code>VK_REMAINING_3D_SLICES_EXT</code>, it <strong>must</strong> be
-non-zero and <span class="eq"><code>sliceOffset</code> &#43; <code>sliceCount</code></span> <strong>must</strong> be
+non-zero and <span class="eq"><code>sliceOffset</code> +  <code>sliceCount</code></span> <strong>must</strong> be
 less than or equal to the effective view depth as specified in
 <a href="#resources-image-mip-level-sizing">Image Mip Level Sizing</a></p>
 </li>
@@ -10268,7 +10272,7 @@ at <code>baseArrayLayer</code> correspond to faces in the order +X, -X, +Y, -Y, 
 -Z.
 For cube arrays, each set of six sequential layers is a single cube, so the
 number of cube maps in a cube map array view is <em><code>layerCount</code> / 6</em>, and
-image array layer <span class="eq">(<code>baseArrayLayer</code> &#43; i)</span> is face index
+image array layer <span class="eq">(<code>baseArrayLayer</code> +  i)</span> is face index
 <span class="eq">(i mod 6)</span> of cube <em>i / 6</em>.
 If the number of layers in the view, whether set explicitly in
 <code>layerCount</code> or implied by <code>VK_REMAINING_ARRAY_LAYERS</code>, is not a
@@ -10310,12 +10314,12 @@ framebuffer attachment, the <code>aspectMask</code> is ignored and both depth an
 stencil image subresources are used.</p>
 </div>
 <div class="paragraph">
-<p>When creating a <code>VkImageView</code>, if <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler {YCbCr} conversion</a> is enabled in the sampler, the <code>aspectMask</code> of a
+<p>When creating a <code>VkImageView</code>, if <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> is enabled in the sampler, the <code>aspectMask</code> of a
 <code>subresourceRange</code> used by the <code>VkImageView</code> <strong>must</strong> be
 <code>VK_IMAGE_ASPECT_COLOR_BIT</code>.</p>
 </div>
 <div class="paragraph">
-<p>When creating a <code>VkImageView</code>, if sampler {YCbCr} conversion is not
+<p>When creating a <code>VkImageView</code>, if sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is not
 enabled in the sampler and the image <code>format</code> is
 <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a>, the image <strong>must</strong>
 have been created with <code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code>, and the
@@ -10351,7 +10355,7 @@ If <code>aspectMask</code> includes <code>VK_IMAGE_ASPECT_COLOR_BIT</code>, then
 <p><a id="VUID-VkImageSubresourceRange-aspectMask-02278" href="#VUID-VkImageSubresourceRange-aspectMask-02278"></a> <span class="vuid">VUID-VkImageSubresourceRange-aspectMask-02278</span><br>
 
 <code>aspectMask</code> <strong>must</strong> not include
-<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>{ibit}</em>BIT_EXT</code> for any index <em>i</em></p>
+<code>VK_IMAGE_ASPECT_MEMORY_PLANE<em>_i_</em>BIT_EXT</code> for any index <em>i</em></p>
 </li>
 </ul>
 </div>
@@ -10918,11 +10922,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>imageView</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>imageView</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -11466,7 +11470,7 @@ used as part of a sampling operation:</p>
 which access integer mipmap levels:</p>
 </div>
 <div class="paragraph">
-<p><span class="eq">minLodInteger<sub>imageView</sub> = {lfloor}minLodFloat<sub>imageView</sub>{rfloor}</span></p>
+<p><span class="eq">minLodInteger<sub>imageView</sub> = ⌊minLodFloat<sub>imageView</sub>⌋</span></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -13653,11 +13657,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>accelerationStructure</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>accelerationStructure</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -13749,11 +13753,11 @@ If no <code>VkAllocationCallbacks</code> were provided when
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>accelerationStructure</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>accelerationStructure</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -15261,11 +15265,11 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>micromap</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>micromap</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -16965,11 +16969,11 @@ If the <code>buffer</code> was created with the
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>buffer</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>buffer</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -17855,11 +17859,11 @@ with a <a href="#VkImportMemoryBufferCollectionFUCHSIA">VkImportMemoryBufferColl
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>image</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>image</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -18578,7 +18582,7 @@ all non-metadata aspects of the image</p>
 The <code>extent.width</code> member of any element of
 <code>pSplitInstanceBindRegions</code> <strong>must</strong> either be a multiple of the sparse
 image block width of all non-metadata aspects of the image, or else
-<code>extent.width</code> &#43; <code>offset.x</code> <strong>must</strong> equal the width of the
+<code>extent.width</code> +  <code>offset.x</code> <strong>must</strong> equal the width of the
 image subresource</p>
 </li>
 <li>
@@ -18587,7 +18591,7 @@ image subresource</p>
 The <code>extent.height</code> member of any element of
 <code>pSplitInstanceBindRegions</code> <strong>must</strong> either be a multiple of the sparse
 image block height of all non-metadata aspects of the image, or else
-<code>extent.height</code> &#43; <code>offset.y</code> <strong>must</strong> equal the height of the
+<code>extent.height</code> +  <code>offset.y</code> <strong>must</strong> equal the height of the
 image subresource</p>
 </li>
 </ul>
@@ -18708,11 +18712,11 @@ If the <code>swapchain</code> has been created with
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">{externsynctitle}</div>
+<div class="title">Host Synchronization</div>
 <div class="ulist">
 <ul>
 <li>
-<p>{externsyncprefix} <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
+<p>Host access to <code>swapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -20575,11 +20579,11 @@ struct specifying the component mapping</p>
 </li>
 <li>
 <p><code>suggestedYcbcrModel</code> is a <a href="samplers.html#VkSamplerYcbcrModelConversion" class="xref page">VkSamplerYcbcrModelConversion</a> value
-specifying the suggested {YCbCr} model</p>
+specifying the suggested Y′C<sub>B</sub>C<sub>R</sub> model</p>
 </li>
 <li>
 <p><code>suggestedYcbcrRange</code> is a <a href="samplers.html#VkSamplerYcbcrRange" class="xref page">VkSamplerYcbcrRange</a> value
-specifying the suggested {YCbCr} range</p>
+specifying the suggested Y′C<sub>B</sub>C<sub>R</sub> range</p>
 </li>
 <li>
 <p><code>suggestedXChromaOffset</code> is a <a href="samplers.html#VkChromaLocation" class="xref page">VkChromaLocation</a> value

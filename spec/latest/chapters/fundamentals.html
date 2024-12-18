@@ -315,6 +315,14 @@
       </ul>
     </li>
     <li class="component">
+      <div class="title"><a href="../../../glsl/latest/index.html">OpenGL Shading Language Specification</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
@@ -361,7 +369,6 @@
     <li><a href="fundamentals.html">Fundamentals</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/chapters/fundamentals.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -371,9 +378,6 @@
 <h1 class="page">Fundamentals</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/chapters/fundamentals.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>This chapter introduces fundamental concepts including the Vulkan
 architecture and execution model, API syntax, queues, pipeline
@@ -4596,16 +4600,16 @@ at least 2<sup>32</sup>.</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">x {times} 0 = 0 {times} x = 0</span> for any non-infinite and
+<p><span class="eq">x × 0 = 0 × x = 0</span> for any non-infinite and
 non-<span class="eq">NaN</span> <span class="eq">x</span>.</p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">1 {times} x = x {times} 1 = x</span>.</p>
+<p><span class="eq">1 × x = x × 1 = x</span>.</p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">x &#43; 0 = 0 &#43; x = x</span>.</p>
+<p><span class="eq">x +  0 = 0 +  x = x</span>.</p>
 </dd>
 <dt class="hdlist1"></dt>
 <dd>
@@ -4736,7 +4740,7 @@ corresponding floating-point value <span class="eq">f</span> is performed using<
   </div>
 </div>
 <div class="paragraph">
-<p>Only the range <span class="eq">[-2<sup>b-1</sup> &#43; 1, 2<sup>b-1</sup> - 1]</span> is used to represent
+<p>Only the range <span class="eq">[-2<sup>b-1</sup> +  1, 2<sup>b-1</sup> - 1]</span> is used to represent
 signed fixed-point values in the range <span class="eq">[-1,1]</span>.
 For example, if <span class="eq">b = 8</span>, then the integer value <span class="eq">-127</span> corresponds
 to <span class="eq">-1.0</span> and the value 127 corresponds to <span class="eq">1.0</span>.
@@ -4763,7 +4767,7 @@ unsigned normalized fixed-point value <span class="eq">c</span> is defined by fi
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">c = convertFloatToUint(f {times} (2<sup>b</sup> - 1), b)</span></p>
+<p><span class="eq">c = convertFloatToUint(f × (2<sup>b</sup> - 1), b)</span></p>
 </dd>
 </dl>
 </div>
@@ -4786,7 +4790,7 @@ to the range <span class="eq">[-1,1]</span>, then computing</p>
 <dl>
 <dt class="hdlist1"></dt>
 <dd>
-<p><span class="eq">c = convertFloatToInt(f {times} (2<sup>b-1</sup> - 1), b)</span></p>
+<p><span class="eq">c = convertFloatToInt(f × (2<sup>b-1</sup> - 1), b)</span></p>
 </dd>
 </dl>
 </div>

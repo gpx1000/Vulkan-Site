@@ -315,6 +315,14 @@
       </ul>
     </li>
     <li class="component">
+      <div class="title"><a href="../../../glsl/latest/index.html">OpenGL Shading Language Specification</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
@@ -361,7 +369,6 @@
     <li><a href="spirvenv.html">Vulkan Environment for SPIR-V</a></li>
   </ul>
 </nav>
-<div class="edit-this-page"><a href="https://github.com/KhronosGroup/Vulkan-Docs/edit/main/antora/spec/modules/ROOT/pages/appendices/spirvenv.adoc">Edit this Page</a></div>
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -371,9 +378,6 @@
 <h1 class="page">Vulkan Environment for SPIR-V</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/appendices/spirvenv.adoc - include::partial$config/attribs.adoc[]</p>
-</div>
 <div class="paragraph">
 <p>Shaders for Vulkan are defined by the <a href="../chapters/introduction.html#spirv-spec" class="xref page">Khronos SPIR-V Specification</a> as well as the <a href="../chapters/introduction.html#spirv-extended" class="xref page">Khronos SPIR-V Extended Instructions for GLSL</a> Specification.
 This appendix defines additional SPIR-V requirements applying to Vulkan
@@ -1615,7 +1619,7 @@ be selected</p>
 
 If the <code>Scope</code> for execution is <code>Workgroup</code>, then it <strong>must</strong> only be
 used in the task, mesh, tessellation control, or compute
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-None-04638" href="#VUID-StandaloneSpirv-None-04638"></a> <span class="vuid">VUID-StandaloneSpirv-None-04638</span><br>
@@ -1626,7 +1630,7 @@ used in the task, mesh, tessellation control, or compute
 <li>
 <p><a id="VUID-StandaloneSpirv-ExecutionModel-07320" href="#VUID-StandaloneSpirv-ExecutionModel-07320"></a> <span class="vuid">VUID-StandaloneSpirv-ExecutionModel-07320</span><br>
 
-If the {ExecutionModel} is <code>TessellationControl</code>, and the
+If the <code>Execution</code> <code>Model</code> is <code>TessellationControl</code>, and the
 <code>MemoryModel</code> is <code>GLSL450</code>, the <code>Scope</code> for memory <strong>must</strong> not be
 <code>Workgroup</code></p>
 </li>
@@ -1635,14 +1639,14 @@ If the {ExecutionModel} is <code>TessellationControl</code>, and the
 
 If the <code>Scope</code> for memory is <code>Workgroup</code>, then it <strong>must</strong> only be
 used in the task, mesh, tessellation control, or compute
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-None-04640" href="#VUID-StandaloneSpirv-None-04640"></a> <span class="vuid">VUID-StandaloneSpirv-None-04640</span><br>
 
 If the <code>Scope</code> for memory is <code>ShaderCallKHR</code>, then it <strong>must</strong> only
 be used in ray generation, intersection, closest hit, any-hit, miss, and
-callable {ExecutionModel}</p>
+callable <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-None-04641" href="#VUID-StandaloneSpirv-None-04641"></a> <span class="vuid">VUID-StandaloneSpirv-None-04641</span><br>
@@ -1666,7 +1670,7 @@ If none of the <code>SubgroupVoteKHR</code>, <code>GroupNonUniform</code>, or
 <li>
 <p><a id="VUID-StandaloneSpirv-None-04643" href="#VUID-StandaloneSpirv-None-04643"></a> <span class="vuid">VUID-StandaloneSpirv-None-04643</span><br>
 
-{StorageClass} <strong>must</strong> be limited to <code>UniformConstant</code>, <code>Input</code>,
+<code>Storage</code> <code>Class</code> <strong>must</strong> be limited to <code>UniformConstant</code>, <code>Input</code>,
 <code>Uniform</code>, <code>Output</code>, <code>Workgroup</code>, <code>Private</code>, <code>Function</code>,
 <code>PushConstant</code>, <code>Image</code>, <code>StorageBuffer</code>, <code>RayPayloadKHR</code>,
 <code>IncomingRayPayloadKHR</code>, <code>HitAttributeKHR</code>, <code>CallableDataKHR</code>,
@@ -1676,21 +1680,21 @@ If none of the <code>SubgroupVoteKHR</code>, <code>GroupNonUniform</code>, or
 <li>
 <p><a id="VUID-StandaloneSpirv-None-04644" href="#VUID-StandaloneSpirv-None-04644"></a> <span class="vuid">VUID-StandaloneSpirv-None-04644</span><br>
 
-If the {StorageClass} is <code>Output</code>, then it <strong>must</strong> not be used in the
+If the <code>Storage</code> <code>Class</code> is <code>Output</code>, then it <strong>must</strong> not be used in the
 <code>GlCompute</code>, <code>RayGenerationKHR</code>, <code>IntersectionKHR</code>,
 <code>AnyHitKHR</code>, <code>ClosestHitKHR</code>, <code>MissKHR</code>, or <code>CallableKHR</code>
-{ExecutionModel}</p>
+<code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-None-04645" href="#VUID-StandaloneSpirv-None-04645"></a> <span class="vuid">VUID-StandaloneSpirv-None-04645</span><br>
 
-If the {StorageClass} is <code>Workgroup</code>, then it <strong>must</strong> only be used in
-the task, mesh, or compute {ExecutionModel}</p>
+If the <code>Storage</code> <code>Class</code> is <code>Workgroup</code>, then it <strong>must</strong> only be used in
+the task, mesh, or compute <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-None-08720" href="#VUID-StandaloneSpirv-None-08720"></a> <span class="vuid">VUID-StandaloneSpirv-None-08720</span><br>
 
-If the {StorageClass} is <code>TileImageEXT</code>, then it <strong>must</strong> only be used
+If the <code>Storage</code> <code>Class</code> is <code>TileImageEXT</code>, then it <strong>must</strong> only be used
 in the fragment execution model</p>
 </li>
 <li>
@@ -1714,27 +1718,27 @@ in the fragment execution model</p>
 <li>
 <p><a id="VUID-StandaloneSpirv-OpMemoryBarrier-04733" href="#VUID-StandaloneSpirv-OpMemoryBarrier-04733"></a> <span class="vuid">VUID-StandaloneSpirv-OpMemoryBarrier-04733</span><br>
 
-<code>OpMemoryBarrier</code> <strong>must</strong> include at least one {StorageClass}</p>
+<code>OpMemoryBarrier</code> <strong>must</strong> include at least one <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-OpControlBarrier-04650" href="#VUID-StandaloneSpirv-OpControlBarrier-04650"></a> <span class="vuid">VUID-StandaloneSpirv-OpControlBarrier-04650</span><br>
 
 If the semantics for <code>OpControlBarrier</code> includes one of <code>Acquire</code>,
 <code>Release</code>, <code>AcquireRelease</code>, or <code>SequentiallyConsistent</code> memory
-semantics, then it <strong>must</strong> include at least one {StorageClass}</p>
+semantics, then it <strong>must</strong> include at least one <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-OpVariable-04651" href="#VUID-StandaloneSpirv-OpVariable-04651"></a> <span class="vuid">VUID-StandaloneSpirv-OpVariable-04651</span><br>
 
 Any <code>OpVariable</code> with an <code>Initializer</code> operand <strong>must</strong> have
 <code>Output</code>, <code>Private</code>, <code>Function</code>, or <code>Workgroup</code> as its
-{StorageClass} operand</p>
+<code>Storage</code> <code>Class</code> operand</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-OpVariable-04734" href="#VUID-StandaloneSpirv-OpVariable-04734"></a> <span class="vuid">VUID-StandaloneSpirv-OpVariable-04734</span><br>
 
 Any <code>OpVariable</code> with an <code>Initializer</code> operand and <code>Workgroup</code>
-as its {StorageClass} operand <strong>must</strong> use <code>OpConstantNull</code> as the
+as its <code>Storage</code> <code>Class</code> operand <strong>must</strong> use <code>OpConstantNull</code> as the
 initializer</p>
 </li>
 <li>
@@ -1746,32 +1750,32 @@ initializer</p>
 <li>
 <p><a id="VUID-StandaloneSpirv-OriginLowerLeft-04653" href="#VUID-StandaloneSpirv-OriginLowerLeft-04653"></a> <span class="vuid">VUID-StandaloneSpirv-OriginLowerLeft-04653</span><br>
 
-The <code>OriginLowerLeft</code> {ExecutionMode} <strong>must</strong> not be used; fragment
+The <code>OriginLowerLeft</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> not be used; fragment
 entry points <strong>must</strong> declare <code>OriginUpperLeft</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-PixelCenterInteger-04654" href="#VUID-StandaloneSpirv-PixelCenterInteger-04654"></a> <span class="vuid">VUID-StandaloneSpirv-PixelCenterInteger-04654</span><br>
 
-The <code>PixelCenterInteger</code> {ExecutionMode} <strong>must</strong> not be used (pixels
+The <code>PixelCenterInteger</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> not be used (pixels
 are always centered at half-integer coordinates)</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-UniformConstant-04655" href="#VUID-StandaloneSpirv-UniformConstant-04655"></a> <span class="vuid">VUID-StandaloneSpirv-UniformConstant-04655</span><br>
 
-Any variable in the <code>UniformConstant</code> {StorageClass} <strong>must</strong> be typed
+Any variable in the <code>UniformConstant</code> <code>Storage</code> <code>Class</code> <strong>must</strong> be typed
 as either <code>OpTypeImage</code>, <code>OpTypeSampler</code>, <code>OpTypeSampledImage</code>,
 <code>OpTypeAccelerationStructureKHR</code>, or an array of one of these types</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Uniform-06807" href="#VUID-StandaloneSpirv-Uniform-06807"></a> <span class="vuid">VUID-StandaloneSpirv-Uniform-06807</span><br>
 
-Any variable in the <code>Uniform</code> or <code>StorageBuffer</code> {StorageClass}
+Any variable in the <code>Uniform</code> or <code>StorageBuffer</code> <code>Storage</code> <code>Class</code>
 <strong>must</strong> be typed as <code>OpTypeStruct</code> or an array of this type</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-PushConstant-06808" href="#VUID-StandaloneSpirv-PushConstant-06808"></a> <span class="vuid">VUID-StandaloneSpirv-PushConstant-06808</span><br>
 
-Any variable in the <code>PushConstant</code> {StorageClass} <strong>must</strong> be typed as
+Any variable in the <code>PushConstant</code> <code>Storage</code> <code>Class</code> <strong>must</strong> be typed as
 <code>OpTypeStruct</code></p>
 </li>
 <li>
@@ -1844,7 +1848,7 @@ of these types <strong>must</strong> not be stored to or modified</p>
 <li>
 <p><a id="VUID-StandaloneSpirv-Uniform-06925" href="#VUID-StandaloneSpirv-Uniform-06925"></a> <span class="vuid">VUID-StandaloneSpirv-Uniform-06925</span><br>
 
-Any variable in the <code>Uniform</code> {StorageClass} decorated as <code>Block</code>
+Any variable in the <code>Uniform</code> <code>Storage</code> <code>Class</code> decorated as <code>Block</code>
 <strong>must</strong> not be stored to or modified</p>
 </li>
 <li>
@@ -1986,7 +1990,7 @@ type with more than two components</p>
 
 The pointers of any <code>Input</code> or <code>Output</code>
 <a href="../chapters/interfaces.html#interfaces-iointerfaces-user" class="xref page">Interface user-defined variables</a> <strong>must</strong>
-not contain any <code>PhysicalStorageBuffer</code> {StorageClass} pointers</p>
+not contain any <code>PhysicalStorageBuffer</code> <code>Storage</code> <code>Class</code> pointers</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-GLSLShared-04669" href="#VUID-StandaloneSpirv-GLSLShared-04669"></a> <span class="vuid">VUID-StandaloneSpirv-GLSLShared-04669</span><br>
@@ -1998,7 +2002,7 @@ The <code>GLSLShared</code> and <code>GLSLPacked</code> decorations <strong>must
 
 The <code>Flat</code>, <code>NoPerspective</code>, <code>Sample</code>, and <code>Centroid</code>
 decorations <strong>must</strong> only be used on variables with the <code>Output</code> or
-<code>Input</code> {StorageClass}</p>
+<code>Input</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Flat-06201" href="#VUID-StandaloneSpirv-Flat-06201"></a> <span class="vuid">VUID-StandaloneSpirv-Flat-06201</span><br>
@@ -2018,13 +2022,13 @@ class in a vertex shader</p>
 <p><a id="VUID-StandaloneSpirv-PerVertexKHR-06777" href="#VUID-StandaloneSpirv-PerVertexKHR-06777"></a> <span class="vuid">VUID-StandaloneSpirv-PerVertexKHR-06777</span><br>
 
 The <code>PerVertexKHR</code> decoration <strong>must</strong> only be used on variables with
-the <code>Input</code> {StorageClass} in a fragment shader</p>
+the <code>Input</code> <code>Storage</code> <code>Class</code> in a fragment shader</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Flat-04744" href="#VUID-StandaloneSpirv-Flat-04744"></a> <span class="vuid">VUID-StandaloneSpirv-Flat-04744</span><br>
 
 Any variable with integer or double-precision floating-point type and
-with <code>Input</code> {StorageClass} in a fragment shader, <strong>must</strong> be decorated
+with <code>Input</code> <code>Storage</code> <code>Class</code> in a fragment shader, <strong>must</strong> be decorated
 <code>Flat</code></p>
 </li>
 <li>
@@ -2059,8 +2063,8 @@ Rounding modes other than round-to-nearest-even and round-towards-zero
 
 Variables decorated with <code>Invariant</code> and variables with structure
 types that have any members decorated with <code>Invariant</code> <strong>must</strong> be in
-the <code>Output</code> or <code>Input</code> {StorageClass}, <code>Invariant</code> used on an
-<code>Input</code> {StorageClass} variable or structure member has no effect</p>
+the <code>Output</code> or <code>Input</code> <code>Storage</code> <code>Class</code>, <code>Invariant</code> used on an
+<code>Input</code> <code>Storage</code> <code>Class</code> variable or structure member has no effect</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-VulkanMemoryModel-04678" href="#VUID-StandaloneSpirv-VulkanMemoryModel-04678"></a> <span class="vuid">VUID-StandaloneSpirv-VulkanMemoryModel-04678</span><br>
@@ -2096,20 +2100,20 @@ when used in an intersection shader</p>
 <ul>
 <li>
 <p>the last member of a <code>Block</code>-decorated <code>OpTypeStruct</code> in
-<code>StorageBuffer</code> or <code>PhysicalStorageBuffer</code> storage {StorageClass}</p>
+<code>StorageBuffer</code> or <code>PhysicalStorageBuffer</code> storage <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><code>BufferBlock</code>-decorated <code>OpTypeStruct</code> in the <code>Uniform</code>
-storage {StorageClass}</p>
+storage <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p>the outermost dimension of an arrayed variable in the
 <code>StorageBuffer</code>, <code>Uniform</code>, or <code>UniformConstant</code> storage
-{StorageClass}</p>
+<code>Storage</code> <code>Class</code></p>
 </li>
 <li>
-<p>variables in the <code>NodePayloadAMDX</code> storage {StorageClass} when the
-<code>CoalescingAMDX</code> {ExecutionMode} is specified</p>
+<p>variables in the <code>NodePayloadAMDX</code> storage <code>Storage</code> <code>Class</code> when the
+<code>CoalescingAMDX</code> <code>Execution</code> <code>Mode</code> is specified</p>
 </li>
 </ul>
 </div>
@@ -2120,8 +2124,8 @@ storage {StorageClass}</p>
 A type <em>T</em> that is an array sized with a specialization constant <strong>must</strong>
 neither be, nor be contained in, the type <em>T2</em> of a variable <em>V</em>, unless
 either: a) <em>T</em> is equal to <em>T2</em>, b) <em>V</em> is declared in the
-<code>Function</code>, or <code>Private</code> {StorageClass}, c) <em>V</em> is a non-Block
-variable in the <code>Workgroup</code> {StorageClass}, or d) <em>V</em> is an interface
+<code>Function</code>, or <code>Private</code> <code>Storage</code> <code>Class</code>, c) <em>V</em> is a non-Block
+variable in the <code>Workgroup</code> <code>Storage</code> <code>Class</code>, or d) <em>V</em> is an interface
 variable with an additional level of arrayness,
 <a href="../chapters/interfaces.html#interfaces-iointerfaces-matching" class="xref page">as described in interface    matching</a>, and <em>T</em> is the member type of the array type <em>T2</em></p>
 </li>
@@ -2136,7 +2140,7 @@ or geometry shaders, the execution Scope <strong>must</strong> be <code>Subgroup
 <p><a id="VUID-StandaloneSpirv-LocalSize-06426" href="#VUID-StandaloneSpirv-LocalSize-06426"></a> <span class="vuid">VUID-StandaloneSpirv-LocalSize-06426</span><br>
 
 For each compute shader entry point, either a <code>LocalSize</code> or
-<code>LocalSizeId</code> {ExecutionMode}, or an object decorated with the
+<code>LocalSizeId</code> <code>Execution</code> <code>Mode</code>, or an object decorated with the
 <code>WorkgroupSize</code> decoration <strong>must</strong> be specified</p>
 </li>
 <li>
@@ -2178,7 +2182,7 @@ If <code>OpGroupNonUniformBallotBitCount</code> is used, the group operation
 <p><a id="VUID-StandaloneSpirv-None-04686" href="#VUID-StandaloneSpirv-None-04686"></a> <span class="vuid">VUID-StandaloneSpirv-None-04686</span><br>
 
 The <em>Pointer</em> operand of all atomic instructions <strong>must</strong> have a
-{StorageClass} limited to <code>Uniform</code>, <code>Workgroup</code>, <code>Image</code>,
+<code>Storage</code> <code>Class</code> limited to <code>Uniform</code>, <code>Workgroup</code>, <code>Image</code>,
 <code>StorageBuffer</code>, <code>PhysicalStorageBuffer</code>, or
 <code>TaskPayloadWorkgroupEXT</code></p>
 </li>
@@ -2259,62 +2263,62 @@ compiled that are in the same block and have a declared or inherited
 <li>
 <p><a id="VUID-StandaloneSpirv-RayPayloadKHR-04698" href="#VUID-StandaloneSpirv-RayPayloadKHR-04698"></a> <span class="vuid">VUID-StandaloneSpirv-RayPayloadKHR-04698</span><br>
 
-<code>RayPayloadKHR</code> {StorageClass} <strong>must</strong> only be used in ray generation,
+<code>RayPayloadKHR</code> <code>Storage</code> <code>Class</code> <strong>must</strong> only be used in ray generation,
 closest hit or miss shaders</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-IncomingRayPayloadKHR-04699" href="#VUID-StandaloneSpirv-IncomingRayPayloadKHR-04699"></a> <span class="vuid">VUID-StandaloneSpirv-IncomingRayPayloadKHR-04699</span><br>
 
-<code>IncomingRayPayloadKHR</code> {StorageClass} <strong>must</strong> only be used in closest
+<code>IncomingRayPayloadKHR</code> <code>Storage</code> <code>Class</code> <strong>must</strong> only be used in closest
 hit, any-hit, or miss shaders</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-IncomingRayPayloadKHR-04700" href="#VUID-StandaloneSpirv-IncomingRayPayloadKHR-04700"></a> <span class="vuid">VUID-StandaloneSpirv-IncomingRayPayloadKHR-04700</span><br>
 
 There <strong>must</strong> be at most one variable with the <code>IncomingRayPayloadKHR</code>
-{StorageClass} in the input interface of an entry point</p>
+<code>Storage</code> <code>Class</code> in the input interface of an entry point</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-HitAttributeKHR-04701" href="#VUID-StandaloneSpirv-HitAttributeKHR-04701"></a> <span class="vuid">VUID-StandaloneSpirv-HitAttributeKHR-04701</span><br>
 
-<code>HitAttributeKHR</code> {StorageClass} <strong>must</strong> only be used in intersection,
+<code>HitAttributeKHR</code> <code>Storage</code> <code>Class</code> <strong>must</strong> only be used in intersection,
 any-hit, or closest hit shaders</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-HitAttributeKHR-04702" href="#VUID-StandaloneSpirv-HitAttributeKHR-04702"></a> <span class="vuid">VUID-StandaloneSpirv-HitAttributeKHR-04702</span><br>
 
 There <strong>must</strong> be at most one variable with the <code>HitAttributeKHR</code>
-{StorageClass} in the input interface of an entry point</p>
+<code>Storage</code> <code>Class</code> in the input interface of an entry point</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-HitAttributeKHR-04703" href="#VUID-StandaloneSpirv-HitAttributeKHR-04703"></a> <span class="vuid">VUID-StandaloneSpirv-HitAttributeKHR-04703</span><br>
 
-A variable with <code>HitAttributeKHR</code> {StorageClass} <strong>must</strong> only be
+A variable with <code>HitAttributeKHR</code> <code>Storage</code> <code>Class</code> <strong>must</strong> only be
 written to in an intersection shader</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-CallableDataKHR-04704" href="#VUID-StandaloneSpirv-CallableDataKHR-04704"></a> <span class="vuid">VUID-StandaloneSpirv-CallableDataKHR-04704</span><br>
 
-<code>CallableDataKHR</code> {StorageClass} <strong>must</strong> only be used in ray
+<code>CallableDataKHR</code> <code>Storage</code> <code>Class</code> <strong>must</strong> only be used in ray
 generation, closest hit, miss, and callable shaders</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-IncomingCallableDataKHR-04705" href="#VUID-StandaloneSpirv-IncomingCallableDataKHR-04705"></a> <span class="vuid">VUID-StandaloneSpirv-IncomingCallableDataKHR-04705</span><br>
 
-<code>IncomingCallableDataKHR</code> {StorageClass} <strong>must</strong> only be used in
+<code>IncomingCallableDataKHR</code> <code>Storage</code> <code>Class</code> <strong>must</strong> only be used in
 callable shaders</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-IncomingCallableDataKHR-04706" href="#VUID-StandaloneSpirv-IncomingCallableDataKHR-04706"></a> <span class="vuid">VUID-StandaloneSpirv-IncomingCallableDataKHR-04706</span><br>
 
 There <strong>must</strong> be at most one variable with the
-<code>IncomingCallableDataKHR</code> {StorageClass} in the input interface of an
+<code>IncomingCallableDataKHR</code> <code>Storage</code> <code>Class</code> in the input interface of an
 entry point</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-ShaderRecordBufferKHR-07119" href="#VUID-StandaloneSpirv-ShaderRecordBufferKHR-07119"></a> <span class="vuid">VUID-StandaloneSpirv-ShaderRecordBufferKHR-07119</span><br>
 
-<code>ShaderRecordBufferKHR</code> {StorageClass} <strong>must</strong> only be used in ray
+<code>ShaderRecordBufferKHR</code> <code>Storage</code> <code>Class</code> <strong>must</strong> only be used in ray
 generation, intersection, any-hit, closest hit, callable, or miss
 shaders</p>
 </li>
@@ -2329,14 +2333,14 @@ class of <code>Workgroup</code>, <code>StorageBuffer</code>, or
 <p><a id="VUID-StandaloneSpirv-Base-07651" href="#VUID-StandaloneSpirv-Base-07651"></a> <span class="vuid">VUID-StandaloneSpirv-Base-07651</span><br>
 
 If the <code>Base</code> operand of <code>OpPtrAccessChain</code> has a <code>Workgroup</code>
-{StorageClass}, then the <code>VariablePointers</code> capability <strong>must</strong> be
+<code>Storage</code> <code>Class</code>, then the <code>VariablePointers</code> capability <strong>must</strong> be
 declared</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Base-07652" href="#VUID-StandaloneSpirv-Base-07652"></a> <span class="vuid">VUID-StandaloneSpirv-Base-07652</span><br>
 
 If the <code>Base</code> operand of <code>OpPtrAccessChain</code> has a
-<code>StorageBuffer</code> {StorageClass}, then the <code>VariablePointers</code> or
+<code>StorageBuffer</code> <code>Storage</code> <code>Class</code>, then the <code>VariablePointers</code> or
 <code>VariablePointersStorageBuffer</code> capability <strong>must</strong> be declared</p>
 </li>
 <li>
@@ -2363,13 +2367,13 @@ whose <code>Width</code> is 64</p>
 <li>
 <p><a id="VUID-StandaloneSpirv-OpTypeForwardPointer-04711" href="#VUID-StandaloneSpirv-OpTypeForwardPointer-04711"></a> <span class="vuid">VUID-StandaloneSpirv-OpTypeForwardPointer-04711</span><br>
 
-<code>OpTypeForwardPointer</code> <strong>must</strong> have a {StorageClass} of
+<code>OpTypeForwardPointer</code> <strong>must</strong> have a <code>Storage</code> <code>Class</code> of
 <code>PhysicalStorageBuffer</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-None-04745" href="#VUID-StandaloneSpirv-None-04745"></a> <span class="vuid">VUID-StandaloneSpirv-None-04745</span><br>
 
-All block members in a variable with a {StorageClass} of
+All block members in a variable with a <code>Storage</code> <code>Class</code> of
 <code>PushConstant</code> declared as an array <strong>must</strong> only be accessed by
 dynamically uniform indices</p>
 </li>
@@ -2377,14 +2381,14 @@ dynamically uniform indices</p>
 <p><a id="VUID-StandaloneSpirv-OpVariable-06673" href="#VUID-StandaloneSpirv-OpVariable-06673"></a> <span class="vuid">VUID-StandaloneSpirv-OpVariable-06673</span><br>
 
 There <strong>must</strong> not be more than one <code>OpVariable</code> in the
-<code>PushConstant</code> {StorageClass} listed in the <code>Interface</code> for each
+<code>PushConstant</code> <code>Storage</code> <code>Class</code> listed in the <code>Interface</code> for each
 <code>OpEntryPoint</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-OpEntryPoint-06674" href="#VUID-StandaloneSpirv-OpEntryPoint-06674"></a> <span class="vuid">VUID-StandaloneSpirv-OpEntryPoint-06674</span><br>
 
 Each <code>OpEntryPoint</code> <strong>must</strong> not statically use more than one
-<code>OpVariable</code> in the <code>PushConstant</code> {StorageClass}</p>
+<code>OpVariable</code> in the <code>PushConstant</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-OpEntryPoint-08721" href="#VUID-StandaloneSpirv-OpEntryPoint-08721"></a> <span class="vuid">VUID-StandaloneSpirv-OpEntryPoint-08721</span><br>
@@ -2423,65 +2427,65 @@ class <strong>must</strong> be decorated as <code>Block</code></p>
 <li>
 <p><a id="VUID-StandaloneSpirv-Uniform-06676" href="#VUID-StandaloneSpirv-Uniform-06676"></a> <span class="vuid">VUID-StandaloneSpirv-Uniform-06676</span><br>
 
-Any variable in the <code>Uniform</code> {StorageClass} <strong>must</strong> be decorated as
+Any variable in the <code>Uniform</code> <code>Storage</code> <code>Class</code> <strong>must</strong> be decorated as
 <code>Block</code> or <code>BufferBlock</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-UniformConstant-06677" href="#VUID-StandaloneSpirv-UniformConstant-06677"></a> <span class="vuid">VUID-StandaloneSpirv-UniformConstant-06677</span><br>
 
 Any variable in the <code>UniformConstant</code>, <code>StorageBuffer</code>, or
-<code>Uniform</code> {StorageClass} <strong>must</strong> be decorated with <code>DescriptorSet</code>
+<code>Uniform</code> <code>Storage</code> <code>Class</code> <strong>must</strong> be decorated with <code>DescriptorSet</code>
 and <code>Binding</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-InputAttachmentIndex-06678" href="#VUID-StandaloneSpirv-InputAttachmentIndex-06678"></a> <span class="vuid">VUID-StandaloneSpirv-InputAttachmentIndex-06678</span><br>
 
 Variables decorated with <code>InputAttachmentIndex</code> <strong>must</strong> be in the
-<code>UniformConstant</code> {StorageClass}</p>
+<code>UniformConstant</code> <code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-DescriptorSet-06491" href="#VUID-StandaloneSpirv-DescriptorSet-06491"></a> <span class="vuid">VUID-StandaloneSpirv-DescriptorSet-06491</span><br>
 
 If a variable is decorated by <code>DescriptorSet</code> or <code>Binding</code>, the
-{StorageClass} <strong>must</strong> correspond to an entry in
+<code>Storage</code> <code>Class</code> <strong>must</strong> correspond to an entry in
 <a href="../chapters/interfaces.html#interfaces-resources-storage-class-correspondence" class="xref page">Shader Resource and    Storage Class Correspondence</a></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Input-06778" href="#VUID-StandaloneSpirv-Input-06778"></a> <span class="vuid">VUID-StandaloneSpirv-Input-06778</span><br>
 
-Variables with a {StorageClass} of <code>Input</code> in a fragment shader stage
+Variables with a <code>Storage</code> <code>Class</code> of <code>Input</code> in a fragment shader stage
 that are decorated with <code>PerVertexKHR</code> <strong>must</strong> be declared as arrays</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-MeshEXT-07102" href="#VUID-StandaloneSpirv-MeshEXT-07102"></a> <span class="vuid">VUID-StandaloneSpirv-MeshEXT-07102</span><br>
 
 The module <strong>must</strong> not contain both an entry point that uses the
-<code>TaskEXT</code> or <code>MeshEXT</code> {ExecutionModel} and an entry point that
-uses the <code>TaskNV</code> or <code>MeshNV</code> {ExecutionModel}</p>
+<code>TaskEXT</code> or <code>MeshEXT</code> <code>Execution</code> <code>Model</code> and an entry point that
+uses the <code>TaskNV</code> or <code>MeshNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-MeshEXT-07106" href="#VUID-StandaloneSpirv-MeshEXT-07106"></a> <span class="vuid">VUID-StandaloneSpirv-MeshEXT-07106</span><br>
 
-In mesh shaders using the <code>MeshEXT</code> {ExecutionModel}
+In mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code>
 <code>OpSetMeshOutputsEXT</code> <strong>must</strong> be called before any outputs are written</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-MeshEXT-07107" href="#VUID-StandaloneSpirv-MeshEXT-07107"></a> <span class="vuid">VUID-StandaloneSpirv-MeshEXT-07107</span><br>
 
-In mesh shaders using the <code>MeshEXT</code> {ExecutionModel} all variables
+In mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> all variables
 declared as output <strong>must</strong> not be read from</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-MeshEXT-07108" href="#VUID-StandaloneSpirv-MeshEXT-07108"></a> <span class="vuid">VUID-StandaloneSpirv-MeshEXT-07108</span><br>
 
-In mesh shaders using the <code>MeshEXT</code> {ExecutionModel} for
+In mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> for
 <code>OpSetMeshOutputsEXT</code> instructions, the &#8220;Vertex Count&#8221; and
 &#8220;Primitive Count&#8221; operands <strong>must</strong> not depend on <code>ViewIndex</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-MeshEXT-07109" href="#VUID-StandaloneSpirv-MeshEXT-07109"></a> <span class="vuid">VUID-StandaloneSpirv-MeshEXT-07109</span><br>
 
-In mesh shaders using the <code>MeshEXT</code> {ExecutionModel} variables
+In mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> variables
 decorated with <code>PrimitivePointIndicesEXT</code>,
 <code>PrimitiveLineIndicesEXT</code>, or <code>PrimitiveTriangleIndicesEXT</code>
 declared as an array <strong>must</strong> not be accessed by indices that depend on
@@ -2490,7 +2494,7 @@ declared as an array <strong>must</strong> not be accessed by indices that depen
 <li>
 <p><a id="VUID-StandaloneSpirv-MeshEXT-07110" href="#VUID-StandaloneSpirv-MeshEXT-07110"></a> <span class="vuid">VUID-StandaloneSpirv-MeshEXT-07110</span><br>
 
-In mesh shaders using the <code>MeshEXT</code> {ExecutionModel} any values
+In mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> any values
 stored in variables decorated with <code>PrimitivePointIndicesEXT</code>,
 <code>PrimitiveLineIndicesEXT</code>, or <code>PrimitiveTriangleIndicesEXT</code> <strong>must</strong>
 not depend on <code>ViewIndex</code></p>
@@ -2498,46 +2502,46 @@ not depend on <code>ViewIndex</code></p>
 <li>
 <p><a id="VUID-StandaloneSpirv-MeshEXT-07111" href="#VUID-StandaloneSpirv-MeshEXT-07111"></a> <span class="vuid">VUID-StandaloneSpirv-MeshEXT-07111</span><br>
 
-In mesh shaders using the <code>MeshEXT</code> {ExecutionModel} variables in
-workgroup or private {StorageClass} declared as or containing a
+In mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> variables in
+workgroup or private <code>Storage</code> <code>Class</code> declared as or containing a
 composite type <strong>must</strong> not be accessed by indices that depend on
 <code>ViewIndex</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-MeshEXT-07330" href="#VUID-StandaloneSpirv-MeshEXT-07330"></a> <span class="vuid">VUID-StandaloneSpirv-MeshEXT-07330</span><br>
 
-In mesh shaders using the <code>MeshEXT</code> {ExecutionModel} the
-<code>OutputVertices</code> {ExecutionMode} <strong>must</strong> be greater than 0</p>
+In mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> the
+<code>OutputVertices</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> be greater than 0</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-MeshEXT-07331" href="#VUID-StandaloneSpirv-MeshEXT-07331"></a> <span class="vuid">VUID-StandaloneSpirv-MeshEXT-07331</span><br>
 
-In mesh shaders using the <code>MeshEXT</code> {ExecutionModel} the
-<code>OutputPrimitivesEXT</code> {ExecutionMode} <strong>must</strong> be greater than 0</p>
+In mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> the
+<code>OutputPrimitivesEXT</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> be greater than 0</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Input-07290" href="#VUID-StandaloneSpirv-Input-07290"></a> <span class="vuid">VUID-StandaloneSpirv-Input-07290</span><br>
 
-Variables with a {StorageClass} of <code>Input</code> or <code>Output</code> and a type
+Variables with a <code>Storage</code> <code>Class</code> of <code>Input</code> or <code>Output</code> and a type
 of <code>OpTypeBool</code> <strong>must</strong> be decorated with the <code>BuiltIn</code> decoration</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-TileImageEXT-08723" href="#VUID-StandaloneSpirv-TileImageEXT-08723"></a> <span class="vuid">VUID-StandaloneSpirv-TileImageEXT-08723</span><br>
 
 The tile image variable declarations <strong>must</strong> obey the constraints on the
-<code>TileImageEXT</code> {StorageClass} and the <code>Location</code> decoration
+<code>TileImageEXT</code> <code>Storage</code> <code>Class</code> and the <code>Location</code> decoration
 described in <a href="../chapters/interfaces.html#interfaces-fragmenttileimage" class="xref page">Fragment Tile Image    Interface</a></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-None-08724" href="#VUID-StandaloneSpirv-None-08724"></a> <span class="vuid">VUID-StandaloneSpirv-None-08724</span><br>
 
-The <code>TileImageEXT</code> {StorageClass} <strong>must</strong> only be used for declaring
+The <code>TileImageEXT</code> <code>Storage</code> <code>Class</code> <strong>must</strong> only be used for declaring
 tile image variables</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Pointer-08973" href="#VUID-StandaloneSpirv-Pointer-08973"></a> <span class="vuid">VUID-StandaloneSpirv-Pointer-08973</span><br>
 
-The {StorageClass} of the <code>Pointer</code> operand to
+The <code>Storage</code> <code>Class</code> of the <code>Pointer</code> operand to
 <code>OpCooperativeMatrixLoadKHR</code> or <code>OpCooperativeMatrixStoreKHR</code>
 <strong>must</strong> be limited to <code>Workgroup</code>, <code>StorageBuffer</code>, or
 <code>PhysicalStorageBuffer</code></p>
@@ -2695,14 +2699,14 @@ components as the corresponding <a href="../chapters/formats.html#VkFormat" clas
 
 The sum of <code>Location</code> and the number of locations the variable it
 decorates consumes <strong>must</strong> be less than or equal to the value for the
-matching {ExecutionModel} defined in <a href="../chapters/interfaces.html#interfaces-iointerfaces-limits" class="xref page">Shader Input and Output Locations</a></p>
+matching <code>Execution</code> <code>Model</code> defined in <a href="../chapters/interfaces.html#interfaces-iointerfaces-limits" class="xref page">Shader Input and Output Locations</a></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-Location-06428" href="#VUID-RuntimeSpirv-Location-06428"></a> <span class="vuid">VUID-RuntimeSpirv-Location-06428</span><br>
 
 The maximum number of storage buffers, storage images, and output
 <code>Location</code> decorated color attachments written to in the
-<code>Fragment</code> {ExecutionModel} <strong>must</strong> be less than or equal to
+<code>Fragment</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#limits-maxFragmentCombinedOutputResources" class="xref page">    <code>maxFragmentCombinedOutputResources</code></a></p>
 </li>
 <li>
@@ -2882,14 +2886,14 @@ Otherwise, &#8220;Id&#8221; <strong>must</strong> be a constant</p>
 
 <a href="../chapters/features.html#features-shaderBufferInt64Atomics" class="xref page"><code>shaderBufferInt64Atomics</code></a>
 <strong>must</strong> be enabled for 64-bit integer atomic operations to be supported on
-a <em>Pointer</em> with a {StorageClass} of <code>StorageBuffer</code> or <code>Uniform</code></p>
+a <em>Pointer</em> with a <code>Storage</code> <code>Class</code> of <code>StorageBuffer</code> or <code>Uniform</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-None-06279" href="#VUID-RuntimeSpirv-None-06279"></a> <span class="vuid">VUID-RuntimeSpirv-None-06279</span><br>
 
 <a href="../chapters/features.html#features-shaderSharedInt64Atomics" class="xref page"><code>shaderSharedInt64Atomics</code></a>
 <strong>must</strong> be enabled for 64-bit integer atomic operations to be supported on
-a <em>Pointer</em> with a {StorageClass} of <code>Workgroup</code></p>
+a <em>Pointer</em> with a <code>Storage</code> <code>Class</code> of <code>Workgroup</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-None-06284" href="#VUID-RuntimeSpirv-None-06284"></a> <span class="vuid">VUID-RuntimeSpirv-None-06284</span><br>
@@ -2905,7 +2909,7 @@ or <a href="../chapters/features.html#features-shaderBufferFloat16AtomicMinMax" 
 <a href="../chapters/features.html#features-shaderBufferFloat64AtomicMinMax" class="xref page">    <code>shaderBufferFloat64AtomicMinMax</code></a>,
 or <a href="../chapters/features.html#features-shaderFloat16VectorAtomics" class="xref page">    <code>shaderFloat16VectorAtomics</code></a>
 <strong>must</strong> be enabled for floating-point atomic operations to be supported on
-a <em>Pointer</em> with a {StorageClass} of <code>StorageBuffer</code></p>
+a <em>Pointer</em> with a <code>Storage</code> <code>Class</code> of <code>StorageBuffer</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-None-06285" href="#VUID-RuntimeSpirv-None-06285"></a> <span class="vuid">VUID-RuntimeSpirv-None-06285</span><br>
@@ -2921,7 +2925,7 @@ or <a href="../chapters/features.html#features-shaderBufferFloat16AtomicMinMax" 
 <a href="../chapters/features.html#features-shaderSharedFloat64AtomicMinMax" class="xref page">    <code>shaderSharedFloat64AtomicMinMax</code></a>,
 or <a href="../chapters/features.html#features-shaderFloat16VectorAtomics" class="xref page">    <code>shaderFloat16VectorAtomics</code></a>,
 <strong>must</strong> be enabled for floating-point atomic operations to be supported on
-a <em>Pointer</em> with a {StorageClass} of <code>Workgroup</code></p>
+a <em>Pointer</em> with a <code>Storage</code> <code>Class</code> of <code>Workgroup</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-None-06286" href="#VUID-RuntimeSpirv-None-06286"></a> <span class="vuid">VUID-RuntimeSpirv-None-06286</span><br>
@@ -2930,7 +2934,7 @@ a <em>Pointer</em> with a {StorageClass} of <code>Workgroup</code></p>
 or <a href="../chapters/features.html#features-shaderImageFloat32AtomicAdd" class="xref page">    <code>shaderImageFloat32AtomicAdd</code></a>,
 or <a href="../chapters/features.html#features-shaderImageFloat32AtomicMinMax" class="xref page">    <code>shaderImageFloat32AtomicMinMax</code></a>,
 <strong>must</strong> be enabled for 32-bit floating-point atomic operations to be
-supported on a <em>Pointer</em> with a {StorageClass} of <code>Image</code></p>
+supported on a <em>Pointer</em> with a <code>Storage</code> <code>Class</code> of <code>Image</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-None-06287" href="#VUID-RuntimeSpirv-None-06287"></a> <span class="vuid">VUID-RuntimeSpirv-None-06287</span><br>
@@ -2946,14 +2950,14 @@ sparse images</p>
 
 <a href="../chapters/features.html#features-shaderImageInt64Atomics" class="xref page"><code>shaderImageInt64Atomics</code></a>
 <strong>must</strong> be enabled for 64-bit integer atomic operations to be supported on
-a <em>Pointer</em> with a {StorageClass} of <code>Image</code></p>
+a <em>Pointer</em> with a <code>Storage</code> <code>Class</code> of <code>Image</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-denormBehaviorIndependence-06289" href="#VUID-RuntimeSpirv-denormBehaviorIndependence-06289"></a> <span class="vuid">VUID-RuntimeSpirv-denormBehaviorIndependence-06289</span><br>
 
 If <a href="../chapters/devsandqueues.html#features-denormBehaviorIndependence" class="xref page">    <code>denormBehaviorIndependence</code></a> is
 <code>VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_32_BIT_ONLY</code>, then the entry
-point <strong>must</strong> use the same denormals {ExecutionMode} for both 16-bit and
+point <strong>must</strong> use the same denormals <code>Execution</code> <code>Mode</code> for both 16-bit and
 64-bit floating-point types</p>
 </li>
 <li>
@@ -2961,7 +2965,7 @@ point <strong>must</strong> use the same denormals {ExecutionMode} for both 16-b
 
 If <a href="../chapters/devsandqueues.html#features-denormBehaviorIndependence" class="xref page">    <code>denormBehaviorIndependence</code></a> is
 <code>VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE</code>, then the entry point
-<strong>must</strong> use the same denormals {ExecutionMode} for all floating-point
+<strong>must</strong> use the same denormals <code>Execution</code> <code>Mode</code> for all floating-point
 types</p>
 </li>
 <li>
@@ -2969,7 +2973,7 @@ types</p>
 
 If <a href="../chapters/devsandqueues.html#features-roundingModeIndependence" class="xref page"><code>roundingModeIndependence</code></a>
 is <code>VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_32_BIT_ONLY</code>, then the
-entry point <strong>must</strong> use the same rounding {ExecutionMode} for both 16-bit
+entry point <strong>must</strong> use the same rounding <code>Execution</code> <code>Mode</code> for both 16-bit
 and 64-bit floating-point types</p>
 </li>
 <li>
@@ -2977,7 +2981,7 @@ and 64-bit floating-point types</p>
 
 If <a href="../chapters/devsandqueues.html#features-roundingModeIndependence" class="xref page"><code>roundingModeIndependence</code></a>
 is <code>VK_SHADER_FLOAT_CONTROLS_INDEPENDENCE_NONE</code>, then the entry
-point <strong>must</strong> use the same rounding {ExecutionMode} for all floating-point
+point <strong>must</strong> use the same rounding <code>Execution</code> <code>Mode</code> for all floating-point
 types</p>
 </li>
 <li>
@@ -3149,7 +3153,7 @@ The Stream value to <code>OpEmitStreamVertex</code> and
 
 If the geometry shader emits to more than one vertex stream and
 <a href="../chapters/limits.html#VkPhysicalDeviceTransformFeedbackPropertiesEXT" class="xref page">VkPhysicalDeviceTransformFeedbackPropertiesEXT</a>::<code>transformFeedbackStreamsLinesTriangles</code>
-is <code>VK_FALSE</code>, then {ExecutionMode} <strong>must</strong> be <code>OutputPoints</code></p>
+is <code>VK_FALSE</code>, then <code>Execution</code> <code>Mode</code> <strong>must</strong> be <code>OutputPoints</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-Stream-06312" href="#VUID-RuntimeSpirv-Stream-06312"></a> <span class="vuid">VUID-RuntimeSpirv-Stream-06312</span><br>
@@ -3498,8 +3502,8 @@ equal to
 
 If the module uses <code>OpTypeCooperativeMatrixKHR</code> with <code>Scope</code> equal
 to <code>Workgroup</code>, the sum of size in bytes for variables and
-<a href="../chapters/shaders.html#workgroup-padding" class="xref page">padding</a> in the <code>Workgroup</code> {StorageClass} in
-the <code>GLCompute</code> {ExecutionModel} <strong>must</strong> be less than or equal to
+<a href="../chapters/shaders.html#workgroup-padding" class="xref page">padding</a> in the <code>Workgroup</code> <code>Storage</code> <code>Class</code> in
+the <code>GLCompute</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#limits-maxComputeSharedMemorySize" class="xref page"><code>maxComputeSharedMemorySize</code></a>
 minus
 <a href="../chapters/limits.html#limits-cooperativeMatrixWorkgroupScopeReservedSharedMemory" class="xref page"><code>cooperativeMatrixWorkgroupScopeReservedSharedMemory</code></a></p>
@@ -3515,7 +3519,7 @@ instructions <strong>must</strong> not be used in shader stages not included in
 <p><a id="VUID-RuntimeSpirv-DescriptorSet-06323" href="#VUID-RuntimeSpirv-DescriptorSet-06323"></a> <span class="vuid">VUID-RuntimeSpirv-DescriptorSet-06323</span><br>
 
 <code>DescriptorSet</code> and <code>Binding</code> decorations <strong>must</strong> obey the
-constraints on {StorageClass}, type, and descriptor type described in
+constraints on <code>Storage</code> <code>Class</code>, type, and descriptor type described in
 <a href="../chapters/interfaces.html#interfaces-resources-setandbinding" class="xref page">DescriptorSet and Binding    Assignment</a></p>
 </li>
 <li>
@@ -3531,14 +3535,14 @@ size)</p>
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshNV-07113" href="#VUID-RuntimeSpirv-MeshNV-07113"></a> <span class="vuid">VUID-RuntimeSpirv-MeshNV-07113</span><br>
 
-For mesh shaders using the <code>MeshNV</code> {ExecutionModel} the
+For mesh shaders using the <code>MeshNV</code> <code>Execution</code> <code>Model</code> the
 <code>OutputVertices</code> <code>OpExecutionMode</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesNV" class="xref page">VkPhysicalDeviceMeshShaderPropertiesNV</a>::<code>maxMeshOutputVertices</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshNV-07114" href="#VUID-RuntimeSpirv-MeshNV-07114"></a> <span class="vuid">VUID-RuntimeSpirv-MeshNV-07114</span><br>
 
-For mesh shaders using the <code>MeshNV</code> {ExecutionModel} the
+For mesh shaders using the <code>MeshNV</code> <code>Execution</code> <code>Model</code> the
 <code>OutputPrimitivesNV</code> <code>OpExecutionMode</code> <strong>must</strong> be less than or equal
 to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesNV" class="xref page">VkPhysicalDeviceMeshShaderPropertiesNV</a>::<code>maxMeshOutputPrimitives</code></p>
@@ -3546,21 +3550,21 @@ to
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshEXT-07115" href="#VUID-RuntimeSpirv-MeshEXT-07115"></a> <span class="vuid">VUID-RuntimeSpirv-MeshEXT-07115</span><br>
 
-For mesh shaders using the <code>MeshEXT</code> {ExecutionModel} the
+For mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> the
 <code>OutputVertices</code> <code>OpExecutionMode</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshOutputVertices</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshEXT-07332" href="#VUID-RuntimeSpirv-MeshEXT-07332"></a> <span class="vuid">VUID-RuntimeSpirv-MeshEXT-07332</span><br>
 
-For mesh shaders using the <code>MeshEXT</code> {ExecutionModel} the &#8220;Vertex
+For mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> the &#8220;Vertex
 Count&#8221; operand of <code>OpSetMeshOutputsEXT</code> <strong>must</strong> be less than or equal
 to <code>OutputVertices</code> <code>OpExecutionMode</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshEXT-07116" href="#VUID-RuntimeSpirv-MeshEXT-07116"></a> <span class="vuid">VUID-RuntimeSpirv-MeshEXT-07116</span><br>
 
-For mesh shaders using the <code>MeshEXT</code> {ExecutionModel} the
+For mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> the
 <code>OutputPrimitivesEXT</code> <code>OpExecutionMode</code> <strong>must</strong> be less than or
 equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshOutputPrimitives</code></p>
@@ -3568,49 +3572,49 @@ equal to
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshEXT-07333" href="#VUID-RuntimeSpirv-MeshEXT-07333"></a> <span class="vuid">VUID-RuntimeSpirv-MeshEXT-07333</span><br>
 
-For mesh shaders using the <code>MeshEXT</code> {ExecutionModel} the &#8220;Primitive
+For mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> the &#8220;Primitive
 Count&#8221; operand of <code>OpSetMeshOutputsEXT</code> <strong>must</strong> be less than or equal
 to <code>OutputPrimitivesEXT</code> <code>OpExecutionMode</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-TaskEXT-07117" href="#VUID-RuntimeSpirv-TaskEXT-07117"></a> <span class="vuid">VUID-RuntimeSpirv-TaskEXT-07117</span><br>
 
-In task shaders using the <code>TaskEXT</code> {ExecutionModel}
+In task shaders using the <code>TaskEXT</code> <code>Execution</code> <code>Model</code>
 <code>OpEmitMeshTasksEXT</code> <strong>must</strong> be called exactly once under dynamically
 uniform conditions</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshEXT-07118" href="#VUID-RuntimeSpirv-MeshEXT-07118"></a> <span class="vuid">VUID-RuntimeSpirv-MeshEXT-07118</span><br>
 
-In mesh shaders using the <code>MeshEXT</code> {ExecutionModel}
+In mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code>
 <code>OpSetMeshOutputsEXT</code> <strong>must</strong> be called at most once under dynamically
 uniform conditions</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-TaskEXT-07291" href="#VUID-RuntimeSpirv-TaskEXT-07291"></a> <span class="vuid">VUID-RuntimeSpirv-TaskEXT-07291</span><br>
 
-In task shaders using the <code>TaskEXT</code> {ExecutionModel} the <code>x</code> size
+In task shaders using the <code>TaskEXT</code> <code>Execution</code> <code>Model</code> the <code>x</code> size
 in <code>LocalSize</code> or <code>LocalSizeId</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxTaskWorkGroupSize</code>[0]</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-TaskEXT-07292" href="#VUID-RuntimeSpirv-TaskEXT-07292"></a> <span class="vuid">VUID-RuntimeSpirv-TaskEXT-07292</span><br>
 
-In task shaders using the <code>TaskEXT</code> {ExecutionModel} the <code>y</code> size
+In task shaders using the <code>TaskEXT</code> <code>Execution</code> <code>Model</code> the <code>y</code> size
 in <code>LocalSize</code> or <code>LocalSizeId</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxTaskWorkGroupSize</code>[1]</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-TaskEXT-07293" href="#VUID-RuntimeSpirv-TaskEXT-07293"></a> <span class="vuid">VUID-RuntimeSpirv-TaskEXT-07293</span><br>
 
-In task shaders using the <code>TaskEXT</code> {ExecutionModel} the <code>z</code> size
+In task shaders using the <code>TaskEXT</code> <code>Execution</code> <code>Model</code> the <code>z</code> size
 in <code>LocalSize</code> or <code>LocalSizeId</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxTaskWorkGroupSize</code>[2]</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-TaskEXT-07294" href="#VUID-RuntimeSpirv-TaskEXT-07294"></a> <span class="vuid">VUID-RuntimeSpirv-TaskEXT-07294</span><br>
 
-In task shaders using the <code>TaskEXT</code> {ExecutionModel} the product of
+In task shaders using the <code>TaskEXT</code> <code>Execution</code> <code>Model</code> the product of
 <code>x</code> size, <code>y</code> size, and <code>z</code> size in <code>LocalSize</code> or
 <code>LocalSizeId</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxTaskWorkGroupInvocations</code></p>
@@ -3618,7 +3622,7 @@ In task shaders using the <code>TaskEXT</code> {ExecutionModel} the product of
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshEXT-07295" href="#VUID-RuntimeSpirv-MeshEXT-07295"></a> <span class="vuid">VUID-RuntimeSpirv-MeshEXT-07295</span><br>
 
-For mesh shaders using the <code>MeshEXT</code> {ExecutionModel} the <code>x</code>
+For mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> the <code>x</code>
 size in <code>LocalSize</code> or <code>LocalSizeId</code> <strong>must</strong> be less than or equal
 to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupSize</code>[0]</p>
@@ -3626,7 +3630,7 @@ to
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshEXT-07296" href="#VUID-RuntimeSpirv-MeshEXT-07296"></a> <span class="vuid">VUID-RuntimeSpirv-MeshEXT-07296</span><br>
 
-For mesh shaders using the <code>MeshEXT</code> {ExecutionModel} the <code>y</code>
+For mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> the <code>y</code>
 size in <code>LocalSize</code> or <code>LocalSizeId</code> <strong>must</strong> be less than or equal
 to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupSize</code>[1]</p>
@@ -3634,7 +3638,7 @@ to
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshEXT-07297" href="#VUID-RuntimeSpirv-MeshEXT-07297"></a> <span class="vuid">VUID-RuntimeSpirv-MeshEXT-07297</span><br>
 
-For mesh shaders using the <code>MeshEXT</code> {ExecutionModel} the <code>z</code>
+For mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> the <code>z</code>
 size in <code>LocalSize</code> or <code>LocalSizeId</code> <strong>must</strong> be less than or equal
 to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupSize</code>[2]</p>
@@ -3642,7 +3646,7 @@ to
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshEXT-07298" href="#VUID-RuntimeSpirv-MeshEXT-07298"></a> <span class="vuid">VUID-RuntimeSpirv-MeshEXT-07298</span><br>
 
-For mesh shaders using the <code>MeshEXT</code> {ExecutionModel} the product of
+For mesh shaders using the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> the product of
 <code>x</code> size, <code>y</code> size, and <code>z</code> size in <code>LocalSize</code> or
 <code>LocalSizeId</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupInvocations</code></p>
@@ -3650,7 +3654,7 @@ For mesh shaders using the <code>MeshEXT</code> {ExecutionModel} the product of
 <li>
 <p><a id="VUID-RuntimeSpirv-TaskEXT-07299" href="#VUID-RuntimeSpirv-TaskEXT-07299"></a> <span class="vuid">VUID-RuntimeSpirv-TaskEXT-07299</span><br>
 
-In task shaders using the <code>TaskEXT</code> {ExecutionModel} the value of the
+In task shaders using the <code>TaskEXT</code> <code>Execution</code> <code>Model</code> the value of the
 &#8220;Group Count X&#8221; operand of <code>OpEmitMeshTasksEXT</code> <strong>must</strong> be less than
 or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupCount</code>[0]</p>
@@ -3658,7 +3662,7 @@ or equal to
 <li>
 <p><a id="VUID-RuntimeSpirv-TaskEXT-07300" href="#VUID-RuntimeSpirv-TaskEXT-07300"></a> <span class="vuid">VUID-RuntimeSpirv-TaskEXT-07300</span><br>
 
-In task shaders using the <code>TaskEXT</code> {ExecutionModel} the value of the
+In task shaders using the <code>TaskEXT</code> <code>Execution</code> <code>Model</code> the value of the
 &#8220;Group Count Y&#8221; operand of <code>OpEmitMeshTasksEXT</code> <strong>must</strong> be less than
 or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupCount</code>[1]</p>
@@ -3666,7 +3670,7 @@ or equal to
 <li>
 <p><a id="VUID-RuntimeSpirv-TaskEXT-07301" href="#VUID-RuntimeSpirv-TaskEXT-07301"></a> <span class="vuid">VUID-RuntimeSpirv-TaskEXT-07301</span><br>
 
-In task shaders using the <code>TaskEXT</code> {ExecutionModel} the value of the
+In task shaders using the <code>TaskEXT</code> <code>Execution</code> <code>Model</code> the value of the
 &#8220;Group Count Z&#8221; operand of <code>OpEmitMeshTasksEXT</code> <strong>must</strong> be less than
 or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupCount</code>[2]</p>
@@ -3674,7 +3678,7 @@ or equal to
 <li>
 <p><a id="VUID-RuntimeSpirv-TaskEXT-07302" href="#VUID-RuntimeSpirv-TaskEXT-07302"></a> <span class="vuid">VUID-RuntimeSpirv-TaskEXT-07302</span><br>
 
-In task shaders using the <code>TaskEXT</code> {ExecutionModel} the product of
+In task shaders using the <code>TaskEXT</code> <code>Execution</code> <code>Model</code> the product of
 the &#8220;Group Count&#8221; operands of <code>OpEmitMeshTasksEXT</code> <strong>must</strong> be less
 than or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceMeshShaderPropertiesEXT" class="xref page">VkPhysicalDeviceMeshShaderPropertiesEXT</a>::<code>maxMeshWorkGroupTotalCount</code></p>
@@ -3682,22 +3686,22 @@ than or equal to
 <li>
 <p><a id="VUID-RuntimeSpirv-maxMeshSharedMemorySize-08754" href="#VUID-RuntimeSpirv-maxMeshSharedMemorySize-08754"></a> <span class="vuid">VUID-RuntimeSpirv-maxMeshSharedMemorySize-08754</span><br>
 
-The sum of size in bytes for variables and <a href="../chapters/shaders.html#workgroup-padding" class="xref page">    padding</a> in the <code>Workgroup</code> {StorageClass} in the <code>MeshEXT</code>
-{ExecutionModel} <strong>must</strong> be less than or equal to
+The sum of size in bytes for variables and <a href="../chapters/shaders.html#workgroup-padding" class="xref page">    padding</a> in the <code>Workgroup</code> <code>Storage</code> <code>Class</code> in the <code>MeshEXT</code>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#limits-maxMeshSharedMemorySize" class="xref page"><code>maxMeshSharedMemorySize</code></a></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-maxMeshPayloadAndSharedMemorySize-08755" href="#VUID-RuntimeSpirv-maxMeshPayloadAndSharedMemorySize-08755"></a> <span class="vuid">VUID-RuntimeSpirv-maxMeshPayloadAndSharedMemorySize-08755</span><br>
 
 The sum of size in bytes for variables and <a href="../chapters/shaders.html#workgroup-padding" class="xref page">    padding</a> in the <code>TaskPayloadWorkgroupEXT</code> or <code>Workgroup</code>
-{StorageClass} in the <code>MeshEXT</code> {ExecutionModel} <strong>must</strong> be less than
+<code>Storage</code> <code>Class</code> in the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be less than
 or equal to <a href="../chapters/limits.html#limits-maxMeshPayloadAndSharedMemorySize" class="xref page">    <code>maxMeshPayloadAndSharedMemorySize</code></a></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-maxMeshOutputMemorySize-08756" href="#VUID-RuntimeSpirv-maxMeshOutputMemorySize-08756"></a> <span class="vuid">VUID-RuntimeSpirv-maxMeshOutputMemorySize-08756</span><br>
 
-The sum of size in bytes for variables in the <code>Output</code> {StorageClass}
-in the <code>MeshEXT</code> {ExecutionModel} <strong>must</strong> be less than or equal to
+The sum of size in bytes for variables in the <code>Output</code> <code>Storage</code> <code>Class</code>
+in the <code>MeshEXT</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#limits-maxMeshOutputMemorySize" class="xref page"><code>maxMeshOutputMemorySize</code></a>
 according to the formula in <a href="../chapters/VK_NV_mesh_shader/mesh.html#mesh-output" class="xref page">Mesh Shader Output</a></p>
 </li>
@@ -3705,8 +3709,8 @@ according to the formula in <a href="../chapters/VK_NV_mesh_shader/mesh.html#mes
 <p><a id="VUID-RuntimeSpirv-maxMeshPayloadAndOutputMemorySize-08757" href="#VUID-RuntimeSpirv-maxMeshPayloadAndOutputMemorySize-08757"></a> <span class="vuid">VUID-RuntimeSpirv-maxMeshPayloadAndOutputMemorySize-08757</span><br>
 
 The sum of size in bytes for variables and in the
-<code>TaskPayloadWorkgroupEXT</code> or <code>Output</code> {StorageClass} in the
-<code>MeshEXT</code> {ExecutionModel} <strong>must</strong> be less than or equal to
+<code>TaskPayloadWorkgroupEXT</code> or <code>Output</code> <code>Storage</code> <code>Class</code> in the
+<code>MeshEXT</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#limits-maxMeshPayloadAndOutputMemorySize" class="xref page">    <code>maxMeshPayloadAndOutputMemorySize</code></a> according to the formula in
 <a href="../chapters/VK_NV_mesh_shader/mesh.html#mesh-output" class="xref page">Mesh Shader Output</a></p>
 </li>
@@ -3714,22 +3718,22 @@ The sum of size in bytes for variables and in the
 <p><a id="VUID-RuntimeSpirv-maxTaskPayloadSize-08758" href="#VUID-RuntimeSpirv-maxTaskPayloadSize-08758"></a> <span class="vuid">VUID-RuntimeSpirv-maxTaskPayloadSize-08758</span><br>
 
 The sum of size in bytes for variables and in the
-<code>TaskPayloadWorkgroupEXT</code> {StorageClass} in the <code>TaskEXT</code>
-{ExecutionModel} <strong>must</strong> be less than or equal to
+<code>TaskPayloadWorkgroupEXT</code> <code>Storage</code> <code>Class</code> in the <code>TaskEXT</code>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#limits-maxTaskPayloadSize" class="xref page"><code>maxTaskPayloadSize</code></a></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-maxTaskSharedMemorySize-08759" href="#VUID-RuntimeSpirv-maxTaskSharedMemorySize-08759"></a> <span class="vuid">VUID-RuntimeSpirv-maxTaskSharedMemorySize-08759</span><br>
 
-The sum of size in bytes for variables and <a href="../chapters/shaders.html#workgroup-padding" class="xref page">    padding</a> in the <code>Workgroup</code> {StorageClass} in the <code>TaskEXT</code>
-{ExecutionModel} <strong>must</strong> be less than or equal to
+The sum of size in bytes for variables and <a href="../chapters/shaders.html#workgroup-padding" class="xref page">    padding</a> in the <code>Workgroup</code> <code>Storage</code> <code>Class</code> in the <code>TaskEXT</code>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#limits-maxTaskSharedMemorySize" class="xref page"><code>maxTaskSharedMemorySize</code></a></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-maxTaskPayloadAndSharedMemorySize-08760" href="#VUID-RuntimeSpirv-maxTaskPayloadAndSharedMemorySize-08760"></a> <span class="vuid">VUID-RuntimeSpirv-maxTaskPayloadAndSharedMemorySize-08760</span><br>
 
 The sum of size in bytes for variables and <a href="../chapters/shaders.html#workgroup-padding" class="xref page">    padding</a> in the <code>TaskPayloadWorkgroupEXT</code> or <code>Workgroup</code>
-{StorageClass} in the <code>TaskEXT</code> {ExecutionModel} <strong>must</strong> be less than
+<code>Storage</code> <code>Class</code> in the <code>TaskEXT</code> <code>Execution</code> <code>Model</code> <strong>must</strong> be less than
 or equal to <a href="../chapters/limits.html#limits-maxTaskPayloadAndSharedMemorySize" class="xref page">    <code>maxTaskPayloadAndSharedMemorySize</code></a></p>
 </li>
 <li>
@@ -3774,14 +3778,14 @@ is <code>VK_FALSE</code>, then <code>OpExecutionMode</code> <strong>must</strong
 
 If <a href="../chapters/features.html#features-storageBuffer8BitAccess" class="xref page"><code>storageBuffer8BitAccess</code></a>
 is <code>VK_FALSE</code>, then objects containing an 8-bit integer element
-<strong>must</strong> not have {StorageClass} of <code>StorageBuffer</code>,
+<strong>must</strong> not have <code>Storage</code> <code>Class</code> of <code>StorageBuffer</code>,
 <code>ShaderRecordBufferKHR</code>, or <code>PhysicalStorageBuffer</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-uniformAndStorageBuffer8BitAccess-06329" href="#VUID-RuntimeSpirv-uniformAndStorageBuffer8BitAccess-06329"></a> <span class="vuid">VUID-RuntimeSpirv-uniformAndStorageBuffer8BitAccess-06329</span><br>
 
 If <a href="../chapters/features.html#features-uniformAndStorageBuffer8BitAccess" class="xref page">    <code>uniformAndStorageBuffer8BitAccess</code></a> is <code>VK_FALSE</code>, then
-objects in the <code>Uniform</code> {StorageClass} with the <code>Block</code>
+objects in the <code>Uniform</code> <code>Storage</code> <code>Class</code> with the <code>Block</code>
 decoration <strong>must</strong> not have an 8-bit integer member</p>
 </li>
 <li>
@@ -3789,14 +3793,14 @@ decoration <strong>must</strong> not have an 8-bit integer member</p>
 
 If <a href="../chapters/features.html#features-storagePushConstant8" class="xref page"><code>storagePushConstant8</code></a> is
 <code>VK_FALSE</code>, then objects containing an 8-bit integer element <strong>must</strong>
-not have {StorageClass} of <code>PushConstant</code></p>
+not have <code>Storage</code> <code>Class</code> of <code>PushConstant</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-storageBuffer16BitAccess-06331" href="#VUID-RuntimeSpirv-storageBuffer16BitAccess-06331"></a> <span class="vuid">VUID-RuntimeSpirv-storageBuffer16BitAccess-06331</span><br>
 
 If <a href="../chapters/features.html#features-storageBuffer16BitAccess" class="xref page"><code>storageBuffer16BitAccess</code></a>
 is <code>VK_FALSE</code>, then objects containing 16-bit integer or 16-bit
-floating-point elements <strong>must</strong> not have {StorageClass} of
+floating-point elements <strong>must</strong> not have <code>Storage</code> <code>Class</code> of
 <code>StorageBuffer</code>, <code>ShaderRecordBufferKHR</code>, or
 <code>PhysicalStorageBuffer</code></p>
 </li>
@@ -3804,7 +3808,7 @@ floating-point elements <strong>must</strong> not have {StorageClass} of
 <p><a id="VUID-RuntimeSpirv-uniformAndStorageBuffer16BitAccess-06332" href="#VUID-RuntimeSpirv-uniformAndStorageBuffer16BitAccess-06332"></a> <span class="vuid">VUID-RuntimeSpirv-uniformAndStorageBuffer16BitAccess-06332</span><br>
 
 If <a href="../chapters/features.html#features-uniformAndStorageBuffer16BitAccess" class="xref page">    <code>uniformAndStorageBuffer16BitAccess</code></a> is <code>VK_FALSE</code>, then
-objects in the <code>Uniform</code> {StorageClass} with the <code>Block</code>
+objects in the <code>Uniform</code> <code>Storage</code> <code>Class</code> with the <code>Block</code>
 decoration <strong>must</strong> not have 16-bit integer or 16-bit floating-point
 members</p>
 </li>
@@ -3813,7 +3817,7 @@ members</p>
 
 If <a href="../chapters/features.html#features-storagePushConstant16" class="xref page"><code>storagePushConstant16</code></a> is
 <code>VK_FALSE</code>, then objects containing 16-bit integer or 16-bit
-floating-point elements <strong>must</strong> not have {StorageClass} of
+floating-point elements <strong>must</strong> not have <code>Storage</code> <code>Class</code> of
 <code>PushConstant</code></p>
 </li>
 <li>
@@ -3821,7 +3825,7 @@ floating-point elements <strong>must</strong> not have {StorageClass} of
 
 If <a href="../chapters/features.html#features-storageInputOutput16" class="xref page"><code>storageInputOutput16</code></a> is
 <code>VK_FALSE</code>, then objects containing 16-bit integer or 16-bit
-floating-point elements <strong>must</strong> not have {StorageClass} of <code>Input</code> or
+floating-point elements <strong>must</strong> not have <code>Storage</code> <code>Class</code> of <code>Input</code> or
 <code>Output</code></p>
 </li>
 <li>
@@ -3901,7 +3905,7 @@ shader stage is not in <a href="../chapters/devsandqueues.html#limits-subgroupSu
 
 The first element of the <code>Offset</code> operand of <code>InterpolateAtOffset</code>
 <strong>must</strong> be greater than or equal to:<br>
-<span class="eq">frag<sub>width</sub> {times} <a href="../chapters/limits.html#limits-minInterpolationOffset" class="xref page">    <code>minInterpolationOffset</code></a></span><br>
+<span class="eq">frag<sub>width</sub> × <a href="../chapters/limits.html#limits-minInterpolationOffset" class="xref page">    <code>minInterpolationOffset</code></a></span><br>
 where <span class="eq">frag<sub>width</sub></span> is the width of the current fragment in pixels</p>
 </li>
 <li>
@@ -3909,7 +3913,7 @@ where <span class="eq">frag<sub>width</sub></span> is the width of the current f
 
 The first element of the <code>Offset</code> operand of <code>InterpolateAtOffset</code>
 <strong>must</strong> be less than or equal to<br>
-<span class="eq">frag<sub>width</sub> {times} (<a href="../chapters/limits.html#limits-maxInterpolationOffset" class="xref page">    <code>maxInterpolationOffset</code></a> &#43; ULP ) - ULP</span><br>
+<span class="eq">frag<sub>width</sub> × (<a href="../chapters/limits.html#limits-maxInterpolationOffset" class="xref page">    <code>maxInterpolationOffset</code></a> +  ULP ) - ULP</span><br>
 where <span class="eq">frag<sub>width</sub></span> is the width of the current fragment in pixels
 and <span class="eq">ULP = 1 / 2^<a href="../chapters/limits.html#limits-subPixelInterpolationOffsetBits" class="xref page">    <code>subPixelInterpolationOffsetBits</code></a>^</span></p>
 </li>
@@ -3918,7 +3922,7 @@ and <span class="eq">ULP = 1 / 2^<a href="../chapters/limits.html#limits-subPixe
 
 The second element of the <code>Offset</code> operand of
 <code>InterpolateAtOffset</code> <strong>must</strong> be greater than or equal to<br>
-<span class="eq">frag<sub>height</sub> {times} <a href="../chapters/limits.html#limits-minInterpolationOffset" class="xref page">    <code>minInterpolationOffset</code></a></span><br>
+<span class="eq">frag<sub>height</sub> × <a href="../chapters/limits.html#limits-minInterpolationOffset" class="xref page">    <code>minInterpolationOffset</code></a></span><br>
 where <span class="eq">frag<sub>height</sub></span> is the height of the current fragment in pixels</p>
 </li>
 <li>
@@ -3926,7 +3930,7 @@ where <span class="eq">frag<sub>height</sub></span> is the height of the current
 
 The second element of the <code>Offset</code> operand of
 <code>InterpolateAtOffset</code> <strong>must</strong> be less than or equal to<br>
-<span class="eq">frag<sub>height</sub> {times} (<a href="../chapters/limits.html#limits-maxInterpolationOffset" class="xref page">    <code>maxInterpolationOffset</code></a> &#43; ULP ) - ULP</span><br>
+<span class="eq">frag<sub>height</sub> × (<a href="../chapters/limits.html#limits-maxInterpolationOffset" class="xref page">    <code>maxInterpolationOffset</code></a> +  ULP ) - ULP</span><br>
 where <span class="eq">frag<sub>height</sub></span> is the height of the current fragment in pixels
 and <span class="eq">ULP = 1 / 2^<a href="../chapters/limits.html#limits-subPixelInterpolationOffsetBits" class="xref page">    <code>subPixelInterpolationOffsetBits</code></a>^</span></p>
 </li>
@@ -3987,8 +3991,8 @@ For <code>OpRayQueryInitializeKHR</code> instructions, the <code>Rayflags</code>
 <p><a id="VUID-RuntimeSpirv-OpRayQueryGenerateIntersectionKHR-06353" href="#VUID-RuntimeSpirv-OpRayQueryGenerateIntersectionKHR-06353"></a> <span class="vuid">VUID-RuntimeSpirv-OpRayQueryGenerateIntersectionKHR-06353</span><br>
 
 For <code>OpRayQueryGenerateIntersectionKHR</code> instructions, <code>Hit</code> <code>T</code>
-<strong>must</strong> satisfy the condition <span class="eq"><code>RayTmin</code> {leq} <code>Hit</code> <code>T</code>
-{leq} <code>RayTmax</code></span>, where <code>RayTmin</code> is equal to the value returned
+<strong>must</strong> satisfy the condition <span class="eq"><code>RayTmin</code> ≤ <code>Hit</code> <code>T</code>
+≤ <code>RayTmax</code></span>, where <code>RayTmin</code> is equal to the value returned
 by <code>OpRayQueryGetRayTMinKHR</code> with the same ray query object, and
 <code>RayTmax</code> is equal to the value of <code>OpRayQueryGetIntersectionTKHR</code>
 for the current committed intersection with the same ray query object</p>
@@ -4235,28 +4239,28 @@ the pipeline <strong>must</strong> not have been created with
 <li>
 <p><a id="VUID-RuntimeSpirv-x-06429" href="#VUID-RuntimeSpirv-x-06429"></a> <span class="vuid">VUID-RuntimeSpirv-x-06429</span><br>
 
-In compute shaders using the <code>GLCompute</code> {ExecutionModel} the <code>x</code>
+In compute shaders using the <code>GLCompute</code> <code>Execution</code> <code>Model</code> the <code>x</code>
 size in <code>LocalSize</code> or <code>LocalSizeId</code> <strong>must</strong> be less than or equal
 to <a href="../chapters/limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxComputeWorkGroupSize</code>[0]</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-y-06430" href="#VUID-RuntimeSpirv-y-06430"></a> <span class="vuid">VUID-RuntimeSpirv-y-06430</span><br>
 
-In compute shaders using the <code>GLCompute</code> {ExecutionModel} the <code>y</code>
+In compute shaders using the <code>GLCompute</code> <code>Execution</code> <code>Model</code> the <code>y</code>
 size in <code>LocalSize</code> or <code>LocalSizeId</code> <strong>must</strong> be less than or equal
 to <a href="../chapters/limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxComputeWorkGroupSize</code>[1]</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-z-06431" href="#VUID-RuntimeSpirv-z-06431"></a> <span class="vuid">VUID-RuntimeSpirv-z-06431</span><br>
 
-In compute shaders using the <code>GLCompute</code> {ExecutionModel} the <code>z</code>
+In compute shaders using the <code>GLCompute</code> <code>Execution</code> <code>Model</code> the <code>z</code>
 size in <code>LocalSize</code> or <code>LocalSizeId</code> <strong>must</strong> be less than or equal
 to <a href="../chapters/limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxComputeWorkGroupSize</code>[2]</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-x-06432" href="#VUID-RuntimeSpirv-x-06432"></a> <span class="vuid">VUID-RuntimeSpirv-x-06432</span><br>
 
-In compute shaders using the <code>GLCompute</code> {ExecutionModel} the product
+In compute shaders using the <code>GLCompute</code> <code>Execution</code> <code>Model</code> the product
 of <code>x</code> size, <code>y</code> size, and <code>z</code> size in <code>LocalSize</code> or
 <code>LocalSizeId</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceLimits" class="xref page">VkPhysicalDeviceLimits</a>::<code>maxComputeWorkGroupInvocations</code></p>
@@ -4264,7 +4268,7 @@ of <code>x</code> size, <code>y</code> size, and <code>z</code> size in <code>Lo
 <li>
 <p><a id="VUID-RuntimeSpirv-LocalSizeId-06434" href="#VUID-RuntimeSpirv-LocalSizeId-06434"></a> <span class="vuid">VUID-RuntimeSpirv-LocalSizeId-06434</span><br>
 
-If {ExecutionMode} <code>LocalSizeId</code> is used, <a href="../chapters/features.html#features-maintenance4" class="xref page">    <code>maintenance4</code></a> <strong>must</strong> be enabled</p>
+If <code>Execution</code> <code>Mode</code> <code>LocalSizeId</code> is used, <a href="../chapters/features.html#features-maintenance4" class="xref page">    <code>maintenance4</code></a> <strong>must</strong> be enabled</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-maintenance4-06817" href="#VUID-RuntimeSpirv-maintenance4-06817"></a> <span class="vuid">VUID-RuntimeSpirv-maintenance4-06817</span><br>
@@ -4279,10 +4283,10 @@ input interface variable</p>
 
 Any <a href="../chapters/interfaces.html#interfaces-iointerfaces-user" class="xref page">user-defined variables</a> shared
 between the <code>OpEntryPoint</code> of two shader stages, and declared with
-<code>Input</code> as its {StorageClass} for the subsequent shader stage, <strong>must</strong>
+<code>Input</code> as its <code>Storage</code> <code>Class</code> for the subsequent shader stage, <strong>must</strong>
 have all <code>Location</code> slots and <code>Component</code> words declared in the
 preceding shader stage&#8217;s <code>OpEntryPoint</code> with <code>Output</code> as the
-{StorageClass}</p>
+<code>Storage</code> <code>Class</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpEntryPoint-07754" href="#VUID-RuntimeSpirv-OpEntryPoint-07754"></a> <span class="vuid">VUID-RuntimeSpirv-OpEntryPoint-07754</span><br>
@@ -4302,15 +4306,15 @@ as defined in <a href="../chapters/interfaces.html#interfaces-iointerfaces-match
 <li>
 <p><a id="VUID-RuntimeSpirv-Workgroup-06530" href="#VUID-RuntimeSpirv-Workgroup-06530"></a> <span class="vuid">VUID-RuntimeSpirv-Workgroup-06530</span><br>
 
-The sum of size in bytes for variables and <a href="../chapters/shaders.html#workgroup-padding" class="xref page">    padding</a> in the <code>Workgroup</code> {StorageClass} in the <code>GLCompute</code>
-{ExecutionModel} <strong>must</strong> be less than or equal to
+The sum of size in bytes for variables and <a href="../chapters/shaders.html#workgroup-padding" class="xref page">    padding</a> in the <code>Workgroup</code> <code>Storage</code> <code>Class</code> in the <code>GLCompute</code>
+<code>Execution</code> <code>Model</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#limits-maxComputeSharedMemorySize" class="xref page"><code>maxComputeSharedMemorySize</code></a></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderZeroInitializeWorkgroupMemory-06372" href="#VUID-RuntimeSpirv-shaderZeroInitializeWorkgroupMemory-06372"></a> <span class="vuid">VUID-RuntimeSpirv-shaderZeroInitializeWorkgroupMemory-06372</span><br>
 
 If the <a href="../chapters/features.html#features-shaderZeroInitializeWorkgroupMemory" class="xref page">    <code>shaderZeroInitializeWorkgroupMemory</code></a> feature is not enabled, any
-<code>OpVariable</code> with <code>Workgroup</code> as its {StorageClass} <strong>must</strong> not have
+<code>OpVariable</code> with <code>Workgroup</code> as its <code>Storage</code> <code>Class</code> <strong>must</strong> not have
 an <code>Initializer</code> operand</p>
 </li>
 <li>
@@ -4365,7 +4369,7 @@ fragment shader Capability <code>SampleRateShading</code> <strong>must</strong> 
 <li>
 <p><a id="VUID-RuntimeSpirv-SubgroupUniformControlFlowKHR-06379" href="#VUID-RuntimeSpirv-SubgroupUniformControlFlowKHR-06379"></a> <span class="vuid">VUID-RuntimeSpirv-SubgroupUniformControlFlowKHR-06379</span><br>
 
-The {ExecutionMode} <code>SubgroupUniformControlFlowKHR</code> <strong>must</strong> not be
+The <code>Execution</code> <code>Mode</code> <code>SubgroupUniformControlFlowKHR</code> <strong>must</strong> not be
 applied to an entry point unless the
 <a href="../chapters/features.html#features-shaderSubgroupUniformControlFlow" class="xref page">    <code>shaderSubgroupUniformControlFlow</code></a> feature is enabled, the
 corresponding shader stage bit is set in
@@ -4376,43 +4380,43 @@ the entry point does not execute any <a href="../chapters/raytracing.html#ray-tr
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06767" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06767"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06767</span><br>
 
 If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
-<code>EarlyAndLateFragmentTestsEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
+<code>EarlyAndLateFragmentTestsEXT</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06768" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06768"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06768</span><br>
 
 If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
-<code>StencilRefUnchangedFrontEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
+<code>StencilRefUnchangedFrontEXT</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06769" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06769"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06769</span><br>
 
 If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
-<code>StencilRefUnchangedBackEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
+<code>StencilRefUnchangedBackEXT</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06770" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06770"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06770</span><br>
 
 If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
-<code>StencilRefGreaterFrontEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
+<code>StencilRefGreaterFrontEXT</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06771" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06771"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06771</span><br>
 
 If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
-<code>StencilRefGreaterBackEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
+<code>StencilRefGreaterBackEXT</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06772" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06772"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06772</span><br>
 
 If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
-<code>StencilRefLessFrontEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
+<code>StencilRefLessFrontEXT</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06773" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06773"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06773</span><br>
 
 If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
-<code>StencilRefLessBackEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
+<code>StencilRefLessBackEXT</code> <code>Execution</code> <code>Mode</code> <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpImageWeightedSampleQCOM-06979" href="#VUID-RuntimeSpirv-OpImageWeightedSampleQCOM-06979"></a> <span class="vuid">VUID-RuntimeSpirv-OpImageWeightedSampleQCOM-06979</span><br>
@@ -4425,7 +4429,7 @@ parameters <strong>must</strong> both be <em>dynamically uniform</em> for the qu
 <p><a id="VUID-RuntimeSpirv-OpImageWeightedSampleQCOM-06980" href="#VUID-RuntimeSpirv-OpImageWeightedSampleQCOM-06980"></a> <span class="vuid">VUID-RuntimeSpirv-OpImageWeightedSampleQCOM-06980</span><br>
 
 If an <code>OpImageWeightedSampleQCOM</code> operation is used, then the
-<code>Weight</code> <code>Image</code> parameter <strong>must</strong> be of {StorageClass}
+<code>Weight</code> <code>Image</code> parameter <strong>must</strong> be of <code>Storage</code> <code>Class</code>
 <code>UniformConstant</code> and type <code>OpTypeImage</code> with <code>Depth</code>=0,
 <code>Dim</code>=<code>2D</code>, <code>Arrayed</code>=1, <code>MS</code>=0, and <code>Sampled</code>=1</p>
 </li>
@@ -4555,8 +4559,8 @@ If <a href="../chapters/primsrast.html#primsrast-sampleshading" class="xref page
 <li>
 <p><a id="VUID-RuntimeSpirv-MeshEXT-09218" href="#VUID-RuntimeSpirv-MeshEXT-09218"></a> <span class="vuid">VUID-RuntimeSpirv-MeshEXT-09218</span><br>
 
-In mesh shaders using the <code>MeshEXT</code> or <code>MeshNV</code> {ExecutionModel}
-and the <code>OutputPoints</code> {ExecutionMode},
+In mesh shaders using the <code>MeshEXT</code> or <code>MeshNV</code> <code>Execution</code> <code>Model</code>
+and the <code>OutputPoints</code> <code>Execution</code> <code>Mode</code>,
 if the <a href="../chapters/features.html#features-maintenance5" class="xref page"><code>maintenance5</code></a> feature is not
 enabled, and
 if the number of output points is greater than 0, a <code>PointSize</code>
@@ -4706,7 +4710,7 @@ used</p>
 <p><a id="VUID-RuntimeSpirv-protectedNoFault-09645" href="#VUID-RuntimeSpirv-protectedNoFault-09645"></a> <span class="vuid">VUID-RuntimeSpirv-protectedNoFault-09645</span><br>
 
 If <a href="../chapters/devsandqueues.html#limits-protectedNoFault" class="xref page"><code>protectedNoFault</code></a> is not supported,
-the {StorageClass} of the <code>PhysicalStorageBuffer</code> <strong>must</strong> not be used
+the <code>Storage</code> <code>Class</code> of the <code>PhysicalStorageBuffer</code> <strong>must</strong> not be used
 if the buffer being accessed is <a href="../chapters/memory.html#memory-protected-memory" class="xref page">protected</a></p>
 </li>
 <li>
@@ -4715,7 +4719,7 @@ if the buffer being accessed is <a href="../chapters/memory.html#memory-protecte
 If <a href="../chapters/limits.html#limits-meshAndTaskShaderDerivatives" class="xref page">    <code>meshAndTaskShaderDerivatives</code></a> is <code>VK_FALSE</code>, the
 <code>DerivativeGroupLinearKHR</code> and <code>DerivativeGroupQuadsKHR</code> execution
 modes <strong>must</strong> not be used in the <code>MeshEXT</code>, <code>MeshNV</code>, <code>TaskEXT</code>,
-or <code>TaskNV</code> {ExecutionModel}</p>
+or <code>TaskNV</code> <code>Execution</code> <code>Model</code></p>
 </li>
 </ul>
 </div>
@@ -4774,7 +4778,7 @@ as follows:</p>
 <ul>
 <li>
 <p>If the SPIR-V specifies it explicitly using the <code>FPFastMath</code>
-decoration or <code>FPFastMathDefault</code> {ExecutionMode} then that is used.</p>
+decoration or <code>FPFastMathDefault</code> <code>Execution</code> <code>Mode</code> then that is used.</p>
 </li>
 <li>
 <p>If the environment is not specified in the SPIR-V then it is determined
@@ -4792,7 +4796,7 @@ as follows:</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The entry point does not use the {ExecutionMode}
+<p>The entry point does not use the <code>Execution</code> <code>Mode</code>
 <code>SignedZeroInfNanPreserve</code> with a bit-width corresponding to one
 of the operands or to the result type.</p>
 </li>
@@ -4802,7 +4806,7 @@ of the operands or to the result type.</p>
 <code>OpFMul</code>, <code>OpFDiv</code>, <code>OpIsNan</code>, or <code>OpIsInf</code>.</p>
 </li>
 <li>
-<p>The operation is an <code>OpLoad</code> from the <code>Input</code> {StorageClass} in
+<p>The operation is an <code>OpLoad</code> from the <code>Input</code> <code>Storage</code> <code>Class</code> in
 the fragment shader stage.</p>
 </li>
 </ul>
@@ -4831,7 +4835,7 @@ those listed above) or any extended instructions for GLSL in a shader
 </li>
 <li>
 <p>If the entry point is declared with the <code>DenormFlushToZero</code>
-{ExecutionMode} then for the affected instructions the denormalized
+<code>Execution</code> <code>Mode</code> then for the affected instructions the denormalized
 result <strong>must</strong> be flushed to zero and the denormalized operands <strong>may</strong> be
 flushed to zero.
 Denormalized values obtained via unpacking an integer into a vector of
@@ -4840,7 +4844,7 @@ floating-point numbers <strong>must</strong> be flushed to zero.</p>
 </li>
 <li>
 <p>The following core SPIR-V instructions <strong>must</strong> respect the
-<code>DenormFlushToZero</code> {ExecutionMode}: <code>OpSpecConstantOp</code> (with
+<code>DenormFlushToZero</code> <code>Execution</code> <code>Mode</code>: <code>OpSpecConstantOp</code> (with
 opcode <code>OpFConvert</code>), <code>OpFConvert</code>, <code>OpFNegate</code>, <code>OpFAdd</code>,
 <code>OpFSub</code>, <code>OpFMul</code>, <code>OpFDiv</code>, <code>OpFRem</code>, <code>OpFMod</code>,
 <code>OpVectorTimesScalar</code>, <code>OpMatrixTimesScalar</code>,
@@ -4860,7 +4864,7 @@ following extended instructions for GLSL: <code>Round</code>, <code>RoundEven</c
 </li>
 <li>
 <p>The following core SPIR-V instructions <strong>must</strong> respect the
-<code>DenormPreserve</code> {ExecutionMode}: <code>OpSpecConstantOp</code>,
+<code>DenormPreserve</code> <code>Execution</code> <code>Mode</code>: <code>OpSpecConstantOp</code>,
 <code>OpFConvert</code>, <code>OpFNegate</code>, <code>OpFAdd</code>, <code>OpFSub</code>, <code>OpFMul</code>,
 <code>OpVectorTimesScalar</code>, <code>OpMatrixTimesScalar</code>,
 <code>OpVectorTimesMatrix</code>, <code>OpMatrixTimesVector</code>,
@@ -4902,9 +4906,9 @@ even where the floating- point operations do not share these properties.
 This includes, but is not limited to, associativity and distributivity, and
 <strong>may</strong> involve a different number of rounding steps than would occur if the
 operations were not rearranged.
-In shaders that use the <code>SignedZeroInfNanPreserve</code> {ExecutionMode} the
+In shaders that use the <code>SignedZeroInfNanPreserve</code> <code>Execution</code> <code>Mode</code> the
 values <strong>must</strong> be preserved if they are generated after any rearrangement but
-the {ExecutionMode} does not change which rearrangements are valid.
+the <code>Execution</code> <code>Mode</code> does not change which rearrangements are valid.
 This rearrangement <strong>can</strong> be prevented for particular operations by using the
 <code>NoContraction</code> decoration.</p>
 </div>
@@ -4957,7 +4961,7 @@ operation, will not need rounding.</p>
 precise result, <span class="eq">x</span>, rounded so as to be representable in
 floating-point.
 If the entry point is declared with the <code>RoundingModeRTE</code> or the
-<code>RoundingModeRTZ</code> {ExecutionMode} then this is done according to
+<code>RoundingModeRTZ</code> <code>Execution</code> <code>Mode</code> then this is done according to
 <a href="../chapters/introduction.html#ieee-754" class="xref page">IEEE 754</a> &#8220;roundTiesToEven&#8221; or &#8220;roundTowardZero&#8221; rounding
 directions, respectively.
 Otherwise, they are rounded with
@@ -4978,7 +4982,7 @@ Which value is chosen is implementation-defined.</p>
 <div class="title">ULP</div>
 <p>Where an error bound of <span class="eq">n</span> ULP (units in the last place) is given, for
 an operation with infinitely precise result <mark>x</mark> the value returned <strong>must</strong> be
-in the range <span class="eq">[x - n {times} ulp(x), x &#43; n {times} ulp(x)]</span>.
+in the range <span class="eq">[x - n × ulp(x), x +  n × ulp(x)]</span>.
 The function <span class="eq">ulp(x)</span> is defined as follows:</p>
 </div>
 <div class="dlist">
@@ -4986,7 +4990,7 @@ The function <span class="eq">ulp(x)</span> is defined as follows:</p>
 <dt class="hdlist1"></dt>
 <dd>
 <p>If there exist non-equal, finite floating-point numbers <mark>a</mark> and
-<mark>b</mark> such that <span class="eq">a {leq} x {leq} b</span> then <span class="eq">ulp(x)</span> is the minimum
+<mark>b</mark> such that <span class="eq">a ≤ x ≤ b</span> then <span class="eq">ulp(x)</span> is the minimum
 possible distance between such numbers, \(ulp(x) =
 \mathrm{min}_{a,b} | b - a |\).
 If such numbers do not exist then <span class="eq">ulp(x)</span> is defined to be the
@@ -5018,14 +5022,14 @@ input values, define a range of permitted values.
 If <span class="eq">NaN</span> is one of the permitted values then the operation may return
 any result, otherwise let the largest permitted value in any of the ranges
 be <span class="eq">F<sub>max</sub></span> and the smallest be <span class="eq">F<sub>min</sub></span>.
-The operation <strong>must</strong> return a value in the range <span class="eq">[x - E, x &#43; E]</span>
+The operation <strong>must</strong> return a value in the range <span class="eq">[x - E, x +  E]</span>
 where \(E = \mathrm{max} \left( | x - F_{\mathrm{min}} |, | x -
 F_{\mathrm{max}} | \right) \).
 If the entry point is declared with the <code>DenormFlushToZero</code> execution
 mode, then any intermediate denormal value(s) while evaluating the formula
 <strong>may</strong> be flushed to zero.
 Denormal final results <strong>must</strong> be flushed to zero.
-If the entry point is declared with the <code>DenormPreserve</code> {ExecutionMode},
+If the entry point is declared with the <code>DenormPreserve</code> <code>Execution</code> <code>Mode</code>,
 then denormals <strong>must</strong> be preserved throughout the formula.</p>
 </div>
 <div class="paragraph">
@@ -5129,16 +5133,16 @@ are <strong>required</strong> to be at least as follows:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpFDiv</code>(x,y)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.5 ULP for <span class="eq">{vert}y{vert} = 0</span> or <span class="eq">{vert}y{vert}</span> in the range [2<sup>-126</sup>, 2<sup>126</sup>].</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2.5 ULP for <span class="eq">{vert}y{vert} = 0</span> or <span class="eq">{vert}y{vert}</span> in the range [2<sup>-14</sup>, 2<sup>14</sup>].</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.5 ULP for <span class="eq">|y| = 0</span> or <span class="eq">|y|</span> in the range [2<sup>-126</sup>, 2<sup>126</sup>].</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2.5 ULP for <span class="eq">|y| = 0</span> or <span class="eq">|y|</span> in the range [2<sup>-14</sup>, 2<sup>14</sup>].</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpFRem</code>(x,y)</p></td>
-<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Inherited from <span class="eq">x - y {times} trunc(x/y)</span>.</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Inherited from <span class="eq">x - y × trunc(x/y)</span>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpFMod</code>(x,y)</p></td>
-<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Inherited from <span class="eq">x - y {times} floor(x/y)</span>.</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Inherited from <span class="eq">x - y × floor(x/y)</span>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpQuantizeToF16</code></p></td>
@@ -5208,7 +5212,7 @@ different sign than the infinitely precise result.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>pow</code>(x, y)</p></td>
-<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Inherited from <code>exp2</code>(y {times} <code>log2</code>(x)).</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Inherited from <code>exp2</code>(y × <code>log2</code>(x)).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>sqrt</code>()</p></td>
@@ -5343,11 +5347,11 @@ different sign than the infinitely precise result.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>reflect</code>(x, y)</p></td>
-<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Inherited from <span class="eq">x - 2.0 {times} <code>dot</code>(y, x) {times} y</span>.</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Inherited from <span class="eq">x - 2.0 × <code>dot</code>(y, x) × y</span>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>refract</code>(I, N, eta)</p></td>
-<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Inherited from <span class="eq">k &lt; 0.0 ? 0.0 : eta {times} I - (eta {times} <code>dot</code>(N, I) &#43; <code>sqrt</code>(k)) {times} N</span>, where <span class="eq">k = 1 - eta {times} eta {times} (1.0 - <code>dot</code>(N, I) {times} <code>dot</code>(N, I))</span>.</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Inherited from <span class="eq">k &lt; 0.0 ? 0.0 : eta × I - (eta × <code>dot</code>(N, I) +  <code>sqrt</code>(k)) × N</span>, where <span class="eq">k = 1 - eta × eta × (1.0 - <code>dot</code>(N, I) × <code>dot</code>(N, I))</span>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>round</code></p></td>
