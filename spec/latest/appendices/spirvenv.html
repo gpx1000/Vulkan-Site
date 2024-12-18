@@ -12,7 +12,6 @@
     <link rel="manifest" href="../../../_/static/site.webmanifest">
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
-    <meta name="theme-color" content="#ffffff">
   </head>
   <body class="article">
 <header class="header">
@@ -40,8 +39,8 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
+            <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan API</a>
+            <a class="navbar-item" href="../../../glsl/latest/index.html">GLSL</a>
             <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
@@ -73,8 +72,41 @@
         </div>
       </div>
     </div>
+    <label class="theme-toggler">
+      <input type="checkbox" id="switch-theme-checkbox" name="switch-theme-checkbox"/>
+      <span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" class="svg-inline--fa fa-moon moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+        </svg>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" class="svg-inline--fa fa-sun sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
   </nav>
 </header>
+<script>
+  !function() {
+    let e = document.getElementById("switch-theme-checkbox")
+    e.checked = document.documentElement.classList.contains("dark-theme")
+    e.addEventListener("change", function() {
+      if (document.documentElement.classList.contains("light")) {
+        document.documentElement.classList.remove("light")
+        document.documentElement.classList.add("dark")
+      } else if (document.documentElement.classList.contains("dark")) {
+        document.documentElement.classList.remove("dark")
+        document.documentElement.classList.add("light")
+      } else {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.add("light")
+        }
+      }
+      document.documentElement.classList.toggle("dark-theme", this.checked), document.documentElement.setAttribute("data-theme", this.checked ? "dark" : "light"),
+        function(e) {
+          window.localStorage && window.localStorage.setItem("theme", e)
+        }(this.checked ? "dark" : "light"), this.checked ? this.parentElement.classList.add("active") : this.parentElement.classList.remove("active")
+    }.bind(e))
+  }();
+</script>
 <div class="body">
 <div class="nav-container" data-component="spec" data-version="latest">
   <aside class="nav">
@@ -353,7 +385,7 @@ shaders.</p>
 <h2 id="_versions_and_formats"><a class="anchor" href="#_versions_and_formats"></a>Versions and Formats</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A Vulkan 1.3 implementation <strong>must</strong> support the 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, and 1.6 versions of
+<p>A Vulkan 1.4 implementation <strong>must</strong> support the 1.0, 1.1, 1.2, 1.3, 1.4, 1.5, and 1.6 versions of
 SPIR-V and the 1.0 version of the SPIR-V Extended Instructions for GLSL.</p>
 </div>
 <div class="paragraph">
@@ -918,7 +950,7 @@ the <a href="../chapters/devsandqueues.html#VkDevice" class="xref page">VkDevice
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-CooperativeMatrixNV"></a><code>CooperativeMatrixNV</code><br>
-&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-cooperativeMatrix-NV" class="xref page"><code>VkPhysicalDeviceCooperativeMatrixFeaturesNV</code>::<code>cooperativeMatrix</code></a></p></td>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-cooperativeMatrixNV" class="xref page"><code>VkPhysicalDeviceCooperativeMatrixFeaturesNV</code>::<code>cooperativeMatrix</code></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-IntegerFunctions2INTEL"></a><code>IntegerFunctions2INTEL</code><br>
@@ -1055,15 +1087,18 @@ the <a href="../chapters/devsandqueues.html#VkDevice" class="xref page">VkDevice
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-GroupNonUniformRotateKHR"></a><code>GroupNonUniformRotateKHR</code><br>
-&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderSubgroupRotate" class="xref page"><code>VkPhysicalDeviceShaderSubgroupRotateFeaturesKHR</code>::<code>shaderSubgroupRotate</code></a></p></td>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderSubgroupRotate" class="xref page"><code>VkPhysicalDeviceVulkan14Features</code>::<code>shaderSubgroupRotate</code></a><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderSubgroupRotate" class="xref page"><code>VkPhysicalDeviceShaderSubgroupRotateFeatures</code>::<code>shaderSubgroupRotate</code></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-ExpectAssumeKHR"></a><code>ExpectAssumeKHR</code><br>
-&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderExpectAssume" class="xref page"><code>VkPhysicalDeviceShaderExpectAssumeFeaturesKHR</code>::<code>shaderExpectAssume</code></a></p></td>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderExpectAssume" class="xref page"><code>VkPhysicalDeviceVulkan14Features</code>::<code>shaderExpectAssume</code></a><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderExpectAssume" class="xref page"><code>VkPhysicalDeviceShaderExpectAssumeFeatures</code>::<code>shaderExpectAssume</code></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-FloatControls2"></a><code>FloatControls2</code><br>
-&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderFloatControls2" class="xref page"><code>VkPhysicalDeviceShaderFloatControls2FeaturesKHR</code>::<code>shaderFloatControls2</code></a></p></td>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderFloatControls2" class="xref page"><code>VkPhysicalDeviceVulkan14Features</code>::<code>shaderFloatControls2</code></a><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="../chapters/features.html#features-shaderFloatControls2" class="xref page"><code>VkPhysicalDeviceShaderFloatControls2Features</code>::<code>shaderFloatControls2</code></a></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a id="spirvenv-capabilities-table-QuadControlKHR"></a><code>QuadControlKHR</code><br>
@@ -1485,14 +1520,17 @@ parameter of <a href="../chapters/shaders.html#vkCreateShaderModule" class="xref
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_KHR_subgroup_rotate</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="versions.html#versions-1.4" class="xref page">VK_VERSION_1_4</a><br>
 &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_KHR_shader_subgroup_rotate" class="xref page">VK_KHR_shader_subgroup_rotate</a></code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_KHR_expect_assume</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="versions.html#versions-1.4" class="xref page">VK_VERSION_1_4</a><br>
 &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_KHR_shader_expect_assume" class="xref page">VK_KHR_shader_expect_assume</a></code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>SPV_KHR_float_controls2</code><br>
+&#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <a href="versions.html#versions-1.4" class="xref page">VK_VERSION_1_4</a><br>
 &#160; &#160; &#160; &#160; &#160; &#160; &#160; &#160; <code><a href="extensions.html#VK_KHR_shader_float_controls2" class="xref page">VK_KHR_shader_float_controls2</a></code></p></td>
 </tr>
 <tr>
@@ -2584,34 +2622,35 @@ and knowledge of runtime information, such as enabled features.</p>
 <li>
 <p><a id="VUID-RuntimeSpirv-vulkanMemoryModel-06265" href="#VUID-RuntimeSpirv-vulkanMemoryModel-06265"></a> <span class="vuid">VUID-RuntimeSpirv-vulkanMemoryModel-06265</span><br>
 
-If <a href="../chapters/features.html#features-vulkanMemoryModel" class="xref page"><code>vulkanMemoryModel</code></a> is enabled
-and <a href="../chapters/features.html#features-vulkanMemoryModelDeviceScope" class="xref page">    <code>vulkanMemoryModelDeviceScope</code></a> is not enabled, <code>Device</code> memory
-scope <strong>must</strong> not be used</p>
+If the <a href="../chapters/features.html#features-vulkanMemoryModel" class="xref page"><code>vulkanMemoryModel</code></a> feature
+is enabled and the <a href="../chapters/features.html#features-vulkanMemoryModelDeviceScope" class="xref page">    <code>vulkanMemoryModelDeviceScope</code></a> feature is not enabled, <code>Device</code>
+memory scope <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-vulkanMemoryModel-06266" href="#VUID-RuntimeSpirv-vulkanMemoryModel-06266"></a> <span class="vuid">VUID-RuntimeSpirv-vulkanMemoryModel-06266</span><br>
 
-If <a href="../chapters/features.html#features-vulkanMemoryModel" class="xref page"><code>vulkanMemoryModel</code></a> is not
-enabled, <code>QueueFamily</code> memory scope <strong>must</strong> not be used</p>
+If the <a href="../chapters/features.html#features-vulkanMemoryModel" class="xref page"><code>vulkanMemoryModel</code></a> feature
+is not enabled, <code>QueueFamily</code> memory scope <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderSubgroupClock-06267" href="#VUID-RuntimeSpirv-shaderSubgroupClock-06267"></a> <span class="vuid">VUID-RuntimeSpirv-shaderSubgroupClock-06267</span><br>
 
-If <a href="../chapters/features.html#features-shaderSubgroupClock" class="xref page"><code>shaderSubgroupClock</code></a> is not
-enabled, the <code>Subgroup</code> scope <strong>must</strong> not be used for
+If the <a href="../chapters/features.html#features-shaderSubgroupClock" class="xref page"><code>shaderSubgroupClock</code></a>
+feature is not enabled, the <code>Subgroup</code> scope <strong>must</strong> not be used for
 <code>OpReadClockKHR</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderDeviceClock-06268" href="#VUID-RuntimeSpirv-shaderDeviceClock-06268"></a> <span class="vuid">VUID-RuntimeSpirv-shaderDeviceClock-06268</span><br>
 
-If <a href="../chapters/features.html#features-shaderDeviceClock" class="xref page"><code>shaderDeviceClock</code></a> is not
-enabled, the <code>Device</code> scope <strong>must</strong> not be used for <code>OpReadClockKHR</code></p>
+If the <a href="../chapters/features.html#features-shaderDeviceClock" class="xref page"><code>shaderDeviceClock</code></a> feature
+is not enabled, the <code>Device</code> scope <strong>must</strong> not be used for
+<code>OpReadClockKHR</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-None-09558" href="#VUID-RuntimeSpirv-None-09558"></a> <span class="vuid">VUID-RuntimeSpirv-None-09558</span><br>
 
 
-If <a href="../chapters/features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> is not enabled, any
+If the <a href="../chapters/features.html#features-dynamicRenderingLocalRead" class="xref page">    <code>dynamicRenderingLocalRead</code></a> feature is not enabled, any
 variable created with a &#8220;Type&#8221; of <code>OpTypeImage</code> that has a &#8220;Dim&#8221;
 operand of <code>SubpassData</code> <strong>must</strong> be decorated with
 <code>InputAttachmentIndex</code></p>
@@ -2628,7 +2667,7 @@ Any variable declared as an <code>OpTypeArray</code> where the <code>Element</co
 
 If <a href="../chapters/devsandqueues.html#VkPhysicalDeviceProperties" class="xref page">VkPhysicalDeviceProperties</a>::<code>apiVersion</code> is less than
 Vulkan 1.3, the <a href="extensions.html#VK_KHR_format_feature_flags2" class="xref page">VK_KHR_format_feature_flags2</a> extension is not
-supported, and <a href="../chapters/features.html#features-shaderStorageImageWriteWithoutFormat" class="xref page">    <code>shaderStorageImageWriteWithoutFormat</code></a> is not enabled, any
+supported, and the <a href="../chapters/features.html#features-shaderStorageImageWriteWithoutFormat" class="xref page">    <code>shaderStorageImageWriteWithoutFormat</code></a> feature is not enabled, any
 variable created with a &#8220;Type&#8221; of <code>OpTypeImage</code> that has a
 &#8220;Sampled&#8221; operand of 2 and an &#8220;Image Format&#8221; operand of <code>Unknown</code>
 <strong>must</strong> be decorated with <code>NonWritable</code></p>
@@ -2638,10 +2677,10 @@ variable created with a &#8220;Type&#8221; of <code>OpTypeImage</code> that has 
 
 If <a href="../chapters/devsandqueues.html#VkPhysicalDeviceProperties" class="xref page">VkPhysicalDeviceProperties</a>::<code>apiVersion</code> is less than
 Vulkan 1.3, the <a href="extensions.html#VK_KHR_format_feature_flags2" class="xref page">VK_KHR_format_feature_flags2</a> extension is not
-supported, and <a href="../chapters/features.html#features-shaderStorageImageReadWithoutFormat" class="xref page">    <code>shaderStorageImageReadWithoutFormat</code></a> is not enabled, any variable
-created with a &#8220;Type&#8221; of <code>OpTypeImage</code> that has a &#8220;Sampled&#8221;
-operand of 2 and an &#8220;Image Format&#8221; operand of <code>Unknown</code> <strong>must</strong> be
-decorated with <code>NonReadable</code></p>
+supported, and the <a href="../chapters/features.html#features-shaderStorageImageReadWithoutFormat" class="xref page">    <code>shaderStorageImageReadWithoutFormat</code></a> feature is not enabled, any
+variable created with a &#8220;Type&#8221; of <code>OpTypeImage</code> that has a
+&#8220;Sampled&#8221; operand of 2 and an &#8220;Image Format&#8221; operand of <code>Unknown</code>
+<strong>must</strong> be decorated with <code>NonReadable</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpImageWrite-07112" href="#VUID-RuntimeSpirv-OpImageWrite-07112"></a> <span class="vuid">VUID-RuntimeSpirv-OpImageWrite-07112</span><br>
@@ -3208,7 +3247,7 @@ instructions <strong>must</strong> not be used in shader stages not included in
 <p><a id="VUID-RuntimeSpirv-OpTypeCooperativeMatrixKHR-10163" href="#VUID-RuntimeSpirv-OpTypeCooperativeMatrixKHR-10163"></a> <span class="vuid">VUID-RuntimeSpirv-OpTypeCooperativeMatrixKHR-10163</span><br>
 
 For <code>OpTypeCooperativeMatrixKHR</code>,
-if <a href="../chapters/features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page">    <code>cooperativeMatrixFlexibleDimensions</code></a> is not enabled,
+if the <a href="../chapters/features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page">    <code>cooperativeMatrixFlexibleDimensions</code></a> feature is not enabled,
 the component type, scope, number of rows, and number of columns <strong>must</strong>
 match one of the matrices in any of the supported
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>, where</p>
@@ -3243,7 +3282,7 @@ and the type <strong>must</strong> match
 <p><a id="VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-10060" href="#VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-10060"></a> <span class="vuid">VUID-RuntimeSpirv-OpCooperativeMatrixMulAddKHR-10060</span><br>
 
 For <code>OpCooperativeMatrixMulAddKHR</code>,
-if <a href="../chapters/features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page">    <code>cooperativeMatrixFlexibleDimensions</code></a> is not enabled,
+if the <a href="../chapters/features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page">    <code>cooperativeMatrixFlexibleDimensions</code></a> feature is not enabled,
 the operands <strong>must</strong> match a supported
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a>, such that:</p>
 <div class="ulist">
@@ -3313,17 +3352,17 @@ used.</p>
 <li>
 <p><a id="VUID-RuntimeSpirv-cooperativeMatrixWorkgroupScope-10164" href="#VUID-RuntimeSpirv-cooperativeMatrixWorkgroupScope-10164"></a> <span class="vuid">VUID-RuntimeSpirv-cooperativeMatrixWorkgroupScope-10164</span><br>
 
-If <a href="../chapters/features.html#features-cooperativeMatrixWorkgroupScope" class="xref page">    <code>cooperativeMatrixWorkgroupScope</code></a> is not enabled, the scope of all
-<code>OpTypeCooperativeMatrixKHR</code> <strong>must</strong> not be
+If the <a href="../chapters/features.html#features-cooperativeMatrixWorkgroupScope" class="xref page">    <code>cooperativeMatrixWorkgroupScope</code></a> feature is not enabled, the
+scope of all <code>OpTypeCooperativeMatrixKHR</code> <strong>must</strong> not be
 <a href="../chapters/shaders.html#VkScopeKHR" class="xref page">VkScopeKHR</a>::<code>VK_SCOPE_WORKGROUP_KHR</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-cooperativeMatrixFlexibleDimensions-10165" href="#VUID-RuntimeSpirv-cooperativeMatrixFlexibleDimensions-10165"></a> <span class="vuid">VUID-RuntimeSpirv-cooperativeMatrixFlexibleDimensions-10165</span><br>
 
-For <code>OpTypeCooperativeMatrixKHR</code>, if
-<a href="../chapters/features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page">    <code>cooperativeMatrixFlexibleDimensions</code></a> is enabled, the component
-type, scope, number of rows, and number of columns <strong>must</strong> match either
-one of the matrices in one of the supported
+For <code>OpTypeCooperativeMatrixKHR</code>, if the
+<a href="../chapters/features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page">    <code>cooperativeMatrixFlexibleDimensions</code></a> feature is enabled, the
+component type, scope, number of rows, and number of columns <strong>must</strong> match
+either one of the matrices in one of the supported
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a> as described above, or one of the
 supported <a href="../chapters/shaders.html#VkCooperativeMatrixFlexibleDimensionsPropertiesNV" class="xref page">VkCooperativeMatrixFlexibleDimensionsPropertiesNV</a>, where</p>
 <div class="ulist">
@@ -3364,9 +3403,9 @@ in the local workgroup <strong>must</strong> match
 <li>
 <p><a id="VUID-RuntimeSpirv-cooperativeMatrixFlexibleDimensions-10166" href="#VUID-RuntimeSpirv-cooperativeMatrixFlexibleDimensions-10166"></a> <span class="vuid">VUID-RuntimeSpirv-cooperativeMatrixFlexibleDimensions-10166</span><br>
 
-For <code>OpCooperativeMatrixMulAddKHR</code>, if
-<a href="../chapters/features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page">    <code>cooperativeMatrixFlexibleDimensions</code></a> is enabled, the operands
-<strong>must</strong> match either one of the supported
+For <code>OpCooperativeMatrixMulAddKHR</code>, if the
+<a href="../chapters/features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page">    <code>cooperativeMatrixFlexibleDimensions</code></a> feature is enabled, the
+operands <strong>must</strong> match either one of the supported
 <a href="../chapters/shaders.html#VkCooperativeMatrixPropertiesKHR" class="xref page">VkCooperativeMatrixPropertiesKHR</a> as described above, or one of the
 supported <a href="../chapters/shaders.html#VkCooperativeMatrixFlexibleDimensionsPropertiesNV" class="xref page">VkCooperativeMatrixFlexibleDimensionsPropertiesNV</a>, such
 that:</p>
@@ -3715,16 +3754,18 @@ be <code>InterpolationFunction</code></p>
 <li>
 <p><a id="VUID-RuntimeSpirv-tessellationShader-06326" href="#VUID-RuntimeSpirv-tessellationShader-06326"></a> <span class="vuid">VUID-RuntimeSpirv-tessellationShader-06326</span><br>
 
-If <a href="../chapters/features.html#features-tessellationShader" class="xref page"><code>tessellationShader</code></a> is enabled,
-and the <code><a href="extensions.html#VK_KHR_portability_subset" class="xref page">VK_KHR_portability_subset</a></code> extension is enabled, and
+If the <a href="../chapters/features.html#features-tessellationShader" class="xref page"><code>tessellationShader</code></a> feature
+is enabled, and the <code><a href="extensions.html#VK_KHR_portability_subset" class="xref page">VK_KHR_portability_subset</a></code> extension is
+enabled, and
 <a href="../chapters/features.html#VkPhysicalDevicePortabilitySubsetFeaturesKHR" class="xref page">VkPhysicalDevicePortabilitySubsetFeaturesKHR</a>::<code>tessellationIsolines</code>
 is <code>VK_FALSE</code>, then <code>OpExecutionMode</code> <strong>must</strong> not be <code>IsoLines</code></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-tessellationShader-06327" href="#VUID-RuntimeSpirv-tessellationShader-06327"></a> <span class="vuid">VUID-RuntimeSpirv-tessellationShader-06327</span><br>
 
-If <a href="../chapters/features.html#features-tessellationShader" class="xref page"><code>tessellationShader</code></a> is enabled,
-and the <code><a href="extensions.html#VK_KHR_portability_subset" class="xref page">VK_KHR_portability_subset</a></code> extension is enabled, and
+If the <a href="../chapters/features.html#features-tessellationShader" class="xref page"><code>tessellationShader</code></a> feature
+is enabled, and the <code><a href="extensions.html#VK_KHR_portability_subset" class="xref page">VK_KHR_portability_subset</a></code> extension is
+enabled, and
 <a href="../chapters/features.html#VkPhysicalDevicePortabilitySubsetFeaturesKHR" class="xref page">VkPhysicalDevicePortabilitySubsetFeaturesKHR</a>::<code>tessellationPointMode</code>
 is <code>VK_FALSE</code>, then <code>OpExecutionMode</code> <strong>must</strong> not be <code>PointMode</code></p>
 </li>
@@ -3829,17 +3870,16 @@ atomic operations to be supported</p>
 <li>
 <p><a id="VUID-RuntimeSpirv-NonWritable-06340" href="#VUID-RuntimeSpirv-NonWritable-06340"></a> <span class="vuid">VUID-RuntimeSpirv-NonWritable-06340</span><br>
 
-If <a href="../chapters/features.html#features-fragmentStoresAndAtomics" class="xref page"><code>fragmentStoresAndAtomics</code></a>
-is not enabled, then all storage image, storage texel buffer, and
-storage buffer variables in the fragment stage <strong>must</strong> be decorated with
-the <code>NonWritable</code> decoration</p>
+If the <a href="../chapters/features.html#features-fragmentStoresAndAtomics" class="xref page">    <code>fragmentStoresAndAtomics</code></a> feature is not enabled, then all
+storage image, storage texel buffer, and storage buffer variables in the
+fragment stage <strong>must</strong> be decorated with the <code>NonWritable</code> decoration</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-NonWritable-06341" href="#VUID-RuntimeSpirv-NonWritable-06341"></a> <span class="vuid">VUID-RuntimeSpirv-NonWritable-06341</span><br>
 
-If <a href="../chapters/features.html#features-vertexPipelineStoresAndAtomics" class="xref page">    <code>vertexPipelineStoresAndAtomics</code></a> is not enabled, then all storage
-image, storage texel buffer, and storage buffer variables in the vertex,
-tessellation, and geometry stages <strong>must</strong> be decorated with the
+If the <a href="../chapters/features.html#features-vertexPipelineStoresAndAtomics" class="xref page">    <code>vertexPipelineStoresAndAtomics</code></a> feature is not enabled, then all
+storage image, storage texel buffer, and storage buffer variables in the
+vertex, tessellation, and geometry stages <strong>must</strong> be decorated with the
 <code>NonWritable</code> decoration</p>
 </li>
 <li>
@@ -4229,10 +4269,10 @@ If {ExecutionMode} <code>LocalSizeId</code> is used, <a href="../chapters/featur
 <li>
 <p><a id="VUID-RuntimeSpirv-maintenance4-06817" href="#VUID-RuntimeSpirv-maintenance4-06817"></a> <span class="vuid">VUID-RuntimeSpirv-maintenance4-06817</span><br>
 
-If <a href="../chapters/features.html#features-maintenance4" class="xref page"><code>maintenance4</code></a> is not enabled, any
-<code>OpTypeVector</code> output interface variables <strong>must</strong> not have a higher
-<code>Component</code> <code>Count</code> than a matching <code>OpTypeVector</code> input
-interface variable</p>
+If the <a href="../chapters/features.html#features-maintenance4" class="xref page"><code>maintenance4</code></a> feature is not
+enabled, any <code>OpTypeVector</code> output interface variables <strong>must</strong> not have
+a higher <code>Component</code> <code>Count</code> than a matching <code>OpTypeVector</code>
+input interface variable</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpEntryPoint-08743" href="#VUID-RuntimeSpirv-OpEntryPoint-08743"></a> <span class="vuid">VUID-RuntimeSpirv-OpEntryPoint-08743</span><br>
@@ -4269,7 +4309,7 @@ The sum of size in bytes for variables and <a href="../chapters/shaders.html#wor
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderZeroInitializeWorkgroupMemory-06372" href="#VUID-RuntimeSpirv-shaderZeroInitializeWorkgroupMemory-06372"></a> <span class="vuid">VUID-RuntimeSpirv-shaderZeroInitializeWorkgroupMemory-06372</span><br>
 
-If <a href="../chapters/features.html#features-shaderZeroInitializeWorkgroupMemory" class="xref page">    <code>shaderZeroInitializeWorkgroupMemory</code></a> is not enabled, any
+If the <a href="../chapters/features.html#features-shaderZeroInitializeWorkgroupMemory" class="xref page">    <code>shaderZeroInitializeWorkgroupMemory</code></a> feature is not enabled, any
 <code>OpVariable</code> with <code>Workgroup</code> as its {StorageClass} <strong>must</strong> not have
 an <code>Initializer</code> operand</p>
 </li>
@@ -4326,51 +4366,52 @@ fragment shader Capability <code>SampleRateShading</code> <strong>must</strong> 
 <p><a id="VUID-RuntimeSpirv-SubgroupUniformControlFlowKHR-06379" href="#VUID-RuntimeSpirv-SubgroupUniformControlFlowKHR-06379"></a> <span class="vuid">VUID-RuntimeSpirv-SubgroupUniformControlFlowKHR-06379</span><br>
 
 The {ExecutionMode} <code>SubgroupUniformControlFlowKHR</code> <strong>must</strong> not be
-applied to an entry point unless
-<a href="../chapters/features.html#features-shaderSubgroupUniformControlFlow" class="xref page">    <code>shaderSubgroupUniformControlFlow</code></a> is enabled, the corresponding
-shader stage bit is set in <a href="../chapters/devsandqueues.html#limits-subgroupSupportedStages" class="xref page">    <code>subgroupSupportedStages</code></a>, and the entry point does not execute
-any <a href="../chapters/raytracing.html#ray-tracing-repack" class="xref page"><em>invocation repack instructions</em></a></p>
+applied to an entry point unless the
+<a href="../chapters/features.html#features-shaderSubgroupUniformControlFlow" class="xref page">    <code>shaderSubgroupUniformControlFlow</code></a> feature is enabled, the
+corresponding shader stage bit is set in
+<a href="../chapters/devsandqueues.html#limits-subgroupSupportedStages" class="xref page"><code>subgroupSupportedStages</code></a>, and
+the entry point does not execute any <a href="../chapters/raytracing.html#ray-tracing-repack" class="xref page"><em>invocation    repack instructions</em></a></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06767" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06767"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06767</span><br>
 
-If <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> is not enabled, the
+If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
 <code>EarlyAndLateFragmentTestsEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06768" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06768"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06768</span><br>
 
-If <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
+If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
 <code>StencilRefUnchangedFrontEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06769" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06769"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06769</span><br>
 
-If <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> is not enabled, the
+If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
 <code>StencilRefUnchangedBackEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06770" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06770"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06770</span><br>
 
-If <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> is not enabled, the
+If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
 <code>StencilRefGreaterFrontEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06771" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06771"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06771</span><br>
 
-If <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> is not enabled, the
+If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
 <code>StencilRefGreaterBackEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06772" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06772"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06772</span><br>
 
-If <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> is not enabled, the
+If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
 <code>StencilRefLessFrontEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06773" href="#VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06773"></a> <span class="vuid">VUID-RuntimeSpirv-shaderEarlyAndLateFragmentTests-06773</span><br>
 
-If <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> is not enabled, the
+If the <a href="../chapters/features.html#features-shaderEarlyAndLateFragmentTests" class="xref page">    <code>shaderEarlyAndLateFragmentTests</code></a> feature is not enabled, the
 <code>StencilRefLessBackEXT</code> {ExecutionMode} <strong>must</strong> not be used</p>
 </li>
 <li>
@@ -4478,19 +4519,19 @@ bound to it, either explicitly or implicitly as described by
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderTileImageColorReadAccess-08728" href="#VUID-RuntimeSpirv-shaderTileImageColorReadAccess-08728"></a> <span class="vuid">VUID-RuntimeSpirv-shaderTileImageColorReadAccess-08728</span><br>
 
-If <a href="../chapters/features.html#features-shaderTileImageColorReadAccess" class="xref page">    <code>shaderTileImageColorReadAccess</code></a> is not enabled,
+If the <a href="../chapters/features.html#features-shaderTileImageColorReadAccess" class="xref page">    <code>shaderTileImageColorReadAccess</code></a> feature is not enabled,
 <code>OpColorAttachmentReadEXT</code> operation <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderTileImageDepthReadAccess-08729" href="#VUID-RuntimeSpirv-shaderTileImageDepthReadAccess-08729"></a> <span class="vuid">VUID-RuntimeSpirv-shaderTileImageDepthReadAccess-08729</span><br>
 
-If <a href="../chapters/features.html#features-shaderTileImageDepthReadAccess" class="xref page">    <code>shaderTileImageDepthReadAccess</code></a> is not enabled,
+If the <a href="../chapters/features.html#features-shaderTileImageDepthReadAccess" class="xref page">    <code>shaderTileImageDepthReadAccess</code></a> feature is not enabled,
 <code>OpDepthAttachmentReadEXT</code> operation <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-shaderTileImageStencilReadAccess-08730" href="#VUID-RuntimeSpirv-shaderTileImageStencilReadAccess-08730"></a> <span class="vuid">VUID-RuntimeSpirv-shaderTileImageStencilReadAccess-08730</span><br>
 
-If <a href="../chapters/features.html#features-shaderTileImageStencilReadAccess" class="xref page">    <code>shaderTileImageStencilReadAccess</code></a> is not enabled,
+If the <a href="../chapters/features.html#features-shaderTileImageStencilReadAccess" class="xref page">    <code>shaderTileImageStencilReadAccess</code></a> feature is not enabled,
 <code>OpStencilAttachmentReadEXT</code> operation <strong>must</strong> not be used</p>
 </li>
 <li>
@@ -4516,16 +4557,17 @@ If <a href="../chapters/primsrast.html#primsrast-sampleshading" class="xref page
 
 In mesh shaders using the <code>MeshEXT</code> or <code>MeshNV</code> {ExecutionModel}
 and the <code>OutputPoints</code> {ExecutionMode},
-if <a href="../chapters/features.html#features-maintenance5" class="xref page"><code>maintenance5</code></a> is not enabled, and
+if the <a href="../chapters/features.html#features-maintenance5" class="xref page"><code>maintenance5</code></a> feature is not
+enabled, and
 if the number of output points is greater than 0, a <code>PointSize</code>
 decorated variable <strong>must</strong> be written to for each output point</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-maintenance5-09190" href="#VUID-RuntimeSpirv-maintenance5-09190"></a> <span class="vuid">VUID-RuntimeSpirv-maintenance5-09190</span><br>
 
-If <a href="../chapters/features.html#features-maintenance5" class="xref page"><code>maintenance5</code></a> is enabled and a
-<code>PointSize</code> decorated variable is written to, all execution paths
-<strong>must</strong> write to a <code>PointSize</code> decorated variable</p>
+If the <a href="../chapters/features.html#features-maintenance5" class="xref page"><code>maintenance5</code></a> feature is enabled
+and a <code>PointSize</code> decorated variable is written to, all execution
+paths <strong>must</strong> write to a <code>PointSize</code> decorated variable</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-ShaderEnqueueAMDX-09191" href="#VUID-RuntimeSpirv-ShaderEnqueueAMDX-09191"></a> <span class="vuid">VUID-RuntimeSpirv-ShaderEnqueueAMDX-09191</span><br>

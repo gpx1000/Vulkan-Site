@@ -12,7 +12,6 @@
     <link rel="manifest" href="../../../_/static/site.webmanifest">
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
-    <meta name="theme-color" content="#ffffff">
   </head>
   <body class="article">
 <header class="header">
@@ -40,8 +39,8 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
+            <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan API</a>
+            <a class="navbar-item" href="../../../glsl/latest/index.html">GLSL</a>
             <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
@@ -73,8 +72,41 @@
         </div>
       </div>
     </div>
+    <label class="theme-toggler">
+      <input type="checkbox" id="switch-theme-checkbox" name="switch-theme-checkbox"/>
+      <span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" class="svg-inline--fa fa-moon moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+        </svg>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" class="svg-inline--fa fa-sun sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
   </nav>
 </header>
+<script>
+  !function() {
+    let e = document.getElementById("switch-theme-checkbox")
+    e.checked = document.documentElement.classList.contains("dark-theme")
+    e.addEventListener("change", function() {
+      if (document.documentElement.classList.contains("light")) {
+        document.documentElement.classList.remove("light")
+        document.documentElement.classList.add("dark")
+      } else if (document.documentElement.classList.contains("dark")) {
+        document.documentElement.classList.remove("dark")
+        document.documentElement.classList.add("light")
+      } else {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.add("light")
+        }
+      }
+      document.documentElement.classList.toggle("dark-theme", this.checked), document.documentElement.setAttribute("data-theme", this.checked ? "dark" : "light"),
+        function(e) {
+          window.localStorage && window.localStorage.setItem("theme", e)
+        }(this.checked ? "dark" : "light"), this.checked ? this.parentElement.classList.add("active") : this.parentElement.classList.remove("active")
+    }.bind(e))
+  }();
+</script>
 <div class="body">
 <div class="nav-container" data-component="spec" data-version="latest">
   <aside class="nav">
@@ -472,12 +504,6 @@ is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page"
 <div class="title">Valid Usage</div>
 <div class="ulist">
 <ul>
-<li>
-<p><a id="VUID-vkCreateShadersEXT-device-09669" href="#VUID-vkCreateShadersEXT-device-09669"></a> <span class="vuid">VUID-vkCreateShadersEXT-device-09669</span><br>
-
-<code>device</code> <strong>must</strong> support at least one queue family with one of the
-<code>VK_QUEUE_COMPUTE_BIT</code> or <code>VK_QUEUE_GRAPHICS_BIT</code> capabilities</p>
-</li>
 <li>
 <p><a id="VUID-vkCreateShadersEXT-stage-09670" href="#VUID-vkCreateShadersEXT-stage-09670"></a> <span class="vuid">VUID-vkCreateShadersEXT-stage-09670</span><br>
 
@@ -1269,7 +1295,7 @@ stage in <code>stageFlags</code></p>
 
 If <code>codeType</code> is <code>VK_SHADER_CODE_TYPE_SPIRV_EXT</code>, and if a push
 constant block is declared in a shader, then an element of
-<code>pPushConstantRanges</code>::<code>stageFlags</code> <strong>must</strong> match pname::stage</p>
+<code>pPushConstantRanges</code>::<code>stageFlags</code> <strong>must</strong> match <code>stage</code></p>
 </li>
 <li>
 <p><a id="VUID-VkShaderCreateInfoEXT-codeType-10065" href="#VUID-VkShaderCreateInfoEXT-codeType-10065"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-codeType-10065</span><br>
@@ -2090,7 +2116,7 @@ command <strong>must</strong> have been called in the command buffer prior to dr
 <p><a href="fragops.html#vkCmdSetAlphaToCoverageEnableEXT" class="xref page">vkCmdSetAlphaToCoverageEnableEXT</a></p>
 </li>
 <li>
-<p><a href="fragops.html#vkCmdSetAlphaToOneEnableEXT" class="xref page">vkCmdSetAlphaToOneEnableEXT</a>, if the <a href="features.html#features-alphaToOne" class="xref page">    alphaToOne</a> feature is enabled on the device</p>
+<p><a href="fragops.html#vkCmdSetAlphaToOneEnableEXT" class="xref page">vkCmdSetAlphaToOneEnableEXT</a>, if the <a href="features.html#features-alphaToOne" class="xref page">    alphaToOne</a> feature is enabled</p>
 </li>
 <li>
 <p><a href="primsrast.html#vkCmdSetPolygonModeEXT" class="xref page">vkCmdSetPolygonModeEXT</a></p>
@@ -2120,7 +2146,7 @@ line primitives is bound to the
 <p><a href="fragops.html#vkCmdSetDepthCompareOp" class="xref page">vkCmdSetDepthCompareOp</a>, if <code>depthTestEnable</code> is <code>VK_TRUE</code></p>
 </li>
 <li>
-<p><a href="fragops.html#vkCmdSetDepthBoundsTestEnable" class="xref page">vkCmdSetDepthBoundsTestEnable</a>, if the <a href="features.html#features-depthBounds" class="xref page">    depthBounds</a> feature is enabled on the device</p>
+<p><a href="fragops.html#vkCmdSetDepthBoundsTestEnable" class="xref page">vkCmdSetDepthBoundsTestEnable</a>, if the <a href="features.html#features-depthBounds" class="xref page">    depthBounds</a> feature is enabled</p>
 </li>
 <li>
 <p><a href="fragops.html#vkCmdSetDepthBounds" class="xref page">vkCmdSetDepthBounds</a>, if <code>depthBoundsTestEnable</code> is
@@ -2134,7 +2160,7 @@ line primitives is bound to the
 if <code>depthBiasEnable</code> is <code>VK_TRUE</code></p>
 </li>
 <li>
-<p><a href="vertexpostproc.html#vkCmdSetDepthClampEnableEXT" class="xref page">vkCmdSetDepthClampEnableEXT</a>, if the <a href="features.html#features-depthClamp" class="xref page">    depthClamp</a> feature is enabled on the device</p>
+<p><a href="vertexpostproc.html#vkCmdSetDepthClampEnableEXT" class="xref page">vkCmdSetDepthClampEnableEXT</a>, if the <a href="features.html#features-depthClamp" class="xref page">    depthClamp</a> feature is enabled</p>
 </li>
 <li>
 <p><a href="fragops.html#vkCmdSetStencilTestEnable" class="xref page">vkCmdSetStencilTestEnable</a></p>
@@ -2164,7 +2190,7 @@ if <code>depthBiasEnable</code> is <code>VK_TRUE</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="framebuffer.html#vkCmdSetLogicOpEnableEXT" class="xref page">vkCmdSetLogicOpEnableEXT</a>, if the <a href="features.html#features-logicOp" class="xref page">    <code>logicOp</code></a> feature is enabled on the device</p>
+<p><a href="framebuffer.html#vkCmdSetLogicOpEnableEXT" class="xref page">vkCmdSetLogicOpEnableEXT</a>, if the <a href="features.html#features-logicOp" class="xref page">    <code>logicOp</code></a> feature is enabled</p>
 </li>
 <li>
 <p><a href="framebuffer.html#vkCmdSetLogicOpEXT" class="xref page">vkCmdSetLogicOpEXT</a>, if <code>logicOpEnable</code> is <code>VK_TRUE</code></p>
@@ -2192,8 +2218,8 @@ member with a value of <code>VK_BLEND_FACTOR_CONSTANT_COLOR</code>,
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <a href="features.html#features-pipelineFragmentShadingRate" class="xref page"><code>pipelineFragmentShadingRate</code></a> feature is enabled on the device, and a
-shader is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage, and
+<p>If the <a href="features.html#features-pipelineFragmentShadingRate" class="xref page"><code>pipelineFragmentShadingRate</code></a> feature is enabled, and a shader is
+bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage, and
 <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following command <strong>must</strong>
 have been called in the command buffer prior to drawing:</p>
 </div>
@@ -2206,9 +2232,9 @@ have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="paragraph">
 <p>If the <a href="features.html#features-geometryStreams" class="xref page"><code>geometryStreams</code></a> feature is
-enabled on the device, and a shader is bound to the
-<code>VK_SHADER_STAGE_GEOMETRY_BIT</code> stage, the following command <strong>must</strong> have
-been called in the command buffer prior to drawing:</p>
+enabled, and a shader is bound to the <code>VK_SHADER_STAGE_GEOMETRY_BIT</code>
+stage, the following command <strong>must</strong> have been called in the command buffer
+prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2218,9 +2244,9 @@ been called in the command buffer prior to drawing:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code><a href="../appendices/extensions.html#VK_EXT_discard_rectangles" class="xref page">VK_EXT_discard_rectangles</a></code> extension is enabled on the
-device, and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following
-commands <strong>must</strong> have been called in the command buffer prior to drawing:</p>
+<p>If the <code><a href="../appendices/extensions.html#VK_EXT_discard_rectangles" class="xref page">VK_EXT_discard_rectangles</a></code> extension is enabled, and
+<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following commands
+<strong>must</strong> have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2238,9 +2264,9 @@ commands <strong>must</strong> have been called in the command buffer prior to d
 </ul>
 </div>
 <div class="paragraph">
-<p>If <code><a href="../appendices/extensions.html#VK_EXT_conservative_rasterization" class="xref page">VK_EXT_conservative_rasterization</a></code> extension is enabled on the
-device, and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following
-commands <strong>must</strong> have been called in the command buffer prior to drawing:</p>
+<p>If the <code><a href="../appendices/extensions.html#VK_EXT_conservative_rasterization" class="xref page">VK_EXT_conservative_rasterization</a></code> extension is enabled, and
+<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following commands
+<strong>must</strong> have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2256,8 +2282,8 @@ commands <strong>must</strong> have been called in the command buffer prior to d
 </div>
 <div class="paragraph">
 <p>If the <a href="features.html#features-depthClipEnable" class="xref page"><code>depthClipEnable</code></a> feature is
-enabled on the device, the following command <strong>must</strong> have been called in the
-command buffer prior to drawing:</p>
+enabled, the following command <strong>must</strong> have been called in the command buffer
+prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2267,8 +2293,8 @@ command buffer prior to drawing:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code><a href="../appendices/extensions.html#VK_EXT_sample_locations" class="xref page">VK_EXT_sample_locations</a></code> extension is enabled on the device,
-and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following commands
+<p>If the <code><a href="../appendices/extensions.html#VK_EXT_sample_locations" class="xref page">VK_EXT_sample_locations</a></code> extension is enabled, and
+<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following commands
 <strong>must</strong> have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
@@ -2283,10 +2309,10 @@ and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code><a href="../appendices/extensions.html#VK_EXT_provoking_vertex" class="xref page">VK_EXT_provoking_vertex</a></code> extension is enabled on the device,
-and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, and a shader is bound
-to the <code>VK_SHADER_STAGE_VERTEX_BIT</code> stage, the following command <strong>must</strong>
-have been called in the command buffer prior to drawing:</p>
+<p>If the <code><a href="../appendices/extensions.html#VK_EXT_provoking_vertex" class="xref page">VK_EXT_provoking_vertex</a></code> extension is enabled, and
+<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, and a shader is bound to
+the <code>VK_SHADER_STAGE_VERTEX_BIT</code> stage, the following command <strong>must</strong> have
+been called in the command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2299,7 +2325,7 @@ have been called in the command buffer prior to drawing:</p>
 <p>If any of the &lt;features-stippledRectangularLines,
 <code>stippledRectangularLines</code>&gt;&gt;, &lt;features-stippledBresenhamLines,
 <code>stippledBresenhamLines</code>&gt;&gt;, or &lt;features-stippledSmoothLines,
-<code>stippledSmoothLines</code>&gt;&gt; features are enabled on the device, and
+<code>stippledSmoothLines</code>&gt;&gt; features are enabled, and
 <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, and if <code>polygonMode</code> is
 <code>VK_POLYGON_MODE_LINE</code> or a shader is bound to the
 <code>VK_SHADER_STAGE_VERTEX_BIT</code> stage and <code>primitiveTopology</code> is a line
@@ -2317,15 +2343,14 @@ been called in the command buffer prior to drawing:</p>
 <p><a href="primsrast.html#vkCmdSetLineStippleEnableEXT" class="xref page">vkCmdSetLineStippleEnableEXT</a></p>
 </li>
 <li>
-<p><a href="primsrast.html#vkCmdSetLineStippleKHR" class="xref page">vkCmdSetLineStippleKHR</a>, if <code>stippledLineEnable</code> is
-<code>VK_TRUE</code></p>
+<p><a href="primsrast.html#vkCmdSetLineStipple" class="xref page">vkCmdSetLineStipple</a>, if <code>stippledLineEnable</code> is <code>VK_TRUE</code></p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>If the <a href="features.html#features-depthClipControl" class="xref page"><code>depthClipControl</code></a> feature is
-enabled on the device, the following command <strong>must</strong> have been called in the
-command buffer prior to drawing:</p>
+enabled, the following command <strong>must</strong> have been called in the command buffer
+prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2336,10 +2361,9 @@ command buffer prior to drawing:</p>
 </div>
 <div class="paragraph">
 <p>If the <a href="features.html#features-colorWriteEnable" class="xref page"><code>colorWriteEnable</code></a> feature is
-enabled on the device, and a shader is bound to the
-<code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage, and <code>rasterizerDiscardEnable</code>
-is <code>VK_FALSE</code>, the following command <strong>must</strong> have been called in the
-command buffer prior to drawing:</p>
+enabled, and a shader is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>
+stage, and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following
+command <strong>must</strong> have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2350,8 +2374,8 @@ attachment in the render pass instance active at draw time</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <a href="features.html#features-attachmentFeedbackLoopDynamicState" class="xref page">attachmentFeedbackLoopDynamicState</a> feature is enabled on the device, and a
-shader is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage, and
+<p>If the <a href="features.html#features-attachmentFeedbackLoopDynamicState" class="xref page">attachmentFeedbackLoopDynamicState</a> feature is enabled, and a shader is
+bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage, and
 <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following command <strong>must</strong>
 have been called in the command buffer prior to drawing:</p>
 </div>
@@ -2363,9 +2387,9 @@ have been called in the command buffer prior to drawing:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code><a href="../appendices/extensions.html#VK_NV_clip_space_w_scaling" class="xref page">VK_NV_clip_space_w_scaling</a></code> extension is enabled on the
-device, the following commands <strong>must</strong> have been called in the command buffer
-prior to drawing:</p>
+<p>If the <code><a href="../appendices/extensions.html#VK_NV_clip_space_w_scaling" class="xref page">VK_NV_clip_space_w_scaling</a></code> extension is enabled, the
+following commands <strong>must</strong> have been called in the command buffer prior to
+drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2379,9 +2403,9 @@ prior to drawing:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <a href="features.html#features-depthClamp" class="xref page">depthClamp</a> and <a href="features.html#features-depthClampControl" class="xref page"><code>depthClampControl</code></a> feature are enabled on the device, and
-<code>depthClampEnable</code> is <code>VK_TRUE</code>, the following command <strong>must</strong> have
-been called in the command buffer prior to drawing:</p>
+<p>If the <a href="features.html#features-depthClamp" class="xref page">depthClamp</a> and <a href="features.html#features-depthClampControl" class="xref page"><code>depthClampControl</code></a> features are enabled, and <code>depthClampEnable</code>
+is <code>VK_TRUE</code>, the following command <strong>must</strong> have been called in the
+command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2391,9 +2415,8 @@ been called in the command buffer prior to drawing:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code><a href="../appendices/extensions.html#VK_NV_viewport_swizzle" class="xref page">VK_NV_viewport_swizzle</a></code> extension is enabled on the device,
-the following command <strong>must</strong> have been called in the command buffer prior to
-drawing:</p>
+<p>If the <code><a href="../appendices/extensions.html#VK_NV_viewport_swizzle" class="xref page">VK_NV_viewport_swizzle</a></code> extension is enabled, the following
+command <strong>must</strong> have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2403,10 +2426,10 @@ drawing:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code><a href="../appendices/extensions.html#VK_NV_fragment_coverage_to_color" class="xref page">VK_NV_fragment_coverage_to_color</a></code> extension is enabled on the
-device, and a shader is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>
-stage, and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following
-commands <strong>must</strong> have been called in the command buffer prior to drawing:</p>
+<p>If the <code><a href="../appendices/extensions.html#VK_NV_fragment_coverage_to_color" class="xref page">VK_NV_fragment_coverage_to_color</a></code> extension is enabled, and a
+shader is bound to the <code>VK_SHADER_STAGE_FRAGMENT_BIT</code> stage, and
+<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following commands
+<strong>must</strong> have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2420,9 +2443,9 @@ is <code>VK_TRUE</code></p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code><a href="../appendices/extensions.html#VK_NV_framebuffer_mixed_samples" class="xref page">VK_NV_framebuffer_mixed_samples</a></code> extension is enabled on the
-device, and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following
-commands <strong>must</strong> have been called in the command buffer prior to drawing:</p>
+<p>If the <code><a href="../appendices/extensions.html#VK_NV_framebuffer_mixed_samples" class="xref page">VK_NV_framebuffer_mixed_samples</a></code> extension is enabled, and
+<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following commands
+<strong>must</strong> have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2442,9 +2465,9 @@ commands <strong>must</strong> have been called in the command buffer prior to d
 </div>
 <div class="paragraph">
 <p>If the <a href="features.html#features-coverageReductionMode" class="xref page"><code>coverageReductionMode</code></a>
-feature is enabled on the device, and <code>rasterizerDiscardEnable</code> is
-<code>VK_FALSE</code>, the following command <strong>must</strong> have been called in the command
-buffer prior to drawing:</p>
+feature is enabled, and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the
+following command <strong>must</strong> have been called in the command buffer prior to
+drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2454,7 +2477,7 @@ buffer prior to drawing:</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <a href="features.html#features-representativeFragmentTest" class="xref page"><code>representativeFragmentTest</code></a> feature is enabled on the device, and
+<p>If the <a href="features.html#features-representativeFragmentTest" class="xref page"><code>representativeFragmentTest</code></a> feature is enabled, and
 <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following command <strong>must</strong>
 have been called in the command buffer prior to drawing:</p>
 </div>
@@ -2467,9 +2490,8 @@ have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="paragraph">
 <p>If the <a href="features.html#features-shadingRateImage" class="xref page"><code>shadingRateImage</code></a> feature is
-enabled on the device, and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>,
-the following commands <strong>must</strong> have been called in the command buffer prior to
-drawing:</p>
+enabled, and <code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, the following
+commands <strong>must</strong> have been called in the command buffer prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2487,8 +2509,8 @@ drawing:</p>
 </div>
 <div class="paragraph">
 <p>If the <a href="features.html#features-exclusiveScissor" class="xref page"><code>exclusiveScissor</code></a> feature is
-enabled on the device, the following commands <strong>must</strong> have been called in the
-command buffer prior to drawing:</p>
+enabled, the following commands <strong>must</strong> have been called in the command buffer
+prior to drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -3563,11 +3585,11 @@ for that stage have terminated.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p><code>OpKill</code> will behave the same as either <code>OpTerminateInvocation</code> or
-<code>OpDemoteToHelperInvocation</code> depending on the implementation.
-It is recommended that shader authors use <code>OpTerminateInvocation</code> or
-<code>OpDemoteToHelperInvocation</code> instead of <code>OpKill</code> whenever possible to
-produce more predictable behavior.</p>
+<p>Depending on the implementation, <code>OpKill</code> will be functionally equivalent
+to either <code>OpTerminateInvocation</code> or <code>OpDemoteToHelperInvocation</code>.
+To obtain the most predictable behavior, shader authors should use
+<code>OpTerminateInvocation</code> or <code>OpDemoteToHelperInvocation</code> rather than
+<code>OpKill</code> wherever possible.</p>
 </div>
 </td>
 </tr>
@@ -4125,8 +4147,7 @@ of fragment shader invocations associated with other fragments.</p>
 <h2 id="shaders-compute"><a class="anchor" href="#shaders-compute"></a>Compute Shaders</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Compute shaders are invoked via <a href="dispatch.html#vkCmdDispatch" class="xref page">vkCmdDispatch</a> and
-<a href="dispatch.html#vkCmdDispatchIndirect" class="xref page">vkCmdDispatchIndirect</a> commands.
+<p>Compute shaders are invoked via <a href="dispatch.html#dispatch" class="xref page">_dispatching commands</a>.
 In general, they have access to similar resources as shader stages executing
 as part of a graphics pipeline.</p>
 </div>
@@ -4359,13 +4380,13 @@ the center of the fragment area.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>As <code>Centroid</code> restricts the possible interpolation position to the
-covered area of the primitive, the position can be forced to vary between
-neighboring fragments when it otherwise would not.
+<p>As <code>Centroid</code> constrains the interpolation position to lie within the
+covered area of the primitive, using it may cause the position to differ
+between neighboring fragments when it otherwise would not.
 Derivatives calculated based on these differing locations can produce
 inconsistent results compared to undecorated inputs.
-It is recommended that input variables used in derivative calculations are
-not decorated with <code>Centroid</code>.</p>
+Thus using <code>Centroid</code> with input variables used in derivative
+calculations is not recommended.</p>
 </div>
 </td>
 </tr>
@@ -5436,9 +5457,10 @@ written, and <code>VK_INCOMPLETE</code> will be returned instead of
 properties were returned.</p>
 </div>
 <div class="paragraph">
-<p>If
+<p>If the
 <a href="features.html#features-cooperativeMatrixFlexibleDimensions" class="xref page"><code>cooperativeMatrixFlexibleDimensions</code></a>
-is not supported, the implementation <strong>must</strong> advertise zero properties.</p>
+feature is not supported, the implementation <strong>must</strong> advertise zero
+properties.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -5721,9 +5743,9 @@ not be present.</p>
 <code>MSize</code>, <code>KSize</code>, and <code>NSize</code>.</p>
 </div>
 <div class="paragraph">
-<p>If
+<p>If the
 <a href="features.html#features-cooperativeMatrixWorkgroupScope" class="xref page"><code>cooperativeMatrixWorkgroupScope</code></a>
-is not supported,
+feature is not supported,
 <code>scope</code> <strong>must</strong> be <code>VK_SCOPE_SUBGROUP_KHR</code>.</p>
 </div>
 <div class="sidebarblock">

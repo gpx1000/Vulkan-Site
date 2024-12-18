@@ -12,7 +12,6 @@
     <link rel="manifest" href="../../../_/static/site.webmanifest">
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
-    <meta name="theme-color" content="#ffffff">
   </head>
   <body class="article">
 <header class="header">
@@ -40,8 +39,8 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
+            <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan API</a>
+            <a class="navbar-item" href="../../../glsl/latest/index.html">GLSL</a>
             <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
@@ -73,8 +72,41 @@
         </div>
       </div>
     </div>
+    <label class="theme-toggler">
+      <input type="checkbox" id="switch-theme-checkbox" name="switch-theme-checkbox"/>
+      <span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" class="svg-inline--fa fa-moon moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+        </svg>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" class="svg-inline--fa fa-sun sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
   </nav>
 </header>
+<script>
+  !function() {
+    let e = document.getElementById("switch-theme-checkbox")
+    e.checked = document.documentElement.classList.contains("dark-theme")
+    e.addEventListener("change", function() {
+      if (document.documentElement.classList.contains("light")) {
+        document.documentElement.classList.remove("light")
+        document.documentElement.classList.add("dark")
+      } else if (document.documentElement.classList.contains("dark")) {
+        document.documentElement.classList.remove("dark")
+        document.documentElement.classList.add("light")
+      } else {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.add("light")
+        }
+      }
+      document.documentElement.classList.toggle("dark-theme", this.checked), document.documentElement.setAttribute("data-theme", this.checked ? "dark" : "light"),
+        function(e) {
+          window.localStorage && window.localStorage.setItem("theme", e)
+        }(this.checked ? "dark" : "light"), this.checked ? this.parentElement.classList.add("active") : this.parentElement.classList.remove("active")
+    }.bind(e))
+  }();
+</script>
 <div class="body">
 <div class="nav-container" data-component="spec" data-version="latest">
   <aside class="nav">
@@ -602,8 +634,8 @@ It is ignored if <code>sharingMode</code> is not
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code>pNext</code> chain includes a <a href="#VkBufferUsageFlags2CreateInfoKHR">VkBufferUsageFlags2CreateInfoKHR</a>
-structure, <a href="#VkBufferUsageFlags2CreateInfoKHR">VkBufferUsageFlags2CreateInfoKHR</a>::<code>usage</code> from that
+<p>If the <code>pNext</code> chain includes a <a href="#VkBufferUsageFlags2CreateInfo">VkBufferUsageFlags2CreateInfo</a>
+structure, <a href="#VkBufferUsageFlags2CreateInfo">VkBufferUsageFlags2CreateInfo</a>::<code>usage</code> from that
 structure is used instead of <code>usage</code> from this structure.</p>
 </div>
 <div class="sidebarblock">
@@ -616,7 +648,7 @@ structure is used instead of <code>usage</code> from this structure.</p>
 
 
 If the <code>pNext</code> chain does not include a
-<a href="#VkBufferUsageFlags2CreateInfoKHR">VkBufferUsageFlags2CreateInfoKHR</a> structure,
+<a href="#VkBufferUsageFlags2CreateInfo">VkBufferUsageFlags2CreateInfo</a> structure,
 <code>usage</code> <strong>must</strong> be a valid combination of <a href="#VkBufferUsageFlagBits">VkBufferUsageFlagBits</a>
 values</p>
 </li>
@@ -625,7 +657,7 @@ values</p>
 
 
 If the <code>pNext</code> chain does not include a
-<a href="#VkBufferUsageFlags2CreateInfoKHR">VkBufferUsageFlags2CreateInfoKHR</a> structure,
+<a href="#VkBufferUsageFlags2CreateInfo">VkBufferUsageFlags2CreateInfo</a> structure,
 <code>usage</code> <strong>must</strong> not be 0</p>
 </li>
 <li>
@@ -780,6 +812,16 @@ If <code>flags</code> includes
 <a href="features.html#features-videoMaintenance1" class="xref page"><code>videoMaintenance1</code></a> <strong>must</strong> be enabled</p>
 </li>
 <li>
+<p><a id="VUID-VkBufferCreateInfo-pNext-10249" href="#VUID-VkBufferCreateInfo-pNext-10249"></a> <span class="vuid">VUID-VkBufferCreateInfo-pNext-10249</span><br>
+
+If the <code>pNext</code> chain includes a <a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a>
+structure and for any element of its <code>pProfiles</code> member
+<code>videoCodecOperation</code> is
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR</code>, then the
+<a href="features.html#features-videoEncodeAV1" class="xref page"><code>videoEncodeAV1</code></a> feature <strong>must</strong> be
+enabled</p>
+</li>
+<li>
 <p><a id="VUID-VkBufferCreateInfo-size-06409" href="#VUID-VkBufferCreateInfo-size-06409"></a> <span class="vuid">VUID-VkBufferCreateInfo-size-06409</span><br>
 
 <code>size</code> <strong>must</strong> be less than or equal to
@@ -904,7 +946,7 @@ If <code>flags</code> includes <code>VK_BUFFER_CREATE_PROTECTED_BIT</code>, then
 </li>
 <li>
 <p><a id="VUID-VkBufferCreateInfo-pNext-pNext" href="#VUID-VkBufferCreateInfo-pNext-pNext"></a> <span class="vuid">VUID-VkBufferCreateInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkBufferCollectionBufferCreateInfoFUCHSIA">VkBufferCollectionBufferCreateInfoFUCHSIA</a>, <a href="#VkBufferDeviceAddressCreateInfoEXT">VkBufferDeviceAddressCreateInfoEXT</a>, <a href="#VkBufferOpaqueCaptureAddressCreateInfo">VkBufferOpaqueCaptureAddressCreateInfo</a>, <a href="#VkBufferUsageFlags2CreateInfoKHR">VkBufferUsageFlags2CreateInfoKHR</a>, <a href="#VkDedicatedAllocationBufferCreateInfoNV">VkDedicatedAllocationBufferCreateInfoNV</a>, <a href="#VkExternalMemoryBufferCreateInfo">VkExternalMemoryBufferCreateInfo</a>, <a href="descriptorsets.html#VkOpaqueCaptureDescriptorDataCreateInfoEXT" class="xref page">VkOpaqueCaptureDescriptorDataCreateInfoEXT</a>, or <a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkBufferCollectionBufferCreateInfoFUCHSIA">VkBufferCollectionBufferCreateInfoFUCHSIA</a>, <a href="#VkBufferDeviceAddressCreateInfoEXT">VkBufferDeviceAddressCreateInfoEXT</a>, <a href="#VkBufferOpaqueCaptureAddressCreateInfo">VkBufferOpaqueCaptureAddressCreateInfo</a>, <a href="#VkBufferUsageFlags2CreateInfo">VkBufferUsageFlags2CreateInfo</a>, <a href="#VkDedicatedAllocationBufferCreateInfoNV">VkDedicatedAllocationBufferCreateInfoNV</a>, <a href="#VkExternalMemoryBufferCreateInfo">VkExternalMemoryBufferCreateInfo</a>, <a href="descriptorsets.html#VkOpaqueCaptureDescriptorDataCreateInfoEXT" class="xref page">VkOpaqueCaptureDescriptorDataCreateInfoEXT</a>, or <a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkBufferCreateInfo-sType-unique" href="#VUID-VkBufferCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkBufferCreateInfo-sType-unique</span><br>
@@ -927,16 +969,25 @@ If <code>flags</code> includes <code>VK_BUFFER_CREATE_PROTECTED_BIT</code>, then
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkBufferUsageFlags2CreateInfoKHR</code> structure is defined as:</p>
+<p>The <code>VkBufferUsageFlags2CreateInfo</code> structure is defined as:</p>
+</div>
+<div id="VkBufferUsageFlags2CreateInfo" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_4
+typedef struct VkBufferUsageFlags2CreateInfo {
+    VkStructureType        sType;
+    const void*            pNext;
+    VkBufferUsageFlags2    usage;
+} VkBufferUsageFlags2CreateInfo;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
 </div>
 <div id="VkBufferUsageFlags2CreateInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance5
-typedef struct VkBufferUsageFlags2CreateInfoKHR {
-    VkStructureType           sType;
-    const void*               pNext;
-    VkBufferUsageFlags2KHR    usage;
-} VkBufferUsageFlags2CreateInfoKHR;</code></pre>
+typedef VkBufferUsageFlags2CreateInfo VkBufferUsageFlags2CreateInfoKHR;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -949,7 +1000,7 @@ typedef struct VkBufferUsageFlags2CreateInfoKHR {
 structure.</p>
 </li>
 <li>
-<p><code>usage</code> is a bitmask of <a href="#VkBufferUsageFlagBits2KHR">VkBufferUsageFlagBits2KHR</a> specifying
+<p><code>usage</code> is a bitmask of <a href="#VkBufferUsageFlagBits2">VkBufferUsageFlagBits2</a> specifying
 allowed usages of the buffer.</p>
 </li>
 </ul>
@@ -970,15 +1021,15 @@ query structure are also returned in that field.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkBufferUsageFlags2CreateInfoKHR-sType-sType" href="#VUID-VkBufferUsageFlags2CreateInfoKHR-sType-sType"></a> <span class="vuid">VUID-VkBufferUsageFlags2CreateInfoKHR-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_BUFFER_USAGE_FLAGS_2_CREATE_INFO_KHR</code></p>
+<p><a id="VUID-VkBufferUsageFlags2CreateInfo-sType-sType" href="#VUID-VkBufferUsageFlags2CreateInfo-sType-sType"></a> <span class="vuid">VUID-VkBufferUsageFlags2CreateInfo-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_BUFFER_USAGE_FLAGS_2_CREATE_INFO</code></p>
 </li>
 <li>
-<p><a id="VUID-VkBufferUsageFlags2CreateInfoKHR-usage-parameter" href="#VUID-VkBufferUsageFlags2CreateInfoKHR-usage-parameter"></a> <span class="vuid">VUID-VkBufferUsageFlags2CreateInfoKHR-usage-parameter</span><br>
- <code>usage</code> <strong>must</strong> be a valid combination of <a href="#VkBufferUsageFlagBits2KHR">VkBufferUsageFlagBits2KHR</a> values</p>
+<p><a id="VUID-VkBufferUsageFlags2CreateInfo-usage-parameter" href="#VUID-VkBufferUsageFlags2CreateInfo-usage-parameter"></a> <span class="vuid">VUID-VkBufferUsageFlags2CreateInfo-usage-parameter</span><br>
+ <code>usage</code> <strong>must</strong> be a valid combination of <a href="#VkBufferUsageFlagBits2">VkBufferUsageFlagBits2</a> values</p>
 </li>
 <li>
-<p><a id="VUID-VkBufferUsageFlags2CreateInfoKHR-usage-requiredbitmask" href="#VUID-VkBufferUsageFlags2CreateInfoKHR-usage-requiredbitmask"></a> <span class="vuid">VUID-VkBufferUsageFlags2CreateInfoKHR-usage-requiredbitmask</span><br>
+<p><a id="VUID-VkBufferUsageFlags2CreateInfo-usage-requiredbitmask" href="#VUID-VkBufferUsageFlags2CreateInfo-usage-requiredbitmask"></a> <span class="vuid">VUID-VkBufferUsageFlags2CreateInfo-usage-requiredbitmask</span><br>
  <code>usage</code> <strong>must</strong> not be <code>0</code></p>
 </li>
 </ul>
@@ -990,117 +1041,145 @@ query structure are also returned in that field.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>Bits which <strong>can</strong> be set in
-<a href="#VkBufferUsageFlags2CreateInfoKHR">VkBufferUsageFlags2CreateInfoKHR</a>::<code>usage</code>, specifying usage
-behavior of a buffer, are:</p>
+<p>Bits which <strong>can</strong> be set in <a href="#VkBufferUsageFlags2CreateInfo">VkBufferUsageFlags2CreateInfo</a>::<code>usage</code>,
+specifying usage behavior of a buffer, are:</p>
+</div>
+<div id="VkBufferUsageFlagBits2" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_4
+// Flag bits for VkBufferUsageFlagBits2
+typedef VkFlags64 VkBufferUsageFlagBits2;
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_TRANSFER_SRC_BIT = 0x00000001ULL;
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_TRANSFER_DST_BIT = 0x00000002ULL;
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_UNIFORM_TEXEL_BUFFER_BIT = 0x00000004ULL;
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_STORAGE_TEXEL_BUFFER_BIT = 0x00000008ULL;
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_UNIFORM_BUFFER_BIT = 0x00000010ULL;
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT = 0x00000020ULL;
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_INDEX_BUFFER_BIT = 0x00000040ULL;
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_VERTEX_BUFFER_BIT = 0x00000080ULL;
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_INDIRECT_BUFFER_BIT = 0x00000100ULL;
+// Provided by VK_VERSION_1_4
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_SHADER_DEVICE_ADDRESS_BIT = 0x00020000ULL;
+#ifdef VK_ENABLE_BETA_EXTENSIONS
+// Provided by VK_AMDX_shader_enqueue with VK_KHR_maintenance5 or VK_VERSION_1_4
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_EXECUTION_GRAPH_SCRATCH_BIT_AMDX = 0x02000000ULL;
+#endif
+// Provided by VK_KHR_maintenance5
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_TRANSFER_SRC_BIT_KHR = 0x00000001ULL;
+// Provided by VK_KHR_maintenance5
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_TRANSFER_DST_BIT_KHR = 0x00000002ULL;
+// Provided by VK_KHR_maintenance5
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_UNIFORM_TEXEL_BUFFER_BIT_KHR = 0x00000004ULL;
+// Provided by VK_KHR_maintenance5
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_STORAGE_TEXEL_BUFFER_BIT_KHR = 0x00000008ULL;
+// Provided by VK_KHR_maintenance5
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_UNIFORM_BUFFER_BIT_KHR = 0x00000010ULL;
+// Provided by VK_KHR_maintenance5
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT_KHR = 0x00000020ULL;
+// Provided by VK_KHR_maintenance5
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_INDEX_BUFFER_BIT_KHR = 0x00000040ULL;
+// Provided by VK_KHR_maintenance5
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_VERTEX_BUFFER_BIT_KHR = 0x00000080ULL;
+// Provided by VK_KHR_maintenance5
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_INDIRECT_BUFFER_BIT_KHR = 0x00000100ULL;
+// Provided by VK_KHR_maintenance5 with VK_EXT_conditional_rendering
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_CONDITIONAL_RENDERING_BIT_EXT = 0x00000200ULL;
+// Provided by VK_KHR_maintenance5 with VK_KHR_ray_tracing_pipeline
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_SHADER_BINDING_TABLE_BIT_KHR = 0x00000400ULL;
+// Provided by VK_KHR_maintenance5 with VK_NV_ray_tracing
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_RAY_TRACING_BIT_NV = 0x00000400ULL;
+// Provided by VK_KHR_maintenance5 with VK_EXT_transform_feedback
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_TRANSFORM_FEEDBACK_BUFFER_BIT_EXT = 0x00000800ULL;
+// Provided by VK_KHR_maintenance5 with VK_EXT_transform_feedback
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT = 0x00001000ULL;
+// Provided by VK_KHR_maintenance5 with VK_KHR_video_decode_queue
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_VIDEO_DECODE_SRC_BIT_KHR = 0x00002000ULL;
+// Provided by VK_KHR_maintenance5 with VK_KHR_video_decode_queue
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_VIDEO_DECODE_DST_BIT_KHR = 0x00004000ULL;
+// Provided by VK_KHR_maintenance5 with VK_KHR_video_encode_queue
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_VIDEO_ENCODE_DST_BIT_KHR = 0x00008000ULL;
+// Provided by VK_KHR_maintenance5 with VK_KHR_video_encode_queue
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_VIDEO_ENCODE_SRC_BIT_KHR = 0x00010000ULL;
+// Provided by VK_KHR_maintenance5 with (VK_VERSION_1_2 or VK_KHR_buffer_device_address) or VK_EXT_buffer_device_address
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_SHADER_DEVICE_ADDRESS_BIT_KHR = 0x00020000ULL;
+// Provided by VK_KHR_acceleration_structure with VK_KHR_maintenance5
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR = 0x00080000ULL;
+// Provided by VK_KHR_acceleration_structure with VK_KHR_maintenance5
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR = 0x00100000ULL;
+// Provided by VK_KHR_maintenance5 with VK_EXT_descriptor_buffer
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT = 0x00200000ULL;
+// Provided by VK_KHR_maintenance5 with VK_EXT_descriptor_buffer
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT = 0x00400000ULL;
+// Provided by VK_KHR_maintenance5 with VK_EXT_descriptor_buffer
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT = 0x04000000ULL;
+// Provided by VK_KHR_maintenance5 with VK_EXT_opacity_micromap
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT = 0x00800000ULL;
+// Provided by VK_KHR_maintenance5 with VK_EXT_opacity_micromap
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_MICROMAP_STORAGE_BIT_EXT = 0x01000000ULL;
+// Provided by VK_EXT_device_generated_commands
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_PREPROCESS_BUFFER_BIT_EXT = 0x80000000ULL;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
 </div>
 <div id="VkBufferUsageFlagBits2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance5
-// Flag bits for VkBufferUsageFlagBits2KHR
-typedef VkFlags64 VkBufferUsageFlagBits2KHR;
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_TRANSFER_SRC_BIT_KHR = 0x00000001ULL;
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_TRANSFER_DST_BIT_KHR = 0x00000002ULL;
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_UNIFORM_TEXEL_BUFFER_BIT_KHR = 0x00000004ULL;
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_STORAGE_TEXEL_BUFFER_BIT_KHR = 0x00000008ULL;
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_UNIFORM_BUFFER_BIT_KHR = 0x00000010ULL;
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT_KHR = 0x00000020ULL;
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_INDEX_BUFFER_BIT_KHR = 0x00000040ULL;
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_VERTEX_BUFFER_BIT_KHR = 0x00000080ULL;
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_INDIRECT_BUFFER_BIT_KHR = 0x00000100ULL;
-#ifdef VK_ENABLE_BETA_EXTENSIONS
-// Provided by VK_KHR_maintenance5 with VK_AMDX_shader_enqueue
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_EXECUTION_GRAPH_SCRATCH_BIT_AMDX = 0x02000000ULL;
-#endif
-// Provided by VK_KHR_maintenance5 with VK_EXT_conditional_rendering
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_CONDITIONAL_RENDERING_BIT_EXT = 0x00000200ULL;
-// Provided by VK_KHR_maintenance5 with VK_KHR_ray_tracing_pipeline
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_SHADER_BINDING_TABLE_BIT_KHR = 0x00000400ULL;
-// Provided by VK_KHR_maintenance5 with VK_NV_ray_tracing
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_RAY_TRACING_BIT_NV = 0x00000400ULL;
-// Provided by VK_KHR_maintenance5 with VK_EXT_transform_feedback
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_TRANSFORM_FEEDBACK_BUFFER_BIT_EXT = 0x00000800ULL;
-// Provided by VK_KHR_maintenance5 with VK_EXT_transform_feedback
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_TRANSFORM_FEEDBACK_COUNTER_BUFFER_BIT_EXT = 0x00001000ULL;
-// Provided by VK_KHR_maintenance5 with VK_KHR_video_decode_queue
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_VIDEO_DECODE_SRC_BIT_KHR = 0x00002000ULL;
-// Provided by VK_KHR_maintenance5 with VK_KHR_video_decode_queue
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_VIDEO_DECODE_DST_BIT_KHR = 0x00004000ULL;
-// Provided by VK_KHR_maintenance5 with VK_KHR_video_encode_queue
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_VIDEO_ENCODE_DST_BIT_KHR = 0x00008000ULL;
-// Provided by VK_KHR_maintenance5 with VK_KHR_video_encode_queue
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_VIDEO_ENCODE_SRC_BIT_KHR = 0x00010000ULL;
-// Provided by VK_KHR_maintenance5 with (VK_VERSION_1_2 or VK_KHR_buffer_device_address) or VK_EXT_buffer_device_address
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_SHADER_DEVICE_ADDRESS_BIT_KHR = 0x00020000ULL;
-// Provided by VK_KHR_acceleration_structure with VK_KHR_maintenance5
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_ACCELERATION_STRUCTURE_BUILD_INPUT_READ_ONLY_BIT_KHR = 0x00080000ULL;
-// Provided by VK_KHR_acceleration_structure with VK_KHR_maintenance5
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR = 0x00100000ULL;
-// Provided by VK_KHR_maintenance5 with VK_EXT_descriptor_buffer
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT = 0x00200000ULL;
-// Provided by VK_KHR_maintenance5 with VK_EXT_descriptor_buffer
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT = 0x00400000ULL;
-// Provided by VK_KHR_maintenance5 with VK_EXT_descriptor_buffer
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT = 0x04000000ULL;
-// Provided by VK_KHR_maintenance5 with VK_EXT_opacity_micromap
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT = 0x00800000ULL;
-// Provided by VK_KHR_maintenance5 with VK_EXT_opacity_micromap
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_MICROMAP_STORAGE_BIT_EXT = 0x01000000ULL;
-// Provided by VK_EXT_device_generated_commands
-static const VkBufferUsageFlagBits2KHR VK_BUFFER_USAGE_2_PREPROCESS_BUFFER_BIT_EXT = 0x80000000ULL;</code></pre>
+typedef VkBufferUsageFlagBits2 VkBufferUsageFlagBits2KHR;</code></pre>
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_BUFFER_USAGE_2_TRANSFER_SRC_BIT_KHR</code> specifies that the buffer
-<strong>can</strong> be used as the source of a <em>transfer command</em> (see the definition
-of <a href="synchronization.html#synchronization-pipeline-stages-transfer" class="xref page">    <code>VK_PIPELINE_STAGE_TRANSFER_BIT</code></a>).</p>
+<p><code>VK_BUFFER_USAGE_2_TRANSFER_SRC_BIT</code> specifies that the buffer <strong>can</strong>
+be used as the source of a <em>transfer command</em> (see the definition of
+<a href="synchronization.html#synchronization-pipeline-stages-transfer" class="xref page">    <code>VK_PIPELINE_STAGE_TRANSFER_BIT</code></a>).</p>
 </li>
 <li>
-<p><code>VK_BUFFER_USAGE_2_TRANSFER_DST_BIT_KHR</code> specifies that the buffer
-<strong>can</strong> be used as the destination of a transfer command.</p>
+<p><code>VK_BUFFER_USAGE_2_TRANSFER_DST_BIT</code> specifies that the buffer <strong>can</strong>
+be used as the destination of a transfer command.</p>
 </li>
 <li>
-<p><code>VK_BUFFER_USAGE_2_UNIFORM_TEXEL_BUFFER_BIT_KHR</code> specifies that the
+<p><code>VK_BUFFER_USAGE_2_UNIFORM_TEXEL_BUFFER_BIT</code> specifies that the
 buffer <strong>can</strong> be used to create a <code>VkBufferView</code> suitable for
 occupying a <code>VkDescriptorSet</code> slot of type
 <code>VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER</code>.</p>
 </li>
 <li>
-<p><code>VK_BUFFER_USAGE_2_STORAGE_TEXEL_BUFFER_BIT_KHR</code> specifies that the
+<p><code>VK_BUFFER_USAGE_2_STORAGE_TEXEL_BUFFER_BIT</code> specifies that the
 buffer <strong>can</strong> be used to create a <code>VkBufferView</code> suitable for
 occupying a <code>VkDescriptorSet</code> slot of type
 <code>VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER</code>.</p>
 </li>
 <li>
-<p><code>VK_BUFFER_USAGE_2_UNIFORM_BUFFER_BIT_KHR</code> specifies that the buffer
+<p><code>VK_BUFFER_USAGE_2_UNIFORM_BUFFER_BIT</code> specifies that the buffer
 <strong>can</strong> be used in a <code>VkDescriptorBufferInfo</code> suitable for occupying a
 <code>VkDescriptorSet</code> slot either of type
 <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER</code> or
 <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code>.</p>
 </li>
 <li>
-<p><code>VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT_KHR</code> specifies that the buffer
+<p><code>VK_BUFFER_USAGE_2_STORAGE_BUFFER_BIT</code> specifies that the buffer
 <strong>can</strong> be used in a <code>VkDescriptorBufferInfo</code> suitable for occupying a
 <code>VkDescriptorSet</code> slot either of type
 <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</code> or
 <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code>.</p>
 </li>
 <li>
-<p><code>VK_BUFFER_USAGE_2_INDEX_BUFFER_BIT_KHR</code> specifies that the buffer
-    is suitable for passing as the <code>buffer</code> parameter to
-<a href="drawing.html#vkCmdBindIndexBuffer2KHR" class="xref page">vkCmdBindIndexBuffer2KHR</a> and
+<p><code>VK_BUFFER_USAGE_2_INDEX_BUFFER_BIT</code> specifies that the buffer is
+    suitable for passing as the <code>buffer</code> parameter to
+<a href="drawing.html#vkCmdBindIndexBuffer2" class="xref page">vkCmdBindIndexBuffer2</a> and
     <a href="drawing.html#vkCmdBindIndexBuffer" class="xref page">vkCmdBindIndexBuffer</a>.</p>
 </li>
 <li>
-<p><code>VK_BUFFER_USAGE_2_VERTEX_BUFFER_BIT_KHR</code> specifies that the buffer
-is suitable for passing as an element of the <code>pBuffers</code> array to
+<p><code>VK_BUFFER_USAGE_2_VERTEX_BUFFER_BIT</code> specifies that the buffer is
+suitable for passing as an element of the <code>pBuffers</code> array to
 <a href="fxvertex.html#vkCmdBindVertexBuffers" class="xref page">vkCmdBindVertexBuffers</a>.</p>
 </li>
 <li>
-<p><code>VK_BUFFER_USAGE_2_INDIRECT_BUFFER_BIT_KHR</code> specifies that the
-buffer is suitable for passing as the <code>buffer</code> parameter to
+<p><code>VK_BUFFER_USAGE_2_INDIRECT_BUFFER_BIT</code> specifies that the buffer is
+suitable for passing as the <code>buffer</code> parameter to
 <a href="drawing.html#vkCmdDrawIndirect" class="xref page">vkCmdDrawIndirect</a>, <a href="drawing.html#vkCmdDrawIndexedIndirect" class="xref page">vkCmdDrawIndexedIndirect</a>,
 <a href="drawing.html#vkCmdDrawMeshTasksIndirectNV" class="xref page">vkCmdDrawMeshTasksIndirectNV</a>,
 <a href="drawing.html#vkCmdDrawMeshTasksIndirectCountNV" class="xref page">vkCmdDrawMeshTasksIndirectCountNV</a>,
@@ -1169,7 +1248,7 @@ that the buffer is suitable for storage space for a
 <a href="#VkAccelerationStructureKHR">VkAccelerationStructureKHR</a>.</p>
 </li>
 <li>
-<p><code>VK_BUFFER_USAGE_2_SHADER_DEVICE_ADDRESS_BIT_KHR</code> specifies that the
+<p><code>VK_BUFFER_USAGE_2_SHADER_DEVICE_ADDRESS_BIT</code> specifies that the
 buffer <strong>can</strong> be used to retrieve a buffer device address via
 <a href="descriptorsets.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a> and use that address to access the
 buffer&#8217;s memory from a shader.</p>
@@ -1208,15 +1287,24 @@ buffer <strong>can</strong> be used as a preprocess buffer for
 </div>
 <div class="openblock">
 <div class="content">
-<div id="VkBufferUsageFlags2KHR" class="listingblock">
+<div id="VkBufferUsageFlags2" class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance5
-typedef VkFlags64 VkBufferUsageFlags2KHR;</code></pre>
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_4
+typedef VkFlags64 VkBufferUsageFlags2;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>VkBufferUsageFlags2KHR</code> is a bitmask type for setting a mask of zero or
-more <a href="#VkBufferUsageFlagBits2KHR">VkBufferUsageFlagBits2KHR</a>.</p>
+<p>or the equivalent</p>
+</div>
+<div id="VkBufferUsageFlags2KHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance5
+typedef VkBufferUsageFlags2 VkBufferUsageFlags2KHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>VkBufferUsageFlags2</code> is a bitmask type for setting a mask of zero or
+more <a href="#VkBufferUsageFlagBits2">VkBufferUsageFlagBits2</a>.</p>
 </div>
 </div>
 </div>
@@ -1324,7 +1412,7 @@ be used in a <code>VkDescriptorBufferInfo</code> suitable for occupying a
 <li>
 <p><code>VK_BUFFER_USAGE_INDEX_BUFFER_BIT</code> specifies that the buffer is
     suitable for passing as the <code>buffer</code> parameter to
-<a href="drawing.html#vkCmdBindIndexBuffer2KHR" class="xref page">vkCmdBindIndexBuffer2KHR</a> and
+<a href="drawing.html#vkCmdBindIndexBuffer2" class="xref page">vkCmdBindIndexBuffer2</a> and
     <a href="drawing.html#vkCmdBindIndexBuffer" class="xref page">vkCmdBindIndexBuffer</a>.</p>
 </li>
 <li>
@@ -1726,9 +1814,10 @@ created buffer on the same implementation.</p>
 zero.</p>
 </div>
 <div class="paragraph">
-<p>Apps <strong>should</strong> avoid creating buffers with app-provided addresses and
-implementation-provided addresses in the same process, to reduce the
-likelihood of <code>VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS</code> errors.</p>
+<p>Applications <strong>should</strong> avoid creating buffers with application-provided
+addresses and implementation-provided addresses in the same process, to
+reduce the likelihood of <code>VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS</code>
+errors.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1748,8 +1837,8 @@ so any address values stored in the trace data will remain valid.</p>
 <div class="paragraph">
 <p>Implementations are expected to separate such buffers in the GPU address
 space so normal allocations will avoid using these addresses.
-Apps/tools should avoid mixing app-provided and implementation-provided
-addresses for buffers created with
+Applications and tools should avoid mixing application-provided and
+implementation-provided addresses for buffers created with
 <code>VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code>, to avoid address
 space allocation conflicts.</p>
 </div>
@@ -1818,9 +1907,9 @@ The buffer <strong>must</strong> also be bound to an identically created
 <p>If this structure is not present, it is as if <code>deviceAddress</code> is zero.</p>
 </div>
 <div class="paragraph">
-<p>Apps <strong>should</strong> avoid creating buffers with app-provided addresses and
-implementation-provided addresses in the same process, to reduce the
-likelihood of <code>VK_ERROR_INVALID_DEVICE_ADDRESS_EXT</code> errors.</p>
+<p>Applications <strong>should</strong> avoid creating buffers with application-provided
+addresses and implementation-provided addresses in the same process, to
+reduce the likelihood of <code>VK_ERROR_INVALID_DEVICE_ADDRESS_EXT</code> errors.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -2200,7 +2289,7 @@ not a multiple of the <a href="formats.html#texel-block-size" class="xref page">
 <p>The buffer view has a <em>buffer view usage</em> identifying which descriptor types
 can be created from it.
 This usage
-<strong>can</strong> be defined by including the <a href="#VkBufferUsageFlags2CreateInfoKHR">VkBufferUsageFlags2CreateInfoKHR</a>
+<strong>can</strong> be defined by including the <a href="#VkBufferUsageFlags2CreateInfo">VkBufferUsageFlags2CreateInfo</a>
 structure in the <code>pNext</code> chain, and specifying the <code>usage</code> value
 there.
 If this structure is not included, it
@@ -2334,19 +2423,18 @@ If the <code>pNext</code> chain includes a
 <li>
 <p><a id="VUID-VkBufferViewCreateInfo-pNext-08780" href="#VUID-VkBufferViewCreateInfo-pNext-08780"></a> <span class="vuid">VUID-VkBufferViewCreateInfo-pNext-08780</span><br>
 
-If the <code>pNext</code> chain includes a
-<a href="#VkBufferUsageFlags2CreateInfoKHR">VkBufferUsageFlags2CreateInfoKHR</a>, its <code>usage</code> <strong>must</strong> not
-contain any other bit than
-<code>VK_BUFFER_USAGE_2_UNIFORM_TEXEL_BUFFER_BIT_KHR</code> or
-<code>VK_BUFFER_USAGE_2_STORAGE_TEXEL_BUFFER_BIT_KHR</code></p>
+If the <code>pNext</code> chain includes a <a href="#VkBufferUsageFlags2CreateInfo">VkBufferUsageFlags2CreateInfo</a>,
+its <code>usage</code> <strong>must</strong> not contain any other bit than
+<code>VK_BUFFER_USAGE_2_UNIFORM_TEXEL_BUFFER_BIT</code> or
+<code>VK_BUFFER_USAGE_2_STORAGE_TEXEL_BUFFER_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkBufferViewCreateInfo-pNext-08781" href="#VUID-VkBufferViewCreateInfo-pNext-08781"></a> <span class="vuid">VUID-VkBufferViewCreateInfo-pNext-08781</span><br>
 
-If the <code>pNext</code> chain includes a
-<a href="#VkBufferUsageFlags2CreateInfoKHR">VkBufferUsageFlags2CreateInfoKHR</a>, its <code>usage</code> <strong>must</strong> be a
-subset of the <a href="#VkBufferCreateInfo">VkBufferCreateInfo</a>::<code>usage</code> specified or
-<a href="#VkBufferUsageFlags2CreateInfoKHR">VkBufferUsageFlags2CreateInfoKHR</a>::<code>usage</code> from
+If the <code>pNext</code> chain includes a <a href="#VkBufferUsageFlags2CreateInfo">VkBufferUsageFlags2CreateInfo</a>,
+its <code>usage</code> <strong>must</strong> be a subset of the
+<a href="#VkBufferCreateInfo">VkBufferCreateInfo</a>::<code>usage</code> specified or
+<a href="#VkBufferUsageFlags2CreateInfo">VkBufferUsageFlags2CreateInfo</a>::<code>usage</code> from
 <a href="#VkBufferCreateInfo">VkBufferCreateInfo</a>::<code>pNext</code> when creating <code>buffer</code></p>
 </li>
 </ul>
@@ -2364,7 +2452,7 @@ subset of the <a href="#VkBufferCreateInfo">VkBufferCreateInfo</a>::<code>usage<
 </li>
 <li>
 <p><a id="VUID-VkBufferViewCreateInfo-pNext-pNext" href="#VUID-VkBufferViewCreateInfo-pNext-pNext"></a> <span class="vuid">VUID-VkBufferViewCreateInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkBufferUsageFlags2CreateInfoKHR">VkBufferUsageFlags2CreateInfoKHR</a> or <a href="memory.html#VkExportMetalObjectCreateInfoEXT" class="xref page">VkExportMetalObjectCreateInfoEXT</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkBufferUsageFlags2CreateInfo">VkBufferUsageFlags2CreateInfo</a> or <a href="memory.html#VkExportMetalObjectCreateInfoEXT" class="xref page">VkExportMetalObjectCreateInfoEXT</a></p>
 </li>
 <li>
 <p><a id="VUID-VkBufferViewCreateInfo-sType-unique" href="#VUID-VkBufferViewCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkBufferViewCreateInfo-sType-unique</span><br>
@@ -2851,7 +2939,8 @@ be supported unless other parameters meet all of the constraints:</p>
 </li>
 <li>
 <p><code>arrayLayers</code> is 1, unless
-the <code>ycbcrImageArrays</code> feature is enabled, or
+the <a href="features.html#features-ycbcrImageArrays" class="xref page"><code>ycbcrImageArrays</code></a> feature is
+enabled, or
 otherwise indicated by
 <a href="capabilities.html#VkImageFormatProperties" class="xref page">VkImageFormatProperties</a>::<code>maxArrayLayers</code>, as returned by
 <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties" class="xref page">vkGetPhysicalDeviceImageFormatProperties</a></p>
@@ -2878,9 +2967,9 @@ their valid usage requirements.</p>
 </div>
 <div class="paragraph">
 <p>If the implementation reports <code>VK_TRUE</code> in
-<a href="limits.html#VkPhysicalDeviceHostImageCopyPropertiesEXT" class="xref page">VkPhysicalDeviceHostImageCopyPropertiesEXT</a>::<code>identicalMemoryTypeRequirements</code>,
-usage of <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT</code> <strong>must</strong> not affect the
-memory type requirements of the image as described in
+<a href="limits.html#VkPhysicalDeviceHostImageCopyProperties" class="xref page">VkPhysicalDeviceHostImageCopyProperties</a>::<code>identicalMemoryTypeRequirements</code>,
+usage of <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code> <strong>must</strong> not affect the memory
+type requirements of the image as described in
 <a href="sparsemem.html#sparsememory-memory-requirements" class="xref page">Sparse Resource Memory Requirements</a> and
 <a href="#resources-association">Resource Memory Association</a>.</p>
 </div>
@@ -4167,6 +4256,8 @@ does not include <code>VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR</code>, then
 If <code>flags</code> includes
 <code>VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR</code>, then
 <code>usage</code> <strong>must</strong> not include
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code>,
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code>, or
 <code>VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR</code></p>
 </li>
 <li>
@@ -4175,6 +4266,101 @@ If <code>flags</code> includes
 If the <code>pNext</code> chain includes a <a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a>
 structure with <code>profileCount</code> greater than <code>0</code>, then
 <code>supportedVideoFormat</code> <strong>must</strong> be <code>VK_TRUE</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageCreateInfo-pNext-10250" href="#VUID-VkImageCreateInfo-pNext-10250"></a> <span class="vuid">VUID-VkImageCreateInfo-pNext-10250</span><br>
+
+If the <code>pNext</code> chain includes a <a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a>
+structure and for any element of its <code>pProfiles</code> member
+<code>videoCodecOperation</code> is
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR</code>, then the
+<a href="features.html#features-videoEncodeAV1" class="xref page"><code>videoEncodeAV1</code></a> feature <strong>must</strong> be
+enabled</p>
+</li>
+<li>
+<p><a id="VUID-VkImageCreateInfo-usage-10251" href="#VUID-VkImageCreateInfo-usage-10251"></a> <span class="vuid">VUID-VkImageCreateInfo-usage-10251</span><br>
+
+If <code>usage</code> includes
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code> or
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code>, then the
+<a href="features.html#features-videoEncodeQuantizationMap" class="xref page">    <code>videoEncodeQuantizationMap</code></a> feature <strong>must</strong> be enabled</p>
+</li>
+<li>
+<p><a id="VUID-VkImageCreateInfo-usage-10252" href="#VUID-VkImageCreateInfo-usage-10252"></a> <span class="vuid">VUID-VkImageCreateInfo-usage-10252</span><br>
+
+If <code>usage</code> includes
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code> or
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code>, <code>imageType</code>
+<strong>must</strong> be <code>VK_IMAGE_TYPE_2D</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageCreateInfo-usage-10253" href="#VUID-VkImageCreateInfo-usage-10253"></a> <span class="vuid">VUID-VkImageCreateInfo-usage-10253</span><br>
+
+If <code>usage</code> includes
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code> or
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code>, <code>samples</code>
+<strong>must</strong> be <code>VK_SAMPLE_COUNT_1_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageCreateInfo-usage-10254" href="#VUID-VkImageCreateInfo-usage-10254"></a> <span class="vuid">VUID-VkImageCreateInfo-usage-10254</span><br>
+
+If <code>usage</code> includes
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code> or
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code>, then the
+<code>pNext</code> chain <strong>must</strong> include a <a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a>
+structure with <code>profileCount</code> equal to <code>1</code> and <code>pProfiles</code>
+pointing to a <a href="videocoding.html#VkVideoProfileInfoKHR" class="xref page">VkVideoProfileInfoKHR</a> structure with a
+<code>videoCodecOperation</code> member specifying an encode operation</p>
+</li>
+<li>
+<p><a id="VUID-VkImageCreateInfo-usage-10255" href="#VUID-VkImageCreateInfo-usage-10255"></a> <span class="vuid">VUID-VkImageCreateInfo-usage-10255</span><br>
+
+If <code>usage</code> includes
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code>, then
+<a href="videocoding.html#VkVideoEncodeCapabilitiesKHR" class="xref page">VkVideoEncodeCapabilitiesKHR</a>::<code>flags</code> <strong>must</strong> include
+<code>VK_VIDEO_ENCODE_CAPABILITY_QUANTIZATION_DELTA_MAP_BIT_KHR</code>, as
+returned by <a href="videocoding.html#vkGetPhysicalDeviceVideoCapabilitiesKHR" class="xref page">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video
+profile specified in the <code>pProfiles</code> member of the
+<a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a> structure included in the <code>pNext</code>
+chain</p>
+</li>
+<li>
+<p><a id="VUID-VkImageCreateInfo-usage-10256" href="#VUID-VkImageCreateInfo-usage-10256"></a> <span class="vuid">VUID-VkImageCreateInfo-usage-10256</span><br>
+
+If <code>usage</code> includes
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code>, then
+<a href="videocoding.html#VkVideoEncodeCapabilitiesKHR" class="xref page">VkVideoEncodeCapabilitiesKHR</a>::<code>flags</code> <strong>must</strong> include
+<code>VK_VIDEO_ENCODE_CAPABILITY_EMPHASIS_MAP_BIT_KHR</code>, as returned by
+<a href="videocoding.html#vkGetPhysicalDeviceVideoCapabilitiesKHR" class="xref page">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video profile
+specified in the <code>pProfiles</code> member of the
+<a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a> structure included in the <code>pNext</code>
+chain</p>
+</li>
+<li>
+<p><a id="VUID-VkImageCreateInfo-usage-10257" href="#VUID-VkImageCreateInfo-usage-10257"></a> <span class="vuid">VUID-VkImageCreateInfo-usage-10257</span><br>
+
+If <code>usage</code> includes
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code> or
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code>,
+<code>extent.width</code> <strong>must</strong> be less than or equal to
+<a href="videocoding.html#VkVideoEncodeQuantizationMapCapabilitiesKHR" class="xref page">VkVideoEncodeQuantizationMapCapabilitiesKHR</a>::<code>maxQuantizationMapExtent.width</code>,
+as returned by <a href="videocoding.html#vkGetPhysicalDeviceVideoCapabilitiesKHR" class="xref page">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the
+video profile specified in the <code>pProfiles</code> member of the
+<a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a> structure included in the <code>pNext</code>
+chain</p>
+</li>
+<li>
+<p><a id="VUID-VkImageCreateInfo-usage-10258" href="#VUID-VkImageCreateInfo-usage-10258"></a> <span class="vuid">VUID-VkImageCreateInfo-usage-10258</span><br>
+
+If <code>usage</code> includes
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code> or
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code>,
+<code>extent.height</code> <strong>must</strong> be less than or equal to
+<a href="videocoding.html#VkVideoEncodeQuantizationMapCapabilitiesKHR" class="xref page">VkVideoEncodeQuantizationMapCapabilitiesKHR</a>::<code>maxQuantizationMapExtent.height</code>,
+as returned by <a href="videocoding.html#vkGetPhysicalDeviceVideoCapabilitiesKHR" class="xref page">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the
+video profile specified in the <code>pProfiles</code> member of the
+<a href="videocoding.html#VkVideoProfileListInfoKHR" class="xref page">VkVideoProfileListInfoKHR</a> structure included in the <code>pNext</code>
+chain</p>
 </li>
 <li>
 <p><a id="VUID-VkImageCreateInfo-pNext-06390" href="#VUID-VkImageCreateInfo-pNext-06390"></a> <span class="vuid">VUID-VkImageCreateInfo-pNext-06390</span><br>
@@ -4280,8 +4466,8 @@ then <a href="memory.html#VkImportMetalTextureInfoEXT" class="xref page">VkImpor
 
 If <code>imageCreateFormatFeatures</code> (as defined in
 <a href="#resources-image-creation-limits">Image Creation Limits</a>) does not
-contain <code>VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT_EXT</code>, then
-<code>usage</code> <strong>must</strong> not contain <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT</code></p>
+contain <code>VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT</code>, then
+<code>usage</code> <strong>must</strong> not contain <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkImageCreateInfo-usage-10245" href="#VUID-VkImageCreateInfo-usage-10245"></a> <span class="vuid">VUID-VkImageCreateInfo-usage-10245</span><br>
@@ -5635,9 +5821,9 @@ Both of these cases can be requested with
 <div class="paragraph">
 <p>To query the compression properties of an image, add a
 <a href="#VkImageCompressionPropertiesEXT">VkImageCompressionPropertiesEXT</a> structure to the <code>pNext</code> chain of
-the <a href="#VkSubresourceLayout2EXT">VkSubresourceLayout2EXT</a> structure in a call to
-<a href="#vkGetImageSubresourceLayout2KHR">vkGetImageSubresourceLayout2KHR</a> or
-<a href="#vkGetImageSubresourceLayout2EXT">vkGetImageSubresourceLayout2EXT</a>.</p>
+the <a href="#VkSubresourceLayout2">VkSubresourceLayout2</a> structure in a call to
+<a href="#vkGetImageSubresourceLayout2">vkGetImageSubresourceLayout2</a> or
+<a href="#vkGetImageSubresourceLayout2">vkGetImageSubresourceLayout2</a>.</p>
 </div>
 <div class="paragraph">
 <p>To determine the compression rates that are supported for a given image
@@ -5768,9 +5954,10 @@ implementation <strong>should</strong> return the smallest alignment which is su
 where a larger alignment would enable image compression -
 the implementation <strong>should</strong> not use <code>maximumRequestedAlignment</code>, and
 <strong>should</strong> return the smallest alignment which does not compromise compression.
-If <a href="features.html#features-imageCompressionControl" class="xref page"><code>imageCompressionControl</code></a> is
-enabled, the application <strong>can</strong> chain a <a href="#VkImageCompressionControlEXT">VkImageCompressionControlEXT</a>
-with <code>VK_IMAGE_COMPRESSION_DISABLED_EXT</code>.
+If the <a href="features.html#features-imageCompressionControl" class="xref page"><code>imageCompressionControl</code></a>
+feature is enabled, the application <strong>can</strong> chain a
+<a href="#VkImageCompressionControlEXT">VkImageCompressionControlEXT</a> with
+<code>VK_IMAGE_COMPRESSION_DISABLED_EXT</code>.
 In this case, image compression considerations <strong>should</strong> not apply when
 implementation decides alignment.</p>
 </div>
@@ -5797,7 +5984,7 @@ If <code>maximumRequestedAlignment</code> is not 0, the bitwise-and of
 <p><a id="VUID-VkImageAlignmentControlCreateInfoMESA-imageAlignmentControl-09657" href="#VUID-VkImageAlignmentControlCreateInfoMESA-imageAlignmentControl-09657"></a> <span class="vuid">VUID-VkImageAlignmentControlCreateInfoMESA-imageAlignmentControl-09657</span><br>
 
 <a href="features.html#features-imageAlignmentControl" class="xref page"><code>imageAlignmentControl</code></a> <strong>must</strong> be
-enabled on the device</p>
+enabled</p>
 </li>
 </ul>
 </div>
@@ -5851,6 +6038,8 @@ typedef enum VkImageUsageFlagBits {
     VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT = 0x00000020,
     VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT = 0x00000040,
     VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT = 0x00000080,
+  // Provided by VK_VERSION_1_4
+    VK_IMAGE_USAGE_HOST_TRANSFER_BIT = 0x00400000,
   // Provided by VK_KHR_video_decode_queue
     VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR = 0x00000400,
   // Provided by VK_KHR_video_decode_queue
@@ -5861,8 +6050,6 @@ typedef enum VkImageUsageFlagBits {
     VK_IMAGE_USAGE_FRAGMENT_DENSITY_MAP_BIT_EXT = 0x00000200,
   // Provided by VK_KHR_fragment_shading_rate
     VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR = 0x00000100,
-  // Provided by VK_EXT_host_image_copy
-    VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT = 0x00400000,
   // Provided by VK_KHR_video_encode_queue
     VK_IMAGE_USAGE_VIDEO_ENCODE_DST_BIT_KHR = 0x00002000,
   // Provided by VK_KHR_video_encode_queue
@@ -5877,8 +6064,14 @@ typedef enum VkImageUsageFlagBits {
     VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM = 0x00100000,
   // Provided by VK_QCOM_image_processing
     VK_IMAGE_USAGE_SAMPLE_BLOCK_MATCH_BIT_QCOM = 0x00200000,
+  // Provided by VK_KHR_video_encode_quantization_map
+    VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR = 0x02000000,
+  // Provided by VK_KHR_video_encode_quantization_map
+    VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR = 0x04000000,
   // Provided by VK_NV_shading_rate_image
     VK_IMAGE_USAGE_SHADING_RATE_IMAGE_BIT_NV = VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR,
+  // Provided by VK_EXT_host_image_copy
+    VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT = VK_IMAGE_USAGE_HOST_TRANSFER_BIT,
 } VkImageUsageFlagBits;</code></pre>
 </div>
 </div>
@@ -5984,8 +6177,19 @@ and/or as a read-only input resource in a shader (sampled image,
 combined image sampler or input attachment) in the same render pass.</p>
 </li>
 <li>
-<p><code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT</code> specifies that the image <strong>can</strong>
-be used with host copy commands and host layout transitions.</p>
+<p><code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code> specifies that the image <strong>can</strong> be
+used with host copy commands and host layout transitions.</p>
+</li>
+<li>
+<p><code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code>
+specifies that the image <strong>can</strong> be used as a
+<a href="videocoding.html#encode-quantization-delta-map" class="xref page">quantization delta map</a> in a
+<a href="videocoding.html#video-encode-operations" class="xref page">video encode operation</a>.</p>
+</li>
+<li>
+<p><code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code> specifies that
+the image <strong>can</strong> be used as an <a href="videocoding.html#encode-emphasis-map" class="xref page">emphasis map</a> in a
+<a href="videocoding.html#video-encode-operations" class="xref page">video encode operation</a>.</p>
 </li>
 </ul>
 </div>
@@ -6050,6 +6254,12 @@ typedef VkFlags VkImageUsageFlags;</code></pre>
 </li>
 <li>
 <p><code>VK_IMAGE_USAGE_SAMPLE_BLOCK_MATCH_BIT_QCOM</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -6419,7 +6629,7 @@ out in memory in row-major order, possibly with some padding on each
 row).</p>
 </li>
 <li>
-<p><code>VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT</code> indicates that the image&#8217;s
+<p><code>VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT</code> specifies that the image&#8217;s
 tiling is defined by a <a href="../appendices/glossary.html#glossary-drm-format-modifier" class="xref page">Linux DRM format    modifier</a>.
 The modifier is specified at image creation with
 <a href="#VkImageDrmFormatModifierListCreateInfoEXT">VkImageDrmFormatModifierListCreateInfoEXT</a> or
@@ -6808,14 +7018,27 @@ implementation-dependent meaning.</p>
 <div class="paragraph">
 <p>To query the memory layout of an image subresource, call:</p>
 </div>
+<div id="vkGetImageSubresourceLayout2" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_4
+void vkGetImageSubresourceLayout2(
+    VkDevice                                    device,
+    VkImage                                     image,
+    const VkImageSubresource2*                  pSubresource,
+    VkSubresourceLayout2*                       pLayout);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent command</p>
+</div>
 <div id="vkGetImageSubresourceLayout2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance5
 void vkGetImageSubresourceLayout2KHR(
     VkDevice                                    device,
     VkImage                                     image,
-    const VkImageSubresource2KHR*               pSubresource,
-    VkSubresourceLayout2KHR*                    pLayout);</code></pre>
+    const VkImageSubresource2*                  pSubresource,
+    VkSubresourceLayout2*                       pLayout);</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6827,8 +7050,8 @@ void vkGetImageSubresourceLayout2KHR(
 void vkGetImageSubresourceLayout2EXT(
     VkDevice                                    device,
     VkImage                                     image,
-    const VkImageSubresource2KHR*               pSubresource,
-    VkSubresourceLayout2KHR*                    pLayout);</code></pre>
+    const VkImageSubresource2*                  pSubresource,
+    VkSubresourceLayout2*                       pLayout);</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -6840,27 +7063,26 @@ void vkGetImageSubresourceLayout2EXT(
 <p><code>image</code> is the image whose layout is being queried.</p>
 </li>
 <li>
-<p><code>pSubresource</code> is a pointer to a <a href="#VkImageSubresource2KHR">VkImageSubresource2KHR</a>
-structure selecting a specific image for the image subresource.</p>
+<p><code>pSubresource</code> is a pointer to a <a href="#VkImageSubresource2">VkImageSubresource2</a> structure
+selecting a specific image for the image subresource.</p>
 </li>
 <li>
-<p><code>pLayout</code> is a pointer to a <a href="#VkSubresourceLayout2KHR">VkSubresourceLayout2KHR</a> structure
-in which the layout is returned.</p>
+<p><code>pLayout</code> is a pointer to a <a href="#VkSubresourceLayout2">VkSubresourceLayout2</a> structure in
+which the layout is returned.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><code>vkGetImageSubresourceLayout2KHR</code> behaves similarly to
+<p><code>vkGetImageSubresourceLayout2</code> behaves similarly to
 <a href="#vkGetImageSubresourceLayout">vkGetImageSubresourceLayout</a>, with the ability to specify extended
 inputs via chained input structures, and to return extended information via
 chained output structures.</p>
 </div>
 <div class="paragraph">
-<p>It is legal to call <code>vkGetImageSubresourceLayout2KHR</code> with an
-<code>image</code> created with <code>tiling</code> equal to
-<code>VK_IMAGE_TILING_OPTIMAL</code>, but the members of
-<a href="#VkSubresourceLayout2KHR">VkSubresourceLayout2KHR</a>::<code>subresourceLayout</code> will have <strong>undefined</strong>
-values in this case.</p>
+<p>It is legal to call <code>vkGetImageSubresourceLayout2</code> with an <code>image</code>
+created with <code>tiling</code> equal to <code>VK_IMAGE_TILING_OPTIMAL</code>, but the
+members of <a href="#VkSubresourceLayout2">VkSubresourceLayout2</a>::<code>subresourceLayout</code> will have
+<strong>undefined</strong> values in this case.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -6870,8 +7092,8 @@ values in this case.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Structures chained from <a href="#VkImageSubresource2KHR">VkImageSubresource2KHR</a>::<code>pNext</code> will also
-be updated when <code>tiling</code> is equal to <code>VK_IMAGE_TILING_OPTIMAL</code>.</p>
+<p>Structures chained from <a href="#VkImageSubresource2">VkImageSubresource2</a>::<code>pNext</code> will also be
+updated when <code>tiling</code> is equal to <code>VK_IMAGE_TILING_OPTIMAL</code>.</p>
 </div>
 </td>
 </tr>
@@ -6883,25 +7105,25 @@ be updated when <code>tiling</code> is equal to <code>VK_IMAGE_TILING_OPTIMAL</c
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-aspectMask-00997" href="#VUID-vkGetImageSubresourceLayout2KHR-aspectMask-00997"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-aspectMask-00997</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-aspectMask-00997" href="#VUID-vkGetImageSubresourceLayout2-aspectMask-00997"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-aspectMask-00997</span><br>
 
 The <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong> only have a
 single bit set</p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-mipLevel-01716" href="#VUID-vkGetImageSubresourceLayout2KHR-mipLevel-01716"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-mipLevel-01716</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-mipLevel-01716" href="#VUID-vkGetImageSubresourceLayout2-mipLevel-01716"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-mipLevel-01716</span><br>
 
 The <code>mipLevel</code> member of <code>pSubresource</code> <strong>must</strong> be less than the
 <code>mipLevels</code> specified in <code>image</code></p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-arrayLayer-01717" href="#VUID-vkGetImageSubresourceLayout2KHR-arrayLayer-01717"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-arrayLayer-01717</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-arrayLayer-01717" href="#VUID-vkGetImageSubresourceLayout2-arrayLayer-01717"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-arrayLayer-01717</span><br>
 
 The <code>arrayLayer</code> member of <code>pSubresource</code> <strong>must</strong> be less than the
 <code>arrayLayers</code> specified in <code>image</code></p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-format-08886" href="#VUID-vkGetImageSubresourceLayout2KHR-format-08886"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-format-08886</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-format-08886" href="#VUID-vkGetImageSubresourceLayout2-format-08886"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-format-08886</span><br>
 
 If <code>format</code> of the <code>image</code> is a color format
 that is not a <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar    image format</a>,
@@ -6911,21 +7133,21 @@ and <code>tiling</code> of the <code>image</code> is
 <code>VK_IMAGE_ASPECT_COLOR_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-format-04462" href="#VUID-vkGetImageSubresourceLayout2KHR-format-04462"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-format-04462</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-format-04462" href="#VUID-vkGetImageSubresourceLayout2-format-04462"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-format-04462</span><br>
 
 If <code>format</code> of the <code>image</code> has a depth component, the
 <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong> contain
 <code>VK_IMAGE_ASPECT_DEPTH_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-format-04463" href="#VUID-vkGetImageSubresourceLayout2KHR-format-04463"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-format-04463</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-format-04463" href="#VUID-vkGetImageSubresourceLayout2-format-04463"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-format-04463</span><br>
 
 If <code>format</code> of the <code>image</code> has a stencil component, the
 <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong> contain
 <code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-format-04464" href="#VUID-vkGetImageSubresourceLayout2KHR-format-04464"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-format-04464</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-format-04464" href="#VUID-vkGetImageSubresourceLayout2-format-04464"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-format-04464</span><br>
 
 If <code>format</code> of the <code>image</code> does not contain a stencil or
 depth component, the <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong>
@@ -6933,7 +7155,7 @@ not contain <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> or
 <code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-tiling-08717" href="#VUID-vkGetImageSubresourceLayout2KHR-tiling-08717"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-tiling-08717</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-tiling-08717" href="#VUID-vkGetImageSubresourceLayout2-tiling-08717"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-tiling-08717</span><br>
 
 If the <code>tiling</code> of the <code>image</code> is
 <code>VK_IMAGE_TILING_LINEAR</code> and has a
@@ -6941,14 +7163,14 @@ If the <code>tiling</code> of the <code>image</code> is
 be a single valid <a href="formats.html#formats-planes-image-aspect" class="xref page">multi-planar aspect    mask</a> bit</p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-image-09434" href="#VUID-vkGetImageSubresourceLayout2KHR-image-09434"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-image-09434</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-image-09434" href="#VUID-vkGetImageSubresourceLayout2-image-09434"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-image-09434</span><br>
 
 If <code>image</code> was created with the
 <code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID</code>
 external memory handle type, then <code>image</code> <strong>must</strong> be bound to memory</p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-tiling-09435" href="#VUID-vkGetImageSubresourceLayout2KHR-tiling-09435"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-tiling-09435</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-tiling-09435" href="#VUID-vkGetImageSubresourceLayout2-tiling-09435"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-tiling-09435</span><br>
 
 If the <code>tiling</code> of the <code>image</code> is
 <code>VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT</code>, then the <code>aspectMask</code>
@@ -6969,23 +7191,23 @@ associated with the image&#8217;s <code>format</code> and
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-device-parameter" href="#VUID-vkGetImageSubresourceLayout2KHR-device-parameter"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-device-parameter</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-device-parameter" href="#VUID-vkGetImageSubresourceLayout2-device-parameter"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-device-parameter</span><br>
  <code>device</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-image-parameter" href="#VUID-vkGetImageSubresourceLayout2KHR-image-parameter"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-image-parameter</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-image-parameter" href="#VUID-vkGetImageSubresourceLayout2-image-parameter"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-image-parameter</span><br>
  <code>image</code> <strong>must</strong> be a valid <a href="#VkImage">VkImage</a> handle</p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-pSubresource-parameter" href="#VUID-vkGetImageSubresourceLayout2KHR-pSubresource-parameter"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-pSubresource-parameter</span><br>
- <code>pSubresource</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkImageSubresource2KHR">VkImageSubresource2KHR</a> structure</p>
+<p><a id="VUID-vkGetImageSubresourceLayout2-pSubresource-parameter" href="#VUID-vkGetImageSubresourceLayout2-pSubresource-parameter"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-pSubresource-parameter</span><br>
+ <code>pSubresource</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkImageSubresource2">VkImageSubresource2</a> structure</p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-pLayout-parameter" href="#VUID-vkGetImageSubresourceLayout2KHR-pLayout-parameter"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-pLayout-parameter</span><br>
- <code>pLayout</code> <strong>must</strong> be a valid pointer to a <a href="#VkSubresourceLayout2KHR">VkSubresourceLayout2KHR</a> structure</p>
+<p><a id="VUID-vkGetImageSubresourceLayout2-pLayout-parameter" href="#VUID-vkGetImageSubresourceLayout2-pLayout-parameter"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-pLayout-parameter</span><br>
+ <code>pLayout</code> <strong>must</strong> be a valid pointer to a <a href="#VkSubresourceLayout2">VkSubresourceLayout2</a> structure</p>
 </li>
 <li>
-<p><a id="VUID-vkGetImageSubresourceLayout2KHR-image-parent" href="#VUID-vkGetImageSubresourceLayout2KHR-image-parent"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2KHR-image-parent</span><br>
+<p><a id="VUID-vkGetImageSubresourceLayout2-image-parent" href="#VUID-vkGetImageSubresourceLayout2-image-parent"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-image-parent</span><br>
  <code>image</code> <strong>must</strong> have been created, allocated, or retrieved from <code>device</code></p>
 </li>
 </ul>
@@ -6997,16 +7219,25 @@ associated with the image&#8217;s <code>format</code> and
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkImageSubresource2KHR</code> structure is defined as:</p>
+<p>The <code>VkImageSubresource2</code> structure is defined as:</p>
+</div>
+<div id="VkImageSubresource2" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_4
+typedef struct VkImageSubresource2 {
+    VkStructureType       sType;
+    void*                 pNext;
+    VkImageSubresource    imageSubresource;
+} VkImageSubresource2;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
 </div>
 <div id="VkImageSubresource2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance5
-typedef struct VkImageSubresource2KHR {
-    VkStructureType       sType;
-    void*                 pNext;
-    VkImageSubresource    imageSubresource;
-} VkImageSubresource2KHR;</code></pre>
+typedef VkImageSubresource2 VkImageSubresource2KHR;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -7015,7 +7246,7 @@ typedef struct VkImageSubresource2KHR {
 <div id="VkImageSubresource2EXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_host_image_copy, VK_EXT_image_compression_control
-typedef VkImageSubresource2KHR VkImageSubresource2EXT;</code></pre>
+typedef VkImageSubresource2 VkImageSubresource2EXT;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -7038,15 +7269,15 @@ structure.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkImageSubresource2KHR-sType-sType" href="#VUID-VkImageSubresource2KHR-sType-sType"></a> <span class="vuid">VUID-VkImageSubresource2KHR-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2_KHR</code></p>
+<p><a id="VUID-VkImageSubresource2-sType-sType" href="#VUID-VkImageSubresource2-sType-sType"></a> <span class="vuid">VUID-VkImageSubresource2-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_IMAGE_SUBRESOURCE_2</code></p>
 </li>
 <li>
-<p><a id="VUID-VkImageSubresource2KHR-pNext-pNext" href="#VUID-VkImageSubresource2KHR-pNext-pNext"></a> <span class="vuid">VUID-VkImageSubresource2KHR-pNext-pNext</span><br>
+<p><a id="VUID-VkImageSubresource2-pNext-pNext" href="#VUID-VkImageSubresource2-pNext-pNext"></a> <span class="vuid">VUID-VkImageSubresource2-pNext-pNext</span><br>
  <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
 </li>
 <li>
-<p><a id="VUID-VkImageSubresource2KHR-imageSubresource-parameter" href="#VUID-VkImageSubresource2KHR-imageSubresource-parameter"></a> <span class="vuid">VUID-VkImageSubresource2KHR-imageSubresource-parameter</span><br>
+<p><a id="VUID-VkImageSubresource2-imageSubresource-parameter" href="#VUID-VkImageSubresource2-imageSubresource-parameter"></a> <span class="vuid">VUID-VkImageSubresource2-imageSubresource-parameter</span><br>
  <code>imageSubresource</code> <strong>must</strong> be a valid <a href="#VkImageSubresource">VkImageSubresource</a> structure</p>
 </li>
 </ul>
@@ -7059,16 +7290,25 @@ structure.</p>
 <div class="content">
 <div class="paragraph">
 <p>Information about the layout of the image subresource is returned in a
-<code>VkSubresourceLayout2KHR</code> structure:</p>
+<code>VkSubresourceLayout2</code> structure:</p>
+</div>
+<div id="VkSubresourceLayout2" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_4
+typedef struct VkSubresourceLayout2 {
+    VkStructureType        sType;
+    void*                  pNext;
+    VkSubresourceLayout    subresourceLayout;
+} VkSubresourceLayout2;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
 </div>
 <div id="VkSubresourceLayout2KHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance5
-typedef struct VkSubresourceLayout2KHR {
-    VkStructureType        sType;
-    void*                  pNext;
-    VkSubresourceLayout    subresourceLayout;
-} VkSubresourceLayout2KHR;</code></pre>
+typedef VkSubresourceLayout2 VkSubresourceLayout2KHR;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -7077,7 +7317,7 @@ typedef struct VkSubresourceLayout2KHR {
 <div id="VkSubresourceLayout2EXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_host_image_copy, VK_EXT_image_compression_control
-typedef VkSubresourceLayout2KHR VkSubresourceLayout2EXT;</code></pre>
+typedef VkSubresourceLayout2 VkSubresourceLayout2EXT;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -7100,15 +7340,15 @@ structure.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkSubresourceLayout2KHR-sType-sType" href="#VUID-VkSubresourceLayout2KHR-sType-sType"></a> <span class="vuid">VUID-VkSubresourceLayout2KHR-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SUBRESOURCE_LAYOUT_2_KHR</code></p>
+<p><a id="VUID-VkSubresourceLayout2-sType-sType" href="#VUID-VkSubresourceLayout2-sType-sType"></a> <span class="vuid">VUID-VkSubresourceLayout2-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SUBRESOURCE_LAYOUT_2</code></p>
 </li>
 <li>
-<p><a id="VUID-VkSubresourceLayout2KHR-pNext-pNext" href="#VUID-VkSubresourceLayout2KHR-pNext-pNext"></a> <span class="vuid">VUID-VkSubresourceLayout2KHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkImageCompressionPropertiesEXT">VkImageCompressionPropertiesEXT</a> or <a href="#VkSubresourceHostMemcpySizeEXT">VkSubresourceHostMemcpySizeEXT</a></p>
+<p><a id="VUID-VkSubresourceLayout2-pNext-pNext" href="#VUID-VkSubresourceLayout2-pNext-pNext"></a> <span class="vuid">VUID-VkSubresourceLayout2-pNext-pNext</span><br>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkImageCompressionPropertiesEXT">VkImageCompressionPropertiesEXT</a> or <a href="#VkSubresourceHostMemcpySize">VkSubresourceHostMemcpySize</a></p>
 </li>
 <li>
-<p><a id="VUID-VkSubresourceLayout2KHR-sType-unique" href="#VUID-VkSubresourceLayout2KHR-sType-unique"></a> <span class="vuid">VUID-VkSubresourceLayout2KHR-sType-unique</span><br>
+<p><a id="VUID-VkSubresourceLayout2-sType-unique" href="#VUID-VkSubresourceLayout2-sType-unique"></a> <span class="vuid">VUID-VkSubresourceLayout2-sType-unique</span><br>
  The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
@@ -7121,23 +7361,32 @@ structure.</p>
 <div class="content">
 <div class="paragraph">
 <p>To query the memory size needed to copy to or from an image using
-<a href="copies.html#vkCopyMemoryToImageEXT" class="xref page">vkCopyMemoryToImageEXT</a> or <a href="copies.html#vkCopyImageToMemoryEXT" class="xref page">vkCopyImageToMemoryEXT</a> when the
-<code>VK_HOST_IMAGE_COPY_MEMCPY_EXT</code> flag is specified, add a
-<a href="#VkSubresourceHostMemcpySizeEXT">VkSubresourceHostMemcpySizeEXT</a> structure to the <code>pNext</code> chain of
-the <a href="#VkSubresourceLayout2EXT">VkSubresourceLayout2EXT</a> structure in a call to
-<a href="#vkGetImageSubresourceLayout2EXT">vkGetImageSubresourceLayout2EXT</a>.</p>
+<a href="copies.html#vkCopyMemoryToImage" class="xref page">vkCopyMemoryToImage</a> or <a href="copies.html#vkCopyImageToMemory" class="xref page">vkCopyImageToMemory</a> when the
+<code>VK_HOST_IMAGE_COPY_MEMCPY</code> flag is specified, add a
+<a href="#VkSubresourceHostMemcpySize">VkSubresourceHostMemcpySize</a> structure to the <code>pNext</code> chain of the
+<a href="#VkSubresourceLayout2">VkSubresourceLayout2</a> structure in a call to
+<a href="#vkGetImageSubresourceLayout2">vkGetImageSubresourceLayout2</a>.</p>
 </div>
 <div class="paragraph">
-<p>The <code>VkSubresourceHostMemcpySizeEXT</code> structure is defined as:</p>
+<p>The <code>VkSubresourceHostMemcpySize</code> structure is defined as:</p>
+</div>
+<div id="VkSubresourceHostMemcpySize" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_4
+typedef struct VkSubresourceHostMemcpySize {
+    VkStructureType    sType;
+    void*              pNext;
+    VkDeviceSize       size;
+} VkSubresourceHostMemcpySize;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
 </div>
 <div id="VkSubresourceHostMemcpySizeEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_host_image_copy
-typedef struct VkSubresourceHostMemcpySizeEXT {
-    VkStructureType    sType;
-    void*              pNext;
-    VkDeviceSize       size;
-} VkSubresourceHostMemcpySizeEXT;</code></pre>
+typedef VkSubresourceHostMemcpySize VkSubresourceHostMemcpySizeEXT;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -7160,8 +7409,8 @@ structure.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkSubresourceHostMemcpySizeEXT-sType-sType" href="#VUID-VkSubresourceHostMemcpySizeEXT-sType-sType"></a> <span class="vuid">VUID-VkSubresourceHostMemcpySizeEXT-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SUBRESOURCE_HOST_MEMCPY_SIZE_EXT</code></p>
+<p><a id="VUID-VkSubresourceHostMemcpySize-sType-sType" href="#VUID-VkSubresourceHostMemcpySize-sType-sType"></a> <span class="vuid">VUID-VkSubresourceHostMemcpySize-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SUBRESOURCE_HOST_MEMCPY_SIZE</code></p>
 </li>
 </ul>
 </div>
@@ -7175,13 +7424,25 @@ structure.</p>
 <p>To query the memory layout of an image subresource, without an image object,
 call:</p>
 </div>
+<div id="vkGetDeviceImageSubresourceLayout" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_4
+void vkGetDeviceImageSubresourceLayout(
+    VkDevice                                    device,
+    const VkDeviceImageSubresourceInfo*         pInfo,
+    VkSubresourceLayout2*                       pLayout);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent command</p>
+</div>
 <div id="vkGetDeviceImageSubresourceLayoutKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance5
 void vkGetDeviceImageSubresourceLayoutKHR(
     VkDevice                                    device,
-    const VkDeviceImageSubresourceInfoKHR*      pInfo,
-    VkSubresourceLayout2KHR*                    pLayout);</code></pre>
+    const VkDeviceImageSubresourceInfo*         pInfo,
+    VkSubresourceLayout2*                       pLayout);</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -7190,19 +7451,19 @@ void vkGetDeviceImageSubresourceLayoutKHR(
 <p><code>device</code> is the logical device that owns the image.</p>
 </li>
 <li>
-<p><code>pInfo</code> is a pointer to a <a href="#VkDeviceImageSubresourceInfoKHR">VkDeviceImageSubresourceInfoKHR</a>
+<p><code>pInfo</code> is a pointer to a <a href="#VkDeviceImageSubresourceInfo">VkDeviceImageSubresourceInfo</a>
 structure containing parameters required for the subresource layout
 query.</p>
 </li>
 <li>
-<p><code>pLayout</code> is a pointer to a <a href="#VkSubresourceLayout2KHR">VkSubresourceLayout2KHR</a> structure
-in which the layout is returned.</p>
+<p><code>pLayout</code> is a pointer to a <a href="#VkSubresourceLayout2">VkSubresourceLayout2</a> structure in
+which the layout is returned.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><code>vkGetDeviceImageSubresourceLayoutKHR</code> behaves similarly to
-<a href="#vkGetImageSubresourceLayout2KHR">vkGetImageSubresourceLayout2KHR</a>, but uses a <a href="#VkImageCreateInfo">VkImageCreateInfo</a>
+<p><code>vkGetDeviceImageSubresourceLayout</code> behaves similarly to
+<a href="#vkGetImageSubresourceLayout2">vkGetImageSubresourceLayout2</a>, but uses a <a href="#VkImageCreateInfo">VkImageCreateInfo</a>
 structure to specify the image rather than a <a href="#VkImage">VkImage</a> object.</p>
 </div>
 <div class="sidebarblock">
@@ -7211,16 +7472,16 @@ structure to specify the image rather than a <a href="#VkImage">VkImage</a> obje
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-vkGetDeviceImageSubresourceLayoutKHR-device-parameter" href="#VUID-vkGetDeviceImageSubresourceLayoutKHR-device-parameter"></a> <span class="vuid">VUID-vkGetDeviceImageSubresourceLayoutKHR-device-parameter</span><br>
+<p><a id="VUID-vkGetDeviceImageSubresourceLayout-device-parameter" href="#VUID-vkGetDeviceImageSubresourceLayout-device-parameter"></a> <span class="vuid">VUID-vkGetDeviceImageSubresourceLayout-device-parameter</span><br>
  <code>device</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
 </li>
 <li>
-<p><a id="VUID-vkGetDeviceImageSubresourceLayoutKHR-pInfo-parameter" href="#VUID-vkGetDeviceImageSubresourceLayoutKHR-pInfo-parameter"></a> <span class="vuid">VUID-vkGetDeviceImageSubresourceLayoutKHR-pInfo-parameter</span><br>
- <code>pInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkDeviceImageSubresourceInfoKHR">VkDeviceImageSubresourceInfoKHR</a> structure</p>
+<p><a id="VUID-vkGetDeviceImageSubresourceLayout-pInfo-parameter" href="#VUID-vkGetDeviceImageSubresourceLayout-pInfo-parameter"></a> <span class="vuid">VUID-vkGetDeviceImageSubresourceLayout-pInfo-parameter</span><br>
+ <code>pInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkDeviceImageSubresourceInfo">VkDeviceImageSubresourceInfo</a> structure</p>
 </li>
 <li>
-<p><a id="VUID-vkGetDeviceImageSubresourceLayoutKHR-pLayout-parameter" href="#VUID-vkGetDeviceImageSubresourceLayoutKHR-pLayout-parameter"></a> <span class="vuid">VUID-vkGetDeviceImageSubresourceLayoutKHR-pLayout-parameter</span><br>
- <code>pLayout</code> <strong>must</strong> be a valid pointer to a <a href="#VkSubresourceLayout2KHR">VkSubresourceLayout2KHR</a> structure</p>
+<p><a id="VUID-vkGetDeviceImageSubresourceLayout-pLayout-parameter" href="#VUID-vkGetDeviceImageSubresourceLayout-pLayout-parameter"></a> <span class="vuid">VUID-vkGetDeviceImageSubresourceLayout-pLayout-parameter</span><br>
+ <code>pLayout</code> <strong>must</strong> be a valid pointer to a <a href="#VkSubresourceLayout2">VkSubresourceLayout2</a> structure</p>
 </li>
 </ul>
 </div>
@@ -7231,17 +7492,26 @@ structure to specify the image rather than a <a href="#VkImage">VkImage</a> obje
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkDeviceImageSubresourceInfoKHR</code> structure is defined as:</p>
+<p>The <code>VkDeviceImageSubresourceInfo</code> structure is defined as:</p>
+</div>
+<div id="VkDeviceImageSubresourceInfo" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_4
+typedef struct VkDeviceImageSubresourceInfo {
+    VkStructureType               sType;
+    const void*                   pNext;
+    const VkImageCreateInfo*      pCreateInfo;
+    const VkImageSubresource2*    pSubresource;
+} VkDeviceImageSubresourceInfo;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
 </div>
 <div id="VkDeviceImageSubresourceInfoKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance5
-typedef struct VkDeviceImageSubresourceInfoKHR {
-    VkStructureType                  sType;
-    const void*                      pNext;
-    const VkImageCreateInfo*         pCreateInfo;
-    const VkImageSubresource2KHR*    pSubresource;
-} VkDeviceImageSubresourceInfoKHR;</code></pre>
+typedef VkDeviceImageSubresourceInfo VkDeviceImageSubresourceInfoKHR;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -7259,7 +7529,7 @@ containing parameters affecting creation of the image to query.</p>
 </li>
 <li>
 <p><code>pSubresource</code> pSubresource is a pointer to a
-<a href="#VkImageSubresource2KHR">VkImageSubresource2KHR</a> structure selecting a specific image
+<a href="#VkImageSubresource2">VkImageSubresource2</a> structure selecting a specific image
 subresource for the query.</p>
 </li>
 </ul>
@@ -7270,25 +7540,25 @@ subresource for the query.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-aspectMask-00997" href="#VUID-VkDeviceImageSubresourceInfoKHR-aspectMask-00997"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-aspectMask-00997</span><br>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-aspectMask-00997" href="#VUID-VkDeviceImageSubresourceInfo-aspectMask-00997"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-aspectMask-00997</span><br>
 
 The <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong> only have a
 single bit set</p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-mipLevel-01716" href="#VUID-VkDeviceImageSubresourceInfoKHR-mipLevel-01716"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-mipLevel-01716</span><br>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-mipLevel-01716" href="#VUID-VkDeviceImageSubresourceInfo-mipLevel-01716"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-mipLevel-01716</span><br>
 
 The <code>mipLevel</code> member of <code>pSubresource</code> <strong>must</strong> be less than the
 <code>mipLevels</code> specified in <code>pCreateInfo</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-arrayLayer-01717" href="#VUID-VkDeviceImageSubresourceInfoKHR-arrayLayer-01717"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-arrayLayer-01717</span><br>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-arrayLayer-01717" href="#VUID-VkDeviceImageSubresourceInfo-arrayLayer-01717"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-arrayLayer-01717</span><br>
 
 The <code>arrayLayer</code> member of <code>pSubresource</code> <strong>must</strong> be less than the
 <code>arrayLayers</code> specified in <code>pCreateInfo</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-format-08886" href="#VUID-VkDeviceImageSubresourceInfoKHR-format-08886"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-format-08886</span><br>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-format-08886" href="#VUID-VkDeviceImageSubresourceInfo-format-08886"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-format-08886</span><br>
 
 If <code>format</code> of the <code>image</code> is a color format
 that is not a <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar    image format</a>,
@@ -7298,21 +7568,21 @@ and <code>tiling</code> of the <code>pCreateInfo</code> is
 <code>VK_IMAGE_ASPECT_COLOR_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-format-04462" href="#VUID-VkDeviceImageSubresourceInfoKHR-format-04462"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-format-04462</span><br>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-format-04462" href="#VUID-VkDeviceImageSubresourceInfo-format-04462"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-format-04462</span><br>
 
 If <code>format</code> of the <code>pCreateInfo</code> has a depth component, the
 <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong> contain
 <code>VK_IMAGE_ASPECT_DEPTH_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-format-04463" href="#VUID-VkDeviceImageSubresourceInfoKHR-format-04463"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-format-04463</span><br>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-format-04463" href="#VUID-VkDeviceImageSubresourceInfo-format-04463"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-format-04463</span><br>
 
 If <code>format</code> of the <code>pCreateInfo</code> has a stencil component, the
 <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong> contain
 <code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-format-04464" href="#VUID-VkDeviceImageSubresourceInfoKHR-format-04464"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-format-04464</span><br>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-format-04464" href="#VUID-VkDeviceImageSubresourceInfo-format-04464"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-format-04464</span><br>
 
 If <code>format</code> of the <code>pCreateInfo</code> does not contain a stencil or
 depth component, the <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong>
@@ -7320,7 +7590,7 @@ not contain <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> or
 <code>VK_IMAGE_ASPECT_STENCIL_BIT</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-tiling-08717" href="#VUID-VkDeviceImageSubresourceInfoKHR-tiling-08717"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-tiling-08717</span><br>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-tiling-08717" href="#VUID-VkDeviceImageSubresourceInfo-tiling-08717"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-tiling-08717</span><br>
 
 If the <code>tiling</code> of the <code>pCreateInfo</code> is
 <code>VK_IMAGE_TILING_LINEAR</code> and has a
@@ -7337,20 +7607,20 @@ be a single valid <a href="formats.html#formats-planes-image-aspect" class="xref
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-sType-sType" href="#VUID-VkDeviceImageSubresourceInfoKHR-sType-sType"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_DEVICE_IMAGE_SUBRESOURCE_INFO_KHR</code></p>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-sType-sType" href="#VUID-VkDeviceImageSubresourceInfo-sType-sType"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_DEVICE_IMAGE_SUBRESOURCE_INFO</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-pNext-pNext" href="#VUID-VkDeviceImageSubresourceInfoKHR-pNext-pNext"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-pNext-pNext</span><br>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-pNext-pNext" href="#VUID-VkDeviceImageSubresourceInfo-pNext-pNext"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-pNext-pNext</span><br>
  <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-pCreateInfo-parameter" href="#VUID-VkDeviceImageSubresourceInfoKHR-pCreateInfo-parameter"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-pCreateInfo-parameter</span><br>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-pCreateInfo-parameter" href="#VUID-VkDeviceImageSubresourceInfo-pCreateInfo-parameter"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-pCreateInfo-parameter</span><br>
  <code>pCreateInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkImageCreateInfo">VkImageCreateInfo</a> structure</p>
 </li>
 <li>
-<p><a id="VUID-VkDeviceImageSubresourceInfoKHR-pSubresource-parameter" href="#VUID-VkDeviceImageSubresourceInfoKHR-pSubresource-parameter"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfoKHR-pSubresource-parameter</span><br>
- <code>pSubresource</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkImageSubresource2KHR">VkImageSubresource2KHR</a> structure</p>
+<p><a id="VUID-VkDeviceImageSubresourceInfo-pSubresource-parameter" href="#VUID-VkDeviceImageSubresourceInfo-pSubresource-parameter"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-pSubresource-parameter</span><br>
+ <code>pSubresource</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkImageSubresource2">VkImageSubresource2</a> structure</p>
 </li>
 </ul>
 </div>
@@ -7980,6 +8250,8 @@ typedef enum VkImageLayout {
     VK_IMAGE_LAYOUT_READ_ONLY_OPTIMAL = 1000314000,
   // Provided by VK_VERSION_1_3
     VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL = 1000314001,
+  // Provided by VK_VERSION_1_4
+    VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ = 1000232000,
   // Provided by VK_KHR_swapchain
     VK_IMAGE_LAYOUT_PRESENT_SRC_KHR = 1000001002,
   // Provided by VK_KHR_video_decode_queue
@@ -7994,8 +8266,6 @@ typedef enum VkImageLayout {
     VK_IMAGE_LAYOUT_FRAGMENT_DENSITY_MAP_OPTIMAL_EXT = 1000218000,
   // Provided by VK_KHR_fragment_shading_rate
     VK_IMAGE_LAYOUT_FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR = 1000164003,
-  // Provided by VK_KHR_dynamic_rendering_local_read
-    VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR = 1000232000,
   // Provided by VK_KHR_video_encode_queue
     VK_IMAGE_LAYOUT_VIDEO_ENCODE_DST_KHR = 1000299000,
   // Provided by VK_KHR_video_encode_queue
@@ -8004,12 +8274,16 @@ typedef enum VkImageLayout {
     VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR = 1000299002,
   // Provided by VK_EXT_attachment_feedback_loop_layout
     VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT = 1000339000,
+  // Provided by VK_KHR_video_encode_quantization_map
+    VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR = 1000553000,
   // Provided by VK_KHR_maintenance2
     VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL_KHR = VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL,
   // Provided by VK_KHR_maintenance2
     VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL_KHR = VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_STENCIL_READ_ONLY_OPTIMAL,
   // Provided by VK_NV_shading_rate_image
     VK_IMAGE_LAYOUT_SHADING_RATE_OPTIMAL_NV = VK_IMAGE_LAYOUT_FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR,
+  // Provided by VK_KHR_dynamic_rendering_local_read
+    VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR = VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ,
   // Provided by VK_KHR_separate_depth_stencil_layouts
     VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL_KHR = VK_IMAGE_LAYOUT_DEPTH_ATTACHMENT_OPTIMAL,
   // Provided by VK_KHR_separate_depth_stencil_layouts
@@ -8055,7 +8329,8 @@ Currently, <code>VK_IMAGE_LAYOUT_PREINITIALIZED</code> is only useful with
 standard layout defined for <code>VK_IMAGE_TILING_OPTIMAL</code> images.</p>
 </li>
 <li>
-<p><code>VK_IMAGE_LAYOUT_GENERAL</code> supports all types of device access.</p>
+<p><code>VK_IMAGE_LAYOUT_GENERAL</code> supports all types of device access,
+unless specified otherwise.</p>
 </li>
 <li>
 <p><code>VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL</code> specifies a layout that <strong>must</strong>
@@ -8219,14 +8494,23 @@ enabled and either the <code>VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT</code> or
 <code>VK_IMAGE_USAGE_SAMPLED_BIT</code> usage bits enabled.</p>
 </li>
 <li>
-<p><code>VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR</code> <strong>must</strong> only be used as
-either a storage image, or a color or depth/stencil attachment and an
-input attachment.
+<p><code>VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ</code> <strong>must</strong> only be used as either
+a storage image, or a color or depth/stencil attachment and an input
+attachment.
 This layout is valid only for image subresources of images created with
 either <code>VK_IMAGE_USAGE_STORAGE_BIT</code>, or both
 <code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code> and either of
 <code>VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT</code> or
 <code>VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT</code>.</p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR</code> <strong>must</strong> only be
+used as a <a href="videocoding.html#encode-quantization-map" class="xref page">quantization map</a> in a
+<a href="videocoding.html#video-encode-operations" class="xref page">video encode operation</a>.
+This layout is valid only for image subresources of images created with
+the <code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code> or
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code> usage bit
+enabled.</p>
 </li>
 </ul>
 </div>
@@ -8243,6 +8527,69 @@ For use as a framebuffer attachment, this is a member in the substructures
 of the <a href="renderpass.html#VkRenderPassCreateInfo" class="xref page">VkRenderPassCreateInfo</a> (see <a href="renderpass.html#renderpass" class="xref page">Render Pass</a>).
 For use in a descriptor set, this is a member in the
 <code>VkDescriptorImageInfo</code> structure (see <a href="descriptorsets.html#descriptorsets-updates" class="xref page">Descriptor Set Updates</a>).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>VK_IMAGE_LAYOUT_GENERAL</code> can be a useful catch-all image layout, but
+there are situations where a dedicated image layout must be used instead.
+Some examples include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_IMAGE_LAYOUT_PRESENT_SRC_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_DST_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR</code></p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>While <code>VK_IMAGE_LAYOUT_GENERAL</code> suggests that all types of device access
+is possible, it does not mean that all patterns of memory accesses are safe
+in all situations.
+<a href="renderpass.html#common-render-pass-data-races" class="xref page">Common Render Pass Data Races</a> outlines
+some situations where data races are unavoidable.
+For example, when a subresource is used as both an attachment and a sampled
+image (i.e., not an input attachment),
+<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> adds extra
+guarantees which <code>VK_IMAGE_LAYOUT_GENERAL</code> does not.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -8898,6 +9245,22 @@ If <code>image</code> was created with
 <code>VK_IMAGE_USAGE_VIDEO_ENCODE_DST_BIT_KHR</code></p>
 </li>
 <li>
+<p><a id="VUID-VkImageViewCreateInfo-usage-10259" href="#VUID-VkImageViewCreateInfo-usage-10259"></a> <span class="vuid">VUID-VkImageViewCreateInfo-usage-10259</span><br>
+
+If <code>usage</code> contains
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code>, then
+the image view&#8217;s <a href="#resources-image-view-format-features">format    features</a> <strong>must</strong> contain
+<code>VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageViewCreateInfo-usage-10260" href="#VUID-VkImageViewCreateInfo-usage-10260"></a> <span class="vuid">VUID-VkImageViewCreateInfo-usage-10260</span><br>
+
+If <code>usage</code> contains
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code>, then the image
+view&#8217;s <a href="#resources-image-view-format-features">format features</a> <strong>must</strong>
+contain <code>VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code></p>
+</li>
+<li>
 <p><a id="VUID-VkImageViewCreateInfo-usage-08932" href="#VUID-VkImageViewCreateInfo-usage-08932"></a> <span class="vuid">VUID-VkImageViewCreateInfo-usage-08932</span><br>
 
 If <code>usage</code> contains <code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code>,
@@ -9032,7 +9395,7 @@ If <code>image</code> was created with the
 If <code>image</code> was created with the
 <code>VK_IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT</code> flag,
 the
-<code>VkPhysicalDeviceMaintenance6PropertiesKHR</code>::<code>blockTexelViewCompatibleMultipleLayers</code>
+<code>VkPhysicalDeviceMaintenance6Properties</code>::<code>blockTexelViewCompatibleMultipleLayers</code>
 property is not <code>VK_TRUE</code>,
 and <code>format</code> is a non-compressed format, then the <code>layerCount</code>
 member of <code>subresourceRange</code> <strong>must</strong> be <code>1</code></p>
@@ -9371,6 +9734,15 @@ If <code>image</code> was created with <code>usage</code> containing
 <code>VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR</code>, or
 <code>VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR</code>, then the <code>viewType</code>
 <strong>must</strong> be <code>VK_IMAGE_VIEW_TYPE_2D</code> or
+<code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImageViewCreateInfo-image-10261" href="#VUID-VkImageViewCreateInfo-image-10261"></a> <span class="vuid">VUID-VkImageViewCreateInfo-image-10261</span><br>
+
+If <code>image</code> was created with <code>usage</code> containing
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code> or
+<code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code>, then
+<code>viewType</code> <strong>must</strong> be <code>VK_IMAGE_VIEW_TYPE_2D</code> or
 <code>VK_IMAGE_VIEW_TYPE_2D_ARRAY</code></p>
 </li>
 <li>
@@ -9806,7 +10178,7 @@ The image view <strong>must</strong> reference exactly 1 mip level</p>
 <p><a id="VUID-VkImageViewSlicedCreateInfoEXT-None-07871" href="#VUID-VkImageViewSlicedCreateInfoEXT-None-07871"></a> <span class="vuid">VUID-VkImageViewSlicedCreateInfoEXT-None-07871</span><br>
 
 The <a href="features.html#features-imageSlicedViewOf3D" class="xref page">imageSlicedViewOf3D</a> feature <strong>must</strong>
-be enabled on the device</p>
+be enabled</p>
 </li>
 </ul>
 </div>
@@ -10603,6 +10975,48 @@ uint32_t vkGetImageViewHandleNVX(
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>To get the 64-bit handle for an image view, call:</p>
+</div>
+<div id="vkGetImageViewHandle64NVX" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NVX_image_view_handle
+uint64_t vkGetImageViewHandle64NVX(
+    VkDevice                                    device,
+    const VkImageViewHandleInfoNVX*             pInfo);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the logical device that owns the image view.</p>
+</li>
+<li>
+<p><code>pInfo</code> describes the image view to query and type of handle.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkGetImageViewHandle64NVX-device-parameter" href="#VUID-vkGetImageViewHandle64NVX-device-parameter"></a> <span class="vuid">VUID-vkGetImageViewHandle64NVX-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetImageViewHandle64NVX-pInfo-parameter" href="#VUID-vkGetImageViewHandle64NVX-pInfo-parameter"></a> <span class="vuid">VUID-vkGetImageViewHandle64NVX-pInfo-parameter</span><br>
+ <code>pInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkImageViewHandleInfoNVX">VkImageViewHandleInfoNVX</a> structure</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkImageViewHandleInfoNVX</code> structure is defined as:</p>
 </div>
 <div id="VkImageViewHandleInfoNVX" class="listingblock">
@@ -10883,13 +11297,12 @@ contain <code>VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT</code>.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT</code> if the format
-is one of the <a href="formats.html#formats-without-shader-storage-format" class="xref page">extended storage     formats</a> and <code>shaderStorageImageReadWithoutFormat</code> is enabled on
-the device.</p>
+is one of the <a href="formats.html#formats-without-shader-storage-format" class="xref page">extended storage     formats</a> and the <a href="features.html#features-shaderStorageImageReadWithoutFormat" class="xref page">     <code>shaderStorageImageReadWithoutFormat</code></a> feature is enabled.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT</code> if the
-format is one of the <a href="formats.html#formats-without-shader-storage-format" class="xref page">extended     storage formats</a> and <code>shaderStorageImageWriteWithoutFormat</code> is
-enabled on the device.</p>
+format is one of the <a href="formats.html#formats-without-shader-storage-format" class="xref page">extended     storage formats</a> and the
+<a href="features.html#features-shaderStorageImageWriteWithoutFormat" class="xref page">     <code>shaderStorageImageWriteWithoutFormat</code></a> feature is enabled.</p>
 </li>
 </ul>
 </div>
@@ -10929,13 +11342,12 @@ contain <code>VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT</code>.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT</code> if the format
-is one of the <a href="formats.html#formats-without-shader-storage-format" class="xref page">extended storage     formats</a> and <code>shaderStorageImageReadWithoutFormat</code> is enabled on
-the device.</p>
+is one of the <a href="formats.html#formats-without-shader-storage-format" class="xref page">extended storage     formats</a> and the <a href="features.html#features-shaderStorageImageReadWithoutFormat" class="xref page">     <code>shaderStorageImageReadWithoutFormat</code></a> is enabled.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT</code> if the
-format is one of the <a href="formats.html#formats-without-shader-storage-format" class="xref page">extended     storage formats</a> and <code>shaderStorageImageWriteWithoutFormat</code> is
-enabled on the device.</p>
+format is one of the <a href="formats.html#formats-without-shader-storage-format" class="xref page">extended     storage formats</a> and the
+<a href="features.html#features-shaderStorageImageWriteWithoutFormat" class="xref page">     <code>shaderStorageImageWriteWithoutFormat</code></a> is enabled.</p>
 </li>
 </ul>
 </div>
@@ -11405,8 +11817,8 @@ so any address values stored in the trace data will remain valid.</p>
 <div class="paragraph">
 <p>Implementations are expected to separate such buffers in the GPU address
 space so normal allocations will avoid using these addresses.
-Apps/tools should avoid mixing app-provided and implementation-provided
-addresses for buffers created with
+Applications and tools should avoid mixing application-provided and
+implementation-provided addresses for buffers created with
 <code>VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code>, to avoid address
 space allocation conflicts.</p>
 </div>
@@ -12479,7 +12891,7 @@ typedef VkBuildAccelerationStructureFlagBitsKHR VkBuildAccelerationStructureFlag
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR</code> indicates
+<p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR</code> specifies
     that the specified acceleration structure <strong>can</strong> be updated with
     a <code>mode</code> of <code>VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR</code> in
     <a href="accelstructures.html#VkAccelerationStructureBuildGeometryInfoKHR" class="xref page">VkAccelerationStructureBuildGeometryInfoKHR</a>
@@ -12489,7 +12901,7 @@ or
     .</p>
 </li>
 <li>
-<p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR</code> indicates
+<p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR</code> specifies
 that the specified acceleration structure <strong>can</strong> act as the source for a
 copy acceleration structure command with <code>mode</code> of
 <code>VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_KHR</code> to produce a
@@ -12497,46 +12909,46 @@ compacted acceleration structure.</p>
 </li>
 <li>
 <p><code>VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_TRACE_BIT_KHR</code>
-indicates that the given acceleration structure build <strong>should</strong> prioritize
+specifies that the given acceleration structure build <strong>should</strong> prioritize
 trace performance over build time.</p>
 </li>
 <li>
 <p><code>VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_BUILD_BIT_KHR</code>
-indicates that the given acceleration structure build <strong>should</strong> prioritize
+specifies that the given acceleration structure build <strong>should</strong> prioritize
 build time over trace performance.</p>
 </li>
 <li>
-<p><code>VK_BUILD_ACCELERATION_STRUCTURE_LOW_MEMORY_BIT_KHR</code> indicates that
+<p><code>VK_BUILD_ACCELERATION_STRUCTURE_LOW_MEMORY_BIT_KHR</code> specifies that
 this acceleration structure <strong>should</strong> minimize the size of the scratch
 memory and the final result acceleration structure, potentially at the
 expense of build time or trace performance.</p>
 </li>
 <li>
 <p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_EXT</code>
-indicates that the opacity micromaps associated with the specified
+specifies that the opacity micromaps associated with the specified
 acceleration structure <strong>may</strong> change with an acceleration structure
 update.</p>
 </li>
 <li>
 <p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT</code>
-indicates that the data of the opacity micromaps associated with the
+specifies that the data of the opacity micromaps associated with the
 specified acceleration structure <strong>may</strong> change with an acceleration
 structure update.</p>
 </li>
 <li>
 <p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_EXT</code>
-indicates that the specified acceleration structure <strong>may</strong> be referenced
+specifies that the specified acceleration structure <strong>may</strong> be referenced
 in an instance with
 <code>VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT</code> set.</p>
 </li>
 <li>
-<p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR</code> indicates
+<p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR</code> specifies
 that the specified acceleration structure <strong>can</strong> be used when fetching the
 vertex positions of a hit triangle.</p>
 </li>
 <li>
 <p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV</code>
-indicates that the displacement micromaps associated with the specified
+specifies that the displacement micromaps associated with the specified
 acceleration structure <strong>may</strong> change with an acceleration structure
 update.</p>
 </li>
@@ -12768,11 +13180,11 @@ typedef VkGeometryFlagBitsKHR VkGeometryFlagBitsNV;</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_GEOMETRY_OPAQUE_BIT_KHR</code> indicates that this geometry does not
+<p><code>VK_GEOMETRY_OPAQUE_BIT_KHR</code> specifies that this geometry does not
 invoke the any-hit shaders even if present in a hit group.</p>
 </li>
 <li>
-<p><code>VK_GEOMETRY_NO_DUPLICATE_ANY_HIT_INVOCATION_BIT_KHR</code> indicates that
+<p><code>VK_GEOMETRY_NO_DUPLICATE_ANY_HIT_INVOCATION_BIT_KHR</code> specifies that
 the implementation <strong>must</strong> only call the any-hit shader a single time for
 each primitive in this geometry.
 If this bit is absent an implementation <strong>may</strong> invoke the any-hit shader
@@ -14358,8 +14770,8 @@ so any address values stored in the trace data will remain valid.</p>
 <div class="paragraph">
 <p>Implementations are expected to separate such buffers in the GPU address
 space so normal allocations will avoid using these addresses.
-Apps/tools should avoid mixing app-provided and implementation-provided
-addresses for buffers created with
+Applications and tools should avoid mixing application-provided and
+implementation-provided addresses for buffers created with
 <code>VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code>, to avoid address
 space allocation conflicts.</p>
 </div>
@@ -14740,12 +15152,12 @@ typedef enum VkBuildMicromapFlagBitsEXT {
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_BUILD_MICROMAP_PREFER_FAST_TRACE_BIT_EXT</code> indicates that the
+<p><code>VK_BUILD_MICROMAP_PREFER_FAST_TRACE_BIT_EXT</code> specifies that the
 given micromap build <strong>should</strong> prioritize trace performance over build
 time.</p>
 </li>
 <li>
-<p><code>VK_BUILD_MICROMAP_PREFER_FAST_BUILD_BIT_EXT</code> indicates that the
+<p><code>VK_BUILD_MICROMAP_PREFER_FAST_BUILD_BIT_EXT</code> specifies that the
 given micromap build <strong>should</strong> prioritize build time over trace
 performance.</p>
 </li>
@@ -15243,9 +15655,9 @@ and <code>VK_IMAGE_CREATE_PROTECTED_BIT</code> bit
 of the <code>flags</code> member,
 the <code>VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT</code> bit of the
 <code>flags</code> member,
-the <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT</code> bit of the <code>usage</code>
-member if the
-<a href="limits.html#VkPhysicalDeviceHostImageCopyPropertiesEXT" class="xref page">VkPhysicalDeviceHostImageCopyPropertiesEXT</a>::<code>identicalMemoryTypeRequirements</code>
+the <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code> bit of the <code>usage</code> member
+if the
+<a href="limits.html#VkPhysicalDeviceHostImageCopyProperties" class="xref page">VkPhysicalDeviceHostImageCopyProperties</a>::<code>identicalMemoryTypeRequirements</code>
 property is <code>VK_FALSE</code>,
 <code>handleTypes</code> member of <a href="#VkExternalMemoryImageCreateInfo">VkExternalMemoryImageCreateInfo</a>,
 and the <code>VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT</code> of the <code>usage</code>
@@ -15261,9 +15673,9 @@ and <code>VK_IMAGE_CREATE_PROTECTED_BIT</code> bit
 of the <code>flags</code> member,
 the <code>VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT</code> bit of the
 <code>flags</code> member,
-the <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT</code> bit of the <code>usage</code>
-member if the
-<a href="limits.html#VkPhysicalDeviceHostImageCopyPropertiesEXT" class="xref page">VkPhysicalDeviceHostImageCopyPropertiesEXT</a>::<code>identicalMemoryTypeRequirements</code>
+the <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code> bit of the <code>usage</code> member
+if the
+<a href="limits.html#VkPhysicalDeviceHostImageCopyProperties" class="xref page">VkPhysicalDeviceHostImageCopyProperties</a>::<code>identicalMemoryTypeRequirements</code>
 property is <code>VK_FALSE</code>,
 <code>handleTypes</code> member of <a href="#VkExternalMemoryImageCreateInfo">VkExternalMemoryImageCreateInfo</a>,
 and the <code>VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT</code> of the <code>usage</code>
@@ -16665,7 +17077,7 @@ one of the memory binding operations which did not return <code>VK_SUCCESS</code
 <td class="content">
 <div class="paragraph">
 <p>If the <code>vkBindBufferMemory2</code> command failed,
-<a href="#VkBindMemoryStatusKHR">VkBindMemoryStatusKHR</a> structures were not included in the <code>pNext</code>
+<a href="#VkBindMemoryStatus">VkBindMemoryStatus</a> structures were not included in the <code>pNext</code>
 chains of each element of <code>pBindInfos</code>,
 and <code>bindInfoCount</code> was greater than one, then the buffers referenced by
 <code>pBindInfos</code> will be in an indeterminate state, and must not be used.</p>
@@ -16992,7 +17404,7 @@ been allocated</p>
 </li>
 <li>
 <p><a id="VUID-VkBindBufferMemoryInfo-pNext-pNext" href="#VUID-VkBindBufferMemoryInfo-pNext-pNext"></a> <span class="vuid">VUID-VkBindBufferMemoryInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkBindBufferMemoryDeviceGroupInfo">VkBindBufferMemoryDeviceGroupInfo</a> or <a href="#VkBindMemoryStatusKHR">VkBindMemoryStatusKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkBindBufferMemoryDeviceGroupInfo">VkBindBufferMemoryDeviceGroupInfo</a> or <a href="#VkBindMemoryStatus">VkBindMemoryStatus</a></p>
 </li>
 <li>
 <p><a id="VUID-VkBindBufferMemoryInfo-sType-unique" href="#VUID-VkBindBufferMemoryInfo-sType-unique"></a> <span class="vuid">VUID-VkBindBufferMemoryInfo-sType-unique</span><br>
@@ -17126,16 +17538,25 @@ All elements of <code>pDeviceIndices</code> <strong>must</strong> be valid devic
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkBindMemoryStatusKHR</code> structure is defined as:</p>
+<p>The <code>VkBindMemoryStatus</code> structure is defined as:</p>
+</div>
+<div id="VkBindMemoryStatus" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_4
+typedef struct VkBindMemoryStatus {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkResult*          pResult;
+} VkBindMemoryStatus;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
 </div>
 <div id="VkBindMemoryStatusKHR" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance6
-typedef struct VkBindMemoryStatusKHR {
-    VkStructureType    sType;
-    const void*        pNext;
-    VkResult*          pResult;
-} VkBindMemoryStatusKHR;</code></pre>
+typedef VkBindMemoryStatus VkBindMemoryStatusKHR;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -17154,10 +17575,9 @@ structure.</p>
 </div>
 <div class="paragraph">
 <p>If the <code>pNext</code> chain of <a href="#VkBindBufferMemoryInfo">VkBindBufferMemoryInfo</a> or
-<a href="#VkBindImageMemoryInfo">VkBindImageMemoryInfo</a> includes a <code>VkBindMemoryStatusKHR</code>
-structure, then the <code>VkBindMemoryStatusKHR</code>::<code>pResult</code> will be
-populated with a value describing the result of the corresponding memory
-binding operation.</p>
+<a href="#VkBindImageMemoryInfo">VkBindImageMemoryInfo</a> includes a <code>VkBindMemoryStatus</code> structure,
+then the <code>VkBindMemoryStatus</code>::<code>pResult</code> will be populated with a
+value describing the result of the corresponding memory binding operation.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -17165,11 +17585,11 @@ binding operation.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkBindMemoryStatusKHR-sType-sType" href="#VUID-VkBindMemoryStatusKHR-sType-sType"></a> <span class="vuid">VUID-VkBindMemoryStatusKHR-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_BIND_MEMORY_STATUS_KHR</code></p>
+<p><a id="VUID-VkBindMemoryStatus-sType-sType" href="#VUID-VkBindMemoryStatus-sType-sType"></a> <span class="vuid">VUID-VkBindMemoryStatus-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_BIND_MEMORY_STATUS</code></p>
 </li>
 <li>
-<p><a id="VUID-VkBindMemoryStatusKHR-pResult-parameter" href="#VUID-VkBindMemoryStatusKHR-pResult-parameter"></a> <span class="vuid">VUID-VkBindMemoryStatusKHR-pResult-parameter</span><br>
+<p><a id="VUID-VkBindMemoryStatus-pResult-parameter" href="#VUID-VkBindMemoryStatus-pResult-parameter"></a> <span class="vuid">VUID-VkBindMemoryStatus-pResult-parameter</span><br>
  <code>pResult</code> <strong>must</strong> be a valid pointer to a <a href="fundamentals.html#VkResult" class="xref page">VkResult</a> value</p>
 </li>
 </ul>
@@ -17543,7 +17963,7 @@ one of the memory binding operations which did not return <code>VK_SUCCESS</code
 <td class="content">
 <div class="paragraph">
 <p>If the <code>vkBindImageMemory2</code> command failed,
-<a href="#VkBindMemoryStatusKHR">VkBindMemoryStatusKHR</a> structures were not included in the <code>pNext</code>
+<a href="#VkBindMemoryStatus">VkBindMemoryStatus</a> structures were not included in the <code>pNext</code>
 chains of each element of <code>pBindInfos</code>,
 and <code>bindInfoCount</code> was greater than one, then the images referenced by
 <code>pBindInfos</code> will be in an indeterminate state, and must not be used.</p>
@@ -17984,7 +18404,7 @@ a valid <a href="memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a
 </li>
 <li>
 <p><a id="VUID-VkBindImageMemoryInfo-pNext-pNext" href="#VUID-VkBindImageMemoryInfo-pNext-pNext"></a> <span class="vuid">VUID-VkBindImageMemoryInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkBindImageMemoryDeviceGroupInfo">VkBindImageMemoryDeviceGroupInfo</a>, <a href="#VkBindImageMemorySwapchainInfoKHR">VkBindImageMemorySwapchainInfoKHR</a>, <a href="#VkBindImagePlaneMemoryInfo">VkBindImagePlaneMemoryInfo</a>, or <a href="#VkBindMemoryStatusKHR">VkBindMemoryStatusKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkBindImageMemoryDeviceGroupInfo">VkBindImageMemoryDeviceGroupInfo</a>, <a href="#VkBindImageMemorySwapchainInfoKHR">VkBindImageMemorySwapchainInfoKHR</a>, <a href="#VkBindImagePlaneMemoryInfo">VkBindImagePlaneMemoryInfo</a>, or <a href="#VkBindMemoryStatus">VkBindMemoryStatus</a></p>
 </li>
 <li>
 <p><a id="VUID-VkBindImageMemoryInfo-sType-unique" href="#VUID-VkBindImageMemoryInfo-sType-unique"></a> <span class="vuid">VUID-VkBindImageMemoryInfo-sType-unique</span><br>

@@ -12,7 +12,6 @@
     <link rel="manifest" href="../../../../_/static/site.webmanifest">
     <link rel="mask-icon" href="../../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
-    <meta name="theme-color" content="#ffffff">
   </head>
   <body class="article">
 <header class="header">
@@ -40,8 +39,8 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="../../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
+            <a class="navbar-item" href="../../../../spec/latest/chapters/introduction.html">Vulkan API</a>
+            <a class="navbar-item" href="../../../../glsl/latest/index.html">GLSL</a>
             <a class="navbar-item" href="../../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
@@ -73,8 +72,41 @@
         </div>
       </div>
     </div>
+    <label class="theme-toggler">
+      <input type="checkbox" id="switch-theme-checkbox" name="switch-theme-checkbox"/>
+      <span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" class="svg-inline--fa fa-moon moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+        </svg>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" class="svg-inline--fa fa-sun sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
   </nav>
 </header>
+<script>
+  !function() {
+    let e = document.getElementById("switch-theme-checkbox")
+    e.checked = document.documentElement.classList.contains("dark-theme")
+    e.addEventListener("change", function() {
+      if (document.documentElement.classList.contains("light")) {
+        document.documentElement.classList.remove("light")
+        document.documentElement.classList.add("dark")
+      } else if (document.documentElement.classList.contains("dark")) {
+        document.documentElement.classList.remove("dark")
+        document.documentElement.classList.add("light")
+      } else {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.add("light")
+        }
+      }
+      document.documentElement.classList.toggle("dark-theme", this.checked), document.documentElement.setAttribute("data-theme", this.checked ? "dark" : "light"),
+        function(e) {
+          window.localStorage && window.localStorage.setItem("theme", e)
+        }(this.checked ? "dark" : "light"), this.checked ? this.parentElement.classList.add("active") : this.parentElement.classList.remove("active")
+    }.bind(e))
+  }();
+</script>
 <div class="body">
 <div class="nav-container" data-component="features" data-version="latest">
   <aside class="nav">
@@ -313,10 +345,16 @@
     <a class="nav-link" href="VK_KHR_video_decode_queue.html">VK_KHR_video_decode_queue</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_video_encode_av1.html">VK_KHR_video_encode_av1</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_h264.html">VK_KHR_video_encode_h264</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_h265.html">VK_KHR_video_encode_h265</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_video_encode_quantization_map.html">VK_KHR_video_encode_quantization_map</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_queue.html">VK_KHR_video_encode_queue</a>
@@ -337,6 +375,9 @@
     <a class="nav-link" href="VK_NV_cooperative_matrix2.html">VK_NV_cooperative_matrix2</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_NV_display_stereo.html">VK_NV_display_stereo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_NV_ray_tracing_validation.html">VK_NV_ray_tracing_validation</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -344,6 +385,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_VERSION_1_4.html">Vulkan 1.4</a>
   </li>
 </ul>
   </li>
@@ -531,7 +575,7 @@ Care is needed to ensure implementations can still use direct rendering, but it 
 </div>
 </div>
 <div class="paragraph">
-<p>When this resolve mode is specified, the <code>resolveImageView</code> member of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkRenderingAttachmentInfo.html">VkRenderingAttachmentInfo</a> used as a color attachment must be set to a <code>VkImageView</code> created with an image with a non-zero external format.
+<p>When this resolve mode is specified, the <code>resolveImageView</code> member of <a href="https://docs.vulkan.org/spec/latest/chapters/renderpass.html#VkRenderingAttachmentInfo">VkRenderingAttachmentInfo</a> used as a color attachment must be set to a <code>VkImageView</code> created with an image with a non-zero external format.
 If chroma planes of the external format are subsampled, the implementation will reduce the relevant planes by either averaging the corresponding values in the color attachment, or by simply selecting one of the values as representative.
 Implementations may resolve a color attachment to an external format resolve attachment at any time, or bypass writing to a color attachment altogether.</p>
 </div>
@@ -554,10 +598,10 @@ Implementations may resolve a color attachment to an external format resolve att
 <p>If <code>imageView</code> is not <code>NULL</code>, it must be a single sampled image with a layer count of <code>1</code>.</p>
 </li>
 <li>
-<p>The <code>layerCount</code> and <code>colorAttachmentCount</code> members of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkRenderingInfo.html">VkRenderingInfo</a> must be 1.</p>
+<p>The <code>layerCount</code> and <code>colorAttachmentCount</code> members of <a href="https://docs.vulkan.org/spec/latest/chapters/renderpass.html#VkRenderingInfo">VkRenderingInfo</a> must be 1.</p>
 </li>
 <li>
-<p>The <code>viewMask</code> member of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkRenderingInfo.html">VkRenderingInfo</a> must be 0.</p>
+<p>The <code>viewMask</code> member of <a href="https://docs.vulkan.org/spec/latest/chapters/renderpass.html#VkRenderingInfo">VkRenderingInfo</a> must be 0.</p>
 </li>
 <li>
 <p>There must not be a fragment density map image</p>
@@ -571,14 +615,14 @@ Implementations may resolve a color attachment to an external format resolve att
 </ul>
 </div>
 <div class="paragraph">
-<p>Implementations may need to know that an external format YC<sub>B</sub>C<sub>R</sub> format is being used when creating a pipeline, so when dynamic rendering is used, <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExternalFormatANDROID.html">VkExternalFormatANDROID</a> can be chained to <code>VkGraphicsPipelineCreateInfo</code>, indicating the format of the resolve image.
+<p>Implementations may need to know that an external format YC<sub>B</sub>C<sub>R</sub> format is being used when creating a pipeline, so when dynamic rendering is used, <a href="https://docs.vulkan.org/spec/latest/chapters/resources.html#VkExternalFormatANDROID">VkExternalFormatANDROID</a> can be chained to <code>VkGraphicsPipelineCreateInfo</code>, indicating the format of the resolve image.
 When rendering, the format of the resolve image specified here and the actual image view used for that color resolve attachment must be the same.
-Graphics pipelines that include a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExternalFormatANDROID.html">VkExternalFormatANDROID</a> structure with a non-zero value must only write to a single color attachment, must not export depth or stencil from the fragment shader, and must disable blending.</p>
+Graphics pipelines that include a <a href="https://docs.vulkan.org/spec/latest/chapters/resources.html#VkExternalFormatANDROID">VkExternalFormatANDROID</a> structure with a non-zero value must only write to a single color attachment, must not export depth or stencil from the fragment shader, and must disable blending.</p>
 </div>
 <div class="sect3">
 <h4 id="_inheritance_info"><a class="anchor" href="#_inheritance_info"></a>3.1.1. Inheritance Info</h4>
 <div class="paragraph">
-<p>When dynamic rendering is used with secondary command buffer inheritance, the external format <strong>must</strong> be made known to the secondary command buffers by including <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExternalFormatANDROID.html">VkExternalFormatANDROID</a> in the <code>pNext</code> chain of <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkCommandBufferInheritanceInfo.html">VkCommandBufferInheritanceInfo</a>, and the external format must match that in the render pass instance.</p>
+<p>When dynamic rendering is used with secondary command buffer inheritance, the external format <strong>must</strong> be made known to the secondary command buffers by including <a href="https://docs.vulkan.org/spec/latest/chapters/resources.html#VkExternalFormatANDROID">VkExternalFormatANDROID</a> in the <code>pNext</code> chain of <a href="https://docs.vulkan.org/spec/latest/chapters/cmdbuffers.html#VkCommandBufferInheritanceInfo">VkCommandBufferInheritanceInfo</a>, and the external format must match that in the render pass instance.</p>
 </div>
 </div>
 </div>
@@ -586,12 +630,12 @@ Graphics pipelines that include a <a href="https://registry.khronos.org/vulkan/s
 <h3 id="_render_pass_objects"><a class="anchor" href="#_render_pass_objects"></a>3.2. Render Pass Objects</h3>
 <div class="paragraph">
 <p>For render pass objects, color resolve attachments can similarly be repurposed for external YC<sub>B</sub>C<sub>R</sub> format resolves by setting a color resolve attachment in a subpass to an attachment with an external format.
-These can only be used with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkSubpassDescription2.html">VkSubpassDescription2</a>, and similar restrictions apply to this as they do to dynamic rendering:</p>
+These can only be used with <a href="https://docs.vulkan.org/spec/latest/chapters/renderpass.html#VkSubpassDescription2">VkSubpassDescription2</a>, and similar restrictions apply to this as they do to dynamic rendering:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>The resolve attachment must be an attachment that has a format of <code>VK_FORMAT_UNDEFINED</code> and includes a <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkExternalFormatANDROID.html">VkExternalFormatANDROID</a> structure in its <code>pNext</code> chain</p>
+<p>The resolve attachment must be an attachment that has a format of <code>VK_FORMAT_UNDEFINED</code> and includes a <a href="https://docs.vulkan.org/spec/latest/chapters/resources.html#VkExternalFormatANDROID">VkExternalFormatANDROID</a> structure in its <code>pNext</code> chain</p>
 <div class="ulist">
 <ul>
 <li>
@@ -622,13 +666,13 @@ These can only be used with <a href="https://registry.khronos.org/vulkan/specs/1
 <h3 id="_input_attachments"><a class="anchor" href="#_input_attachments"></a>3.3. Input Attachments</h3>
 <div class="paragraph">
 <p>If the <code>nullColorAttachmentWithExternalFormatResolve</code> property is <code>VK_FALSE</code>, applications can bind the color attachment as they normally would with any other color attachment, with value reads working as expected.
-Using an external format image as an input attachment is only valid when the feature bits queried via <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html">vkGetAndroidHardwareBufferPropertiesANDROID</a> advertise this functionality.</p>
+Using an external format image as an input attachment is only valid when the feature bits queried via <a href="https://docs.vulkan.org/spec/latest/chapters/memory.html#vkGetAndroidHardwareBufferPropertiesANDROID">vkGetAndroidHardwareBufferPropertiesANDROID</a> advertise this functionality.</p>
 </div>
 <div class="paragraph">
 <p>However, if the <code>nullColorAttachmentWithExternalFormatResolve</code> property is <code>VK_TRUE</code>, applications cannot do that as there is no attachment to use.
 Instead, the resolve attachment itself should be bound as the input attachment (both the attachment reference and the descriptor).
 When using a resolve attachment in this specific configuration, it can be synchronized as if it were actually the color attachment, allowing for subpass self-dependencies.
-If the implementation supports this property, an external format image can be used as an input attachment without the typically required feature bits advertised by <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/vkGetAndroidHardwareBufferPropertiesANDROID.html">vkGetAndroidHardwareBufferPropertiesANDROID</a>.</p>
+If the implementation supports this property, an external format image can be used as an input attachment without the typically required feature bits advertised by <a href="https://docs.vulkan.org/spec/latest/chapters/memory.html#vkGetAndroidHardwareBufferPropertiesANDROID">vkGetAndroidHardwareBufferPropertiesANDROID</a>.</p>
 </div>
 <div class="paragraph">
 <p>If an external format resolve image is read as an input attachment and has subsampled chroma planes, these are resampled per above to provide values at the expected rate.
@@ -942,7 +986,7 @@ For example, images with four components are treated as R = Cr, G = Y, and B = C
 </div>
 <div class="paragraph">
 <p>Implementations must not expose an external formats representing a depth or stencil format.
-Applications must import depth images with <a href="https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkFormat.html">VkFormat</a> in order to render to them.
+Applications must import depth images with <a href="https://docs.vulkan.org/spec/latest/chapters/formats.html#VkFormat">VkFormat</a> in order to render to them.
 Images without depth, color, or yuv components are beyond the scope of Vulkan interface and are defined by the format for which effective color components it should be used as, such as for the RAW10 format.</p>
 </div>
 </td>

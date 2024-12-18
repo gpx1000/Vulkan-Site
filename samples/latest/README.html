@@ -12,7 +12,6 @@
     <link rel="manifest" href="../../_/static/site.webmanifest">
     <link rel="mask-icon" href="../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
-    <meta name="theme-color" content="#ffffff">
   </head>
   <body class="article">
 <header class="header">
@@ -40,8 +39,8 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
+            <a class="navbar-item" href="../../spec/latest/chapters/introduction.html">Vulkan API</a>
+            <a class="navbar-item" href="../../glsl/latest/index.html">GLSL</a>
             <a class="navbar-item" href="../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
@@ -73,8 +72,41 @@
         </div>
       </div>
     </div>
+    <label class="theme-toggler">
+      <input type="checkbox" id="switch-theme-checkbox" name="switch-theme-checkbox"/>
+      <span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" class="svg-inline--fa fa-moon moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+        </svg>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" class="svg-inline--fa fa-sun sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
   </nav>
 </header>
+<script>
+  !function() {
+    let e = document.getElementById("switch-theme-checkbox")
+    e.checked = document.documentElement.classList.contains("dark-theme")
+    e.addEventListener("change", function() {
+      if (document.documentElement.classList.contains("light")) {
+        document.documentElement.classList.remove("light")
+        document.documentElement.classList.add("dark")
+      } else if (document.documentElement.classList.contains("dark")) {
+        document.documentElement.classList.remove("dark")
+        document.documentElement.classList.add("light")
+      } else {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.add("light")
+        }
+      }
+      document.documentElement.classList.toggle("dark-theme", this.checked), document.documentElement.setAttribute("data-theme", this.checked ? "dark" : "light"),
+        function(e) {
+          window.localStorage && window.localStorage.setItem("theme", e)
+        }(this.checked ? "dark" : "light"), this.checked ? this.parentElement.classList.add("active") : this.parentElement.classList.remove("active")
+    }.bind(e))
+  }();
+</script>
 <div class="body">
 <div class="nav-container" data-component="samples" data-version="latest">
   <aside class="nav">
@@ -136,8 +168,11 @@
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
-    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="samples/api/hello_triangle/README.html">Hello Triangle</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="samples/api/hello_triangle_1_3/README.html">Hello Triangle 1.3</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="samples/api/hpp_hello_triangle/README.html">Hello Triangle (Vulkan-Hpp)</a>
@@ -298,7 +333,13 @@
     <a class="nav-link" href="samples/extensions/mesh_shader_culling/README.html">Mesh shader culling</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="samples/extensions/mesh_shading/README.html">Mesh shading</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="samples/extensions/hpp_mesh_shading/README.html">Mesh shading (Vulkan-Hpp)</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="samples/extensions/open_cl_interop/README.html">OpenCL interop</a>
@@ -313,7 +354,13 @@
     <a class="nav-link" href="samples/extensions/portability/README.html">Portability</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="samples/extensions/push_descriptors/README.html">Push descriptors</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="samples/extensions/hpp_push_descriptors/README.html">Push descriptors (Vulkan-Hpp)</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="samples/extensions/ray_tracing_basic/README.html">Raytracing basic</a>
@@ -697,9 +744,32 @@ network routing issues to github within your ISP&#8217;s internal network, rathe
 than anything wrong in your own networking setup.</p>
 </div>
 <div class="paragraph">
-<p>It can be very difficult to get ISPs to acknowledge such problems exist much
-less to fix them. In this case, consider trying the clone while running a
-VPN service.</p>
+<p>It can be very difficult to get ISPs to acknowledge such problems exist, much
+less to fix them.</p>
+</div>
+<div class="paragraph">
+<p>One workaround is to switch the repository to use ssh protocol prior to the
+submodule download, which can be done via e.g.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-sh hljs" data-lang="sh">git clone git@github.com:KhronosGroup/Vulkan-Samples.git
+cd Vulkan-Samples
+perl -i -p -e 's|https://(.*?)/|git@\1:|g' .gitmodules
+git submodule sync
+git submodule update</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>While this can be a good alternative if you are running into this connection
+issue, you must have GitHub ssh key authentication setup to use ssh
+protocol - see
+<a href="https://docs.github.com/en/authentication/connecting-to-github-with-ssh">Connecting
+to GitHub with SSH</a> for details.
+So it is a not a solution we can implement as the repository default.</p>
+</div>
+<div class="paragraph">
+<p>Another option which may help is to run github through a VPN service.</p>
 </div>
 </td>
 </tr>
@@ -721,10 +791,13 @@ VPN service.</p>
 <p>Linux - <a href="docs/build.html#linux" class="xref page">Build Guide</a></p>
 </li>
 <li>
+<p>Android - <a href="docs/build.html#android" class="xref page">Build Guide</a></p>
+</li>
+<li>
 <p>macOS - <a href="docs/build.html#macos" class="xref page">Build Guide</a></p>
 </li>
 <li>
-<p>Android - <a href="docs/build.html#android" class="xref page">Build Guide</a></p>
+<p>iOS - <a href="docs/build.html#ios" class="xref page">Build Guide</a></p>
 </li>
 </ul>
 </div>
@@ -760,8 +833,12 @@ vulkan_samples sample swapchain_images
 # Run AFBC sample in benchmark mode for 5000 frames
 vulkan_samples sample afbc --benchmark --stop-after-frame 5000
 
-# Run bonza test offscreen
-vulkan_samples test bonza --headless
+# Run compute nbody using headless_surface and take a screenshot of frame 5
+# Note: headless_surface uses VK_EXT_headless_surface.
+# This will create a surface and a Swapchain, but present will be a no op.
+# The extension is supported by Swiftshader(https://github.com/google/swiftshader).
+# It allows to quickly test content in environments without a GPU.
+vulkan_samples sample compute_nbody --headless_surface -screenshot 5
 
 # Run all the performance samples for 10 seconds in each configuration
 vulkan_samples batch --category performance --duration 10
@@ -779,62 +856,7 @@ adb shell am start-activity -n com.khronos.vulkan_samples/com.khronos.vulkan_sam
 <p>See <a href="LICENSE">LICENSE</a>.</p>
 </div>
 <div class="paragraph">
-<p>This project has some third-party dependencies, each of which may have independent licensing:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/ARM-software/astc-encoder">astc-encoder</a>: ASTC Evaluation Codec</p>
-</li>
-<li>
-<p><a href="https://github.com/vit-vit/CTPL">CTPL</a>: Thread Pool Library</p>
-</li>
-<li>
-<p><a href="https://github.com/docopt/docopt.cpp">docopt</a>: A C&#43;&#43;11 port of the Python argument parsing library</p>
-</li>
-<li>
-<p><a href="https://github.com/glfw/glfw">glfw</a>: A multi-platform library for OpenGL, OpenGL ES, Vulkan, window and input</p>
-</li>
-<li>
-<p><a href="https://github.com/g-truc/glm">glm</a>: OpenGL Mathematics</p>
-</li>
-<li>
-<p><a href="https://github.com/KhronosGroup/glslang">glslang</a>: Shader front end and validator</p>
-</li>
-<li>
-<p><a href="https://github.com/ocornut/imgui">dear imgui</a>: Immediate Mode Graphical User Interface</p>
-</li>
-<li>
-<p><a href="https://github.com/ARM-software/HWCPipe">HWCPipe</a>: Interface to mobile Hardware Counters</p>
-</li>
-<li>
-<p><a href="https://github.com/KhronosGroup/KTX-Software">KTX-Software</a>: Khronos Texture Library and Tools</p>
-</li>
-<li>
-<p><a href="https://github.com/gabime/spdlog">spdlog</a>: Fast C&#43;&#43; logging library</p>
-</li>
-<li>
-<p><a href="https://github.com/KhronosGroup/SPIRV-Cross">SPIRV-Cross</a>: Parses and converts SPIR-V to other shader languages</p>
-</li>
-<li>
-<p><a href="https://github.com/nothings/stb">stb</a>: Single-file public domain (or MIT licensed) libraries</p>
-</li>
-<li>
-<p><a href="https://github.com/syoyo/tinygltf">tinygltf</a>: Header only C&#43;&#43;11 glTF 2.0 file parser</p>
-</li>
-<li>
-<p><a href="https://github.com/nlohmann/json">nlohmann json</a>: C&#43;&#43; JSON Library (included by <a href="https://github.com/syoyo/tinygltf">tinygltf</a>)</p>
-</li>
-<li>
-<p><a href="https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator">vma</a>: Vulkan Memory Allocator</p>
-</li>
-<li>
-<p><a href="https://github.com/zeux/volk">volk</a>: Meta loader for Vulkan API</p>
-</li>
-<li>
-<p><a href="https://github.com/KhronosGroup/Vulkan-Docs">vulkan</a>: Sources for the formal documentation of the Vulkan API</p>
-</li>
-</ul>
+<p>This project has several <a href="third_party/README.html" class="xref page">third-party dependencies</a></p>
 </div>
 <div class="paragraph">
 <p>This project uses assets from <a href="https://github.com/KhronosGroup/Vulkan-Samples-Assets">vulkan-samples-assets</a>.

@@ -12,7 +12,6 @@
     <link rel="manifest" href="../../../../_/static/site.webmanifest">
     <link rel="mask-icon" href="../../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
-    <meta name="theme-color" content="#ffffff">
   </head>
   <body class="article">
 <header class="header">
@@ -40,8 +39,8 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="../../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
+            <a class="navbar-item" href="../../../../spec/latest/chapters/introduction.html">Vulkan API</a>
+            <a class="navbar-item" href="../../../../glsl/latest/index.html">GLSL</a>
             <a class="navbar-item" href="../../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
@@ -73,8 +72,41 @@
         </div>
       </div>
     </div>
+    <label class="theme-toggler">
+      <input type="checkbox" id="switch-theme-checkbox" name="switch-theme-checkbox"/>
+      <span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" class="svg-inline--fa fa-moon moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+        </svg>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" class="svg-inline--fa fa-sun sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
   </nav>
 </header>
+<script>
+  !function() {
+    let e = document.getElementById("switch-theme-checkbox")
+    e.checked = document.documentElement.classList.contains("dark-theme")
+    e.addEventListener("change", function() {
+      if (document.documentElement.classList.contains("light")) {
+        document.documentElement.classList.remove("light")
+        document.documentElement.classList.add("dark")
+      } else if (document.documentElement.classList.contains("dark")) {
+        document.documentElement.classList.remove("dark")
+        document.documentElement.classList.add("light")
+      } else {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.add("light")
+        }
+      }
+      document.documentElement.classList.toggle("dark-theme", this.checked), document.documentElement.setAttribute("data-theme", this.checked ? "dark" : "light"),
+        function(e) {
+          window.localStorage && window.localStorage.setItem("theme", e)
+        }(this.checked ? "dark" : "light"), this.checked ? this.parentElement.classList.add("active") : this.parentElement.classList.remove("active")
+    }.bind(e))
+  }();
+</script>
 <div class="body">
 <div class="nav-container" data-component="features" data-version="latest">
   <aside class="nav">
@@ -313,10 +345,16 @@
     <a class="nav-link" href="VK_KHR_video_decode_queue.html">VK_KHR_video_decode_queue</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_video_encode_av1.html">VK_KHR_video_encode_av1</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_h264.html">VK_KHR_video_encode_h264</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_h265.html">VK_KHR_video_encode_h265</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_video_encode_quantization_map.html">VK_KHR_video_encode_quantization_map</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_queue.html">VK_KHR_video_encode_queue</a>
@@ -337,6 +375,9 @@
     <a class="nav-link" href="VK_NV_cooperative_matrix2.html">VK_NV_cooperative_matrix2</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_NV_display_stereo.html">VK_NV_display_stereo</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_NV_ray_tracing_validation.html">VK_NV_ray_tracing_validation</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -344,6 +385,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_QCOM_tile_properties.html">VK_QCOM_tile_properties</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_VERSION_1_4.html">Vulkan 1.4</a>
   </li>
 </ul>
   </li>
@@ -453,7 +497,7 @@
 <p>This document proposes adding a performance hint that may reduce the runtime
 cost of memory barriers that acquire ownership of a resource from an external
 queue family (such as
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_QUEUE_FAMILY_FOREIGN_EXT.html">VK_QUEUE_FAMILY_FOREIGN_EXT</a>).</p>
+<a href="https://docs.vulkan.org/spec/latest/chapters/synchronization.html#VK_QUEUE_FAMILY_FOREIGN_EXT">VK_QUEUE_FAMILY_FOREIGN_EXT</a>).</p>
 </div>
 </div>
 </div>
@@ -469,24 +513,24 @@ noticeable latency.</p>
 <p>An external resource&#8217;s data may be split between external memory and
 non-external memory.
 The resource&#8217;s <em>external memory</em> is the collection of ranges
-of <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceMemory.html">VkDeviceMemory</a> bound to the resource,
-where the <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceMemory.html">VkDeviceMemory</a> has been imported or
+of <a href="https://docs.vulkan.org/spec/latest/chapters/memory.html#VkDeviceMemory">VkDeviceMemory</a> bound to the resource,
+where the <a href="https://docs.vulkan.org/spec/latest/chapters/memory.html#VkDeviceMemory">VkDeviceMemory</a> has been imported or
 exported with an API related to
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_KHR_external_memory.html">VK_KHR_external_memory</a>.
+<a href="https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_KHR_external_memory">VK_KHR_external_memory</a>.
 The external memory is shared among all external APIs and/or processes that
 access the resource.
 The resource&#8217;s <em>non-external memory</em>, in this discussion,
 is any implementation-private memory that
 is associated with the resource
-and does not reside in any range of <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDeviceMemory.html">VkDeviceMemory</a> bound to the resource.
-For example, if the external resource is a <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImage.html">VkImage</a>,
+and does not reside in any range of <a href="https://docs.vulkan.org/spec/latest/chapters/memory.html#VkDeviceMemory">VkDeviceMemory</a> bound to the resource.
+For example, if the external resource is a <a href="https://docs.vulkan.org/spec/latest/chapters/resources.html#VkImage">VkImage</a>,
 then in some Vulkan implementations
 the external memory may contain the image&#8217;s pixel data and externally shared metadata,
 and the non-external memory may contain implementation-private metadata.
 Note that, in some Vulkan implementations,
 the resource&#8217;s non-external memory, unlike its external memory, is
 not shared globally among the APIs and/or processes that use the resource.
-For example, each <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkDevice.html">VkDevice</a>
+For example, each <a href="https://docs.vulkan.org/spec/latest/chapters/devsandqueues.html#VkDevice">VkDevice</a>
 and <code>EGLContext</code> that accesses the resource may maintain its own private
 non-external memory for the resource.</p>
 </div>
@@ -526,27 +570,27 @@ avoid the synchronization operation.</p>
 <div class="paragraph">
 <p>For example, suppose the application renders to an image, then transfers
 ownership of the image to
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_QUEUE_FAMILY_FOREIGN_EXT.html">VK_QUEUE_FAMILY_FOREIGN_EXT</a>,
+<a href="https://docs.vulkan.org/spec/latest/chapters/synchronization.html#VK_QUEUE_FAMILY_FOREIGN_EXT">VK_QUEUE_FAMILY_FOREIGN_EXT</a>,
 then later re-acquires the image with
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageMemoryBarrier.html">VkImageMemoryBarrier</a>.
+<a href="https://docs.vulkan.org/spec/latest/chapters/synchronization.html#VkImageMemoryBarrier">VkImageMemoryBarrier</a>.
 Suppose the application knows that the external queue family did not modify
 the image&#8217;s external memory, but cannot inform the Vulkan implementation
 of its unmodified status due to lack of Vulkan API.
 The Vulkan implementation must perform the unnecessary data synchronization
-during the execution of the <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageMemoryBarrier.html">VkImageMemoryBarrier</a>.</p>
+during the execution of the <a href="https://docs.vulkan.org/spec/latest/chapters/synchronization.html#VkImageMemoryBarrier">VkImageMemoryBarrier</a>.</p>
 </div>
 <div class="paragraph">
 <p>The problem is especially relevant for systems that implement
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainKHR.html">VkSwapchainKHR</a>
+<a href="https://docs.vulkan.org/spec/latest/chapters/VK_KHR_surface/wsi.html#VkSwapchainKHR">VkSwapchainKHR</a>
 by layering it atop the external memory extensions such as
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_EXT_external_memory_dma_buf.html">VK_EXT_external_memory_dma_buf</a>.
+<a href="https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_external_memory_dma_buf">VK_EXT_external_memory_dma_buf</a>.
 On such systems, the application may suffer the performance overhead each time
 it acquires an image from the swapchain, even though the window system did not
 modify the image&#8217;s memory.
 Specifically, the overhead is likely to occur when the application transitions
 the image layout away from
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageLayout.html">VK_IMAGE_LAYOUT_PRESENT_SRC_KHR</a>
-after <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkAcquireNextImageKHR.html">vkAcquireNextImageKHR</a>.</p>
+<a href="https://docs.vulkan.org/spec/latest/chapters/resources.html#VkImageLayout">VK_IMAGE_LAYOUT_PRESENT_SRC_KHR</a>
+after <a href="https://docs.vulkan.org/spec/latest/chapters/VK_KHR_surface/wsi.html#vkAcquireNextImageKHR">vkAcquireNextImageKHR</a>.</p>
 </div>
 </div>
 </div>
@@ -565,21 +609,20 @@ until the application&#8217;s current ownership acquire operation.</p>
 </li>
 <li>
 <p>The solution should not require the implementation to internally track the
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageLayout.html">VkImageLayout</a> of external images.
+<a href="https://docs.vulkan.org/spec/latest/chapters/resources.html#VkImageLayout">VkImageLayout</a> of external images.
 Such tracking can be complex to implement and cause performance overhead.</p>
 </li>
 <li>
 <p>The solution must work well for systems that implement
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainKHR.html">VkSwapchainKHR</a> by layering it atop external
+<a href="https://docs.vulkan.org/spec/latest/chapters/VK_KHR_surface/wsi.html#VkSwapchainKHR">VkSwapchainKHR</a> by layering it atop external
 memory extensions such as
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_EXT_external_memory_dma_buf.html">VK_EXT_external_memory_dma_buf</a>.</p>
+<a href="https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_external_memory_dma_buf">VK_EXT_external_memory_dma_buf</a>.</p>
 </li>
 <li>
 <p>After acquiring a swapchain image but before using the image, applications
 must transition the image away from
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageLayout.html">VK_IMAGE_LAYOUT_PRESENT_SRC_LAYOUT_KHR</a>
-(which preserves the image&#8217;s pixels) or
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_IMAGE_LAYOUT_UNDEFINED.html">VK_IMAGE_LAYOUT_UNDEFINED</a>
+<a href="https://docs.vulkan.org/spec/latest/chapters/resources.html#VkImageLayout">VK_IMAGE_LAYOUT_PRESENT_SRC_LAYOUT_KHR</a>
+(which preserves the image&#8217;s pixels) or <a href="https://docs.vulkan.org/spec/latest/chapters/resources.html#VkImageLayout">VK_IMAGE_LAYOUT_UNDEFINED</a>
 (which discards the image&#8217;s pixels). The solution should work well and
 improve performance regardless of the source layout.</p>
 </li>
@@ -591,27 +634,26 @@ improve performance regardless of the source layout.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>A</strong>. Define a new read-only external queue family, such as
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_QUEUE_FAMILY_FOREIGN_READ_ONLY_EXT.html">VK_QUEUE_FAMILY_FOREIGN_READ_ONLY_EXT</a>.
+<p><strong>A</strong>. Define a new read-only external queue family, such as <code>VK_QUEUE_FAMILY_FOREIGN_READ_ONLY_EXT</code>.
 When the application transfers ownership of a resource to this queue family,
 it implicitly informs the implementation that the external queue will not
 modify the resource&#8217;s external memory.</p>
 </li>
 <li>
-<p><strong>B</strong>. Extend resource creation, such as <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageCreateInfo.html">VkImageCreateInfo</a>,
+<p><strong>B</strong>. Extend resource creation, such as <a href="https://docs.vulkan.org/spec/latest/chapters/resources.html#VkImageCreateInfo">VkImageCreateInfo</a>,
 with a new parameter that informs the implementation that no external queue
 will modify the resource&#8217;s external memory.</p>
 </li>
 <li>
 <p><strong>C</strong>. Extend the ownership-release memory barrier, such as
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageMemoryBarrier.html">VkImageMemoryBarrier</a>, with a new
+<a href="https://docs.vulkan.org/spec/latest/chapters/synchronization.html#VkImageMemoryBarrier">VkImageMemoryBarrier</a>, with a new
 parameter that informs the implementation that the resource&#8217;s external memory
 will remain unmodified for the duration of the external queue family&#8217;s
 ownership.</p>
 </li>
 <li>
 <p><strong>D</strong>. Extend the ownership-acquire memory barrier, such as
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageMemoryBarrier.html">VkImageMemoryBarrier</a>, with a new
+<a href="https://docs.vulkan.org/spec/latest/chapters/synchronization.html#VkImageMemoryBarrier">VkImageMemoryBarrier</a>, with a new
 parameter that informs the implementation that the resource&#8217;s external memory
 has remained unmodified since the most recent ownership-release.</p>
 </li>
@@ -644,13 +686,13 @@ unchanged.</p>
 <p>A presentation engine (such as a window system) that only reads the image
 and never modifies it.
 The application does not use Vulkan WSI to interact with the presentation
-engine, such as <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCreateWaylandSurfaceKHR.html">vkCreateWaylandSurfaceKHR</a>,
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainKHR.html">VkSwapchainKHR</a>, and
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkQueuePresentKHR.html">vkQueuePresentKHR</a>.
+engine, such as <a href="https://docs.vulkan.org/spec/latest/chapters/VK_KHR_surface/wsi.html#vkCreateWaylandSurfaceKHR">vkCreateWaylandSurfaceKHR</a>,
+<a href="https://docs.vulkan.org/spec/latest/chapters/VK_KHR_surface/wsi.html#VkSwapchainKHR">VkSwapchainKHR</a>, and
+<a href="https://docs.vulkan.org/spec/latest/chapters/VK_KHR_surface/wsi.html#vkQueuePresentKHR">vkQueuePresentKHR</a>.
 Instead, the application effectively implements these
 functions itself with a combination of
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_EXT_external_memory_dma_buf.html">VK_EXT_external_memory_dma_buf</a>,
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_EXT_queue_family_foreign.html">VK_EXT_queue_family_foreign</a>,
+<a href="https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_external_memory_dma_buf">VK_EXT_external_memory_dma_buf</a>,
+<a href="https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_queue_family_foreign">VK_EXT_queue_family_foreign</a>,
 and  native Wayland API from <code>libwayland-client</code>.</p>
 </li>
 </ul>
@@ -723,7 +765,7 @@ know yet whether step (f.rw) or (f.ro) will be taken.</p>
 <p>Solution (D) works well for all steps in the sequence. In particular, between
 (f) and (g), the application can query the post-processing library, asking
 whether (f.rw) or (f.ro) occurred. If (f.ro), the application can add the
-performance hint to <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkImageMemoryBarrier.html">VkImageMemoryBarrier</a> in step (g).</p>
+performance hint to <a href="https://docs.vulkan.org/spec/latest/chapters/synchronization.html#VkImageMemoryBarrier">VkImageMemoryBarrier</a> in step (g).</p>
 </div>
 </div>
 </div>
@@ -767,8 +809,8 @@ struct to be chained into any memory barrier for any resource.
 If the memory barrier&#8217;s <code>srcQueueFamilyIndex</code> does not specify an external
 queue family, then the Vulkan implementation ignores the struct.
 This flexibility simplifies the implementation of layers that implement
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VkSwapchainKHR.html">VkSwapchainKHR</a> atop
-<a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_KHR_external_memory.html">VK_KHR_external_memory</a> and native
+<a href="https://docs.vulkan.org/spec/latest/chapters/VK_KHR_surface/wsi.html#VkSwapchainKHR">VkSwapchainKHR</a> atop
+<a href="https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_KHR_external_memory">VK_KHR_external_memory</a> and native
 window system APIs.</p>
 </div>
 </div>
@@ -794,7 +836,7 @@ In this method, examples of "read-only" access are SPIR-V instructions such as
 <a href="https://www.khronos.org/registry/SPIR-V/specs/unified1/SPIRV.html#OpImageRead">OpImageRead</a>,
 <a href="https://www.khronos.org/registry/SPIR-V/specs/unified1/SPIRV.html#OpImageFetch">OpImageFetch</a>,
 and <a href="https://www.khronos.org/registry/SPIR-V/specs/unified1/SPIRV.html#OpImageSampleImplicitLod">OpImageSampleImplicitLod</a>,
-and transfer commands such as <a href="https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/vkCmdCopyImage.html">vkCmdCopyImage</a>.
+and transfer commands such as <a href="https://docs.vulkan.org/spec/latest/chapters/copies.html#vkCmdCopyImage">vkCmdCopyImage</a>.
 Surprisingly, these operations may not be implemented as read-only.
 The Vulkan implementation, before dispatching the "read-only" shader
 or transfer command, may modify the image&#8217;s external memory

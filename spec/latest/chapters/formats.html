@@ -12,7 +12,6 @@
     <link rel="manifest" href="../../../_/static/site.webmanifest">
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
-    <meta name="theme-color" content="#ffffff">
   </head>
   <body class="article">
 <header class="header">
@@ -40,8 +39,8 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
-            <a class="navbar-item" href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.html">GLSL</a>
+            <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan API</a>
+            <a class="navbar-item" href="../../../glsl/latest/index.html">GLSL</a>
             <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
@@ -73,8 +72,41 @@
         </div>
       </div>
     </div>
+    <label class="theme-toggler">
+      <input type="checkbox" id="switch-theme-checkbox" name="switch-theme-checkbox"/>
+      <span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" class="svg-inline--fa fa-moon moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+        </svg>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" class="svg-inline--fa fa-sun sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"></path>
+        </svg></span>
+      <span class="text">light</span>
+    </label>
   </nav>
 </header>
+<script>
+  !function() {
+    let e = document.getElementById("switch-theme-checkbox")
+    e.checked = document.documentElement.classList.contains("dark-theme")
+    e.addEventListener("change", function() {
+      if (document.documentElement.classList.contains("light")) {
+        document.documentElement.classList.remove("light")
+        document.documentElement.classList.add("dark")
+      } else if (document.documentElement.classList.contains("dark")) {
+        document.documentElement.classList.remove("dark")
+        document.documentElement.classList.add("light")
+      } else {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.add("light")
+        }
+      }
+      document.documentElement.classList.toggle("dark-theme", this.checked), document.documentElement.setAttribute("data-theme", this.checked ? "dark" : "light"),
+        function(e) {
+          window.localStorage && window.localStorage.setItem("theme", e)
+        }(this.checked ? "dark" : "light"), this.checked ? this.parentElement.classList.add("active") : this.parentElement.classList.remove("active")
+    }.bind(e))
+  }();
+</script>
 <div class="body">
 <div class="nav-container" data-component="spec" data-version="latest">
   <aside class="nav">
@@ -663,6 +695,10 @@ typedef enum VkFormat {
     VK_FORMAT_ASTC_12x10_SFLOAT_BLOCK = 1000066012,
   // Provided by VK_VERSION_1_3
     VK_FORMAT_ASTC_12x12_SFLOAT_BLOCK = 1000066013,
+  // Provided by VK_VERSION_1_4
+    VK_FORMAT_A1B5G5R5_UNORM_PACK16 = 1000470000,
+  // Provided by VK_VERSION_1_4
+    VK_FORMAT_A8_UNORM = 1000470001,
   // Provided by VK_IMG_format_pvrtc
     VK_FORMAT_PVRTC1_2BPP_UNORM_BLOCK_IMG = 1000054000,
   // Provided by VK_IMG_format_pvrtc
@@ -681,10 +717,6 @@ typedef enum VkFormat {
     VK_FORMAT_PVRTC2_4BPP_SRGB_BLOCK_IMG = 1000054007,
   // Provided by VK_NV_optical_flow
     VK_FORMAT_R16G16_SFIXED5_NV = 1000464000,
-  // Provided by VK_KHR_maintenance5
-    VK_FORMAT_A1B5G5R5_UNORM_PACK16_KHR = 1000470000,
-  // Provided by VK_KHR_maintenance5
-    VK_FORMAT_A8_UNORM_KHR = 1000470001,
   // Provided by VK_EXT_texture_compression_astc_hdr
     VK_FORMAT_ASTC_4x4_SFLOAT_BLOCK_EXT = VK_FORMAT_ASTC_4x4_SFLOAT_BLOCK,
   // Provided by VK_EXT_texture_compression_astc_hdr
@@ -796,6 +828,10 @@ typedef enum VkFormat {
   // Provided by VK_NV_optical_flow
   // VK_FORMAT_R16G16_S10_5_NV is a deprecated alias
     VK_FORMAT_R16G16_S10_5_NV = VK_FORMAT_R16G16_SFIXED5_NV,
+  // Provided by VK_KHR_maintenance5
+    VK_FORMAT_A1B5G5R5_UNORM_PACK16_KHR = VK_FORMAT_A1B5G5R5_UNORM_PACK16,
+  // Provided by VK_KHR_maintenance5
+    VK_FORMAT_A8_UNORM_KHR = VK_FORMAT_A8_UNORM,
 } VkFormat;</code></pre>
 </div>
 </div>
@@ -864,13 +900,13 @@ packed unsigned normalized format that has a 1-bit A component in bit
 5..9, and a 5-bit B component in bits 0..4.</p>
 </li>
 <li>
-<p><code>VK_FORMAT_A1B5G5R5_UNORM_PACK16_KHR</code> specifies a four-component,
-16-bit packed unsigned normalized format that has a 1-bit A component in
-bit 15, a 5-bit B component in bits 10..14, a 5-bit G component in bits
+<p><code>VK_FORMAT_A1B5G5R5_UNORM_PACK16</code> specifies a four-component, 16-bit
+packed unsigned normalized format that has a 1-bit A component in bit
+15, a 5-bit B component in bits 10..14, a 5-bit G component in bits
 5..9, and a 5-bit R component in bits 0..4.</p>
 </li>
 <li>
-<p><code>VK_FORMAT_A8_UNORM_KHR</code> specifies a one-component, 8-bit unsigned
+<p><code>VK_FORMAT_A8_UNORM</code> specifies a one-component, 8-bit unsigned
 normalized format that has a single 8-bit A component.</p>
 </li>
 <li>
@@ -3004,7 +3040,7 @@ listed single-plane format.</p>
 </table>
 </div>
 <div class="sect2">
-<h3 id="formats-planes-image-aspect"><a class="anchor" href="#formats-planes-image-aspect"></a>Multi-planar Format Image Aspect</h3>
+<h3 id="formats-planes-image-aspect"><a class="anchor" href="#formats-planes-image-aspect"></a>Multi-Planar Format Image Aspect</h3>
 <div class="paragraph">
 <p>When using <a href="resources.html#VkImageAspectFlagBits" class="xref page">VkImageAspectFlagBits</a> to select a plane of a multi-planar
 format, the following are the valid options:</p>
@@ -3089,7 +3125,7 @@ bitfields packed into one or more 8-, 16-, or 32-bit fundamental data type.</p>
 <p><code>VK_FORMAT_A1R5G5B5_UNORM_PACK16</code></p>
 </li>
 <li>
-<p><code>VK_FORMAT_A1B5G5R5_UNORM_PACK16_KHR</code></p>
+<p><code>VK_FORMAT_A1B5G5R5_UNORM_PACK16</code></p>
 </li>
 <li>
 <p><code>VK_FORMAT_R10X6_UNORM_PACK16</code></p>
@@ -3520,7 +3556,7 @@ endianness.</p>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">A</p></td>
-<td class="tableblock halign-right valign-top" colspan="16"><p class="tableblock"><strong><code>VK_FORMAT_A8_UNORM_KHR</code></strong></p></td>
+<td class="tableblock halign-right valign-top" colspan="16"><p class="tableblock"><strong><code>VK_FORMAT_A8_UNORM</code></strong></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock">G<sub>0</sub></p></td>
@@ -3956,7 +3992,7 @@ by the host endianness.</p>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><sub>0</sub></p></td>
 </tr>
 <tr>
-<th class="tableblock halign-center valign-top" colspan="16"><p class="tableblock"><code>VK_FORMAT_A1B5G5R5_UNORM_PACK16_KHR</code></p></th>
+<th class="tableblock halign-center valign-top" colspan="16"><p class="tableblock"><code>VK_FORMAT_A1B5G5R5_UNORM_PACK16</code></p></th>
 </tr>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><strong>A</strong></p></td>
@@ -4385,7 +4421,7 @@ as D24 or D32).</p>
 <p>Uncompressed color formats are <em>compatible</em> with each other if they occupy
 the same number of bits per texel block
 as long as neither or both are alpha formats (e.g.,
-<code>VK_FORMAT_A8_UNORM_KHR</code>)
+<code>VK_FORMAT_A8_UNORM</code>)
 .
 Compressed color formats are compatible with each other if the only
 difference between them is the <a href="#formats-numericformat">numeric format</a> of
@@ -4428,7 +4464,7 @@ each texel block represents in each dimension.</p>
   Block size 2 byte<br>
   1x1x1 block extent<br>
   1 texel/block</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A1B5G5R5_UNORM_PACK16_KHR</code>,<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A1B5G5R5_UNORM_PACK16</code>,<br>
                     <code>VK_FORMAT_R10X6_UNORM_PACK16</code>,<br>
                     <code>VK_FORMAT_R12X4_UNORM_PACK16</code>,<br>
                     <code>VK_FORMAT_A4R4G4B4_UNORM_PACK16</code>,<br>
@@ -4460,7 +4496,7 @@ each texel block represents in each dimension.</p>
   Block size 1 byte<br>
   1x1x1 block extent<br>
   1 texel/block</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A8_UNORM_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A8_UNORM</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">24-bit<br>
@@ -5163,7 +5199,7 @@ each texel block represents in each dimension.</p>
 <div class="paragraph">
 <p>Color formats with the same texel block size are considered
 <em>size-compatible</em> as long as neither or both are alpha formats (e.g.,
-<code>VK_FORMAT_A8_UNORM_KHR</code>).
+<code>VK_FORMAT_A8_UNORM</code>).
 If two size-compatible formats have different block extents (i.e. for
 compressed formats), then an image with size <span class="eq">A {times} B {times} C</span> in
 one format with a block extent of <span class="eq">a {times} b {times} c</span> can be
@@ -6235,59 +6271,35 @@ corresponding fields of <code>VkFormatProperties2</code>::<code>formatProperties
 // Flag bits for VkFormatFeatureFlagBits2
 typedef VkFlags64 VkFormatFeatureFlagBits2;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT = 0x00000001ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT_KHR = 0x00000001ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_IMAGE_BIT = 0x00000002ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_IMAGE_BIT_KHR = 0x00000002ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_IMAGE_ATOMIC_BIT = 0x00000004ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_IMAGE_ATOMIC_BIT_KHR = 0x00000004ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_UNIFORM_TEXEL_BUFFER_BIT = 0x00000008ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_UNIFORM_TEXEL_BUFFER_BIT_KHR = 0x00000008ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_BIT = 0x00000010ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_BIT_KHR = 0x00000010ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_ATOMIC_BIT = 0x00000020ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_ATOMIC_BIT_KHR = 0x00000020ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT = 0x00000040ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT_KHR = 0x00000040ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BIT = 0x00000080ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BIT_KHR = 0x00000080ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BLEND_BIT = 0x00000100ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BLEND_BIT_KHR = 0x00000100ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_DEPTH_STENCIL_ATTACHMENT_BIT = 0x00000200ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_DEPTH_STENCIL_ATTACHMENT_BIT_KHR = 0x00000200ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BLIT_SRC_BIT = 0x00000400ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BLIT_SRC_BIT_KHR = 0x00000400ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BLIT_DST_BIT = 0x00000800ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BLIT_DST_BIT_KHR = 0x00000800ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_LINEAR_BIT = 0x00001000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_LINEAR_BIT_KHR = 0x00001000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT = 0x00002000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT = 0x00002000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT = 0x00004000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT_KHR = 0x00004000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT = 0x00008000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT_KHR = 0x00008000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_MINMAX_BIT = 0x00010000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_MINMAX_BIT_KHR = 0x00010000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_MIDPOINT_CHROMA_SAMPLES_BIT = 0x00020000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_MIDPOINT_CHROMA_SAMPLES_BIT_KHR = 0x00020000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT = 0x00040000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT_KHR = 0x00040000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT = 0x00080000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT_KHR = 0x00080000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT = 0x00100000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT_KHR = 0x00100000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT = 0x00200000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT_KHR = 0x00200000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_DISJOINT_BIT = 0x00400000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_DISJOINT_BIT_KHR = 0x00400000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_COSITED_CHROMA_SAMPLES_BIT = 0x00800000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_COSITED_CHROMA_SAMPLES_BIT_KHR = 0x00800000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT = 0x80000000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR = 0x80000000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT = 0x100000000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR = 0x100000000ULL;
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT = 0x200000000ULL;
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT_KHR = 0x200000000ULL;
+// Provided by VK_VERSION_1_3
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT = 0x00002000ULL;
+// Provided by VK_VERSION_1_4
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT = 0x400000000000ULL;
 // Provided by VK_KHR_video_decode_queue with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_DECODE_OUTPUT_BIT_KHR = 0x02000000ULL;
 // Provided by VK_KHR_video_decode_queue with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
@@ -6304,6 +6316,60 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BI
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_INPUT_BIT_KHR = 0x08000000ULL;
 // Provided by VK_KHR_video_encode_queue with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_DPB_BIT_KHR = 0x10000000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT_KHR = 0x00000001ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_IMAGE_BIT_KHR = 0x00000002ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_IMAGE_ATOMIC_BIT_KHR = 0x00000004ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_UNIFORM_TEXEL_BUFFER_BIT_KHR = 0x00000008ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_BIT_KHR = 0x00000010ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_TEXEL_BUFFER_ATOMIC_BIT_KHR = 0x00000020ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VERTEX_BUFFER_BIT_KHR = 0x00000040ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BIT_KHR = 0x00000080ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_COLOR_ATTACHMENT_BLEND_BIT_KHR = 0x00000100ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_DEPTH_STENCIL_ATTACHMENT_BIT_KHR = 0x00000200ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BLIT_SRC_BIT_KHR = 0x00000400ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BLIT_DST_BIT_KHR = 0x00000800ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_LINEAR_BIT_KHR = 0x00001000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT_KHR = 0x00004000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT_KHR = 0x00008000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_MIDPOINT_CHROMA_SAMPLES_BIT_KHR = 0x00020000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT_KHR = 0x00040000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT_KHR = 0x00080000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT_KHR = 0x00100000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT_KHR = 0x00200000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_DISJOINT_BIT_KHR = 0x00400000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_COSITED_CHROMA_SAMPLES_BIT_KHR = 0x00800000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT_KHR = 0x80000000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT_KHR = 0x100000000ULL;
+// Provided by VK_KHR_format_feature_flags2
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_DEPTH_COMPARISON_BIT_KHR = 0x200000000ULL;
+// Provided by VK_KHR_format_feature_flags2 with VK_VERSION_1_2 or VK_EXT_sampler_filter_minmax
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_MINMAX_BIT_KHR = 0x00010000ULL;
+// Provided by VK_KHR_format_feature_flags2 with VK_EXT_filter_cubic or VK_IMG_filter_cubic
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT = 0x00002000ULL;
 // Provided by VK_NV_linear_color_attachment with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_LINEAR_COLOR_ATTACHMENT_BIT_NV = 0x4000000000ULL;
 // Provided by VK_QCOM_image_processing with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
@@ -6319,7 +6385,11 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_IMAGE_BIT
 // Provided by VK_NV_optical_flow
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_VECTOR_BIT_NV = 0x20000000000ULL;
 // Provided by VK_NV_optical_flow
-static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_NV = 0x40000000000ULL;</code></pre>
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_NV = 0x40000000000ULL;
+// Provided by VK_KHR_video_encode_quantization_map
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR = 0x2000000000000ULL;
+// Provided by VK_KHR_video_encode_quantization_map
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR = 0x4000000000000ULL;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -6596,8 +6666,36 @@ image views created with this format <strong>can</strong> be sampled in
 <a href="textures.html#textures-boxfilter" class="xref page">box filter sampling</a> operations.</p>
 </li>
 <li>
-<p><code>VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT_EXT</code> specifies that an
-image <strong>can</strong> be created with <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT</code>.</p>
+<p><code>VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT</code> specifies that an
+image <strong>can</strong> be created with <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code>.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code>
+specifies that an image view with this format <strong>can</strong> be used as a
+<a href="videocoding.html#encode-quantization-delta-map" class="xref page">quantization delta map</a> in
+<a href="videocoding.html#video-encode-operations" class="xref page">video encode operations</a>.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code> specifies
+that an image view with this format <strong>can</strong> be used as an
+<a href="videocoding.html#encode-emphasis-map" class="xref page">emphasis map</a> in <a href="videocoding.html#video-encode-operations" class="xref page">video    encode operations</a>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><a href="videocoding.html#encode-quantization-map" class="xref page">Video encode quantization maps</a> have additional
+restrictions specific to the <a href="videocoding.html#video-profiles" class="xref page">video profile</a> they are used
+with that <strong>can</strong> be enumerated using the
+<a href="videocoding.html#vkGetPhysicalDeviceVideoFormatPropertiesKHR" class="xref page">vkGetPhysicalDeviceVideoFormatPropertiesKHR</a> command.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </li>
 </ul>
 </div>
@@ -7141,7 +7239,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A1B5G5R5_UNORM_PACK16_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A1B5G5R5_UNORM_PACK16</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -7724,7 +7822,7 @@ preconditions, with more information in the table where the symbol appears</p></
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A8_UNORM_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_A8_UNORM</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11720,10 +11818,10 @@ supported for the following formats if the
 </ul>
 </div>
 <div class="paragraph">
-<p>If <code><a href="../appendices/extensions.html#VK_EXT_host_image_copy" class="xref page">VK_EXT_host_image_copy</a></code> is supported and
-<code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT</code> is supported in
+<p>If Vulkan 1.4 or the <code><a href="../appendices/extensions.html#VK_EXT_host_image_copy" class="xref page">VK_EXT_host_image_copy</a></code> extension is supported
+and <code>VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT</code> is supported in
 <code>optimalTilingFeatures</code> or <code>linearTilingFeatures</code> for a color
-format, <code>VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT_EXT</code> <strong>must</strong> also be
+format, <code>VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT</code> <strong>must</strong> also be
 supported in <code>optimalTilingFeatures</code> or <code>linearTilingFeatures</code>
 respectively.</p>
 </div>
@@ -11856,7 +11954,7 @@ formats:</p>
 <p><code>VK_FORMAT_R8_UINT</code></p>
 </li>
 <li>
-<p><code>VK_FORMAT_A8_UNORM_KHR</code></p>
+<p><code>VK_FORMAT_A8_UNORM</code></p>
 </li>
 </ul>
 </div>
@@ -12023,6 +12121,14 @@ apply, as described in the respective sections of this specification.</p>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_VIDEO_ENCODE_DPB_BIT_KHR</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code></p></td>
 </tr>
 </tbody>
 </table>
