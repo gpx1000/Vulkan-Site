@@ -600,7 +600,11 @@
             filteredDocuments.forEach((doc) => this.add(doc));
           });
           lunrResults = search(tempLunrIndex, filteredDocuments, text);
+        } else {
+          lunrResults = search(index, store.documents, text);
         }
+      } else {
+        lunrResults = search(index, store.documents, text);
       }
       result = lunrResults;
     }
@@ -670,10 +674,28 @@
     }
   }
 
+  function base64ToBytesArr (str) {
+    const abc = [...'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/']; // base64 alphabet
+    const result = [];
+
+    for (let i = 0; i < str.length / 4; i++) {
+      const chunk = [...str.slice(4 * i, 4 * i + 4)];
+      const bin = chunk.map((x) => abc.indexOf(x).toString(2).padStart(6, 0)).join('');
+      const bytes = bin.match(/.{1,8}/g).map((x) => +('0b' + x));
+      result.push(...bytes.slice(0, 3 - (str[4 * i + 2] === '=') - (str[4 * i + 3] === '=')));
+    }
+    return result
+  }
+
   function initSearch (lunr, data, trieData) {
     const start = performance.now();
-    const index = { index: lunr.Index.load(data.index), store: data.store, trie: new LevenshteinTrieUser() };
-    index.trie.load(trieData);
+    data = base64ToBytesArr(data);
+    data = window.pako.inflate(data, { to: 'string' });
+    const lunrdata = JSON.parse(data);
+    trieData = base64ToBytesArr(trieData);
+    const trieDataJSON = window.pako.inflate(trieData, { to: 'string' });
+    const index = { index: lunr.Index.load(lunrdata.index), store: lunrdata.store, trie: new LevenshteinTrieUser() };
+    index.trie.load(JSON.parse(trieDataJSON));
     enableSearchInput(true);
     searchInput.dispatchEvent(
       new CustomEvent('loadedindex', {
