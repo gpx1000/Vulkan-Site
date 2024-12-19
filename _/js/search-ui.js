@@ -109,6 +109,207 @@
     }
   }
 
+  class TrieNode {
+    constructor () {
+      this.children = new Map();
+      this.isEndOfWord = false;
+      this.data = []; // Store associated data (e.g., document IDs, URLs)
+    }
+  }
+
+  class LevenshteinTrieUser {
+    constructor () {
+      this.root = new TrieNode();
+    }
+
+    insert (word) {
+      let node = this.root;
+      for (const char of word) {
+        if (!node.children.has(char)) {
+          node.children.set(char, new TrieNode());
+        }
+        node = node.children.get(char);
+      }
+      node.isEndOfWord = true;
+    }
+
+    searchWithLevenshtein (word, maxDistance) {
+      const results = [];
+      this._searchRecursive(this.root, '', word, 0, maxDistance, results);
+      return results
+    }
+
+    _searchRecursive (node, currentWord, targetWord, currentIndex, maxDistance, results) {
+      if (currentIndex > targetWord.length && node.isEndOfWord) {
+        results.push(currentWord);
+        return
+      }
+      if (maxDistance < 0) {
+        return
+      }
+
+      if (node.isEndOfWord && this.levenshteinDistance(currentWord, targetWord) <= maxDistance) {
+        results.push(currentWord);
+      }
+
+      for (const [char, childNode] of node.children) {
+        let newDistance = maxDistance;
+        if (currentIndex < targetWord.length) {
+          if (char === targetWord[currentIndex]) {
+            this._searchRecursive(childNode, currentWord + char, targetWord, currentIndex + 1, newDistance, results);
+          } else {
+            newDistance = maxDistance - 1; //substitution
+            this._searchRecursive(childNode, currentWord + char, targetWord, currentIndex + 1, newDistance, results);
+            this._searchRecursive(node, currentWord, targetWord, currentIndex + 1, newDistance, results); //insertion
+            this._searchRecursive(
+              childNode,
+              currentWord + char,
+              targetWord,
+              currentIndex,
+              newDistance,
+              results
+            ); // deletion
+          }
+        } else {
+          this._searchRecursive(childNode, currentWord + char, targetWord, currentIndex, newDistance - 1, results);
+        }
+      }
+    }
+
+    levenshteinDistance (a, b) {
+      if (a.length === 0) return b.length
+      if (b.length === 0) return a.length
+
+      const matrix = [];
+
+      // increment along the first column of each row
+      let i;
+      for (i = 0; i <= b.length; i++) {
+        matrix[i] = [i];
+      }
+
+      // increment each column in the first row
+      let j;
+      for (j = 0; j <= a.length; j++) {
+        matrix[0][j] = j;
+      }
+
+      // Fill in the rest of the matrix
+      for (i = 1; i <= b.length; i++) {
+        for (j = 1; j <= a.length; j++) {
+          if (b.charAt(i - 1) === a.charAt(j - 1)) {
+            matrix[i][j] = matrix[i - 1][j - 1];
+          } else {
+            matrix[i][j] = Math.min(
+              matrix[i - 1][j - 1] + 1, // substitution
+              Math.min(matrix[i][j - 1] + 1, // insertion
+                matrix[i - 1][j] + 1) // deletion
+            );
+          }
+        }
+      }
+
+      return matrix[b.length][a.length]
+    }
+
+    // Save the Trie to a JSON string
+    save () {
+      return JSON.stringify(this.root, (key, value) => {
+        if (value instanceof Map) {
+          return Array.from(value.entries()) // Convert Map to array of entries
+        }
+        return value
+      })
+    }
+
+    // Load the Trie from a JSON string
+    load (jsonString) {
+      this.root = jsonString;
+      // this.root = JSON.parse(jsonString, (key, value) => {
+      //   if (Array.isArray(value)) {
+      //     return new Map(value) // Convert array of entries back to Map
+      //   }
+      //   return value
+      // })
+    }
+
+    insertWithData (word, data) {
+      let node = this.root;
+      for (const char of word) {
+        if (!node.children.has(char)) {
+          node.children.set(char, new TrieNode());
+        }
+        node = node.children.get(char);
+      }
+      node.isEndOfWord = true;
+      node.data.push(data); // Store the associated data
+    }
+
+    searchWithLevenshteinWithData (word, maxDistance) {
+      const results = [];
+      this._searchRecursiveWithData(this.root, '', word, 0, maxDistance, results);
+      return results
+    }
+
+    _searchRecursiveWithData (node, currentWord, targetWord, currentIndex, maxDistance, results) {
+      if (currentIndex > targetWord.length && node.isEndOfWord) {
+        results.push({ word: currentWord, data: node.data });
+        return
+      }
+      if (maxDistance < 0) {
+        return
+      }
+
+      if (node.isEndOfWord && this.levenshteinDistance(currentWord, targetWord) <= maxDistance) {
+        results.push({ word: currentWord, data: node.data });
+      }
+
+      for (const [char, childNode] of node.children) {
+        let newDistance = maxDistance;
+        if (currentIndex < targetWord.length) {
+          if (char === targetWord[currentIndex]) {
+            this._searchRecursiveWithData(
+              childNode,
+              currentWord + char,
+              targetWord,
+              currentIndex + 1,
+              newDistance,
+              results
+            );
+          } else {
+            newDistance = maxDistance - 1; //substitution
+            this._searchRecursiveWithData(
+              childNode,
+              currentWord + char,
+              targetWord,
+              currentIndex + 1,
+              newDistance,
+              results
+            );
+            this._searchRecursiveWithData(
+              node,
+              currentWord,
+              targetWord,
+              currentIndex + 1,
+              newDistance,
+              results
+            ); //insertion
+            this._searchRecursiveWithData(
+              childNode,
+              currentWord + char,
+              targetWord,
+              currentIndex,
+              newDistance,
+              results
+            ); // deletion
+          }
+        } else {
+          this._searchRecursiveWithData(childNode, currentWord + char, targetWord, currentIndex, newDistance - 1, results);
+        }
+      }
+    }
+  }
+
   /* global CustomEvent, globalThis */
 
   const config = document.getElementById('search-ui-script').dataset;
@@ -364,15 +565,13 @@
     return result
   }
 
-  function searchIndex (index, store, text) {
+  function searchIndex (index, trie, store, text) {
     clearSearchResults(false);
     if (text.trim() === '') {
       return
     }
-    const maxLevenshteinDistance = 2;
-    const lunrBoost = 1;
-    const trieResults = globalThis
-      .LevenshteinTrie(store.trie)
+    const maxLevenshteinDistance = 3;
+    const trieResults = trie
       .searchWithLevenshteinWithData(text.toLowerCase(), maxLevenshteinDistance);
     let result;
     if (!trieResults) {
@@ -380,12 +579,15 @@
     } else {
       // Extract unique document IDs from Trie results
       const trieDocIds = new Set();
-      trieResults.forEach((r) => r.data.forEach((d) => trieDocIds.add(d.id)));
+      trieResults.forEach((r) => r.data.forEach((d) => trieDocIds.add(d)));
 
       let lunrResults = [];
       if (trieDocIds.size > 0) {
         // Filter documents for Lunr search
-        const filteredDocuments = store.documents.filter((doc) => trieDocIds.has(doc.id));
+        const filteredDocuments = [];
+        trieDocIds.forEach((id) => {
+          filteredDocuments.push(store.documents[id]);
+        });
         if (filteredDocuments.length > 0) {
           // Rebuild a temporary index only with the filtered documents
           const tempLunrIndex = globalThis.lunr(function () {
@@ -400,28 +602,7 @@
           lunrResults = search(tempLunrIndex, filteredDocuments, text);
         }
       }
-      const combinedResults = new Map();
-
-      trieResults.forEach((result) => {
-        result.data.forEach((doc) => {
-          combinedResults.set(doc.id, {
-            ...doc,
-            score: (combinedResults.get(doc.id)?.score || 0) + 10,
-          });
-        });
-      });
-
-      lunrResults.forEach((result) => {
-        const doc = store.documents.find((d) => d.id === parseInt(result.ref, 10));
-        if (doc) {
-          combinedResults.set(doc.id, {
-            ...doc,
-            score: (combinedResults.get(doc.id)?.score || 0) + result.score * lunrBoost,
-          });
-        }
-      });
-
-      result = Array.from(combinedResults.values()).sort((a, b) => b.score - a.score);
+      result = lunrResults;
     }
     const searchResultDataset = document.createElement('div');
     searchResultDataset.classList.add('search-result-dataset');
@@ -470,7 +651,7 @@
     const query = searchInput.value;
     try {
       if (!query) return clearSearchResults()
-      searchIndex(index.index, index.store, query);
+      searchIndex(index.index, index.trie, index.store, query);
     } catch (err) {
       if (err instanceof globalThis.lunr.QueryParseError) {
         if (debug) {
@@ -489,9 +670,10 @@
     }
   }
 
-  function initSearch (lunr, data) {
+  function initSearch (lunr, data, trieData) {
     const start = performance.now();
-    const index = { index: lunr.Index.load(data.index), store: data.store };
+    const index = { index: lunr.Index.load(data.index), store: data.store, trie: new LevenshteinTrieUser() };
+    index.trie.load(trieData);
     enableSearchInput(true);
     searchInput.dispatchEvent(
       new CustomEvent('loadedindex', {

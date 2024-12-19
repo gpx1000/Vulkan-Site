@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Variables and Types :: Vulkan Documentation Project</title>
-    <meta name="generator" content="Antora 3.1.4">
+    <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
   </head>
@@ -1019,10 +1019,8 @@ double-precision floating-point variable is expected to match the
 corresponding IEEE 754 floating-point definition for precision and dynamic
 range.
 Floating-point variables within a shader are also encoded according to the
-IEEE 754 specification for single-precision floating-point values</p>
-</div>
-<div class="paragraph">
-<p>(logically, not necessarily physically).
+IEEE 754 specification for single-precision floating-point values
+(logically, not necessarily physically).
 While encodings are logically IEEE 754, operations (addition,
 multiplication, etc.) are not necessarily performed as required by IEEE 754.
 See &#8220;<a href="#range-and-precision">Range and Precision</a>&#8221; for more details on
@@ -2313,10 +2311,8 @@ Parameter qualifiers are discussed in
 <div class="paragraph">
 <p>Initializers in global declarations may only be used in declarations of
 global variables with no storage qualifier, with a <strong>const</strong> qualifier, or
-with a <strong>uniform</strong> qualifier.</p>
-</div>
-<div class="paragraph">
-<p>Global variables without storage qualifiers that are not initialized in
+with a <strong>uniform</strong> qualifier.
+Global variables without storage qualifiers that are not initialized in
 their declaration or by the application will not be initialized,
 but rather will enter <em>main()</em> with undefined values.</p>
 </div>

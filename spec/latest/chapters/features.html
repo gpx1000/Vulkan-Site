@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Features :: Vulkan Documentation Project</title>
-    <meta name="generator" content="Antora 3.1.4">
+    <meta name="generator" content="Antora 3.1.10">
     <link rel="stylesheet" href="../../../_/css/site.css">
     <script>var uiRootPath = '../../../_'</script>
   </head>
@@ -935,9 +935,6 @@ attribute is greater than either:</p>
 <li>
 <p><span class="eq">(<code>vertexBufferRangeSize</code> - (<code>vertexBufferRangeSize</code> %
 <code>bindingStride</code>))</span></p>
-</li>
-</ul>
-</div>
 <div class="paragraph">
 <p>where <code>vertexBufferRangeSize</code> is the byte size of the memory range bound
 to the vertex buffer binding and <code>bindingStride</code> is the byte stride of
@@ -946,8 +943,7 @@ Further, if any vertex input attribute using a specific vertex input binding
 is out of bounds, then all vertex input attributes using that vertex input
 binding for that vertex shader invocation are considered out of bounds.</p>
 </div>
-<div class="ulist">
-<ul>
+</li>
 <li>
 <p>If a vertex input attribute is out of bounds, it will be assigned one
 of the following values:</p>
@@ -1240,14 +1236,14 @@ be supported in <code>optimalTilingFeatures</code> for the following formats:</p
 </li>
 <li>
 <p><code>VK_FORMAT_EAC_R11G11_SNORM_BLOCK</code></p>
-</li>
-</ul>
-</div>
 <div class="paragraph">
 <p>To query for additional properties, or if the feature is not enabled,
 <a href="formats.html#vkGetPhysicalDeviceFormatProperties" class="xref page">vkGetPhysicalDeviceFormatProperties</a> and
 <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties" class="xref page">vkGetPhysicalDeviceImageFormatProperties</a> <strong>can</strong> be used to check for
 supported properties of individual formats as normal.</p>
+</div>
+</li>
+</ul>
 </div>
 </li>
 <li>
@@ -1344,14 +1340,14 @@ be supported in <code>optimalTilingFeatures</code> for the following formats:</p
 </li>
 <li>
 <p><code>VK_FORMAT_ASTC_12x12_SRGB_BLOCK</code></p>
-</li>
-</ul>
-</div>
 <div class="paragraph">
 <p>To query for additional properties, or if the feature is not enabled,
 <a href="formats.html#vkGetPhysicalDeviceFormatProperties" class="xref page">vkGetPhysicalDeviceFormatProperties</a> and
 <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties" class="xref page">vkGetPhysicalDeviceImageFormatProperties</a> <strong>can</strong> be used to check for
 supported properties of individual formats as normal.</p>
+</div>
+</li>
+</ul>
 </div>
 </li>
 <li>
@@ -1411,14 +1407,14 @@ be supported in <code>optimalTilingFeatures</code> for the following formats:</p
 </li>
 <li>
 <p><code>VK_FORMAT_BC7_SRGB_BLOCK</code></p>
-</li>
-</ul>
-</div>
 <div class="paragraph">
 <p>To query for additional properties, or if the feature is not enabled,
 <a href="formats.html#vkGetPhysicalDeviceFormatProperties" class="xref page">vkGetPhysicalDeviceFormatProperties</a> and
 <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties" class="xref page">vkGetPhysicalDeviceImageFormatProperties</a> <strong>can</strong> be used to check for
 supported properties of individual formats as normal.</p>
+</div>
+</li>
+</ul>
 </div>
 </li>
 <li>
@@ -1568,9 +1564,6 @@ be supported in <code>optimalTilingFeatures</code> for the following formats:</p
 </li>
 <li>
 <p><code>VK_FORMAT_R8_UINT</code></p>
-</li>
-</ul>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1599,6 +1592,9 @@ capability, are already covered by core Vulkan
 </td>
 </tr>
 </table>
+</div>
+</li>
+</ul>
 </div>
 </li>
 <li>
@@ -2779,14 +2775,14 @@ be supported in <code>optimalTilingFeatures</code> for the following formats:</p
 </li>
 <li>
 <p><code>VK_FORMAT_ASTC_12x12_SFLOAT_BLOCK</code></p>
-</li>
-</ul>
-</div>
 <div class="paragraph">
 <p>To query for additional properties, or if the feature is not enabled,
 <a href="formats.html#vkGetPhysicalDeviceFormatProperties" class="xref page">vkGetPhysicalDeviceFormatProperties</a> and
 <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties" class="xref page">vkGetPhysicalDeviceImageFormatProperties</a> <strong>can</strong> be used to check for
 supported properties of individual formats as normal.</p>
+</div>
+</li>
+</ul>
 </div>
 </li>
 <li>
@@ -8281,14 +8277,14 @@ be supported in <code>optimalTilingFeatures</code> for the following formats:</p
 </li>
 <li>
 <p><code>VK_FORMAT_ASTC_12x12_SFLOAT_BLOCK</code></p>
-</li>
-</ul>
-</div>
 <div class="paragraph">
 <p>To query for additional properties, or if the feature is not enabled,
 <a href="formats.html#vkGetPhysicalDeviceFormatProperties" class="xref page">vkGetPhysicalDeviceFormatProperties</a> and
 <a href="capabilities.html#vkGetPhysicalDeviceImageFormatProperties" class="xref page">vkGetPhysicalDeviceImageFormatProperties</a> <strong>can</strong> be used to check for
 supported properties of individual formats as normal.</p>
+</div>
+</li>
+</ul>
 </div>
 </li>
 </ul>
