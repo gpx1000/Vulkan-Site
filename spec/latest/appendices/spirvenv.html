@@ -5,23 +5,35 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Vulkan Environment for SPIR-V :: Vulkan Documentation Project</title>
     <meta name="generator" content="Antora 3.1.10">
+    <script>
+      !function (theme) {
+        if (theme === 'dark') document.documentElement.classList.add('dark')
+        else document.documentElement.classList.add('light')
+      }(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
+    </script>
     <link rel="stylesheet" href="../../../_/css/site.css">
-    <script>var uiRootPath = '../../../_'</script>
+    <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
+    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
+    <meta name="msapplication-TileColor" content="#ffc40d">
   </head>
   <body class="article">
 <header class="header">
   <nav class="navbar">
     <div class="navbar-brand">
-      <a class="navbar-item" href="../../..">Vulkan Documentation Project</a>
-      <div class="navbar-item">
-        <img alt="Vulkan White Label" src="../../../_/Vulkan_White_Dec16.svg" height="100%" />
-      </div>
+      <a class="navbar-item" href="../../.."><img class="navbar-item" alt="Vulkan White Label" src="../../../_/Vulkan_Docs.svg" /></a>
       <div class="navbar-item search hide-for-print">
-        <div id="search-field" class="field">
-          <label for="search-input"></label><input id="search-input" type="text" placeholder="Search the docs">
+        <div id="search-field" class="field has-filter">
+          <label for="search-input"></label>
+          <input id="search-input" type="text" placeholder="Search the docs">
+          <label class="filter checkbox">
+            <input type="checkbox" data-facet-filter="component:spec" checked> In this component
+          </label>
         </div>
       </div>
-      <button class="navbar-burger" data-target="topbar-nav">
+      <button class="navbar-burger" aria-controls="topbar-nav" aria-expanded="false" aria-label="Toggle main menu">
         <span></span>
         <span></span>
         <span></span>
@@ -33,59 +45,85 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Specs</a>
           <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan 1.3</a>
+            <a class="navbar-item" href="../../../spec/latest/chapters/introduction.html">Vulkan API</a>
+            <a class="navbar-item" href="../../../glsl/latest/index.html">GLSL</a>
+            <a class="navbar-item" href="../../../guide/latest/hlsl.html">HLSL</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Guides</a>
+          <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
-          </div>
-        </div>
-            <!--
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Tools</a>
-          <div class="navbar-dropdown">
-            <a class="navbar-item" href="#">TBD</a>
-          </div>
-        </div>
-            -->
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Tutorial</a>
-          <div class="navbar-dropdown is-right">
-            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
-          </div>
-        </div>
-        <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Samples</a>
-          <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
+            <a class="navbar-item" href="../../../tutorial/latest/index.html">Vulkan Tutorial</a>
+            <a class="navbar-item" href="https://www.youtube.com/c/vulkan">YouTube</a>
+            <a class="navbar-item" href="https://vulkan.org">More Info at Vulkan.org</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
-          <a class="navbar-link" href="#">Help</a>
+          <a class="navbar-link" href="#">Feedback</a>
+          <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="https://github.com/KhronosGroup/Vulkan-Site/issues/new/choose" target="_blank">Report a Problem</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Community</a>
           <div class="navbar-dropdown is-right">
             <a class="navbar-item" href="https://discord.gg/vulkan">Vulkan Discord</a>
-            <a class="navbar-item" href="https://khr.io/khrdiscord">Khronos Discord</a>
+            <a class="navbar-item" href="https://reddit.com/r/vulkan">Reddit</a>
+            <a class="navbar-item" href="https://stackoverflow.com/questions/tagged/vulkan">Stack Overflow</a>
+            <a class="navbar-item" href="https://fosstodon.org/@vulkan">Mastodon</a>
           </div>
         </div>
-            <!--
-        <div class="navbar-item">
-          <span class="control">
-            <a class="button is-primary" href="#">Download</a>
-          </span>
-        </div>
-            -->
       </div>
     </div>
+    <label class="theme-toggler">
+      <input type="checkbox" id="switch-theme-checkbox" name="switch-theme-checkbox"/>
+      <span class="icon"><svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="moon" class="svg-inline--fa fa-moon moon" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path fill="currentColor" d="M223.5 32C100 32 0 132.3 0 256S100 480 223.5 480c60.6 0 115.5-24.2 155.8-63.4c5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6c-96.9 0-175.5-78.8-175.5-176c0-65.8 36-123.1 89.3-153.3c6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path>
+        </svg>
+        <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="sun" class="svg-inline--fa fa-sun sun" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"></path>
+        </svg></span>
+    </label>
   </nav>
 </header>
+<script>
+  window.onload = function() {
+    let e = document.getElementById("switch-theme-checkbox")
+    e.checked = document.documentElement.classList.contains("dark");
+    e.checked ? e.parentElement.classList.add("active") : e.parentElement.classList.remove("active")
+  }
+  !function() {
+    let e = document.getElementById("switch-theme-checkbox")
+    e.checked = document.documentElement.classList.contains("dark")
+    e.addEventListener("change", function() {
+      if (document.documentElement.classList.contains("light")) {
+        document.documentElement.classList.remove("light")
+        document.documentElement.classList.add("dark")
+      } else if (document.documentElement.classList.contains("dark")) {
+        document.documentElement.classList.remove("dark")
+        document.documentElement.classList.add("light")
+      } else {
+        if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+          document.documentElement.classList.add("dark")
+        } else {
+          document.documentElement.classList.add("light")
+        }
+      }
+      document.documentElement.setAttribute("data-theme", this.checked ? "dark" : "light"),
+        function(e) {
+          window.localStorage && window.localStorage.setItem("theme", e)
+        }(this.checked ? "dark" : "light"), this.checked ? this.parentElement.classList.add("active") : this.parentElement.classList.remove("active")
+    }.bind(e))
+  }();
+</script>
 <div class="body">
 <div class="nav-container" data-component="spec" data-version="latest">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
+    <button class="nav-menu-toggle" aria-label="Toggle expand/collapse all" style="display: none"></button>
     <h3 class="title"><a href="../index.html">Vulkan Specification</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
@@ -279,7 +317,7 @@
   </div>
   <ul class="components">
     <li class="component">
-      <a class="title" href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a>
+      <div class="title"><a href="../../../tutorial/latest/00_Introduction.html">Khronos Vulkan Tutorial</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../tutorial/latest/00_Introduction.html">latest</a>
@@ -287,7 +325,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../glsl/latest/index.html">OpenGL Shading Language Specification</a>
+      <div class="title"><a href="../../../glsl/latest/index.html">OpenGL Shading Language Specification</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../glsl/latest/index.html">latest</a>
@@ -295,7 +333,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
+      <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../features/latest/features/index.html">latest</a>
@@ -303,7 +341,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../guide/latest/index.html">Vulkan Guide</a>
+      <div class="title"><a href="../../../guide/latest/index.html">Vulkan Guide</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../guide/latest/index.html">latest</a>
@@ -311,7 +349,7 @@
       </ul>
     </li>
     <li class="component">
-      <a class="title" href="../../../samples/latest/README.html">Vulkan Samples</a>
+      <div class="title"><a href="../../../samples/latest/README.html">Vulkan Samples</a></div>
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../samples/latest/README.html">latest</a>
@@ -319,7 +357,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <a class="title" href="../index.html">Vulkan Specification</a>
+      <div class="title"><a href="../index.html">Vulkan Specification</a></div>
       <ul class="versions">
         <li class="version is-current is-latest">
           <a href="../index.html">latest</a>
@@ -341,8 +379,6 @@
     <li><a href="spirvenv.html">Vulkan Environment for SPIR-V</a></li>
   </ul>
 </nav>
-    <!--
-    -->
 </div>
   <div class="content">
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
@@ -1824,12 +1860,6 @@ of these types <strong>must</strong> not be stored to or modified</p>
 
 Any variable in the <code>Uniform</code> <code>Storage</code> <code>Class</code> decorated as <code>Block</code>
 <strong>must</strong> not be stored to or modified</p>
-</li>
-<li>
-<p><a id="VUID-StandaloneSpirv-Offset-04663" href="#VUID-StandaloneSpirv-Offset-04663"></a> <span class="vuid">VUID-StandaloneSpirv-Offset-04663</span><br>
-
-Image operand <code>Offset</code> <strong>must</strong> only be used with <code>OpImage*Gather</code>
-instructions</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Offset-04865" href="#VUID-StandaloneSpirv-Offset-04865"></a> <span class="vuid">VUID-StandaloneSpirv-Offset-04865</span><br>
@@ -4292,6 +4322,15 @@ If the <a href="../chapters/features.html#features-shaderZeroInitializeWorkgroup
 an <code>Initializer</code> operand</p>
 </li>
 <li>
+<p><a id="VUID-RuntimeSpirv-Offset-10213" href="#VUID-RuntimeSpirv-Offset-10213"></a> <span class="vuid">VUID-RuntimeSpirv-Offset-10213</span><br>
+
+
+If the <a href="../chapters/features.html#features-maintenance8" class="xref page"><code>maintenance8</code></a> feature is not
+enabled, image
+operand <code>Offset</code> <strong>must</strong> only be used with <code>OpImage*Gather</code>
+instructions</p>
+</li>
+<li>
 <p><a id="VUID-RuntimeSpirv-OpImage-06376" href="#VUID-RuntimeSpirv-OpImage-06376"></a> <span class="vuid">VUID-RuntimeSpirv-OpImage-06376</span><br>
 
 If an <code>OpImage*Gather</code> operation has an image operand of <code>Offset</code>,
@@ -4308,16 +4347,20 @@ than or equal to <a href="../chapters/limits.html#limits-maxTexelGatherOffset" c
 <li>
 <p><a id="VUID-RuntimeSpirv-OpImageSample-06435" href="#VUID-RuntimeSpirv-OpImageSample-06435"></a> <span class="vuid">VUID-RuntimeSpirv-OpImageSample-06435</span><br>
 
-If an <code>OpImageSample*</code> or <code>OpImageFetch*</code> operation has an image
-operand of <code>ConstOffset</code> then the offset value <strong>must</strong> be greater than
-or equal to <a href="../chapters/limits.html#limits-minTexelOffset" class="xref page"><code>minTexelOffset</code></a></p>
+    If an <code>OpImageSample*</code> or <code>OpImageFetch*</code> operation has an image
+    operand of
+<code>Offset</code> or
+    <code>ConstOffset</code> then the offset value <strong>must</strong> be greater than or equal to
+    <a href="../chapters/limits.html#limits-minTexelOffset" class="xref page"><code>minTexelOffset</code></a></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpImageSample-06436" href="#VUID-RuntimeSpirv-OpImageSample-06436"></a> <span class="vuid">VUID-RuntimeSpirv-OpImageSample-06436</span><br>
 
-If an <code>OpImageSample*</code> or <code>OpImageFetch*</code> operation has an image
-operand of <code>ConstOffset</code> then the offset value <strong>must</strong> be less than or
-equal to <a href="../chapters/limits.html#limits-maxTexelOffset" class="xref page"><code>maxTexelOffset</code></a></p>
+    If an <code>OpImageSample*</code> or <code>OpImageFetch*</code> operation has an image
+    operand of
+<code>Offset</code> or
+    <code>ConstOffset</code> then the offset value <strong>must</strong> be less than or equal to
+    <a href="../chapters/limits.html#limits-maxTexelOffset" class="xref page"><code>maxTexelOffset</code></a></p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-samples-08725" href="#VUID-RuntimeSpirv-samples-08725"></a> <span class="vuid">VUID-RuntimeSpirv-samples-08725</span><br>
@@ -4493,24 +4536,6 @@ Each <code>OpEntryPoint</code> <strong>must</strong> not have more than one vari
 with <code>InputAttachmentIndex</code> per image aspect of the attachment image
 bound to it, either explicitly or implicitly as described by
 <a href="../chapters/interfaces.html#interfaces-inputattachment" class="xref page">input attachment interface</a></p>
-</li>
-<li>
-<p><a id="VUID-RuntimeSpirv-shaderTileImageColorReadAccess-08728" href="#VUID-RuntimeSpirv-shaderTileImageColorReadAccess-08728"></a> <span class="vuid">VUID-RuntimeSpirv-shaderTileImageColorReadAccess-08728</span><br>
-
-If the <a href="../chapters/features.html#features-shaderTileImageColorReadAccess" class="xref page">    <code>shaderTileImageColorReadAccess</code></a> feature is not enabled,
-<code>OpColorAttachmentReadEXT</code> operation <strong>must</strong> not be used</p>
-</li>
-<li>
-<p><a id="VUID-RuntimeSpirv-shaderTileImageDepthReadAccess-08729" href="#VUID-RuntimeSpirv-shaderTileImageDepthReadAccess-08729"></a> <span class="vuid">VUID-RuntimeSpirv-shaderTileImageDepthReadAccess-08729</span><br>
-
-If the <a href="../chapters/features.html#features-shaderTileImageDepthReadAccess" class="xref page">    <code>shaderTileImageDepthReadAccess</code></a> feature is not enabled,
-<code>OpDepthAttachmentReadEXT</code> operation <strong>must</strong> not be used</p>
-</li>
-<li>
-<p><a id="VUID-RuntimeSpirv-shaderTileImageStencilReadAccess-08730" href="#VUID-RuntimeSpirv-shaderTileImageStencilReadAccess-08730"></a> <span class="vuid">VUID-RuntimeSpirv-shaderTileImageStencilReadAccess-08730</span><br>
-
-If the <a href="../chapters/features.html#features-shaderTileImageStencilReadAccess" class="xref page">    <code>shaderTileImageStencilReadAccess</code></a> feature is not enabled,
-<code>OpStencilAttachmentReadEXT</code> operation <strong>must</strong> not be used</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-minSampleShading-08731" href="#VUID-RuntimeSpirv-minSampleShading-08731"></a> <span class="vuid">VUID-RuntimeSpirv-minSampleShading-08731</span><br>
@@ -4776,8 +4801,23 @@ of the operands or to the result type.</p>
 </li>
 <li>
 <p>The operation is not a bit-preserving operation and is not one of
-<code>OpFConvert</code>, <code>OpFNegate</code>, <code>OpFAdd</code>, <code>OpFSub</code>,
-<code>OpFMul</code>, <code>OpFDiv</code>, <code>OpIsNan</code>, or <code>OpIsInf</code>.</p>
+       <code>OpFConvert</code>, <code>OpFNegate</code>, <code>OpFAdd</code>, <code>OpFSub</code>,
+       <code>OpFMul</code>, <code>OpFDiv</code>, <code>OpIsNan</code>, <code>OpIsInf</code>,
+       <code>OpVectorTimesScalar</code>, <code>OpMatrixTimesScalar</code>,
+       <code>OpVectorTimesMatrix</code>, <code>OpMatrixTimesVector</code>,
+       <code>OpMatrixTimesMatrix</code>, <code>OpOuterProduct</code>, <code>OpDot</code>,
+       <code>OpFOrdEqual</code>, <code>OpFUnordEqual</code>, <code>OpFOrdNotEqual</code>,
+       <code>OpFUnordNotEqual</code>, <code>OpFOrdLessThan</code>, <code>OpFUnordLessThan</code>,
+       <code>OpFOrdGreaterThan</code>, <code>OpFUnordGreaterThan</code>,
+       <code>OpFOrdLessThanEqual</code>, <code>OpFUnordLessThanEqual</code>,
+       <code>OpFOrdGreaterThanEqual</code>, <code>OpFUnordGreaterThanEqual</code>,
+       <code>OpGroupNonUniformAllEqual</code>,
+<code>OpSubgroupAllEqualKHR</code>,
+       <code>OpGroupNonUniformFMin</code>, <code>OpGroupNonUniformFMax</code>,
+       <code>OpAtomicCompareExchange</code>, <code>OpAtomicCompareExchangeWeak</code>,
+       <code>OpDPdx</code>, <code>OpDPdy</code>, <code>OpFwidth</code>, <code>OpDPdxFine</code>,
+       <code>OpDPdyFine</code>, <code>OpFwidthFine</code>, <code>OpDPdxCoarse</code>,
+       <code>OpDPdyCoarse</code>, or <code>OpFwidthCoarse</code>.</p>
 </li>
 <li>
 <p>The operation is an <code>OpLoad</code> from the <code>Input</code> <code>Storage</code> <code>Class</code> in
@@ -4818,42 +4858,57 @@ floating-point numbers <strong>must</strong> be flushed to zero.</p>
 </li>
 <li>
 <p>The following core SPIR-V instructions <strong>must</strong> respect the
-<code>DenormFlushToZero</code> <code>Execution</code> <code>Mode</code>: <code>OpSpecConstantOp</code> (with
-opcode <code>OpFConvert</code>), <code>OpFConvert</code>, <code>OpFNegate</code>, <code>OpFAdd</code>,
-<code>OpFSub</code>, <code>OpFMul</code>, <code>OpFDiv</code>, <code>OpFRem</code>, <code>OpFMod</code>,
-<code>OpVectorTimesScalar</code>, <code>OpMatrixTimesScalar</code>,
-<code>OpVectorTimesMatrix</code>, <code>OpMatrixTimesVector</code>,
-<code>OpMatrixTimesMatrix</code>, <code>OpOuterProduct</code>, <code>OpDot</code>; and the
-following extended instructions for GLSL: <code>Round</code>, <code>RoundEven</code>,
-<code>Trunc</code>, <code>FAbs</code>, <code>Floor</code>, <code>Ceil</code>, <code>Fract</code>, <code>Radians</code>,
-<code>Degrees</code>, <code>Sin</code>, <code>Cos</code>, <code>Tan</code>, <code>Asin</code>, <code>Acos</code>,
-<code>Atan</code>, <code>Sinh</code>, <code>Cosh</code>, <code>Tanh</code>, <code>Asinh</code>, <code>Acosh</code>,
-<code>Atanh</code>, <code>Atan2</code>, <code>Pow</code>, <code>Exp</code>, <code>Log</code>, <code>Exp2</code>,
-<code>Log2</code>, <code>Sqrt</code>, <code>InverseSqrt</code>, <code>Determinant</code>,
-<code>MatrixInverse</code>, <code>Modf</code>, <code>ModfStruct</code>, <code>FMin</code>, <code>FMax</code>,
-<code>FClamp</code>, <code>FMix</code>, <code>Step</code>, <code>SmoothStep</code>, <code>Fma</code>,
-<code>UnpackHalf2x16</code>, <code>Length</code>, <code>Distance</code>, <code>Cross</code>,
-<code>Normalize</code>, <code>FaceForward</code>, <code>Reflect</code>, <code>Refract</code>,
-<code>NMin</code>, <code>NMax</code>, and <code>NClamp</code>.</p>
+     <code>DenormFlushToZero</code> <code>Execution</code> <code>Mode</code>: <code>OpSpecConstantOp</code> (with
+     opcode <code>OpFConvert</code>), <code>OpFConvert</code>, <code>OpFNegate</code>, <code>OpFAdd</code>,
+     <code>OpFSub</code>, <code>OpFMul</code>, <code>OpFDiv</code>, <code>OpFRem</code>, <code>OpFMod</code>,
+     <code>OpVectorTimesScalar</code>, <code>OpMatrixTimesScalar</code>,
+     <code>OpVectorTimesMatrix</code>, <code>OpMatrixTimesVector</code>,
+     <code>OpMatrixTimesMatrix</code>, <code>OpOuterProduct</code>, <code>OpDot</code>,
+     <code>OpGroupNonUniformFMin</code>, <code>OpGroupNonUniformFMax</code>,
+<code>OpAtomicFAddEXT</code>,
+<code>OpAtomicFMinEXT</code>,
+<code>OpAtomicFMaxEXT</code>,
+     <code>OpDPdx</code>, <code>OpDPdy</code>, <code>OpFwidth</code>, <code>OpDPdxFine</code>,
+     <code>OpDPdyFine</code> <code>OpFwidthFine</code>, <code>OpDPdxCoarse</code>,
+     <code>OpDPdyCoarse</code>, <code>OpFwidthCoarse</code>; and the following extended
+     instructions for GLSL: <code>Round</code>, <code>RoundEven</code>, <code>Trunc</code>,
+     <code>FAbs</code>, <code>Floor</code>, <code>Ceil</code>, <code>Fract</code>, <code>Radians</code>,
+     <code>Degrees</code>, <code>Sin</code>, <code>Cos</code>, <code>Tan</code>, <code>Asin</code>, <code>Acos</code>,
+     <code>Atan</code>, <code>Sinh</code>, <code>Cosh</code>, <code>Tanh</code>, <code>Asinh</code>, <code>Acosh</code>,
+     <code>Atanh</code>, <code>Atan2</code>, <code>Pow</code>, <code>Exp</code>, <code>Log</code>, <code>Exp2</code>,
+     <code>Log2</code>, <code>Sqrt</code>, <code>InverseSqrt</code>, <code>Determinant</code>,
+     <code>MatrixInverse</code>, <code>Modf</code>, <code>ModfStruct</code>, <code>FMin</code>, <code>FMax</code>,
+     <code>FClamp</code>, <code>FMix</code>, <code>Step</code>, <code>SmoothStep</code>, <code>Fma</code>,
+     <code>UnpackHalf2x16</code>, <code>Length</code>, <code>Distance</code>, <code>Cross</code>,
+     <code>Normalize</code>, <code>FaceForward</code>, <code>Reflect</code>, <code>Refract</code>,
+     <code>NMin</code>, <code>NMax</code>, and <code>NClamp</code>.</p>
 </li>
 <li>
 <p>The following core SPIR-V instructions <strong>must</strong> respect the
-<code>DenormPreserve</code> <code>Execution</code> <code>Mode</code>: <code>OpSpecConstantOp</code>,
-<code>OpFConvert</code>, <code>OpFNegate</code>, <code>OpFAdd</code>, <code>OpFSub</code>, <code>OpFMul</code>,
-<code>OpVectorTimesScalar</code>, <code>OpMatrixTimesScalar</code>,
-<code>OpVectorTimesMatrix</code>, <code>OpMatrixTimesVector</code>,
-<code>OpMatrixTimesMatrix</code>, <code>OpOuterProduct</code>, <code>OpDot</code>,
-<code>OpFOrdEqual</code>, <code>OpFUnordEqual</code>, <code>OpFOrdNotEqual</code>,
-<code>OpFUnordNotEqual</code>, <code>OpFOrdLessThan</code>, <code>OpFUnordLessThan</code>,
-<code>OpFOrdGreaterThan</code>, <code>OpFUnordGreaterThan</code>,
-<code>OpFOrdLessThanEqual</code>, <code>OpFUnordLessThanEqual</code>,
-<code>OpFOrdGreaterThanEqual</code>, <code>OpFUnordGreaterThanEqual</code>,
-<code>OpSubgroupAllEqualKHR</code>,
-<code>OpGroupNonUniformAllEqual</code>; and the following extended instructions
-for GLSL: <code>FAbs</code>, <code>FSign</code>, <code>Radians</code>, <code>Degrees</code>, <code>FMin</code>,
-<code>FMax</code>, <code>FClamp</code>, <code>FMix</code>, <code>Fma</code>, <code>PackHalf2x16</code>,
-<code>PackDouble2x32</code>, <code>UnpackHalf2x16</code>, <code>UnpackDouble2x32</code>,
-<code>NMin</code>, <code>NMax</code>, and <code>NClamp</code>.</p>
+     <code>DenormPreserve</code> <code>Execution</code> <code>Mode</code>: <code>OpSpecConstantOp</code>,
+     <code>OpFConvert</code>, <code>OpFNegate</code>, <code>OpFAdd</code>, <code>OpFSub</code>, <code>OpFMul</code>,
+     <code>OpVectorTimesScalar</code>, <code>OpMatrixTimesScalar</code>,
+     <code>OpVectorTimesMatrix</code>, <code>OpMatrixTimesVector</code>,
+     <code>OpMatrixTimesMatrix</code>, <code>OpOuterProduct</code>, <code>OpDot</code>,
+     <code>OpFOrdEqual</code>, <code>OpFUnordEqual</code>, <code>OpFOrdNotEqual</code>,
+     <code>OpFUnordNotEqual</code>, <code>OpFOrdLessThan</code>, <code>OpFUnordLessThan</code>,
+     <code>OpFOrdGreaterThan</code>, <code>OpFUnordGreaterThan</code>,
+     <code>OpFOrdLessThanEqual</code>, <code>OpFUnordLessThanEqual</code>,
+     <code>OpFOrdGreaterThanEqual</code>, <code>OpFUnordGreaterThanEqual</code>,
+     <code>OpSubgroupAllEqualKHR</code>,
+     <code>OpGroupNonUniformAllEqual</code>, <code>OpGroupNonUniformFMin</code>,
+     <code>OpGroupNonUniformFMax</code>, <code>OpAtomicCompareExchange</code>,
+     <code>OpAtomicCompareExchangeWeak</code>,
+<code>OpAtomicFAddEXT</code>,
+<code>OpAtomicFMinEXT</code>,
+<code>OpAtomicFMaxEXT</code>,
+     <code>OpDPdx</code>, <code>OpDPdy</code>, <code>OpFwidth</code>, <code>OpDPdxFine</code>,
+     <code>OpDPdyFine</code> <code>OpFwidthFine</code>, <code>OpDPdxCoarse</code>,
+     <code>OpDPdyCoarse</code>, <code>OpFwidthCoarse</code>; and the following extended
+     instructions for GLSL: <code>FAbs</code>, <code>FSign</code>, <code>Radians</code>,
+     <code>Degrees</code>, <code>FMin</code>, <code>FMax</code>, <code>FClamp</code>, <code>FMix</code>, <code>Fma</code>,
+     <code>PackHalf2x16</code>, <code>PackDouble2x32</code>, <code>UnpackHalf2x16</code>,
+     <code>UnpackDouble2x32</code>, <code>NMin</code>, <code>NMax</code>, and <code>NClamp</code>.</p>
 </li>
 </ul>
 </div>
@@ -5106,6 +5161,10 @@ are <strong>required</strong> to be at least as follows:</p>
 <td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Correct result.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpGroupNonUniformFMin</code>, <code>OpGroupNonUniformFMax</code></p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Correct result.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpFDiv</code>(x,y)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.5 ULP for <span class="eq">|y| = 0</span> or <span class="eq">|y|</span> in the range [2<sup>-126</sup>, 2<sup>126</sup>].</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">2.5 ULP for <span class="eq">|y| = 0</span> or <span class="eq">|y|</span> in the range [2<sup>-14</sup>, 2<sup>14</sup>].</p></td>
@@ -5124,6 +5183,30 @@ are <strong>required</strong> to be at least as follows:</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">conversions between types</p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Correctly rounded.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpAtomicCompareExchange</code>, <code>OpAtomicCompareExchangeWeak</code></p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Correct result.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpAtomicFAddEXT</code></p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Return value correct result, value in memory correctly rounded.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpAtomicFMinEXT</code>, <code>OpAtomicFMaxEXT</code></p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Correct result.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpDPdx</code>, <code>OpDPdy</code>, <code>OpFwidth</code></p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Correctly rounded.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpDPdxCoarse</code>, <code>OpDPdyCoarse</code>, <code>OpFwidthCoarse</code></p></td>
+<td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Correctly rounded.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>OpDPdxFine</code>, <code>OpDPdyFine</code>, <code>OpFwidthFine</code></p></td>
 <td class="tableblock halign-left valign-top" colspan="2"><p class="tableblock">Correctly rounded.</p></td>
 </tr>
 </tbody>
@@ -5417,8 +5500,10 @@ GLSL.std.450 extended instructions not listed above and not defined in terms
 of the above have <strong>undefined</strong> precision.</p>
 </div>
 <div class="paragraph">
-<p>For the <code>OpSRem</code> and <code>OpSMod</code> instructions, if either operand is
-negative the result is <strong>undefined</strong>.</p>
+<p>If the <a href="../chapters/features.html#features-maintenance8" class="xref page"><code>maintenance8</code></a> feature is not enabled
+and if
+either operand to <code>OpSRem</code> and <code>OpSMod</code> instructions is negative the
+result is <strong>undefined</strong>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -5429,8 +5514,10 @@ negative the result is <strong>undefined</strong>.</p>
 <td class="content">
 <div class="paragraph">
 <p>While the <code>OpSRem</code> and <code>OpSMod</code> instructions are supported by the
-Vulkan environment, they require non-negative values and thus do not enable
-additional functionality beyond what <code>OpUMod</code> provides.</p>
+Vulkan environment,
+If the <a href="../chapters/features.html#features-maintenance8" class="xref page"><code>maintenance8</code></a> feature is not enabled,
+they require non-negative values and thus do not enable additional
+functionality beyond what <code>OpUMod</code> provides.</p>
 </div>
 </td>
 </tr>
@@ -5923,12 +6010,6 @@ matrix multiplication.</p>
   </div>
 </main>
 </div>
-<footer class="footer">
-    <!--
-  <p>This page was built using the Antora default UI.</p>
-  <p>The source code for this UI is licensed under the terms of the MPL-2.0 license.</p>
-    -->
-</footer>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>
