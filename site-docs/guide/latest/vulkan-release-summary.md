@@ -1,0 +1,18 @@
+# Vulkan Release Summary
+
+## Metadata
+
+- **Component**: guide
+- **Version**: latest
+- **URL**: /guide/latest/vulkan_release_summary.html
+
+## Table of Contents
+
+- [Vulkan 1.1](#_vulkan_1_1)
+- [Vulkan 1.2](#_vulkan_1_2)
+- [Vulkan 1.3](#_vulkan_1_3)
+- [Vulkan 1.4](#_vulkan_1_4)
+
+## Content
+
+Each minor release version of Vulkan promoted a different set of extension to core. This means that it’s no longer necessary to enable an extensions to use it’s functionality if the application requests at least that Vulkan version (given that the version is supported by the implementation). The following summary contains a list of the extensions added to the respective core versions and why they were added. This list is taken from the Vulkan spec, but links jump to the various spots in the Vulkan Guide Vulkan Spec Section Vulkan 1.1 was released on March 7, 2018 Besides the listed extensions below, Vulkan 1.1 introduced the subgroups, protected memory, and the ability to query the instance version. VK_KHR_16bit_storage VK_KHR_bind_memory2 VK_KHR_dedicated_allocation VK_KHR_descriptor_update_template VK_KHR_device_group VK_KHR_device_group_creation VK_KHR_external_fence VK_KHR_external_fence_capabilities VK_KHR_external_memory VK_KHR_external_memory_capabilities VK_KHR_external_semaphore VK_KHR_external_semaphore_capabilities VK_KHR_get_memory_requirements2 VK_KHR_get_physical_device_properties2 VK_KHR_maintenance1 VK_KHR_maintenance2 VK_KHR_maintenance3 VK_KHR_multiview VK_KHR_relaxed_block_layout VK_KHR_sampler_ycbcr_conversion VK_KHR_shader_draw_parameters VK_KHR_storage_buffer_storage_class VK_KHR_variable_pointers Vulkan Spec Section Vulkan 1.2 was released on January 15, 2020 VK_KHR_8bit_storage VK_KHR_buffer_device_address VK_KHR_create_renderpass2 VK_KHR_depth_stencil_resolve VK_KHR_draw_indirect_count VK_KHR_driver_properties VK_KHR_image_format_list VK_KHR_imageless_framebuffer VK_KHR_sampler_mirror_clamp_to_edge VK_KHR_separate_depth_stencil_layouts VK_KHR_shader_atomic_int64 VK_KHR_shader_float16_int8 VK_KHR_shader_float_controls VK_KHR_shader_subgroup_extended_types VK_KHR_spirv_1_4 VK_KHR_timeline_semaphore VK_KHR_uniform_buffer_standard_layout VK_KHR_vulkan_memory_model VK_EXT_descriptor_indexing VK_EXT_host_query_reset VK_EXT_sampler_filter_minmax VK_EXT_scalar_block_layout VK_EXT_separate_stencil_usage VK_EXT_shader_viewport_index_layer Vulkan Spec Section Vulkan 1.3 was released on January 25, 2022 VK_KHR_copy_commands2 VK_KHR_dynamic_rendering VK_KHR_format_feature_flags2 VK_KHR_maintenance4 VK_KHR_shader_integer_dot_product VK_KHR_shader_non_semantic_info VK_KHR_shader_terminate_invocation VK_KHR_synchronization2 VK_KHR_zero_initialize_workgroup_memory VK_EXT_4444_formats VK_EXT_extended_dynamic_state VK_EXT_extended_dynamic_state2 VK_EXT_inline_uniform_block VK_EXT_pipeline_creation_cache_control VK_EXT_pipeline_creation_feedback VK_EXT_private_data VK_EXT_shader_demote_to_helper_invocation VK_EXT_subgroup_size_control VK_EXT_texel_buffer_alignment VK_EXT_texture_compression_astc_hdr VK_EXT_tooling_info VK_EXT_ycbcr_2plane_444_formats Vulkan Spec Section Vulkan 1.4 was released on December 3, 2024 VK_KHR_dynamic_rendering_local_read VK_KHR_global_priority VK_KHR_index_type_uint8 VK_KHR_line_rasterization VK_KHR_load_store_op_none VK_KHR_maintenance5 VK_KHR_maintenance6 VK_KHR_map_memory2 VK_KHR_push_descriptor VK_KHR_shader_expect_assume VK_KHR_shader_float_controls2 VK_KHR_shader_subgroup_rotate VK_KHR_vertex_attribute_divisor VK_EXT_host_image_copy VK_EXT_pipeline_protected_access VK_EXT_pipeline_robustness

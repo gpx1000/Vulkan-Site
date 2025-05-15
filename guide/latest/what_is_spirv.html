@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="guide" data-version="latest">
+<div class="nav-container" data-component="guide" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -187,19 +187,22 @@
     <a class="nav-link" href="layers.html">Layers</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="querying_extensions_features.html">Querying Properties, Extensions, Features, Limits, and Formats</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_extensions.html">Enabling Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_features.html">Enabling Features</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spirv_extensions.html">Using SPIR-V Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="formats.html">Formats</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="queues.html">Queues</a>
@@ -218,18 +221,24 @@
     <a class="nav-link" href="extensions/VK_KHR_synchronization2.html">VK_KHR_synchronization2</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="swapchain_semaphore_reuse.html">Swapchain Semaphore Reuse</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="synchronization_examples.html">Synchronization Examples</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="memory_allocation.html">Memory Allocation</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="sparse_resources.html">Sparse Resources</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="protected.html">Protected Memory</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pipeline_cache.html">Pipeline Cache</a>
@@ -241,22 +250,37 @@
     <a class="nav-link" href="depth.html">Depth</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="mapping_data_to_shaders.html">Mapping Data to Shaders</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="vertex_input_data_processing.html">Vertex Input Data Processing</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="descriptor_dynamic_offset.html">Descriptor Dynamic Offset</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="location_component_interface.html">Location and Component Interface</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="push_constants.html">Push Constants</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ways_to_provide_spirv.html">Ways to Provide SPIR-V</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="robustness.html">Robustness</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="dynamic_state.html">Pipeline Dynamic State</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="dynamic_state_map.html">Dynamic State Map</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="subgroups.html">Subgroups</a>
@@ -393,7 +417,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../../spec/latest/index.html" class="home-link"></a>
@@ -428,7 +452,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p><a href="https://registry.khronos.org/SPIR-V/">SPIR-V</a> is a binary intermediate representation for graphical-shader stages and compute kernels. With Vulkan, an application can still write their shaders in a high-level shading language such as GLSL or <a href="hlsl.html" class="xref page">HLSL</a>, but a SPIR-V binary is needed when using <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkCreateShaderModule">vkCreateShaderModule</a>. Khronos has a very nice <a href="https://registry.khronos.org/SPIR-V/papers/WhitePaper.pdf">white paper</a> about SPIR-V and its advantages, and a high-level description of the representation. There are also two great Khronos presentations from Vulkan DevDay 2016 <a href="https://www.khronos.org/assets/uploads/developers/library/2016-vulkan-devday-uk/3-Intro-to-spir-v-shaders.pdf">here</a> and <a href="https://www.khronos.org/assets/uploads/developers/library/2016-vulkan-devday-uk/4-Using-spir-v-with-spirv-cross.pdf">here</a>
+<p><a href="https://registry.khronos.org/SPIR-V/">SPIR-V</a> is a binary intermediate representation for graphical-shader stages and compute kernels. With Vulkan, an application can still write their shaders in a high-level shading language such as GLSL or <a href="hlsl.html" class="xref page">HLSL</a>, but a SPIR-V binary is needed when using <a href="https://docs.vulkan.org/spec/latest/chapters/shaders.html#vkCreateShaderModule">vkCreateShaderModule</a>. Khronos has a very nice <a href="https://registry.khronos.org/SPIR-V/papers/WhitePaper.pdf">white paper</a> about SPIR-V and its advantages, and a high-level description of the representation. There are also two great Khronos presentations from Vulkan DevDay 2016 <a href="https://www.khronos.org/assets/uploads/developers/library/2016-vulkan-devday-uk/3-Intro-to-spir-v-shaders.pdf">here</a> and <a href="https://www.khronos.org/assets/uploads/developers/library/2016-vulkan-devday-uk/4-Using-spir-v-with-spirv-cross.pdf">here</a>
 (<a href="https://www.youtube.com/watch?v=XRpVwdduzgU">video of both</a>).</p>
 </div>
 </div>
@@ -437,10 +461,10 @@
 <h2 id="_spir_v_interface_and_capabilities"><a class="anchor" href="#_spir_v_interface_and_capabilities"></a>SPIR-V Interface and Capabilities</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Vulkan has an entire section that defines how <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces">Vulkan interfaces with SPIR-V shaders</a>. Most valid usages of interfacing with SPIR-V occur during pipeline creation when shaders are compiled together.</p>
+<p>Vulkan has an entire section that defines how <a href="https://docs.vulkan.org/spec/latest/chapters/interfaces.html">Vulkan interfaces with SPIR-V shaders</a>. Most valid usages of interfacing with SPIR-V occur during pipeline creation when shaders are compiled together.</p>
 </div>
 <div class="paragraph">
-<p>SPIR-V has many capabilities as it has other targets than just Vulkan. To see the supported capabilities Vulkan requires, one can reference the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#spirvenv-capabilities">Appendix</a>. Some extensions and features in Vulkan are just designed to check if some SPIR-V capabilities are supported or not.</p>
+<p>SPIR-V has many capabilities as it has other targets than just Vulkan. To see the supported capabilities Vulkan requires, one can reference the <a href="https://docs.vulkan.org/spec/latest/appendices/spirvenv.html#spirvenv-capabilities">Appendix</a>. Some extensions and features in Vulkan are just designed to check if some SPIR-V capabilities are supported or not.</p>
 </div>
 </div>
 </div>
@@ -518,6 +542,29 @@
 </div>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>

@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
@@ -695,8 +695,11 @@ not be used on other devices.</p>
 <p>Objects are created or allocated by <code>vkCreate*</code> and <code>vkAllocate*</code>
 commands, respectively.
 Once an object is created or allocated, its &#8220;structure&#8221; is considered to
-be immutable, though the contents of certain object types is still free to
+be immutable, though the content of certain object types is still free to
 change.
+When an object is passed to another command, it <strong>may</strong> be accessed by the
+implementation, which <strong>may</strong> include both read and write access unless
+explicitly stated otherwise.
 Objects are destroyed or freed by <code>vkDestroy*</code> and <code>vkFree*</code>
 commands, respectively.</p>
 </div>
@@ -710,323 +713,49 @@ low-frequency occurrences during runtime, allocating and freeing objects
 Pool objects help accommodate improved performance of the allocations and
 frees.</p>
 </div>
-<div class="paragraph">
-<p>It is an application&#8217;s responsibility to track the lifetime of Vulkan
-objects, and not to destroy them while they are still in use.</p>
-</div>
 <div id="fundamentals-objectmodel-lifetime-acquire" class="paragraph">
-<p>The ownership of application-owned memory is immediately acquired by any
-Vulkan command it is passed
-into.
-Ownership of such memory <strong>must</strong> be released back to the application at the
-end of the duration of the command,
-unless that command was deferred,
-so that the application <strong>can</strong> alter or free this memory as soon as all the
-commands that acquired it have returned.
-If the command was <a href="VK_KHR_deferred_host_operations/deferred_host_operations.html#deferred-host-operations-requesting" class="xref page">deferred</a>,
-ownership of such memory is released back to the application when the
-deferred operation is complete.</p>
+<p>Applications are responsible for managing the lifetimes of Vulkan objects
+and memory passed into the Vulkan API.
+The access semantics of different functions in the API follow a typical
+pattern as laid out below, with any exceptions listed with the commands or
+objects that have them.</p>
 </div>
 <div class="paragraph">
-<p>The following object types are consumed when they are passed into a Vulkan
-command and not further accessed by the objects they are used to create.
-They <strong>must</strong> not be destroyed in the duration of any API command they are
-passed into:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VkShaderModule</code></p>
-</li>
-<li>
-<p><code>VkPipelineCache</code></p>
-</li>
-<li>
-<p><code>VkValidationCacheEXT</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>A <code>VkRenderPass</code>
-or <code>VkPipelineLayout</code>
-object passed as a parameter to create another object is not further
-accessed by that object after the duration of the command it is passed into.
-A <code>VkRenderPass</code> used in a command buffer follows the rules described
-below.</p>
+<p>Application-owned memory and Vulkan objects <strong>may</strong> be accessed at any time
+during the execution of a command they are passed to.
+Vulkan objects that device addresses are retrieved from <strong>may</strong> be accessed by
+the implementation any time that memory backing the device address is
+accessed.
+Device addresses and
+Vulkan objects passed in during the creation or allocation of another object
+<strong>may</strong> be accessed by the implementation any time that the created/allocated
+object is accessed unless explicitly stated otherwise.
+Device addresses and
+Vulkan objects passed to a recording command (<code>vkCmd*</code>) <strong>may</strong> be accessed
+at any time during the execution of the command, when the command buffer is
+subsequently recorded into another command buffer, during any subsequent
+command that is recorded to either the command buffer or one it is recorded
+into, or while the command buffer is in the <a href="cmdbuffers.html#commandbuffers-lifecycle" class="xref page"><em>pending state</em></a>, unless explicitly stated otherwise.
+If an application is using <a href="VK_KHR_deferred_host_operations/deferred_host_operations.html#deferred-host-operations" class="xref page">deferred host operations</a> in a command, and that operation is successfully deferred,
+objects and memory passed to that command <strong>may</strong> be accessed at any time until
+the deferred operation is complete.
+Some additional operations hold references to other objects or
+application-owned memory beyond the duration of the command; in which case
+the access semantics and lifetime of those references are described by that
+command.</p>
 </div>
 <div class="paragraph">
-<p><code>VkDescriptorSetLayout</code> objects <strong>may</strong> be accessed by commands that
-operate on descriptor sets allocated using that layout, and those descriptor
-sets <strong>must</strong> not be updated with <a href="descriptorsets.html#vkUpdateDescriptorSets" class="xref page">vkUpdateDescriptorSets</a> after the
-descriptor set layout has been destroyed.
-Otherwise, a <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> object is no longer referenced by
-an API command it is passed into once host execution of that command
-completes.</p>
-</div>
-<div class="paragraph">
-<p>The application <strong>must</strong> not destroy any other type of Vulkan object until all
-uses of that object by the device (such as via command buffer execution)
-have completed.</p>
-</div>
-<div id="fundamentals-objectmodel-lifetime-cmdbuffers" class="paragraph">
-<p>The following Vulkan objects <strong>must</strong> not be destroyed while any command
-buffers using the object are in the <a href="cmdbuffers.html#commandbuffers-lifecycle" class="xref page">pending state</a>:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VkEvent</code></p>
-</li>
-<li>
-<p><code>VkQueryPool</code></p>
-</li>
-<li>
-<p><code>VkBuffer</code></p>
-</li>
-<li>
-<p><code>VkBufferView</code></p>
-</li>
-<li>
-<p><code>VkImage</code></p>
-</li>
-<li>
-<p><code>VkImageView</code></p>
-</li>
-<li>
-<p><code>VkPipeline</code></p>
-</li>
-<li>
-<p><code>VkSampler</code></p>
-</li>
-<li>
-<p><code>VkSamplerYcbcrConversion</code></p>
-</li>
-<li>
-<p><code>VkDescriptorPool</code></p>
-</li>
-<li>
-<p><code>VkFramebuffer</code></p>
-</li>
-<li>
-<p><code>VkRenderPass</code></p>
-</li>
-<li>
-<p><code>VkCommandBuffer</code></p>
-</li>
-<li>
-<p><code>VkCommandPool</code></p>
-</li>
-<li>
-<p><code>VkDeviceMemory</code></p>
-</li>
-<li>
-<p><code>VkDescriptorSet</code></p>
-</li>
-<li>
-<p><code>VkIndirectCommandsLayoutNV</code></p>
-</li>
-<li>
-<p><code>VkIndirectCommandsLayoutEXT</code></p>
-</li>
-<li>
-<p><code>VkIndirectExecutionSetEXT</code></p>
-</li>
-<li>
-<p><code>VkAccelerationStructureNV</code></p>
-</li>
-<li>
-<p><code>VkAccelerationStructureKHR</code></p>
-</li>
-<li>
-<p><code>VkVideoSessionKHR</code></p>
-</li>
-<li>
-<p><code>VkVideoSessionParametersKHR</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Destroying these objects will move any command buffers that are in the
-<a href="cmdbuffers.html#commandbuffers-lifecycle" class="xref page">recording or executable state</a>, and are using
-those objects, to the <a href="cmdbuffers.html#commandbuffers-lifecycle" class="xref page">invalid state</a>.</p>
-</div>
-<div class="paragraph">
-<p>The following Vulkan objects <strong>must</strong> not be destroyed while any queue is
-executing commands that use the object:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VkFence</code></p>
-</li>
-<li>
-<p><code>VkSemaphore</code></p>
-</li>
-<li>
-<p><code>VkCommandBuffer</code></p>
-</li>
-<li>
-<p><code>VkCommandPool</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>In general, objects <strong>can</strong> be destroyed or freed in any order, even if the
-object being freed is involved in the use of another object (e.g. use of a
-resource in a view, use of a view in a descriptor set,
-use of a <a href="pipelines.html#pipelines-library" class="xref page">pipeline library</a> in another pipeline,
-use of a <a href="pipelines.html#graphics-shadergroups" class="xref page">referenced pipeline</a> for additional
-graphics shader groups in another pipeline,
-use of a <a href="device_generated_commands/generatedcommands.html#device-generated-indirect-execution-sets" class="xref page">referenced object</a> for
-additional shader-related states in a set,
-use of a <a href="accelstructures.html#acceleration-structure-bottom-level" class="xref page">bottom level acceleration structure</a> in an instance referenced by a
-<a href="accelstructures.html#acceleration-structure-top-level" class="xref page">top level acceleration structure</a>,
-use of an object in a command buffer, binding of a memory allocation to a
-resource), as long as any object that uses the freed object is not further
-used in any way except to be destroyed or to be reset in such a way that it
-no longer uses the other object (such as resetting a command buffer).
-If the object has been reset, then it <strong>can</strong> be used as if it never used the
-freed object.
-An exception to this is when there is a parent/child relationship between
-objects.
-In this case, the application <strong>must</strong> not destroy a parent object before its
-children, except when the parent is explicitly defined to free its children
-when it is destroyed (e.g. for pool objects, as defined below).</p>
-</div>
-<div class="paragraph">
-<p><code>VkCommandPool</code> objects are parents of <code>VkCommandBuffer</code> objects.
-<code>VkDescriptorPool</code> objects are parents of <code>VkDescriptorSet</code> objects.
-<code>VkDevice</code> objects are parents of many object types (all that take a
-<code>VkDevice</code> as a parameter to their creation).</p>
-</div>
-<div class="paragraph">
-<p>The following Vulkan objects have specific restrictions for when they <strong>can</strong>
-be destroyed:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>VkQueue</code> objects <strong>cannot</strong> be explicitly destroyed.
-Instead, they are implicitly destroyed when the <code>VkDevice</code> object
-they are retrieved from is destroyed.</p>
-</li>
-<li>
-<p>Destroying a pool object implicitly frees all objects allocated from
-that pool.
-Specifically, destroying <code>VkCommandPool</code> frees all
-<code>VkCommandBuffer</code> objects that were allocated from it, and
-destroying <code>VkDescriptorPool</code> frees all <code>VkDescriptorSet</code>
-objects that were allocated from it.</p>
-</li>
-<li>
-<p><code>VkDevice</code> objects <strong>can</strong> be destroyed when all <code>VkQueue</code> objects
-retrieved from them are idle, and all objects created from them have
-been destroyed.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>This includes the following objects:</p>
-<div class="openblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p><code>VkFence</code></p>
-</li>
-<li>
-<p><code>VkSemaphore</code></p>
-</li>
-<li>
-<p><code>VkEvent</code></p>
-</li>
-<li>
-<p><code>VkQueryPool</code></p>
-</li>
-<li>
-<p><code>VkBuffer</code></p>
-</li>
-<li>
-<p><code>VkBufferView</code></p>
-</li>
-<li>
-<p><code>VkImage</code></p>
-</li>
-<li>
-<p><code>VkImageView</code></p>
-</li>
-<li>
-<p><code>VkShaderModule</code></p>
-</li>
-<li>
-<p><code>VkPipelineCache</code></p>
-</li>
-<li>
-<p><code>VkPipeline</code></p>
-</li>
-<li>
-<p><code>VkPipelineLayout</code></p>
-</li>
-<li>
-<p><code>VkSampler</code></p>
-</li>
-<li>
-<p><code>VkSamplerYcbcrConversion</code></p>
-</li>
-<li>
-<p><code>VkDescriptorSetLayout</code></p>
-</li>
-<li>
-<p><code>VkDescriptorPool</code></p>
-</li>
-<li>
-<p><code>VkFramebuffer</code></p>
-</li>
-<li>
-<p><code>VkRenderPass</code></p>
-</li>
-<li>
-<p><code>VkCommandPool</code></p>
-</li>
-<li>
-<p><code>VkCommandBuffer</code></p>
-</li>
-<li>
-<p><code>VkDeviceMemory</code></p>
-</li>
-<li>
-<p><code>VkValidationCacheEXT</code></p>
-</li>
-<li>
-<p><code>VkAccelerationStructureNV</code></p>
-</li>
-<li>
-<p><code>VkAccelerationStructureKHR</code></p>
-</li>
-<li>
-<p><code>VkVideoSessionKHR</code></p>
-</li>
-<li>
-<p><code>VkVideoSessionParametersKHR</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>VkPhysicalDevice</code> objects <strong>cannot</strong> be explicitly destroyed.
-Instead, they are implicitly destroyed when the <code>VkInstance</code> object
-they are retrieved from is destroyed.</p>
-</li>
-<li>
-<p><code>VkInstance</code> objects <strong>can</strong> be destroyed once all <code>VkDevice</code>
-objects created from any of its <code>VkPhysicalDevice</code> objects have been
-destroyed.</p>
-</li>
-</ul>
+<p>When destroying or freeing an object, implementations <strong>must</strong> not access any
+memory or other objects that <strong>may</strong> otherwise be accessed when the object is
+accessed.
+Applications <strong>can</strong> free or destroy objects in any order, except that parent
+objects <strong>must</strong> be freed only after all child objects are freed.
+An object is the parent of another child object if the parent was used as
+the first object parameter in the creation of the child.
+Once an object is freed or destroyed it <strong>must</strong> not be accessed again, either
+directly or via access through another object.
+Applications <strong>must</strong> not free or destroy any object while it is being
+accessed.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1417,6 +1146,92 @@ Query commands <strong>must</strong> not return a pointer to implementation allo
 storage in any output structure.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="fundamentals-binaryresults"><a class="anchor" href="#fundamentals-binaryresults"></a>Opaque Binary Data Results</h3>
+<div class="paragraph">
+<p>Some query commands of the form <code>vkGet*</code> retrieve opaque binary data in
+the form of a byte array and have a possible result code of
+<code>VK_ERROR_NOT_ENOUGH_SPACE_KHR</code>.
+Such commands always have two pointer arguments as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A binary data size pointer pointing to a <code>size_t</code> variable,
+conventionally named as <code>p*Size</code> where <code>*</code> is the capitalized
+form of the name of the retrieved binary data.</p>
+</li>
+<li>
+<p>A pointer to a byte array where the binary data is retrieved,
+conventionally named as <code>p*</code> where <code>*</code> is the capitalized form
+of the name of the retrieved binary data.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If such commands are called with the binary pointer not set to <code>NULL</code>, the
+binary size pointer <strong>must</strong> point to a variable set by the application to the
+allocated size of the binary pointer.
+If the input binary size is less than the total retrievable binary size, the
+query will not write any data to the location pointed to the binary pointer,
+and the command will return <code>VK_ERROR_NOT_ENOUGH_SPACE_KHR</code> instead of
+<code>VK_SUCCESS</code>.</p>
+</div>
+<div class="paragraph">
+<p>If the return code is <code>VK_SUCCESS</code> or
+<code>VK_ERROR_NOT_ENOUGH_SPACE_KHR</code>, the total size of the binary data that
+<strong>can</strong> be retrieved is returned in the variable pointed to by the binary size
+pointer.</p>
+</div>
+<div class="paragraph">
+<p>If multiple binaries are being retrieved,
+<code>VK_ERROR_NOT_ENOUGH_SPACE_KHR</code> will be returned if any input binary
+sizes are less than their respective total retrievable binary sizes.
+Unless otherwise specified, this command will determine writing data to each
+binary individually based on if their input binary sizes are sufficiently
+sized, following the behavior for single binary retrieval.</p>
+</div>
+<div class="paragraph">
+<p>For all other error codes, the contents of the return structures are
+<strong>undefined</strong>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If <code>VK_ERROR_NOT_ENOUGH_SPACE_KHR</code> is returned with a command that
+returns multiple binaries, the application <strong>can</strong> determine which binaries are
+undersized by comparing the total binary size that is returned for each
+binary against the allocated size that was provided to the command.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Some binary queries do not behave consistently with this pattern for
+historical reasons, primarily that the <code>VK_ERROR_NOT_ENOUGH_SPACE_KHR</code>
+error code was not defined until after those queries were written.</p>
+</div>
+<div class="paragraph">
+<p>A NOTE is added to each such query, describing such inconsistent behavior.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1434,13 +1249,18 @@ using such a parameter at a given time.</p>
 <div class="paragraph">
 <p>More precisely, Vulkan commands use simple stores to update the state of
 Vulkan objects.
-A parameter declared as externally synchronized <strong>may</strong> have its contents
-updated at any time during the host execution of the command.
-If two commands operate on the same object and at least one of the commands
-declares the object to be externally synchronized, then the caller <strong>must</strong>
-guarantee not only that the commands do not execute simultaneously, but also
-that the two commands are separated by an appropriate memory barrier (if
-needed).</p>
+The implementation <strong>may</strong> not synchronize accesses to memory parameters or
+object parameters declared as externally synchronized with other accesses.
+If two commands access the same object or memory and at least one of the
+commands declares the object to be externally synchronized, then the caller
+<strong>must</strong> guarantee not only that the commands do not execute simultaneously,
+but also that the two commands are separated by an appropriate memory
+barrier (if needed).
+Similarly, if a Vulkan command accesses a non-const memory parameter and the
+application also accesses that memory, or if the application writes to that
+memory and the command accesses it as a const memory parameter, the
+application <strong>must</strong> ensure the accesses are properly synchronized with a
+memory barrier if needed.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1462,29 +1282,7 @@ Vulkan objects via these primitives will have the desired effect.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>Similarly the application <strong>must</strong> avoid any potential data hazard of
-application-owned memory that has its
-<a href="#fundamentals-objectmodel-lifetime-acquire">ownership temporarily acquired</a>
-by a Vulkan command.
-While the ownership of application-owned memory remains acquired by a
-command the implementation <strong>may</strong> read the memory at any point, and it <strong>may</strong>
-write non-<code>const</code> qualified memory at any point.
-Parameters referring to non-<code>const</code> qualified application-owned memory
-are not marked explicitly as <em>externally synchronized</em> in the Specification.</p>
-</div>
-<div class="paragraph">
-<p>If an application is using <a href="VK_KHR_deferred_host_operations/deferred_host_operations.html#deferred-host-operations" class="xref page">deferred host operations</a> in a command, and that operation is successfully deferred,
-object parameters and application-owned memory passed to that command <strong>may</strong>
-be accessed at any time until the deferred operation is complete.</p>
-</div>
-<div class="paragraph">
-<p>Many object types are <em>immutable</em>, meaning the objects <strong>cannot</strong> change once
-they have been created.
-These types of objects never need external synchronization, except that they
-<strong>must</strong> not be destroyed while they are in use on another thread.
-In certain special cases mutable object parameters are internally
-synchronized, making external synchronization unnecessary.
-Any command parameters that are not labeled as externally synchronized are
+<p>Any object parameters that are not labeled as externally synchronized are
 either not mutated by the command or are internally synchronized.
 Additionally, certain objects related to a command&#8217;s parameters (e.g.
 command pools and descriptor pools) <strong>may</strong> be affected by a command, and <strong>must</strong>
@@ -1496,7 +1294,7 @@ These implicit parameters are documented as described below.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Externally Synchronized Parameters</div>
+<div class="title">Externally Synchronized Parameters and Members</div>
 <div class="ulist">
 <ul>
 <li>
@@ -1590,9 +1388,6 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>descriptorPool</code> parameter in <a href="descriptorsets.html#vkResetDescriptorPool" class="xref page">vkResetDescriptorPool</a></p>
 </li>
 <li>
-<p>The <code>descriptorPool</code> member of the <code>pAllocateInfo</code> parameter in <a href="descriptorsets.html#vkAllocateDescriptorSets" class="xref page">vkAllocateDescriptorSets</a></p>
-</li>
-<li>
 <p>The <code>descriptorPool</code> parameter in <a href="descriptorsets.html#vkFreeDescriptorSets" class="xref page">vkFreeDescriptorSets</a></p>
 </li>
 <li>
@@ -1606,9 +1401,6 @@ These implicit parameters are documented as described below.</p>
 </li>
 <li>
 <p>The <code>commandPool</code> parameter in <a href="cmdbuffers.html#vkResetCommandPool" class="xref page">vkResetCommandPool</a></p>
-</li>
-<li>
-<p>The <code>commandPool</code> member of the <code>pAllocateInfo</code> parameter in <a href="cmdbuffers.html#vkAllocateCommandBuffers" class="xref page">vkAllocateCommandBuffers</a></p>
 </li>
 <li>
 <p>The <code>commandPool</code> parameter in <a href="cmdbuffers.html#vkFreeCommandBuffers" class="xref page">vkFreeCommandBuffers</a></p>
@@ -1911,12 +1703,6 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>surface</code> parameter in <a href="VK_KHR_surface/wsi.html#vkDestroySurfaceKHR" class="xref page">vkDestroySurfaceKHR</a></p>
 </li>
 <li>
-<p>The <code>surface</code> member of the <code>pCreateInfo</code> parameter in <a href="VK_KHR_surface/wsi.html#vkCreateSwapchainKHR" class="xref page">vkCreateSwapchainKHR</a></p>
-</li>
-<li>
-<p>The <code>oldSwapchain</code> member of the <code>pCreateInfo</code> parameter in <a href="VK_KHR_surface/wsi.html#vkCreateSwapchainKHR" class="xref page">vkCreateSwapchainKHR</a></p>
-</li>
-<li>
 <p>The <code>swapchain</code> parameter in <a href="VK_KHR_surface/wsi.html#vkDestroySwapchainKHR" class="xref page">vkDestroySwapchainKHR</a></p>
 </li>
 <li>
@@ -2076,9 +1862,6 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>pipelineBinary</code> parameter in <a href="pipelines.html#vkDestroyPipelineBinaryKHR" class="xref page">vkDestroyPipelineBinaryKHR</a></p>
 </li>
 <li>
-<p>The <code>pipeline</code> member of the <code>pInfo</code> parameter in <a href="pipelines.html#vkReleaseCapturedPipelineDataKHR" class="xref page">vkReleaseCapturedPipelineDataKHR</a></p>
-</li>
-<li>
 <p>The <code>commandBuffer</code> parameter in <a href="primsrast.html#vkCmdSetLineStippleKHR" class="xref page">vkCmdSetLineStippleKHR</a></p>
 </li>
 <li>
@@ -2101,12 +1884,6 @@ These implicit parameters are documented as described below.</p>
 </li>
 <li>
 <p>The <code>callback</code> parameter in <a href="debugging.html#vkDestroyDebugReportCallbackEXT" class="xref page">vkDestroyDebugReportCallbackEXT</a></p>
-</li>
-<li>
-<p>The <code>object</code> member of the <code>pTagInfo</code> parameter in <a href="debugging.html#vkDebugMarkerSetObjectTagEXT" class="xref page">vkDebugMarkerSetObjectTagEXT</a></p>
-</li>
-<li>
-<p>The <code>object</code> member of the <code>pNameInfo</code> parameter in <a href="debugging.html#vkDebugMarkerSetObjectNameEXT" class="xref page">vkDebugMarkerSetObjectNameEXT</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="debugging.html#vkCmdDebugMarkerBeginEXT" class="xref page">vkCmdDebugMarkerBeginEXT</a></p>
@@ -2169,7 +1946,13 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>objectHandle</code> member of the <code>pNameInfo</code> parameter in <a href="debugging.html#vkSetDebugUtilsObjectNameEXT" class="xref page">vkSetDebugUtilsObjectNameEXT</a></p>
 </li>
 <li>
-<p>The <code>objectHandle</code> member of the <code>pTagInfo</code> parameter in <a href="debugging.html#vkSetDebugUtilsObjectTagEXT" class="xref page">vkSetDebugUtilsObjectTagEXT</a></p>
+<p>The <code>queue</code> parameter in <a href="debugging.html#vkQueueBeginDebugUtilsLabelEXT" class="xref page">vkQueueBeginDebugUtilsLabelEXT</a></p>
+</li>
+<li>
+<p>The <code>queue</code> parameter in <a href="debugging.html#vkQueueEndDebugUtilsLabelEXT" class="xref page">vkQueueEndDebugUtilsLabelEXT</a></p>
+</li>
+<li>
+<p>The <code>queue</code> parameter in <a href="debugging.html#vkQueueInsertDebugUtilsLabelEXT" class="xref page">vkQueueInsertDebugUtilsLabelEXT</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="debugging.html#vkCmdBeginDebugUtilsLabelEXT" class="xref page">vkCmdBeginDebugUtilsLabelEXT</a></p>
@@ -2496,7 +2279,19 @@ These implicit parameters are documented as described below.</p>
 <p>The <code>commandBuffer</code> parameter in <a href="fragops.html#vkCmdSetDepthClampRangeEXT" class="xref page">vkCmdSetDepthClampRangeEXT</a></p>
 </li>
 <li>
+<p>The <code>commandBuffer</code> parameter in <a href="shaders.html#vkCmdConvertCooperativeVectorMatrixNV" class="xref page">vkCmdConvertCooperativeVectorMatrixNV</a></p>
+</li>
+<li>
 <p>The <code>commandBuffer</code> parameter in <a href="renderpass.html#vkCmdSetAttachmentFeedbackLoopEnableEXT" class="xref page">vkCmdSetAttachmentFeedbackLoopEnableEXT</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="memory.html#vkCmdBindTileMemoryQCOM" class="xref page">vkCmdBindTileMemoryQCOM</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="accelstructures.html#vkCmdBuildClusterAccelerationStructureIndirectNV" class="xref page">vkCmdBuildClusterAccelerationStructureIndirectNV</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="accelstructures.html#vkCmdBuildPartitionedAccelerationStructuresNV" class="xref page">vkCmdBuildPartitionedAccelerationStructuresNV</a></p>
 </li>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="device_generated_commands/generatedcommands.html#vkCmdPreprocessGeneratedCommandsEXT" class="xref page">vkCmdPreprocessGeneratedCommandsEXT</a></p>
@@ -2518,6 +2313,9 @@ These implicit parameters are documented as described below.</p>
 </li>
 <li>
 <p>The <code>indirectExecutionSet</code> parameter in <a href="device_generated_commands/generatedcommands.html#vkUpdateIndirectExecutionSetShaderEXT" class="xref page">vkUpdateIndirectExecutionSetShaderEXT</a></p>
+</li>
+<li>
+<p>The <code>commandBuffer</code> parameter in <a href="renderpass.html#vkCmdEndRendering2EXT" class="xref page">vkCmdEndRendering2EXT</a></p>
 </li>
 <li>
 <p>The <code>accelerationStructure</code> parameter in <a href="resources.html#vkDestroyAccelerationStructureKHR" class="xref page">vkDestroyAccelerationStructureKHR</a></p>
@@ -2558,6 +2356,69 @@ These implicit parameters are documented as described below.</p>
 <li>
 <p>The <code>commandBuffer</code> parameter in <a href="drawing.html#vkCmdDrawMeshTasksIndirectCountEXT" class="xref page">vkCmdDrawMeshTasksIndirectCountEXT</a></p>
 </li>
+<li>
+<p>The <code>descriptorPool</code> member of <a href="descriptorsets.html#VkDescriptorSetAllocateInfo" class="xref page">VkDescriptorSetAllocateInfo</a></p>
+</li>
+<li>
+<p>The <code>commandPool</code> member of <a href="cmdbuffers.html#VkCommandBufferAllocateInfo" class="xref page">VkCommandBufferAllocateInfo</a></p>
+</li>
+<li>
+<p>The <code>memory</code> member of <a href="memory.html#VkMemoryMapInfo" class="xref page">VkMemoryMapInfo</a></p>
+</li>
+<li>
+<p>The <code>memory</code> member of <a href="memory.html#VkMemoryUnmapInfo" class="xref page">VkMemoryUnmapInfo</a></p>
+</li>
+<li>
+<p>The <code>surface</code> member of <a href="VK_KHR_surface/wsi.html#VkSwapchainCreateInfoKHR" class="xref page">VkSwapchainCreateInfoKHR</a></p>
+</li>
+<li>
+<p>The <code>oldSwapchain</code> member of <a href="VK_KHR_surface/wsi.html#VkSwapchainCreateInfoKHR" class="xref page">VkSwapchainCreateInfoKHR</a></p>
+</li>
+<li>
+<p>The <code>swapchain</code> member of <a href="resources.html#VkBindImageMemorySwapchainInfoKHR" class="xref page">VkBindImageMemorySwapchainInfoKHR</a></p>
+</li>
+<li>
+<p>The <code>swapchain</code> member of <a href="VK_KHR_surface/wsi.html#VkAcquireNextImageInfoKHR" class="xref page">VkAcquireNextImageInfoKHR</a></p>
+</li>
+<li>
+<p>The <code>semaphore</code> member of <a href="VK_KHR_surface/wsi.html#VkAcquireNextImageInfoKHR" class="xref page">VkAcquireNextImageInfoKHR</a></p>
+</li>
+<li>
+<p>The <code>fence</code> member of <a href="VK_KHR_surface/wsi.html#VkAcquireNextImageInfoKHR" class="xref page">VkAcquireNextImageInfoKHR</a></p>
+</li>
+<li>
+<p>The <code>semaphore</code> member of <a href="synchronization.html#VkImportSemaphoreWin32HandleInfoKHR" class="xref page">VkImportSemaphoreWin32HandleInfoKHR</a></p>
+</li>
+<li>
+<p>The <code>semaphore</code> member of <a href="synchronization.html#VkImportSemaphoreFdInfoKHR" class="xref page">VkImportSemaphoreFdInfoKHR</a></p>
+</li>
+<li>
+<p>The <code>fence</code> member of <a href="synchronization.html#VkImportFenceWin32HandleInfoKHR" class="xref page">VkImportFenceWin32HandleInfoKHR</a></p>
+</li>
+<li>
+<p>The <code>fence</code> member of <a href="synchronization.html#VkImportFenceFdInfoKHR" class="xref page">VkImportFenceFdInfoKHR</a></p>
+</li>
+<li>
+<p>The <code>mode</code> member of <a href="VK_KHR_surface/wsi.html#VkDisplayPlaneInfo2KHR" class="xref page">VkDisplayPlaneInfo2KHR</a></p>
+</li>
+<li>
+<p>The <code>pipeline</code> member of <a href="pipelines.html#VkReleaseCapturedPipelineDataInfoKHR" class="xref page">VkReleaseCapturedPipelineDataInfoKHR</a></p>
+</li>
+<li>
+<p>The <code>object</code> member of <a href="debugging.html#VkDebugMarkerObjectNameInfoEXT" class="xref page">VkDebugMarkerObjectNameInfoEXT</a></p>
+</li>
+<li>
+<p>The <code>object</code> member of <a href="debugging.html#VkDebugMarkerObjectTagInfoEXT" class="xref page">VkDebugMarkerObjectTagInfoEXT</a></p>
+</li>
+<li>
+<p>The <code>objectHandle</code> member of <a href="debugging.html#VkDebugUtilsObjectTagInfoEXT" class="xref page">VkDebugUtilsObjectTagInfoEXT</a></p>
+</li>
+<li>
+<p>The <code>swapchain</code> member of <a href="VK_KHR_surface/wsi.html#VkReleaseSwapchainImagesInfoEXT" class="xref page">VkReleaseSwapchainImagesInfoEXT</a></p>
+</li>
+<li>
+<p>The <code>semaphore</code> member of <a href="synchronization.html#VkImportSemaphoreZirconHandleInfoFUCHSIA" class="xref page">VkImportSemaphoreZirconHandleInfoFUCHSIA</a></p>
+</li>
 </ul>
 </div>
 </div>
@@ -2578,7 +2439,7 @@ These parameters are listed below.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Externally Synchronized Parameter Lists</div>
+<div class="title">Externally Synchronized Parameter and Member Lists</div>
 <div class="ulist">
 <ul>
 <li>
@@ -2591,16 +2452,10 @@ These parameters are listed below.</p>
 <p>Each element of the <code>pCommandBuffers</code> parameter in <a href="cmdbuffers.html#vkFreeCommandBuffers" class="xref page">vkFreeCommandBuffers</a></p>
 </li>
 <li>
-<p>Each element of the <code>pWaitSemaphores</code> member of the <code>pPresentInfo</code> parameter in <a href="VK_KHR_surface/wsi.html#vkQueuePresentKHR" class="xref page">vkQueuePresentKHR</a></p>
+<p>Each element of the <code>pWaitSemaphores</code> member of <a href="VK_KHR_surface/wsi.html#VkPresentInfoKHR" class="xref page">VkPresentInfoKHR</a></p>
 </li>
 <li>
-<p>Each element of the <code>pSwapchains</code> member of the <code>pPresentInfo</code> parameter in <a href="VK_KHR_surface/wsi.html#vkQueuePresentKHR" class="xref page">vkQueuePresentKHR</a></p>
-</li>
-<li>
-<p>The <code>surface</code> member of each element of the <code>pCreateInfos</code> parameter in <a href="VK_KHR_surface/wsi.html#vkCreateSharedSwapchainsKHR" class="xref page">vkCreateSharedSwapchainsKHR</a></p>
-</li>
-<li>
-<p>The <code>oldSwapchain</code> member of each element of the <code>pCreateInfos</code> parameter in <a href="VK_KHR_surface/wsi.html#vkCreateSharedSwapchainsKHR" class="xref page">vkCreateSharedSwapchainsKHR</a></p>
+<p>Each element of the <code>pSwapchains</code> member of <a href="VK_KHR_surface/wsi.html#VkPresentInfoKHR" class="xref page">VkPresentInfoKHR</a></p>
 </li>
 </ul>
 </div>
@@ -3211,6 +3066,15 @@ The implicit parameters and their associated object are listed below.</p>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="dispatch.html#vkCmdCudaLaunchKernelNV" class="xref page">vkCmdCudaLaunchKernelNV</a></p>
 </li>
 <li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="dispatch.html#vkCmdDispatchTileQCOM" class="xref page">vkCmdDispatchTileQCOM</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="renderpass.html#vkCmdBeginPerTileExecutionQCOM" class="xref page">vkCmdBeginPerTileExecutionQCOM</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="renderpass.html#vkCmdEndPerTileExecutionQCOM" class="xref page">vkCmdEndPerTileExecutionQCOM</a></p>
+</li>
+<li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="descriptorsets.html#vkCmdBindDescriptorBuffersEXT" class="xref page">vkCmdBindDescriptorBuffersEXT</a></p>
 </li>
 <li>
@@ -3394,13 +3258,28 @@ The implicit parameters and their associated object are listed below.</p>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="fragops.html#vkCmdSetDepthClampRangeEXT" class="xref page">vkCmdSetDepthClampRangeEXT</a></p>
 </li>
 <li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="shaders.html#vkCmdConvertCooperativeVectorMatrixNV" class="xref page">vkCmdConvertCooperativeVectorMatrixNV</a></p>
+</li>
+<li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="renderpass.html#vkCmdSetAttachmentFeedbackLoopEnableEXT" class="xref page">vkCmdSetAttachmentFeedbackLoopEnableEXT</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="memory.html#vkCmdBindTileMemoryQCOM" class="xref page">vkCmdBindTileMemoryQCOM</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="accelstructures.html#vkCmdBuildClusterAccelerationStructureIndirectNV" class="xref page">vkCmdBuildClusterAccelerationStructureIndirectNV</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="accelstructures.html#vkCmdBuildPartitionedAccelerationStructuresNV" class="xref page">vkCmdBuildPartitionedAccelerationStructuresNV</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="device_generated_commands/generatedcommands.html#vkCmdPreprocessGeneratedCommandsEXT" class="xref page">vkCmdPreprocessGeneratedCommandsEXT</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="device_generated_commands/generatedcommands.html#vkCmdExecuteGeneratedCommandsEXT" class="xref page">vkCmdExecuteGeneratedCommandsEXT</a></p>
+</li>
+<li>
+<p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="renderpass.html#vkCmdEndRendering2EXT" class="xref page">vkCmdEndRendering2EXT</a></p>
 </li>
 <li>
 <p>The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from, in <a href="accelstructures.html#vkCmdBuildAccelerationStructuresKHR" class="xref page">vkCmdBuildAccelerationStructuresKHR</a></p>
@@ -5908,6 +5787,8 @@ typedef enum VkStructureType {
 #endif
   // Provided by VK_AMD_mixed_attachment_samples with VK_VERSION_1_3 or VK_KHR_dynamic_rendering
     VK_STRUCTURE_TYPE_ATTACHMENT_SAMPLE_COUNT_INFO_AMD = 1000044008,
+  // Provided by VK_KHR_shader_bfloat16
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_BFLOAT16_FEATURES_KHR = 1000141000,
   // Provided by VK_EXT_sample_locations
     VK_STRUCTURE_TYPE_SAMPLE_LOCATIONS_INFO_EXT = 1000143000,
   // Provided by VK_EXT_sample_locations
@@ -6264,10 +6145,6 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_DEVICE_DEVICE_MEMORY_REPORT_CREATE_INFO_EXT = 1000284001,
   // Provided by VK_EXT_device_memory_report
     VK_STRUCTURE_TYPE_DEVICE_MEMORY_REPORT_CALLBACK_DATA_EXT = 1000284002,
-  // Provided by VK_EXT_robustness2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_EXT = 1000286000,
-  // Provided by VK_EXT_robustness2
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_EXT = 1000286001,
   // Provided by VK_EXT_custom_border_color
     VK_STRUCTURE_TYPE_SAMPLER_CUSTOM_BORDER_COLOR_CREATE_INFO_EXT = 1000287000,
   // Provided by VK_EXT_custom_border_color
@@ -6312,16 +6189,38 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DIAGNOSTICS_CONFIG_FEATURES_NV = 1000300000,
   // Provided by VK_NV_device_diagnostics_config
     VK_STRUCTURE_TYPE_DEVICE_DIAGNOSTICS_CONFIG_CREATE_INFO_NV = 1000300001,
+#ifdef VK_ENABLE_BETA_EXTENSIONS
   // Provided by VK_NV_cuda_kernel_launch
     VK_STRUCTURE_TYPE_CUDA_MODULE_CREATE_INFO_NV = 1000307000,
+#endif
+#ifdef VK_ENABLE_BETA_EXTENSIONS
   // Provided by VK_NV_cuda_kernel_launch
     VK_STRUCTURE_TYPE_CUDA_FUNCTION_CREATE_INFO_NV = 1000307001,
+#endif
+#ifdef VK_ENABLE_BETA_EXTENSIONS
   // Provided by VK_NV_cuda_kernel_launch
     VK_STRUCTURE_TYPE_CUDA_LAUNCH_INFO_NV = 1000307002,
+#endif
+#ifdef VK_ENABLE_BETA_EXTENSIONS
   // Provided by VK_NV_cuda_kernel_launch
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_FEATURES_NV = 1000307003,
+#endif
+#ifdef VK_ENABLE_BETA_EXTENSIONS
   // Provided by VK_NV_cuda_kernel_launch
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUDA_KERNEL_LAUNCH_PROPERTIES_NV = 1000307004,
+#endif
+  // Provided by VK_QCOM_tile_shading
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_SHADING_FEATURES_QCOM = 1000309000,
+  // Provided by VK_QCOM_tile_shading
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM = 1000309001,
+  // Provided by VK_QCOM_tile_shading
+    VK_STRUCTURE_TYPE_RENDER_PASS_TILE_SHADING_CREATE_INFO_QCOM = 1000309002,
+  // Provided by VK_QCOM_tile_shading
+    VK_STRUCTURE_TYPE_PER_TILE_BEGIN_INFO_QCOM = 1000309003,
+  // Provided by VK_QCOM_tile_shading
+    VK_STRUCTURE_TYPE_PER_TILE_END_INFO_QCOM = 1000309004,
+  // Provided by VK_QCOM_tile_shading
+    VK_STRUCTURE_TYPE_DISPATCH_TILE_INFO_QCOM = 1000309005,
   // Provided by VK_NV_low_latency
     VK_STRUCTURE_TYPE_QUERY_LOW_LATENCY_SUPPORT_NV = 1000310000,
   // Provided by VK_EXT_metal_objects
@@ -6610,12 +6509,6 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_INFO_ARM = 1000424003,
   // Provided by VK_ARM_render_pass_striped
     VK_STRUCTURE_TYPE_RENDER_PASS_STRIPE_SUBMIT_INFO_ARM = 1000424004,
-  // Provided by VK_QCOM_fragment_density_map_offset
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_QCOM = 1000425000,
-  // Provided by VK_QCOM_fragment_density_map_offset
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_QCOM = 1000425001,
-  // Provided by VK_QCOM_fragment_density_map_offset
-    VK_STRUCTURE_TYPE_SUBPASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_QCOM = 1000425002,
   // Provided by VK_NV_copy_memory_indirect
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COPY_MEMORY_INDIRECT_FEATURES_NV = 1000426000,
   // Provided by VK_NV_copy_memory_indirect
@@ -6630,6 +6523,12 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_INDIRECT_BUFFER_INFO_NV = 1000428001,
   // Provided by VK_NV_device_generated_commands_compute
     VK_STRUCTURE_TYPE_PIPELINE_INDIRECT_DEVICE_ADDRESS_INFO_NV = 1000428002,
+  // Provided by VK_NV_ray_tracing_linear_swept_spheres
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_LINEAR_SWEPT_SPHERES_FEATURES_NV = 1000429008,
+  // Provided by VK_NV_ray_tracing_linear_swept_spheres
+    VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_LINEAR_SWEPT_SPHERES_DATA_NV = 1000429009,
+  // Provided by VK_NV_ray_tracing_linear_swept_spheres
+    VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_GEOMETRY_SPHERES_DATA_NV = 1000429010,
   // Provided by VK_NV_linear_color_attachment
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LINEAR_COLOR_ATTACHMENT_FEATURES_NV = 1000430000,
   // Provided by VK_KHR_shader_maximal_reconvergence
@@ -6744,6 +6643,14 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_FEATURES_NV = 1000490000,
   // Provided by VK_NV_ray_tracing_invocation_reorder
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_INVOCATION_REORDER_PROPERTIES_NV = 1000490001,
+  // Provided by VK_NV_cooperative_vector
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_VECTOR_FEATURES_NV = 1000491000,
+  // Provided by VK_NV_cooperative_vector
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_VECTOR_PROPERTIES_NV = 1000491001,
+  // Provided by VK_NV_cooperative_vector
+    VK_STRUCTURE_TYPE_COOPERATIVE_VECTOR_PROPERTIES_NV = 1000491002,
+  // Provided by VK_NV_cooperative_vector
+    VK_STRUCTURE_TYPE_CONVERT_COOPERATIVE_VECTOR_MATRIX_INFO_NV = 1000491004,
   // Provided by VK_NV_extended_sparse_address_space
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTENDED_SPARSE_ADDRESS_SPACE_FEATURES_NV = 1000492000,
   // Provided by VK_NV_extended_sparse_address_space
@@ -6876,6 +6783,16 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_BIND_DESCRIPTOR_BUFFER_EMBEDDED_SAMPLERS_INFO_EXT = 1000545008,
   // Provided by VK_NV_descriptor_pool_overallocation
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_POOL_OVERALLOCATION_FEATURES_NV = 1000546000,
+  // Provided by VK_QCOM_tile_memory_heap
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_MEMORY_HEAP_FEATURES_QCOM = 1000547000,
+  // Provided by VK_QCOM_tile_memory_heap
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_MEMORY_HEAP_PROPERTIES_QCOM = 1000547001,
+  // Provided by VK_QCOM_tile_memory_heap
+    VK_STRUCTURE_TYPE_TILE_MEMORY_REQUIREMENTS_QCOM = 1000547002,
+  // Provided by VK_QCOM_tile_memory_heap
+    VK_STRUCTURE_TYPE_TILE_MEMORY_BIND_INFO_QCOM = 1000547003,
+  // Provided by VK_QCOM_tile_memory_heap with VK_QCOM_tile_properties
+    VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM = 1000547004,
   // Provided by VK_NV_display_stereo
     VK_STRUCTURE_TYPE_DISPLAY_SURFACE_STEREO_CREATE_INFO_NV = 1000551000,
   // Provided by VK_NV_display_stereo
@@ -6902,6 +6819,14 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_VIDEO_FORMAT_AV1_QUANTIZATION_MAP_PROPERTIES_KHR = 1000553008,
   // Provided by VK_NV_raw_access_chains
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAW_ACCESS_CHAINS_FEATURES_NV = 1000555000,
+  // Provided by VK_NV_external_compute_queue
+    VK_STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_DEVICE_CREATE_INFO_NV = 1000556000,
+  // Provided by VK_NV_external_compute_queue
+    VK_STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_CREATE_INFO_NV = 1000556001,
+  // Provided by VK_NV_external_compute_queue
+    VK_STRUCTURE_TYPE_EXTERNAL_COMPUTE_QUEUE_DATA_PARAMS_NV = 1000556002,
+  // Provided by VK_NV_external_compute_queue
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_COMPUTE_QUEUE_PROPERTIES_NV = 1000556003,
   // Provided by VK_KHR_shader_relaxed_extended_instruction
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR = 1000558000,
   // Provided by VK_NV_command_buffer_inheritance
@@ -6922,6 +6847,34 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT = 1000564000,
   // Provided by VK_NV_ray_tracing_validation
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV = 1000568000,
+  // Provided by VK_NV_cluster_acceleration_structure
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_FEATURES_NV = 1000569000,
+  // Provided by VK_NV_cluster_acceleration_structure
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CLUSTER_ACCELERATION_STRUCTURE_PROPERTIES_NV = 1000569001,
+  // Provided by VK_NV_cluster_acceleration_structure
+    VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV = 1000569002,
+  // Provided by VK_NV_cluster_acceleration_structure
+    VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_TRIANGLE_CLUSTER_INPUT_NV = 1000569003,
+  // Provided by VK_NV_cluster_acceleration_structure
+    VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_MOVE_OBJECTS_INPUT_NV = 1000569004,
+  // Provided by VK_NV_cluster_acceleration_structure
+    VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_INPUT_INFO_NV = 1000569005,
+  // Provided by VK_NV_cluster_acceleration_structure
+    VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_COMMANDS_INFO_NV = 1000569006,
+  // Provided by VK_NV_cluster_acceleration_structure
+    VK_STRUCTURE_TYPE_RAY_TRACING_PIPELINE_CLUSTER_ACCELERATION_STRUCTURE_CREATE_INFO_NV = 1000569007,
+  // Provided by VK_NV_partitioned_acceleration_structure
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_FEATURES_NV = 1000570000,
+  // Provided by VK_NV_partitioned_acceleration_structure
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PARTITIONED_ACCELERATION_STRUCTURE_PROPERTIES_NV = 1000570001,
+  // Provided by VK_NV_partitioned_acceleration_structure
+    VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV = 1000570002,
+  // Provided by VK_NV_partitioned_acceleration_structure
+    VK_STRUCTURE_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCES_INPUT_NV = 1000570003,
+  // Provided by VK_NV_partitioned_acceleration_structure
+    VK_STRUCTURE_TYPE_BUILD_PARTITIONED_ACCELERATION_STRUCTURE_INFO_NV = 1000570004,
+  // Provided by VK_NV_partitioned_acceleration_structure
+    VK_STRUCTURE_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_FLAGS_NV = 1000570005,
   // Provided by VK_EXT_device_generated_commands
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_FEATURES_EXT = 1000572000,
   // Provided by VK_EXT_device_generated_commands
@@ -6964,6 +6917,14 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT = 1000582000,
   // Provided by VK_EXT_depth_clamp_control
     VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT = 1000582001,
+  // Provided by VK_KHR_video_maintenance2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR = 1000586000,
+  // Provided by VK_KHR_video_decode_h264 with VK_KHR_video_maintenance2
+    VK_STRUCTURE_TYPE_VIDEO_DECODE_H264_INLINE_SESSION_PARAMETERS_INFO_KHR = 1000586001,
+  // Provided by VK_KHR_video_decode_h265 with VK_KHR_video_maintenance2
+    VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR = 1000586002,
+  // Provided by VK_KHR_video_decode_av1 with VK_KHR_video_maintenance2
+    VK_STRUCTURE_TYPE_VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR = 1000586003,
   // Provided by VK_HUAWEI_hdr_vivid
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI = 1000590000,
   // Provided by VK_HUAWEI_hdr_vivid
@@ -6976,10 +6937,38 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_2_PROPERTIES_NV = 1000593002,
   // Provided by VK_ARM_pipeline_opacity_micromap
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_OPACITY_MICROMAP_FEATURES_ARM = 1000596000,
+  // Provided by VK_EXT_external_memory_metal
+    VK_STRUCTURE_TYPE_IMPORT_MEMORY_METAL_HANDLE_INFO_EXT = 1000602000,
+  // Provided by VK_EXT_external_memory_metal
+    VK_STRUCTURE_TYPE_MEMORY_METAL_HANDLE_PROPERTIES_EXT = 1000602001,
+  // Provided by VK_EXT_external_memory_metal
+    VK_STRUCTURE_TYPE_MEMORY_GET_METAL_HANDLE_INFO_EXT = 1000602002,
   // Provided by VK_KHR_depth_clamp_zero_one
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR = 1000421000,
   // Provided by VK_EXT_vertex_attribute_robustness
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT = 1000608000,
+  // Provided by VK_KHR_robustness2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR = 1000286000,
+  // Provided by VK_KHR_robustness2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR = 1000286001,
+#ifdef VK_ENABLE_BETA_EXTENSIONS
+  // Provided by VK_NV_present_metering
+    VK_STRUCTURE_TYPE_SET_PRESENT_CONFIG_NV = 1000613000,
+#endif
+#ifdef VK_ENABLE_BETA_EXTENSIONS
+  // Provided by VK_NV_present_metering
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV = 1000613001,
+#endif
+  // Provided by VK_EXT_fragment_density_map_offset
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT = 1000425000,
+  // Provided by VK_EXT_fragment_density_map_offset
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT = 1000425001,
+  // Provided by VK_EXT_fragment_density_map_offset
+    VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT = 1000425002,
+  // Provided by VK_EXT_fragment_density_map_offset
+    VK_STRUCTURE_TYPE_RENDERING_END_INFO_EXT = 1000619003,
+  // Provided by VK_EXT_zero_initialize_device_memory
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT = 1000620000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES,
   // Provided by VK_VERSION_1_1
@@ -7317,6 +7306,10 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES_KHR = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_INTEGER_DOT_PRODUCT_PROPERTIES,
   // Provided by VK_EXT_texel_buffer_alignment
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES_EXT = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TEXEL_BUFFER_ALIGNMENT_PROPERTIES,
+  // Provided by VK_EXT_robustness2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_EXT = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR,
+  // Provided by VK_EXT_robustness2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_EXT = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_PROPERTIES_KHR,
   // Provided by VK_EXT_private_data
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES_EXT = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIVATE_DATA_FEATURES,
   // Provided by VK_EXT_private_data
@@ -7397,6 +7390,12 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES_KHR = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_SUBGROUP_ROTATE_FEATURES,
   // Provided by VK_EXT_depth_clamp_zero_one
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_EXT = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR,
+  // Provided by VK_QCOM_fragment_density_map_offset
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_QCOM = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT,
+  // Provided by VK_QCOM_fragment_density_map_offset
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_QCOM = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT,
+  // Provided by VK_QCOM_fragment_density_map_offset
+    VK_STRUCTURE_TYPE_SUBPASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_QCOM = VK_STRUCTURE_TYPE_RENDER_PASS_FRAGMENT_DENSITY_MAP_OFFSET_END_INFO_EXT,
   // Provided by VK_EXT_pipeline_protected_access
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES_EXT = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_PROTECTED_ACCESS_FEATURES,
   // Provided by VK_KHR_maintenance5
@@ -7495,6 +7494,29 @@ correct name.</p>
 </div>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>

@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
@@ -1276,6 +1276,47 @@ memory heap which is considered to be equally &#8220;local&#8221; to the host an
 the device, and such an implementation <strong>must</strong> advertise the heap as
 device-local.</p>
 </div>
+<div id="memory-tile-heaps" class="paragraph">
+<p>Memory contents within a tile memory heap, denoted by
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code>, are only visible across the
+command buffers executed in a single command buffer submission batch within
+a <a href="cmdbuffers.html#vkQueueSubmit" class="xref page">vkQueueSubmit</a> or <a href="cmdbuffers.html#vkQueueSubmit2" class="xref page">vkQueueSubmit2</a> call.
+If the
+<a href="limits.html#VkPhysicalDeviceTileMemoryHeapPropertiesQCOM" class="xref page">VkPhysicalDeviceTileMemoryHeapPropertiesQCOM</a>::<code>queueSubmitBoundary</code>
+property is set, the visibility is extended across all batches in the submit
+call.
+Memory contents are discarded and made <strong>undefined</strong> after the respective
+submission batch or submit call.
+Tile memory <strong>may</strong> have different performance characteristics than non tile
+memory.
+Tile memory <strong>can</strong> be used simultaneously by command buffers in other queues
+without invalidating each others contents.
+Collectively, these rules define the <em>tile memory scope</em>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Tile memory heaps work differently than most heaps as it is allowing
+addressing on device cache memory.
+Therefore, the heap&#8217;s address space is aliased across the different queues,
+with each queue retaining its individual copy of the heap.
+The implementation takes care of any required saving and restoring of the
+tile memory contents.</p>
+</div>
+<div class="paragraph">
+<p>Effectively, this means that the same address in the heap in different
+queues have simultaneously different defined contents and the contents has a
+lifespan scoped to the submit or batch for that specific queues.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div id="memory-device-bitmask-list" class="paragraph">
 <p>Each memory type returned by <a href="#vkGetPhysicalDeviceMemoryProperties">vkGetPhysicalDeviceMemoryProperties</a> <strong>must</strong>
 have its <code>propertyFlags</code> set to one of the following values:</p>
@@ -1648,7 +1689,7 @@ structure which is populated with the same values as in
 </li>
 <li>
 <p><a id="VUID-VkPhysicalDeviceMemoryProperties2-sType-unique" href="#VUID-VkPhysicalDeviceMemoryProperties2-sType-unique"></a> <span class="vuid">VUID-VkPhysicalDeviceMemoryProperties2-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -1696,6 +1737,8 @@ typedef enum VkMemoryHeapFlagBits {
     VK_MEMORY_HEAP_DEVICE_LOCAL_BIT = 0x00000001,
   // Provided by VK_VERSION_1_1
     VK_MEMORY_HEAP_MULTI_INSTANCE_BIT = 0x00000002,
+  // Provided by VK_QCOM_tile_memory_heap
+    VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM = 0x00000008,
   // Provided by VK_KHR_device_group_creation
     VK_MEMORY_HEAP_MULTI_INSTANCE_BIT_KHR = VK_MEMORY_HEAP_MULTI_INSTANCE_BIT,
 } VkMemoryHeapFlagBits;</code></pre>
@@ -1715,6 +1758,10 @@ device representing more than one physical device, there is a
 per-physical device instance of the heap memory.
 By default, an allocation from such a heap will be replicated to each
 physical device&#8217;s instance of the heap.</p>
+</li>
+<li>
+<p><code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> bit specifies that the heap
+corresponds to tile memory.</p>
 </li>
 </ul>
 </div>
@@ -2137,6 +2184,15 @@ The overallocation behavior <strong>can</strong> be specified through the
 <code><a href="../appendices/extensions.html#VK_AMD_memory_overallocation_behavior" class="xref page">VK_AMD_memory_overallocation_behavior</a></code> extension.</p>
 </div>
 <div class="paragraph">
+<p>If the <code>memoryTypeIndex</code> belongs to a heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> bit included in its properties,
+this allocation is backed by tile memory, which is an on device cache.
+Unlike other heaps, allocations out of the tile memory will always have a
+starting address at the start of the heap and its contents are aliased with
+all other <a href="#VkDeviceMemory">VkDeviceMemory</a> objects bound to the same range while
+executing within the same <a href="#memory-tile-heaps"><em>tile memory scope</em></a>.</p>
+</div>
+<div class="paragraph">
 <p>If the
 <a href="features.html#VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT" class="xref page">VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT</a>::<code>pageableDeviceLocalMemory</code>
 feature is enabled, memory allocations made from a heap that includes
@@ -2195,6 +2251,14 @@ identify a memory type supporting
 There <strong>must</strong> be less than
 <code>VkPhysicalDeviceLimits</code>::<code>maxMemoryAllocationCount</code> device
 memory allocations currently allocated on the device</p>
+</li>
+<li>
+<p><a id="VUID-VkTileMemoryBindInfoQCOM-memoryTypeIndex" href="#VUID-VkTileMemoryBindInfoQCOM-memoryTypeIndex"></a> <span class="vuid">VUID-VkTileMemoryBindInfoQCOM-memoryTypeIndex</span><br>
+
+If the <a href="features.html#features-tileMemoryHeap" class="xref page"><code>tileMemoryHeap</code></a> feature is not
+enabled, <code>pAllocateInfo-&gt;memoryTypeIndex</code> <strong>must</strong> not identify a
+memory type that corresponds to a <a href="#VkMemoryHeap">VkMemoryHeap</a> with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property</p>
 </li>
 </ul>
 </div>
@@ -2337,6 +2401,10 @@ value</p>
 <li>
 <p><a href="#VkImportScreenBufferInfoQNX">VkImportScreenBufferInfoQNX</a> with a non-<code>NULL</code> <code>buffer</code> value</p>
 </li>
+<li>
+<p><a href="#VkImportMemoryMetalHandleInfoEXT">VkImportMemoryMetalHandleInfoEXT</a> with a non-zero <code>handleType</code>
+value</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -2344,6 +2412,12 @@ value</p>
 <code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT</code>,
 <code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT</code>, or
 <code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT</code>,
+<code>allocationSize</code> is ignored.
+The implementation <strong>must</strong> query the size of these allocations from the OS.</p>
+</div>
+<div class="paragraph">
+<p>If the parameters define an import operation and the external handle type is
+<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLTEXTURE_BIT_EXT</code>,
 <code>allocationSize</code> is ignored.
 The implementation <strong>must</strong> query the size of these allocations from the OS.</p>
 </div>
@@ -2831,6 +2905,32 @@ of <code>image</code> and the QNX Screen buffer&#8217;s <code>_screen_buffer</co
 identical</p>
 </li>
 <li>
+<p><a id="VUID-VkMemoryAllocateInfo-pNext-10395" href="#VUID-VkMemoryAllocateInfo-pNext-10395"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-pNext-10395</span><br>
+
+If the parameters define an import operation and the external handle is
+a <code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLTEXTURE_BIT_EXT</code>, then
+<code>pNext</code> <strong>must</strong> include a <a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a> with
+<code>image</code> that is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryAllocateInfo-pNext-10396" href="#VUID-VkMemoryAllocateInfo-pNext-10396"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-pNext-10396</span><br>
+
+If the parameters define an import operation, the external handle is a
+Metal MTLTexture, and the <code>pNext</code> chain includes a
+<a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a> structure with <code>image</code> that is
+not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, the width, height, array layer dimensions, and
+mipmap levels of <code>image</code> and the Metal MTLTexture&#8217;s <strong>must</strong> be
+identical</p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryAllocateInfo-pNext-10397" href="#VUID-VkMemoryAllocateInfo-pNext-10397"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-pNext-10397</span><br>
+
+If the parameters define an import operation, the external handle is a
+Metal MTLTexture, and the <code>pNext</code> chain includes a
+<a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a> structure with <code>image</code> that is
+not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>allocationSize</code> <strong>must</strong> be <code>0</code></p>
+</li>
+<li>
 <p><a id="VUID-VkMemoryAllocateInfo-opaqueCaptureAddress-03329" href="#VUID-VkMemoryAllocateInfo-opaqueCaptureAddress-03329"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-opaqueCaptureAddress-03329</span><br>
 
 If
@@ -2917,11 +3017,11 @@ If the <code>pNext</code> chain includes a
 </li>
 <li>
 <p><a id="VUID-VkMemoryAllocateInfo-pNext-pNext" href="#VUID-VkMemoryAllocateInfo-pNext-pNext"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDedicatedAllocationMemoryAllocateInfoNV">VkDedicatedAllocationMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryAllocateInfo">VkExportMemoryAllocateInfo</a>, <a href="#VkExportMemoryAllocateInfoNV">VkExportMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryWin32HandleInfoKHR">VkExportMemoryWin32HandleInfoKHR</a>, <a href="#VkExportMemoryWin32HandleInfoNV">VkExportMemoryWin32HandleInfoNV</a>, <a href="#VkExportMetalObjectCreateInfoEXT">VkExportMetalObjectCreateInfoEXT</a>, <a href="#VkImportAndroidHardwareBufferInfoANDROID">VkImportAndroidHardwareBufferInfoANDROID</a>, <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>, <a href="#VkImportMemoryFdInfoKHR">VkImportMemoryFdInfoKHR</a>, <a href="#VkImportMemoryHostPointerInfoEXT">VkImportMemoryHostPointerInfoEXT</a>, <a href="#VkImportMemoryWin32HandleInfoKHR">VkImportMemoryWin32HandleInfoKHR</a>, <a href="#VkImportMemoryWin32HandleInfoNV">VkImportMemoryWin32HandleInfoNV</a>, <a href="#VkImportMemoryZirconHandleInfoFUCHSIA">VkImportMemoryZirconHandleInfoFUCHSIA</a>, <a href="#VkImportMetalBufferInfoEXT">VkImportMetalBufferInfoEXT</a>, <a href="#VkImportScreenBufferInfoQNX">VkImportScreenBufferInfoQNX</a>, <a href="#VkMemoryAllocateFlagsInfo">VkMemoryAllocateFlagsInfo</a>, <a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a>, <a href="#VkMemoryOpaqueCaptureAddressAllocateInfo">VkMemoryOpaqueCaptureAddressAllocateInfo</a>, or <a href="#VkMemoryPriorityAllocateInfoEXT">VkMemoryPriorityAllocateInfoEXT</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDedicatedAllocationMemoryAllocateInfoNV">VkDedicatedAllocationMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryAllocateInfo">VkExportMemoryAllocateInfo</a>, <a href="#VkExportMemoryAllocateInfoNV">VkExportMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryWin32HandleInfoKHR">VkExportMemoryWin32HandleInfoKHR</a>, <a href="#VkExportMemoryWin32HandleInfoNV">VkExportMemoryWin32HandleInfoNV</a>, <a href="#VkExportMetalObjectCreateInfoEXT">VkExportMetalObjectCreateInfoEXT</a>, <a href="#VkImportAndroidHardwareBufferInfoANDROID">VkImportAndroidHardwareBufferInfoANDROID</a>, <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>, <a href="#VkImportMemoryFdInfoKHR">VkImportMemoryFdInfoKHR</a>, <a href="#VkImportMemoryHostPointerInfoEXT">VkImportMemoryHostPointerInfoEXT</a>, <a href="#VkImportMemoryMetalHandleInfoEXT">VkImportMemoryMetalHandleInfoEXT</a>, <a href="#VkImportMemoryWin32HandleInfoKHR">VkImportMemoryWin32HandleInfoKHR</a>, <a href="#VkImportMemoryWin32HandleInfoNV">VkImportMemoryWin32HandleInfoNV</a>, <a href="#VkImportMemoryZirconHandleInfoFUCHSIA">VkImportMemoryZirconHandleInfoFUCHSIA</a>, <a href="#VkImportMetalBufferInfoEXT">VkImportMetalBufferInfoEXT</a>, <a href="#VkImportScreenBufferInfoQNX">VkImportScreenBufferInfoQNX</a>, <a href="#VkMemoryAllocateFlagsInfo">VkMemoryAllocateFlagsInfo</a>, <a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a>, <a href="#VkMemoryOpaqueCaptureAddressAllocateInfo">VkMemoryOpaqueCaptureAddressAllocateInfo</a>, or <a href="#VkMemoryPriorityAllocateInfoEXT">VkMemoryPriorityAllocateInfoEXT</a></p>
 </li>
 <li>
 <p><a id="VUID-VkMemoryAllocateInfo-sType-unique" href="#VUID-VkMemoryAllocateInfo-sType-unique"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="#VkExportMetalObjectCreateInfoEXT">VkExportMetalObjectCreateInfoEXT</a></p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="#VkExportMetalObjectCreateInfoEXT">VkExportMetalObjectCreateInfoEXT</a></p>
 </li>
 </ul>
 </div>
@@ -3126,6 +3226,194 @@ imported memory</p>
 <li>
 <p><a id="VUID-VkMemoryDedicatedAllocateInfo-commonparent" href="#VUID-VkMemoryDedicatedAllocateInfo-commonparent"></a> <span class="vuid">VUID-VkMemoryDedicatedAllocateInfo-commonparent</span><br>
  Both of <code>buffer</code>, and <code>image</code> that are valid handles of non-ignored parameters <strong>must</strong> have been created, allocated, or retrieved from the same <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="memory-bind-tile-memory" class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To bind a range of tile memory to the command buffer, call:</p>
+</div>
+<div id="vkCmdBindTileMemoryQCOM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_QCOM_tile_memory_heap
+void vkCmdBindTileMemoryQCOM(
+    VkCommandBuffer                             commandBuffer,
+    const VkTileMemoryBindInfoQCOM*             pTileMemoryBindInfo);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>commandBuffer</code> is the command buffer that the tile memory will be
+bound to.</p>
+</li>
+<li>
+<p><code>pTileMemoryBindInfo</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> or a pointer to a
+<a href="#VkTileMemoryBindInfoQCOM">VkTileMemoryBindInfoQCOM</a> structure defining how tile memory is
+bound.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Calling <a href="#vkCmdBindTileMemoryQCOM">vkCmdBindTileMemoryQCOM</a> when <code>pTileMemoryBindInfo</code> is
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> is equivalent to binding no tile memory to the command
+buffer.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkCmdBindTileMemoryQCOM-commandBuffer-parameter" href="#VUID-vkCmdBindTileMemoryQCOM-commandBuffer-parameter"></a> <span class="vuid">VUID-vkCmdBindTileMemoryQCOM-commandBuffer-parameter</span><br>
+ <code>commandBuffer</code> <strong>must</strong> be a valid <a href="cmdbuffers.html#VkCommandBuffer" class="xref page">VkCommandBuffer</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBindTileMemoryQCOM-pTileMemoryBindInfo-parameter" href="#VUID-vkCmdBindTileMemoryQCOM-pTileMemoryBindInfo-parameter"></a> <span class="vuid">VUID-vkCmdBindTileMemoryQCOM-pTileMemoryBindInfo-parameter</span><br>
+ If <code>pTileMemoryBindInfo</code> is not <code>NULL</code>, <code>pTileMemoryBindInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkTileMemoryBindInfoQCOM">VkTileMemoryBindInfoQCOM</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBindTileMemoryQCOM-commandBuffer-recording" href="#VUID-vkCmdBindTileMemoryQCOM-commandBuffer-recording"></a> <span class="vuid">VUID-vkCmdBindTileMemoryQCOM-commandBuffer-recording</span><br>
+ <code>commandBuffer</code> <strong>must</strong> be in the <a href="cmdbuffers.html#commandbuffers-lifecycle" class="xref page">recording state</a></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBindTileMemoryQCOM-commandBuffer-cmdpool" href="#VUID-vkCmdBindTileMemoryQCOM-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBindTileMemoryQCOM-commandBuffer-cmdpool</span><br>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBindTileMemoryQCOM-renderpass" href="#VUID-vkCmdBindTileMemoryQCOM-renderpass"></a> <span class="vuid">VUID-vkCmdBindTileMemoryQCOM-renderpass</span><br>
+ This command <strong>must</strong> only be called outside of a render pass instance</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBindTileMemoryQCOM-videocoding" href="#VUID-vkCmdBindTileMemoryQCOM-videocoding"></a> <span class="vuid">VUID-vkCmdBindTileMemoryQCOM-videocoding</span><br>
+ This command <strong>must</strong> only be called outside of a video coding scope</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Host Synchronization</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Host access to <code>commandBuffer</code> <strong>must</strong> be externally synchronized</p>
+</li>
+<li>
+<p>Host access to the <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> be externally synchronized</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Command Properties</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top"><a href="cmdbuffers.html#VkCommandBufferLevel" class="xref page">Command Buffer Levels</a></th>
+<th class="tableblock halign-left valign-top"><a href="renderpass.html#vkCmdBeginRenderPass" class="xref page">Render Pass Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="videocoding.html#vkCmdBeginVideoCodingKHR" class="xref page">Video Coding Scope</a></th>
+<th class="tableblock halign-left valign-top"><a href="devsandqueues.html#VkQueueFlagBits" class="xref page">Supported Queue Types</a></th>
+<th class="tableblock halign-left valign-top"><a href="fundamentals.html#fundamentals-queueoperation-command-types" class="xref page">Command Type</a></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary<br>
+Secondary</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
+Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">State</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkTileMemoryBindInfoQCOM</code> structure is defined as:</p>
+</div>
+<div id="VkTileMemoryBindInfoQCOM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_QCOM_tile_memory_heap
+typedef struct VkTileMemoryBindInfoQCOM {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkDeviceMemory     memory;
+} VkTileMemoryBindInfoQCOM;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>memory</code> is the tile memory object to be bound.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><code>memory</code> is used to bind this memory object to tile memory for all
+subsequent commands in the <code>commandBuffer</code>.
+Tile memory contents for ranges in the heap outside the bound <code>memory</code>
+are discarded and become <strong>undefined</strong> for the <a href="#memory-tile-heaps">active <em>tile memory scope</em></a> if an action command is executed.</p>
+</div>
+<div class="paragraph">
+<p>For secondary command buffers executing within a render pass instance, the
+active bound tile memory object is provided with this structure included in
+the <code>pNext</code> chain of <code>VkCommandBufferInheritanceInfo</code>.</p>
+</div>
+<div class="paragraph">
+<p>If this structure was not specified since recording started for
+<code>commandBuffer</code>, no tile memory is bound to the command buffer and all
+contents become <strong>undefined</strong> for the <em>tile memory scope</em> if an action command
+is executed.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkTileMemoryBindInfoQCOM-memory-10726" href="#VUID-VkTileMemoryBindInfoQCOM-memory-10726"></a> <span class="vuid">VUID-VkTileMemoryBindInfoQCOM-memory-10726</span><br>
+
+<code>memory</code> <strong>must</strong> have been allocated from a <a href="#VkMemoryHeap">VkMemoryHeap</a> with
+the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkTileMemoryBindInfoQCOM-sType-sType" href="#VUID-VkTileMemoryBindInfoQCOM-sType-sType"></a> <span class="vuid">VUID-VkTileMemoryBindInfoQCOM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_TILE_MEMORY_BIND_INFO_QCOM</code></p>
+</li>
+<li>
+<p><a id="VUID-VkTileMemoryBindInfoQCOM-memory-parameter" href="#VUID-VkTileMemoryBindInfoQCOM-memory-parameter"></a> <span class="vuid">VUID-VkTileMemoryBindInfoQCOM-memory-parameter</span><br>
+ <code>memory</code> <strong>must</strong> be a valid <a href="#VkDeviceMemory">VkDeviceMemory</a> handle</p>
 </li>
 </ul>
 </div>
@@ -4455,7 +4743,7 @@ VkResult vkGetMemoryWin32HandleNV(
 specifying the type of handle requested.</p>
 </li>
 <li>
-<p><code>handle</code> is a pointer to a Windows <code>HANDLE</code> in which the handle
+<p><code>pHandle</code> is a pointer to a Windows <code>HANDLE</code> in which the handle
 is returned.</p>
 </li>
 </ul>
@@ -5804,7 +6092,7 @@ as.</p>
 </li>
 <li>
 <p><a id="VUID-VkAndroidHardwareBufferPropertiesANDROID-sType-unique" href="#VUID-VkAndroidHardwareBufferPropertiesANDROID-sType-unique"></a> <span class="vuid">VUID-VkAndroidHardwareBufferPropertiesANDROID-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -7119,32 +7407,33 @@ not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK
 
 If the <code>pNext</code> chain includes a <a href="#VkExportMetalTextureInfoEXT">VkExportMetalTextureInfoEXT</a>
 structure, and if the <a href="resources.html#VkImage" class="xref page">VkImage</a> in its <code>image</code> member does not
-have a multi-planar format, then its <code>plane</code> member <strong>must</strong> be
-<code>VK_IMAGE_ASPECT_PLANE_0_BIT</code></p>
+have a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>, then its
+<code>plane</code> member <strong>must</strong> be <code>VK_IMAGE_ASPECT_PLANE_0_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkExportMetalObjectsInfoEXT-pNext-06800" href="#VUID-VkExportMetalObjectsInfoEXT-pNext-06800"></a> <span class="vuid">VUID-VkExportMetalObjectsInfoEXT-pNext-06800</span><br>
 
 If the <code>pNext</code> chain includes a <a href="#VkExportMetalTextureInfoEXT">VkExportMetalTextureInfoEXT</a>
 structure, and if the <a href="resources.html#VkImage" class="xref page">VkImage</a> in its <code>image</code> member has a
-multi-planar format with only two planes, then its <code>plane</code> member
-<strong>must</strong> not be <code>VK_IMAGE_ASPECT_PLANE_2_BIT</code></p>
+<a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a> with only two planes, then
+its <code>plane</code> member <strong>must</strong> not be <code>VK_IMAGE_ASPECT_PLANE_2_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkExportMetalObjectsInfoEXT-pNext-06801" href="#VUID-VkExportMetalObjectsInfoEXT-pNext-06801"></a> <span class="vuid">VUID-VkExportMetalObjectsInfoEXT-pNext-06801</span><br>
 
 If the <code>pNext</code> chain includes a <a href="#VkExportMetalTextureInfoEXT">VkExportMetalTextureInfoEXT</a>
 structure, and if the <a href="resources.html#VkImageView" class="xref page">VkImageView</a> in its <code>imageView</code> member
-does not have a multi-planar format, then its <code>plane</code> member <strong>must</strong>
-be <code>VK_IMAGE_ASPECT_PLANE_0_BIT</code></p>
+does not have a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>, then its
+<code>plane</code> member <strong>must</strong> be <code>VK_IMAGE_ASPECT_PLANE_0_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkExportMetalObjectsInfoEXT-pNext-06802" href="#VUID-VkExportMetalObjectsInfoEXT-pNext-06802"></a> <span class="vuid">VUID-VkExportMetalObjectsInfoEXT-pNext-06802</span><br>
 
 If the <code>pNext</code> chain includes a <a href="#VkExportMetalTextureInfoEXT">VkExportMetalTextureInfoEXT</a>
 structure, and if the <a href="resources.html#VkImageView" class="xref page">VkImageView</a> in its <code>imageView</code> member
-has a multi-planar format with only two planes, then its <code>plane</code>
-member <strong>must</strong> not be <code>VK_IMAGE_ASPECT_PLANE_2_BIT</code></p>
+has a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a> with only two planes,
+then its <code>plane</code> member <strong>must</strong> not be
+<code>VK_IMAGE_ASPECT_PLANE_2_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkExportMetalObjectsInfoEXT-pNext-06803" href="#VUID-VkExportMetalObjectsInfoEXT-pNext-06803"></a> <span class="vuid">VUID-VkExportMetalObjectsInfoEXT-pNext-06803</span><br>
@@ -7209,7 +7498,7 @@ chain of the <a href="synchronization.html#VkEventCreateInfo" class="xref page">
 </li>
 <li>
 <p><a id="VUID-VkExportMetalObjectsInfoEXT-sType-unique" href="#VUID-VkExportMetalObjectsInfoEXT-sType-unique"></a> <span class="vuid">VUID-VkExportMetalObjectsInfoEXT-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="#VkExportMetalBufferInfoEXT">VkExportMetalBufferInfoEXT</a>, <a href="#VkExportMetalCommandQueueInfoEXT">VkExportMetalCommandQueueInfoEXT</a>, <a href="#VkExportMetalIOSurfaceInfoEXT">VkExportMetalIOSurfaceInfoEXT</a>, <a href="#VkExportMetalSharedEventInfoEXT">VkExportMetalSharedEventInfoEXT</a>, or <a href="#VkExportMetalTextureInfoEXT">VkExportMetalTextureInfoEXT</a></p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="#VkExportMetalBufferInfoEXT">VkExportMetalBufferInfoEXT</a>, <a href="#VkExportMetalCommandQueueInfoEXT">VkExportMetalCommandQueueInfoEXT</a>, <a href="#VkExportMetalIOSurfaceInfoEXT">VkExportMetalIOSurfaceInfoEXT</a>, <a href="#VkExportMetalSharedEventInfoEXT">VkExportMetalSharedEventInfoEXT</a>, or <a href="#VkExportMetalTextureInfoEXT">VkExportMetalTextureInfoEXT</a></p>
 </li>
 </ul>
 </div>
@@ -8216,7 +8505,7 @@ memory type which the specified Screen buffer <strong>can</strong> be imported a
 </li>
 <li>
 <p><a id="VUID-VkScreenBufferPropertiesQNX-sType-unique" href="#VUID-VkScreenBufferPropertiesQNX-sType-unique"></a> <span class="vuid">VUID-VkScreenBufferPropertiesQNX-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -8319,6 +8608,477 @@ The <code>formatFeatures</code> member <strong>must</strong> include
 <li>
 <p><a id="VUID-VkScreenBufferFormatPropertiesQNX-sType-sType" href="#VUID-VkScreenBufferFormatPropertiesQNX-sType-sType"></a> <span class="vuid">VUID-VkScreenBufferFormatPropertiesQNX-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SCREEN_BUFFER_FORMAT_PROPERTIES_QNX</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_metal_external_memory"><a class="anchor" href="#_metal_external_memory"></a>Metal External Memory</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To import memory from a Metal handle, add a
+<a href="#VkImportMemoryMetalHandleInfoEXT">VkImportMemoryMetalHandleInfoEXT</a> structure to the <code>pNext</code> chain of
+the <a href="#VkMemoryAllocateInfo">VkMemoryAllocateInfo</a> structure.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkImportMemoryMetalHandleInfoEXT</code> structure is defined as:</p>
+</div>
+<div id="VkImportMemoryMetalHandleInfoEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_external_memory_metal
+typedef struct VkImportMemoryMetalHandleInfoEXT {
+    VkStructureType                       sType;
+    const void*                           pNext;
+    VkExternalMemoryHandleTypeFlagBits    handleType;
+    void*                                 handle;
+} VkImportMemoryMetalHandleInfoEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>handleType</code> is a <a href="capabilities.html#VkExternalMemoryHandleTypeFlagBits" class="xref page">VkExternalMemoryHandleTypeFlagBits</a> value
+specifying the type of <code>handle</code> or <code>name</code>.</p>
+</li>
+<li>
+<p><code>handle</code> is <code>NULL</code> or the external handle to import.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Importing memory object payloads from Metal handles shares the ownership of
+the handle to the Vulkan implementation.</p>
+</div>
+<div class="paragraph">
+<p>Applications <strong>can</strong> import the same payload into multiple instances of Vulkan,
+into the same instance from which it was exported, and multiple times into a
+given Vulkan instance.
+In all cases, each import operation <strong>must</strong> create a distinct
+<code>VkDeviceMemory</code> object.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkImportMemoryMetalHandleInfoEXT-handleType-10408" href="#VUID-VkImportMemoryMetalHandleInfoEXT-handleType-10408"></a> <span class="vuid">VUID-VkImportMemoryMetalHandleInfoEXT-handleType-10408</span><br>
+
+If <code>handleType</code> is not <code>0</code>, it <strong>must</strong> be supported for import, as
+reported by <a href="capabilities.html#VkExternalImageFormatProperties" class="xref page">VkExternalImageFormatProperties</a> or
+<a href="capabilities.html#VkExternalBufferProperties" class="xref page">VkExternalBufferProperties</a></p>
+</li>
+<li>
+<p><a id="VUID-VkImportMemoryMetalHandleInfoEXT-handle-10409" href="#VUID-VkImportMemoryMetalHandleInfoEXT-handle-10409"></a> <span class="vuid">VUID-VkImportMemoryMetalHandleInfoEXT-handle-10409</span><br>
+
+The memory from which <code>handle</code> was exported <strong>must</strong> have been created
+on the same underlying physical device as <code>device</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImportMemoryMetalHandleInfoEXT-handleType-10410" href="#VUID-VkImportMemoryMetalHandleInfoEXT-handleType-10410"></a> <span class="vuid">VUID-VkImportMemoryMetalHandleInfoEXT-handleType-10410</span><br>
+
+If <code>handleType</code> is not <code>0</code>, it <strong>must</strong> be
+<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLBUFFER_BIT_EXT</code>,
+<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLTEXTURE_BIT_EXT</code> or
+<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLHEAP_BIT_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImportMemoryMetalHandleInfoEXT-handleType-10411" href="#VUID-VkImportMemoryMetalHandleInfoEXT-handleType-10411"></a> <span class="vuid">VUID-VkImportMemoryMetalHandleInfoEXT-handleType-10411</span><br>
+
+If <code>handleType</code> is not <code>0</code> , <code>handle</code> <strong>must</strong> be a valid non-NULL
+handle of the type specified by <code>handleType</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImportMemoryMetalHandleInfoEXT-handle-10412" href="#VUID-VkImportMemoryMetalHandleInfoEXT-handle-10412"></a> <span class="vuid">VUID-VkImportMemoryMetalHandleInfoEXT-handle-10412</span><br>
+
+<code>handle</code> <strong>must</strong> obey any requirements listed for <code>handleType</code> in
+<a href="capabilities.html#external-memory-handle-types-compatibility" class="xref page">external memory handle    types compatibility</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkImportMemoryMetalHandleInfoEXT-sType-sType" href="#VUID-VkImportMemoryMetalHandleInfoEXT-sType-sType"></a> <span class="vuid">VUID-VkImportMemoryMetalHandleInfoEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_IMPORT_MEMORY_METAL_HANDLE_INFO_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkImportMemoryMetalHandleInfoEXT-handleType-parameter" href="#VUID-VkImportMemoryMetalHandleInfoEXT-handleType-parameter"></a> <span class="vuid">VUID-VkImportMemoryMetalHandleInfoEXT-handleType-parameter</span><br>
+ If <code>handleType</code> is not <code>0</code>, <code>handleType</code> <strong>must</strong> be a valid <a href="capabilities.html#VkExternalMemoryHandleTypeFlagBits" class="xref page">VkExternalMemoryHandleTypeFlagBits</a> value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To export a Metal handle representing the payload of a Vulkan device memory
+object, call:</p>
+</div>
+<div id="vkGetMemoryMetalHandleEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_external_memory_metal
+VkResult vkGetMemoryMetalHandleEXT(
+    VkDevice                                    device,
+    const VkMemoryGetMetalHandleInfoEXT*        pGetMetalHandleInfo,
+    void**                                      pHandle);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the logical device that created the device memory being
+exported.</p>
+</li>
+<li>
+<p><code>pGetMetalHandleInfo</code> is a pointer to a
+<a href="#VkMemoryGetMetalHandleInfoEXT">VkMemoryGetMetalHandleInfoEXT</a> structure containing parameters of
+the export operation.</p>
+</li>
+<li>
+<p><code>pHandle</code> will return the Metal handle representing the payload of
+the device memory object.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Unless the app retains the handle object returned by the call, the lifespan
+will be the same as the associated <code>VkDeviceMemory</code>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkGetMemoryMetalHandleEXT-device-parameter" href="#VUID-vkGetMemoryMetalHandleEXT-device-parameter"></a> <span class="vuid">VUID-vkGetMemoryMetalHandleEXT-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetMemoryMetalHandleEXT-pGetMetalHandleInfo-parameter" href="#VUID-vkGetMemoryMetalHandleEXT-pGetMetalHandleInfo-parameter"></a> <span class="vuid">VUID-vkGetMemoryMetalHandleEXT-pGetMetalHandleInfo-parameter</span><br>
+ <code>pGetMetalHandleInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkMemoryGetMetalHandleInfoEXT">VkMemoryGetMetalHandleInfoEXT</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkGetMemoryMetalHandleEXT-pHandle-parameter" href="#VUID-vkGetMemoryMetalHandleEXT-pHandle-parameter"></a> <span class="vuid">VUID-vkGetMemoryMetalHandleEXT-pHandle-parameter</span><br>
+ <code>pHandle</code> <strong>must</strong> be a valid pointer to a pointer value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkMemoryGetMetalHandleInfoEXT</code> structure is defined as:</p>
+</div>
+<div id="VkMemoryGetMetalHandleInfoEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_external_memory_metal
+typedef struct VkMemoryGetMetalHandleInfoEXT {
+    VkStructureType                       sType;
+    const void*                           pNext;
+    VkDeviceMemory                        memory;
+    VkExternalMemoryHandleTypeFlagBits    handleType;
+} VkMemoryGetMetalHandleInfoEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>memory</code> is the memory object from which the handle will be
+exported.</p>
+</li>
+<li>
+<p><code>handleType</code> is a <a href="capabilities.html#VkExternalMemoryHandleTypeFlagBits" class="xref page">VkExternalMemoryHandleTypeFlagBits</a> value
+specifying the type of handle requested.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The properties of the handle returned depend on the value of
+<code>handleType</code>.
+See <a href="capabilities.html#VkExternalMemoryHandleTypeFlagBits" class="xref page">VkExternalMemoryHandleTypeFlagBits</a> for a description of the
+properties of the defined external memory handle types.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkMemoryGetMetalHandleInfoEXT-memory-10413" href="#VUID-VkMemoryGetMetalHandleInfoEXT-memory-10413"></a> <span class="vuid">VUID-VkMemoryGetMetalHandleInfoEXT-memory-10413</span><br>
+
+<code>memory</code> <strong>must</strong> have been created with a valid
+<a href="#VkExportMemoryAllocateInfo">VkExportMemoryAllocateInfo</a></p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryGetMetalHandleInfoEXT-handleType-10414" href="#VUID-VkMemoryGetMetalHandleInfoEXT-handleType-10414"></a> <span class="vuid">VUID-VkMemoryGetMetalHandleInfoEXT-handleType-10414</span><br>
+
+<code>handleType</code> <strong>must</strong> have been included in
+<a href="#VkExportMemoryAllocateInfo">VkExportMemoryAllocateInfo</a>::<code>handleTypes</code> when <code>memory</code>
+was created</p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryGetMetalHandleInfoEXT-handleType-10415" href="#VUID-VkMemoryGetMetalHandleInfoEXT-handleType-10415"></a> <span class="vuid">VUID-VkMemoryGetMetalHandleInfoEXT-handleType-10415</span><br>
+
+<code>handleType</code> <strong>must</strong> be
+<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLBUFFER_BIT_EXT</code>,
+<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLTEXTURE_BIT_EXT</code> or
+<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLHEAP_BIT_EXT</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkMemoryGetMetalHandleInfoEXT-sType-sType" href="#VUID-VkMemoryGetMetalHandleInfoEXT-sType-sType"></a> <span class="vuid">VUID-VkMemoryGetMetalHandleInfoEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_MEMORY_GET_METAL_HANDLE_INFO_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryGetMetalHandleInfoEXT-pNext-pNext" href="#VUID-VkMemoryGetMetalHandleInfoEXT-pNext-pNext"></a> <span class="vuid">VUID-VkMemoryGetMetalHandleInfoEXT-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryGetMetalHandleInfoEXT-memory-parameter" href="#VUID-VkMemoryGetMetalHandleInfoEXT-memory-parameter"></a> <span class="vuid">VUID-VkMemoryGetMetalHandleInfoEXT-memory-parameter</span><br>
+ <code>memory</code> <strong>must</strong> be a valid <a href="#VkDeviceMemory">VkDeviceMemory</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryGetMetalHandleInfoEXT-handleType-parameter" href="#VUID-VkMemoryGetMetalHandleInfoEXT-handleType-parameter"></a> <span class="vuid">VUID-VkMemoryGetMetalHandleInfoEXT-handleType-parameter</span><br>
+ <code>handleType</code> <strong>must</strong> be a valid <a href="capabilities.html#VkExternalMemoryHandleTypeFlagBits" class="xref page">VkExternalMemoryHandleTypeFlagBits</a> value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Metal memory handles compatible with Vulkan <strong>may</strong> also be created by
+non-Vulkan APIs using methods beyond the scope of this specification.
+To determine the correct parameters to use when importing such handles,
+call:</p>
+</div>
+<div id="vkGetMemoryMetalHandlePropertiesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_external_memory_metal
+VkResult vkGetMemoryMetalHandlePropertiesEXT(
+    VkDevice                                    device,
+    VkExternalMemoryHandleTypeFlagBits          handleType,
+    const void*                                 pHandle,
+    VkMemoryMetalHandlePropertiesEXT*           pMemoryMetalHandleProperties);</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>device</code> is the logical device that will be importing <code>pHandle</code>.</p>
+</li>
+<li>
+<p><code>handleType</code> is a <a href="capabilities.html#VkExternalMemoryHandleTypeFlagBits" class="xref page">VkExternalMemoryHandleTypeFlagBits</a> value
+specifying the type of the handle <code>pHandle</code>.</p>
+</li>
+<li>
+<p><code>pHandle</code> is the handle which will be imported.</p>
+</li>
+<li>
+<p><code>pMemoryMetalHandleProperties</code> is a pointer to a
+<a href="#VkMemoryMetalHandlePropertiesEXT">VkMemoryMetalHandlePropertiesEXT</a> structure in which properties of
+<code>pHandle</code> are returned.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkGetMemoryMetalHandlePropertiesEXT-handle-10416" href="#VUID-vkGetMemoryMetalHandlePropertiesEXT-handle-10416"></a> <span class="vuid">VUID-vkGetMemoryMetalHandlePropertiesEXT-handle-10416</span><br>
+
+<code>pHandle</code> <strong>must</strong> point to a valid id&lt;MTLBuffer&gt;, id&lt;MTLTexture&gt; or
+id&lt;MTLDevice&gt;</p>
+</li>
+<li>
+<p><a id="VUID-vkGetMemoryMetalHandlePropertiesEXT-handleType-10417" href="#VUID-vkGetMemoryMetalHandlePropertiesEXT-handleType-10417"></a> <span class="vuid">VUID-vkGetMemoryMetalHandlePropertiesEXT-handleType-10417</span><br>
+
+<code>handleType</code> <strong>must</strong> be
+<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLBUFFER_BIT_EXT</code>,
+<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLTEXTURE_BIT_EXT</code> or
+<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLHEAP_BIT_EXT</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-vkGetMemoryMetalHandlePropertiesEXT-device-parameter" href="#VUID-vkGetMemoryMetalHandlePropertiesEXT-device-parameter"></a> <span class="vuid">VUID-vkGetMemoryMetalHandlePropertiesEXT-device-parameter</span><br>
+ <code>device</code> <strong>must</strong> be a valid <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> handle</p>
+</li>
+<li>
+<p><a id="VUID-vkGetMemoryMetalHandlePropertiesEXT-handleType-parameter" href="#VUID-vkGetMemoryMetalHandlePropertiesEXT-handleType-parameter"></a> <span class="vuid">VUID-vkGetMemoryMetalHandlePropertiesEXT-handleType-parameter</span><br>
+ <code>handleType</code> <strong>must</strong> be a valid <a href="capabilities.html#VkExternalMemoryHandleTypeFlagBits" class="xref page">VkExternalMemoryHandleTypeFlagBits</a> value</p>
+</li>
+<li>
+<p><a id="VUID-vkGetMemoryMetalHandlePropertiesEXT-pHandle-parameter" href="#VUID-vkGetMemoryMetalHandlePropertiesEXT-pHandle-parameter"></a> <span class="vuid">VUID-vkGetMemoryMetalHandlePropertiesEXT-pHandle-parameter</span><br>
+ <code>pHandle</code> <strong>must</strong> be a pointer value</p>
+</li>
+<li>
+<p><a id="VUID-vkGetMemoryMetalHandlePropertiesEXT-pMemoryMetalHandleProperties-parameter" href="#VUID-vkGetMemoryMetalHandlePropertiesEXT-pMemoryMetalHandleProperties-parameter"></a> <span class="vuid">VUID-vkGetMemoryMetalHandlePropertiesEXT-pMemoryMetalHandleProperties-parameter</span><br>
+ <code>pMemoryMetalHandleProperties</code> <strong>must</strong> be a valid pointer to a <a href="#VkMemoryMetalHandlePropertiesEXT">VkMemoryMetalHandlePropertiesEXT</a> structure</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Return Codes</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-successcodes" class="xref page">Success</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_SUCCESS</code></p>
+</li>
+</ul>
+</div>
+</dd>
+<dt class="hdlist1"><a href="fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
+<dd>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkMemoryMetalHandlePropertiesEXT</code> structure returned is defined as:</p>
+</div>
+<div id="VkMemoryMetalHandlePropertiesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_external_memory_metal
+typedef struct VkMemoryMetalHandlePropertiesEXT {
+    VkStructureType    sType;
+    void*              pNext;
+    uint32_t           memoryTypeBits;
+} VkMemoryMetalHandlePropertiesEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>memoryTypeBits</code> is a bitmask containing one bit set for every
+memory type which the specified Metal handle <strong>can</strong> be imported as.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkMemoryMetalHandlePropertiesEXT-sType-sType" href="#VUID-VkMemoryMetalHandlePropertiesEXT-sType-sType"></a> <span class="vuid">VUID-VkMemoryMetalHandlePropertiesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_MEMORY_METAL_HANDLE_PROPERTIES_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryMetalHandlePropertiesEXT-pNext-pNext" href="#VUID-VkMemoryMetalHandlePropertiesEXT-pNext-pNext"></a> <span class="vuid">VUID-VkMemoryMetalHandlePropertiesEXT-pNext-pNext</span><br>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
 </li>
 </ul>
 </div>
@@ -8432,6 +9192,19 @@ If <code>VK_MEMORY_ALLOCATE_DEVICE_MASK_BIT</code> is set, <code>deviceMask</cod
 If <code>VK_MEMORY_ALLOCATE_DEVICE_MASK_BIT</code> is set, <code>deviceMask</code>
 <strong>must</strong> not be zero</p>
 </li>
+<li>
+<p><a id="VUID-VkMemoryAllocateFlagsInfo-flags-10760" href="#VUID-VkMemoryAllocateFlagsInfo-flags-10760"></a> <span class="vuid">VUID-VkMemoryAllocateFlagsInfo-flags-10760</span><br>
+
+If the allocation is performing a memory import operation, then
+<code>flags</code> <strong>must</strong> not contain
+<code>VK_MEMORY_ALLOCATE_ZERO_INITIALIZE_BIT_EXT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryAllocateFlagsInfo-flags-10761" href="#VUID-VkMemoryAllocateFlagsInfo-flags-10761"></a> <span class="vuid">VUID-VkMemoryAllocateFlagsInfo-flags-10761</span><br>
+
+If the allocation uses protected memory, then <code>flags</code> <strong>must</strong> not
+contain <code>VK_MEMORY_ALLOCATE_ZERO_INITIALIZE_BIT_EXT</code></p>
+</li>
 </ul>
 </div>
 </div>
@@ -8470,6 +9243,8 @@ typedef enum VkMemoryAllocateFlagBits {
     VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT = 0x00000002,
   // Provided by VK_VERSION_1_2
     VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT = 0x00000004,
+  // Provided by VK_EXT_zero_initialize_device_memory
+    VK_MEMORY_ALLOCATE_ZERO_INITIALIZE_BIT_EXT = 0x00000008,
   // Provided by VK_KHR_device_group
     VK_MEMORY_ALLOCATE_DEVICE_MASK_BIT_KHR = VK_MEMORY_ALLOCATE_DEVICE_MASK_BIT,
   // Provided by VK_KHR_buffer_device_address
@@ -8507,6 +9282,11 @@ via <a href="#vkGetDeviceMemoryOpaqueCaptureAddress">vkGetDeviceMemoryOpaqueCapt
 that the memory&#8217;s address <strong>can</strong> be saved and reused on a subsequent run
 (e.g. for trace capture and replay), see
 <a href="resources.html#VkBufferOpaqueCaptureAddressCreateInfo" class="xref page">VkBufferOpaqueCaptureAddressCreateInfo</a> for more detail.</p>
+</li>
+<li>
+<p><code>VK_MEMORY_ALLOCATE_ZERO_INITIALIZE_BIT_EXT</code> specifies that the
+memory will be zeroed automatically by the implementation before
+application is able to access it.</p>
 </li>
 </ul>
 </div>
@@ -9347,7 +10127,7 @@ object <strong>must</strong> not have been imported from a handle type of
 </li>
 <li>
 <p><a id="VUID-VkMemoryMapInfo-sType-unique" href="#VUID-VkMemoryMapInfo-sType-unique"></a> <span class="vuid">VUID-VkMemoryMapInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkMemoryMapInfo-flags-parameter" href="#VUID-VkMemoryMapInfo-flags-parameter"></a> <span class="vuid">VUID-VkMemoryMapInfo-flags-parameter</span><br>
@@ -9574,7 +10354,6 @@ memory model.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>Some systems allow writes that do not directly integrate with the host
 memory model; these have to be synchronized by the application manually.
@@ -9600,7 +10379,6 @@ includes host writes to the specified memory ranges.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>When a host write to a memory location is made available in this way, each
 whole aligned set of <a href="limits.html#limits-nonCoherentAtomSize" class="xref page"><code>nonCoherentAtomSize</code></a> bytes that the memory location exists in will
@@ -9748,7 +10526,6 @@ memory model.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>This function does not synchronize with device operations directly - other
 host <a href="synchronization.html#synchronization" class="xref page">synchronization operations</a> that depend on device
@@ -9799,7 +10576,6 @@ includes host reads to the specified memory ranges.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>When a device write to a memory location is made visible to the host in this
 way, each whole aligned set of <a href="limits.html#limits-nonCoherentAtomSize" class="xref page"><code>nonCoherentAtomSize</code></a> bytes that the memory location exists in will
@@ -11531,8 +12307,14 @@ specify them during replay.</p>
 <li>
 <p><a id="VUID-vkGetDeviceMemoryOpaqueCaptureAddress-None-03334" href="#VUID-vkGetDeviceMemoryOpaqueCaptureAddress-None-03334"></a> <span class="vuid">VUID-vkGetDeviceMemoryOpaqueCaptureAddress-None-03334</span><br>
 
-The <a href="features.html#features-bufferDeviceAddress" class="xref page"><code>bufferDeviceAddress</code></a> feature
-<strong>must</strong> be enabled</p>
+The <a href="features.html#features-bufferDeviceAddress" class="xref page"><code>bufferDeviceAddress</code></a> and
+<a href="features.html#features-bufferDeviceAddressCaptureReplay" class="xref page">    <code>bufferDeviceAddressCaptureReplay</code></a> features <strong>must</strong> be enabled</p>
+</li>
+<li>
+<p><a id="VUID-vkGetDeviceMemoryOpaqueCaptureAddress-pInfo-10727" href="#VUID-vkGetDeviceMemoryOpaqueCaptureAddress-pInfo-10727"></a> <span class="vuid">VUID-vkGetDeviceMemoryOpaqueCaptureAddress-pInfo-10727</span><br>
+
+<code>pInfo</code>::<code>memory</code> <strong>must</strong> have been allocated using the
+<code>VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code> flag</p>
 </li>
 <li>
 <p><a id="VUID-vkGetDeviceMemoryOpaqueCaptureAddress-device-03335" href="#VUID-vkGetDeviceMemoryOpaqueCaptureAddress-device-03335"></a> <span class="vuid">VUID-vkGetDeviceMemoryOpaqueCaptureAddress-device-03335</span><br>
@@ -11648,6 +12430,29 @@ structure.</p>
 </div>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>

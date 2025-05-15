@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
@@ -432,7 +432,9 @@ pipelines.</p>
 <p><code>pipelineCache</code> is either <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, indicating that
 pipeline caching is disabled; or the handle of a valid
 <a href="pipelines.html#pipelines-cache" class="xref page">pipeline cache</a> object, in which case use of that
-cache is enabled for the duration of the command.</p>
+cache is enabled for the duration of the command.
+The implementation <strong>must</strong> not access this object outside of the duration
+of this command.</p>
 </li>
 <li>
 <p><code>createInfoCount</code> is the length of the <code>pCreateInfos</code> and
@@ -661,7 +663,9 @@ libraries to include.</p>
 </li>
 <li>
 <p><code>layout</code> is the description of binding locations used by both the
-pipeline and descriptor sets used with the pipeline.</p>
+pipeline and descriptor sets used with the pipeline.
+The implementation <strong>must</strong> not access this object outside of the duration
+of the command this structure is passed to.</p>
 </li>
 <li>
 <p><code>basePipelineHandle</code> is a pipeline to derive from</p>
@@ -990,7 +994,7 @@ graph corresponding to every index from 0 to its
 </li>
 <li>
 <p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-sType-unique" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-sType-unique"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkExecutionGraphPipelineCreateInfoAMDX-pStages-parameter" href="#VUID-VkExecutionGraphPipelineCreateInfoAMDX-pStages-parameter"></a> <span class="vuid">VUID-VkExecutionGraphPipelineCreateInfoAMDX-pStages-parameter</span><br>
@@ -1979,16 +1983,6 @@ state specified statically in the <a href="pipelines.html#VkPipeline" class="xre
 pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphAMDX-None-08607" href="#VUID-vkCmdDispatchGraphAMDX-None-08607"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-None-08607</span><br>
-
-If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
-either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
-by this command, or a valid combination of valid and
-<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
-shader stage corresponding to the pipeline bind point used by this
-command</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-uniformBuffers-06935" href="#VUID-vkCmdDispatchGraphAMDX-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-uniformBuffers-06935</span><br>
 
 If any stage of the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
@@ -2043,23 +2037,6 @@ any resource accessed by <a href="shaders.html#shaders-binding" class="xref page
 a protected resource</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphAMDX-None-06550" href="#VUID-vkCmdDispatchGraphAMDX-None-06550"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-None-06550</span><br>
-
-If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
-<a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
-<strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdDispatchGraphAMDX-ConstOffset-06551" href="#VUID-vkCmdDispatchGraphAMDX-ConstOffset-06551"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-ConstOffset-06551</span><br>
-
-If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
-<a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
-<strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-viewType-07752" href="#VUID-vkCmdDispatchGraphAMDX-viewType-07752"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-viewType-07752</span><br>
 
 If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
@@ -2069,10 +2046,10 @@ image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>D
 <li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-format-07753" href="#VUID-vkCmdDispatchGraphAMDX-format-07753"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-format-07753</span><br>
 
-If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
-<a href="formats.html#formats-numericformat" class="xref page">numeric type</a> of the image view&#8217;s <code>format</code>
-and the <code>Sampled</code> <code>Type</code> operand of the <code>OpTypeImage</code> <strong>must</strong>
-match</p>
+If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> or <a href="resources.html#VkBufferView" class="xref page">VkBufferView</a> is accessed as a result of
+this command, then the <a href="formats.html#formats-numericformat" class="xref page">numeric type</a> of the
+view&#8217;s <code>format</code> and the <code>Sampled</code> <code>Type</code> operand of the
+<code>OpTypeImage</code> <strong>must</strong> match</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-OpImageWrite-08795" href="#VUID-vkCmdDispatchGraphAMDX-OpImageWrite-08795"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-OpImageWrite-08795</span><br>
@@ -2263,6 +2240,32 @@ If a descriptor with type equal to any of
 <code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code> is accessed as a result of
 this command, all image subresources identified by that descriptor <strong>must</strong>
 be in the image layout identified when the descriptor was written</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-commandBuffer-10746" href="#VUID-vkCmdDispatchGraphAMDX-commandBuffer-10746"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-commandBuffer-10746</span><br>
+
+The <code>VkDeviceMemory</code> object allocated from a <code>VkMemoryHeap</code> with
+the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property that is bound to
+a resource accessed as a result of this command <strong>must</strong> be the active
+bound <a href="memory.html#memory-bind-tile-memory" class="xref page">bound tile memory object</a> in
+<code>commandBuffer</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-None-10678" href="#VUID-vkCmdDispatchGraphAMDX-None-10678"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-None-10678</span><br>
+
+If this command is recorded inside a <a href="renderpass.html#renderpass-tile-shading" class="xref page">tile    shading render pass</a> instance, the stages corresponding to the pipeline
+bind point used by this command <strong>must</strong> only include
+<code>VK_SHADER_STAGE_VERTEX_BIT</code>, <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>,
+and/or <code>VK_SHADER_STAGE_COMPUTE_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-None-10679" href="#VUID-vkCmdDispatchGraphAMDX-None-10679"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-None-10679</span><br>
+
+If this command is recorded where
+<a href="renderpass.html#renderpass-per-tile-execution-model" class="xref page">per-tile execution model</a> is
+enabled, there <strong>must</strong> be no access to any image while the image was be
+transitioned to the
+<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-commandBuffer-09181" href="#VUID-vkCmdDispatchGraphAMDX-commandBuffer-09181"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-commandBuffer-09181</span><br>
@@ -2858,16 +2861,6 @@ state specified statically in the <a href="pipelines.html#VkPipeline" class="xre
 pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-None-08607" href="#VUID-vkCmdDispatchGraphIndirectAMDX-None-08607"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-None-08607</span><br>
-
-If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
-either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
-by this command, or a valid combination of valid and
-<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
-shader stage corresponding to the pipeline bind point used by this
-command</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-uniformBuffers-06935" href="#VUID-vkCmdDispatchGraphIndirectAMDX-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-uniformBuffers-06935</span><br>
 
 If any stage of the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
@@ -2922,23 +2915,6 @@ any resource accessed by <a href="shaders.html#shaders-binding" class="xref page
 a protected resource</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-None-06550" href="#VUID-vkCmdDispatchGraphIndirectAMDX-None-06550"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-None-06550</span><br>
-
-If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
-<a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
-<strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-ConstOffset-06551" href="#VUID-vkCmdDispatchGraphIndirectAMDX-ConstOffset-06551"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-ConstOffset-06551</span><br>
-
-If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
-<a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
-<strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-viewType-07752" href="#VUID-vkCmdDispatchGraphIndirectAMDX-viewType-07752"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-viewType-07752</span><br>
 
 If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
@@ -2948,10 +2924,10 @@ image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>D
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-format-07753" href="#VUID-vkCmdDispatchGraphIndirectAMDX-format-07753"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-format-07753</span><br>
 
-If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
-<a href="formats.html#formats-numericformat" class="xref page">numeric type</a> of the image view&#8217;s <code>format</code>
-and the <code>Sampled</code> <code>Type</code> operand of the <code>OpTypeImage</code> <strong>must</strong>
-match</p>
+If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> or <a href="resources.html#VkBufferView" class="xref page">VkBufferView</a> is accessed as a result of
+this command, then the <a href="formats.html#formats-numericformat" class="xref page">numeric type</a> of the
+view&#8217;s <code>format</code> and the <code>Sampled</code> <code>Type</code> operand of the
+<code>OpTypeImage</code> <strong>must</strong> match</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-OpImageWrite-08795" href="#VUID-vkCmdDispatchGraphIndirectAMDX-OpImageWrite-08795"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-OpImageWrite-08795</span><br>
@@ -3142,6 +3118,32 @@ If a descriptor with type equal to any of
 <code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code> is accessed as a result of
 this command, all image subresources identified by that descriptor <strong>must</strong>
 be in the image layout identified when the descriptor was written</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-10746" href="#VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-10746"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-10746</span><br>
+
+The <code>VkDeviceMemory</code> object allocated from a <code>VkMemoryHeap</code> with
+the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property that is bound to
+a resource accessed as a result of this command <strong>must</strong> be the active
+bound <a href="memory.html#memory-bind-tile-memory" class="xref page">bound tile memory object</a> in
+<code>commandBuffer</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-None-10678" href="#VUID-vkCmdDispatchGraphIndirectAMDX-None-10678"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-None-10678</span><br>
+
+If this command is recorded inside a <a href="renderpass.html#renderpass-tile-shading" class="xref page">tile    shading render pass</a> instance, the stages corresponding to the pipeline
+bind point used by this command <strong>must</strong> only include
+<code>VK_SHADER_STAGE_VERTEX_BIT</code>, <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>,
+and/or <code>VK_SHADER_STAGE_COMPUTE_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-None-10679" href="#VUID-vkCmdDispatchGraphIndirectAMDX-None-10679"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-None-10679</span><br>
+
+If this command is recorded where
+<a href="renderpass.html#renderpass-per-tile-execution-model" class="xref page">per-tile execution model</a> is
+enabled, there <strong>must</strong> be no access to any image while the image was be
+transitioned to the
+<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-09181" href="#VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-09181"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-09181</span><br>
@@ -3761,16 +3763,6 @@ state specified statically in the <a href="pipelines.html#VkPipeline" class="xre
 pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08607" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08607"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-None-08607</span><br>
-
-If the <a href="features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
-either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
-by this command, or a valid combination of valid and
-<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
-shader stage corresponding to the pipeline bind point used by this
-command</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-uniformBuffers-06935" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-uniformBuffers-06935</span><br>
 
 If any stage of the <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
@@ -3825,23 +3817,6 @@ any resource accessed by <a href="shaders.html#shaders-binding" class="xref page
 a protected resource</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-None-06550" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-None-06550"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-None-06550</span><br>
-
-If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
-<a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
-<strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-ConstOffset-06551" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-ConstOffset-06551"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-ConstOffset-06551</span><br>
-
-If <a href="shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="samplers.html#VkSampler" class="xref page">VkSampler</a> or
-<a href="resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
-<strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-viewType-07752" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-viewType-07752"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-viewType-07752</span><br>
 
 If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
@@ -3851,10 +3826,10 @@ image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>D
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-format-07753" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-format-07753"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-format-07753</span><br>
 
-If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
-<a href="formats.html#formats-numericformat" class="xref page">numeric type</a> of the image view&#8217;s <code>format</code>
-and the <code>Sampled</code> <code>Type</code> operand of the <code>OpTypeImage</code> <strong>must</strong>
-match</p>
+If a <a href="resources.html#VkImageView" class="xref page">VkImageView</a> or <a href="resources.html#VkBufferView" class="xref page">VkBufferView</a> is accessed as a result of
+this command, then the <a href="formats.html#formats-numericformat" class="xref page">numeric type</a> of the
+view&#8217;s <code>format</code> and the <code>Sampled</code> <code>Type</code> operand of the
+<code>OpTypeImage</code> <strong>must</strong> match</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-OpImageWrite-08795" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-OpImageWrite-08795"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-OpImageWrite-08795</span><br>
@@ -4045,6 +4020,32 @@ If a descriptor with type equal to any of
 <code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code> is accessed as a result of
 this command, all image subresources identified by that descriptor <strong>must</strong>
 be in the image layout identified when the descriptor was written</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-10746" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-10746"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-10746</span><br>
+
+The <code>VkDeviceMemory</code> object allocated from a <code>VkMemoryHeap</code> with
+the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property that is bound to
+a resource accessed as a result of this command <strong>must</strong> be the active
+bound <a href="memory.html#memory-bind-tile-memory" class="xref page">bound tile memory object</a> in
+<code>commandBuffer</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10678" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10678"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10678</span><br>
+
+If this command is recorded inside a <a href="renderpass.html#renderpass-tile-shading" class="xref page">tile    shading render pass</a> instance, the stages corresponding to the pipeline
+bind point used by this command <strong>must</strong> only include
+<code>VK_SHADER_STAGE_VERTEX_BIT</code>, <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>,
+and/or <code>VK_SHADER_STAGE_COMPUTE_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10679" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10679"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-None-10679</span><br>
+
+If this command is recorded where
+<a href="renderpass.html#renderpass-per-tile-execution-model" class="xref page">per-tile execution model</a> is
+enabled, there <strong>must</strong> be no access to any image while the image was be
+transitioned to the
+<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-09181" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-09181"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-09181</span><br>
@@ -4520,6 +4521,29 @@ pipeline.</p>
 </div>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>

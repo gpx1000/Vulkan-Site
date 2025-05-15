@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
@@ -1061,7 +1061,7 @@ application <strong>can</strong> link a
 <a href="debugging.html#VkDebugReportCallbackCreateInfoEXT" class="xref page">VkDebugReportCallbackCreateInfoEXT</a> structure
 or a
 <a href="debugging.html#VkDebugUtilsMessengerCreateInfoEXT" class="xref page">VkDebugUtilsMessengerCreateInfoEXT</a> structure
-to the <code>pNext</code> element of the <code>VkInstanceCreateInfo</code> structure given
+to the <code>pNext</code> chain of the <code>VkInstanceCreateInfo</code> structure passed
 to <code>vkCreateInstance</code>.
 This callback is only valid for the duration of the <a href="#vkCreateInstance">vkCreateInstance</a>
 and the <a href="#vkDestroyInstance">vkDestroyInstance</a> call.
@@ -1073,8 +1073,8 @@ to create persistent callback objects.</p>
 </div>
 <div class="paragraph">
 <p>An application can add additional drivers by including the
-<a href="#VkDirectDriverLoadingListLUNARG">VkDirectDriverLoadingListLUNARG</a> struct to the <code>pNext</code> element of
-the <code>VkInstanceCreateInfo</code> structure given to <code>vkCreateInstance</code>.</p>
+<a href="#VkDirectDriverLoadingListLUNARG">VkDirectDriverLoadingListLUNARG</a> structure in the <code>pNext</code> chain of
+the <code>VkInstanceCreateInfo</code> structure passed to <code>vkCreateInstance</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1185,7 +1185,7 @@ If the <code>pNext</code> chain of <code>VkInstanceCreateInfo</code> includes a
 </li>
 <li>
 <p><a id="VUID-VkInstanceCreateInfo-sType-unique" href="#VUID-VkInstanceCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkInstanceCreateInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="debugging.html#VkDebugUtilsMessengerCreateInfoEXT" class="xref page">VkDebugUtilsMessengerCreateInfoEXT</a>, <a href="memory.html#VkExportMetalObjectCreateInfoEXT" class="xref page">VkExportMetalObjectCreateInfoEXT</a>, or <a href="#VkLayerSettingsCreateInfoEXT">VkLayerSettingsCreateInfoEXT</a></p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="debugging.html#VkDebugUtilsMessengerCreateInfoEXT" class="xref page">VkDebugUtilsMessengerCreateInfoEXT</a>, <a href="memory.html#VkExportMetalObjectCreateInfoEXT" class="xref page">VkExportMetalObjectCreateInfoEXT</a>, or <a href="#VkLayerSettingsCreateInfoEXT">VkLayerSettingsCreateInfoEXT</a></p>
 </li>
 <li>
 <p><a id="VUID-VkInstanceCreateInfo-flags-parameter" href="#VUID-VkInstanceCreateInfo-flags-parameter"></a> <span class="vuid">VUID-VkInstanceCreateInfo-flags-parameter</span><br>
@@ -2234,6 +2234,13 @@ void vkDestroyInstance(
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>Prior to destroying an instance, an application is responsible for
+destroying/freeing any Vulkan objects with explicit <code>vkDestroy*</code> or
+<code>vkFree*</code> commands that were created using that instance, or any
+<a href="devsandqueues.html#VkPhysicalDevice" class="xref page">VkPhysicalDevice</a> object retrieved from it, as the first parameter of
+the corresponding <code>vkCreate*</code> or <code>vkAllocate*</code> command.</p>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="title">Valid Usage</div>
@@ -2242,8 +2249,10 @@ void vkDestroyInstance(
 <li>
 <p><a id="VUID-vkDestroyInstance-instance-00629" href="#VUID-vkDestroyInstance-instance-00629"></a> <span class="vuid">VUID-vkDestroyInstance-instance-00629</span><br>
 
-All child objects created using <code>instance</code> <strong>must</strong> have been destroyed
-prior to destroying <code>instance</code></p>
+All child objects that were created with <code>instance</code> or with a
+<a href="devsandqueues.html#VkPhysicalDevice" class="xref page">VkPhysicalDevice</a> retrieved from it, and that <strong>can</strong> be destroyed or
+freed, <strong>must</strong> have been destroyed or freed prior to destroying
+<code>instance</code></p>
 </li>
 <li>
 <p><a id="VUID-vkDestroyInstance-instance-00630" href="#VUID-vkDestroyInstance-instance-00630"></a> <span class="vuid">VUID-vkDestroyInstance-instance-00630</span><br>
@@ -2303,6 +2312,29 @@ created, <code>pAllocator</code> <strong>must</strong> be <code>NULL</code></p>
 </div>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>

@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="guide" data-version="latest">
+<div class="nav-container" data-component="guide" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -187,19 +187,22 @@
     <a class="nav-link" href="layers.html">Layers</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="querying_extensions_features.html">Querying Properties, Extensions, Features, Limits, and Formats</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_extensions.html">Enabling Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_features.html">Enabling Features</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spirv_extensions.html">Using SPIR-V Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="formats.html">Formats</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="queues.html">Queues</a>
@@ -218,18 +221,24 @@
     <a class="nav-link" href="extensions/VK_KHR_synchronization2.html">VK_KHR_synchronization2</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="swapchain_semaphore_reuse.html">Swapchain Semaphore Reuse</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="synchronization_examples.html">Synchronization Examples</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="memory_allocation.html">Memory Allocation</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="sparse_resources.html">Sparse Resources</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="protected.html">Protected Memory</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pipeline_cache.html">Pipeline Cache</a>
@@ -241,22 +250,37 @@
     <a class="nav-link" href="depth.html">Depth</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="mapping_data_to_shaders.html">Mapping Data to Shaders</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="vertex_input_data_processing.html">Vertex Input Data Processing</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="descriptor_dynamic_offset.html">Descriptor Dynamic Offset</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="location_component_interface.html">Location and Component Interface</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="push_constants.html">Push Constants</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ways_to_provide_spirv.html">Ways to Provide SPIR-V</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="robustness.html">Robustness</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="dynamic_state.html">Pipeline Dynamic State</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="dynamic_state_map.html">Dynamic State Map</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="subgroups.html">Subgroups</a>
@@ -393,7 +417,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../../spec/latest/index.html" class="home-link"></a>
@@ -414,7 +438,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Layers are optional components that augment the Vulkan system. They can intercept, evaluate, and modify existing Vulkan functions on their way from the application down to the hardware. Layer properties can be queried from an application with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#vkEnumerateInstanceLayerProperties">vkEnumerateInstanceLayerProperties</a>.</p>
+<p>Layers are optional components that augment the Vulkan system. They can intercept, evaluate, and modify existing Vulkan functions on their way from the application down to the hardware. Layer properties can be queried from an application with <a href="https://docs.vulkan.org/spec/latest/chapters/extensions.html#vkEnumerateInstanceLayerProperties">vkEnumerateInstanceLayerProperties</a>.</p>
 </div>
 </div>
 </div>
@@ -422,7 +446,7 @@
 <h2 id="_using_layers"><a class="anchor" href="#_using_layers"></a>Using Layers</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Layers are packaged as shared libraries that get dynamically loaded in by the loader and inserted between it and the application. The two things needed to use layers are the location of the binary files and which layers to enable. The layers to use can be either explicitly enabled by the application or implicitly enabled by telling the loader to use them. More details about implicit and explicit layers can be found in the <a href="https://github.com/KhronosGroup/Vulkan-Loader/blob/main/loader/LoaderAndLayerInterface.md#implicit-vs-explicit-layers">Loader and Layer Interface</a>.</p>
+<p>Layers are packaged as shared libraries that get dynamically loaded in by the loader and inserted between it and the application. The two things needed to use layers are the location of the binary files and which layers to enable. The layers to use can be either explicitly enabled by the application or implicitly enabled by telling the loader to use them. More details about implicit and explicit layers can be found in the <a href="https://github.com/KhronosGroup/Vulkan-Loader/blob/main/docs/LoaderApplicationInterface.md#implicit-vs-explicit-layers">Loader and Layer Interface</a>.</p>
 </div>
 <div class="paragraph">
 <p>The <a href="https://vulkan.lunarg.com/sdk/home">Vulkan SDK</a> contains a <a href="https://vulkan.lunarg.com/doc/sdk/latest/windows/layer_configuration.html">layer configuration document</a> that is very specific to how to discover and configure layers on each of the platforms.</p>
@@ -442,7 +466,7 @@ Please see the <a href="https://vulkan.lunarg.com/doc/sdk/latest/windows/vkconfi
 <h2 id="_device_layers_deprecation"><a class="anchor" href="#_device_layers_deprecation"></a>Device Layers Deprecation</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>There used to be both instance layers and device layers, but device layers were <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#extendingvulkan-layers-devicelayerdeprecation">deprecated</a> early in Vulkan&#8217;s life and should be avoided.</p>
+<p>There used to be both instance layers and device layers, but device layers were <a href="https://docs.vulkan.org/spec/latest/chapters/extensions.html#extendingvulkan-layers-devicelayerdeprecation">deprecated</a> early in Vulkan&#8217;s life and should be avoided.</p>
 </div>
 </div>
 </div>
@@ -450,7 +474,7 @@ Please see the <a href="https://vulkan.lunarg.com/doc/sdk/latest/windows/vkconfi
 <h2 id="_creating_a_layer"><a class="anchor" href="#_creating_a_layer"></a>Creating a Layer</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Anyone can create a layer as long as it follows the <a href="https://github.com/KhronosGroup/Vulkan-Loader/blob/main/loader/LoaderAndLayerInterface.md#loader-and-layer-interface">loader to layer interface</a> which is how the loader and layers agree to communicate with each other.</p>
+<p>Anyone can create a layer as long as it follows the <a href="https://github.com/KhronosGroup/Vulkan-Loader/blob/main/docs/LoaderApplicationInterface.md#loader-and-layer-interface">loader to layer interface</a> which is how the loader and layers agree to communicate with each other.</p>
 </div>
 </div>
 </div>
@@ -498,6 +522,29 @@ Please see the <a href="https://vulkan.lunarg.com/doc/sdk/latest/windows/vkconfi
 </div>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>

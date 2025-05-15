@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
@@ -787,10 +787,13 @@ is not zero, <code>flags</code> <strong>must</strong> include
 <li>
 <p><a id="VUID-VkBufferCreateInfo-flags-03338" href="#VUID-VkBufferCreateInfo-flags-03338"></a> <span class="vuid">VUID-VkBufferCreateInfo-flags-03338</span><br>
 
-If <code>flags</code> includes
-<code>VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code>, the
-<a href="features.html#features-bufferDeviceAddressCaptureReplayEXT" class="xref page">    <code>bufferDeviceAddressCaptureReplay</code></a> feature
-<strong>must</strong> be enabled</p>
+    If <code>flags</code> includes
+    <code>VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code>, the
+    <a href="features.html#features-bufferDeviceAddressCaptureReplayEXT" class="xref page">    VkPhysicalDeviceBufferDeviceAddressFeaturesEXT:<code>bufferDeviceAddressCaptureReplay</code></a>
+    feature
+or the
+    <a href="features.html#features-bufferDeviceAddressCaptureReplay" class="xref page">    <code>bufferDeviceAddressCaptureReplay</code></a> feature
+    <strong>must</strong> be enabled</p>
 </li>
 <li>
 <p><a id="VUID-VkBufferCreateInfo-usage-04813" href="#VUID-VkBufferCreateInfo-usage-04813"></a> <span class="vuid">VUID-VkBufferCreateInfo-usage-04813</span><br>
@@ -903,6 +906,76 @@ If <code>usage</code> includes
 <code>VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
 </li>
 <li>
+<p><a id="VUID-VkBufferCreateInfo-tileMemoryHeap-10762" href="#VUID-VkBufferCreateInfo-tileMemoryHeap-10762"></a> <span class="vuid">VUID-VkBufferCreateInfo-tileMemoryHeap-10762</span><br>
+
+If the <a href="features.html#features-tileMemoryHeap" class="xref page"><code>tileMemoryHeap</code></a> feature is not
+enabled, <code>usage</code> <strong>must</strong> not include
+<code>VK_BUFFER_USAGE_TILE_MEMORY_BIT_QCOM</code></p>
+</li>
+<li>
+<p><a id="VUID-VkBufferCreateInfo-usage-10763" href="#VUID-VkBufferCreateInfo-usage-10763"></a> <span class="vuid">VUID-VkBufferCreateInfo-usage-10763</span><br>
+
+  If <code>usage</code> includes <code>VK_BUFFER_USAGE_TILE_MEMORY_BIT_QCOM</code>, then
+<code>flags</code> <strong>must</strong> not contain any of the following bits</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_BUFFER_CREATE_SPARSE_BINDING_BIT</code></p>
+</li>
+<li>
+<p><code>VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT</code></p>
+</li>
+<li>
+<p><code>VK_BUFFER_CREATE_SPARSE_ALIASED_BIT</code></p>
+</li>
+<li>
+<p><code>VK_BUFFER_CREATE_PROTECTED_BIT</code></p>
+</li>
+<li>
+<p><code>VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code></p>
+</li>
+<li>
+<p><code>VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT</code></p>
+</li>
+<li>
+<p><code>VK_BUFFER_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a id="VUID-VkBufferCreateInfo-usage-10764" href="#VUID-VkBufferCreateInfo-usage-10764"></a> <span class="vuid">VUID-VkBufferCreateInfo-usage-10764</span><br>
+
+If <code>usage</code> includes <code>VK_BUFFER_USAGE_TILE_MEMORY_BIT_QCOM</code>, then
+only the following <code>usages</code> may be set:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT</code></p>
+</li>
+<li>
+<p><code>VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT</code></p>
+</li>
+<li>
+<p><code>VK_BUFFER_USAGE_UNIFORM_BUFFER_BIT</code></p>
+</li>
+<li>
+<p><code>VK_BUFFER_USAGE_STORAGE_BUFFER_BIT</code></p>
+</li>
+<li>
+<p><code>VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT</code></p>
+</li>
+<li>
+<p>and if
+<a href="limits.html#VkPhysicalDeviceTileMemoryHeapPropertiesQCOM" class="xref page">VkPhysicalDeviceTileMemoryHeapPropertiesQCOM</a>::<code>tileBufferTransfers</code>
+is <code>VK_TRUE</code> then additionally
+<code>VK_BUFFER_USAGE_TRANSFER_SRC_BIT</code> or
+<code>VK_BUFFER_USAGE_TRANSFER_DST_BIT</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
 <p><a id="VUID-VkBufferCreateInfo-flags-09641" href="#VUID-VkBufferCreateInfo-flags-09641"></a> <span class="vuid">VUID-VkBufferCreateInfo-flags-09641</span><br>
 
 If <code>flags</code> includes <code>VK_BUFFER_CREATE_PROTECTED_BIT</code>, then
@@ -964,7 +1037,7 @@ If <code>flags</code> includes <code>VK_BUFFER_CREATE_PROTECTED_BIT</code>, then
 </li>
 <li>
 <p><a id="VUID-VkBufferCreateInfo-sType-unique" href="#VUID-VkBufferCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkBufferCreateInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkBufferCreateInfo-flags-parameter" href="#VUID-VkBufferCreateInfo-flags-parameter"></a> <span class="vuid">VUID-VkBufferCreateInfo-flags-parameter</span><br>
@@ -1130,6 +1203,8 @@ static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_PUSH_DESCRIPTORS_DESCRIPTO
 static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT = 0x00800000ULL;
 // Provided by VK_KHR_maintenance5 with VK_EXT_opacity_micromap
 static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_MICROMAP_STORAGE_BIT_EXT = 0x01000000ULL;
+// Provided by VK_QCOM_tile_memory_heap
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_TILE_MEMORY_BIT_QCOM = 0x08000000ULL;
 // Provided by VK_EXT_device_generated_commands
 static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_PREPROCESS_BUFFER_BIT_EXT = 0x80000000ULL;</code></pre>
 </div>
@@ -1242,6 +1317,12 @@ as a descriptor buffer.</p>
 specifies that the buffer, when bound, <strong>can</strong> be used by the
 implementation to support push descriptors when using descriptor
 buffers.</p>
+</li>
+<li>
+<p><code>VK_BUFFER_USAGE_2_TILE_MEMORY_BIT_QCOM</code> specifies that the buffer
+<strong>can</strong> be bound to <code>VkDeviceMemory</code> allocated from a
+<a href="memory.html#VkMemoryHeap" class="xref page">VkMemoryHeap</a> with the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code>
+property.</p>
 </li>
 <li>
 <p><code>VK_BUFFER_USAGE_2_RAY_TRACING_BIT_NV</code> specifies that the buffer is
@@ -1377,6 +1458,8 @@ typedef enum VkBufferUsageFlagBits {
     VK_BUFFER_USAGE_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT = 0x00800000,
   // Provided by VK_EXT_opacity_micromap
     VK_BUFFER_USAGE_MICROMAP_STORAGE_BIT_EXT = 0x01000000,
+  // Provided by VK_QCOM_tile_memory_heap
+    VK_BUFFER_USAGE_TILE_MEMORY_BIT_QCOM = 0x08000000,
   // Provided by VK_NV_ray_tracing
     VK_BUFFER_USAGE_RAY_TRACING_BIT_NV = VK_BUFFER_USAGE_SHADER_BINDING_TABLE_BIT_KHR,
   // Provided by VK_EXT_buffer_device_address
@@ -1485,6 +1568,12 @@ descriptor buffer.</p>
 specifies that the buffer, when bound, <strong>can</strong> be used by the
 implementation to support push descriptors when using descriptor
 buffers.</p>
+</li>
+<li>
+<p><code>VK_BUFFER_USAGE_TILE_MEMORY_BIT_QCOM</code> specifies that the buffer
+<strong>can</strong> be bound to <code>VkDeviceMemory</code> allocated from a
+<a href="memory.html#VkMemoryHeap" class="xref page">VkMemoryHeap</a> with the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code>
+property.</p>
 </li>
 <li>
 <p><code>VK_BUFFER_USAGE_RAY_TRACING_BIT_NV</code> specifies that the buffer is
@@ -2470,7 +2559,7 @@ its <code>usage</code> <strong>must</strong> be a subset of the
 </li>
 <li>
 <p><a id="VUID-VkBufferViewCreateInfo-sType-unique" href="#VUID-VkBufferViewCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkBufferViewCreateInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="memory.html#VkExportMetalObjectCreateInfoEXT" class="xref page">VkExportMetalObjectCreateInfoEXT</a></p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="memory.html#VkExportMetalObjectCreateInfoEXT" class="xref page">VkExportMetalObjectCreateInfoEXT</a></p>
 </li>
 <li>
 <p><a id="VUID-VkBufferViewCreateInfo-flags-zerobitmask" href="#VUID-VkBufferViewCreateInfo-flags-zerobitmask"></a> <span class="vuid">VUID-VkBufferViewCreateInfo-flags-zerobitmask</span><br>
@@ -2862,8 +2951,8 @@ the image type.</p>
 texel blocks that will be contained in the image.</p>
 </li>
 <li>
-<p><code>extent</code> is a <a href="fundamentals.html#VkExtent3D" class="xref page">VkExtent3D</a> describing the number of data
-elements in each dimension of the base level.</p>
+<p><code>extent</code> is a <a href="fundamentals.html#VkExtent3D" class="xref page">VkExtent3D</a> describing the number of
+texels/pixels in each dimension of the base level.</p>
 </li>
 <li>
 <p><code>mipLevels</code> describes the number of levels of detail available for
@@ -2961,6 +3050,44 @@ otherwise indicated by
 </li>
 <li>
 <p><code>samples</code> is <code>VK_SAMPLE_COUNT_1_BIT</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Images created with usage including
+<code>VK_IMAGE_USAGE_TILE_MEMORY_BIT_QCOM</code> have further restrictions on their
+limits and capabilities compared to images created without this bit.
+Creation of images with usage including
+<code>VK_IMAGE_USAGE_TILE_MEMORY_BIT_QCOM</code> <strong>may</strong> not be supported unless
+parameters meet all of the constraints:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>flags</code> is 0 or only includes <code>VK_IMAGE_CREATE_ALIAS_BIT</code></p>
+</li>
+<li>
+<p><code>imageType</code> is <code>VK_IMAGE_TYPE_2D</code></p>
+</li>
+<li>
+<p><code>mipLevels</code> is 1</p>
+</li>
+<li>
+<p><code>arrayLayers</code> is 1</p>
+</li>
+<li>
+<p><code>samples</code> is <code>VK_SAMPLE_COUNT_1_BIT</code></p>
+</li>
+<li>
+<p><code>tiling</code> is <code>VK_IMAGE_TILING_OPTIMAL</code></p>
+</li>
+<li>
+<p><code>usage</code> includes <code>VK_IMAGE_USAGE_TILE_MEMORY_BIT_QCOM</code> and any
+valid combination of the following <code>VK_IMAGE_USAGE_SAMPLED_BIT</code>,
+<code>VK_IMAGE_USAGE_STORAGE_BIT</code>,
+<code>VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT</code>,
+<code>VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT</code>,
+<code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code></p>
 </li>
 </ul>
 </div>
@@ -3475,6 +3602,12 @@ If <code>flags</code> contains <code>VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT</code>,
 <code>arrayLayers</code> <strong>must</strong> be greater than or equal to 6</p>
 </li>
 <li>
+<p><a id="VUID-VkImageCreateInfo-initialLayout-10765" href="#VUID-VkImageCreateInfo-initialLayout-10765"></a> <span class="vuid">VUID-VkImageCreateInfo-initialLayout-10765</span><br>
+
+If the <a href="features.html#features-zeroInitializeDeviceMemory" class="xref page">    zeroInitializeDeviceMemory</a> feature is not enabled, <code>initialLayout</code>
+<strong>must</strong> not be <code>VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT</code></p>
+</li>
+<li>
 <p><a id="VUID-VkImageCreateInfo-flags-02557" href="#VUID-VkImageCreateInfo-flags-02557"></a> <span class="vuid">VUID-VkImageCreateInfo-flags-02557</span><br>
 
 If <code>flags</code> contains
@@ -3784,7 +3917,7 @@ handle types specified in
 If the <code>pNext</code> chain includes a
 <a href="#VkExternalMemoryImageCreateInfoNV">VkExternalMemoryImageCreateInfoNV</a> structure, its <code>handleTypes</code>
 member <strong>must</strong> only contain bits that are also in
-<a href="capabilities.html#VkExternalImageFormatPropertiesNV" class="xref page">VkExternalImageFormatPropertiesNV</a>::<code>externalMemoryProperties.compatibleHandleTypes</code>,
+<a href="capabilities.html#VkExternalImageFormatPropertiesNV" class="xref page">VkExternalImageFormatPropertiesNV</a>::<code>externalMemoryFeatures.compatibleHandleTypes</code>,
 as returned by <a href="capabilities.html#vkGetPhysicalDeviceExternalImageFormatPropertiesNV" class="xref page">vkGetPhysicalDeviceExternalImageFormatPropertiesNV</a>
 with <code>format</code>, <code>imageType</code>, <code>tiling</code>, <code>usage</code>, and
 <code>flags</code> equal to those in this structure, and with
@@ -3827,8 +3960,9 @@ If <code>flags</code> contains
 <li>
 <p><a id="VUID-VkImageCreateInfo-initialLayout-00993" href="#VUID-VkImageCreateInfo-initialLayout-00993"></a> <span class="vuid">VUID-VkImageCreateInfo-initialLayout-00993</span><br>
 
-<code>initialLayout</code> <strong>must</strong> be <code>VK_IMAGE_LAYOUT_UNDEFINED</code> or
-<code>VK_IMAGE_LAYOUT_PREINITIALIZED</code></p>
+    <code>initialLayout</code> <strong>must</strong> be <code>VK_IMAGE_LAYOUT_UNDEFINED</code> or
+<code>VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT</code> or
+    <code>VK_IMAGE_LAYOUT_PREINITIALIZED</code></p>
 </li>
 <li>
 <p><a id="VUID-VkImageCreateInfo-pNext-01443" href="#VUID-VkImageCreateInfo-pNext-01443"></a> <span class="vuid">VUID-VkImageCreateInfo-pNext-01443</span><br>
@@ -4190,23 +4324,21 @@ then <code>arrayLayers</code> <strong>must</strong> be <code>1</code></p>
 <p><a id="VUID-VkImageCreateInfo-pNext-06722" href="#VUID-VkImageCreateInfo-pNext-06722"></a> <span class="vuid">VUID-VkImageCreateInfo-pNext-06722</span><br>
 
 If a <a href="#VkImageFormatListCreateInfo">VkImageFormatListCreateInfo</a> structure was included in the
-<code>pNext</code> chain and <code>format</code> is not a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a> format and
+<code>pNext</code> chain and <code>format</code> is not a <a href="formats.html#formats-multiplanar" class="xref page">    multi-planar format</a> and
 <a href="#VkImageFormatListCreateInfo">VkImageFormatListCreateInfo</a>::<code>viewFormatCount</code> is not zero,
 then each format in
 <a href="#VkImageFormatListCreateInfo">VkImageFormatListCreateInfo</a>::<code>pViewFormats</code> <strong>must</strong> either be
 compatible with the <code>format</code> as described in the
 <a href="formats.html#formats-compatibility" class="xref page">compatibility table</a> or, if <code>flags</code>
 contains <code>VK_IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT</code>, be an
-uncompressed format that is size-compatible with <code>format</code></p>
+uncompressed format that is <a href="formats.html#formats-size-compatibility" class="xref page">    size-compatible</a> with <code>format</code></p>
 </li>
 <li>
 <p><a id="VUID-VkImageCreateInfo-pNext-10062" href="#VUID-VkImageCreateInfo-pNext-10062"></a> <span class="vuid">VUID-VkImageCreateInfo-pNext-10062</span><br>
 
 If a <a href="#VkImageFormatListCreateInfo">VkImageFormatListCreateInfo</a> structure was included in the
-<code>pNext</code> chain and <code>format</code> is a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a> format and
-<code>flags</code> contains <code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code> and
+<code>pNext</code> chain and <code>format</code> is a <a href="formats.html#formats-multiplanar" class="xref page">    multi-planar format</a> and <code>flags</code> contains
+<code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code> and
 <a href="#VkImageFormatListCreateInfo">VkImageFormatListCreateInfo</a>::<code>viewFormatCount</code> is not zero,
 then each format in
 <a href="#VkImageFormatListCreateInfo">VkImageFormatListCreateInfo</a>::<code>pViewFormats</code> <strong>must</strong> be
@@ -4402,9 +4534,7 @@ If <code>flags</code> contains
 <p><a id="VUID-VkImageCreateInfo-pNext-06743" href="#VUID-VkImageCreateInfo-pNext-06743"></a> <span class="vuid">VUID-VkImageCreateInfo-pNext-06743</span><br>
 
 If the <code>pNext</code> chain includes a <a href="#VkImageCompressionControlEXT">VkImageCompressionControlEXT</a>
-structure, <code>format</code> is a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a> format, and
-<a href="#VkImageCompressionControlEXT">VkImageCompressionControlEXT</a>::<code>flags</code> includes
+structure, <code>format</code> is a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar    format</a>, and <a href="#VkImageCompressionControlEXT">VkImageCompressionControlEXT</a>::<code>flags</code> includes
 <code>VK_IMAGE_COMPRESSION_FIXED_RATE_EXPLICIT_EXT</code>, then
 <a href="#VkImageCompressionControlEXT">VkImageCompressionControlEXT</a>::<code>compressionControlPlaneCount</code>
 <strong>must</strong> be equal to the number of planes in <code>format</code></p>
@@ -4413,9 +4543,7 @@ structure, <code>format</code> is a
 <p><a id="VUID-VkImageCreateInfo-pNext-06744" href="#VUID-VkImageCreateInfo-pNext-06744"></a> <span class="vuid">VUID-VkImageCreateInfo-pNext-06744</span><br>
 
 If the <code>pNext</code> chain includes a <a href="#VkImageCompressionControlEXT">VkImageCompressionControlEXT</a>
-structure, <code>format</code> is not a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a> format, and
-<a href="#VkImageCompressionControlEXT">VkImageCompressionControlEXT</a>::<code>flags</code> includes
+structure, <code>format</code> is not a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar    format</a>, and <a href="#VkImageCompressionControlEXT">VkImageCompressionControlEXT</a>::<code>flags</code> includes
 <code>VK_IMAGE_COMPRESSION_FIXED_RATE_EXPLICIT_EXT</code>, then
 <a href="#VkImageCompressionControlEXT">VkImageCompressionControlEXT</a>::<code>compressionControlPlaneCount</code>
 <strong>must</strong> be 1</p>
@@ -4463,7 +4591,7 @@ structure its <code>plane</code> member <strong>must</strong> be
 <p><a id="VUID-VkImageCreateInfo-pNext-06785" href="#VUID-VkImageCreateInfo-pNext-06785"></a> <span class="vuid">VUID-VkImageCreateInfo-pNext-06785</span><br>
 
 If the <code>pNext</code> chain includes a <a href="memory.html#VkImportMetalTextureInfoEXT" class="xref page">VkImportMetalTextureInfoEXT</a>
-structure and the image does not have a multi-planar format, then
+structure and the image does not have a <a href="formats.html#formats-multiplanar" class="xref page">    multi-planar format</a>, then
 <a href="memory.html#VkImportMetalTextureInfoEXT" class="xref page">VkImportMetalTextureInfoEXT</a>::<code>plane</code> <strong>must</strong> be
 <code>VK_IMAGE_ASPECT_PLANE_0_BIT</code></p>
 </li>
@@ -4471,8 +4599,8 @@ structure and the image does not have a multi-planar format, then
 <p><a id="VUID-VkImageCreateInfo-pNext-06786" href="#VUID-VkImageCreateInfo-pNext-06786"></a> <span class="vuid">VUID-VkImageCreateInfo-pNext-06786</span><br>
 
 If the <code>pNext</code> chain includes a <a href="memory.html#VkImportMetalTextureInfoEXT" class="xref page">VkImportMetalTextureInfoEXT</a>
-structure and the image has a multi-planar format with only two planes,
-then <a href="memory.html#VkImportMetalTextureInfoEXT" class="xref page">VkImportMetalTextureInfoEXT</a>::<code>plane</code> <strong>must</strong> not be
+structure and the image has a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar    format</a> with only two planes, then
+<a href="memory.html#VkImportMetalTextureInfoEXT" class="xref page">VkImportMetalTextureInfoEXT</a>::<code>plane</code> <strong>must</strong> not be
 <code>VK_IMAGE_ASPECT_PLANE_2_BIT</code></p>
 </li>
 <li>
@@ -4489,6 +4617,13 @@ contain <code>VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT</code>, then
 If <code>usage</code> includes <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT</code>, then
 the <a href="features.html#features-hostImageCopy" class="xref page"><code>hostImageCopy</code></a> feature <strong>must</strong> be
 enabled</p>
+</li>
+<li>
+<p><a id="VUID-VkImageCreateInfo-tileMemoryHeap-10766" href="#VUID-VkImageCreateInfo-tileMemoryHeap-10766"></a> <span class="vuid">VUID-VkImageCreateInfo-tileMemoryHeap-10766</span><br>
+
+If the <a href="features.html#features-tileMemoryHeap" class="xref page"><code>tileMemoryHeap</code></a> feature is not
+enabled, <code>usage</code> <strong>must</strong> not include
+<code>VK_IMAGE_USAGE_TILE_MEMORY_BIT_QCOM</code></p>
 </li>
 <li>
 <p><a id="VUID-VkImageCreateInfo-pNext-09653" href="#VUID-VkImageCreateInfo-pNext-09653"></a> <span class="vuid">VUID-VkImageCreateInfo-pNext-09653</span><br>
@@ -4523,7 +4658,7 @@ contain a <a href="#VkExternalMemoryImageCreateInfo">VkExternalMemoryImageCreate
 </li>
 <li>
 <p><a id="VUID-VkImageCreateInfo-sType-unique" href="#VUID-VkImageCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkImageCreateInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="memory.html#VkExportMetalObjectCreateInfoEXT" class="xref page">VkExportMetalObjectCreateInfoEXT</a> or <a href="memory.html#VkImportMetalTextureInfoEXT" class="xref page">VkImportMetalTextureInfoEXT</a></p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="memory.html#VkExportMetalObjectCreateInfoEXT" class="xref page">VkExportMetalObjectCreateInfoEXT</a> or <a href="memory.html#VkImportMetalTextureInfoEXT" class="xref page">VkImportMetalTextureInfoEXT</a></p>
 </li>
 <li>
 <p><a id="VUID-VkImageCreateInfo-flags-parameter" href="#VUID-VkImageCreateInfo-flags-parameter"></a> <span class="vuid">VUID-VkImageCreateInfo-flags-parameter</span><br>
@@ -5578,8 +5713,8 @@ If <code>flags</code> includes
 <div class="paragraph">
 <p>Some combinations of compression properties may not be supported.
 For example, some implementations may not support different fixed-rate
-compression rates per plane of a multi-planar format and will not be able to
-enable fixed-rate compression for any plane if the requested rates differ.</p>
+compression rates per plane of a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a> and will not be able to enable fixed-rate compression for any plane
+if the requested rates differ.</p>
 </div>
 </td>
 </tr>
@@ -5964,10 +6099,10 @@ implementation <strong>should</strong> return the smallest alignment which is su
 </div>
 <div class="paragraph">
 <p>If an implementation needs to disable image compression for
-<code>maximumRequestedAlignment</code> to be honored -
-where a larger alignment would enable image compression -
-the implementation <strong>should</strong> not use <code>maximumRequestedAlignment</code>, and
-<strong>should</strong> return the smallest alignment which does not compromise compression.
+<code>maximumRequestedAlignment</code> to be honored - where a larger alignment
+would enable image compression - the implementation <strong>should</strong> not use
+<code>maximumRequestedAlignment</code>, and <strong>should</strong> return the smallest alignment
+which does not compromise compression.
 If the <a href="features.html#features-imageCompressionControl" class="xref page"><code>imageCompressionControl</code></a>
 feature is enabled, the application <strong>can</strong> chain a
 <a href="#VkImageCompressionControlEXT">VkImageCompressionControlEXT</a> with
@@ -6078,6 +6213,8 @@ typedef enum VkImageUsageFlagBits {
     VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM = 0x00100000,
   // Provided by VK_QCOM_image_processing
     VK_IMAGE_USAGE_SAMPLE_BLOCK_MATCH_BIT_QCOM = 0x00200000,
+  // Provided by VK_QCOM_tile_memory_heap
+    VK_IMAGE_USAGE_TILE_MEMORY_BIT_QCOM = 0x08000000,
   // Provided by VK_KHR_video_encode_quantization_map
     VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR = 0x02000000,
   // Provided by VK_KHR_video_encode_quantization_map
@@ -6189,6 +6326,11 @@ image <strong>can</strong> be transitioned to the
 used as a color or depth/stencil attachment in a <code>VkFramebuffer</code>
 and/or as a read-only input resource in a shader (sampled image,
 combined image sampler or input attachment) in the same render pass.</p>
+</li>
+<li>
+<p><code>VK_IMAGE_USAGE_TILE_MEMORY_BIT_QCOM</code> specifies that the image <strong>can</strong>
+be bound to <code>VkDeviceMemory</code> allocated from a <a href="memory.html#VkMemoryHeap" class="xref page">VkMemoryHeap</a>
+with the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property.</p>
 </li>
 <li>
 <p><code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code> specifies that the image <strong>can</strong> be
@@ -6320,10 +6462,10 @@ typedef enum VkImageCreateFlagBits {
     VK_IMAGE_CREATE_MULTISAMPLED_RENDER_TO_SINGLE_SAMPLED_BIT_EXT = 0x00040000,
   // Provided by VK_EXT_image_2d_view_of_3d
     VK_IMAGE_CREATE_2D_VIEW_COMPATIBLE_BIT_EXT = 0x00020000,
-  // Provided by VK_QCOM_fragment_density_map_offset
-    VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM = 0x00008000,
   // Provided by VK_KHR_video_maintenance1
     VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR = 0x00100000,
+  // Provided by VK_EXT_fragment_density_map_offset
+    VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_EXT = 0x00008000,
   // Provided by VK_KHR_bind_memory2 with VK_KHR_device_group
     VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR = VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT,
   // Provided by VK_KHR_maintenance1
@@ -6336,6 +6478,8 @@ typedef enum VkImageCreateFlagBits {
     VK_IMAGE_CREATE_DISJOINT_BIT_KHR = VK_IMAGE_CREATE_DISJOINT_BIT,
   // Provided by VK_KHR_bind_memory2
     VK_IMAGE_CREATE_ALIAS_BIT_KHR = VK_IMAGE_CREATE_ALIAS_BIT,
+  // Provided by VK_QCOM_fragment_density_map_offset
+    VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM = VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_EXT,
 } VkImageCreateFlagBits;</code></pre>
 </div>
 </div>
@@ -6363,7 +6507,7 @@ Images created with this flag <strong>must</strong> also be created with the
 <p><code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code> specifies that the image <strong>can</strong>
 be used to create a <code>VkImageView</code> with a different format from the
 image.
-For <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a> formats,
+For <a href="formats.html#formats-multiplanar" class="xref page">multi-planar formats</a>,
 <code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code> specifies that a
 <code>VkImageView</code> can be created of a <em>plane</em> of the image.</p>
 </li>
@@ -6409,10 +6553,10 @@ image is created with but are supported for at least one format a
 </li>
 <li>
 <p><code>VK_IMAGE_CREATE_DISJOINT_BIT</code> specifies that an image with a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar format</a> <strong>must</strong>
-have each plane separately bound to memory, rather than having a single
-memory binding for the whole image; the presence of this bit
-distinguishes a <em>disjoint image</em> from an image without this bit set.</p>
+<a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a> <strong>must</strong> have each plane
+separately bound to memory, rather than having a single memory binding
+for the whole image; the presence of this bit distinguishes a <em>disjoint
+image</em> from an image without this bit set.</p>
 </li>
 <li>
 <p><code>VK_IMAGE_CREATE_ALIAS_BIT</code> specifies that two images created with
@@ -6483,8 +6627,8 @@ the image is stored as a render pass attachment.</p>
 </div>
 </li>
 <li>
-<p><code>VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_QCOM</code> specifies
-that an image <strong>can</strong> be used in a render pass with non-zero
+<p><code>VK_IMAGE_CREATE_FRAGMENT_DENSITY_MAP_OFFSET_BIT_EXT</code> specifies that
+an image <strong>can</strong> be used in a render pass with non-zero
 <a href="renderpass.html#renderpass-fragmentdensitymapoffsets" class="xref page">fragment density map offsets</a>.
 In a render pass with non-zero offsets, fragment density map
 attachments, input attachments, color attachments, depth/stencil
@@ -6694,7 +6838,8 @@ returned layout is valid for <a href="memory.html#memory-device-hostaccess" clas
 <div class="paragraph">
 <p>If the image&#8217;s
 tiling is <code>VK_IMAGE_TILING_LINEAR</code> and its
-format is a <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar format</a>, then <code>vkGetImageSubresourceLayout</code> describes one
+format is a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>, then
+<code>vkGetImageSubresourceLayout</code> describes one
 <em>format plane</em>
 of the image.
 If the image&#8217;s tiling is <code>VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT</code>, then
@@ -6751,7 +6896,7 @@ The <code>arrayLayer</code> member of <code>pSubresource</code> <strong>must</st
 <p><a id="VUID-vkGetImageSubresourceLayout-format-08886" href="#VUID-vkGetImageSubresourceLayout-format-08886"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout-format-08886</span><br>
 
 If <code>format</code> of the <code>image</code> is a color format
-that is not a <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar    image format</a>,
+that is not a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>,
 and <code>tiling</code> of the <code>image</code> is
 <code>VK_IMAGE_TILING_LINEAR</code> or <code>VK_IMAGE_TILING_OPTIMAL</code>, the
 <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong> be
@@ -6783,9 +6928,9 @@ not contain <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> or
 <p><a id="VUID-vkGetImageSubresourceLayout-tiling-08717" href="#VUID-vkGetImageSubresourceLayout-tiling-08717"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout-tiling-08717</span><br>
 
 If the <code>tiling</code> of the <code>image</code> is
-<code>VK_IMAGE_TILING_LINEAR</code> and has a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar image    format</a>, then the <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong>
-be a single valid <a href="formats.html#formats-planes-image-aspect" class="xref page">multi-planar aspect    mask</a> bit</p>
+<code>VK_IMAGE_TILING_LINEAR</code> and has a <a href="formats.html#formats-multiplanar" class="xref page">    multi-planar format</a>, then the <code>aspectMask</code> member of
+<code>pSubresource</code> <strong>must</strong> be a single valid
+<a href="formats.html#formats-multiplanar-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
 </li>
 <li>
 <p><a id="VUID-vkGetImageSubresourceLayout-image-09432" href="#VUID-vkGetImageSubresourceLayout-image-09432"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout-image-09432</span><br>
@@ -6994,7 +7139,7 @@ same <code>offset</code> and <code>size</code> are returned and represent the in
 memory allocation.</p>
 </div>
 <div class="paragraph">
-<p>If the image has a <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar format</a>
+<p>If the image has a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>
 and its tiling is <code>VK_IMAGE_TILING_LINEAR</code>
 , then the <code>aspectMask</code> member of <code>VkImageSubresource</code> <strong>must</strong> be
 <code>VK_IMAGE_ASPECT_PLANE_0_BIT</code>, <code>VK_IMAGE_ASPECT_PLANE_1_BIT</code>, or
@@ -7140,7 +7285,7 @@ The <code>arrayLayer</code> member of <code>pSubresource</code> <strong>must</st
 <p><a id="VUID-vkGetImageSubresourceLayout2-format-08886" href="#VUID-vkGetImageSubresourceLayout2-format-08886"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-format-08886</span><br>
 
 If <code>format</code> of the <code>image</code> is a color format
-that is not a <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar    image format</a>,
+that is not a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>,
 and <code>tiling</code> of the <code>image</code> is
 <code>VK_IMAGE_TILING_LINEAR</code> or <code>VK_IMAGE_TILING_OPTIMAL</code>, the
 <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong> be
@@ -7172,9 +7317,9 @@ not contain <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> or
 <p><a id="VUID-vkGetImageSubresourceLayout2-tiling-08717" href="#VUID-vkGetImageSubresourceLayout2-tiling-08717"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-tiling-08717</span><br>
 
 If the <code>tiling</code> of the <code>image</code> is
-<code>VK_IMAGE_TILING_LINEAR</code> and has a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar image    format</a>, then the <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong>
-be a single valid <a href="formats.html#formats-planes-image-aspect" class="xref page">multi-planar aspect    mask</a> bit</p>
+<code>VK_IMAGE_TILING_LINEAR</code> and has a <a href="formats.html#formats-multiplanar" class="xref page">    multi-planar format</a>, then the <code>aspectMask</code> member of
+<code>pSubresource</code> <strong>must</strong> be a single valid
+<a href="formats.html#formats-multiplanar-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
 </li>
 <li>
 <p><a id="VUID-vkGetImageSubresourceLayout2-image-09434" href="#VUID-vkGetImageSubresourceLayout2-image-09434"></a> <span class="vuid">VUID-vkGetImageSubresourceLayout2-image-09434</span><br>
@@ -7363,7 +7508,7 @@ structure.</p>
 </li>
 <li>
 <p><a id="VUID-VkSubresourceLayout2-sType-unique" href="#VUID-VkSubresourceLayout2-sType-unique"></a> <span class="vuid">VUID-VkSubresourceLayout2-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -7575,7 +7720,7 @@ The <code>arrayLayer</code> member of <code>pSubresource</code> <strong>must</st
 <p><a id="VUID-VkDeviceImageSubresourceInfo-format-08886" href="#VUID-VkDeviceImageSubresourceInfo-format-08886"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-format-08886</span><br>
 
 If <code>format</code> of the <code>image</code> is a color format
-that is not a <a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar    image format</a>,
+that is not a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>,
 and <code>tiling</code> of the <code>pCreateInfo</code> is
 <code>VK_IMAGE_TILING_LINEAR</code> or <code>VK_IMAGE_TILING_OPTIMAL</code>, the
 <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong> be
@@ -7607,9 +7752,9 @@ not contain <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> or
 <p><a id="VUID-VkDeviceImageSubresourceInfo-tiling-08717" href="#VUID-VkDeviceImageSubresourceInfo-tiling-08717"></a> <span class="vuid">VUID-VkDeviceImageSubresourceInfo-tiling-08717</span><br>
 
 If the <code>tiling</code> of the <code>pCreateInfo</code> is
-<code>VK_IMAGE_TILING_LINEAR</code> and has a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar image    format</a>, then the <code>aspectMask</code> member of <code>pSubresource</code> <strong>must</strong>
-be a single valid <a href="formats.html#formats-planes-image-aspect" class="xref page">multi-planar aspect    mask</a> bit</p>
+<code>VK_IMAGE_TILING_LINEAR</code> and has a <a href="formats.html#formats-multiplanar" class="xref page">    multi-planar format</a>, then the <code>aspectMask</code> member of
+<code>pSubresource</code> <strong>must</strong> be a single valid
+<a href="formats.html#formats-multiplanar-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
 </li>
 </ul>
 </div>
@@ -8213,10 +8358,15 @@ implementations.</p>
 layout, where that layout is selected by the
 <code>VkImageCreateInfo</code>::<code>initialLayout</code> member.
 The <code>initialLayout</code> <strong>must</strong> be either <code>VK_IMAGE_LAYOUT_UNDEFINED</code> or
+<code>VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT</code> or
 <code>VK_IMAGE_LAYOUT_PREINITIALIZED</code>.
 If it is <code>VK_IMAGE_LAYOUT_PREINITIALIZED</code>, then the image data <strong>can</strong> be
 preinitialized by the host while using this layout, and the transition away
 from this layout will preserve that data.
+If it is <code>VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT</code>, then the image data is
+interpreted to be zeroed.
+If the memory bound to this image is not fully zeroed when the image is
+transitioned to a different layout, the results are <strong>undefined</strong>.
 If it is <code>VK_IMAGE_LAYOUT_UNDEFINED</code>, then the contents of the data are
 considered to be <strong>undefined</strong>, and the transition away from this layout is not
 guaranteed to preserve that data.
@@ -8226,10 +8376,23 @@ transitioned to another layout before they are accessed by the device.</p>
 <div class="paragraph">
 <p>Host access to image memory is only well-defined for
 <a href="../appendices/glossary.html#glossary-linear-resource" class="xref page">linear</a> images and for image subresources of
-those images which are currently in either the
-<code>VK_IMAGE_LAYOUT_PREINITIALIZED</code> or <code>VK_IMAGE_LAYOUT_GENERAL</code>
-layout.
-Calling <a href="#vkGetImageSubresourceLayout">vkGetImageSubresourceLayout</a> for a linear image returns a
+those images which are currently in any of the following layouts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_IMAGE_LAYOUT_PREINITIALIZED</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_GENERAL</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Calling <a href="#vkGetImageSubresourceLayout">vkGetImageSubresourceLayout</a> for a linear image returns a
 subresource layout mapping that is valid for either of those image layouts.</p>
 </div>
 <div class="openblock">
@@ -8292,6 +8455,8 @@ typedef enum VkImageLayout {
     VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT = 1000339000,
   // Provided by VK_KHR_video_encode_quantization_map
     VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR = 1000553000,
+  // Provided by VK_EXT_zero_initialize_device_memory
+    VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT = 1000620000,
   // Provided by VK_KHR_maintenance2
     VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL_KHR = VK_IMAGE_LAYOUT_DEPTH_READ_ONLY_STENCIL_ATTACHMENT_OPTIMAL,
   // Provided by VK_KHR_maintenance2
@@ -8347,6 +8512,18 @@ standard layout defined for <code>VK_IMAGE_TILING_OPTIMAL</code> images.</p>
 <li>
 <p><code>VK_IMAGE_LAYOUT_GENERAL</code> supports all types of device access,
 unless specified otherwise.</p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT</code> specifies that an image&#8217;s
+memory is in a defined layout and is zeroed, but that it has not yet
+been initialized by the driver.
+Image memory <strong>cannot</strong> be transitioned into this layout.
+This layout <strong>can</strong> be used as the <code>initialLayout</code> member of
+<a href="#VkImageCreateInfo">VkImageCreateInfo</a>.
+This layout is intended to be used as the initial layout for an image
+whose contents are already zeroed, either from being explicitly set to
+zero by an application or from being allocated with
+<code>VK_MEMORY_ALLOCATE_ZERO_INITIALIZE_BIT_EXT</code>.</p>
 </li>
 <li>
 <p><code>VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL</code> specifies a layout that <strong>must</strong>
@@ -8643,8 +8820,20 @@ considered to match.</p>
 value <strong>must</strong> either equal the current layout of the image subresource (at the
 time the transition executes), or else be <code>VK_IMAGE_LAYOUT_UNDEFINED</code>
 (implying that the contents of the image subresource need not be preserved).
-The new layout used in a transition <strong>must</strong> not be
-<code>VK_IMAGE_LAYOUT_UNDEFINED</code> or <code>VK_IMAGE_LAYOUT_PREINITIALIZED</code>.</p>
+The new layout used in a transition <strong>must</strong> not be any of:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_IMAGE_LAYOUT_UNDEFINED</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_PREINITIALIZED</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>The image layout of each image subresource of a depth/stencil image created
@@ -8769,7 +8958,7 @@ VkResult vkCreateImageView(
 <p><code>device</code> is the logical device that creates the image view.</p>
 </li>
 <li>
-<p><code>pCreateInfo</code> is a pointer to a <code>VkImageViewCreateInfo</code>
+<p><code>pCreateInfo</code> is a pointer to a <a href="#VkImageViewCreateInfo">VkImageViewCreateInfo</a>
 structure containing parameters to be used to create the image view.</p>
 </li>
 <li>
@@ -8963,8 +9152,7 @@ adding a <a href="#VkImageViewSlicedCreateInfoEXT">VkImageViewSlicedCreateInfoEX
 <div class="paragraph">
 <p>If <code>image</code> was created with the <code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code>
 flag,
-and if the <code>format</code> of the image is not
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a>,
+and if the <code>format</code> of the image is not <a href="formats.html#formats-multiplanar" class="xref page">multi-planar</a>
 <code>format</code> <strong>can</strong> be different from the image&#8217;s format, but if
 <code>image</code> was created without the
 <code>VK_IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT</code> flag and
@@ -8976,12 +9164,11 @@ coordinates and memory locations irrespective of the <code>format</code>, with o
 the interpretation of the bit pattern changing.</p>
 </div>
 <div id="image-views-plane-promotion" class="paragraph">
-<p>If <code>image</code> was created with a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a> format, and the
-image view&#8217;s <code>aspectMask</code> is one of <code>VK_IMAGE_ASPECT_PLANE_0_BIT</code>,
-<code>VK_IMAGE_ASPECT_PLANE_1_BIT</code> or <code>VK_IMAGE_ASPECT_PLANE_2_BIT</code>, the
-view&#8217;s aspect mask is considered to be equivalent to
-<code>VK_IMAGE_ASPECT_COLOR_BIT</code> when used as a framebuffer attachment.</p>
+<p>If <code>image</code> was created with a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>, and the image view&#8217;s <code>aspectMask</code> is one of
+<code>VK_IMAGE_ASPECT_PLANE_0_BIT</code>, <code>VK_IMAGE_ASPECT_PLANE_1_BIT</code> or
+<code>VK_IMAGE_ASPECT_PLANE_2_BIT</code>, the view&#8217;s aspect mask is considered to
+be equivalent to <code>VK_IMAGE_ASPECT_COLOR_BIT</code> when used as a framebuffer
+attachment.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -9031,12 +9218,11 @@ create the sampler <strong>must</strong> be passed to <a href="#vkCreateImageVie
 <a href="samplers.html#VkSamplerYcbcrConversionInfo" class="xref page">VkSamplerYcbcrConversionInfo</a> included in the <code>pNext</code> chain of
 <a href="#VkImageViewCreateInfo">VkImageViewCreateInfo</a>.
 Conversely, if a <a href="samplers.html#VkSamplerYcbcrConversion" class="xref page">VkSamplerYcbcrConversion</a> object is passed to
-<a href="#vkCreateImageView">vkCreateImageView</a>, an identically defined
-<a href="samplers.html#VkSamplerYcbcrConversion" class="xref page">VkSamplerYcbcrConversion</a> object <strong>must</strong> be used when sampling the image.</p>
+<a href="#vkCreateImageView">vkCreateImageView</a>, an <a href="../appendices/glossary.html#glossary-identically-defined" class="xref page">identically defined</a> <a href="samplers.html#VkSamplerYcbcrConversion" class="xref page">VkSamplerYcbcrConversion</a> object <strong>must</strong> be used when sampling
+the image.</p>
 </div>
 <div id="image-views-requiring-sampler-ycbcr-conversion" class="paragraph">
-<p>If the image has a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a> <code>format</code>,
+<p>If the image has a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>,
 <code>subresourceRange.aspectMask</code> is <code>VK_IMAGE_ASPECT_COLOR_BIT</code>, and
 <code>usage</code> includes <code>VK_IMAGE_USAGE_SAMPLED_BIT</code>, then the <code>format</code>
 <strong>must</strong> be identical to the image <code>format</code> and the sampler to be used with
@@ -9048,14 +9234,12 @@ the image view <strong>must</strong> enable <a href="samplers.html#samplers-YCbC
 </div>
 <div class="paragraph">
 <p>If <code>image</code> was created with the <code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code>
-and the image has a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a> <code>format</code>,
-and if <code>subresourceRange.aspectMask</code> is
-<code>VK_IMAGE_ASPECT_PLANE_0_BIT</code>, <code>VK_IMAGE_ASPECT_PLANE_1_BIT</code>, or
-<code>VK_IMAGE_ASPECT_PLANE_2_BIT</code>, <code>format</code> <strong>must</strong> be
-<a href="formats.html#formats-compatible-planes" class="xref page">compatible</a> with the corresponding plane of the
-image, and the sampler to be used with the image view <strong>must</strong> not enable
-<a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>.
+and the image has a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>, and if
+<code>subresourceRange.aspectMask</code> is <code>VK_IMAGE_ASPECT_PLANE_0_BIT</code>,
+<code>VK_IMAGE_ASPECT_PLANE_1_BIT</code>, or <code>VK_IMAGE_ASPECT_PLANE_2_BIT</code>,
+<code>format</code> <strong>must</strong> be <a href="formats.html#formats-compatible-planes" class="xref page">compatible</a> with the
+corresponding plane of the image, and the sampler to be used with the image
+view <strong>must</strong> not enable <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>.
 The <code>width</code> and <code>height</code> of the single-plane image view <strong>must</strong> be
 derived from the multi-planar image&#8217;s dimensions in the manner listed for
 <a href="formats.html#formats-compatible-planes" class="xref page">plane compatibility</a> for the plane.</p>
@@ -9385,7 +9569,7 @@ If <code>image</code> was created with the
 but without the <code>VK_IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT</code>
 flag,
 and if the <code>format</code> of the <code>image</code> is not a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a> format,
+<a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>,
 <code>format</code> <strong>must</strong> be compatible with the <code>format</code> used to create
 <code>image</code>, as defined in <a href="formats.html#formats-compatibility-classes" class="xref page">Format    Compatibility Classes</a></p>
 </li>
@@ -9395,7 +9579,8 @@ and if the <code>format</code> of the <code>image</code> is not a
 If <code>image</code> was created with the
 <code>VK_IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT</code> flag, <code>format</code>
 <strong>must</strong> be compatible with, or <strong>must</strong> be an uncompressed format that is
-size-compatible with, the <code>format</code> used to create <code>image</code></p>
+<a href="formats.html#formats-size-compatibility" class="xref page">size-compatible</a> with, the <code>format</code>
+used to create <code>image</code></p>
 </li>
 <li>
 <p><a id="VUID-VkImageViewCreateInfo-image-07072" href="#VUID-VkImageViewCreateInfo-image-07072"></a> <span class="vuid">VUID-VkImageViewCreateInfo-image-07072</span><br>
@@ -9431,10 +9616,9 @@ then <code>format</code> <strong>must</strong> be one of the formats in
 
 If <code>image</code> was created with the
 <code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code> flag, if the <code>format</code> of
-the <code>image</code> is a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a> format, and
+the <code>image</code> is a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>, and
 if <code>subresourceRange.aspectMask</code> is one of the
-<a href="formats.html#formats-planes-image-aspect" class="xref page">multi-planar aspect mask</a> bits, then
+<a href="formats.html#formats-multiplanar-image-aspect" class="xref page">multi-planar aspect mask</a> bits, then
 <code>format</code> <strong>must</strong> be compatible with the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> for the plane
 of the <code>image</code> <code>format</code> indicated by
 <code>subresourceRange.aspectMask</code>, as defined in
@@ -9444,16 +9628,15 @@ of the <code>image</code> <code>format</code> indicated by
 <p><a id="VUID-VkImageViewCreateInfo-subresourceRange-07818" href="#VUID-VkImageViewCreateInfo-subresourceRange-07818"></a> <span class="vuid">VUID-VkImageViewCreateInfo-subresourceRange-07818</span><br>
 
 <code>subresourceRange.aspectMask</code> <strong>must</strong> only have at most 1 valid
-<a href="formats.html#formats-planes-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
+<a href="formats.html#formats-multiplanar-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
 </li>
 <li>
 <p><a id="VUID-VkImageViewCreateInfo-image-01762" href="#VUID-VkImageViewCreateInfo-image-01762"></a> <span class="vuid">VUID-VkImageViewCreateInfo-image-01762</span><br>
 
 If <code>image</code> was not created with the
 <code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code> flag,
-or if the <code>format</code> of the <code>image</code> is a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a> format and
-if <code>subresourceRange.aspectMask</code> is <code>VK_IMAGE_ASPECT_COLOR_BIT</code>,
+or if the <code>format</code> of the <code>image</code> is a <a href="formats.html#formats-multiplanar" class="xref page">    multi-planar format</a> and if <code>subresourceRange.aspectMask</code> is
+<code>VK_IMAGE_ASPECT_COLOR_BIT</code>,
 <code>format</code> <strong>must</strong> be identical to the <code>format</code> used to create
 <code>image</code></p>
 </li>
@@ -9925,7 +10108,7 @@ the <code>image</code> was created with</p>
 </li>
 <li>
 <p><a id="VUID-VkImageViewCreateInfo-sType-unique" href="#VUID-VkImageViewCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkImageViewCreateInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="memory.html#VkExportMetalObjectCreateInfoEXT" class="xref page">VkExportMetalObjectCreateInfoEXT</a></p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique, with the exception of structures of type <a href="memory.html#VkExportMetalObjectCreateInfoEXT" class="xref page">VkExportMetalObjectCreateInfoEXT</a></p>
 </li>
 <li>
 <p><a id="VUID-VkImageViewCreateInfo-flags-parameter" href="#VUID-VkImageViewCreateInfo-flags-parameter"></a> <span class="vuid">VUID-VkImageViewCreateInfo-flags-parameter</span><br>
@@ -10294,8 +10477,7 @@ multiple of 6, the last cube map in the array <strong>must</strong> not be acces
 <p><code>aspectMask</code> <strong>must</strong> be only <code>VK_IMAGE_ASPECT_COLOR_BIT</code>,
 <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> or <code>VK_IMAGE_ASPECT_STENCIL_BIT</code> if
 <code>format</code> is a color, depth-only or stencil-only format,
-respectively, except if <code>format</code> is a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar format</a>.
+respectively, except if <code>format</code> is a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>.
 If using a depth/stencil format with both depth and stencil components,
 <code>aspectMask</code> <strong>must</strong> include at least one of
 <code>VK_IMAGE_ASPECT_DEPTH_BIT</code> and <code>VK_IMAGE_ASPECT_STENCIL_BIT</code>, and
@@ -10332,10 +10514,9 @@ stencil image subresources are used.</p>
 </div>
 <div class="paragraph">
 <p>When creating a <code>VkImageView</code>, if sampler Y′C<sub>B</sub>C<sub>R</sub> conversion is not
-enabled in the sampler and the image <code>format</code> is
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar</a>, the image <strong>must</strong>
-have been created with <code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code>, and the
-<code>aspectMask</code> of the <code>VkImageView</code>&#8217;s <code>subresourceRange</code> <strong>must</strong> be
+enabled in the sampler and the image <code>format</code> is <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>, the image <strong>must</strong> have been created with
+<code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code>, and the <code>aspectMask</code> of the
+<code>VkImageView</code>&#8217;s <code>subresourceRange</code> <strong>must</strong> be
 <code>VK_IMAGE_ASPECT_PLANE_0_BIT</code>, <code>VK_IMAGE_ASPECT_PLANE_1_BIT</code> or
 <code>VK_IMAGE_ASPECT_PLANE_2_BIT</code>.</p>
 </div>
@@ -12011,7 +12192,7 @@ If the <code>pNext</code> chain includes a
 </li>
 <li>
 <p><a id="VUID-VkAccelerationStructureCreateInfoKHR-sType-unique" href="#VUID-VkAccelerationStructureCreateInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkAccelerationStructureCreateInfoKHR-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkAccelerationStructureCreateInfoKHR-createFlags-parameter" href="#VUID-VkAccelerationStructureCreateInfoKHR-createFlags-parameter"></a> <span class="vuid">VUID-VkAccelerationStructureCreateInfoKHR-createFlags-parameter</span><br>
@@ -12214,18 +12395,6 @@ given index, with a <code>geometryType</code> member equal to
 the corresponding <code>transformData.hostAddress</code> parameter in
 <code>pBuildInfo</code> is not <code>NULL</code>.</p>
 </li>
-</ul>
-</div>
-</li>
-<li>
-<p>For each <a href="accelstructures.html#VkAccelerationStructureBuildRangeInfoKHR" class="xref page">VkAccelerationStructureBuildRangeInfoKHR</a> corresponding to
-the <a href="accelstructures.html#VkAccelerationStructureBuildGeometryInfoKHR" class="xref page">VkAccelerationStructureBuildGeometryInfoKHR</a>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Its <code>primitiveCount</code> member is less than or equal to the
-corresponding element of <code>pMaxPrimitiveCounts</code>.</p>
-</li>
 <li>
 <p>For each element of either <code>pGeometries</code> or <code>ppGeometries</code> at a
 given index, with a <code>geometryType</code> member equal to
@@ -12243,6 +12412,18 @@ given index, with a <code>geometryType</code> member equal to
 corresponding member of <code>pBuildInfo</code> also contains
 <a href="accelstructures.html#VkAccelerationStructureTrianglesDisplacementMicromapNV" class="xref page">VkAccelerationStructureTrianglesDisplacementMicromapNV</a> and with
 an equivalent <code>micromap</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>For each <a href="accelstructures.html#VkAccelerationStructureBuildRangeInfoKHR" class="xref page">VkAccelerationStructureBuildRangeInfoKHR</a> corresponding to
+the <a href="accelstructures.html#VkAccelerationStructureBuildGeometryInfoKHR" class="xref page">VkAccelerationStructureBuildGeometryInfoKHR</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Its <code>primitiveCount</code> member is less than or equal to the
+corresponding element of <code>pMaxPrimitiveCounts</code>.</p>
 </li>
 </ul>
 </div>
@@ -12573,7 +12754,7 @@ If <code>compactedSize</code> is not <code>0</code> then both <code>info.geometr
 </li>
 <li>
 <p><a id="VUID-VkAccelerationStructureCreateInfoNV-sType-unique" href="#VUID-VkAccelerationStructureCreateInfoNV-sType-unique"></a> <span class="vuid">VUID-VkAccelerationStructureCreateInfoNV-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkAccelerationStructureCreateInfoNV-info-parameter" href="#VUID-VkAccelerationStructureCreateInfoNV-info-parameter"></a> <span class="vuid">VUID-VkAccelerationStructureCreateInfoNV-info-parameter</span><br>
@@ -12922,7 +13103,10 @@ typedef VkBuildAccelerationStructureFlagBitsKHR VkBuildAccelerationStructureFlag
 or
     an <code>update</code> of <code>VK_TRUE</code> in
     <a href="accelstructures.html#vkCmdBuildAccelerationStructureNV" class="xref page">vkCmdBuildAccelerationStructureNV</a>
-    .</p>
+    .
+    For sphere and LSS primitives, only positions and radii may be updated,
+    the provided index buffers and flags <strong>must</strong> remain unchanged from the
+    initial build.</p>
 </li>
 <li>
 <p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR</code> specifies
@@ -12968,6 +13152,7 @@ in an instance with
 <li>
 <p><code>VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR</code> specifies
 that the specified acceleration structure <strong>can</strong> be used when fetching the
+vertex and radius positions of a hit LSS or sphere primitive, or
 vertex positions of a hit triangle.</p>
 </li>
 <li>
@@ -13139,6 +13324,10 @@ typedef enum VkGeometryTypeKHR {
     VK_GEOMETRY_TYPE_TRIANGLES_KHR = 0,
     VK_GEOMETRY_TYPE_AABBS_KHR = 1,
     VK_GEOMETRY_TYPE_INSTANCES_KHR = 2,
+  // Provided by VK_NV_ray_tracing_linear_swept_spheres
+    VK_GEOMETRY_TYPE_SPHERES_NV = 1000429004,
+  // Provided by VK_NV_ray_tracing_linear_swept_spheres
+    VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV = 1000429005,
   // Provided by VK_NV_ray_tracing
     VK_GEOMETRY_TYPE_TRIANGLES_NV = VK_GEOMETRY_TYPE_TRIANGLES_KHR,
   // Provided by VK_NV_ray_tracing
@@ -13159,15 +13348,23 @@ typedef VkGeometryTypeKHR VkGeometryTypeNV;</code></pre>
 <ul>
 <li>
 <p><code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code> specifies a geometry type
-consisting of triangles.</p>
+consisting of <a href="accelstructures.html#ray-tracing-triangle-primitive" class="xref page">triangles</a>.</p>
 </li>
 <li>
 <p><code>VK_GEOMETRY_TYPE_AABBS_KHR</code> specifies a geometry type consisting of
-axis-aligned bounding boxes.</p>
+<a href="accelstructures.html#aabb-primitive" class="xref page">axis-aligned bounding boxes</a>.</p>
 </li>
 <li>
 <p><code>VK_GEOMETRY_TYPE_INSTANCES_KHR</code> specifies a geometry type
 consisting of acceleration structure instances.</p>
+</li>
+<li>
+<p><code>VK_GEOMETRY_TYPE_SPHERES_NV</code> specifies a geometry type consisting
+of <a href="accelstructures.html#sphere-primitive" class="xref page">spheres</a>.</p>
+</li>
+<li>
+<p><code>VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV</code> specifies a geometry type
+consisting of <a href="accelstructures.html#linear-swept-sphere-primitive" class="xref page">linear swept spheres</a>.</p>
 </li>
 </ul>
 </div>
@@ -14555,8 +14752,7 @@ VkResult vkCreateMicromapEXT(
 <div class="ulist">
 <ul>
 <li>
-<p><code>device</code> is the logical device that creates the acceleration
-structure object.</p>
+<p><code>device</code> is the logical device that creates the micromap object.</p>
 </li>
 <li>
 <p><code>pCreateInfo</code> is a pointer to a <a href="#VkMicromapCreateInfoEXT">VkMicromapCreateInfoEXT</a>
@@ -14567,7 +14763,7 @@ structure containing parameters affecting creation of the micromap.</p>
 <a href="memory.html#memory-allocation" class="xref page">Memory Allocation</a> chapter.</p>
 </li>
 <li>
-<p><code>pMicromap</code> is a pointer to a <code>VkMicromapEXT</code> handle in which
+<p><code>pMicromap</code> is a pointer to a <a href="#VkMicromapEXT">VkMicromapEXT</a> handle in which
 the resulting micromap object is returned.</p>
 </li>
 </ul>
@@ -15577,11 +15773,25 @@ Android hardware buffer an application <strong>may</strong> still call
 with <a href="#VkBuffer">VkBuffer</a> before it has been bound to memory.</p>
 </div>
 <div class="paragraph">
-<p>If the resource being queried was created with the
-<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT</code>,
-<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT</code>, or
-<code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT</code> external memory
-handle type, the value of <code>size</code> has no meaning and <strong>should</strong> be ignored.</p>
+<p>The value of <code>size</code> has no meaning and <strong>should</strong> be ignored if the
+resource being queried was created with any of the following external memory
+handle types:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT</code></p>
+</li>
+<li>
+<p><code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT</code></p>
+</li>
+<li>
+<p><code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT</code></p>
+</li>
+<li>
+<p><code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLTEXTURE_BIT_EXT</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>The implementation guarantees certain properties about the memory
@@ -16308,7 +16518,7 @@ memory handle type, then <code>image</code> <strong>must</strong> be bound to me
 </li>
 <li>
 <p><a id="VUID-VkImageMemoryRequirementsInfo2-sType-unique" href="#VUID-VkImageMemoryRequirementsInfo2-sType-unique"></a> <span class="vuid">VUID-VkImageMemoryRequirementsInfo2-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkImageMemoryRequirementsInfo2-image-parameter" href="#VUID-VkImageMemoryRequirementsInfo2-image-parameter"></a> <span class="vuid">VUID-VkImageMemoryRequirementsInfo2-image-parameter</span><br>
@@ -16414,7 +16624,7 @@ If <code>pCreateInfo-&gt;format</code> specifies a <em>multi-planar</em> format 
 If <code>pCreateInfo-&gt;flags</code> has <code>VK_IMAGE_CREATE_DISJOINT_BIT</code> set
 and if the <code>pCreateInfo-&gt;tiling</code> is <code>VK_IMAGE_TILING_LINEAR</code> or
 <code>VK_IMAGE_TILING_OPTIMAL</code>, then <code>planeAspect</code> <strong>must</strong> be a single
-valid <a href="formats.html#formats-planes-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
+valid <a href="formats.html#formats-multiplanar-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
 </li>
 <li>
 <p><a id="VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06420" href="#VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06420"></a> <span class="vuid">VUID-VkDeviceImageMemoryRequirements-pCreateInfo-06420</span><br>
@@ -16512,7 +16722,7 @@ aspect corresponding to the image plane to query.</p>
 
 If the image&#8217;s <code>tiling</code> is <code>VK_IMAGE_TILING_LINEAR</code> or
 <code>VK_IMAGE_TILING_OPTIMAL</code>, then <code>planeAspect</code> <strong>must</strong> be a single
-valid <a href="formats.html#formats-planes-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
+valid <a href="formats.html#formats-multiplanar-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
 </li>
 <li>
 <p><a id="VUID-VkImagePlaneMemoryRequirementsInfo-planeAspect-02282" href="#VUID-VkImagePlaneMemoryRequirementsInfo-planeAspect-02282"></a> <span class="vuid">VUID-VkImagePlaneMemoryRequirementsInfo-planeAspect-02282</span><br>
@@ -16541,6 +16751,72 @@ associated with the image&#8217;s <code>format</code> and
 <li>
 <p><a id="VUID-VkImagePlaneMemoryRequirementsInfo-planeAspect-parameter" href="#VUID-VkImagePlaneMemoryRequirementsInfo-planeAspect-parameter"></a> <span class="vuid">VUID-VkImagePlaneMemoryRequirementsInfo-planeAspect-parameter</span><br>
  <code>planeAspect</code> <strong>must</strong> be a valid <a href="#VkImageAspectFlagBits">VkImageAspectFlagBits</a> value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To determine the tile memory allocation requirements of a buffer or image
+resource, add a <code>VkTileMemoryRequirementsQCOM</code> structure to the
+<code>pNext</code> chain of the <code>VkMemoryRequirements2</code> structure passed as the
+<code>pMemoryRequirements</code> parameter of <a href="#vkGetBufferMemoryRequirements2">vkGetBufferMemoryRequirements2</a>
+or <a href="#vkGetImageMemoryRequirements2">vkGetImageMemoryRequirements2</a>, respectively.
+The <code>VkTileMemoryRequirementsQCOM</code> structure is defined as:</p>
+</div>
+<div id="VkTileMemoryRequirementsQCOM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_QCOM_tile_memory_heap
+typedef struct VkTileMemoryRequirementsQCOM {
+    VkStructureType    sType;
+    void*              pNext;
+    VkDeviceSize       size;
+    VkDeviceSize       alignment;
+} VkTileMemoryRequirementsQCOM;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>size</code> size is the size, in bytes, of the tile memory allocation
+required for the resource.</p>
+</li>
+<li>
+<p><code>alignment</code> is the alignment, in bytes, of the offset within the
+tile memory allocation required for the resource.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The <code>size</code> and <code>alignment</code> <strong>must</strong> be used when the resource is bound
+to a <a href="memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a> object that was allocated from a
+<a href="memory.html#VkMemoryType" class="xref page">VkMemoryType</a> that has a <code>heapIndex</code> that corresponds to a
+<a href="memory.html#VkMemoryHeap" class="xref page">VkMemoryHeap</a> with the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code>
+property.</p>
+</div>
+<div class="paragraph">
+<p>If the resource cannot be bound to tile memory, then <code>size</code> and
+<code>alignment</code> is filled with zero by the implementation.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkTileMemoryRequirementsQCOM-sType-sType" href="#VUID-VkTileMemoryRequirementsQCOM-sType-sType"></a> <span class="vuid">VUID-VkTileMemoryRequirementsQCOM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_TILE_MEMORY_REQUIREMENTS_QCOM</code></p>
 </li>
 </ul>
 </div>
@@ -16598,11 +16874,11 @@ describing the memory requirements of the resource.</p>
 </li>
 <li>
 <p><a id="VUID-VkMemoryRequirements2-pNext-pNext" href="#VUID-VkMemoryRequirements2-pNext-pNext"></a> <span class="vuid">VUID-VkMemoryRequirements2-pNext-pNext</span><br>
- <code>pNext</code> <strong>must</strong> be <code>NULL</code> or a pointer to a valid instance of <a href="#VkMemoryDedicatedRequirements">VkMemoryDedicatedRequirements</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkMemoryDedicatedRequirements">VkMemoryDedicatedRequirements</a> or <a href="#VkTileMemoryRequirementsQCOM">VkTileMemoryRequirementsQCOM</a></p>
 </li>
 <li>
 <p><a id="VUID-VkMemoryRequirements2-sType-unique" href="#VUID-VkMemoryRequirements2-sType-unique"></a> <span class="vuid">VUID-VkMemoryRequirements2-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -16811,19 +17087,41 @@ allowed in the <code>memoryTypeBits</code> member of the
 <code>vkGetBufferMemoryRequirements</code> with <code>buffer</code></p>
 </li>
 <li>
-<p><a id="VUID-vkBindBufferMemory-memoryOffset-01036" href="#VUID-vkBindBufferMemory-memoryOffset-01036"></a> <span class="vuid">VUID-vkBindBufferMemory-memoryOffset-01036</span><br>
+<p><a id="VUID-vkBindBufferMemory-None-10739" href="#VUID-vkBindBufferMemory-None-10739"></a> <span class="vuid">VUID-vkBindBufferMemory-None-10739</span><br>
 
+If <code>memory</code> was not allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set,
 <code>memoryOffset</code> <strong>must</strong> be an integer multiple of the <code>alignment</code>
 member of the <code>VkMemoryRequirements</code> structure returned from a call
 to <code>vkGetBufferMemoryRequirements</code> with <code>buffer</code></p>
 </li>
 <li>
-<p><a id="VUID-vkBindBufferMemory-size-01037" href="#VUID-vkBindBufferMemory-size-01037"></a> <span class="vuid">VUID-vkBindBufferMemory-size-01037</span><br>
+<p><a id="VUID-vkBindBufferMemory-memory-10740" href="#VUID-vkBindBufferMemory-memory-10740"></a> <span class="vuid">VUID-vkBindBufferMemory-memory-10740</span><br>
 
-The <code>size</code> member of the <code>VkMemoryRequirements</code> structure
-returned from a call to <code>vkGetBufferMemoryRequirements</code> with
-<code>buffer</code> <strong>must</strong> be less than or equal to the size of <code>memory</code>
-minus <code>memoryOffset</code></p>
+If <code>memory</code> was allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set,
+<code>memoryOffset</code> <strong>must</strong> be an integer multiple of the <code>alignment</code>
+member of the <code>VkTileMemoryRequirementsQCOM</code> structure returned from
+a call to <code>vkGetBufferMemoryRequirements</code> with <code>buffer</code></p>
+</li>
+<li>
+<p><a id="VUID-vkBindBufferMemory-None-10741" href="#VUID-vkBindBufferMemory-None-10741"></a> <span class="vuid">VUID-vkBindBufferMemory-None-10741</span><br>
+
+If <code>memory</code> was not allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set,
+<code>size</code> member of the <code>VkMemoryRequirements</code> structure returned
+from a call to <code>vkGetBufferMemoryRequirements</code> with <code>buffer</code>
+<strong>must</strong> be less than or equal to the size of <code>memory</code> minus
+<code>memoryOffset</code></p>
+</li>
+<li>
+<p><a id="VUID-vkBindBufferMemory-memory-10742" href="#VUID-vkBindBufferMemory-memory-10742"></a> <span class="vuid">VUID-vkBindBufferMemory-memory-10742</span><br>
+
+If <code>memory</code> was allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set, <code>size</code>
+member of the <code>VkTileMemoryRequirementsQCOM</code> structure returned from
+a call to <code>vkGetBufferMemoryRequirements</code> with <code>buffer</code> <strong>must</strong> be
+less than or equal to the size of <code>memory</code> minus <code>memoryOffset</code></p>
 </li>
 <li>
 <p><a id="VUID-vkBindBufferMemory-buffer-01444" href="#VUID-vkBindBufferMemory-buffer-01444"></a> <span class="vuid">VUID-vkBindBufferMemory-buffer-01444</span><br>
@@ -17261,19 +17559,41 @@ allowed in the <code>memoryTypeBits</code> member of the
 <code>vkGetBufferMemoryRequirements</code> with <code>buffer</code></p>
 </li>
 <li>
-<p><a id="VUID-VkBindBufferMemoryInfo-memoryOffset-01036" href="#VUID-VkBindBufferMemoryInfo-memoryOffset-01036"></a> <span class="vuid">VUID-VkBindBufferMemoryInfo-memoryOffset-01036</span><br>
+<p><a id="VUID-VkBindBufferMemoryInfo-None-10739" href="#VUID-VkBindBufferMemoryInfo-None-10739"></a> <span class="vuid">VUID-VkBindBufferMemoryInfo-None-10739</span><br>
 
+If <code>memory</code> was not allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set,
 <code>memoryOffset</code> <strong>must</strong> be an integer multiple of the <code>alignment</code>
 member of the <code>VkMemoryRequirements</code> structure returned from a call
 to <code>vkGetBufferMemoryRequirements</code> with <code>buffer</code></p>
 </li>
 <li>
-<p><a id="VUID-VkBindBufferMemoryInfo-size-01037" href="#VUID-VkBindBufferMemoryInfo-size-01037"></a> <span class="vuid">VUID-VkBindBufferMemoryInfo-size-01037</span><br>
+<p><a id="VUID-VkBindBufferMemoryInfo-memory-10740" href="#VUID-VkBindBufferMemoryInfo-memory-10740"></a> <span class="vuid">VUID-VkBindBufferMemoryInfo-memory-10740</span><br>
 
-The <code>size</code> member of the <code>VkMemoryRequirements</code> structure
-returned from a call to <code>vkGetBufferMemoryRequirements</code> with
-<code>buffer</code> <strong>must</strong> be less than or equal to the size of <code>memory</code>
-minus <code>memoryOffset</code></p>
+If <code>memory</code> was allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set,
+<code>memoryOffset</code> <strong>must</strong> be an integer multiple of the <code>alignment</code>
+member of the <code>VkTileMemoryRequirementsQCOM</code> structure returned from
+a call to <code>vkGetBufferMemoryRequirements</code> with <code>buffer</code></p>
+</li>
+<li>
+<p><a id="VUID-VkBindBufferMemoryInfo-None-10741" href="#VUID-VkBindBufferMemoryInfo-None-10741"></a> <span class="vuid">VUID-VkBindBufferMemoryInfo-None-10741</span><br>
+
+If <code>memory</code> was not allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set,
+<code>size</code> member of the <code>VkMemoryRequirements</code> structure returned
+from a call to <code>vkGetBufferMemoryRequirements</code> with <code>buffer</code>
+<strong>must</strong> be less than or equal to the size of <code>memory</code> minus
+<code>memoryOffset</code></p>
+</li>
+<li>
+<p><a id="VUID-VkBindBufferMemoryInfo-memory-10742" href="#VUID-VkBindBufferMemoryInfo-memory-10742"></a> <span class="vuid">VUID-VkBindBufferMemoryInfo-memory-10742</span><br>
+
+If <code>memory</code> was allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set, <code>size</code>
+member of the <code>VkTileMemoryRequirementsQCOM</code> structure returned from
+a call to <code>vkGetBufferMemoryRequirements</code> with <code>buffer</code> <strong>must</strong> be
+less than or equal to the size of <code>memory</code> minus <code>memoryOffset</code></p>
 </li>
 <li>
 <p><a id="VUID-VkBindBufferMemoryInfo-buffer-01444" href="#VUID-VkBindBufferMemoryInfo-buffer-01444"></a> <span class="vuid">VUID-VkBindBufferMemoryInfo-buffer-01444</span><br>
@@ -17437,7 +17757,7 @@ been allocated</p>
 </li>
 <li>
 <p><a id="VUID-VkBindBufferMemoryInfo-sType-unique" href="#VUID-VkBindBufferMemoryInfo-sType-unique"></a> <span class="vuid">VUID-VkBindBufferMemoryInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkBindBufferMemoryInfo-buffer-parameter" href="#VUID-VkBindBufferMemoryInfo-buffer-parameter"></a> <span class="vuid">VUID-VkBindBufferMemoryInfo-buffer-parameter</span><br>
@@ -17826,19 +18146,41 @@ allowed in the <code>memoryTypeBits</code> member of the
 <a href="#vkGetImageMemoryRequirements">vkGetImageMemoryRequirements</a> with <code>image</code></p>
 </li>
 <li>
-<p><a id="VUID-vkBindImageMemory-memoryOffset-01048" href="#VUID-vkBindImageMemory-memoryOffset-01048"></a> <span class="vuid">VUID-vkBindImageMemory-memoryOffset-01048</span><br>
+<p><a id="VUID-vkBindImageMemory-None-10735" href="#VUID-vkBindImageMemory-None-10735"></a> <span class="vuid">VUID-vkBindImageMemory-None-10735</span><br>
 
+If <code>memory</code> was not allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set,
 <code>memoryOffset</code> <strong>must</strong> be an integer multiple of the <code>alignment</code>
 member of the <code>VkMemoryRequirements</code> structure returned from a call
 to <a href="#vkGetImageMemoryRequirements">vkGetImageMemoryRequirements</a> with <code>image</code></p>
 </li>
 <li>
-<p><a id="VUID-vkBindImageMemory-size-01049" href="#VUID-vkBindImageMemory-size-01049"></a> <span class="vuid">VUID-vkBindImageMemory-size-01049</span><br>
+<p><a id="VUID-vkBindImageMemory-memory-10736" href="#VUID-vkBindImageMemory-memory-10736"></a> <span class="vuid">VUID-vkBindImageMemory-memory-10736</span><br>
 
-The difference of the size of <code>memory</code> and <code>memoryOffset</code> <strong>must</strong>
-be greater than or equal to the <code>size</code> member of the
-<a href="#VkMemoryRequirements">VkMemoryRequirements</a> structure returned from a call to
-<a href="#vkGetImageMemoryRequirements">vkGetImageMemoryRequirements</a> with the same <code>image</code></p>
+If <code>memory</code> was allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set,
+<code>memoryOffset</code> <strong>must</strong> be an integer multiple of the <code>alignment</code>
+member of the <code>VkTileMemoryRequirementsQCOM</code> structure returned from
+a call to <code>vkGetImageMemoryRequirements</code> with <code>image</code></p>
+</li>
+<li>
+<p><a id="VUID-vkBindImageMemory-None-10737" href="#VUID-vkBindImageMemory-None-10737"></a> <span class="vuid">VUID-vkBindImageMemory-None-10737</span><br>
+
+If <code>memory</code> was not allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set,
+<code>size</code> member of the <code>VkMemoryRequirements</code> structure returned
+from a call to <code>vkGetImageMemoryRequirements</code> with <code>image</code> <strong>must</strong>
+be less than or equal to the size of <code>memory</code> minus
+<code>memoryOffset</code></p>
+</li>
+<li>
+<p><a id="VUID-vkBindImageMemory-memory-10738" href="#VUID-vkBindImageMemory-memory-10738"></a> <span class="vuid">VUID-vkBindImageMemory-memory-10738</span><br>
+
+If <code>memory</code> was allocated from a memory heap with the
+<code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property set, <code>size</code>
+member of the <code>VkTileMemoryRequirementsQCOM</code> structure returned from
+a call to <code>vkGetImageMemoryRequirements</code> with <code>image</code> <strong>must</strong> be
+less than or equal to the size of <code>memory</code> minus <code>memoryOffset</code></p>
 </li>
 <li>
 <p><a id="VUID-vkBindImageMemory-image-06392" href="#VUID-vkBindImageMemory-image-06392"></a> <span class="vuid">VUID-vkBindImageMemory-image-06392</span><br>
@@ -18437,7 +18779,7 @@ a valid <a href="memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a
 </li>
 <li>
 <p><a id="VUID-VkBindImageMemoryInfo-sType-unique" href="#VUID-VkBindImageMemoryInfo-sType-unique"></a> <span class="vuid">VUID-VkBindImageMemoryInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkBindImageMemoryInfo-image-parameter" href="#VUID-VkBindImageMemoryInfo-image-parameter"></a> <span class="vuid">VUID-VkBindImageMemoryInfo-image-parameter</span><br>
@@ -18803,7 +19145,7 @@ aspect of the disjoint image plane to bind.</p>
 
 If the image&#8217;s <code>tiling</code> is <code>VK_IMAGE_TILING_LINEAR</code> or
 <code>VK_IMAGE_TILING_OPTIMAL</code>, then <code>planeAspect</code> <strong>must</strong> be a single
-valid <a href="formats.html#formats-planes-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
+valid <a href="formats.html#formats-multiplanar-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
 </li>
 <li>
 <p><a id="VUID-VkBindImagePlaneMemoryInfo-planeAspect-02284" href="#VUID-VkBindImagePlaneMemoryInfo-planeAspect-02284"></a> <span class="vuid">VUID-VkBindImagePlaneMemoryInfo-planeAspect-02284</span><br>
@@ -18976,9 +19318,21 @@ different queue family.</p>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Images still require a <a href="#resources-image-layouts">layout transition</a> from
-<code>VK_IMAGE_LAYOUT_UNDEFINED</code> or <code>VK_IMAGE_LAYOUT_PREINITIALIZED</code>
-before being used on the first queue.</p>
+<p>Before being used on the first queue, images still require a
+<a href="#resources-image-layouts">layout transition</a> from these layouts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_IMAGE_LAYOUT_UNDEFINED</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_PREINITIALIZED</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT</code></p>
+</li>
+</ul>
 </div>
 </td>
 </tr>
@@ -19155,10 +19509,24 @@ image&#8217;s mip tail overlaps an aliased range all image subresources in the m
 tail overlap the range.</p>
 </div>
 <div class="paragraph">
-<p>Buffers, and linear image subresources in either the
-<code>VK_IMAGE_LAYOUT_PREINITIALIZED</code> or <code>VK_IMAGE_LAYOUT_GENERAL</code>
-layouts, are <em>host-accessible subresources</em>.
-That is, the host has a well-defined addressing scheme to interpret the
+<p>Buffers and linear image subresources are considered <em>host-accessible
+subresources</em> when they are in any of these layouts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_IMAGE_LAYOUT_PREINITIALIZED</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_GENERAL</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>That is, the host has a well-defined addressing scheme to interpret the
 contents, and thus the layout of the data in memory <strong>can</strong> be consistently
 interpreted across aliases if each of those aliases is a host-accessible
 subresource.
@@ -19243,9 +19611,10 @@ become <strong>undefined</strong>.</p>
 <div class="paragraph">
 <p>If any image subresources are made <strong>undefined</strong> due to writes to an alias,
 then each of those image subresources <strong>must</strong> have its layout transitioned
-from <code>VK_IMAGE_LAYOUT_UNDEFINED</code> to a valid layout before it is used, or
-from <code>VK_IMAGE_LAYOUT_PREINITIALIZED</code> if the memory has been written by
-the host.
+from <code>VK_IMAGE_LAYOUT_UNDEFINED</code> to a valid layout before it is used,
+from <code>VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT</code> if it is zeroed,
+or from <code>VK_IMAGE_LAYOUT_PREINITIALIZED</code> if the memory has been written
+by the host.
 If any sparse blocks of a sparse image have been made <strong>undefined</strong>, then only
 the image subresources containing them <strong>must</strong> be transitioned.</p>
 </div>
@@ -19438,9 +19807,8 @@ controlling host memory allocation as described in the
 <a href="memory.html#memory-allocation" class="xref page">Memory Allocation</a> chapter</p>
 </li>
 <li>
-<p><code>pBufferCollection</code> is a pointer to a
-<a href="#VkBufferCollectionFUCHSIA">VkBufferCollectionFUCHSIA</a> handle in which the resulting buffer
-collection object is returned</p>
+<p><code>pCollection</code> is a pointer to a <a href="#VkBufferCollectionFUCHSIA">VkBufferCollectionFUCHSIA</a>
+handle in which the resulting buffer collection object is returned</p>
 </li>
 </ul>
 </div>
@@ -20341,7 +20709,7 @@ typedef struct VkBufferConstraintsInfoFUCHSIA {
 structure</p>
 </li>
 <li>
-<p><code>pBufferCreateInfo</code> a pointer to a <a href="#VkBufferCreateInfo">VkBufferCreateInfo</a> struct
+<p><code>createInfo</code> a pointer to a <a href="#VkBufferCreateInfo">VkBufferCreateInfo</a> struct
 describing the buffer attributes for the buffer collection</p>
 </li>
 <li>
@@ -20600,7 +20968,7 @@ specifying the color space</p>
 </li>
 <li>
 <p><code>samplerYcbcrConversionComponents</code> is a <a href="#VkComponentMapping">VkComponentMapping</a>
-struct specifying the component mapping</p>
+structure specifying the component mapping</p>
 </li>
 <li>
 <p><code>suggestedYcbcrModel</code> is a <a href="samplers.html#VkSamplerYcbcrModelConversion" class="xref page">VkSamplerYcbcrModelConversion</a> value
@@ -20822,6 +21190,29 @@ respectively, <strong>may</strong> outlive <code>collection</code></p>
 </div>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>

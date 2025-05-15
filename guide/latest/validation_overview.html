@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="guide" data-version="latest">
+<div class="nav-container" data-component="guide" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -187,19 +187,22 @@
     <a class="nav-link" href="layers.html">Layers</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="querying_extensions_features.html">Querying Properties, Extensions, Features, Limits, and Formats</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_extensions.html">Enabling Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_features.html">Enabling Features</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spirv_extensions.html">Using SPIR-V Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="formats.html">Formats</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="queues.html">Queues</a>
@@ -218,18 +221,24 @@
     <a class="nav-link" href="extensions/VK_KHR_synchronization2.html">VK_KHR_synchronization2</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="swapchain_semaphore_reuse.html">Swapchain Semaphore Reuse</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="synchronization_examples.html">Synchronization Examples</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="memory_allocation.html">Memory Allocation</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="sparse_resources.html">Sparse Resources</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="protected.html">Protected Memory</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pipeline_cache.html">Pipeline Cache</a>
@@ -241,22 +250,37 @@
     <a class="nav-link" href="depth.html">Depth</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="mapping_data_to_shaders.html">Mapping Data to Shaders</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="vertex_input_data_processing.html">Vertex Input Data Processing</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="descriptor_dynamic_offset.html">Descriptor Dynamic Offset</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="location_component_interface.html">Location and Component Interface</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="push_constants.html">Push Constants</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ways_to_provide_spirv.html">Ways to Provide SPIR-V</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="robustness.html">Robustness</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="dynamic_state.html">Pipeline Dynamic State</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="dynamic_state_map.html">Dynamic State Map</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="subgroups.html">Subgroups</a>
@@ -393,7 +417,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../../spec/latest/index.html" class="home-link"></a>
@@ -433,7 +457,7 @@
 <h2 id="_valid_usage_vu"><a class="anchor" href="#_valid_usage_vu"></a>Valid Usage (VU)</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A <strong>VU</strong> is explicitly <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-validusage">defined in the Vulkan Spec</a> as:</p>
+<p>A <strong>VU</strong> is explicitly <a href="https://docs.vulkan.org/spec/latest/chapters/fundamentals.html#fundamentals-validusage">defined in the Vulkan Spec</a> as:</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -466,6 +490,21 @@
 <div class="paragraph">
 <p><strong>VERY IMPORTANT</strong>: While undefined behavior might seem to work on one implementation, there is a good chance it will fail on another.</p>
 </div>
+<div class="sect2">
+<h3 id="_undefined_value"><a class="anchor" href="#_undefined_value"></a>Undefined Value</h3>
+<div class="paragraph">
+<p>There are few spots that will be <em>undefined value</em>. These are situation where it is not invalid to do something, but the value returned from the hardware might be garbage. Imagine the following code</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">int x;
+print(x)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It will never crash, but the value can be anything and relying on the undefined value to be something like <code>0</code> is dangerous.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -475,7 +514,29 @@
 <p>A <code>VUID</code> is an unique ID given to each valid usage. This allows a way to point to a valid usage in the spec easily.</p>
 </div>
 <div class="paragraph">
-<p>Using <code>VUID-vkBindImageMemory-memoryOffset-01046</code> as an example, it is as simple as adding the VUID to an anchor in the HMTL version of the spec (<a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VUID-vkBindImageMemory-memoryOffset-01046">vkspec.html#VUID-vkBindImageMemory-memoryOffset-01046</a>) and it will jump right to the VUID.</p>
+<p>Using <code>VUID-vkBindImageMemory-memoryOffset-01046</code> as an example, it is as simple as adding the VUID to an anchor in the HTML version of the spec (<a href="https://docs.vulkan.org/spec/latest/chapters/resources.html#VUID-vkBindImageMemory-memoryOffset-01046">vkspec.html#VUID-vkBindImageMemory-memoryOffset-01046</a>) and it will jump right to the VUID.</p>
+</div>
+<div class="sect2">
+<h3 id="_implicit_vs_explicit"><a class="anchor" href="#_implicit_vs_explicit"></a>Implicit vs Explicit</h3>
+<div class="paragraph">
+<p><em>Implicit Validation</em> is the validation that is generated from the <code>vk.xml</code>. It will be the "obvious" things such as "`device` must be a valid <code>VkDevice</code> handle".</p>
+</div>
+<div class="paragraph">
+<p><em>Explicit Validation</em> are the handwritten VUs found everywhere else</p>
+</div>
+<div class="paragraph">
+<p>Simple way to detect which is which is by looking for a number in the VUID</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VUID-vkBindImageMemory-image-01044</code> is explicit</p>
+</li>
+<li>
+<p><code>VUID-vkBindImageMemory-memory-parameter</code> is implicit</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 </div>
@@ -510,13 +571,13 @@
 <p><strong>Android</strong> - Binaries are <a href="https://github.com/KhronosGroup/Vulkan-ValidationLayers/releases">released on GitHub</a> with most up to date version. The NDK will also comes with the Validation Layers built and <a href="https://developer.android.com/ndk/guides/graphics/validation-layer">information on how to use them</a>.</p>
 </li>
 <li>
-<p><strong>Linux</strong> - The <a href="https://vulkan.lunarg.com/sdk/home">Vulkan SDK</a> comes with the Validation Layers built and instructions on how to use them on <a href="https://vulkan.lunarg.com/doc/sdk/latest/linux/validation_layers.html">Linux</a>.</p>
+<p><strong>Linux</strong> - The <a href="https://vulkan.lunarg.com/sdk/home">Vulkan SDK</a> comes with the Validation Layers built and instructions on how to use them on <a href="https://vulkan.lunarg.com/doc/sdk/latest/linux/khronos_validation_layer.html">Linux</a>.</p>
 </li>
 <li>
-<p><strong>MacOS</strong> - The <a href="https://vulkan.lunarg.com/sdk/home">Vulkan SDK</a> comes with the Validation Layers built and instructions on how to use them on <a href="https://vulkan.lunarg.com/doc/sdk/latest/mac/validation_layers.html">MacOS</a>.</p>
+<p><strong>MacOS</strong> - The <a href="https://vulkan.lunarg.com/sdk/home">Vulkan SDK</a> comes with the Validation Layers built and instructions on how to use them on <a href="https://vulkan.lunarg.com/doc/sdk/latest/mac/khronos_validation_layer.html">MacOS</a>.</p>
 </li>
 <li>
-<p><strong>Windows</strong> - The <a href="https://vulkan.lunarg.com/sdk/home">Vulkan SDK</a> comes with the Validation Layers built and instructions on how to use them on <a href="https://vulkan.lunarg.com/doc/sdk/latest/windows/validation_layers.html">Windows</a>.</p>
+<p><strong>Windows</strong> - The <a href="https://vulkan.lunarg.com/sdk/home">Vulkan SDK</a> comes with the Validation Layers built and instructions on how to use them on <a href="https://vulkan.lunarg.com/doc/sdk/latest/windows/khronos_validation_layer.html">Windows</a>.</p>
 </li>
 </ul>
 </div>
@@ -527,187 +588,7 @@
 <h2 id="_breaking_down_a_validation_error_message"><a class="anchor" href="#_breaking_down_a_validation_error_message"></a>Breaking Down a Validation Error Message</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Validation Layers attempt to supply as much useful information as possible when an error occurs. The following examples are to help show how to get the most information out of the Validation Layers</p>
-</div>
-<div class="sect2">
-<h3 id="_example_1_implicit_valid_usage"><a class="anchor" href="#_example_1_implicit_valid_usage"></a>Example 1 - Implicit Valid Usage</h3>
-<div class="paragraph">
-<p>This example shows a case where an <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-implicit-validity">implicit VU</a> is triggered. There will not be a number at the end of the VUID.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">Validation Error: [ VUID-vkBindBufferMemory-memory-parameter ] Object 0: handle =
-0x20c8650, type = VK_OBJECT_TYPE_INSTANCE; | MessageID = 0xe9199965 | Invalid
-VkDeviceMemory Object 0x60000000006. The Vulkan spec states: memory must be a valid
-VkDeviceMemory handle (https://registry.khronos.org/vulkan/specs/1.1-extensions/
-html/vkspec.html#VUID-vkBindBufferMemory-memory-parameter)</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>The first thing to notice is the VUID is listed first in the message (<code>VUID-vkBindBufferMemory-memory-parameter</code>)</p>
-<div class="ulist">
-<ul>
-<li>
-<p>There is also a link at the end of the message to the VUID in the spec</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><code>The Vulkan spec states:</code> is the quoted VUID from the spec.</p>
-</li>
-<li>
-<p>The <code>VK_OBJECT_TYPE_INSTANCE</code> is the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#_debugging">VkObjectType</a></p>
-</li>
-<li>
-<p><code>Invalid VkDeviceMemory Object 0x60000000006</code> is the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#fundamentals-objectmodel-overview">Dispatchable Handle</a> to help show which <code>VkDeviceMemory</code> handle was the cause of the error.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_example_2_explicit_valid_usage"><a class="anchor" href="#_example_2_explicit_valid_usage"></a>Example 2 - Explicit Valid Usage</h3>
-<div class="paragraph">
-<p>This example shows an error where some <code>VkImage</code> is trying to be bound to 2 different <code>VkDeviceMemory</code> objects</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">Validation Error: [ VUID-vkBindImageMemory-image-01044 ] Object 0: handle =
-0x90000000009, name = myTextureMemory, type = VK_OBJECT_TYPE_DEVICE_MEMORY; Object 1:
-handle = 0x70000000007, type = VK_OBJECT_TYPE_IMAGE; Object 2: handle = 0x90000000006,
-name = myIconMemory, type = VK_OBJECT_TYPE_DEVICE_MEMORY; | MessageID = 0x6f3eac96 |
-In vkBindImageMemory(), attempting to bind VkDeviceMemory 0x90000000009[myTextureMemory]
-to VkImage 0x70000000007[] which has already been bound to VkDeviceMemory
-0x90000000006[myIconMemory]. The Vulkan spec states: image must not already be
-backed by a memory object (https://registry.khronos.org/vulkan/specs/1.1-extensions/
-html/vkspec.html#VUID-vkBindImageMemory-image-01044)</code></pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Example 2 is about the same as Example 1 with the exception that the <code>name</code> that was attached to the object (<code>name = myTextureMemory</code>). This was done using the <a href="https://www.lunarg.com/new-tutorial-for-vulkan-debug-utilities-extension/">VK_EXT_debug_util</a> extension (<a href="https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/debug_utils">Sample of how to use the extension</a>). Note that the old way of using <a href="https://www.saschawillems.de/blog/2016/05/28/tutorial-on-using-vulkans-vk_ext_debug_marker-with-renderdoc/">VK_EXT_debug_report</a> might be needed on legacy devices that don&#8217;t support <code>VK_EXT_debug_util</code>.</p>
-</li>
-<li>
-<p>There were 3 objects involved in causing this error.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Object 0 is a <code>VkDeviceMemory</code> named <code>myTextureMemory</code></p>
-</li>
-<li>
-<p>Object 1 is a <code>VkImage</code> with no name</p>
-</li>
-<li>
-<p>Object 2 is a <code>VkDeviceMemory</code> named <code>myIconMemory</code></p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>With the names it is easy to see &#8220;In <code>vkBindImageMemory()</code>, the <code>myTextureMemory</code> memory was attempting to bind to an image already been bound to the <code>myIconMemory</code> memory&#8221;.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Each error message contains a uniform logging pattern. This allows information to be easily found in any error. The pattern is as followed:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Log status (ex. <code>Error:</code>, <code>Warning:</code>, etc)</p>
-</li>
-<li>
-<p>The VUID</p>
-</li>
-<li>
-<p>Array of objects involved</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Index of array</p>
-</li>
-<li>
-<p>Dispatch Handle value</p>
-</li>
-<li>
-<p>Optional name</p>
-</li>
-<li>
-<p>Object Type</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Function or struct error occurred in</p>
-</li>
-<li>
-<p>Message the layer has created to help describe the issue</p>
-</li>
-<li>
-<p>The full Valid Usage from the spec</p>
-</li>
-<li>
-<p>Link to the Valid Usage</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_multiple_vuids"><a class="anchor" href="#_multiple_vuids"></a>Multiple VUIDs</h2>
-<div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The following is not ideal and is being looked into how to make it simpler</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Currently, the spec is designed to only show the VUIDs depending on the <a href="vulkan_spec.html#vulkan-spec-variations" class="xref page">version and extensions the spec was built with</a>. Simply put, additions of extensions and versions may alter the VU language enough (from new API items added) that a separate VUID is created.</p>
-</div>
-<div class="paragraph">
-<p>An example of this from the <a href="https://github.com/KhronosGroup/Vulkan-Docs">Vulkan-Docs</a> where the <a href="vulkan_spec.html#vulkan-spec" class="xref page">spec in generated from</a></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-c hljs" data-lang="c">  * [[VUID-VkPipelineLayoutCreateInfo-pSetLayouts-00287]]
-    ...</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>What this creates is two very similar VUIDs</p>
-</div>
-<div class="paragraph">
-<p>In this example, both VUIDs are very similar and the only difference is the fact <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> is referenced in one and not this other. This is because the enum was added with the addition of <code>VK_EXT_descriptor_indexing</code> which is now part of Vulkan 1.2.</p>
-</div>
-<div class="paragraph">
-<p>This means the 2 valid <a href="vulkan_spec.html#html-full" class="xref page">html links to the spec</a> would look like</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>1.1/html/vkspec.html#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-00287</code></p>
-</li>
-<li>
-<p><code>1.2/html/vkspec.html#VUID-VkPipelineLayoutCreateInfo-descriptorType-03016</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The Validation Layer uses the device properties of the application in order to decide which one to display. So in this case, if you are running on a Vulkan 1.2 implementation or a device that supports <code>VK_EXT_descriptor_indexing</code> it will display the VUID <code>03016</code>.</p>
+<p>This information can be found in the <a href="https://github.com/KhronosGroup/Vulkan-ValidationLayers/blob/main/docs/error_messages.md">Validation Layers documentation</a>.</p>
 </div>
 </div>
 </div>
@@ -715,7 +596,7 @@ html/vkspec.html#VUID-vkBindImageMemory-image-01044)</code></pre>
 <h2 id="_special_usage_tags"><a class="anchor" href="#_special_usage_tags"></a>Special Usage Tags</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="https://vulkan.lunarg.com/doc/sdk/latest/windows/best_practices.html">Best Practices layer</a> will produce warnings when an application tries to use any extension with <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#extendingvulkan-compatibility-specialuse">special usage tags</a>. An example of such an extension is <a href="extensions/translation_layer_extensions.html#vk_ext_transform_feedback" class="xref page">VK_EXT_transform_feedback</a> which is only designed for emulation layers. If an application&#8217;s intended usage corresponds to one of the special use cases, the following approach will allow you to ignore the warnings.</p>
+<p>The <a href="https://vulkan.lunarg.com/doc/sdk/latest/windows/best_practices.html">Best Practices layer</a> will produce warnings when an application tries to use any extension with <a href="https://docs.vulkan.org/spec/latest/chapters/extensions.html#extendingvulkan-compatibility-specialuse">special usage tags</a>. An example of such an extension is <a href="extensions/translation_layer_extensions.html#vk_ext_transform_feedback" class="xref page">VK_EXT_transform_feedback</a> which is only designed for emulation layers. If an application&#8217;s intended usage corresponds to one of the special use cases, the following approach will allow you to ignore the warnings.</p>
 </div>
 <div class="paragraph">
 <p>Ignoring Special Usage Warnings with <code>VK_EXT_debug_report</code></p>
@@ -757,6 +638,29 @@ html/vkspec.html#VUID-vkBindImageMemory-image-01044)</code></pre>
 </div>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>

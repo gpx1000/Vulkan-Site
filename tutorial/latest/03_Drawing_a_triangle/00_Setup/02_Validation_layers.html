@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="tutorial" data-version="latest">
+<div class="nav-container" data-component="tutorial" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -348,7 +348,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../../../../spec/latest/index.html" class="home-link"></a>
@@ -465,7 +465,7 @@ const std::vector&lt;const char*&gt; validationLayers = {
 <div class="paragraph">
 <p>We&#8217;ll add a new function <code>checkValidationLayerSupport</code> that checks if all of the requested layers are available.
 First list all of the available layers using the <code>vkEnumerateInstanceLayerProperties</code> function.
-Its usage is identical to that of <code>vkEnumerateInstanceExtensionProperties</code> which was discussed in the instance creation chapter.</p>
+Its usage is identical to that of <code>vkEnumerateInstanceExtensionProperties</code> which was discussed in the instance creation chapter. Next, check if all of the layers in <code>validationLayers</code> exist in the <code>availableLayers</code> list. You may need to include <code>&lt;cstring&gt;</code> for <code>strcmp</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -476,32 +476,23 @@ Its usage is identical to that of <code>vkEnumerateInstanceExtensionProperties</
     std::vector&lt;VkLayerProperties&gt; availableLayers(layerCount);
     vkEnumerateInstanceLayerProperties(&amp;layerCount, availableLayers.data());
 
-    return false;
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Next, check if all of the layers in <code>validationLayers</code> exist in the <code>availableLayers</code> list.
-You may need to include <code>&lt;cstring&gt;</code> for <code>strcmp</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">for (const char* layerName : validationLayers) {
-    bool layerFound = false;
+    for (const char* layerName : validationLayers) {
+        bool layerFound = false;
 
-    for (const auto&amp; layerProperties : availableLayers) {
-        if (strcmp(layerName, layerProperties.layerName) == 0) {
-            layerFound = true;
-            break;
+        for (const auto&amp; layerProperties : availableLayers) {
+            if (strcmp(layerName, layerProperties.layerName) == 0) {
+                layerFound = true;
+                break;
+            }
+        }
+
+        if (!layerFound) {
+            return false;
         }
     }
 
-    if (!layerFound) {
-        return false;
-    }
-}
-
-return true;</code></pre>
+    return true;
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -937,6 +928,29 @@ Now it&#8217;s time to look at <a href="03_Physical_devices_and_queue_families.h
 </div>
 <script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
 <script async src="../../../../_/js/vendor/highlight.js"></script>
+<script src="../../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>

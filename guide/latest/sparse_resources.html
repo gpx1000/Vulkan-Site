@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="guide" data-version="latest">
+<div class="nav-container" data-component="guide" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -187,19 +187,22 @@
     <a class="nav-link" href="layers.html">Layers</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="querying_extensions_features.html">Querying Properties, Extensions, Features, Limits, and Formats</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_extensions.html">Enabling Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_features.html">Enabling Features</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spirv_extensions.html">Using SPIR-V Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="formats.html">Formats</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="queues.html">Queues</a>
@@ -218,18 +221,24 @@
     <a class="nav-link" href="extensions/VK_KHR_synchronization2.html">VK_KHR_synchronization2</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="swapchain_semaphore_reuse.html">Swapchain Semaphore Reuse</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="synchronization_examples.html">Synchronization Examples</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="memory_allocation.html">Memory Allocation</a>
-  </li>
-  <li class="nav-item is-current-page" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="3">
     <a class="nav-link" href="sparse_resources.html">Sparse Resources</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="protected.html">Protected Memory</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pipeline_cache.html">Pipeline Cache</a>
@@ -241,22 +250,37 @@
     <a class="nav-link" href="depth.html">Depth</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="mapping_data_to_shaders.html">Mapping Data to Shaders</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="vertex_input_data_processing.html">Vertex Input Data Processing</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="descriptor_dynamic_offset.html">Descriptor Dynamic Offset</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="location_component_interface.html">Location and Component Interface</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="push_constants.html">Push Constants</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ways_to_provide_spirv.html">Ways to Provide SPIR-V</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="robustness.html">Robustness</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="dynamic_state.html">Pipeline Dynamic State</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="dynamic_state_map.html">Dynamic State Map</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="subgroups.html">Subgroups</a>
@@ -393,7 +417,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../../spec/latest/index.html" class="home-link"></a>
@@ -401,6 +425,7 @@
   <ul>
     <li><a href="index.html">Vulkan Guide</a></li>
     <li>Using Vulkan</li>
+    <li><a href="memory_allocation.html">Memory Allocation</a></li>
     <li><a href="sparse_resources.html">Sparse Resources</a></li>
   </ul>
 </nav>
@@ -414,7 +439,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Vulkan <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#sparsememory">sparse resources</a> are a way to create <code>VkBuffer</code> and <code>VkImage</code> objects which can be bound non-contiguously to one or more <code>VkDeviceMemory</code> allocations. There are many aspects and features of sparse resources which the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#sparsememory-sparseresourcefeatures">spec</a> does a good job explaining. As the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#_sparse_resource_implementation_guidelines">implementation guidelines</a> point out, most implementations use sparse resources to expose a linear virtual address range of memory to the application while mapping each sparse block to physical pages when bound.</p>
+<p>Vulkan <a href="https://docs.vulkan.org/spec/latest/chapters/sparsemem.html">sparse resources</a> are a way to create <code>VkBuffer</code> and <code>VkImage</code> objects which can be bound non-contiguously to one or more <code>VkDeviceMemory</code> allocations. There are many aspects and features of sparse resources which the <a href="https://docs.vulkan.org/spec/latest/chapters/sparsemem.html#sparsememory-sparseresourcefeatures">spec</a> does a good job explaining. As the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#_sparse_resource_implementation_guidelines_informative">implementation guidelines</a> point out, most implementations use sparse resources to expose a linear virtual address range of memory to the application while mapping each sparse block to physical pages when bound.</p>
 </div>
 </div>
 </div>
@@ -422,7 +447,7 @@
 <h2 id="_binding_sparse_memory"><a class="anchor" href="#_binding_sparse_memory"></a>Binding Sparse Memory</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Unlike normal resources that call <code>vkBindBufferMemory()</code> or <code>vkBindImageMemory()</code>, sparse memory is bound via a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#sparsememory-resource-binding">queue operation</a> <code>vkQueueBindSparse()</code>. The main advantage of this is that an application can rebind memory to a sparse resource throughout its lifetime.</p>
+<p>Unlike normal resources that call <code>vkBindBufferMemory()</code> or <code>vkBindImageMemory()</code>, sparse memory is bound via a <a href="https://docs.vulkan.org/spec/latest/chapters/sparsemem.html#sparsememory-resource-binding">queue operation</a> <code>vkQueueBindSparse()</code>. The main advantage of this is that an application can rebind memory to a sparse resource throughout its lifetime.</p>
 </div>
 <div class="paragraph">
 <p>It is important to notice that this requires some extra consideration from the application. Applications <strong>must</strong> use synchronization primitives to guarantee that other queues do not access ranges of memory concurrently with a binding change. Also, freeing a <code>VkDeviceMemory</code> object with <code>vkFreeMemory()</code> will <strong>not</strong> cause resources (or resource regions) bound to the memory object to become unbound. Applications must not access resources bound to memory that has been freed.</p>
@@ -464,7 +489,7 @@
 <div class="sect3">
 <h4 id="_mip_tail_regions"><a class="anchor" href="#_mip_tail_regions"></a>Mip Tail Regions</h4>
 <div class="paragraph">
-<p>Sparse images can be used to update mip levels separately which results in a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#sparsememory-miptail">mip tail region</a>. The spec describes the various examples that can occur with diagrams.</p>
+<p>Sparse images can be used to update mip levels separately which results in a <a href="https://docs.vulkan.org/spec/latest/chapters/sparsemem.html#sparsememory-miptail">mip tail region</a>. The spec describes the various examples that can occur with diagrams.</p>
 </div>
 </div>
 <div class="sect3">
@@ -753,6 +778,29 @@ ReleaseQueueOwnership(queue);</code></pre>
 </div>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>

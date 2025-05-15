@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../../index.html" class="home-link"></a>
@@ -492,7 +492,7 @@ VkResult vkCreateAndroidSurfaceKHR(
 <p><code>instance</code> is the instance to associate the surface with.</p>
 </li>
 <li>
-<p><code>pCreateInfo</code> is a pointer to a <code>VkAndroidSurfaceCreateInfoKHR</code>
+<p><code>pCreateInfo</code> is a pointer to a <a href="#VkAndroidSurfaceCreateInfoKHR">VkAndroidSurfaceCreateInfoKHR</a>
 structure containing parameters affecting the creation of the surface
 object.</p>
 </li>
@@ -961,7 +961,7 @@ VkResult vkCreateWin32SurfaceKHR(
 <p><code>instance</code> is the instance to associate the surface with.</p>
 </li>
 <li>
-<p><code>pCreateInfo</code> is a pointer to a <code>VkWin32SurfaceCreateInfoKHR</code>
+<p><code>pCreateInfo</code> is a pointer to a <a href="#VkWin32SurfaceCreateInfoKHR">VkWin32SurfaceCreateInfoKHR</a>
 structure containing parameters affecting the creation of the surface
 object.</p>
 </li>
@@ -1228,7 +1228,7 @@ VkResult vkCreateXcbSurfaceKHR(
 <p><code>instance</code> is the instance to associate the surface with.</p>
 </li>
 <li>
-<p><code>pCreateInfo</code> is a pointer to a <code>VkXcbSurfaceCreateInfoKHR</code>
+<p><code>pCreateInfo</code> is a pointer to a <a href="#VkXcbSurfaceCreateInfoKHR">VkXcbSurfaceCreateInfoKHR</a>
 structure containing parameters affecting the creation of the surface
 object.</p>
 </li>
@@ -1474,7 +1474,7 @@ VkResult vkCreateXlibSurfaceKHR(
 <p><code>instance</code> is the instance to associate the surface with.</p>
 </li>
 <li>
-<p><code>pCreateInfo</code> is a pointer to a <code>VkXlibSurfaceCreateInfoKHR</code>
+<p><code>pCreateInfo</code> is a pointer to a <a href="#VkXlibSurfaceCreateInfoKHR">VkXlibSurfaceCreateInfoKHR</a>
 structure containing the parameters affecting the creation of the
 surface object.</p>
 </li>
@@ -1723,7 +1723,7 @@ VkResult vkCreateDirectFBSurfaceEXT(
 <p><code>instance</code> is the instance to associate the surface with.</p>
 </li>
 <li>
-<p><code>pCreateInfo</code> is a pointer to a <code>VkDirectFBSurfaceCreateInfoEXT</code>
+<p><code>pCreateInfo</code> is a pointer to a <a href="#VkDirectFBSurfaceCreateInfoEXT">VkDirectFBSurfaceCreateInfoEXT</a>
 structure containing parameters affecting the creation of the surface
 object.</p>
 </li>
@@ -2734,7 +2734,7 @@ VkResult vkCreateViSurfaceNN(
 <p><code>instance</code> is the instance with which to associate the surface.</p>
 </li>
 <li>
-<p><code>pCreateInfo</code> is a pointer to a <code>VkViSurfaceCreateInfoNN</code>
+<p><code>pCreateInfo</code> is a pointer to a <a href="#VkViSurfaceCreateInfoNN">VkViSurfaceCreateInfoNN</a>
 structure containing parameters affecting the creation of the surface
 object.</p>
 </li>
@@ -2948,7 +2948,7 @@ surface object when there is no more specific allocator available (see
 <a href="../memory.html#memory-allocation" class="xref page">Memory Allocation</a>).</p>
 </li>
 <li>
-<p><code>pSurface</code> is a pointer to a <code>VkSurfaceKHR</code> handle in which the
+<p><code>pSurface</code> is a pointer to a <a href="#VkSurfaceKHR">VkSurfaceKHR</a> handle in which the
 created surface object is returned.</p>
 </li>
 </ul>
@@ -5255,7 +5255,7 @@ structure.</p>
 </li>
 <li>
 <p><a id="VUID-VkDisplayModeProperties2KHR-sType-unique" href="#VUID-VkDisplayModeProperties2KHR-sType-unique"></a> <span class="vuid">VUID-VkDisplayModeProperties2KHR-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -6454,7 +6454,7 @@ to <code>displayMode</code> <strong>must</strong> be <code>VK_TRUE</code></p>
 </li>
 <li>
 <p><a id="VUID-VkDisplaySurfaceCreateInfoKHR-sType-unique" href="#VUID-VkDisplaySurfaceCreateInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkDisplaySurfaceCreateInfoKHR-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkDisplaySurfaceCreateInfoKHR-flags-zerobitmask" href="#VUID-VkDisplaySurfaceCreateInfoKHR-flags-zerobitmask"></a> <span class="vuid">VUID-VkDisplaySurfaceCreateInfoKHR-flags-zerobitmask</span><br>
@@ -6713,7 +6713,7 @@ surface object when there is no more specific allocator available (see
 <a href="../memory.html#memory-allocation" class="xref page">Memory Allocation</a>).</p>
 </li>
 <li>
-<p><code>pSurface</code> is a pointer to a <code>VkSurfaceKHR</code> handle in which the
+<p><code>pSurface</code> is a pointer to a <a href="#VkSurfaceKHR">VkSurfaceKHR</a> handle in which the
 created surface object is returned.</p>
 </li>
 </ul>
@@ -7224,7 +7224,7 @@ VkBool32 vkGetPhysicalDeviceXlibPresentationSupportKHR(
 <p><code>dpy</code> is a pointer to an Xlib <code>Display</code> connection to the server.</p>
 </li>
 <li>
-<p><code>visualId</code> is an X11 visual (<code>VisualID</code>).</p>
+<p><code>visualID</code> is an X11 visual (<code>VisualID</code>).</p>
 </li>
 </ul>
 </div>
@@ -7984,7 +7984,7 @@ and the <code><a href="../../appendices/extensions.html#VK_GOOGLE_surfaceless_qu
 </li>
 <li>
 <p><a id="VUID-VkPhysicalDeviceSurfaceInfo2KHR-sType-unique" href="#VUID-VkPhysicalDeviceSurfaceInfo2KHR-sType-unique"></a> <span class="vuid">VUID-VkPhysicalDeviceSurfaceInfo2KHR-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -8256,7 +8256,7 @@ not reflect that of any surface and will instead be as such:</p>
 </li>
 <li>
 <p><a id="VUID-VkSurfaceCapabilities2KHR-sType-unique" href="#VUID-VkSurfaceCapabilities2KHR-sType-unique"></a> <span class="vuid">VUID-VkSurfaceCapabilities2KHR-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -8313,7 +8313,7 @@ surface created on this physical device, and so in the
 <a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>.
 In that case, the contents of
 <a href="#VkSurfaceCapabilities2KHR">VkSurfaceCapabilities2KHR</a>::<code>surfaceCapabilities</code> as well as any
-other struct chained to it will be <strong>undefined</strong>.</p>
+other structure chained to it will be <strong>undefined</strong>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -8852,8 +8852,8 @@ typedef struct VkSurfaceCapabilitiesFullScreenExclusiveEXT {
 structure.</p>
 </li>
 <li>
-<p><code>fullScreenExclusiveControlSupported</code> is a boolean describing
-whether the surface is able to make use of exclusive full-screen access.</p>
+<p><code>fullScreenExclusiveSupported</code> is a boolean describing whether the
+surface is able to make use of exclusive full-screen access.</p>
 </li>
 </ul>
 </div>
@@ -9782,7 +9782,8 @@ compression properties that are supported for the <code>surfaceFormat</code>.</p
 <li>
 <p><a id="VUID-VkSurfaceFormat2KHR-pNext-06750" href="#VUID-VkSurfaceFormat2KHR-pNext-06750"></a> <span class="vuid">VUID-VkSurfaceFormat2KHR-pNext-06750</span><br>
 
-If the <a href="../features.html#features-imageCompressionControlSwapchain" class="xref page">    <code>imageCompressionControlSwapchain</code></a> feature is not enabled, the
+If the <code><a href="../../appendices/extensions.html#VK_EXT_image_compression_control_swapchain" class="xref page">VK_EXT_image_compression_control_swapchain</a></code> extension is
+not supported, the
 <code>pNext</code> chain <strong>must</strong> not include an
 <a href="../resources.html#VkImageCompressionPropertiesEXT" class="xref page">VkImageCompressionPropertiesEXT</a> structure</p>
 </li>
@@ -9805,7 +9806,7 @@ If the <a href="../features.html#features-imageCompressionControlSwapchain" clas
 </li>
 <li>
 <p><a id="VUID-VkSurfaceFormat2KHR-sType-unique" href="#VUID-VkSurfaceFormat2KHR-sType-unique"></a> <span class="vuid">VUID-VkSurfaceFormat2KHR-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -10019,7 +10020,6 @@ This enum is deprecated but is maintained for backwards compatibility.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>For a traditional &#8220;Linear&#8221; or non-gamma transfer function color space use
 <code>VK_COLOR_SPACE_PASS_THROUGH_EXT</code>.</p>
@@ -12619,21 +12619,6 @@ In this scenario <code>VK_ERROR_INITIALIZATION_FAILED</code> is returned.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Host access to <code>pCreateInfo-&gt;surface</code> <strong>must</strong> be externally synchronized</p>
-</li>
-<li>
-<p>Host access to <code>pCreateInfo-&gt;oldSwapchain</code> <strong>must</strong> be externally synchronized</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sidebarblock">
-<div class="content">
 <div class="title">Return Codes</div>
 <div class="dlist">
 <dl>
@@ -13181,7 +13166,7 @@ If the <a href="../features.html#features-imageCompressionControlSwapchain" clas
 </li>
 <li>
 <p><a id="VUID-VkSwapchainCreateInfoKHR-sType-unique" href="#VUID-VkSwapchainCreateInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkSwapchainCreateInfoKHR-flags-parameter" href="#VUID-VkSwapchainCreateInfoKHR-flags-parameter"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-flags-parameter</span><br>
@@ -13230,6 +13215,21 @@ If the <a href="../features.html#features-imageCompressionControlSwapchain" clas
 <li>
 <p><a id="VUID-VkSwapchainCreateInfoKHR-commonparent" href="#VUID-VkSwapchainCreateInfoKHR-commonparent"></a> <span class="vuid">VUID-VkSwapchainCreateInfoKHR-commonparent</span><br>
  Both of <code>oldSwapchain</code>, and <code>surface</code> that are valid handles of non-ignored parameters <strong>must</strong> have been created, allocated, or retrieved from the same <a href="../initialization.html#VkInstance" class="xref page">VkInstance</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Host Synchronization</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Host access to <code>surface</code> <strong>must</strong> be externally synchronized</p>
+</li>
+<li>
+<p>Host access to <code>oldSwapchain</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -14221,21 +14221,6 @@ the presentable images <strong>can</strong> continue to be used.</p>
 <li>
 <p><a id="VUID-vkCreateSharedSwapchainsKHR-swapchainCount-arraylength" href="#VUID-vkCreateSharedSwapchainsKHR-swapchainCount-arraylength"></a> <span class="vuid">VUID-vkCreateSharedSwapchainsKHR-swapchainCount-arraylength</span><br>
  <code>swapchainCount</code> <strong>must</strong> be greater than <code>0</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="title">Host Synchronization</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Host access to <code>pCreateInfos</code>[].surface <strong>must</strong> be externally synchronized</p>
-</li>
-<li>
-<p>Host access to <code>pCreateInfos</code>[].oldSwapchain <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -15571,12 +15556,6 @@ for execution</p>
 <li>
 <p>Host access to <code>queue</code> <strong>must</strong> be externally synchronized</p>
 </li>
-<li>
-<p>Host access to <code>pPresentInfo-&gt;pWaitSemaphores</code>[] <strong>must</strong> be externally synchronized</p>
-</li>
-<li>
-<p>Host access to <code>pPresentInfo-&gt;pSwapchains</code>[] <strong>must</strong> be externally synchronized</p>
-</li>
 </ul>
 </div>
 </div>
@@ -15811,11 +15790,11 @@ array <strong>must</strong> be created with <a href="#VkSwapchainPresentModesCre
 </li>
 <li>
 <p><a id="VUID-VkPresentInfoKHR-pNext-pNext" href="#VUID-VkPresentInfoKHR-pNext-pNext"></a> <span class="vuid">VUID-VkPresentInfoKHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDeviceGroupPresentInfoKHR">VkDeviceGroupPresentInfoKHR</a>, <a href="#VkDisplayPresentInfoKHR">VkDisplayPresentInfoKHR</a>, <a href="../debugging.html#VkFrameBoundaryEXT" class="xref page">VkFrameBoundaryEXT</a>, <a href="#VkPresentFrameTokenGGP">VkPresentFrameTokenGGP</a>, <a href="#VkPresentIdKHR">VkPresentIdKHR</a>, <a href="#VkPresentRegionsKHR">VkPresentRegionsKHR</a>, <a href="#VkPresentTimesInfoGOOGLE">VkPresentTimesInfoGOOGLE</a>, <a href="#VkSwapchainPresentFenceInfoEXT">VkSwapchainPresentFenceInfoEXT</a>, or <a href="#VkSwapchainPresentModeInfoEXT">VkSwapchainPresentModeInfoEXT</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDeviceGroupPresentInfoKHR">VkDeviceGroupPresentInfoKHR</a>, <a href="#VkDisplayPresentInfoKHR">VkDisplayPresentInfoKHR</a>, <a href="../debugging.html#VkFrameBoundaryEXT" class="xref page">VkFrameBoundaryEXT</a>, <a href="#VkPresentFrameTokenGGP">VkPresentFrameTokenGGP</a>, <a href="#VkPresentIdKHR">VkPresentIdKHR</a>, <a href="#VkPresentRegionsKHR">VkPresentRegionsKHR</a>, <a href="#VkPresentTimesInfoGOOGLE">VkPresentTimesInfoGOOGLE</a>, <a href="#VkSetPresentConfigNV">VkSetPresentConfigNV</a>, <a href="#VkSwapchainPresentFenceInfoEXT">VkSwapchainPresentFenceInfoEXT</a>, or <a href="#VkSwapchainPresentModeInfoEXT">VkSwapchainPresentModeInfoEXT</a></p>
 </li>
 <li>
 <p><a id="VUID-VkPresentInfoKHR-sType-unique" href="#VUID-VkPresentInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkPresentInfoKHR-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkPresentInfoKHR-pWaitSemaphores-parameter" href="#VUID-VkPresentInfoKHR-pWaitSemaphores-parameter"></a> <span class="vuid">VUID-VkPresentInfoKHR-pWaitSemaphores-parameter</span><br>
@@ -15840,6 +15819,21 @@ array <strong>must</strong> be created with <a href="#VkSwapchainPresentModesCre
 <li>
 <p><a id="VUID-VkPresentInfoKHR-commonparent" href="#VUID-VkPresentInfoKHR-commonparent"></a> <span class="vuid">VUID-VkPresentInfoKHR-commonparent</span><br>
  Both of the elements of <code>pSwapchains</code>, and the elements of <code>pWaitSemaphores</code> that are valid handles of non-ignored parameters <strong>must</strong> have been created, allocated, or retrieved from the same <a href="../devsandqueues.html#VkDevice" class="xref page">VkDevice</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Host Synchronization</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Host access to each member of <code>pWaitSemaphores</code> <strong>must</strong> be externally synchronized</p>
+</li>
+<li>
+<p>Host access to each member of <code>pSwapchains</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -17537,7 +17531,7 @@ The validity and use of this data is outside the scope of Vulkan.</p>
 </li>
 <li>
 <p><a id="VUID-VkHdrMetadataEXT-sType-unique" href="#VUID-VkHdrMetadataEXT-sType-unique"></a> <span class="vuid">VUID-VkHdrMetadataEXT-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -17700,7 +17694,7 @@ containing latency reduction parameters.</p>
 <p>This command should be executed immediately before the application processes
 user input.
 If <code>pData</code> is not <code>NULL</code> and
-<a href="#VkAntiLagDataAMD">VkAntiLagDataAMD</a>::<code>presentationInfo</code> is not <code>NULL</code>, this command
+<a href="#VkAntiLagDataAMD">VkAntiLagDataAMD</a>::<code>pPresentationInfo</code> is not <code>NULL</code>, this command
 <strong>should</strong> be executed again before <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a>, with
 <code>pPresentationInfo</code> set to matching values.</p>
 </div>
@@ -18471,7 +18465,7 @@ void vkGetLatencyTimingsNV(
 <p><code>swapchain</code> is the swapchain to return data from.</p>
 </li>
 <li>
-<p><code>pGetLatencyMarkerInfo</code> is a pointer to a
+<p><code>pLatencyMarkerInfo</code> is a pointer to a
 <a href="#VkGetLatencyMarkerInfoNV">VkGetLatencyMarkerInfoNV</a> structure specifying the parameters for
 returning latency information.</p>
 </li>
@@ -18608,6 +18602,13 @@ the following:</p>
 </div>
 <div class="ulist">
 <ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
 <li>
 <p><code>presentID</code> is the application provided value that is used to
 associate the timestamp with a <code>vkQueuePresentKHR</code> command using
@@ -19109,6 +19110,84 @@ present barrier.</p>
 </div>
 </div>
 </div>
+<div class="sect2">
+<h3 id="present-metering"><a class="anchor" href="#present-metering"></a>Present Metering</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>Present Metering evenly paces out the next <code>numFramesPerBatch</code>
+<a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> presents.
+This gives smoother pacing between presents in applications with frame
+generation integrations.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkSetPresentConfigNV</code> structure is defined as:</p>
+</div>
+<div id="VkSetPresentConfigNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_present_metering
+typedef struct VkSetPresentConfigNV {
+    VkStructureType    sType;
+    const void*        pNext;
+    uint32_t           numFramesPerBatch;
+    uint32_t           presentConfigFeedback;
+} VkSetPresentConfigNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>numFramesPerBatch</code> is the number of frames to batch</p>
+</li>
+<li>
+<p><code>presentConfigFeedback</code> will return the success or error status</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The metering configuration applies to all swapchains in the array in
+<a href="#VkPresentInfoKHR">VkPresentInfoKHR</a>.
+The configuration specified by <code>VkSetPresentConfigNV</code> applies to the
+next <code>numFramesPerBatch</code> calls to <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> and needs to
+be updated every <code>numFramesPerBatch</code> presents.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkSetPresentConfigNV-numFramesPerBatch-10581" href="#VUID-VkSetPresentConfigNV-numFramesPerBatch-10581"></a> <span class="vuid">VUID-VkSetPresentConfigNV-numFramesPerBatch-10581</span><br>
+
+<code>numFramesPerBatch</code> <strong>must</strong> not be larger than 8</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkSetPresentConfigNV-sType-sType" href="#VUID-VkSetPresentConfigNV-sType-sType"></a> <span class="vuid">VUID-VkSetPresentConfigNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SET_PRESENT_CONFIG_NV</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </article>
@@ -19117,6 +19196,29 @@ present barrier.</p>
 </div>
 <script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
 <script async src="../../../../_/js/vendor/highlight.js"></script>
+<script src="../../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>

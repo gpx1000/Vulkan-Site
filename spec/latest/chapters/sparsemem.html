@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
@@ -620,7 +620,10 @@ Partially resident <code>VkBuffer</code> objects are allocated and bound
 identically to <code>VkBuffer</code> objects using only the
 <code>VK_BUFFER_CREATE_SPARSE_BINDING_BIT</code> feature.
 The only difference is the ability for some regions of the buffer to be
-unbound during device use.</p>
+unbound during device use.
+After creating a <code>VkBuffer</code> with
+<code>VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT</code>, the entire buffer region is
+considered unbound.</p>
 </div>
 </div>
 </div>
@@ -636,7 +639,10 @@ This allows the application to manage residency at either image subresource
 or sparse image block granularity.
 Each image subresource (outside of the <a href="#sparsememory-miptail">mip tail</a>)
 starts on a sparse block boundary and has dimensions that are integer
-multiples of the corresponding dimensions of the sparse image block.</p>
+multiples of the corresponding dimensions of the sparse image block.
+After creating a <code>VkImage</code> with
+<code>VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT</code>, all image subresources are
+considered unbound.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -2133,7 +2139,7 @@ void vkGetImageSparseMemoryRequirements2KHR(
 <p><code>device</code> is the logical device that owns the image.</p>
 </li>
 <li>
-<p><code>pInfo</code> is a pointer to a <code>VkImageSparseMemoryRequirementsInfo2</code>
+<p><code>pInfo</code> is a pointer to a <a href="#VkImageSparseMemoryRequirementsInfo2">VkImageSparseMemoryRequirementsInfo2</a>
 structure containing parameters required for the memory requirements
 query.</p>
 </li>
@@ -3513,7 +3519,7 @@ operation on that semaphore by more than
 </li>
 <li>
 <p><a id="VUID-VkBindSparseInfo-sType-unique" href="#VUID-VkBindSparseInfo-sType-unique"></a> <span class="vuid">VUID-VkBindSparseInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkBindSparseInfo-pWaitSemaphores-parameter" href="#VUID-VkBindSparseInfo-pWaitSemaphores-parameter"></a> <span class="vuid">VUID-VkBindSparseInfo-pWaitSemaphores-parameter</span><br>
@@ -3657,6 +3663,29 @@ instance for <code>memoryDeviceIndex</code></p>
 </div>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>

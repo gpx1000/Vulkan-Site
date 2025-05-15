@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="guide" data-version="latest">
+<div class="nav-container" data-component="guide" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -187,19 +187,22 @@
     <a class="nav-link" href="layers.html">Layers</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="querying_extensions_features.html">Querying Properties, Extensions, Features, Limits, and Formats</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_extensions.html">Enabling Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_features.html">Enabling Features</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spirv_extensions.html">Using SPIR-V Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="formats.html">Formats</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="queues.html">Queues</a>
@@ -218,18 +221,24 @@
     <a class="nav-link" href="extensions/VK_KHR_synchronization2.html">VK_KHR_synchronization2</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="swapchain_semaphore_reuse.html">Swapchain Semaphore Reuse</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="synchronization_examples.html">Synchronization Examples</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="memory_allocation.html">Memory Allocation</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="sparse_resources.html">Sparse Resources</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="protected.html">Protected Memory</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pipeline_cache.html">Pipeline Cache</a>
@@ -241,22 +250,37 @@
     <a class="nav-link" href="depth.html">Depth</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="mapping_data_to_shaders.html">Mapping Data to Shaders</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="vertex_input_data_processing.html">Vertex Input Data Processing</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="descriptor_dynamic_offset.html">Descriptor Dynamic Offset</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="location_component_interface.html">Location and Component Interface</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="push_constants.html">Push Constants</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ways_to_provide_spirv.html">Ways to Provide SPIR-V</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="robustness.html">Robustness</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="dynamic_state.html">Pipeline Dynamic State</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="dynamic_state_map.html">Dynamic State Map</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="subgroups.html">Subgroups</a>
@@ -393,7 +417,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../../spec/latest/index.html" class="home-link"></a>
@@ -764,6 +788,29 @@
 </div>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>

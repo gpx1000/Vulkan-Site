@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../../index.html" class="home-link"></a>
@@ -920,7 +920,7 @@ or <code>VK_SHADER_STAGE_MESH_BIT_EXT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkIndirectCommandsLayoutCreateInfoEXT-sType-unique" href="#VUID-VkIndirectCommandsLayoutCreateInfoEXT-sType-unique"></a> <span class="vuid">VUID-VkIndirectCommandsLayoutCreateInfoEXT-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkIndirectCommandsLayoutCreateInfoEXT-flags-parameter" href="#VUID-VkIndirectCommandsLayoutCreateInfoEXT-flags-parameter"></a> <span class="vuid">VUID-VkIndirectCommandsLayoutCreateInfoEXT-flags-parameter</span><br>
@@ -1823,7 +1823,7 @@ used for draw commands.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>The corresponding indirect draw struct data will be read from the buffer
+<p>The corresponding indirect draw structure data will be read from the buffer
 address.</p>
 </div>
 <div class="sidebarblock">
@@ -2602,23 +2602,23 @@ typedef union VkIndirectCommandsTokenDataEXT {
 <ul>
 <li>
 <p><code>pPushConstant</code> is a pointer to a
-<a href="#VkIndirectCommandsPushConstantTokenEXT">VkIndirectCommandsPushConstantTokenEXT</a> struct needed for
+<a href="#VkIndirectCommandsPushConstantTokenEXT">VkIndirectCommandsPushConstantTokenEXT</a> structure needed for
 <code>VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT</code> and
 <code>VK_INDIRECT_COMMANDS_TOKEN_TYPE_SEQUENCE_INDEX_EXT</code> tokens</p>
 </li>
 <li>
 <p><code>pVertexBuffer</code> is a pointer to a
-<a href="#VkIndirectCommandsVertexBufferTokenEXT">VkIndirectCommandsVertexBufferTokenEXT</a> struct needed for
+<a href="#VkIndirectCommandsVertexBufferTokenEXT">VkIndirectCommandsVertexBufferTokenEXT</a> structure needed for
 <code>VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_EXT</code> tokens</p>
 </li>
 <li>
 <p><code>pIndexBuffer</code> is a pointer to a
-<a href="#VkIndirectCommandsIndexBufferTokenEXT">VkIndirectCommandsIndexBufferTokenEXT</a> struct needed for
+<a href="#VkIndirectCommandsIndexBufferTokenEXT">VkIndirectCommandsIndexBufferTokenEXT</a> structure needed for
 <code>VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_EXT</code> tokens</p>
 </li>
 <li>
 <p><code>pExecutionSet</code> is a pointer to a
-<a href="#VkIndirectCommandsExecutionSetTokenEXT">VkIndirectCommandsExecutionSetTokenEXT</a> struct needed for
+<a href="#VkIndirectCommandsExecutionSetTokenEXT">VkIndirectCommandsExecutionSetTokenEXT</a> structure needed for
 <code>VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT</code> tokens</p>
 </li>
 </ul>
@@ -3716,7 +3716,7 @@ or a <a href="#VkGeneratedCommandsShaderInfoEXT">VkGeneratedCommandsShaderInfoEX
 </li>
 <li>
 <p><a id="VUID-VkGeneratedCommandsMemoryRequirementsInfoEXT-sType-unique" href="#VUID-VkGeneratedCommandsMemoryRequirementsInfoEXT-sType-unique"></a> <span class="vuid">VUID-VkGeneratedCommandsMemoryRequirementsInfoEXT-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkGeneratedCommandsMemoryRequirementsInfoEXT-indirectExecutionSet-parameter" href="#VUID-VkGeneratedCommandsMemoryRequirementsInfoEXT-indirectExecutionSet-parameter"></a> <span class="vuid">VUID-VkGeneratedCommandsMemoryRequirementsInfoEXT-indirectExecutionSet-parameter</span><br>
@@ -4544,12 +4544,12 @@ typedef union VkIndirectExecutionSetInfoEXT {
 <ul>
 <li>
 <p><code>pPipelineInfo</code> is a pointer to a
-<a href="#VkIndirectExecutionSetPipelineInfoEXT">VkIndirectExecutionSetPipelineInfoEXT</a> struct containing pipeline
-layout information for the set.</p>
+<a href="#VkIndirectExecutionSetPipelineInfoEXT">VkIndirectExecutionSetPipelineInfoEXT</a> structure containing
+pipeline layout information for the set.</p>
 </li>
 <li>
 <p><code>pShaderInfo</code> is a pointer to a
-<a href="#VkIndirectExecutionSetShaderInfoEXT">VkIndirectExecutionSetShaderInfoEXT</a> struct containing shader
+<a href="#VkIndirectExecutionSetShaderInfoEXT">VkIndirectExecutionSetShaderInfoEXT</a> structure containing shader
 object layout information for the set.</p>
 </li>
 </ul>
@@ -4831,12 +4831,21 @@ typedef struct VkIndirectExecutionSetShaderLayoutInfoEXT {
 <div class="ulist">
 <ul>
 <li>
+<p><code>sType</code> is a <a href="../fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
 <p><code>setLayoutCount</code> is the number of members in the <code>pSetLayouts</code>
 array</p>
 </li>
 <li>
 <p><code>pSetLayouts</code> is a pointer to an array containing
-<a href="../descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> objects used by the shader stage.</p>
+<a href="../descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a> objects used by the shader stage.
+The implementation <strong>must</strong> not access these objects outside of the
+duration of the command this structure is passed to.</p>
 </li>
 </ul>
 </div>
@@ -4960,7 +4969,7 @@ have completed execution</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkWriteIndirectExecutionSetPipelineEXT</code> struct is defined as:</p>
+<p>The <code>VkWriteIndirectExecutionSetPipelineEXT</code> structure is defined as:</p>
 </div>
 <div id="VkWriteIndirectExecutionSetPipelineEXT" class="listingblock">
 <div class="content">
@@ -5045,7 +5054,7 @@ The shader stages contained in <code>pipeline</code> <strong>must</strong> be su
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkWriteIndirectExecutionSetShaderEXT</code> struct is defined as:</p>
+<p>The <code>VkWriteIndirectExecutionSetShaderEXT</code> structure is defined as:</p>
 </div>
 <div id="VkWriteIndirectExecutionSetShaderEXT" class="listingblock">
 <div class="content">
@@ -5361,8 +5370,9 @@ info used to create the Indirect Execution Set</p>
 <p><a id="VUID-vkUpdateIndirectExecutionSetShaderEXT-None-11148" href="#VUID-vkUpdateIndirectExecutionSetShaderEXT-None-11148"></a> <span class="vuid">VUID-vkUpdateIndirectExecutionSetShaderEXT-None-11148</span><br>
 
 Each fragment shader element in the Indirect Execution Set <strong>must</strong> have
-identically defined <a href="../interfaces.html#interfaces-fragmentoutput" class="xref page">fragment outputs    interface</a> to the initial shader state used to create the Indirect
-Execution Set</p>
+<a href="../../appendices/glossary.html#glossary-identically-defined" class="xref page">identically defined</a>
+<a href="../interfaces.html#interfaces-fragmentoutput" class="xref page">fragment outputs interface</a> to the initial
+shader state used to create the Indirect Execution Set</p>
 </li>
 <li>
 <p><a id="VUID-vkUpdateIndirectExecutionSetShaderEXT-FragDepth-11054" href="#VUID-vkUpdateIndirectExecutionSetShaderEXT-FragDepth-11054"></a> <span class="vuid">VUID-vkUpdateIndirectExecutionSetShaderEXT-FragDepth-11054</span><br>
@@ -5827,16 +5837,6 @@ state specified statically in the <a href="../pipelines.html#VkPipeline" class="
 pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08607" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08607"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08607</span><br>
-
-If the <a href="../features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
-either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
-by this command, or a valid combination of valid and
-<a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
-shader stage corresponding to the pipeline bind point used by this
-command</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-uniformBuffers-06935" href="#VUID-vkCmdExecuteGeneratedCommandsNV-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-uniformBuffers-06935</span><br>
 
 If any stage of the <a href="../pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
@@ -5891,23 +5891,6 @@ any resource accessed by <a href="../shaders.html#shaders-binding" class="xref p
 a protected resource</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-06550" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-06550"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-06550</span><br>
-
-If <a href="../shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="../samplers.html#VkSampler" class="xref page">VkSampler</a> or
-<a href="../resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
-<strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-ConstOffset-06551" href="#VUID-vkCmdExecuteGeneratedCommandsNV-ConstOffset-06551"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-ConstOffset-06551</span><br>
-
-If <a href="../shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="../samplers.html#VkSampler" class="xref page">VkSampler</a> or
-<a href="../resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
-<strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-viewType-07752" href="#VUID-vkCmdExecuteGeneratedCommandsNV-viewType-07752"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-viewType-07752</span><br>
 
 If a <a href="../resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
@@ -5917,10 +5900,10 @@ image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>D
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-format-07753" href="#VUID-vkCmdExecuteGeneratedCommandsNV-format-07753"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-format-07753</span><br>
 
-If a <a href="../resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
-<a href="../formats.html#formats-numericformat" class="xref page">numeric type</a> of the image view&#8217;s <code>format</code>
-and the <code>Sampled</code> <code>Type</code> operand of the <code>OpTypeImage</code> <strong>must</strong>
-match</p>
+If a <a href="../resources.html#VkImageView" class="xref page">VkImageView</a> or <a href="../resources.html#VkBufferView" class="xref page">VkBufferView</a> is accessed as a result of
+this command, then the <a href="../formats.html#formats-numericformat" class="xref page">numeric type</a> of the
+view&#8217;s <code>format</code> and the <code>Sampled</code> <code>Type</code> operand of the
+<code>OpTypeImage</code> <strong>must</strong> match</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-OpImageWrite-08795" href="#VUID-vkCmdExecuteGeneratedCommandsNV-OpImageWrite-08795"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-OpImageWrite-08795</span><br>
@@ -6111,6 +6094,32 @@ If a descriptor with type equal to any of
 <code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code> is accessed as a result of
 this command, all image subresources identified by that descriptor <strong>must</strong>
 be in the image layout identified when the descriptor was written</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-commandBuffer-10746" href="#VUID-vkCmdExecuteGeneratedCommandsNV-commandBuffer-10746"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-commandBuffer-10746</span><br>
+
+The <code>VkDeviceMemory</code> object allocated from a <code>VkMemoryHeap</code> with
+the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property that is bound to
+a resource accessed as a result of this command <strong>must</strong> be the active
+bound <a href="../memory.html#memory-bind-tile-memory" class="xref page">bound tile memory object</a> in
+<code>commandBuffer</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-10678" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-10678"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-10678</span><br>
+
+If this command is recorded inside a <a href="../renderpass.html#renderpass-tile-shading" class="xref page">tile    shading render pass</a> instance, the stages corresponding to the pipeline
+bind point used by this command <strong>must</strong> only include
+<code>VK_SHADER_STAGE_VERTEX_BIT</code>, <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>,
+and/or <code>VK_SHADER_STAGE_COMPUTE_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-10679" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-10679"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-10679</span><br>
+
+If this command is recorded where
+<a href="../renderpass.html#renderpass-per-tile-execution-model" class="xref page">per-tile execution model</a> is
+enabled, there <strong>must</strong> be no access to any image while the image was be
+transitioned to the
+<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-renderPass-02684" href="#VUID-vkCmdExecuteGeneratedCommandsNV-renderPass-02684"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-renderPass-02684</span><br>
@@ -7593,6 +7602,15 @@ test is enabled and the
 to create the pipeline <strong>must</strong> not be <code>VK_FORMAT_UNDEFINED</code></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-flags-10582" href="#VUID-vkCmdExecuteGeneratedCommandsNV-flags-10582"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-flags-10582</span><br>
+
+If the current render pass instance was begun with
+<a href="../renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, its <a href="../renderpass.html#VkRenderingInfo" class="xref page">VkRenderingInfo</a>::<code>flags</code>
+parameter <strong>must</strong> not have
+<code>VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT</code> set
+unless <code>VK_RENDERING_CONTENTS_INLINE_BIT_KHR</code> is also set</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-primitivesGeneratedQueryWithRasterizerDiscard-06708" href="#VUID-vkCmdExecuteGeneratedCommandsNV-primitivesGeneratedQueryWithRasterizerDiscard-06708"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-primitivesGeneratedQueryWithRasterizerDiscard-06708</span><br>
 
 If the <a href="../features.html#features-primitivesGeneratedQueryWithRasterizerDiscard" class="xref page">    <code>primitivesGeneratedQueryWithRasterizerDiscard</code></a> feature is not
@@ -7790,7 +7808,8 @@ If the <a href="../features.html#features-geometryStreams" class="xref page"><co
 enabled, and
 a shader object is bound to the <code>VK_SHADER_STAGE_GEOMETRY_BIT</code> stage
 or
-a graphics pipeline is bound which was created with the
+a graphics pipeline is bound which was created with both a
+<code>VK_SHADER_STAGE_GEOMETRY_BIT</code> stage and the
 <code>VK_DYNAMIC_STATE_RASTERIZATION_STREAM_EXT</code> dynamic state enabled,
 then <a href="../primsrast.html#vkCmdSetRasterizationStreamEXT" class="xref page">vkCmdSetRasterizationStreamEXT</a> <strong>must</strong> have been called and not
 subsequently <a href="../pipelines.html#dynamic-state-lifetime" class="xref page">invalidated</a> in the current
@@ -7981,6 +8000,19 @@ command buffer prior to this drawing command</p>
 <a href="../primsrast.html#vkCmdSetLineStipple" class="xref page">vkCmdSetLineStipple</a>
     <strong>must</strong> have been called and not subsequently <a href="../pipelines.html#dynamic-state-lifetime" class="xref page">    invalidated</a> in the current command buffer prior to this drawing
     command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-10608" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-10608"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-10608</span><br>
+
+If
+a shader object is bound to any graphics stage or
+a graphics pipeline is bound which was created with the
+<code>VK_DYNAMIC_STATE_LINE_RASTERIZATION_MODE_EXT</code> dynamic state
+enabled, and the current <code>lineRasterizationMode</code> is
+<code>VK_LINE_RASTERIZATION_MODE_BRESENHAM</code> or
+<code>VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH</code>, then the current
+<code>alphaToCoverageEnable</code>, <code>alphaToOneEnable</code> and
+<code>sampleShadingEnable</code> states <strong>must</strong> all be <code>VK_FALSE</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-07639" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-07639"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-07639</span><br>
@@ -8386,10 +8418,10 @@ the bound graphics pipeline state was created with the
 <code>VK_DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT</code> state enabled, and if
 <code>sampleLocationsEnable</code> was <code>VK_TRUE</code> in the last call to
 <a href="../primsrast.html#vkCmdSetSampleLocationsEnableEXT" class="xref page">vkCmdSetSampleLocationsEnableEXT</a>, then the
-<code>sampleLocationsInfo.sampleLocationGridSize.width</code> in the last call
-to <a href="../primsrast.html#vkCmdSetSampleLocationsEXT" class="xref page">vkCmdSetSampleLocationsEXT</a> <strong>must</strong> evenly divide
-<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>sampleLocationGridSize.width</code> as
-returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
+<code>sampleLocationsInfo.maxSampleLocationGridSize.width</code> in the last
+call to <a href="../primsrast.html#vkCmdSetSampleLocationsEXT" class="xref page">vkCmdSetSampleLocationsEXT</a> <strong>must</strong> evenly divide
+<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>maxSampleLocationGridSize.width</code>
+as returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
 <code>samples</code> parameter equaling <code>rasterizationSamples</code></p>
 </li>
 <li>
@@ -8403,10 +8435,10 @@ the bound graphics pipeline state was created with the
 <code>VK_DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT</code> state enabled, and if
 <code>sampleLocationsEnable</code> was <code>VK_TRUE</code> in the last call to
 <a href="../primsrast.html#vkCmdSetSampleLocationsEnableEXT" class="xref page">vkCmdSetSampleLocationsEnableEXT</a>, then the
-<code>sampleLocationsInfo.sampleLocationGridSize.height</code> in the last call
-to <a href="../primsrast.html#vkCmdSetSampleLocationsEXT" class="xref page">vkCmdSetSampleLocationsEXT</a> <strong>must</strong> evenly divide
-<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>sampleLocationGridSize.height</code> as
-returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
+<code>sampleLocationsInfo.maxSampleLocationGridSize.height</code> in the last
+call to <a href="../primsrast.html#vkCmdSetSampleLocationsEXT" class="xref page">vkCmdSetSampleLocationsEXT</a> <strong>must</strong> evenly divide
+<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>maxSampleLocationGridSize.height</code>
+as returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
 <code>samples</code> parameter equaling <code>rasterizationSamples</code></p>
 </li>
 <li>
@@ -8431,8 +8463,8 @@ If the bound graphics pipeline state was created with the
 <code>sampleLocationsEnable</code> is <code>VK_TRUE</code>, then
 <code>sampleLocationsInfo.sampleLocationGridSize.width</code> <strong>must</strong> evenly
 divide
-<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>sampleLocationGridSize.width</code> as
-returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
+<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>maxSampleLocationGridSize.width</code>
+as returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
 <code>samples</code> parameter equaling the value of <code>rasterizationSamples</code>
 in the last call to <a href="../primsrast.html#vkCmdSetRasterizationSamplesEXT" class="xref page">vkCmdSetRasterizationSamplesEXT</a></p>
 </li>
@@ -8446,8 +8478,8 @@ If the bound graphics pipeline state was created with the
 <code>sampleLocationsEnable</code> is <code>VK_TRUE</code>, then
 <code>sampleLocationsInfo.sampleLocationGridSize.height</code> <strong>must</strong> evenly
 divide
-<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>sampleLocationGridSize.height</code> as
-returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
+<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>maxSampleLocationGridSize.height</code>
+as returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
 <code>samples</code> parameter equaling the value of <code>rasterizationSamples</code>
 in the last call to <a href="../primsrast.html#vkCmdSetRasterizationSamplesEXT" class="xref page">vkCmdSetRasterizationSamplesEXT</a></p>
 </li>
@@ -8521,14 +8553,16 @@ to <a href="../fragops.html#vkCmdSetCoverageToColorLocationNV" class="xref page"
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-coverageReductionMode-07491" href="#VUID-vkCmdExecuteGeneratedCommandsNV-coverageReductionMode-07491"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-coverageReductionMode-07491</span><br>
 
-If this <code><a href="../../appendices/extensions.html#VK_NV_coverage_reduction_mode" class="xref page">VK_NV_coverage_reduction_mode</a></code> extension is enabled, the
-bound graphics pipeline state was created with the
-<code>VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV</code> and
-<code>VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT</code> states enabled, the
-current coverage reduction mode <code>coverageReductionMode</code>, then the
-current <code>rasterizationSamples</code>, and the sample counts for the color
-and depth/stencil attachments (if the subpass has them) <strong>must</strong> be a valid
-combination returned by
+If the <a href="../features.html#features-coverageReductionMode" class="xref page"><code>coverageReductionMode</code></a>
+feature is enabled,
+a shader object is bound to any graphics stage or
+a graphics pipeline is bound which was created with the
+<code>VK_DYNAMIC_STATE_COVERAGE_REDUCTION_MODE_NV</code> or
+<code>VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT</code> dynamic states enabled,
+then the <a href="../pipelines.html#dynamic-state-current-value" class="xref page">current values</a> of
+<code>coverageReductionMode</code>, <code>rasterizationSamples</code>, the sample
+counts for the color and depth/stencil attachments (if the subpass has
+them) <strong>must</strong> be a valid combination returned by
 <a href="../fragops.html#vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV" class="xref page">vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV</a></p>
 </li>
 <li>
@@ -8567,11 +8601,13 @@ shader object is bound to any graphics stage, then the
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-rasterizationSamples-07494" href="#VUID-vkCmdExecuteGeneratedCommandsNV-rasterizationSamples-07494"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-rasterizationSamples-07494</span><br>
 
 If the <code><a href="../../appendices/extensions.html#VK_NV_framebuffer_mixed_samples" class="xref page">VK_NV_framebuffer_mixed_samples</a></code> extension is enabled,
-and if the current subpass has any color attachments and
-<code>rasterizationSamples</code> of the last call to
-<a href="../primsrast.html#vkCmdSetRasterizationSamplesEXT" class="xref page">vkCmdSetRasterizationSamplesEXT</a> is greater than the number of
-color samples, then the pipeline <code>sampleShadingEnable</code> <strong>must</strong> be
-<code>VK_FALSE</code></p>
+and the <a href="../features.html#features-coverageReductionMode" class="xref page"><code>coverageReductionMode</code></a>
+feature is not enabled, or the <a href="../pipelines.html#dynamic-state-current-value" class="xref page">current    value</a> of <code>coverageReductionMode</code> is not
+<code>VK_COVERAGE_REDUCTION_MODE_TRUNCATE_NV</code>,
+and the <a href="../pipelines.html#dynamic-state-current-value" class="xref page">current value</a> of
+<code>rasterizationSamples</code> is greater than sample count of the color
+attachment, then <a href="../primsrast.html#primsrast-sampleshading" class="xref page">sample shading</a> <strong>must</strong> be
+disabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-stippledLineEnable-07495" href="#VUID-vkCmdExecuteGeneratedCommandsNV-stippledLineEnable-07495"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-stippledLineEnable-07495</span><br>
@@ -8666,6 +8702,49 @@ If dynamic state was inherited from
 in the current command buffer prior to this drawing command</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-nextStage-10745" href="#VUID-vkCmdExecuteGeneratedCommandsNV-nextStage-10745"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-nextStage-10745</span><br>
+
+For each shader object bound to a graphics stage, except for shader
+object bound to the last graphics stage in the logical pipeline, it
+<strong>must</strong> have been created with a <code>nextStage</code> including the
+corresponding bit to the shader object bound to the following graphics
+stage in the logical pipeline</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08684" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08684"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08684</span><br>
+
+If there is no bound graphics pipeline, <code>vkCmdBindShadersEXT</code> <strong>must</strong>
+have been called in the current command buffer with <code>pStages</code> with
+an element of <code>VK_SHADER_STAGE_VERTEX_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08685" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08685"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08685</span><br>
+
+If there is no bound graphics pipeline, and the
+<a href="../features.html#features-tessellationShader" class="xref page"><code>tessellationShader</code></a> feature is
+enabled, <code>vkCmdBindShadersEXT</code> <strong>must</strong> have been called in the current
+command buffer with <code>pStages</code> with an element of
+<code>VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08686" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08686"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08686</span><br>
+
+If there is no bound graphics pipeline, and the
+<a href="../features.html#features-tessellationShader" class="xref page"><code>tessellationShader</code></a> feature is
+enabled, <code>vkCmdBindShadersEXT</code> <strong>must</strong> have been called in the current
+command buffer with <code>pStages</code> with an element of
+<code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08687" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08687"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08687</span><br>
+
+If there is no bound graphics pipeline, and the
+<a href="../features.html#features-geometryShader" class="xref page"><code>geometryShader</code></a> feature is enabled,
+<code>vkCmdBindShadersEXT</code> <strong>must</strong> have been called in the current command
+buffer with <code>pStages</code> with an element of
+<code>VK_SHADER_STAGE_GEOMETRY_BIT</code></p>
+</li>
+<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08688" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08688"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08688</span><br>
 
 If there is no bound graphics pipeline, <code>vkCmdBindShadersEXT</code> <strong>must</strong>
@@ -8696,27 +8775,6 @@ stages <strong>must</strong> have a valid <code>VkShaderEXT</code> bound, and th
 have no <code>VkShaderEXT</code> bound</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08694" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08694"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08694</span><br>
-
-If there is no bound graphics pipeline, and both the
-<a href="../features.html#features-taskShader" class="xref page"><code>taskShader</code></a> and <a href="../features.html#features-meshShader" class="xref page">    <code>meshShader</code></a> features are enabled, and a valid <code>VkShaderEXT</code>
-is bound the to the <code>VK_SHADER_STAGE_MESH_BIT_EXT</code> stage, and that
-<code>VkShaderEXT</code> was created without the
-<code>VK_SHADER_CREATE_NO_TASK_SHADER_BIT_EXT</code> flag, a valid
-<code>VkShaderEXT</code> <strong>must</strong> be bound to the
-<code>VK_SHADER_STAGE_TASK_BIT_EXT</code> stage</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08695" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08695"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08695</span><br>
-
-If there is no bound graphics pipeline, and both the
-<a href="../features.html#features-taskShader" class="xref page"><code>taskShader</code></a> and <a href="../features.html#features-meshShader" class="xref page">    <code>meshShader</code></a> features are enabled, and a valid <code>VkShaderEXT</code>
-is bound the to the <code>VK_SHADER_STAGE_MESH_BIT_EXT</code> stage, and that
-<code>VkShaderEXT</code> was created with the
-<code>VK_SHADER_CREATE_NO_TASK_SHADER_BIT_EXT</code> flag, there <strong>must</strong> be no
-<code>VkShaderEXT</code> bound to the <code>VK_SHADER_STAGE_TASK_BIT_EXT</code> stage</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08696" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08696"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08696</span><br>
 
 If there is no bound graphics pipeline, and a valid <code>VkShaderEXT</code> is
@@ -8745,13 +8803,15 @@ stages whose shaders which did not create a shader with the
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08878" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08878"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08878</span><br>
 
 All bound graphics shader objects <strong>must</strong> have been created with identical
-or identically defined push constant ranges</p>
+or <a href="../../appendices/glossary.html#glossary-identically-defined" class="xref page">identically defined</a> push constant
+ranges</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08879" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08879"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08879</span><br>
 
 All bound graphics shader objects <strong>must</strong> have been created with identical
-or identically defined arrays of descriptor set layouts</p>
+or <a href="../../appendices/glossary.html#glossary-identically-defined" class="xref page">identically defined</a> arrays of
+descriptor set layouts</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-colorAttachmentCount-09372" href="#VUID-vkCmdExecuteGeneratedCommandsNV-colorAttachmentCount-09372"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-colorAttachmentCount-09372</span><br>
@@ -8844,6 +8904,14 @@ If the bound graphics pipeline was created with
 render pass <strong>must</strong> have begun with <a href="../renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a> with the
 <code>VK_RENDERING_ENABLE_LEGACY_DITHERING_BIT_EXT</code> flag</p>
 </li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-10677" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-10677"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-10677</span><br>
+
+If the <a href="../renderpass.html#renderpass-per-tile-execution-model" class="xref page">per-tile execution model</a>
+is enabled, the
+<a href="../features.html#features-tileShadingPerTileDraw" class="xref page">tileShadingPerTileDraw</a> feature <strong>must</strong>
+be enabled</p>
+</li>
 </ul>
 </div>
 <div class="ulist">
@@ -8928,10 +8996,30 @@ then the <code>primitiveTopology</code> parameter of
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-primitiveTopology-10286" href="#VUID-vkCmdExecuteGeneratedCommandsNV-primitiveTopology-10286"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-primitiveTopology-10286</span><br>
 
-If there is a shader object bound to the
-<code>VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT</code> stage, then
-<a href="../drawing.html#vkCmdSetPrimitiveTopology" class="xref page">vkCmdSetPrimitiveTopology</a> <strong>must</strong> have set <code>primitiveTopology</code>
-to <code>VK_PRIMITIVE_TOPOLOGY_PATCH_LIST</code> prior to this drawing command</p>
+If a <code>VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT</code> stage is bound, then
+the <a href="../pipelines.html#dynamic-state-current-value" class="xref page">current value</a> of
+<code>primitiveTopology</code> <strong>must</strong> be <code>VK_PRIMITIVE_TOPOLOGY_PATCH_LIST</code>
+prior to this drawing command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-primitiveTopology-10747" href="#VUID-vkCmdExecuteGeneratedCommandsNV-primitiveTopology-10747"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-primitiveTopology-10747</span><br>
+
+If <a href="../drawing.html#vkCmdSetPrimitiveTopology" class="xref page">vkCmdSetPrimitiveTopology</a> set <code>primitiveTopology</code> to
+<code>VK_PRIMITIVE_TOPOLOGY_PATCH_LIST</code> prior to this drawing command,
+then a <code>VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT</code> stage <strong>must</strong> be
+bound</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-primitiveTopology-10748" href="#VUID-vkCmdExecuteGeneratedCommandsNV-primitiveTopology-10748"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-primitiveTopology-10748</span><br>
+
+If <a href="../drawing.html#vkCmdSetPrimitiveTopology" class="xref page">vkCmdSetPrimitiveTopology</a> set <code>primitiveTopology</code> to
+<code>VK_PRIMITIVE_TOPOLOGY_POINT_LIST</code> prior to this drawing command,
+the <a href="../features.html#features-maintenance5" class="xref page"><code>maintenance5</code></a> feature is not
+enabled,
+both a <code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code> and
+<code>VK_SHADER_STAGE_GEOMETRY_BIT</code> stage are not bound, then the
+<code>Vertex</code> <code>Execution</code> <code>Model</code> <strong>must</strong> have a <code>PointSize</code> decorated
+variable that is statically written to</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-pStrides-04913" href="#VUID-vkCmdExecuteGeneratedCommandsNV-pStrides-04913"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-pStrides-04913</span><br>
@@ -9043,7 +9131,8 @@ or
     there is a shader object bound to the
     <code>VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT</code> stage
 or
-    the bound graphics pipeline state was created with the
+    the bound graphics pipeline state was created with both a
+    <code>VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT</code> stage and the
     <code>VK_DYNAMIC_STATE_PATCH_CONTROL_POINTS_EXT</code> dynamic state enabled,
     and the <a href="../pipelines.html#dynamic-state-current-value" class="xref page">current value</a> of
     <code>primitiveTopology</code> is <code>VK_PRIMITIVE_TOPOLOGY_PATCH_LIST</code>, then
@@ -9102,45 +9191,12 @@ stages</p>
 If
 a shader object is bound to the
 <code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code> stage or
-a graphics pipeline is bound which was created with the
+a graphics pipeline is bound which was created with both a
+<code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code> stage and the
 <code>VK_DYNAMIC_STATE_TESSELLATION_DOMAIN_ORIGIN_EXT</code> dynamic state
 enabled, then <a href="../tessellation.html#vkCmdSetTessellationDomainOriginEXT" class="xref page">vkCmdSetTessellationDomainOriginEXT</a> <strong>must</strong> have been
 called and not subsequently <a href="../pipelines.html#dynamic-state-lifetime" class="xref page">invalidated</a> in
 the current command buffer prior to this drawing command</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08684" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08684"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08684</span><br>
-
-If there is no bound graphics pipeline, <code>vkCmdBindShadersEXT</code> <strong>must</strong>
-have been called in the current command buffer with <code>pStages</code> with
-an element of <code>VK_SHADER_STAGE_VERTEX_BIT</code></p>
-</li>
-<li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08685" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08685"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08685</span><br>
-
-If there is no bound graphics pipeline, and the
-<a href="../features.html#features-tessellationShader" class="xref page"><code>tessellationShader</code></a> feature is
-enabled, <code>vkCmdBindShadersEXT</code> <strong>must</strong> have been called in the current
-command buffer with <code>pStages</code> with an element of
-<code>VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT</code></p>
-</li>
-<li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08686" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08686"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08686</span><br>
-
-If there is no bound graphics pipeline, and the
-<a href="../features.html#features-tessellationShader" class="xref page"><code>tessellationShader</code></a> feature is
-enabled, <code>vkCmdBindShadersEXT</code> <strong>must</strong> have been called in the current
-command buffer with <code>pStages</code> with an element of
-<code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code></p>
-</li>
-<li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-08687" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-08687"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-08687</span><br>
-
-If there is no bound graphics pipeline, and the
-<a href="../features.html#features-geometryShader" class="xref page"><code>geometryShader</code></a> feature is enabled,
-<code>vkCmdBindShadersEXT</code> <strong>must</strong> have been called in the current command
-buffer with <code>pStages</code> with an element of
-<code>VK_SHADER_STAGE_GEOMETRY_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-commandBuffer-02970" href="#VUID-vkCmdExecuteGeneratedCommandsNV-commandBuffer-02970"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-commandBuffer-02970</span><br>
@@ -10211,16 +10267,6 @@ state specified statically in the <a href="../pipelines.html#VkPipeline" class="
 pipeline bind point used by this command, since that pipeline was bound</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-08607" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-08607"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-08607</span><br>
-
-If the <a href="../features.html#features-shaderObject" class="xref page"><code>shaderObject</code></a> feature is enabled,
-either a valid pipeline <strong>must</strong> be bound to the pipeline bind point used
-by this command, or a valid combination of valid and
-<a href="../../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> shader objects <strong>must</strong> be bound to every supported
-shader stage corresponding to the pipeline bind point used by this
-command</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-uniformBuffers-06935" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-uniformBuffers-06935"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-uniformBuffers-06935</span><br>
 
 If any stage of the <a href="../pipelines.html#VkPipeline" class="xref page">VkPipeline</a> object bound to the pipeline bind
@@ -10275,23 +10321,6 @@ any resource accessed by <a href="../shaders.html#shaders-binding" class="xref p
 a protected resource</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-06550" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-06550"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-06550</span><br>
-
-If <a href="../shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="../samplers.html#VkSampler" class="xref page">VkSampler</a> or
-<a href="../resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
-<strong>must</strong> only be used with <code>OpImageSample*</code> or <code>OpImageSparseSample*</code>
-instructions</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-ConstOffset-06551" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-ConstOffset-06551"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-ConstOffset-06551</span><br>
-
-If <a href="../shaders.html#shaders-binding" class="xref page">a bound shader</a> accesses a <a href="../samplers.html#VkSampler" class="xref page">VkSampler</a> or
-<a href="../resources.html#VkImageView" class="xref page">VkImageView</a> object that enables
-<a href="../samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a>, that object
-<strong>must</strong> not use the <code>ConstOffset</code> and <code>Offset</code> operands</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-viewType-07752" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-viewType-07752"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-viewType-07752</span><br>
 
 If a <a href="../resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
@@ -10301,10 +10330,10 @@ image view&#8217;s <code>viewType</code> <strong>must</strong> match the <code>D
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-format-07753" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-format-07753"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-format-07753</span><br>
 
-If a <a href="../resources.html#VkImageView" class="xref page">VkImageView</a> is accessed as a result of this command, then the
-<a href="../formats.html#formats-numericformat" class="xref page">numeric type</a> of the image view&#8217;s <code>format</code>
-and the <code>Sampled</code> <code>Type</code> operand of the <code>OpTypeImage</code> <strong>must</strong>
-match</p>
+If a <a href="../resources.html#VkImageView" class="xref page">VkImageView</a> or <a href="../resources.html#VkBufferView" class="xref page">VkBufferView</a> is accessed as a result of
+this command, then the <a href="../formats.html#formats-numericformat" class="xref page">numeric type</a> of the
+view&#8217;s <code>format</code> and the <code>Sampled</code> <code>Type</code> operand of the
+<code>OpTypeImage</code> <strong>must</strong> match</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-OpImageWrite-08795" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-OpImageWrite-08795"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-OpImageWrite-08795</span><br>
@@ -10495,6 +10524,32 @@ If a descriptor with type equal to any of
 <code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code> is accessed as a result of
 this command, all image subresources identified by that descriptor <strong>must</strong>
 be in the image layout identified when the descriptor was written</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-commandBuffer-10746" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-commandBuffer-10746"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-commandBuffer-10746</span><br>
+
+The <code>VkDeviceMemory</code> object allocated from a <code>VkMemoryHeap</code> with
+the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property that is bound to
+a resource accessed as a result of this command <strong>must</strong> be the active
+bound <a href="../memory.html#memory-bind-tile-memory" class="xref page">bound tile memory object</a> in
+<code>commandBuffer</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-10678" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-10678"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-10678</span><br>
+
+If this command is recorded inside a <a href="../renderpass.html#renderpass-tile-shading" class="xref page">tile    shading render pass</a> instance, the stages corresponding to the pipeline
+bind point used by this command <strong>must</strong> only include
+<code>VK_SHADER_STAGE_VERTEX_BIT</code>, <code>VK_SHADER_STAGE_FRAGMENT_BIT</code>,
+and/or <code>VK_SHADER_STAGE_COMPUTE_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-10679" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-10679"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-10679</span><br>
+
+If this command is recorded where
+<a href="../renderpass.html#renderpass-per-tile-execution-model" class="xref page">per-tile execution model</a> is
+enabled, there <strong>must</strong> be no access to any image while the image was be
+transitioned to the
+<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-renderPass-02684" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-renderPass-02684"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-renderPass-02684</span><br>
@@ -11977,6 +12032,15 @@ test is enabled and the
 to create the pipeline <strong>must</strong> not be <code>VK_FORMAT_UNDEFINED</code></p>
 </li>
 <li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-flags-10582" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-flags-10582"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-flags-10582</span><br>
+
+If the current render pass instance was begun with
+<a href="../renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, its <a href="../renderpass.html#VkRenderingInfo" class="xref page">VkRenderingInfo</a>::<code>flags</code>
+parameter <strong>must</strong> not have
+<code>VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT</code> set
+unless <code>VK_RENDERING_CONTENTS_INLINE_BIT_KHR</code> is also set</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-primitivesGeneratedQueryWithRasterizerDiscard-06708" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-primitivesGeneratedQueryWithRasterizerDiscard-06708"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-primitivesGeneratedQueryWithRasterizerDiscard-06708</span><br>
 
 If the <a href="../features.html#features-primitivesGeneratedQueryWithRasterizerDiscard" class="xref page">    <code>primitivesGeneratedQueryWithRasterizerDiscard</code></a> feature is not
@@ -12174,7 +12238,8 @@ If the <a href="../features.html#features-geometryStreams" class="xref page"><co
 enabled, and
 a shader object is bound to the <code>VK_SHADER_STAGE_GEOMETRY_BIT</code> stage
 or
-a graphics pipeline is bound which was created with the
+a graphics pipeline is bound which was created with both a
+<code>VK_SHADER_STAGE_GEOMETRY_BIT</code> stage and the
 <code>VK_DYNAMIC_STATE_RASTERIZATION_STREAM_EXT</code> dynamic state enabled,
 then <a href="../primsrast.html#vkCmdSetRasterizationStreamEXT" class="xref page">vkCmdSetRasterizationStreamEXT</a> <strong>must</strong> have been called and not
 subsequently <a href="../pipelines.html#dynamic-state-lifetime" class="xref page">invalidated</a> in the current
@@ -12365,6 +12430,19 @@ command buffer prior to this drawing command</p>
 <a href="../primsrast.html#vkCmdSetLineStipple" class="xref page">vkCmdSetLineStipple</a>
     <strong>must</strong> have been called and not subsequently <a href="../pipelines.html#dynamic-state-lifetime" class="xref page">    invalidated</a> in the current command buffer prior to this drawing
     command</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-10608" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-10608"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-10608</span><br>
+
+If
+a shader object is bound to any graphics stage or
+a graphics pipeline is bound which was created with the
+<code>VK_DYNAMIC_STATE_LINE_RASTERIZATION_MODE_EXT</code> dynamic state
+enabled, and the current <code>lineRasterizationMode</code> is
+<code>VK_LINE_RASTERIZATION_MODE_BRESENHAM</code> or
+<code>VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH</code>, then the current
+<code>alphaToCoverageEnable</code>, <code>alphaToOneEnable</code> and
+<code>sampleShadingEnable</code> states <strong>must</strong> all be <code>VK_FALSE</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-07639" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-07639"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-07639</span><br>
@@ -12770,10 +12848,10 @@ the bound graphics pipeline state was created with the
 <code>VK_DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT</code> state enabled, and if
 <code>sampleLocationsEnable</code> was <code>VK_TRUE</code> in the last call to
 <a href="../primsrast.html#vkCmdSetSampleLocationsEnableEXT" class="xref page">vkCmdSetSampleLocationsEnableEXT</a>, then the
-<code>sampleLocationsInfo.sampleLocationGridSize.width</code> in the last call
-to <a href="../primsrast.html#vkCmdSetSampleLocationsEXT" class="xref page">vkCmdSetSampleLocationsEXT</a> <strong>must</strong> evenly divide
-<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>sampleLocationGridSize.width</code> as
-returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
+<code>sampleLocationsInfo.maxSampleLocationGridSize.width</code> in the last
+call to <a href="../primsrast.html#vkCmdSetSampleLocationsEXT" class="xref page">vkCmdSetSampleLocationsEXT</a> <strong>must</strong> evenly divide
+<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>maxSampleLocationGridSize.width</code>
+as returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
 <code>samples</code> parameter equaling <code>rasterizationSamples</code></p>
 </li>
 <li>
@@ -12787,10 +12865,10 @@ the bound graphics pipeline state was created with the
 <code>VK_DYNAMIC_STATE_SAMPLE_LOCATIONS_ENABLE_EXT</code> state enabled, and if
 <code>sampleLocationsEnable</code> was <code>VK_TRUE</code> in the last call to
 <a href="../primsrast.html#vkCmdSetSampleLocationsEnableEXT" class="xref page">vkCmdSetSampleLocationsEnableEXT</a>, then the
-<code>sampleLocationsInfo.sampleLocationGridSize.height</code> in the last call
-to <a href="../primsrast.html#vkCmdSetSampleLocationsEXT" class="xref page">vkCmdSetSampleLocationsEXT</a> <strong>must</strong> evenly divide
-<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>sampleLocationGridSize.height</code> as
-returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
+<code>sampleLocationsInfo.maxSampleLocationGridSize.height</code> in the last
+call to <a href="../primsrast.html#vkCmdSetSampleLocationsEXT" class="xref page">vkCmdSetSampleLocationsEXT</a> <strong>must</strong> evenly divide
+<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>maxSampleLocationGridSize.height</code>
+as returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
 <code>samples</code> parameter equaling <code>rasterizationSamples</code></p>
 </li>
 <li>
@@ -12815,8 +12893,8 @@ If the bound graphics pipeline state was created with the
 <code>sampleLocationsEnable</code> is <code>VK_TRUE</code>, then
 <code>sampleLocationsInfo.sampleLocationGridSize.width</code> <strong>must</strong> evenly
 divide
-<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>sampleLocationGridSize.width</code> as
-returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
+<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>maxSampleLocationGridSize.width</code>
+as returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
 <code>samples</code> parameter equaling the value of <code>rasterizationSamples</code>
 in the last call to <a href="../primsrast.html#vkCmdSetRasterizationSamplesEXT" class="xref page">vkCmdSetRasterizationSamplesEXT</a></p>
 </li>
@@ -12830,8 +12908,8 @@ If the bound graphics pipeline state was created with the
 <code>sampleLocationsEnable</code> is <code>VK_TRUE</code>, then
 <code>sampleLocationsInfo.sampleLocationGridSize.height</code> <strong>must</strong> evenly
 divide
-<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>sampleLocationGridSize.height</code> as
-returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
+<a href="../limits.html#VkMultisamplePropertiesEXT" class="xref page">VkMultisamplePropertiesEXT</a>::<code>maxSampleLocationGridSize.height</code>
+as returned by <a href="../limits.html#vkGetPhysicalDeviceMultisamplePropertiesEXT" class="xref page">vkGetPhysicalDeviceMultisamplePropertiesEXT</a> with a
 <code>samples</code> parameter equaling the value of <code>rasterizationSamples</code>
 in the last call to <a href="../primsrast.html#vkCmdSetRasterizationSamplesEXT" class="xref page">vkCmdSetRasterizationSamplesEXT</a></p>
 </li>
@@ -12905,14 +12983,16 @@ to <a href="../fragops.html#vkCmdSetCoverageToColorLocationNV" class="xref page"
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-coverageReductionMode-07491" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-coverageReductionMode-07491"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-coverageReductionMode-07491</span><br>
 
-If this <code><a href="../../appendices/extensions.html#VK_NV_coverage_reduction_mode" class="xref page">VK_NV_coverage_reduction_mode</a></code> extension is enabled, the
-bound graphics pipeline state was created with the
-<code>VK_DYNAMIC_STATE_COVERAGE_TO_COLOR_ENABLE_NV</code> and
-<code>VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT</code> states enabled, the
-current coverage reduction mode <code>coverageReductionMode</code>, then the
-current <code>rasterizationSamples</code>, and the sample counts for the color
-and depth/stencil attachments (if the subpass has them) <strong>must</strong> be a valid
-combination returned by
+If the <a href="../features.html#features-coverageReductionMode" class="xref page"><code>coverageReductionMode</code></a>
+feature is enabled,
+a shader object is bound to any graphics stage or
+a graphics pipeline is bound which was created with the
+<code>VK_DYNAMIC_STATE_COVERAGE_REDUCTION_MODE_NV</code> or
+<code>VK_DYNAMIC_STATE_RASTERIZATION_SAMPLES_EXT</code> dynamic states enabled,
+then the <a href="../pipelines.html#dynamic-state-current-value" class="xref page">current values</a> of
+<code>coverageReductionMode</code>, <code>rasterizationSamples</code>, the sample
+counts for the color and depth/stencil attachments (if the subpass has
+them) <strong>must</strong> be a valid combination returned by
 <a href="../fragops.html#vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV" class="xref page">vkGetPhysicalDeviceSupportedFramebufferMixedSamplesCombinationsNV</a></p>
 </li>
 <li>
@@ -12951,11 +13031,13 @@ shader object is bound to any graphics stage, then the
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-rasterizationSamples-07494" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-rasterizationSamples-07494"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-rasterizationSamples-07494</span><br>
 
 If the <code><a href="../../appendices/extensions.html#VK_NV_framebuffer_mixed_samples" class="xref page">VK_NV_framebuffer_mixed_samples</a></code> extension is enabled,
-and if the current subpass has any color attachments and
-<code>rasterizationSamples</code> of the last call to
-<a href="../primsrast.html#vkCmdSetRasterizationSamplesEXT" class="xref page">vkCmdSetRasterizationSamplesEXT</a> is greater than the number of
-color samples, then the pipeline <code>sampleShadingEnable</code> <strong>must</strong> be
-<code>VK_FALSE</code></p>
+and the <a href="../features.html#features-coverageReductionMode" class="xref page"><code>coverageReductionMode</code></a>
+feature is not enabled, or the <a href="../pipelines.html#dynamic-state-current-value" class="xref page">current    value</a> of <code>coverageReductionMode</code> is not
+<code>VK_COVERAGE_REDUCTION_MODE_TRUNCATE_NV</code>,
+and the <a href="../pipelines.html#dynamic-state-current-value" class="xref page">current value</a> of
+<code>rasterizationSamples</code> is greater than sample count of the color
+attachment, then <a href="../primsrast.html#primsrast-sampleshading" class="xref page">sample shading</a> <strong>must</strong> be
+disabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-stippledLineEnable-07495" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-stippledLineEnable-07495"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-stippledLineEnable-07495</span><br>
@@ -13050,6 +13132,49 @@ If dynamic state was inherited from
 in the current command buffer prior to this drawing command</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-nextStage-10745" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-nextStage-10745"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-nextStage-10745</span><br>
+
+For each shader object bound to a graphics stage, except for shader
+object bound to the last graphics stage in the logical pipeline, it
+<strong>must</strong> have been created with a <code>nextStage</code> including the
+corresponding bit to the shader object bound to the following graphics
+stage in the logical pipeline</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-08684" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-08684"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-08684</span><br>
+
+If there is no bound graphics pipeline, <code>vkCmdBindShadersEXT</code> <strong>must</strong>
+have been called in the current command buffer with <code>pStages</code> with
+an element of <code>VK_SHADER_STAGE_VERTEX_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-08685" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-08685"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-08685</span><br>
+
+If there is no bound graphics pipeline, and the
+<a href="../features.html#features-tessellationShader" class="xref page"><code>tessellationShader</code></a> feature is
+enabled, <code>vkCmdBindShadersEXT</code> <strong>must</strong> have been called in the current
+command buffer with <code>pStages</code> with an element of
+<code>VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-08686" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-08686"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-08686</span><br>
+
+If there is no bound graphics pipeline, and the
+<a href="../features.html#features-tessellationShader" class="xref page"><code>tessellationShader</code></a> feature is
+enabled, <code>vkCmdBindShadersEXT</code> <strong>must</strong> have been called in the current
+command buffer with <code>pStages</code> with an element of
+<code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-08687" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-08687"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-08687</span><br>
+
+If there is no bound graphics pipeline, and the
+<a href="../features.html#features-geometryShader" class="xref page"><code>geometryShader</code></a> feature is enabled,
+<code>vkCmdBindShadersEXT</code> <strong>must</strong> have been called in the current command
+buffer with <code>pStages</code> with an element of
+<code>VK_SHADER_STAGE_GEOMETRY_BIT</code></p>
+</li>
+<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-08688" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-08688"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-08688</span><br>
 
 If there is no bound graphics pipeline, <code>vkCmdBindShadersEXT</code> <strong>must</strong>
@@ -13080,27 +13205,6 @@ stages <strong>must</strong> have a valid <code>VkShaderEXT</code> bound, and th
 have no <code>VkShaderEXT</code> bound</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-08694" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-08694"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-08694</span><br>
-
-If there is no bound graphics pipeline, and both the
-<a href="../features.html#features-taskShader" class="xref page"><code>taskShader</code></a> and <a href="../features.html#features-meshShader" class="xref page">    <code>meshShader</code></a> features are enabled, and a valid <code>VkShaderEXT</code>
-is bound the to the <code>VK_SHADER_STAGE_MESH_BIT_EXT</code> stage, and that
-<code>VkShaderEXT</code> was created without the
-<code>VK_SHADER_CREATE_NO_TASK_SHADER_BIT_EXT</code> flag, a valid
-<code>VkShaderEXT</code> <strong>must</strong> be bound to the
-<code>VK_SHADER_STAGE_TASK_BIT_EXT</code> stage</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-08695" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-08695"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-08695</span><br>
-
-If there is no bound graphics pipeline, and both the
-<a href="../features.html#features-taskShader" class="xref page"><code>taskShader</code></a> and <a href="../features.html#features-meshShader" class="xref page">    <code>meshShader</code></a> features are enabled, and a valid <code>VkShaderEXT</code>
-is bound the to the <code>VK_SHADER_STAGE_MESH_BIT_EXT</code> stage, and that
-<code>VkShaderEXT</code> was created with the
-<code>VK_SHADER_CREATE_NO_TASK_SHADER_BIT_EXT</code> flag, there <strong>must</strong> be no
-<code>VkShaderEXT</code> bound to the <code>VK_SHADER_STAGE_TASK_BIT_EXT</code> stage</p>
-</li>
-<li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-08696" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-08696"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-08696</span><br>
 
 If there is no bound graphics pipeline, and a valid <code>VkShaderEXT</code> is
@@ -13129,13 +13233,15 @@ stages whose shaders which did not create a shader with the
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-08878" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-08878"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-08878</span><br>
 
 All bound graphics shader objects <strong>must</strong> have been created with identical
-or identically defined push constant ranges</p>
+or <a href="../../appendices/glossary.html#glossary-identically-defined" class="xref page">identically defined</a> push constant
+ranges</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-08879" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-08879"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-08879</span><br>
 
 All bound graphics shader objects <strong>must</strong> have been created with identical
-or identically defined arrays of descriptor set layouts</p>
+or <a href="../../appendices/glossary.html#glossary-identically-defined" class="xref page">identically defined</a> arrays of
+descriptor set layouts</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-colorAttachmentCount-09372" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-colorAttachmentCount-09372"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-colorAttachmentCount-09372</span><br>
@@ -13228,6 +13334,14 @@ If the bound graphics pipeline was created with
 render pass <strong>must</strong> have begun with <a href="../renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a> with the
 <code>VK_RENDERING_ENABLE_LEGACY_DITHERING_BIT_EXT</code> flag</p>
 </li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-10677" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-10677"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-10677</span><br>
+
+If the <a href="../renderpass.html#renderpass-per-tile-execution-model" class="xref page">per-tile execution model</a>
+is enabled, the
+<a href="../features.html#features-tileShadingPerTileDraw" class="xref page">tileShadingPerTileDraw</a> feature <strong>must</strong>
+be enabled</p>
+</li>
 </ul>
 </div>
 <div class="ulist">
@@ -13247,7 +13361,7 @@ required size of zero then <a href="#vkCmdPreprocessGeneratedCommandsEXT">vkCmdP
 executes, and the preprocessing command <strong>must</strong> have used the same
 <code>pGeneratedCommandsInfo</code> content as well as the content of the input
 buffers it references (all except
-<a href="#VkGeneratedCommandsInfoEXT">VkGeneratedCommandsInfoEXT</a>::<code>preprocessBuffer</code>)</p>
+<a href="#VkGeneratedCommandsInfoEXT">VkGeneratedCommandsInfoEXT</a>::<code>preprocessAddress</code>)</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-isPreprocessed-11047" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-isPreprocessed-11047"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-isPreprocessed-11047</span><br>
@@ -13419,6 +13533,13 @@ If a rendering pass is currently active, the view mask <strong>must</strong> be 
 
 <code>commandBuffer</code> <strong>must</strong> not have been created with
 <code>VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-indirectCommandsLayout-10769" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-indirectCommandsLayout-10769"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-indirectCommandsLayout-10769</span><br>
+
+If the <code>indirectCommandsLayout</code> member of
+<code>pGeneratedCommandsInfo</code> contains a draw token, this command <strong>must</strong>
+not be called outside a render pass instance</p>
 </li>
 </ul>
 </div>
@@ -13646,7 +13767,7 @@ If the <code>indirectCommandsLayout</code> uses a token of
 <code>maxSequenceCount</code> <strong>must</strong> be less or equal to
 <a href="../limits.html#VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT" class="xref page">VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT</a>::<code>maxIndirectSequenceCount</code>
 and
-<a href="#VkGeneratedCommandsMemoryRequirementsInfoEXT">VkGeneratedCommandsMemoryRequirementsInfoEXT</a>::<code>maxSequencesCount</code>
+<a href="#VkGeneratedCommandsMemoryRequirementsInfoEXT">VkGeneratedCommandsMemoryRequirementsInfoEXT</a>::<code>maxSequenceCount</code>
 that was used to determine the <code>preprocessSize</code></p>
 </li>
 <li>
@@ -13656,7 +13777,7 @@ If <code>sequenceCountAddress</code> is not <code>NULL</code>, the value contain
 address <strong>must</strong> be less or equal to
 <a href="../limits.html#VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT" class="xref page">VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT</a>::<code>maxIndirectSequenceCount</code>
 and
-<a href="#VkGeneratedCommandsMemoryRequirementsInfoEXT">VkGeneratedCommandsMemoryRequirementsInfoEXT</a>::<code>maxSequencesCount</code>
+<a href="#VkGeneratedCommandsMemoryRequirementsInfoEXT">VkGeneratedCommandsMemoryRequirementsInfoEXT</a>::<code>maxSequenceCount</code>
 that was used to determine the <code>preprocessSize</code></p>
 </li>
 <li>
@@ -13847,7 +13968,6 @@ cmdProcessAllSequences(commandBuffer, indirectExecutionSet,
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p>It is important to note that the affected values of all state related to the
 <code>shaderStages</code> used are <strong>undefined</strong> after this command.
@@ -13902,7 +14022,6 @@ It can be deleted at any time after this command has been recorded.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="title">Note</div>
 <div class="paragraph">
 <p><code>stateCommandBuffer</code> access is not synchronized by the driver, meaning
 that this command buffer <strong>must</strong> not be modified between threads in an unsafe
@@ -14149,6 +14268,29 @@ COMMAND_PREPROCESS_READ_BIT</p>
 </div>
 <script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
 <script async src="../../../../_/js/vendor/highlight.js"></script>
+<script src="../../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>

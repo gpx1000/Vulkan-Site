@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../../index.html" class="home-link"></a>
@@ -1050,7 +1050,7 @@ is <code>VK_FALSE</code></p>
 </li>
 <li>
 <p><a id="VUID-VkOpticalFlowSessionCreateInfoNV-sType-unique" href="#VUID-VkOpticalFlowSessionCreateInfoNV-sType-unique"></a> <span class="vuid">VUID-VkOpticalFlowSessionCreateInfoNV-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkOpticalFlowSessionCreateInfoNV-imageFormat-parameter" href="#VUID-VkOpticalFlowSessionCreateInfoNV-imageFormat-parameter"></a> <span class="vuid">VUID-VkOpticalFlowSessionCreateInfoNV-imageFormat-parameter</span><br>
@@ -1395,7 +1395,7 @@ flow session.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>To bind a vulkan image to an optical flow session object, call:</p>
+<p>To bind a Vulkan image to an optical flow session object, call:</p>
 </div>
 <div id="vkBindOpticalFlowSessionImageNV" class="listingblock">
 <div class="content">
@@ -1427,9 +1427,10 @@ bound.</p>
 <p><code>view</code> is a <a href="../resources.html#VkImageView" class="xref page">VkImageView</a> to be bound.</p>
 </li>
 <li>
-<p>layout <strong>must</strong> specify the layout that the image subresources accessible
-from <code>view</code> will be in at the time the optical flow vectors are
-calculated with <a href="#vkCmdOpticalFlowExecuteNV">vkCmdOpticalFlowExecuteNV</a> on a <code>VkDevice</code>.</p>
+<p><code>layout</code> <strong>must</strong> specify the layout that the image subresources
+accessible from <code>view</code> will be in at the time the optical flow
+vectors are calculated with <a href="#vkCmdOpticalFlowExecuteNV">vkCmdOpticalFlowExecuteNV</a> on a
+<code>VkDevice</code>.</p>
 </li>
 </ul>
 </div>
@@ -1835,6 +1836,29 @@ typedef VkFlags   VkOpticalFlowExecuteFlagsNV;</code></pre>
 </div>
 <script id="site-script" src="../../../../_/js/site.js" data-ui-root-path="../../../../_"></script>
 <script async src="../../../../_/js/vendor/highlight.js"></script>
+<script src="../../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>

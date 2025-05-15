@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
@@ -589,6 +589,21 @@ If the ray was traced with a <a href="../appendices/glossary.html#glossary-pipel
 floating-point values in the <code>HitAttributeKHR</code> storage class.</p>
 </div>
 <div class="paragraph">
+<p>For linear swept sphere intersection candidate, the ray <span class="eq">t</span> value along
+with a single <span class="eq">u</span> parameter suffice to identify the hit.
+The <span class="eq">u</span> value specifies the position of the hit along the LSS
+midsection, within the range <span class="eq">[0, 1]</span>.
+If the <span class="eq">u</span> value is exactly <code>0</code> or <code>1</code>, then the intersection occurred
+on the respective endcap <code>0</code>, or endcap <code>1</code>.
+For pure sphere primitives, <span class="eq">u</span> is always set to 0.
+LSS primitives may be self-enclosing if one of the endcap spheres is
+completely enclosed within the other, and both endcaps are enabled.
+In these instances, only the outer of the two endcaps is intersection
+tested, and <span class="eq">u</span> will be returned as <code>0</code> or <code>1</code> accordingly.
+For rays that originate inside a LSS or sphere primitive, or enter through
+an absent endcap, no intersections will be reported.</p>
+</div>
+<div class="paragraph">
 <p>Once an intersection candidate is determined, it proceeds through the
 following operations, in order:</p>
 </div>
@@ -658,6 +673,33 @@ by a series of the above shared edges.</p>
 <div class="paragraph">
 <p>Implementations <strong>should</strong> not double-hit or miss when a ray intersects a
 shared edge, or a shared vertex of a closed fan.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Because of the complexity of a definition of watertightness the language
+above does not list a <strong>must</strong> requirement but it is expected and tested that
+implementations will perform watertight intersection tests.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For LSS primitives, connected LSS might overlap not only at the shared
+vertex endcap but also along their midsections.
+This applies even if an LSS disables the shared endcap.
+As such, there is no clear equivalent edge or vertex that could
+deterministically map a hit to just one of the LSS.
+So, unlike the ray-triangle intersection, the ray-LSS intersection provides
+no single-hit guarantee for LSS, including those that share a vertex causing
+the LSS to overlap.
+However, as with triangles, LSS intersection still returns the closest hit.</p>
 </div>
 </div>
 </div>
@@ -779,7 +821,9 @@ of this.</p>
 <p>If the ray was traced with a <a href="../appendices/glossary.html#glossary-pipeline-trace-ray" class="xref page">pipeline trace ray</a> instruction, the <code>HitKindKHR</code> built-in is set to
 <code>HitKindFrontFacingTriangleKHR</code> if the intersection is with front-facing
 geometry, and <code>HitKindBackFacingTriangleKHR</code> if the intersection is with
-back-facing geometry, for shader stages considering this intersection.</p>
+back-facing geometry, for shader stages considering this intersection.
+For LSS or sphere intersections, the <code>HitKindKHR</code> built-in is set to
+<code>HitKindLssPrimitiveNV</code> or <code>HitKindSpherePrimitiveNV</code> respectively.</p>
 </div>
 <div class="paragraph">
 <p>If the ray was traced with <code>OpRayQueryProceedKHR</code>,
@@ -1049,10 +1093,10 @@ confirmation process as triangle hits.</p>
 determine whether any hits should be reported to the traversal
 infrastructure; no further processing of this intersection candidate occurs.
 The occurrence of an AABB intersection candidate does not guarantee the ray
-intersects the primitive bounds.
+intersects the application-provided AABB.
 To avoid propagating false intersections the application <strong>should</strong> verify the
 intersection candidate before reporting any hits and only report
-intersections within the bounds of the AABB.
+intersections within the bounds of the desired geometry.
 Reporting an intersection outside the AABB either through the implementation
 giving a conservative bound or reporting a <span class="eq">t</span> out of range is legal but
 <strong>may</strong> result in unpredictable closest hit results.</p>
@@ -1233,6 +1277,29 @@ If no closest hit was identified, the committed intersection type will be
 </div>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>

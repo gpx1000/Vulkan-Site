@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
@@ -472,6 +472,32 @@ with the same set of image formats as supported in compute shaders.</p>
 <code>VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR</code> or
 <code>VK_IMAGE_LAYOUT_GENERAL</code> layout in order to access its data in a
 shader.</p>
+</div>
+<div class="paragraph">
+<p>When the <a href="features.html#features-tileShadingColorAttachments" class="xref page"><code>tileShadingColorAttachments</code></a> feature is enabled, loads using
+<code>OpImageRead</code> or <code>OpImageSparseRead</code> are supported for color
+<a href="interfaces.html#interfaces-tile-attachment" class="xref page">tile attachments</a> in fragment and compute
+shaders for image views whose <a href="resources.html#resources-image-view-format-features" class="xref page">format features</a> contain <a href="formats.html#formats-properties" class="xref page"><code>VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT</code></a>.
+Additionally, when <a href="features.html#features-tileShadingColorAttachments" class="xref page"><code>tileShadingColorAttachments</code></a> is enabled, stores using
+<code>OpImageWrite</code> are supported for color attachments in compute shaders
+with the same set of image formats as for loads.
+When the <a href="features.html#features-tileShadingAtomicOps" class="xref page"><code>tileShadingAtomicOps</code></a> is
+enabled, tile atomic operations are supported for color attachments in
+compute shaders with the same set of image formats as for loads.</p>
+</div>
+<div class="paragraph">
+<p>When the <a href="features.html#features-tileShadingInputAttachments" class="xref page"><code>tileShadingInputAttachments</code></a> feature is enabled, loads using
+<code>OpImageRead</code> are supported for input <a href="interfaces.html#interfaces-tile-attachment" class="xref page">tile attachments</a> in fragment and compute shaders with the same set of image
+formats as for color attachments.
+Stores to input attachments are not supported.</p>
+</div>
+<div class="paragraph">
+<p>When the <a href="features.html#features-tileShadingDepthAttachments" class="xref page"><code>tileShadingDepthAttachments</code></a> or
+<a href="features.html#features-tileShadingStencilAttachments" class="xref page"><code>tileShadingStencilAttachments</code></a> feature is enabled, loads using
+<code>OpImageRead</code> or <code>OpImageSparseRead</code> are supported for depth or
+stencil aspects of a depth/stencil <a href="interfaces.html#interfaces-tile-attachment" class="xref page">tile attachment</a> in fragment and compute shaders with the same set of image
+formats as for color attachments.
+Stores to depth/stencil attachments are not supported.</p>
 </div>
 </div>
 <div class="sect2">
@@ -910,8 +936,8 @@ descriptor.</p>
 <a href="#vkGetDescriptorSetLayoutSupport">vkGetDescriptorSetLayoutSupport</a> with a
 <code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code> binding, with the list of descriptor
 types to query in the
-<a href="#VkMutableDescriptorTypeCreateInfoEXT">VkMutableDescriptorTypeCreateInfoEXT</a>::<code>pDescriptorTypes</code> array for
-that binding.</p>
+<a href="#VkMutableDescriptorTypeCreateInfoEXT">VkMutableDescriptorTypeCreateInfoEXT</a>::<code>pMutableDescriptorTypeLists</code>
+array for that binding.</p>
 </div>
 </td>
 </tr>
@@ -1324,7 +1350,7 @@ bit</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorSetLayoutCreateInfo-sType-unique" href="#VUID-VkDescriptorSetLayoutCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkDescriptorSetLayoutCreateInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorSetLayoutCreateInfo-flags-parameter" href="#VUID-VkDescriptorSetLayoutCreateInfo-flags-parameter"></a> <span class="vuid">VUID-VkDescriptorSetLayoutCreateInfo-flags-parameter</span><br>
@@ -2401,7 +2427,7 @@ or else <code>VK_FALSE</code>.</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorSetLayoutSupport-sType-unique" href="#VUID-VkDescriptorSetLayoutSupport-sType-unique"></a> <span class="vuid">VUID-VkDescriptorSetLayoutSupport-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -2885,7 +2911,9 @@ pipeline layout.</p>
 </li>
 <li>
 <p><code>pSetLayouts</code> is a pointer to an array of
-<code>VkDescriptorSetLayout</code> objects.</p>
+<code>VkDescriptorSetLayout</code> objects.
+The implementation <strong>must</strong> not access these objects outside of the
+duration of the command this structure is passed to.</p>
 </li>
 <li>
 <p><code>pushConstantRangeCount</code> is the number of push constant ranges
@@ -2893,7 +2921,7 @@ included in the pipeline layout.</p>
 </li>
 <li>
 <p><code>pPushConstantRanges</code> is a pointer to an array of
-<code>VkPushConstantRange</code> structures defining a set of push constant
+<a href="#VkPushConstantRange">VkPushConstantRange</a> structures defining a set of push constant
 ranges for use in a single pipeline layout.
 In addition to descriptor set layouts, a pipeline layout also describes
 how many push constants <strong>can</strong> be accessed by each stage of the pipeline.</p>
@@ -3017,8 +3045,10 @@ than or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-03022" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-03022"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-03022</span><br>
 
-The total number of descriptors with a <code>descriptorType</code> of
-<code>VK_DESCRIPTOR_TYPE_SAMPLER</code> and
+If the
+<a href="features.html#features-descriptorBindingSampledImageUpdateAfterBind" class="xref page"><code>descriptorBindingSampledImageUpdateAfterBind</code></a>
+feature is supported on the device, the total number of descriptors with
+a <code>descriptorType</code> of <code>VK_DESCRIPTOR_TYPE_SAMPLER</code> and
 <code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code> accessible to any given
 shader stage across all elements of <code>pSetLayouts</code> <strong>must</strong> be less than
 or equal to
@@ -3027,8 +3057,10 @@ or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-03023" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-03023"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-03023</span><br>
 
-The total number of descriptors with a <code>descriptorType</code> of
-<code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER</code> and
+If the
+<a href="features.html#features-descriptorBindingUniformBufferUpdateAfterBind" class="xref page"><code>descriptorBindingUniformBufferUpdateAfterBind</code></a>
+feature is supported on the device, the total number of descriptors with
+a <code>descriptorType</code> of <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER</code> and
 <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> accessible to any given
 shader stage across all elements of <code>pSetLayouts</code> <strong>must</strong> be less than
 or equal to
@@ -3037,8 +3069,10 @@ or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-03024" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-03024"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-03024</span><br>
 
-The total number of descriptors with a <code>descriptorType</code> of
-<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</code> and
+If the
+<a href="features.html#features-descriptorBindingStorageBufferUpdateAfterBind" class="xref page"><code>descriptorBindingStorageBufferUpdateAfterBind</code></a>
+feature is supported on the device, the total number of descriptors with
+a <code>descriptorType</code> of <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</code> and
 <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> accessible to any given
 shader stage across all elements of <code>pSetLayouts</code> <strong>must</strong> be less than
 or equal to
@@ -3047,7 +3081,10 @@ or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-03025" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-03025"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-03025</span><br>
 
-The total number of descriptors with a <code>descriptorType</code> of
+If the
+<a href="features.html#features-descriptorBindingSampledImageUpdateAfterBind" class="xref page"><code>descriptorBindingSampledImageUpdateAfterBind</code></a>
+feature is supported on the device, the total number of descriptors with
+a <code>descriptorType</code> of
 <code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code>,
 <code>VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE</code>, and
 <code>VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER</code> accessible to any given
@@ -3058,8 +3095,10 @@ or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-03026" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-03026"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-03026</span><br>
 
-The total number of descriptors with a <code>descriptorType</code> of
-<code>VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</code>, and
+If the
+<a href="features.html#features-descriptorBindingStorageImageUpdateAfterBind" class="xref page"><code>descriptorBindingStorageImageUpdateAfterBind</code></a>
+feature is supported on the device, the total number of descriptors with
+a <code>descriptorType</code> of <code>VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</code>, and
 <code>VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER</code> accessible to any given
 shader stage across all elements of <code>pSetLayouts</code> <strong>must</strong> be less than
 or equal to
@@ -3068,7 +3107,9 @@ or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-03027" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-03027"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-03027</span><br>
 
-The total number of descriptors with a <code>descriptorType</code> of
+If any element of <code>pSetLayouts</code> is created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit
+set, the total number of descriptors with a <code>descriptorType</code> of
 <code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code> accessible to any given shader
 stage across all elements of <code>pSetLayouts</code> <strong>must</strong> be less than or
 equal to
@@ -3077,10 +3118,12 @@ equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-02215" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-02215"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-02215</span><br>
 
-The total number of bindings with a <code>descriptorType</code> of
-<code>VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK</code> accessible to any given
-shader stage across all elements of <code>pSetLayouts</code> <strong>must</strong> be less than
-or equal to
+If the
+<a href="features.html#features-descriptorBindingInlineUniformBlockUpdateAfterBind" class="xref page"><code>descriptorBindingInlineUniformBlockUpdateAfterBind</code></a>
+feature is supported on the device, the total number of bindings with a
+<code>descriptorType</code> of <code>VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK</code>
+accessible to any given shader stage across all elements of
+<code>pSetLayouts</code> <strong>must</strong> be less than or equal to
 <code>VkPhysicalDeviceInlineUniformBlockProperties</code>::<code>maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks</code></p>
 </li>
 <li>
@@ -3184,8 +3227,12 @@ than or equal to <a href="limits.html#limits-maxDescriptorSetTotalBuffersDynamic
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-10006" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-10006"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-10006</span><br>
 
-The total number of descriptors of the type
-<code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> or
+If either the
+<a href="features.html#features-descriptorBindingStorageBufferUpdateAfterBind" class="xref page"><code>descriptorBindingStorageBufferUpdateAfterBind</code></a>
+or
+<a href="features.html#features-descriptorBindingUniformBufferUpdateAfterBind" class="xref page"><code>descriptorBindingUniformBufferUpdateAfterBind</code></a>
+feature is supported on the device, the total number of descriptors of
+the type <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> or
 <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> accessible across all
 shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
 than or equal to
@@ -3243,8 +3290,10 @@ than or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03036" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03036"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03036</span><br>
 
-The total number of descriptors of the type
-<code>VK_DESCRIPTOR_TYPE_SAMPLER</code> and
+If the
+<a href="features.html#features-descriptorBindingSampledImageUpdateAfterBind" class="xref page"><code>descriptorBindingSampledImageUpdateAfterBind</code></a>
+feature is supported on the device, the total number of descriptors of
+the type <code>VK_DESCRIPTOR_TYPE_SAMPLER</code> and
 <code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code> accessible across all
 shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
 than or equal to
@@ -3253,18 +3302,23 @@ than or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03037" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03037"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03037</span><br>
 
-The total number of descriptors of the type
-<code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER</code> accessible across all shader
-stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less than
-or equal to
+If the
+<a href="features.html#features-descriptorBindingUniformBufferUpdateAfterBind" class="xref page"><code>descriptorBindingUniformBufferUpdateAfterBind</code></a>
+feature is supported on the device, the total number of descriptors of
+the type <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER</code> accessible across all
+shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
+than or equal to
 <code>VkPhysicalDeviceDescriptorIndexingProperties</code>::<code>maxDescriptorSetUpdateAfterBindUniformBuffers</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03038" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03038"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03038</span><br>
 
-If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is not
-enabled, the
-total number of descriptors of the type
+If the
+<a href="features.html#features-descriptorBindingUniformBufferUpdateAfterBind" class="xref page"><code>descriptorBindingUniformBufferUpdateAfterBind</code></a>
+feature is supported on the device,
+and if the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is not
+enabled,
+the total number of descriptors of the type
 <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> accessible across all
 shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
 than or equal to
@@ -3273,28 +3327,34 @@ than or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-maintenance7-10007" href="#VUID-VkPipelineLayoutCreateInfo-maintenance7-10007"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-maintenance7-10007</span><br>
 
-If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is enabled,
-the total number of descriptors of the type
-<code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> accessible across all
-shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
-than or equal to
+If the
+<a href="features.html#features-descriptorBindingUniformBufferUpdateAfterBind" class="xref page"><code>descriptorBindingUniformBufferUpdateAfterBind</code></a>
+feature is supported on the device, and the <a href="features.html#features-maintenance7" class="xref page">    <code>maintenance7</code></a> feature is enabled, the total number of descriptors
+of the type <code>VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC</code> accessible
+across all shader stages and across all elements of <code>pSetLayouts</code>
+<strong>must</strong> be less than or equal to
 <a href="limits.html#limits-maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic" class="xref page">    <code>VkPhysicalDeviceMaintenance7PropertiesKHR</code>::<code>maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic</code></a></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03039" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03039"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03039</span><br>
 
-The total number of descriptors of the type
-<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</code> accessible across all shader
-stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less than
-or equal to
+If the
+<a href="features.html#features-descriptorBindingStorageBufferUpdateAfterBind" class="xref page"><code>descriptorBindingStorageBufferUpdateAfterBind</code></a>
+feature is supported on the device, the total number of descriptors of
+the type <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER</code> accessible across all
+shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
+than or equal to
 <code>VkPhysicalDeviceDescriptorIndexingProperties</code>::<code>maxDescriptorSetUpdateAfterBindStorageBuffers</code></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03040" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03040"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03040</span><br>
 
-If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is not
-enabled, the
-total number of descriptors of the type
+If the
+<a href="features.html#features-descriptorBindingStorageBufferUpdateAfterBind" class="xref page"><code>descriptorBindingStorageBufferUpdateAfterBind</code></a>
+feature is supported on the device,
+and if the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is not
+enabled,
+the total number of descriptors of the type
 <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> accessible across all
 shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
 than or equal to
@@ -3303,18 +3363,21 @@ than or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-maintenance7-10008" href="#VUID-VkPipelineLayoutCreateInfo-maintenance7-10008"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-maintenance7-10008</span><br>
 
-If the <a href="features.html#features-maintenance7" class="xref page"><code>maintenance7</code></a> feature is enabled,
-the total number of descriptors of the type
-<code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> accessible across all
-shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
-than or equal to
+If the
+<a href="features.html#features-descriptorBindingStorageBufferUpdateAfterBind" class="xref page"><code>descriptorBindingStorageBufferUpdateAfterBind</code></a>
+feature is supported on the device, and if the <a href="features.html#features-maintenance7" class="xref page">    <code>maintenance7</code></a> feature is enabled, the total number of descriptors
+of the type <code>VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC</code> accessible
+across all shader stages and across all elements of <code>pSetLayouts</code>
+<strong>must</strong> be less than or equal to
 <a href="limits.html#limits-maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic" class="xref page">    <code>VkPhysicalDeviceMaintenance7PropertiesKHR</code>::<code>maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic</code></a></p>
 </li>
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03041" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03041"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03041</span><br>
 
-The total number of descriptors of the type
-<code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code>,
+If the
+<a href="features.html#features-descriptorBindingSampledImageUpdateAfterBind" class="xref page"><code>descriptorBindingSampledImageUpdateAfterBind</code></a>
+feature is supported on the device, the total number of descriptors of
+the type <code>VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER</code>,
 <code>VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE</code>, and
 <code>VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER</code> accessible across all
 shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
@@ -3324,8 +3387,10 @@ than or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03042" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03042"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03042</span><br>
 
-The total number of descriptors of the type
-<code>VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</code>, and
+If the
+<a href="features.html#features-descriptorBindingStorageImageUpdateAfterBind" class="xref page"><code>descriptorBindingStorageImageUpdateAfterBind</code></a>
+feature is supported on the device, the total number of descriptors of
+the type <code>VK_DESCRIPTOR_TYPE_STORAGE_IMAGE</code>, and
 <code>VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER</code> accessible across all
 shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
 than or equal to
@@ -3334,7 +3399,9 @@ than or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03043" href="#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03043"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-pSetLayouts-03043</span><br>
 
-The total number of descriptors of the type
+If any element of <code>pSetLayouts</code> is created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit
+set, the total number of descriptors of the type
 <code>VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT</code> accessible across all shader
 stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less than
 or equal to
@@ -3343,10 +3410,12 @@ or equal to
 <li>
 <p><a id="VUID-VkPipelineLayoutCreateInfo-descriptorType-02217" href="#VUID-VkPipelineLayoutCreateInfo-descriptorType-02217"></a> <span class="vuid">VUID-VkPipelineLayoutCreateInfo-descriptorType-02217</span><br>
 
-The total number of bindings with a <code>descriptorType</code> of
-<code>VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK</code> accessible across all
-shader stages and across all elements of <code>pSetLayouts</code> <strong>must</strong> be less
-than or equal to
+If the
+<a href="features.html#features-descriptorBindingInlineUniformBlockUpdateAfterBind" class="xref page"><code>descriptorBindingInlineUniformBlockUpdateAfterBind</code></a>
+feature is supported on the device, the total number of bindings with a
+<code>descriptorType</code> of <code>VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK</code>
+accessible across all shader stages and across all elements of
+<code>pSetLayouts</code> <strong>must</strong> be less than or equal to
 <code>VkPhysicalDeviceInlineUniformBlockProperties</code>::<code>maxDescriptorSetUpdateAfterBindInlineUniformBlocks</code></p>
 </li>
 <li>
@@ -3842,8 +3911,8 @@ command for any command buffers that are still in the
 <a href="#descriptorsets-push-constants">push constants</a>&#8221; if they were created
 with identical push constant ranges.
 Two pipeline layouts are defined to be &#8220;compatible for set N&#8221; if they were
-created with <em>identically defined</em> descriptor set layouts for sets zero
-through N,
+created with <a href="../appendices/glossary.html#glossary-identically-defined" class="xref page">identically defined</a> descriptor
+set layouts for sets zero through N,
 if both of them either were or were not created with
 <code>VK_PIPELINE_LAYOUT_CREATE_INDEPENDENT_SETS_BIT_EXT</code>,
 and if they were created with identical push constant ranges.</p>
@@ -4151,9 +4220,9 @@ underlying hardware resources occurs.</p>
 <div class="paragraph">
 <p>If a <code>pPoolSizes</code>[i]::<code>type</code> is
 <code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code>, a
-<a href="#VkMutableDescriptorTypeCreateInfoEXT">VkMutableDescriptorTypeCreateInfoEXT</a> struct in the <code>pNext</code> chain
-<strong>can</strong> be used to specify which mutable descriptor types <strong>can</strong> be allocated
-from the pool.
+<a href="#VkMutableDescriptorTypeCreateInfoEXT">VkMutableDescriptorTypeCreateInfoEXT</a> structure in the <code>pNext</code>
+chain <strong>can</strong> be used to specify which mutable descriptor types <strong>can</strong> be
+allocated from the pool.
 If included in the <code>pNext</code> chain,
 <a href="#VkMutableDescriptorTypeCreateInfoEXT">VkMutableDescriptorTypeCreateInfoEXT</a>::<code>pMutableDescriptorTypeLists</code>[i]
 specifies which kind of <code>VK_DESCRIPTOR_TYPE_MUTABLE_EXT</code> descriptors
@@ -4277,7 +4346,7 @@ structure whose <code>maxInlineUniformBlockBindings</code> member is not zero</p
 </li>
 <li>
 <p><a id="VUID-VkDescriptorPoolCreateInfo-sType-unique" href="#VUID-VkDescriptorPoolCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkDescriptorPoolCreateInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorPoolCreateInfo-flags-parameter" href="#VUID-VkDescriptorPoolCreateInfo-flags-parameter"></a> <span class="vuid">VUID-VkDescriptorPoolCreateInfo-flags-parameter</span><br>
@@ -4499,9 +4568,9 @@ of this type.</p>
 <td class="content">
 <div class="paragraph">
 <p>When creating a descriptor pool that will contain descriptors for combined
-image samplers of multi-planar formats, an application needs to account for
-non-trivial descriptor consumption when choosing the <code>descriptorCount</code>
-value, as indicated by
+image samplers of <a href="formats.html#formats-multiplanar" class="xref page">multi-planar formats</a>, an
+application needs to account for non-trivial descriptor consumption when
+choosing the <code>descriptorCount</code> value, as indicated by
 <a href="capabilities.html#VkSamplerYcbcrConversionImageFormatProperties" class="xref page">VkSamplerYcbcrConversionImageFormatProperties</a>::<code>combinedImageSamplerDescriptorCount</code>.</p>
 </div>
 <div class="paragraph">
@@ -4790,18 +4859,6 @@ from this command, set all entries of the <code>pDescriptorSets</code> array to
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="title">Host Synchronization</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Host access to <code>pAllocateInfo-&gt;descriptorPool</code> <strong>must</strong> be externally synchronized</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sidebarblock">
-<div class="content">
 <div class="title">Return Codes</div>
 <div class="dlist">
 <dl>
@@ -4965,7 +5022,7 @@ Each element of <code>pSetLayouts</code> <strong>must</strong> not have been cre
 </li>
 <li>
 <p><a id="VUID-VkDescriptorSetAllocateInfo-sType-unique" href="#VUID-VkDescriptorSetAllocateInfo-sType-unique"></a> <span class="vuid">VUID-VkDescriptorSetAllocateInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorSetAllocateInfo-descriptorPool-parameter" href="#VUID-VkDescriptorSetAllocateInfo-descriptorPool-parameter"></a> <span class="vuid">VUID-VkDescriptorSetAllocateInfo-descriptorPool-parameter</span><br>
@@ -4982,6 +5039,18 @@ Each element of <code>pSetLayouts</code> <strong>must</strong> not have been cre
 <li>
 <p><a id="VUID-VkDescriptorSetAllocateInfo-commonparent" href="#VUID-VkDescriptorSetAllocateInfo-commonparent"></a> <span class="vuid">VUID-VkDescriptorSetAllocateInfo-commonparent</span><br>
  Both of <code>descriptorPool</code>, and the elements of <code>pSetLayouts</code> <strong>must</strong> have been created, allocated, or retrieved from the same <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Host Synchronization</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Host access to <code>descriptorPool</code> <strong>must</strong> be externally synchronized</p>
 </li>
 </ul>
 </div>
@@ -5424,6 +5493,13 @@ and any of the descriptor bindings that are updated were not created with
 the <code>VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT</code> or
 <code>VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT</code> bits set,
 that command buffer becomes <a href="cmdbuffers.html#commandbuffers-lifecycle" class="xref page">invalid</a>.</p>
+</div>
+<div class="paragraph">
+<p>Copying a descriptor from a descriptor set does not constitute a use of the
+referenced resource or view, as it is the reference itself that is copied.
+Applications <strong>can</strong> copy a descriptor referencing a destroyed resource, and it
+<strong>can</strong> copy an <strong>undefined</strong> descriptor.
+The destination descriptor becomes <strong>undefined</strong> in both cases.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -5938,7 +6014,8 @@ If <code>descriptorType</code> is
 <code>VkSamplerYcbcrConversionInfo</code> structure in its <code>pNext</code> chain,
 then <code>dstSet</code> <strong>must</strong> have been allocated with a layout that included
 immutable samplers for <code>dstBinding</code>, and the corresponding immutable
-sampler <strong>must</strong> have been created with an <em>identically defined</em>
+sampler <strong>must</strong> have been created with an
+<a href="../appendices/glossary.html#glossary-identically-defined" class="xref page">identically defined</a>
 <code>VkSamplerYcbcrConversionInfo</code> object</p>
 </li>
 <li>
@@ -5951,9 +6028,8 @@ allocated with a layout that included immutable samplers for
 <code>pImageInfo</code> which corresponds to an immutable sampler that enables
 <a href="samplers.html#samplers-YCbCr-conversion" class="xref page">sampler Y′C<sub>B</sub>C<sub>R</sub> conversion</a> <strong>must</strong> have been
 created with a <code>VkSamplerYcbcrConversionInfo</code> structure in its
-<code>pNext</code> chain with an <em>identically defined</em>
-<code>VkSamplerYcbcrConversionInfo</code> to the corresponding immutable
-sampler</p>
+<code>pNext</code> chain with an <a href="../appendices/glossary.html#glossary-identically-defined" class="xref page">identically    defined</a> <code>VkSamplerYcbcrConversionInfo</code> to the corresponding
+immutable sampler</p>
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSet-descriptorType-09506" href="#VUID-VkWriteDescriptorSet-descriptorType-09506"></a> <span class="vuid">VUID-VkWriteDescriptorSet-descriptorType-09506</span><br>
@@ -6158,11 +6234,11 @@ a view created with an <code>image</code> created with
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSet-pNext-pNext" href="#VUID-VkWriteDescriptorSet-pNext-pNext"></a> <span class="vuid">VUID-VkWriteDescriptorSet-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkWriteDescriptorSetAccelerationStructureKHR">VkWriteDescriptorSetAccelerationStructureKHR</a>, <a href="#VkWriteDescriptorSetAccelerationStructureNV">VkWriteDescriptorSetAccelerationStructureNV</a>, or <a href="#VkWriteDescriptorSetInlineUniformBlock">VkWriteDescriptorSetInlineUniformBlock</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkWriteDescriptorSetAccelerationStructureKHR">VkWriteDescriptorSetAccelerationStructureKHR</a>, <a href="#VkWriteDescriptorSetAccelerationStructureNV">VkWriteDescriptorSetAccelerationStructureNV</a>, <a href="#VkWriteDescriptorSetInlineUniformBlock">VkWriteDescriptorSetInlineUniformBlock</a>, or <a href="#VkWriteDescriptorSetPartitionedAccelerationStructureNV">VkWriteDescriptorSetPartitionedAccelerationStructureNV</a></p>
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSet-sType-unique" href="#VUID-VkWriteDescriptorSet-sType-unique"></a> <span class="vuid">VUID-VkWriteDescriptorSet-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSet-descriptorType-parameter" href="#VUID-VkWriteDescriptorSet-descriptorType-parameter"></a> <span class="vuid">VUID-VkWriteDescriptorSet-descriptorType-parameter</span><br>
@@ -6216,6 +6292,8 @@ typedef enum VkDescriptorType {
     VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM = 1000440001,
   // Provided by VK_EXT_mutable_descriptor_type
     VK_DESCRIPTOR_TYPE_MUTABLE_EXT = 1000351000,
+  // Provided by VK_NV_partitioned_acceleration_structure
+    VK_DESCRIPTOR_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_NV = 1000570000,
   // Provided by VK_EXT_inline_uniform_block
     VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK_EXT = VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK,
   // Provided by VK_VALVE_mutable_descriptor_type
@@ -6596,11 +6674,10 @@ is accessed as defined by the <a href="resources.html#resources-image-layouts-ma
 <p><a id="VUID-VkDescriptorImageInfo-sampler-01564" href="#VUID-VkDescriptorImageInfo-sampler-01564"></a> <span class="vuid">VUID-VkDescriptorImageInfo-sampler-01564</span><br>
 
 If <code>sampler</code> is used and the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of the image is a
-<a href="formats.html#formats-requiring-sampler-ycbcr-conversion" class="xref page">multi-planar format</a>, the
-image <strong>must</strong> have been created with
-<code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code>, and the <code>aspectMask</code> of
-the <code>imageView</code> <strong>must</strong> be a valid
-<a href="formats.html#formats-planes-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
+<a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a>, the image <strong>must</strong> have been
+created with <code>VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT</code>, and the
+<code>aspectMask</code> of the <code>imageView</code> <strong>must</strong> be a valid
+<a href="formats.html#formats-multiplanar-image-aspect" class="xref page">multi-planar aspect mask</a> bit</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorImageInfo-mutableComparisonSamplers-04450" href="#VUID-VkDescriptorImageInfo-mutableComparisonSamplers-04450"></a> <span class="vuid">VUID-VkDescriptorImageInfo-mutableComparisonSamplers-04450</span><br>
@@ -6793,6 +6870,94 @@ enabled, each element of <code>pAccelerationStructures</code> <strong>must</stro
 </li>
 <li>
 <p><a id="VUID-VkWriteDescriptorSetAccelerationStructureKHR-accelerationStructureCount-arraylength" href="#VUID-VkWriteDescriptorSetAccelerationStructureKHR-accelerationStructureCount-arraylength"></a> <span class="vuid">VUID-VkWriteDescriptorSetAccelerationStructureKHR-accelerationStructureCount-arraylength</span><br>
+ <code>accelerationStructureCount</code> <strong>must</strong> be greater than <code>0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>If the <code>descriptorType</code> member of <a href="#VkWriteDescriptorSet">VkWriteDescriptorSet</a> is
+<code>VK_DESCRIPTOR_TYPE_PARTITIONED_ACCELERATION_STRUCTURE_NV</code>, then the
+data to write to the descriptor set is specified through a
+<code>VkWriteDescriptorSetPartitionedAccelerationStructureNV</code> structure
+included in the <code>pNext</code> chain of <code>VkWriteDescriptorSet</code>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkWriteDescriptorSetPartitionedAccelerationStructureNV</code> structure
+is defined as:</p>
+</div>
+<div id="VkWriteDescriptorSetPartitionedAccelerationStructureNV" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_NV_partitioned_acceleration_structure
+typedef struct VkWriteDescriptorSetPartitionedAccelerationStructureNV {
+    VkStructureType           sType;
+    void*                     pNext;
+    uint32_t                  accelerationStructureCount;
+    const VkDeviceAddress*    pAccelerationStructures;
+} VkWriteDescriptorSetPartitionedAccelerationStructureNV;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>accelerationStructureCount</code> is the number of elements in
+<code>pAccelerationStructures</code>.</p>
+</li>
+<li>
+<p><code>pAccelerationStructures</code> is a pointer to an array of
+<code>accelerationStructureCount</code> device addresses pointing to previously
+built PTLAS.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-accelerationStructureCount-10511" href="#VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-accelerationStructureCount-10511"></a> <span class="vuid">VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-accelerationStructureCount-10511</span><br>
+
+<code>accelerationStructureCount</code> <strong>must</strong> be equal to <code>descriptorCount</code>
+in the extended structure</p>
+</li>
+<li>
+<p><a id="VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-pAccelerationStructures-10512" href="#VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-pAccelerationStructures-10512"></a> <span class="vuid">VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-pAccelerationStructures-10512</span><br>
+
+Each entry in <code>pAccelerationStructures</code> <strong>must</strong> be a valid address of
+a PTLAS</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-sType-sType" href="#VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-sType-sType"></a> <span class="vuid">VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_PARTITIONED_ACCELERATION_STRUCTURE_NV</code></p>
+</li>
+<li>
+<p><a id="VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-pAccelerationStructures-parameter" href="#VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-pAccelerationStructures-parameter"></a> <span class="vuid">VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-pAccelerationStructures-parameter</span><br>
+ <code>pAccelerationStructures</code> <strong>must</strong> be a valid pointer to an array of <code>accelerationStructureCount</code> or <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> <code>VkDeviceAddress</code> values</p>
+</li>
+<li>
+<p><a id="VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-accelerationStructureCount-arraylength" href="#VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-accelerationStructureCount-arraylength"></a> <span class="vuid">VUID-VkWriteDescriptorSetPartitionedAccelerationStructureNV-accelerationStructureCount-arraylength</span><br>
  <code>accelerationStructureCount</code> <strong>must</strong> be greater than <code>0</code></p>
 </li>
 </ul>
@@ -7395,7 +7560,9 @@ All descriptor sets which are going to be updated through the newly
 created descriptor update template <strong>must</strong> be created with a layout that
 matches (is the same as, or defined identically to) this layout.
 This parameter is ignored if <code>templateType</code> is not
-<code>VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET</code>.</p>
+<code>VK_DESCRIPTOR_UPDATE_TEMPLATE_TYPE_DESCRIPTOR_SET</code>.
+The implementation <strong>must</strong> not access this object outside of the duration
+of the command this structure is passed to.</p>
 </li>
 <li>
 <p><code>pipelineBindPoint</code> is a <a href="pipelines.html#VkPipelineBindPoint" class="xref page">VkPipelineBindPoint</a> indicating the
@@ -8702,7 +8869,7 @@ include a valid <a href="#VkPipelineLayoutCreateInfo">VkPipelineLayoutCreateInfo
 </li>
 <li>
 <p><a id="VUID-VkBindDescriptorSetsInfo-sType-unique" href="#VUID-VkBindDescriptorSetsInfo-sType-unique"></a> <span class="vuid">VUID-VkBindDescriptorSetsInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkBindDescriptorSetsInfo-stageFlags-parameter" href="#VUID-VkBindDescriptorSetsInfo-stageFlags-parameter"></a> <span class="vuid">VUID-VkBindDescriptorSetsInfo-stageFlags-parameter</span><br>
@@ -9286,7 +9453,7 @@ include a valid <a href="#VkPipelineLayoutCreateInfo">VkPipelineLayoutCreateInfo
 </li>
 <li>
 <p><a id="VUID-VkPushDescriptorSetInfo-sType-unique" href="#VUID-VkPushDescriptorSetInfo-sType-unique"></a> <span class="vuid">VUID-VkPushDescriptorSetInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkPushDescriptorSetInfo-stageFlags-parameter" href="#VUID-VkPushDescriptorSetInfo-stageFlags-parameter"></a> <span class="vuid">VUID-VkPushDescriptorSetInfo-stageFlags-parameter</span><br>
@@ -9856,7 +10023,7 @@ If the <a href="../appendices/extensions.html#VK_KHR_push_descriptor" class="xre
 </li>
 <li>
 <p><a id="VUID-VkPushDescriptorSetWithTemplateInfo-sType-unique" href="#VUID-VkPushDescriptorSetWithTemplateInfo-sType-unique"></a> <span class="vuid">VUID-VkPushDescriptorSetWithTemplateInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkPushDescriptorSetWithTemplateInfo-descriptorUpdateTemplate-parameter" href="#VUID-VkPushDescriptorSetWithTemplateInfo-descriptorUpdateTemplate-parameter"></a> <span class="vuid">VUID-VkPushDescriptorSetWithTemplateInfo-descriptorUpdateTemplate-parameter</span><br>
@@ -10161,7 +10328,7 @@ void vkCmdPushConstants2KHR(
 update will be recorded.</p>
 </li>
 <li>
-<p><code>pPushConstantsInfo</code> is a pointer to a <code>VkPushConstantsInfo</code>
+<p><code>pPushConstantsInfo</code> is a pointer to a <a href="#VkPushConstantsInfo">VkPushConstantsInfo</a>
 structure.</p>
 </li>
 </ul>
@@ -10389,7 +10556,7 @@ include a valid <a href="#VkPipelineLayoutCreateInfo">VkPipelineLayoutCreateInfo
 </li>
 <li>
 <p><a id="VUID-VkPushConstantsInfo-sType-unique" href="#VUID-VkPushConstantsInfo-sType-unique"></a> <span class="vuid">VUID-VkPushConstantsInfo-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkPushConstantsInfo-layout-parameter" href="#VUID-VkPushConstantsInfo-layout-parameter"></a> <span class="vuid">VUID-VkPushConstantsInfo-layout-parameter</span><br>
@@ -10519,7 +10686,25 @@ usage passes, if it exists.</p>
 
 The <a href="features.html#features-bufferDeviceAddress" class="xref page"><code>bufferDeviceAddress</code></a>
 or <a href="features.html#features-bufferDeviceAddressEXT" class="xref page">    <code>VkPhysicalDeviceBufferDeviceAddressFeaturesEXT</code>::<code>bufferDeviceAddress</code></a>
-feature <strong>must</strong> be enabled</p>
+feature <strong>must</strong> be enabled, and at least one of the following conditions
+<strong>must</strong> be met</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>buffer</code> is sparse</p>
+</li>
+<li>
+<p><code>buffer</code> is bound completely and contiguously to a single
+<code>VkDeviceMemory</code> object</p>
+</li>
+<li>
+<p><code>buffer</code> was created with the
+<code>VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code> flag and
+<a href="features.html#features-bufferDeviceAddressEXT" class="xref page">     <code>VkPhysicalDeviceBufferDeviceAddressFeaturesEXT</code>::<code>bufferDeviceAddress</code></a>
+is enabled on the device</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><a id="VUID-vkGetBufferDeviceAddress-device-03325" href="#VUID-vkGetBufferDeviceAddress-device-03325"></a> <span class="vuid">VUID-vkGetBufferDeviceAddress-device-03325</span><br>
@@ -10605,14 +10790,6 @@ structure.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkBufferDeviceAddressInfo-buffer-02600" href="#VUID-VkBufferDeviceAddressInfo-buffer-02600"></a> <span class="vuid">VUID-VkBufferDeviceAddressInfo-buffer-02600</span><br>
-
-If <code>buffer</code> is non-sparse and was not created with the
-<code>VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code> flag, then it
-<strong>must</strong> be bound completely and contiguously to a single
-<code>VkDeviceMemory</code> object</p>
-</li>
-<li>
 <p><a id="VUID-VkBufferDeviceAddressInfo-buffer-02601" href="#VUID-VkBufferDeviceAddressInfo-buffer-02601"></a> <span class="vuid">VUID-VkBufferDeviceAddressInfo-buffer-02601</span><br>
 
 <code>buffer</code> <strong>must</strong> have been created with
@@ -10697,8 +10874,14 @@ return value <strong>must</strong> be the same address.</p>
 <li>
 <p><a id="VUID-vkGetBufferOpaqueCaptureAddress-None-03326" href="#VUID-vkGetBufferOpaqueCaptureAddress-None-03326"></a> <span class="vuid">VUID-vkGetBufferOpaqueCaptureAddress-None-03326</span><br>
 
-The <a href="features.html#features-bufferDeviceAddress" class="xref page"><code>bufferDeviceAddress</code></a> feature
-<strong>must</strong> be enabled</p>
+The <a href="features.html#features-bufferDeviceAddress" class="xref page"><code>bufferDeviceAddress</code></a> and
+<a href="features.html#features-bufferDeviceAddressCaptureReplay" class="xref page">    <code>bufferDeviceAddressCaptureReplay</code></a> features <strong>must</strong> be enabled</p>
+</li>
+<li>
+<p><a id="VUID-vkGetBufferOpaqueCaptureAddress-pInfo-10725" href="#VUID-vkGetBufferOpaqueCaptureAddress-pInfo-10725"></a> <span class="vuid">VUID-vkGetBufferOpaqueCaptureAddress-pInfo-10725</span><br>
+
+<code>pInfo</code>::<code>buffer</code> <strong>must</strong> have been created with the
+<code>VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code> flag</p>
 </li>
 <li>
 <p><a id="VUID-vkGetBufferOpaqueCaptureAddress-device-03327" href="#VUID-vkGetBufferOpaqueCaptureAddress-device-03327"></a> <span class="vuid">VUID-vkGetBufferOpaqueCaptureAddress-device-03327</span><br>
@@ -12144,7 +12327,7 @@ with <code>VK_BUFFER_USAGE_PUSH_DESCRIPTORS_DESCRIPTOR_BUFFER_BIT_EXT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorBufferBindingInfoEXT-sType-unique" href="#VUID-VkDescriptorBufferBindingInfoEXT-sType-unique"></a> <span class="vuid">VUID-VkDescriptorBufferBindingInfoEXT-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 </ul>
 </div>
@@ -12844,7 +13027,7 @@ include a valid <a href="#VkPipelineLayoutCreateInfo">VkPipelineLayoutCreateInfo
 </li>
 <li>
 <p><a id="VUID-VkSetDescriptorBufferOffsetsInfoEXT-sType-unique" href="#VUID-VkSetDescriptorBufferOffsetsInfoEXT-sType-unique"></a> <span class="vuid">VUID-VkSetDescriptorBufferOffsetsInfoEXT-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkSetDescriptorBufferOffsetsInfoEXT-stageFlags-parameter" href="#VUID-VkSetDescriptorBufferOffsetsInfoEXT-stageFlags-parameter"></a> <span class="vuid">VUID-VkSetDescriptorBufferOffsetsInfoEXT-stageFlags-parameter</span><br>
@@ -13287,7 +13470,7 @@ include a valid <a href="#VkPipelineLayoutCreateInfo">VkPipelineLayoutCreateInfo
 </li>
 <li>
 <p><a id="VUID-VkBindDescriptorBufferEmbeddedSamplersInfoEXT-sType-unique" href="#VUID-VkBindDescriptorBufferEmbeddedSamplersInfoEXT-sType-unique"></a> <span class="vuid">VUID-VkBindDescriptorBufferEmbeddedSamplersInfoEXT-sType-unique</span><br>
- The <code>sType</code> value of each struct in the <code>pNext</code> chain <strong>must</strong> be unique</p>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkBindDescriptorBufferEmbeddedSamplersInfoEXT-stageFlags-parameter" href="#VUID-VkBindDescriptorBufferEmbeddedSamplersInfoEXT-stageFlags-parameter"></a> <span class="vuid">VUID-VkBindDescriptorBufferEmbeddedSamplersInfoEXT-stageFlags-parameter</span><br>
@@ -14367,6 +14550,29 @@ using <a href="#vkGetBufferOpaqueCaptureDescriptorDataEXT">vkGetBufferOpaqueCapt
 </div>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>

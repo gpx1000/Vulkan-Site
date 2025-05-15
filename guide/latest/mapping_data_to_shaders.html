@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="guide" data-version="latest">
+<div class="nav-container" data-component="guide" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -187,19 +187,22 @@
     <a class="nav-link" href="layers.html">Layers</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="querying_extensions_features.html">Querying Properties, Extensions, Features, Limits, and Formats</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_extensions.html">Enabling Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="enabling_features.html">Enabling Features</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="spirv_extensions.html">Using SPIR-V Extensions</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="formats.html">Formats</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="queues.html">Queues</a>
@@ -218,18 +221,24 @@
     <a class="nav-link" href="extensions/VK_KHR_synchronization2.html">VK_KHR_synchronization2</a>
   </li>
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="swapchain_semaphore_reuse.html">Swapchain Semaphore Reuse</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="synchronization_examples.html">Synchronization Examples</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="memory_allocation.html">Memory Allocation</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="sparse_resources.html">Sparse Resources</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="protected.html">Protected Memory</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pipeline_cache.html">Pipeline Cache</a>
@@ -241,22 +250,37 @@
     <a class="nav-link" href="depth.html">Depth</a>
   </li>
   <li class="nav-item is-current-page" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="mapping_data_to_shaders.html">Mapping Data to Shaders</a>
-  </li>
-  <li class="nav-item" data-depth="2">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="vertex_input_data_processing.html">Vertex Input Data Processing</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="descriptor_dynamic_offset.html">Descriptor Dynamic Offset</a>
   </li>
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="location_component_interface.html">Location and Component Interface</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="push_constants.html">Push Constants</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="ways_to_provide_spirv.html">Ways to Provide SPIR-V</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="robustness.html">Robustness</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
     <a class="nav-link" href="dynamic_state.html">Pipeline Dynamic State</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="dynamic_state_map.html">Dynamic State Map</a>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="subgroups.html">Subgroups</a>
@@ -393,7 +417,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../../spec/latest/index.html" class="home-link"></a>
@@ -428,7 +452,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p>This chapter goes over how to <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces">interface Vulkan with SPIR-V</a> in order to map data. Using the <code>VkDeviceMemory</code> objects allocated from <code>vkAllocateMemory</code>, it is up to the application to properly map the data from Vulkan such that the SPIR-V shader understands how to consume it correctly.</p>
+<p>This chapter goes over how to <a href="https://docs.vulkan.org/spec/latest/chapters/interfaces.html">interface Vulkan with SPIR-V</a> in order to map data. Using the <code>VkDeviceMemory</code> objects allocated from <code>vkAllocateMemory</code>, it is up to the application to properly map the data from Vulkan such that the SPIR-V shader understands how to consume it correctly.</p>
 </div>
 <div class="paragraph">
 <p>In core Vulkan, there are 5 fundamental ways to map data from your Vulkan application to interface with SPIR-V:</p>
@@ -586,13 +610,13 @@ vkEndCommandBuffer();</code></pre>
 <h2 id="descriptors"><a class="anchor" href="#descriptors"></a>Descriptors</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets">resource descriptor</a> is the core way to map data such as uniform buffers, storage buffers, samplers, etc. to any shader stage in Vulkan. One way to conceptualize a descriptor is by thinking of it as a pointer to memory that the shader can use.</p>
+<p>A <a href="https://docs.vulkan.org/spec/latest/chapters/descriptorsets.html">resource descriptor</a> is the core way to map data such as uniform buffers, storage buffers, samplers, etc. to any shader stage in Vulkan. One way to conceptualize a descriptor is by thinking of it as a pointer to memory that the shader can use.</p>
 </div>
 <div class="paragraph">
-<p>There are various <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#VkDescriptorType">descriptor types</a> in Vulkan, each with their own <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-types">detailed description</a> in what they allow.</p>
+<p>There are various <a href="https://docs.vulkan.org/spec/latest/chapters/descriptorsets.html#VkDescriptorType">descriptor types</a> in Vulkan, each with their own <a href="https://docs.vulkan.org/spec/latest/chapters/descriptorsets.html#descriptorsets-types">detailed description</a> in what they allow.</p>
 </div>
 <div class="paragraph">
-<p>Descriptors are grouped together in <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-sets">descriptor sets</a> which get bound to the shader. Even if there is only a single descriptor in the descriptor set, the entire <code>VkDescriptorSet</code> is used when binding to the shader.</p>
+<p>Descriptors are grouped together in <a href="https://docs.vulkan.org/spec/latest/chapters/descriptorsets.html#descriptorsets-sets">descriptor sets</a> which get bound to the shader. Even if there is only a single descriptor in the descriptor set, the entire <code>VkDescriptorSet</code> is used when binding to the shader.</p>
 </div>
 <div class="sect2">
 <h3 id="_example"><a class="anchor" href="#_example"></a>Example</h3>
@@ -680,10 +704,10 @@ vkEndCommandBuffer();</code></pre>
 <div class="sect2">
 <h3 id="descriptor-types"><a class="anchor" href="#descriptor-types"></a>Descriptor types</h3>
 <div class="paragraph">
-<p>The Vulkan Spec has a <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#interfaces-resources-storage-class-correspondence">Shader Resource and Storage Class Correspondence</a> table that describes how each descriptor type needs to be mapped to in SPIR-V.</p>
+<p>The Vulkan Spec has a <a href="https://docs.vulkan.org/spec/latest/chapters/interfaces.html#interfaces-resources-storage-class-correspondence">Shader Resource and Storage Class Correspondence</a> table that describes how each descriptor type needs to be mapped to in SPIR-V.</p>
 </div>
 <div class="paragraph">
-<p>The following shows an example of what GLSL and SPIR-V mapping to each of the <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#descriptorsets-types">descriptor types</a> looks like.</p>
+<p>The following shows an example of what GLSL and SPIR-V mapping to each of the <a href="https://docs.vulkan.org/spec/latest/chapters/descriptorsets.html#descriptorsets-types">descriptor types</a> looks like.</p>
 </div>
 <div class="paragraph">
 <p>For GLSL, more information can be found in the <a href="https://registry.khronos.org/OpenGL/specs/gl/GLSLangSpec.4.60.pdf">GLSL Spec - 12.2.4. Vulkan Only: Samplers, Images, Textures, and Buffers</a></p>
@@ -1021,7 +1045,7 @@ OpDecorate %inputAttachment InputAttachmentIndex 0
 <h2 id="specialization-constants"><a class="anchor" href="#specialization-constants"></a>Specialization Constants</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#pipelines-specialization-constants">Specialization constants</a> are a mechanism allowing a constant value in SPIR-V to be specified at <code>VkPipeline</code> creation time. This is powerful as it replaces the idea of doing preprocessor macros in the high level shading language (GLSL, HLSL, etc).</p>
+<p><a href="https://docs.vulkan.org/spec/latest/chapters/pipelines.html#pipelines-specialization-constants">Specialization constants</a> are a mechanism allowing a constant value in SPIR-V to be specified at <code>VkPipeline</code> creation time. This is powerful as it replaces the idea of doing preprocessor macros in the high level shading language (GLSL, HLSL, etc).</p>
 </div>
 <div class="sect2">
 <h3 id="_example_2"><a class="anchor" href="#_example_2"></a>Example</h3>
@@ -1177,7 +1201,7 @@ vkCreateGraphicsPipelines(&amp;pipelineInfo);</code></pre>
 <h2 id="_limits"><a class="anchor" href="#_limits"></a>Limits</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>With all the above examples it is important to be aware that there are <a href="https://registry.khronos.org/vulkan/specs/latest/html/vkspec.html#limits">limits in Vulkan</a> that expose how much data can be bound at a single time.</p>
+<p>With all the above examples it is important to be aware that there are <a href="https://docs.vulkan.org/spec/latest/chapters/limits.html">limits in Vulkan</a> that expose how much data can be bound at a single time.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -1281,6 +1305,29 @@ vkCreateGraphicsPipelines(&amp;pipelineInfo);</code></pre>
 </div>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>

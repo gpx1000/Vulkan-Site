@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
@@ -1002,7 +1002,7 @@ use.</p>
 </li>
 <li>
 <p><code>pRects</code> is a pointer to an array of <a href="#VkClearRect">VkClearRect</a> structures
-defining regions within each selected attachment to clear.</p>
+defining regions to clear for every attachment in <code>pAttachments</code>.</p>
 </li>
 </ul>
 </div>
@@ -1163,6 +1163,13 @@ not include <code>VK_IMAGE_ASPECT_PLANE<em>_i_</em>BIT</code> for any index <em>
 
 If the attachment format has components other than R and G, it <strong>must</strong> not
 have a 64-bit component width</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdClearAttachments-None-10616" href="#VUID-vkCmdClearAttachments-None-10616"></a> <span class="vuid">VUID-vkCmdClearAttachments-None-10616</span><br>
+
+This command <strong>must</strong> not be recorded when
+<a href="renderpass.html#renderpass-per-tile-execution-model" class="xref page">per-tile execution model</a> is
+enabled</p>
 </li>
 </ul>
 </div>
@@ -2014,6 +2021,29 @@ This was a historical anomaly, as the source data may be of other types.</p>
 </div>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>

@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="index.html" class="home-link is-current"></a>
@@ -402,8 +402,8 @@ applications.</p>
 see the Vulkan developer website at <a href="https://vulkan.org" class="bare">https://vulkan.org</a> .</p>
 </div>
 <div class="paragraph">
-<p>This build of the site includes the Vulkan 1.4.305 API specification
-(with all registered extensions), generated on 2025-01-17 20:42:45Z from git branch: main commit: 840c7b817f7ff0e61a047a842c2569a1ecf5d807.</p>
+<p>This build of the site includes the Vulkan 1.4.315 API specification
+(with all registered extensions), generated on 2025-05-15 23:26:27Z from git branch: main commit: 112aee75d162412a4623e7d22a3de52e0233cbf5.</p>
 </div>
 </div>
 </div>
@@ -453,6 +453,29 @@ GitHub.</p>
 </div>
 <script id="site-script" src="../../_/js/site.js" data-ui-root-path="../../_"></script>
 <script async src="../../_/js/vendor/highlight.js"></script>
+<script src="../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>

@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
@@ -743,6 +743,11 @@ See <em>Constant Instruction</em> in section 2.2.1 &#8220;Instructions&#8221; of
 <dd>
 <p>A SPIR-V type where the storage for and computations performed on the
 matrix are spread across a set of invocations such as a subgroup.</p>
+</dd>
+<dt class="hdlist1">Cooperative Vector</dt>
+<dd>
+<p>A SPIR-V vector type optimized for the evaluation of small neural
+networks.</p>
 </dd>
 <dt class="hdlist1">Corner-Sampled Image</dt>
 <dd>
@@ -2033,6 +2038,10 @@ taken.
 This is generally the &#8220;first&#8221; vertex in the primitive, and depends on
 the primitive topology.</p>
 </dd>
+<dt class="hdlist1">PTLAS</dt>
+<dd>
+<p><a href="../chapters/accelstructures.html#partitioned-tlas" class="xref page">Partitioned Top Level Acceleration Structures</a></p>
+</dd>
 <dt class="hdlist1">Push Constants</dt>
 <dd>
 <p>A small bank of values writable via the API and accessible in shaders.
@@ -2179,6 +2188,15 @@ covered samples partitioned among the invocations.</p>
 <dd>
 <p>A descriptor type that represents an image view, and supports filtered
 (sampled) and unfiltered read-only access in a shader.</p>
+</dd>
+</dl>
+</div>
+<div id="glossary-sampled-tile-image" class="dlist">
+<dl>
+<dt class="hdlist1">Sampled Tile Image</dt>
+<dd>
+<p>A per-tile sampled image view of a framebuffer attachment, enabled by
+<code><a href="extensions.html#VK_QCOM_tile_shading" class="xref page">VK_QCOM_tile_shading</a></code>.</p>
 </dd>
 <dt class="hdlist1">Sampler</dt>
 <dd>
@@ -2329,6 +2347,15 @@ loads, stores, and atomics in a shader.</p>
 <p>A descriptor type that represents a buffer view, and supports
 unfiltered, formatted reads, writes, and atomics in a shader.</p>
 </dd>
+</dl>
+</div>
+<div id="glossary-storage-tile-image" class="dlist">
+<dl>
+<dt class="hdlist1">Storage Tile Image</dt>
+<dd>
+<p>A per-tile storage image view of a framebuffer attachment, enabled by
+<code><a href="extensions.html#VK_QCOM_tile_shading" class="xref page">VK_QCOM_tile_shading</a></code>.</p>
+</dd>
 <dt class="hdlist1">Subgroup</dt>
 <dd>
 <p>A set of shader invocations that <strong>can</strong> synchronize and share data with
@@ -2386,6 +2413,17 @@ uncompressed image.</p>
 <p>One of three coordinate systems (normalized, unnormalized, integer)
 defining how texel coordinates are interpreted in an image or a specific
 mipmap level of an image.</p>
+</dd>
+</dl>
+</div>
+<div id="glossary-tile-memory-interface" class="dlist">
+<dl>
+<dt class="hdlist1">Tile Attachment Interface</dt>
+<dd>
+<p>The set of variables with <code>TileAttachmentQCOM</code> storage class that are
+statically used by a shader entry point, invoked within a tile shading
+render pass which read values from tiled attachments as described in
+<a href="../chapters/renderpass.html#renderpass-tile-shading" class="xref page">tile shading</a>.</p>
 </dd>
 </dl>
 </div>
@@ -2837,6 +2875,29 @@ Used to denote the <code>VK_STRUCTURE_TYPE*</code> member of each structure in
 </div>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>

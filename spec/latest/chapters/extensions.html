@@ -118,7 +118,7 @@
   }();
 </script>
 <div class="body">
-<div class="nav-container" data-component="spec" data-version="latest">
+<div class="nav-container" data-component="spec" data-version="latest" id="split-0">
   <aside class="nav">
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
@@ -369,7 +369,7 @@
     </div>
   </aside>
 </div>
-<main class="article">
+<main class="article" id="split-1">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
   <a href="../index.html" class="home-link"></a>
@@ -1806,8 +1806,8 @@ across minor versions, though in general they are with few exceptions - see
 <div class="paragraph">
 <p>A difference in the major version of specifications indicates a large set of
 changes which will likely include interface changes, behavioral changes,
-removal of <a href="#extendingvulkan-compatibility-deprecation">deprecated functionality</a>, and the modification, addition, or replacement of other
-functionality.</p>
+removal of <a href="../appendices/deprecation.html#deprecation" class="xref page">deprecated functionality</a>, and the modification,
+addition, or replacement of other functionality.</p>
 </div>
 <div class="paragraph">
 <p>The specification&#8217;s major version is monotonically increasing; any change to
@@ -1959,8 +1959,8 @@ when the extension was initially published.</p>
 <div class="sect3">
 <h4 id="extendingvulkan-compatibility-deprecation"><a class="anchor" href="#extendingvulkan-compatibility-deprecation"></a>Deprecation</h4>
 <div class="paragraph">
-<p>Extensions <strong>may</strong> be marked as deprecated when the intended use cases either
-become irrelevant or can be solved in other ways.
+<p>Extensions <strong>may</strong> be marked as <a href="../appendices/deprecation.html#deprecation" class="xref page">deprecated</a> when they are no
+longer intended to be used by applications under certain conditions.
 Generally, a new feature will become available to solve the use case in
 another extension or core version of the API, but it is not guaranteed.</p>
 </div>
@@ -1982,7 +1982,7 @@ modification in order to make use of the new features.</p>
 </div>
 <div class="paragraph">
 <p>Extensions that are deprecated are listed as being deprecated in their
-extension appendices, with an explanation of the deprecation and any
+extension appendices, with an explanation of the deprecation and any related
 features that are relevant.</p>
 </div>
 </div>
@@ -2120,6 +2120,29 @@ in &#8220;XML Tag&#8221; column above, as described in the &#8220;API Extensions
 </div>
 <script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
 <script async src="../../../_/js/vendor/highlight.js"></script>
+<script src="../../../_/js/vendor/split.js"></script>
+<script>
+    // Splitter should only be visible in non-mobile layouts (where a hamburger menu is used for nav)
+    var width = (window.innerWidth > 0) ? window.innerWidth : screen.width;
+    var mobileNav = (width < 1024);
+
+    if (!mobileNav) {
+        var sizes = localStorage.getItem('split-sizes')
+
+        if (sizes) {
+            sizes = JSON.parse(sizes)
+        } else {
+            sizes = [25, 75]
+        }
+
+        var split = Split(['#split-0', '#split-1'], {
+            sizes: sizes,
+            onDragEnd: function (sizes) {
+                localStorage.setItem('split-sizes', JSON.stringify(sizes))
+            },
+        })
+    }
+</script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
