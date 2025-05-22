@@ -8,4 +8,6 @@
 
 ## Content
 
-The source for this sample can be found in the Khronos Vulkan samples github repository. This code sample demonstrates how to create the absolute most basic mesh shading example. It creates a single triangle in a mesh shader. There is no vertex shader, there is only a mesh shader and a fragment shader.
+This code sample demonstrates how to create the absolute most basic mesh shading example.
+It creates a single  triangle in a mesh shader.
+There is no vertex shader, there is only a mesh shader and a fragment shader.

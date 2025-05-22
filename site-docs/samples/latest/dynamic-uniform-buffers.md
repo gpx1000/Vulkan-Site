@@ -8,4 +8,4 @@
 
 ## Content
 
-The source for this sample can be found in the Khronos Vulkan samples github repository. Dynamic uniform buffers are used for rendering multiple objects with separate matrices stored in a single uniform buffer object, that are addressed dynamically.
+Dynamic uniform buffers are used for rendering multiple objects with separate matrices stored in a single uniform buffer object, that are addressed dynamically.

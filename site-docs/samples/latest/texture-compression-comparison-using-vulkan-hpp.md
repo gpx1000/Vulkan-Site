@@ -8,4 +8,4 @@
 
 ## Content
 
-The source for this sample can be found in the Khronos Vulkan samples github repository. This sample demonstrates how to use different types of compressed GPU textures in a Vulkan application, and shows the timing benefits of each, using Vulkan-Hpp.
+This sample demonstrates how to use different types of compressed GPU textures in a Vulkan application, and shows the timing benefits of each, using Vulkan-Hpp.

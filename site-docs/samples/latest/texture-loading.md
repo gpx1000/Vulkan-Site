@@ -8,4 +8,4 @@
 
 ## Content
 
-The source for this sample can be found in the Khronos Vulkan samples github repository. Loading and rendering of a 2D texture map from a file.
+Loading and rendering of a 2D texture map from a file.

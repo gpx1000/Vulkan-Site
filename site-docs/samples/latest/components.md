@@ -17,4 +17,55 @@
 
 ## Content
 
-A component encapsulates all code relating to a specific goal. Components act as individual compile targets. This allows CMake to efficiently parallelize the compilation and link stages. A component should include the minimum amount of dependencies. Circular dependencies should be avoided. Common interfaces can be used across the project and multiple components. These interfaces are defined in components/core. Core is the only component which does not follow the component pattern in its entirety. The only major difference between core and other components is the header prefix used is core/ instead of components/core/. See core documentation for more information. To create a new component add a new folder under components/. The folder name should relate to the components implementation - see current components for inspiration. The next instructs are to be carried out inside the components/ folder. Create a directory named include/components/. This contains all public headers which other components will have access too Create a directory named src. This contains all private headers and source files. Components will not be able to include these. Create a directory named tests. This contains all test files for this component Create a CMakeLists.txt Registering a component adds the vkb compile target. This target is also linked as a dependency to vkbcomponents. vkb__register_component( NAME SRC src/.hpp src/.cpp LINK_LIBS ) To compile all components run cmake with --target vkb__components To compile a specific component run cmake with --target vkb__ To compile all tests run cmake with --target vkb__tests To compile a specific test run cmake with --target tests__.
+A component encapsulates all code relating to a specific goal.
+Components act as individual compile targets.
+This allows CMake to efficiently parallelize the compilation and link stages.
+A component should include the minimum amount of dependencies.
+Circular dependencies should be avoided.
+
+Common interfaces can be used across the project and multiple components.
+These interfaces are defined in `components/core`.
+**Core** is the only component which does not follow the component pattern in its entirety.
+The only major difference between core and other components is the header prefix used is `core/` instead of `components/core/`.
+
+See [core documentation](core/README.html) for more information.
+
+To create a new component add a new folder under `components/`.
+The folder name should relate to the components implementation - see current components for inspiration.
+The next instructs are to be carried out inside the `components/` folder.
+
+Create a directory named `include/components/`.
+This contains all public headers which other components will have access too
+
+Create a directory named `src`.
+This contains all private headers and source files.
+Components will not be able to include these.
+
+Create a directory named `tests`.
+This contains all test files for this component
+
+Create a `CMakeLists.txt`
+
+Registering a component adds the `vkb**`* compile target.
+This target is also linked as a dependency to `vkb`*`components`.
+
+vkb__register_component(
+    NAME 
+    SRC
+        src/.hpp
+        src/.cpp
+    LINK_LIBS
+        
+)
+
+* 
+To compile all components run cmake with `--target vkb__components`
+
+* 
+To compile a specific component run cmake with `--target vkb__`
+
+* 
+To compile all tests run cmake with `--target vkb__tests`
+
+* 
+To compile a specific test run cmake with `--target tests__`.

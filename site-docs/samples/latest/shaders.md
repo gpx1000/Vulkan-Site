@@ -13,4 +13,12 @@
 
 ## Content
 
-This folder contains the textual shaders for the samples. All samples come with GLSL shaders and some optionally with HLSL shaders. For samples that support both shader language this is a good way to compare GLSL to HLSL syntax when targeting SPIR-V for Vulkan. The Vulkan Guide contains further information on how to use HLSL with Vulkan and how it compares to GLSL: HLSL in Vulkan High level shading language comparison
+This folder contains the textual shaders for the samples. All samples come with GLSL shaders and some optionally with HLSL shaders. For samples that support both shader language this is a good way to compare GLSL to HLSL syntax when targeting SPIR-V for Vulkan.
+
+The [Vulkan Guide](../../../guide/latest/index.html) contains further information on how to use HLSL with Vulkan and how it compares to GLSL:
+
+* 
+[HLSL in Vulkan](../../../guide/latest/hlsl.html)
+
+* 
+[High level shading language comparison](../../../guide/latest/high_level_shader_language_comparison.html)

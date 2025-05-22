@@ -168,4 +168,370 @@
 
 ## Content
 
-Table of Contents Introduction Performance samples API samples Extension samples Tooling Samples This readme lists all Vulkan samples currently available in this repository. They are grouped into multiple categories. Many samples come with a tutorial, which can be found in their respective folders. The goal of these samples is to demonstrate how to use certain features and functions to achieve optimal performance. To visualize this, they also include real-time profiling information. AFBC (Arm Frame Buffer Compression) is a real-time lossless compression algorithm found in Arm Mali GPUs, designed to tackle the ever-growing demand for higher resolution graphics. This format is applied to the framebuffers that are to be written to the GPU. This technology can offer bandwidth reductions of up to 50%. This sample demonstrates how to use and manage secondary command buffers, and how to record them concurrently. Implementing multi-threaded recording of draw calls can help reduce CPU frame time. The Vulkan API exposes a few different ways in which we can send uniform data into our shaders. There are enough methods that it raises the question "Which one is fastest?", and more often than not the answer is "It depends". The main issue for developers is that the fastest methods may differ between the various vendors, so often there is no "one size fits all" solution. This sample aims to highlight this issue, and help move the Vulkan ecosystem to a point where we are better equipped to solve this for developers. This is done by having an interactive way to toggle different constant data methods that the Vulkan API expose to us. This can then be run on a platform of the developers choice to see the performance implications that each of them bring. An application using Vulkan will have to implement a system to manage descriptor pools and sets. The most straightforward and flexible approach is to re-create them for each frame, but doing so might be very inefficient, especially on mobile platforms. The problem of descriptor management is intertwined with that of buffer management, that is choosing how to pack data in VkBuffer objects. This sample will explore a few options to improve both descriptor and buffer management. A transcoded version of the Performance sample Pipeline cache that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. A transcoded version of the Performance sampleSwapchain images that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. A transcoded version of the Performance sample Texture compression comparison that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. This sample shows how to use the extensions VK_EXT_image_compression_control and VK_EXT_image_compression_control_swapchain to select between different levels of image compression. The UI shows the impact compression has on image size and bandwidth, illustrating the benefits of fixed-rate (visually lossless) compression. Vulkan requires the application to manage image layouts, so that all render pass attachments are in the correct layout when the render pass begins. This is usually done using pipeline barriers or the initialLayout and finalLayout parameters of the render pass. If the rendering pipeline is complex, transitioning each image to its correct layout is not trivial, as it requires some sort of state tracking. If previous image contents are not needed, there is an easy way out, that is setting oldLayout/initialLayout to VK_IMAGE_LAYOUT_UNDEFINED. While this is functionally correct, it can have performance implications as it may prevent the GPU from performing some optimizations. This sample will cover an example of such optimizations and how to avoid the performance overhead from using sub-optimal layouts. Aliasing is the result of under-sampling a signal. In graphics this means computing the color of a pixel at a resolution that results in artifacts, commonly jaggies at model edges. Multisample anti-aliasing (MSAA) is an efficient technique that reduces pixel sampling error. Ideally you render all stages of your frame in a single render pass. However, in some cases different stages can’t be performed in the same render pass. This sample shows how multi-threading can help to boost performance when using multiple render passes to render a single frame. Vulkan gives the application significant control over memory access for resources. Pipeline barriers are particularly convenient for synchronizing memory accesses between render passes. Having barriers is required whenever there is a memory dependency - the application should not assume that render passes are executed in order. However, having too many or too strict barriers can affect the application’s performance. This sample will cover how to set up pipeline barriers efficiently, with a focus on pipeline stages. Vulkan gives applications the ability to save internal representation of a pipeline (graphics or compute) to enable recreating the same pipeline later. This sample will look in detail at the implementation and performance implications of the pipeline creation, caching and management. Vulkan render-passes use attachments to describe input and output render targets. This sample shows how loading and storing attachments might affect performance on mobile. During the creation of a render-pass, you can specify various color attachments and a depth-stencil attachment. Each of those is described by a VkAttachmentDescription struct, which contains attributes to specify the load operation (loadOp) and the store operation (storeOp). This sample lets you choose between different combinations of these operations at runtime. Vulkan exposes a number of methods for setting values within shader code during run-time, this includes UBOs and Specialization Constants. This sample compares these two methods and the performance impact of them. Vulkan introduces the concept of subpasses to subdivide a single render pass into separate logical phases. The benefit of using subpasses over multiple render passes is that a GPU is able to perform various optimizations. Tile-based renderers, for example, can take advantage of tile memory, which being on chip is decisively faster than external memory, potentially saving a considerable amount of bandwidth. Mobile devices can be rotated, therefore the logical orientation of the application window and the physical orientation of the display may not match. Applications then need to be able to operate in two modes: portrait and landscape. The difference between these two modes can be simplified to just a change in resolution. However, some display subsystems always work on the "native" (or "physical") orientation of the display panel. Since the device has been rotated, to achieve the desired effect the application output must also rotate. In this sample we focus on the rotation step, and analyze the performance implications of implementing it correctly with Vulkan. Vulkan gives the application some significant control over the number of swapchain images to be created. This sample analyzes the available options and their performance implications. This sample compares two methods for synchronizing between the CPU and GPU, WaitIdle and Fences demonstrating which one is the best option in order to avoid stalling. This sample compares bandwidth consumption when using FP32 varyings compared to using FP16 varyings with VK_KHR_16bit_storage. This sample compares arithmetic throughput for 32-bit arithmetic operations and 16-bit arithmetic. The sample also shows how to enable 16-bit storage for SSBOs and push constants. This sample demonstrates using multiple Vulkan queues to get better hardware utilization with compute post-processing workloads. This sample demonstrates how to use Basis universal supercompressed GPU textures in a Vulkan application. This sample demonstrates how to reduce CPU usage by offloading draw call generation and frustum culling to the GPU. This sample demonstrates how to use different types of compressed GPU textures in a Vulkan application, and shows the timing benefits of each. The goal of these samples is to demonstrate how to use a given Vulkan feature at the API level with as little abstraction as possible. Compute shader example that uses two passes and shared compute shader memory for simulating a N-Body particle system. Dynamic uniform buffers are used for rendering multiple objects with separate matrices stored in a single uniform buffer object, that are addressed dynamically. Implements a high dynamic range rendering pipeline using 16/32 bit floating point precision for all calculations. A self-contained (minimal use of framework) sample that illustrates the rendering of a triangle using unextended Vulkan 1.0. A self-contained (minimal use of framework) sample that illustrates the rendering of a triangle using Vulkan 1.3 features. A transcoded version of the API sample Compute N-Body that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp. A transcoded version of the API sample Dynamic Uniform buffers that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp. A transcoded version of the API sample High dynamic range that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp. A transcoded version of the API sample Hello Triangle that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp. A transcoded version of the API sample HLSL Shaders that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp. A transcoded version of the API sample Instancing that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp. A transcoded version of the API sample OIT Depth Peeling that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp. A transcoded version of the API sample OIT Linked Lists that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp. A transcoded version of the API sample Separate image sampler that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. A transcoded version of the API sample Terrain Tessellation that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. A transcoded version of the API sample Texture loading that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. A transcoded version of the API sample Texture run-time mip-map generation that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. A transcoded version of the API sampleTimestamp queries that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. Uses the instancing feature for rendering many instances of the same mesh from a single vertex buffer with variable parameters and textures. Separate image and samplers, both in the application and the shaders. The sample demonstrates how to use different samplers for the same image without the need to recreate descriptors. Uses a tessellation shader for rendering a terrain with dynamic level-of-detail and frustum culling. Loading and rendering of a 2D texture map from a file. Generates a complete mip-chain for a texture at runtime instead of loading it from a file. Converts High Level Shading Language (HLSL) shaders to Vulkan-compatible SPIR-V. Using timestamp queries for profiling GPU workloads. A sample that implements best practices in handling swapchain recreation, for example due to window resizing or present mode changes. A sample that implements an order-independent transparency algorithm using per-pixel ordered linked lists. A sample that implements order-independent transparency with depth peeling. The goal of these samples is to demonstrate how to use a particular Vulkan extension at the API level with as little abstraction as possible. Extension: VK_EXT_conservative_rasterization Uses conservative rasterization to change the way fragments are generated. Enables overestimation to generate fragments for every pixel touched instead of only pixels that are fully covered. Extension: VK_KHR_dynamic_rendering Demonstrates how to use Dynamic Rendering. Read the blog post here for discussion: (https://www.khronos.org/blog/streamlining-render-passes) Extension: VK_KHR_dynamic_rendering_local_read Demonstrates how to use Dynamic Rendering with local reads to fully replace render passses with multiple subpasses. See this this blogpost. Extension: VK_KHR_push_descriptor Push descriptors apply the push constants concept to descriptor sets. Instead of creating per-object descriptor sets, this example passes descriptors at command buffer creation time. A transcoded version of the Extensions sample Push Descriptors that illustrates the usage of the C++ bindings of vulkan provided by Vulkan-Hpp. Extension: VK_EXT_debug_utils Uses the debug utilities extension to name and group Vulkan objects (command buffers, images, etc.). This information makes debugging in tools like RenderDoc significantly easier. Extension: VK_EXT_memory_budget Uses the memory budget extension to monitor the allocated memory in the GPU and demonstrates how to use it. Extension: VK_EXT_mesh_shader Uses the mesh shader extension to demonstrate how to do basic culling utilizing both a mesh and a task shader. Extensions: VK_KHR_ray_query, VK_KHR_acceleration_structure Render a sponza scene using the ray query extension. Shows how to set up all data structures required for ray queries, including the bottom and top level acceleration structures for the geometry and a standard vertex/fragment shader pipeline. Shadows are cast dynamically by ray queries being cast by the fragment shader. Extensions: VK_KHR_ray_tracing_pipeline, VK_KHR_acceleration_structure Render a basic scene using the official cross-vendor ray tracing extension. Shows how to setup all data structures required for ray tracing, including the bottom and top level acceleration structures for the geometry, the shader binding table and the ray tracing pipelines with shader groups for ray generation, ray hits, and ray misses. After dispatching the rays, the final result is copied to the swapchain image. Extensions: VK_KHR_ray_tracing_pipeline, VK_KHR_acceleration_structure Render Sponza with Ambient Occlusion. Place a vase in center. Generate a particle fire that demonstrates the TLAS (Top Level Acceleration Structure) animation for the same underlying geometry. Procedurally generate a transparent quad and deform the geometry of the quad in the BLAS (Bottom Level Acceleration Structure) to demonstrate how to animate with deforming geometry. Shows how to rebuild the acceleration structure and when to set it to fast rebuild vs fast traversal. Extensions: VK_EXT_mesh_shader Renders a triangle with the most simple of all possible mesh shader pipeline examples. There is no vertex shader, there is only a mesh and fragment shader. The mesh shader creates the vertices for the triangle. The mesh shading pipeline includes the task and mesh shaders before going into the fragment shader. This replaces the vertex / geometry shader standard pipeline. A transcoded version of the Extensions sample Mesh shading that illustrates the usage of the C++ bindings of vulkan provided by Vulkan-Hpp. Extensions: VK_KHR_external_memory, VK_KHR_external_semaphore Render a procedural image using OpenGL and incorporate that rendered content into a Vulkan scene. Demonstrates using the same backing memory for a texture in both OpenGL and Vulkan and how to synchronize the APIs using shared semaphores and barriers. Extensions: VK_KHR_external_memory, VK_KHR_external_semaphore This sample shows how to do Vulkan and OpenCL interoperability using cross vendor extensions in both apis. The sample uses OpenCL to update an image that is then displayed in Vulkan. This is done by sharing the memory for that image across the two apis. The sample also shares semaphores for doing cross api synchronization. Extensions: VK_ANDROID_external_memory_android_hardware_buffer This sample demonstrates usage of OpenCL extensions available on Arm devices. Fill a procedural texture using OpenCL and display it using Vulkan. In this sample data sharing between APIs is achieved using Android Hardware Buffers. Extensions: VK_KHR_timeline_semaphore Demonstrates various use cases which are enabled with timeline semaphores. The sample implements "Game of Life" in an esoteric way, using out-of-order signal and wait, multiple waits on same semaphore in different queues, waiting and signalling semaphore on host. Extensions: VK_KHR_buffer_device_address Demonstrates how to use the buffer device address feature, which enables extreme flexibility in how buffer memory is accessed. Extension VK_KHR_synchronization2 Demonstrates the use of the reworked synchronization api introduced with VK_KHR_synchronization2. Based on the compute shading N-Body particle system, this sample uses the new extension to streamline the memory barriers used for the compute and graphics work submissions. Extensions: VK_EXT_descriptor_indexing Demonstrates how to use descriptor indexing to enable update-after-bind and non-dynamically uniform indexing of descriptors. Extension: VK_KHR_fragment_shading_rate Uses a special framebuffer attachment to control fragment shading rates for different framebuffer regions. This allows explicit control over the number of fragment shader invocations for each pixel covered by a fragment, which is e.g. useful for foveated rendering. Extension: VK_KHR_fragment_shading_rate Render a simple scene showing the basics of shading rate dynamic. This sample shows low and high frequency textures over several cubes. It creates a sample rate map based upon this frequency every frame. Then it uses that dynamic sample rate map as a base for the next frame. Extensions: VK_KHR_ray_tracing_pipeline, VK_KHR_acceleration_structure, VK_EXT_descriptor_indexing, VK_EXT_scalar_block_layout Render a simple scene showing the basics of ray tracing, including reflection and shadow rays. The sample creates some geometries and create a bottom acceleration structure for each, then make instances of those, using different materials and placing them at different locations. Extensions: VK_KHR_ray_tracing_position_fetch Shows how to use the ray tracing position fetch extension to directly access vertex positions for a hit triangle from the acceleration structure, instead of having to explicitly pass and unpack that information Extensions: VK_KHR_portability_subset Demonstrate how to include non-conformant portable Vulkan implementations by using the portability extension to include those implementations in the device query. An example of a non-conformant portable Vulkan implementation is MoltenVk: MoltenVk. Also demonstrate use of beta extension which allows for querying which features of the full Vulkan spec are not currently supported by the non-conformant Vulkan implementation. Extension: VK_EXT_graphics_pipeline_library Uses the graphics pipeline library extensions to improve run-time pipeline creation. Instead of creating the whole pipeline at once, this sample makes use of that extension to pre-build shared pipeline parts such as vertex input state and fragment output state. These building blocks are then used to create pipelines at runtime, improving build times compared to traditional pipeline creation. Extension: VK_EXT_conditional_rendering Demonstrate how to do conditional rendering, dynamically discarding rendering commands without having to update command buffers. This is done by sourcing conditional rendering blocks from a dedicated buffer that can be updated without having to touch command buffers. Extension: VK_EXT_vertex_input_dynamic_state Demonstrate how to use vertex input bindings and attribute descriptions dynamically, which can reduce the number of pipeline objects that are needed to be created. Extension: VK_EXT_extended_dynamic_state2 Demonstrate how to use depth bias, primitive restart, rasterizer discard and patch control points dynamically, which can reduce the number of pipeline objects that are needed to be created. Extension: VK_EXT_extended_dynamic_state2 Demonstrate how to use logical operations dynamically, which can reduce the number of pipeline objects that are needed to be created or allow to change the pipeline state dynamically (change type of the logical operation). Extension: VK_EXT_extended_dynamic_state2 Demonstrate how to use patch control points dynamically, which can reduce the number of pipeline objects that are needed to be created. Extension: VK_KHR_fragment_shader_barycentric Demonstrate how to use fragment shader barycentric feature, which allows accessing barycentric coordinates for each processed fragment. Extension: VK_EXT_descriptor_buffer Demonstrate how to use the new extension to replace descriptor sets with resource descriptor buffers Extension: VK_EXT_color_write_enable Demonstrate how to create multiple color blend attachments and then toggle them dynamically. Extension: VK_EXT_mesh_shader Demonstrates how a mesh shader can be used to achieve the same results as with geometry shader, it loads model from a file and visualizes its normals. Extension: VK_EXT_shader_object Demonstrate how to use shader objects. Extension: VK_EXT_extended_dynamic_state3 Demonstrate how to use the blending related functions available in the VK_EXT_extended_dynamic_state3 extension. Extensions: VK_EXT_line_rasterization, VK_EXT_extended_dynamic_state3 Demonstrate methods for dynamically customizing the appearance of the rendered lines. Extension: VK_KHR_shader_non_semantic_info Demonstrates how to use Printf statements in a shader to output per-invocation values. This can help find issues with shaders in combination with graphics debugging tools. Extension: VK_EXT_extended_dynamic_state3 Rendering using primitive clipping and depth clipping configured by dynamic pipeline state. Extension: VK_EXT_extended_dynamic_state3 Demonstrate the use of the host image extension to directly copy from a host buffer to an image on the device without going through a staging buffer. Extensions: VK_EXT_line_rasterization, VK_EXT_extended_dynamic_state3 Demonstrate how to use dynamic multisample rasterization (MSAA) The goal of these samples is to demonstrate usage of tooling functions and libraries that are not directly part of the api. Use the Vulkan Profiles library to simplify instance and device setup. The library defines a common baseline of features, extensions, etc.
+Table of Contents
+
+[Introduction](#_introduction)
+[Performance samples](#performance-samples)
+[API samples](#api-samples)
+[Extension samples](#extension-samples)
+[Tooling Samples](#tooling-samples)
+
+This readme lists all Vulkan samples currently available in this repository.
+They are grouped into multiple categories.
+Many samples come with a tutorial, which can be found in their respective folders.
+
+The goal of these samples is to demonstrate how to use certain features and functions to achieve optimal performance.
+To visualize this, they also include real-time profiling information.
+
+AFBC (Arm Frame Buffer Compression) is a real-time lossless compression algorithm found in Arm Mali GPUs, designed to tackle the ever-growing demand for higher resolution graphics.
+This format is applied to the framebuffers that are to be written to the GPU.
+This technology can offer bandwidth reductions of [up to 50%](https://developer.arm.com/Architectures/Arm%20Frame%20Buffer%20Compression).
+
+This sample demonstrates how to use and manage secondary command buffers, and how to record them concurrently.
+Implementing multi-threaded recording of draw calls can help reduce CPU frame time.
+
+The Vulkan API exposes a few different ways in which we can send uniform data into our shaders.
+There are enough methods that it raises the question "Which one is fastest?", and more often than not the answer is "It depends".
+The main issue for developers is that the fastest methods may differ between the various vendors, so often there is no "one size fits all" solution.
+This sample aims to highlight this issue, and help move the Vulkan ecosystem to a point where we are better equipped to solve this for developers.
+This is done by having an interactive way to toggle different constant data methods that the Vulkan API expose to us.
+This can then be run on a platform of the developers choice to see the performance implications that each of them bring.
+
+An application using Vulkan will have to implement a system to manage descriptor pools and sets.
+The most straightforward and flexible approach is to re-create them for each frame, but doing so might be very inefficient, especially on mobile platforms.
+The problem of descriptor management is intertwined with that of buffer management, that is choosing how to pack data in `VkBuffer` objects.
+This sample will explore a few options to improve both descriptor and buffer management.
+
+A transcoded version of the Performance sample [Pipeline cache](performance/pipeline_cache/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+
+A transcoded version of the Performance sample[Swapchain images](performance/swapchain_images/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+
+A transcoded version of the Performance sample [Texture compression comparison](performance/texture_compression_comparison/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+
+This sample shows how to use the extensions [`VK_EXT_image_compression_control`](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_image_compression_control) and [`VK_EXT_image_compression_control_swapchain`](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_image_compression_control_swapchain) to select between different levels of image compression.
+The UI shows the impact compression has on image size and bandwidth, illustrating the benefits of fixed-rate (visually lossless) compression.
+
+Vulkan requires the application to manage image layouts, so that all render pass attachments are in the correct layout when the render pass begins.
+This is usually done using pipeline barriers or the `initialLayout` and `finalLayout` parameters of the render pass.
+If the rendering pipeline is complex, transitioning each image to its correct layout is not trivial, as it requires some sort of state tracking.
+If previous image contents are not needed, there is an easy way out, that is setting `oldLayout`/`initialLayout` to `VK_IMAGE_LAYOUT_UNDEFINED`.
+While this is functionally correct, it can have performance implications as it may prevent the GPU from performing some optimizations.
+This sample will cover an example of such optimizations and how to avoid the performance overhead from using sub-optimal layouts.
+
+Aliasing is the result of under-sampling a signal.
+In graphics this means computing the color of a pixel at a resolution that results in artifacts, commonly jaggies at model edges.
+Multisample anti-aliasing (MSAA) is an efficient technique that reduces pixel sampling error.
+
+Ideally you render all stages of your frame in a single render pass.
+However, in some cases different stages can’t be performed in the same render pass.
+This sample shows how multi-threading can help to boost performance when using multiple render passes to render a single frame.
+
+Vulkan gives the application significant control over memory access for resources.
+Pipeline barriers are particularly convenient for synchronizing memory accesses between render passes.
+Having barriers is required whenever there is a memory dependency - the application should not assume that render passes are executed in order.
+However, having too many or too strict barriers can affect the application’s performance.
+This sample will cover how to set up pipeline barriers efficiently, with a focus on pipeline stages.
+
+Vulkan gives applications the ability to save internal representation of a pipeline (graphics or compute) to enable recreating the same pipeline later.
+This sample will look in detail at the implementation and performance implications of the pipeline creation, caching and management.
+
+Vulkan render-passes use attachments to describe input and output render targets.
+This sample shows how loading and storing attachments might affect performance on mobile.
+During the creation of a render-pass, you can specify various color attachments and a depth-stencil attachment.
+Each of those is described by a [`VkAttachmentDescription`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkAttachmentDescription.html) struct, which contains attributes to specify the [load operation](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkAttachmentLoadOp.html) (`loadOp`) and the [store operation](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkAttachmentStoreOp.html) (`storeOp`).
+This sample lets you choose between different combinations of these operations at runtime.
+
+Vulkan exposes a number of methods for setting values within shader code during run-time, this includes UBOs and Specialization Constants.
+This sample compares these two methods and the performance impact of them.
+
+Vulkan introduces the concept of *subpasses* to subdivide a single [render pass](performance/render_passes/README.html) into separate logical phases.
+The benefit of using subpasses over multiple render passes is that a GPU is able to perform various optimizations.
+Tile-based renderers, for example, can take advantage of tile memory, which being on chip is decisively faster than external memory, potentially saving a considerable amount of bandwidth.
+
+Mobile devices can be rotated, therefore the logical orientation of the application window and the physical orientation of the display may not match.
+Applications then need to be able to operate in two modes: portrait and landscape.
+The difference between these two modes can be simplified to just a change in resolution.
+However, some display subsystems always work on the "native" (or "physical") orientation of the display panel.
+Since the device has been rotated, to achieve the desired effect the application output must also rotate.
+In this sample we focus on the rotation step, and analyze the performance implications of implementing it correctly with Vulkan.
+
+Vulkan gives the application some significant control over the number of swapchain images to be created.
+This sample analyzes the available options and their performance implications.
+
+This sample compares two methods for synchronizing between the CPU and GPU, `WaitIdle` and `Fences` demonstrating which one is the best option in order to avoid stalling.
+
+This sample compares bandwidth consumption when using FP32 varyings compared to using FP16 varyings with `VK_KHR_16bit_storage`.
+
+This sample compares arithmetic throughput for 32-bit arithmetic operations and 16-bit arithmetic.
+The sample also shows how to enable 16-bit storage for SSBOs and push constants.
+
+This sample demonstrates using multiple Vulkan queues to get better hardware utilization with compute post-processing workloads.
+
+This sample demonstrates how to use Basis universal supercompressed GPU textures in a Vulkan application.
+
+This sample demonstrates how to reduce CPU usage by offloading draw call generation and frustum culling to the GPU.
+
+This sample demonstrates how to use different types of compressed GPU textures in a Vulkan application, and shows  the timing benefits of each.
+
+The goal of these samples is to demonstrate how to use a given Vulkan feature at the API level with as little abstraction as possible.
+
+Compute shader example that uses two passes and shared compute shader memory for simulating a N-Body particle system.
+
+Dynamic uniform buffers are used for rendering multiple objects with separate matrices stored in a single uniform buffer object, that are addressed dynamically.
+
+Implements a high dynamic range rendering pipeline using 16/32 bit floating point precision for all calculations.
+
+A self-contained (minimal use of framework) sample that illustrates the rendering of a triangle using unextended Vulkan 1.0.
+
+A self-contained (minimal use of framework) sample that illustrates the rendering of a triangle using Vulkan 1.3 features.
+
+A transcoded version of the API sample [Compute N-Body](api/compute_nbody/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample [Dynamic Uniform buffers](api/dynamic_uniform_buffers/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample [High dynamic range](api/hdr/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample [Hello Triangle](api/hello_triangle/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample [HLSL Shaders](api/hlsl_shaders/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample [Instancing](api/instancing/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample [OIT Depth Peeling](api/oit_depth_peeling/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample [OIT Linked Lists](api/oit_linked_lists/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample [Separate image sampler](api/separate_image_sampler/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample [Terrain Tessellation](api/terrain_tessellation/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample [Texture loading](api/texture_loading/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample [Texture run-time mip-map generation](api/texture_mipmap_generation/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+
+A transcoded version of the API sample[Timestamp queries](api/timestamp_queries/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+
+Uses the instancing feature for rendering many instances of the same mesh from a single vertex buffer with variable parameters and textures.
+
+Separate image and samplers, both in the application and the shaders.
+The sample demonstrates how to use different samplers for the same image without the need to recreate descriptors.
+
+Uses a tessellation shader for rendering a terrain with dynamic level-of-detail and frustum culling.
+
+Loading and rendering of a 2D texture map from a file.
+
+Generates a complete mip-chain for a texture at runtime instead of loading it from a file.
+
+Converts High Level Shading Language (HLSL) shaders to Vulkan-compatible SPIR-V.
+
+Using timestamp queries for profiling GPU workloads.
+
+A sample that implements best practices in handling swapchain recreation, for example due to window resizing or present mode changes.
+
+A sample that implements an order-independent transparency algorithm using per-pixel ordered linked lists.
+
+A sample that implements order-independent transparency with depth peeling.
+
+The goal of these samples is to demonstrate how to use a particular Vulkan extension at the API level with as little abstraction as possible.
+
+**Extension**: [`VK_EXT_conservative_rasterization`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_conservative_rasterization)
+
+Uses conservative rasterization to change the way fragments are generated.
+Enables overestimation to generate fragments for every pixel touched instead of only pixels that are fully covered.
+
+**Extension**: [`VK_KHR_dynamic_rendering`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_dynamic_rendering)
+
+Demonstrates how to use Dynamic Rendering.
+Read the blog post here for discussion: ([https://www.khronos.org/blog/streamlining-render-passes](https://www.khronos.org/blog/streamlining-render-passes))
+
+**Extension**: [`VK_KHR_dynamic_rendering_local_read`](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#VK_KHR_dynamic_rendering_local_read)
+
+Demonstrates how to use Dynamic Rendering with local reads to fully replace render passses with multiple subpasses.
+See this [this blogpost](https://www.khronos.org/blog/streamlining-subpasses).
+
+**Extension**: [`VK_KHR_push_descriptor`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_push_descriptor)
+
+Push descriptors apply the push constants concept to descriptor sets.
+Instead of creating per-object descriptor sets, this example passes descriptors at command buffer creation time.
+
+A transcoded version of the Extensions sample [Push Descriptors](extensions/push_descriptors/README.html) that illustrates the usage of the C++ bindings of vulkan provided by Vulkan-Hpp.
+
+**Extension**: [`VK_EXT_debug_utils`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_debug_utils)
+
+Uses the debug utilities extension to name and group Vulkan objects (command buffers, images, etc.).
+This information makes debugging in tools like RenderDoc significantly easier.
+
+**Extension**: [`VK_EXT_memory_budget`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_memory_budget)
+
+Uses the memory budget extension to monitor the allocated memory in the GPU and demonstrates how to use it.
+
+**Extension**: [`VK_EXT_mesh_shader`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_mesh_shader)
+
+Uses the mesh shader extension to demonstrate how to do basic culling utilizing both a mesh and a task shader.
+
+**Extensions**: [`VK_KHR_ray_query`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_ray_query), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_acceleration_structure)
+
+Render a sponza scene using the ray query extension.
+Shows how to set up all data structures required for ray queries, including the bottom and top level acceleration structures for the geometry and a standard vertex/fragment shader pipeline.
+Shadows are cast dynamically by ray queries being cast by the fragment shader.
+
+**Extensions**: [`VK_KHR_ray_tracing_pipeline`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_ray_tracing_pipeline), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_acceleration_structure)
+
+Render a basic scene using the official cross-vendor ray tracing extension.
+Shows how to setup all data structures required for ray tracing, including the bottom and top level acceleration structures for the geometry, the shader binding table and the ray tracing pipelines with shader groups for ray generation, ray hits, and ray misses.
+After dispatching the rays, the final result is copied to the swapchain image.
+
+**Extensions**: [`VK_KHR_ray_tracing_pipeline`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_ray_tracing_pipeline), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_acceleration_structure)
+
+Render Sponza with Ambient Occlusion.
+Place a vase in center.
+Generate a particle fire that  demonstrates the TLAS (Top Level Acceleration Structure) animation for the same underlying geometry.
+Procedurally generate a transparent quad and deform the geometry of the quad in the BLAS (Bottom Level Acceleration  Structure) to demonstrate how to animate with deforming geometry.
+Shows how to rebuild the acceleration structure and when to set it to fast rebuild vs fast traversal.
+
+**Extensions**: [`VK_EXT_mesh_shader`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_KHR_mesh_shader.html)
+
+Renders a triangle with the most simple of all possible mesh shader pipeline examples.
+There is no vertex shader,  there is only a mesh and fragment shader.
+The mesh shader creates the vertices for the triangle.
+The mesh shading  pipeline includes the task and mesh shaders before going into the fragment shader.
+This replaces the vertex /  geometry shader standard pipeline.
+
+A transcoded version of the Extensions sample [Mesh shading](extensions/mesh_shading/README.html) that illustrates the usage of the C++ bindings of vulkan provided by Vulkan-Hpp.
+
+**Extensions**: [`VK_KHR_external_memory`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_memory.html), [`VK_KHR_external_semaphore`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_external_semaphore.html)
+
+Render a procedural image using OpenGL and incorporate that rendered content into a Vulkan scene.
+Demonstrates using the same backing memory for a texture in both OpenGL and Vulkan and how to synchronize the APIs using shared semaphores and barriers.
+
+**Extensions**: [`VK_KHR_external_memory`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_external_memory.html), [`VK_KHR_external_semaphore`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_external_semaphore.html)
+
+This sample shows how to do Vulkan and OpenCL interoperability using cross vendor extensions in both apis. The sample uses OpenCL to update an image that is then displayed in Vulkan. This is done by sharing the memory for that image across the two apis. The sample also shares semaphores for doing cross api synchronization.
+
+**Extensions**: [`VK_ANDROID_external_memory_android_hardware_buffer`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_ANDROID_external_memory_android_hardware_buffer.html)
+
+This sample demonstrates usage of OpenCL extensions available on Arm devices.
+Fill a procedural texture using OpenCL and display it using Vulkan.
+In this sample data sharing between APIs is achieved using Android Hardware Buffers.
+
+**Extensions**: [`VK_KHR_timeline_semaphore`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_timeline_semaphore.html)
+
+Demonstrates various use cases which are enabled with timeline semaphores.
+The sample implements "Game of Life" in an esoteric way, using out-of-order signal and wait, multiple waits on same semaphore in different queues, waiting and signalling semaphore on host.
+
+**Extensions**: [`VK_KHR_buffer_device_address`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_buffer_device_address.html)
+
+Demonstrates how to use the buffer device address feature, which enables extreme flexibility in how buffer memory is accessed.
+
+**Extension** [`VK_KHR_synchronization2`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_synchronization2)
+
+Demonstrates the use of the reworked synchronization api introduced with `VK_KHR_synchronization2`.
+Based on the compute shading N-Body particle system, this sample uses the new extension to streamline the memory barriers used for the compute and graphics work submissions.
+
+**Extensions**: [`VK_EXT_descriptor_indexing`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_descriptor_indexing.html)
+
+Demonstrates how to use descriptor indexing to enable update-after-bind and non-dynamically uniform indexing of descriptors.
+
+**Extension**: [`VK_KHR_fragment_shading_rate`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_fragment_shading_rate.html)
+
+Uses a special framebuffer attachment to control fragment shading rates for different framebuffer regions.
+This allows explicit control over the number of fragment shader invocations for each pixel covered by a fragment, which is e.g.
+useful for foveated rendering.
+
+**Extension**: [`VK_KHR_fragment_shading_rate`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_KHR_fragment_shading_rate.html)
+
+Render a simple scene showing the basics of shading rate dynamic.
+This sample shows low and high frequency textures  over several cubes.
+It creates a sample rate map based upon this frequency every frame.
+Then it uses that dynamic  sample rate map as a base for the next frame.
+
+**Extensions**: [`VK_KHR_ray_tracing_pipeline`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_ray_tracing_pipeline), [`VK_KHR_acceleration_structure`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_KHR_acceleration_structure), [`VK_EXT_descriptor_indexing`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_descriptor_indexing.html), [`VK_EXT_scalar_block_layout`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/man/html/VK_EXT_scalar_block_layout.html)
+
+Render a simple scene showing the basics of ray tracing, including reflection and shadow rays.
+The sample creates some geometries and create a bottom acceleration structure for each, then make instances of those, using different materials and placing them at different locations.
+
+**Extensions**: [`VK_KHR_ray_tracing_position_fetch`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VK_KHR_ray_tracing_position_fetch)
+
+Shows how to use the ray tracing position fetch extension to directly access vertex positions for a hit triangle from the acceleration structure, instead of having to explicitly pass and unpack that information
+
+**Extensions**: [`VK_KHR_portability_subset`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VK_KHR_portability_subset)
+
+Demonstrate how to include non-conformant portable Vulkan implementations by using the portability extension to  include those implementations in the device query.
+An example of a non-conformant portable Vulkan implementation is  MoltenVk: [MoltenVk](https://github.com/KhronosGroup/MoltenVK).
+Also demonstrate use of beta extension which allows  for querying which features of the full Vulkan spec are not currently supported by the non-conformant Vulkan  implementation.
+
+**Extension**: [`VK_EXT_graphics_pipeline_library`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_EXT_graphics_pipeline_library.html)
+
+Uses the graphics pipeline library extensions to improve run-time pipeline creation.
+Instead of creating the whole pipeline at once, this sample makes use of that extension to pre-build shared pipeline parts such as vertex input state and fragment output state.
+These building blocks are then used to create pipelines at runtime, improving build times compared to traditional pipeline creation.
+
+**Extension**: [`VK_EXT_conditional_rendering`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_EXT_conditional_rendering.html)
+
+Demonstrate how to do conditional rendering, dynamically discarding rendering commands without having to update command buffers.
+This is done by sourcing conditional rendering blocks from a dedicated buffer that can be updated without having to touch command buffers.
+
+**Extension**: [`VK_EXT_vertex_input_dynamic_state`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_vertex_input_dynamic_state.html)
+
+Demonstrate how to use vertex input bindings and attribute descriptions dynamically, which can reduce the number of pipeline objects that are needed to be created.
+
+**Extension**: [`VK_EXT_extended_dynamic_state2`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state2.html)
+
+Demonstrate how to use depth bias, primitive restart, rasterizer discard and patch control points dynamically, which can reduce the number of pipeline objects that are needed to be created.
+
+**Extension**: [`VK_EXT_extended_dynamic_state2`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state2.html)
+
+Demonstrate how to use logical operations dynamically, which can reduce the number of pipeline objects that are needed to be created or allow to change the pipeline state dynamically (change type of the logical operation).
+
+**Extension**: [`VK_EXT_extended_dynamic_state2`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state2.html)
+
+Demonstrate how to use patch control points dynamically, which can reduce the number of pipeline objects that are needed to be created.
+
+**Extension**: [`VK_KHR_fragment_shader_barycentric`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_fragment_shader_barycentric.html)
+
+Demonstrate how to use fragment shader barycentric feature, which allows accessing barycentric coordinates for each processed fragment.
+
+**Extension**: [`VK_EXT_descriptor_buffer`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_ext_descriptor_buffer)
+
+Demonstrate how to use the new extension to replace descriptor sets with resource descriptor buffers
+
+**Extension**: [`VK_EXT_color_write_enable`](https://https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_color_write_enable.html)
+
+Demonstrate how to create multiple color blend attachments and then toggle them dynamically.
+
+**Extension:** [`VK_EXT_mesh_shader`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_mesh_shader.html)
+
+Demonstrates how a mesh shader can be used to achieve the same results as with geometry shader, it loads model from a file and visualizes its normals.
+
+**Extension:** [`VK_EXT_shader_object`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_shader_object.html)
+
+Demonstrate how to use shader objects.
+
+**Extension:** [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state.html)
+
+Demonstrate how to use the blending related functions available in the VK_EXT_extended_dynamic_state3 extension.
+
+**Extensions:** [`VK_EXT_line_rasterization`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_line_rasterization.html), [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state3.html)
+
+Demonstrate methods for dynamically customizing the appearance of the rendered lines.
+
+**Extension**: [`VK_KHR_shader_non_semantic_info`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_shader_non_semantic_info.html)
+
+Demonstrates how to use [Printf](https://en.wikipedia.org/wiki/Printf) statements in a shader to output per-invocation values. This can help find issues with shaders in combination with graphics debugging tools.
+
+**Extension:** [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state3.html)
+
+Rendering using primitive clipping and depth clipping configured by dynamic pipeline state.
+
+**Extension:** [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_host_image_copy.html)
+
+Demonstrate the use of the host image extension to directly copy from a host buffer to an image on the device without going through a staging buffer.
+
+**Extensions:** [`VK_EXT_line_rasterization`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state3.html), [`VK_EXT_extended_dynamic_state3`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state3.html)
+
+Demonstrate how to use dynamic multisample rasterization (MSAA)
+
+The goal of these samples is to demonstrate usage of tooling functions and libraries that are not directly part of the api.
+
+Use the [Vulkan Profiles library](https://github.com/KhronosGroup/Vulkan-Profiles) to simplify instance and device setup.
+The library defines a common baseline of features, extensions, etc.

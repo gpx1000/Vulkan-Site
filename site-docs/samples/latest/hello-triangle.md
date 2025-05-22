@@ -8,4 +8,4 @@
 
 ## Content
 
-The source for this sample can be found in the Khronos Vulkan samples github repository. A self-contained (minimal use of framework) sample that illustrates the rendering of a triangle.
+A self-contained (minimal use of framework) sample that illustrates the rendering of a triangle.
