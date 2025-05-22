@@ -25,7 +25,7 @@ For more information about and resources for using the Vulkan graphics API,
 see the Vulkan developer website at [https://vulkan.org](https://vulkan.org) .
 
 This build of the site includes the Vulkan 1.4.315 API specification
-(with all registered extensions), generated on 2025-05-22 09:49:30Z from git branch: main commit: 112aee75d162412a4623e7d22a3de52e0233cbf5.
+(with all registered extensions), generated on 2025-05-22 10:07:34Z from git branch: main commit: 112aee75d162412a4623e7d22a3de52e0233cbf5.
 
 The site is organized in “components” (Antora terminology for
 specifications and other documents), each containing many “pages” (Antora
