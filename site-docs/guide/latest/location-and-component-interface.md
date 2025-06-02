@@ -94,6 +94,9 @@ layout(location=2, component=2) in float b;
 
 ![location_example_array2](location_example_array2.svg)
 
+|  | Some shader stages, like geometry shaders, have an array around its interface matching, this array is disregarded for the above examples. |
+| --- | --- |
+
 A matrix is viewed as an array, which consume all 4 components.
 
 So something like

@@ -316,6 +316,14 @@ Evaluation of an **inout** parameter results in both a value and an l-value;
 the value is copied to the formal parameter at call time and the l-value is
 used to copy out a value when the function returns.
 
+|  | Note
+| --- | --- |
+
+Because **out** parameters are not copied into a function, they begin the function
+uninitialized. At the end of the function, the values are copied out to the
+caller unconditionally which, if the value has not been set in the function,
+will result in the passed argument becoming uninitialized in the caller. |
+
 The order in which output parameters are copied back to the caller is
 undefined.
 

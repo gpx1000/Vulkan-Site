@@ -252,6 +252,18 @@ After creating a `VkImage` with
 `VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT`, all image subresources are
 considered unbound.
 
+|  | Applications **can** use these types of images to control LOD based on total
+| --- | --- |
+memory consumption.
+If memory pressure becomes an issue the application **can** unbind and disable
+specific mipmap levels of images without having to recreate resources or
+modify texel data of unaffected levels.
+
+The application **can** also use this functionality to access subregions of the
+image in a “megatexture” fashion.
+The application **can** create a large image and only populate the region of
+the image that is currently being used in the scene. |
+
 The following member of `VkPhysicalDeviceSparseProperties` affects how
 data in unbound regions of sparse resources are handled by the
 implementation:
@@ -346,6 +358,13 @@ layers will share a single mip tail region.
 
 Figure 3. Sparse Image with Aligned Mip Size
 
+|  | The mip tail regions are presented here in 2D arrays simply for figure size
+| --- | --- |
+reasons.
+Each mip tail is logically a single array of sparse blocks with an
+implementation-dependent mapping of texels or compressed texel blocks to
+sparse blocks. |
+
 When `VK_SPARSE_IMAGE_FORMAT_ALIGNED_MIP_SIZE_BIT` is present the first
 mip level that would contain partially used sparse blocks begins the mip
 tail region.
@@ -357,6 +376,13 @@ block basis.
 ![sparseimage alignedmipsize singlemiptail](../_images/sparseimage_alignedmipsize_singlemiptail.svg)
 
 Figure 4. Sparse Image with Aligned Mip Size and Single Mip Tail
+
+|  | The mip tail region is presented here in a 2D array simply for figure size
+| --- | --- |
+reasons.
+It is logically a single array of sparse blocks with an
+implementation-dependent mapping of texels or compressed texel blocks to
+sparse blocks. |
 
 When both `VK_SPARSE_IMAGE_FORMAT_ALIGNED_MIP_SIZE_BIT` and
 `VK_SPARSE_IMAGE_FORMAT_SINGLE_MIPTAIL_BIT` are present the constraints
@@ -373,69 +399,26 @@ texel size is the size of the compressed texel block (e.g. 128-bit for
 `BC5`) thus the dimensions of the standard sparse image block shapes
 apply in terms of compressed texel blocks.
 
-Table 1. Standard Sparse Image Block Shapes (Single Sample)
+|  | For block-compressed formats, the dimensions of a sparse image block in
+| --- | --- |
+terms of texels **can** be calculated by multiplying the sparse image block
+dimensions by the compressed texel block dimensions. |
 
-TEXEL SIZE (bits)
-Block Shape (2D)
-Block Shape (3D)
+| TEXEL SIZE (bits) | Block Shape (2D) | Block Shape (3D) |
+| --- | --- | --- |
+| **8-Bit** | 256 × 256 × 1 | 64 × 32 × 32 |
+| **16-Bit** | 256 × 128 × 1 | 32 × 32 × 32 |
+| **32-Bit** | 128 × 128 × 1 | 32 × 32 × 16 |
+| **64-Bit** | 128 × 64 × 1 | 32 × 16 × 16 |
+| **128-Bit** | 64 × 64 × 1 | 16 × 16 × 16 |
 
-**8-Bit**
-256 × 256 × 1
-64 × 32 × 32
-
-**16-Bit**
-256 × 128 × 1
-32 × 32 × 32
-
-**32-Bit**
-128 × 128 × 1
-32 × 32 × 16
-
-**64-Bit**
-128 × 64 × 1
-32 × 16 × 16
-
-**128-Bit**
-64 × 64 × 1
-16 × 16 × 16
-
-Table 2. Standard Sparse Image Block Shapes (MSAA)
-
-TEXEL SIZE (bits)
-Block Shape (2X)
-Block Shape (4X)
-Block Shape (8X)
-Block Shape (16X)
-
-**8-Bit**
-128 × 256 × 1
-128 × 128 × 1
-64 × 128 × 1
-64 × 64 × 1
-
-**16-Bit**
-128 × 128 × 1
-128 × 64 × 1
-64 × 64 × 1
-64 × 32 × 1
-
-**32-Bit**
-64 × 128 × 1
-64 × 64 × 1
-32 × 64 × 1
-32 × 32 × 1
-
-**64-Bit**
-64 × 64 × 1
-64 × 32 × 1
-32 × 32 × 1
-32 × 16 × 1
-
-**128-Bit**
-32 × 64 × 1
-32 × 32 × 1
-16 × 32 × 1
-16 × 16 × 1
+| TEXEL SIZE (bits) | Block Shape (2X) | Block Shape (4X) | Block Shape (8X) | Block Shape (16X) |
+| --- | --- | --- | --- | --- |
+| **8-Bit** | 128 × 256 × 1 | 128 × 128 × 1 | 64 × 128 × 1 | 64 × 64 × 1 |
+| **16-Bit** | 128 × 128 × 1 | 128 × 64 × 1 | 64 × 64 × 1 | 64 × 32 × 1 |
+| **32-Bit** | 64 × 128 × 1 | 64 × 64 × 1 | 32 × 64 × 1 | 32 × 32 × 1 |
+| **64-Bit** | 64 × 64 × 1 | 64 × 32 × 1 | 32 × 32 × 1 | 32 × 16 × 1 |
+| **128-Bit** | 32 × 64 × 1 | 32 × 32 × 1 | 16 × 32 × 1 | 16 × 16 × 1 |
 
 Implementations that support the standard sparse image block shape for all
 formats listed in the [Standard Sparse Image Block Shapes (Single Sample)](#sparsememory-sparseblockshapessingle) and
@@ -486,6 +469,13 @@ See the figure below:
 ![sparseimage multiaspect](../_images/sparseimage_multiaspect.svg)
 
 Figure 5. Multiple Aspect Sparse Image
+
+|  | The mip tail regions are presented here in 2D arrays simply for figure size
+| --- | --- |
+reasons.
+Each mip tail is logically a single array of sparse blocks with an
+implementation-dependent mapping of texels or compressed texel blocks to
+sparse blocks. |
 
 In the figure above the depth, stencil, and metadata aspects all have unique
 sparse properties.
@@ -554,6 +544,12 @@ access aliased memory in a data consistent fashion.
 Failure to follow any of the above guidelines will require the application
 to abide by the normal, non-sparse resource [aliasing rules](resources.html#resources-memory-aliasing).
 In this case memory **cannot** be accessed in a data consistent fashion.
+
+|  | Enabling sparse resource memory aliasing **can** be a way to lower physical
+| --- | --- |
+memory use, but it **may** reduce performance on some implementations.
+An application developer **can** test on their target HW and balance the memory
+/ performance trade-offs measured. |
 
 The APIs related to sparse resources are grouped into the following
 categories:
@@ -1094,6 +1090,15 @@ When the appropriate device features are enabled, the
 See [vkCreateBuffer](resources.html#vkCreateBuffer) and [vkCreateImage](resources.html#vkCreateImage) for details of the resource
 creation APIs.
 
+|  | Specifying `VK_BUFFER_CREATE_SPARSE_RESIDENCY_BIT` or
+| --- | --- |
+`VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT` requires specifying
+`VK_BUFFER_CREATE_SPARSE_BINDING_BIT` or
+`VK_IMAGE_CREATE_SPARSE_BINDING_BIT`, respectively, as well.
+This means that resources **must** be created with the appropriate
+`*_SPARSE_BINDING_BIT` to be used with the sparse binding command
+(`vkQueueBindSparse`). |
+
 Sparse resources have specific memory requirements related to binding sparse
 memory.
 These memory requirements are reported differently for `VkBuffer`
@@ -1199,6 +1204,14 @@ structures will be written.
 If the image was not created with `VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT`
 then `pSparseMemoryRequirementCount` will be zero and
 `pSparseMemoryRequirements` will not be written to.
+
+|  | It is legal for an implementation to report a larger value in
+| --- | --- |
+`VkMemoryRequirements`::`size` than would be obtained by adding
+together memory sizes for all `VkSparseImageMemoryRequirements` returned
+by `vkGetImageSparseMemoryRequirements`.
+This **may** occur when the implementation requires unused padding in the
+address range describing the resource. |
 
 Valid Usage (Implicit)
 
@@ -1426,6 +1439,12 @@ their backing **must** not be changed.
 On the other hand, sparse resources **can** be bound to memory non-contiguously
 and these bindings **can** be altered during the lifetime of the resource.
 
+|  | It is important to note that freeing a `VkDeviceMemory` object with
+| --- | --- |
+`vkFreeMemory` will not cause resources (or resource regions) bound to
+the memory object to become unbound.
+Applications **must** not access resources bound to memory that has been freed. |
+
 Sparse memory bindings execute on a queue that includes the
 `VK_QUEUE_SPARSE_BINDING_BIT` bit.
 Applications **must** use [synchronization primitives](synchronization.html#synchronization) to
@@ -1433,6 +1452,12 @@ guarantee that other queues do not access ranges of memory concurrently with
 a binding change.
 Applications **can** access other ranges of the same resource while a bind
 operation is executing.
+
+|  | Implementations **must** provide a guarantee that simultaneously binding sparse
+| --- | --- |
+blocks while another queue accesses those same sparse blocks via a sparse
+resource **must** not access memory owned by another process or otherwise
+corrupt the system. |
 
 While some implementations **may** include `VK_QUEUE_SPARSE_BINDING_BIT`
 support in queue families that also include graphics and compute support,
@@ -1694,6 +1719,34 @@ the `pBinds` array.
 * 
 `pBinds` is a pointer to an array of [VkSparseMemoryBind](#VkSparseMemoryBind)
 structures.
+
+|  | This structure is normally used to bind memory to fully-resident sparse
+| --- | --- |
+images or for mip tail regions of partially resident images.
+However, it **can** also be used to bind memory for the entire binding range of
+partially resident images.
+
+If the `pBinds`[i].flags of an element *i* of `pBinds` does not
+contain `VK_SPARSE_MEMORY_BIND_METADATA_BIT`, the `resourceOffset`
+is in the range [0, [VkMemoryRequirements](resources.html#VkMemoryRequirements)::`size`), This
+range includes data from all aspects of the image, including metadata.
+For most implementations this will probably mean that the
+`resourceOffset` is a simple device address offset within the resource.
+It is possible for an application to bind a range of memory that includes
+both resource data and metadata.
+However, the application would not know what part of the image the memory is
+used for, or if any range is being used for metadata.
+
+If the `pBinds`[i].flags of an element *i* of `pBinds` contains
+`VK_SPARSE_MEMORY_BIND_METADATA_BIT`, the binding range specified **must**
+be within the mip tail region of the metadata aspect.
+In this case the `resourceOffset` is not **required** to be a simple device
+address offset within the resource.
+However, it *is* defined to be within [`imageMipTailOffset`,
+`imageMipTailOffset` +  `imageMipTailSize`) for the metadata
+aspect.
+See [VkSparseMemoryBind](#VkSparseMemoryBind) for the full constraints on binding region with
+this flag present. |
 
 Valid Usage
 
@@ -2062,18 +2115,9 @@ Host access to `queue` **must** be externally synchronized
 Host access to `fence` **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
--
--
--
-SPARSE_BINDING
--
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| - | - | - | SPARSE_BINDING | - |
 
 Return Codes
 

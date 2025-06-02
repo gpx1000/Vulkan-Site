@@ -17,9 +17,23 @@
 
 ## Content
 
+|  | Promoted to core in Vulkan 1.2
+| --- | --- |
+
+[SPV_EXT_descriptor_indexing](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/EXT/SPV_EXT_descriptor_indexing.html)
+
+[GLSL - GL_EXT_nonuniform_qualifier](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GL_EXT_nonuniform_qualifier.txt)
+
+Presentation from Montreal Developer Day ([video](https://www.youtube.com/watch?v=tXipcoeuNh4) and [slides](https://www.khronos.org/assets/uploads/developers/library/2018-vulkan-devday/10-DescriptorIndexing.pdf)) |
+
 This extension was designed to be broken down into a few different, smaller features to allow implementations to add support for the each feature when possible.
 
 Without this extension, descriptors in an application are not allowed to update between recording the command buffer and the execution of the command buffers. With this extension an application can querying for `descriptorBinding*UpdateAfterBind` support for the type of descriptor being used which allows an application to then update in between recording and execution.
+
+|  | Example
+| --- | --- |
+
+If an application has a `StorageBuffer` descriptor, then it will query for `descriptorBindingStorageBufferUpdateAfterBind` support. |
 
 After enabling the desired feature support for updating after bind, an application needs to setup the following in order to use a descriptor that can update after bind:
 

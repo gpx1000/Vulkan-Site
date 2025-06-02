@@ -59,26 +59,14 @@ If you prefer not to use pre-commit, you can run the checks manually using the f
 
 Future tooling may be added in the future. If you have any suggestions or feedback, please open an issue on the repository.
 
-folder
-description
-
-`/samples/api/`
-folder containing samples that demonstrate API usage
-
-`/samples/extensions/`
-folder containing samples that demonstrate API Extensions usage
-
-`/samples/performance/`
-folder containing samples that demonstrate performance best-practices
-
-`/shaders/`
-folder containing shaders used by the samples
-
-`/assets/`
-GIT sub-module with models, scenes and fonts
-
-`/third_party/`
-folder with commonly used external libraries
+| folder | description |
+| --- | --- |
+| `/samples/api/` | folder containing samples that demonstrate API usage |
+| `/samples/extensions/` | folder containing samples that demonstrate API Extensions usage |
+| `/samples/performance/` | folder containing samples that demonstrate performance best-practices |
+| `/shaders/` | folder containing shaders used by the samples |
+| `/assets/` | GIT sub-module with models, scenes and fonts |
+| `/third_party/` | folder with commonly used external libraries |
 
 Follow [this guide](scripts/README.html) to create a dummy sample and associated build files automatically.
 This new sample will be based on the framework of wrapper classes that provide an optimized and convenient system to manage Vulkan objects.

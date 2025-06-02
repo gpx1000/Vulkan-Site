@@ -40,6 +40,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/timeline_semaphore). |
+| --- | --- |
+
 In Vulkan 1.0, we were introduced to `VkSemaphore` which is able to synchronize work between Vulkan queues.
 It has some peculiar behavior which makes it somewhat difficult to use in practice.
 The timeline semaphore is designed to solve these problems and it also makes the queue synchronization model closer to what we see in D3D12.

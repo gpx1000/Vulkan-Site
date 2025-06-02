@@ -28,6 +28,9 @@
 
 Buffer Device Address allows you to have a pointer to the `VkBuffer` in your shaders. There are many other usages such as Ray Tracing, GPU Side tooling, etc.
 
+|  | This will be more of a technical breakdown of how it works, if you looking for a simple "how do I just use this", then please take a look at the [Vulkan Samples](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/buffer_device_address). |
+| --- | --- |
+
 The original proposal was done with the  `VK_EXT_buffer_device_address` extension. Shortly afterwards, `VK_KHR_buffer_device_address` was added, which had some minor feature differences. Starting in Vulkan 1.2 this has become core and it is very widely available on GPUs on every platform. Starting in Vulkan 1.3 it became required, so if you are using Vulkan 1.3, you are guaranteed support.
 
 The naming of this `Buffer Device Address` feature will be different depending on where you look.
@@ -47,6 +50,12 @@ Add `VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT_KHR` when creating your `VkBuffer
 Add `VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT_KHR` when allocating your `VkDeviceMemory`.
 
 From here you can use the `vkGetBufferDeviceAddress` call and it will return a `VkDeviceAddress`. This is now your 64-bit pointer to that `VkBuffer` that can be handed down into your shader.
+
+|  | For tools, the `vkGetBufferDeviceAddress` function might break assumptions that Vulkan function only return `void` or `VkResult` |
+| --- | --- |
+
+|  | If you are using GLSL/HLSL/Slang/etc then the following is all taken care for you! |
+| --- | --- |
 
 The SPIR-V will contain the `OpCapability PhysicalStorageBufferAddresses` instruction that will match up with `VkPhysicalDeviceVulkan12Features::bufferDeviceAddress` (or `VkPhysicalDeviceBufferDeviceAddressFeatures::bufferDeviceAddress`) to let everyone know the device does support this.
 
@@ -105,6 +114,9 @@ You will see the following SPIR-V
      %var = OpVariable %SSBO_ptr StorageBuffer
 
 When parsing this SPIR-V to do reflection, it is very easy to get into an infinite loop, so be careful.
+
+|  | If you want some SPIR-V to test this, look at the `buffer_handle_*.spv` tests in [SPIR-V Reflect Tests](https://github.com/KhronosGroup/SPIRV-Reflect/blob/main/tests/glsl). |
+| --- | --- |
 
 If you take the following simple GLSL example
 

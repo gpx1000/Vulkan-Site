@@ -61,6 +61,12 @@ In case multiple instances are intersected by a ray, the ray transformation
 into the space of the instance is invariant under the order in which these
 instances are encountered in the top-level acceleration structure.
 
+|  | Applying multiple forward and reverse transforms to a ray to transition from
+| --- | --- |
+one instance to another could result in accumulated errors.
+Thus an implementation should behave as if the ray is transformed from the
+origin for each instance independently. |
+
 Next, rays are tested against geometries in a bottom-level acceleration
 structure to determine if a hit occurred between them, initially based only
 on their geometric properties (i.e. their vertices).
@@ -122,6 +128,10 @@ subject to the watertightness constraints below.
 AABB primitive bounds consist of all points within an implementation-defined
 bound which includes the specified box.
 
+|  | The bounds of the AABB including all points internal to the bound implies
+| --- | --- |
+that a ray started within the AABB will hit that AABB. |
+
 ![ray intersection candidate](../_images/ray_intersection_candidate.svg)
 
 Figure 1. Ray intersection candidate
@@ -132,6 +142,18 @@ Due to the complexity and number of operations involved, inaccuracies are
 expected, particularly as the scale of values involved begins to diverge.
 Implementations **should** take efforts to maintain as much precision as
 possible.
+
+|  | One very common case is when geometries are close to each other at some
+| --- | --- |
+distance from the origin in acceleration structure space, where an effect
+similar to “z-fighting” is likely to be observed.
+Applications can mitigate this by ensuring their detailed geometries remain
+close to the origin.
+
+Another likely case is when the origin of a ray is set to a position on a
+previously intersected surface, and its tmin is zero or near zero;
+an intersection may be detected on the emitting surface.
+This case can usually be mitigated by offsetting tmin slightly. |
 
 For a motion primitive or a motion instance, the positions for intersection
 are evaluated at the time specified in the `time` parameter to
@@ -213,6 +235,11 @@ by a series of the above shared edges.
 Implementations **should** not double-hit or miss when a ray intersects a
 shared edge, or a shared vertex of a closed fan.
 
+|  | Because of the complexity of a definition of watertightness the language
+| --- | --- |
+above does not list a **must** requirement but it is expected and tested that
+implementations will perform watertight intersection tests. |
+
 For LSS primitives, connected LSS might overlap not only at the shared
 vertex endcap but also along their midsections.
 This applies even if an LSS disables the shared endcap.
@@ -292,6 +319,15 @@ If `VK_GEOMETRY_INSTANCE_TRIANGLE_FLIP_FACING_BIT_KHR` is included in
 containing the intersected triangle, this determination is reversed.
 Additionally, if a is 0, the intersection candidate is treated as not
 intersecting with any face, irrespective of the sign.
+
+|  | In a left-handed coordinate system, an intersection will be with the front
+| --- | --- |
+face of a triangle if the vertices of the triangle, as defined in index
+order, appear from the ray’s perspective in a clockwise rotation order.
+`VK_GEOMETRY_INSTANCE_TRIANGLE_FLIP_FACING_BIT_KHR` was previously
+annotated as
+`VK_GEOMETRY_INSTANCE_TRIANGLE_FRONT_COUNTERCLOCKWISE_BIT_KHR` because
+of this. |
 
 If the ray was traced with a [pipeline trace ray](../appendices/glossary.html#glossary-pipeline-trace-ray) instruction, the `HitKindKHR` built-in is set to
 `HitKindFrontFacingTriangleKHR` if the intersection is with front-facing
@@ -404,6 +440,12 @@ nearest vertex 2.
 
 Figure 2. Example ordering for micromap data
 
+|  | This encoding is spatially coherent, purely hierarchical, and allows a
+| --- | --- |
+bit-parallel conversion between barycentric address and index values.
+
+See the appendix for reference code implementing this mapping. |
+
 The result of the opacity micromap lookup and operations is to treat the
 intersection as opaque, non-opaque, or ignored.
 The interpretation of the values depends on
@@ -423,59 +465,16 @@ If the associated opacity micromap has format
 `VK_OPACITY_MICROMAP_FORMAT_4_STATE_EXT`, each element is represented by
 a two bit value at the index derived above.
 
-4 State value
-2 State value
-Special index value
-2 State override
-Result
-
-0
-0
-`VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_EXT`
-Y
-Ignored
-
-0
-0
-`VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_EXT`
-N
-Ignored
-
-1
-1
-`VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_EXT`
-Y
-Opaque
-
-1
-1
-`VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_EXT`
-N
-Opaque
-
-2
-
-`VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT_EXT`
-Y
-Ignored
-
-2
-
-`VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT_EXT`
-N
-Non-opaque
-
-3
-
-`VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE_EXT`
-Y
-Opaque
-
-3
-
-`VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE_EXT`
-N
-Non-opaque
+| 4 State value | 2 State value | Special index value | 2 State override | Result |
+| --- | --- | --- | --- | --- |
+| 0 | 0 | `VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_EXT` | Y | Ignored |
+| 0 | 0 | `VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_TRANSPARENT_EXT` | N | Ignored |
+| 1 | 1 | `VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_EXT` | Y | Opaque |
+| 1 | 1 | `VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_OPAQUE_EXT` | N | Opaque |
+| 2 |  | `VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT_EXT` | Y | Ignored |
+| 2 |  | `VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_TRANSPARENT_EXT` | N | Non-opaque |
+| 3 |  | `VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE_EXT` | Y | Opaque |
+| 3 |  | `VK_OPACITY_MICROMAP_SPECIAL_INDEX_FULLY_UNKNOWN_OPAQUE_EXT` | N | Non-opaque |
 
 Depending on the opacity of intersected geometry and whether it is a
 triangle or an AABB, candidate intersections are further processed to

@@ -173,197 +173,130 @@ If the divisor of a ratio is 0, then results will be undefined.
 These all operate component-wise.
 The description is per component.
 
-Syntax
-Description
-
-genFType **radians**(genFType *degrees*)
-Converts *degrees* to radians, i.e.,
-      (π / 180) ⋅ degrees.
-
-genFType **degrees**(genFType *radians*)
-Converts *radians* to degrees, i.e.,
-      (180 / π) ⋅ radians.
-
-genFType **sin**(genFType *angle*)
-The standard trigonometric sine function.
-
-genFType **cos**(genFType *angle*)
-The standard trigonometric cosine function.
-
-genFType **tan**(genFType *angle*)
-The standard trigonometric tangent.
-
-genFType **asin**(genFType *x*)
-Arc sine.
+| Syntax | Description |
+| --- | --- |
+| genFType **radians**(genFType *degrees*) | Converts *degrees* to radians, i.e.,
+      (π / 180) ⋅ degrees. |
+| genFType **degrees**(genFType *radians*) | Converts *radians* to degrees, i.e.,
+      (180 / π) ⋅ radians. |
+| genFType **sin**(genFType *angle*) | The standard trigonometric sine function. |
+| genFType **cos**(genFType *angle*) | The standard trigonometric cosine function. |
+| genFType **tan**(genFType *angle*) | The standard trigonometric tangent. |
+| genFType **asin**(genFType *x*) | Arc sine.
       Returns an angle whose sine is *x*.
       The range of values returned by this function is
       [-π / 2, π / 2].
-      Results are undefined if |x| > 1.
-
-genFType **acos**(genFType *x*)
-Arc cosine.
+      Results are undefined if \|x\| > 1. |
+| genFType **acos**(genFType *x*) | Arc cosine.
       Returns an angle whose cosine is *x*.
       The range of values returned by this function is [0,π].
-      Results are undefined if |x| > 1.
-
-genFType **atan**(genFType *y*, genFType *x*)
-Arc tangent.
+      Results are undefined if \|x\| > 1. |
+| genFType **atan**(genFType *y*, genFType *x*) | Arc tangent.
       Returns an angle whose tangent is y / x.
       The signs of *x* and *y* are used to determine what quadrant the angle
       is in.
       The range of values returned by this function is [-π, π].
-      Results are undefined if *x* and *y* are both 0.
-
-genFType **atan**(genFType *y_over_x*)
-Arc tangent.
+      Results are undefined if *x* and *y* are both 0. |
+| genFType **atan**(genFType *y_over_x*) | Arc tangent.
       Returns an angle whose tangent is *y_over_x*.
       The range of values returned by this function is
-      [-π / 2, π / 2].
-
-genFType **sinh**(genFType *x*)
-Returns the hyperbolic sine function (ex - e-x) / 2.
-
-genFType **cosh**(genFType *x*)
-Returns the hyperbolic cosine function (ex + e-x) / 2.
-
-genFType **tanh**(genFType *x*)
-Returns the hyperbolic tangent function sinh(x) / cosh(x).
-
-genFType **asinh**(genFType *x*)
-Arc hyperbolic sine; returns the inverse of **sinh**.
-
-genFType **acosh**(genFType *x*)
-Arc hyperbolic cosine; returns the non-negative inverse of **cosh**.
-      Results are undefined if x .
-
-genFType **atanh**(genFType *x*)
-Arc hyperbolic tangent; returns the inverse of **tanh**.
-      Results are undefined if |x| ≥ 1.
+      [-π / 2, π / 2]. |
+| genFType **sinh**(genFType *x*) | Returns the hyperbolic sine function (ex - e-x) / 2. |
+| genFType **cosh**(genFType *x*) | Returns the hyperbolic cosine function (ex + e-x) / 2. |
+| genFType **tanh**(genFType *x*) | Returns the hyperbolic tangent function sinh(x) / cosh(x). |
+| genFType **asinh**(genFType *x*) | Arc hyperbolic sine; returns the inverse of **sinh**. |
+| genFType **acosh**(genFType *x*) | Arc hyperbolic cosine; returns the non-negative inverse of **cosh**.
+      Results are undefined if x . |
+| genFType **atanh**(genFType *x*) | Arc hyperbolic tangent; returns the inverse of **tanh**.
+      Results are undefined if \|x\| ≥ 1. |
 
 These all operate component-wise.
 The description is per component.
 
-Syntax
-Description
-
-genFType **pow**(genFType *x*, genFType *y*)
-Returns *x* raised to the *y* power, i.e., xy.
+| Syntax | Description |
+| --- | --- |
+| genFType **pow**(genFType *x*, genFType *y*) | Returns *x* raised to the *y* power, i.e., xy.
       Results are undefined if x .
-      Results are undefined if x = 0 and y ≤ 0.
-
-genFType **exp**(genFType *x*)
-Returns the natural exponentiation of *x*, i.e., ex.
-
-genFType **log**(genFType *x*)
-Returns the natural logarithm of *x*, i.e., returns the value *y*
+      Results are undefined if x = 0 and y ≤ 0. |
+| genFType **exp**(genFType *x*) | Returns the natural exponentiation of *x*, i.e., ex. |
+| genFType **log**(genFType *x*) | Returns the natural logarithm of *x*, i.e., returns the value *y*
       which satisfies the equation x = ey.
-      Results are undefined if x ≤ 0.
-
-genFType **exp2**(genFType *x*)
-Returns 2 raised to the *x* power, i.e., 2x.
-
-genFType **log2**(genFType *x*)
-Returns the base 2 logarithm of *x*, i.e., returns the value *y* which
+      Results are undefined if x ≤ 0. |
+| genFType **exp2**(genFType *x*) | Returns 2 raised to the *x* power, i.e., 2x. |
+| genFType **log2**(genFType *x*) | Returns the base 2 logarithm of *x*, i.e., returns the value *y* which
       satisfies the equation x = 2y.
-      Results are undefined if x ≤ 0.
+      Results are undefined if x ≤ 0. |
+| genFType **sqrt**(genFType *x*)
 
-genFType **sqrt**(genFType *x*)
+  genDType **sqrt**(genDType *x*) | Returns sqrt(x).
+      Results are undefined if x . |
+| genFType **inversesqrt**(genFType *x*)
 
-  genDType **sqrt**(genDType *x*)
-Returns sqrt(x).
-      Results are undefined if x .
-
-genFType **inversesqrt**(genFType *x*)
-
-  genDType **inversesqrt**(genDType *x*)
-Returns 1 / sqrt(x).
-      Results are undefined if x ≤ 0.
+  genDType **inversesqrt**(genDType *x*) | Returns 1 / sqrt(x).
+      Results are undefined if x ≤ 0. |
 
 These all operate component-wise.
 The description is per component.
 
-Syntax
-Description
-
-genFType **abs**(genFType *x*)
+| Syntax | Description |
+| --- | --- |
+| genFType **abs**(genFType *x*)
 
   genIType **abs**(genIType *x*)
 
-  genDType **abs**(genDType *x*)
-Returns *x* if x ≥ 0; otherwise it returns -*x*.
-
-genFType **sign**(genFType *x*)
+  genDType **abs**(genDType *x*) | Returns *x* if x ≥ 0; otherwise it returns -*x*. |
+| genFType **sign**(genFType *x*)
 
   genIType **sign**(genIType *x*)
 
-  genDType **sign**(genDType *x*)
-Returns 1.0 if *x* > 0, 0.0 if *x* = 0, or -1.0 if *x* 
+  genDType **sign**(genDType *x*) | Returns 1.0 if *x* > 0, 0.0 if *x* = 0, or -1.0 if *x* |
+| genFType **floor**(genFType *x*)
 
-genFType **floor**(genFType *x*)
+  genDType **floor**(genDType *x*) | Returns a value equal to the nearest integer that is less than or
+      equal to *x*. |
+| genFType **trunc**(genFType *x*)
 
-  genDType **floor**(genDType *x*)
-Returns a value equal to the nearest integer that is less than or
-      equal to *x*.
+  genDType **trunc**(genDType *x*) | Returns a value equal to the nearest integer to *x* whose absolute
+      value is not larger than the absolute value of *x*. |
+| genFType **round**(genFType *x*)
 
-genFType **trunc**(genFType *x*)
-
-  genDType **trunc**(genDType *x*)
-Returns a value equal to the nearest integer to *x* whose absolute
-      value is not larger than the absolute value of *x*.
-
-genFType **round**(genFType *x*)
-
-  genDType **round**(genDType *x*)
-Returns a value equal to the nearest integer to *x*.
+  genDType **round**(genDType *x*) | Returns a value equal to the nearest integer to *x*.
       The fraction 0.5 will round in a direction chosen by the
       implementation, presumably the direction that is fastest.
       This includes the possibility that **round**(*x*) returns the same value
-      as **roundEven**(*x*) for all values of *x*.
+      as **roundEven**(*x*) for all values of *x*. |
+| genFType **roundEven**(genFType *x*)
 
-genFType **roundEven**(genFType *x*)
-
-  genDType **roundEven**(genDType *x*)
-Returns a value equal to the nearest integer to *x*.
+  genDType **roundEven**(genDType *x*) | Returns a value equal to the nearest integer to *x*.
       A fractional part of 0.5 will round toward the nearest even integer.
-      (Both 3.5 and 4.5 for x will return 4.0.)
+      (Both 3.5 and 4.5 for x will return 4.0.) |
+| genFType **ceil**(genFType *x*)
 
-genFType **ceil**(genFType *x*)
+  genDType **ceil**(genDType *x*) | Returns a value equal to the nearest integer that is greater than or
+      equal to *x*. |
+| genFType **fract**(genFType *x*)
 
-  genDType **ceil**(genDType *x*)
-Returns a value equal to the nearest integer that is greater than or
-      equal to *x*.
-
-genFType **fract**(genFType *x*)
-
-  genDType **fract**(genDType *x*)
-
-Returns *x* - **floor**(*x*).
-
-genFType **mod**(genFType *x*, float *y*)
+  genDType **fract**(genDType *x*) | Returns *x* - **floor**(*x*). |
+| genFType **mod**(genFType *x*, float *y*)
 
   genFType **mod**(genFType *x*, genFType *y*)
 
   genDType **mod**(genDType *x*, double *y*)
 
-  genDType **mod**(genDType *x*, genDType *y*)
-
-Modulus.
+  genDType **mod**(genDType *x*, genDType *y*) | Modulus.
       Returns x - y ⋅ **floor**(x / y).
       Note that implementations may use a cheap approximation to the remainder,
       and the error can be large due to the discontinuity in **floor**. This can
       produce mathematically unexpected results in some cases, such as
       **mod**(*x*,*x*) computing *x* rather than 0, and can also cause the result
-      to have a different sign than the infinitely precise result.
+      to have a different sign than the infinitely precise result. |
+| genFType **modf**(genFType *x*, out genFType *i*)
 
-genFType **modf**(genFType *x*, out genFType *i*)
-
-  genDType **modf**(genDType *x*, out genDType *i*)
-Returns the fractional part of *x* and sets *i* to the integer part (as
+  genDType **modf**(genDType *x*, out genDType *i*) | Returns the fractional part of *x* and sets *i* to the integer part (as
       a whole number floating-point value).
       Both the return value and the output parameter will have the same sign
-      as *x*.
-
-genFType **min**(genFType *x*, genFType *y*)
+      as *x*. |
+| genFType **min**(genFType *x*, genFType *y*)
 
   genFType **min**(genFType *x*, float *y*)
 
@@ -377,10 +310,8 @@ genFType **min**(genFType *x*, genFType *y*)
 
   genUType **min**(genUType *x*, genUType *y*)
 
-  genUType **min**(genUType *x*, uint *y*)
-Returns *y* if *y* 
-
-genFType **max**(genFType *x*, genFType *y*)
+  genUType **min**(genUType *x*, uint *y*) | Returns *y* if *y* |
+| genFType **max**(genFType *x*, genFType *y*)
 
   genFType **max**(genFType *x*, float *y*)
 
@@ -394,10 +325,8 @@ genFType **max**(genFType *x*, genFType *y*)
 
   genUType **max**(genUType *x*, genUType *y*)
 
-  genUType **max**(genUType *x*, uint *y*)
-Returns *y* if *x* 
-
-genFType **clamp**(genFType *x*, genFType *minVal*, genFType *maxVal*)
+  genUType **max**(genUType *x*, uint *y*) | Returns *y* if *x* |
+| genFType **clamp**(genFType *x*, genFType *minVal*, genFType *maxVal*)
 
   genFType **clamp**(genFType *x*, float *minVal*, float *maxVal*)
 
@@ -411,22 +340,17 @@ genFType **clamp**(genFType *x*, genFType *minVal*, genFType *maxVal*)
 
   genUType **clamp**(genUType *x*, genUType *minVal*, genUType *maxVal*)
 
-  genUType **clamp**(genUType *x*, uint *minVal*, uint *maxVal*)
-Returns **min**(**max**(*x*, *minVal*), *maxVal*).
-      Results are undefined if *minVal* > *maxVal*.
-
-genFType **mix**(genFType *x*, genFType *y*, genFType *a*)
+  genUType **clamp**(genUType *x*, uint *minVal*, uint *maxVal*) | Returns **min**(**max**(*x*, *minVal*), *maxVal*).
+      Results are undefined if *minVal* > *maxVal*. |
+| genFType **mix**(genFType *x*, genFType *y*, genFType *a*)
 
   genFType **mix**(genFType *x*, genFType *y*, float *a*)
 
   genDType **mix**(genDType *x*, genDType *y*, genDType *a*)
 
-  genDType **mix**(genDType *x*, genDType *y*, double *a*)
-
-Returns the linear blend of *x* and *y*, i.e.,
-      x ⋅ (1 - a) + y ⋅ a.
-
-genFType **mix**(genFType *x*, genFType *y*,  genBType *a*)
+  genDType **mix**(genDType *x*, genDType *y*, double *a*) | Returns the linear blend of *x* and *y*, i.e.,
+      x ⋅ (1 - a) + y ⋅ a. |
+| genFType **mix**(genFType *x*, genFType *y*,  genBType *a*)
 
   genDType **mix**(genDType *x*, genDType *y*, genBType *a*)
 
@@ -434,8 +358,7 @@ genFType **mix**(genFType *x*, genFType *y*,  genBType *a*)
 
   genUType **mix**(genUType *x*, genUType *y*, genBType *a*)
 
-  genBType **mix**(genBType *x*, genBType *y*, genBType *a*)
-Selects which vector each returned component comes from.
+  genBType **mix**(genBType *x*, genBType *y*, genBType *a*) | Selects which vector each returned component comes from.
       For a component of *a* that is **false**, the corresponding component of
       *x* is returned.
       For a component of *a* that is **true**, the corresponding component of
@@ -446,26 +369,21 @@ Selects which vector each returned component comes from.
 
       genFType **mix**(genFType *x*, genFType *y*, genFType(*a*))
 
-      where *a* is a Boolean vector.
-
-genFType **step**(genFType *edge*, genFType *x*)
+      where *a* is a Boolean vector. |
+| genFType **step**(genFType *edge*, genFType *x*)
 
   genFType **step**(float *edge*, genFType *x*)
 
   genDType **step**(genDType *edge*, genDType *x*)
 
-  genDType **step**(double *edge*, genDType *x*)
-Returns 0.0 if *x* 
-
-genFType **smoothstep**(genFType *edge0*, genFType *edge1*, genFType *x*)
+  genDType **step**(double *edge*, genDType *x*) | Returns 0.0 if *x* |
+| genFType **smoothstep**(genFType *edge0*, genFType *edge1*, genFType *x*)
 
   genFType **smoothstep**(float *edge0*, float *edge1*, genFType *x*)
 
   genDType **smoothstep**(genDType *edge0*, genDType *edge1*, genDType *x*)
 
-  genDType **smoothstep**(double *edge0*, double *edge1*, genDType *x*)
-
-Returns 0.0 if x ≤ edge0 and 1.0 if x ≥ edge1, and
+  genDType **smoothstep**(double *edge0*, double *edge1*, genDType *x*) | Returns 0.0 if x ≤ edge0 and 1.0 if x ≥ edge1, and
       performs smooth Hermite interpolation between 0 and 1 when edge0
       .
       This is useful in cases where you would want a threshold function with
@@ -477,44 +395,33 @@ t = clamp ((x - edge0) / (edge1 - edge0), 0, 1);
 return t * t * (3 - 2 * t);
 
 (And similarly for doubles.) Results are undefined if edge0 ≥
-edge1.
+edge1. |
+| genBType **isnan**(genFType *x*)
 
-genBType **isnan**(genFType *x*)
-
-  genBType **isnan**(genDType *x*)
-Returns **true** if *x* holds a NaN.
+  genBType **isnan**(genDType *x*) | Returns **true** if *x* holds a NaN.
       Returns **false** otherwise.
-      Always returns **false** if NaNs are not implemented.
+      Always returns **false** if NaNs are not implemented. |
+| genBType **isinf**(genFType *x*)
 
-genBType **isinf**(genFType *x*)
+  genBType **isinf**(genDType *x*) | Returns **true** if *x* holds a positive infinity or negative infinity.
+      Returns **false** otherwise. |
+| genIType **floatBitsToInt**(highp genFType *value*)
 
-  genBType **isinf**(genDType *x*)
-Returns **true** if *x* holds a positive infinity or negative infinity.
-      Returns **false** otherwise.
-
-genIType **floatBitsToInt**(highp genFType *value*)
-
-  genUType **floatBitsToUint**(highp genFType *value*)
-Returns a signed or unsigned integer value representing the encoding
+  genUType **floatBitsToUint**(highp genFType *value*) | Returns a signed or unsigned integer value representing the encoding
       of a floating-point value.
-      The **float** value’s bit-level representation is preserved.
+      The **float** value’s bit-level representation is preserved. |
+| genFType **intBitsToFloat**(highp genIType *value*)
 
-genFType **intBitsToFloat**(highp genIType *value*)
-
-  genFType **uintBitsToFloat**(highp genUType *value*)
-Returns a floating-point value corresponding to a signed or unsigned
+  genFType **uintBitsToFloat**(highp genUType *value*) | Returns a floating-point value corresponding to a signed or unsigned
       integer encoding of a floating-point value.
       If a NaN is passed in, it will not signal, and the resulting value is
       unspecified.
       If an Inf is passed in, the resulting value is the corresponding Inf.
       If a subnormal number is passed in, the result might be flushed to 0.
-      Otherwise, the bit-level representation is preserved.
+      Otherwise, the bit-level representation is preserved. |
+| genFType **fma**(genFType *a*, genFType *b*, genFType *c*)
 
-genFType **fma**(genFType *a*, genFType *b*, genFType *c*)
-
-  genDType **fma**(genDType *a*, genDType *b*, genDType *c*)
-
-Computes and returns `a * b + c`.
+  genDType **fma**(genDType *a*, genDType *b*, genDType *c*) | Computes and returns `a * b + c`.
       In uses where the return value is eventually consumed by a variable
       declared as **precise**:
 
@@ -534,12 +441,9 @@ input values of *a*, *b*, and *c*.
 
 Otherwise, in the absence of **precise** consumption, there are no special
 constraints on the number of operations or difference in precision between
-**fma**() and the expression `a * b + c`.
-
-genFType **frexp**(highp genFType *x*, out highp genIType *exp*)
-  genDType **frexp**(genDType *x*, out genIType *exp*)
-
-Splits *x* into a floating-point significand in the range
+**fma**() and the expression `a * b + c`. |
+| genFType **frexp**(highp genFType *x*, out highp genIType *exp*)
+  genDType **frexp**(genDType *x*, out genIType *exp*) | Splits *x* into a floating-point significand in the range
       [0.5,1.0], and an integral exponent of two, such that
       x = significand ⋅ 2exponent
       The significand is returned by the function and the exponent is
@@ -553,12 +457,10 @@ Splits *x* into a floating-point significand in the range
       If the input *x* is a vector, this operation is performed in a
       component-wise manner; the value returned by the function and the
       value written to *exp* are vectors with the same number of components
-      as *x*.
+      as *x*. |
+| genFType **ldexp**(highp genFType *x*, highp genIType *exp*)
 
-genFType **ldexp**(highp genFType *x*, highp genIType *exp*)
-
-  genDType **ldexp**(genDType *x*, genIType *exp*)
-Builds a floating-point number from *x* and the corresponding integral
+  genDType **ldexp**(genDType *x*, genIType *exp*) | Builds a floating-point number from *x* and the corresponding integral
       exponent of two in *exp*, returning:
       significand ⋅ 2exponent
       If this product is too large to be represented in the floating-point
@@ -574,22 +476,20 @@ Builds a floating-point number from *x* and the corresponding integral
 
       If the input *x* is a vector, this operation is performed in a
       component-wise manner; the value passed in *exp* and returned by the
-      function are vectors with the same number of components as *x*.
+      function are vectors with the same number of components as *x*. |
 
 These functions do not operate component-wise, rather, as described in each
 case.
 
-Syntax
-Description
-
-highp uint **packUnorm2x16**(vec2 *v*)
+| Syntax | Description |
+| --- | --- |
+| highp uint **packUnorm2x16**(vec2 *v*)
 
   highp uint **packSnorm2x16**(vec2 *v*)
 
    uint **packUnorm4x8**(vec4 *v*)
 
-   uint **packSnorm4x8**(vec4 *v*)
-First, converts each component of the normalized floating-point value
+   uint **packSnorm4x8**(vec4 *v*) | First, converts each component of the normalized floating-point value
       *v* into 16-bit (**2x16**) or 8-bit (**4x8**) integer values.
       Then, the results are packed into the returned 32-bit unsigned
       integer.
@@ -604,16 +504,14 @@ First, converts each component of the normalized floating-point value
       **packSnorm4x8**: **round**(**clamp**(*c*, -1, +1) * 127.0)
       The first component of the vector will be written to the least
       significant bits of the output; the last component will be written to
-      the most significant bits.
-
- vec2 **unpackUnorm2x16**(highp uint *p*)
+      the most significant bits. |
+| vec2 **unpackUnorm2x16**(highp uint *p*)
 
    vec2 **unpackSnorm2x16**(highp uint *p*)
 
    vec4 **unpackUnorm4x8**(highp uint *p*)
 
-   vec4 **unpackSnorm4x8**(highp uint *p*)
-First, unpacks a single 32-bit unsigned integer *p* into a pair of
+   vec4 **unpackSnorm4x8**(highp uint *p*) | First, unpacks a single 32-bit unsigned integer *p* into a pair of
       16-bit unsigned integers, a pair of 16-bit signed integers, four 8-bit
       unsigned integers, or four 8-bit signed integers, respectively.
       Then, each component is converted to a normalized floating-point value
@@ -629,88 +527,64 @@ First, unpacks a single 32-bit unsigned integer *p* into a pair of
       **unpackSnorm4x8**: **clamp**(*f* / 127.0, -1, +1)
       The first component of the returned vector will be extracted from the
       least significant bits of the input; the last component will be
-      extracted from the most significant bits.
-
- uint **packHalf2x16**( vec2 *v*)
-Returns an unsigned integer obtained by converting the components of a
+      extracted from the most significant bits. |
+| uint **packHalf2x16**( vec2 *v*) | Returns an unsigned integer obtained by converting the components of a
       two-component floating-point vector to the 16-bit floating-point
       representation of the [API](references.html#references), and
       then packing these two 16-bit integers into a 32-bit unsigned integer.
       The first vector component specifies the 16 least-significant bits of
       the result; the second component specifies the 16 most-significant
-      bits.
-
- vec2 **unpackHalf2x16**( uint *v*)
-Returns a two-component floating-point vector with components obtained
+      bits. |
+| vec2 **unpackHalf2x16**( uint *v*) | Returns a two-component floating-point vector with components obtained
       by unpacking a 32-bit unsigned integer into a pair of 16-bit values,
       interpreting those values as 16-bit floating-point numbers according
       to the [API](references.html#references), and converting them to
       32-bit floating-point values.
       The first component of the vector is obtained from the 16
       least-significant bits of *v*; the second component is obtained from
-      the 16 most-significant bits of *v*.
-
-double **packDouble2x32**(uvec2 *v*)
-
-Returns a double-precision value obtained by packing the components of
+      the 16 most-significant bits of *v*. |
+| double **packDouble2x32**(uvec2 *v*) | Returns a double-precision value obtained by packing the components of
       *v* into a 64-bit value.
       If an IEEE 754 Inf or NaN is created, it will not signal, and the
       resulting floating-point value is unspecified.
       Otherwise, the bit-level representation of *v* is preserved.
       The first vector component specifies the 32 least significant bits;
-      the second component specifies the 32 most significant bits.
-
-uvec2 **unpackDouble2x32**(double *v*)
-Returns a two-component unsigned integer vector representation of *v*.
+      the second component specifies the 32 most significant bits. |
+| uvec2 **unpackDouble2x32**(double *v*) | Returns a two-component unsigned integer vector representation of *v*.
       The bit-level representation of *v* is preserved.
       The first component of the vector contains the 32 least significant
       bits of the double; the second component consists of the 32 most
-      significant bits.
+      significant bits. |
 
 These operate on vectors as vectors, not component-wise.
 
-Syntax
-Description
+| Syntax | Description |
+| --- | --- |
+| float **length**(genFType *x*)
 
-float **length**(genFType *x*)
+  double **length**(genDType *x*) | Returns the length of vector *x*, i.e.,
+      sqrt( x02 + x12 + …​ ). |
+| float **distance**(genFType *p0*, genFType *p1*)
 
-  double **length**(genDType *x*)
+  double **distance**(genDType *p0*, genDType *p1*) | Returns the distance between *p0* and *p1*, i.e.,
+      **length**(*p0* - *p1*) |
+| float **dot**(genFType *x*, genFType *y*)
 
-Returns the length of vector *x*, i.e.,
-      sqrt( x02 + x12 + …​ ).
+  double **dot**(genDType *x*, genDType *y*) | Returns the dot product of *x* and *y*, i.e.,
+      x0 ⋅ y0 + x1 ⋅ y1 + …​ |
+| vec3 **cross**(vec3 *x*, vec3 *y*)
 
-float **distance**(genFType *p0*, genFType *p1*)
-
-  double **distance**(genDType *p0*, genDType *p1*)
-Returns the distance between *p0* and *p1*, i.e.,
-      **length**(*p0* - *p1*)
-
-float **dot**(genFType *x*, genFType *y*)
-
-  double **dot**(genDType *x*, genDType *y*)
-Returns the dot product of *x* and *y*, i.e.,
-      x0 ⋅ y0 + x1 ⋅ y1 + …​
-
-vec3 **cross**(vec3 *x*, vec3 *y*)
-
-  dvec3 **cross**(dvec3 *x*, dvec3 *y*)
-
-Returns the cross product of *x* and *y*, i.e.,
+  dvec3 **cross**(dvec3 *x*, dvec3 *y*) | Returns the cross product of *x* and *y*, i.e.,
       (x1 ⋅ y2 - y1 ⋅ x2,
             x2 ⋅ y0 - y2 ⋅ x0,
-            x0 ⋅ y1 - y0 ⋅ x1).
+            x0 ⋅ y1 - y0 ⋅ x1). |
+| genFType **normalize**(genFType *x*)
 
-genFType **normalize**(genFType *x*)
+  genDType **normalize**(genDType *x*) | Returns a vector in the same direction as *x* but with a length of 1,
+      i.e. *x* / **length**(x). |
+| compatibility profile only
 
-  genDType **normalize**(genDType *x*)
-Returns a vector in the same direction as *x* but with a length of 1,
-      i.e. *x* / **length**(x).
-
-compatibility profile only
-
-  vec4 **ftransform**()
-
-Available only when using the compatibility profile.
+  vec4 **ftransform**() | Available only when using the compatibility profile.
       For core OpenGL, use **invariant**.
 
       For vertex shaders only.
@@ -723,30 +597,23 @@ Available only when using the compatibility profile.
 
 This function should be used, for example, when an application is rendering
 the same geometry in separate passes, and one pass uses the fixed
-functionality path to render and another pass uses programmable shaders.
+functionality path to render and another pass uses programmable shaders. |
+| genFType **faceforward**(genFType *N*, genFType *I*, genFType *Nref*)
 
-genFType **faceforward**(genFType *N*, genFType *I*, genFType *Nref*)
+  genDType **faceforward**(genDType *N*, genDType *I*, genDType *Nref*) | If **dot**(*Nref*, *I*) |
+| genFType **reflect**(genFType *I*, genFType *N*)
 
-  genDType **faceforward**(genDType *N*, genDType *I*, genDType *Nref*)
-If **dot**(*Nref*, *I*) 
-
-genFType **reflect**(genFType *I*, genFType *N*)
-
-  genDType **reflect**(genDType *I*, genDType *N*)
-For the incident vector *I* and surface orientation *N*, returns the
+  genDType **reflect**(genDType *I*, genDType *N*) | For the incident vector *I* and surface orientation *N*, returns the
       reflection direction: I - 2 ⋅ **dot**(N, I) ⋅ N.
-      *N* must already be normalized in order to achieve the desired result.
+      *N* must already be normalized in order to achieve the desired result. |
+| genFType **refract**(genFType *I*, genFType *N*, float *eta*)
 
-genFType **refract**(genFType *I*, genFType *N*, float *eta*)
-
-  genDType **refract**(genDType *I*, genDType *N*, double *eta*)
-
-For the incident vector *I* and surface normal *N*, and the ratio of
+  genDType **refract**(genDType *I*, genDType *N*, double *eta*) | For the incident vector *I* and surface normal *N*, and the ratio of
       indices of refraction *eta*, return the refraction vector.
       The result is computed by the [refraction      equation](#refraction-equation) shown below.
 
 The input parameters for the incident vector _I_ and the surface
-normal _N_ must already be normalized to get the desired results.
+normal _N_ must already be normalized to get the desired results. |
 
   
 
@@ -762,17 +629,14 @@ values are single precision, and a double-precision floating-point version,
 where all arguments and return values are double precision.
 Only the single-precision floating-point version is shown.
 
-Syntax
-Description
-
-mat **matrixCompMult**(mat *x*, mat *y*)
-Multiply matrix *x* by matrix *y* component-wise, i.e., result[i][j]
+| Syntax | Description |
+| --- | --- |
+| mat **matrixCompMult**(mat *x*, mat *y*) | Multiply matrix *x* by matrix *y* component-wise, i.e., result[i][j]
       is the scalar product of *x*[i][j] and *y*[i][j].
 
       Note: to get linear algebraic matrix multiplication, use the multiply
-      operator (*****).
-
-mat2 **outerProduct**(vec2 *c*, vec2 *r*)
+      operator (*****). |
+| mat2 **outerProduct**(vec2 *c*, vec2 *r*)
 
   mat3 **outerProduct**(vec3 *c*, vec3 *r*)
 
@@ -788,14 +652,12 @@ mat2 **outerProduct**(vec2 *c*, vec2 *r*)
 
   mat3x4 **outerProduct**(vec4 *c*, vec3 *r*)
 
-  mat4x3 **outerProduct**(vec3 *c*, vec4 *r*)
-Treats the first parameter *c* as a column vector (matrix with one
+  mat4x3 **outerProduct**(vec3 *c*, vec4 *r*) | Treats the first parameter *c* as a column vector (matrix with one
       column) and the second parameter *r* as a row vector (matrix with one
       row) and does a linear algebraic matrix multiply *c* * *r*, yielding a
       matrix whose number of rows is the number of components in *c* and
-      whose number of columns is the number of components in *r*.
-
-mat2 **transpose**(mat2 *m*)
+      whose number of columns is the number of components in *r*. |
+| mat2 **transpose**(mat2 *m*)
 
   mat3 **transpose**(mat3 *m*)
 
@@ -811,107 +673,76 @@ mat2 **transpose**(mat2 *m*)
 
   mat3x4 **transpose**(mat4x3 *m*)
 
-  mat4x3 **transpose**(mat3x4 *m*)
-Returns a matrix that is the transpose of *m*.
-      The input matrix *m* is not modified.
-
-float **determinant**(mat2 *m*)
+  mat4x3 **transpose**(mat3x4 *m*) | Returns a matrix that is the transpose of *m*.
+      The input matrix *m* is not modified. |
+| float **determinant**(mat2 *m*)
 
   float **determinant**(mat3 *m*)
 
-  float **determinant**(mat4 *m*)
-Returns the determinant of *m*.
-
-mat2 **inverse**(mat2 *m*)
+  float **determinant**(mat4 *m*) | Returns the determinant of *m*. |
+| mat2 **inverse**(mat2 *m*)
 
   mat3 **inverse**(mat3 *m*)
 
-  mat4 **inverse**(mat4 *m*)
-Returns a matrix that is the inverse of *m*.
+  mat4 **inverse**(mat4 *m*) | Returns a matrix that is the inverse of *m*.
       The input matrix *m* is not modified.
       The values in the returned matrix are undefined if *m* is singular or
-      poorly-conditioned (nearly singular).
+      poorly-conditioned (nearly singular). |
 
 Relational and equality operators (****, **>=**, **==**, **!=**) are
 defined to operate on scalars and produce scalar Boolean results.
 For vector results, use the following built-in functions.
 Below, the following placeholders are used for the listed specific types:
 
-Placeholder
-Specific Types Allowed
-
-bvec
-bvec2, bvec3, bvec4
-
-ivec
-ivec2, ivec3, ivec4
-
-uvec
-uvec2, uvec3, uvec4
-
-vec
-vec2, vec3, vec4, dvec2, dvec3, dvec4
+| Placeholder | Specific Types Allowed |
+| --- | --- |
+| bvec | bvec2, bvec3, bvec4 |
+| ivec | ivec2, ivec3, ivec4 |
+| uvec | uvec2, uvec3, uvec4 |
+| vec | vec2, vec3, vec4, dvec2, dvec3, dvec4 |
 
 In all cases, the sizes of all the input and return vectors for any
 particular call must match.
 
-Syntax
-Description
-
-bvec **lessThan**(vec x, vec y)
+| Syntax | Description |
+| --- | --- |
+| bvec **lessThan**(vec x, vec y)
 
   bvec **lessThan**(ivec x, ivec y)
 
-  bvec **lessThan**(uvec x, uvec y)
-Returns the component-wise compare of x .
-
-bvec **lessThanEqual**(vec x, vec y)
+  bvec **lessThan**(uvec x, uvec y) | Returns the component-wise compare of x . |
+| bvec **lessThanEqual**(vec x, vec y)
 
   bvec **lessThanEqual**(ivec x, ivec y)
 
-  bvec **lessThanEqual**(uvec x, uvec y)
-Returns the component-wise compare of x ≤ y.
-
-bvec **greaterThan**(vec x, vec y)
+  bvec **lessThanEqual**(uvec x, uvec y) | Returns the component-wise compare of x ≤ y. |
+| bvec **greaterThan**(vec x, vec y)
 
   bvec **greaterThan**(ivec x, ivec y)
 
-  bvec **greaterThan**(uvec x, uvec y)
-Returns the component-wise compare of x > y.
-
-bvec **greaterThanEqual**(vec x, vec y)
+  bvec **greaterThan**(uvec x, uvec y) | Returns the component-wise compare of x > y. |
+| bvec **greaterThanEqual**(vec x, vec y)
 
   bvec **greaterThanEqual**(ivec x, ivec y)
 
-  bvec **greaterThanEqual**(uvec x, uvec y)
-Returns the component-wise compare of x ≥ y.
-
-bvec **equal**(vec x, vec y)
+  bvec **greaterThanEqual**(uvec x, uvec y) | Returns the component-wise compare of x ≥ y. |
+| bvec **equal**(vec x, vec y)
 
   bvec **equal**(ivec x, ivec y)
 
   bvec **equal**(uvec x, uvec y)
 
-  bvec **equal**(bvec x, bvec y)
-Returns the component-wise compare of x == y.
-
-bvec **notEqual**(vec x, vec y)
+  bvec **equal**(bvec x, bvec y) | Returns the component-wise compare of x == y. |
+| bvec **notEqual**(vec x, vec y)
 
   bvec **notEqual**(ivec x, ivec y)
 
   bvec **notEqual**(uvec x, uvec y)
 
-  bvec **notEqual**(bvec x, bvec y)
-Returns the component-wise compare of x ≠ y.
-
-bool **any**(bvec x)
-Returns **true** if any component of *x* is **true**.
-
-bool **all**(bvec x)
-Returns **true** only if all components of *x* are **true**.
-
-bvec **not**(bvec x)
-Returns the component-wise logical complement of *x*.
+  bvec **notEqual**(bvec x, bvec y) | Returns the component-wise compare of x ≠ y. |
+| bool **any**(bvec x) | Returns **true** if any component of *x* is **true**. |
+| bool **all**(bvec x) | Returns **true** only if all components of *x* are **true**. |
+| bvec **not**(bvec x) | Returns the component-wise logical complement of *x*. |
 
 These all operate component-wise.
 The description is per component.
@@ -921,33 +752,25 @@ The lowest-order bit is bit 0.
 “Bit number” will always refer to counting up from the lowest-order bit as
 bit 0.
 
-Syntax
-Description
-
-genUType **uaddCarry**(highp genUType *x*, highp genUType *y*, out lowp genUType *carry*)
-Adds 32-bit unsigned integers *x* and *y*, returning the sum modulo
+| Syntax | Description |
+| --- | --- |
+| genUType **uaddCarry**(highp genUType *x*, highp genUType *y*, out lowp genUType *carry*) | Adds 32-bit unsigned integers *x* and *y*, returning the sum modulo
       232.
       The value *carry* is set to zero if the sum was less than 232, or
-      one otherwise.
-
-genUType **usubBorrow**(highp genUType *x*, highp genUType *y*, out lowp genUType *borrow*)
-Subtracts the 32-bit unsigned integer *y* from *x*, returning the
+      one otherwise. |
+| genUType **usubBorrow**(highp genUType *x*, highp genUType *y*, out lowp genUType *borrow*) | Subtracts the 32-bit unsigned integer *y* from *x*, returning the
       difference if non-negative, or 232 plus the difference otherwise.
       The value *borrow* is set to zero if x ≥ y, or one
-      otherwise.
+      otherwise. |
+| void **umulExtended**(highp genUType *x*, highp genUType *y*, out highp genUType *msb*, out highp genUType *lsb*)
 
-void **umulExtended**(highp genUType *x*, highp genUType *y*, out highp genUType *msb*, out highp genUType *lsb*)
-
-  void **imulExtended**(highp genIType *x*, highp genIType *y*, out highp genIType *msb*, out highp genIType *lsb*)
-Multiplies 32-bit unsigned or signed integers *x* and *y*, producing a
+  void **imulExtended**(highp genIType *x*, highp genIType *y*, out highp genIType *msb*, out highp genIType *lsb*) | Multiplies 32-bit unsigned or signed integers *x* and *y*, producing a
       64-bit result.
       The 32 least-significant bits are returned in *lsb*.
-      The 32 most-significant bits are returned in *msb*.
+      The 32 most-significant bits are returned in *msb*. |
+| genIType **bitfieldExtract**(genIType *value*, int *offset*, int *bits*)
 
-genIType **bitfieldExtract**(genIType *value*, int *offset*, int *bits*)
-
-  genUType **bitfieldExtract**(genUType *value*, int *offset*, int *bits*)
-Extracts bits [offset, offset + bits - 1] from *value*,
+  genUType **bitfieldExtract**(genUType *value*, int *offset*, int *bits*) | Extracts bits [offset, offset + bits - 1] from *value*,
       returning them in the least significant bits of the result.
 
       For unsigned data types, the most significant bits of the result will
@@ -960,12 +783,10 @@ Extracts bits [offset, offset + bits - 1] from *value*,
       the sum of *offset* and *bits* is greater than the number of bits used
       to store the operand.
       Note that for vector versions of **bitfieldExtract**(), a single pair of
-      *offset* and *bits* values is shared for all components.
+      *offset* and *bits* values is shared for all components. |
+| genIType **bitfieldInsert**(genIType *base*, genIType *insert*, int *offset*, int *bits*)
 
-genIType **bitfieldInsert**(genIType *base*, genIType *insert*, int *offset*, int *bits*)
-
-  genUType **bitfieldInsert**(genUType *base*, genUType *insert*, int *offset*, int *bits*)
-Inserts the *bits* least significant bits of *insert* into *base*.
+  genUType **bitfieldInsert**(genUType *base*, genUType *insert*, int *offset*, int *bits*) | Inserts the *bits* least significant bits of *insert* into *base*.
       The result will have bits [offset, offset + bits - 1] taken from
       bits [0, bits - 1] of *insert*, and all other bits taken
       directly from the corresponding bits of *base*.
@@ -975,39 +796,31 @@ Inserts the *bits* least significant bits of *insert* into *base*.
       to store the operand.
 
       Note that for vector versions of **bitfieldInsert**(), a single pair of
-      *offset* and *bits* values is shared for all components.
+      *offset* and *bits* values is shared for all components. |
+| genIType **bitfieldReverse**(highp genIType *value*)
 
-genIType **bitfieldReverse**(highp genIType *value*)
-
-  genUType **bitfieldReverse**(highp genUType *value*)
-Reverses the bits of *value*.
+  genUType **bitfieldReverse**(highp genUType *value*) | Reverses the bits of *value*.
       The bit numbered *n* of the result will be taken from bit (bits -
       1) - n of *value*, where *bits* is the total number of bits used to
-      represent *value*.
+      represent *value*. |
+| genIType **bitCount**(genIType *value*)
 
- genIType **bitCount**(genIType *value*)
+   genIType **bitCount**(genUType *value*) | Returns the number of one bits in the binary representation of
+      *value*. |
+| genIType **findLSB**(genIType *value*)
 
-   genIType **bitCount**(genUType *value*)
-Returns the number of one bits in the binary representation of
-      *value*.
-
- genIType **findLSB**(genIType *value*)
-
-   genIType **findLSB**(genUType *value*)
-Returns the bit number of the least significant one bit in the binary
+   genIType **findLSB**(genUType *value*) | Returns the bit number of the least significant one bit in the binary
       representation of *value*.
-      If *value* is zero, -1 will be returned.
+      If *value* is zero, -1 will be returned. |
+| genIType **findMSB**(highp genIType *value*)
 
- genIType **findMSB**(highp genIType *value*)
-
-   genIType **findMSB**(highp genUType *value*)
-Returns the bit number of the most significant bit in the binary
+   genIType **findMSB**(highp genUType *value*) | Returns the bit number of the most significant bit in the binary
       representation of *value*.
       For positive integers, the result will be the bit number of the most
       significant one bit.
       For negative integers, the result will be the bit number of the most
       significant zero bit.
-      For a *value* of zero or negative one, -1 will be returned.
+      For a *value* of zero or negative one, -1 will be returned. |
 
 Texture lookup functions are available in all shading stages.
 However, level-of-detail is implicitly computed only for fragment shaders.
@@ -1042,24 +855,12 @@ format of the depth component should be used.
 When the depth/stencil texture mode is set to STENCIL_INDEX, the internal format
 of the stencil component should be used.
 
-Internal Texture Format
-Floating-Point Sampler Types
-Signed Integer Sampler Types
-Unsigned Integer Sampler Types
-
-Floating-point
-Supported
-
-Normalized Integer
-Supported
-
-Signed Integer
-
-Supported
-
-Unsigned Integer
-
-Supported
+| Internal Texture Format | Floating-Point Sampler Types | Signed Integer Sampler Types | Unsigned Integer Sampler Types |
+| --- | --- | --- | --- |
+| Floating-point | Supported |  |  |
+| Normalized Integer | Supported |  |  |
+| Signed Integer |  | Supported |  |
+| Unsigned Integer |  |  | Supported |
 
 If an integer sampler type is used, the result of a texture lookup is an
 **ivec4**.
@@ -1169,10 +970,9 @@ The value *maxAccessibleLevel* is the level number of the smallest
 accessible level of the mipmap array (the value *q* in section 8.14.3
 “Mipmapping” of the [OpenGL Specification](references.html#references)) minus the base level.
 
-Syntax
-Description
-
- int **textureSize**(gsampler1D *sampler*, int *lod*)
+| Syntax | Description |
+| --- | --- |
+| int **textureSize**(gsampler1D *sampler*, int *lod*)
 
    ivec2 **textureSize**(gsampler2D *sampler*, int *lod*)
 
@@ -1205,8 +1005,7 @@ Description
 
    ivec2 **textureSize**(gsampler2DMS *sampler*)
 
-   ivec3 **textureSize**(gsampler2DMSArray *sampler*)
-Returns the dimensions of level *lod* (if present) for the texture
+   ivec3 **textureSize**(gsampler2DMSArray *sampler*) | Returns the dimensions of level *lod* (if present) for the texture
       bound to *sampler*, as described in section
       11.1.3.4 “Texture Queries” of the [OpenGL Specification](references.html#references).
 
@@ -1214,9 +1013,8 @@ Returns the dimensions of level *lod* (if present) for the texture
       width, height, and depth of the texture.
       For the array forms, the last component of the return value is the
       number of layers in the texture array, or the number of cubes in the
-      texture cube map array.
-
-vec2 **textureQueryLod**(gsampler1D *sampler*, float *P*)
+      texture cube map array. |
+| vec2 **textureQueryLod**(gsampler1D *sampler*, float *P*)
 
   vec2 **textureQueryLod**(gsampler2D *sampler*, vec2 *P*)
 
@@ -1240,14 +1038,12 @@ vec2 **textureQueryLod**(gsampler1D *sampler*, float *P*)
 
   vec2 **textureQueryLod**(sampler2DArrayShadow *sampler*, vec2 *P*)
 
-  vec2 **textureQueryLod**(samplerCubeArrayShadow *sampler*, vec3 *P*)
-Returns the mipmap array(s) that would be accessed in the *x*
+  vec2 **textureQueryLod**(samplerCubeArrayShadow *sampler*, vec3 *P*) | Returns the mipmap array(s) that would be accessed in the *x*
       component of the return value.
       Returns the computed level-of-detail relative to the base level in the
       *y* component of the return value.
-      If called on an incomplete texture, the results are undefined.
-
-int **textureQueryLevels**(gsampler1D *sampler*)
+      If called on an incomplete texture, the results are undefined. |
+| int **textureQueryLevels**(gsampler1D *sampler*)
 
   int **textureQueryLevels**(gsampler2D *sampler*)
 
@@ -1271,22 +1067,18 @@ int **textureQueryLevels**(gsampler1D *sampler*)
 
   int **textureQueryLevels**(sampler2DArrayShadow *sampler*)
 
-  int **textureQueryLevels**(samplerCubeArrayShadow *sampler*)
-Returns the number of mipmap levels accessible in the texture
+  int **textureQueryLevels**(samplerCubeArrayShadow *sampler*) | Returns the number of mipmap levels accessible in the texture
       associated with *sampler*, as defined in the [OpenGL Specification.](references.html#references)
       The value zero will be returned if no texture or an incomplete texture
       is associated with *sampler*.
-      Available in all shader stages.
+      Available in all shader stages. |
+| int **textureSamples**(gsampler2DMS *sampler*)
 
-int **textureSamples**(gsampler2DMS *sampler*)
+  int **textureSamples**(gsampler2DMSArray *sampler*) | Returns the number of samples of the texture bound to *sampler*. |
 
-  int **textureSamples**(gsampler2DMSArray *sampler*)
-Returns the number of samples of the texture bound to *sampler*.
-
-Syntax
-Description
-
-gvec4 **texture**(gsampler1D *sampler*, float *P* [, float *bias*] )
+| Syntax | Description |
+| --- | --- |
+| gvec4 **texture**(gsampler1D *sampler*, float *P* [, float *bias*] )
 
   gvec4 **texture**(gsampler2D *sampler*, vec2 *P* [, float *bias*] )
 
@@ -1314,8 +1106,7 @@ gvec4 **texture**(gsampler1D *sampler*, float *P* [, float *bias*] )
 
   float **texture**(sampler2DRectShadow *sampler*, vec3 *P*)
 
-  float **texture**(samplerCubeArrayShadow *sampler*, vec4 *P*, float *compare*)
-Use the texture coordinate *P* to do a texture lookup in the texture
+  float **texture**(samplerCubeArrayShadow *sampler*, vec4 *P*, float *compare*) | Use the texture coordinate *P* to do a texture lookup in the texture
       currently bound to *sampler*.
       For shadow forms: When *compare* is present, it is used as *Dref*
       and the array layer comes from the last component of *P*.
@@ -1324,9 +1115,8 @@ Use the texture coordinate *P* to do a texture lookup in the texture
       of *P*.
       (The second component of *P* is unused for **1D** shadow lookups.)
       For non-shadow forms: the array layer comes from the last component of
-      *P*.
-
-gvec4 **textureProj**(gsampler1D *sampler*, vec2 *P* [, float *bias*] )
+      *P*. |
+| gvec4 **textureProj**(gsampler1D *sampler*, vec2 *P* [, float *bias*] )
 
   gvec4 **textureProj**(gsampler1D *sampler*, vec4 *P* [, float *bias*] )
 
@@ -1344,9 +1134,7 @@ gvec4 **textureProj**(gsampler1D *sampler*, vec2 *P* [, float *bias*] )
 
   gvec4 **textureProj**(gsampler2DRect *sampler*, vec4 *P*)
 
-  float **textureProj**(sampler2DRectShadow *sampler*, vec4 *P*)
-
-Do a texture lookup with projection.
+  float **textureProj**(sampler2DRectShadow *sampler*, vec4 *P*) | Do a texture lookup with projection.
       The texture coordinates consumed from *P*, not including the last
       component of *P*, are divided by the last component of *P* to
       form projected coordinates *P'*.
@@ -1355,9 +1143,8 @@ Do a texture lookup with projection.
       The third component of *P* is ignored when *sampler* has type
       **gsampler2D** and *P* has type **vec4**.
       After these values are computed, texture lookup proceeds as in
-      **texture**.
-
-gvec4 **textureLod**(gsampler1D *sampler*, float *P*, float *lod*)
+      **texture**. |
+| gvec4 **textureLod**(gsampler1D *sampler*, float *P*, float *lod*)
 
   gvec4 **textureLod**(gsampler2D *sampler*, vec2 *P*, float *lod*)
 
@@ -1375,9 +1162,7 @@ gvec4 **textureLod**(gsampler1D *sampler*, float *P*, float *lod*)
 
   gvec4 **textureLod**(gsampler2DArray *sampler*, vec3 *P*, float *lod*)
 
-  gvec4 **textureLod**(gsamplerCubeArray *sampler*, vec4 *P*, float *lod*)
-
-Do a texture lookup as in **texture** but with explicit level-of-detail;
+  gvec4 **textureLod**(gsamplerCubeArray *sampler*, vec4 *P*, float *lod*) | Do a texture lookup as in **texture** but with explicit level-of-detail;
       *lod* specifies λbase] and sets the partial derivatives
       as follows:
 
@@ -1393,9 +1178,8 @@ Do a texture lookup as in **texture** but with explicit level-of-detail;
 
       ∂u / ∂y =
            ∂v / ∂y =
-           ∂w / ∂y = 0
-
-gvec4 **textureOffset**(gsampler1D *sampler*, float *P*, int *offset* [, float *bias*] )
+           ∂w / ∂y = 0 |
+| gvec4 **textureOffset**(gsampler1D *sampler*, float *P*, int *offset* [, float *bias*] )
 
   gvec4 **textureOffset**(gsampler2D *sampler*, vec2 *P*, ivec2 *offset* [, float *bias*] )
 
@@ -1415,8 +1199,7 @@ gvec4 **textureOffset**(gsampler1D *sampler*, float *P*, int *offset* [, float *
 
   float **textureOffset**(sampler1DArrayShadow *sampler*, vec3 *P*, int *offset* [, float *bias*] )
 
-  float **textureOffset**(sampler2DArrayShadow *sampler*, vec4 *P*, ivec2 *offset*)
-Do a texture lookup as in **texture** but with *offset* added to the
+  float **textureOffset**(sampler2DArrayShadow *sampler*, vec4 *P*, ivec2 *offset*) | Do a texture lookup as in **texture** but with *offset* added to the
       (u,v,w) texel coordinates before looking up each texel.
       The offset value must be a constant expression.
       A limited range of offset values are supported; the minimum and
@@ -1429,9 +1212,8 @@ Do a texture lookup as in **texture** but with *offset* added to the
       and Texel Selection” of the [OpenGL Specification](references.html#references), where *offset*
       is (δu, δv, δw).
 
-      Note that texel offsets are also not supported for cube maps.
-
-gvec4 **texelFetch**(gsampler1D *sampler*, int *P*, int *lod*)
+      Note that texel offsets are also not supported for cube maps. |
+| gvec4 **texelFetch**(gsampler1D *sampler*, int *P*, int *lod*)
 
   gvec4 **texelFetch**(gsampler2D *sampler*, ivec2 *P*, int *lod*)
 
@@ -1446,16 +1228,14 @@ gvec4 **texelFetch**(gsampler1D *sampler*, int *P*, int *lod*)
 
   gvec4 **texelFetch**(gsampler2DMS *sampler*, ivec2 *P*, int *sample*)
 
-  gvec4 **texelFetch**(gsampler2DMSArray *sampler*, ivec3 *P*, int *sample*)
-Use integer texture coordinate *P* to lookup a single texel from
+  gvec4 **texelFetch**(gsampler2DMSArray *sampler*, ivec3 *P*, int *sample*) | Use integer texture coordinate *P* to lookup a single texel from
       *sampler*.
       The array layer comes from the last component of *P* for the array
       forms.
       The level-of-detail *lod* (if present) is as described in sections
       11.1.3.2 “Texel Fetches” and 8.14.1 “Scale Factor and Level of
-      Detail” of the [OpenGL Specification](references.html#references).
-
-gvec4 **texelFetchOffset**(gsampler1D *sampler*, int *P*, int *lod*, int *offset*)
+      Detail” of the [OpenGL Specification](references.html#references). |
+| gvec4 **texelFetchOffset**(gsampler1D *sampler*, int *P*, int *lod*, int *offset*)
 
   gvec4 **texelFetchOffset**(gsampler2D *sampler*, ivec2 *P*, int *lod*, ivec2 *offset*)
 
@@ -1465,11 +1245,9 @@ gvec4 **texelFetchOffset**(gsampler1D *sampler*, int *P*, int *lod*, int *offset
 
   gvec4 **texelFetchOffset**(gsampler1DArray *sampler*, ivec2 *P*, int *lod*, int *offset*)
 
-  gvec4 **texelFetchOffset**(gsampler2DArray *sampler*, ivec3 *P*, int *lod*, ivec2 *offset*)
-Fetch a single texel as in **texelFetch**, offset by *offset* as
-      described in **textureOffset**.
-
-gvec4 **textureProjOffset**(gsampler1D *sampler*, vec2 *P*, int *offset* [, float *bias*] )
+  gvec4 **texelFetchOffset**(gsampler2DArray *sampler*, ivec3 *P*, int *lod*, ivec2 *offset*) | Fetch a single texel as in **texelFetch**, offset by *offset* as
+      described in **textureOffset**. |
+| gvec4 **textureProjOffset**(gsampler1D *sampler*, vec2 *P*, int *offset* [, float *bias*] )
 
   gvec4 **textureProjOffset**(gsampler1D *sampler*, vec4 *P*, int *offset* [, float *bias*] )
 
@@ -1487,11 +1265,9 @@ gvec4 **textureProjOffset**(gsampler1D *sampler*, vec2 *P*, int *offset* [, floa
 
   float **textureProjOffset**(sampler1DShadow *sampler*, vec4 *P*, int *offset* [, float *bias*] )
 
-  float **textureProjOffset**(sampler2DShadow *sampler*, vec4 *P*, ivec2 *offset* [, float *bias*] )
-Do a projective texture lookup as described in **textureProj**, offset
-      by *offset* as described in **textureOffset**.
-
-gvec4 **textureLodOffset**(gsampler1D *sampler*, float *P*, float *lod*, int *offset*)
+  float **textureProjOffset**(sampler2DShadow *sampler*, vec4 *P*, ivec2 *offset* [, float *bias*] ) | Do a projective texture lookup as described in **textureProj**, offset
+      by *offset* as described in **textureOffset**. |
+| gvec4 **textureLodOffset**(gsampler1D *sampler*, float *P*, float *lod*, int *offset*)
 
   gvec4 **textureLodOffset**(gsampler2D *sampler*, vec2 *P*, float *lod*, ivec2 *offset*)
 
@@ -1505,11 +1281,9 @@ gvec4 **textureLodOffset**(gsampler1D *sampler*, float *P*, float *lod*, int *of
 
   gvec4 **textureLodOffset**(gsampler2DArray *sampler*, vec3 *P*, float *lod*, ivec2 *offset*)
 
-  float **textureLodOffset**(sampler1DArrayShadow *sampler*, vec3 *P*, float *lod*, int *offset*)
-Do an offset texture lookup with explicit level-of-detail.
-      See **textureLod** and **textureOffset**.
-
-gvec4 **textureProjLod**(gsampler1D *sampler*, vec2 *P*, float *lod*)
+  float **textureLodOffset**(sampler1DArrayShadow *sampler*, vec3 *P*, float *lod*, int *offset*) | Do an offset texture lookup with explicit level-of-detail.
+      See **textureLod** and **textureOffset**. |
+| gvec4 **textureProjLod**(gsampler1D *sampler*, vec2 *P*, float *lod*)
 
   gvec4 **textureProjLod**(gsampler1D *sampler*, vec4 *P*, float *lod*)
 
@@ -1521,11 +1295,9 @@ gvec4 **textureProjLod**(gsampler1D *sampler*, vec2 *P*, float *lod*)
 
   float **textureProjLod**(sampler1DShadow *sampler*, vec4 *P*, float *lod*)
 
-  float **textureProjLod**(sampler2DShadow *sampler*, vec4 *P*, float *lod*)
-Do a projective texture lookup with explicit level-of-detail.
-      See **textureProj** and **textureLod**.
-
-gvec4 **textureProjLodOffset**(gsampler1D *sampler*, vec2 *P*, float *lod*, int *offset*)
+  float **textureProjLod**(sampler2DShadow *sampler*, vec4 *P*, float *lod*) | Do a projective texture lookup with explicit level-of-detail.
+      See **textureProj** and **textureLod**. |
+| gvec4 **textureProjLodOffset**(gsampler1D *sampler*, vec2 *P*, float *lod*, int *offset*)
 
   gvec4 **textureProjLodOffset**(gsampler1D *sampler*, vec4 *P*, float *lod*, int *offset*)
 
@@ -1537,11 +1309,9 @@ gvec4 **textureProjLodOffset**(gsampler1D *sampler*, vec2 *P*, float *lod*, int 
 
   float **textureProjLodOffset**(sampler1DShadow *sampler*, vec4 *P*, float *lod*, int *offset*)
 
-  float **textureProjLodOffset**(sampler2DShadow *sampler*, vec4 *P*, float *lod*, ivec2 *offset*)
-Do an offset projective texture lookup with explicit level-of-detail.
-      See **textureProj**, **textureLod**, and **textureOffset**.
-
-gvec4 **textureGrad**(gsampler1D *sampler*, float *P*, float *dPdx*, float *dPdy*)
+  float **textureProjLodOffset**(sampler2DShadow *sampler*, vec4 *P*, float *lod*, ivec2 *offset*) | Do an offset projective texture lookup with explicit level-of-detail.
+      See **textureProj**, **textureLod**, and **textureOffset**. |
+| gvec4 **textureGrad**(gsampler1D *sampler*, float *P*, float *dPdx*, float *dPdy*)
 
   gvec4 **textureGrad**(gsampler2D *sampler*, vec2 *P*, vec2 *dPdx*, vec2 *dPdy*)
 
@@ -1567,16 +1337,13 @@ gvec4 **textureGrad**(gsampler1D *sampler*, float *P*, float *dPdx*, float *dPdy
 
   float **textureGrad**(sampler2DArrayShadow *sampler*, vec4 *P*, vec2 *dPdx*, vec2 *dPdy*)
 
-  gvec4 **textureGrad**(gsamplerCubeArray *sampler*, vec4 *P*, vec3 *dPdx*, vec3 *dPdy*)
-
-Do a texture lookup as in **texture** but with [      explicit gradients](#explicit-gradients) as shown below.
+  gvec4 **textureGrad**(gsamplerCubeArray *sampler*, vec4 *P*, vec3 *dPdx*, vec3 *dPdy*) | Do a texture lookup as in **texture** but with [      explicit gradients](#explicit-gradients) as shown below.
       The partial derivatives of *P* are with respect to window *x* and
       window *y*.
       For the cube version, the partial derivatives of *P* are assumed to be
       in the coordinate system used before texture coordinates are projected
-      onto the appropriate cube face.
-
-gvec4 **textureGradOffset**(gsampler1D *sampler*, float *P*, float *dPdx*, float *dPdy*, int *offset*)
+      onto the appropriate cube face. |
+| gvec4 **textureGradOffset**(gsampler1D *sampler*, float *P*, float *dPdx*, float *dPdy*, int *offset*)
 
   gvec4 **textureGradOffset**(gsampler2D *sampler*, vec2 *P*, vec2 *dPdx*, vec2 *dPdy*, ivec2 *offset*)
 
@@ -1596,12 +1363,9 @@ gvec4 **textureGradOffset**(gsampler1D *sampler*, float *P*, float *dPdx*, float
 
   float **textureGradOffset**(sampler1DArrayShadow *sampler*, vec3 *P*, float *dPdx*, float *dPdy*, int *offset*)
 
-  float **textureGradOffset**(sampler2DArrayShadow *sampler*, vec4 *P*, vec2 *dPdx*, vec2 *dPdy*, ivec2 *offset*)
-
-Do a texture lookup with both explicit gradient and offset, as
-      described in **textureGrad** and **textureOffset**.
-
-gvec4 **textureProjGrad**(gsampler1D *sampler*, vec2 *P*, float *dPdx*, float *dPdy*)
+  float **textureGradOffset**(sampler2DArrayShadow *sampler*, vec4 *P*, vec2 *dPdx*, vec2 *dPdy*, ivec2 *offset*) | Do a texture lookup with both explicit gradient and offset, as
+      described in **textureGrad** and **textureOffset**. |
+| gvec4 **textureProjGrad**(gsampler1D *sampler*, vec2 *P*, float *dPdx*, float *dPdy*)
 
   gvec4 **textureProjGrad**(gsampler1D *sampler*, vec4 *P*, float *dPdx*, float *dPdy*)
 
@@ -1619,13 +1383,11 @@ gvec4 **textureProjGrad**(gsampler1D *sampler*, vec2 *P*, float *dPdx*, float *d
 
   float **textureProjGrad**(sampler1DShadow *sampler*, vec4 *P*, float *dPdx*, float *dPdy*)
 
-  float **textureProjGrad**(sampler2DShadow *sampler*, vec4 *P*, vec2 *dPdx*, vec2 *dPdy*)
-Do a texture lookup both projectively, as described in **textureProj**,
+  float **textureProjGrad**(sampler2DShadow *sampler*, vec4 *P*, vec2 *dPdx*, vec2 *dPdy*) | Do a texture lookup both projectively, as described in **textureProj**,
       and with explicit gradient as described in **textureGrad**.
       The partial derivatives *dPdx* and *dPdy* are assumed to be already
-      projected.
-
-gvec4 **textureProjGradOffset**(gsampler1D *sampler*, vec2 *P*, float *dPdx*, float *dPdy*, int *offset*)
+      projected. |
+| gvec4 **textureProjGradOffset**(gsampler1D *sampler*, vec2 *P*, float *dPdx*, float *dPdy*, int *offset*)
 
   gvec4 **textureProjGradOffset**(gsampler1D *sampler*, vec4 *P*, float *dPdx*, float *dPdy*, int *offset*)
 
@@ -1643,10 +1405,9 @@ gvec4 **textureProjGradOffset**(gsampler1D *sampler*, vec2 *P*, float *dPdx*, fl
 
   float **textureProjGradOffset**(sampler1DShadow *sampler*, vec4 *P*, float *dPdx*, float *dPdy*, int *offset*)
 
-  float **textureProjGradOffset**(sampler2DShadow *sampler*, vec4 *P*, vec2 *dPdx*, vec2 *dPdy*, ivec2 *offset*)
-Do a texture lookup projectively and with explicit gradient as
+  float **textureProjGradOffset**(sampler2DShadow *sampler*, vec4 *P*, vec2 *dPdx*, vec2 *dPdy*, ivec2 *offset*) | Do a texture lookup projectively and with explicit gradient as
       described in **textureProjGrad**, as well as with offset, as described in
-      **textureOffset**.
+      **textureOffset**. |
 
 In the **textureGrad** functions described above, explicit gradients control
 texture lookups as follows:
@@ -1684,10 +1445,9 @@ undefined for shadow samplers if the texture referenced is not a depth
 texture or has depth comparisons disabled; or for non-shadow samplers if the
 texture referenced is a depth texture with depth comparisons enabled.
 
-Syntax
-Description
-
-gvec4 **textureGather**(gsampler2D *sampler*, vec2 *P* [, int *comp*])
+| Syntax | Description |
+| --- | --- |
+| gvec4 **textureGather**(gsampler2D *sampler*, vec2 *P* [, int *comp*])
 
   gvec4 **textureGather**(gsampler2DArray *sampler*, vec3 *P* [, int *comp*])
 
@@ -1705,9 +1465,7 @@ gvec4 **textureGather**(gsampler2D *sampler*, vec2 *P* [, int *comp*])
 
   vec4 **textureGather**(samplerCubeArrayShadow *sampler*, vec4 *P*, float *refZ*)
 
-  vec4 **textureGather**(sampler2DRectShadow *sampler*, vec2 *P*, float *refZ*)
-
-Returns the value
+  vec4 **textureGather**(sampler2DRectShadow *sampler*, vec2 *P*, float *refZ*) | Returns the value
 
 vec4(Sample_i0_j1(P, base).comp,
      Sample_i1_j1(P, base).comp,
@@ -1719,9 +1477,8 @@ a value of 0, 1, 2, or 3, identifying the *x*, *y*, *z*, or *w*
 post-swizzled component of the four-component vector lookup result for each
 texel, respectively.
 If *comp* is not specified, it is treated as 0, selecting the *x* component
-of each texel to generate the result.
-
-gvec4 **textureGatherOffset**(gsampler2D *sampler*, vec2 *P*, ivec2 *offset*, [ int *comp*])
+of each texel to generate the result. |
+| gvec4 **textureGatherOffset**(gsampler2D *sampler*, vec2 *P*, ivec2 *offset*, [ int *comp*])
 
   gvec4 **textureGatherOffset**(gsampler2DArray *sampler*, vec3 *P*, ivec2 *offset* [ int *comp*])
 
@@ -1731,14 +1488,12 @@ gvec4 **textureGatherOffset**(gsampler2D *sampler*, vec2 *P*, ivec2 *offset*, [ 
 
   gvec4 **textureGatherOffset**(gsampler2DRect *sampler*, vec2 *P*, ivec2 *offset* [ int *comp*])
 
-  vec4 **textureGatherOffset**(sampler2DRectShadow *sampler*, vec2 *P*, float *refZ*, ivec2 *offset*)
-Perform a texture gather operation as in **textureGather** by *offset*
+  vec4 **textureGatherOffset**(sampler2DRectShadow *sampler*, vec2 *P*, float *refZ*, ivec2 *offset*) | Perform a texture gather operation as in **textureGather** by *offset*
       as described in **textureOffset** except that the *offset* can be
       variable (non constant) and the implementation-dependent minimum and
       maximum offset values are given by MIN_PROGRAM_TEXTURE_GATHER_OFFSET
-      and MAX_PROGRAM_TEXTURE_GATHER_OFFSET, respectively.
-
-gvec4 **textureGatherOffsets**(gsampler2D *sampler*, vec2 *P*, ivec2 *offsets*[4] [, int *comp*])
+      and MAX_PROGRAM_TEXTURE_GATHER_OFFSET, respectively. |
+| gvec4 **textureGatherOffsets**(gsampler2D *sampler*, vec2 *P*, ivec2 *offsets*[4] [, int *comp*])
 
   gvec4 **textureGatherOffsets**(gsampler2DArray *sampler*, vec3 *P*, ivec2 *offsets*[4]   [, int *comp*])
 
@@ -1748,22 +1503,20 @@ gvec4 **textureGatherOffsets**(gsampler2D *sampler*, vec2 *P*, ivec2 *offsets*[4
 
   gvec4 **textureGatherOffsets**(gsampler2DRect *sampler*, vec2 *P*, ivec2 *offsets*[4] [, int *comp*])
 
-  vec4 **textureGatherOffsets**(sampler2DRectShadow *sampler*, vec2 *P*, float *refZ*, ivec2 *offsets*[4])
-Operate identically to **textureGatherOffset** except that *offsets* is
+  vec4 **textureGatherOffsets**(sampler2DRectShadow *sampler*, vec2 *P*, float *refZ*, ivec2 *offsets*[4]) | Operate identically to **textureGatherOffset** except that *offsets* is
       used to determine the location of the four texels to sample.
       Each of the four texels is obtained by applying the corresponding
       offset in *offsets* as a (*u*, *v*) coordinate offset to *P*,
       identifying the four-texel LINEAR footprint, and then selecting the
       texel *i0 j0* of that footprint.
       The specified values in *offsets* must be constant integral
-      expressions.
+      expressions. |
 
 The following texture functions are only in the compatibility profile.
 
-Syntax
-Description
-
-vec4 **texture1D**(sampler1D *sampler*, float *coord* [, float *bias*] )
+| Syntax | Description |
+| --- | --- |
+| vec4 **texture1D**(sampler1D *sampler*, float *coord* [, float *bias*] )
 
   vec4 **texture1DProj**(sampler1D *sampler*, vec2 *coord* [, float *bias*] )
 
@@ -1773,10 +1526,8 @@ vec4 **texture1D**(sampler1D *sampler*, float *coord* [, float *bias*] )
 
   vec4 **texture1DProjLod**(sampler1D *sampler*, vec2 *coord*, float *lod*)
 
-  vec4 **texture1DProjLod**(sampler1D *sampler*, vec4 *coord*, float *lod*)
-See corresponding signature above without “1D” in the name.
-
-vec4 **texture2D**(sampler2D *sampler*, vec2 *coord* [, float *bias*] )
+  vec4 **texture1DProjLod**(sampler1D *sampler*, vec4 *coord*, float *lod*) | See corresponding signature above without “1D” in the name. |
+| vec4 **texture2D**(sampler2D *sampler*, vec2 *coord* [, float *bias*] )
 
   vec4 **texture2DProj**(sampler2D *sampler*, vec3 *coord* [, float *bias*] )
 
@@ -1786,29 +1537,23 @@ vec4 **texture2D**(sampler2D *sampler*, vec2 *coord* [, float *bias*] )
 
   vec4 **texture2DProjLod**(sampler2D *sampler*, vec3 *coord*, float *lod*)
 
-  vec4 **texture2DProjLod**(sampler2D *sampler*, vec4 *coord*, float *lod*)
-See corresponding signature above without “2D” in the name.
-
-vec4 **texture3D**(sampler3D *sampler*, vec3 *coord* [, float *bias*] )
+  vec4 **texture2DProjLod**(sampler2D *sampler*, vec4 *coord*, float *lod*) | See corresponding signature above without “2D” in the name. |
+| vec4 **texture3D**(sampler3D *sampler*, vec3 *coord* [, float *bias*] )
 
   vec4 **texture3DProj**(sampler3D *sampler*, vec4 *coord* [, float *bias*] )
 
   vec4 **texture3DLod**(sampler3D *sampler*, vec3 *coord*, float *lod*)
 
-  vec4 **texture3DProjLod**(sampler3D *sampler*, vec4 *coord*, float *lod*)
-See corresponding signature above without “3D” in the name.
+  vec4 **texture3DProjLod**(sampler3D *sampler*, vec4 *coord*, float *lod*) | See corresponding signature above without “3D” in the name.
 
       Use the texture coordinate *coord* to do a texture lookup in the 3D
       texture currently bound to *sampler*.
       For the projective (“**Proj**”) versions, the texture coordinate is
-      divided by *coord.q*.
+      divided by *coord.q*. |
+| vec4 **textureCube**(samplerCube *sampler*, vec3 *coord* [, float *bias*] )
 
-vec4 **textureCube**(samplerCube *sampler*, vec3 *coord* [, float *bias*] )
-
-  vec4 **textureCubeLod**(samplerCube *sampler*, vec3 *coord*, float *lod*)
-See corresponding signature above without “Cube” in the name.
-
-vec4 **shadow1D**(sampler1DShadow *sampler*, vec3 *coord* [, float *bias*] )
+  vec4 **textureCubeLod**(samplerCube *sampler*, vec3 *coord*, float *lod*) | See corresponding signature above without “Cube” in the name. |
+| vec4 **shadow1D**(sampler1DShadow *sampler*, vec3 *coord* [, float *bias*] )
 
   vec4 **shadow2D**(sampler2DShadow *sampler*, vec3 *coord* [, float *bias*] )
 
@@ -1822,9 +1567,8 @@ vec4 **shadow1D**(sampler1DShadow *sampler*, vec3 *coord* [, float *bias*] )
 
   vec4 **shadow1DProjLod**(sampler1DShadow *sampler*, vec4 *coord*, float *lod*)
 
-  vec4 **shadow2DProjLod**(sampler2DShadow *sampler*, vec4 coord, float *lod*)
-Same functionality as the “**texture**” based names above with the
-      same signature.
+  vec4 **shadow2DProjLod**(sampler2DShadow *sampler*, vec4 coord, float *lod*) | Same functionality as the “**texture**” based names above with the
+      same signature. |
 
 The atomic-counter operations in this section operate atomically with
 respect to each other.
@@ -1840,59 +1584,42 @@ of synchronization, if atomicity or serialization is desired.
 The underlying counter is a 32-bit unsigned integer.
 The result of operations will wrap to [0, 232-1].
 
-Syntax
-Description
-
-uint **atomicCounterIncrement**(atomic_uint *c*)
-
-Atomically
+| Syntax | Description |
+| --- | --- |
+| uint **atomicCounterIncrement**(atomic_uint *c*) | Atomically
 
 increments the counter for *c*, and
 
 returns its value prior to the increment operation.
 
 These two steps are done atomically with respect to the atomic counter
-functions in this table.
-
-uint **atomicCounterDecrement**(atomic_uint *c*)
-
-Atomically
+functions in this table. |
+| uint **atomicCounterDecrement**(atomic_uint *c*) | Atomically
 
 decrements the counter for *c*, and
 
 returns the value resulting from the decrement operation.
 
 These two steps are done atomically with respect to the atomic counter
-functions in this table.
-
-uint **atomicCounter**(atomic_uint *c*)
-Returns the counter value for *c*.
-
-uint **atomicCounterAdd**(atomic_uint *c*, uint *data*)
-
-Atomically
+functions in this table. |
+| uint **atomicCounter**(atomic_uint *c*) | Returns the counter value for *c*. |
+| uint **atomicCounterAdd**(atomic_uint *c*, uint *data*) | Atomically
 
 adds the value of *data* to the counter for *c*, and
 
 returns its value prior to the operation.
 
 These two steps are done atomically with respect to the atomic counter
-functions in this table.
-
-uint **atomicCounterSubtract**(atomic_uint *c*, uint *data*)
-
-Atomically
+functions in this table. |
+| uint **atomicCounterSubtract**(atomic_uint *c*, uint *data*) | Atomically
 
 subtracts the value of *data* from the counter for *c*, and
 
 returns its value prior to the operation.
 
 These two steps are done atomically with respect to the atomic counter
-functions in this table.
-
-uint **atomicCounterMin**(atomic_uint *c*, uint *data*)
-
-Atomically
+functions in this table. |
+| uint **atomicCounterMin**(atomic_uint *c*, uint *data*) | Atomically
 
 sets the counter for *c* to the minimum of the value of the counter and
 the value of *data*, and
@@ -1900,11 +1627,8 @@ the value of *data*, and
 returns the value prior to the operation.
 
 These two steps are done atomically with respect to the atomic counter
-functions in this table.
-
-uint **atomicCounterMax**(atomic_uint *c*, uint *data*)
-
-Atomically
+functions in this table. |
+| uint **atomicCounterMax**(atomic_uint *c*, uint *data*) | Atomically
 
 sets the counter for *c* to the maximum of the value of the counter and
 the value of *data*, and
@@ -1912,11 +1636,8 @@ the value of *data*, and
 returns the value prior to the operation.
 
 These two steps are done atomically with respect to the atomic counter
-functions in this table.
-
-uint **atomicCounterAnd**(atomic_uint *c*, uint *data*)
-
-Atomically
+functions in this table. |
+| uint **atomicCounterAnd**(atomic_uint *c*, uint *data*) | Atomically
 
 sets the counter for *c* to the bitwise AND of the value of the counter
 and the value of *data*, and
@@ -1924,11 +1645,8 @@ and the value of *data*, and
 returns the value prior to the operation.
 
 These two steps are done atomically with respect to the atomic counter
-functions in this table.
-
-uint **atomicCounterOr**(atomic_uint *c*, uint *data*)
-
-Atomically
+functions in this table. |
+| uint **atomicCounterOr**(atomic_uint *c*, uint *data*) | Atomically
 
 sets the counter for *c* to the bitwise OR of the value of the counter
 and the value of *data*, and
@@ -1936,11 +1654,8 @@ and the value of *data*, and
 returns the value prior to the operation.
 
 These two steps are done atomically with respect to the atomic counter
-functions in this table.
-
-uint **atomicCounterXor**(atomic_uint *c*, uint *data*)
-
-Atomically
+functions in this table. |
+| uint **atomicCounterXor**(atomic_uint *c*, uint *data*) | Atomically
 
 sets the counter for *c* to the bitwise XOR of the value of the counter
 and the value of *data*, and
@@ -1948,22 +1663,16 @@ and the value of *data*, and
 returns the value prior to the operation.
 
 These two steps are done atomically with respect to the atomic counter
-functions in this table.
-
-uint **atomicCounterExchange**(atomic_uint *c*, uint *data*)
-
-Atomically
+functions in this table. |
+| uint **atomicCounterExchange**(atomic_uint *c*, uint *data*) | Atomically
 
 sets the counter value for *c* to the value of *data*, and
 
 returns its value prior to the operation.
 
 These two steps are done atomically with respect to the atomic counter
-functions in this table.
-
-uint **atomicCounterCompSwap**(atomic_uint *c*, uint *compare*, uint *data*)
-
-Atomically
+functions in this table. |
+| uint **atomicCounterCompSwap**(atomic_uint *c*, uint *compare*, uint *data*) | Atomically
 
 compares the value of *compare* and the counter value for *c*
 
@@ -1973,7 +1682,7 @@ if the values are equal, sets the counter value for *c* to the value of
 returns its value prior to the operation.
 
 These three steps are done atomically with respect to the atomic counter
-functions in this table.
+functions in this table. |
 
 Atomic memory functions perform atomic operations on an individual signed or
 unsigned integer stored in buffer object or shared variable storage.  All of
@@ -2003,56 +1712,40 @@ The atomic operation will operate as required by the calling argument’s
 memory qualification, not by the built-in function’s formal parameter memory
 qualification.
 
-Syntax
-Description
+| Syntax | Description |
+| --- | --- |
+| uint **atomicAdd**(inout uint *mem*, uint *data*)
 
-uint **atomicAdd**(inout uint *mem*, uint *data*)
+  int **atomicAdd**(inout int *mem*, int *data*) | Computes a new value by adding the value of *data* to the contents
+      *mem*. |
+| uint **atomicMin**(inout uint *mem*, uint *data*)
 
-  int **atomicAdd**(inout int *mem*, int *data*)
-Computes a new value by adding the value of *data* to the contents
-      *mem*.
+  int **atomicMin**(inout int *mem*, int *data*) | Computes a new value by taking the minimum of the value of *data* and
+      the contents of *mem*. |
+| uint **atomicMax**(inout uint *mem*, uint *data*)
 
-uint **atomicMin**(inout uint *mem*, uint *data*)
+  int **atomicMax**(inout int *mem*, int *data*) | Computes a new value by taking the maximum of the value of *data* and
+      the contents of *mem*. |
+| uint **atomicAnd**(inout uint *mem*, uint *data*)
 
-  int **atomicMin**(inout int *mem*, int *data*)
-Computes a new value by taking the minimum of the value of *data* and
-      the contents of *mem*.
+  int **atomicAnd**(inout int *mem*, int *data*) | Computes a new value by performing a bit-wise AND of the value of
+      *data* and the contents of *mem*. |
+| uint **atomicOr**(inout uint *mem*, uint *data*)
 
-uint **atomicMax**(inout uint *mem*, uint *data*)
+  int **atomicOr**(inout int *mem*, int *data*) | Computes a new value by performing a bit-wise OR of the value of
+      *data* and the contents of *mem*. |
+| uint **atomicXor**(inout uint *mem*, uint *data*)
 
-  int **atomicMax**(inout int *mem*, int *data*)
-Computes a new value by taking the maximum of the value of *data* and
-      the contents of *mem*.
+  int **atomicXor**(inout int *mem*, int *data*) | Computes a new value by performing a bit-wise EXCLUSIVE OR of the
+      value of *data* and the contents of *mem*. |
+| uint **atomicExchange**(inout uint *mem*, uint *data*)
 
-uint **atomicAnd**(inout uint *mem*, uint *data*)
+  int **atomicExchange**(inout int *mem*, int *data*) | Computes a new value by simply copying the value of *data*. |
+| uint **atomicCompSwap**(inout uint *mem*, uint *compare*, uint *data*)
 
-  int **atomicAnd**(inout int *mem*, int *data*)
-Computes a new value by performing a bit-wise AND of the value of
-      *data* and the contents of *mem*.
-
-uint **atomicOr**(inout uint *mem*, uint *data*)
-
-  int **atomicOr**(inout int *mem*, int *data*)
-Computes a new value by performing a bit-wise OR of the value of
-      *data* and the contents of *mem*.
-
-uint **atomicXor**(inout uint *mem*, uint *data*)
-
-  int **atomicXor**(inout int *mem*, int *data*)
-Computes a new value by performing a bit-wise EXCLUSIVE OR of the
-      value of *data* and the contents of *mem*.
-
-uint **atomicExchange**(inout uint *mem*, uint *data*)
-
-  int **atomicExchange**(inout int *mem*, int *data*)
-Computes a new value by simply copying the value of *data*.
-
-uint **atomicCompSwap**(inout uint *mem*, uint *compare*, uint *data*)
-
-  int **atomicCompSwap**(inout int *mem*, int *compare*, int *data*)
-Compares the value of *compare* and the contents of *mem*.
+  int **atomicCompSwap**(inout int *mem*, int *compare*, int *data*) | Compares the value of *compare* and the contents of *mem*.
       If the values are equal, the new value is given by *data*; otherwise,
-      it is taken from the original contents of *mem*.
+      it is taken from the original contents of *mem*. |
 
 Variables using one of the image basic types may be used by the built-in
 shader image memory functions defined in this section to read and write
@@ -2151,10 +1844,9 @@ The image operation will operate as required by the calling argument’s
 memory qualification, not by the built-in function’s formal parameter memory
 qualification.
 
-Syntax
-Description
-
-   int **imageSize**(readonly writeonly gimage1D *image*)
+| Syntax | Description |
+| --- | --- |
+| int **imageSize**(readonly writeonly gimage1D *image*)
 
    ivec2 **imageSize**(readonly writeonly gimage2D *image*)
 
@@ -2174,8 +1866,7 @@ Description
 
    ivec3 **imageSize**(readonly writeonly gimage2DMSArray *image*)
 
-     int **imageSize**(readonly writeonly gimageBuffer *image*)
-Returns the dimensions of the image bound to *image*.
+     int **imageSize**(readonly writeonly gimageBuffer *image*) | Returns the dimensions of the image bound to *image*.
       For arrayed images, the last component of the return value will hold
       the size of the array.
       Cube images only return the dimensions of one face, and the number of
@@ -2184,15 +1875,11 @@ Returns the dimensions of the image bound to *image*.
       Note: The qualification **readonly writeonly** accepts a variable
       qualified with **readonly**, **writeonly**, both, or neither.
       It means the formal argument will be used for neither reading nor
-      writing to the underlying memory.
+      writing to the underlying memory. |
+| int **imageSamples**(readonly writeonly gimage2DMS *image*)
 
-int **imageSamples**(readonly writeonly gimage2DMS *image*)
-
-  int **imageSamples**(readonly writeonly gimage2DMSArray *image*)
-Returns the number of samples of the image bound to *image*.
-
-gvec4 **imageLoad**(readonly *IMAGE_PARAMS*)
-Loads the texel at the coordinate *P* from the image unit *image* (in
+  int **imageSamples**(readonly writeonly gimage2DMSArray *image*) | Returns the number of samples of the image bound to *image*. |
+| gvec4 **imageLoad**(readonly *IMAGE_PARAMS*) | Loads the texel at the coordinate *P* from the image unit *image* (in
       *IMAGE_PARAMS*).
       For multisample loads, the sample number is given by *sample*.
       When *image*, *P*, and *sample*
@@ -2201,10 +1888,8 @@ Loads the texel at the coordinate *P* from the image unit *image* (in
       described in section
 8.26
       “Texture Image Loads and Stores” of the
-      [OpenGL Specification](references.html#references) and returned.
-
-void **imageStore**(writeonly *IMAGE_PARAMS*, gvec4 *data*)
-Stores *data* into the texel at the coordinate *P* from the image
+      [OpenGL Specification](references.html#references) and returned. |
+| void **imageStore**(writeonly *IMAGE_PARAMS*, gvec4 *data*) | Stores *data* into the texel at the coordinate *P* from the image
       specified by *image*.
       For multisample stores, the sample number is given by *sample*.
       When *image*, *P*, and *sample*
@@ -2212,98 +1897,73 @@ Stores *data* into the texel at the coordinate *P* from the image
       to the format of the image unit in the manner described in section
 8.26
       “Texture Image Loads and Stores” of the [OpenGL Specification](references.html#references)
-      and stored to the specified texel.
+      and stored to the specified texel. |
+| uint **imageAtomicAdd**(*IMAGE_PARAMS*, uint *data*)
 
- uint **imageAtomicAdd**(*IMAGE_PARAMS*, uint *data*)
+   int **imageAtomicAdd**(*IMAGE_PARAMS*, int *data*) | Computes a new value by adding the value of *data* to the contents of
+      the selected texel. |
+| uint **imageAtomicMin**(*IMAGE_PARAMS*, uint *data*)
 
-   int **imageAtomicAdd**(*IMAGE_PARAMS*, int *data*)
-Computes a new value by adding the value of *data* to the contents of
-      the selected texel.
+   int **imageAtomicMin**(*IMAGE_PARAMS*, int *data*) | Computes a new value by taking the minimum of the value of *data* and
+      the contents of the selected texel. |
+| uint **imageAtomicMax**(*IMAGE_PARAMS*, uint *data*)
 
- uint **imageAtomicMin**(*IMAGE_PARAMS*, uint *data*)
+   int **imageAtomicMax**(*IMAGE_PARAMS*, int *data*) | Computes a new value by taking the maximum of the value *data* and the
+      contents of the selected texel. |
+| uint **imageAtomicAnd**(*IMAGE_PARAMS*, uint *data*)
 
-   int **imageAtomicMin**(*IMAGE_PARAMS*, int *data*)
-Computes a new value by taking the minimum of the value of *data* and
-      the contents of the selected texel.
+   int **imageAtomicAnd**(*IMAGE_PARAMS*, int *data*) | Computes a new value by performing a bit-wise AND of the value of
+      *data* and the contents of the selected texel. |
+| uint **imageAtomicOr**(*IMAGE_PARAMS*, uint *data*)
 
- uint **imageAtomicMax**(*IMAGE_PARAMS*, uint *data*)
+   int **imageAtomicOr**(*IMAGE_PARAMS*, int *data*) | Computes a new value by performing a bit-wise OR of the value of
+      *data* and the contents of the selected texel. |
+| uint **imageAtomicXor**(*IMAGE_PARAMS*, uint *data*)
 
-   int **imageAtomicMax**(*IMAGE_PARAMS*, int *data*)
-Computes a new value by taking the maximum of the value *data* and the
-      contents of the selected texel.
-
- uint **imageAtomicAnd**(*IMAGE_PARAMS*, uint *data*)
-
-   int **imageAtomicAnd**(*IMAGE_PARAMS*, int *data*)
-Computes a new value by performing a bit-wise AND of the value of
-      *data* and the contents of the selected texel.
-
- uint **imageAtomicOr**(*IMAGE_PARAMS*, uint *data*)
-
-   int **imageAtomicOr**(*IMAGE_PARAMS*, int *data*)
-Computes a new value by performing a bit-wise OR of the value of
-      *data* and the contents of the selected texel.
-
- uint **imageAtomicXor**(*IMAGE_PARAMS*, uint *data*)
-
-   int **imageAtomicXor**(*IMAGE_PARAMS*, int *data*)
-Computes a new value by performing a bit-wise EXCLUSIVE OR of the
-      value of *data* and the contents of the selected texel.
-
- uint **imageAtomicExchange**(*IMAGE_PARAMS*, uint *data*)
+   int **imageAtomicXor**(*IMAGE_PARAMS*, int *data*) | Computes a new value by performing a bit-wise EXCLUSIVE OR of the
+      value of *data* and the contents of the selected texel. |
+| uint **imageAtomicExchange**(*IMAGE_PARAMS*, uint *data*)
 
    int **imageAtomicExchange**(*IMAGE_PARAMS*, int *data*)
 
-   float **imageAtomicExchange**(*IMAGE_PARAMS*, float *data*)
-Computes a new value by simply copying the value of *data*.
+   float **imageAtomicExchange**(*IMAGE_PARAMS*, float *data*) | Computes a new value by simply copying the value of *data*. |
+| uint **imageAtomicCompSwap**(*IMAGE_PARAMS*, uint *compare*, uint *data*)
 
- uint **imageAtomicCompSwap**(*IMAGE_PARAMS*, uint *compare*, uint *data*)
-
-   int **imageAtomicCompSwap**(*IMAGE_PARAMS*, int *compare*, int *data*)
-Compares the value of *compare* and the contents of the selected
+   int **imageAtomicCompSwap**(*IMAGE_PARAMS*, int *compare*, int *data*) | Compares the value of *compare* and the contents of the selected
       texel.
       If the values are equal, the new value is given by *data*; otherwise,
-      it is taken from the original value loaded from the texel.
+      it is taken from the original value loaded from the texel. |
 
 These functions are only available in geometry shaders.
 They are described in more depth following the table.
 
-Syntax
-Description
-
-void **EmitStreamVertex**(int *stream*)
-Emits the current values of output variables to the current output
+| Syntax | Description |
+| --- | --- |
+| void **EmitStreamVertex**(int *stream*) | Emits the current values of output variables to the current output
       primitive on stream *stream*.
       The argument to *stream* must be a constant integral expression.
       On return from this call, the values of all output variables are
       undefined.
 
-      Can only be used if multiple output streams are supported.
-
-void **EndStreamPrimitive**(int *stream*)
-Completes the current output primitive on stream *stream* and starts a
+      Can only be used if multiple output streams are supported. |
+| void **EndStreamPrimitive**(int *stream*) | Completes the current output primitive on stream *stream* and starts a
       new one.
       The argument to *stream* must be a constant integral expression.
       No vertex is emitted.
 
-      Can only be used if multiple output streams are supported.
-
-void **EmitVertex**()
-
-Emits the current values of output variables to the current output
+      Can only be used if multiple output streams are supported. |
+| void **EmitVertex**() | Emits the current values of output variables to the current output
       primitive.
       When multiple output streams are supported, this is equivalent to
       calling **EmitStreamVertex**(0).
 
       On return from this call, the values of output variables are
-      undefined.
-
-void **EndPrimitive**()
-Completes the current output primitive and starts a new one.
+      undefined. |
+| void **EndPrimitive**() | Completes the current output primitive and starts a new one.
       When multiple output streams are supported, this is equivalent to
       calling **EndStreamPrimitive**(0).
 
-      No vertex is emitted.
+      No vertex is emitted. |
 
 The function **EmitStreamVertex**() specifies that a vertex is completed.
 A vertex is added to the current output primitive in vertex stream *stream*
@@ -2389,59 +2049,41 @@ versus speed trade off.
 These hints have no effect on **dFdxCoarse**, **dFdyCoarse**, **dFdxFine** and
 **dFdyFine**.
 
-Syntax
-Description
-
-genFType **dFdx**(genFType *p*)
-Returns either **dFdxFine**(*p*) or **dFdxCoarse**(*p*), based on
+| Syntax | Description |
+| --- | --- |
+| genFType **dFdx**(genFType *p*) | Returns either **dFdxFine**(*p*) or **dFdxCoarse**(*p*), based on
       implementation choice, presumably whichever is the faster, or by whichever
-      is selected in the API through quality-versus-speed hints.
-
-genFType **dFdy**(genFType *p*)
-Returns either **dFdyFine**(*p*) or **dFdyCoarse**(*p*), based on
+      is selected in the API through quality-versus-speed hints. |
+| genFType **dFdy**(genFType *p*) | Returns either **dFdyFine**(*p*) or **dFdyCoarse**(*p*), based on
       implementation choice, presumably whichever is the faster, or by
-      whichever is selected in the API through quality-versus-speed hints.
-
-genFType **dFdxFine**(genFType *p*)
-Returns the partial derivative of *p* with respect to the window x
+      whichever is selected in the API through quality-versus-speed hints. |
+| genFType **dFdxFine**(genFType *p*) | Returns the partial derivative of *p* with respect to the window x
       coordinate.
       Will use local differencing based on the value of *p* for the current
-      fragment and its immediate neighbor(s).
-
-genFType **dFdyFine**(genFType *p*)
-Returns the partial derivative of *p* with respect to the window y
+      fragment and its immediate neighbor(s). |
+| genFType **dFdyFine**(genFType *p*) | Returns the partial derivative of *p* with respect to the window y
       coordinate.
       Will use local differencing based on the value of *p* for the current
-      fragment and its immediate neighbor(s).
-
-genFType **dFdxCoarse**(genFType *p*)
-Returns the partial derivative of *p* with respect to the window x
+      fragment and its immediate neighbor(s). |
+| genFType **dFdxCoarse**(genFType *p*) | Returns the partial derivative of *p* with respect to the window x
       coordinate.
       Will use local differencing based on the value of *p* for the current
       fragment’s neighbors, and will possibly, but not necessarily, include
       the value of *p* for the current fragment.
       That is, over a given area, the implementation can x compute
       derivatives in fewer unique locations than would be allowed for
-      **dFdxFine**(*p*).
-
-genFType **dFdyCoarse**(genFType *p*)
-Returns the partial derivative of *p* with respect to the window y
+      **dFdxFine**(*p*). |
+| genFType **dFdyCoarse**(genFType *p*) | Returns the partial derivative of *p* with respect to the window y
       coordinate.
       Will use local differencing based on the value of *p* for the current
       fragment’s neighbors, and will possibly, but not necessarily, include
       the value of *p* for the current fragment.
       That is, over a given area, the implementation can compute y
       derivatives in fewer unique locations than would be allowed for
-      **dFdyFine**(*p*).
-
-genFType **fwidth**(genFType *p*)
-Returns **abs**(**dFdx**(*p*)) + **abs**(**dFdy**(*p*)).
-
-genFType **fwidthFine**(genFType *p*)
-Returns **abs**(**dFdxFine**(*p*)) + **abs**(**dFdyFine**(*p*)).
-
-genFType **fwidthCoarse**(genFType *p*)
-Returns **abs**(**dFdxCoarse**(*p*)) + **abs**(**dFdyCoarse**(*p*)).
+      **dFdyFine**(*p*). |
+| genFType **fwidth**(genFType *p*) | Returns **abs**(**dFdx**(*p*)) + **abs**(**dFdy**(*p*)). |
+| genFType **fwidthFine**(genFType *p*) | Returns **abs**(**dFdxFine**(*p*)) + **abs**(**dFdyFine**(*p*)). |
+| genFType **fwidthCoarse**(genFType *p*) | Returns **abs**(**dFdxCoarse**(*p*)) + **abs**(**dFdyCoarse**(*p*)). |
 
 Built-in interpolation functions are available to compute an interpolated
 value of a fragment shader input variable at a shader-specified (*x*, *y*)
@@ -2473,50 +2115,44 @@ with the **centroid** qualifier.
 If *interpolant* is declared with the **noperspective** qualifier, the
 interpolated value will be computed without perspective correction.
 
-Syntax
-Description
-
-float **interpolateAtCentroid**(float *interpolant*)
+| Syntax | Description |
+| --- | --- |
+| float **interpolateAtCentroid**(float *interpolant*)
 
   vec2 **interpolateAtCentroid**(vec2 *interpolant*)
 
   vec3 **interpolateAtCentroid**(vec3 *interpolant*)
 
-  vec4 **interpolateAtCentroid**(vec4 *interpolant*)
-Returns the value of the input *interpolant* sampled at a location
+  vec4 **interpolateAtCentroid**(vec4 *interpolant*) | Returns the value of the input *interpolant* sampled at a location
       inside both the pixel and the primitive being processed.
       The value obtained would be the same value assigned to the input
-      variable if declared with the **centroid** qualifier.
-
-float **interpolateAtSample**(float *interpolant*, int *sample*)
+      variable if declared with the **centroid** qualifier. |
+| float **interpolateAtSample**(float *interpolant*, int *sample*)
 
   vec2 **interpolateAtSample**(vec2 *interpolant*, int *sample*)
 
   vec3 **interpolateAtSample**(vec3 *interpolant*, int *sample*)
 
-  vec4 **interpolateAtSample**(vec4 *interpolant*, int *sample*)
-Returns the value of the input *interpolant* variable at the location
+  vec4 **interpolateAtSample**(vec4 *interpolant*, int *sample*) | Returns the value of the input *interpolant* variable at the location
       of sample number *sample*.
       If multisample buffers are not available, the input variable will be
       evaluated at the center of the pixel.
       If sample *sample* does not exist, the position used to interpolate
-      the input variable is undefined.
-
-float **interpolateAtOffset**(float *interpolant*, vec2 offset)
+      the input variable is undefined. |
+| float **interpolateAtOffset**(float *interpolant*, vec2 offset)
 
   vec2 **interpolateAtOffset**(vec2 *interpolant*, vec2 offset)
 
   vec3 **interpolateAtOffset**(vec3 *interpolant*, vec2 offset)
 
-  vec4 **interpolateAtOffset**(vec4 *interpolant*, vec2 offset)
-Returns the value of the input *interpolant* variable sampled at an
+  vec4 **interpolateAtOffset**(vec4 *interpolant*, vec2 offset) | Returns the value of the input *interpolant* variable sampled at an
       offset from the center of the pixel specified by *offset*.
       The two floating-point components of *offset*, give the offset in
       pixels in the *x* and *y* directions, respectively.
 
       An offset of (0, 0) identifies the center of the pixel.
       The range and granularity of offsets supported by this function is
-      implementation-dependent.
+      implementation-dependent. |
 
 The noise functions **noise1**, **noise2**, **noise3**, and **noise4** have been
 deprecated starting with version 4.4 of GLSL.
@@ -2527,20 +2163,12 @@ not declared and may not be used.
 As in previous releases, the noise functions are not semantically considered to
 be compile-time constant expressions.
 
-Syntax (deprecated)
-Description (deprecated)
-
-float **noise1**(genFType *x*)
-Returns a 1D noise value based on the input value *x*.
-
-vec2 **noise2**(genFType *x*)
-Returns a 2D noise value based on the input value *x*.
-
-vec3 **noise3**(genFType *x*)
-Returns a 3D noise value based on the input value *x*.
-
-vec4 **noise4**(genFType *x*)
-Returns a 4D noise value based on the input value *x*.
+| Syntax (deprecated) | Description (deprecated) |
+| --- | --- |
+| float **noise1**(genFType *x*) | Returns a 1D noise value based on the input value *x*. |
+| vec2 **noise2**(genFType *x*) | Returns a 2D noise value based on the input value *x*. |
+| vec3 **noise3**(genFType *x*) | Returns a 3D noise value based on the input value *x*. |
+| vec4 **noise4**(genFType *x*) | Returns a 4D noise value based on the input value *x*. |
 
 The shader invocation control function is only available in tessellation
 control and compute shaders.
@@ -2549,15 +2177,13 @@ invocations used to process a patch (in the case of tessellation control
 shaders) or a workgroup (in the case of compute shaders), which are
 otherwise executed with an undefined relative order.
 
-Syntax
-Description
-
-void **barrier**()
-For any given static instance of **barrier**(), all tessellation control
+| Syntax | Description |
+| --- | --- |
+| void **barrier**() | For any given static instance of **barrier**(), all tessellation control
       shader invocations for a single input patch must enter it before any
       will be allowed to continue beyond it, or all compute shader
       invocations for a single workgroup must enter it before any will
-      continue beyond it.
+      continue beyond it. |
 
 The function **barrier**() provides a partially defined order of execution
 between shader invocations.
@@ -2609,37 +2235,25 @@ also undefined.
 The following built-in functions can be used to control the ordering of
 reads and writes:
 
-Syntax
-Description
-
-void **memoryBarrier**()
-Control the ordering of memory transactions issued by a single shader
-      invocation.
-
-void **memoryBarrierAtomicCounter**()
-Control the ordering of accesses to atomic-counter variables issued by
-      a single shader invocation.
-
-void **memoryBarrierBuffer**()
-Control the ordering of memory transactions to buffer variables issued
-      within a single shader invocation.
-
-void **memoryBarrierShared**()
-Control the ordering of memory transactions to shared variables issued
+| Syntax | Description |
+| --- | --- |
+| void **memoryBarrier**() | Control the ordering of memory transactions issued by a single shader
+      invocation. |
+| void **memoryBarrierAtomicCounter**() | Control the ordering of accesses to atomic-counter variables issued by
+      a single shader invocation. |
+| void **memoryBarrierBuffer**() | Control the ordering of memory transactions to buffer variables issued
+      within a single shader invocation. |
+| void **memoryBarrierShared**() | Control the ordering of memory transactions to shared variables issued
       within a single shader invocation, as viewed by other invocations in
       the same workgroup.
 
-      Only available in compute shaders.
-
-void **memoryBarrierImage**()
-Control the ordering of memory transactions to images issued within a
-      single shader invocation.
-
-void **groupMemoryBarrier**()
-Control the ordering of all memory transactions issued within a single
+      Only available in compute shaders. |
+| void **memoryBarrierImage**() | Control the ordering of memory transactions to images issued within a
+      single shader invocation. |
+| void **groupMemoryBarrier**() | Control the ordering of all memory transactions issued within a single
       shader invocation, as viewed by other invocations in the same workgroup.
 
-      Only available in compute shaders.
+      Only available in compute shaders. |
 
 The memory barrier built-in functions can be used to order reads and writes
 to variables stored in memory accessible to other shader invocations.
@@ -2697,14 +2311,12 @@ a placeholder for either nothing, `i`, or `u`, indicating either a floating-poin
 signed integer, or unsigned integer, and these must match between argument type
 and return type.
 
-Syntax
-Description
+| Syntax | Description |
+| --- | --- |
+| gvec4 **subpassLoad**(gsubpassInput subpass)
 
-gvec4 **subpassLoad**(gsubpassInput subpass)
-
-  gvec4 **subpassLoad**(gsubpassInputMS subpass, int sample)
-Read from a subpass input, from the implicit location *(x, y, layer)*
-      of the current fragment coordinate.
+  gvec4 **subpassLoad**(gsubpassInputMS subpass, int sample) | Read from a subpass input, from the implicit location *(x, y, layer)*
+      of the current fragment coordinate. |
 
 Implementations of the OpenGL Shading Language may optionally group multiple shader
 invocations for a single shader stage into a single SIMD invocation group,
@@ -2714,20 +2326,14 @@ Shader algorithms on such implementations may benefit from being able to
 evaluate a composite of Boolean values over all active invocations in a
 group.
 
-Syntax
-Description
-
-bool **anyInvocation**(bool *value*)
-Returns **true** if and only if *value* is **true** for at least one
-      active invocation in the group.
-
-bool **allInvocations**(bool *value*)
-Returns **true** if and only if *value* is **true** for all active
-      invocations in the group.
-
-bool **allInvocationsEqual**(bool *value*)
-Returns **true** if *value* is the same for all active invocations in
-      the group.
+| Syntax | Description |
+| --- | --- |
+| bool **anyInvocation**(bool *value*) | Returns **true** if and only if *value* is **true** for at least one
+      active invocation in the group. |
+| bool **allInvocations**(bool *value*) | Returns **true** if and only if *value* is **true** for all active
+      invocations in the group. |
+| bool **allInvocationsEqual**(bool *value*) | Returns **true** if *value* is the same for all active invocations in
+      the group. |
 
 For all of these functions, the same result is returned to all active
 invocations in the group.

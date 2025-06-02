@@ -24,6 +24,16 @@ Vulkan commands, and creating a `VkInstance` object.
 Vulkan commands are not necessarily exposed by static linking on a platform.
 Commands to query function pointers for Vulkan commands are described below.
 
+|  | When extensions are [promoted](extensions.html#extendingvulkan-compatibility-promotion) or
+| --- | --- |
+otherwise incorporated into another extension or Vulkan core version,
+command [aliases](extensions.html#extendingvulkan-compatibility-aliases) may be included.
+Whilst the behavior of each command alias is identical, the behavior of
+retrieving each alias’s function pointer is not.
+A function pointer for a given alias can only be retrieved if the extension
+or version that introduced that alias is supported and enabled, irrespective
+of whether any other alias is available. |
+
 Function pointers for all Vulkan commands **can** be obtained by calling:
 
 // Provided by VK_VERSION_1_0
@@ -52,46 +62,17 @@ A valid returned function pointer (“fp”) **must** not be `NULL`.
 The returned function pointer is of type [PFN_vkVoidFunction](#PFN_vkVoidFunction), and **must**
 be cast to the type of the command being queried before use.
 
-Table 1. `vkGetInstanceProcAddr` behavior
-
-`instance`
-`pName`
-return value
-
-*1
-`NULL`
-**undefined**
-
-invalid non-`NULL` instance
-*1
-**undefined**
-
-`NULL`
-*global command*2
-fp
-
-`NULL`
-[vkGetInstanceProcAddr](#vkGetInstanceProcAddr)
-fp5
-
-instance
-[vkGetInstanceProcAddr](#vkGetInstanceProcAddr)
-fp
-
-instance
-core *dispatchable command*
-fp3
-
-instance
-enabled instance extension dispatchable command for `instance`
-fp3
-
-instance
-available device extension4 dispatchable command for `instance`
-fp3
-
-any other case, not covered above
-`NULL`
+| `instance` | `pName` | return value |
+| --- | --- | --- |
+| *1 | `NULL` | **undefined** |
+| invalid non-`NULL` instance | *1 | **undefined** |
+| `NULL` | *global command*2 | fp |
+| `NULL` | [vkGetInstanceProcAddr](#vkGetInstanceProcAddr) | fp5 |
+| instance | [vkGetInstanceProcAddr](#vkGetInstanceProcAddr) | fp |
+| instance | core *dispatchable command* | fp3 |
+| instance | enabled instance extension dispatchable command for `instance` | fp3 |
+| instance | available device extension4 dispatchable command for `instance` | fp3 |
+| any other case, not covered above | `NULL` |
 
 1
 
@@ -159,34 +140,14 @@ be cast to the type of the command being queried before use.
 The function pointer **must** only be called with a dispatchable object (the
 first parameter) that is `device` or a child of `device`.
 
-Table 2. `vkGetDeviceProcAddr` behavior
-
-`device`
-`pName`
-return value
-
-`NULL`
-*1
-**undefined**
-
-invalid device
-*1
-**undefined**
-
-device
-`NULL`
-**undefined**
-
-device
-requested core version2 device-level dispatchable command3
-fp4
-
-device
-enabled extension device-level dispatchable command3
-fp4
-
-any other case, not covered above
-`NULL`
+| `device` | `pName` | return value |
+| --- | --- | --- |
+| `NULL` | *1 | **undefined** |
+| invalid device | *1 | **undefined** |
+| device | `NULL` | **undefined** |
+| device | requested core version2 device-level dispatchable command3 | fp4 |
+| device | enabled extension device-level dispatchable command3 | fp4 |
+| any other case, not covered above | `NULL` |
 
 1
 
@@ -282,6 +243,13 @@ VkResult vkEnumerateInstanceVersion(
 `pApiVersion` is a pointer to a `uint32_t`, which is the version
 of Vulkan supported by instance-level functionality, encoded as
 described in [Version Numbers](extensions.html#extendingvulkan-coreversions-versionnumbers).
+
+|  | The intended behavior of [vkEnumerateInstanceVersion](#vkEnumerateInstanceVersion) is that an
+| --- | --- |
+implementation **should** not need to perform memory allocations and **should**
+unconditionally return `VK_SUCCESS`.
+The loader, and any enabled layers, **may** return
+`VK_ERROR_OUT_OF_HOST_MEMORY` in the case of a failed memory allocation. |
 
 Valid Usage (Implicit)
 
@@ -458,6 +426,15 @@ to create persistent callback objects.
 An application can add additional drivers by including the
 [VkDirectDriverLoadingListLUNARG](#VkDirectDriverLoadingListLUNARG) structure in the `pNext` chain of
 the `VkInstanceCreateInfo` structure passed to `vkCreateInstance`.
+
+|  | [VkDirectDriverLoadingListLUNARG](#VkDirectDriverLoadingListLUNARG) allows applications to ship drivers
+| --- | --- |
+with themselves.
+Only drivers that are designed to work with it should be used, such as
+drivers that implement Vulkan in software or that implement Vulkan by
+translating it to a different API.
+Any driver that requires installation should not be used, such as hardware
+drivers. |
 
 Valid Usage
 
@@ -826,6 +803,17 @@ specifies that there will be no caching of shader validation results and
 every shader will be validated on every application execution.
 Shader validation caching is enabled by default.
 
+|  | Disabling checks such as parameter validation and object lifetime validation
+| --- | --- |
+prevents the reporting of error conditions that can cause other validation
+checks to behave incorrectly or crash.
+Some validation checks assume that their inputs are already valid and do not
+always revalidate them. |
+
+|  | The `[VK_EXT_validation_features](../appendices/extensions.html#VK_EXT_validation_features)` extension subsumes all the
+| --- | --- |
+functionality provided in the `[VK_EXT_validation_flags](../appendices/extensions.html#VK_EXT_validation_flags)` extension. |
+
 To create a Vulkan instance with a specific configuration of layer settings,
 add [VkLayerSettingsCreateInfoEXT](#VkLayerSettingsCreateInfoEXT) structures to the `pNext` chain
 of the [VkInstanceCreateInfo](#VkInstanceCreateInfo) structure, specifying the settings to be
@@ -1108,6 +1096,12 @@ This type is compatible with the type of a pointer to the
 driver addresses in
 [VkDirectDriverLoadingInfoLUNARG](#VkDirectDriverLoadingInfoLUNARG)::`pfnGetInstanceProcAddr`.
 
+|  | This type exists only because of limitations in the XML schema and
+| --- | --- |
+processing scripts, and its name may change in the future.
+Ideally we would use the `PFN_vkGetInstanceProcAddr` type generated in
+the `vulkan_core.h` header. |
+
 The `VkApplicationInfo` structure is defined as:
 
 // Provided by VK_VERSION_1_0
@@ -1161,9 +1155,52 @@ Implementations that support Vulkan 1.1 or later **must** not return
 `VK_ERROR_INCOMPATIBLE_DRIVER` for any value of `apiVersion`
 .
 
+|  | Because Vulkan 1.0 implementations **may** fail with
+| --- | --- |
+`VK_ERROR_INCOMPATIBLE_DRIVER`, applications **should** determine the
+version of Vulkan available before calling [vkCreateInstance](#vkCreateInstance).
+If the [vkGetInstanceProcAddr](#vkGetInstanceProcAddr) returns `NULL` for
+[vkEnumerateInstanceVersion](#vkEnumerateInstanceVersion), it is a Vulkan 1.0 implementation.
+Otherwise, the application **can** call [vkEnumerateInstanceVersion](#vkEnumerateInstanceVersion) to
+determine the version of Vulkan. |
+
 As long as the instance supports at least Vulkan 1.1, an application **can**
 use different versions of Vulkan with an instance than it does with a device
 or physical device.
+
+|  | The Khronos validation layers will treat `apiVersion` as the highest API
+| --- | --- |
+version the application targets, and will validate API usage against the
+minimum of that version and the implementation version (instance or device,
+depending on context).
+If an application tries to use functionality from a greater version than
+this, a validation error will be triggered.
+
+For example, if the instance supports Vulkan 1.1 and three physical devices
+support Vulkan 1.0, Vulkan 1.1, and Vulkan 1.2, respectively, and if the
+application sets `apiVersion` to 1.2, the application **can** use the
+following versions of Vulkan:
+
+* 
+Vulkan 1.0 **can** be used with the instance and with all physical devices.
+
+* 
+Vulkan 1.1 **can** be used with the instance and with the physical devices
+that support Vulkan 1.1 and Vulkan 1.2.
+
+* 
+Vulkan 1.2 **can** be used with the physical device that supports Vulkan
+1.2.
+
+If we modify the above example so that the application sets `apiVersion`
+to 1.1, then the application **must** not use Vulkan 1.2 functionality on the
+physical device that supports Vulkan 1.2. |
+
+|  | Providing a `NULL` [VkInstanceCreateInfo](#VkInstanceCreateInfo)::`pApplicationInfo` or
+| --- | --- |
+providing an `apiVersion` of 0 is equivalent to providing an
+`apiVersion` of
+`VK_MAKE_API_VERSION(0,1,0,0)`. |
 
 Valid Usage
 

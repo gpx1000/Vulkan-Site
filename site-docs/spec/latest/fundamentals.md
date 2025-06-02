@@ -107,6 +107,12 @@ The representation and endianness of these types on the host **must** match
 the representation and endianness of the same types on every physical
 device supported.
 
+|  | Since a variety of data types and structures in Vulkan **may** be accessible by
+| --- | --- |
+both host and physical device operations, the implementation **should** be able
+to access such data efficiently in both paths in order to facilitate writing
+portable and performant applications. |
+
 This section outlines the execution model of a Vulkan system.
 
 Vulkan exposes one or more *devices*, each of which exposes one or more
@@ -124,6 +130,12 @@ video encode,
 protected memory management,
 sparse memory management,
 and transfer.
+
+|  | A single device **may** report multiple similar queue families rather than, or
+| --- | --- |
+as well as, reporting multiple members of one or more of those families.
+This indicates that while members of those families have similar
+capabilities, they are *not* directly compatible with one another. |
 
 Device memory is explicitly managed by the application.
 Each device **may** advertise one or more heaps, representing different areas
@@ -212,6 +224,11 @@ execution.
 Additional explicit ordering constraints can be expressed with the various
 [explicit synchronization primitives](synchronization.html#synchronization).
 
+|  | Implementations have significant freedom to overlap execution of work
+| --- | --- |
+submitted to a queue, and this is common due to deep pipelining and
+parallelism in Vulkan devices. |
+
 Commands recorded in command buffers can perform actions, set state that
 persists across commands, synchronize other commands, or indirectly launch
 other commands, with some commands fulfilling several of these roles.
@@ -237,6 +254,14 @@ Indirection
 
 *Indirection commands* execute other commands which were not directly
 recorded in the same command buffer.
+
+|  | In the absence of explicit synchronization or [implicit ordering guarantees](synchronization.html#synchronization-implicit), action commands may overlap execution or
+| --- | --- |
+execute out of order, potentially leading to data races.
+However, such reordering does not affect the current state observed by any
+action command.
+Each action command uses the state in effect at the point where the command
+occurs in the command buffer, regardless of when it is executed. |
 
 The devices, queues, and other entities in Vulkan are represented by Vulkan
 objects.
@@ -334,6 +359,11 @@ Objects which are not in scope are said to be external.
 To bring an external object into scope, an external handle **must** be exported
 from the object in the source scope and imported into the destination scope.
 
+|  | The scope of external handles and their associated resources **may** vary
+| --- | --- |
+according to their type, but they **can** generally be shared across process
+and API boundaries. |
+
 The mechanism by which Vulkan is made available to applications is platform-
 or implementation- defined.
 On many platforms the C interface described in this Specification is
@@ -367,6 +397,22 @@ in the highest version of this Specification they support, and for
 extensions relevant to the platform.
 They **may** also provide library symbols for commands defined by additional
 extensions.
+
+|  | These requirements and recommendations are intended to allow implementors to
+| --- | --- |
+take advantage of platform-specific conventions for SDKs, ABIs, library
+versioning mechanisms, etc.
+while still minimizing the code changes necessary to port applications or
+libraries between platforms.
+Platform vendors, or providers of the *de facto* standard Vulkan shared
+library for a platform, are encouraged to document what symbols the shared
+library provides and how it will be versioned when new symbols are added.
+
+Applications **should** only rely on shared library symbols for commands in the
+minimum core version required by the application.
+[vkGetInstanceProcAddr](initialization.html#vkGetInstanceProcAddr) and [vkGetDeviceProcAddr](initialization.html#vkGetDeviceProcAddr) **should** be used to
+obtain function pointers for commands in core versions beyond the
+application’s minimum required version. |
 
 The Specification describes Vulkan commands as functions or procedures using
 C99 syntax.
@@ -477,6 +523,20 @@ specified by the element count variable set by the application, and the
 command will return `VK_INCOMPLETE` instead of `VK_SUCCESS`, to
 indicate that not all retrievable array elements were returned.
 
+|  | In practice, this means that applications will typically call such query
+| --- | --- |
+commands twice:
+
+* 
+First, with the array pointer set to `NULL`, to retrieve the number of
+retrievable elements.
+
+* 
+Second, with the array pointer pointing to an application allocated
+storage for at least as many elements as indicated by the variable
+pointed to by the element count pointer, to retrieve at most as many of
+the retrievable elements. |
+
 Query commands that return one or more structures, regardless of whether
 they return a single or an array of structures with or without a `pNext`
 chain, **may** also contain arrays within those structures.
@@ -506,6 +566,32 @@ specified by the input element count, and the command will return
 `VK_INCOMPLETE` instead of `VK_SUCCESS`, if the query command has a
 [VkResult](#VkResult) return type, to indicate that not all retrievable array
 elements were returned.
+
+|  | Applications need to separately track the value they provided as the input
+| --- | --- |
+element count member for such arrays and compare those with the returned
+element counts in order to determine whether the actually returned element
+count is smaller than the size of the return array.
+Another side effect of this is that it is impossible for the application to
+determine if the number of retrievable elements has increased beyond the
+provided input element count so using return arrays in output structures
+**should** be limited to *invariant* array results.
+In practice, this means that applications will typically call such query
+commands multiple times:
+
+* 
+First, with the array pointer member(s) set to `NULL`, to retrieve the
+number(s) of retrievable elements.
+
+* 
+Second, with the array pointer(s) pointing to an application allocated
+storage for at least as many elements as indicated by the element count
+member(s), to retrieve at most as many of the retrievable elements.
+
+* 
+Then the process **may** need to be repeated for all other newly introduced
+return arrays in any nested output structures indirectly specified
+through the previously retrieved result arrays. |
 
 Regardless of the type of query command, any array pointer member of an
 output structure **must** either be `NULL`, or point to an
@@ -551,6 +637,19 @@ sized, following the behavior for single binary retrieval.
 For all other error codes, the contents of the return structures are
 **undefined**.
 
+|  | If `VK_ERROR_NOT_ENOUGH_SPACE_KHR` is returned with a command that
+| --- | --- |
+returns multiple binaries, the application **can** determine which binaries are
+undersized by comparing the total binary size that is returned for each
+binary against the allocated size that was provided to the command. |
+
+|  | Some binary queries do not behave consistently with this pattern for
+| --- | --- |
+historical reasons, primarily that the `VK_ERROR_NOT_ENOUGH_SPACE_KHR`
+error code was not defined until after those queries were written.
+
+A NOTE is added to each such query, describing such inconsistent behavior. |
+
 Vulkan is intended to provide scalable performance when used on multiple
 host threads.
 All commands support being called concurrently from multiple threads, but
@@ -573,6 +672,14 @@ application also accesses that memory, or if the application writes to that
 memory and the command accesses it as a const memory parameter, the
 application **must** ensure the accesses are properly synchronized with a
 memory barrier if needed.
+
+|  | Memory barriers are particularly relevant for hosts based on the ARM CPU
+| --- | --- |
+architecture, which is more weakly ordered than many developers are
+accustomed to from x86/x64 programming.
+Fortunately, most higher-level synchronization primitives (like the pthread
+library) perform memory barriers as a part of mutual exclusion, so mutexing
+Vulkan objects via these primitives will have the desired effect. |
 
 Any object parameters that are not labeled as externally synchronized are
 either not mutated by the command or are internally synchronized.
@@ -2607,6 +2714,17 @@ Vulkan implementations are not **required** to make additional security or
 integrity guarantees beyond those provided by the OS unless explicitly
 directed by the application’s use of a particular feature or extension.
 
+|  | For instance, if an operating system guarantees that data in all its memory
+| --- | --- |
+allocations are set to zero when newly allocated, the Vulkan implementation
+**must** make the same guarantees for any allocations it controls (e.g.
+[VkDeviceMemory](memory.html#VkDeviceMemory)).
+
+Similarly, if an operating system guarantees that use-after-free of host
+allocations will not result in values written by another process becoming
+visible, the same guarantees **must** be made by the Vulkan implementation for
+device memory. |
+
 If the [`protectedMemory`](features.html#features-protectedMemory) feature is
 supported, the implementation provides additional guarantees when invalid
 usage occurs to prevent values in protected memory from being accessed or
@@ -2627,6 +2745,19 @@ complete information about the condition would be known during execution of
 an application.
 This is such that a validation layer or linter **can** be written directly
 against these statements at the point they are specified.
+
+|  | This does lead to some non-obvious places for valid usage statements.
+| --- | --- |
+For instance, the valid values for a structure might depend on a separate
+value in the calling command.
+In this case, the structure itself will not reference this valid usage as it
+is impossible to determine validity from the structure that it is invalid -
+instead this valid usage would be attached to the calling command.
+
+Another example is draw state - the state setters are independent, and can
+cause a legitimately invalid state configuration between draw calls; so the
+valid usage statements are attached to the place where all state needs to be
+valid - at the drawing command. |
 
 Valid usage conditions are described in a block labeled “Valid Usage”
 following each command or structure they apply to.
@@ -2761,6 +2892,28 @@ Vulkan to the application **must** not have a reserved value.
 Reserved values are values not defined by any extension for that enumerated
 type.
 
+|  | In some special cases, an enumerant is only meaningful if a feature defined
+| --- | --- |
+by an extension is also enabled, as well as the extension itself.
+The global “valid enumerant” rule described here does not address such
+cases. |
+
+|  | This language is intended to accommodate cases such as “hidden” extensions
+| --- | --- |
+known only to driver internals, or layers enabling extensions without
+knowledge of the application, without allowing return of values not defined
+by any extension. |
+
+|  | Application developers are encouraged to be careful when using `switch`
+| --- | --- |
+statements with Vulkan API enums.
+This is because new extensions can add new values to existing enums.
+Using a `default:` statement within a `switch` may avoid future compilation
+issues.
+
+This is particularly true for enums such as [VkDriverId](devsandqueues.html#VkDriverId), which may have
+values added that do not belong to a corresponding new extension. |
+
 A collection of flags is represented by a bitmask using the type
 `VkFlags`:
 
@@ -2792,6 +2945,12 @@ An application **cannot** rely on the state of these unspecified bits.
 Only the low-order 31 bits (bit positions zero through 30) are available for
 use as flag bits.
 
+|  | This restriction is due to poorly defined behavior by C compilers given a C
+| --- | --- |
+enumerant value of `0x80000000`.
+In some cases adding this enumerant value may increase the size of the
+underlying `Vk*FlagBits` type, breaking the ABI. |
+
 A collection of 64-bit flags is represented by a bitmask using the type
 `VkFlags64`:
 
@@ -2822,6 +2981,17 @@ Any `Vk*Flags2` member or parameter returned from a query command or
 otherwise output from Vulkan to the application **may** contain bit flags
 **undefined** in its corresponding `Vk*FlagBits2` type.
 An application **cannot** rely on the state of these unspecified bits.
+
+|  | Both the `Vk*FlagBits2` type, and the individual bits defined for that
+| --- | --- |
+type, are defined as `uint64_t` integers in the C API.
+This is in contrast to the 32-bit types, where the `Vk*FlagBits` type is
+defined as a C `enum` and the individual bits as enumerants belonging to
+that `enum`.
+As a result, there is less compile time type checking possible for the
+64-bit types.
+This is unavoidable since there is no sufficiently portable way to define a
+64-bit `enum` type in C99. |
 
 Any parameter that is a structure containing a `sType` member **must** have
 a value of `sType` which is a valid [VkStructureType](#VkStructureType) value matching
@@ -3117,6 +3287,13 @@ entry did not exist.
 `VK_INCOMPATIBLE_SHADER_BINARY_EXT` The provided binary shader code
 is not compatible with this device.
 
+|  | In the initial version of the `[VK_EXT_shader_object](../appendices/extensions.html#VK_EXT_shader_object)` extension, this
+| --- | --- |
+return code was named `VK_ERROR_INCOMPATIBLE_SHADER_BINARY_EXT` and
+improperly described as an error code.
+The name has been changed, but the old name is retained as an alias for
+compatibility with old code. |
+
 Error Codes
 
 * 
@@ -3301,11 +3478,26 @@ Vulkan objects.
 Objects that have already been successfully created **can** still be used by
 the application.
 
+|  | As a general rule, `Free`, `Release`, and `Reset` commands do
+| --- | --- |
+not return `VK_ERROR_OUT_OF_HOST_MEMORY`, while any other command with a
+return code **may** return it.
+Any exceptions from this rule are described for those commands. |
+
 `VK_ERROR_UNKNOWN` will be returned by an implementation when an
 unexpected error occurs that cannot be attributed to valid behavior of the
 application and implementation.
 Under these conditions, it **may** be returned from any command returning a
 [VkResult](#VkResult).
+
+|  | `VK_ERROR_UNKNOWN` is not expected to ever be returned if the
+| --- | --- |
+application behavior is valid, and if the implementation is bug-free.
+If `VK_ERROR_UNKNOWN` is received, the application should be checked
+against the latest validation layers to verify correct behavior as much as
+possible.
+If no issues are identified it could be an implementation issue, and the
+implementor should be contacted for support. |
 
 Any command returning a [VkResult](#VkResult) **may** return
 `VK_ERROR_VALIDATION_FAILED_EXT`
@@ -3492,6 +3684,13 @@ signed normalized fixed-point.
 
 Strings passed into and returned from Vulkan API commands are usually
 defined to be null-terminated and UTF-8 encoded.
+
+|  | Exceptions to this rule exist only when strings are defined or used by
+| --- | --- |
+operating system APIs where that OS has a different convention.
+For example, [VkExportMemoryWin32HandleInfoKHR](memory.html#VkExportMemoryWin32HandleInfoKHR)::`name` is a
+null-terminated UTF-16 encoded string used in conjunction with Windows
+handles. |
 
 When a UTF-8 string is **returned from** a Vulkan API query, it is returned in
 a fixed-length buffer of C `char`.
@@ -5630,6 +5829,8 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_ZERO_ONE_FEATURES_KHR = 1000421000,
   // Provided by VK_EXT_vertex_attribute_robustness
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT = 1000608000,
+  // Provided by VK_ARM_format_pack
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM = 1000609000,
   // Provided by VK_KHR_robustness2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR = 1000286000,
   // Provided by VK_KHR_robustness2
@@ -6140,3 +6341,10 @@ For backwards compatibility, the original (incorrect) name is retained as a
 “typo alias”.
 The alias is deprecated and should not be used, but will be retained
 indefinitely.
+
+|  | `VK_STENCIL_FRONT_AND_BACK` is an example of a *typo alias*.
+| --- | --- |
+It was initially defined as part of [VkStencilFaceFlagBits](fragops.html#VkStencilFaceFlagBits).
+Once the naming inconsistency was noticed, it was renamed to
+`VK_STENCIL_FACE_FRONT_AND_BACK`, and the old name was aliased to the
+correct name. |

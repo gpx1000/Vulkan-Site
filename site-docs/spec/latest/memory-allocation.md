@@ -83,6 +83,10 @@ memory*.
 Host memory is memory needed by the Vulkan implementation for
 non-device-visible storage.
 
+|  | This memory **may** be used to store the implementation’s representation and
+| --- | --- |
+state of Vulkan objects. |
+
 Vulkan provides applications the opportunity to perform host memory
 allocations on behalf of the Vulkan implementation.
 If this feature is not used, the implementation will perform its own memory
@@ -195,6 +199,18 @@ return `NULL`.
 If the allocation was successful, it **must** return a valid pointer to memory
 allocation containing at least `size` bytes, and with the pointer value
 being a multiple of `alignment`.
+
+|  | Correct Vulkan operation **cannot** be assumed if the application does not
+| --- | --- |
+follow these rules.
+
+For example, `pfnAllocation` (or `pfnReallocation`) could cause
+termination of running Vulkan instance(s) on a failed allocation for
+debugging purposes, either directly or indirectly.
+In these circumstances, it **cannot** be assumed that any part of any affected
+[VkInstance](initialization.html#VkInstance) objects are going to operate correctly (even
+[vkDestroyInstance](initialization.html#vkDestroyInstance)), and the application **must** ensure it cleans up
+properly via other means (e.g. process termination). |
 
 If `pfnAllocation` returns `NULL`, and if the implementation is unable
 to continue correct processing of the current command without the requested
@@ -723,6 +739,18 @@ Tile memory **can** be used simultaneously by command buffers in other queues
 without invalidating each others contents.
 Collectively, these rules define the *tile memory scope*.
 
+|  | Tile memory heaps work differently than most heaps as it is allowing
+| --- | --- |
+addressing on device cache memory.
+Therefore, the heap’s address space is aliased across the different queues,
+with each queue retaining its individual copy of the heap.
+The implementation takes care of any required saving and restoring of the
+tile memory contents.
+
+Effectively, this means that the same address in the heap in different
+queues have simultaneously different defined contents and the contents has a
+lifespan scoped to the submit or batch for that specific queues. |
+
 Each memory type returned by [vkGetPhysicalDeviceMemoryProperties](#vkGetPhysicalDeviceMemoryProperties) **must**
 have its `propertyFlags` set to one of the following values:
 
@@ -911,6 +939,22 @@ implementation-specific manner)
 the `propertyFlags` members of **Y** includes
 `VK_MEMORY_PROPERTY_DEVICE_COHERENT_BIT_AMD` or
 `VK_MEMORY_PROPERTY_DEVICE_UNCACHED_BIT_AMD` and **X** does not
+
+|  | There is no ordering requirement between **X** and **Y** elements for the case
+| --- | --- |
+their `propertyFlags` members are not in a subset relation.
+That potentially allows more than one possible way to order the same set of
+memory types.
+Notice that the [list of all allowed memory property flag combinations](#memory-device-bitmask-list) is written in a valid order.
+But if instead `VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT` was before
+`VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT` \|
+`VK_MEMORY_PROPERTY_HOST_COHERENT_BIT`, the list would still be in a
+valid order.
+
+There may be a performance penalty for using device coherent or uncached
+device memory types, and using these accidentally is undesirable.
+In order to avoid this, memory types with these properties always appear at
+the end of the list; but are subject to the same rules otherwise. |
 
 This ordering requirement enables applications to use a simple search loop
 to select the desired memory type along the lines of:
@@ -1193,6 +1237,18 @@ also perform automatic memory domain transfer operations, such that writes
 are always automatically available and visible to both host and device
 memory domains.
 
+|  | Device coherence is a useful property for certain debugging use cases (e.g.
+| --- | --- |
+crash analysis, where performing separate coherence actions could mean
+values are not reported correctly).
+However, device coherent accesses may be slower than equivalent accesses
+without device coherence, particularly if they are also device uncached.
+For device uncached memory in particular, repeated accesses to the same or
+neighboring memory locations over a short time period (e.g. within a frame)
+may be slower than it would be for the equivalent cached memory type.
+As such, it is generally inadvisable to use device coherent or device
+uncached memory except when really needed. |
+
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkMemoryPropertyFlags;
 
@@ -1300,12 +1356,40 @@ The contents of unprotected memory **must** not be a function of the
 contents of data protected memory objects, even if those memory objects
 were previously freed.
 
+|  | The contents of memory allocated by one application **should** not be a
+| --- | --- |
+function of data from protected memory objects of another application, even
+if those memory objects were previously freed. |
+
 The maximum number of valid memory allocations that **can** exist
 simultaneously within a [VkDevice](devsandqueues.html#VkDevice) **may** be restricted by implementation-
 or platform-dependent limits.
 The [`maxMemoryAllocationCount`](limits.html#limits-maxMemoryAllocationCount)
 feature describes the number of allocations that **can** exist simultaneously
 before encountering these internal limits.
+
+|  | For historical reasons, if `maxMemoryAllocationCount` is exceeded, some
+| --- | --- |
+implementations may return `VK_ERROR_TOO_MANY_OBJECTS`.
+Exceeding this limit will result in **undefined** behavior, and an application
+should not rely on the use of the returned error code in order to identify
+when the limit is reached. |
+
+|  | Many protected memory implementations involve complex hardware and system
+| --- | --- |
+software support, and often have additional and much lower limits on the
+number of simultaneous protected memory allocations (from memory types with
+the `VK_MEMORY_PROPERTY_PROTECTED_BIT` property) than for non-protected
+memory allocations.
+These limits can be system-wide, and depend on a variety of factors outside
+of the Vulkan implementation, so they cannot be queried in Vulkan.
+Applications **should** use as few allocations as possible from such memory
+types by suballocating aggressively, and be prepared for allocation failure
+even when there is apparently plenty of capacity remaining in the memory
+heap.
+As a guideline, the Vulkan conformance test suite requires that at least 80
+minimum-size allocations can exist concurrently when no other uses of
+protected memory are active in the system. |
 
 Some platforms **may** have a limit on the maximum size of a single allocation.
 For example, certain systems **may** fail to create allocations with a size
@@ -1522,6 +1606,14 @@ instances other than that corresponding to the memory object imported.
 Implementations **must** also ensure accessing imported memory which has not
 been initialized does not allow the importing Vulkan instance to obtain data
 from the exporting Vulkan instance or vice-versa.
+
+|  | How exported and imported memory is isolated is left to the implementation,
+| --- | --- |
+but applications should be aware that such isolation **may** prevent
+implementations from placing multiple exportable memory objects in the same
+physical or virtual page.
+Hence, applications **should** avoid creating many small external memory
+objects whenever possible. |
 
 Importing memory **must** not increase overall heap usage within a system.
 However, it **must** affect the following per-process values:
@@ -2319,22 +2411,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Outside | Outside | Graphics
 
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 The `VkTileMemoryBindInfoQCOM` structure is defined as:
 
@@ -2798,6 +2881,12 @@ longer needed.
 For handle types defined as NT handles, the imported memory object holds a
 reference to its payload.
 
+|  | Non-NT handle import operations do not add a reference to their associated
+| --- | --- |
+payload.
+If the original object owning the payload is destroyed, all resources and
+handles sharing that payload will become invalid. |
+
 Applications **can** import the same payload into multiple instances of Vulkan,
 into the same instance from which it was exported, and multiple times into a
 given Vulkan instance.
@@ -2907,6 +2996,11 @@ For handle types defined as NT handles, the handles returned by
 reference to their payload.
 To avoid leaking resources, the application **must** release ownership of them
 using the `CloseHandle` system call when they are no longer needed.
+
+|  | Non-NT handle types do not add a reference to their associated payload.
+| --- | --- |
+If the original object owning the payload is destroyed, all resources and
+handles sharing that payload will become invalid. |
 
 Valid Usage (Implicit)
 
@@ -3535,6 +3629,13 @@ The properties of the file descriptor exported depend on the value of
 See [VkExternalMemoryHandleTypeFlagBits](capabilities.html#VkExternalMemoryHandleTypeFlagBits) for a description of the
 properties of the defined external memory handle types.
 
+|  | The size of the exported file **may** be larger than the size requested by
+| --- | --- |
+[VkMemoryAllocateInfo](#VkMemoryAllocateInfo)::`allocationSize`.
+If `handleType` is `VK_EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT`,
+then the application **can** query the file’s actual size with
+[`lseek`](https://man7.org/linux/man-pages/man2/lseek.2.html). |
+
 Valid Usage
 
 * 
@@ -3739,6 +3840,11 @@ physical memory as `pHostPointer`, but mapped to a different host
 pointer while the [VkDeviceMemory](#VkDeviceMemory) handle is valid.
 Implementations running on general-purpose operating systems **should** not
 support importing host pointers for memory types which are not host-visible.
+
+|  | Using host pointers to back non-host visible allocations is a
+| --- | --- |
+platform-specific use case, and applications should not attempt to do this
+unless instructed by the platform. |
 
 Valid Usage
 
@@ -4286,6 +4392,19 @@ The `formatFeatures` member **must** include
 `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` and
 `VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT`.
 
+|  | The `formatFeatures` member only indicates the features available when
+| --- | --- |
+using an
+[external-format image](#memory-external-android-hardware-buffer-external-formats) created from the Android hardware buffer.
+Images from Android hardware buffers with a format other than
+`VK_FORMAT_UNDEFINED` are subject to the format capabilities obtained
+from [vkGetPhysicalDeviceFormatProperties2](formats.html#vkGetPhysicalDeviceFormatProperties2), and
+[vkGetPhysicalDeviceImageFormatProperties2](capabilities.html#vkGetPhysicalDeviceImageFormatProperties2) with appropriate parameters.
+These sets of features are independent of each other, e.g. the external
+format will support sampler Y′CBCR conversion even if the non-external
+format does not, and rendering directly to the external format will not be
+supported even if the non-external format does support this. |
+
 Android hardware buffers with the same external format **must** have the same
 support for `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`,
 `VK_FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT`,
@@ -4320,6 +4439,13 @@ extension, the implementation **should** suggest values that will produce
 similar sampled values as would be obtained by sampling the same external
 image via `samplerExternalOES` in OpenGL ES using equivalent sampler
 parameters.
+
+|  | Since
+| --- | --- |
+[`GL_OES_EGL_image_external`](https://registry.khronos.org/OpenGL/extensions/OES/OES_EGL_image_external.txt)
+does not require the same sampling and conversion calculations as Vulkan
+does, achieving identical results between APIs **may** not be possible on some
+implementations. |
 
 Valid Usage (Implicit)
 
@@ -6361,6 +6487,12 @@ If [VkPhysicalDeviceGroupProperties](devsandqueues.html#VkPhysicalDeviceGroupPro
 `VK_TRUE`, then memory is only consumed for the devices in the device
 mask.
 
+|  | In practice, most allocations on a multi-instance heap will be allocated
+| --- | --- |
+across all physical devices.
+Unicast allocation support is an optional optimization for a minority of
+allocations. |
+
 Valid Usage
 
 * 
@@ -6493,6 +6625,16 @@ If `opaqueCaptureAddress` is not zero, it **should** be an address
 retrieved from [vkGetDeviceMemoryOpaqueCaptureAddress](#vkGetDeviceMemoryOpaqueCaptureAddress) on an identically
 created memory allocation on the same implementation.
 
+|  | In most cases, it is expected that a non-zero `opaqueAddress` is an
+| --- | --- |
+address retrieved from [vkGetDeviceMemoryOpaqueCaptureAddress](#vkGetDeviceMemoryOpaqueCaptureAddress) on an
+identically created memory allocation.
+If this is not the case, it is likely that
+`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS` errors will occur.
+
+This is, however, not a strict requirement because trace capture/replay
+tools may need to adjust memory allocation parameters for imported memory. |
+
 If this structure is not present, it is as if `opaqueCaptureAddress` is
 zero.
 
@@ -6539,6 +6681,12 @@ the [Resource Memory Association](resources.html#resources-association) section.
 
 If a memory object is mapped at the time it is freed, it is implicitly
 unmapped.
+
+|  | As described [below](#memory-device-unmap-does-not-flush), host writes are
+| --- | --- |
+not implicitly flushed when the memory object is unmapped, but the
+implementation **must** guarantee that writes that have not been flushed do not
+affect any other memory. |
 
 Valid Usage
 
@@ -6624,6 +6772,20 @@ The value of the returned pointer minus `offset` **must** be aligned to
 After a successful call to `vkMapMemory` the memory object `memory`
 is considered to be currently *host mapped*.
 
+|  | It is an application error to call `vkMapMemory` on a memory object that
+| --- | --- |
+is already *host mapped*. |
+
+|  | `vkMapMemory` will fail if the implementation is unable to allocate an
+| --- | --- |
+appropriately sized contiguous virtual address range, e.g. due to virtual
+address space fragmentation or platform limits.
+In such cases, `vkMapMemory` **must** return
+`VK_ERROR_MEMORY_MAP_FAILED`.
+The application **can** improve the likelihood of success by reducing the size
+of the mapped range and/or removing unneeded mappings using
+[vkUnmapMemory](#vkUnmapMemory). |
+
 `vkMapMemory` does not check whether the device memory is currently in
 use before returning the host-accessible pointer.
 The application **must** guarantee that any previously submitted command that
@@ -6643,6 +6805,12 @@ of the range up to the nearest multiple of
 While a range of device memory is host mapped, the application is
 responsible for synchronizing both device and host access to that memory
 range.
+
+|  | It is important for the application developer to become meticulously
+| --- | --- |
+familiar with all of the mechanisms described in the chapter on
+[Synchronization and Cache Control](synchronization.html#synchronization) as they are crucial
+to maintaining memory access ordering. |
 
 Calling `vkMapMemory` is equivalent to calling [vkMapMemory2](#vkMapMemory2) with
 an empty `pNext` chain.
@@ -7072,6 +7240,31 @@ Two commands are provided to enable applications to work with non-coherent
 memory allocations: `vkFlushMappedMemoryRanges` and
 `vkInvalidateMappedMemoryRanges`.
 
+|  | If the memory object was created with the
+| --- | --- |
+`VK_MEMORY_PROPERTY_HOST_COHERENT_BIT` set,
+`vkFlushMappedMemoryRanges` and `vkInvalidateMappedMemoryRanges` are
+unnecessary and **may** have a performance cost.
+However, [availability and visibility operations](synchronization.html#synchronization-dependencies-available-and-visible) still need to be managed on the device.
+See the description of [host access types](synchronization.html#synchronization-host-access-types) for more information. |
+
+|  | While memory objects imported from a handle type of
+| --- | --- |
+`VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT` or
+`VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_MAPPED_FOREIGN_MEMORY_BIT_EXT` are
+inherently mapped to host address space, they are not considered to be host
+mapped device memory unless they are explicitly host mapped using
+[vkMapMemory](#vkMapMemory).
+That means flushing or invalidating host caches with respect to host
+accesses performed on such memory through the original host pointer
+specified at import time is the responsibility of the application and **must**
+be performed with appropriate synchronization primitives provided by the
+platform which are outside the scope of Vulkan.
+`vkFlushMappedMemoryRanges` and `vkInvalidateMappedMemoryRanges`,
+however, **can** still be used on such memory objects to synchronize host
+accesses performed through the host pointer of the host mapped device memory
+range returned by [vkMapMemory](#vkMapMemory). |
+
 After a successful call to `vkMapMemory`
 or `vkMapMemory2`
 the memory object `memory` is considered to be currently *host mapped*.
@@ -7105,11 +7298,28 @@ The first [synchronization scope](synchronization.html#synchronization-dependenc
 includes all host operations that happened-before it, as defined by the host
 memory model.
 
+|  | Some systems allow writes that do not directly integrate with the host
+| --- | --- |
+memory model; these have to be synchronized by the application manually.
+One example of this is non-temporal store instructions on x86; to ensure
+these happen-before submission, applications should call `_mm_sfence()`. |
+
 The second [synchronization scope](synchronization.html#synchronization-dependencies-scopes) is
 empty.
 
 The first [access scope](synchronization.html#synchronization-dependencies-access-scopes)
 includes host writes to the specified memory ranges.
+
+|  | When a host write to a memory location is made available in this way, each
+| --- | --- |
+whole aligned set of [`nonCoherentAtomSize`](limits.html#limits-nonCoherentAtomSize) bytes that the memory location exists in will
+also be made available as if they were written by the host.
+For example, with a `nonCoherentAtomSize` of 128, if an application
+writes to the first byte of a memory object via a host mapping, the first
+128 bytes of the memory object will be made available by this command.
+While the value of the following 127 bytes will be unchanged, this does
+count as an access for the purpose of synchronization, so care must be taken
+to avoid data races. |
 
 The second [access scope](synchronization.html#synchronization-dependencies-access-scopes) is
 empty.
@@ -7119,6 +7329,12 @@ memory, and host writes that have not been flushed **may** not ever be visible
 to the device.
 However, implementations **must** ensure that writes that have not been flushed
 do not become visible to any other memory.
+
+|  | The above guarantee avoids a potential memory corruption in scenarios where
+| --- | --- |
+host writes to a mapped memory object have not been flushed before the
+memory is unmapped (or freed), and the virtual address range is subsequently
+reused for a different mapping (or memory allocation). |
 
 Valid Usage (Implicit)
 
@@ -7182,6 +7398,23 @@ The first [synchronization scope](synchronization.html#synchronization-dependenc
 includes all host operations that happened-before it, as defined by the host
 memory model.
 
+|  | This function does not synchronize with device operations directly - other
+| --- | --- |
+host [synchronization operations](synchronization.html#synchronization) that depend on device
+operations such as [vkWaitForFences](synchronization.html#vkWaitForFences) must be executed beforehand.
+So for any non-coherent device write to be made visible to the host, there
+has to be a dependency chain along the following lines:
+
+Device write
+
+Device memory barrier including host reads in its second scope
+
+Signal on the device (e.g. a [fence    signal operation](synchronization.html#synchronization-fences-signaling))
+
+Wait on the host (e.g. [vkWaitForFences](synchronization.html#vkWaitForFences))
+
+[vkInvalidateMappedMemoryRanges](#vkInvalidateMappedMemoryRanges) |
+
 The second [synchronization scope](synchronization.html#synchronization-dependencies-scopes)
 includes all host operations that happen-after it, as defined by the host
 memory model.
@@ -7191,6 +7424,20 @@ empty.
 
 The second [access scope](synchronization.html#synchronization-dependencies-access-scopes)
 includes host reads to the specified memory ranges.
+
+|  | When a device write to a memory location is made visible to the host in this
+| --- | --- |
+way, each whole aligned set of [`nonCoherentAtomSize`](limits.html#limits-nonCoherentAtomSize) bytes that the memory location exists in will
+also be made visible as if they were written by the device.
+For example, with a `nonCoherentAtomSize` of 128, if an application
+writes to the first byte of a memory object on the device, the first 128
+bytes of the memory object will be made visible by this command.
+While the value of the following 127 bytes will be unchanged, this does
+count as an access for the purpose of synchronization, so care must be taken
+to avoid data races. |
+
+|  | Mapping non-coherent memory does not implicitly invalidate that memory. |
+| --- | --- |
 
 Valid Usage (Implicit)
 
@@ -7539,6 +7786,11 @@ A memory type with this flag set is only allowed to be bound to a
 `VkImage` whose usage flags include
 `VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT`.
 
+|  | Using lazily allocated memory objects for framebuffer attachments that are
+| --- | --- |
+not needed once a render pass instance has completed **may** allow some
+implementations to never allocate memory for such attachments. |
+
 To determine the amount of lazily-allocated memory that is currently
 committed for a memory object, call:
 
@@ -7659,6 +7911,17 @@ Unprotected queue operations
 * 
 Protected queue operations
 
+|  | When the [`protectedMemory`](features.html#features-protectedMemory) feature is
+| --- | --- |
+enabled, all pipelines **may** be recorded in either protected or unprotected
+command buffers (or both), which may incur an extra cost on some
+implementations.
+This **can** be mitigated by enabling the [`pipelineProtectedAccess`](features.html#features-pipelineProtectedAccess) feature, in which case pipelines created
+with `VK_PIPELINE_CREATE_PROTECTED_ACCESS_ONLY_BIT` may only be recorded
+in protected command buffers, and pipelines created with
+`VK_PIPELINE_CREATE_NO_PROTECTED_ACCESS_BIT` may only be recorded in
+unprotected command buffers. |
+
 If [VkPhysicalDeviceProtectedMemoryProperties](limits.html#VkPhysicalDeviceProtectedMemoryProperties)::`protectedNoFault`
 is `VK_FALSE`, applications **must** not perform any of the following
 operations:
@@ -7708,6 +7971,13 @@ definition of `AHardwareBuffer` is provided in the Vulkan headers:
 struct AHardwareBuffer;
 
 The actual `AHardwareBuffer` type is defined in Android NDK headers.
+
+|  | The NDK format, usage, and size/dimensions of an `AHardwareBuffer`
+| --- | --- |
+object can be obtained with the `AHardwareBuffer_describe` function.
+While Android hardware buffers can be imported to or exported from Vulkan
+without using that function, valid usage and implementation behavior is
+defined in terms of the `AHardwareBuffer_Desc` properties it returns. |
 
 Android hardware buffer objects are reference-counted using Android NDK
 functions outside of the scope of this specification.
@@ -7853,87 +8123,35 @@ If a given choice of image parameters are supported for import, they **can**
 also be used to create an image and memory that will be exported to an
 Android hardware buffer.
 
-Table 1. AHardwareBuffer Format Equivalence
+| AHardwareBuffer Format | Vulkan Format |
+| --- | --- |
+| `AHARDWAREBUFFER_FORMAT_R8G8B8A8_UNORM` | `VK_FORMAT_R8G8B8A8_UNORM` |
+| `AHARDWAREBUFFER_FORMAT_R8G8B8X8_UNORM` 1 | `VK_FORMAT_R8G8B8A8_UNORM` |
+| `AHARDWAREBUFFER_FORMAT_R8G8B8_UNORM` | `VK_FORMAT_R8G8B8_UNORM` |
+| `AHARDWAREBUFFER_FORMAT_R5G6B5_UNORM` | `VK_FORMAT_R5G6B5_UNORM_PACK16` |
+| `AHARDWAREBUFFER_FORMAT_R16G16B16A16_FLOAT` | `VK_FORMAT_R16G16B16A16_SFLOAT` |
+| `AHARDWAREBUFFER_FORMAT_R10G10B10A2_UNORM` | `VK_FORMAT_A2B10G10R10_UNORM_PACK32` |
+| `AHARDWAREBUFFER_FORMAT_D16_UNORM` | `VK_FORMAT_D16_UNORM` |
+| `AHARDWAREBUFFER_FORMAT_D24_UNORM` | `VK_FORMAT_X8_D24_UNORM_PACK32` |
+| `AHARDWAREBUFFER_FORMAT_D24_UNORM_S8_UINT` | `VK_FORMAT_D24_UNORM_S8_UINT` |
+| `AHARDWAREBUFFER_FORMAT_D32_FLOAT` | `VK_FORMAT_D32_SFLOAT` |
+| `AHARDWAREBUFFER_FORMAT_D32_FLOAT_S8_UINT` | `VK_FORMAT_D32_SFLOAT_S8_UINT` |
+| `AHARDWAREBUFFER_FORMAT_S8_UINT` | `VK_FORMAT_S8_UINT` |
 
-AHardwareBuffer Format
-Vulkan Format
-
-`AHARDWAREBUFFER_FORMAT_R8G8B8A8_UNORM`
-`VK_FORMAT_R8G8B8A8_UNORM`
-
-`AHARDWAREBUFFER_FORMAT_R8G8B8X8_UNORM` 1
-`VK_FORMAT_R8G8B8A8_UNORM`
-
-`AHARDWAREBUFFER_FORMAT_R8G8B8_UNORM`
-`VK_FORMAT_R8G8B8_UNORM`
-
-`AHARDWAREBUFFER_FORMAT_R5G6B5_UNORM`
-`VK_FORMAT_R5G6B5_UNORM_PACK16`
-
-`AHARDWAREBUFFER_FORMAT_R16G16B16A16_FLOAT`
-`VK_FORMAT_R16G16B16A16_SFLOAT`
-
-`AHARDWAREBUFFER_FORMAT_R10G10B10A2_UNORM`
-`VK_FORMAT_A2B10G10R10_UNORM_PACK32`
-
-`AHARDWAREBUFFER_FORMAT_D16_UNORM`
-`VK_FORMAT_D16_UNORM`
-
-`AHARDWAREBUFFER_FORMAT_D24_UNORM`
-`VK_FORMAT_X8_D24_UNORM_PACK32`
-
-`AHARDWAREBUFFER_FORMAT_D24_UNORM_S8_UINT`
-`VK_FORMAT_D24_UNORM_S8_UINT`
-
-`AHARDWAREBUFFER_FORMAT_D32_FLOAT`
-`VK_FORMAT_D32_SFLOAT`
-
-`AHARDWAREBUFFER_FORMAT_D32_FLOAT_S8_UINT`
-`VK_FORMAT_D32_SFLOAT_S8_UINT`
-
-`AHARDWAREBUFFER_FORMAT_S8_UINT`
-`VK_FORMAT_S8_UINT`
-
-Table 2. AHardwareBuffer Usage Equivalence
-
-AHardwareBuffer Usage
-Vulkan Usage or Creation Flag
-
-None
-`VK_IMAGE_USAGE_TRANSFER_SRC_BIT`
-
-None
-`VK_IMAGE_USAGE_TRANSFER_DST_BIT`
-
-`AHARDWAREBUFFER_USAGE_GPU_SAMPLED_IMAGE`
-`VK_IMAGE_USAGE_SAMPLED_BIT`
-
-`AHARDWAREBUFFER_USAGE_GPU_SAMPLED_IMAGE`
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
-
-`AHARDWAREBUFFER_USAGE_GPU_FRAMEBUFFER` 3
-`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
-
-`AHARDWAREBUFFER_USAGE_GPU_FRAMEBUFFER` 3
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
-
-`AHARDWAREBUFFER_USAGE_GPU_CUBE_MAP`
-`VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT`
-
-`AHARDWAREBUFFER_USAGE_GPU_MIPMAP_COMPLETE`
-None 2
-
-`AHARDWAREBUFFER_USAGE_PROTECTED_CONTENT`
-`VK_IMAGE_CREATE_PROTECTED_BIT`
-
-None
-`VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT`
-
-None
-`VK_IMAGE_CREATE_EXTENDED_USAGE_BIT`
-
-`AHARDWAREBUFFER_USAGE_GPU_DATA_BUFFER` 4
-`VK_IMAGE_USAGE_STORAGE_BIT`
+| AHardwareBuffer Usage | Vulkan Usage or Creation Flag |
+| --- | --- |
+| None | `VK_IMAGE_USAGE_TRANSFER_SRC_BIT` |
+| None | `VK_IMAGE_USAGE_TRANSFER_DST_BIT` |
+| `AHARDWAREBUFFER_USAGE_GPU_SAMPLED_IMAGE` | `VK_IMAGE_USAGE_SAMPLED_BIT` |
+| `AHARDWAREBUFFER_USAGE_GPU_SAMPLED_IMAGE` | `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` |
+| `AHARDWAREBUFFER_USAGE_GPU_FRAMEBUFFER` 3 | `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` |
+| `AHARDWAREBUFFER_USAGE_GPU_FRAMEBUFFER` 3 | `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` |
+| `AHARDWAREBUFFER_USAGE_GPU_CUBE_MAP` | `VK_IMAGE_CREATE_CUBE_COMPATIBLE_BIT` |
+| `AHARDWAREBUFFER_USAGE_GPU_MIPMAP_COMPLETE` | None 2 |
+| `AHARDWAREBUFFER_USAGE_PROTECTED_CONTENT` | `VK_IMAGE_CREATE_PROTECTED_BIT` |
+| None | `VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT` |
+| None | `VK_IMAGE_CREATE_EXTENDED_USAGE_BIT` |
+| `AHARDWAREBUFFER_USAGE_GPU_DATA_BUFFER` 4 | `VK_IMAGE_USAGE_STORAGE_BIT` |
 
 1
 
@@ -7970,6 +8188,13 @@ image with `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`.
 4
 
 In combination with a hardware buffer format other than `BLOB`.
+
+|  | When using `VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT` with Android hardware
+| --- | --- |
+buffer images, applications **should** use [VkImageFormatListCreateInfo](resources.html#VkImageFormatListCreateInfo) to
+inform the implementation which view formats will be used with the image.
+For some common sets of format, this allows some implementations to provide
+significantly better performance when accessing the image via Vulkan. |
 
 Android hardware buffers with a format of `AHARDWAREBUFFER_FORMAT_BLOB`
 and usage that includes `AHARDWAREBUFFER_USAGE_GPU_DATA_BUFFER` **can** be
@@ -8062,46 +8287,20 @@ When creating an image that will be bound to an imported QNX Screen buffer,
 the image creation parameters **must** be equivalent to the `_screen_buffer`
 properties as described by the valid usage of [VkMemoryAllocateInfo](#VkMemoryAllocateInfo).
 
-Table 3. QNX Screen Buffer Format Equivalence
-
-QNX Screen Format
-Vulkan Format
-
-`SCREEN_FORMAT_RGBA8888`
-`VK_FORMAT_B8G8R8A8_UNORM`
-
-`SCREEN_FORMAT_RGBX8888` 1
-`VK_FORMAT_B8G8R8A8_UNORM`
-
-`SCREEN_FORMAT_BGRA8888`
-`VK_FORMAT_R8G8B8A8_UNORM`
-
-`SCREEN_FORMAT_BGRX8888` 1
-`VK_FORMAT_R8G8B8A8_UNORM`
-
-`SCREEN_FORMAT_RGBA1010102`
-`VK_FORMAT_A2R10G10B10_UNORM_PACK32`
-
-`SCREEN_FORMAT_RGBX1010102` 1
-`VK_FORMAT_A2R10G10B10_UNORM_PACK32`
-
-`SCREEN_FORMAT_BGRA1010102`
-`VK_FORMAT_A2B10G10R10_UNORM_PACK32`
-
-`SCREEN_FORMAT_BGRX1010102` 1
-`VK_FORMAT_A2B10G10R10_UNORM_PACK32`
-
-`SCREEN_FORMAT_RGBA5551`
-`VK_FORMAT_A1R5G5B5_UNORM_PACK16`
-
-`SCREEN_FORMAT_RGBX5551` 1
-`VK_FORMAT_A1R5G5B5_UNORM_PACK16`
-
-`SCREEN_FORMAT_RGB565`
-`VK_FORMAT_R5G6B5_UNORM_PACK16`
-
-`SCREEN_FORMAT_RGB888`
-`VK_FORMAT_R8G8B8_UNORM`
+| QNX Screen Format | Vulkan Format |
+| --- | --- |
+| `SCREEN_FORMAT_RGBA8888` | `VK_FORMAT_B8G8R8A8_UNORM` |
+| `SCREEN_FORMAT_RGBX8888` 1 | `VK_FORMAT_B8G8R8A8_UNORM` |
+| `SCREEN_FORMAT_BGRA8888` | `VK_FORMAT_R8G8B8A8_UNORM` |
+| `SCREEN_FORMAT_BGRX8888` 1 | `VK_FORMAT_R8G8B8A8_UNORM` |
+| `SCREEN_FORMAT_RGBA1010102` | `VK_FORMAT_A2R10G10B10_UNORM_PACK32` |
+| `SCREEN_FORMAT_RGBX1010102` 1 | `VK_FORMAT_A2R10G10B10_UNORM_PACK32` |
+| `SCREEN_FORMAT_BGRA1010102` | `VK_FORMAT_A2B10G10R10_UNORM_PACK32` |
+| `SCREEN_FORMAT_BGRX1010102` 1 | `VK_FORMAT_A2B10G10R10_UNORM_PACK32` |
+| `SCREEN_FORMAT_RGBA5551` | `VK_FORMAT_A1R5G5B5_UNORM_PACK16` |
+| `SCREEN_FORMAT_RGBX5551` 1 | `VK_FORMAT_A1R5G5B5_UNORM_PACK16` |
+| `SCREEN_FORMAT_RGB565` | `VK_FORMAT_R5G6B5_UNORM_PACK16` |
+| `SCREEN_FORMAT_RGB888` | `VK_FORMAT_R8G8B8_UNORM` |
 
 1
 
@@ -8246,6 +8445,10 @@ be accessed as the destination of any `vkCmdCopy*` command.
 **can** be written as any memory access type.
 Shader atomics are considered to be writes.
 
+|  | The peer memory features of a memory heap also apply to any accesses that
+| --- | --- |
+**may** be performed during [image layout transitions](synchronization.html#synchronization-image-layout-transitions). |
+
 `VK_PEER_MEMORY_FEATURE_COPY_DST_BIT` **must** be supported for all host
 local heaps and for at least one device-local memory heap.
 
@@ -8297,6 +8500,11 @@ The 64-bit return value is an opaque address representing the start of
 If the memory object was allocated with a non-zero value of
 [VkMemoryOpaqueCaptureAddressAllocateInfo](#VkMemoryOpaqueCaptureAddressAllocateInfo)::`opaqueCaptureAddress`,
 the return value **must** be the same address.
+
+|  | The expected usage for these opaque addresses is only for trace
+| --- | --- |
+capture/replay tools to store these addresses in a trace and subsequently
+specify them during replay. |
 
 Valid Usage
 

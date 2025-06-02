@@ -304,6 +304,13 @@ VkResult vkGetExecutionGraphPipelineNodeIndexAMDX(
 `pNodeInfo` specifies the shader name and index as set up when creating the pipeline, with the associated node index returned in `pNodeIndex`.
 When used with this function, `pNodeInfo→pName` must not be `NULL`.
 
+|  | To summarize, execution graphs use two kinds of indexes:
+| --- | --- |
+
+*shader index* specified in `VkPipelineShaderStageNodeCreateInfoAMDX` and used to enqueue payloads,
+
+*node index* specified in `VkDispatchGraphInfoAMDX` and used only for launching the graph from a command buffer. |
+
 Execution graph pipelines and their resources are bound using a new pipeline bind point:
 
 VK_PIPELINE_BIND_POINT_EXECUTION_GRAPH_AMDX
@@ -362,129 +369,87 @@ The `shaderMeshEnqueue` feature enables the ability to enqueue mesh nodes in an 
 
 A new capability is added:
 
-Capability
-Enabling Capabilities
+| Capability | Enabling Capabilities |
+| --- | --- |
+| 5067 | **ShaderEnqueueAMDX**
 
-5067
-**ShaderEnqueueAMDX**
-
-Uses shader enqueue capabilities
-**Shader**
+Uses shader enqueue capabilities | **Shader** |
 
 A new storage class is added:
 
-Storage Class
-Enabling Capabilities
-
-5068
-**NodePayloadAMDX**
+| Storage Class | Enabling Capabilities |
+| --- | --- |
+| 5068 | **NodePayloadAMDX**
 
 Storage for Node Payloads.
 
 Variables declared with **OpVariable** in the **GLCompute** execution model with the **CoalescingAMDX** execution mode are visible across all invocations within a workgroup; and other variables declared with **OpVariable** in this storage class are visible across all invocations within a node dispatch.
 Variables declared with this storage class are readable and writable, and must not have initializers.
 
-Pointers to this storage class are also used to point to payloads allocated and enqueued for other nodes.
-**ShaderEnqueueAMDX**
+Pointers to this storage class are also used to point to payloads allocated and enqueued for other nodes. | **ShaderEnqueueAMDX** |
 
 An entry point must only declare one variable in the `NodePayloadAMDX` storage class in its interface.
 
 New execution modes are added:
 
-Execution Mode
-Extra Operands
-Enabling Capabilities
-
-5069
-**CoalescingAMDX**
+| Execution Mode | Extra Operands | Enabling Capabilities |
+| --- | --- | --- |
+| 5069 | **CoalescingAMDX**
 
 Indicates that a GLCompute shader has coalescing semantics. (GLCompute only)
 
-Must not be declared alongside **StaticNumWorkgroupsAMDX** or **MaxNumWorkgroupsAMDX**.
+Must not be declared alongside **StaticNumWorkgroupsAMDX** or **MaxNumWorkgroupsAMDX**. |  | **ShaderEnqueueAMDX** |
+| 5071 | **MaxNodeRecursionAMDX**
 
-**ShaderEnqueueAMDX**
+Maximum number of times a node can enqueue payloads for itself. | **
 
-5071
-**MaxNodeRecursionAMDX**
-
-Maximum number of times a node can enqueue payloads for itself.
-**
-
-*Number of recursions*
-**ShaderEnqueueAMDX**
-
-5070
-**IsApiEntryAMDX**
+*Number of recursions* | **ShaderEnqueueAMDX** |
+| 5070 | **IsApiEntryAMDX**
 
 Indicates whether the shader can be dispatched directly by the client API or not. (GLCompute and MeshEXT execution models only)
 
 *Is Entry* is a scalar Boolean value, with a value of **true** indicating that it can be dispatched from the API, and **false** indicating that it cannot.
 If not specified, defaults to **true**.
 
-Must be set to **false** if **SharesInputWithAMDX** is specified.
-**
+Must be set to **false** if **SharesInputWithAMDX** is specified. | **
 
-*Is Entry*
-**ShaderEnqueueAMDX**
-
-5072
-**StaticNumWorkgroupsAMDX**
+*Is Entry* | **ShaderEnqueueAMDX** |
+| 5072 | **StaticNumWorkgroupsAMDX**
 
 Statically declare the number of workgroups dispatched for this shader, instead of obeying an API- or payload-specified value. (GLCompute and MeshEXT only)
 
-Must not be declared alongside **CoalescingAMDX** or **MaxNumWorkgroupsAMDX**.
-**
+Must not be declared alongside **CoalescingAMDX** or **MaxNumWorkgroupsAMDX**. | **
 
-*x size*
-**
+*x size* | **
 
-*y size*
-**
+*y size* | **
 
-*z size*
-**ShaderEnqueueAMDX**
-
-5077
-**MaxNumWorkgroupsAMDX**
+*z size* | **ShaderEnqueueAMDX** |
+| 5077 | **MaxNumWorkgroupsAMDX**
 
 Declare the maximum number of workgroups dispatched for this shader. Dispatches must not exceed this value (GLCompute and MeshEXT only)
 
-Must not be declared alongside **CoalescingAMDX** or **StaticNumWorkgroupsAMDX**.
-**
+Must not be declared alongside **CoalescingAMDX** or **StaticNumWorkgroupsAMDX**. | **
 
-*x size*
-**
+*x size* | **
 
-*y size*
-**
+*y size* | **
 
-*z size*
-**ShaderEnqueueAMDX**
+*z size* | **ShaderEnqueueAMDX** |
+| 5073 | **ShaderIndexAMDX**
 
-5073
-**ShaderIndexAMDX**
+Declare the node index for this shader. (GLCompute and MeshEXT only) | **
 
-Declare the node index for this shader. (GLCompute and MeshEXT only)
-**
-
-*Shader Index*
-**ShaderEnqueueAMDX**
-
-5102
-**SharesInputWithAMDX**
+*Shader Index* | **ShaderEnqueueAMDX** |
+| 5102 | **SharesInputWithAMDX**
 
 Declare that this shader is paired with another node, such that it will be dispatched with the same input payload when the identified node is dispatched.
 
 *Node Name* and *Shader Index* indicate the node that the input will be shared with.
 
-*Node Name* must be an **OpConstantStringAMDX** or **OpSpecConstantStringAMDX** instruction.
+*Node Name* must be an **OpConstantStringAMDX** or **OpSpecConstantStringAMDX** instruction. | *Node Name* | **
 
-*Node Name*
-**
-
-*Shader Index*
-
-**ShaderEnqueueAMDX**
+*Shader Index* |  | **ShaderEnqueueAMDX** |
 
 A shader module declaring `ShaderEnqueueAMDX` capability must only be used in execution graph pipelines created by
 `vkCreateExecutionGraphPipelinesAMDX` command.
@@ -546,24 +511,17 @@ If **IsApiEntryAMDX** is set to **false**, `vkCmdDispatchGraph*` commands must n
 
 New decorations are added:
 
-Decoration
-Extra Operands
-Enabling Capabilities
-
-5020
-**NodeMaxPayloadsAMDX**
+| Decoration | Extra Operands | Enabling Capabilities |
+| --- | --- | --- |
+| 5020 | **NodeMaxPayloadsAMDX**
 
 Must only be used to decorate an **OpTypeNodePayloadArrayAMDX**.
 
 **OpTypeNodePayloadArrayAMDX** must have this decoration.
-The operand indicates the maximum number of payloads that can be in the array, and the maximum number of payloads that can be enqueued with this type.
-**
+The operand indicates the maximum number of payloads that can be in the array, and the maximum number of payloads that can be enqueued with this type. | **
 
-*Max number of payloads*
-**ShaderEnqueueAMDX**
-
-5019
-**NodeSharesPayloadLimitsWithAMDX**
+*Max number of payloads* | **ShaderEnqueueAMDX** |
+| 5019 | **NodeSharesPayloadLimitsWithAMDX**
 
 Decorates an **OpTypeNodePayloadArrayAMDX** declaration to indicate that payloads of this type share output resources with *Payload Type* when allocated.
 
@@ -575,129 +533,94 @@ Must only be used to decorate an **OpTypeNodePayloadArrayAMDX** declaration,
 *Payload Type* must not be itself decorated with **NodeSharesPayloadLimitsWithAMDX**.
 
 It is only necessary to decorate one **OpTypeNodePayloadArrayAMDX** declaration to indicate sharing between two node outputs.
-Multiple variables can be decorated with the same *Payload Type* to indicate sharing across multiple node outputs.
-**
+Multiple variables can be decorated with the same *Payload Type* to indicate sharing across multiple node outputs. | **
 
-*Payload Type*
-**ShaderEnqueueAMDX**
-
-5091
-**PayloadNodeNameAMDX**
+*Payload Type* | **ShaderEnqueueAMDX** |
+| 5091 | **PayloadNodeNameAMDX**
 
 Decorates an **OpTypeNodePayloadArrayAMDX** declaration to indicate that the payloads in the array
 will be enqueued for the shader with *Node Name*.
 
 Must only be used to decorate an **OpTypeNodePayloadArrayAMDX** declaration.
 
-*Node Name* must be an **OpConstantStringAMDX** or **OpSpecConstantStringAMDX** instruction.
-**
+*Node Name* must be an **OpConstantStringAMDX** or **OpSpecConstantStringAMDX** instruction. | **
 
-*Node Name*
-**ShaderEnqueueAMDX**
-
-5098
-**PayloadNodeBaseIndexAMDX**
+*Node Name* | **ShaderEnqueueAMDX** |
+| 5098 | **PayloadNodeBaseIndexAMDX**
 
 Decorates an **OpTypeNodePayloadArrayAMDX** declaration to indicate a base index that
 will be added to the *Node Index* when allocating payloads of this type.
 If not specified, it is equivalent to specifying a value of 0.
 
-Must only be used to decorate an **OpTypeNodePayloadArrayAMDX** declaration.
-**
+Must only be used to decorate an **OpTypeNodePayloadArrayAMDX** declaration. | **
 
-*Base Index*
-**ShaderEnqueueAMDX**
-
-5099
-**PayloadNodeSparseArrayAMDX**
+*Base Index* | **ShaderEnqueueAMDX** |
+| 5099 | **PayloadNodeSparseArrayAMDX**
 
 Decorates an **OpTypeNodePayloadArrayAMDX** declaration to indicate that nodes at some node indexes may not exist in the execution graph pipeline and cannot be used to allocate payloads.
 
 If not specified, all node indexes between 0 and the **PayloadNodeArraySizeAMDX** value must be valid nodes in the graph.
 
-Must only be used to decorate an **OpTypeNodePayloadArrayAMDX** declaration.
-
-**ShaderEnqueueAMDX**
-
-5100
-**PayloadNodeArraySizeAMDX**
+Must only be used to decorate an **OpTypeNodePayloadArrayAMDX** declaration. |  | **ShaderEnqueueAMDX** |
+| 5100 | **PayloadNodeArraySizeAMDX**
 
 Decorates an **OpTypeNodePayloadArrayAMDX** declaration to indicate the maximum node index that can be used when allocating payloads of this type, including the base index offset in **PayloadNodeBaseIndexAMDX** decoration (if present).
 If not specified, the node array is considered unbounded.
 
 Must only be used to decorate an **OpTypeNodePayloadArrayAMDX** declaration.
 
-If **PayloadNodeSparseArrayAMDX** is not set to **true** for a type initialized by **OpAllocateNodePayloadsAMDX**, this must be specified.
-**
+If **PayloadNodeSparseArrayAMDX** is not set to **true** for a type initialized by **OpAllocateNodePayloadsAMDX**, this must be specified. | **
 
-*Array Size*
-**ShaderEnqueueAMDX**
-
-5078
-**TrackFinishWritingAMDX**
+*Array Size* | **ShaderEnqueueAMDX** |
+| 5078 | **TrackFinishWritingAMDX**
 
 Decorates a structure to indicate that when used as a payload it can be written to and works with the **OpFinishWritingNodePayloadAMDX** instruction.
 
 Must only be used to decorate a structure type declaration.
 
-If the payload enqueued for a node is using a structure decorated with this value, the input payload in the **NodePayloadAMDX** storage class in the receiving node must use a structure decorated with it as well.
-
-**ShaderEnqueueAMDX**
-
-5105
-**PayloadDispatchIndirectAMDX**
+If the payload enqueued for a node is using a structure decorated with this value, the input payload in the **NodePayloadAMDX** storage class in the receiving node must use a structure decorated with it as well. |  | **ShaderEnqueueAMDX** |
+| 5105 | **PayloadDispatchIndirectAMDX**
 
 Indicates the dispatch indirect arguments describing the number of workgroups to dispatch in a payload.
 Must only be used with **OpMemberDecorate** to decorate the member of a structure.
 Must decorate a structure member with a type of **OpTypeInt** or **OpTypeVector** with two or three components.
 The integer type or the type of the vector component must be an **OpTypeInt** with up to 32-bit *Width* and 0 *Signedness*.
 If a single integer is used, the Y and Z dispatch indirect arguments are assumed to be 1.
-If a vector of two components is used, the Z dispatch indirect argument is assumed to be 1.
-
-**ShaderEnqueueAMDX**
+If a vector of two components is used, the Z dispatch indirect argument is assumed to be 1. |  | **ShaderEnqueueAMDX** |
 
 The following new built-ins are provided:
 
-BuiltIn
-Enabling Capabilities
-
-5021
-**RemainingRecursionLevelsAMDX**
+| BuiltIn | Enabling Capabilities |
+| --- | --- |
+| 5021 | **RemainingRecursionLevelsAMDX**
 
 The number of times this node can still enqueue payloads for itself.
 
-Is equal to 0 if at the leaf or if the node is not recursive at all.
-**ShaderEnqueueAMDX**
+Is equal to 0 if at the leaf or if the node is not recursive at all. | **ShaderEnqueueAMDX** |
+| 5073 | **ShaderIndexAMDX**
 
-5073
-**ShaderIndexAMDX**
-
-Index assigned to the current shader.
-**ShaderEnqueueAMDX**
+Index assigned to the current shader. | **ShaderEnqueueAMDX** |
 
 If the `Execution Model` is `GLCompute` or `MeshEXT`, and neither the `StaticNumWorkgroupsAMDX` or `CoalescingAMDX` execution modes are specified, if an input payload is specified it must include a member with the **PayloadDispatchIndirectAMDX** decoration, indicating the number of workgroups to dispatch in each dimension.
 
 New constant instructions are added to allow specialization of string variables, which are used for linkage between shaders.
 
-**OpConstantStringAMDX**
+| **OpConstantStringAMDX**
+| --- | --- | --- | --- |
 
 Declare a new string specialization constant.
 
 *String* is the value of the constant.
 
-Unlike **OpString**, this is a semantically meaningful instruction and cannot be safely removed from a module.
-Capability:
+Unlike **OpString**, this is a semantically meaningful instruction and cannot be safely removed from a module. | Capability:
 
-**ShaderEnqueueAMDX**
+**ShaderEnqueueAMDX** |
+| 3 + variable | 5103 | *Result * | *Literal*
 
-3 + variable
-5103
-*Result *
-*Literal*
+*String* |
 
-*String*
-
-**OpSpecConstantStringAMDX**
+| **OpSpecConstantStringAMDX**
+| --- | --- | --- | --- |
 
 Declare a new string specialization constant.
 
@@ -707,21 +630,17 @@ Unlike **OpString**, this is a semantically meaningful instruction and cannot be
 
 This instruction can be specialized to become an **OpConstantStringAMDX** instruction.
 
-See *Specialization*.
-Capability:
+See *Specialization*. | Capability:
 
-**ShaderEnqueueAMDX**
+**ShaderEnqueueAMDX** |
+| 3 + variable | 5104 | *Result * | *Literal*
 
-3 + variable
-5104
-*Result *
-*Literal*
-
-*String*
+*String* |
 
 A new payload type is defined that can be allocated dynamically and then enqueued for a node:
 
-**OpTypeNodePayloadArrayAMDX**
+| **OpTypeNodePayloadArrayAMDX**
+| --- | --- | --- | --- |
 
 Declare a new payload array type.  Its length is not known at compile time.
 
@@ -731,22 +650,18 @@ Declare a new payload array type.  Its length is not known at compile time.
 
 A payload array can be allocated by either **OpAllocateNodePayloadsAMDX** to be enqueued as an output, or via **OpVariable** in the **NodePayloadAMDX** storage class to be consumed as an input.
 
-Can be dereferenced using an access chain in the same way as **OpTypeRuntimeArray** or **OpTypeArray**.
-[Capability](#Capability):
+Can be dereferenced using an access chain in the same way as **OpTypeRuntimeArray** or **OpTypeArray**. | [Capability](#Capability):
 
-**Shader**
+**Shader** |
+| 3 | 5076 | *Result * | **
 
-3
-5076
-*Result *
-**
-
-*Payload Type*
+*Payload Type* |
 
 Decorations on this type indicate which node this type will be dispatched to and how it consumes resources.
 Once a payload array type has been declared and all relevant decorations specified, they can be allocated using:
 
-**OpAllocateNodePayloadsAMDX**
+| **OpAllocateNodePayloadsAMDX**
+| --- | --- | --- | --- | --- | --- | --- |
 
 Allocates payloads for a node to be later enqueued via **OpEnqueueNodePayloadsAMDX**.
 
@@ -765,26 +680,18 @@ Behavior is undefined if *Payload Count* is greater than the **NodeMaxPayloadsAM
 
 *Visibility* must only be either *Invocation* or *Workgroup*.
 
-This instruction must be called in uniform control flow within the same workgroup.
-Capability:
+This instruction must be called in uniform control flow within the same workgroup. | Capability:
 
-**ShaderEnqueueAMDX**
+**ShaderEnqueueAMDX** |
+| 6 | 5074 | **
 
-6
-5074
-**
+*Result Type* | *Result* ** | *Scope *
 
-*Result Type*
-*Result* **
-*Scope *
+*Visibility* | **
 
-*Visibility*
-**
+*Payload Count* | **
 
-*Payload Count*
-**
-
-*Node Index*
+*Node Index* |
 
 Once a payload array is allocated, it can be enqueued to the identified node by calling **OpEnqueueNodePayloadsAMDX**.
 Enqueues are performed in the same manner as the `vkCmdDispatchGraph*` API commands.
@@ -793,28 +700,26 @@ If the node receiving the payloads has the `CoalescingAMDX` execution mode, ther
 The shader must not enqueue payloads to a shader with the same name as this shader unless the index identifies this node and `MaxNodeRecursionAMDX` is declared with a sufficient depth.
 Shaders with the same name and different indexes can each recurse independently.
 
-**OpEnqueueNodePayloadsAMDX**
+| **OpEnqueueNodePayloadsAMDX**
+| --- | --- | --- |
 
 Enqueues a previously allocated payload array for execution by its node.
 
 *Payload Array* is a pointer to a payload array that was previously allocated by **OpAllocateNodePayloadsAMDX**.
 
-This instruction must be called in uniform control flow within the workgroup.
-Capability:
+This instruction must be called in uniform control flow within the workgroup. | Capability:
 
-**ShaderEnqueueAMDX**
+**ShaderEnqueueAMDX** |
+| 2 | 5075 | **
 
-2
-5075
-**
-
-*Payload Array*
+*Payload Array* |
 
 Once this has been called, accessing any element of *Payload Array* is undefined behavior.
 
 The length of *Payload Array* can be queried at any point by calling:
 
-**OpNodePayloadArrayLengthAMDX**
+| **OpNodePayloadArrayLengthAMDX**
+| --- | --- | --- | --- | --- |
 
 Query the length of a payload array. Must only be used with input payload arrays or allocated output payload arrays.
 
@@ -822,20 +727,14 @@ Query the length of a payload array. Must only be used with input payload arrays
 
 *Result Type* must be an **OpTypeInt** with 32-bit *Width* and 0 *Signedness*.
 
-*Payload Array* is a pointer to a payload array previously allocated by **OpAllocateNodePayloadsAMDX**, or declared via **OpVariable** in the **NodePayloadAMDX** storage class as an input.
-[Capability](#Capability):
+*Payload Array* is a pointer to a payload array previously allocated by **OpAllocateNodePayloadsAMDX**, or declared via **OpVariable** in the **NodePayloadAMDX** storage class as an input. | [Capability](#Capability):
 
-**Shader**
+**Shader** |
+| 4 | 5090 | **
 
-4
-5090
-**
+*Result Type* | *Result * | **
 
-*Result Type*
-*Result *
-**
-
-*Payload Array*
+*Payload Array* |
 
 Before allocating payloads, applications can determine whether allocating payloads is possible for a particular node index:
 
@@ -848,7 +747,8 @@ If a payload type is decorated with **PayloadNodeNameAMDX** that matches the cur
 * 
 In all other cases, the payload can be allocated.
 
-**OpIsNodePayloadValidAMDX**
+| **OpIsNodePayloadValidAMDX**
+| --- | --- | --- | --- | --- | --- |
 
 Check if the node payload identified by the *Node Name* in the **PayloadNodeNameAMDX** decoration,
 with an index equal to the sum of its **PayloadNodeBaseIndexAMDX** decoration (if present) and *Node Index*
@@ -860,30 +760,24 @@ can be allocated.
 
 *Payload Type* must be an **OpTypeNodePayloadArrayAMDX** declaration.
 
-*NodeIndex* must be less than the value specified by the **PayloadNodeArraySizeAMDX** decoration if specified.
-Capability:
+*NodeIndex* must be less than the value specified by the **PayloadNodeArraySizeAMDX** decoration if specified. | Capability:
 
-**ShaderEnqueueAMDX**
+**ShaderEnqueueAMDX** |
+| 5 | 5101 | **
 
-5
-5101
-**
+*Result Type* | *Result* ** | **
 
-*Result Type*
-*Result* **
-**
+*Payload Type* | **
 
-*Payload Type*
-**
-
-*Node Index*
+*Node Index* |
 
 Payloads enqueued in this way will be provided to the node through the **NodePayloadAMDX** storage class in the shader.
 These payloads can be read by the receiving node, but also can be written for a limited amount of communication between multiple workgroups enqueued for the same node.
 It is a data race if one workgroup writes to a particular element of the payload and another workgroup accesses it in any way, with one exception; once all nodes have finished writing, it is safe for the last node to read those values.
 Workgroups can indicate that they have finished writing to the payload by calling:
 
-**OpFinishWritingNodePayloadAMDX**
+| **OpFinishWritingNodePayloadAMDX**
+| --- | --- | --- | --- | --- |
 
 Optionally indicates that all writes to the input payload by the current workgroup have completed.
 
@@ -897,20 +791,14 @@ Must not be called if the input payload is not decorated with **TrackFinishWriti
 
 *Result Type* must be **OpTypeBool**.
 
-*Payload* must be the result of an **OpVariable** in the **NodePayloadAMDX** storage class.
-Capability:
+*Payload* must be the result of an **OpVariable** in the **NodePayloadAMDX** storage class. | Capability:
 
-**ShaderEnqueueAMDX**
+**ShaderEnqueueAMDX** |
+| 4 | 5078 | **
 
-4
-5078
-**
+*Result Type* | *Result* ** | **
 
-*Result Type*
-*Result* **
-**
-
-*Payload*
+*Payload* |
 
 Once this has been called for a given payload, writing values into that payload by the current invocation/workgroup is undefined behavior.
 

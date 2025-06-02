@@ -223,22 +223,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Outside | Outside | Graphics | Action
 
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
-Action
-
-State
+State |
 
 The `VkRenderingInfo` structure is defined as:
 
@@ -1260,6 +1251,11 @@ If `resolveMode` is
 [`nullColorAttachmentWithExternalFormatResolve`](limits.html#limits-nullColorAttachmentWithExternalFormatResolve) limit is `VK_TRUE`,
 values are only **undefined** once [load operations](#renderpass-load-operations) have completed.
 
+|  | The resolve mode and store operation are independent; it is valid to write
+| --- | --- |
+both resolved and unresolved values, and equally valid to discard the
+unresolved values while writing the resolved ones. |
+
 Store and resolve operations are only performed at the end of a render pass
 instance that does not specify the `VK_RENDERING_SUSPENDING_BIT_KHR`
 flag.
@@ -2112,22 +2108,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Inside | Outside | Graphics | Action
 
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
-
-State
+State |
 
 Alternatively, to end a render pass instance, call:
 
@@ -2217,22 +2204,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Inside | Outside | Graphics | Action
 
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
-
-State
+State |
 
 The `VkRenderingEndInfoEXT` structure is defined as:
 
@@ -2265,6 +2243,14 @@ Valid Usage (Implicit)
 [](#VUID-VkRenderingEndInfoEXT-sType-unique) VUID-VkRenderingEndInfoEXT-sType-unique
 
  The `sType` value of each structure in the `pNext` chain **must** be unique
+
+|  | For more complex rendering graphs, it is possible to pre-define a static
+| --- | --- |
+*render pass* object, which as well as allowing draw commands, allows the
+definition of framebuffer-local dependencies between multiple subpasses.
+These objects have a lot of setup cost compared to
+[vkCmdBeginRendering](#vkCmdBeginRendering), but use of subpass dependencies can confer
+important performance benefits on some devices. |
 
 The `VkTilePropertiesQCOM` structure is defined as:
 
@@ -2369,6 +2355,9 @@ used over the course of the subpasses.
 
 Render passes are represented by `VkRenderPass` handles:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
 VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkRenderPass)
 
@@ -2419,6 +2408,17 @@ implementation-dependent manner.
 However, this selection **must** be made consistently for any fragment with the
 same shading rate for the lifetime of the [VkDevice](devsandqueues.html#VkDevice).
 
+|  | By describing a complete set of subpasses in advance, render passes provide
+| --- | --- |
+the implementation an opportunity to optimize the storage and transfer of
+attachment data between subpasses.
+
+In practice, this means that subpasses with a simple framebuffer-space
+dependency **may** be merged into a single tiled rendering pass, keeping the
+attachment data on-chip for the duration of a render pass instance.
+However, it is also quite common for a render pass to only contain a single
+subpass. |
+
 *Subpass dependencies* describe [execution and memory dependencies](synchronization.html#synchronization-dependencies) between subpasses.
 
 A *subpass dependency chain* is a sequence of subpass dependencies in a
@@ -2454,6 +2454,9 @@ attachment is not used.
 #define VK_ATTACHMENT_UNUSED              (~0U)
 
 To create a render pass, call:
+
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 VkResult vkCreateRenderPass(
@@ -2530,6 +2533,9 @@ Return Codes
 
 The `VkRenderPassCreateInfo` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
 typedef struct VkRenderPassCreateInfo {
     VkStructureType                   sType;
@@ -2577,6 +2583,11 @@ of subpasses.
 `pDependencies` is a pointer to an array of `dependencyCount`
 [VkSubpassDependency](#VkSubpassDependency) structures describing dependencies between
 pairs of subpasses.
+
+|  | Care should be taken to avoid a data race here; if any subpasses access
+| --- | --- |
+attachments with overlapping memory locations, and one of those accesses is
+a write, a subpass dependency needs to be included between them. |
 
 Valid Usage
 
@@ -2828,6 +2839,9 @@ typedef enum VkRenderPassCreateFlagBits {
 created render pass is compatible with
 [render pass transform](vertexpostproc.html#vertexpostproc-renderpass-transform).
 
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkRenderPassCreateFlags;
 
@@ -2840,6 +2854,9 @@ includes an array of view masks, view offsets, and correlation masks for the
 render pass.
 
 The `VkRenderPassMultiviewCreateInfo` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_1
 typedef struct VkRenderPassMultiviewCreateInfo {
@@ -3084,6 +3101,9 @@ structure includes a fragment density map attachment for the render pass.
 The `VkRenderPassFragmentDensityMapCreateInfoEXT` structure is defined
 as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_EXT_fragment_density_map
 typedef struct VkRenderPassFragmentDensityMapCreateInfoEXT {
     VkStructureType          sType;
@@ -3176,6 +3196,9 @@ Valid Usage (Implicit)
  `fragmentDensityMapAttachment` **must** be a valid [VkAttachmentReference](#VkAttachmentReference) structure
 
 The `VkAttachmentDescription` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 typedef struct VkAttachmentDescription {
@@ -3272,6 +3295,16 @@ subresource of an image.
 Attachments using views of distinct image subresources which are bound
 to overlapping memory ranges.
 
+|  | Render passes **must** include subpass dependencies (either directly or via a
+| --- | --- |
+subpass dependency chain) between any two subpasses that operate on the same
+attachment or aliasing attachments and those subpass dependencies **must**
+include execution and memory dependencies separating uses of the aliases, if
+at least one of those subpasses writes to one of the aliases.
+These dependencies **must** not include the `VK_DEPENDENCY_BY_REGION_BIT`
+if the aliases are views of distinct image subresources which overlap in
+memory. |
+
 Multiple attachments that alias the same memory **must** not be used in a
 single subpass.
 A given attachment index **must** not be used multiple times in a single
@@ -3291,6 +3324,12 @@ the first alias **must** not be used in any later subpasses.
 However, an application **can** assign the same image view to multiple aliasing
 attachment indices, which allows that image view to be used multiple times
 even if other aliases are used in between.
+
+|  | Once an attachment needs the `VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT`
+| --- | --- |
+bit, there **should** be no additional cost of introducing additional aliases,
+and using these additional aliases **may** allow more efficient clearing of the
+attachments on multiple uses via `VK_ATTACHMENT_LOAD_OP_CLEAR`. |
 
 Valid Usage
 
@@ -3573,6 +3612,9 @@ typedef enum VkAttachmentDescriptionFlagBits {
 `VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT` specifies that the
 attachment aliases the same device memory as other attachments.
 
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkAttachmentDescriptionFlags;
 
@@ -3581,6 +3623,9 @@ zero or more [VkAttachmentDescriptionFlagBits](#VkAttachmentDescriptionFlagBits)
 
 The `VkRenderPassInputAttachmentAspectCreateInfo` structure is defined
 as:
+
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_1
 typedef struct VkRenderPassInputAttachmentAspectCreateInfo {
@@ -3640,6 +3685,9 @@ Valid Usage (Implicit)
 
 The `VkInputAttachmentAspectReference` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_1
 typedef struct VkInputAttachmentAspectReference {
     uint32_t              subpass;
@@ -3697,6 +3745,9 @@ Valid Usage (Implicit)
  `aspectMask` **must** not be `0`
 
 The `VkSubpassDescription` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 typedef struct VkSubpassDescription {
@@ -4283,6 +4334,17 @@ this subpass.
 [apron regions](#renderpass-tile-shading-aprons) **can** be read within
 this subpass when [tile shading is enabled](#renderpass-tile-shading).
 
+|  | Shader resolve operations allow for custom resolve operations, but
+| --- | --- |
+overdrawing pixels **may** have a performance and/or power cost.
+Furthermore, since the content of any depth stencil attachment or color
+attachment is **undefined** at the beginning of a shader resolve subpass, any
+depth testing, stencil testing, or blending operation which sources these
+**undefined** values also has **undefined** result value. |
+
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkSubpassDescriptionFlags;
 
@@ -4290,6 +4352,9 @@ typedef VkFlags VkSubpassDescriptionFlags;
 or more [VkSubpassDescriptionFlagBits](#VkSubpassDescriptionFlagBits).
 
 The `VkAttachmentReference` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 typedef struct VkAttachmentReference {
@@ -4363,6 +4428,9 @@ It is described in more detail by [VkSubpassDependency](#VkSubpassDependency).
 #define VK_SUBPASS_EXTERNAL               (~0U)
 
 The `VkSubpassDependency` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 typedef struct VkSubpassDependency {
@@ -4466,6 +4534,28 @@ It is also limited to access types in the [destination access mask](synchronizat
 The [availability and visibility operations](synchronization.html#synchronization-dependencies-available-and-visible) defined by a subpass dependency affect the execution
 of [image layout transitions](#renderpass-layout-transitions) within the
 render pass.
+
+|  | For non-attachment resources, the memory dependency expressed by subpass
+| --- | --- |
+dependency is nearly identical to that of a [VkMemoryBarrier](synchronization.html#VkMemoryBarrier) (with
+matching `srcAccessMask` and `dstAccessMask` parameters) submitted
+as a part of a [vkCmdPipelineBarrier](synchronization.html#vkCmdPipelineBarrier) (with matching `srcStageMask`
+and `dstStageMask` parameters).
+The only difference being that its scopes are limited to the identified
+subpasses rather than potentially affecting everything before and after.
+
+For attachments however, subpass dependencies work more like a
+[VkImageMemoryBarrier](synchronization.html#VkImageMemoryBarrier) defined similarly to the [VkMemoryBarrier](synchronization.html#VkMemoryBarrier)
+above, the queue family indices set to `VK_QUEUE_FAMILY_IGNORED`, and
+layouts as follows:
+
+* 
+The equivalent to `oldLayout` is the attachment’s layout according
+to the subpass description for `srcSubpass`.
+
+* 
+The equivalent to `newLayout` is the attachment’s layout according
+to the subpass description for `dstSubpass`. |
 
 Valid Usage
 
@@ -4729,6 +4819,28 @@ For example, an attachment using `VK_ATTACHMENT_LOAD_OP_CLEAR` will have
 each view cleared on first use, but the first use of one view may be
 temporally distant from the first use of another view.
 
+|  | A good mental model for multiview is to think of a multiview subpass as if
+| --- | --- |
+it were a collection of individual (per-view) subpasses that are logically
+grouped together and described as a single multiview subpass in the API.
+Similarly, a multiview attachment can be thought of like several individual
+attachments that happen to be layers in a single image.
+A view-local dependency between two multiview subpasses acts like a set of
+one-to-one dependencies between corresponding pairs of per-view subpasses.
+A view-global dependency between two multiview subpasses acts like a set of
+N × M dependencies between all pairs of per-view subpasses in
+the source and destination.
+Thus, it is a more compact representation which also makes clear the
+commonality and reuse that is present between views in a subpass.
+This interpretation motivates the answers to questions like “when does the
+load op apply” - it is on the first use of each view of an attachment, as
+if each view was a separate attachment.
+
+The content of each view follows the description in
+[attachment content behavior](#renderpass-attachment-contents).
+In particular, if an attachment is preserved, all views within the
+attachment are preserved. |
+
 If any two subpasses of a render pass activate transform feedback to the
 same bound transform feedback buffers, a subpass dependency **must** be
 included (either directly or via some intermediate subpasses) between them.
@@ -4975,24 +5087,18 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 A more extensible version of render pass creation is also defined below.
 
 To create a render pass, call:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_2
 VkResult vkCreateRenderPass2(
@@ -5081,6 +5187,9 @@ Return Codes
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 The `VkRenderPassCreateInfo2` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_2
 typedef struct VkRenderPassCreateInfo2 {
@@ -5496,6 +5605,9 @@ Valid Usage (Implicit)
 
 The `VkAttachmentDescription2` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_2
 typedef struct VkAttachmentDescription2 {
     VkStructureType                 sType;
@@ -5909,6 +6021,9 @@ Valid Usage (Implicit)
 
 The `VkAttachmentDescriptionStencilLayout` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_2
 typedef struct VkAttachmentDescriptionStencilLayout {
     VkStructureType    sType;
@@ -5990,6 +6105,9 @@ Valid Usage (Implicit)
  `stencilFinalLayout` **must** be a valid [VkImageLayout](resources.html#VkImageLayout) value
 
 The `VkSubpassDescription2` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_2
 typedef struct VkSubpassDescription2 {
@@ -6632,6 +6750,9 @@ Valid Usage (Implicit)
 
 The `VkSubpassDescriptionDepthStencilResolve` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_2
 typedef struct VkSubpassDescriptionDepthStencilResolve {
     VkStructureType                  sType;
@@ -6861,6 +6982,9 @@ Valid Usage (Implicit)
 
 The `VkFragmentShadingRateAttachmentInfoKHR` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_KHR_fragment_shading_rate
 typedef struct VkFragmentShadingRateAttachmentInfoKHR {
     VkStructureType                  sType;
@@ -7084,6 +7208,9 @@ boundaries even if they use the same value for
 
 The `VkAttachmentReference2` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_2
 typedef struct VkAttachmentReference2 {
     VkStructureType       sType;
@@ -7253,6 +7380,9 @@ Valid Usage (Implicit)
  `stencilLayout` **must** be a valid [VkImageLayout](resources.html#VkImageLayout) value
 
 The `VkSubpassDependency2` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_2
 typedef struct VkSubpassDependency2 {
@@ -7606,6 +7736,9 @@ Valid Usage (Implicit)
 
 To destroy a render pass, call:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
 void vkDestroyRenderPass(
     VkDevice                                    device,
@@ -7711,10 +7844,16 @@ render pass instance uses.
 
 Framebuffers are represented by `VkFramebuffer` handles:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
 VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkFramebuffer)
 
 To create a framebuffer, call:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 VkResult vkCreateFramebuffer(
@@ -7792,6 +7931,9 @@ Return Codes
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 The `VkFramebufferCreateInfo` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 typedef struct VkFramebufferCreateInfo {
@@ -8447,6 +8589,9 @@ Valid Usage (Implicit)
 
 The `VkFramebufferAttachmentsCreateInfo` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_2
 typedef struct VkFramebufferAttachmentsCreateInfo {
     VkStructureType                            sType;
@@ -8490,6 +8635,9 @@ Valid Usage (Implicit)
  If `attachmentImageInfoCount` is not `0`, `pAttachmentImageInfos` **must** be a valid pointer to an array of `attachmentImageInfoCount` valid [VkFramebufferAttachmentImageInfo](#VkFramebufferAttachmentImageInfo) structures
 
 The `VkFramebufferAttachmentImageInfo` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_2
 typedef struct VkFramebufferAttachmentImageInfo {
@@ -8612,6 +8760,9 @@ typedef enum VkFramebufferCreateFlagBits {
 not specified, and only attachment compatibility information will be
 provided via a [VkFramebufferAttachmentImageInfo](#VkFramebufferAttachmentImageInfo) structure.
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkFramebufferCreateFlags;
 
@@ -8619,6 +8770,9 @@ typedef VkFlags VkFramebufferCreateFlags;
 or more [VkFramebufferCreateFlagBits](#VkFramebufferCreateFlagBits).
 
 To destroy a framebuffer, call:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 void vkDestroyFramebuffer(
@@ -8694,6 +8848,12 @@ The load operation for each sample in an attachment happens-before any
 recorded command which accesses the sample in that render pass instance via
 that attachment or an alias.
 
+|  | Because load operations always happen first, external synchronization with
+| --- | --- |
+attachment access only needs to synchronize the load operations with
+previous commands; not the operations within the render pass instance.
+This does not apply when using `VK_ATTACHMENT_LOAD_OP_NONE`. |
+
 Load operations only update values within the defined render area for the
 render pass instance.
 However, any writes performed by a load operation (as defined by its access
@@ -8708,6 +8868,11 @@ the other aspect.
 If the subresource is in the
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout,
 implementations **must** not access pixels outside of the render area.
+
+|  | As entire subresources could be accessed by load operations, applications
+| --- | --- |
+cannot safely access values outside of the render area during a render pass
+instance when a load operation that modifies values is used. |
 
 Load operations that **can** be used for a render pass are:
 
@@ -8779,6 +8944,13 @@ Store operations for attachments with a color format execute in the
 The store operation for each sample in an attachment happens-after any
 recorded command which accesses the sample via that attachment or an alias.
 
+|  | Because store operations always happen after other accesses in a render pass
+| --- | --- |
+instance, external synchronization with attachment access in an earlier
+render pass only needs to synchronize with the store operations; not the
+operations within the render pass instance.
+This does not apply when using `VK_ATTACHMENT_STORE_OP_NONE`. |
+
 Store operations only update values within the defined render area for the
 render pass instance.
 However, any writes performed by a store operation (as defined by its access
@@ -8793,6 +8965,12 @@ the other aspect.
 If the subresource is in the
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout,
 implementations **must** not access pixels outside of the render area.
+
+|  | As entire subresources could be accessed by store operations, applications
+| --- | --- |
+cannot safely access values outside of the render area via aliased resources
+during a render pass instance when a store operation that modifies values is
+used. |
 
 Possible values of [VkAttachmentDescription](#VkAttachmentDescription)::`storeOp` and
 `stencilStoreOp`, specifying how the contents of the attachment are
@@ -8837,6 +9015,11 @@ If values are written during the render pass, this behaves identically
 to `VK_ATTACHMENT_STORE_OP_DONT_CARE` and with matching access
 semantics.
 
+|  | `VK_ATTACHMENT_STORE_OP_DONT_CARE` **can** cause contents generated during
+| --- | --- |
+previous render passes to be discarded before reaching memory, even if no
+write to the attachment occurs during the current render pass. |
+
 Render pass multisample resolve operations combine sample values from a
 single pixel in a multisample attachment and store the result to the
 corresponding pixel in a single sample attachment.
@@ -8877,6 +9060,12 @@ the other aspect.
 If the subresource is in the
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout,
 implementations **must** not access pixels outside of the render area.
+
+|  | As entire subresources could be accessed by multisample resolve operations,
+| --- | --- |
+applications cannot safely access values outside of the render area via
+aliased resources during a render pass instance when a multisample resolve
+operation is performed. |
 
 Multisample values in a multisample attachment are combined according to the
 resolve mode used:
@@ -8959,6 +9148,15 @@ EOTF” section of the [Khronos Data Format Specification](introduction.html#dat
 In this case, the implementation **must** convert the linear averaged value to
 nonlinear before writing the resolved result to resolve attachment.
 
+|  | No range compression or Y′CBCR model conversion is performed by
+| --- | --- |
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`; applications have
+to do these conversions themselves.
+Value outputs are expected to match those that would be read through a
+[Y′CBCR sampler using `VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY`](textures.html#textures-sampler-YCbCr-conversion-modelconversion).
+The color space that the values should be in is defined by the platform and
+is not exposed via Vulkan. |
+
 // Provided by VK_VERSION_1_2
 typedef VkFlags VkResolveModeFlags;
 
@@ -8976,6 +9174,9 @@ to record commands for that subpass, and then ending the render pass
 instance.
 
 To begin a render pass instance, call:
+
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 void vkCmdBeginRenderPass(
@@ -9262,24 +9463,18 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-Outside
-Outside
-Graphics
-Action
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Outside | Outside | Graphics | Action
 
 State
 
-Synchronization
+Synchronization |
 
 Alternatively to begin a render pass, call:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_2
 void vkCmdBeginRenderPass2(
@@ -9581,24 +9776,18 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-Outside
-Outside
-Graphics
-Action
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Outside | Outside | Graphics | Action
 
 State
 
-Synchronization
+Synchronization |
 
 The `VkRenderPassBeginInfo` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 typedef struct VkRenderPassBeginInfo {
@@ -9675,6 +9864,11 @@ union of all the per-view render areas.
 
 If the [`subpassShading`](features.html#features-subpassShading) feature is enabled,
 then `renderArea` **must** equal the framebuffer dimensions.
+
+|  | There **may** be a performance cost for using a render area smaller than the
+| --- | --- |
+framebuffer, unless it matches the render area granularity for the render
+pass. |
 
 Valid Usage
 
@@ -10039,6 +10233,9 @@ chain of `VkRenderPassBeginInfo`.
 
 The `VkRenderPassSampleLocationsBeginInfoEXT` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_EXT_sample_locations
 typedef struct VkRenderPassSampleLocationsBeginInfoEXT {
     VkStructureType                          sType;
@@ -10115,6 +10312,9 @@ Valid Usage (Implicit)
 
 The `VkAttachmentSampleLocationsEXT` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_EXT_sample_locations
 typedef struct VkAttachmentSampleLocationsEXT {
     uint32_t                    attachmentIndex;
@@ -10153,6 +10353,9 @@ Valid Usage (Implicit)
  `sampleLocationsInfo` **must** be a valid [VkSampleLocationsInfoEXT](primsrast.html#VkSampleLocationsInfoEXT) structure
 
 The `VkSubpassSampleLocationsEXT` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_EXT_sample_locations
 typedef struct VkSubpassSampleLocationsEXT {
@@ -10281,6 +10484,15 @@ the render pass is executed.
 If this structure is not provided, the `size` of the reserved region
 defaults to `0`.
 
+|  | Tile memory is reserved for application use by binding tile memory objects
+| --- | --- |
+to the command buffer.
+
+The size provided by this command is informational only for use when
+evaluating tile properties.
+If the application does not need to query the tile properties, then this
+size **can** be safely omitted. |
+
 Valid Usage
 
 * 
@@ -10297,6 +10509,9 @@ Valid Usage (Implicit)
  `sType` **must** be `VK_STRUCTURE_TYPE_TILE_MEMORY_SIZE_INFO_QCOM`
 
 The `VkSubpassBeginInfo` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_2
 typedef struct VkSubpassBeginInfo {
@@ -10525,6 +10740,9 @@ Valid Usage (Implicit)
 
 The `VkRenderPassAttachmentBeginInfo` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_2
 typedef struct VkRenderPassAttachmentBeginInfo {
     VkStructureType       sType;
@@ -10716,6 +10934,9 @@ Valid Usage (Implicit)
 
 To query the render area granularity, call:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
 void vkGetRenderAreaGranularity(
     VkDevice                                    device,
@@ -10786,6 +11007,9 @@ Valid Usage (Implicit)
 
 To transition to the next subpass in the render pass instance after
 recording the commands for a subpass, call:
+
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 void vkCmdNextSubpass(
@@ -10867,25 +11091,19 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-Inside
-Outside
-Graphics
-Action
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Inside | Outside | Graphics | Action
 
 State
 
-Synchronization
+Synchronization |
 
 To transition to the next subpass in the render pass instance after
 recording the commands for a subpass, call:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_2
 void vkCmdNextSubpass2(
@@ -10982,25 +11200,19 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-Inside
-Outside
-Graphics
-Action
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Inside | Outside | Graphics | Action
 
 State
 
-Synchronization
+Synchronization |
 
 To record a command to end a render pass instance after recording the
 commands for the last subpass, call:
+
+|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 void vkCmdEndRenderPass(
@@ -11087,25 +11299,19 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-Inside
-Outside
-Graphics
-Action
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Inside | Outside | Graphics | Action
 
 State
 
-Synchronization
+Synchronization |
 
 To record a command to end a render pass instance after recording the
 commands for the last subpass, call:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_2
 void vkCmdEndRenderPass2(
@@ -11202,24 +11408,18 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-Inside
-Outside
-Graphics
-Action
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Inside | Outside | Graphics | Action
 
 State
 
-Synchronization
+Synchronization |
 
 The `VkSubpassEndInfo` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_2
 typedef struct VkSubpassEndInfo {
@@ -11413,6 +11613,9 @@ A `VkRenderPassCreationControlEXT` structure **can** be included in the
 [VkSubpassDescription2](#VkSubpassDescription2).
 The `VkRenderPassCreationControlEXT` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_EXT_subpass_merge_feedback
 typedef struct VkRenderPassCreationControlEXT {
     VkStructureType    sType;
@@ -11452,6 +11655,9 @@ To obtain feedback about the creation of a render pass, include a
 chain of [VkRenderPassCreateInfo2](#VkRenderPassCreateInfo2).
 The `VkRenderPassCreationFeedbackCreateInfoEXT` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_EXT_subpass_merge_feedback
 typedef struct VkRenderPassCreationFeedbackCreateInfoEXT {
     VkStructureType                         sType;
@@ -11485,6 +11691,9 @@ Valid Usage (Implicit)
 
 The `VkRenderPassCreationFeedbackInfoEXT` structure is defined as:
 
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
+
 // Provided by VK_EXT_subpass_merge_feedback
 typedef struct VkRenderPassCreationFeedbackInfoEXT {
     uint32_t    postMergeSubpassCount;
@@ -11497,6 +11706,9 @@ Feedback about the creation of a subpass **can** be obtained by including a
 `VkRenderPassSubpassFeedbackCreateInfoEXT` structure in the `pNext`
 chain of [VkSubpassDescription2](#VkSubpassDescription2).
 `VkRenderPassSubpassFeedbackCreateInfoEXT` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_EXT_subpass_merge_feedback
 typedef struct VkRenderPassSubpassFeedbackCreateInfoEXT {
@@ -11530,6 +11742,9 @@ Valid Usage (Implicit)
  `pSubpassFeedback` **must** be a valid pointer to a [VkRenderPassSubpassFeedbackInfoEXT](#VkRenderPassSubpassFeedbackInfoEXT) structure
 
 The `VkRenderPassSubpassFeedbackInfoEXT` structure is defined as:
+
+|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+| --- | --- |
 
 // Provided by VK_EXT_subpass_merge_feedback
 typedef struct VkRenderPassSubpassFeedbackInfoEXT {
@@ -11893,6 +12108,35 @@ and right margins of the tile by 1 pixel.
 The `tileApronSize` **must** not exceed
 [VkPhysicalDeviceTileShadingPropertiesQCOM](limits.html#VkPhysicalDeviceTileShadingPropertiesQCOM)::maxApronSize.
 
+|  | A good mental model for the tiling apron is to think of it as enabling
+| --- | --- |
+"overlapping tiles".
+The top/bottom and left/right margins of each tile are extended to include a
+few pixels of the adjacent tiles.
+Those pixels that are outside the original tile extents, but within the
+apron extents are "apron pixels".
+In a render pass that enables tile shading, apron pixels will be initialized
+by the `VkAttachmentLoadOp`, and **may** be updated by any draw within the
+render pass, but are always discarded and never written by
+`VkAttachmentStoreOp`.
+Apron pixels **can** be read as a result of using `OpImageRead`,
+`OpImageSparseRead`, `OpImageSample*`, `OpImageSparseSample*`,
+`OpImage*Gather`, `OpImageSparse*Gather`,
+`OpImageSampleWeightedQCOM`, OpImageBoxFilterQCOM,
+OpImageBlockMatch*QCOM,
+`OpImageFetch`, or `OpImageSparseFetch` but **cannot** be written using
+`OpImageWrite` or with atomic operations using `OpImageTexelPointer`.
+
+For image processing use-cases, the tiling apron allows fragment and compute
+shader invocations to read or sample color attachment pixels within the
+neighborhood of a given fragment, even if the given fragment is close to a
+tile edge.
+
+Enabling the apron **may** reduce the GPU efficiency, with larger apron sizes
+having a greater potential impact.
+Aprons **should** be enabled only when needing to access pixels outside the
+tile. |
+
 Image operations that access a tile attachment **can** use normalized,
 unnormalized, or integer texel coordinates, but the final set of (i,j,[k])
 integer texel coordinates accessed in [texel filtering](textures.html#textures-texel-filtering) **must** be within the extents of the current tile and apron as
@@ -11932,10 +12176,10 @@ within the combined extent of the tile and apron.
 where:
 
    represents `offset` operand to
-`OpTileStoreQCOM`
+`OpImageWrite`
 
    represents `offset` operand to
-`OpTileLoadQCOM`
+`OpImageRead`
 
    represents
 [TileOffsetQCOM](interfaces.html#interfaces-builtin-variables-tileoffset)
@@ -11967,6 +12211,13 @@ operand from storage class `TileAttachmentQCOM`, the `Coordinate`
 operand **must** not result in a any texels accessed that are outside the
 `renderArea` or outside the combined extent of the tile and apron.
 
+|  | It is the application’s responsibility to guarantee that the instruction and
+| --- | --- |
+texture coordinates do not cause any out of bounds texels to be accessed as
+a result of loads, stores, atomics, or the sampling filter.
+In practice, this may require that the coordinates are clamped in the shader
+code. |
+
 If *tile shading* is [enabled](#renderpass-tile-shading) for a render pass
 instance, then [framebuffer-local dependencies](synchronization.html#synchronization-framebuffer-regions) defined using `VK_DEPENDENCY_BY_REGION_BIT` specify a
 [framebuffer region](synchronization.html#synchronization-framebuffer-regions) equal to the
@@ -11981,6 +12232,20 @@ invocations with an extent described by shader built-in variables
 Otherwise, the extent of the *active tile* is defined by the tile exposed by
 `[VK_QCOM_tile_properties](../appendices/extensions.html#VK_QCOM_tile_properties)` that contains the framebuffer coordinate
    of the fragment being processed.
+
+|  | Without tile shading the [*framebuffer region*](synchronization.html#synchronization-framebuffer-regions) described by `VK_DEPENDENCY_BY_REGION_BIT` must be assumed by
+| --- | --- |
+applications to be no larger than a single pixel or single sample.
+
+The larger tile-sized *framebuffer region* provided by tile shading allows
+applications to achieve increased rendering efficiency on some tiling
+architectures.
+It enables synchronization commands with a framebuffer-local dependency to
+be used for a dependency across fragments with different framebuffer
+coordinates, as long as the fragments are located within the same tile.
+In this situation, it avoids an otherwise required framebuffer-global
+dependency and corresponding data flushing to memory as noted in the
+[synchronization chapter](synchronization.html#synchronization-framebuffer-regions). |
 
 Within a [tile shading render pass](#renderpass-tile-shading) instance, the
 per-tile execution model can be enabled.
@@ -12113,22 +12378,13 @@ Host Synchronization
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Inside | Outside | Graphics
 
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 The `VkPerTileBeginInfoQCOM` structure is defined as:
 
@@ -12226,22 +12482,13 @@ Host Synchronization
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Inside | Outside | Graphics
 
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 The `VkPerTileEndInfoQCOM` structure is defined as:
 

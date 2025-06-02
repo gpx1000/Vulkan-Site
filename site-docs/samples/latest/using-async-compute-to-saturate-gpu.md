@@ -27,6 +27,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/async_compute). |
+| --- | --- |
+
 Most Vulkan implementations expose multiple Vulkan queues which the application can make use of at any one time.
 The main motivation for hardware to expose multiple queues is that we can express parallelism at a higher level than threads.
 

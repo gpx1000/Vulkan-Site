@@ -36,107 +36,42 @@
 
 The OpenGL Shading Language has the following operators.
 
-Precedence
-Operator Class
-Operators
-Associativity
-
-1 (highest)
-parenthetical grouping
-( )
-NA
-
-2
-array subscript
+| Precedence | Operator Class | Operators | Associativity |
+| --- | --- | --- | --- |
+| 1 (highest) | parenthetical grouping | ( ) | NA |
+| 2 | array subscript
 
                  function call and constructor structure
 
                  field or method selector, swizzle
 
-                 post fix increment and decrement
-[ ]
+                 post fix increment and decrement | [ ]
 
                                                   ( )
 
                                                   .
 
-                                                  ++ --
-Left to Right
+                                                  ++ -- | Left to Right |
+| 3 | prefix increment and decrement
 
-3
-prefix increment and decrement
+                 unary | ++ --
 
-                 unary
-++ --
+                                                  + - ~ ! | Right to Left |
+| 4 | multiplicative | * / % | Left to Right |
+| 5 | additive | + - | Left to Right |
+| 6 | bit-wise shift | xref: [] | Left to Right |
+| 7 | relational | = | Left to Right |
+| 8 | equality | == != | Left to Right |
+| 9 | bit-wise and | & | Left to Right |
+| 10 | bit-wise exclusive or | ^ | Left to Right |
+| 11 | bit-wise inclusive or | \| | Left to Right |
+| 12 | logical and | && | Left to Right |
+| 13 | logical exclusive or | ^^ | Left to Right |
+| 14 | logical inclusive or | \|\| | Left to Right |
+| 15 | selection | ? : | Right to Left |
+| 16 | Assignment
 
-                                                  + - ~ !
-Right to Left
-
-4
-multiplicative
-* / %
-Left to Right
-
-5
-additive
-+ -
-Left to Right
-
-6
-bit-wise shift
-xref: []
-Left to Right
-
-7
-relational
- =
-Left to Right
-
-8
-equality
-== !=
-Left to Right
-
-9
-bit-wise and
-&
-Left to Right
-
-10
-bit-wise exclusive or
-^
-Left to Right
-
-11
-bit-wise inclusive or
-|
-Left to Right
-
-12
-logical and
-&&
-Left to Right
-
-13
-logical exclusive or
-^^
-Left to Right
-
-14
-logical inclusive or
-||
-Left to Right
-
-15
-selection
-? :
-Right to Left
-
-16
-Assignment
-
-                 arithmetic assignments
-=
+                 arithmetic assignments | =
 
                                                   += -=
 
@@ -144,13 +79,8 @@ Assignment
 
                                                   %= >=
 
-                                                  &= ^= |=
-Right to Left
-
-17 (lowest)
-sequence
-,
-Left to Right
+                                                  &= ^= \|= | Right to Left |
+| 17 (lowest) | sequence | , | Left to Right |
 
 There is no address-of operator nor a dereference operator.
 There is no typecast operator; constructors are used instead.
@@ -455,14 +385,10 @@ with period (**.**) and then the component name.
 
 The component names supported are:
 
-*{ x, y, z, w }*
-Useful when accessing vectors that represent points or normals
-
-*{ r, g, b, a }*
-Useful when accessing vectors that represent colors
-
-*{ s, t, p, q }*
-Useful when accessing vectors that represent texture coordinates
+| *{ x, y, z, w }* | Useful when accessing vectors that represent points or normals |
+| --- | --- |
+| *{ r, g, b, a }* | Useful when accessing vectors that represent colors |
+| *{ s, t, p, q }* | Useful when accessing vectors that represent texture coordinates |
 
 The component names *x*, *r*, and *s* are, for example, synonyms for the
 same (first) component in a vector.
@@ -586,23 +512,13 @@ selected using the period (**.**).
 In total, only the following operators are allowed to operate on arrays and
 structures as whole entities:
 
-field selector
-**.**
-
-equality
-**==** **!=**
-
-assignment
-**=**
-
-Ternary operator
-**?:**
-
-Sequence operator
-**,**
-
-indexing (arrays only)
-**[** **]**
+| field selector | **.** |
+| --- | --- |
+| equality | **==** **!=** |
+| assignment | **=** |
+| Ternary operator | **?:** |
+| Sequence operator | **,** |
+| indexing (arrays only) | **[** **]** |
 
 The equality operators and assignment operator are only allowed if the two
 operands are same size and type.

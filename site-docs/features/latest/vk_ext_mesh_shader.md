@@ -419,7 +419,8 @@ Each of the `Primitive*IndicesEXT` built-ins is used when the corresponding exec
 
 A new instruction is added to task shaders to launch mesh shader workgroups:
 
-**OpEmitMeshTasksEXT**
+| **OpEmitMeshTasksEXT**
+| --- | --- | --- | --- | --- | --- |
 
 Defines the grid size of subsequent mesh shader workgroups to generate
 upon completion of the task shader workgroup.
@@ -444,31 +445,25 @@ Ceases all further processing: Only instructions executed before
 
 This instruction must be the last instruction in a block.
 
-This instruction is only valid in the **TaskEXT** Execution Model.
-Capability:
+This instruction is only valid in the **TaskEXT** Execution Model. | Capability:
 
-**MeshShadingEXT**
+**MeshShadingEXT** |
+| 4 + variable | 5294 | ''
 
-4 + variable
-5294
-''
+'Group Count X' | ''
 
-'Group Count X'
-''
+'Group Count Y' | ''
 
-'Group Count Y'
-''
-
-'Group Count Z'
-Optional
+'Group Count Z' | Optional
 
 ''
 
-'Payload'
+'Payload' |
 
 A new mesh shader instruction is added to set the number of actual primitives and vertices that a mesh shader writes, avoiding unnecessary allocations or processing by the implementation:
 
-**OpSetMeshOutputsEXT**
+| **OpSetMeshOutputsEXT**
+| --- | --- | --- | --- |
 
 Sets the actual output size of the primitives and vertices that the mesh shader
 workgroup will emit upon completion.
@@ -485,19 +480,14 @@ uniform control flow.
 There must not be any control flow path to an output write that is not preceded
 by this instruction.
 
-This instruction is only valid in the **MeshEXT** Execution Model.
-Capability:
+This instruction is only valid in the **MeshEXT** Execution Model. | Capability:
 
-**MeshShadingEXT**
+**MeshShadingEXT** |
+| 3 | 5295 | ''
 
-3
-5295
-''
+'Vertex Count' | ''
 
-'Vertex Count'
-''
-
-'Primitive Count'
+'Primitive Count' |
 
 This instruction must be called before writing to mesh shader outputs.
 

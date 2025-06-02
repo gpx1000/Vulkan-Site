@@ -234,72 +234,22 @@ Character constants are not supported.
 
 The operators available are as follows.
 
-Precedence
-Operator class
-Operators
-Associativity
+| Precedence | Operator class | Operators | Associativity |
+| --- | --- | --- | --- |
+| 1 (highest) | parenthetical grouping | ( ) | NA |
+| 2 | unary | defined
 
-1 (highest)
-parenthetical grouping
-( )
-NA
-
-2
-unary
-defined
-
-                                         + - ~ !
-Right to Left
-
-3
-multiplicative
-* / %
-Left to Right
-
-4
-additive
-+ -
-Left to Right
-
-5
-bit-wise shift
-xref: []
-Left to Right
-
-6
-relational
- =
-Left to Right
-
-7
-equality
-== !=
-Left to Right
-
-8
-bit-wise and
-&
-Left to Right
-
-9
-bit-wise exclusive or
-^
-Left to Right
-
-10
-bit-wise inclusive or
-|
-Left to Right
-
-11
-logical and
-&&
-Left to Right
-
-12 (lowest)
-logical inclusive or
-||
-Left to Right
+                                         + - ~ ! | Right to Left |
+| 3 | multiplicative | * / % | Left to Right |
+| 4 | additive | + - | Left to Right |
+| 5 | bit-wise shift | xref: [] | Left to Right |
+| 6 | relational | = | Left to Right |
+| 7 | equality | == != | Left to Right |
+| 8 | bit-wise and | & | Left to Right |
+| 9 | bit-wise exclusive or | ^ | Left to Right |
+| 10 | bit-wise inclusive or | \| | Left to Right |
+| 11 | logical and | && | Left to Right |
+| 12 (lowest) | logical inclusive or | \|\| | Left to Right |
 
 The **defined** operator can be used in either of the following ways:
 
@@ -447,26 +397,20 @@ The token **all** means the behavior applies to all extensions supported by
 the compiler.
 The *behavior* can be one of the following:
 
-Behavior
-Effect
-
-**require**
-Behave as specified by the extension *extension_name*.
+| Behavior | Effect |
+| --- | --- |
+| **require** | Behave as specified by the extension *extension_name*.
 
               Give a compile-time error on the **#extension** if the extension
-              *extension_name* is not supported, or if **all** is specified.
-
-**enable**
-Behave as specified by the extension *extension_name*.
+              *extension_name* is not supported, or if **all** is specified. |
+| **enable** | Behave as specified by the extension *extension_name*.
 
               Warn on the **#extension** if the extension *extension_name* is
               not supported.
 
               Give a compile-time error on the **#extension** if **all** is
-              specified.
-
-**warn**
-Behave as specified by the extension *extension_name*,
+              specified. |
+| **warn** | Behave as specified by the extension *extension_name*,
               except issue warnings on any detectable use of that extension,
               unless such use is supported by other enabled or required
               extensions.
@@ -475,10 +419,8 @@ Behave as specified by the extension *extension_name*,
               extension used.
 
               Warn on the **#extension** if the extension *extension_name* is
-              not supported.
-
-**disable**
-Behave (including issuing errors and warnings) as if the
+              not supported. |
+| **disable** | Behave (including issuing errors and warnings) as if the
               extension *extension_name* is not part of the language
               definition.
 
@@ -487,7 +429,7 @@ Behave (including issuing errors and warnings) as if the
               compiled to.
 
               Warn on the **#extension** if the extension *extension_name* is
-              not supported.
+              not supported. |
 
 The **extension** directive is a simple, low-level mechanism to set the
 behavior for each extension.
@@ -530,6 +472,14 @@ will behave as if it is compiling at line number *line* and source string
 number *source-string-number*.
 Subsequent source strings will be numbered sequentially, until another
 **#line** directive overrides that numbering.
+
+|  | Note
+| --- | --- |
+
+Some implementations have allowed constant expressions in #line directives and
+some have not. Even where expressions are supported the grammar is ambiguous and so
+results are implementation dependent. For example,
++ #line +2 +2               // Line number set to 4, or file to 2 and line to 2 |
 
 When shaders are compiled for OpenGL SPIR-V, the following predefined
 macro is available:

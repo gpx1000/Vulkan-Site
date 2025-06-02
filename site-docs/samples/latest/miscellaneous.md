@@ -14,37 +14,15 @@
 
 ## Content
 
-Action
-Desktop
-Mobile
-
-Move around the scene
-WASD
-press + hold
-
-Rotate camera
-right mouse button + drag
-press + move
-
-Pan
-left mouse button + drag
--
-
-Movement speed reduced
-shift
--
-
-Movement speed increased
-ctrl
--
-
-toggle GUI
-left click
-tap
-
-toggle Debug Window
-right click
-2 finger tap
+| Action | Desktop | Mobile |
+| --- | --- | --- |
+| Move around the scene | WASD | press + hold |
+| Rotate camera | right mouse button + drag | press + move |
+| Pan | left mouse button + drag | - |
+| Movement speed reduced | shift | - |
+| Movement speed increased | ctrl | - |
+| toggle GUI | left click | tap |
+| toggle Debug Window | right click | 2 finger tap |
 
 The Debug Window shows information about the current application.
 

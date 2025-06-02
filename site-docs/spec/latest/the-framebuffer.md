@@ -49,6 +49,13 @@ with a precision and dynamic range no lower than the smaller of that used to
 represent destination components or that used to represent 16-bit
 floating-point values.
 
+|  | Blending is only defined for floating-point, UNORM, SNORM, and sRGB formats.
+| --- | --- |
+Within those formats, the implementation may only support blending on some
+subset of them.
+Which formats support blending is indicated by
+`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`. |
+
 The pipeline blend state is included in the
 `VkPipelineColorBlendStateCreateInfo` structure during graphics pipeline
 creation:
@@ -521,20 +528,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 To [dynamically set](pipelines.html#pipelines-dynamic-state) color blend factors and
 operations, call:
@@ -632,20 +630,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The `VkColorBlendEquationEXT` structure is defined as:
 
@@ -839,6 +828,13 @@ Otherwise, this state is specified by the
 [VkPipelineColorBlendAttachmentState](#VkPipelineColorBlendAttachmentState)::`colorWriteMask` values used
 to create the currently active pipeline.
 
+|  | Formats with bits that are shared between components specified by
+| --- | --- |
+[VkColorComponentFlagBits](#VkColorComponentFlagBits), such as
+`VK_FORMAT_E5B9G9R9_UFLOAT_PACK32`, cannot have their channels
+individually masked by this functionality; either all components that share
+bits have to be enabled, or none of them. |
+
 Valid Usage
 
 * 
@@ -893,20 +889,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The source and destination color and alpha blending factors are selected
 from the enum:
@@ -936,87 +923,27 @@ typedef enum VkBlendFactor {
 
 The semantics of the enum values are described in the table below:
 
-Table 1. Blend Factors
-
-[VkBlendFactor](#VkBlendFactor)
-RGB Blend Factors (Sr,Sg,Sb) or (Dr,Dg,Db)
-Alpha Blend Factor (Sa or Da)
-
-`VK_BLEND_FACTOR_ZERO`
-(0,0,0)
-0
-
-`VK_BLEND_FACTOR_ONE`
-(1,1,1)
-1
-
-`VK_BLEND_FACTOR_SRC_COLOR`
-(Rs0,Gs0,Bs0)
-As0
-
-`VK_BLEND_FACTOR_ONE_MINUS_SRC_COLOR`
-(1-Rs0,1-Gs0,1-Bs0)
-1-As0
-
-`VK_BLEND_FACTOR_DST_COLOR`
-(Rd,Gd,Bd)
-Ad
-
-`VK_BLEND_FACTOR_ONE_MINUS_DST_COLOR`
-(1-Rd,1-Gd,1-Bd)
-1-Ad
-
-`VK_BLEND_FACTOR_SRC_ALPHA`
-(As0,As0,As0)
-As0
-
-`VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA`
-(1-As0,1-As0,1-As0)
-1-As0
-
-`VK_BLEND_FACTOR_DST_ALPHA`
-(Ad,Ad,Ad)
-Ad
-
-`VK_BLEND_FACTOR_ONE_MINUS_DST_ALPHA`
-(1-Ad,1-Ad,1-Ad)
-1-Ad
-
-`VK_BLEND_FACTOR_CONSTANT_COLOR`
-(Rc,Gc,Bc)
-Ac
-
-`VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_COLOR`
-(1-Rc,1-Gc,1-Bc)
-1-Ac
-
-`VK_BLEND_FACTOR_CONSTANT_ALPHA`
-(Ac,Ac,Ac)
-Ac
-
-`VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_ALPHA`
-(1-Ac,1-Ac,1-Ac)
-1-Ac
-
-`VK_BLEND_FACTOR_SRC_ALPHA_SATURATE`
-(f,f,f); f = min(As0,1-Ad)
-1
-
-`VK_BLEND_FACTOR_SRC1_COLOR`
-(Rs1,Gs1,Bs1)
-As1
-
-`VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR`
-(1-Rs1,1-Gs1,1-Bs1)
-1-As1
-
-`VK_BLEND_FACTOR_SRC1_ALPHA`
-(As1,As1,As1)
-As1
-
-`VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA`
-(1-As1,1-As1,1-As1)
-1-As1
+| [VkBlendFactor](#VkBlendFactor) | RGB Blend Factors (Sr,Sg,Sb) or (Dr,Dg,Db) | Alpha Blend Factor (Sa or Da) |
+| --- | --- | --- |
+| `VK_BLEND_FACTOR_ZERO` | (0,0,0) | 0 |
+| `VK_BLEND_FACTOR_ONE` | (1,1,1) | 1 |
+| `VK_BLEND_FACTOR_SRC_COLOR` | (Rs0,Gs0,Bs0) | As0 |
+| `VK_BLEND_FACTOR_ONE_MINUS_SRC_COLOR` | (1-Rs0,1-Gs0,1-Bs0) | 1-As0 |
+| `VK_BLEND_FACTOR_DST_COLOR` | (Rd,Gd,Bd) | Ad |
+| `VK_BLEND_FACTOR_ONE_MINUS_DST_COLOR` | (1-Rd,1-Gd,1-Bd) | 1-Ad |
+| `VK_BLEND_FACTOR_SRC_ALPHA` | (As0,As0,As0) | As0 |
+| `VK_BLEND_FACTOR_ONE_MINUS_SRC_ALPHA` | (1-As0,1-As0,1-As0) | 1-As0 |
+| `VK_BLEND_FACTOR_DST_ALPHA` | (Ad,Ad,Ad) | Ad |
+| `VK_BLEND_FACTOR_ONE_MINUS_DST_ALPHA` | (1-Ad,1-Ad,1-Ad) | 1-Ad |
+| `VK_BLEND_FACTOR_CONSTANT_COLOR` | (Rc,Gc,Bc) | Ac |
+| `VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_COLOR` | (1-Rc,1-Gc,1-Bc) | 1-Ac |
+| `VK_BLEND_FACTOR_CONSTANT_ALPHA` | (Ac,Ac,Ac) | Ac |
+| `VK_BLEND_FACTOR_ONE_MINUS_CONSTANT_ALPHA` | (1-Ac,1-Ac,1-Ac) | 1-Ac |
+| `VK_BLEND_FACTOR_SRC_ALPHA_SATURATE` | (f,f,f); f = min(As0,1-Ad) | 1 |
+| `VK_BLEND_FACTOR_SRC1_COLOR` | (Rs1,Gs1,Bs1) | As1 |
+| `VK_BLEND_FACTOR_ONE_MINUS_SRC1_COLOR` | (1-Rs1,1-Gs1,1-Bs1) | 1-As1 |
+| `VK_BLEND_FACTOR_SRC1_ALPHA` | (As1,As1,As1) | As1 |
+| `VK_BLEND_FACTOR_ONE_MINUS_SRC1_ALPHA` | (1-As1,1-As1,1-As1) | 1-As1 |
 
 In this table, the following conventions are used:
 
@@ -1098,20 +1025,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 Blend factors that use the secondary color input
 (Rs1,Gs1,Bs1,As1) (`VK_BLEND_FACTOR_SRC1_COLOR`,
@@ -1247,51 +1165,33 @@ typedef enum VkBlendOp {
 The semantics of the basic blend operations are described in the table
 below:
 
-Table 2. Basic Blend Operations
-
-[VkBlendOp](#VkBlendOp)
-RGB Components
-Alpha Component
-
-`VK_BLEND_OP_ADD`
-R = Rs0 × Sr +  Rd × Dr
+| [VkBlendOp](#VkBlendOp) | RGB Components | Alpha Component |
+| --- | --- | --- |
+| `VK_BLEND_OP_ADD` | R = Rs0 × Sr +  Rd × Dr
 
   G = Gs0 × Sg +  Gd × Dg
 
-  B = Bs0 × Sb +  Bd × Db
-A = As0 × Sa +  Ad × Da
-
-`VK_BLEND_OP_SUBTRACT`
-R = Rs0 × Sr - Rd × Dr
+  B = Bs0 × Sb +  Bd × Db | A = As0 × Sa +  Ad × Da |
+| `VK_BLEND_OP_SUBTRACT` | R = Rs0 × Sr - Rd × Dr
 
   G = Gs0 × Sg - Gd × Dg
 
-  B = Bs0 × Sb - Bd × Db
-A = As0 × Sa - Ad × Da
-
-`VK_BLEND_OP_REVERSE_SUBTRACT`
-R = Rd × Dr - Rs0 × Sr
+  B = Bs0 × Sb - Bd × Db | A = As0 × Sa - Ad × Da |
+| `VK_BLEND_OP_REVERSE_SUBTRACT` | R = Rd × Dr - Rs0 × Sr
 
   G = Gd × Dg - Gs0 × Sg
 
-  B = Bd × Db - Bs0 × Sb
-A = Ad × Da - As0 × Sa
-
-`VK_BLEND_OP_MIN`
-R = min(Rs0,Rd)
+  B = Bd × Db - Bs0 × Sb | A = Ad × Da - As0 × Sa |
+| `VK_BLEND_OP_MIN` | R = min(Rs0,Rd)
 
   G = min(Gs0,Gd)
 
-  B = min(Bs0,Bd)
-A = min(As0,Ad)
-
-`VK_BLEND_OP_MAX`
-R = max(Rs0,Rd)
+  B = min(Bs0,Bd) | A = min(As0,Ad) |
+| `VK_BLEND_OP_MAX` | R = max(Rs0,Rd)
 
   G = max(Gs0,Gd)
 
-  B = max(Bs0,Bd)
-A = max(As0,Ad)
+  B = max(Bs0,Bd) | A = max(As0,Ad) |
 
 In this table, the following conventions are used:
 
@@ -1525,20 +1425,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The `VkColorBlendAdvancedEXT` structure is defined as:
 
@@ -1708,219 +1599,45 @@ destination coverage are considered to have maximal overlap.
 `VK_BLEND_OVERLAP_DISJOINT_EXT` specifies that the source and
 destination coverage are considered to have minimal overlap.
 
-Table 3. Advanced Blend Overlap Modes
-
-Overlap Mode
-Weighting Equations
-
-`VK_BLEND_OVERLAP_UNCORRELATED_EXT`
-
-  
-
-  
-
-`VK_BLEND_OVERLAP_CONJOINT_EXT`
-
-  
-
-  
-
-`VK_BLEND_OVERLAP_DISJOINT_EXT`
-
-  
-
-  
-
-Table 4. f/X/Y/Z Advanced Blend Operations
-
-Mode
-Blend Coefficients
-
-`VK_BLEND_OP_ZERO_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_SRC_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_DST_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_SRC_OVER_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_DST_OVER_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_SRC_IN_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_DST_IN_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_SRC_OUT_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_DST_OUT_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_SRC_ATOP_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_DST_ATOP_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_XOR_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_MULTIPLY_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_SCREEN_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_OVERLAY_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_DARKEN_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_LIGHTEN_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_COLORDODGE_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_COLORBURN_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_HARDLIGHT_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_SOFTLIGHT_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_DIFFERENCE_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_EXCLUSION_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_INVERT_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_INVERT_RGB_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_LINEARDODGE_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_LINEARBURN_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_VIVIDLIGHT_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_LINEARLIGHT_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_PINLIGHT_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_HARDMIX_EXT`
-
-  
-
-  
+| Overlap Mode | Weighting Equations |
+| --- | --- |
+| `VK_BLEND_OVERLAP_UNCORRELATED_EXT` |  |
+| `VK_BLEND_OVERLAP_CONJOINT_EXT` |  |
+| `VK_BLEND_OVERLAP_DISJOINT_EXT` |  |
+
+| Mode | Blend Coefficients |
+| --- | --- |
+| `VK_BLEND_OP_ZERO_EXT` |  |
+| `VK_BLEND_OP_SRC_EXT` |  |
+| `VK_BLEND_OP_DST_EXT` |  |
+| `VK_BLEND_OP_SRC_OVER_EXT` |  |
+| `VK_BLEND_OP_DST_OVER_EXT` |  |
+| `VK_BLEND_OP_SRC_IN_EXT` |  |
+| `VK_BLEND_OP_DST_IN_EXT` |  |
+| `VK_BLEND_OP_SRC_OUT_EXT` |  |
+| `VK_BLEND_OP_DST_OUT_EXT` |  |
+| `VK_BLEND_OP_SRC_ATOP_EXT` |  |
+| `VK_BLEND_OP_DST_ATOP_EXT` |  |
+| `VK_BLEND_OP_XOR_EXT` |  |
+| `VK_BLEND_OP_MULTIPLY_EXT` |  |
+| `VK_BLEND_OP_SCREEN_EXT` |  |
+| `VK_BLEND_OP_OVERLAY_EXT` |  |
+| `VK_BLEND_OP_DARKEN_EXT` |  |
+| `VK_BLEND_OP_LIGHTEN_EXT` |  |
+| `VK_BLEND_OP_COLORDODGE_EXT` |  |
+| `VK_BLEND_OP_COLORBURN_EXT` |  |
+| `VK_BLEND_OP_HARDLIGHT_EXT` |  |
+| `VK_BLEND_OP_SOFTLIGHT_EXT` |  |
+| `VK_BLEND_OP_DIFFERENCE_EXT` |  |
+| `VK_BLEND_OP_EXCLUSION_EXT` |  |
+| `VK_BLEND_OP_INVERT_EXT` |  |
+| `VK_BLEND_OP_INVERT_RGB_EXT` |  |
+| `VK_BLEND_OP_LINEARDODGE_EXT` |  |
+| `VK_BLEND_OP_LINEARBURN_EXT` |  |
+| `VK_BLEND_OP_VIVIDLIGHT_EXT` |  |
+| `VK_BLEND_OP_LINEARLIGHT_EXT` |  |
+| `VK_BLEND_OP_PINLIGHT_EXT` |  |
+| `VK_BLEND_OP_HARDMIX_EXT` |  |
 
 When using one of the HSL blend operations in table
 [Hue-Saturation-Luminosity Advanced Blend Operations](#framebuffer-blend-advanced-hsl-modes) as the blend operation, the RGB color components produced
@@ -1988,34 +1705,12 @@ following pseudocode:
     return SetLum(color, clum);
   }
 
-Table 5. Hue-Saturation-Luminosity Advanced Blend Operations
-
-Mode
-Result
-
-`VK_BLEND_OP_HSL_HUE_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_HSL_SATURATION_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_HSL_COLOR_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_HSL_LUMINOSITY_EXT`
-
-  
-
-  
+| Mode | Result |
+| --- | --- |
+| `VK_BLEND_OP_HSL_HUE_EXT` |  |
+| `VK_BLEND_OP_HSL_SATURATION_EXT` |  |
+| `VK_BLEND_OP_HSL_COLOR_EXT` |  |
+| `VK_BLEND_OP_HSL_LUMINOSITY_EXT` |  |
 
 When using one of the operations in table
 [Additional RGB Blend Operations](#framebuffer-blend-advanced-additional-rgb) as the blend operation, the source and destination colors used
@@ -2029,76 +1724,19 @@ by the corresponding A component.
 
   
 
-Table 6. Additional RGB Blend Operations
-
-Mode
-Result
-
-`VK_BLEND_OP_PLUS_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_PLUS_CLAMPED_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_PLUS_CLAMPED_ALPHA_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_PLUS_DARKER_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_MINUS_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_MINUS_CLAMPED_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_CONTRAST_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_INVERT_OVG_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_RED_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_GREEN_EXT`
-
-  
-
-  
-
-`VK_BLEND_OP_BLUE_EXT`
-
-  
-
-  
+| Mode | Result |
+| --- | --- |
+| `VK_BLEND_OP_PLUS_EXT` |  |
+| `VK_BLEND_OP_PLUS_CLAMPED_EXT` |  |
+| `VK_BLEND_OP_PLUS_CLAMPED_ALPHA_EXT` |  |
+| `VK_BLEND_OP_PLUS_DARKER_EXT` |  |
+| `VK_BLEND_OP_MINUS_EXT` |  |
+| `VK_BLEND_OP_MINUS_CLAMPED_EXT` |  |
+| `VK_BLEND_OP_CONTRAST_EXT` |  |
+| `VK_BLEND_OP_INVERT_OVG_EXT` |  |
+| `VK_BLEND_OP_RED_EXT` |  |
+| `VK_BLEND_OP_GREEN_EXT` |  |
+| `VK_BLEND_OP_BLUE_EXT` |  |
 
 The application **can** enable a *logical operation* between the fragment’s
 color values and the existing value in the framebuffer attachment.
@@ -2172,58 +1810,24 @@ attachment being updated, and
 d is the color attachment’s R, G, B or A component
 value:
 
-Table 7. Logical Operations
-
-Mode
-Operation
-
-`VK_LOGIC_OP_CLEAR`
-0
-
-`VK_LOGIC_OP_AND`
-s ∧ d
-
-`VK_LOGIC_OP_AND_REVERSE`
-s ∧ ¬ d
-
-`VK_LOGIC_OP_COPY`
-s
-
-`VK_LOGIC_OP_AND_INVERTED`
-¬ s ∧ d
-
-`VK_LOGIC_OP_NO_OP`
-d
-
-`VK_LOGIC_OP_XOR`
-s ⊕ d
-
-`VK_LOGIC_OP_OR`
-s ∨ d
-
-`VK_LOGIC_OP_NOR`
-¬ (s ∨ d)
-
-`VK_LOGIC_OP_EQUIVALENT`
-¬ (s ⊕ d)
-
-`VK_LOGIC_OP_INVERT`
-¬ d
-
-`VK_LOGIC_OP_OR_REVERSE`
-s ∨ ¬ d
-
-`VK_LOGIC_OP_COPY_INVERTED`
-¬ s
-
-`VK_LOGIC_OP_OR_INVERTED`
-¬ s ∨ d
-
-`VK_LOGIC_OP_NAND`
-¬ (s ∧ d)
-
-`VK_LOGIC_OP_SET`
-all 1s
+| Mode | Operation |
+| --- | --- |
+| `VK_LOGIC_OP_CLEAR` | 0 |
+| `VK_LOGIC_OP_AND` | s ∧ d |
+| `VK_LOGIC_OP_AND_REVERSE` | s ∧ ¬ d |
+| `VK_LOGIC_OP_COPY` | s |
+| `VK_LOGIC_OP_AND_INVERTED` | ¬ s ∧ d |
+| `VK_LOGIC_OP_NO_OP` | d |
+| `VK_LOGIC_OP_XOR` | s ⊕ d |
+| `VK_LOGIC_OP_OR` | s ∨ d |
+| `VK_LOGIC_OP_NOR` | ¬ (s ∨ d) |
+| `VK_LOGIC_OP_EQUIVALENT` | ¬ (s ⊕ d) |
+| `VK_LOGIC_OP_INVERT` | ¬ d |
+| `VK_LOGIC_OP_OR_REVERSE` | s ∨ ¬ d |
+| `VK_LOGIC_OP_COPY_INVERTED` | ¬ s |
+| `VK_LOGIC_OP_OR_INVERTED` | ¬ s ∨ d |
+| `VK_LOGIC_OP_NAND` | ¬ (s ∧ d) |
+| `VK_LOGIC_OP_SET` | all 1s |
 
 The result of the logical operation is then written to the color attachment
 as controlled by the component write mask, described in
@@ -2303,20 +1907,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the logical operation to
 apply for blend state, call:
@@ -2392,20 +1987,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 Bits which **can** be set in
 [VkPipelineColorBlendAttachmentState](#VkPipelineColorBlendAttachmentState)::`colorWriteMask`, determining
@@ -2630,20 +2216,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 To query the tile properties from the attachments in framebuffer, call:
 

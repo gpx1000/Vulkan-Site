@@ -23,6 +23,9 @@
 
 The Vulkan Specification (usually referred to as the *Vulkan Spec*) is the official description of how the Vulkan API works and is ultimately used to decide what is and is not valid Vulkan usage. At first glance, the Vulkan Spec seems like an incredibly huge and dry chunk of text, but it is usually the most useful item to have open when developing.
 
+|  | Reference the Vulkan Spec early and often. |
+| --- | --- |
+
 The Vulkan Spec can be built for any version and with any permutation of extensions. The Khronos Group hosts the [Vulkan Spec Registry](https://registry.khronos.org/vulkan/specs/) which contains a few publicly available variations that most developers will find sufficient. Anyone can build their own variation of the Vulkan Spec from [Vulkan-Docs](https://github.com/KhronosGroup/Vulkan-Docs/blob/main/BUILD.adoc).
 
 When building the Vulkan Spec, you pass in what version of Vulkan to build for as well as what extensions to include. A Vulkan Spec without any extensions is also referred to as the [core version](https://docs.vulkan.org/spec/latest/chapters/extensions.html#extendingvulkan-coreversions) as it is the minimal amount of Vulkan an implementation needs to support in order to be [conformant](vulkan_cts.html#vulkan-cts).

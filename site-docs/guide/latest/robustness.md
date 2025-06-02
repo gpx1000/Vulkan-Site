@@ -38,6 +38,11 @@ Can’t guarantee your shader will not be out-of-bounds
 
 Mimic out-of-bounds behavior observed elsewhere
 
+|  | Important
+| --- | --- |
+
+Turning on robustness may incur a runtime performance cost. Application writers should carefully consider the implications of enabling robustness. |
+
 All Vulkan implementations are required to support the `robustBufferAccess` feature. The [spec describes what is considered out-of-bounds](https://docs.vulkan.org/spec/latest/chapters/features.html#features-robustBufferAccess) and also how it should be handled. Implementations are given some amount of flexibility for `robustBufferAccess`. An example would be accessing a `vec4(x,y,z,w)` where the `w` value is out-of-bounds as the spec allows the implementation to decide if the `x`, `y`, and `z` are also considered out-of-bounds or not.
 
 The `robustBufferAccess` feature has some limitations as it only covers buffers and not images. It also allows out-of-bounds writes and atomics to modify the data of the buffer being accessed. For applications looking for a stronger form of robustness, there is [VK_KHR_robustness2](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_robustness2.html).
@@ -65,6 +70,11 @@ void main() {
 The [robustImageAccess](https://docs.vulkan.org/spec/latest/chapters/features.html#features-robustImageAccess) feature in [VK_EXT_image_robustness](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_image_robustness.html) enables out-of-bounds checking against the dimensions of the image view being accessed. If there is an out-of-bounds access to any image it will return `(0, 0, 0, 0)` or `(0, 0, 0, 1)`.
 
 The `robustImageAccess` feature provides no guarantees about the values returned for access to an invalid LOD, it is still undefined behavior.
+
+|  | Important
+| --- | --- |
+
+VK_EXT_robustness2 works the same way. |
 
 Some applications, such as those being ported from other APIs such as D3D12, require stricter guarantees than `robustBufferAccess` and `robustImageAccess` provide. The [VK_KHR_robustness2](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_robustness2.html) extension adds this by exposing 3 new robustness features, described in the following sections. For some implementations these extra guarantees can come at a performance cost. Applications that don’t need the extra robustness are recommended to use `robustBufferAccess` and/or `robustImageAccess` instead where possible.
 

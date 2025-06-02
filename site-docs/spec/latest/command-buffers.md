@@ -156,6 +156,10 @@ primary buffers it is recorded in move to the *invalid state*.
 A primary moving to any other state does not affect the state of a secondary
 recorded in it.
 
+|  | Resetting or freeing a primary command buffer removes the lifecycle linkage
+| --- | --- |
+to all secondary command buffers that were recorded into it. |
+
 Command pools are opaque objects that command buffer memory is allocated
 from, and which allow the implementation to amortize the cost of resource
 creation across multiple command buffers.
@@ -357,6 +361,42 @@ void vkTrimCommandPoolKHR(
 Trimming a command pool recycles unused memory from the command pool back to
 the system.
 Command buffers allocated from the pool are not affected by the command.
+
+|  | This command provides applications with some control over the internal
+| --- | --- |
+memory allocations used by command pools.
+
+Unused memory normally arises from command buffers that have been recorded
+and later reset, such that they are no longer using the memory.
+On reset, a command buffer can return memory to its command pool, but the
+only way to release memory from a command pool to the system requires
+calling [vkResetCommandPool](#vkResetCommandPool), which cannot be executed while any command
+buffers from that pool are still in use.
+Subsequent recording operations into command buffers will reuse this memory
+but since total memory requirements fluctuate over time, unused memory can
+accumulate.
+
+In this situation, trimming a command pool **may** be useful to return unused
+memory back to the system, returning the total outstanding memory allocated
+by the pool back to a more “average” value.
+
+Implementations utilize many internal allocation strategies that make it
+impossible to guarantee that all unused memory is released back to the
+system.
+For instance, an implementation of a command pool **may** involve allocating
+memory in bulk from the system and sub-allocating from that memory.
+In such an implementation any live command buffer that holds a reference to
+a bulk allocation would prevent that allocation from being freed, even if
+only a small proportion of the bulk allocation is in use.
+
+In most cases trimming will result in a reduction in allocated but unused
+memory, but it does not guarantee the “ideal” behavior.
+
+Trimming **may** be an expensive operation, and **should** not be called
+frequently.
+Trimming **should** be treated as a way to relieve memory pressure after
+application-known points when there exists enough unused memory that the
+cost of trimming is “worth” it. |
 
 Valid Usage (Implicit)
 
@@ -593,6 +633,11 @@ If the allocation of any of those command buffers fails, the implementation
 **must** free all successfully allocated command buffer objects from this
 command, set all entries of the `pCommandBuffers` array to `NULL` and
 return the error.
+
+|  | Filling `pCommandBuffers` with `NULL` values on failure is an exception
+| --- | --- |
+to the default error behavior that output parameters will have **undefined**
+contents. |
 
 When command buffers are first allocated, they are in the
 [initial state](#commandbuffers-lifecycle).
@@ -1187,6 +1232,11 @@ instance that the `VkCommandBuffer` will be executed within.
 render pass instance.
 It **can** be [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) if the framebuffer is not known.
 
+|  | Specifying the exact framebuffer that the secondary command buffer will be
+| --- | --- |
+executed with **may** result in better performance at command buffer execution
+time. |
+
 * 
 `occlusionQueryEnable` specifies whether the command buffer **can** be
 executed while an occlusion query is active in the primary command
@@ -1276,6 +1326,12 @@ Valid Usage (Implicit)
 [](#VUID-VkCommandBufferInheritanceInfo-commonparent) VUID-VkCommandBufferInheritanceInfo-commonparent
 
  Both of `framebuffer`, and `renderPass` that are valid handles of non-ignored parameters **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
+
+|  | On some implementations, not using the
+| --- | --- |
+`VK_COMMAND_BUFFER_USAGE_SIMULTANEOUS_USE_BIT` bit enables command
+buffers to be patched in-place if needed, rather than creating a copy of the
+command buffer. |
 
 If a command buffer is in the [invalid, or executable state](#commandbuffers-lifecycle), and the command buffer was allocated from a command pool
 with the `VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT` flag set,
@@ -1478,6 +1534,11 @@ is inherited, and the command buffer **must** not set this
 state, except that the viewport and scissor count **may** be set by binding a
 graphics pipeline that does not specify this state as dynamic.
 
+|  | Due to this restriction, applications **should** ensure either all or none of
+| --- | --- |
+the graphics pipelines bound in this secondary command buffer use dynamic
+viewport/scissor counts. |
+
 When the command buffer is executed as part of a the execution of a
 [vkCmdExecuteCommands](#vkCmdExecuteCommands) command, the inherited state (if enabled) is
 determined by the following procedure, performed separately for each dynamic
@@ -1514,6 +1575,10 @@ not inherited.
 * 
 If the provisional inherited state passes both checks, then it becomes
 the actual inherited state.
+
+|  | There is no support for inheriting dynamic state from a secondary command
+| --- | --- |
+buffer executed as part of a different `vkCmdExecuteCommands` command. |
 
 Valid Usage
 
@@ -1840,6 +1905,12 @@ from parameters according to the rules defined by the used video compression
 standard do not adhere to the capabilities of the video compression standard
 or the implementation.
 
+|  | Applications **should** not rely on the
+| --- | --- |
+`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR` error being returned by any
+command as a means to verify Video Std parameters, as implementations are
+not required to report the error in any specific set of cases. |
+
 Valid Usage
 
 * 
@@ -1921,6 +1992,12 @@ Return Codes
 
 When a command buffer is in the executable state, it **can** be submitted to a
 queue for execution.
+
+|  | Submission can be a high overhead operation, and applications **should**
+| --- | --- |
+attempt to batch work together into as few calls to `vkQueueSubmit`
+or `vkQueueSubmit2`
+as possible. |
 
 To submit command buffers to a queue, call:
 
@@ -2167,18 +2244,9 @@ Host access to `queue` **must** be externally synchronized
 Host access to `fence` **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
--
--
--
-Any
--
+| [Command Buffer Levels](#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| - | - | - | Any | - |
 
 Return Codes
 
@@ -2997,18 +3065,9 @@ Host access to `queue` **must** be externally synchronized
 Host access to `fence` **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
--
--
--
-Any
--
+| [Command Buffer Levels](#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| - | - | - | Any | - |
 
 Return Codes
 
@@ -3460,6 +3519,20 @@ If the semaphore in [VkSubmitInfo](#VkSubmitInfo)::`pWaitSemaphores` or
 not currently have a [payload](synchronization.html#synchronization-semaphores-payloads)
 referring to a Direct3D 12 fence, the implementation **must** ignore the value
 in the `pWaitSemaphoreValues` or `pSignalSemaphoreValues` entry.
+
+|  | As the introduction of the external semaphore handle type
+| --- | --- |
+`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_D3D12_FENCE_BIT` predates that of
+timeline semaphores, support for importing semaphore payloads from external
+handles of that type into semaphores created (implicitly or explicitly) with
+a [VkSemaphoreType](synchronization.html#VkSemaphoreType) of `VK_SEMAPHORE_TYPE_BINARY` is preserved for
+backwards compatibility.
+However, applications **should** prefer importing such handle types into
+semaphores created with a [VkSemaphoreType](synchronization.html#VkSemaphoreType) of
+`VK_SEMAPHORE_TYPE_TIMELINE`, and use the
+[VkTimelineSemaphoreSubmitInfo](#VkTimelineSemaphoreSubmitInfo) structure instead of the
+`VkD3D12FenceSubmitInfoKHR` structure to specify the values to use when
+waiting for and signaling such semaphores. |
 
 Valid Usage
 
@@ -3924,6 +3997,17 @@ application **must** ensure that command buffer submissions will be able to
 complete without any subsequent operations by the application.
 Events signaled by the host **must** be signaled before the command buffer
 waits on those events.
+
+|  | The ability for commands to wait on the host to set an events was originally
+| --- | --- |
+added to allow low-latency updates to resources between host and device.
+However, to ensure quality of service, implementations would necessarily
+detect extended stalls in execution and timeout after a short period.
+As this period is not defined in the Vulkan specification, it is impossible
+to correctly validate any application with any wait period.
+Since the original users of this functionality were highly limited and
+platform-specific, this functionality is now considered defunct and should
+not be used. |
 
 Secondary command buffers **must** not be directly submitted to a queue.
 To record a secondary command buffer to execute as part of a primary command
@@ -4644,24 +4728,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Transfer
+Secondary | Both | Outside | Transfer
 
 Graphics
 
-Compute
-Indirection
+Compute | Indirection |
 
 In addition to secondary command buffer execution from primary command
 buffers, an implementation **may** support [nested command buffers](../appendices/glossary.html#glossary), which enable secondary command buffers to be executed from other
@@ -4868,21 +4943,12 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Both
-Graphics
+Secondary | Both | Both | Graphics
 
 Compute
 
-Transfer
-State
+Transfer | State |

@@ -164,6 +164,13 @@ allow the possible range of addresses to be calculated, such that:
 lower_address = (pInfo->reportedAddress & ~(pInfo->addressPrecision-1))
 upper_address = (pInfo->reportedAddress |  (pInfo->addressPrecision-1))
 
+|  | It is valid for the `reportedAddress` to contain a more precise address
+| --- | --- |
+than indicated by `addressPrecision`.
+In this case, the value of `reportedAddress` should be
+treated as an additional hint as to the value of the address that triggered the
+page fault, or to the value of an instruction pointer. |
+
 Optionally, implementations may also support the generation of vendor-specific
 binary blobs containing additional diagnostic information. All vendor-specific
 binaries will begin with a common header. The contents of the remainder of the

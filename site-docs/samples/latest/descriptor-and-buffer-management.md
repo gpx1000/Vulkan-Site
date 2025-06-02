@@ -19,6 +19,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/descriptor_management). |
+| --- | --- |
+
 An application using Vulkan will have to implement a system to manage descriptor pools and sets.
 The most straightforward and flexible approach is to re-create them for each frame, but doing so might be very inefficient, especially on mobile platforms.
 

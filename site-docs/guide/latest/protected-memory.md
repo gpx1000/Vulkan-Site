@@ -30,6 +30,9 @@ Protected memory was added in Vulkan 1.1 and there was no extension prior. This 
 
 A protected queue can read both protected and unprotected memory, but can only write to protected memory. If a queue can write to unprotected memory, then it can’t also read from protected memory.
 
+|  | Often performance counters and other timing measurement systems are disabled or less accurate for protected queues to prevent side-channel attacks. |
+| --- | --- |
+
 Using `vkGetPhysicalDeviceQueueFamilyProperties` to get the `VkQueueFlags` of each queue, an application can find a queue family with `VK_QUEUE_PROTECTED_BIT` flag exposed. This does **not** mean the queues from the family are always protected, but rather the queues **can be** a protected queue.
 
 To tell the driver to make the `VkQueue` protected, the `VK_DEVICE_QUEUE_CREATE_PROTECTED_BIT` is needed in `VkDeviceQueueCreateInfo` during `vkCreateDevice`.

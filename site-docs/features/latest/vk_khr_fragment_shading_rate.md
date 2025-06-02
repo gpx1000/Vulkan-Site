@@ -122,53 +122,39 @@ So e.g. taking the max of `(1,2)` and `(2,1)` would result in `(2,2)`.
 
 The `MUL` operation multiples each dimension of the first input rate by the corresponding rate in the second input rate. So e.g. `(2,2)` and `(1,4)` would result in `(2,8)`.
 
+|  | The Vulkan specification chose to define this as a MUL operation using linear values to make this clear; whereas the DirectX Variable Rate Shading specification defines it as an addition in log2 space using bit flags. This unfortunately resulted in a misunderstanding between vendors, giving rise to the `fragmentShadingRateStrictMultiplyCombiner` limit, which when `VK_FALSE` indicates this operation acts as an addition. Fortunately, this only practically changes the result of a single combination - where the sum of 1 and 1 is 2 instead of a product of 1. All other combinations are clamped to 2 or 4, giving the same result as a true multiplication would provide. |
+| --- | --- |
+
 The result of the combiner operations will always be clamped to maximum supported rate of the implementation given the current draw state.
 
 When none of the above state is set, the fragment size is treated as 1 by 1, and the combiner ops are set to KEEP.
 
 The per-triangle shading rate can be set by a new output in pre-rasterization shaders that is set on the provoking vertex:
 
-BuiltIn
-Enabling Capabilities
-Enabled by Extension
-
-4432
-**PrimitiveShadingRateKHR**
+| BuiltIn | Enabling Capabilities | Enabled by Extension |
+| --- | --- | --- |
+| 4432 | **PrimitiveShadingRateKHR**
 
 Output primitive fragment shading rate.
 Only valid in the **Vertex**, **Geometry**, and **MeshNV** Execution Models.
-See the API specification for more detail.
-**FragmentShadingRateKHR**
-**SPV_KHR_fragment_shading_rate**
+See the API specification for more detail. | **FragmentShadingRateKHR** | **SPV_KHR_fragment_shading_rate** |
 
 This value is set to a single integer value according to four flag values:
 
-Fragment Shading Rate Flags
-Enabling Capabilities
+| Fragment Shading Rate Flags | Enabling Capabilities |
+| --- | --- |
+| 1 | **Vertical2Pixels** 
 
-1
-**Vertical2Pixels** 
+Fragment invocation covers 2 pixels vertically. | **FragmentShadingRateKHR** |
+| 2 | **Vertical4Pixels** 
 
-Fragment invocation covers 2 pixels vertically.
-**FragmentShadingRateKHR**
+Fragment invocation covers 4 pixels vertically. | **FragmentShadingRateKHR** |
+| 4 | **Horizontal2Pixels** 
 
-2
-**Vertical4Pixels** 
+Fragment invocation covers 2 pixels horizontally. | **FragmentShadingRateKHR** |
+| 8 | **Horizontal4Pixels** 
 
-Fragment invocation covers 4 pixels vertically.
-**FragmentShadingRateKHR**
-
-4
-**Horizontal2Pixels** 
-
-Fragment invocation covers 2 pixels horizontally.
-**FragmentShadingRateKHR**
-
-8
-**Horizontal4Pixels** 
-
-Fragment invocation covers 4 pixels horizontally.
-**FragmentShadingRateKHR**
+Fragment invocation covers 4 pixels horizontally. | **FragmentShadingRateKHR** |
 
 Valid rate combinations must not include more than 1 horizontal and 1
 vertical rate.
@@ -179,14 +165,11 @@ pixel vertically.
 
 This functionality is gated behind a new capability:
 
-Capability
-Implicitly Declares
+| Capability | Implicitly Declares |
+| --- | --- |
+| 4422 | **FragmentShadingRateKHR**
 
-4422
-**FragmentShadingRateKHR**
-
-Uses the **PrimitiveShadingRateKHR** or **ShadingRateKHR** Builtins.
-**Shader**
+Uses the **PrimitiveShadingRateKHR** or **ShadingRateKHR** Builtins. | **Shader** |
 
 The per-region state can be set through an image where a pixel in that image corresponds to a given region in the render.
 Using the same flag values as the per-triangle rate, the value of that pixel determines the per-region rate for the corresponding region.
@@ -204,19 +187,14 @@ typedef struct VkFragmentShadingRateAttachmentInfoKHR {
 
 In a fragment shader, the final calculated rate can be read through a new built-in:
 
-BuiltIn
-Enabling Capabilities
-Enabled by Extension
-
-4444
-**ShadingRateKHR**
+| BuiltIn | Enabling Capabilities | Enabled by Extension |
+| --- | --- | --- |
+| 4444 | **ShadingRateKHR**
 
 Input fragment shading rate for the current shader
 invocation.
 Only valid in the **Fragment** Execution Model.
-See the API specification for more detail.
-**FragmentShadingRateKHR**
-**SPV_KHR_fragment_shading_rate**
+See the API specification for more detail. | **FragmentShadingRateKHR** | **SPV_KHR_fragment_shading_rate** |
 
 Properties of the implementation can be queried via a new properties structure:
 
@@ -304,6 +282,9 @@ This final limit cannot be violated:
 * 
 `fragmentShadingRateStrictMultiplyCombiner` determines whether the operation of the MUL combiner operation is correct - if it is `VK_FALSE`, MUL acts as a sum operation.
 
+|  | See the definition of `VK_FRAGMENT_SHADING_RATE_COMBINER_OP_MUL_KHR` for more information. |
+| --- | --- |
+
 To advertise precisely which shading rates are supported by an implementation, the following function is added to the specification:
 
 VkResult vkGetPhysicalDeviceFragmentShadingRatesKHR(
@@ -321,17 +302,11 @@ typedef struct VkPhysicalDeviceFragmentShadingRateKHR {
 This function returns the full list of supported fragment shading rates ordered from largest fragment size to smallest, with all valid sample rates.
 Implementations must support the following rates:
 
-`sampleCounts`
-`fragmentSize`
-
-`VK_SAMPLE_COUNT_1_BIT | VK_SAMPLE_COUNT_4_BIT`
-{2,2}
-
-`VK_SAMPLE_COUNT_1_BIT | VK_SAMPLE_COUNT_4_BIT`
-{2,1}
-
-~0
-{1,1}
+| `sampleCounts` | `fragmentSize` |
+| --- | --- |
+| `VK_SAMPLE_COUNT_1_BIT \| VK_SAMPLE_COUNT_4_BIT` | {2,2} |
+| `VK_SAMPLE_COUNT_1_BIT \| VK_SAMPLE_COUNT_4_BIT` | {2,1} |
+| ~0 | {1,1} |
 
 (1,1) is included for completeness only.
 Even if a shading rate advertises a given sample rate, valid sample rates are still subject to usual constraints on multisampling.

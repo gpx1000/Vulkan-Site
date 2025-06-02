@@ -1261,6 +1261,11 @@ or the equivalent
 // Provided by VK_KHR_external_memory
 typedef VkExternalMemoryBufferCreateInfo VkExternalMemoryBufferCreateInfoKHR;
 
+|  | A `VkExternalMemoryBufferCreateInfo` structure with a non-zero
+| --- | --- |
+`handleTypes` field must be included in the creation parameters for a
+buffer that will be bound to memory that is either exported or imported. |
+
 * 
 `sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
 
@@ -1326,6 +1331,21 @@ Applications **should** avoid creating buffers with application-provided
 addresses and implementation-provided addresses in the same process, to
 reduce the likelihood of `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS`
 errors.
+
+|  | The expected usage for this is that a trace capture/replay tool will add the
+| --- | --- |
+`VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT` flag to all buffers
+that use `VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT`, and during capture
+will save the queried opaque device addresses in the trace.
+During replay, the buffers will be created specifying the original address
+so any address values stored in the trace data will remain valid.
+
+Implementations are expected to separate such buffers in the GPU address
+space so normal allocations will avoid using these addresses.
+Applications and tools should avoid mixing application-provided and
+implementation-provided addresses for buffers created with
+`VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT`, to avoid address
+space allocation conflicts. |
 
 Valid Usage (Implicit)
 
@@ -2199,6 +2219,16 @@ usage of `VK_IMAGE_USAGE_HOST_TRANSFER_BIT` **must** not affect the memory
 type requirements of the image as described in
 [Sparse Resource Memory Requirements](sparsemem.html#sparsememory-memory-requirements) and
 [Resource Memory Association](#resources-association).
+
+|  | For images created without `VK_IMAGE_CREATE_EXTENDED_USAGE_BIT` a
+| --- | --- |
+`usage` bit is valid if it is supported for the format the image is
+created with.
+
+For images created with `VK_IMAGE_CREATE_EXTENDED_USAGE_BIT` a
+`usage` bit is valid if it is supported for at least one of the formats
+a `VkImageView` created from the image **can** have (see
+[Image Views](#resources-image-views) for more detail). |
 
 Image Creation Limits
 
@@ -3609,9 +3639,8 @@ contain `VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT`, then
 * 
 [](#VUID-VkImageCreateInfo-usage-10245) VUID-VkImageCreateInfo-usage-10245
 
-If `usage` includes `VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT`, then
-the [`hostImageCopy`](features.html#features-hostImageCopy) feature **must** be
-enabled
+If `usage` includes `VK_IMAGE_USAGE_HOST_TRANSFER_BIT`, then the
+[`hostImageCopy`](features.html#features-hostImageCopy) feature **must** be enabled
 
 * 
 [](#VUID-VkImageCreateInfo-tileMemoryHeap-10766) VUID-VkImageCreateInfo-tileMemoryHeap-10766
@@ -3842,6 +3871,10 @@ structure.
 `dedicatedAllocation` specifies whether the image will have a
 dedicated allocation bound to it.
 
+|  | Using a dedicated allocation for color and depth/stencil attachments or
+| --- | --- |
+other large images **may** improve performance on some devices. |
+
 Valid Usage
 
 * 
@@ -3876,6 +3909,11 @@ or the equivalent
 
 // Provided by VK_KHR_external_memory
 typedef VkExternalMemoryImageCreateInfo VkExternalMemoryImageCreateInfoKHR;
+
+|  | A `VkExternalMemoryImageCreateInfo` structure with a non-zero
+| --- | --- |
+`handleTypes` field must be included in the creation parameters for an
+image that will be bound to memory that is either exported or imported. |
 
 * 
 `sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
@@ -4365,6 +4403,12 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_IMAGE_COMPRESSION_CONTROL_EXT`
 
+|  | Some combinations of compression properties may not be supported.
+| --- | --- |
+For example, some implementations may not support different fixed-rate
+compression rates per plane of a [multi-planar format](formats.html#formats-multiplanar) and will not be able to enable fixed-rate compression for any plane
+if the requested rates differ. |
+
 Possible values of [VkImageCompressionControlEXT](#VkImageCompressionControlEXT)::`flags`,
 specifying compression controls for an image, are:
 
@@ -4401,6 +4445,13 @@ If [VkImageCompressionControlEXT](#VkImageCompressionControlEXT)::`flags` is
 `VK_IMAGE_COMPRESSION_FIXED_RATE_EXPLICIT_EXT`, then the `i`th
 member of the `pFixedRateFlags` array specifies the allowed compression
 rates for the image’s `i`th plane.
+
+|  | If `VK_IMAGE_COMPRESSION_DISABLED_EXT` is included in
+| --- | --- |
+[VkImageCompressionControlEXT](#VkImageCompressionControlEXT)::`flags`, both lossless and
+fixed-rate compression will be disabled.
+This is likely to have a negative impact on performance and is only intended
+to be used for debugging purposes. |
 
 // Provided by VK_EXT_image_compression_control
 typedef VkFlags VkImageCompressionFlagsEXT;
@@ -4525,6 +4576,17 @@ and multiple bits are set in
 [VkImageCompressionControlEXT](#VkImageCompressionControlEXT)::`pFixedRateFlags` for a plane,
 implementations **should** apply the lowest allowed bitrate that is supported.
 
+|  | The choice of “bits per component” terminology was chosen so that the same
+| --- | --- |
+compression rate describes the same degree of compression applied to formats
+that differ only in the number of components.
+For example, `VK_FORMAT_R8G8_UNORM` compressed to half its original size
+is a rate of 4 bits per component, 8 bits per pixel.
+`VK_FORMAT_R8G8B8A8_UNORM` compressed to half *its* original size is 4
+bits per component, 16 bits per pixel.
+Both of these cases can be requested with
+`VK_IMAGE_COMPRESSION_FIXED_RATE_4BPC_BIT_EXT`. |
+
 To query the compression properties of an image, add a
 [VkImageCompressionPropertiesEXT](#VkImageCompressionPropertiesEXT) structure to the `pNext` chain of
 the [VkSubresourceLayout2](#VkSubresourceLayout2) structure in a call to
@@ -4535,6 +4597,14 @@ To determine the compression rates that are supported for a given image
 format, add a [VkImageCompressionPropertiesEXT](#VkImageCompressionPropertiesEXT) structure to the
 `pNext` chain of the [VkImageFormatProperties2](capabilities.html#VkImageFormatProperties2) structure in a call
 to [vkGetPhysicalDeviceImageFormatProperties2](capabilities.html#vkGetPhysicalDeviceImageFormatProperties2).
+
+|  | Since fixed-rate compression is disabled by default, the
+| --- | --- |
+[VkImageCompressionPropertiesEXT](#VkImageCompressionPropertiesEXT) structure passed to
+[vkGetPhysicalDeviceImageFormatProperties2](capabilities.html#vkGetPhysicalDeviceImageFormatProperties2) will not indicate any
+fixed-rate compression support unless a [VkImageCompressionControlEXT](#VkImageCompressionControlEXT)
+structure is also included in the `pNext` chain of the
+[VkPhysicalDeviceImageFormatInfo2](capabilities.html#VkPhysicalDeviceImageFormatInfo2) structure passed to the same command. |
 
 The `VkImageCompressionPropertiesEXT` structure is defined as:
 
@@ -5101,6 +5171,36 @@ profiles the image will be used with, except for images used only as
 [compatible](videocoding.html#video-profile-compatibility) with the video profile in
 question.
 
+|  | This enables exchanging video picture data without additional copies or
+| --- | --- |
+conversions when used as:
+
+* 
+[Decode output pictures](videocoding.html#decode-output-picture), indifferent of the
+video profile used to produce them.
+
+* 
+[Encode input pictures](videocoding.html#encode-input-picture), indifferent of the video
+profile used to consume them.
+
+This includes images created with both
+`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` and
+`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`, which is necessary to use the
+same video picture as the [reconstructed picture](videocoding.html#reconstructed-picture)
+and [decode output picture](videocoding.html#decode-output-picture) in a video decode
+operation on implementations supporting
+`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR`.
+
+However, images with only DPB usage remain tied to the video profiles the
+image was created with, as the data layout of such DPB-only images **may** be
+implementation- and codec-dependent.
+
+If an application would like to share or reuse the device memory backing
+such images (e.g. for the purposes of temporal aliasing), then it **should**
+create separate image objects for each video profile and bind them to the
+same underlying device memory range, similar to how memory resources **can** be
+shared across separate video sessions or any other memory-backed resource. |
+
 See [Sparse Resource Features](sparsemem.html#sparsememory-sparseresourcefeatures) and
 [Sparse Physical Device Features](sparsemem.html#sparsememory-physicalfeatures) for more
 details.
@@ -5513,6 +5613,10 @@ It is legal to call `vkGetImageSubresourceLayout2` with an `image`
 created with `tiling` equal to `VK_IMAGE_TILING_OPTIMAL`, but the
 members of [VkSubresourceLayout2](#VkSubresourceLayout2)::`subresourceLayout` will have
 **undefined** values in this case.
+
+|  | Structures chained from [VkImageSubresource2](#VkImageSubresource2)::`pNext` will also be
+| --- | --- |
+updated when `tiling` is equal to `VK_IMAGE_TILING_OPTIMAL`. |
 
 Valid Usage
 
@@ -6279,6 +6383,20 @@ feature is enabled.
 When an `VkImageView` descriptor is accessed on the device, all image
 subresources must be in a valid image layout.
 
+|  | Each layout **may** offer optimal performance for a specific usage of image
+| --- | --- |
+memory.
+For example, an image with a layout of
+`VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL` **may** provide optimal
+performance for use as a color attachment, but be unsupported for use in
+transfer commands.
+Applications **can** transition an image subresource from one layout to another
+in order to achieve optimal performance when the image subresource is used
+for multiple kinds of operations.
+After initialization, applications need not use any layout other than the
+general layout, though this **may** produce suboptimal performance on some
+implementations. |
+
 Upon creation, all image subresources of an image are initially in the same
 layout, where that layout is selected by the
 `VkImageCreateInfo`::`initialLayout` member.
@@ -6628,6 +6746,43 @@ of the [VkRenderPassCreateInfo](renderpass.html#VkRenderPassCreateInfo) (see [Re
 For use in a descriptor set, this is a member in the
 `VkDescriptorImageInfo` structure (see [Descriptor Set Updates](descriptorsets.html#descriptorsets-updates)).
 
+|  | `VK_IMAGE_LAYOUT_GENERAL` can be a useful catch-all image layout, but
+| --- | --- |
+there are situations where a dedicated image layout must be used instead.
+Some examples include:
+
+* 
+`VK_IMAGE_LAYOUT_PRESENT_SRC_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_DST_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR` |
+
+|  | While `VK_IMAGE_LAYOUT_GENERAL` suggests that all types of device access
+| --- | --- |
+is possible, it does not mean that all patterns of memory accesses are safe
+in all situations.
+[Common Render Pass Data Races](renderpass.html#common-render-pass-data-races) outlines
+some situations where data races are unavoidable.
+For example, when a subresource is used as both an attachment and a sampled
+image (i.e., not an input attachment),
+`VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` adds extra
+guarantees which `VK_IMAGE_LAYOUT_GENERAL` does not. |
+
 At the time that any command buffer command accessing an image executes on
 any queue, the layouts of the image subresources that are accessed **must** all
 match exactly the layout specified via the API controlling those
@@ -6901,6 +7056,16 @@ If `image` was created with a [multi-planar format](formats.html#formats-multipl
 be equivalent to `VK_IMAGE_ASPECT_COLOR_BIT` when used as a framebuffer
 attachment.
 
+|  | Values intended to be used with one view format **may** not be exactly
+| --- | --- |
+preserved when written or read through a different format.
+For example, an integer value that happens to have the bit pattern of a
+floating-point denorm or NaN **may** be flushed or canonicalized when written
+or read through a view with a floating-point format.
+Similarly, a value written through a signed normalized format that has a bit
+pattern exactly equal to -2b **may** be changed to -2b +  1
+as described in [Conversion from Normalized Fixed-Point to Floating-Point](fundamentals.html#fundamentals-fixedfpconv). |
+
 If `image` was created with the
 `VK_IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT` flag, `format`
 **must** be *compatible* with the image’s format as described above; or **must**
@@ -6960,33 +7125,17 @@ these coordinates access the same memory locations as the (*ucolor*,
 reconstruction operations operate on the same (*uplane*, *vplane*) or
 (*iplane*, *jplane*) coordinates.
 
-Table 1. Image Type and Image View Type Compatibility Requirements
-
-Image View Type
-Compatible Image Types
-
-`VK_IMAGE_VIEW_TYPE_1D`
-`VK_IMAGE_TYPE_1D`
-
-`VK_IMAGE_VIEW_TYPE_1D_ARRAY`
-`VK_IMAGE_TYPE_1D`
-
-`VK_IMAGE_VIEW_TYPE_2D`
-`VK_IMAGE_TYPE_2D`
-, `VK_IMAGE_TYPE_3D`
-
-`VK_IMAGE_VIEW_TYPE_2D_ARRAY`
-`VK_IMAGE_TYPE_2D`
-, `VK_IMAGE_TYPE_3D`
-
-`VK_IMAGE_VIEW_TYPE_CUBE`
-`VK_IMAGE_TYPE_2D`
-
-`VK_IMAGE_VIEW_TYPE_CUBE_ARRAY`
-`VK_IMAGE_TYPE_2D`
-
-`VK_IMAGE_VIEW_TYPE_3D`
-`VK_IMAGE_TYPE_3D`
+| Image View Type | Compatible Image Types |
+| --- | --- |
+| `VK_IMAGE_VIEW_TYPE_1D` | `VK_IMAGE_TYPE_1D` |
+| `VK_IMAGE_VIEW_TYPE_1D_ARRAY` | `VK_IMAGE_TYPE_1D` |
+| `VK_IMAGE_VIEW_TYPE_2D` | `VK_IMAGE_TYPE_2D`
+, `VK_IMAGE_TYPE_3D` |
+| `VK_IMAGE_VIEW_TYPE_2D_ARRAY` | `VK_IMAGE_TYPE_2D`
+, `VK_IMAGE_TYPE_3D` |
+| `VK_IMAGE_VIEW_TYPE_CUBE` | `VK_IMAGE_TYPE_2D` |
+| `VK_IMAGE_VIEW_TYPE_CUBE_ARRAY` | `VK_IMAGE_TYPE_2D` |
+| `VK_IMAGE_VIEW_TYPE_3D` | `VK_IMAGE_TYPE_3D` |
 
 Valid Usage
 
@@ -8244,22 +8393,12 @@ Setting the identity swizzle on a component is equivalent to setting the
 identity mapping on that component.
 That is:
 
-Table 2. Component Mappings Equivalent To `VK_COMPONENT_SWIZZLE_IDENTITY`
-
-Component
-Identity Mapping
-
-`components.r`
-`VK_COMPONENT_SWIZZLE_R`
-
-`components.g`
-`VK_COMPONENT_SWIZZLE_G`
-
-`components.b`
-`VK_COMPONENT_SWIZZLE_B`
-
-`components.a`
-`VK_COMPONENT_SWIZZLE_A`
+| Component | Identity Mapping |
+| --- | --- |
+| `components.r` | `VK_COMPONENT_SWIZZLE_R` |
+| `components.g` | `VK_COMPONENT_SWIZZLE_G` |
+| `components.b` | `VK_COMPONENT_SWIZZLE_B` |
+| `components.a` | `VK_COMPONENT_SWIZZLE_A` |
 
 If the `pNext` chain includes a `VkImageViewASTCDecodeModeEXT`
 structure, then that structure includes a parameter specifying the decode
@@ -8951,6 +9090,22 @@ acceleration structure build or acceleration structure copy commands such as
 [vkCmdCopyAccelerationStructureKHR](accelstructures.html#vkCmdCopyAccelerationStructureKHR), and
 [vkCopyAccelerationStructureKHR](accelstructures.html#vkCopyAccelerationStructureKHR).
 
+|  | The expected usage for a trace capture/replay tool is that it will serialize
+| --- | --- |
+and later deserialize the acceleration structure data using acceleration
+structure copy commands.
+During capture the tool will use
+[vkCopyAccelerationStructureToMemoryKHR](accelstructures.html#vkCopyAccelerationStructureToMemoryKHR) or
+[vkCmdCopyAccelerationStructureToMemoryKHR](accelstructures.html#vkCmdCopyAccelerationStructureToMemoryKHR) with a `mode` of
+`VK_COPY_ACCELERATION_STRUCTURE_MODE_SERIALIZE_KHR`, and
+[vkCopyMemoryToAccelerationStructureKHR](accelstructures.html#vkCopyMemoryToAccelerationStructureKHR) or
+[vkCmdCopyMemoryToAccelerationStructureKHR](accelstructures.html#vkCmdCopyMemoryToAccelerationStructureKHR) with a `mode` of
+`VK_COPY_ACCELERATION_STRUCTURE_MODE_DESERIALIZE_KHR` during replay. |
+
+|  | Memory does not need to be bound to the underlying buffer when
+| --- | --- |
+[vkCreateAccelerationStructureKHR](#vkCreateAccelerationStructureKHR) is called. |
+
 The input buffers passed to acceleration structure build commands will be
 referenced by the implementation for the duration of the command.
 After the command completes, the acceleration structure **may** hold a
@@ -9072,9 +9227,40 @@ application-provided addresses and implementation-provided addresses in the
 same process, to reduce the likelihood of
 `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR` errors.
 
+|  | The expected usage for this is that a trace capture/replay tool will add the
+| --- | --- |
+`VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT` flag to all buffers
+that use `VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT`, and will add
+`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` to all buffers used as
+storage for an acceleration structure where `deviceAddress` is not zero.
+This also means that the tool will need to add
+`VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT` to memory allocations to allow
+the flag to be set where the application may not have otherwise required it.
+During capture the tool will save the queried opaque device addresses in the
+trace.
+During replay, the buffers will be created specifying the original address
+so any address values stored in the trace data will remain valid.
+
+Implementations are expected to separate such buffers in the GPU address
+space so normal allocations will avoid using these addresses.
+Applications and tools should avoid mixing application-provided and
+implementation-provided addresses for buffers created with
+`VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT`, to avoid address
+space allocation conflicts. |
+
 Applications **should** create an acceleration structure with a specific
 [VkAccelerationStructureTypeKHR](#VkAccelerationStructureTypeKHR) other than
 `VK_ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR`.
+
+|  | `VK_ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR` is intended to be used by
+| --- | --- |
+API translation layers.
+This can be used at acceleration structure creation time in cases where the
+actual acceleration structure type (top or bottom) is not yet known.
+The actual acceleration structure type must be specified as
+`VK_ACCELERATION_STRUCTURE_TYPE_TOP_LEVEL_KHR` or
+`VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR` when the build is
+performed. |
 
 If the acceleration structure will be the target of a build operation, the
 required size for an acceleration structure **can** be queried with
@@ -9153,8 +9339,8 @@ If `createFlags` includes
 * 
 [](#VUID-VkAccelerationStructureCreateInfoKHR-offset-03616) VUID-VkAccelerationStructureCreateInfoKHR-offset-03616
 
-The sum of `offset` and `size` **must** be less than the size of
-`buffer`
+The sum of `offset` and `size` **must** be less than or equal to
+the size of `buffer`
 
 * 
 [](#VUID-VkAccelerationStructureCreateInfoKHR-offset-03734) VUID-VkAccelerationStructureCreateInfoKHR-offset-03734
@@ -9958,6 +10144,21 @@ vertex positions of a hit triangle.
 specifies that the displacement micromaps associated with the specified
 acceleration structure **may** change with an acceleration structure
 update.
+
+|  | `VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR` and
+| --- | --- |
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR` **may** take
+more time and memory than a normal build, and so **should** only be used when
+those features are needed. |
+
+|  | `VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR` and
+| --- | --- |
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR` are allowed
+to be used together.
+In that case, the result of the compaction copy is used as the source of a
+build with `mode` of
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR` to perform the
+compacted update. |
 
 // Provided by VK_KHR_acceleration_structure
 typedef VkFlags VkBuildAccelerationStructureFlagsKHR;
@@ -10987,6 +11188,12 @@ creation.
 
 The returned address **must** be aligned to 256 bytes.
 
+|  | The acceleration structure device address **may** be different from the buffer
+| --- | --- |
+device address corresponding to the acceleration structure’s start offset in
+its storage buffer for acceleration structure types other than
+`VK_ACCELERATION_STRUCTURE_TYPE_GENERIC_KHR`. |
+
 Valid Usage
 
 * 
@@ -11109,6 +11316,15 @@ build or micromap copy commands such as [vkCmdBuildMicromapsEXT](VK_EXT_opacity_
 [vkBuildMicromapsEXT](VK_EXT_opacity_micromap/micromaps.html#vkBuildMicromapsEXT), [vkCmdCopyMicromapEXT](VK_EXT_opacity_micromap/micromaps.html#vkCmdCopyMicromapEXT), and
 [vkCopyMicromapEXT](VK_EXT_opacity_micromap/micromaps.html#vkCopyMicromapEXT).
 
+|  | The expected usage for a trace capture/replay tool is that it will serialize
+| --- | --- |
+and later deserialize the micromap data using micromap copy commands.
+During capture the tool will use [vkCopyMicromapToMemoryEXT](VK_EXT_opacity_micromap/micromaps.html#vkCopyMicromapToMemoryEXT) or
+[vkCmdCopyMicromapToMemoryEXT](VK_EXT_opacity_micromap/micromaps.html#vkCmdCopyMicromapToMemoryEXT) with a `mode` of
+`VK_COPY_MICROMAP_MODE_SERIALIZE_EXT`, and
+[vkCopyMemoryToMicromapEXT](VK_EXT_opacity_micromap/micromaps.html#vkCopyMemoryToMicromapEXT) or [vkCmdCopyMemoryToMicromapEXT](VK_EXT_opacity_micromap/micromaps.html#vkCmdCopyMemoryToMicromapEXT) with a
+`mode` of `VK_COPY_MICROMAP_MODE_DESERIALIZE_EXT` during replay. |
+
 The input buffers passed to micromap build commands will be referenced by
 the implementation for the duration of the command.
 Micromaps **must** be fully self-contained.
@@ -11230,6 +11446,27 @@ addresses and implementation-provided addresses in the same process, to
 reduce the likelihood of `VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
 errors.
 
+|  | The expected usage for this is that a trace capture/replay tool will add the
+| --- | --- |
+`VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT` flag to all buffers
+that use `VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT`, and will add
+`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` to all buffers used as
+storage for a micromap where `deviceAddress` is not zero.
+This also means that the tool will need to add
+`VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT` to memory allocations to allow
+the flag to be set where the application may not have otherwise required it.
+During capture the tool will save the queried opaque device addresses in the
+trace.
+During replay, the buffers will be created specifying the original address
+so any address values stored in the trace data will remain valid.
+
+Implementations are expected to separate such buffers in the GPU address
+space so normal allocations will avoid using these addresses.
+Applications and tools should avoid mixing application-provided and
+implementation-provided addresses for buffers created with
+`VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT`, to avoid address
+space allocation conflicts. |
+
 If the micromap will be the target of a build operation, the required size
 for a micromap **can** be queried with [vkGetMicromapBuildSizesEXT](#vkGetMicromapBuildSizesEXT).
 
@@ -11264,8 +11501,8 @@ If `createFlags` includes
 * 
 [](#VUID-VkMicromapCreateInfoEXT-offset-07437) VUID-VkMicromapCreateInfoEXT-offset-07437
 
-The sum of `offset` and `size` **must** be less than the size of
-`buffer`
+The sum of `offset` and `size` **must** be less than or equal to
+the size of `buffer`
 
 * 
 [](#VUID-VkMicromapCreateInfoEXT-offset-07438) VUID-VkMicromapCreateInfoEXT-offset-07438
@@ -11625,6 +11862,12 @@ regions from the local and/or peer instances.
 When a resource is used in a descriptor set, each physical device interprets
 the descriptor according to its own instance’s binding to memory.
 
+|  | There are no new copy commands to transfer data between physical devices.
+| --- | --- |
+Instead, an application **can** create a resource with a peer mapping and use
+it as the source or destination of a transfer command executed by a single
+physical device to copy the data from one physical device to another. |
+
 To determine the memory requirements for a buffer resource, call:
 
 // Provided by VK_VERSION_1_0
@@ -11924,6 +12167,10 @@ If the memory requirements are for a `VkBuffer`, the
 a `propertyFlags` that has the
 `VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT` bit set.
 
+|  | The implication of this requirement is that lazily allocated memory is
+| --- | --- |
+disallowed for buffers in all cases. |
+
 The `size` member is identical for all `VkBuffer` objects
 created with the same combination of creation parameters specified in
 [VkBufferCreateInfo](#VkBufferCreateInfo) and its `pNext` chain.
@@ -11931,6 +12178,12 @@ created with the same combination of creation parameters specified in
 The `size` member is identical for all `VkImage` objects created
 with the same combination of creation parameters specified in
 [VkImageCreateInfo](#VkImageCreateInfo) and its `pNext` chain.
+
+|  | This, however, does not imply that they interpret the contents of the bound
+| --- | --- |
+memory identically with each other.
+That additional guarantee, however, **can** be explicitly requested using
+`VK_IMAGE_CREATE_ALIAS_BIT`. |
 
 If the [`maintenance4`](features.html#features-maintenance4) feature is enabled,
 these additional guarantees apply:
@@ -13005,6 +13258,15 @@ If any of the memory binding operations described by `pBindInfos` fail,
 the [VkResult](fundamentals.html#VkResult) returned by this command **must** be the return value of any
 one of the memory binding operations which did not return `VK_SUCCESS`.
 
+|  | If the `vkBindBufferMemory2` command failed,
+| --- | --- |
+[VkBindMemoryStatus](#VkBindMemoryStatus) structures were not included in the `pNext`
+chains of each element of `pBindInfos`,
+and `bindInfoCount` was greater than one, then the buffers referenced by
+`pBindInfos` will be in an indeterminate state, and must not be used.
+
+Applications should destroy these buffers. |
+
 Valid Usage (Implicit)
 
 * 
@@ -13749,6 +14011,15 @@ If any of the memory binding operations described by `pBindInfos` fail,
 the [VkResult](fundamentals.html#VkResult) returned by this command **must** be the return value of any
 one of the memory binding operations which did not return `VK_SUCCESS`.
 
+|  | If the `vkBindImageMemory2` command failed,
+| --- | --- |
+[VkBindMemoryStatus](#VkBindMemoryStatus) structures were not included in the `pNext`
+chains of each element of `pBindInfos`,
+and `bindInfoCount` was greater than one, then the images referenced by
+`pBindInfos` will be in an indeterminate state, and must not be used.
+
+Applications should destroy these images. |
+
 Valid Usage
 
 * 
@@ -14444,6 +14715,10 @@ two.
 Implementations which do not impose a granularity restriction **may** report a
 `bufferImageGranularity` value of one.
 
+|  | Despite its name, `bufferImageGranularity` is really a granularity
+| --- | --- |
+between “linear” and “non-linear” resources. |
+
 Given resourceA at the lower memory offset and resourceB at the higher
 memory offset in the same `VkDeviceMemory` object, where one resource is
 linear and the other is non-linear (as defined in the
@@ -14494,6 +14769,10 @@ family at a time.
 range or image subresource of the object from multiple queue families is
 supported.
 
+|  | `VK_SHARING_MODE_CONCURRENT` **may** result in lower performance access to
+| --- | --- |
+the buffer or image than `VK_SHARING_MODE_EXCLUSIVE`. |
+
 Ranges of buffers and image subresources of image objects created using
 `VK_SHARING_MODE_EXCLUSIVE` **must** only be accessed by queues in the
 queue family that has *ownership* of the resource.
@@ -14504,6 +14783,19 @@ family, the application **must** perform a
 [queue family ownership transfer](synchronization.html#synchronization-queue-transfers) to make
 the memory contents of a range or image subresource accessible to a
 different queue family.
+
+|  | Before being used on the first queue, images still require a
+| --- | --- |
+[layout transition](#resources-image-layouts) from these layouts:
+
+* 
+`VK_IMAGE_LAYOUT_UNDEFINED`
+
+* 
+`VK_IMAGE_LAYOUT_PREINITIALIZED`
+
+* 
+`VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT` |
 
 A queue family **can** take ownership of an image subresource or buffer range
 of a resource created with `VK_SHARING_MODE_EXCLUSIVE`, without an
@@ -14575,6 +14867,18 @@ by creating a new image with the initial layout
 `VK_IMAGE_LAYOUT_UNDEFINED` and binding it to the same region of
 external memory as the existing images.
 
+|  | Because layout transitions apply to all identical images aliasing the same
+| --- | --- |
+region of external memory, the actual layout of the memory backing a new
+image as well as an existing image with defined content will not be
+**undefined**.
+Such an image is not usable until it acquires ownership of its memory from
+the existing owner.
+Therefore, the layout specified as part of this transition will be the true
+initial layout of the image.
+The **undefined** layout specified when creating it is a placeholder to
+simplify valid usage requirements. |
+
 A range of a `VkDeviceMemory` allocation is *aliased* if it is bound to
 multiple resources simultaneously, as described below, via
 [vkBindImageMemory](#vkBindImageMemory), [vkBindBufferMemory](#vkBindBufferMemory),
@@ -14595,6 +14899,11 @@ If one resource is linear and the other is non-linear, then the resources
 
 Applications **can** alias memory, but use of multiple aliases is subject to
 several constraints.
+
+|  | Memory aliasing **can** be useful to reduce the total device memory footprint
+| --- | --- |
+of an application, if some large resources are used for disjoint periods of
+time. |
 
 When a [non-linear](../appendices/glossary.html#glossary-linear-resource),
 non-`VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT` image is bound to an aliased
@@ -14713,6 +15022,14 @@ render pass **must** declare the attachments using the
 [`VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT`](renderpass.html#renderpass-aliasing), and
 follow the other rules listed in that section.
 
+|  | Memory recycled via an application suballocator (i.e. without freeing and
+| --- | --- |
+reallocating the memory objects) is not substantially different from memory
+aliasing.
+However, a suballocator usually waits on a fence before recycling a region
+of memory, and signaling a fence involves sufficient implicit dependencies
+to satisfy all the above requirements. |
+
 Applications **can** safely access resources concurrently via separate device
 and host operations as long as the accessed memory locations are guaranteed
 to not overlap, as defined in [Memory Location](../appendices/memorymodel.html#memory-model-memory-location), and the operation, resource, and access are otherwise
@@ -14726,6 +15043,12 @@ Operations between host and device when using non-coherent memory are
 aligned to [`nonCoherentAtomSize`](limits.html#limits-nonCoherentAtomSize), as
 defined by [vkFlushMappedMemoryRanges](memory.html#vkFlushMappedMemoryRanges) and
 [vkInvalidateMappedMemoryRanges](memory.html#vkInvalidateMappedMemoryRanges).
+
+|  | The intent is that buffers (or linear images) can be accessed concurrently,
+| --- | --- |
+even when they share cache lines, but otherwise do not access the same
+memory range.
+The concept of a device cache line size is not exposed in the memory model. |
 
 Fuchsia’s FIDL-based Sysmem service interoperates with Vulkan via the
 `[VK_FUCHSIA_buffer_collection](../appendices/extensions.html#VK_FUCHSIA_buffer_collection)` extension.

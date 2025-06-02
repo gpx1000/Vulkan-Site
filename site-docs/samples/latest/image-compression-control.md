@@ -34,6 +34,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/image_compression_control). |
+| --- | --- |
+
 This sample shows how a Vulkan application can control the compression of [`VkImage`](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VkImage.html) elements, in particular a framebuffer attachment and the swapchain.
 This requires enabling and using the extensions [`VK_EXT_image_compression_control`](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_image_compression_control) and [`VK_EXT_image_compression_control_swapchain`](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_image_compression_control_swapchain), respectively.
 Applications that use compression generally perform better thanks to the reduced memory footprint and bandwidth.
@@ -74,17 +77,9 @@ Therefore the device cannot enable it automatically, and the developer must opt-
 Recent devices with Arm GPUs support Arm Fixed Rate Compression (AFRC), which achieve high quality results even with the highest compression ratios.
 For instance, see below for images saved from a Pixel 8 device:
 
-Default compression
-
-2BPC Fixed-rate compression
-
-Pixel difference
-
-![Default compression](../../../_images/samples/performance/image_compression_control/images/default.png)
-
-![Fixed-rate compression](../../../_images/samples/performance/image_compression_control/images/fixed_rate_2BPC.png)
-
-![Pixel difference](../../../_images/samples/performance/image_compression_control/images/compare.png)
+| Default compression | 2BPC Fixed-rate compression | Pixel difference |
+| --- | --- | --- |
+| ![Default compression](../../../_images/samples/performance/image_compression_control/images/default.png) | ![Fixed-rate compression](../../../_images/samples/performance/image_compression_control/images/fixed_rate_2BPC.png) | ![Pixel difference](../../../_images/samples/performance/image_compression_control/images/compare.png) |
 
 *Space Module scene compression comparison*
 

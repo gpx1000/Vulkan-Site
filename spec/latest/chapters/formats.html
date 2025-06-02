@@ -12,6 +12,7 @@
       }(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
     </script>
     <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
     <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
@@ -731,6 +732,34 @@ typedef enum VkFormat {
     VK_FORMAT_PVRTC2_4BPP_SRGB_BLOCK_IMG = 1000054007,
   // Provided by VK_NV_optical_flow
     VK_FORMAT_R16G16_SFIXED5_NV = 1000464000,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R10X6_UINT_PACK16_ARM = 1000609000,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM = 1000609001,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM = 1000609002,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R12X4_UINT_PACK16_ARM = 1000609003,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R12X4G12X4_UINT_2PACK16_ARM = 1000609004,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM = 1000609005,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2_UINT_PACK16_ARM = 1000609006,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM = 1000609007,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM = 1000609008,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2_UNORM_PACK16_ARM = 1000609009,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM = 1000609010,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM = 1000609011,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM = 1000609012,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM = 1000609013,
   // Provided by VK_EXT_texture_compression_astc_hdr
     VK_FORMAT_ASTC_4x4_SFLOAT_BLOCK_EXT = VK_FORMAT_ASTC_4x4_SFLOAT_BLOCK,
   // Provided by VK_EXT_texture_compression_astc_hdr
@@ -2580,6 +2609,127 @@ integer value, and the last 5 bits represent the fractional value.
 The signed 16-bit values <strong>can</strong> be converted to floats in the range
 <span class="eq">[-1024,1023.96875]</span> by dividing the value by 32 <span class="eq">(2<sup>5</sup>)</span>.</p>
 </li>
+<li>
+<p><code>VK_FORMAT_R10X6_UINT_PACK16_ARM</code> specifies a one-component, 16-bit
+unsigned integer format that has a single 10-bit R component in the top
+10 bits of a 16-bit word, with the bottom 6 bits unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM</code> specifies a two-component,
+32-bit unsigned integer format that has a 10-bit R component in the top
+10 bits of the word in bytes 0..1, and a 10-bit G component in the top
+10 bits of the word in bytes 2..3, with the bottom 6 bits of each word
+unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM</code> specifies a
+four-component, 64-bit unsigned integer format that has a 10-bit R
+component in the top 10 bits of the word in bytes 0..1, a 10-bit G
+component in the top 10 bits of the word in bytes 2..3, a 10-bit B
+component in the top 10 bits of the word in bytes 4..5, and a 10-bit A
+component in the top 10 bits of the word in bytes 6..7, with the bottom
+6 bits of each word unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_R12X4_UINT_PACK16_ARM</code> specifies a one-component, 16-bit
+unsigned integer format that has a single 12-bit R component in the top
+12 bits of a 16-bit word, with the bottom 4 bits unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_R12X4G12X4_UINT_2PACK16_ARM</code> specifies a two-component,
+32-bit unsigned integer format that has a 12-bit R component in the top
+12 bits of the word in bytes 0..1, and a 12-bit G component in the top
+12 bits of the word in bytes 2..3, with the bottom 4 bits of each word
+unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM</code> specifies a
+four-component, 64-bit unsigned integer format that has a 12-bit R
+component in the top 12 bits of the word in bytes 0..1, a 12-bit G
+component in the top 12 bits of the word in bytes 2..3, a 12-bit B
+component in the top 12 bits of the word in bytes 4..5, and a 12-bit A
+component in the top 12 bits of the word in bytes 6..7, with the bottom
+4 bits of each word unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2_UINT_PACK16_ARM</code> specifies a one-component, 16-bit
+unsigned integer format that has a single 14-bit R component in the top
+14 bits of a 16-bit word, with the bottom 2 bits unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM</code> specifies a two-component,
+32-bit unsigned integer format that has a 14-bit R component in the top
+14 bits of the word in bytes 0..1, and a 14-bit G component in the top
+14 bits of the word in bytes 2..3, with the bottom 2 bits of each word
+unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM</code> specifies a
+four-component, 64-bit unsigned integer format that has a 14-bit R
+component in the top 14 bits of the word in bytes 0..1, a 14-bit G
+component in the top 14 bits of the word in bytes 2..3, a 14-bit B
+component in the top 14 bits of the word in bytes 4..5, and a 14-bit A
+component in the top 14 bits of the word in bytes 6..7, with the bottom
+2 bits of each word unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2_UNORM_PACK16_ARM</code> specifies a one-component, 16-bit
+unsigned normalized format that has a single 14-bit R component in the
+top 14 bits of a 16-bit word, with the bottom 2 bits unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM</code> specifies a two-component,
+32-bit unsigned normalized format that has a 14-bit R component in the
+top 14 bits of the word in bytes 0..1, and a 14-bit G component in the
+top 14 bits of the word in bytes 2..3, with the bottom 2 bits of each
+word unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM</code> specifies a
+four-component, 64-bit unsigned normalized format that has a 14-bit R
+component in the top 14 bits of the word in bytes 0..1, a 14-bit G
+component in the top 14 bits of the word in bytes 2..3, a 14-bit B
+component in the top 14 bits of the word in bytes 4..5, and a 14-bit A
+component in the top 14 bits of the word in bytes 6..7, with the bottom
+2 bits of each word unused.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM</code> specifies
+an unsigned normalized <em>multi-planar format</em> that has a 14-bit G
+component in the top 14 bits of each 16-bit word of plane 0, and a
+two-component, 32-bit BR plane 1 consisting of a 14-bit B component in
+the top 14 bits of the word in bytes 0..1, and a 14-bit R component in
+the top 14 bits of the word in bytes 2..3, with the bottom 2 bits of
+each word unused.
+The horizontal and vertical dimensions of the BR plane are halved
+relative to the image dimensions, and each R and B value is shared with
+the G components for which \(\left\lfloor i_G \times 0.5
+\right\rfloor = i_B = i_R\) and \(\left\lfloor j_G \times 0.5
+\right\rfloor = j_B = j_R\).
+The location of each plane when this image is in linear layout can be
+determined via <a href="resources.html#vkGetImageSubresourceLayout" class="xref page">vkGetImageSubresourceLayout</a>, using
+<code>VK_IMAGE_ASPECT_PLANE_0_BIT</code> for the G plane, and
+<code>VK_IMAGE_ASPECT_PLANE_1_BIT</code> for the BR plane.
+This format only supports images with a width and height that is a
+multiple of two.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM</code> specifies
+an unsigned normalized <em>multi-planar format</em> that has a 14-bit G
+component in the top 14 bits of each 16-bit word of plane 0, and a
+two-component, 32-bit BR plane 1 consisting of a 14-bit B component in
+the top 14 bits of the word in bytes 0..1, and a 14-bit R component in
+the top 14 bits of the word in bytes 2..3, with the bottom 2 bits of
+each word unused.
+The horizontal dimension of the BR plane is halved relative to the image
+dimensions, and each R and B value is shared with the G components for
+which <span class="steminline"> <svg style="vertical-align: -0.566ex; overflow: visible;" xmlns="http://www.w3.org/2000/svg" width="20.291ex" height="2.262ex" role="img" focusable="false" viewBox="0 -750 8968.7 1000"><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="scale(1,-1)"><g data-mml-node="math"><g data-mml-node="mrow"><g data-mml-node="mo"><path data-c="230A" d="M174 734Q174 735 175 737T177 740T180 744T184 747T189 749T196 750Q206 748 214 735V-210H310H373Q401 -210 411 -213T422 -230T411 -247T369 -251Q362 -251 338 -251T298 -250H190Q178 -246 174 -234V734Z"></path></g><g data-mml-node="msub" transform="translate(444,0)"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(378,-150) scale(0.707)"><path data-c="1D43A" d="M50 252Q50 367 117 473T286 641T490 704Q580 704 633 653Q642 643 648 636T656 626L657 623Q660 623 684 649Q691 655 699 663T715 679T725 690L740 705H746Q760 705 760 698Q760 694 728 561Q692 422 692 421Q690 416 687 415T669 413H653Q647 419 647 422Q647 423 648 429T650 449T651 481Q651 552 619 605T510 659Q492 659 471 656T418 643T357 615T294 567T236 496T189 394T158 260Q156 242 156 221Q156 173 170 136T206 79T256 45T308 28T353 24Q407 24 452 47T514 106Q517 114 529 161T541 214Q541 222 528 224T468 227H431Q425 233 425 235T427 254Q431 267 437 273H454Q494 271 594 271Q634 271 659 271T695 272T707 272Q721 272 721 263Q721 261 719 249Q714 230 709 228Q706 227 694 227Q674 227 653 224Q646 221 643 215T629 164Q620 131 614 108Q589 6 586 3Q584 1 581 1Q571 1 553 21T530 52Q530 53 528 52T522 47Q448 -22 322 -22Q201 -22 126 55T50 252Z"></path></g></g><g data-mml-node="mo" transform="translate(1650,0)"><path data-c="D7" d="M630 29Q630 9 609 9Q604 9 587 25T493 118L389 222L284 117Q178 13 175 11Q171 9 168 9Q160 9 154 15T147 29Q147 36 161 51T255 146L359 250L255 354Q174 435 161 449T147 471Q147 480 153 485T168 490Q173 490 175 489Q178 487 284 383L389 278L493 382Q570 459 587 475T609 491Q630 491 630 471Q630 464 620 453T522 355L418 250L522 145Q606 61 618 48T630 29Z"></path></g><g data-mml-node="mn" transform="translate(2650.2,0)"><path data-c="30" d="M96 585Q152 666 249 666Q297 666 345 640T423 548Q460 465 460 320Q460 165 417 83Q397 41 362 16T301 -15T250 -22Q224 -22 198 -16T137 16T82 83Q39 165 39 320Q39 494 96 585ZM321 597Q291 629 250 629Q208 629 178 597Q153 571 145 525T137 333Q137 175 145 125T181 46Q209 16 250 16Q290 16 318 46Q347 76 354 130T362 333Q362 478 354 524T321 597Z"></path><path data-c="2E" d="M78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z" transform="translate(500,0)"></path><path data-c="35" d="M164 157Q164 133 148 117T109 101H102Q148 22 224 22Q294 22 326 82Q345 115 345 210Q345 313 318 349Q292 382 260 382H254Q176 382 136 314Q132 307 129 306T114 304Q97 304 95 310Q93 314 93 485V614Q93 664 98 664Q100 666 102 666Q103 666 123 658T178 642T253 634Q324 634 389 662Q397 666 402 666Q410 666 410 648V635Q328 538 205 538Q174 538 149 544L139 546V374Q158 388 169 396T205 412T256 420Q337 420 393 355T449 201Q449 109 385 44T229 -22Q148 -22 99 32T50 154Q50 178 61 192T84 210T107 214Q132 214 148 197T164 157Z" transform="translate(778,0)"></path></g><g data-mml-node="mo" transform="translate(3928.2,0)"><path data-c="230B" d="M229 734Q229 735 230 737T232 740T235 744T239 747T244 749T251 750Q262 748 269 735V-235Q266 -240 256 -249L147 -250H77Q43 -250 32 -247T21 -230T32 -213T72 -209Q79 -209 99 -209T133 -210H229V734Z"></path></g></g><g data-mml-node="mo" transform="translate(4650,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msub" transform="translate(5705.8,0)"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(378,-150) scale(0.707)"><path data-c="1D435" d="M231 637Q204 637 199 638T194 649Q194 676 205 682Q206 683 335 683Q594 683 608 681Q671 671 713 636T756 544Q756 480 698 429T565 360L555 357Q619 348 660 311T702 219Q702 146 630 78T453 1Q446 0 242 0Q42 0 39 2Q35 5 35 10Q35 17 37 24Q42 43 47 45Q51 46 62 46H68Q95 46 128 49Q142 52 147 61Q150 65 219 339T288 628Q288 635 231 637ZM649 544Q649 574 634 600T585 634Q578 636 493 637Q473 637 451 637T416 636H403Q388 635 384 626Q382 622 352 506Q352 503 351 500L320 374H401Q482 374 494 376Q554 386 601 434T649 544ZM595 229Q595 273 572 302T512 336Q506 337 429 337Q311 337 310 336Q310 334 293 263T258 122L240 52Q240 48 252 48T333 46Q422 46 429 47Q491 54 543 105T595 229Z"></path></g></g><g data-mml-node="mo" transform="translate(6948.3,0)"><path data-c="3D" d="M56 347Q56 360 70 367H707Q722 359 722 347Q722 336 708 328L390 327H72Q56 332 56 347ZM56 153Q56 168 72 173H708Q722 163 722 153Q722 140 707 133H70Q56 140 56 153Z"></path></g><g data-mml-node="msub" transform="translate(8004,0)"><g data-mml-node="mi"><path data-c="1D456" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path></g><g data-mml-node="mi" transform="translate(378,-150) scale(0.707)"><path data-c="1D445" d="M230 637Q203 637 198 638T193 649Q193 676 204 682Q206 683 378 683Q550 682 564 680Q620 672 658 652T712 606T733 563T739 529Q739 484 710 445T643 385T576 351T538 338L545 333Q612 295 612 223Q612 212 607 162T602 80V71Q602 53 603 43T614 25T640 16Q668 16 686 38T712 85Q717 99 720 102T735 105Q755 105 755 93Q755 75 731 36Q693 -21 641 -21H632Q571 -21 531 4T487 82Q487 109 502 166T517 239Q517 290 474 313Q459 320 449 321T378 323H309L277 193Q244 61 244 59Q244 55 245 54T252 50T269 48T302 46H333Q339 38 339 37T336 19Q332 6 326 0H311Q275 2 180 2Q146 2 117 2T71 2T50 1Q33 1 33 10Q33 12 36 24Q41 43 46 45Q50 46 61 46H67Q94 46 127 49Q141 52 146 61Q149 65 218 339T287 628Q287 635 230 637ZM630 554Q630 586 609 608T523 636Q521 636 500 636T462 637H440Q393 637 386 627Q385 624 352 494T319 361Q319 360 388 360Q466 361 492 367Q556 377 592 426Q608 449 619 486T630 554Z"></path></g></g></g></g></svg> </span>.
+The location of each plane when this image is in linear layout can be
+determined via <a href="resources.html#vkGetImageSubresourceLayout" class="xref page">vkGetImageSubresourceLayout</a>, using
+<code>VK_IMAGE_ASPECT_PLANE_0_BIT</code> for the G plane, and
+<code>VK_IMAGE_ASPECT_PLANE_1_BIT</code> for the BR plane.
+This format only supports images with a width that is a multiple of two.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -3050,6 +3200,36 @@ listed single-plane format.</p>
 <td class="tableblock halign-center valign-top"><p class="tableblock">w</p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock">h</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock"><strong><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM</code></strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2_UNORM_PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">w</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">h</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">w/2</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">h/2</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock"><strong><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM</code></strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2_UNORM_PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">w</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">h</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">w/2</p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">h</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -3277,6 +3457,48 @@ bitfields packed into one or more 8-, 16-, or 32-bit fundamental data type.</p>
 </li>
 <li>
 <p><code>VK_FORMAT_A4B4G4R4_UNORM_PACK16</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R10X6_UINT_PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R12X4_UINT_PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R12X4G12X4_UINT_2PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2_UINT_PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2_UNORM_PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM</code></p>
+</li>
+<li>
+<p><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM</code></p>
 </li>
 </ul>
 </div>
@@ -4147,6 +4369,81 @@ by the host endianness.</p>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><sub>1</sub></p></td>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><sub>0</sub></p></td>
 </tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="16"><p class="tableblock"><code>VK_FORMAT_R10X6_UINT_PACK16_ARM</code></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" colspan="10"><p class="tableblock"><strong>R</strong></p></td>
+<td class="tableblock halign-center valign-top" colspan="6"><p class="tableblock"><strong>X</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>9</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>8</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>7</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>6</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>5</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>4</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>3</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>2</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>1</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>0</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>5</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>4</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>3</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>2</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>1</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>0</sub></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="16"><p class="tableblock"><code>VK_FORMAT_R12X4_UINT_PACK16_ARM</code></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" colspan="12"><p class="tableblock"><strong>R</strong></p></td>
+<td class="tableblock halign-center valign-top" colspan="4"><p class="tableblock"><strong>X</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>11</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>10</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>9</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>8</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>7</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>6</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>5</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>4</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>3</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>2</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>1</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>0</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>3</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>2</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>1</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>0</sub></p></td>
+</tr>
+<tr>
+<th class="tableblock halign-center valign-top" colspan="16"><p class="tableblock"><code>VK_FORMAT_R14X2_UINT_PACK16_ARM</code></p></th>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top" colspan="14"><p class="tableblock"><strong>R</strong></p></td>
+<td class="tableblock halign-center valign-top" colspan="2"><p class="tableblock"><strong>X</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>11</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>10</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>9</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>8</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>7</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>6</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>5</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>4</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>3</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>2</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>1</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>0</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>3</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>2</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>1</sub></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><sub>0</sub></p></td>
+</tr>
 </tbody>
 </table>
 <table id="formats-packed-32-bit" class="tableblock frame-all grid-all stretch">
@@ -4548,6 +4845,10 @@ each texel block represents in each dimension.</p>
                     <code>VK_FORMAT_R12X4_UNORM_PACK16</code>,<br>
                     <code>VK_FORMAT_A4R4G4B4_UNORM_PACK16</code>,<br>
                     <code>VK_FORMAT_A4B4G4R4_UNORM_PACK16</code>,<br>
+                    <code>VK_FORMAT_R10X6_UINT_PACK16_ARM</code>,<br>
+                    <code>VK_FORMAT_R12X4_UINT_PACK16_ARM</code>,<br>
+                    <code>VK_FORMAT_R14X2_UINT_PACK16_ARM</code>,<br>
+                    <code>VK_FORMAT_R14X2_UNORM_PACK16_ARM</code>,<br>
                     <code>VK_FORMAT_R4G4B4A4_UNORM_PACK16</code>,<br>
                     <code>VK_FORMAT_B4G4R4A4_UNORM_PACK16</code>,<br>
                     <code>VK_FORMAT_R5G6B5_UNORM_PACK16</code>,<br>
@@ -4605,6 +4906,10 @@ each texel block represents in each dimension.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R10X6G10X6_UNORM_2PACK16</code>,<br>
                     <code>VK_FORMAT_R12X4G12X4_UNORM_2PACK16</code>,<br>
                     <code>VK_FORMAT_R16G16_SFIXED5_NV</code>,<br>
+                    <code>VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM</code>,<br>
+                    <code>VK_FORMAT_R12X4G12X4_UINT_2PACK16_ARM</code>,<br>
+                    <code>VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM</code>,<br>
+                    <code>VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM</code>,<br>
                     <code>VK_FORMAT_R8G8B8A8_UNORM</code>,<br>
                     <code>VK_FORMAT_R8G8B8A8_SNORM</code>,<br>
                     <code>VK_FORMAT_R8G8B8A8_USCALED</code>,<br>
@@ -4642,8 +4947,14 @@ each texel block represents in each dimension.</p>
                     <code>VK_FORMAT_R16G16_SNORM</code>,<br>
                     <code>VK_FORMAT_R16G16_USCALED</code>,<br>
                     <code>VK_FORMAT_R16G16_SSCALED</code>,<br>
-                    <code>VK_FORMAT_R16G16_UINT</code>,<br>
-                    <code>VK_FORMAT_R16G16_SINT</code>,<br>
+                    <code>VK_FORMAT_R16G16_UINT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">32-bit (continued)<br>
+  Block size 4 byte<br>
+  1x1x1 block extent<br>
+  1 texel/block</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16G16_SINT</code>,<br>
                     <code>VK_FORMAT_R16G16_SFLOAT</code>,<br>
                     <code>VK_FORMAT_R32_UINT</code>,<br>
                     <code>VK_FORMAT_R32_SINT</code>,<br>
@@ -5055,7 +5366,8 @@ each texel block represents in each dimension.</p>
   Block size 8 byte<br>
   1x1x1 block extent<br>
   1 texel/block</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16</code>,<br>
+                    <code>VK_FORMAT_R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">64-bit G10B10G10R10<br>
@@ -5111,7 +5423,8 @@ each texel block represents in each dimension.</p>
   Block size 8 byte<br>
   1x1x1 block extent<br>
   1 texel/block</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R12X4G12X4B12X4A12X4_UNORM_4PACK16</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R12X4G12X4B12X4A12X4_UNORM_4PACK16</code>,<br>
+                    <code>VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">64-bit G12B12G12R12<br>
@@ -5270,6 +5583,28 @@ each texel block represents in each dimension.</p>
   1x1x1 block extent<br>
   1 texel/block</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_G16_B16R16_2PLANE_444_UNORM</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">64-bit R14G14B14A14<br>
+  Block size 8 byte<br>
+  1x1x1 block extent<br>
+  1 texel/block</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM</code>,<br>
+                    <code>VK_FORMAT_R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14-bit 2-plane 420<br>
+  Block size 6 byte<br>
+  1x1x1 block extent<br>
+  1 texel/block</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">14-bit 2-plane 422<br>
+  Block size 6 byte<br>
+  1x1x1 block extent<br>
+  1 texel/block</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -8356,7 +8691,7 @@ preconditions, with more information in the table where the symbol appears</p></
 </table>
 <div style="page-break-after: always;"></div>
 <table id="formats-mandatory-features-10bit" class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 15. Mandatory Format Support: 10- and 12-Bit Components</caption>
+<caption class="title">Table 15. Mandatory Format Support: 10-, 12-, and 14-Bit Components</caption>
 <colgroup>
 <col style="width: 48%;">
 <col style="width: 4%;">
@@ -8671,6 +9006,230 @@ preconditions, with more information in the table where the symbol appears</p></
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R12X4G12X4_UNORM_2PACK16</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R10X6_UINT_PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R12X4_UINT_PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R12X4G12X4_UINT_2PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2_UINT_PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2_UNORM_PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM</code></p></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
 <td class="tableblock halign-center valign-top"></td>
@@ -11840,6 +12399,34 @@ equal to <code>VK_IMAGE_ASPECT_COLOR_BIT</code>, <a href="samplers.html#samplers
 <td class="tableblock halign-center valign-top"></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top" colspan="12"><p class="tableblock">Format features marked † <strong>must</strong> be supported for
 <code>optimalTilingFeatures</code> with <a href="resources.html#VkImageType" class="xref page">VkImageType</a>
 <code>VK_IMAGE_TYPE_2D</code> if the <code>VkPhysicalDevice</code> supports the
@@ -12280,5 +12867,6 @@ apply, as described in the respective sections of this specification.</p>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
 <script async src="../../../search-index.js"></script>
+<script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

@@ -54,7 +54,18 @@
 
 ## Content
 
+|  | This memory model describes synchronizations provided by all
+| --- | --- |
+implementations; however, some of the synchronizations defined require extra
+features to be supported by the implementation.
+See [VkPhysicalDeviceVulkanMemoryModelFeatures](../chapters/features.html#VkPhysicalDeviceVulkanMemoryModelFeatures). |
+
 *Operation* is a general term for any task that is executed on the system.
+
+|  | An operation is by definition something that is executed.
+| --- | --- |
+Thus if an instruction is skipped due to control flow, it does not
+constitute an operation. |
 
 Each operation is executed by a particular *agent*.
 Possible agents include each shader invocation, each host thread, and each
@@ -86,6 +97,12 @@ At the time an allocation is created there have been no
 locations.
 The initialization is not considered to be a memory operation.
 
+|  | For tessellation control shader output variables, a consequence of
+| --- | --- |
+initialization not being considered a memory operation is that some
+implementations may need to insert a barrier between the initialization of
+the output variables and any reads of those variables. |
+
 For an operation A and memory location M:
 
 * 
@@ -99,6 +116,10 @@ output from A is stored to M.
 * 
  A *accesses* M if and only if it either
 reads or writes (or both) M.
+
+|  | A write whose value is the same as what was already in those memory
+| --- | --- |
+locations is still considered to be a write and has all the same effects. |
 
 A *reference* is an object that a particular agent **can** use to access a set
 of memory locations.
@@ -254,9 +275,29 @@ A and B are both device operations.
 * 
 A and B are both host operations.
 
+|  | If two atomic operations are not mutually-ordered, and if their sets of
+| --- | --- |
+memory locations overlap, then each **must** be synchronized against the other
+as if they were non-atomic operations. |
+
 For a given atomic write A, all atomic writes that are mutually-ordered with
 A occur in an order known as A’s *scoped modification order*.
 A’s scoped modification order relates no other operations.
+
+|  | Invocations outside the instance of A’s memory scope **may** observe the values
+| --- | --- |
+at A’s set of memory locations becoming visible to it in an order that
+disagrees with the scoped modification order. |
+
+|  | It is valid to have non-atomic operations or atomics in a different scope
+| --- | --- |
+instance to the same set of memory locations, as long as they are
+synchronized against each other as if they were non-atomic (if they are not,
+it is treated as a [data race](#memory-model-access-data-race)).
+That means this definition of A’s scoped modification order could include
+atomic operations that occur much later, after intervening non-atomics.
+That is a bit non-intuitive, but it helps to keep this definition simple and
+non-circular. |
 
 Non-atomic memory operations, by default, **may** be observed by one agent in a
 different order than they were written by another agent.
@@ -294,6 +335,9 @@ the limitations on ordering from both of those operations.
 A memory barrier with this semantic is both a release and acquire
 barrier.
 
+|  | SPIR-V does not support “consume” semantics on the device. |
+| --- | --- |
+
 The memory semantics operand also includes *storage class semantics* which
 indicate which storage classes are constrained by the synchronization.
 SPIR-V storage class semantics include:
@@ -326,6 +370,24 @@ Image storage class.
 The OutputMemory storage class semantic applies to accesses to memory in the
 Output storage class.
 
+|  | Informally, these constraints limit how memory operations can be reordered,
+| --- | --- |
+and these limits apply not only to the order of accesses as performed in the
+agent that executes the instruction, but also to the order the effects of
+writes become visible to all other agents within the same instance of the
+instruction’s memory scope. |
+
+|  | Release and acquire operations in different threads **can** act as
+| --- | --- |
+synchronization operations, to guarantee that writes that happened before
+the release are visible after the acquire.
+(This is not a formal definition, just an Informative forward reference.) |
+
+|  | The OutputMemory storage class semantic is only useful in tessellation
+| --- | --- |
+control shaders, which is the only execution model where output variables
+are shared between invocations. |
+
 The memory semantics operand **can** also include availability and visibility
 flags, which apply availability and visibility operations as described in
 [availability and visibility](#memory-model-availability-visibility).
@@ -356,6 +418,14 @@ the atomic operation A as its first element
 
 * 
 atomic read-modify-write operations on M by any agent
+
+|  | The atomics in the last bullet **must** be mutually-ordered with A by virtue of
+| --- | --- |
+being in A’s scoped modification order. |
+
+|  | This intentionally omits “atomic writes to M performed by the same agent
+| --- | --- |
+that performed A”, which is present in the corresponding C++ definition. |
 
 *Synchronizes-with* is a relation between operations, where each operation
 is either an atomic operation or a memory barrier (aka fence on the host).
@@ -475,6 +545,10 @@ A and B are in the instance of each other’s memory scopes
 * 
 A and B are in the instance of C’s execution scope
 
+|  | This is similar to the barrier-barrier synchronization above, but with a
+| --- | --- |
+control barrier filling the role of the relaxed atomics. |
+
 Let F be an ordering of fragment shader invocations, such that invocation
 F1 is ordered before invocation F2 if and only if F1 and F2 overlap
 as described in [Fragment Shader Interlock](../chapters/shaders.html#shaders-scope-fragment-interlock) and F1 executes the interlocked code before F2.
@@ -485,6 +559,13 @@ if the agent that executes A is ordered before the agent that executes B in
 F. A and B are both considered to have `FragmentInterlock` memory scope
 and semantics of UniformMemory and ImageMemory, and A is considered to have
 Release semantics and B is considered to have Acquire semantics.
+
+|  | `OpBeginInvocationInterlockEXT` and `OpBeginInvocationInterlockEXT` do
+| --- | --- |
+not perform implicit availability or visibility operations.
+Usually, shaders using fragment shader interlock will declare the relevant
+resources as `coherent` to get implicit
+[per-instruction availability and visibility operations](#memory-model-instruction-av-vis). |
 
 If A is a release barrier and B is an acquire barrier, then A
 synchronizes-with B if all of the following are true:
@@ -507,6 +588,15 @@ accesses.
 If there is an [execution dependency](../chapters/synchronization.html#synchronization-dependencies-execution) between two operations A and B, then the operation in the first
 synchronization scope system-synchronizes-with the operation in the second
 synchronization scope.
+
+|  | This covers all Vulkan synchronization primitives, including device
+| --- | --- |
+operations executing before a synchronization primitive is signaled, wait
+operations happening before subsequent device operations, signal operations
+happening before host operations that wait on them, and host operations
+happening before [vkQueueSubmit](../chapters/cmdbuffers.html#vkQueueSubmit).
+The list is spread throughout the synchronization chapter, and is not
+repeated here. |
 
 System-synchronizes-with implicitly includes all storage class semantics and
 has `CrossDevice` scope.
@@ -569,6 +659,19 @@ A inter-thread-happens-before B for some set of storage classes SC
 
 *Happens-after* is defined similarly.
 
+|  | Unlike C++, happens-before is not always sufficient for a write to be
+| --- | --- |
+visible to a read.
+Additional [availability and visibility](#memory-model-availability-visibility) operations **may** be required for writes to be
+[visible-to](#memory-model-visible-to) other memory accesses. |
+
+|  | Happens-before is not transitive, but each of program-order and
+| --- | --- |
+inter-thread-happens-before are transitive.
+These can be thought of as covering the “single-threaded” case and the
+“multi-threaded” case, and it is not necessary (and not valid) to form
+chains between the two. |
+
 *Availability* and *visibility* are states of a write operation, which
 (informally) track how far the write has permeated the system, i.e. which
 agents and references are able to observe the write.
@@ -624,6 +727,21 @@ The shader call instance domain is at an implementation-dependent location
 in the list, and is nested according to that location.
 The shader call instance domain is not broader than the queue family
 instance domain.
+
+|  | Memory domains do not correspond to storage classes or device-local and
+| --- | --- |
+host-local [VkDeviceMemory](../chapters/memory.html#VkDeviceMemory) allocations, rather they indicate whether a
+write can be made visible only to agents in the same subgroup, same
+workgroup,
+overlapping fragment shader invocation,
+shader-call-related ray tracing invocation,
+in any shader invocation, or anywhere on the device, or host.
+The shader, queue family instance,
+fragment interlock instance,
+shader call instance,
+workgroup instance, and subgroup instance domains are only used for
+shader-based availability/visibility operations, in other cases writes can
+be made available from/visible to the shader via the device domain. |
 
 *Availability operations*, *visibility operations*, and *memory domain
 operations* alter the state of the write operations that happen-before them,
@@ -806,6 +924,20 @@ locations read by the instruction.
 The implicit visibility operation is program-ordered between read and all
 other operations program-ordered before the read.
 
+|  | Although reads with per-instruction visibility only perform visibility ops
+| --- | --- |
+from the shader or
+fragment interlock instance or
+shader call instance or
+workgroup instance or subgroup instance domain, they will also see writes
+that were made visible via the device domain, i.e. those writes previously
+performed by non-shader agents and made visible via API commands. |
+
+|  | It is expected that all invocations in a subgroup execute on the same
+| --- | --- |
+processor with the same path to memory, and thus availability and visibility
+operations with subgroup scope can be expected to be “free”. |
+
 Let X and Y be memory accesses to overlapping sets of memory locations M,
 where X != Y. Let (AX,RX) be the agent and reference used for X, and
 (AY,RY) be the agent and reference used for Y. For now, let “→”
@@ -861,6 +993,13 @@ X→AV(AX,RX,DX,L)→DOM(DX,DY)→Y
 X is a write and Y is a read, and
 X→AV(AX,RX,DX,L)→DOM(DX,DY)→VIS(AY,RY,DY,L)→Y
 
+|  | The final bullet (synchronization through device/host domain) requires
+| --- | --- |
+API-level synchronization operations, since the device/host domains are not
+accessible via shader instructions.
+And “device domain” is not to be confused with “device scope”, which
+synchronizes through the “shader domain”. |
+
 Let X and Y be operations that access overlapping sets of memory locations
 M, where X != Y, and at least one of X and Y is a write, and X and Y are not
 mutually-ordered atomic operations.
@@ -869,6 +1008,11 @@ location in M, then there is a *data race*.
 
 Applications **must** ensure that no data races occur during the execution of
 their application.
+
+|  | Data races can only occur due to instructions that are actually executed.
+| --- | --- |
+For example, an instruction skipped due to control flow must not contribute
+to a data race. |
 
 Let X be a write and Y be a read whose sets of memory locations overlap, and
 let M be the set of memory locations that overlap.
@@ -885,6 +1029,11 @@ before Y for location L.
 
 If X is visible-to Y, then Y reads the value written by X for locations
 M2.
+
+|  | It is possible for there to be a write between X and Y that overwrites a
+| --- | --- |
+subset of the memory locations, but the remaining memory locations (M2)
+will still be visible-to Y. |
 
 *Reads-from* is a relation between operations, where the first operation is
 a write, the second operation is a read, and the second operation reads the
@@ -910,6 +1059,10 @@ reads-from
 
 * 
 from-reads
+
+|  | This is a “consistency” axiom, which informally guarantees that sequences
+| --- | --- |
+of operations cannot violate causality. |
 
 Let A and B be mutually-ordered atomic operations, where A is
 location-ordered before B. Then the following rules are a consequence of
@@ -955,8 +1108,18 @@ corresponding
 `Output` storage variable(s) in the shader invocation(s) that contribute
 to generating invocation A, and those writes are all visible-to X.
 
+|  | It is not necessary for the upstream shader invocations to have completed
+| --- | --- |
+execution, they only need to have generated the output that is being read. |
+
 A call to [vkFreeMemory](../chapters/memory.html#vkFreeMemory) **must** happen-after all memory operations on all
 memory locations in that [VkDeviceMemory](../chapters/memory.html#VkDeviceMemory) object.
+
+|  | Normally, device memory operations in a given queue are synchronized with
+| --- | --- |
+[vkFreeMemory](../chapters/memory.html#vkFreeMemory) by having a host thread wait on a fence signaled by that
+queue, and the wait happens-before the call to [vkFreeMemory](../chapters/memory.html#vkFreeMemory) on the
+host. |
 
 The deallocation of SPIR-V variables is managed by the system and
 happens-after all operations on those variables.

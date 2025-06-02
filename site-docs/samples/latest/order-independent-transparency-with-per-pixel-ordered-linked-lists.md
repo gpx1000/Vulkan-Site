@@ -15,6 +15,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/api/oit_linked_lists). |
+| --- | --- |
+
 ![Sample](../../../_images/samples/api/oit_linked_lists/images/sample.png)
 
 This sample implements an order-independent transparency (OIT) algorithm using per-pixel ordered linked lists.
@@ -43,23 +46,12 @@ To keep occupancy high, the maximum number of sorted fragments (`SORTED_FRAGMENT
 To get correct results in every situation, that same number should be as high as possible.
 The artifacts resulting from a low number of sorted fragments per pixel can be observed by using the `Sorted fragments per pixel` option.
 
-Option
-Description
-Comments
-
-Sort fragments
-Enable fragment sorting in the combine pass
-This option, when disabled, is meant to demonstrate the visual issues that occur with non-sorted transparent geometry.
-
-Camera auto-rotation
-Enable the automatic rotation of the camera
-
-Sorted fragments per pixel
-Specify the maximum number of fragments sorted per pixel
-This option, when set to a low number (e.g. 4), highlights the main weakness of the algorithm.
-
-Background grayscale
-Specify the grayscale value by which the background color is multiplied (0.0 to 1.0)
+| Option | Description | Comments |
+| --- | --- | --- |
+| Sort fragments | Enable fragment sorting in the combine pass | This option, when disabled, is meant to demonstrate the visual issues that occur with non-sorted transparent geometry. |
+| Camera auto-rotation | Enable the automatic rotation of the camera |  |
+| Sorted fragments per pixel | Specify the maximum number of fragments sorted per pixel | This option, when set to a low number (e.g. 4), highlights the main weakness of the algorithm. |
+| Background grayscale | Specify the grayscale value by which the background color is multiplied (0.0 to 1.0) |  |
 
 This sample was tested on Windows.
 The validation layers were enabled and all reported issues were fixed.

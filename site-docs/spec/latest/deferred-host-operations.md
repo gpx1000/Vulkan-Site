@@ -368,6 +368,14 @@ available on the host CPU.
 In these situations, an application **should** clamp the return value rather
 than oversubscribing the machine.
 
+|  | The recommended usage pattern for applications is to query this value once,
+| --- | --- |
+after deferral, and schedule no more than the specified number of threads to
+join the operation.
+Each time a joined thread receives `VK_THREAD_IDLE_KHR`, the application
+should schedule an additional join at some point in the future, but is not
+required to do so. |
+
 Valid Usage (Implicit)
 
 * 

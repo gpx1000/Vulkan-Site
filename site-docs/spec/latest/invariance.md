@@ -153,6 +153,17 @@ unless all such stores write the same value; and*
 *no shader invocation, or other operation performed to process the
 sequence of commands, reads memory written to by an image store.*
 
+|  | The OpenGL specification has the following invariance rule: Consider a
+| --- | --- |
+primitive p' obtained by translating a primitive p through an offset (x, y)
+in window coordinates, where x and y are integers.
+As long as neither p' nor p is clipped, it **must** be the case that each
+fragment f' produced from p' is identical to a corresponding fragment f from
+p except that the center of f' is offset by (x, y) from the center of f.
+
+This rule does not apply to Vulkan and is an intentional difference from
+OpenGL. |
+
 When any sequence of Vulkan commands triggers shader invocations that
 perform image stores or atomic operations, and subsequent Vulkan commands
 read the memory written by those shader invocations, these operations **must**

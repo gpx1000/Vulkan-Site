@@ -22,9 +22,15 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/debug_utils). |
+| --- | --- |
+
 This tutorial, along with the accompanying example code, demonstrates the use of the [VK_EXT_debug_utils](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_debug_utils) extension to setup a validation layer messenger callback and pass additional debugging information to debuggers like [RenderDoc](https://renderdoc.org/).
 
 `VK_EXT_debug_utils` has been introduced based on feedback for the initial Vulkan debugging extensions `VK_EXT_debug_report` and `VK_EXT_debug_marker`, combining these into a single instance extensions with some added functionality.
+
+|  | Enabling the extension is done inside the framework, see the `Instance` class in [instance.cpp](../../../framework/core/instance.cpp) for details. |
+| --- | --- |
 
 Enabling the functionality for the debug utilities is done by adding the extension to the list of extensions to enable at instance level.
 As with all extensions, this is optional and you should check if the extension is present before enabling it.
@@ -45,7 +51,13 @@ for (auto &available_extension : available_instance_extensions)
     }
 }
 
+|  | Validation setup is done inside the framework, see the `Instance` class in `instance.cpp` for details. |
+| --- | --- |
+
 After creating your instance with the `VK_EXT_debug_utils` extension enabled, you’ll be able to use the debug functions that it provides.
+
+|  | Depending on the implementation and loader you’re using you may need to manually get the function pointers for these via `vkGetInstanceProcAddr` before you can use these. |
+| --- | --- |
 
 `vkCreateDebugUtilsMessengerEXT` is used for setting up the debug messenger callback that is triggered by the validation layers:
 

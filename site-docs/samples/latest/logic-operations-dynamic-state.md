@@ -20,6 +20,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/logic_op_dynamic_state). |
+| --- | --- |
+
 ![Sample](../../../_images/samples/extensions/logic_op_dynamic_state/images/logic_op_dynamic_state_screenshot.png)
 
 The [VK_EXT_extended_dynamic_state2](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_extended_dynamic_state2.html) extension allows to use dynamic states e.g.

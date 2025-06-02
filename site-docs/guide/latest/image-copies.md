@@ -36,25 +36,11 @@ This is an overview of copying to and from a `VkImage` of various formats.
 
 There are 3 main ways to copy to/from a `VkImage`
 
-Copy Type
-Original (Vulkan 1.0)
-`VK_KHR_copy_commands2` (Vulkan 1.3) - Added a missing `pNext` in the structs
-`VK_EXT_host_image_copy` (Vulkan 1.4) - allows copies on host without a `VkBuffer` or `VkCommandBuffer`
-
-Buffer to Image
-`vkCmdCopyBufferToImage`
-`vkCmdCopyBufferToImage2`
-`vkCopyMemoryToImage`
-
-Image to Buffer
-`vkCmdCopyImageToBuffer`
-`vkCmdCopyImageToBuffer2`
-`vkCopyImageToMemory`
-
-Image to Image
-`vkCmdCopyImage`
-`vkCmdCopyImage2`
-`vkCopyImageToImage`
+| Copy Type | Original (Vulkan 1.0) | `VK_KHR_copy_commands2` (Vulkan 1.3) - Added a missing `pNext` in the structs | `VK_EXT_host_image_copy` (Vulkan 1.4) - allows copies on host without a `VkBuffer` or `VkCommandBuffer` |
+| --- | --- | --- | --- |
+| Buffer to Image | `vkCmdCopyBufferToImage` | `vkCmdCopyBufferToImage2` | `vkCopyMemoryToImage` |
+| Image to Buffer | `vkCmdCopyImageToBuffer` | `vkCmdCopyImageToBuffer2` | `vkCopyImageToMemory` |
+| Image to Image | `vkCmdCopyImage` | `vkCmdCopyImage2` | `vkCopyImageToImage` |
 
 When you copy an image, you will need to specify an `image subresource` which is used to describe the part of the image being copied.
 
@@ -105,6 +91,9 @@ The `VkBufferImageCopy` (or `VkMemoryToImageCopy`) struct provides 3 fields to s
 
 * 
 `bufferImageHeight` (where the extent.z starts)
+
+|  | Setting all of these to zero means everything is tightly packed in the `VkBuffer`/`VkDeviceMemory` |
+| --- | --- |
 
 The [spec addressing formula](https://docs.vulkan.org/spec/latest/chapters/copies.html#copies-buffers-images) is pretty standard, the one thing that can trip you up is that there is no overlapping memory between rows.
 In the following example, if you have a `{4,4,1}` image, the `rowExtent` is the `max(bufferRowLength, imageExtent.width)`.
@@ -172,6 +161,9 @@ copy.srcSubresource.mipLevel = 1;
 Dealing with compressed images can be a bit tricky, the main thing is to first grasp the terminology of `texel` vs `texel block`
 
 ![image_copies_compressed_terminology.svg](image_copies_compressed_terminology.svg)
+
+|  | Uncompressed formats (ex. `VK_FORMAT_R8G8B8A8_UNORM`), the `texel block` is `{1, 1, 1}` so it is the same a `texel` when using it. |
+| --- | --- |
 
 The block size, block extent, and other info can be found either in the spec, `vk.xml`, or even [vk_format_utils.h in Vulkan-Utility-Libraries](https://github.com/KhronosGroup/Vulkan-Utility-Libraries/blob/main/include/vulkan/utility/vk_format_utils.h).
 

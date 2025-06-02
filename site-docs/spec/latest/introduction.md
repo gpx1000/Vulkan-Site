@@ -60,6 +60,17 @@ In the context of this document, an implementation which complies with all
 normative requirements imposed on implementations is said to be
 **conformant**.
 
+|  | The Khronos Group imposes additional requirements on implementors who wish
+| --- | --- |
+to make public statements describing their Vulkan implementations as
+conformant.
+These include signing the Vulkan Adopter’s Agreement, paying the associated
+fee, and making a successful conformance test submission to the Khronos
+Conformance Process.
+For details see the
+[Khronos Trademark
+Guidelines](https://www.khronos.org/legal/khronos-trademark-guidelines) ([https://www.khronos.org/legal/khronos-trademark-guidelines](https://www.khronos.org/legal/khronos-trademark-guidelines)). |
+
 Within this specification, the key words **must**, **required**, **should**, **may**,
 and **optional** are to be interpreted as described in
 [RFC 2119 - Key words for use in RFCs to
@@ -84,6 +95,15 @@ mechanism through which the application can express or accomplish the action
 described.
 
 These key words are never used in text addressing implementors.
+
+|  | There is an important distinction between **cannot** and **must not**, as used
+| --- | --- |
+in this Specification.
+**Cannot** refers to something the API provides no way for the application to
+express or accomplish.
+**Must not** describes something that the application is able to express, but
+that is not valid use of the API, and will have **undefined** and potentially
+unrecoverable consequences. |
 
 In the Vulkan Specification, the normative term **must** is primarily used to
 describe **application** behavior, and in particular to constrain what inputs
@@ -195,3 +215,13 @@ extension under the umbrella of the Khronos IP Rights Policy.
 All Vulkan core versions and `KHR` extensions (including provisional
 specifications) are ratified, as are some multi-vendor `EXT` extensions.
 Ratification status of extensions is described in the [Layers & Extensions (Informative)](../appendices/extensions.html#extensions) appendix.
+
+|  | Ratification status is primarily of interest to IHVs developing GPU hardware
+| --- | --- |
+and Vulkan implementations.
+For developers, ratification does not necessarily mean that an extension is
+“better”, has a more stable API, or is more widely supported than
+alternative ways of achieving that functionality.
+
+Interactions between ratified and non-ratified extensions are not themselves
+ratified. |

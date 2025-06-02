@@ -28,6 +28,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/api/timestamp_queries). |
+| --- | --- |
+
 This tutorial, along with the accompanying example code, shows how to use timestamp queries to measure timings on the GPU.
 
 The sample, based on the HDR one, does multiple render passes and will use timestamp queries to get GPU timings for the different render passes.

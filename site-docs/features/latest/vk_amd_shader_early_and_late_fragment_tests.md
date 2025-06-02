@@ -91,12 +91,9 @@ This feature allows the new execution mode in SPIR-V shaders consumed by the imp
 A new execution mode is introduced which allows for early depth and stencil tests to be performed both early and late when depth and stencil writes are performed, in combination with the depth optimizations.
 In order to allow for stencil reference writes with this new execution mode, similar stencil reference write optimizations are provided.
 
-Execution mode
-Extra Operands
-Enabling Capabilities
-
-5017
-**EarlyAndLateFragmentTestsAMD**
+| Execution mode | Extra Operands | Enabling Capabilities |
+| --- | --- | --- |
+| 5017 | **EarlyAndLateFragmentTestsAMD**
 
 Fragment tests can be performed both before and after fragment shader execution, with latter tests taking values written to *FragDepth* and *FragStencilRefEXT* into account. Early tests are not guaranteed, late tests are.+
 
@@ -108,81 +105,55 @@ If this and **ExecutionModeDepthReplacing** are both specified, one of **DepthGr
 
 Only valid with the Fragment [Execution Model](https://registry.khronos.org/spir-v/specs/unified1/SPIRV.html#Execution_Model).
 
-See client API for detail on fragment operations.
-
-**Shader**
-
-5079
-**StencilRefUnchangedFrontAMD**
+See client API for detail on fragment operations. |  | **Shader** |
+| 5079 | **StencilRefUnchangedFrontAMD**
 
 Indicates that early per-fragment tests may assume that any *FragStencilRefEXT* built in-decorated value written by the shader is equal to the stencil reference value set for the front face in the client API after masking.
 Late per-fragment tests will use the written value as normal.
 
 Only valid with the Fragment [Execution Model](https://registry.khronos.org/spir-v/specs/unified1/SPIRV.html#Execution_Model).
 
-At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified.
-
-**StencilExportEXT**
-
-5080
-**StencilRefGreaterFrontAMD**
+At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified. |  | **StencilExportEXT** |
+| 5080 | **StencilRefGreaterFrontAMD**
 
 Indicates that early per-fragment tests may assume that any *FragStencilRefEXT* built in-decorated value written by the shader is greater than or equal to the stencil reference value set for the front face in the client API after masking.
 Late per-fragment tests will use the written value as normal.
 
 Only valid with the Fragment [Execution Model](https://registry.khronos.org/spir-v/specs/unified1/SPIRV.html#Execution_Model).
 
-At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified.
-
-**StencilExportEXT**
-
-5081
-**StencilRefLessFrontAMD**
+At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified. |  | **StencilExportEXT** |
+| 5081 | **StencilRefLessFrontAMD**
 
 Indicates that early per-fragment tests may assume that any *FragStencilRefEXT* built in-decorated value written by the shader is less than or equal to the stencil reference value  set for the front face in the client API after masking.
 Late per-fragment tests will use the written value as normal.
 
 Only valid with the Fragment [Execution Model](https://registry.khronos.org/spir-v/specs/unified1/SPIRV.html#Execution_Model).
 
-At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified.
-
-**StencilExportEXT**
-
-5082
-**StencilRefUnchangedBackAMD**
+At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified. |  | **StencilExportEXT** |
+| 5082 | **StencilRefUnchangedBackAMD**
 
 Indicates that early per-fragment tests may assume that any *FragStencilRefEXT* built in-decorated value written by the shader is equal to the stencil reference value set for the back face in the client API after masking.
 Late per-fragment tests will use the written value as normal.
 
 Only valid with the Fragment [Execution Model](https://registry.khronos.org/spir-v/specs/unified1/SPIRV.html#Execution_Model).
 
-At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified.
-
-**StencilExportEXT**
-
-5083
-**StencilRefGreaterBackAMD**
+At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified. |  | **StencilExportEXT** |
+| 5083 | **StencilRefGreaterBackAMD**
 
 Indicates that early per-fragment tests may assume that any *FragStencilRefEXT* built in-decorated value written by the shader is greater than or equal to the stencil reference value set for the back face in the client API after masking.
 Late per-fragment tests will use the written value as normal.
 
 Only valid with the Fragment [Execution Model](https://registry.khronos.org/spir-v/specs/unified1/SPIRV.html#Execution_Model).
 
-At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified.
-
-**StencilExportEXT**
-
-5084
-**StencilRefLessBackAMD**
+At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified. |  | **StencilExportEXT** |
+| 5084 | **StencilRefLessBackAMD**
 
 Indicates that early per-fragment tests may assume that any *FragStencilRefEXT* built in-decorated value written by the shader is less than or equal to the stencil reference value set for the back face in the client API after masking.
 Late per-fragment tests will use the written value as normal.
 
 Only valid with the Fragment [Execution Model](https://registry.khronos.org/spir-v/specs/unified1/SPIRV.html#Execution_Model).
 
-At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified.
-
-**StencilExportEXT**
+At most one of **StencilRefGreaterAMD**, **StencilRefLessAMD**, and **StencilRefUnchangedAMD** can be specified. |  | **StencilExportEXT** |
 
 This allows implementations to perform both early and late tests explicitly.
 

@@ -272,20 +272,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 *Primitive topology* determines how consecutive vertices are organized into
 primitives, and determines the type of primitive that is used at the
@@ -369,36 +360,20 @@ Each primitive topology, and its construction from a list of vertices, is
 described in detail below with a supporting diagram, according to the
 following key:
 
-![primitive topology key vertex](../_images/primitive_topology_key_vertex.svg)
-Vertex
-A point in 3-dimensional space.
+| ![primitive topology key vertex](../_images/primitive_topology_key_vertex.svg) | Vertex | A point in 3-dimensional space.
+| --- | --- | --- |
   Positions chosen within the diagrams are arbitrary and for
-  illustration only.
-
-![primitive topology key vertex number](../_images/primitive_topology_key_vertex_number.svg)
-Vertex Number
-Sequence position of a vertex within the provided vertex data.
-
-![primitive topology key provoking vertex](../_images/primitive_topology_key_provoking_vertex.svg)
-Provoking Vertex
-Provoking vertex within the main primitive.
+  illustration only. |
+| ![primitive topology key vertex number](../_images/primitive_topology_key_vertex_number.svg) | Vertex Number | Sequence position of a vertex within the provided vertex data. |
+| ![primitive topology key provoking vertex](../_images/primitive_topology_key_provoking_vertex.svg) | Provoking Vertex | Provoking vertex within the main primitive.
   The tail is angled towards the relevant primitive.
-  Used in [flat shading](vertexpostproc.html#vertexpostproc-flatshading).
-
-![primitive topology key edge](../_images/primitive_topology_key_edge.svg)
-Primitive Edge
-An edge connecting the points of a main primitive.
-
-![primitive topology key adjacency edge](../_images/primitive_topology_key_adjacency_edge.svg)
-Adjacency Edge
-Points connected by these lines do not contribute to a main primitive,
-  and are only accessible in a [geometry shader](geometry.html#geometry).
-
-![primitive topology key winding order](../_images/primitive_topology_key_winding_order.svg)
-Winding Order
-The relative order in which vertices are defined within a primitive,
+  Used in [flat shading](vertexpostproc.html#vertexpostproc-flatshading). |
+| ![primitive topology key edge](../_images/primitive_topology_key_edge.svg) | Primitive Edge | An edge connecting the points of a main primitive. |
+| ![primitive topology key adjacency edge](../_images/primitive_topology_key_adjacency_edge.svg) | Adjacency Edge | Points connected by these lines do not contribute to a main primitive,
+  and are only accessible in a [geometry shader](geometry.html#geometry). |
+| ![primitive topology key winding order](../_images/primitive_topology_key_winding_order.svg) | Winding Order | The relative order in which vertices are defined within a primitive,
   used in the [facing determination](primsrast.html#primsrast-polygons-basic).
-  This ordering has no specific start or end point.
+  This ordering has no specific start or end point. |
 
 The diagrams are supported with mathematical definitions where the vertices
 (v) and primitives (p) are numbered starting from 0;
@@ -491,46 +466,27 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The primitive topologies are grouped into the following topology classes:
 
-Table 1. Topology Classes
-
-Topology Class
-Primitive Topology
-
-Point
-`VK_PRIMITIVE_TOPOLOGY_POINT_LIST`
-
-Line
-`VK_PRIMITIVE_TOPOLOGY_LINE_LIST`,
+| Topology Class | Primitive Topology |
+| --- | --- |
+| Point | `VK_PRIMITIVE_TOPOLOGY_POINT_LIST` |
+| Line | `VK_PRIMITIVE_TOPOLOGY_LINE_LIST`,
                     `VK_PRIMITIVE_TOPOLOGY_LINE_STRIP`,
                     `VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY`,
-                    `VK_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY`
-
-Triangle
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST`,
+                    `VK_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY` |
+| Triangle | `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST`,
                     `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP`,
                     `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN`,
                     `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY`,
-                    `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY`
-
-Patch
-`VK_PRIMITIVE_TOPOLOGY_PATCH_LIST`
+                    `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY` |
+| Patch | `VK_PRIMITIVE_TOPOLOGY_PATCH_LIST` |
 
 When the topology is `VK_PRIMITIVE_TOPOLOGY_POINT_LIST`, each
 consecutive vertex defines a single point primitive, according to the
@@ -627,6 +583,10 @@ pi is vi+2.
 
 ![primitive topology triangle strip last](../_images/primitive_topology_triangle_strip_last.svg)
 
+|  | The ordering of the vertices in each successive triangle is reversed, so
+| --- | --- |
+that the winding order is consistent throughout the strip. |
+
 When the primitive topology is `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN`,
 triangle primitives are defined around a shared common vertex, according to
 the equation:
@@ -647,6 +607,12 @@ When the `provokingVertexMode` is
 pi is vi+2.
 
 ![primitive topology triangle fan last](../_images/primitive_topology_triangle_fan_last.svg)
+
+|  | If the `[VK_KHR_portability_subset](../appendices/extensions.html#VK_KHR_portability_subset)` extension is enabled, and
+| --- | --- |
+[VkPhysicalDevicePortabilitySubsetFeaturesKHR](features.html#VkPhysicalDevicePortabilitySubsetFeaturesKHR)::`triangleFans` is
+`VK_FALSE`, then triangle fans are not supported by the implementation,
+and `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN` **must** not be used. |
 
 When the primitive topology is
 `VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY`, each consecutive set
@@ -760,6 +726,10 @@ v2i+3} when i=n-1 and i%2=0
 A triangle primitive is described by the first, third, and fifth vertices of
 the total primitive in all cases, with the remaining three vertices only
 accessible in a [geometry shader](geometry.html#geometry).
+
+|  | The ordering of the vertices in each successive triangle is altered so that
+| --- | --- |
+the winding order is consistent throughout the strip. |
 
 When the `provokingVertexMode` is
 `VK_PROVOKING_VERTEX_MODE_FIRST_VERTEX_EXT`, the
@@ -1028,20 +998,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 To bind an index buffer, along with its size, to a command buffer, call:
 
@@ -1199,20 +1160,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 Possible values of
 [vkCmdBindIndexBuffer2](#vkCmdBindIndexBuffer2)::`indexType` and
@@ -2332,10 +2284,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDraw-None-07845) VUID-vkCmdDraw-None-07845
 
@@ -4438,6 +4391,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDraw-None-10772) VUID-vkCmdDraw-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDraw-commandBuffer-02712) VUID-vkCmdDraw-commandBuffer-02712
 
@@ -4808,20 +4766,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 To record an indexed draw, call:
 
@@ -5923,10 +5872,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawIndexed-None-07845) VUID-vkCmdDrawIndexed-None-07845
 
@@ -8029,6 +7979,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawIndexed-None-10772) VUID-vkCmdDrawIndexed-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawIndexed-commandBuffer-02712) VUID-vkCmdDrawIndexed-commandBuffer-02712
 
@@ -8421,20 +8376,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 To record an ordered sequence of draws which have no state changes between
 them, call:
@@ -9518,10 +9464,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawMultiEXT-None-07845) VUID-vkCmdDrawMultiEXT-None-07845
 
@@ -11624,6 +11571,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawMultiEXT-None-10772) VUID-vkCmdDrawMultiEXT-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawMultiEXT-commandBuffer-02712) VUID-vkCmdDrawMultiEXT-commandBuffer-02712
 
@@ -12019,20 +11971,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 To record an ordered sequence of indexed draws which have no state changes
 between them, call:
@@ -13127,10 +13070,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawMultiIndexedEXT-None-07845) VUID-vkCmdDrawMultiIndexedEXT-None-07845
 
@@ -15233,6 +15177,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawMultiIndexedEXT-None-10772) VUID-vkCmdDrawMultiIndexedEXT-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawMultiIndexedEXT-commandBuffer-02712) VUID-vkCmdDrawMultiIndexedEXT-commandBuffer-02712
 
@@ -15655,20 +15604,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 The `VkMultiDrawInfoEXT` structure is defined as:
 
@@ -16789,10 +16729,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawIndirect-None-07845) VUID-vkCmdDrawIndirect-None-07845
 
@@ -18895,6 +18836,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawIndirect-None-10772) VUID-vkCmdDrawIndirect-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawIndirect-None-04007) VUID-vkCmdDrawIndirect-None-04007
 
@@ -19279,20 +19225,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 The `VkDrawIndirectCommand` structure is defined as:
 
@@ -20464,10 +20401,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawIndirectCount-None-07845) VUID-vkCmdDrawIndirectCount-None-07845
 
@@ -22570,6 +22508,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawIndirectCount-None-10772) VUID-vkCmdDrawIndirectCount-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawIndirectCount-None-04007) VUID-vkCmdDrawIndirectCount-None-04007
 
@@ -22974,20 +22917,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 To record an indexed indirect drawing command, call:
 
@@ -24068,10 +24002,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawIndexedIndirect-None-07845) VUID-vkCmdDrawIndexedIndirect-None-07845
 
@@ -26174,6 +26109,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawIndexedIndirect-None-10772) VUID-vkCmdDrawIndexedIndirect-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawIndexedIndirect-None-04007) VUID-vkCmdDrawIndexedIndirect-None-04007
 
@@ -26565,20 +26505,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 The `VkDrawIndexedIndirectCommand` structure is defined as:
 
@@ -27770,10 +27701,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawIndexedIndirectCount-None-07845) VUID-vkCmdDrawIndexedIndirectCount-None-07845
 
@@ -29876,6 +29808,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawIndexedIndirectCount-None-10772) VUID-vkCmdDrawIndexedIndirectCount-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawIndexedIndirectCount-None-04007) VUID-vkCmdDrawIndexedIndirectCount-None-04007
 
@@ -30287,20 +30224,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 It is possible to draw vertex data that was previously captured during
 active [transform feedback](vertexpostproc.html#vertexpostproc-transform-feedback) by binding
@@ -31421,10 +31349,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-None-07845) VUID-vkCmdDrawIndirectByteCountEXT-None-07845
 
@@ -33527,6 +33456,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawIndirectByteCountEXT-None-10772) VUID-vkCmdDrawIndirectByteCountEXT-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawIndirectByteCountEXT-None-04007) VUID-vkCmdDrawIndirectByteCountEXT-None-04007
 
@@ -33930,20 +33864,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 Certain rendering commands **can** be executed conditionally based on a value
 in buffer memory.
@@ -34031,24 +33956,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
+Compute | Action
 
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-Action
-
-State
+State |
 
 The `VkConditionalRenderingBeginInfoEXT` structure is defined as:
 
@@ -34222,24 +34138,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
+Compute | Action
 
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-Action
-
-State
+State |
 
 In this drawing approach, primitives are assembled by the mesh shader stage.
 [Mesh shading](VK_NV_mesh_shader/mesh.html#mesh) operates similarly to [dispatching compute](dispatch.html#dispatch) as the shaders make use of workgroups.
@@ -35308,10 +35215,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawMeshTasksNV-None-07845) VUID-vkCmdDrawMeshTasksNV-None-07845
 
@@ -37414,6 +37322,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawMeshTasksNV-None-10772) VUID-vkCmdDrawMeshTasksNV-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawMeshTasksNV-stage-06480) VUID-vkCmdDrawMeshTasksNV-stage-06480
 
@@ -37533,20 +37446,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 To record an indirect mesh tasks drawing command, call:
 
@@ -38627,10 +38531,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-None-07845) VUID-vkCmdDrawMeshTasksIndirectNV-None-07845
 
@@ -40733,6 +40638,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawMeshTasksIndirectNV-None-10772) VUID-vkCmdDrawMeshTasksIndirectNV-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-stage-06480) VUID-vkCmdDrawMeshTasksIndirectNV-stage-06480
 
@@ -40912,20 +40822,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 The `VkDrawMeshTasksIndirectCommandNV` structure is defined as:
 
@@ -42042,10 +41943,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-07845) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-07845
 
@@ -44148,6 +44050,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-10772) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-stage-06480) VUID-vkCmdDrawMeshTasksIndirectCountNV-stage-06480
 
@@ -44347,20 +44254,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 To record a mesh tasks drawing command, call:
 
@@ -45432,10 +45330,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawMeshTasksEXT-None-07845) VUID-vkCmdDrawMeshTasksEXT-None-07845
 
@@ -47538,6 +47437,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawMeshTasksEXT-None-10772) VUID-vkCmdDrawMeshTasksEXT-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawMeshTasksEXT-stage-06480) VUID-vkCmdDrawMeshTasksEXT-stage-06480
 
@@ -47717,20 +47621,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 To record an indirect mesh tasks drawing command, call:
 
@@ -48811,10 +48706,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-07845) VUID-vkCmdDrawMeshTasksIndirectEXT-None-07845
 
@@ -50917,6 +50813,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-10772) VUID-vkCmdDrawMeshTasksIndirectEXT-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-stage-06480) VUID-vkCmdDrawMeshTasksIndirectEXT-stage-06480
 
@@ -51096,20 +50997,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 The `VkDrawMeshTasksIndirectCommandEXT` structure is defined as:
 
@@ -52291,10 +52183,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-07845) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-07845
 
@@ -54397,6 +54290,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-10772) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-stage-06480) VUID-vkCmdDrawMeshTasksIndirectCountEXT-stage-06480
 
@@ -54596,20 +54494,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 In this drawing approach, cluster are generated by the cluster culling
 shader stage.
@@ -55688,10 +55577,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawClusterHUAWEI-None-07845) VUID-vkCmdDrawClusterHUAWEI-None-07845
 
@@ -57794,6 +57684,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawClusterHUAWEI-None-10772) VUID-vkCmdDrawClusterHUAWEI-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawClusterHUAWEI-stage-06480) VUID-vkCmdDrawClusterHUAWEI-stage-06480
 
@@ -57934,20 +57829,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 To record an indirect cluster culling drawing command, call:
 
@@ -59019,10 +58905,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-07845) VUID-vkCmdDrawClusterIndirectHUAWEI-None-07845
 
@@ -61125,6 +61012,11 @@ is enabled, the
 [tileShadingPerTileDraw](features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-10772) VUID-vkCmdDrawClusterIndirectHUAWEI-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-stage-06480) VUID-vkCmdDrawClusterIndirectHUAWEI-stage-06480
 
@@ -61267,17 +61159,8 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |

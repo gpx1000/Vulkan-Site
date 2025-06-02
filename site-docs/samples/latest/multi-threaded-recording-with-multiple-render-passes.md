@@ -20,6 +20,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/multithreading_render_passes). |
+| --- | --- |
+
 Ideally you render all stages of your frame in a single render pass.
 However, in some cases different stages can’t be performed in the same render pass.
 This sample shows how multi-threading can help to boost performance when using multiple render passes to render a single frame.
@@ -58,6 +61,9 @@ When using both of these methods for multi-threading, general recommendations sh
 This sample shows the difference between recording both render passes into a single command buffer in one thread and using the methods described above.
 
 Below are screenshots of the sample running on a phone with a Mali G72 GPU:
+
+|  | Since the time of writing this tutorial, the CPU counter provider, HWCPipe, has been updated and it no longer provides CPU cycles. These may still be measured using external tools, as shown later. |
+| --- | --- |
 
 ![Single Thread](../../../_images/samples/performance/multithreading_render_passes/images/no_multi_threading.png)
 

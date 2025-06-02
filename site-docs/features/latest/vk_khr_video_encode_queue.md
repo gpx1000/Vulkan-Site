@@ -375,6 +375,9 @@ When the encoded picture is not requested to be set up as a reference, implement
 
 Accordingly, `pSetupReferenceSlot` must never be `NULL`, except when the video session was created without any DPB slots.
 
+|  | The original version of this extension only required the specification of the reconstructed picture information (i.e. a non-`NULL` `pSetupReferenceSlot`) when the application intended to set up a reference picture by activating a DPB slot. Consequently, the presence of reconstructed picture information always implied DPB slot activation. This was changed in revision 12 of the extension, and whether DPB slot activation happens is now subject to codec-specific semantics. More details on this change are discussed in the corresponding issue in this proposal document. |
+| --- | --- |
+
 In summary, for encoded pictures requested to be set up as reference, this parameter can be used to add new reference pictures to the DPB, and change the association between DPB slot indices and video picture resources. That also implies that the application has to specify a video picture resource in `pSetupReferenceSlot→pPictureResource` that was included in the set of bound reference picture resources specified when the video coding scope was started (in one of the elements of `VkVideoBeginCodingInfoKHR::pReferenceSlots`). No similar requirement exists for the encode input picture specified by `srcPictureResource` which can refer to any video picture resource.
 
 The application has to create the image view specified in `pSetupReferenceSlot→pPictureResource→imageViewBinding` with the new `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR` usage flag, and must also include the used video session’s video profile in the `VkVideoProfileListInfoKHR` structure specified at image creation time.

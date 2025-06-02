@@ -356,6 +356,14 @@ returned.
 `0` will be written in the absence of a previous call to
 `vkSetPrivateData` using the object specified by `objectHandle`.
 
+|  | Due to platform details on Android, implementations might not be able to
+| --- | --- |
+reliably return `0` from calls to `vkGetPrivateData` for
+[VkSwapchainKHR](VK_KHR_surface/wsi.html#VkSwapchainKHR) objects on which `vkSetPrivateData` has not
+previously been called.
+This erratum is exclusive to the Android platform and objects of type
+[VkSwapchainKHR](VK_KHR_surface/wsi.html#VkSwapchainKHR). |
+
 Valid Usage
 
 * 

@@ -90,92 +90,28 @@ Per-vertex attributes for "missing" vertices, such as the third vertex of a line
 
 Vertices are numbered as follows:
 
-Primitive Topology
-Vertex 0
-Vertex 1
-Vertex 2
-
-`VK_PRIMITIVE_TOPOLOGY_POINT_LIST`
-i
-i
-i
-
-`VK_PRIMITIVE_TOPOLOGY_LINE_LIST`
-2i
-2i+1
-2i+1
-
-`VK_PRIMITIVE_TOPOLOGY_LINE_STRIP`
-i
-i+1
-i+1
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST`
-3i
-3i+1
-3i+2
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP` (even)
-i
-i+1
-i+2
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP` (odd)
-i
-i+2
-i+1
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN`
-i+1
-i+2
-0
-
-`VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY`
-4i+1
-4i+2
-4i+2
-
-`VK_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY`
-i+1
-i+2
-i+2
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY`
-6i
-6i+2
-6i+4
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY` (even)
-2i
-2i+2
-2i+4
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY` (odd)
-2i
-2i+4
-2i+2
+| Primitive Topology | Vertex 0 | Vertex 1 | Vertex 2 |
+| --- | --- | --- | --- |
+| `VK_PRIMITIVE_TOPOLOGY_POINT_LIST` | i | i | i |
+| `VK_PRIMITIVE_TOPOLOGY_LINE_LIST` | 2i | 2i+1 | 2i+1 |
+| `VK_PRIMITIVE_TOPOLOGY_LINE_STRIP` | i | i+1 | i+1 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST` | 3i | 3i+1 | 3i+2 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP` (even) | i | i+1 | i+2 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP` (odd) | i | i+2 | i+1 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN` | i+1 | i+2 | 0 |
+| `VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY` | 4i+1 | 4i+2 | 4i+2 |
+| `VK_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY` | i+1 | i+2 | i+2 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY` | 6i | 6i+2 | 6i+4 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY` (even) | 2i | 2i+2 | 2i+4 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY` (odd) | 2i | 2i+4 | 2i+2 |
 
 When the provoking vertex mode is `VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT`, the original vertex numbers used are the same as above except as indicated in the table below.
 
-Primitive Topology
-Vertex 0
-Vertex 1
-Vertex 2
-
-VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP (odd, and `triStripVertexOrderIndependentOfProvokingVertex`  is `VK_FALSE`)
-i+1
-i
-i+2
-
-VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN
-0
-i+1
-i+2
-
-VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY (odd)
-2i+2
-2i
-2i+4
+| Primitive Topology | Vertex 0 | Vertex 1 | Vertex 2 |
+| --- | --- | --- | --- |
+| VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP (odd, and `triStripVertexOrderIndependentOfProvokingVertex`  is `VK_FALSE`) | i+1 | i | i+2 |
+| VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN | 0 | i+1 | i+2 |
+| VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY (odd) | 2i+2 | 2i | 2i+4 |
 
 A new property structure is added:
 

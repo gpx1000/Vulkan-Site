@@ -14,6 +14,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/full_screen_exclusive). |
+| --- | --- |
+
 This code sample demonstrates how to incorporate the Vulkan extension `VK_EXT_full_screen_exclusive`.
 This extension provides a solution for the full screen exclusion issue on Windows prior to the 11 version.
 Windows prior to 11 cannot correctly get an exclusive full screen window, `VK_EXT_full_screen_exclusive` is applicable on Windows prior to  version 11 platform alone.

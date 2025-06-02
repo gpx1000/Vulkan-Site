@@ -261,10 +261,27 @@ Implementations **may** have an address space limit on total size of a
 resource, which is advertised by this property.
 `maxResourceSize` **must** be at least 231.
 
+|  | There is no mechanism to query the size of an image before creating it, to
+| --- | --- |
+compare that size against `maxResourceSize`.
+If an application attempts to create an image that exceeds this limit, the
+creation will fail and [vkCreateImage](resources.html#vkCreateImage) will return
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`.
+While the advertised limit **must** be at least 231, it **may** not be possible
+to create an image that approaches that size, particularly for
+`VK_IMAGE_TYPE_1D`. |
+
 If the combination of parameters to
 `vkGetPhysicalDeviceImageFormatProperties` is not supported by the
 implementation for use in [vkCreateImage](resources.html#vkCreateImage), then all members of
 `VkImageFormatProperties` will be filled with zero.
+
+|  | Filling `VkImageFormatProperties` with zero for unsupported formats is
+| --- | --- |
+an exception to the usual rule that output structures have **undefined**
+contents on error.
+This exception was unintentional, but is preserved for backwards
+compatibility. |
 
 To determine the image capabilities compatible with an external memory
 handle type, call:
@@ -730,6 +747,15 @@ If the combination of parameters to
 implementation for use in [vkCreateImage](resources.html#vkCreateImage), then all members of
 `imageFormatProperties` will be filled with zero.
 
+|  | Filling `imageFormatProperties` with zero for unsupported formats is an
+| --- | --- |
+exception to the usual rule that output structures have **undefined** contents
+on error.
+This exception was unintentional, but is preserved for backwards
+compatibility.
+This exception only applies to `imageFormatProperties`, not `sType`,
+`pNext`, or any structures chained from `pNext`. |
+
 Valid Usage (Implicit)
 
 * 
@@ -1004,79 +1030,42 @@ Some external memory handle types can only be shared within the same
 underlying physical device and/or the same driver version, as defined in the
 following table:
 
-Table 1. External Memory Handle Types Compatibility
+| Handle type | `VkPhysicalDeviceIDProperties`::`driverUUID` | `VkPhysicalDeviceIDProperties`::`deviceUUID` |
+| --- | --- | --- |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT` | Must match | Must match |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT` | Must match | Must match |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT` | Must match | Must match |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT` | Must match | Must match |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT` | Must match | Must match |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT` | Must match | Must match |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT` | Must match | Must match |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT` | No restriction | No restriction |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_MAPPED_FOREIGN_MEMORY_BIT_EXT` | No restriction | No restriction |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT` | No restriction | No restriction |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID` | No restriction | No restriction |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_ZIRCON_VMO_BIT_FUCHSIA` | No restriction | No restriction |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_RDMA_ADDRESS_BIT_NV` | No restriction | No restriction |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_SCREEN_BUFFER_BIT_QNX` | No restriction | No restriction |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLBUFFER_BIT_EXT` | No restriction | Must match |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLTEXTURE_BIT_EXT` | No restriction | Must match |
+| `VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLHEAP_BIT_EXT` | No restriction | Must match |
 
-Handle type
-`VkPhysicalDeviceIDProperties`::`driverUUID`
-`VkPhysicalDeviceIDProperties`::`deviceUUID`
+|  | The above table does not restrict the drivers and devices with which
+| --- | --- |
+`VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT` and
+`VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_MAPPED_FOREIGN_MEMORY_BIT_EXT` **may**
+be shared, as these handle types inherently mean memory that does not come
+from the same device, as they import memory from the host or a foreign
+device, respectively. |
 
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D11_TEXTURE_KMT_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_HEAP_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_D3D12_RESOURCE_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT`
-No restriction
-No restriction
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_MAPPED_FOREIGN_MEMORY_BIT_EXT`
-No restriction
-No restriction
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT`
-No restriction
-No restriction
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID`
-No restriction
-No restriction
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_ZIRCON_VMO_BIT_FUCHSIA`
-No restriction
-No restriction
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_RDMA_ADDRESS_BIT_NV`
-No restriction
-No restriction
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_SCREEN_BUFFER_BIT_QNX`
-No restriction
-No restriction
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLBUFFER_BIT_EXT`
-No restriction
-Must match
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLTEXTURE_BIT_EXT`
-No restriction
-Must match
-
-`VK_EXTERNAL_MEMORY_HANDLE_TYPE_MTLHEAP_BIT_EXT`
-No restriction
-Must match
+|  | Even though the above table does not restrict the drivers and devices with
+| --- | --- |
+which `VK_EXTERNAL_MEMORY_HANDLE_TYPE_DMA_BUF_BIT_EXT` **may** be shared,
+query mechanisms exist in the Vulkan API that prevent the import of
+incompatible dma-bufs (such as [vkGetMemoryFdPropertiesKHR](memory.html#vkGetMemoryFdPropertiesKHR)) and that
+prevent incompatible usage of dma-bufs (such as
+[VkPhysicalDeviceExternalBufferInfo](#VkPhysicalDeviceExternalBufferInfo) and
+[VkPhysicalDeviceExternalImageFormatInfo](#VkPhysicalDeviceExternalImageFormatInfo)). |
 
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkExternalMemoryHandleTypeFlags;
@@ -1394,6 +1383,23 @@ pool when a descriptor set is allocated, and counts towards the
 `maxPerStageDescriptorSamplers`, and
 `maxPerStageDescriptorSampledImages` limits.
 
+|  | All descriptors in a binding use the same maximum
+| --- | --- |
+`combinedImageSamplerDescriptorCount` descriptors to allow
+implementations to use a uniform stride for dynamic indexing of the
+descriptors in the binding.
+
+For example, consider a descriptor set layout binding with two descriptors
+and immutable samplers for [multi-planar formats](formats.html#formats-multiplanar)
+that have
+`VkSamplerYcbcrConversionImageFormatProperties`::`combinedImageSamplerDescriptorCount`
+values of `2` and `3` respectively.
+There are two descriptors in the binding and the maximum
+`combinedImageSamplerDescriptorCount` is `3`, so descriptor sets with
+this layout consume `6` descriptors from the descriptor pool.
+To create a descriptor pool that allows allocating four descriptor sets with
+this layout, `descriptorCount` must be at least `24`. |
+
 Instead of querying all the potential formats that the application might use
 in the descriptor layout, the application **can** use the
 [VkPhysicalDeviceMaintenance6Properties](limits.html#VkPhysicalDeviceMaintenance6Properties)::`maxCombinedImageSamplerDescriptorCount`
@@ -1432,6 +1438,15 @@ creation flags are included in the `usage` or `flags` fields of
 It **must** include at least one GPU usage flag
 (`AHARDWAREBUFFER_USAGE_GPU_*`), even if none of the corresponding Vulkan
 usages or flags are requested.
+
+|  | Requiring at least one GPU usage flag ensures that Android hardware buffer
+| --- | --- |
+memory will be allocated in a memory pool accessible to the Vulkan
+implementation, and that specializing the memory layout based on usage flags
+does not prevent it from being compatible with Vulkan.
+Implementations **may** avoid unnecessary restrictions caused by this
+requirement by using vendor usage flags to indicate that only the Vulkan
+uses indicated in [VkImageFormatProperties2](#VkImageFormatProperties2) are required. |
 
 Valid Usage (Implicit)
 
@@ -1499,6 +1514,29 @@ If [VkPhysicalDeviceImageFormatInfo2](#VkPhysicalDeviceImageFormatInfo2)::`forma
 block-compressed format and [vkGetPhysicalDeviceImageFormatProperties2](#vkGetPhysicalDeviceImageFormatProperties2)
 returns `VK_SUCCESS`, the implementation **must** return `VK_TRUE` in
 `optimalDeviceAccess`.
+
+|  | Applications can make use of `optimalDeviceAccess` to determine their
+| --- | --- |
+resource copying strategy.
+If a resource is expected to be accessed more on device than on the host,
+and the implementation considers the resource sub-optimally accessed, it is
+likely better to use device copies instead. |
+
+|  | Layout not being identical yet still considered optimal for device access
+| --- | --- |
+could happen if the implementation has different memory layout patterns,
+some of which are easier to access on the host. |
+
+|  | The most practical reason for `optimalDeviceAccess` to be `VK_FALSE`
+| --- | --- |
+is that host image access may disable framebuffer compression where it would
+otherwise have been enabled.
+This represents far more efficient host image access since no compression
+algorithm is required to read or write to the image, but it would impact
+device access performance.
+Some implementations may only set `optimalDeviceAccess` to
+`VK_FALSE` if certain conditions are met, such as specific image usage
+flags or creation flags. |
 
 Valid Usage (Implicit)
 
@@ -1690,6 +1728,12 @@ In this case, `sampleCounts` **must** include at least
 Implementations **may** support extent values larger than the [required minimum/maximum values](limits.html#limits-minmax) for certain types of images.
 [VkImageFormatProperties](#VkImageFormatProperties)::`maxExtent` for each type is subject to
 the constraints below.
+
+|  | Implementations **must** support images with dimensions up to the
+| --- | --- |
+[required minimum/maximum values](limits.html#limits-minmax) for all types of images.
+It follows that the query for additional capabilities **must** return extent
+values that are at least as large as the required values. |
 
 For `VK_IMAGE_TYPE_1D`:
 
@@ -2112,39 +2156,27 @@ Zircon event handles are created with `ZX_RIGHTS_BASIC` and
 Vulkan on Fuchsia uses only the ZX_EVENT_SIGNALED bit when signaling or
 waiting.
 
+|  | Handles of type `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT`
+| --- | --- |
+generated by the implementation may represent either Linux Sync Files or
+Android Fences at the implementation’s discretion.
+Applications **should** only use operations defined for both types of file
+descriptors, unless they know via means external to Vulkan the type of the
+file descriptor, or are prepared to deal with the system-defined operation
+failures resulting from using the wrong type. |
+
 Some external semaphore handle types can only be shared within the same
 underlying physical device and/or the same driver version, as defined in the
 following table:
 
-Table 2. External Semaphore Handle Types Compatibility
-
-Handle type
-`VkPhysicalDeviceIDProperties`::`driverUUID`
-`VkPhysicalDeviceIDProperties`::`deviceUUID`
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_D3D12_FENCE_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT`
-No restriction
-No restriction
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_ZIRCON_EVENT_BIT_FUCHSIA`
-No restriction
-No restriction
+| Handle type | `VkPhysicalDeviceIDProperties`::`driverUUID` | `VkPhysicalDeviceIDProperties`::`deviceUUID` |
+| --- | --- | --- |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT` | Must match | Must match |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_BIT` | Must match | Must match |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT` | Must match | Must match |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_D3D12_FENCE_BIT` | Must match | Must match |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT` | No restriction | No restriction |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_ZIRCON_EVENT_BIT_FUCHSIA` | No restriction | No restriction |
 
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkExternalSemaphoreHandleTypeFlags;
@@ -2325,6 +2357,15 @@ structure.
 specifying an external fence handle type for which capabilities will be
 returned.
 
+|  | Handles of type `VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT` generated by
+| --- | --- |
+the implementation may represent either Linux Sync Files or Android Fences
+at the implementation’s discretion.
+Applications **should** only use operations defined for both types of file
+descriptors, unless they know via means external to Vulkan the type of the
+file descriptor, or are prepared to deal with the system-defined operation
+failures resulting from using the wrong type. |
+
 Valid Usage (Implicit)
 
 * 
@@ -2421,27 +2462,12 @@ Some external fence handle types can only be shared within the same
 underlying physical device and/or the same driver version, as defined in the
 following table:
 
-Table 3. External Fence Handle Types Compatibility
-
-Handle type
-`VkPhysicalDeviceIDProperties`::`driverUUID`
-`VkPhysicalDeviceIDProperties`::`deviceUUID`
-
-`VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_FD_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT`
-Must match
-Must match
-
-`VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT`
-No restriction
-No restriction
+| Handle type | `VkPhysicalDeviceIDProperties`::`driverUUID` | `VkPhysicalDeviceIDProperties`::`deviceUUID` |
+| --- | --- | --- |
+| `VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_FD_BIT` | Must match | Must match |
+| `VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_BIT` | Must match | Must match |
+| `VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT` | Must match | Must match |
+| `VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT` | No restriction | No restriction |
 
 // Provided by VK_VERSION_1_1
 typedef VkFlags VkExternalFenceHandleTypeFlags;

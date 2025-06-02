@@ -42,6 +42,9 @@ Sometimes extensions contain features in order to enable certain aspects of the 
 
 All features must be enabled at `VkDevice` creation time inside the [VkDeviceCreateInfo](https://docs.vulkan.org/spec/latest/chapters/devsandqueues.html#VkDeviceCreateInfo) struct.
 
+|  | Don’t forget to query first with `vkGetPhysicalDeviceFeatures` or `vkGetPhysicalDeviceFeatures2` |
+| --- | --- |
+
 For the Core 1.0 Features, this is as simple as setting `VkDeviceCreateInfo::pEnabledFeatures` with the features desired to be turned on.
 
 VkPhysicalDeviceFeatures features = {};

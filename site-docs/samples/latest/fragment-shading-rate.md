@@ -18,6 +18,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/fragment_shading_rate_dynamic). |
+| --- | --- |
+
 The KHR fragment shading rate extension introduces the ability to selectively render at different sample rates within the same rendered image.
 This can be useful when rendering at very high resolutions or when the frequency content is not evenly spread through the rendered image.
 This tutorial demonstrates one way of controlling that sample rate by estimating the frequency content of each pixel of the rendered image.

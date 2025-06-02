@@ -27,6 +27,12 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/api/hpp_texture_mipmap_generation). |
+| --- | --- |
+
+|  | A transcoded version of the API sample [Texture mipmap generation](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/api/texture_mipmap_generation) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. |
+| --- | --- |
+
 Generates a complete texture mip-chain at runtime from a base image using image blits and proper image barriers.
 
 This examples demonstrates how to generate a complete texture mip-chain at runtime instead of loading offline generated mip-maps from a texture file.

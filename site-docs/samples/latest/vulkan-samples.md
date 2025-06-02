@@ -82,6 +82,36 @@ cd Vulkan-Samples
 
 Follow build instructions for your platform below.
 
+|  | The full repository is very large, and some ISPs appear to have trouble
+| --- | --- |
+providing a robust connection to github while the clone is being made.
+
+If you notice problems such as submodules downloading at reported rates in
+the tens of kB/s, or fatal timeout errors occurring, these may be due to
+network routing issues to github within your ISP’s internal network, rather
+than anything wrong in your own networking setup.
+
+It can be very difficult to get ISPs to acknowledge such problems exist, much
+less to fix them.
+
+One workaround is to switch the repository to use ssh protocol prior to the
+submodule download, which can be done via e.g.
+
+git clone git@github.com:KhronosGroup/Vulkan-Samples.git
+cd Vulkan-Samples
+perl -i -p -e 's\|https://(.*?)/\|git@\1:\|g' .gitmodules
+git submodule sync
+git submodule update
+
+While this can be a good alternative if you are running into this connection
+issue, you must have GitHub ssh key authentication setup to use ssh
+protocol - see
+[Connecting
+to GitHub with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh) for details.
+So it is a not a solution we can implement as the repository default.
+
+Another option which may help is to run github through a VPN service. |
+
 * 
 Windows - [Build Guide](docs/build.html#windows)
 

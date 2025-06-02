@@ -33,6 +33,9 @@
 
 The Vulkan spec defines `Push Constants` as:
 
+|  | A small bank of values writable via the API and accessible in shaders. Push constants allow the application to set values used in shaders without creating buffers or modifying and binding descriptor sets for each update. |
+| --- | --- |
+
 * 
 [How to use](#pc-how-to-us)
 
@@ -160,9 +163,15 @@ The following diagram provides a visualization of how push constant offsets work
 
 The Vulkan spec defines what [Compatibility for push constants](https://docs.vulkan.org/spec/latest/chapters/descriptorsets.html#descriptorsets-compatibility) as
 
+|  | if they were created with identical push constant ranges |
+| --- | --- |
+
 This means before a [bound pipeline command is issued](https://docs.vulkan.org/spec/latest/chapters/pipelines.html#pipelines-bindpoint-commands) (`vkCmdDraw`, `vkCmdDispatch`, etc) the `VkPipelineLayout` used in the last `vkCmdPushConstants` and `vkCmdBindPipeline` (for the appropriate `VkPipelineBindPoint`) must have had **identical** `VkPushConstantRange`.
 
 The lifetime of push constants can open room for some [edge](https://github.com/KhronosGroup/Vulkan-Docs/issues/1081) [cases](https://github.com/KhronosGroup/Vulkan-Docs/issues/1485) and the following is designed to give some common examples of what is and is not valid with push constants.
+
+|  | There are some CTS under `dEQP-VK.pipeline.push_constant.lifetime.*` |
+| --- | --- |
 
 Because push constants are not tied to descriptors, the use of `vkCmdBindDescriptorSets` has no effect on the lifetime or [pipeline layout compatibility](https://docs.vulkan.org/spec/latest/chapters/descriptorsets.html#descriptorsets-compatibility) of push constants.
 
@@ -185,6 +194,9 @@ vkCmdDispatch(); // valid
 // vkEndCommandBuffer()
 
 The spec say:
+
+|  | Binding a pipeline with a layout that is not compatible with the push constant layout does not disturb the push constant values. |
+| --- | --- |
 
 The following examples helps illustrate this:
 

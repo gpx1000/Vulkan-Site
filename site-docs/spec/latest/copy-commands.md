@@ -209,24 +209,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 The `VkBufferCopy` structure is defined as:
 
@@ -350,24 +341,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 The `VkCopyBufferInfo2` structure is defined as:
 
@@ -1115,32 +1097,6 @@ by `srcSubresource`, `extent.depth` **must** be a multiple of the
 [VkFormat](formats.html#VkFormat) of `srcImage`
 
 * 
-[](#VUID-vkCmdCopyImage-dstImage-01732) VUID-vkCmdCopyImage-dstImage-01732
-
-For each element of `pRegions`, if the sum of `dstOffset.x` and
-`extent.width` does not equal the width of the subresource specified
-by `dstSubresource`, `extent.width` **must** be a multiple of the
-[texel block extent width](formats.html#formats-compatibility-classes) of the
-[VkFormat](formats.html#VkFormat) of `dstImage`
-
-* 
-[](#VUID-vkCmdCopyImage-dstImage-01733) VUID-vkCmdCopyImage-dstImage-01733
-
-For each element of `pRegions`, if the sum of `dstOffset.y` and
-`extent.height` does not equal the height of the subresource
-specified by `dstSubresource`, `extent.height` **must** be a
-multiple of the [texel block extent    height](formats.html#formats-compatibility-classes) of the [VkFormat](formats.html#VkFormat) of `dstImage`
-
-* 
-[](#VUID-vkCmdCopyImage-dstImage-01734) VUID-vkCmdCopyImage-dstImage-01734
-
-For each element of `pRegions`, if the sum of `dstOffset.z` and
-`extent.depth` does not equal the depth of the subresource specified
-by `dstSubresource`, `extent.depth` **must** be a multiple of the
-[texel block extent depth](formats.html#formats-compatibility-classes) of the
-[VkFormat](formats.html#VkFormat) of `dstImage`
-
-* 
 [](#VUID-vkCmdCopyImage-aspect-06662) VUID-vkCmdCopyImage-aspect-06662
 
 If the `aspect` member of any element of `pRegions` includes any
@@ -1311,24 +1267,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 The `VkImageCopy` structure is defined as:
 
@@ -1589,24 +1536,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 The `VkCopyImageInfo2` structure is defined as:
 
@@ -2100,32 +2038,6 @@ by `srcSubresource`, `extent.depth` **must** be a multiple of the
 [VkFormat](formats.html#VkFormat) of `srcImage`
 
 * 
-[](#VUID-VkCopyImageInfo2-dstImage-01732) VUID-VkCopyImageInfo2-dstImage-01732
-
-For each element of `pRegions`, if the sum of `dstOffset.x` and
-`extent.width` does not equal the width of the subresource specified
-by `dstSubresource`, `extent.width` **must** be a multiple of the
-[texel block extent width](formats.html#formats-compatibility-classes) of the
-[VkFormat](formats.html#VkFormat) of `dstImage`
-
-* 
-[](#VUID-VkCopyImageInfo2-dstImage-01733) VUID-VkCopyImageInfo2-dstImage-01733
-
-For each element of `pRegions`, if the sum of `dstOffset.y` and
-`extent.height` does not equal the height of the subresource
-specified by `dstSubresource`, `extent.height` **must** be a
-multiple of the [texel block extent    height](formats.html#formats-compatibility-classes) of the [VkFormat](formats.html#VkFormat) of `dstImage`
-
-* 
-[](#VUID-VkCopyImageInfo2-dstImage-01734) VUID-VkCopyImageInfo2-dstImage-01734
-
-For each element of `pRegions`, if the sum of `dstOffset.z` and
-`extent.depth` does not equal the depth of the subresource specified
-by `dstSubresource`, `extent.depth` **must** be a multiple of the
-[texel block extent depth](formats.html#formats-compatibility-classes) of the
-[VkFormat](formats.html#VkFormat) of `dstImage`
-
-* 
 [](#VUID-VkCopyImageInfo2-aspect-06662) VUID-VkCopyImageInfo2-aspect-06662
 
 If the `aspect` member of any element of `pRegions` includes any
@@ -2472,39 +2384,15 @@ interleaved.
 Addressing calculations are thus performed for a different format than the
 base image, according to the aspect, as described in the following table:
 
-Table 1. Depth/Stencil Aspect Copy Table
-
-Base Format
-Depth Aspect Format
-Stencil Aspect Format
-
-`VK_FORMAT_D16_UNORM`
-`VK_FORMAT_D16_UNORM`
--
-
-`VK_FORMAT_X8_D24_UNORM_PACK32`
-`VK_FORMAT_X8_D24_UNORM_PACK32`
--
-
-`VK_FORMAT_D32_SFLOAT`
-`VK_FORMAT_D32_SFLOAT`
--
-
-`VK_FORMAT_S8_UINT`
--
-`VK_FORMAT_S8_UINT`
-
-`VK_FORMAT_D16_UNORM_S8_UINT`
-`VK_FORMAT_D16_UNORM`
-`VK_FORMAT_S8_UINT`
-
-`VK_FORMAT_D24_UNORM_S8_UINT`
-`VK_FORMAT_X8_D24_UNORM_PACK32`
-`VK_FORMAT_S8_UINT`
-
-`VK_FORMAT_D32_SFLOAT_S8_UINT`
-`VK_FORMAT_D32_SFLOAT`
-`VK_FORMAT_S8_UINT`
+| Base Format | Depth Aspect Format | Stencil Aspect Format |
+| --- | --- | --- |
+| `VK_FORMAT_D16_UNORM` | `VK_FORMAT_D16_UNORM` | - |
+| `VK_FORMAT_X8_D24_UNORM_PACK32` | `VK_FORMAT_X8_D24_UNORM_PACK32` | - |
+| `VK_FORMAT_D32_SFLOAT` | `VK_FORMAT_D32_SFLOAT` | - |
+| `VK_FORMAT_S8_UINT` | - | `VK_FORMAT_S8_UINT` |
+| `VK_FORMAT_D16_UNORM_S8_UINT` | `VK_FORMAT_D16_UNORM` | `VK_FORMAT_S8_UINT` |
+| `VK_FORMAT_D24_UNORM_S8_UINT` | `VK_FORMAT_X8_D24_UNORM_PACK32` | `VK_FORMAT_S8_UINT` |
+| `VK_FORMAT_D32_SFLOAT_S8_UINT` | `VK_FORMAT_D32_SFLOAT` | `VK_FORMAT_S8_UINT` |
 
 When copying between a buffer and any plane of a [multi-planar image](formats.html#formats-multiplanar), addressing calculations are performed using the
 [compatible format for that plane](formats.html#formats-compatible-planes), rather than
@@ -2593,13 +2481,6 @@ If `imageSubresource.layerCount` is not
 
 `dstImage` **must** not have been created with `flags`
 containing `VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT`
-
-* 
-[](#VUID-vkCmdCopyBufferToImage-imageSubresource-07970) VUID-vkCmdCopyBufferToImage-imageSubresource-07970
-
-The image region specified by each element of `pRegions` **must** be
-contained within the specified `imageSubresource` of
-`dstImage`
 
 * 
 [](#VUID-vkCmdCopyBufferToImage-imageSubresource-07971) VUID-vkCmdCopyBufferToImage-imageSubresource-07971
@@ -3029,24 +2910,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 To copy data from an image object to a buffer object, call:
 
@@ -3124,13 +2996,6 @@ If `imageSubresource.layerCount` is not
 
 `srcImage` **must** not have been created with `flags`
 containing `VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT`
-
-* 
-[](#VUID-vkCmdCopyImageToBuffer-imageSubresource-07970) VUID-vkCmdCopyImageToBuffer-imageSubresource-07970
-
-The image region specified by each element of `pRegions` **must** be
-contained within the specified `imageSubresource` of
-`srcImage`
 
 * 
 [](#VUID-vkCmdCopyImageToBuffer-imageSubresource-07971) VUID-vkCmdCopyImageToBuffer-imageSubresource-07971
@@ -3552,24 +3417,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 For both [vkCmdCopyBufferToImage](#vkCmdCopyBufferToImage) and [vkCmdCopyImageToBuffer](#vkCmdCopyImageToBuffer), each
 element of `pRegions` is a structure defined as:
@@ -3769,24 +3625,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 The `VkCopyBufferToImageInfo2` structure is defined as:
 
@@ -4377,24 +4224,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 The `VkCopyImageToBufferInfo2` structure is defined as:
 
@@ -5034,6 +4872,11 @@ Bytes in host memory and texels in images are accessed as specified in
 [Copying Data Between Buffers and Images](#copies-buffers-images), with
 buffers replaced with host memory.
 
+|  | Copies to and from an image on the host are not internally synchronized.
+| --- | --- |
+Simultaneous access (involving writes) to overlapping image memory on the
+host constitutes a [data race](../appendices/memorymodel.html#memory-model-access-data-race). |
+
 To copy data from host memory to an image object, call:
 
 // Provided by VK_VERSION_1_4
@@ -5061,6 +4904,11 @@ except it is executed on the host and reads from host memory instead of a
 buffer.
 The memory of `pCopyMemoryToImageInfo->dstImage` is accessed by the host
 as if [coherent](memory.html#memory-coherent).
+
+|  | Because queue submissions [automatically make host memory visible to the device](synchronization.html#synchronization-submission-host-writes), there would not be a
+| --- | --- |
+need for a memory barrier before using the results of this copy operation on
+the device. |
 
 Valid Usage (Implicit)
 
@@ -5230,13 +5078,6 @@ If `imageSubresource.layerCount` is not
 
 `dstImage` **must** not have been created with `flags`
 containing `VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT`
-
-* 
-[](#VUID-VkCopyMemoryToImageInfo-imageSubresource-07970) VUID-VkCopyMemoryToImageInfo-imageSubresource-07970
-
-The image region specified by each element of `pRegions` **must** be
-contained within the specified `imageSubresource` of
-`dstImage`
 
 * 
 [](#VUID-VkCopyMemoryToImageInfo-imageSubresource-07971) VUID-VkCopyMemoryToImageInfo-imageSubresource-07971
@@ -5683,6 +5524,14 @@ buffer.
 The memory of `pCopyImageToMemoryInfo->srcImage` is accessed by the host
 as if [coherent](memory.html#memory-coherent).
 
+|  | If the device has written to the image memory, it is not automatically made
+| --- | --- |
+available to the host.
+Before this copy command can be called, a memory barrier for this image
+**must** have been issued on the device with the second
+[synchronization scope](synchronization.html#synchronization-dependencies-scopes) including
+`VK_PIPELINE_STAGE_HOST_BIT` and `VK_ACCESS_HOST_READ_BIT`. |
+
 Valid Usage (Implicit)
 
 * 
@@ -5850,13 +5699,6 @@ If `imageSubresource.layerCount` is not
 
 `srcImage` **must** not have been created with `flags`
 containing `VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT`
-
-* 
-[](#VUID-VkCopyImageToMemoryInfo-imageSubresource-07970) VUID-VkCopyImageToMemoryInfo-imageSubresource-07970
-
-The image region specified by each element of `pRegions` **must** be
-contained within the specified `imageSubresource` of
-`srcImage`
 
 * 
 [](#VUID-VkCopyImageToMemoryInfo-imageSubresource-07971) VUID-VkCopyImageToMemoryInfo-imageSubresource-07971
@@ -6345,6 +6187,19 @@ The memory of `pCopyImageToImageInfo->srcImage` and
 `pCopyImageToImageInfo->dstImage` is accessed by the host as if
 [coherent](memory.html#memory-coherent).
 
+|  | If the device has written to the memory of
+| --- | --- |
+`pCopyImageToImageInfo->srcImage`, it is not automatically made
+available to the host.
+Before this copy command can be called, a memory barrier for this image
+**must** have been issued on the device with the second
+[synchronization scope](synchronization.html#synchronization-dependencies-scopes) including
+`VK_PIPELINE_STAGE_HOST_BIT` and `VK_ACCESS_HOST_READ_BIT`.
+
+Because queue submissions [automatically make host memory visible to the device](synchronization.html#synchronization-submission-host-writes), there would not be a
+need for a memory barrier before using the results of this copy operation in
+`pCopyMemoryToImageInfo->dstImage` on the device. |
+
 Valid Usage (Implicit)
 
 * 
@@ -6523,13 +6378,6 @@ If `srcSubresource.layerCount` is not
 
 `srcImage` **must** not have been created with `flags`
 containing `VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT`
-
-* 
-[](#VUID-VkCopyImageToImageInfo-srcSubresource-07970) VUID-VkCopyImageToImageInfo-srcSubresource-07970
-
-The image region specified by each element of `pRegions` **must** be
-contained within the specified `srcSubresource` of
-`srcImage`
 
 * 
 [](#VUID-VkCopyImageToImageInfo-srcSubresource-07971) VUID-VkCopyImageToImageInfo-srcSubresource-07971
@@ -6817,13 +6665,6 @@ If `dstSubresource.layerCount` is not
 
 `dstImage` **must** not have been created with `flags`
 containing `VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT`
-
-* 
-[](#VUID-VkCopyImageToImageInfo-dstSubresource-07970) VUID-VkCopyImageToImageInfo-dstSubresource-07970
-
-The image region specified by each element of `pRegions` **must** be
-contained within the specified `dstSubresource` of
-`dstImage`
 
 * 
 [](#VUID-VkCopyImageToImageInfo-dstSubresource-07971) VUID-VkCopyImageToImageInfo-dstSubresource-07971
@@ -7205,24 +7046,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 The structure describing source and destination memory regions,
 `VkCopyMemoryIndirectCommandNV` is defined as:
@@ -7489,24 +7321,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 The `VkCopyMemoryToImageIndirectCommandNV` is defined as:
 
@@ -7696,6 +7519,13 @@ an address mode of `VK_SAMPLER_ADDRESS_MODE_CLAMP_TO_EDGE`.
 Implementations **must** clamp at the edge of the source image, and **may**
 additionally clamp to the edge of the source region.
 
+|  | Due to allowable rounding errors in the generation of the source texture
+| --- | --- |
+coordinates, it is not always possible to guarantee exactly which source
+texels will be sampled for a given blit.
+As rounding errors are implementation-dependent, the exact results of a
+blitting operation are also implementation-dependent. |
+
 Blits are done layer by layer starting with the `baseArrayLayer` member
 of `srcSubresource` for the source and `dstSubresource` for the
 destination.
@@ -7762,18 +7592,6 @@ If `commandBuffer` is an unprotected command buffer and
 If `commandBuffer` is a protected command buffer and
 [`protectedNoFault`](devsandqueues.html#limits-protectedNoFault) is not supported,
 `dstImage` **must** not be an unprotected image
-
-* 
-[](#VUID-vkCmdBlitImage-pRegions-00215) VUID-vkCmdBlitImage-pRegions-00215
-
-The source region specified by each element of `pRegions` **must** be a
-region that is contained within `srcImage`
-
-* 
-[](#VUID-vkCmdBlitImage-pRegions-00216) VUID-vkCmdBlitImage-pRegions-00216
-
-The destination region specified by each element of `pRegions` **must**
-be a region that is contained within `dstImage`
 
 * 
 [](#VUID-vkCmdBlitImage-pRegions-00217) VUID-vkCmdBlitImage-pRegions-00217
@@ -8180,20 +7998,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
-Action
+Secondary | Outside | Outside | Graphics | Action |
 
 The `VkImageBlit` structure is defined as:
 
@@ -8354,20 +8163,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
-Action
+Secondary | Outside | Outside | Graphics | Action |
 
 The `VkBlitImageInfo2` structure is defined as:
 
@@ -8422,18 +8222,6 @@ specifying the regions to blit.
 blits require scaling.
 
 Valid Usage
-
-* 
-[](#VUID-VkBlitImageInfo2-pRegions-00215) VUID-VkBlitImageInfo2-pRegions-00215
-
-The source region specified by each element of `pRegions` **must** be a
-region that is contained within `srcImage`
-
-* 
-[](#VUID-VkBlitImageInfo2-pRegions-00216) VUID-VkBlitImageInfo2-pRegions-00216
-
-The destination region specified by each element of `pRegions` **must**
-be a region that is contained within `dstImage`
 
 * 
 [](#VUID-VkBlitImageInfo2-pRegions-00217) VUID-VkBlitImageInfo2-pRegions-00217
@@ -9499,20 +9287,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
-Action
+Secondary | Outside | Outside | Graphics | Action |
 
 The `VkImageResolve` structure is defined as:
 
@@ -9670,20 +9449,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
-Action
+Secondary | Outside | Outside | Graphics | Action |
 
 The `VkResolveImageInfo2` structure is defined as:
 
@@ -10150,6 +9920,17 @@ The access scope for buffer marker writes falls under the
 the synchronization scope **must** include both `stage` and
 `VK_PIPELINE_STAGE_TRANSFER_BIT`.
 
+|  | Similar to `vkCmdWriteTimestamp2`, if an implementation is unable to
+| --- | --- |
+write a marker at any specific pipeline stage, it **may** instead do so at any
+logically later stage. |
+
+|  | Implementations **may** only support a limited number of pipelined marker write
+| --- | --- |
+operations in flight at a given time.
+Thus an excessive number of marker write operations **may** degrade command
+execution performance. |
+
 Valid Usage
 
 * 
@@ -10340,24 +10121,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Transfer
+Secondary | Both | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 To write a 32-bit marker value into a buffer as a pipelined operation, call:
 
@@ -10403,6 +10175,16 @@ The access scope for buffer marker writes falls under the
 `VK_ACCESS_TRANSFER_WRITE_BIT`, and the pipeline stages for identifying
 the synchronization scope **must** include both `pipelineStage` and
 `VK_PIPELINE_STAGE_TRANSFER_BIT`.
+
+|  | Similar to `vkCmdWriteTimestamp`, if an implementation is unable to
+| --- | --- |
+write a marker at any specific pipeline stage, it **may** instead do so at any
+logically later stage. |
+
+|  | Implementations **may** only support a limited number of pipelined marker write
+| --- | --- |
+operations in flight at a given time, thus excessive number of marker write
+operations **may** degrade command execution performance. |
 
 Valid Usage
 
@@ -10556,21 +10338,12 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Transfer
+Secondary | Both | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |

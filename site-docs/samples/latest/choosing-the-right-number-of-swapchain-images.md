@@ -21,6 +21,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/swapchain_images). |
+| --- | --- |
+
 Vulkan gives the application some significant control over the number of swapchain images to be created.
 This sample analyzes the available options and their performance implications.
 

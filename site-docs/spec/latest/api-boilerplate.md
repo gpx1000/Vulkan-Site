@@ -128,7 +128,7 @@ Specification.
 
 // Provided by VK_VERSION_1_0
 // Version of this file
-#define VK_HEADER_VERSION 315
+#define VK_HEADER_VERSION 316
 
 `VK_HEADER_VERSION_COMPLETE` is the complete version number of the
 `vulkan_core.h` header, comprising the major, minor, and patch versions.
@@ -183,6 +183,20 @@ management, such as [VkDevice](../chapters/devsandqueues.html#VkDevice).
 
 Most Vulkan handle types, such as [VkBuffer](../chapters/resources.html#VkBuffer), are non-dispatchable.
 
+|  | The `vulkan_core.h` header allows the
+| --- | --- |
+[VK_DEFINE_NON_DISPATCHABLE_HANDLE](#VK_DEFINE_NON_DISPATCHABLE_HANDLE) and [VK_NULL_HANDLE](#VK_NULL_HANDLE) definitions
+to be overridden by the application.
+If [VK_DEFINE_NON_DISPATCHABLE_HANDLE](#VK_DEFINE_NON_DISPATCHABLE_HANDLE) is already defined when
+`vulkan_core.h` is compiled, the default definitions for
+[VK_DEFINE_NON_DISPATCHABLE_HANDLE](#VK_DEFINE_NON_DISPATCHABLE_HANDLE) and [VK_NULL_HANDLE](#VK_NULL_HANDLE) are
+skipped.
+This allows the application to define a binary-compatible custom handle
+which **may** provide more type-safety or other features needed by the
+application.
+Applications **must** not define handles in a way that is not binary compatible
+- where binary compatibility is platform dependent. |
+
 `VK_NULL_HANDLE` is a reserved value representing a non-valid object
 handle.
 It may be passed to and returned from Vulkan commands only when
@@ -222,6 +236,24 @@ or any other value to use a 64-bit unsigned integer type.
     #endif
 #endif
 
+|  | The `vulkan_core.h` header allows the `VK_USE_64_BIT_PTR_DEFINES`
+| --- | --- |
+definition to be overridden by the application.
+This allows the application to select either a 64-bit pointer type or a
+64-bit unsigned integer type for non-dispatchable handles in the case where
+the predefined preprocessor check does not identify the desired
+configuration. |
+
+|  | This macro was introduced starting with the Vulkan 1.2.174 headers, and its
+| --- | --- |
+availability can be checked at compile time by requiring
+`VK_HEADER_VERSION` >= 174.
+
+It is not available if you are using older headers, such as may be shipped
+with an older Vulkan SDK.
+Developers requiring this functionality may wish to include a copy of the
+current Vulkan headers with their project in this case. |
+
 To use a Vulkan extension supporting a platform-specific window system,
 header files for that window system **must** be included at compile time, or
 platform-specific types **must** be forward-declared.
@@ -250,105 +282,37 @@ they require, the platform-specific header which declares them, and the
 preprocessor macros which enable inclusion by `vulkan.h` are shown in
 the [following table](#boilerplate-wsi-header-table).
 
-Table 1. Window System Extensions and Headers
-
-Extension Name
-Window System Name
-Platform-specific Header
-Required External Headers
-Controlling `vulkan.h` Macro
-
-`[VK_KHR_android_surface](extensions.html#VK_KHR_android_surface)`
-Android
-`vulkan_android.h`
-None
-`VK_USE_PLATFORM_ANDROID_KHR`
-
-`[VK_KHR_wayland_surface](extensions.html#VK_KHR_wayland_surface)`
-Wayland
-`vulkan_wayland.h`
-``
-`VK_USE_PLATFORM_WAYLAND_KHR`
-
-`[VK_KHR_win32_surface](extensions.html#VK_KHR_win32_surface)`,
+| Extension Name | Window System Name | Platform-specific Header | Required External Headers | Controlling `vulkan.h` Macro |
+| --- | --- | --- | --- | --- |
+| `[VK_KHR_android_surface](extensions.html#VK_KHR_android_surface)` | Android | `vulkan_android.h` | None | `VK_USE_PLATFORM_ANDROID_KHR` |
+| `[VK_KHR_wayland_surface](extensions.html#VK_KHR_wayland_surface)` | Wayland | `vulkan_wayland.h` | `` | `VK_USE_PLATFORM_WAYLAND_KHR` |
+| `[VK_KHR_win32_surface](extensions.html#VK_KHR_win32_surface)`,
   `[VK_KHR_external_memory_win32](extensions.html#VK_KHR_external_memory_win32)`,
   `[VK_KHR_win32_keyed_mutex](extensions.html#VK_KHR_win32_keyed_mutex)`,
   `[VK_KHR_external_semaphore_win32](extensions.html#VK_KHR_external_semaphore_win32)`,
   `[VK_KHR_external_fence_win32](extensions.html#VK_KHR_external_fence_win32)`,
   `[VK_NV_external_memory_win32](extensions.html#VK_NV_external_memory_win32)`,
-  `[VK_NV_win32_keyed_mutex](extensions.html#VK_NV_win32_keyed_mutex)`
-Microsoft Windows
-`vulkan_win32.h`
-``
-`VK_USE_PLATFORM_WIN32_KHR`
+  `[VK_NV_win32_keyed_mutex](extensions.html#VK_NV_win32_keyed_mutex)` | Microsoft Windows | `vulkan_win32.h` | `` | `VK_USE_PLATFORM_WIN32_KHR` |
+| `[VK_KHR_xcb_surface](extensions.html#VK_KHR_xcb_surface)` | X11 Xcb | `vulkan_xcb.h` | `` | `VK_USE_PLATFORM_XCB_KHR` |
+| `[VK_KHR_xlib_surface](extensions.html#VK_KHR_xlib_surface)` | X11 Xlib | `vulkan_xlib.h` | `` | `VK_USE_PLATFORM_XLIB_KHR` |
+| `[VK_EXT_directfb_surface](extensions.html#VK_EXT_directfb_surface)` | DirectFB | `vulkan_directfb.h` | `` | `VK_USE_PLATFORM_DIRECTFB_EXT` |
+| `[VK_EXT_acquire_xlib_display](extensions.html#VK_EXT_acquire_xlib_display)` | X11 XRAndR | `vulkan_xlib_xrandr.h` | ``,
+                                                                                       `/Xrandr.h>` | `VK_USE_PLATFORM_XLIB_XRANDR_EXT` |
+| `[VK_GGP_stream_descriptor_surface](extensions.html#VK_GGP_stream_descriptor_surface)`,
+  `[VK_GGP_frame_token](extensions.html#VK_GGP_frame_token)` | Google Games Platform | `vulkan_ggp.h` |  | `VK_USE_PLATFORM_GGP` |
+| `[VK_MVK_ios_surface](extensions.html#VK_MVK_ios_surface)` | iOS | `vulkan_ios.h` | None | `VK_USE_PLATFORM_IOS_MVK` |
+| `[VK_MVK_macos_surface](extensions.html#VK_MVK_macos_surface)` | macOS | `vulkan_macos.h` | None | `VK_USE_PLATFORM_MACOS_MVK` |
+| `[VK_NN_vi_surface](extensions.html#VK_NN_vi_surface)` | VI | `vulkan_vi.h` | None | `VK_USE_PLATFORM_VI_NN` |
+| `[VK_FUCHSIA_imagepipe_surface](extensions.html#VK_FUCHSIA_imagepipe_surface)` | Fuchsia | `vulkan_fuchsia.h` | `` | `VK_USE_PLATFORM_FUCHSIA` |
+| `[VK_EXT_metal_surface](extensions.html#VK_EXT_metal_surface)` | Metal on CoreAnimation | `vulkan_metal.h` | None | `VK_USE_PLATFORM_METAL_EXT` |
+| `[VK_QNX_screen_surface](extensions.html#VK_QNX_screen_surface)` | QNX Screen | `vulkan_screen.h` | `` | `VK_USE_PLATFORM_SCREEN_QNX` |
 
-`[VK_KHR_xcb_surface](extensions.html#VK_KHR_xcb_surface)`
-X11 Xcb
-`vulkan_xcb.h`
-``
-`VK_USE_PLATFORM_XCB_KHR`
-
-`[VK_KHR_xlib_surface](extensions.html#VK_KHR_xlib_surface)`
-X11 Xlib
-`vulkan_xlib.h`
-``
-`VK_USE_PLATFORM_XLIB_KHR`
-
-`[VK_EXT_directfb_surface](extensions.html#VK_EXT_directfb_surface)`
-DirectFB
-`vulkan_directfb.h`
-``
-`VK_USE_PLATFORM_DIRECTFB_EXT`
-
-`[VK_EXT_acquire_xlib_display](extensions.html#VK_EXT_acquire_xlib_display)`
-X11 XRAndR
-`vulkan_xlib_xrandr.h`
-``,
-                                                                                       `/Xrandr.h>`
-`VK_USE_PLATFORM_XLIB_XRANDR_EXT`
-
-`[VK_GGP_stream_descriptor_surface](extensions.html#VK_GGP_stream_descriptor_surface)`,
-  `[VK_GGP_frame_token](extensions.html#VK_GGP_frame_token)`
-Google Games Platform
-`vulkan_ggp.h`
-
-`VK_USE_PLATFORM_GGP`
-
-`[VK_MVK_ios_surface](extensions.html#VK_MVK_ios_surface)`
-iOS
-`vulkan_ios.h`
-None
-`VK_USE_PLATFORM_IOS_MVK`
-
-`[VK_MVK_macos_surface](extensions.html#VK_MVK_macos_surface)`
-macOS
-`vulkan_macos.h`
-None
-`VK_USE_PLATFORM_MACOS_MVK`
-
-`[VK_NN_vi_surface](extensions.html#VK_NN_vi_surface)`
-VI
-`vulkan_vi.h`
-None
-`VK_USE_PLATFORM_VI_NN`
-
-`[VK_FUCHSIA_imagepipe_surface](extensions.html#VK_FUCHSIA_imagepipe_surface)`
-Fuchsia
-`vulkan_fuchsia.h`
-``
-`VK_USE_PLATFORM_FUCHSIA`
-
-`[VK_EXT_metal_surface](extensions.html#VK_EXT_metal_surface)`
-Metal on CoreAnimation
-`vulkan_metal.h`
-None
-`VK_USE_PLATFORM_METAL_EXT`
-
-`[VK_QNX_screen_surface](extensions.html#VK_QNX_screen_surface)`
-QNX Screen
-`vulkan_screen.h`
-``
-`VK_USE_PLATFORM_SCREEN_QNX`
+|  | This section describes the purpose of the headers independently of the
+| --- | --- |
+specific underlying functionality of the window system extensions
+themselves.
+Each extension name will only link to a description of that extension when
+viewing a specification built with that extension included. |
 
 *Provisional* extensions **should** not be used in production applications.
 The functionality defined by such extensions **may** change in ways that break
@@ -361,10 +325,39 @@ them.
 The mechanism is similar to [window system-specific headers](#boilerplate-wsi-header): before including `vulkan_beta.h`, applications **must** include
 `vulkan_core.h`.
 
+|  | Sometimes a provisional extension will include a subset of its interfaces in
+| --- | --- |
+`vulkan_core.h`.
+This may occur if the provisional extension is promoted from an existing
+vendor or EXT extension and some of the existing interfaces are defined as
+aliases of the provisional extension interfaces.
+All other interfaces of that provisional extension which are not aliased
+will be included in `vulkan_beta.h`. |
+
 As a convenience for applications, `vulkan.h` conditionally includes
 `vulkan_beta.h`.
 Applications **can** control inclusion of `vulkan_beta.h` by #defining the
 macro `VK_ENABLE_BETA_EXTENSIONS` before including `vulkan.h`.
+
+|  | Starting in version 1.2.171 of the Specification, all provisional enumerants
+| --- | --- |
+are protected by the macro `VK_ENABLE_BETA_EXTENSIONS`.
+Applications needing to use provisional extensions must always define this
+macro, even if they are explicitly including `vulkan_beta.h`.
+This is a minor change to behavior, affecting only provisional extensions. |
+
+|  | This section describes the purpose of the provisional header independently
+| --- | --- |
+of the specific provisional extensions which are contained in that header at
+any given time.
+The extension appendices for provisional extensions note their provisional
+status, and link back to this section for more information.
+Provisional extensions are intended to provide early access for
+bleeding-edge developers, with the understanding that extension interfaces
+may change in response to developer feedback.
+Provisional extensions are very likely to eventually be updated and released
+as non-provisional extensions, but there is no guarantee this will happen,
+or how long it will take if it does happen. |
 
 Performing video coding operations usually involves the application having
 to provide various parameters, data structures, or other syntax elements
@@ -376,59 +369,15 @@ derived from the `video.xml` XML file, which is the canonical
 machine-readable description of data structures and enumerations that are
 associated with the externally-provided video compression standards.
 
-Table 2. Video Std Headers
-
-Video Std Header Name
-Description
-Header File
-Related Extensions
-
-`vulkan_video_codecs_common`
-Codec-independent common definitions
-``
--
-
-`vulkan_video_codec_h264std`
-ITU-T H.264 common definitions
-``
-[VK_KHR_video_decode_h264](extensions.html#VK_KHR_video_decode_h264), [VK_KHR_video_encode_h264](extensions.html#VK_KHR_video_encode_h264)
-
-`vulkan_video_codec_h264std_decode`
-ITU-T H.264 decode-specific definitions
-``
-[VK_KHR_video_decode_h264](extensions.html#VK_KHR_video_decode_h264)
-
-`vulkan_video_codec_h264std_encode`
-ITU-T H.264 encode-specific definitions
-``
-[VK_KHR_video_encode_h264](extensions.html#VK_KHR_video_encode_h264)
-
-`vulkan_video_codec_h265std`
-ITU-T H.265 common definitions
-``
-[VK_KHR_video_decode_h265](extensions.html#VK_KHR_video_decode_h265), [VK_KHR_video_encode_h265](extensions.html#VK_KHR_video_encode_h265)
-
-`vulkan_video_codec_h265std_decode`
-ITU-T H.265 decode-specific definitions
-``
-[VK_KHR_video_decode_h265](extensions.html#VK_KHR_video_decode_h265)
-
-`vulkan_video_codec_h265std_encode`
-ITU-T H.265 encode-specific definitions
-``
-[VK_KHR_video_encode_h265](extensions.html#VK_KHR_video_encode_h265)
-
-`vulkan_video_codec_av1std`
-AV1 common definitions
-``
-[VK_KHR_video_decode_av1](extensions.html#VK_KHR_video_decode_av1)
-
-`vulkan_video_codec_av1std_decode`
-AV1 decode-specific definitions
-``
-[VK_KHR_video_decode_av1](extensions.html#VK_KHR_video_decode_av1)
-
-`vulkan_video_codec_av1std_encode`
-AV1 encode-specific definitions
-``
-[VK_KHR_video_encode_av1](extensions.html#VK_KHR_video_encode_av1)
+| Video Std Header Name | Description | Header File | Related Extensions |
+| --- | --- | --- | --- |
+| `vulkan_video_codecs_common` | Codec-independent common definitions | `` | - |
+| `vulkan_video_codec_h264std` | ITU-T H.264 common definitions | `` | [VK_KHR_video_decode_h264](extensions.html#VK_KHR_video_decode_h264), [VK_KHR_video_encode_h264](extensions.html#VK_KHR_video_encode_h264) |
+| `vulkan_video_codec_h264std_decode` | ITU-T H.264 decode-specific definitions | `` | [VK_KHR_video_decode_h264](extensions.html#VK_KHR_video_decode_h264) |
+| `vulkan_video_codec_h264std_encode` | ITU-T H.264 encode-specific definitions | `` | [VK_KHR_video_encode_h264](extensions.html#VK_KHR_video_encode_h264) |
+| `vulkan_video_codec_h265std` | ITU-T H.265 common definitions | `` | [VK_KHR_video_decode_h265](extensions.html#VK_KHR_video_decode_h265), [VK_KHR_video_encode_h265](extensions.html#VK_KHR_video_encode_h265) |
+| `vulkan_video_codec_h265std_decode` | ITU-T H.265 decode-specific definitions | `` | [VK_KHR_video_decode_h265](extensions.html#VK_KHR_video_decode_h265) |
+| `vulkan_video_codec_h265std_encode` | ITU-T H.265 encode-specific definitions | `` | [VK_KHR_video_encode_h265](extensions.html#VK_KHR_video_encode_h265) |
+| `vulkan_video_codec_av1std` | AV1 common definitions | `` | [VK_KHR_video_decode_av1](extensions.html#VK_KHR_video_decode_av1) |
+| `vulkan_video_codec_av1std_decode` | AV1 decode-specific definitions | `` | [VK_KHR_video_decode_av1](extensions.html#VK_KHR_video_decode_av1) |
+| `vulkan_video_codec_av1std_encode` | AV1 encode-specific definitions | `` | [VK_KHR_video_encode_av1](extensions.html#VK_KHR_video_encode_av1) |

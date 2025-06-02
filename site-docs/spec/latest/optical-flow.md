@@ -137,6 +137,24 @@ Return Codes
 * 
 `VK_ERROR_FORMAT_NOT_SUPPORTED`
 
+|  | `VK_FORMAT_B8G8R8A8_UNORM`, `VK_FORMAT_R8_UNORM` and
+| --- | --- |
+`VK_FORMAT_G8_B8R8_2PLANE_420_UNORM` are initially supported for images
+with [optical usage](#opticalflow-usage)
+`VK_OPTICAL_FLOW_USAGE_INPUT_BIT_NV`.
+
+`VK_FORMAT_R16G16_SFIXED5_NV` is initially supported for images with
+[optical flow usage](#opticalflow-usage)
+`VK_OPTICAL_FLOW_USAGE_OUTPUT_BIT_NV`,
+`VK_OPTICAL_FLOW_USAGE_HINT_BIT_NV` and
+`VK_OPTICAL_FLOW_USAGE_GLOBAL_FLOW_BIT_NV`.
+
+`VK_FORMAT_R8_UINT` and `VK_FORMAT_R32_UINT` are initially supported
+for images with [optical flow usage](#opticalflow-usage)
+`VK_OPTICAL_FLOW_USAGE_COST_BIT_NV`.
+It is recommended to use `VK_FORMAT_R8_UINT` because of the lower
+bandwidth. |
+
 The [VkOpticalFlowImageFormatInfoNV](#VkOpticalFlowImageFormatInfoNV) structure is defined as:
 
 // Provided by VK_NV_optical_flow
@@ -960,20 +978,11 @@ Host Synchronization
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Opticalflow
-Action
+Secondary | Outside | Outside | Opticalflow | Action |
 
 The [VkOpticalFlowExecuteInfoNV](#VkOpticalFlowExecuteInfoNV) structure is defined as:
 

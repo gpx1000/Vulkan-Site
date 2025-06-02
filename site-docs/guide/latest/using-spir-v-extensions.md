@@ -51,6 +51,9 @@ Also, take a look at the [Supported SPIR-V Capabilities Table](https://docs.vulk
 
 ![spirv_extensions_8bit_capability](_images/spirv_extensions_8bit_capability.png)
 
+|  | while it says `VkPhysicalDeviceVulkan12Features::uniformAndStorageBuffer8BitAccess` in the table, the `VkPhysicalDevice8BitStorageFeatures::uniformAndStorageBuffer8BitAccess` is an alias can be considered the same here. |
+| --- | --- |
+
 Luckily if you forget to check, the Vulkan Validation Layers has an [auto-generated validation](https://github.com/KhronosGroup/Vulkan-ValidationLayers/blob/main/layers/vulkan/generated/spirv_validation_helper.cpp) in place. Both the Validation Layers and the Vulkan Spec table are all based on the [./xml/vk.xml](https://github.com/KhronosGroup/Vulkan-Docs/blob/main/xml/vk.xml) file.
 
     

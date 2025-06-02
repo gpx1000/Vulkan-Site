@@ -52,6 +52,9 @@ A driver targeting a physical piece of GPU hardware is the most common case for 
 
 Drivers, like any software, are updated and this means there can be many variations of drivers for the same physical device and platform. There is a [Vulkan Database](https://vulkan.gpuinfo.org/), developed and maintained by Sascha Willems, which is the largest collection of recorded Vulkan implementation details
 
+|  | Just because a physical device or platform isn’t in the Vulkan Database doesn’t mean it couldn’t exist. |
+| --- | --- |
+
 The term “null driver” is given to any driver that accepts Vulkan API calls, but does not do anything with them. This is common for testing interactions with the driver without needing any working implementation backing it. Many uses cases such as creating [CTS tests](vulkan_cts.html#vulkan-cts) for new features, [testing the Validation Layers](https://github.com/KhronosGroup/Vulkan-ValidationLayers/blob/main/docs/creating_tests.md#running-tests-on-devsim-and-mockicd), and more rely on the idea of a null driver.
 
 Khronos provides the [Mock ICD](https://github.com/KhronosGroup/Vulkan-Tools/tree/master/icd) as one implementation of a null driver that works on various platforms.

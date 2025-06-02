@@ -571,20 +571,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 To build acceleration structures call:
 
@@ -623,6 +614,13 @@ The `vkCmdBuildAccelerationStructuresKHR` command provides the ability
 to initiate multiple acceleration structures builds, however there is no
 ordering or synchronization implied between any of the individual
 acceleration structure builds.
+
+|  | This means that an application **cannot** build a top-level acceleration
+| --- | --- |
+structure in the same [vkCmdBuildAccelerationStructuresKHR](#vkCmdBuildAccelerationStructuresKHR) call as the
+associated bottom-level or instance acceleration structures are being built.
+There also **cannot** be any memory aliasing between any acceleration structure
+memories or scratch memories being used by any of the builds. |
 
 Accesses to the acceleration structure scratch buffers as identified by the
 [VkAccelerationStructureBuildGeometryInfoKHR](#VkAccelerationStructureBuildGeometryInfoKHR)::`scratchData` buffer
@@ -1323,20 +1321,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 To build acceleration structures with some parameters sourced on the device
 call:
@@ -2102,20 +2091,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 The `VkAccelerationStructureBuildGeometryInfoKHR` structure is defined
 as:
@@ -2559,6 +2539,13 @@ optional reference to a [VkTransformMatrixKHR](#VkTransformMatrixKHR) structure 
 a transformation from the space in which the vertices in this geometry
 are described to the space in which the acceleration structure is
 defined.
+
+|  | Unlike the stride for vertex buffers in
+| --- | --- |
+[VkVertexInputBindingDescription](fxvertex.html#VkVertexInputBindingDescription) for graphics pipelines which must not
+exceed `maxVertexInputBindingStride`, `vertexStride` for
+acceleration structure geometry is instead restricted to being a 32-bit
+value. |
 
 Valid Usage
 
@@ -3384,6 +3371,10 @@ alignment of `data`.
 * 
 `data` is a [VkAccelerationStructureMotionInstanceDataNV](#VkAccelerationStructureMotionInstanceDataNV)
 containing motion instance data for this instance.
+
+|  | If writing this other than with a standard C compiler, note that the final
+| --- | --- |
+structure should be 152 bytes in size. |
 
 Valid Usage (Implicit)
 
@@ -4507,20 +4498,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 To query acceleration structure size parameters call:
 
@@ -4667,20 +4649,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 To copy an acceleration structure call:
 
@@ -4819,20 +4792,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 To copy an acceleration structure call:
 
@@ -4924,20 +4888,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 The `VkCopyAccelerationStructureInfoKHR` structure is defined as:
 
@@ -5246,20 +5201,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 // Provided by VK_KHR_acceleration_structure
 typedef struct VkCopyAccelerationStructureToMemoryInfoKHR {
@@ -5447,20 +5393,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 The `VkCopyMemoryToAccelerationStructureInfoKHR` structure is defined
 as:
@@ -5609,6 +5546,15 @@ structure.
 * 
 `pVersionData` is a pointer to the version header of an acceleration
 structure as defined in [vkCmdCopyAccelerationStructureToMemoryKHR](#vkCmdCopyAccelerationStructureToMemoryKHR)
+
+|  | `pVersionData` is a *pointer* to an array of 2×`VK_UUID_SIZE`
+| --- | --- |
+`uint8_t` values instead of two `VK_UUID_SIZE` arrays as the expected
+use case for this member is to be pointed at the header of a previously
+serialized acceleration structure (via
+[vkCmdCopyAccelerationStructureToMemoryKHR](#vkCmdCopyAccelerationStructureToMemoryKHR) or
+[vkCopyAccelerationStructureToMemoryKHR](#vkCopyAccelerationStructureToMemoryKHR)) that is loaded in memory.
+Using arrays would necessitate extra memory copies of the UUIDs. |
 
 Valid Usage (Implicit)
 
@@ -6430,20 +6376,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 The [VkClusterAccelerationStructureCommandsInfoNV](#VkClusterAccelerationStructureCommandsInfoNV) structure is defined
 as:
@@ -6521,23 +6458,13 @@ Its format is dependent on
 [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV)::`opType` as per the
 table below.
 
-`input`::`opType`
-Format of `srcInfosArray`
-
-`VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_MOVE_OBJECTS_NV`
-[VkClusterAccelerationStructureMoveObjectsInfoNV](#VkClusterAccelerationStructureMoveObjectsInfoNV)
-
-`VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_CLUSTERS_BOTTOM_LEVEL_NV`
-[VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV](#VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV)
-
-`VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_NV`
-[VkClusterAccelerationStructureBuildTriangleClusterInfoNV](#VkClusterAccelerationStructureBuildTriangleClusterInfoNV)
-
-`VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV`
-[VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV](#VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV)
-
-`VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV`
-[VkClusterAccelerationStructureInstantiateClusterInfoNV](#VkClusterAccelerationStructureInstantiateClusterInfoNV)
+| `input`::`opType` | Format of `srcInfosArray` |
+| --- | --- |
+| `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_MOVE_OBJECTS_NV` | [VkClusterAccelerationStructureMoveObjectsInfoNV](#VkClusterAccelerationStructureMoveObjectsInfoNV) |
+| `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_CLUSTERS_BOTTOM_LEVEL_NV` | [VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV](#VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV) |
+| `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_NV` | [VkClusterAccelerationStructureBuildTriangleClusterInfoNV](#VkClusterAccelerationStructureBuildTriangleClusterInfoNV) |
+| `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV` | [VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV](#VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV) |
+| `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV` | [VkClusterAccelerationStructureInstantiateClusterInfoNV](#VkClusterAccelerationStructureInstantiateClusterInfoNV) |
 
 * 
 `srcInfosCount` is the device address of memory containing the count
@@ -7909,20 +7836,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 The [VkBuildPartitionedAccelerationStructureInfoNV](#VkBuildPartitionedAccelerationStructureInfoNV) structure is defined
 as:
@@ -8068,17 +7986,11 @@ containing the write or update data for instances and partitions in the
 PTLAS.
 The structure is dependent on `opType` as shown in the table below.
 
-`opType`
-Format of `argData`
-
-`VK_PARTITIONED_ACCELERATION_STRUCTURE_OP_TYPE_WRITE_INSTANCE_NV`
-[VkPartitionedAccelerationStructureWriteInstanceDataNV](#VkPartitionedAccelerationStructureWriteInstanceDataNV)
-
-`VK_PARTITIONED_ACCELERATION_STRUCTURE_OP_TYPE_UPDATE_INSTANCE_NV`
-[VkPartitionedAccelerationStructureUpdateInstanceDataNV](#VkPartitionedAccelerationStructureUpdateInstanceDataNV)
-
-`VK_PARTITIONED_ACCELERATION_STRUCTURE_OP_TYPE_WRITE_PARTITION_TRANSLATION_NV`
-[VkPartitionedAccelerationStructureWritePartitionTranslationDataNV](#VkPartitionedAccelerationStructureWritePartitionTranslationDataNV)
+| `opType` | Format of `argData` |
+| --- | --- |
+| `VK_PARTITIONED_ACCELERATION_STRUCTURE_OP_TYPE_WRITE_INSTANCE_NV` | [VkPartitionedAccelerationStructureWriteInstanceDataNV](#VkPartitionedAccelerationStructureWriteInstanceDataNV) |
+| `VK_PARTITIONED_ACCELERATION_STRUCTURE_OP_TYPE_UPDATE_INSTANCE_NV` | [VkPartitionedAccelerationStructureUpdateInstanceDataNV](#VkPartitionedAccelerationStructureUpdateInstanceDataNV) |
+| `VK_PARTITIONED_ACCELERATION_STRUCTURE_OP_TYPE_WRITE_PARTITION_TRANSLATION_NV` | [VkPartitionedAccelerationStructureWritePartitionTranslationDataNV](#VkPartitionedAccelerationStructureWritePartitionTranslationDataNV) |
 
 Valid Usage
 
@@ -8395,6 +8307,27 @@ host-visible memory, and all input data for acceleration structure builds
 Applications are not required to map acceleration structure memory when
 using the host commands.
 
+|  | The [vkBuildAccelerationStructuresKHR](#vkBuildAccelerationStructuresKHR) and
+| --- | --- |
+[vkCmdBuildAccelerationStructuresKHR](#vkCmdBuildAccelerationStructuresKHR) **may** use different algorithms, and
+thus are not required to produce identical structures.
+The structures produced by these two commands **may** exhibit different memory
+footprints or traversal performance, but should strive to be similar where
+possible.
+
+Apart from these details, the host and device operations are
+interchangeable.
+For example, an application **can** use [vkBuildAccelerationStructuresKHR](#vkBuildAccelerationStructuresKHR)
+to build a structure, compact it on the device using
+[vkCmdCopyAccelerationStructureKHR](#vkCmdCopyAccelerationStructureKHR), and serialize the result using
+[vkCopyAccelerationStructureToMemoryKHR](#vkCopyAccelerationStructureToMemoryKHR). |
+
+|  | For efficient execution, acceleration structures manipulated using these
+| --- | --- |
+commands should always be bound to host cached memory, as the implementation
+may need to repeatedly read and write this memory during the execution of
+the command. |
+
 To build acceleration structures on the host, call:
 
 // Provided by VK_KHR_acceleration_structure
@@ -8441,6 +8374,13 @@ The `vkBuildAccelerationStructuresKHR` command provides the ability to
 initiate multiple acceleration structures builds, however there is no
 ordering or synchronization implied between any of the individual
 acceleration structure builds.
+
+|  | This means that an application **cannot** build a top-level acceleration
+| --- | --- |
+structure in the same [vkBuildAccelerationStructuresKHR](#vkBuildAccelerationStructuresKHR) call as the
+associated bottom-level or instance acceleration structures are being built.
+There also **cannot** be any memory aliasing between any acceleration structure
+memories or scratch memories being used by any of the builds. |
 
 Valid Usage
 

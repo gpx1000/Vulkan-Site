@@ -369,6 +369,34 @@ typedef enum VkFormat {
     VK_FORMAT_PVRTC2_4BPP_SRGB_BLOCK_IMG = 1000054007,
   // Provided by VK_NV_optical_flow
     VK_FORMAT_R16G16_SFIXED5_NV = 1000464000,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R10X6_UINT_PACK16_ARM = 1000609000,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM = 1000609001,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM = 1000609002,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R12X4_UINT_PACK16_ARM = 1000609003,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R12X4G12X4_UINT_2PACK16_ARM = 1000609004,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM = 1000609005,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2_UINT_PACK16_ARM = 1000609006,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM = 1000609007,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM = 1000609008,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2_UNORM_PACK16_ARM = 1000609009,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM = 1000609010,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM = 1000609011,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM = 1000609012,
+  // Provided by VK_ARM_format_pack
+    VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM = 1000609013,
   // Provided by VK_EXT_texture_compression_astc_hdr
     VK_FORMAT_ASTC_4x4_SFLOAT_BLOCK_EXT = VK_FORMAT_ASTC_4x4_SFLOAT_BLOCK,
   // Provided by VK_EXT_texture_compression_astc_hdr
@@ -2215,6 +2243,127 @@ integer value, and the last 5 bits represent the fractional value.
 The signed 16-bit values **can** be converted to floats in the range
 [-1024,1023.96875] by dividing the value by 32 (25).
 
+* 
+`VK_FORMAT_R10X6_UINT_PACK16_ARM` specifies a one-component, 16-bit
+unsigned integer format that has a single 10-bit R component in the top
+10 bits of a 16-bit word, with the bottom 6 bits unused.
+
+* 
+`VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM` specifies a two-component,
+32-bit unsigned integer format that has a 10-bit R component in the top
+10 bits of the word in bytes 0..1, and a 10-bit G component in the top
+10 bits of the word in bytes 2..3, with the bottom 6 bits of each word
+unused.
+
+* 
+`VK_FORMAT_R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM` specifies a
+four-component, 64-bit unsigned integer format that has a 10-bit R
+component in the top 10 bits of the word in bytes 0..1, a 10-bit G
+component in the top 10 bits of the word in bytes 2..3, a 10-bit B
+component in the top 10 bits of the word in bytes 4..5, and a 10-bit A
+component in the top 10 bits of the word in bytes 6..7, with the bottom
+6 bits of each word unused.
+
+* 
+`VK_FORMAT_R12X4_UINT_PACK16_ARM` specifies a one-component, 16-bit
+unsigned integer format that has a single 12-bit R component in the top
+12 bits of a 16-bit word, with the bottom 4 bits unused.
+
+* 
+`VK_FORMAT_R12X4G12X4_UINT_2PACK16_ARM` specifies a two-component,
+32-bit unsigned integer format that has a 12-bit R component in the top
+12 bits of the word in bytes 0..1, and a 12-bit G component in the top
+12 bits of the word in bytes 2..3, with the bottom 4 bits of each word
+unused.
+
+* 
+`VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM` specifies a
+four-component, 64-bit unsigned integer format that has a 12-bit R
+component in the top 12 bits of the word in bytes 0..1, a 12-bit G
+component in the top 12 bits of the word in bytes 2..3, a 12-bit B
+component in the top 12 bits of the word in bytes 4..5, and a 12-bit A
+component in the top 12 bits of the word in bytes 6..7, with the bottom
+4 bits of each word unused.
+
+* 
+`VK_FORMAT_R14X2_UINT_PACK16_ARM` specifies a one-component, 16-bit
+unsigned integer format that has a single 14-bit R component in the top
+14 bits of a 16-bit word, with the bottom 2 bits unused.
+
+* 
+`VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM` specifies a two-component,
+32-bit unsigned integer format that has a 14-bit R component in the top
+14 bits of the word in bytes 0..1, and a 14-bit G component in the top
+14 bits of the word in bytes 2..3, with the bottom 2 bits of each word
+unused.
+
+* 
+`VK_FORMAT_R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM` specifies a
+four-component, 64-bit unsigned integer format that has a 14-bit R
+component in the top 14 bits of the word in bytes 0..1, a 14-bit G
+component in the top 14 bits of the word in bytes 2..3, a 14-bit B
+component in the top 14 bits of the word in bytes 4..5, and a 14-bit A
+component in the top 14 bits of the word in bytes 6..7, with the bottom
+2 bits of each word unused.
+
+* 
+`VK_FORMAT_R14X2_UNORM_PACK16_ARM` specifies a one-component, 16-bit
+unsigned normalized format that has a single 14-bit R component in the
+top 14 bits of a 16-bit word, with the bottom 2 bits unused.
+
+* 
+`VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM` specifies a two-component,
+32-bit unsigned normalized format that has a 14-bit R component in the
+top 14 bits of the word in bytes 0..1, and a 14-bit G component in the
+top 14 bits of the word in bytes 2..3, with the bottom 2 bits of each
+word unused.
+
+* 
+`VK_FORMAT_R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM` specifies a
+four-component, 64-bit unsigned normalized format that has a 14-bit R
+component in the top 14 bits of the word in bytes 0..1, a 14-bit G
+component in the top 14 bits of the word in bytes 2..3, a 14-bit B
+component in the top 14 bits of the word in bytes 4..5, and a 14-bit A
+component in the top 14 bits of the word in bytes 6..7, with the bottom
+2 bits of each word unused.
+
+* 
+`VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM` specifies
+an unsigned normalized *multi-planar format* that has a 14-bit G
+component in the top 14 bits of each 16-bit word of plane 0, and a
+two-component, 32-bit BR plane 1 consisting of a 14-bit B component in
+the top 14 bits of the word in bytes 0..1, and a 14-bit R component in
+the top 14 bits of the word in bytes 2..3, with the bottom 2 bits of
+each word unused.
+The horizontal and vertical dimensions of the BR plane are halved
+relative to the image dimensions, and each R and B value is shared with
+the G components for which \(\left\lfloor i_G \times 0.5
+\right\rfloor = i_B = i_R\) and \(\left\lfloor j_G \times 0.5
+\right\rfloor = j_B = j_R\).
+The location of each plane when this image is in linear layout can be
+determined via [vkGetImageSubresourceLayout](resources.html#vkGetImageSubresourceLayout), using
+`VK_IMAGE_ASPECT_PLANE_0_BIT` for the G plane, and
+`VK_IMAGE_ASPECT_PLANE_1_BIT` for the BR plane.
+This format only supports images with a width and height that is a
+multiple of two.
+
+* 
+`VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM` specifies
+an unsigned normalized *multi-planar format* that has a 14-bit G
+component in the top 14 bits of each 16-bit word of plane 0, and a
+two-component, 32-bit BR plane 1 consisting of a 14-bit B component in
+the top 14 bits of the word in bytes 0..1, and a 14-bit R component in
+the top 14 bits of the word in bytes 2..3, with the bottom 2 bits of
+each word unused.
+The horizontal dimension of the BR plane is halved relative to the image
+dimensions, and each R and B value is shared with the G components for
+which   .
+The location of each plane when this image is in linear layout can be
+determined via [vkGetImageSubresourceLayout](resources.html#vkGetImageSubresourceLayout), using
+`VK_IMAGE_ASPECT_PLANE_0_BIT` for the G plane, and
+`VK_IMAGE_ASPECT_PLANE_1_BIT` for the BR plane.
+This format only supports images with a width that is a multiple of two.
+
 Individual planes of [multi-planar formats](#formats-multiplanar) are
 size-compatible with single-plane color formats if they occupy the same
 number of bits per texel block, and are compatible with those formats if
@@ -2228,360 +2377,98 @@ These planes are also [size-compatible](#formats-size-compatibility) with
 any format that is [size-compatible](#formats-size-compatibility) with the
 listed single-plane format.
 
-Table 1. Plane Format Compatibility Table
-
-Plane
-Compatible format for plane
-Width relative to the width *w* of the plane with the largest dimensions
-Height relative to the height *h* of the plane with the largest dimensions
-
-**`VK_FORMAT_G8_B8_R8_3PLANE_420_UNORM`**
-
-0
-`VK_FORMAT_R8_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R8_UNORM`
-w/2
-h/2
-
-2
-`VK_FORMAT_R8_UNORM`
-w/2
-h/2
-
-**`VK_FORMAT_G8_B8R8_2PLANE_420_UNORM`**
-
-0
-`VK_FORMAT_R8_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R8G8_UNORM`
-w/2
-h/2
-
-**`VK_FORMAT_G8_B8_R8_3PLANE_422_UNORM`**
-
-0
-`VK_FORMAT_R8_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R8_UNORM`
-w/2
-h
-
-2
-`VK_FORMAT_R8_UNORM`
-w/2
-h
-
-**`VK_FORMAT_G8_B8R8_2PLANE_422_UNORM`**
-
-0
-`VK_FORMAT_R8_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R8G8_UNORM`
-w/2
-h
-
-**`VK_FORMAT_G8_B8_R8_3PLANE_444_UNORM`**
-
-0
-`VK_FORMAT_R8_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R8_UNORM`
-w
-h
-
-2
-`VK_FORMAT_R8_UNORM`
-w
-h
-
-**`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w/2
-h/2
-
-2
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w/2
-h/2
-
-**`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R10X6G10X6_UNORM_2PACK16`
-w/2
-h/2
-
-**`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w/2
-h
-
-2
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w/2
-h
-
-**`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R10X6G10X6_UNORM_2PACK16`
-w/2
-h
-
-**`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w
-h
-
-2
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w
-h
-
-**`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w/2
-h/2
-
-2
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w/2
-h/2
-
-**`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R12X4G12X4_UNORM_2PACK16`
-w/2
-h/2
-
-**`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w/2
-h
-
-2
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w/2
-h
-
-**`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R12X4G12X4_UNORM_2PACK16`
-w/2
-h
-
-**`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w
-h
-
-2
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w
-h
-
-**`VK_FORMAT_G16_B16_R16_3PLANE_420_UNORM`**
-
-0
-`VK_FORMAT_R16_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R16_UNORM`
-w/2
-h/2
-
-2
-`VK_FORMAT_R16_UNORM`
-w/2
-h/2
-
-**`VK_FORMAT_G16_B16R16_2PLANE_420_UNORM`**
-
-0
-`VK_FORMAT_R16_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R16G16_UNORM`
-w/2
-h/2
-
-**`VK_FORMAT_G16_B16_R16_3PLANE_422_UNORM`**
-
-0
-`VK_FORMAT_R16_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R16_UNORM`
-w/2
-h
-
-2
-`VK_FORMAT_R16_UNORM`
-w/2
-h
-
-**`VK_FORMAT_G16_B16R16_2PLANE_422_UNORM`**
-
-0
-`VK_FORMAT_R16_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R16G16_UNORM`
-w/2
-h
-
-**`VK_FORMAT_G16_B16_R16_3PLANE_444_UNORM`**
-
-0
-`VK_FORMAT_R16_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R16_UNORM`
-w
-h
-
-2
-`VK_FORMAT_R16_UNORM`
-w
-h
-
-**`VK_FORMAT_G8_B8R8_2PLANE_444_UNORM`**
-
-0
-`VK_FORMAT_R8_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R8G8_UNORM`
-w
-h
-
-**`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R10X6_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R10X6G10X6_UNORM_2PACK16`
-w
-h
-
-**`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16`**
-
-0
-`VK_FORMAT_R12X4_UNORM_PACK16`
-w
-h
-
-1
-`VK_FORMAT_R12X4G12X4_UNORM_2PACK16`
-w
-h
-
-**`VK_FORMAT_G16_B16R16_2PLANE_444_UNORM`**
-
-0
-`VK_FORMAT_R16_UNORM`
-w
-h
-
-1
-`VK_FORMAT_R16G16_UNORM`
-w
-h
+| Plane | Compatible format for plane | Width relative to the width *w* of the plane with the largest dimensions | Height relative to the height *h* of the plane with the largest dimensions |
+| --- | --- | --- | --- |
+| **`VK_FORMAT_G8_B8_R8_3PLANE_420_UNORM`** |
+| 0 | `VK_FORMAT_R8_UNORM` | w | h |
+| 1 | `VK_FORMAT_R8_UNORM` | w/2 | h/2 |
+| 2 | `VK_FORMAT_R8_UNORM` | w/2 | h/2 |
+| **`VK_FORMAT_G8_B8R8_2PLANE_420_UNORM`** |
+| 0 | `VK_FORMAT_R8_UNORM` | w | h |
+| 1 | `VK_FORMAT_R8G8_UNORM` | w/2 | h/2 |
+| **`VK_FORMAT_G8_B8_R8_3PLANE_422_UNORM`** |
+| 0 | `VK_FORMAT_R8_UNORM` | w | h |
+| 1 | `VK_FORMAT_R8_UNORM` | w/2 | h |
+| 2 | `VK_FORMAT_R8_UNORM` | w/2 | h |
+| **`VK_FORMAT_G8_B8R8_2PLANE_422_UNORM`** |
+| 0 | `VK_FORMAT_R8_UNORM` | w | h |
+| 1 | `VK_FORMAT_R8G8_UNORM` | w/2 | h |
+| **`VK_FORMAT_G8_B8_R8_3PLANE_444_UNORM`** |
+| 0 | `VK_FORMAT_R8_UNORM` | w | h |
+| 1 | `VK_FORMAT_R8_UNORM` | w | h |
+| 2 | `VK_FORMAT_R8_UNORM` | w | h |
+| **`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R10X6_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R10X6_UNORM_PACK16` | w/2 | h/2 |
+| 2 | `VK_FORMAT_R10X6_UNORM_PACK16` | w/2 | h/2 |
+| **`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R10X6_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R10X6G10X6_UNORM_2PACK16` | w/2 | h/2 |
+| **`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R10X6_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R10X6_UNORM_PACK16` | w/2 | h |
+| 2 | `VK_FORMAT_R10X6_UNORM_PACK16` | w/2 | h |
+| **`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R10X6_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R10X6G10X6_UNORM_2PACK16` | w/2 | h |
+| **`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R10X6_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R10X6_UNORM_PACK16` | w | h |
+| 2 | `VK_FORMAT_R10X6_UNORM_PACK16` | w | h |
+| **`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R12X4_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R12X4_UNORM_PACK16` | w/2 | h/2 |
+| 2 | `VK_FORMAT_R12X4_UNORM_PACK16` | w/2 | h/2 |
+| **`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R12X4_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R12X4G12X4_UNORM_2PACK16` | w/2 | h/2 |
+| **`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R12X4_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R12X4_UNORM_PACK16` | w/2 | h |
+| 2 | `VK_FORMAT_R12X4_UNORM_PACK16` | w/2 | h |
+| **`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R12X4_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R12X4G12X4_UNORM_2PACK16` | w/2 | h |
+| **`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R12X4_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R12X4_UNORM_PACK16` | w | h |
+| 2 | `VK_FORMAT_R12X4_UNORM_PACK16` | w | h |
+| **`VK_FORMAT_G16_B16_R16_3PLANE_420_UNORM`** |
+| 0 | `VK_FORMAT_R16_UNORM` | w | h |
+| 1 | `VK_FORMAT_R16_UNORM` | w/2 | h/2 |
+| 2 | `VK_FORMAT_R16_UNORM` | w/2 | h/2 |
+| **`VK_FORMAT_G16_B16R16_2PLANE_420_UNORM`** |
+| 0 | `VK_FORMAT_R16_UNORM` | w | h |
+| 1 | `VK_FORMAT_R16G16_UNORM` | w/2 | h/2 |
+| **`VK_FORMAT_G16_B16_R16_3PLANE_422_UNORM`** |
+| 0 | `VK_FORMAT_R16_UNORM` | w | h |
+| 1 | `VK_FORMAT_R16_UNORM` | w/2 | h |
+| 2 | `VK_FORMAT_R16_UNORM` | w/2 | h |
+| **`VK_FORMAT_G16_B16R16_2PLANE_422_UNORM`** |
+| 0 | `VK_FORMAT_R16_UNORM` | w | h |
+| 1 | `VK_FORMAT_R16G16_UNORM` | w/2 | h |
+| **`VK_FORMAT_G16_B16_R16_3PLANE_444_UNORM`** |
+| 0 | `VK_FORMAT_R16_UNORM` | w | h |
+| 1 | `VK_FORMAT_R16_UNORM` | w | h |
+| 2 | `VK_FORMAT_R16_UNORM` | w | h |
+| **`VK_FORMAT_G8_B8R8_2PLANE_444_UNORM`** |
+| 0 | `VK_FORMAT_R8_UNORM` | w | h |
+| 1 | `VK_FORMAT_R8G8_UNORM` | w | h |
+| **`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R10X6_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R10X6G10X6_UNORM_2PACK16` | w | h |
+| **`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16`** |
+| 0 | `VK_FORMAT_R12X4_UNORM_PACK16` | w | h |
+| 1 | `VK_FORMAT_R12X4G12X4_UNORM_2PACK16` | w | h |
+| **`VK_FORMAT_G16_B16R16_2PLANE_444_UNORM`** |
+| 0 | `VK_FORMAT_R16_UNORM` | w | h |
+| 1 | `VK_FORMAT_R16G16_UNORM` | w | h |
+| **`VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM`** |
+| 0 | `VK_FORMAT_R14X2_UNORM_PACK16_ARM` | w | h |
+| 1 | `VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM` | w/2 | h/2 |
+| **`VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM`** |
+| 0 | `VK_FORMAT_R14X2_UNORM_PACK16_ARM` | w | h |
+| 1 | `VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM` | w/2 | h |
 
 If the [`maintenance8`](features.html#features-maintenance8) feature is enabled,
 individual aspects of depth-stencil formats are size-compatible with certain
@@ -2750,6 +2637,48 @@ bitfields packed into one or more 8-, 16-, or 32-bit fundamental data type.
 * 
 `VK_FORMAT_A4B4G4R4_UNORM_PACK16`
 
+* 
+`VK_FORMAT_R10X6_UINT_PACK16_ARM`
+
+* 
+`VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM`
+
+* 
+`VK_FORMAT_R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM`
+
+* 
+`VK_FORMAT_R12X4_UINT_PACK16_ARM`
+
+* 
+`VK_FORMAT_R12X4G12X4_UINT_2PACK16_ARM`
+
+* 
+`VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM`
+
+* 
+`VK_FORMAT_R14X2_UINT_PACK16_ARM`
+
+* 
+`VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM`
+
+* 
+`VK_FORMAT_R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM`
+
+* 
+`VK_FORMAT_R14X2_UNORM_PACK16_ARM`
+
+* 
+`VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM`
+
+* 
+`VK_FORMAT_R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM`
+
+* 
+`VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM`
+
+* 
+`VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM`
+
 [Packed into 32-bit data types](#formats-packed-32-bit):
 
 * 
@@ -2829,64 +2758,19 @@ of the depth (D) and stencil (S) components (if they are present) in the
 case of a depth/stencil format (see below).
 An X indicates a component that is unused, but **may** be present for padding.
 
-Table 2. Interpretation of Numeric Format
-
-Numeric format
-Type-Declaration instructions
-Numeric type
-Description
-
-`UNORM`
-OpTypeFloat
-floating-point
-The components are unsigned normalized values in the range [0,1]
-
-`SNORM`
-OpTypeFloat
-floating-point
-The components are signed normalized values in the range [-1,1]
-
-`USCALED`
-OpTypeFloat
-floating-point
-The components are unsigned integer values that get converted to floating-point in the range [0,2n-1]
-
-`SSCALED`
-OpTypeFloat
-floating-point
-The components are signed integer values that get converted to floating-point in the range [-2n-1,2n-1-1]
-
-`UINT`
-OpTypeInt
-unsigned integer
-The components are unsigned integer values in the range [0,2n-1]
-
-`SINT`
-OpTypeInt
-signed integer
-The components are signed integer values in the range [-2n-1,2n-1-1]
-
-`UFLOAT`
-OpTypeFloat
-floating-point
-The components are unsigned floating-point numbers (used by packed, shared exponent, and some compressed formats)
-
-`SFLOAT`
-OpTypeFloat
-floating-point
-The components are signed floating-point numbers
-
-`SRGB`
-OpTypeFloat
-floating-point
-The R, G, and B components are unsigned normalized values that represent values using sRGB nonlinear encoding, while the A component (if one exists) is a regular unsigned normalized value
-
-`SFIXED5`
-OpTypeInt
-scaled signed integer
-The components are signed fractional integer values that get converted to floating-point in the range [-1024,1023.96875]
-
-n is the number of bits in the component.
+| Numeric format | Type-Declaration instructions | Numeric type | Description |
+| --- | --- | --- | --- |
+| `UNORM` | OpTypeFloat | floating-point | The components are unsigned normalized values in the range [0,1] |
+| `SNORM` | OpTypeFloat | floating-point | The components are signed normalized values in the range [-1,1] |
+| `USCALED` | OpTypeFloat | floating-point | The components are unsigned integer values that get converted to floating-point in the range [0,2n-1] |
+| `SSCALED` | OpTypeFloat | floating-point | The components are signed integer values that get converted to floating-point in the range [-2n-1,2n-1-1] |
+| `UINT` | OpTypeInt | unsigned integer | The components are unsigned integer values in the range [0,2n-1] |
+| `SINT` | OpTypeInt | signed integer | The components are signed integer values in the range [-2n-1,2n-1-1] |
+| `UFLOAT` | OpTypeFloat | floating-point | The components are unsigned floating-point numbers (used by packed, shared exponent, and some compressed formats) |
+| `SFLOAT` | OpTypeFloat | floating-point | The components are signed floating-point numbers |
+| `SRGB` | OpTypeFloat | floating-point | The R, G, and B components are unsigned normalized values that represent values using sRGB nonlinear encoding, while the A component (if one exists) is a regular unsigned normalized value |
+| `SFIXED5` | OpTypeInt | scaled signed integer | The components are signed fractional integer values that get converted to floating-point in the range [-1024,1023.96875] |
+| n is the number of bits in the component. |
 
 The suffix `_PACKnn` indicates that the format is packed into an
 underlying type with `nn` bits.
@@ -2898,22 +2782,12 @@ The suffix `_BLOCK` indicates that the format is a block-compressed
 format, with the representation of multiple texels encoded interdependently
 within a region.
 
-Table 3. Interpretation of Compression Scheme
-
-Compression scheme
-Description
-
-`BC`
-Block Compression. See [Block-Compressed Image Formats](../appendices/compressedtex.html#appendix-compressedtex-bc).
-
-`ETC2`
-Ericsson Texture Compression. See [ETC Compressed Image Formats](../appendices/compressedtex.html#appendix-compressedtex-etc2).
-
-`EAC`
-ETC2 Alpha Compression. See [ETC Compressed Image Formats](../appendices/compressedtex.html#appendix-compressedtex-etc2).
-
-`ASTC`
-Adaptive Scalable Texture Compression (LDR Profile). See [ASTC Compressed Image Formats](../appendices/compressedtex.html#appendix-compressedtex-astc).
+| Compression scheme | Description |
+| --- | --- |
+| `BC` | Block Compression. See [Block-Compressed Image Formats](../appendices/compressedtex.html#appendix-compressedtex-bc). |
+| `ETC2` | Ericsson Texture Compression. See [ETC Compressed Image Formats](../appendices/compressedtex.html#appendix-compressedtex-etc2). |
+| `EAC` | ETC2 Alpha Compression. See [ETC Compressed Image Formats](../appendices/compressedtex.html#appendix-compressedtex-etc2). |
+| `ASTC` | Adaptive Scalable Texture Compression (LDR Profile). See [ASTC Compressed Image Formats](../appendices/compressedtex.html#appendix-compressedtex-astc). |
 
 For *multi-planar* images, the components in separate *planes* are separated
 by underscores, and the number of planes is indicated by the addition of a
@@ -2926,6 +2800,10 @@ B values appear at half the horizontal frequency of the G values, `_420`
 to indicate that planes other than the first are reduced in size by a factor
 of two both horizontally and vertically, and `_444` for consistency to
 indicate that all three planes of a three-planar image are the same size.
+
+|  | No common format has a single plane containing both R and B components but
+| --- | --- |
+does not store these components at reduced horizontal resolution. |
 
 Color formats **must** be represented in memory in exactly the form indicated
 by the format’s name.
@@ -2947,132 +2825,35 @@ See [Byte mappings for non-packed/compressed color formats](#formats-non-packed)
 The in-memory ordering of bytes within a component is determined by the host
 endianness.
 
-Table 4. Byte Mappings for Non-Packed/Compressed Color Formats
-
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
-10
-11
-12
-13
-14
-15
-← Byte
-
-R
-**`VK_FORMAT_R8_*`**
-
-R
-G
-**`VK_FORMAT_R8G8_*`**
-
-R
-G
-B
-**`VK_FORMAT_R8G8B8_*`**
-
-B
-G
-R
-**`VK_FORMAT_B8G8R8_*`**
-
-R
-G
-B
-A
-**`VK_FORMAT_R8G8B8A8_*`**
-
-B
-G
-R
-A
-**`VK_FORMAT_B8G8R8A8_*`**
-
-A
-**`VK_FORMAT_A8_UNORM`**
-
-G0
-B
-G1
-R
-**`VK_FORMAT_G8B8G8R8_422_UNORM`**
-
-B
-G0
-R
-G1
-**`VK_FORMAT_B8G8R8G8_422_UNORM`**
-
-R
-**`VK_FORMAT_R16_*`**
-
-R
-G
-**`VK_FORMAT_R16G16_*`**
-
-R
-G
-B
-**`VK_FORMAT_R16G16B16_*`**
-
-R
-G
-B
-A
-**`VK_FORMAT_R16G16B16A16_*`**
-
-G0
-B
-G1
-R
-**`VK_FORMAT_G10X6B10X6G10X6R10X6_4PACK16_422_UNORM`
+| 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | 11 | 12 | 13 | 14 | 15 | ← Byte |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| R | **`VK_FORMAT_R8_*`** |
+| R | G | **`VK_FORMAT_R8G8_*`** |
+| R | G | B | **`VK_FORMAT_R8G8B8_*`** |
+| B | G | R | **`VK_FORMAT_B8G8R8_*`** |
+| R | G | B | A | **`VK_FORMAT_R8G8B8A8_*`** |
+| B | G | R | A | **`VK_FORMAT_B8G8R8A8_*`** |
+| A | **`VK_FORMAT_A8_UNORM`** |
+| G0 | B | G1 | R | **`VK_FORMAT_G8B8G8R8_422_UNORM`** |
+| B | G0 | R | G1 | **`VK_FORMAT_B8G8R8G8_422_UNORM`** |
+| R | **`VK_FORMAT_R16_*`** |
+| R | G | **`VK_FORMAT_R16G16_*`** |
+| R | G | B | **`VK_FORMAT_R16G16B16_*`** |
+| R | G | B | A | **`VK_FORMAT_R16G16B16A16_*`** |
+| G0 | B | G1 | R | **`VK_FORMAT_G10X6B10X6G10X6R10X6_4PACK16_422_UNORM`
 `VK_FORMAT_G12X4B12X4G12X4R12X4_4PACK16_422_UNORM`
-`VK_FORMAT_G16B16G16R16_UNORM`**
-
-B
-G0
-R
-G1
-**`VK_FORMAT_B10X6G10X6R10X6G10X6_4PACK16_422_UNORM`
+`VK_FORMAT_G16B16G16R16_UNORM`** |
+| B | G0 | R | G1 | **`VK_FORMAT_B10X6G10X6R10X6G10X6_4PACK16_422_UNORM`
 `VK_FORMAT_B12X4G12X4R12X4G12X4_4PACK16_422_UNORM`
-`VK_FORMAT_B16G16R16G16_422_UNORM`**
-
-R
-**`VK_FORMAT_R32_*`**
-
-R
-G
-**`VK_FORMAT_R32G32_*`**
-
-R
-G
-B
-**`VK_FORMAT_R32G32B32_*`**
-
-R
-G
-B
-A
-**`VK_FORMAT_R32G32B32A32_*`**
-
-R
-**`VK_FORMAT_R64_*`**
-
-R
-G
-**`VK_FORMAT_R64G64_*`**
-
-**`VK_FORMAT_R64G64B64_*` as `VK_FORMAT_R64G64_*` but with B in bytes 16-23**
-
-**`VK_FORMAT_R64G64B64A64_*` as `VK_FORMAT_R64G64B64_*` but with A in bytes 24-31**
+`VK_FORMAT_B16G16R16G16_422_UNORM`** |
+| R | **`VK_FORMAT_R32_*`** |
+| R | G | **`VK_FORMAT_R32G32_*`** |
+| R | G | B | **`VK_FORMAT_R32G32B32_*`** |
+| R | G | B | A | **`VK_FORMAT_R32G32B32A32_*`** |
+| R | **`VK_FORMAT_R64_*`** |
+| R | G | **`VK_FORMAT_R64G64_*`** |
+| **`VK_FORMAT_R64G64B64_*` as `VK_FORMAT_R64G64_*` but with B in bytes 16-23** |
+| **`VK_FORMAT_R64G64B64A64_*` as `VK_FORMAT_R64G64B64_*` but with A in bytes 24-31** |
 
 Packed formats store multiple components within one underlying type.
 The bit representation is that the first component specified in the name of
@@ -3081,609 +2862,83 @@ is in the least-significant bits of the underlying type.
 The in-memory ordering of bytes comprising the underlying type is determined
 by the host endianness.
 
-Table 5. Bit Mappings for Packed 8-Bit Formats
-
-Bit
-
-7
-6
-5
-4
-3
-2
-1
-0
-
-`VK_FORMAT_R4G4_UNORM_PACK8`
-
-**R**
-**G**
-
-3
-2
-1
-0
-3
-2
-1
-0
-
-Table 6. Bit Mappings for Packed 16-Bit Formats
-
-Bit
-
-15
-14
-13
-12
-11
-10
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-
-`VK_FORMAT_R4G4B4A4_UNORM_PACK16`
-
-**R**
-**G**
-**B**
-**A**
-
-3
-2
-1
-0
-3
-2
-1
-0
-3
-2
-1
-0
-3
-2
-1
-0
-
-`VK_FORMAT_B4G4R4A4_UNORM_PACK16`
-
-**B**
-**G**
-**R**
-**A**
-
-3
-2
-1
-0
-3
-2
-1
-0
-3
-2
-1
-0
-3
-2
-1
-0
-
-`VK_FORMAT_A4R4G4B4_UNORM_PACK16`
-
-**A**
-**R**
-**G**
-**B**
-
-3
-2
-1
-0
-3
-2
-1
-0
-3
-2
-1
-0
-3
-2
-1
-0
-
-`VK_FORMAT_A4B4G4R4_UNORM_PACK16`
-
-**A**
-**B**
-**G**
-**R**
-
-3
-2
-1
-0
-3
-2
-1
-0
-3
-2
-1
-0
-3
-2
-1
-0
-
-`VK_FORMAT_R5G6B5_UNORM_PACK16`
-
-**R**
-**G**
-**B**
-
-4
-3
-2
-1
-0
-5
-4
-3
-2
-1
-0
-4
-3
-2
-1
-0
-
-`VK_FORMAT_B5G6R5_UNORM_PACK16`
-
-**B**
-**G**
-**R**
-
-4
-3
-2
-1
-0
-5
-4
-3
-2
-1
-0
-4
-3
-2
-1
-0
-
-`VK_FORMAT_R5G5B5A1_UNORM_PACK16`
-
-**R**
-**G**
-**B**
-**A**
-
-4
-3
-2
-1
-0
-4
-3
-2
-1
-0
-4
-3
-2
-1
-0
-0
-
-`VK_FORMAT_B5G5R5A1_UNORM_PACK16`
-
-**B**
-**G**
-**R**
-**A**
-
-4
-3
-2
-1
-0
-4
-3
-2
-1
-0
-4
-3
-2
-1
-0
-0
-
-`VK_FORMAT_A1R5G5B5_UNORM_PACK16`
-
-**A**
-**R**
-**G**
-**B**
-
-0
-4
-3
-2
-1
-0
-4
-3
-2
-1
-0
-4
-3
-2
-1
-0
-
-`VK_FORMAT_A1B5G5R5_UNORM_PACK16`
-
-**A**
-**B**
-**G**
-**R**
-
-0
-4
-3
-2
-1
-0
-4
-3
-2
-1
-0
-4
-3
-2
-1
-0
-
-`VK_FORMAT_R10X6_UNORM_PACK16`
-
-**R**
-**X**
-
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-5
-4
-3
-2
-1
-0
-
-`VK_FORMAT_R12X4_UNORM_PACK16`
-
-**R**
-**X**
-
-11
-10
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-3
-2
-1
-0
-
-Table 7. Bit Mappings for Packed 32-Bit Formats
-
-Bit
-
-31
-30
-29
-28
-27
-26
-25
-24
-23
-22
-21
-20
-19
-18
-17
-16
-15
-14
-13
-12
-11
-10
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-
-`VK_FORMAT_A8B8G8R8_*_PACK32`
-
-**A**
-**B**
-**G**
-**R**
-
-7
-6
-5
-4
-3
-2
-1
-0
-7
-6
-5
-4
-3
-2
-1
-0
-7
-6
-5
-4
-3
-2
-1
-0
-7
-6
-5
-4
-3
-2
-1
-0
-
-`VK_FORMAT_A2R10G10B10_*_PACK32`
-
-**A**
-**R**
-**G**
-**B**
-
-1
-0
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-
-`VK_FORMAT_A2B10G10R10_*_PACK32`
-
-**A**
-**B**
-**G**
-**R**
-
-1
-0
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-
-`VK_FORMAT_B10G11R11_UFLOAT_PACK32`
-
-**B**
-**G**
-**R**
-
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-10
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-10
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
-
-`VK_FORMAT_E5B9G9R9_UFLOAT_PACK32`
-
-**E**
-**B**
-**G**
-**R**
-
-4
-3
-2
-1
-0
-8
-7
-6
-5
-4
-3
-2
-1
-0
-8
-7
-6
-5
-4
-3
-2
-1
-0
-8
-7
-6
-5
-4
-3
-2
-1
-0
-
-`VK_FORMAT_X8_D24_UNORM_PACK32`
-
-**X**
-**D**
-
-7
-6
-5
-4
-3
-2
-1
-0
-23
-22
-21
-20
-19
-18
-17
-16
-15
-14
-13
-12
-11
-10
-9
-8
-7
-6
-5
-4
-3
-2
-1
-0
+| Bit |
+| --- |
+| 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_R4G4_UNORM_PACK8` |
+| **R** | **G** |
+| 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 |
+
+| Bit |
+| --- |
+| 15 | 14 | 13 | 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_R4G4B4A4_UNORM_PACK16` |
+| **R** | **G** | **B** | **A** |
+| 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_B4G4R4A4_UNORM_PACK16` |
+| **B** | **G** | **R** | **A** |
+| 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_A4R4G4B4_UNORM_PACK16` |
+| **A** | **R** | **G** | **B** |
+| 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_A4B4G4R4_UNORM_PACK16` |
+| **A** | **B** | **G** | **R** |
+| 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_R5G6B5_UNORM_PACK16` |
+| **R** | **G** | **B** |
+| 4 | 3 | 2 | 1 | 0 | 5 | 4 | 3 | 2 | 1 | 0 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_B5G6R5_UNORM_PACK16` |
+| **B** | **G** | **R** |
+| 4 | 3 | 2 | 1 | 0 | 5 | 4 | 3 | 2 | 1 | 0 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_R5G5B5A1_UNORM_PACK16` |
+| **R** | **G** | **B** | **A** |
+| 4 | 3 | 2 | 1 | 0 | 4 | 3 | 2 | 1 | 0 | 4 | 3 | 2 | 1 | 0 | 0 |
+| `VK_FORMAT_B5G5R5A1_UNORM_PACK16` |
+| **B** | **G** | **R** | **A** |
+| 4 | 3 | 2 | 1 | 0 | 4 | 3 | 2 | 1 | 0 | 4 | 3 | 2 | 1 | 0 | 0 |
+| `VK_FORMAT_A1R5G5B5_UNORM_PACK16` |
+| **A** | **R** | **G** | **B** |
+| 0 | 4 | 3 | 2 | 1 | 0 | 4 | 3 | 2 | 1 | 0 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_A1B5G5R5_UNORM_PACK16` |
+| **A** | **B** | **G** | **R** |
+| 0 | 4 | 3 | 2 | 1 | 0 | 4 | 3 | 2 | 1 | 0 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_R10X6_UNORM_PACK16` |
+| **R** | **X** |
+| 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 5 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_R12X4_UNORM_PACK16` |
+| **R** | **X** |
+| 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_R10X6_UINT_PACK16_ARM` |
+| **R** | **X** |
+| 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 5 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_R12X4_UINT_PACK16_ARM` |
+| **R** | **X** |
+| 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_R14X2_UINT_PACK16_ARM` |
+| **R** | **X** |
+| 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 3 | 2 | 1 | 0 |
+
+| Bit |
+| --- |
+| 31 | 30 | 29 | 28 | 27 | 26 | 25 | 24 | 23 | 22 | 21 | 20 | 19 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_A8B8G8R8_*_PACK32` |
+| **A** | **B** | **G** | **R** |
+| 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_A2R10G10B10_*_PACK32` |
+| **A** | **R** | **G** | **B** |
+| 1 | 0 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_A2B10G10R10_*_PACK32` |
+| **A** | **B** | **G** | **R** |
+| 1 | 0 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_B10G11R11_UFLOAT_PACK32` |
+| **B** | **G** | **R** |
+| 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_E5B9G9R9_UFLOAT_PACK32` |
+| **E** | **B** | **G** | **R** |
+| 4 | 3 | 2 | 1 | 0 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
+| `VK_FORMAT_X8_D24_UNORM_PACK32` |
+| **X** | **D** |
+| 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 | 23 | 22 | 21 | 20 | 19 | 18 | 17 | 16 | 15 | 14 | 13 | 12 | 11 | 10 | 9 | 8 | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |
 
 Depth/stencil formats are considered opaque and need not be stored in the
 exact number of bits per texel or component ordering indicated by the format
@@ -3706,19 +2961,15 @@ same row are compatible.
 Each format has a defined *texel block extent* specifying how many texels
 each texel block represents in each dimension.
 
-Table 8. Compatible Formats
-
-Class, Texel Block Size, Texel Block Extent, # Texels/Block
-Formats
-
-8-bit
+| Class, Texel Block Size, Texel Block Extent, # Texels/Block | Formats |
+| --- | --- |
+| 8-bit
 
   Block size 1 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_R4G4_UNORM_PACK8`,
+  1 texel/block | `VK_FORMAT_R4G4_UNORM_PACK8`,
 
                     `VK_FORMAT_R8_UNORM`,
 
@@ -3732,16 +2983,14 @@ Formats
 
                     `VK_FORMAT_R8_SINT`,
 
-                    `VK_FORMAT_R8_SRGB`
-
-16-bit
+                    `VK_FORMAT_R8_SRGB` |
+| 16-bit
 
   Block size 2 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_A1B5G5R5_UNORM_PACK16`,
+  1 texel/block | `VK_FORMAT_A1B5G5R5_UNORM_PACK16`,
 
                     `VK_FORMAT_R10X6_UNORM_PACK16`,
 
@@ -3750,6 +2999,14 @@ Formats
                     `VK_FORMAT_A4R4G4B4_UNORM_PACK16`,
 
                     `VK_FORMAT_A4B4G4R4_UNORM_PACK16`,
+
+                    `VK_FORMAT_R10X6_UINT_PACK16_ARM`,
+
+                    `VK_FORMAT_R12X4_UINT_PACK16_ARM`,
+
+                    `VK_FORMAT_R14X2_UINT_PACK16_ARM`,
+
+                    `VK_FORMAT_R14X2_UNORM_PACK16_ARM`,
 
                     `VK_FORMAT_R4G4B4A4_UNORM_PACK16`,
 
@@ -3791,25 +3048,21 @@ Formats
 
                     `VK_FORMAT_R16_SINT`,
 
-                    `VK_FORMAT_R16_SFLOAT`
-
-8-bit alpha
+                    `VK_FORMAT_R16_SFLOAT` |
+| 8-bit alpha
 
   Block size 1 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_A8_UNORM`
-
-24-bit
+  1 texel/block | `VK_FORMAT_A8_UNORM` |
+| 24-bit
 
   Block size 3 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_R8G8B8_UNORM`,
+  1 texel/block | `VK_FORMAT_R8G8B8_UNORM`,
 
                     `VK_FORMAT_R8G8B8_SNORM`,
 
@@ -3835,20 +3088,26 @@ Formats
 
                     `VK_FORMAT_B8G8R8_SINT`,
 
-                    `VK_FORMAT_B8G8R8_SRGB`
-
-32-bit
+                    `VK_FORMAT_B8G8R8_SRGB` |
+| 32-bit
 
   Block size 4 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_R10X6G10X6_UNORM_2PACK16`,
+  1 texel/block | `VK_FORMAT_R10X6G10X6_UNORM_2PACK16`,
 
                     `VK_FORMAT_R12X4G12X4_UNORM_2PACK16`,
 
                     `VK_FORMAT_R16G16_SFIXED5_NV`,
+
+                    `VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM`,
+
+                    `VK_FORMAT_R12X4G12X4_UINT_2PACK16_ARM`,
+
+                    `VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM`,
+
+                    `VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM`,
 
                     `VK_FORMAT_R8G8B8A8_UNORM`,
 
@@ -3924,9 +3183,14 @@ Formats
 
                     `VK_FORMAT_R16G16_SSCALED`,
 
-                    `VK_FORMAT_R16G16_UINT`,
+                    `VK_FORMAT_R16G16_UINT` |
+| 32-bit (continued)
 
-                    `VK_FORMAT_R16G16_SINT`,
+  Block size 4 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_R16G16_SINT`,
 
                     `VK_FORMAT_R16G16_SFLOAT`,
 
@@ -3938,16 +3202,14 @@ Formats
 
                     `VK_FORMAT_B10G11R11_UFLOAT_PACK32`,
 
-                    `VK_FORMAT_E5B9G9R9_UFLOAT_PACK32`
-
-48-bit
+                    `VK_FORMAT_E5B9G9R9_UFLOAT_PACK32` |
+| 48-bit
 
   Block size 6 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_R16G16B16_UNORM`,
+  1 texel/block | `VK_FORMAT_R16G16B16_UNORM`,
 
                     `VK_FORMAT_R16G16B16_SNORM`,
 
@@ -3959,16 +3221,14 @@ Formats
 
                     `VK_FORMAT_R16G16B16_SINT`,
 
-                    `VK_FORMAT_R16G16B16_SFLOAT`
-
-64-bit
+                    `VK_FORMAT_R16G16B16_SFLOAT` |
+| 64-bit
 
   Block size 8 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_R16G16B16A16_UNORM`,
+  1 texel/block | `VK_FORMAT_R16G16B16A16_UNORM`,
 
                     `VK_FORMAT_R16G16B16A16_SNORM`,
 
@@ -3992,29 +3252,25 @@ Formats
 
                     `VK_FORMAT_R64_SINT`,
 
-                    `VK_FORMAT_R64_SFLOAT`
-
-96-bit
+                    `VK_FORMAT_R64_SFLOAT` |
+| 96-bit
 
   Block size 12 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_R32G32B32_UINT`,
+  1 texel/block | `VK_FORMAT_R32G32B32_UINT`,
 
                     `VK_FORMAT_R32G32B32_SINT`,
 
-                    `VK_FORMAT_R32G32B32_SFLOAT`
-
-128-bit
+                    `VK_FORMAT_R32G32B32_SFLOAT` |
+| 128-bit
 
   Block size 16 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_R32G32B32A32_UINT`,
+  1 texel/block | `VK_FORMAT_R32G32B32A32_UINT`,
 
                     `VK_FORMAT_R32G32B32A32_SINT`,
 
@@ -4024,771 +3280,650 @@ Formats
 
                     `VK_FORMAT_R64G64_SINT`,
 
-                    `VK_FORMAT_R64G64_SFLOAT`
-
-192-bit
+                    `VK_FORMAT_R64G64_SFLOAT` |
+| 192-bit
 
   Block size 24 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_R64G64B64_UINT`,
+  1 texel/block | `VK_FORMAT_R64G64B64_UINT`,
 
                     `VK_FORMAT_R64G64B64_SINT`,
 
-                    `VK_FORMAT_R64G64B64_SFLOAT`
-
-256-bit
+                    `VK_FORMAT_R64G64B64_SFLOAT` |
+| 256-bit
 
   Block size 32 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_R64G64B64A64_UINT`,
+  1 texel/block | `VK_FORMAT_R64G64B64A64_UINT`,
 
                     `VK_FORMAT_R64G64B64A64_SINT`,
 
-                    `VK_FORMAT_R64G64B64A64_SFLOAT`
-
-D16
+                    `VK_FORMAT_R64G64B64A64_SFLOAT` |
+| D16
 
   Block size 2 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_D16_UNORM`
-
-D24
+  1 texel/block | `VK_FORMAT_D16_UNORM` |
+| D24
 
   Block size 4 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_X8_D24_UNORM_PACK32`
-
-D32
+  1 texel/block | `VK_FORMAT_X8_D24_UNORM_PACK32` |
+| D32
 
   Block size 4 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_D32_SFLOAT`
-
-S8
+  1 texel/block | `VK_FORMAT_D32_SFLOAT` |
+| S8
 
   Block size 1 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_S8_UINT`
-
-D16S8
+  1 texel/block | `VK_FORMAT_S8_UINT` |
+| D16S8
 
   Block size 3 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_D16_UNORM_S8_UINT`
-
-D24S8
+  1 texel/block | `VK_FORMAT_D16_UNORM_S8_UINT` |
+| D24S8
 
   Block size 4 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_D24_UNORM_S8_UINT`
-
-D32S8
+  1 texel/block | `VK_FORMAT_D24_UNORM_S8_UINT` |
+| D32S8
 
   Block size 5 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_D32_SFLOAT_S8_UINT`
-
-BC1_RGB
+  1 texel/block | `VK_FORMAT_D32_SFLOAT_S8_UINT` |
+| BC1_RGB
 
   Block size 8 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_BC1_RGB_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_BC1_RGB_UNORM_BLOCK`,
 
-                    `VK_FORMAT_BC1_RGB_SRGB_BLOCK`
-
-BC1_RGBA
+                    `VK_FORMAT_BC1_RGB_SRGB_BLOCK` |
+| BC1_RGBA
 
   Block size 8 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_BC1_RGBA_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_BC1_RGBA_UNORM_BLOCK`,
 
-                    `VK_FORMAT_BC1_RGBA_SRGB_BLOCK`
-
-BC2
+                    `VK_FORMAT_BC1_RGBA_SRGB_BLOCK` |
+| BC2
 
   Block size 16 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_BC2_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_BC2_UNORM_BLOCK`,
 
-                    `VK_FORMAT_BC2_SRGB_BLOCK`
-
-BC3
+                    `VK_FORMAT_BC2_SRGB_BLOCK` |
+| BC3
 
   Block size 16 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_BC3_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_BC3_UNORM_BLOCK`,
 
-                    `VK_FORMAT_BC3_SRGB_BLOCK`
-
-BC4
+                    `VK_FORMAT_BC3_SRGB_BLOCK` |
+| BC4
 
   Block size 8 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_BC4_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_BC4_UNORM_BLOCK`,
 
-                    `VK_FORMAT_BC4_SNORM_BLOCK`
-
-BC5
+                    `VK_FORMAT_BC4_SNORM_BLOCK` |
+| BC5
 
   Block size 16 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_BC5_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_BC5_UNORM_BLOCK`,
 
-                    `VK_FORMAT_BC5_SNORM_BLOCK`
-
-BC6H
+                    `VK_FORMAT_BC5_SNORM_BLOCK` |
+| BC6H
 
   Block size 16 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_BC6H_UFLOAT_BLOCK`,
+  16 texel/block | `VK_FORMAT_BC6H_UFLOAT_BLOCK`,
 
-                    `VK_FORMAT_BC6H_SFLOAT_BLOCK`
-
-BC7
+                    `VK_FORMAT_BC6H_SFLOAT_BLOCK` |
+| BC7
 
   Block size 16 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_BC7_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_BC7_UNORM_BLOCK`,
 
-                    `VK_FORMAT_BC7_SRGB_BLOCK`
-
-ETC2_RGB
+                    `VK_FORMAT_BC7_SRGB_BLOCK` |
+| ETC2_RGB
 
   Block size 8 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_ETC2_R8G8B8_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_ETC2_R8G8B8_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ETC2_R8G8B8_SRGB_BLOCK`
-
-ETC2_RGBA
+                    `VK_FORMAT_ETC2_R8G8B8_SRGB_BLOCK` |
+| ETC2_RGBA
 
   Block size 8 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_ETC2_R8G8B8A1_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_ETC2_R8G8B8A1_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ETC2_R8G8B8A1_SRGB_BLOCK`
-
-ETC2_EAC_RGBA
+                    `VK_FORMAT_ETC2_R8G8B8A1_SRGB_BLOCK` |
+| ETC2_EAC_RGBA
 
   Block size 16 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_ETC2_R8G8B8A8_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_ETC2_R8G8B8A8_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ETC2_R8G8B8A8_SRGB_BLOCK`
-
-EAC_R
+                    `VK_FORMAT_ETC2_R8G8B8A8_SRGB_BLOCK` |
+| EAC_R
 
   Block size 8 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_EAC_R11_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_EAC_R11_UNORM_BLOCK`,
 
-                    `VK_FORMAT_EAC_R11_SNORM_BLOCK`
-
-EAC_RG
+                    `VK_FORMAT_EAC_R11_SNORM_BLOCK` |
+| EAC_RG
 
   Block size 16 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_EAC_R11G11_UNORM_BLOCK`,
+  16 texel/block | `VK_FORMAT_EAC_R11G11_UNORM_BLOCK`,
 
-                    `VK_FORMAT_EAC_R11G11_SNORM_BLOCK`
-
-ASTC_4x4
+                    `VK_FORMAT_EAC_R11G11_SNORM_BLOCK` |
+| ASTC_4x4
 
   Block size 16 byte
 
   4x4x1 block extent
 
-  16 texel/block
-`VK_FORMAT_ASTC_4x4_SFLOAT_BLOCK`,
+  16 texel/block | `VK_FORMAT_ASTC_4x4_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_4x4_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_4x4_SRGB_BLOCK`
-
-ASTC_5x4
+                    `VK_FORMAT_ASTC_4x4_SRGB_BLOCK` |
+| ASTC_5x4
 
   Block size 16 byte
 
   5x4x1 block extent
 
-  20 texel/block
-`VK_FORMAT_ASTC_5x4_SFLOAT_BLOCK`,
+  20 texel/block | `VK_FORMAT_ASTC_5x4_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_5x4_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_5x4_SRGB_BLOCK`
-
-ASTC_5x5
+                    `VK_FORMAT_ASTC_5x4_SRGB_BLOCK` |
+| ASTC_5x5
 
   Block size 16 byte
 
   5x5x1 block extent
 
-  25 texel/block
-`VK_FORMAT_ASTC_5x5_SFLOAT_BLOCK`,
+  25 texel/block | `VK_FORMAT_ASTC_5x5_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_5x5_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_5x5_SRGB_BLOCK`
-
-ASTC_6x5
+                    `VK_FORMAT_ASTC_5x5_SRGB_BLOCK` |
+| ASTC_6x5
 
   Block size 16 byte
 
   6x5x1 block extent
 
-  30 texel/block
-`VK_FORMAT_ASTC_6x5_SFLOAT_BLOCK`,
+  30 texel/block | `VK_FORMAT_ASTC_6x5_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_6x5_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_6x5_SRGB_BLOCK`
-
-ASTC_6x6
+                    `VK_FORMAT_ASTC_6x5_SRGB_BLOCK` |
+| ASTC_6x6
 
   Block size 16 byte
 
   6x6x1 block extent
 
-  36 texel/block
-`VK_FORMAT_ASTC_6x6_SFLOAT_BLOCK`,
+  36 texel/block | `VK_FORMAT_ASTC_6x6_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_6x6_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_6x6_SRGB_BLOCK`
-
-ASTC_8x5
+                    `VK_FORMAT_ASTC_6x6_SRGB_BLOCK` |
+| ASTC_8x5
 
   Block size 16 byte
 
   8x5x1 block extent
 
-  40 texel/block
-`VK_FORMAT_ASTC_8x5_SFLOAT_BLOCK`,
+  40 texel/block | `VK_FORMAT_ASTC_8x5_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_8x5_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_8x5_SRGB_BLOCK`
-
-ASTC_8x6
+                    `VK_FORMAT_ASTC_8x5_SRGB_BLOCK` |
+| ASTC_8x6
 
   Block size 16 byte
 
   8x6x1 block extent
 
-  48 texel/block
-`VK_FORMAT_ASTC_8x6_SFLOAT_BLOCK`,
+  48 texel/block | `VK_FORMAT_ASTC_8x6_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_8x6_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_8x6_SRGB_BLOCK`
-
-ASTC_8x8
+                    `VK_FORMAT_ASTC_8x6_SRGB_BLOCK` |
+| ASTC_8x8
 
   Block size 16 byte
 
   8x8x1 block extent
 
-  64 texel/block
-`VK_FORMAT_ASTC_8x8_SFLOAT_BLOCK`,
+  64 texel/block | `VK_FORMAT_ASTC_8x8_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_8x8_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_8x8_SRGB_BLOCK`
-
-ASTC_10x5
+                    `VK_FORMAT_ASTC_8x8_SRGB_BLOCK` |
+| ASTC_10x5
 
   Block size 16 byte
 
   10x5x1 block extent
 
-  50 texel/block
-`VK_FORMAT_ASTC_10x5_SFLOAT_BLOCK`,
+  50 texel/block | `VK_FORMAT_ASTC_10x5_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_10x5_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_10x5_SRGB_BLOCK`
-
-ASTC_10x6
+                    `VK_FORMAT_ASTC_10x5_SRGB_BLOCK` |
+| ASTC_10x6
 
   Block size 16 byte
 
   10x6x1 block extent
 
-  60 texel/block
-`VK_FORMAT_ASTC_10x6_SFLOAT_BLOCK`,
+  60 texel/block | `VK_FORMAT_ASTC_10x6_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_10x6_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_10x6_SRGB_BLOCK`
-
-ASTC_10x8
+                    `VK_FORMAT_ASTC_10x6_SRGB_BLOCK` |
+| ASTC_10x8
 
   Block size 16 byte
 
   10x8x1 block extent
 
-  80 texel/block
-`VK_FORMAT_ASTC_10x8_SFLOAT_BLOCK`,
+  80 texel/block | `VK_FORMAT_ASTC_10x8_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_10x8_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_10x8_SRGB_BLOCK`
-
-ASTC_10x10
+                    `VK_FORMAT_ASTC_10x8_SRGB_BLOCK` |
+| ASTC_10x10
 
   Block size 16 byte
 
   10x10x1 block extent
 
-  100 texel/block
-`VK_FORMAT_ASTC_10x10_SFLOAT_BLOCK`,
+  100 texel/block | `VK_FORMAT_ASTC_10x10_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_10x10_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_10x10_SRGB_BLOCK`
-
-ASTC_12x10
+                    `VK_FORMAT_ASTC_10x10_SRGB_BLOCK` |
+| ASTC_12x10
 
   Block size 16 byte
 
   12x10x1 block extent
 
-  120 texel/block
-`VK_FORMAT_ASTC_12x10_SFLOAT_BLOCK`,
+  120 texel/block | `VK_FORMAT_ASTC_12x10_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_12x10_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_12x10_SRGB_BLOCK`
-
-ASTC_12x12
+                    `VK_FORMAT_ASTC_12x10_SRGB_BLOCK` |
+| ASTC_12x12
 
   Block size 16 byte
 
   12x12x1 block extent
 
-  144 texel/block
-`VK_FORMAT_ASTC_12x12_SFLOAT_BLOCK`,
+  144 texel/block | `VK_FORMAT_ASTC_12x12_SFLOAT_BLOCK`,
 
                     `VK_FORMAT_ASTC_12x12_UNORM_BLOCK`,
 
-                    `VK_FORMAT_ASTC_12x12_SRGB_BLOCK`
-
-32-bit G8B8G8R8
-
-  Block size 4 byte
-
-  2x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G8B8G8R8_422_UNORM`
-
-32-bit B8G8R8G8
+                    `VK_FORMAT_ASTC_12x12_SRGB_BLOCK` |
+| 32-bit G8B8G8R8
 
   Block size 4 byte
 
   2x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_B8G8R8G8_422_UNORM`
+  1 texel/block | `VK_FORMAT_G8B8G8R8_422_UNORM` |
+| 32-bit B8G8R8G8
 
-8-bit 3-plane 420
+  Block size 4 byte
+
+  2x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_B8G8R8G8_422_UNORM` |
+| 8-bit 3-plane 420
 
   Block size 3 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G8_B8_R8_3PLANE_420_UNORM`
-
-8-bit 2-plane 420
+  1 texel/block | `VK_FORMAT_G8_B8_R8_3PLANE_420_UNORM` |
+| 8-bit 2-plane 420
 
   Block size 3 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G8_B8R8_2PLANE_420_UNORM`
-
-8-bit 3-plane 422
+  1 texel/block | `VK_FORMAT_G8_B8R8_2PLANE_420_UNORM` |
+| 8-bit 3-plane 422
 
   Block size 3 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G8_B8_R8_3PLANE_422_UNORM`
-
-8-bit 2-plane 422
+  1 texel/block | `VK_FORMAT_G8_B8_R8_3PLANE_422_UNORM` |
+| 8-bit 2-plane 422
 
   Block size 3 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G8_B8R8_2PLANE_422_UNORM`
-
-8-bit 3-plane 444
+  1 texel/block | `VK_FORMAT_G8_B8R8_2PLANE_422_UNORM` |
+| 8-bit 3-plane 444
 
   Block size 3 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G8_B8_R8_3PLANE_444_UNORM`
-
-64-bit R10G10B10A10
+  1 texel/block | `VK_FORMAT_G8_B8_R8_3PLANE_444_UNORM` |
+| 64-bit R10G10B10A10
 
   Block size 8 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16`
+  1 texel/block | `VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16`,
 
-64-bit G10B10G10R10
-
-  Block size 8 byte
-
-  2x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G10X6B10X6G10X6R10X6_422_UNORM_4PACK16`
-
-64-bit B10G10R10G10
+                    `VK_FORMAT_R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM` |
+| 64-bit G10B10G10R10
 
   Block size 8 byte
 
   2x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_B10X6G10X6R10X6G10X6_422_UNORM_4PACK16`
-
-10-bit 3-plane 420
-
-  Block size 6 byte
-
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16`
-
-10-bit 2-plane 420
-
-  Block size 6 byte
-
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16`
-
-10-bit 3-plane 422
-
-  Block size 6 byte
-
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16`
-
-10-bit 2-plane 422
-
-  Block size 6 byte
-
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16`
-
-10-bit 3-plane 444
-
-  Block size 6 byte
-
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16`
-
-64-bit R12G12B12A12
-
-  Block size 8 byte
-
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_R12X4G12X4B12X4A12X4_UNORM_4PACK16`
-
-64-bit G12B12G12R12
+  1 texel/block | `VK_FORMAT_G10X6B10X6G10X6R10X6_422_UNORM_4PACK16` |
+| 64-bit B10G10R10G10
 
   Block size 8 byte
 
   2x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G12X4B12X4G12X4R12X4_422_UNORM_4PACK16`
+  1 texel/block | `VK_FORMAT_B10X6G10X6R10X6G10X6_422_UNORM_4PACK16` |
+| 10-bit 3-plane 420
 
-64-bit B12G12R12G12
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16` |
+| 10-bit 2-plane 420
+
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16` |
+| 10-bit 3-plane 422
+
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16` |
+| 10-bit 2-plane 422
+
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16` |
+| 10-bit 3-plane 444
+
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16` |
+| 64-bit R12G12B12A12
+
+  Block size 8 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_R12X4G12X4B12X4A12X4_UNORM_4PACK16`,
+
+                    `VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM` |
+| 64-bit G12B12G12R12
 
   Block size 8 byte
 
   2x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_B12X4G12X4R12X4G12X4_422_UNORM_4PACK16`
-
-12-bit 3-plane 420
-
-  Block size 6 byte
-
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16`
-
-12-bit 2-plane 420
-
-  Block size 6 byte
-
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16`
-
-12-bit 3-plane 422
-
-  Block size 6 byte
-
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16`
-
-12-bit 2-plane 422
-
-  Block size 6 byte
-
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16`
-
-12-bit 3-plane 444
-
-  Block size 6 byte
-
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16`
-
-64-bit G16B16G16R16
+  1 texel/block | `VK_FORMAT_G12X4B12X4G12X4R12X4_422_UNORM_4PACK16` |
+| 64-bit B12G12R12G12
 
   Block size 8 byte
 
   2x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G16B16G16R16_422_UNORM`
+  1 texel/block | `VK_FORMAT_B12X4G12X4R12X4G12X4_422_UNORM_4PACK16` |
+| 12-bit 3-plane 420
 
-64-bit B16G16R16G16
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16` |
+| 12-bit 2-plane 420
+
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16` |
+| 12-bit 3-plane 422
+
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16` |
+| 12-bit 2-plane 422
+
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16` |
+| 12-bit 3-plane 444
+
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16` |
+| 64-bit G16B16G16R16
 
   Block size 8 byte
 
   2x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_B16G16R16G16_422_UNORM`
+  1 texel/block | `VK_FORMAT_G16B16G16R16_422_UNORM` |
+| 64-bit B16G16R16G16
 
-16-bit 3-plane 420
+  Block size 8 byte
 
-  Block size 6 byte
+  2x1x1 block extent
 
-  1x1x1 block extent
-
-  1 texel/block
-`VK_FORMAT_G16_B16_R16_3PLANE_420_UNORM`
-
-16-bit 2-plane 420
+  1 texel/block | `VK_FORMAT_B16G16R16G16_422_UNORM` |
+| 16-bit 3-plane 420
 
   Block size 6 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G16_B16R16_2PLANE_420_UNORM`
-
-16-bit 3-plane 422
+  1 texel/block | `VK_FORMAT_G16_B16_R16_3PLANE_420_UNORM` |
+| 16-bit 2-plane 420
 
   Block size 6 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G16_B16_R16_3PLANE_422_UNORM`
-
-16-bit 2-plane 422
+  1 texel/block | `VK_FORMAT_G16_B16R16_2PLANE_420_UNORM` |
+| 16-bit 3-plane 422
 
   Block size 6 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G16_B16R16_2PLANE_422_UNORM`
-
-16-bit 3-plane 444
+  1 texel/block | `VK_FORMAT_G16_B16_R16_3PLANE_422_UNORM` |
+| 16-bit 2-plane 422
 
   Block size 6 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G16_B16_R16_3PLANE_444_UNORM`
+  1 texel/block | `VK_FORMAT_G16_B16R16_2PLANE_422_UNORM` |
+| 16-bit 3-plane 444
 
-PVRTC1_2BPP
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G16_B16_R16_3PLANE_444_UNORM` |
+| PVRTC1_2BPP
 
   Block size 8 byte
 
   8x4x1 block extent
 
-  1 texel/block
-`VK_FORMAT_PVRTC1_2BPP_UNORM_BLOCK_IMG`,
+  1 texel/block | `VK_FORMAT_PVRTC1_2BPP_UNORM_BLOCK_IMG`,
 
-                    `VK_FORMAT_PVRTC1_2BPP_SRGB_BLOCK_IMG`
-
-PVRTC1_4BPP
+                    `VK_FORMAT_PVRTC1_2BPP_SRGB_BLOCK_IMG` |
+| PVRTC1_4BPP
 
   Block size 8 byte
 
   4x4x1 block extent
 
-  1 texel/block
-`VK_FORMAT_PVRTC1_4BPP_UNORM_BLOCK_IMG`,
+  1 texel/block | `VK_FORMAT_PVRTC1_4BPP_UNORM_BLOCK_IMG`,
 
-                    `VK_FORMAT_PVRTC1_4BPP_SRGB_BLOCK_IMG`
-
-PVRTC2_2BPP
+                    `VK_FORMAT_PVRTC1_4BPP_SRGB_BLOCK_IMG` |
+| PVRTC2_2BPP
 
   Block size 8 byte
 
   8x4x1 block extent
 
-  1 texel/block
-`VK_FORMAT_PVRTC2_2BPP_UNORM_BLOCK_IMG`,
+  1 texel/block | `VK_FORMAT_PVRTC2_2BPP_UNORM_BLOCK_IMG`,
 
-                    `VK_FORMAT_PVRTC2_2BPP_SRGB_BLOCK_IMG`
-
-PVRTC2_4BPP
+                    `VK_FORMAT_PVRTC2_2BPP_SRGB_BLOCK_IMG` |
+| PVRTC2_4BPP
 
   Block size 8 byte
 
   4x4x1 block extent
 
-  1 texel/block
-`VK_FORMAT_PVRTC2_4BPP_UNORM_BLOCK_IMG`,
+  1 texel/block | `VK_FORMAT_PVRTC2_4BPP_UNORM_BLOCK_IMG`,
 
-                    `VK_FORMAT_PVRTC2_4BPP_SRGB_BLOCK_IMG`
-
-8-bit 2-plane 444
+                    `VK_FORMAT_PVRTC2_4BPP_SRGB_BLOCK_IMG` |
+| 8-bit 2-plane 444
 
   Block size 3 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G8_B8R8_2PLANE_444_UNORM`
-
-10-bit 2-plane 444
+  1 texel/block | `VK_FORMAT_G8_B8R8_2PLANE_444_UNORM` |
+| 10-bit 2-plane 444
 
   Block size 6 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16`
-
-12-bit 2-plane 444
+  1 texel/block | `VK_FORMAT_G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16` |
+| 12-bit 2-plane 444
 
   Block size 6 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16`
-
-16-bit 2-plane 444
+  1 texel/block | `VK_FORMAT_G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16` |
+| 16-bit 2-plane 444
 
   Block size 6 byte
 
   1x1x1 block extent
 
-  1 texel/block
-`VK_FORMAT_G16_B16R16_2PLANE_444_UNORM`
+  1 texel/block | `VK_FORMAT_G16_B16R16_2PLANE_444_UNORM` |
+| 64-bit R14G14B14A14
+
+  Block size 8 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM`,
+
+                    `VK_FORMAT_R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM` |
+| 14-bit 2-plane 420
+
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM` |
+| 14-bit 2-plane 422
+
+  Block size 6 byte
+
+  1x1x1 block extent
+
+  1 texel/block | `VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM` |
 
 Color formats with the same texel block size are considered
 *size-compatible* as long as neither or both are alpha formats (e.g.,
@@ -4805,6 +3940,10 @@ the block extents for each format, where
 ⌈B/b⌉ = ⌈Y/y⌉
 
 ⌈C/c⌉ = ⌈Z/z⌉
+
+|  | For example, a 7x3 image in the `VK_FORMAT_ASTC_8x5_UNORM_BLOCK` format
+| --- | --- |
+can be represented as a 1x1 `VK_FORMAT_R64G64_UINT` image. |
 
 Images created with the
 `VK_IMAGE_CREATE_BLOCK_TEXEL_VIEW_COMPATIBLE_BIT` flag can have
@@ -4882,6 +4021,10 @@ created with a `tiling` parameter of `VK_IMAGE_TILING_OPTIMAL`.
 * 
 `bufferFeatures` is a bitmask of [VkFormatFeatureFlagBits](#VkFormatFeatureFlagBits)
 specifying features supported by buffers.
+
+|  | If no format feature flags are supported, the format itself is not
+| --- | --- |
+supported, and images of that format cannot be created. |
 
 If `format` is block-compressed,
 [requires sampler Y′CBCR conversion](#formats-requiring-sampler-ycbcr-conversion),
@@ -5170,6 +4313,12 @@ image view with this format **can** be used as an [    encode input picture](vid
 `VK_FORMAT_FEATURE_VIDEO_ENCODE_DPB_BIT_KHR` specifies that an image
 view with this format **can** be used as an output [    reconstructed picture](videocoding.html#reconstructed-picture) or an input [reference    picture](videocoding.html#reference-picture) in [video encode operations](videocoding.html#video-encode-operations).
 
+|  | Specific [video profiles](videocoding.html#video-profiles) **may** have additional restrictions
+| --- | --- |
+on the format and other image creation parameters corresponding to image
+views used by video coding operations that **can** be enumerated using the
+[vkGetPhysicalDeviceVideoFormatPropertiesKHR](videocoding.html#vkGetPhysicalDeviceVideoFormatPropertiesKHR) command. |
+
 The following bits **may** be set in `bufferFeatures`, specifying that the
 features are supported by [buffers](resources.html#VkBuffer) or [buffer views](resources.html#VkBufferView) created with the queried
 [vkGetPhysicalDeviceFormatProperties](#vkGetPhysicalDeviceFormatProperties)::`format`:
@@ -5202,6 +4351,12 @@ creating an [acceleration structure](accelstructures.html#acceleration-structure
 This format **can** also be used as the vertex format in host memory when
 doing [host acceleration structure](accelstructures.html#host-acceleration-structure)
 builds.
+
+|  | `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` and
+| --- | --- |
+`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` are only intended to
+be advertised for single-component formats, since SPIR-V atomic operations
+require a scalar type. |
 
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkFormatFeatureFlags;
@@ -5902,6 +5057,12 @@ image view with this format **can** be used as an output
 [reference picture](videocoding.html#reference-picture) in
 [video encode operations](videocoding.html#video-encode-operations).
 
+|  | Specific [video profiles](videocoding.html#video-profiles) **may** have additional restrictions
+| --- | --- |
+on the format and other image creation parameters corresponding to image
+views used by video coding operations that **can** be enumerated using the
+[vkGetPhysicalDeviceVideoFormatPropertiesKHR](videocoding.html#vkGetPhysicalDeviceVideoFormatPropertiesKHR) command. |
+
 * 
 `VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT` specifies that
 image views or buffer views created with this format **can** be used as
@@ -5965,6 +5126,12 @@ specifies that an image view with this format **can** be used as a
 `VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` specifies
 that an image view with this format **can** be used as an
 [emphasis map](videocoding.html#encode-emphasis-map) in [video    encode operations](videocoding.html#video-encode-operations).
+
+|  | [Video encode quantization maps](videocoding.html#encode-quantization-map) have additional
+| --- | --- |
+restrictions specific to the [video profile](videocoding.html#video-profiles) they are used
+with that **can** be enumerated using the
+[vkGetPhysicalDeviceVideoFormatPropertiesKHR](videocoding.html#vkGetPhysicalDeviceVideoFormatPropertiesKHR) command. |
 
 The following bits **may** be set in `bufferFeatures`, specifying that the
 features are supported by [buffers](resources.html#VkBuffer) or [buffer views](resources.html#VkBufferView) created with the queried
@@ -6126,6 +5293,11 @@ advertise an extension or needing to explicitly enable them.
 Support for additional functionality beyond the requirements listed here is
 queried using the [vkGetPhysicalDeviceFormatProperties](#vkGetPhysicalDeviceFormatProperties) command.
 
+|  | Unless otherwise excluded below, the required formats are supported for all
+| --- | --- |
+[VkImageCreateFlags](resources.html#VkImageCreateFlags) values as long as those flag values are otherwise
+allowed. |
+
 The following tables show which feature bits **must** be supported for each
 format.
 Formats that are required to support
@@ -6133,1637 +5305,474 @@ Formats that are required to support
 `VK_FORMAT_FEATURE_TRANSFER_SRC_BIT` and
 `VK_FORMAT_FEATURE_TRANSFER_DST_BIT`.
 
-Table 9. Key for Format Feature Tables
-
-✓
-This feature **must** be supported on the named format
-
-†
-This feature **must** be supported on at least some
+| ✓ | This feature **must** be supported on the named format |
+| --- | --- |
+| † | This feature **must** be supported on at least some
 of the named formats, with more information in the table
-where the symbol appears
+where the symbol appears |
+| ‡ | This feature **must** be supported with some caveats or
+preconditions, with more information in the table where the symbol appears |
+| § | This feature **must** be supported with some caveats or
+preconditions, with more information in the table where the symbol appears |
 
-‡
-This feature **must** be supported with some caveats or
-preconditions, with more information in the table where the symbol appears
+| `VK_FORMAT_FEATURE_TRANSFER_SRC_BIT` |
+| --- |
+| `VK_FORMAT_FEATURE_TRANSFER_DST_BIT` |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT` |
 
-§
-This feature **must** be supported with some caveats or
-preconditions, with more information in the table where the symbol appears
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` |
+| --- |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` |
 
-Table 10. Feature Bits in `optimalTilingFeatures`
-
-`VK_FORMAT_FEATURE_TRANSFER_SRC_BIT`
-
-`VK_FORMAT_FEATURE_TRANSFER_DST_BIT`
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_MINMAX_BIT`
-
-Table 11. Feature Bits in `bufferFeatures`
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-
-Table 12. Mandatory Format Support: Sub-Byte Components
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-**Format**
-
-`VK_FORMAT_UNDEFINED`
-
-`VK_FORMAT_R4G4_UNORM_PACK8`
-
-`VK_FORMAT_R4G4B4A4_UNORM_PACK16`
-
-`VK_FORMAT_B4G4R4A4_UNORM_PACK16`
-✓
-✓
-✓
-
-`VK_FORMAT_R5G6B5_UNORM_PACK16`
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_B5G6R5_UNORM_PACK16`
-
-`VK_FORMAT_R5G5B5A1_UNORM_PACK16`
-
-`VK_FORMAT_B5G5R5A1_UNORM_PACK16`
-
-`VK_FORMAT_A1R5G5B5_UNORM_PACK16`
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_A1B5G5R5_UNORM_PACK16`
-
-`VK_FORMAT_A4R4G4B4_UNORM_PACK16`
-†
-†
-†
-
-`VK_FORMAT_A4B4G4R4_UNORM_PACK16`
-‡
-‡
-‡
-
-Format features marked † **must** be supported for
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| **Format** |
+| `VK_FORMAT_UNDEFINED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R4G4_UNORM_PACK8` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R4G4B4A4_UNORM_PACK16` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B4G4R4A4_UNORM_PACK16` | ✓ | ✓ | ✓ |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R5G6B5_UNORM_PACK16` | ✓ | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |  |  |  |  |
+| `VK_FORMAT_B5G6R5_UNORM_PACK16` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R5G5B5A1_UNORM_PACK16` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B5G5R5A1_UNORM_PACK16` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A1R5G5B5_UNORM_PACK16` | ✓ | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |  |  |  |  |
+| `VK_FORMAT_A1B5G5R5_UNORM_PACK16` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A4R4G4B4_UNORM_PACK16` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A4B4G4R4_UNORM_PACK16` | ‡ | ‡ | ‡ |  |  |  |  |  |  |  |  |  |  |
+| Format features marked † **must** be supported for
 `optimalTilingFeatures` if the `VkPhysicalDevice` supports the
-[VkPhysicalDevice4444FormatsFeaturesEXT](features.html#VkPhysicalDevice4444FormatsFeaturesEXT)::`formatA4R4G4B4` feature.
-
-Format features marked ‡ **must** be supported for
+[VkPhysicalDevice4444FormatsFeaturesEXT](features.html#VkPhysicalDevice4444FormatsFeaturesEXT)::`formatA4R4G4B4` feature. |
+| Format features marked ‡ **must** be supported for
 `optimalTilingFeatures` if the `VkPhysicalDevice` supports the
-[VkPhysicalDevice4444FormatsFeaturesEXT](features.html#VkPhysicalDevice4444FormatsFeaturesEXT)::`formatA4B4G4R4` feature.
+[VkPhysicalDevice4444FormatsFeaturesEXT](features.html#VkPhysicalDevice4444FormatsFeaturesEXT)::`formatA4B4G4R4` feature. |
 
-Table 13. Mandatory Format Support: 1-3 Byte-Sized Components
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-**Format**
-
-`VK_FORMAT_R8_UNORM`
-✓
-✓
-✓
-‡
-
-✓
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_R8_SNORM`
-✓
-✓
-✓
-‡
-
-✓
-✓
-
-`VK_FORMAT_R8_USCALED`
-
-`VK_FORMAT_R8_SSCALED`
-
-`VK_FORMAT_R8_UINT`
-✓
-✓
-
-‡
-
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_R8_SINT`
-✓
-✓
-
-‡
-
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_R8_SRGB`
-
-`VK_FORMAT_R8G8_UNORM`
-✓
-✓
-✓
-‡
-
-✓
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_R8G8_SNORM`
-✓
-✓
-✓
-‡
-
-✓
-✓
-
-`VK_FORMAT_R8G8_USCALED`
-
-`VK_FORMAT_R8G8_SSCALED`
-
-`VK_FORMAT_R8G8_UINT`
-✓
-✓
-
-‡
-
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_R8G8_SINT`
-✓
-✓
-
-‡
-
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_R8G8_SRGB`
-
-`VK_FORMAT_R8G8B8_UNORM`
-
-`VK_FORMAT_R8G8B8_SNORM`
-
-`VK_FORMAT_R8G8B8_USCALED`
-
-`VK_FORMAT_R8G8B8_SSCALED`
-
-`VK_FORMAT_R8G8B8_UINT`
-
-`VK_FORMAT_R8G8B8_SINT`
-
-`VK_FORMAT_R8G8B8_SRGB`
-
-`VK_FORMAT_B8G8R8_UNORM`
-
-`VK_FORMAT_B8G8R8_SNORM`
-
-`VK_FORMAT_B8G8R8_USCALED`
-
-`VK_FORMAT_B8G8R8_SSCALED`
-
-`VK_FORMAT_B8G8R8_UINT`
-
-`VK_FORMAT_B8G8R8_SINT`
-
-`VK_FORMAT_B8G8R8_SRGB`
-
-`VK_FORMAT_A8_UNORM`
-
-Format features marked with ‡ **must** be supported for
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| **Format** |
+| `VK_FORMAT_R8_UNORM` | ✓ | ✓ | ✓ | ‡ |  | ✓ | ✓ | ✓ |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R8_SNORM` | ✓ | ✓ | ✓ | ‡ |  |  |  |  |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R8_USCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8_SSCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8_UINT` | ✓ | ✓ |  | ‡ |  | ✓ | ✓ |  |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R8_SINT` | ✓ | ✓ |  | ‡ |  | ✓ | ✓ |  |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R8_SRGB` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8_UNORM` | ✓ | ✓ | ✓ | ‡ |  | ✓ | ✓ | ✓ |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R8G8_SNORM` | ✓ | ✓ | ✓ | ‡ |  |  |  |  |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R8G8_USCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8_SSCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8_UINT` | ✓ | ✓ |  | ‡ |  | ✓ | ✓ |  |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R8G8_SINT` | ✓ | ✓ |  | ‡ |  | ✓ | ✓ |  |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R8G8_SRGB` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8B8_UNORM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8B8_SNORM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8B8_USCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8B8_SSCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8B8_UINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8B8_SINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8B8_SRGB` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8_UNORM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8_SNORM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8_USCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8_SSCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8_UINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8_SINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8_SRGB` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A8_UNORM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Format features marked with ‡ **must** be supported for
 `optimalTilingFeatures` if the `VkPhysicalDevice` supports the
-[`shaderStorageImageExtendedFormats`](features.html#features-shaderStorageImageExtendedFormats) feature.
-
-Table 14. Mandatory Format Support: 4 Byte-Sized Components
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-**Format**
-
-`VK_FORMAT_R8G8B8A8_UNORM`
-✓
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R8G8B8A8_SNORM`
-✓
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R8G8B8A8_USCALED`
-
-`VK_FORMAT_R8G8B8A8_SSCALED`
-
-`VK_FORMAT_R8G8B8A8_UINT`
-✓
-✓
-
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R8G8B8A8_SINT`
-✓
-✓
-
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R8G8B8A8_SRGB`
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_B8G8R8A8_UNORM`
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_B8G8R8A8_SNORM`
-
-`VK_FORMAT_B8G8R8A8_USCALED`
-
-`VK_FORMAT_B8G8R8A8_SSCALED`
-
-`VK_FORMAT_B8G8R8A8_UINT`
-
-`VK_FORMAT_B8G8R8A8_SINT`
-
-`VK_FORMAT_B8G8R8A8_SRGB`
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_A8B8G8R8_UNORM_PACK32`
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_A8B8G8R8_SNORM_PACK32`
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_A8B8G8R8_USCALED_PACK32`
-
-`VK_FORMAT_A8B8G8R8_SSCALED_PACK32`
-
-`VK_FORMAT_A8B8G8R8_UINT_PACK32`
-✓
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_A8B8G8R8_SINT_PACK32`
-✓
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_A8B8G8R8_SRGB_PACK32`
-✓
-✓
-✓
-
-✓
-✓
-✓
-
-Table 15. Mandatory Format Support: 10- and 12-Bit Components
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-**Format**
-
-`VK_FORMAT_A2R10G10B10_UNORM_PACK32`
-
-`VK_FORMAT_A2R10G10B10_SNORM_PACK32`
-
-`VK_FORMAT_A2R10G10B10_USCALED_PACK32`
-
-`VK_FORMAT_A2R10G10B10_SSCALED_PACK32`
-
-`VK_FORMAT_A2R10G10B10_UINT_PACK32`
-
-`VK_FORMAT_A2R10G10B10_SINT_PACK32`
-
-`VK_FORMAT_A2B10G10R10_UNORM_PACK32`
-✓
-✓
-✓
-‡
-
-✓
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_A2B10G10R10_SNORM_PACK32`
-
-`VK_FORMAT_A2B10G10R10_USCALED_PACK32`
-
-`VK_FORMAT_A2B10G10R10_SSCALED_PACK32`
-
-`VK_FORMAT_A2B10G10R10_UINT_PACK32`
-✓
-✓
-
-‡
-
-✓
-✓
-
-✓
-
-`VK_FORMAT_A2B10G10R10_SINT_PACK32`
-
-`VK_FORMAT_R10X6_UNORM_PACK16`
-
-`VK_FORMAT_R10X6G10X6_UNORM_2PACK16`
-
-`VK_FORMAT_R12X4_UNORM_PACK16`
-
-`VK_FORMAT_R12X4G12X4_UNORM_2PACK16`
-
-Format features marked with ‡ **must** be supported for
+[`shaderStorageImageExtendedFormats`](features.html#features-shaderStorageImageExtendedFormats) feature. |
+
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| **Format** |
+| `VK_FORMAT_R8G8B8A8_UNORM` | ✓ | ✓ | ✓ | ✓ |  | ✓ | ✓ | ✓ |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R8G8B8A8_SNORM` | ✓ | ✓ | ✓ | ✓ |  |  |  |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R8G8B8A8_USCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8B8A8_SSCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R8G8B8A8_UINT` | ✓ | ✓ |  | ✓ |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R8G8B8A8_SINT` | ✓ | ✓ |  | ✓ |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R8G8B8A8_SRGB` | ✓ | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8A8_UNORM` | ✓ | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_B8G8R8A8_SNORM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8A8_USCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8A8_SSCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8A8_UINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8A8_SINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8A8_SRGB` | ✓ | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |  |  |  |  |
+| `VK_FORMAT_A8B8G8R8_UNORM_PACK32` | ✓ | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_A8B8G8R8_SNORM_PACK32` | ✓ | ✓ | ✓ |  |  |  |  |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_A8B8G8R8_USCALED_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A8B8G8R8_SSCALED_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A8B8G8R8_UINT_PACK32` | ✓ | ✓ |  |  |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_A8B8G8R8_SINT_PACK32` | ✓ | ✓ |  |  |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_A8B8G8R8_SRGB_PACK32` | ✓ | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |  |  |  |  |
+
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| **Format** |
+| `VK_FORMAT_A2R10G10B10_UNORM_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A2R10G10B10_SNORM_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A2R10G10B10_USCALED_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A2R10G10B10_SSCALED_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A2R10G10B10_UINT_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A2R10G10B10_SINT_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A2B10G10R10_UNORM_PACK32` | ✓ | ✓ | ✓ | ‡ |  | ✓ | ✓ | ✓ |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_A2B10G10R10_SNORM_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A2B10G10R10_USCALED_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A2B10G10R10_SSCALED_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_A2B10G10R10_UINT_PACK32` | ✓ | ✓ |  | ‡ |  | ✓ | ✓ |  |  |  | ✓ |  |  |
+| `VK_FORMAT_A2B10G10R10_SINT_PACK32` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R10X6_UNORM_PACK16` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R10X6G10X6_UNORM_2PACK16` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R12X4_UNORM_PACK16` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R12X4G12X4_UNORM_2PACK16` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R10X6_UINT_PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R12X4_UINT_PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R12X4G12X4_UINT_2PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R14X2_UINT_PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R14X2_UNORM_PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R14X2G14X2_UNORM_2PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R14X2G14X2B14X2A14X2_UNORM_4PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| Format features marked with ‡ **must** be supported for
 `optimalTilingFeatures` if the `VkPhysicalDevice` supports the
-[`shaderStorageImageExtendedFormats`](features.html#features-shaderStorageImageExtendedFormats) feature.
-
-Table 16. Mandatory Format Support: 16-bit Components
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-**Format**
-
-`VK_FORMAT_R16_UNORM`
-
-‡
-
-✓
-
-`VK_FORMAT_R16_SNORM`
-
-‡
-
-✓
-
-`VK_FORMAT_R16_USCALED`
-
-`VK_FORMAT_R16_SSCALED`
-
-`VK_FORMAT_R16_UINT`
-✓
-✓
-
-‡
-
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_R16_SINT`
-✓
-✓
-
-‡
-
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_R16_SFLOAT`
-✓
-✓
-✓
-‡
-
-✓
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_R16G16_UNORM`
-
-‡
-
-✓
-
-`VK_FORMAT_R16G16_SNORM`
-
-‡
-
-✓
-
-`VK_FORMAT_R16G16_USCALED`
-
-`VK_FORMAT_R16G16_SSCALED`
-
-`VK_FORMAT_R16G16_UINT`
-✓
-✓
-
-‡
-
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_R16G16_SINT`
-✓
-✓
-
-‡
-
-✓
-✓
-
-✓
-✓
-
-`VK_FORMAT_R16G16_SFLOAT`
-✓
-✓
-✓
-‡
-§
-✓
-✓
-✓
-
-✓
-✓
-§
-§
-
-`VK_FORMAT_R16G16B16_UNORM`
-
-`VK_FORMAT_R16G16B16_SNORM`
-
-`VK_FORMAT_R16G16B16_USCALED`
-
-`VK_FORMAT_R16G16B16_SSCALED`
-
-`VK_FORMAT_R16G16B16_UINT`
-
-`VK_FORMAT_R16G16B16_SINT`
-
-`VK_FORMAT_R16G16B16_SFLOAT`
-
-`VK_FORMAT_R16G16B16A16_UNORM`
-
-‡
-
-✓
-
-`VK_FORMAT_R16G16B16A16_SNORM`
-
-‡
-
-✓
-
-`VK_FORMAT_R16G16B16A16_USCALED`
-
-`VK_FORMAT_R16G16B16A16_SSCALED`
-
-`VK_FORMAT_R16G16B16A16_UINT`
-✓
-✓
-
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R16G16B16A16_SINT`
-✓
-✓
-
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R16G16B16A16_SFLOAT`
-✓
-✓
-✓
-✓
-§
-✓
-✓
-✓
-
-✓
-✓
-✓
-§
-
-Format features marked with ‡ **must** be supported for
+[`shaderStorageImageExtendedFormats`](features.html#features-shaderStorageImageExtendedFormats) feature. |
+
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| **Format** |
+| `VK_FORMAT_R16_UNORM` |  |  |  | ‡ |  |  |  |  |  | ✓ |  |  |  |
+| `VK_FORMAT_R16_SNORM` |  |  |  | ‡ |  |  |  |  |  | ✓ |  |  |  |
+| `VK_FORMAT_R16_USCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16_SSCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16_UINT` | ✓ | ✓ |  | ‡ |  | ✓ | ✓ |  |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R16_SINT` | ✓ | ✓ |  | ‡ |  | ✓ | ✓ |  |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R16_SFLOAT` | ✓ | ✓ | ✓ | ‡ |  | ✓ | ✓ | ✓ |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R16G16_UNORM` |  |  |  | ‡ |  |  |  |  |  | ✓ |  |  |  |
+| `VK_FORMAT_R16G16_SNORM` |  |  |  | ‡ |  |  |  |  |  | ✓ |  |  |  |
+| `VK_FORMAT_R16G16_USCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16G16_SSCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16G16_UINT` | ✓ | ✓ |  | ‡ |  | ✓ | ✓ |  |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R16G16_SINT` | ✓ | ✓ |  | ‡ |  | ✓ | ✓ |  |  | ✓ | ✓ |  |  |
+| `VK_FORMAT_R16G16_SFLOAT` | ✓ | ✓ | ✓ | ‡ | § | ✓ | ✓ | ✓ |  | ✓ | ✓ | § | § |
+| `VK_FORMAT_R16G16B16_UNORM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16G16B16_SNORM` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16G16B16_USCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16G16B16_SSCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16G16B16_UINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16G16B16_SINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16G16B16_SFLOAT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16G16B16A16_UNORM` |  |  |  | ‡ |  |  |  |  |  | ✓ |  |  |  |
+| `VK_FORMAT_R16G16B16A16_SNORM` |  |  |  | ‡ |  |  |  |  |  | ✓ |  |  |  |
+| `VK_FORMAT_R16G16B16A16_USCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16G16B16A16_SSCALED` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R16G16B16A16_UINT` | ✓ | ✓ |  | ✓ |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R16G16B16A16_SINT` | ✓ | ✓ |  | ✓ |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R16G16B16A16_SFLOAT` | ✓ | ✓ | ✓ | ✓ | § | ✓ | ✓ | ✓ |  | ✓ | ✓ | ✓ | § |
+| Format features marked with ‡ **must** be supported for
 `optimalTilingFeatures` if the `VkPhysicalDevice` supports the
-[`shaderStorageImageExtendedFormats`](features.html#features-shaderStorageImageExtendedFormats) feature.
-
-Format features marked with § **must** be supported for
+[`shaderStorageImageExtendedFormats`](features.html#features-shaderStorageImageExtendedFormats) feature. |
+| Format features marked with § **must** be supported for
 `optimalTilingFeatures` if the `VkPhysicalDevice` supports
 the [`shaderFloat16VectorAtomics`](features.html#features-shaderFloat16VectorAtomics)
-feature.
+feature. |
 
-Table 17. Mandatory Format Support: 32-bit Components
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-**Format**
-
-`VK_FORMAT_R32_UINT`
-✓
-✓
-
-✓
-✓
-✓
-✓
-
-✓
-✓
-✓
-✓
-
-`VK_FORMAT_R32_SINT`
-✓
-✓
-
-✓
-✓
-✓
-✓
-
-✓
-✓
-✓
-✓
-
-`VK_FORMAT_R32_SFLOAT`
-✓
-✓
-
-✓
-†
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R32G32_UINT`
-✓
-✓
-
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R32G32_SINT`
-✓
-✓
-
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R32G32_SFLOAT`
-✓
-✓
-
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R32G32B32_UINT`
-
-✓
-
-`VK_FORMAT_R32G32B32_SINT`
-
-✓
-
-`VK_FORMAT_R32G32B32_SFLOAT`
-
-✓
-
-`VK_FORMAT_R32G32B32A32_UINT`
-✓
-✓
-
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R32G32B32A32_SINT`
-✓
-✓
-
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-`VK_FORMAT_R32G32B32A32_SFLOAT`
-✓
-✓
-
-✓
-
-✓
-✓
-
-✓
-✓
-✓
-
-Format features marked with † **must** be supported for
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| **Format** |
+| `VK_FORMAT_R32_UINT` | ✓ | ✓ |  | ✓ | ✓ | ✓ | ✓ |  |  | ✓ | ✓ | ✓ | ✓ |
+| `VK_FORMAT_R32_SINT` | ✓ | ✓ |  | ✓ | ✓ | ✓ | ✓ |  |  | ✓ | ✓ | ✓ | ✓ |
+| `VK_FORMAT_R32_SFLOAT` | ✓ | ✓ |  | ✓ | † | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R32G32_UINT` | ✓ | ✓ |  | ✓ |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R32G32_SINT` | ✓ | ✓ |  | ✓ |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R32G32_SFLOAT` | ✓ | ✓ |  | ✓ |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R32G32B32_UINT` |  |  |  |  |  |  |  |  |  | ✓ |  |  |  |
+| `VK_FORMAT_R32G32B32_SINT` |  |  |  |  |  |  |  |  |  | ✓ |  |  |  |
+| `VK_FORMAT_R32G32B32_SFLOAT` |  |  |  |  |  |  |  |  |  | ✓ |  |  |  |
+| `VK_FORMAT_R32G32B32A32_UINT` | ✓ | ✓ |  | ✓ |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R32G32B32A32_SINT` | ✓ | ✓ |  | ✓ |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| `VK_FORMAT_R32G32B32A32_SFLOAT` | ✓ | ✓ |  | ✓ |  | ✓ | ✓ |  |  | ✓ | ✓ | ✓ |  |
+| Format features marked with † **must** be supported for
 `optimalTilingFeatures` if the `VkPhysicalDevice` supports
 the [`shaderImageFloat32Atomics`](features.html#features-shaderImageFloat32Atomics)
 or the [`shaderImageFloat32AtomicAdd`](features.html#features-shaderImageFloat32AtomicAdd)
 or the [`shaderImageFloat32AtomicMinMax`](features.html#features-shaderImageFloat32AtomicMinMax)
-feature.
+feature. |
 
-Table 18. Mandatory Format Support: 64-bit/uneven Components
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-**Format**
-
-`VK_FORMAT_R64_UINT`
-
-†
-†
-
-`VK_FORMAT_R64_SINT`
-
-†
-†
-
-`VK_FORMAT_R64_SFLOAT`
-
-`VK_FORMAT_R64G64_UINT`
-
-`VK_FORMAT_R64G64_SINT`
-
-`VK_FORMAT_R64G64_SFLOAT`
-
-`VK_FORMAT_R64G64B64_UINT`
-
-`VK_FORMAT_R64G64B64_SINT`
-
-`VK_FORMAT_R64G64B64_SFLOAT`
-
-`VK_FORMAT_R64G64B64A64_UINT`
-
-`VK_FORMAT_R64G64B64A64_SINT`
-
-`VK_FORMAT_R64G64B64A64_SFLOAT`
-
-`VK_FORMAT_B10G11R11_UFLOAT_PACK32`
-✓
-✓
-✓
-‡
-
-✓
-
-`VK_FORMAT_E5B9G9R9_UFLOAT_PACK32`
-✓
-✓
-✓
-
-Format features marked with ‡ **must** be supported for
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| **Format** |
+| `VK_FORMAT_R64_UINT` |  |  |  | † | † |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R64_SINT` |  |  |  | † | † |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R64_SFLOAT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R64G64_UINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R64G64_SINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R64G64_SFLOAT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R64G64B64_UINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R64G64B64_SINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R64G64B64_SFLOAT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R64G64B64A64_UINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R64G64B64A64_SINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R64G64B64A64_SFLOAT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B10G11R11_UFLOAT_PACK32` | ✓ | ✓ | ✓ | ‡ |  |  |  |  |  |  | ✓ |  |  |
+| `VK_FORMAT_E5B9G9R9_UFLOAT_PACK32` | ✓ | ✓ | ✓ |  |  |  |  |  |  |  |  |  |  |
+| Format features marked with ‡ **must** be supported for
 `optimalTilingFeatures` if the `VkPhysicalDevice` supports the
-[`shaderStorageImageExtendedFormats`](features.html#features-shaderStorageImageExtendedFormats) feature.
-
-If the [`shaderImageInt64Atomics`](features.html#features-shaderImageInt64Atomics)
+[`shaderStorageImageExtendedFormats`](features.html#features-shaderStorageImageExtendedFormats) feature. |
+| If the [`shaderImageInt64Atomics`](features.html#features-shaderImageInt64Atomics)
 feature is supported, `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` and
 `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` **must** be advertised in
 `optimalTilingFeatures` for both `VK_FORMAT_R64_UINT` and
-`VK_FORMAT_R64_SINT`.
+`VK_FORMAT_R64_SINT`. |
 
-Table 19. Mandatory Format Support: Depth/Stencil With `VkImageType` `VK_IMAGE_TYPE_2D`
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-**Format**
-
-`VK_FORMAT_D16_UNORM`
-✓
-✓
-
-✓
-
-`VK_FORMAT_X8_D24_UNORM_PACK32`
-
-†
-
-`VK_FORMAT_D32_SFLOAT`
-✓
-✓
-
-†
-
-`VK_FORMAT_S8_UINT`
-
-`VK_FORMAT_D16_UNORM_S8_UINT`
-
-`VK_FORMAT_D24_UNORM_S8_UINT`
-
-†
-
-`VK_FORMAT_D32_SFLOAT_S8_UINT`
-
-†
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` feature **must** be
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| **Format** |
+| `VK_FORMAT_D16_UNORM` | ✓ | ✓ |  |  |  |  |  |  | ✓ |  |  |  |  |
+| `VK_FORMAT_X8_D24_UNORM_PACK32` |  |  |  |  |  |  |  |  | † |  |  |  |  |
+| `VK_FORMAT_D32_SFLOAT` | ✓ | ✓ |  |  |  |  |  |  | † |  |  |  |  |
+| `VK_FORMAT_S8_UINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_D16_UNORM_S8_UINT` |  |  |  |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_D24_UNORM_S8_UINT` |  |  |  |  |  |  |  |  | † |  |  |  |  |
+| `VK_FORMAT_D32_SFLOAT_S8_UINT` |  |  |  |  |  |  |  |  | † |  |  |  |  |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` feature **must** be
 supported for at least one of `VK_FORMAT_X8_D24_UNORM_PACK32` and
 `VK_FORMAT_D32_SFLOAT`, and **must** be supported for at least one of
-`VK_FORMAT_D24_UNORM_S8_UINT` and `VK_FORMAT_D32_SFLOAT_S8_UINT`.
+`VK_FORMAT_D24_UNORM_S8_UINT` and `VK_FORMAT_D32_SFLOAT_S8_UINT`. |
+| `bufferFeatures` **must** not support any features for these formats |
 
-`bufferFeatures` **must** not support any features for these formats
-
-Table 20. Mandatory Format Support: BC Compressed Formats With `VkImageType` `VK_IMAGE_TYPE_2D` and `VK_IMAGE_TYPE_3D`
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-**Format**
-
-`VK_FORMAT_BC1_RGB_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC1_RGB_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC1_RGBA_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC1_RGBA_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC2_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC2_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC3_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC3_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC4_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC4_SNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC5_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC5_SNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC6H_UFLOAT_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC6H_SFLOAT_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC7_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_BC7_SRGB_BLOCK`
-†
-†
-†
-
-The `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`,
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| **Format** |
+| `VK_FORMAT_BC1_RGB_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC1_RGB_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC1_RGBA_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC1_RGBA_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC2_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC2_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC3_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC3_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC4_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC4_SNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC5_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC5_SNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC6H_UFLOAT_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC6H_SFLOAT_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC7_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_BC7_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| The `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`,
 `VK_FORMAT_FEATURE_BLIT_SRC_BIT` and
 `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` features **must** be
 supported in `optimalTilingFeatures` for all the formats in at least
 one of: this table, [Mandatory Format Support: ETC2 and EAC Compressed Formats With VkImageType VK_IMAGE_TYPE_2D](#formats-mandatory-features-etc), or
-[Mandatory Format Support: ASTC LDR Compressed Formats With VkImageType VK_IMAGE_TYPE_2D](#formats-mandatory-features-astc).
+[Mandatory Format Support: ASTC LDR Compressed Formats With VkImageType VK_IMAGE_TYPE_2D](#formats-mandatory-features-astc). |
 
-Table 21. Mandatory Format Support: ETC2 and EAC Compressed Formats With `VkImageType` `VK_IMAGE_TYPE_2D`
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-**Format**
-
-`VK_FORMAT_ETC2_R8G8B8_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ETC2_R8G8B8_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ETC2_R8G8B8A1_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ETC2_R8G8B8A1_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ETC2_R8G8B8A8_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ETC2_R8G8B8A8_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_EAC_R11_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_EAC_R11_SNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_EAC_R11G11_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_EAC_R11G11_SNORM_BLOCK`
-†
-†
-†
-
-The `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`,
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| **Format** |
+| `VK_FORMAT_ETC2_R8G8B8_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ETC2_R8G8B8_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ETC2_R8G8B8A1_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ETC2_R8G8B8A1_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ETC2_R8G8B8A8_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ETC2_R8G8B8A8_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_EAC_R11_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_EAC_R11_SNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_EAC_R11G11_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_EAC_R11G11_SNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| The `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`,
 `VK_FORMAT_FEATURE_BLIT_SRC_BIT` and
 `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` features **must** be
 supported in `optimalTilingFeatures` for all the formats in at least
 one of: this table, [Mandatory Format Support: BC Compressed Formats With VkImageType VK_IMAGE_TYPE_2D and VK_IMAGE_TYPE_3D](#formats-mandatory-features-bcn), or
-[Mandatory Format Support: ASTC LDR Compressed Formats With VkImageType VK_IMAGE_TYPE_2D](#formats-mandatory-features-astc).
+[Mandatory Format Support: ASTC LDR Compressed Formats With VkImageType VK_IMAGE_TYPE_2D](#formats-mandatory-features-astc). |
 
-Table 22. Mandatory Format Support: ASTC LDR Compressed Formats With `VkImageType` `VK_IMAGE_TYPE_2D`
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT`
-↓
-
-`VK_FORMAT_FEATURE_BLIT_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-**Format**
-
-`VK_FORMAT_ASTC_4x4_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_4x4_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_5x4_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_5x4_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_5x5_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_5x5_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_6x5_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_6x5_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_6x6_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_6x6_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_8x5_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_8x5_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_8x6_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_8x6_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_8x8_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_8x8_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_10x5_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_10x5_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_10x6_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_10x6_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_10x8_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_10x8_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_10x10_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_10x10_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_12x10_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_12x10_SRGB_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_12x12_UNORM_BLOCK`
-†
-†
-†
-
-`VK_FORMAT_ASTC_12x12_SRGB_BLOCK`
-†
-†
-†
-
-The `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`,
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_ATOMIC_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BLEND_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_ATOMIC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_BLIT_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| **Format** |
+| `VK_FORMAT_ASTC_4x4_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_4x4_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_5x4_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_5x4_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_5x5_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_5x5_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_6x5_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_6x5_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_6x6_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_6x6_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_8x5_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_8x5_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_8x6_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_8x6_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_8x8_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_8x8_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_10x5_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_10x5_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_10x6_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_10x6_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_10x8_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_10x8_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_10x10_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_10x10_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_12x10_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_12x10_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_12x12_UNORM_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_ASTC_12x12_SRGB_BLOCK` | † | † | † |  |  |  |  |  |  |  |  |  |  |
+| The `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`,
 `VK_FORMAT_FEATURE_BLIT_SRC_BIT` and
 `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_LINEAR_BIT` features **must** be
 supported in `optimalTilingFeatures` for all the formats in at least
 one of: this table, [Mandatory Format Support: BC Compressed Formats With VkImageType VK_IMAGE_TYPE_2D and VK_IMAGE_TYPE_3D](#formats-mandatory-features-bcn), or
-[Mandatory Format Support: ETC2 and EAC Compressed Formats With VkImageType VK_IMAGE_TYPE_2D](#formats-mandatory-features-etc).
+[Mandatory Format Support: ETC2 and EAC Compressed Formats With VkImageType VK_IMAGE_TYPE_2D](#formats-mandatory-features-etc). |
 
 If cubic filtering is supported,
 `VK_FORMAT_FEATURE_SAMPLED_IMAGE_FILTER_CUBIC_BIT_EXT` **must** be
@@ -7906,162 +5915,62 @@ view types **must** be supported for those formats:
 To be used with `VkImageView` with `subresourceRange.aspectMask`
 equal to `VK_IMAGE_ASPECT_COLOR_BIT`, [sampler Y′CBCR conversion](samplers.html#samplers-YCbCr-conversion) **must** be enabled for the following formats:
 
-Table 23. Formats Requiring Sampler Y′CBCR Conversion for `VK_IMAGE_ASPECT_COLOR_BIT` Image Views
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT`
-↓
-
-`VK_FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT`
-↓
-
-`VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT`
-↓
-
-`VK_FORMAT_FEATURE_TRANSFER_DST_BIT`
-↓
-
-`VK_FORMAT_FEATURE_TRANSFER_SRC_BIT`
-↓
-
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-↓
-
-`VK_FORMAT_FEATURE_DISJOINT_BIT`
-↓
-
-**Format**
-**Planes**
-
-`VK_FORMAT_G8B8G8R8_422_UNORM`
-1
-
-`VK_FORMAT_B8G8R8G8_422_UNORM`
-1
-
-`VK_FORMAT_G8_B8_R8_3PLANE_420_UNORM`
-3
-
-†
-†
-†
-†
-
-`VK_FORMAT_G8_B8R8_2PLANE_420_UNORM`
-2
-
-†
-†
-†
-†
-
-`VK_FORMAT_G8_B8_R8_3PLANE_422_UNORM`
-3
-
-`VK_FORMAT_G8_B8R8_2PLANE_422_UNORM`
-2
-
-`VK_FORMAT_G8_B8_R8_3PLANE_444_UNORM`
-3
-
-`VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16` ‡
-1
-
-`VK_FORMAT_G10X6B10X6G10X6R10X6_422_UNORM_4PACK16`
-1
-
-`VK_FORMAT_B10X6G10X6R10X6G10X6_422_UNORM_4PACK16`
-1
-
-`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16`
-3
-
-`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16`
-2
-
-`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16`
-3
-
-`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16`
-2
-
-`VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16`
-3
-
-`VK_FORMAT_R12X4G12X4B12X4A12X4_UNORM_4PACK16`
-1
-
-`VK_FORMAT_G12X4B12X4G12X4R12X4_422_UNORM_4PACK16`
-1
-
-`VK_FORMAT_B12X4G12X4R12X4G12X4_422_UNORM_4PACK16`
-1
-
-`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16`
-3
-
-`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16`
-2
-
-`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16`
-3
-
-`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16`
-2
-
-`VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16`
-3
-
-`VK_FORMAT_G16B16G16R16_422_UNORM`
-1
-
-`VK_FORMAT_B16G16R16G16_422_UNORM`
-1
-
-`VK_FORMAT_G16_B16_R16_3PLANE_420_UNORM`
-3
-
-`VK_FORMAT_G16_B16R16_2PLANE_420_UNORM`
-2
-
-`VK_FORMAT_G16_B16_R16_3PLANE_422_UNORM`
-3
-
-`VK_FORMAT_G16_B16R16_2PLANE_422_UNORM`
-2
-
-`VK_FORMAT_G16_B16_R16_3PLANE_444_UNORM`
-3
-
-`VK_FORMAT_G8_B8R8_2PLANE_444_UNORM`
-2
-
-`VK_FORMAT_G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16`
-2
-
-`VK_FORMAT_G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16`
-2
-
-`VK_FORMAT_G16_B16R16_2PLANE_444_UNORM`
-2
-
-Format features marked † **must** be supported for
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_FORCEABLE_BIT` | ↓ |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_SEPARATE_RECONSTRUCTION_FILTER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_LINEAR_FILTER_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_MIDPOINT_CHROMA_SAMPLES_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_COSITED_CHROMA_SAMPLES_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_TRANSFER_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_TRANSFER_SRC_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_DISJOINT_BIT` | ↓ |
+| **Format** | **Planes** |
+| `VK_FORMAT_G8B8G8R8_422_UNORM` | 1 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B8G8R8G8_422_UNORM` | 1 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G8_B8_R8_3PLANE_420_UNORM` | 3 |  | † | † | † | † |  |  |  |  |  |
+| `VK_FORMAT_G8_B8R8_2PLANE_420_UNORM` | 2 |  | † | † | † | † |  |  |  |  |  |
+| `VK_FORMAT_G8_B8_R8_3PLANE_422_UNORM` | 3 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G8_B8R8_2PLANE_422_UNORM` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G8_B8_R8_3PLANE_444_UNORM` | 3 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R10X6G10X6B10X6A10X6_UNORM_4PACK16` ‡ | 1 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G10X6B10X6G10X6R10X6_422_UNORM_4PACK16` | 1 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B10X6G10X6R10X6G10X6_422_UNORM_4PACK16` | 1 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_420_UNORM_3PACK16` | 3 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G10X6_B10X6R10X6_2PLANE_420_UNORM_3PACK16` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_422_UNORM_3PACK16` | 3 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G10X6_B10X6R10X6_2PLANE_422_UNORM_3PACK16` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G10X6_B10X6_R10X6_3PLANE_444_UNORM_3PACK16` | 3 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_R12X4G12X4B12X4A12X4_UNORM_4PACK16` | 1 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G12X4B12X4G12X4R12X4_422_UNORM_4PACK16` | 1 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B12X4G12X4R12X4G12X4_422_UNORM_4PACK16` | 1 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_420_UNORM_3PACK16` | 3 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G12X4_B12X4R12X4_2PLANE_420_UNORM_3PACK16` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_422_UNORM_3PACK16` | 3 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G12X4_B12X4R12X4_2PLANE_422_UNORM_3PACK16` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G12X4_B12X4_R12X4_3PLANE_444_UNORM_3PACK16` | 3 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G16B16G16R16_422_UNORM` | 1 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_B16G16R16G16_422_UNORM` | 1 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G16_B16_R16_3PLANE_420_UNORM` | 3 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G16_B16R16_2PLANE_420_UNORM` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G16_B16_R16_3PLANE_422_UNORM` | 3 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G16_B16R16_2PLANE_422_UNORM` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G16_B16_R16_3PLANE_444_UNORM` | 3 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G8_B8R8_2PLANE_444_UNORM` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G10X6_B10X6R10X6_2PLANE_444_UNORM_3PACK16` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G12X4_B12X4R12X4_2PLANE_444_UNORM_3PACK16` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G16_B16R16_2PLANE_444_UNORM` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G14X2_B14X2R14X2_2PLANE_420_UNORM_3PACK16_ARM` | 2 |  |  |  |  |  |  |  |  |  |  |
+| `VK_FORMAT_G14X2_B14X2R14X2_2PLANE_422_UNORM_3PACK16_ARM` | 2 |  |  |  |  |  |  |  |  |  |  |
+| Format features marked † **must** be supported for
 `optimalTilingFeatures` with [VkImageType](resources.html#VkImageType)
 `VK_IMAGE_TYPE_2D` if the `VkPhysicalDevice` supports the
-[VkPhysicalDeviceSamplerYcbcrConversionFeatures](features.html#VkPhysicalDeviceSamplerYcbcrConversionFeatures) feature.
-
-Formats marked ‡ do not require a sampler Y′CBCR conversion for
+[VkPhysicalDeviceSamplerYcbcrConversionFeatures](features.html#VkPhysicalDeviceSamplerYcbcrConversionFeatures) feature. |
+| Formats marked ‡ do not require a sampler Y′CBCR conversion for
 `VK_IMAGE_ASPECT_COLOR_BIT` image views if the
 [VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT](features.html#VkPhysicalDeviceRGBA10X6FormatsFeaturesEXT)::`formatRgba10x6WithoutYCbCrSampler`
-feature is enabled.
+feature is enabled. |
 
 Implementations are not required to support the
 `VK_IMAGE_CREATE_SPARSE_BINDING_BIT`,
@@ -8251,6 +6160,11 @@ formats:
 * 
 `VK_FORMAT_A8_UNORM`
 
+|  | This list of formats is the union of required storage formats from
+| --- | --- |
+[Required Format Support](#features-required-format-support) section and
+formats listed in [`shaderStorageImageExtendedFormats`](features.html#features-shaderStorageImageExtendedFormats). |
+
 An implementation that supports `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
 for any format from the given list of formats and supports
 [`shaderStorageImageReadWithoutFormat`](features.html#features-shaderStorageImageReadWithoutFormat) **must** support
@@ -8272,6 +6186,16 @@ An implementation that does not support either of
 `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` for that format if it is
 not listed in the [SPIR-V and Vulkan Image Format Compatibility](../appendices/spirvenv.html#spirvenv-image-formats) table.
 
+|  | Some older implementations do not follow this restriction.
+| --- | --- |
+They report support for formats as storage images even though they do not
+support access without the `Format` qualifier and there is no matching
+`Format` token.
+Such images cannot be either read from or written to.
+
+Drivers which pass Vulkan conformance test suite version 1.3.9.0, or any
+subsequent version will conform to the requirement above. |
+
 If Vulkan 1.3 or the `[VK_KHR_format_feature_flags2](../appendices/extensions.html#VK_KHR_format_feature_flags2)` extension is
 supported, a depth/stencil format with a depth component supporting
 `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` **must** support
@@ -8286,57 +6210,23 @@ Additional restrictions, including, but not limited to, further required
 format feature flags specific to the particular use of the resource **may**
 apply, as described in the respective sections of this specification.
 
-Table 24. Format Feature Dependent Buffer Usage Flags
+| Buffer usage flag | Required format feature flag |
+| --- | --- |
+| `VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT` | `VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT` |
+| `VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT` | `VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT` |
+| `VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` | `VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT` |
 
-Buffer usage flag
-Required format feature flag
-
-`VK_BUFFER_USAGE_UNIFORM_TEXEL_BUFFER_BIT`
-`VK_FORMAT_FEATURE_UNIFORM_TEXEL_BUFFER_BIT`
-
-`VK_BUFFER_USAGE_STORAGE_TEXEL_BUFFER_BIT`
-`VK_FORMAT_FEATURE_STORAGE_TEXEL_BUFFER_BIT`
-
-`VK_BUFFER_USAGE_VERTEX_BUFFER_BIT`
-`VK_FORMAT_FEATURE_VERTEX_BUFFER_BIT`
-
-Table 25. Format Feature Dependent Image Usage Flags
-
-Image usage flag
-Required format feature flag
-
-`VK_IMAGE_USAGE_SAMPLED_BIT`
-`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
-
-`VK_IMAGE_USAGE_STORAGE_BIT`
-`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`
-
-`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT`
-
-`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
-`VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-
-`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
-`VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` or `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT`
-
-`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
-`VK_FORMAT_FEATURE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
-
-`VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR`
-`VK_FORMAT_FEATURE_VIDEO_DECODE_OUTPUT_BIT_KHR`
-
-`VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR`
-`VK_FORMAT_FEATURE_VIDEO_DECODE_DPB_BIT_KHR`
-
-`VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR`
-`VK_FORMAT_FEATURE_VIDEO_ENCODE_INPUT_BIT_KHR`
-
-`VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
-`VK_FORMAT_FEATURE_VIDEO_ENCODE_DPB_BIT_KHR`
-
-`VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR`
-`VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR`
-
-`VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR`
-`VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR`
+| Image usage flag | Required format feature flag |
+| --- | --- |
+| `VK_IMAGE_USAGE_SAMPLED_BIT` | `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` |
+| `VK_IMAGE_USAGE_STORAGE_BIT` | `VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT` |
+| `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` | `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` |
+| `VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT` | `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` |
+| `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` | `VK_FORMAT_FEATURE_COLOR_ATTACHMENT_BIT` or `VK_FORMAT_FEATURE_DEPTH_STENCIL_ATTACHMENT_BIT` |
+| `VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` | `VK_FORMAT_FEATURE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` |
+| `VK_IMAGE_USAGE_VIDEO_DECODE_DST_BIT_KHR` | `VK_FORMAT_FEATURE_VIDEO_DECODE_OUTPUT_BIT_KHR` |
+| `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` | `VK_FORMAT_FEATURE_VIDEO_DECODE_DPB_BIT_KHR` |
+| `VK_IMAGE_USAGE_VIDEO_ENCODE_SRC_BIT_KHR` | `VK_FORMAT_FEATURE_VIDEO_ENCODE_INPUT_BIT_KHR` |
+| `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR` | `VK_FORMAT_FEATURE_VIDEO_ENCODE_DPB_BIT_KHR` |
+| `VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` | `VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` |
+| `VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` | `VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` |

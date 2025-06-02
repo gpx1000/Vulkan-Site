@@ -263,6 +263,15 @@ Memory writes in **ScopedMemOps1** are made available.
 Available memory writes, including those from **ScopedMemOps1**, are
 made visible to **ScopedMemOps2**.
 
+|  | Execution and memory dependencies are used to solve data hazards, i.e. to
+| --- | --- |
+ensure that read and write operations occur in a well-defined order.
+Write-after-read hazards can be solved with just an execution dependency,
+but read-after-write and write-after-write hazards need appropriate memory
+dependencies to be included between them.
+If an application does not include dependencies to solve these hazards, the
+results and execution orders of memory accesses are **undefined**. |
+
 Image subresources **can** be transitioned from one [layout](resources.html#resources-image-layouts) to another as part of a [memory dependency](#synchronization-dependencies-memory) (e.g. by using an
 [image memory barrier](#synchronization-image-memory-barriers)).
 When a layout transition is specified in a memory dependency, it
@@ -285,6 +294,18 @@ the transition preserves the contents of that range.
 If the old layout is `VK_IMAGE_LAYOUT_UNDEFINED`, the contents of that
 range **may** be discarded.
 
+|  | Image layout transitions with `VK_IMAGE_LAYOUT_UNDEFINED` allow the
+| --- | --- |
+implementation to discard the image subresource range, which can provide
+performance or power benefits.
+Tile-based architectures may be able to avoid flushing tile data to memory,
+and immediate style renderers may be able to achieve fast metadata clears to
+reinitialize frame buffer compression state, or similar.
+
+If the contents of an attachment are not needed after a render pass
+completes, then applications **should** use
+`VK_ATTACHMENT_STORE_OP_DONT_CARE`. |
+
 As image layout transitions **may** perform read and write accesses on the
 memory bound to the image, if the image subresource affected by the layout
 transition is bound to peer memory for any device in the current device mask
@@ -292,6 +313,14 @@ then the memory heap the bound memory comes from **must** support the
 `VK_PEER_MEMORY_FEATURE_GENERIC_SRC_BIT` and
 `VK_PEER_MEMORY_FEATURE_GENERIC_DST_BIT` capabilities as returned by
 [vkGetDeviceGroupPeerMemoryFeatures](memory.html#vkGetDeviceGroupPeerMemoryFeatures).
+
+|  | Applications **must** ensure that layout transitions happen-after all
+| --- | --- |
+operations accessing the image with the old layout, and happen-before any
+operations that will access the image with the new layout.
+Layout transitions are potentially read/write operations, so not defining
+appropriate memory dependencies to guarantee this will result in a data
+race. |
 
 Image layout transitions interact with [memory aliasing](resources.html#resources-memory-aliasing).
 
@@ -324,6 +353,13 @@ The work performed by an [action command](fundamentals.html#fundamentals-queueop
 of logically independent steps known as *pipeline stages*.
 The exact pipeline stages executed depend on the particular command that is
 used, and current command buffer state when the command was recorded.
+
+|  | Operations performed by synchronization commands (e.g.
+| --- | --- |
+[availability and visibility operations](#synchronization-dependencies-available-and-visible)) are not executed by a defined pipeline stage.
+However other commands can still synchronize with them by using the
+[synchronization scopes](#synchronization-dependencies-scopes) to create a
+[dependency chain](#synchronization-dependencies-chains). |
 
 Execution of operations across pipeline stages **must** adhere to
 [implicit ordering guarantees](#synchronization-implicit), particularly
@@ -749,6 +785,17 @@ equivalent to `VK_PIPELINE_STAGE_2_NONE` in the first scope.
 to `0` when specified in the first synchronization scope, but equivalent
 to `VK_PIPELINE_STAGE_2_NONE` in the second scope.
 
+|  | The `TOP` and `BOTTOM` pipeline stages are deprecated, and
+| --- | --- |
+applications should prefer `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT` and
+`VK_PIPELINE_STAGE_2_NONE`. |
+
+|  | The `VkPipelineStageFlags2` bitmask goes beyond the 31 individual bit
+| --- | --- |
+flags allowable within a C99 enum, which is how
+[VkPipelineStageFlagBits](#VkPipelineStageFlagBits) is defined.
+The first 31 values are common to both, and are interchangeable. |
+
 `VkPipelineStageFlags2` is a bitmask type for setting a mask of zero or
 more [VkPipelineStageFlagBits2](#VkPipelineStageFlagBits2) flags:
 
@@ -1044,6 +1091,12 @@ Its second [access scope](#synchronization-dependencies-access-scopes) only
 includes memory accesses performed by pipeline stages explicitly specified
 in the destination stage mask.
 
+|  | Note that [access scopes](#synchronization-dependencies-access-scopes) do
+| --- | --- |
+not interact with the logically earlier or later stages for either scope -
+only the stages the application specifies are considered part of each access
+scope. |
+
 Certain pipeline stages are only available on queues that support a
 particular set of operations.
 The following table lists, for each pipeline stage flag, which queue
@@ -1055,139 +1108,51 @@ For further details on queue capabilities see
 [Physical Device Enumeration](devsandqueues.html#devsandqueues-physical-device-enumeration)
 and [Queues](devsandqueues.html#devsandqueues-queues).
 
-Table 1. Supported Pipeline Stage Flags
-
-Pipeline stage flag
-Required queue capability flag
-
-`VK_PIPELINE_STAGE_2_NONE`
-None required
-
-`VK_PIPELINE_STAGE_2_TOP_OF_PIPE_BIT`
-None required
-
-`VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`
-`VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT`
-
-`VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_EARLY_FRAGMENT_TESTS_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_LATE_FRAGMENT_TESTS_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
-`VK_QUEUE_COMPUTE_BIT`
-
-`VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT`
-`VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT`
-
-`VK_PIPELINE_STAGE_2_BOTTOM_OF_PIPE_BIT`
-None required
-
-`VK_PIPELINE_STAGE_2_HOST_BIT`
-None required
-
-`VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT`
-None required
-
-`VK_PIPELINE_STAGE_2_COPY_BIT`
-`VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT`
-
-`VK_PIPELINE_STAGE_2_RESOLVE_BIT`
-`VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT`
-
-`VK_PIPELINE_STAGE_2_BLIT_BIT`
-`VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT`
-
-`VK_PIPELINE_STAGE_2_CLEAR_BIT`
-`VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT`
-
-`VK_PIPELINE_STAGE_2_INDEX_INPUT_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_VERTEX_ATTRIBUTE_INPUT_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_PRE_RASTERIZATION_SHADERS_BIT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR`
-`VK_QUEUE_VIDEO_DECODE_BIT_KHR`
-
-`VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR`
-`VK_QUEUE_VIDEO_ENCODE_BIT_KHR`
-
-`VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT`
-`VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT`
-
-`VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT`
-`VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT`
-
-`VK_PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`
-`VK_QUEUE_COMPUTE_BIT`
-
-`VK_PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_KHR`
-`VK_QUEUE_COMPUTE_BIT`
-
-`VK_PIPELINE_STAGE_2_FRAGMENT_DENSITY_PROCESS_BIT_EXT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR`
-`VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT`
-
-`VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT`
-`VK_QUEUE_COMPUTE_BIT`
-
-`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI`
-`VK_QUEUE_GRAPHICS_BIT`
-
-`VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV`
-`VK_QUEUE_OPTICAL_FLOW_BIT_NV`
-
-`VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV`
-`VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT`
+| Pipeline stage flag | Required queue capability flag |
+| --- | --- |
+| `VK_PIPELINE_STAGE_2_NONE` | None required |
+| `VK_PIPELINE_STAGE_2_TOP_OF_PIPE_BIT` | None required |
+| `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` |
+| `VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_EARLY_FRAGMENT_TESTS_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_LATE_FRAGMENT_TESTS_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT` | `VK_QUEUE_COMPUTE_BIT` |
+| `VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT` |
+| `VK_PIPELINE_STAGE_2_BOTTOM_OF_PIPE_BIT` | None required |
+| `VK_PIPELINE_STAGE_2_HOST_BIT` | None required |
+| `VK_PIPELINE_STAGE_2_ALL_GRAPHICS_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT` | None required |
+| `VK_PIPELINE_STAGE_2_COPY_BIT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT` |
+| `VK_PIPELINE_STAGE_2_RESOLVE_BIT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT` |
+| `VK_PIPELINE_STAGE_2_BLIT_BIT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT` |
+| `VK_PIPELINE_STAGE_2_CLEAR_BIT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT` |
+| `VK_PIPELINE_STAGE_2_INDEX_INPUT_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_VERTEX_ATTRIBUTE_INPUT_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_PRE_RASTERIZATION_SHADERS_BIT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR` | `VK_QUEUE_VIDEO_DECODE_BIT_KHR` |
+| `VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR` | `VK_QUEUE_VIDEO_ENCODE_BIT_KHR` |
+| `VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` |
+| `VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` |
+| `VK_PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR` | `VK_QUEUE_COMPUTE_BIT` |
+| `VK_PIPELINE_STAGE_2_RAY_TRACING_SHADER_BIT_KHR` | `VK_QUEUE_COMPUTE_BIT` |
+| `VK_PIPELINE_STAGE_2_FRAGMENT_DENSITY_PROCESS_BIT_EXT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT` |
+| `VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT` | `VK_QUEUE_COMPUTE_BIT` |
+| `VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI` | `VK_QUEUE_GRAPHICS_BIT` |
+| `VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV` | `VK_QUEUE_OPTICAL_FLOW_BIT_NV` |
+| `VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT` |
 
 Pipeline stages that execute as a result of a command logically complete
 execution in a specific order, such that completion of a logically later
@@ -1202,6 +1167,24 @@ happen-after initiation of a logically later pipeline stage.
 Including any given stage in the destination stage mask for a particular
 synchronization command also implies that any logically later stages are
 included in **Scope2nd** for that command.
+
+|  | Implementations **may** not support synchronization at every pipeline stage for
+| --- | --- |
+every synchronization operation.
+If a pipeline stage that an implementation does not support synchronization
+for appears in a source stage mask, it **may** substitute any logically later
+stage in its place for the first synchronization scope.
+If a pipeline stage that an implementation does not support synchronization
+for appears in a destination stage mask, it **may** substitute any logically
+earlier stage in its place for the second synchronization scope.
+
+For example, if an implementation is unable to signal an event immediately
+after vertex shader execution is complete, it **may** instead signal the event
+after color attachment output has completed.
+
+If an implementation makes such a substitution, it **must** not affect the
+semantics of execution or memory dependencies or image and buffer memory
+barriers. |
 
 [Graphics pipelines](pipelines.html#pipelines-graphics) are executable on queues
 supporting `VK_QUEUE_GRAPHICS_BIT`.
@@ -1810,6 +1793,18 @@ access to a [tile    attachment](renderpass.html#renderpass-tile-shading-attachm
 Such access occurs in the `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`
 or `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT` pipeline stages.
 
+|  | In situations where an application wishes to select all access types for a
+| --- | --- |
+given set of pipeline stages, `VK_ACCESS_2_MEMORY_READ_BIT` or
+`VK_ACCESS_2_MEMORY_WRITE_BIT` can be used.
+This is particularly useful when specifying stages that only have a single
+access type. |
+
+|  | The `VkAccessFlags2` bitmask goes beyond the 31 individual bit flags
+| --- | --- |
+allowable within a C99 enum, which is how [VkAccessFlagBits](#VkAccessFlagBits) is defined.
+The first 31 values are common to both, and are interchangeable. |
+
 `VkAccessFlags2` is a bitmask type for setting a mask of zero or more
 [VkAccessFlagBits2](#VkAccessFlagBits2):
 
@@ -1893,6 +1888,14 @@ or [VkImageMemoryBarrier2](#VkImageMemoryBarrier2), the flags specified in the
 addition to the flags in the `srcAccessMask` and `dstAccessMask`
 fields, respectively, to allow up to 128 total access types to be specified
 for the first or second [access scope](#synchronization-dependencies-access-scopes).
+
+|  | When [VkAccessFlagBits3KHR](#VkAccessFlagBits3KHR) and [VkAccessFlagBits2](#VkAccessFlagBits2) are used
+| --- | --- |
+together, the two sets of 64 flags bits are combined together into 128 flag
+bits (effectively OR’ing them together).
+This is different from [VkAccessFlagBits2](#VkAccessFlagBits2) and [VkAccessFlagBits](#VkAccessFlagBits),
+where the 64 bit [VkAccessFlagBits2](#VkAccessFlagBits2) extends and *replaces* the 32 bit
+[VkAccessFlagBits](#VkAccessFlagBits). |
 
 Bits which **can** be set in the `srcAccessMask` and `dstAccessMask`
 members of [VkSubpassDependency](renderpass.html#VkSubpassDependency),
@@ -2205,28 +2208,16 @@ is able to perform accesses of that type.
 The following table lists, for each access flag, which pipeline stages **can**
 perform that type of access.
 
-Table 2. Supported Access Types
-
-Access flag
-Supported pipeline stages
-
-`VK_ACCESS_2_NONE`
-Any
-
-`VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT`
-`VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
-	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`
-
-`VK_ACCESS_2_INDEX_READ_BIT`
-`VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT`,
-	`VK_PIPELINE_STAGE_2_INDEX_INPUT_BIT`
-
-`VK_ACCESS_2_VERTEX_ATTRIBUTE_READ_BIT`
-`VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT`,
-	`VK_PIPELINE_STAGE_2_VERTEX_ATTRIBUTE_INPUT_BIT`
-
-`VK_ACCESS_2_UNIFORM_READ_BIT`
-`VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
+| Access flag | Supported pipeline stages |
+| --- | --- |
+| `VK_ACCESS_2_NONE` | Any |
+| `VK_ACCESS_2_INDIRECT_COMMAND_READ_BIT` | `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
+	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR` |
+| `VK_ACCESS_2_INDEX_READ_BIT` | `VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT`,
+	`VK_PIPELINE_STAGE_2_INDEX_INPUT_BIT` |
+| `VK_ACCESS_2_VERTEX_ATTRIBUTE_READ_BIT` | `VK_PIPELINE_STAGE_2_VERTEX_INPUT_BIT`,
+	`VK_PIPELINE_STAGE_2_VERTEX_ATTRIBUTE_INPUT_BIT` |
+| `VK_ACCESS_2_UNIFORM_READ_BIT` | `VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT`,
@@ -2236,14 +2227,10 @@ Any
 	`VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`,
-	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI`
-
-`VK_ACCESS_2_INPUT_ATTACHMENT_READ_BIT`
-`VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
-	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`
-
-`VK_ACCESS_2_SHADER_READ_BIT`
-`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
+	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI` |
+| `VK_ACCESS_2_INPUT_ATTACHMENT_READ_BIT` | `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI` |
+| `VK_ACCESS_2_SHADER_READ_BIT` | `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
 	`VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT`,
@@ -2255,10 +2242,8 @@ Any
 	`VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`,
-	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI`
-
-`VK_ACCESS_2_SHADER_WRITE_BIT`
-`VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI` |
+| `VK_ACCESS_2_SHADER_WRITE_BIT` | `VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT`,
@@ -2268,36 +2253,24 @@ Any
 	`VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`,
-	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI`
-
-`VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT`
-`VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
-	`VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT`
-
-`VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT`
-`VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT`
-
-`VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_READ_BIT`
-`VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI` |
+| `VK_ACCESS_2_COLOR_ATTACHMENT_READ_BIT` | `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT` |
+| `VK_ACCESS_2_COLOR_ATTACHMENT_WRITE_BIT` | `VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT` |
+| `VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_READ_BIT` | `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_EARLY_FRAGMENT_TESTS_BIT`,
-	`VK_PIPELINE_STAGE_2_LATE_FRAGMENT_TESTS_BIT`
-
-`VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT`
-`VK_PIPELINE_STAGE_2_EARLY_FRAGMENT_TESTS_BIT`,
-	`VK_PIPELINE_STAGE_2_LATE_FRAGMENT_TESTS_BIT`
-
-`VK_ACCESS_2_TRANSFER_READ_BIT`
-`VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT`,
+	`VK_PIPELINE_STAGE_2_LATE_FRAGMENT_TESTS_BIT` |
+| `VK_ACCESS_2_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT` | `VK_PIPELINE_STAGE_2_EARLY_FRAGMENT_TESTS_BIT`,
+	`VK_PIPELINE_STAGE_2_LATE_FRAGMENT_TESTS_BIT` |
+| `VK_ACCESS_2_TRANSFER_READ_BIT` | `VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT`,
 	`VK_PIPELINE_STAGE_2_COPY_BIT`,
 	`VK_PIPELINE_STAGE_2_RESOLVE_BIT`,
 	`VK_PIPELINE_STAGE_2_BLIT_BIT`,
 	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
 	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR`,
 	`VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT`,
-	`VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV`
-
-`VK_ACCESS_2_TRANSFER_WRITE_BIT`
-`VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT`,
+	`VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV` |
+| `VK_ACCESS_2_TRANSFER_WRITE_BIT` | `VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT`,
 	`VK_PIPELINE_STAGE_2_COPY_BIT`,
 	`VK_PIPELINE_STAGE_2_RESOLVE_BIT`,
 	`VK_PIPELINE_STAGE_2_BLIT_BIT`,
@@ -2305,22 +2278,12 @@ Any
 	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
 	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR`,
 	`VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT`,
-	`VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV`
-
-`VK_ACCESS_2_HOST_READ_BIT`
-`VK_PIPELINE_STAGE_2_HOST_BIT`
-
-`VK_ACCESS_2_HOST_WRITE_BIT`
-`VK_PIPELINE_STAGE_2_HOST_BIT`
-
-`VK_ACCESS_2_MEMORY_READ_BIT`
-Any
-
-`VK_ACCESS_2_MEMORY_WRITE_BIT`
-Any
-
-`VK_ACCESS_2_SHADER_SAMPLED_READ_BIT`
-`VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV` |
+| `VK_ACCESS_2_HOST_READ_BIT` | `VK_PIPELINE_STAGE_2_HOST_BIT` |
+| `VK_ACCESS_2_HOST_WRITE_BIT` | `VK_PIPELINE_STAGE_2_HOST_BIT` |
+| `VK_ACCESS_2_MEMORY_READ_BIT` | Any |
+| `VK_ACCESS_2_MEMORY_WRITE_BIT` | Any |
+| `VK_ACCESS_2_SHADER_SAMPLED_READ_BIT` | `VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT`,
@@ -2330,10 +2293,8 @@ Any
 	`VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`,
-	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI`
-
-`VK_ACCESS_2_SHADER_STORAGE_READ_BIT`
-`VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI` |
+| `VK_ACCESS_2_SHADER_STORAGE_READ_BIT` | `VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT`,
@@ -2343,10 +2304,8 @@ Any
 	`VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`,
-	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI`
-
-`VK_ACCESS_2_SHADER_STORAGE_WRITE_BIT`
-`VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI` |
+| `VK_ACCESS_2_SHADER_STORAGE_WRITE_BIT` | `VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT`,
@@ -2356,44 +2315,20 @@ Any
 	`VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`,
-	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI`
-
-`VK_ACCESS_2_VIDEO_DECODE_READ_BIT_KHR`
-`VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR`
-
-`VK_ACCESS_2_VIDEO_DECODE_WRITE_BIT_KHR`
-`VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR`
-
-`VK_ACCESS_2_VIDEO_ENCODE_READ_BIT_KHR`
-`VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR`
-
-`VK_ACCESS_2_VIDEO_ENCODE_WRITE_BIT_KHR`
-`VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR`
-
-`VK_ACCESS_2_TRANSFORM_FEEDBACK_WRITE_BIT_EXT`
-`VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT`
-
-`VK_ACCESS_2_TRANSFORM_FEEDBACK_COUNTER_READ_BIT_EXT`
-`VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
-	`VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT`
-
-`VK_ACCESS_2_TRANSFORM_FEEDBACK_COUNTER_WRITE_BIT_EXT`
-`VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT`
-
-`VK_ACCESS_2_CONDITIONAL_RENDERING_READ_BIT_EXT`
-`VK_PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT`
-
-`VK_ACCESS_2_COMMAND_PREPROCESS_READ_BIT_EXT`
-`VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT`
-
-`VK_ACCESS_2_COMMAND_PREPROCESS_WRITE_BIT_EXT`
-`VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT`
-
-`VK_ACCESS_2_FRAGMENT_SHADING_RATE_ATTACHMENT_READ_BIT_KHR`
-`VK_PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
-
-`VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR`
-`VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI` |
+| `VK_ACCESS_2_VIDEO_DECODE_READ_BIT_KHR` | `VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR` |
+| `VK_ACCESS_2_VIDEO_DECODE_WRITE_BIT_KHR` | `VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR` |
+| `VK_ACCESS_2_VIDEO_ENCODE_READ_BIT_KHR` | `VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR` |
+| `VK_ACCESS_2_VIDEO_ENCODE_WRITE_BIT_KHR` | `VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR` |
+| `VK_ACCESS_2_TRANSFORM_FEEDBACK_WRITE_BIT_EXT` | `VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT` |
+| `VK_ACCESS_2_TRANSFORM_FEEDBACK_COUNTER_READ_BIT_EXT` | `VK_PIPELINE_STAGE_2_DRAW_INDIRECT_BIT`,
+	`VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT` |
+| `VK_ACCESS_2_TRANSFORM_FEEDBACK_COUNTER_WRITE_BIT_EXT` | `VK_PIPELINE_STAGE_2_TRANSFORM_FEEDBACK_BIT_EXT` |
+| `VK_ACCESS_2_CONDITIONAL_RENDERING_READ_BIT_EXT` | `VK_PIPELINE_STAGE_2_CONDITIONAL_RENDERING_BIT_EXT` |
+| `VK_ACCESS_2_COMMAND_PREPROCESS_READ_BIT_EXT` | `VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT` |
+| `VK_ACCESS_2_COMMAND_PREPROCESS_WRITE_BIT_EXT` | `VK_PIPELINE_STAGE_2_COMMAND_PREPROCESS_BIT_EXT` |
+| `VK_ACCESS_2_FRAGMENT_SHADING_RATE_ATTACHMENT_READ_BIT_KHR` | `VK_PIPELINE_STAGE_2_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR` |
+| `VK_ACCESS_2_ACCELERATION_STRUCTURE_READ_BIT_KHR` | `VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT`,
@@ -2405,20 +2340,12 @@ Any
 	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI`,
 	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
 	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR`,
-	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`
-
-`VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_KHR`
-`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
-	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR`
-
-`VK_ACCESS_2_FRAGMENT_DENSITY_MAP_READ_BIT_EXT`
-`VK_PIPELINE_STAGE_2_FRAGMENT_DENSITY_PROCESS_BIT_EXT`
-
-`VK_ACCESS_2_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT`
-`VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT`
-
-`VK_ACCESS_2_DESCRIPTOR_BUFFER_READ_BIT_EXT`
-`VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI` |
+| `VK_ACCESS_2_ACCELERATION_STRUCTURE_WRITE_BIT_KHR` | `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`,
+	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR` |
+| `VK_ACCESS_2_FRAGMENT_DENSITY_MAP_READ_BIT_EXT` | `VK_PIPELINE_STAGE_2_FRAGMENT_DENSITY_PROCESS_BIT_EXT` |
+| `VK_ACCESS_2_COLOR_ATTACHMENT_READ_NONCOHERENT_BIT_EXT` | `VK_PIPELINE_STAGE_2_COLOR_ATTACHMENT_OUTPUT_BIT` |
+| `VK_ACCESS_2_DESCRIPTOR_BUFFER_READ_BIT_EXT` | `VK_PIPELINE_STAGE_2_VERTEX_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_CONTROL_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_TESSELLATION_EVALUATION_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_GEOMETRY_SHADER_BIT`,
@@ -2428,31 +2355,17 @@ Any
 	`VK_PIPELINE_STAGE_2_TASK_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_MESH_SHADER_BIT_EXT`,
 	`VK_PIPELINE_STAGE_2_SUBPASS_SHADER_BIT_HUAWEI`,
-	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI`
-
-`VK_ACCESS_2_INVOCATION_MASK_READ_BIT_HUAWEI`
-`VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI`
-
-`VK_ACCESS_2_MICROMAP_READ_BIT_EXT`
-`VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT`,
-	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`
-
-`VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT`
-`VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT`
-
-`VK_ACCESS_2_OPTICAL_FLOW_READ_BIT_NV`
-`VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV`
-
-`VK_ACCESS_2_OPTICAL_FLOW_WRITE_BIT_NV`
-`VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV`
-
-`VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM`
-`VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
-	`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
-
-`VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM`
-`VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
-	`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
+	`VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI` |
+| `VK_ACCESS_2_INVOCATION_MASK_READ_BIT_HUAWEI` | `VK_PIPELINE_STAGE_2_INVOCATION_MASK_BIT_HUAWEI` |
+| `VK_ACCESS_2_MICROMAP_READ_BIT_EXT` | `VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT`,
+	`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_BUILD_BIT_KHR` |
+| `VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT` | `VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT` |
+| `VK_ACCESS_2_OPTICAL_FLOW_READ_BIT_NV` | `VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV` |
+| `VK_ACCESS_2_OPTICAL_FLOW_WRITE_BIT_NV` | `VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV` |
+| `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM` | `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT` |
+| `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM` | `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
+	`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT` |
 
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkAccessFlags;
@@ -2476,6 +2389,14 @@ memory object from the host are automatically made available to the host
 domain.
 Similarly, writes made available to the host domain are automatically made
 visible to the host.
+
+|  | [Queue submission commands](devsandqueues.html#devsandqueues-submission) automatically
+| --- | --- |
+perform a [domain operation from host to device](#synchronization-submission-host-writes) for all writes performed before the command executes, so in
+most cases an explicit memory barrier is not needed for this case.
+In the few circumstances where a submit does not occur between the host
+write and the device read access, writes **can** be made available by using an
+explicit memory barrier. |
 
 [Pipeline stages](#synchronization-pipeline-stages) that operate on, or
 with respect to, the framebuffer are collectively the *framebuffer-space*
@@ -2558,6 +2479,38 @@ For commands recorded within a render pass that enables
 [tile shading](renderpass.html#renderpass-tile-shading), the framebuffer region is a tile
 region and it is a tile granularity dependency.
 
+|  | For commands recorded within a render pass instance that enables
+| --- | --- |
+[tile shading](renderpass.html#renderpass-tile-shading), the fragment shader invocations
+for a given tile will be grouped together, but the tiles do not run in any
+particular order, and the fragment shader invocations within a tile do not
+run in any particular order.
+Otherwise,
+fragment shader invocations are not specified to run in any particular
+groupings, the size of a framebuffer region is implementation-dependent, not
+known to the application, and **must** be assumed to be no larger than
+specified above. |
+
+|  | Practically, the pixel vs. sample granularity dependency means that if an
+| --- | --- |
+input attachment has a different number of samples than the pipeline’s
+`rasterizationSamples`, then a fragment **can** access any sample in the
+input attachment’s pixel even if it only uses framebuffer-local
+dependencies.
+If the input attachment has the same number of samples, then the fragment
+**can** only access the covered samples in its input `SampleMask` (i.e. the
+fragment operations happen-after a framebuffer-local dependency for each
+sample the fragment covers).
+To access samples that are not covered,
+either the `VkSubpassDescription`::`flags`
+`VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_QCOM` flag is required, or
+a framebuffer-global dependency is required.
+
+For a tile granularity dependency, a fragment shader **can** use
+[tile attachment variables](renderpass.html#renderpass-tile-shading-attachment-access) to
+access any pixel or sample within the *active tile* for color, depth/stencil
+or input attachments even if only framebuffer-local dependencies are used. |
+
 If a synchronization command includes a `dependencyFlags` parameter, and
 specifies the `VK_DEPENDENCY_BY_REGION_BIT` flag, then it defines
 framebuffer-local dependencies for the framebuffer-space pipeline stages in
@@ -2569,6 +2522,15 @@ The `VK_DEPENDENCY_BY_REGION_BIT` flag does not affect the dependencies
 between non-framebuffer-space pipeline stages, nor does it affect the
 dependencies between framebuffer-space and non-framebuffer-space pipeline
 stages.
+
+|  | Framebuffer-local dependencies are more efficient for most architectures;
+| --- | --- |
+particularly tile-based architectures - which can keep framebuffer-regions
+entirely in on-chip registers and thus avoid external bandwidth across such
+a dependency.
+Including a framebuffer-global dependency in your rendering will usually
+force all implementations to flush data to memory, or to a higher level
+cache, breaking any potential locality optimizations. |
 
 In a render pass instance that has [multiview](renderpass.html#renderpass-multiview)
 enabled, dependencies **can** be either view-local or view-global.
@@ -2651,6 +2613,14 @@ command buffer on the host, from first to last.
 The order in which commands inside a single subpass were recorded to a
 command buffer on the host, from first to last.
 
+|  | When using a [render pass object](renderpass.html#renderpass-objects) with multiple
+| --- | --- |
+subpasses, commands in different subpasses have no defined submission order
+relative to each other, regardless of the order in which the subpasses were
+recorded.
+Commands within a subpass are still ordered relative to other commands in
+the same subpass, and those outside of the render pass. |
+
 [State commands](fundamentals.html#fundamentals-queueoperation-command-types) do not execute
 any operations on the device, instead they set the state of the command
 buffer when they execute on the host, in the order that they are recorded.
@@ -2701,6 +2671,41 @@ performs the signal operation from the host.
 The semaphore signal operation defined by executing a
 [vkSignalSemaphore](#vkSignalSemaphore) command happens-after the [vkSignalSemaphore](#vkSignalSemaphore)
 command is invoked and happens-before the command returns.
+
+|  | When signaling timeline semaphores, it is the responsibility of the
+| --- | --- |
+application to ensure that they are ordered such that the semaphore value is
+strictly increasing.
+Because the first synchronization scope for a semaphore signal operation
+contains all semaphore signal operations which occur earlier in submission
+order, all semaphore signal operations contained in any given batch are
+guaranteed to happen-after all semaphore signal operations contained in any
+previous batches.
+However, no ordering guarantee is provided between the semaphore signal
+operations defined within a single batch.
+This, combined with the requirement that timeline semaphore values strictly
+increase, means that it is invalid to signal the same timeline semaphore
+twice within a single batch.
+
+If an application wishes to ensure that some semaphore signal operation
+happens-after some other semaphore signal operation, it can submit a
+separate batch containing only semaphore signal operations, which will
+happen-after the semaphore signal operations in any earlier batches.
+
+When signaling a semaphore from the host, the only ordering guarantee is
+that the signal operation happens-after when [vkSignalSemaphore](#vkSignalSemaphore) is
+called and happens-before it returns.
+Therefore, it is invalid to call `vkSignalSemaphore` while there are any
+outstanding signal operations on that semaphore from any queue submissions
+unless those queue submissions have some dependency which ensures that they
+happen-after the host signal operation.
+One example of this would be if the pending signal operation is, itself,
+waiting on the same semaphore at a lower value and the call to
+`vkSignalSemaphore` signals that lower value.
+Furthermore, if there are two or more processes or threads signaling the
+same timeline semaphore from the host, the application must ensure that the
+`vkSignalSemaphore` with the lower semaphore value returns before
+`vkSignalSemaphore` is called with the higher value. |
 
 Fences are a synchronization primitive that **can** be used to insert a
 dependency from a queue to the host.
@@ -3149,6 +3154,12 @@ transfer ownership of it to the application.
 To avoid leaking resources, the application **must** release ownership of the
 file descriptor when it is no longer needed.
 
+|  | Ownership can be released in many ways.
+| --- | --- |
+For example, the application can call `close`() on the file descriptor,
+or transfer ownership back to Vulkan by using the file descriptor to import
+a fence payload. |
+
 If `pGetFdInfo->handleType` is
 `VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT` and the fence is signaled at
 the time `vkGetFenceFdKHR` is called, `pFd` **may** return the value
@@ -3358,19 +3369,11 @@ VkResult vkGetFenceStatus(
 Upon success, `vkGetFenceStatus` returns the status of the fence object,
 with the following return codes:
 
-Table 3. Fence Object Status Codes
-
-Status
-Meaning
-
-`VK_SUCCESS`
-The fence specified by `fence` is signaled.
-
-`VK_NOT_READY`
-The fence specified by `fence` is unsignaled.
-
-`VK_ERROR_DEVICE_LOST`
-The device has been lost.  See [Lost Device](devsandqueues.html#devsandqueues-lost-device).
+| Status | Meaning |
+| --- | --- |
+| `VK_SUCCESS` | The fence specified by `fence` is signaled. |
+| `VK_NOT_READY` | The fence specified by `fence` is unsignaled. |
+| `VK_ERROR_DEVICE_LOST` | The device has been lost.  See [Lost Device](devsandqueues.html#devsandqueues-lost-device). |
 
 If a [queue submission](devsandqueues.html#devsandqueues-submission) command is pending
 execution, then the value returned by this command **may** immediately be out
@@ -3582,6 +3585,13 @@ If device loss occurs (see [Lost Device](devsandqueues.html#devsandqueues-lost-d
 the timeout has expired, `vkWaitForFences` **must** return in finite time
 with either `VK_SUCCESS` or `VK_ERROR_DEVICE_LOST`.
 
+|  | While we guarantee that `vkWaitForFences` **must** return in finite time,
+| --- | --- |
+no guarantees are made that it returns immediately upon device loss.
+However, the application can reasonably expect that the delay will be on the
+order of seconds and that calling `vkWaitForFences` will not result in a
+permanently (or seemingly permanently) dead process. |
+
 Valid Usage (Implicit)
 
 * 
@@ -3635,6 +3645,14 @@ includes only the fence signal operation.
 The second [synchronization scope](#synchronization-dependencies-scopes)
 includes the host operations of [vkWaitForFences](#vkWaitForFences) or
 [vkGetFenceStatus](#vkGetFenceStatus) indicating that the fence has become signaled.
+
+|  | Signaling a fence and waiting on the host does not guarantee that the
+| --- | --- |
+results of memory accesses will be visible to the host, as the access scope
+of a memory dependency defined by a fence only includes device access.
+A [memory barrier](#synchronization-memory-barriers) or other memory
+dependency **must** be used to guarantee this.
+See the description of [host access types](#synchronization-host-access-types) for more information. |
 
 Besides submitting a fence to a queue as part of a
 [queue submission](devsandqueues.html#devsandqueues-submission) command, a fence **may** also be
@@ -3881,6 +3899,11 @@ as specified by the application.
 If the import is temporary, the fence will be *restored* to its permanent
 state the next time that fence is passed to [vkResetFences](#vkResetFences).
 
+|  | Restoring a fence to its prior permanent payload is a distinct operation
+| --- | --- |
+from resetting a fence payload.
+See [vkResetFences](#vkResetFences) for more detail. |
+
 Performing a subsequent temporary import on a fence before resetting it has
 no effect on this requirement; the next unsignal of the fence **must** still
 restore its last permanent state.
@@ -3916,6 +3939,15 @@ has the same side effects on the source fence’s payload as executing a fence
 reset operation.
 If the fence was using a temporarily imported payload, the fence’s prior
 permanent payload will be restored.
+
+|  | The
+| --- | --- |
+tables
+[Handle Types Supported by `VkImportFenceWin32HandleInfoKHR`](#synchronization-fence-handletypes-win32)
+and
+[Handle Types Supported by `VkImportFenceFdInfoKHR`](#synchronization-fence-handletypes-fd)
+define
+the permanence and transference of each handle type. |
 
 [External synchronization](fundamentals.html#fundamentals-threadingbehavior) allows
 implementations to modify an object’s internal state, i.e. payload, without
@@ -3963,6 +3995,16 @@ state where future valid Vulkan commands might cause **undefined** results,
 Timeouts on future wait commands on fences sharing the payload **must** be
 effective.
 
+|  | These rules allow processes to synchronize access to shared memory without
+| --- | --- |
+trusting each other.
+However, such processes must still be cautious not to use the shared fence
+for more than synchronizing access to the shared memory.
+For example, a process should not use a fence with shared payload to tell
+when commands it submitted to a queue have completed and objects used by
+those commands may be destroyed, since the other process can accidentally or
+maliciously cause the fence to signal before the commands actually complete. |
+
 When a fence is using an imported payload, its
 [VkExportFenceCreateInfo](#VkExportFenceCreateInfo)::`handleTypes` value is specified when
 creating the fence from which the payload was exported, rather than
@@ -3973,6 +4015,15 @@ restricts which handle types **can** be exported from such a fence based on the
 specific handle type used to import the current payload.
 Passing a fence to [vkAcquireNextImageKHR](VK_KHR_surface/wsi.html#vkAcquireNextImageKHR) is equivalent to temporarily
 importing a fence payload to that fence.
+
+|  | Because the exportable handle types of an imported fence correspond to its
+| --- | --- |
+current imported payload, and [vkAcquireNextImageKHR](VK_KHR_surface/wsi.html#vkAcquireNextImageKHR) behaves the same
+as a temporary import operation for which the source fence is opaque to the
+application, applications have no way of determining whether any external
+handle types **can** be exported from a fence in this state.
+Therefore, applications **must** not attempt to export handles from fences
+using a temporarily imported payload from [vkAcquireNextImageKHR](VK_KHR_surface/wsi.html#vkAcquireNextImageKHR). |
 
 When importing a fence payload, it is the responsibility of the application
 to ensure the external handles meet all valid usage requirements.
@@ -4085,19 +4136,10 @@ underlying synchronization primitive to import.
 
 The handle types supported by `handleType` are:
 
-Table 4. Handle Types Supported by `VkImportFenceWin32HandleInfoKHR`
-
-Handle Type
-Transference
-Permanence Supported
-
-`VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_BIT`
-Reference
-Temporary,Permanent
-
-`VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT`
-Reference
-Temporary,Permanent
+| Handle Type | Transference | Permanence Supported |
+| --- | --- | --- |
+| `VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_BIT` | Reference | Temporary,Permanent |
+| `VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT` | Reference | Temporary,Permanent |
 
 Valid Usage
 
@@ -4263,19 +4305,10 @@ specifying the type of `fd`.
 
 The handle types supported by `handleType` are:
 
-Table 5. Handle Types Supported by `VkImportFenceFdInfoKHR`
-
-Handle Type
-Transference
-Permanence Supported
-
-`VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_FD_BIT`
-Reference
-Temporary,Permanent
-
-`VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT`
-Copy
-Temporary
+| Handle Type | Transference | Permanence Supported |
+| --- | --- | --- |
+| `VK_EXTERNAL_FENCE_HANDLE_TYPE_OPAQUE_FD_BIT` | Reference | Temporary,Permanent |
+| `VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT` | Copy | Temporary |
 
 Valid Usage
 
@@ -4304,6 +4337,15 @@ referring to an object that has already signaled.
 The import operation will succeed and the `VkFence` will have a
 temporarily imported payload as if a valid file descriptor had been
 provided.
+
+|  | This special behavior for importing an invalid sync file descriptor allows
+| --- | --- |
+easier interoperability with other system APIs which use the convention that
+an invalid sync file descriptor represents work that has already completed
+and does not need to be waited for.
+It is consistent with the option for implementations to return a `-1` file
+descriptor when exporting a `VK_EXTERNAL_FENCE_HANDLE_TYPE_SYNC_FD_BIT`
+from a `VkFence` which is signaled. |
 
 Valid Usage (Implicit)
 
@@ -4980,6 +5022,12 @@ and transfer ownership of it to the application.
 To avoid leaking resources, the application **must** release ownership of the
 file descriptor when it is no longer needed.
 
+|  | Ownership can be released in many ways.
+| --- | --- |
+For example, the application can call `close`() on the file descriptor,
+or transfer ownership back to Vulkan by using the file descriptor to import
+a semaphore payload. |
+
 Where supported by the operating system, the implementation **must** set the
 file descriptor to be closed automatically when an `execve` system call
 is made.
@@ -5152,6 +5200,12 @@ Each call to `vkGetSemaphoreZirconHandleFUCHSIA` **must** create a Zircon
 event handle and transfer ownership of it to the application.
 To avoid leaking resources, the application **must** release ownership of the
 Zircon event handle when it is no longer needed.
+
+|  | Ownership can be released in many ways.
+| --- | --- |
+For example, the application can call zx_handle_close() on the file
+descriptor, or transfer ownership back to Vulkan by using the file
+descriptor to import a semaphore payload. |
 
 Exporting a Zircon event handle from a semaphore **may** have side effects
 depending on the transference of the specified handle type, as described in
@@ -5458,6 +5512,69 @@ The semaphore wait operation happens-after the first set of operations in
 the execution dependency, and happens-before the second set of operations in
 the execution dependency.
 
+|  | Unlike
+| --- | --- |
+timeline semaphores,
+fences or events, waiting for a binary semaphore also unsignals that
+semaphore when the wait completes.
+Applications **must** ensure that between two such wait operations, the
+semaphore is signaled again, with execution dependencies used to ensure
+these occur in order.
+Binary semaphore waits and signals should thus occur in discrete 1:1 pairs. |
+
+|  | A common scenario for using `pWaitDstStageMask` with values other than
+| --- | --- |
+`VK_PIPELINE_STAGE_ALL_COMMANDS_BIT` is when synchronizing a window
+system presentation operation against subsequent command buffers which
+render the next frame.
+In this case, a presentation image **must** not be overwritten until the
+presentation operation completes, but other pipeline stages **can** execute
+without waiting.
+A mask of `VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT` prevents
+subsequent color attachment writes from executing until the semaphore
+signals.
+Some implementations **may** be able to execute transfer operations and/or
+pre-rasterization work before the semaphore is signaled.
+
+If an image layout transition needs to be performed on a presentable image
+before it is used in a framebuffer, that **can** be performed as the first
+operation submitted to the queue after acquiring the image, and **should** not
+prevent other work from overlapping with the presentation operation.
+For example, a `VkImageMemoryBarrier` could use:
+
+* 
+`srcStageMask` = `VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT`
+
+* 
+`srcAccessMask` = 0
+
+* 
+`dstStageMask` = `VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT`
+
+* 
+`dstAccessMask` = `VK_ACCESS_COLOR_ATTACHMENT_READ_BIT` \|
+`VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT`.
+
+* 
+`oldLayout` = `VK_IMAGE_LAYOUT_PRESENT_SRC_KHR`
+
+* 
+`newLayout` = `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL`
+
+Alternatively, `oldLayout` **can** be `VK_IMAGE_LAYOUT_UNDEFINED`, if
+the image’s contents need not be preserved.
+
+This barrier accomplishes a dependency chain between previous presentation
+operations and subsequent color attachment output operations, with the
+layout transition performed in between, and does not introduce a dependency
+between previous work and any
+[pre-rasterization shader stage](pipelines.html#pipelines-graphics-subsets-pre-rasterization)s.
+More precisely, the semaphore signals after the presentation operation
+completes, the semaphore wait stalls the
+`VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT` stage, and there is a
+dependency from that same stage to itself with the layout transition
+performed in between. |
+
 Before waiting on a semaphore, the application **must** ensure the semaphore is
 in a valid state for a wait operation.
 Specifically, when a [semaphore wait operation](#synchronization-semaphores-waiting) is submitted to a queue:
@@ -5518,6 +5635,11 @@ VkResult vkGetSemaphoreCounterValueKHR(
 * 
 `pValue` is a pointer to a 64-bit integer value in which the current
 counter value of the semaphore is returned.
+
+|  | If a [queue submission](devsandqueues.html#devsandqueues-submission) command is pending
+| --- | --- |
+execution, then the value returned by this command **may** immediately be out
+of date. |
 
 Valid Usage
 
@@ -5947,6 +6069,18 @@ executing a semaphore wait operation.
 If the semaphore was using a temporarily imported payload, the semaphore’s
 prior permanent payload will be restored.
 
+|  | The permanence and transference of handle types can be found in:
+| --- | --- |
+
+* 
+[Handle Types Supported by    `VkImportSemaphoreWin32HandleInfoKHR`](#synchronization-semaphore-handletypes-win32)
+
+* 
+[Handle Types Supported by    `VkImportSemaphoreFdInfoKHR`](#synchronization-semaphore-handletypes-fd)
+
+* 
+[Handle Types Supported    by `VkImportSemaphoreZirconHandleInfoFUCHSIA`](#synchronization-semaphore-handletypes-fuchsia) |
+
 [External synchronization](fundamentals.html#fundamentals-threadingbehavior) allows
 implementations to modify an object’s internal state, i.e. payload, without
 internal synchronization.
@@ -5984,6 +6118,16 @@ same rules.
 The semaphore **must** be destroyed or have its payload replaced by an
 import operation to again have a well-defined state.
 
+|  | These rules allow processes to synchronize access to shared memory without
+| --- | --- |
+trusting each other.
+However, such processes must still be cautious not to use the shared
+semaphore for more than synchronizing access to the shared memory.
+For example, a process should not use a shared semaphore as part of an
+execution dependency chain that, when complete, leads to objects being
+destroyed, if it does not trust other processes sharing the semaphore
+payload. |
+
 When a semaphore is using an imported payload, its
 [VkExportSemaphoreCreateInfo](#VkExportSemaphoreCreateInfo)::`handleTypes` value is specified when
 creating the semaphore from which the payload was exported, rather than
@@ -5994,6 +6138,16 @@ restricts which handle types **can** be exported from such a semaphore based on
 the specific handle type used to import the current payload.
 Passing a semaphore to [vkAcquireNextImageKHR](VK_KHR_surface/wsi.html#vkAcquireNextImageKHR) is equivalent to
 temporarily importing a semaphore payload to that semaphore.
+
+|  | Because the exportable handle types of an imported semaphore correspond to
+| --- | --- |
+its current imported payload, and [vkAcquireNextImageKHR](VK_KHR_surface/wsi.html#vkAcquireNextImageKHR) behaves the
+same as a temporary import operation for which the source semaphore is
+opaque to the application, applications have no way of determining whether
+any external handle types **can** be exported from a semaphore in this state.
+Therefore, applications **must** not attempt to export external handles from
+semaphores using a temporarily imported payload from
+[vkAcquireNextImageKHR](VK_KHR_surface/wsi.html#vkAcquireNextImageKHR). |
 
 When importing a semaphore payload, it is the responsibility of the
 application to ensure the external handles meet all valid usage
@@ -6012,6 +6166,17 @@ In addition, when importing a semaphore payload that is not compatible with
 the payload type corresponding to the [VkSemaphoreType](#VkSemaphoreType) the semaphore
 was created with, the implementation **may** fail the semaphore payload import
 operation with the error code `VK_ERROR_INVALID_EXTERNAL_HANDLE`.
+
+|  | As the introduction of the external semaphore handle type
+| --- | --- |
+`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_D3D12_FENCE_BIT` predates that of
+timeline semaphores, support for importing semaphore payloads from external
+handles of that type into semaphores created (implicitly or explicitly) with
+a [VkSemaphoreType](#VkSemaphoreType) of `VK_SEMAPHORE_TYPE_BINARY` is preserved for
+backwards compatibility.
+However, applications **should** prefer importing such handle types into
+semaphores created with a [VkSemaphoreType](#VkSemaphoreType) of
+`VK_SEMAPHORE_TYPE_TIMELINE`. |
 
 To import a semaphore payload from a Windows handle, call:
 
@@ -6106,23 +6271,11 @@ underlying synchronization primitive to import.
 
 The handle types supported by `handleType` are:
 
-Table 6. Handle Types Supported by `VkImportSemaphoreWin32HandleInfoKHR`
-
-Handle Type
-Transference
-Permanence Supported
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_BIT`
-Reference
-Temporary,Permanent
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT`
-Reference
-Temporary,Permanent
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_D3D12_FENCE_BIT`
-Reference
-Temporary,Permanent
+| Handle Type | Transference | Permanence Supported |
+| --- | --- | --- |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_BIT` | Reference | Temporary,Permanent |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_WIN32_KMT_BIT` | Reference | Temporary,Permanent |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_D3D12_FENCE_BIT` | Reference | Temporary,Permanent |
 
 Valid Usage
 
@@ -6319,19 +6472,10 @@ specifying the type of `fd`.
 
 The handle types supported by `handleType` are:
 
-Table 7. Handle Types Supported by `VkImportSemaphoreFdInfoKHR`
-
-Handle Type
-Transference
-Permanence Supported
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT`
-Reference
-Temporary,Permanent
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT`
-Copy
-Temporary
+| Handle Type | Transference | Permanence Supported |
+| --- | --- | --- |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_OPAQUE_FD_BIT` | Reference | Temporary,Permanent |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT` | Copy | Temporary |
 
 Valid Usage
 
@@ -6384,6 +6528,16 @@ descriptor referring to an object that has already signaled.
 The import operation will succeed and the `VkSemaphore` will have a
 temporarily imported payload as if a valid file descriptor had been
 provided.
+
+|  | This special behavior for importing an invalid sync file descriptor allows
+| --- | --- |
+easier interoperability with other system APIs which use the convention that
+an invalid sync file descriptor represents work that has already completed
+and does not need to be waited for.
+It is consistent with the option for implementations to return a `-1` file
+descriptor when exporting a
+`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_SYNC_FD_BIT` from a `VkSemaphore`
+which is signaled. |
 
 Valid Usage (Implicit)
 
@@ -6512,15 +6666,9 @@ specifying the type of `zirconHandle`.
 
 The handle types supported by `handleType` are:
 
-Table 8. Handle Types Supported by `VkImportSemaphoreZirconHandleInfoFUCHSIA`
-
-Handle Type
-Transference
-Permanence Supported
-
-`VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_ZIRCON_EVENT_BIT_FUCHSIA`
-Reference
-Temporary,Permanent
+| Handle Type | Transference | Permanence Supported |
+| --- | --- | --- |
+| `VK_EXTERNAL_SEMAPHORE_HANDLE_TYPE_ZIRCON_EVENT_BIT_FUCHSIA` | Reference | Temporary,Permanent |
 
 Valid Usage
 
@@ -6876,16 +7024,10 @@ VkResult vkGetEventStatus(
 Upon success, `vkGetEventStatus` returns the state of the event object
 with the following return codes:
 
-Table 9. Event Object Status Codes
-
-Status
-Meaning
-
-`VK_EVENT_SET`
-The event specified by `event` is signaled.
-
-`VK_EVENT_RESET`
-The event specified by `event` is unsignaled.
+| Status | Meaning |
+| --- | --- |
+| `VK_EVENT_SET` | The event specified by `event` is signaled. |
+| `VK_EVENT_RESET` | The event specified by `event` is unsignaled. |
 
 If a `vkCmdSetEvent` or `vkCmdResetEvent` command is in a command
 buffer that is in the [pending state](cmdbuffers.html#commandbuffers-lifecycle), then the
@@ -6962,6 +7104,11 @@ operation* which sets the event to the signaled state.
 If `event` is already in the signaled state when [vkSetEvent](#vkSetEvent) is
 executed, then [vkSetEvent](#vkSetEvent) has no effect, and no event signal operation
 occurs.
+
+|  | If a command buffer is waiting for an event to be signaled from the host,
+| --- | --- |
+the application must signal the event before submitting the command buffer,
+as described in the [queue forward progress](cmdbuffers.html#commandbuffers-submission-progress) section. |
 
 Valid Usage
 
@@ -7150,6 +7297,14 @@ corresponding event.
 [vkCmdWaitEvents](#vkCmdWaitEvents) **must** not be used to wait on the result of a signal
 operation defined by `vkCmdSetEvent2`.
 
+|  | The extra information provided by [vkCmdSetEvent2](#vkCmdSetEvent2) compared to
+| --- | --- |
+[vkCmdSetEvent](#vkCmdSetEvent) allows implementations to more efficiently schedule the
+operations required to satisfy the requested dependencies.
+With [vkCmdSetEvent](#vkCmdSetEvent), the full dependency information is not known until
+[vkCmdWaitEvents](#vkCmdWaitEvents) is recorded, forcing implementations to insert the
+required operations at that point and not before. |
+
 If `event` is already in the signaled state when [vkCmdSetEvent2](#vkCmdSetEvent2) is
 executed on the device, then [vkCmdSetEvent2](#vkCmdSetEvent2) has no effect, no event
 signal operation occurs, and no dependency is generated.
@@ -7253,26 +7408,17 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Both
-Graphics
+Secondary | Outside | Both | Graphics
 
 Compute
 
 Decode
 
-Encode
-Synchronization
+Encode | Synchronization |
 
 The `VkDependencyInfo` structure is defined as:
 
@@ -7556,26 +7702,17 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Both
-Graphics
+Secondary | Outside | Both | Graphics
 
 Compute
 
 Decode
 
-Encode
-Synchronization
+Encode | Synchronization |
 
 To unsignal the event from a device, call:
 
@@ -7803,26 +7940,17 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Both
-Graphics
+Secondary | Outside | Both | Graphics
 
 Compute
 
 Decode
 
-Encode
-Synchronization
+Encode | Synchronization |
 
 To set the state of an event to unsignaled from a device, call:
 
@@ -8007,26 +8135,17 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Both
-Graphics
+Secondary | Outside | Both | Graphics
 
 Compute
 
 Decode
 
-Encode
-Synchronization
+Encode | Synchronization |
 
 To wait for one or more events to enter the signaled state on a device,
 call:
@@ -8097,6 +8216,20 @@ memory dependency defined by any element i of `pDependencyInfos`
 are applied to operations that occurred later in
 [submission order](#synchronization-submission-order) than
 `vkCmdWaitEvents2`.
+
+|  | [vkCmdWaitEvents2](#vkCmdWaitEvents2) is used with [vkCmdSetEvent2](#vkCmdSetEvent2) to define a memory
+| --- | --- |
+dependency between two sets of action commands, roughly in the same way as
+pipeline barriers, but split into two commands such that work between the
+two **may** execute unhindered. |
+
+|  | Applications should be careful to avoid race conditions when using events.
+| --- | --- |
+There is no direct ordering guarantee between `vkCmdSetEvent2` and
+[vkCmdResetEvent2](#vkCmdResetEvent2), [vkCmdResetEvent](#vkCmdResetEvent), or [vkCmdSetEvent](#vkCmdSetEvent).
+Another execution dependency (e.g. a pipeline barrier or semaphore with
+`VK_PIPELINE_STAGE_2_ALL_COMMANDS_BIT`) is needed to prevent such a race
+condition. |
 
 Valid Usage
 
@@ -8252,26 +8385,17 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Both
-Graphics
+Secondary | Both | Both | Graphics
 
 Compute
 
 Decode
 
-Encode
-Synchronization
+Encode | Synchronization |
 
 To wait for one or more events to enter the signaled state on a device,
 call:
@@ -8338,6 +8462,12 @@ only wait on signal operations defined by [vkCmdSetEvent](#vkCmdSetEvent).
 As [vkCmdSetEvent](#vkCmdSetEvent) does not define any access scopes,
 `vkCmdWaitEvents` defines the first access scope for each event signal
 operation in addition to its own access scopes.
+
+|  | Since [vkCmdSetEvent](#vkCmdSetEvent) does not have any dependency information beyond a
+| --- | --- |
+stage mask, implementations do not have the same opportunity to perform
+[availability and visibility operations](#synchronization-dependencies-available-and-visible) or [image layout transitions](#synchronization-image-layout-transitions) in advance as they do with [vkCmdSetEvent2](#vkCmdSetEvent2) and
+[vkCmdWaitEvents2](#vkCmdWaitEvents2). |
 
 When `vkCmdWaitEvents` is submitted to a queue, it defines a memory
 dependency between prior event signal operations on the same queue or the
@@ -8758,26 +8888,17 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Both
-Graphics
+Secondary | Both | Both | Graphics
 
 Compute
 
 Decode
 
-Encode
-Synchronization
+Encode | Synchronization |
 
 To record a pipeline barrier, call:
 
@@ -9061,19 +9182,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Both
-Transfer
+Secondary | Both | Both | Transfer
 
 Graphics
 
@@ -9081,8 +9194,7 @@ Compute
 
 Decode
 
-Encode
-Synchronization
+Encode | Synchronization |
 
 To record a pipeline barrier, call:
 
@@ -9720,19 +9832,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Both
-Transfer
+Secondary | Both | Both | Transfer
 
 Graphics
 
@@ -9740,8 +9844,7 @@ Compute
 
 Decode
 
-Encode
-Synchronization
+Encode | Synchronization |
 
 Bits which **can** be set in `vkCmdPipelineBarrier`::`dependencyFlags`,
 specifying how execution and memory dependencies are formed, are:
@@ -12241,6 +12344,11 @@ If the destination access mask includes `VK_ACCESS_HOST_WRITE_BIT` or
 [memory domain operation](#synchronization-dependencies-available-and-visible) is performed where available memory in the device domain is also
 made available to the host domain.
 
+|  | When `VK_MEMORY_PROPERTY_HOST_COHERENT_BIT` is used, available memory in
+| --- | --- |
+host domain is automatically made visible to host domain, and any host write
+is automatically made available to host domain. |
+
 If `srcQueueFamilyIndex` is not equal to `dstQueueFamilyIndex`, and
 `srcQueueFamilyIndex` is equal to the current queue family, then the
 memory barrier defines a [queue family release operation](#synchronization-queue-transfers-release) for the specified buffer range, and
@@ -12526,6 +12634,11 @@ If `oldLayout` is not equal to `newLayout`, then the memory barrier
 defines an [image layout transition](#synchronization-image-layout-transitions) for the specified image subresource range.
 If this memory barrier defines a [queue family ownership transfer operation](#synchronization-queue-transfers), the layout transition is only
 executed once between the queues.
+
+|  | When the old and new layout are equal, the layout values are ignored - data
+| --- | --- |
+is preserved no matter what values are specified, or what layout the image
+is currently in. |
 
 If `image` has a [multi-planar format](formats.html#formats-multiplanar) and the
 image is *disjoint*, then including `VK_IMAGE_ASPECT_COLOR_BIT` in the
@@ -14224,6 +14337,12 @@ enabled or `oldLayout` is not equal to `newLayout`,
 [image layout transition](#synchronization-image-layout-transitions) for
 the specified image subresource range.
 
+|  | If the [`synchronization2`](features.html#features-synchronization2) feature is
+| --- | --- |
+enabled, when the old and new layout are equal, the layout values are
+ignored - data is preserved no matter what values are specified, or what
+layout the image is currently in. |
+
 If `image` has a [multi-planar format](formats.html#formats-multiplanar) and the
 image is *disjoint*, then including `VK_IMAGE_ASPECT_COLOR_BIT` in the
 `aspectMask` member of `subresourceRange` is equivalent to including
@@ -14954,6 +15073,23 @@ reads from or writes to this subresource has completed before the host
 performs the layout transition.
 The memory of `image` is accessed by the host as if [coherent](memory.html#memory-coherent).
 
+|  | Image layout transitions performed on the host do not require queue family
+| --- | --- |
+ownership transfers as the physical layout of the image will not vary
+between queue families for the layouts supported by this function. |
+
+|  | If the device has written to the image memory, it is not automatically made
+| --- | --- |
+available to the host.
+Before this command can be called, a memory barrier for this image **must**
+have been issued on the device with the second
+[synchronization scope](#synchronization-dependencies-scopes) including
+`VK_PIPELINE_STAGE_HOST_BIT` and `VK_ACCESS_HOST_READ_BIT`.
+
+Because queue submissions [automatically make host memory visible to the device](#synchronization-submission-host-writes), there would not be a
+need for a memory barrier before using the results of this layout transition
+on the device. |
+
 Valid Usage
 
 * 
@@ -15178,6 +15314,16 @@ resource between two queues in different families, but no ownership transfer
 is defined, the contents of that resource are **undefined** for any read
 accesses performed by the second queue family.
 
+|  | If an application does not need the contents of a resource to remain valid
+| --- | --- |
+when transferring from one queue family to another, then the ownership
+transfer **should** be skipped. |
+
+|  | Applications should expect transfers to/from
+| --- | --- |
+`VK_QUEUE_FAMILY_FOREIGN_EXT` to be more expensive than transfers
+to/from `VK_QUEUE_FAMILY_EXTERNAL_KHR`. |
+
 A queue family ownership transfer consists of two distinct parts:
 
 Release exclusive ownership from the source queue family
@@ -15227,6 +15373,35 @@ If `dependencyFlags` does not include
 `srcStageMask` is also ignored for such a barrier as defined by
 [buffer memory ownership transfer](#buffer-memory-barrier-ownership-transfer) and [image memory ownership transfer](#image-memory-barrier-ownership-transfer).
 
+|  | Whilst it is not invalid to provide destination or source access masks for
+| --- | --- |
+memory barriers used for release or acquire operations, respectively, they
+have no practical effect.
+Access after a release operation has **undefined** results, and so visibility
+for those accesses has no practical effect.
+Similarly, write access before an acquire operation will produce **undefined**
+results for future access, so availability of those writes has no practical
+use.
+In an earlier version of the specification, these were required to match on
+both sides - but this was subsequently relaxed.
+These masks **should** be set to 0. |
+
+|  | To ensure that an acquire and release operation are valid, the release
+| --- | --- |
+operation must happen-before the acquire operation.
+Often, semaphores are used for this directly, with the semaphore signaling
+after a release and then waiting before an acquire.
+Prior to the introduction of
+`VK_DEPENDENCY_QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_BIT_KHR`,
+`VK_PIPELINE_STAGE_ALL_COMMANDS_BIT` is the only valid stage to wait on
+or wait for these operations, as the acquire and release operations do not
+occur in a defined stage.
+When
+`VK_DEPENDENCY_QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_BIT_KHR`
+is specified however, these can be synchronized with the stages which would
+otherwise be ignored, as these stages now synchronize the acquire and
+release operations, providing a way to avoid full pipeline stalls. |
+
 If the transfer is via an image memory barrier, and an
 [image layout transition](#synchronization-image-layout-transitions) is
 desired, then the values of `oldLayout` and `newLayout` in the
@@ -15258,6 +15433,13 @@ transferred.
 The contents of any portion of another resource which aliases memory that is
 bound to the transferred buffer or image subresource range are **undefined**
 after a release or acquire operation.
+
+|  | Because [events](#synchronization-events) **cannot** be used directly for
+| --- | --- |
+inter-queue synchronization, and because [vkCmdSetEvent](#vkCmdSetEvent) does not have
+the queue family index or memory barrier parameters needed by a *release
+operation*, the release and acquire operations of a queue family ownership
+transfer **can** only be performed using [vkCmdPipelineBarrier](#vkCmdPipelineBarrier). |
 
 An *acquire operation* **may** have a performance penalty when acquiring
 ownership of a subresource range from one of the special queue families
@@ -15308,6 +15490,23 @@ This structure is ignored if the memory barrier’s `srcQueueFamilyIndex`
 is not a special queue family reserved for external memory ownership
 transfers.
 
+|  | The method by which the application determines whether memory was modified
+| --- | --- |
+between the *release operation* and *acquire operation* is outside the scope
+of Vulkan.
+
+For any Vulkan operation that accesses a resource, the application **must** not
+assume the implementation accesses the resource’s memory as read-only, even
+for *apparently* read-only operations such as transfer commands and shader
+reads.
+
+The validity of
+[VkExternalMemoryAcquireUnmodifiedEXT](#VkExternalMemoryAcquireUnmodifiedEXT)::`acquireUnmodifiedMemory` is
+independent of memory ranges outside the ranges of [VkDeviceMemory](memory.html#VkDeviceMemory)
+bound to the resource.
+In particular, it is independent of any implementation-private memory
+associated with the resource. |
+
 Valid Usage
 
 * 
@@ -15356,18 +15555,9 @@ Host Synchronization
 Host access to `queue` **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
--
--
--
-Any
--
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| - | - | - | Any | - |
 
 Return Codes
 
@@ -15438,6 +15628,12 @@ submitted to the queue.
 The first [synchronization scope](#synchronization-dependencies-scopes)
 includes execution of [vkQueueSubmit](cmdbuffers.html#vkQueueSubmit) on the host and anything that
 happened-before it, as defined by the host memory model.
+
+|  | Some systems allow writes that do not directly integrate with the host
+| --- | --- |
+memory model; these have to be synchronized by the application manually.
+One example of this is non-temporal store instructions on x86; to ensure
+these happen-before submission, applications should call `_mm_sfence()`. |
 
 The second [synchronization scope](#synchronization-dependencies-scopes)
 includes all commands submitted in the same [queue submission](devsandqueues.html#devsandqueues-submission), and all commands that occur later in
@@ -15514,6 +15710,15 @@ timestamp values are returned.
 `pMaxDeviation` is a pointer to a 64-bit unsigned integer value in
 which the strictly positive maximum deviation, in nanoseconds, of the
 calibrated timestamp values is returned.
+
+|  | The maximum deviation **may** vary between calls to
+| --- | --- |
+`vkGetCalibratedTimestampsKHR` even for the same set of time domains due
+to implementation and platform specific reasons.
+It is the application’s responsibility to assess whether the returned
+maximum deviation makes the timestamp values suitable for any particular
+purpose and **can** choose to re-issue the timestamp calibration call pursuing
+a lower deviation value. |
 
 Calibrated timestamp values **can** be extrapolated to estimate future
 coinciding timestamp values, however, depending on the nature of the time
@@ -15660,6 +15865,17 @@ time domain available on POSIX platforms.
 Timestamp values in this time domain are in units of nanoseconds and are
 comparable with platform timestamp values captured using the POSIX
 clock_gettime API as computed by this example:
+
+|  | An implementation supporting
+| --- | --- |
+`[VK_KHR_calibrated_timestamps](../appendices/extensions.html#VK_KHR_calibrated_timestamps)`
+or
+`[VK_EXT_calibrated_timestamps](../appendices/extensions.html#VK_EXT_calibrated_timestamps)`
+will use the same time domain for all its [VkQueue](devsandqueues.html#VkQueue) so that timestamp
+values reported for `VK_TIME_DOMAIN_DEVICE_KHR` can be matched to any
+timestamp captured through [vkCmdWriteTimestamp](queries.html#vkCmdWriteTimestamp)
+or [vkCmdWriteTimestamp2](queries.html#vkCmdWriteTimestamp2)
+. |
 
 struct timespec tv;
 clock_gettime(CLOCK_MONOTONIC, &tv);

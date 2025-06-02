@@ -17,6 +17,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/api/separate_image_sampler). |
+| --- | --- |
+
 This tutorial, along with the accompanying example code, shows how to separate samplers and images in a Vulkan application.
 Opposite to combined image and samplers, this allows the application to freely mix an arbitrary set of samplers and images in the shader.
 

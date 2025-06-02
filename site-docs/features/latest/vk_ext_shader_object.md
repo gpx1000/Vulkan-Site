@@ -34,6 +34,8 @@
 - [5.7._RESOLVED:_There_is_currently_no_dynamic_state_setting_functionality_for_sample_shading._How_should_this_be_handled?](#_resolved_there_is_currently_no_dynamic_state_setting_functionality_for_sample_shading_how_should_this_be_handled)
 - [5.8. RESOLVED: Is VK_INCOMPATIBLE_SHADER_BINARY_EXT a success code, or an error code?](#_resolved_is_vk_incompatible_shader_binary_ext_a_success_code_or_an_error_code)
 - [5.8._RESOLVED:_Is_VK_INCOMPATIBLE_SHADER_BINARY_EXT_a_success_code,_or_an_error_code?](#_resolved_is_vk_incompatible_shader_binary_ext_a_success_code_or_an_error_code)
+- [5.9. RESOLVED: Is multiview allowed?](#_resolved_is_multiview_allowed)
+- [5.9._RESOLVED:_Is_multiview_allowed?](#_resolved_is_multiview_allowed)
 - [6. Further Functionality](#_further_functionality)
 - [6._Further_Functionality](#_further_functionality)
 
@@ -62,6 +64,7 @@ Table of Contents
 [5.6. RESOLVED: Should this extension expose some abstraction for setting groups of related state?](#_resolved_should_this_extension_expose_some_abstraction_for_setting_groups_of_related_state)
 [5.7. RESOLVED: There is currently no dynamic state setting functionality for sample shading. How should this be handled?](#_resolved_there_is_currently_no_dynamic_state_setting_functionality_for_sample_shading_how_should_this_be_handled)
 [5.8. RESOLVED: Is `VK_INCOMPATIBLE_SHADER_BINARY_EXT` a success code, or an error code?](#_resolved_is_vk_incompatible_shader_binary_ext_a_success_code_or_an_error_code)
+[5.9. RESOLVED: Is multiview allowed?](#_resolved_is_multiview_allowed)
 
 [6. Further Functionality](#_further_functionality)
 
@@ -162,6 +165,9 @@ typedef struct VkShaderCreateInfoEXT {
 To specify that shaders should be linked, include the `VK_SHADER_CREATE_LINK_STAGE_BIT_EXT` flag in each of the `VkShaderCreateInfoEXT` structures passed to `vkCreateShadersEXT()`. The presence or absence of `VK_SHADER_CREATE_LINK_STAGE_BIT_EXT` must match across all `VkShaderCreateInfoEXT` structures passed to a single `vkCreateShadersEXT()` call: i.e., if any member of `pCreateInfos` includes `VK_SHADER_CREATE_LINK_STAGE_BIT_EXT` then all other members must include it too. `VK_SHADER_CREATE_LINK_STAGE_BIT_EXT` is ignored if `createInfoCount` is one, and a shader created this way is considered unlinked.
 
 The stage of the shader being compiled is specified by `stage`. Applications must also specify which stage types will be allowed to immediately follow the shader being created. For example, a vertex shader might specify a `nextStage` value of `VK_SHADER_STAGE_FRAGMENT_BIT` to indicate that the vertex shader being created will always be followed by a fragment shader (and never a geometry or tessellation shader). Applications that do not know this information at shader creation time or need the same shader to be compatible with multiple subsequent stages can specify a mask that includes as many valid next stages as they wish. For example, a vertex shader can specify a `nextStage` mask of `VK_SHADER_STAGE_GEOMETRY_BIT | VK_SHADER_STAGE_FRAGMENT_BIT` to indicate that the next stage could be either a geometry shader or fragment shader (but not a tessellation shader).
+
+|  | Certain implementations may incur a compile time and/or memory usage penalty whenever more than one stage bit is set in `nextStage`, so applications should strive to set the minimum number of bits they are able to. However, applications should **not** interpret this advice to mean that they should create multiple `VkShaderEXT` objects that differ only by the value of `nextStage`, as this will incur unnecessarily overhead on implementations where `nextStage` is ignored. |
+| --- | --- |
 
 The shader code is pointed to by `pCode` and may be provided as SPIR-V, or in an opaque implementation defined binary form specific to the physical device. The format of the shader code is specified by `codeType`.
 
@@ -758,6 +764,9 @@ No - the compiled code for each shader stage is represented by a single `VkShade
 
 Introducing a shader program object would overly complicate the API and impose a new and unnecessary object lifetime management burden on applications. Vulkan is a low level API, and it should be the application’s responsibility to ensure that it keeps any promises it chooses to make about binding the correct stages together.
 
+|  | Whenever shaders are created linked together, the rules for binding them give implementations the freedom to (for example) internally store the compiled code for multiple linked stages in a single stage’s `VkShaderEXT` object and to leave the other stages' `VkShaderEXT` objects internally unused, though this is **strongly** discouraged. |
+| --- | --- |
+
 Not as part of this extension - it is possible to imagine some kind of "shader optimization hint" functionality to let applications provide implementations with "static state" similar to the existing static state in pipelines, but on an opt-in rather than opt-out basis. By providing a given piece of state in an optimization hint at shader creation time, an application could promise that the equivalent piece of dynamic state would always be set to some specific value whenever that shader is used, thereby allowing implementations to perform compile time optimizations similar to those they can make with pipelines today.
 
 For already pipeline-friendly applications with lots of static state this could serve as a "gentler" version of pipelines that might provide the best of both worlds, but it is unclear that the benefits of such a scheme for the (pipeline-unfriendly) majority of applications which actually need this extension would outweigh the costs of the added complexity to the API.
@@ -784,6 +793,9 @@ assigned to the token was positive.
 On further discussion we agreed that the return code was a success code,
 much as `VK_INCOMPLETE` is, and aliased the original name to the current name
 without `ERROR` in it.
+
+No. The multiview mask is widely required static state since implementations may compute all views in one big shader invocation.
+This concept may be re-introduced in a different extension.
 
 * 
 Shader optimization hints

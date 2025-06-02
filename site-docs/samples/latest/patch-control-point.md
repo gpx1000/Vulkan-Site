@@ -15,6 +15,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/patch_control_points). |
+| --- | --- |
+
 ![Sample](../../../_images/samples/extensions/patch_control_points/images/patch_control_point_screenshot.png)
 
 This sample demonstrates how to use `VK_EXT_extended_dynamic_state2` extension, which eliminates the need to create multiple pipelines in case of specific different parameters.
@@ -24,18 +27,12 @@ Instead of static description during pipeline creation, this extension allows de
 
 Below is a comparison of common Vulkan static and dynamic setting of patch control points in the  tessellation.
 
-Static/Non-dynamic
-Dynamic State 2
-
-dynamic_state = {VK_DYNAMIC_STATE_VIEWPORT, + VK_DYNAMIC_STATE_SCISSOR}
-dynamic_state = {VK_DYNAMIC_STATE_VIEWPORT, + VK_DYNAMIC_STATE_SCISSOR, + **VK_DYNAMIC_STATE_PATCH_CONTROL_POINTS_EXT**}
-
-VkPipelineTessellationStateCreateInfo tessellation_state{} + tessellation_state.sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO + **tessellation_state.patchControlPoints = patchControlPoints** + …​
-+ vkCreateGraphicsPipelines(pipeline)
-vkCreateGraphicsPipelines(pipeline)
-
-draw(model, pipeline)
-**vkCmdSetPatchControlPointsEXT(commandBuffer, patchControlPoints)** + draw(model, pipeline)
+| Static/Non-dynamic | Dynamic State 2 |
+| --- | --- |
+| dynamic_state = {VK_DYNAMIC_STATE_VIEWPORT, + VK_DYNAMIC_STATE_SCISSOR} | dynamic_state = {VK_DYNAMIC_STATE_VIEWPORT, + VK_DYNAMIC_STATE_SCISSOR, + **VK_DYNAMIC_STATE_PATCH_CONTROL_POINTS_EXT**} |
+| VkPipelineTessellationStateCreateInfo tessellation_state{} + tessellation_state.sType = VK_STRUCTURE_TYPE_PIPELINE_TESSELLATION_STATE_CREATE_INFO + **tessellation_state.patchControlPoints = patchControlPoints** + …​
++ vkCreateGraphicsPipelines(pipeline) | vkCreateGraphicsPipelines(pipeline) |
+| draw(model, pipeline) | **vkCmdSetPatchControlPointsEXT(commandBuffer, patchControlPoints)** + draw(model, pipeline) |
 
 More details are provided in the sections that follow.
 

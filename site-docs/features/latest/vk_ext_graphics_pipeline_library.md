@@ -300,6 +300,15 @@ calling out.
 Any state not explicitly listed for a particular library part will be
 ignored when compiling that part.
 
+|  | There is no change to dynamic state, so if state can be made dynamic, it
+| --- | --- |
+doesn’t need to be present when compiling a pipeline library part if it is
+specified as dynamic. |
+
+|  | The following section is a complete list only at time of writing - see the
+| --- | --- |
+specification for a more up-to-date list. |
+
 A vertex input interface library is defined by the following state:
 
 * 
@@ -555,6 +564,13 @@ VkPipeline createVertexShader(
     return vertexShader;
 }
 
+|  | This example makes use of
+| --- | --- |
+[VK_KHR_dynamic_rendering](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_KHR_dynamic_rendering) to
+avoid render pass interactions.
+If that extension is not available, a render pass object and the
+corresponding subpass will also need to be provided. |
+
 Linking is relatively straightforward - pipeline libraries in, executable
 pipeline out, with the option of optimizing the pipeline or not.
 
@@ -583,6 +599,24 @@ VkPipeline linkExecutable(
 
     return executable;
 }
+
+|  | The behavior of the pipeline cache in this scenario is subject to specific
+| --- | --- |
+behavior depending on implementation properties and whether fast or
+optimized linking is being used.
+This is spelled out in the spec, but summarized briefly again here:
+
+If fast linking is being performed, the implementation should only lookup
+into the cache if it is expected that will be faster than linking.
+If linking is faster, then the cache lookup and any writes to the cache should be skipped.
+The aim of this is to ensure that fast linking is always as fast as
+possible.
+If a cache lookup is performed, optimized pipelines in the cache should be
+returned preferentially to any fast-linked pipelines.
+
+If optimized linking is being performed, the implementation should not
+generate a hit on a suboptimal fast linked pipeline, instead creating a new
+pipeline and corresponding cache entry. |
 
 While splitting the geometry stages may be possible, it’s a significant
 amount of additional work for many vendors, the advantage for most

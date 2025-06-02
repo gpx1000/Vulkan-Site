@@ -18,6 +18,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/specialization_constants). |
+| --- | --- |
+
 Vulkan exposes a number of methods for setting values within shader code during run-time, this includes UBOs and Specialization Constants.
 This samples compares these two methods and the performance impact of them.
 

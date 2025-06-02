@@ -226,10 +226,45 @@ The functions **must** not use projection.
 * 
 The functions **must** not use offsets.
 
+|  | Mapping of OpenGL to Vulkan Filter Modes
+| --- | --- |
+
+`magFilter` values of `VK_FILTER_NEAREST` and `VK_FILTER_LINEAR`
+directly correspond to `GL_NEAREST` and `GL_LINEAR` magnification
+filters.
+`minFilter` and `mipmapMode` combine to correspond to the similarly
+named OpenGL minification filter of `GL_minFilter_MIPMAP_mipmapMode`
+(e.g. `minFilter` of `VK_FILTER_LINEAR` and `mipmapMode` of
+`VK_SAMPLER_MIPMAP_MODE_NEAREST` correspond to
+`GL_LINEAR_MIPMAP_NEAREST`).
+
+There are no Vulkan filter modes that directly correspond to OpenGL
+minification filters of `GL_LINEAR` or `GL_NEAREST`, but they **can** be
+emulated using `VK_SAMPLER_MIPMAP_MODE_NEAREST`, `minLod` = 0, and
+`maxLod` = 0.25, and using `minFilter` = `VK_FILTER_LINEAR` or
+`minFilter` = `VK_FILTER_NEAREST`, respectively.
+
+Note that using a `maxLod` of zero would cause
+[magnification](textures.html#textures-texel-filtering) to always be performed, and the
+`magFilter` to always be used.
+This is valid, just not an exact match for OpenGL behavior.
+Clamping the maximum LOD to 0.25 allows the λ value to be
+non-zero and minification to be performed, while still always rounding down
+to the base level.
+If the `minFilter` and `magFilter` are equal, then using a
+`maxLod` of zero also works. |
+
 The maximum number of sampler objects which **can** be simultaneously created
 on a device is implementation-dependent and specified by the
 [`maxSamplerAllocationCount`](limits.html#limits-maxSamplerAllocationCount) member
 of the [VkPhysicalDeviceLimits](limits.html#VkPhysicalDeviceLimits) structure.
+
+|  | For historical reasons, if `maxSamplerAllocationCount` is exceeded, some
+| --- | --- |
+implementations may return `VK_ERROR_TOO_MANY_OBJECTS`.
+Exceeding this limit will result in **undefined** behavior, and an application
+should not rely on the use of the returned error code in order to identify
+when the limit is reached. |
 
 Since [VkSampler](#VkSampler) is a non-dispatchable handle type, implementations
 **may** return the same handle for sampler state vectors that are identical.
@@ -639,6 +674,15 @@ sampler will read from images using only `OpImageWeightedSampleQCOM`,
 `OpImageBlockMatchWindowSSDQCOM`,
 `OpImageBlockMatchWindowSADQCOM`,
 `OpImageBlockMatchSSDQCOM`, or `OpImageBlockMatchSADQCOM`.
+
+|  | The approximations used when
+| --- | --- |
+`VK_SAMPLER_CREATE_SUBSAMPLED_COARSE_RECONSTRUCTION_BIT_EXT` is
+specified are implementation defined.
+Some implementations **may** interpolate between fragment density levels in a
+subsampled image.
+In that case, this bit **may** be used to decide whether the interpolation
+factors are calculated per fragment or at a coarser granularity. |
 
 * 
 `VK_SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT`
@@ -1295,6 +1339,16 @@ components are not downsampled vertically.
 `forceExplicitReconstruction` **can** be used to ensure that
 reconstruction is done explicitly, if supported.
 
+|  | Setting `forceExplicitReconstruction` to `VK_TRUE` **may** have a
+| --- | --- |
+performance penalty on implementations where explicit reconstruction is not
+the default mode of operation.
+
+If `format` supports
+`VK_FORMAT_FEATURE_SAMPLED_IMAGE_YCBCR_CONVERSION_CHROMA_RECONSTRUCTION_EXPLICIT_BIT`
+the `forceExplicitReconstruction` value behaves as if it were
+`VK_TRUE`. |
+
 If the `pNext` chain includes a [VkExternalFormatANDROID](resources.html#VkExternalFormatANDROID) structure
 with non-zero `externalFormat` member, the sampler Y′CBCR conversion
 object represents an *external format conversion*, and `format` **must** be
@@ -1581,6 +1635,22 @@ These rules reflect the mapping of components after the component swizzle
 operation (controlled by
 [VkSamplerYcbcrConversionCreateInfo](#VkSamplerYcbcrConversionCreateInfo)::`components`).
 
+|  | For example, an “YUVA” 32-bit format comprising four 8-bit components can
+| --- | --- |
+be implemented as `VK_FORMAT_R8G8B8A8_UNORM` with a component mapping:
+
+* 
+`components.a` = `VK_COMPONENT_SWIZZLE_IDENTITY`
+
+* 
+`components.r` = `VK_COMPONENT_SWIZZLE_B`
+
+* 
+`components.g` = `VK_COMPONENT_SWIZZLE_R`
+
+* 
+`components.b` = `VK_COMPONENT_SWIZZLE_G` |
+
 The [VkSamplerYcbcrRange](#VkSamplerYcbcrRange) enum describes whether color components are
 encoded using the full range of numerical values or whether values are
 reserved for headroom and foot room.
@@ -1767,6 +1837,22 @@ desired custom sampler border color.
 image view(s).
 This field may be `VK_FORMAT_UNDEFINED` if the
 [    `customBorderColorWithoutFormat`](features.html#features-customBorderColorWithoutFormat) feature is enabled.
+
+|  | If `format` is a depth/stencil format, the aspect is determined by the
+| --- | --- |
+value of [VkSamplerCreateInfo](#VkSamplerCreateInfo)::`borderColor`.
+If [VkSamplerCreateInfo](#VkSamplerCreateInfo)::`borderColor` is
+`VK_BORDER_COLOR_FLOAT_CUSTOM_EXT`, the depth aspect is considered.
+If [VkSamplerCreateInfo](#VkSamplerCreateInfo)::`borderColor` is
+`VK_BORDER_COLOR_INT_CUSTOM_EXT`, the stencil aspect is considered.
+
+If `format` is `VK_FORMAT_UNDEFINED`, the
+[VkSamplerCreateInfo](#VkSamplerCreateInfo)::`borderColor` is
+`VK_BORDER_COLOR_INT_CUSTOM_EXT`, and the sampler is used with an image
+with a stencil format, then the implementation **must** source the custom
+border color from either the first or second components of
+[VkSamplerCreateInfo](#VkSamplerCreateInfo)::`borderColor` and **should** source it from the
+first component. |
 
 Valid Usage
 

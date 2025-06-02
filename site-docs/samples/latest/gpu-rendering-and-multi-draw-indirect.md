@@ -17,6 +17,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/multi_draw_indirect). |
+| --- | --- |
+
 This sample demonstrates how to reduce CPU usage by offloading draw call generation and frustum culling to the GPU.
 
 A common method of rendering large scenes is to iterate through each model and bind its resources such as vertex buffers, index buffers, and descriptors prior to each draw call.

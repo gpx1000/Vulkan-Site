@@ -23,6 +23,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/16bit_storage_input_output). |
+| --- | --- |
+
 On some tile-based deferred renderers (TBDR), such as Arm Mali GPUs, vertex shading and fragment shading is split into two distinct stages.
 Vertex shaders and the general geometry pipeline will write to memory for each visible vertex:
 

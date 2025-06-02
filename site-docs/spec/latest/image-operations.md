@@ -157,6 +157,13 @@ Query operations return properties of the bound image or of the lookup
 itself.
 The “Depth” operand of `OpTypeImage` is ignored.
 
+|  | Texel is a term which is a combination of the words texture and element.
+| --- | --- |
+Early interactive computer graphics supported texture operations on
+textures, a small subset of the image operations on images described here.
+The discrete samples remain essentially equivalent, however, so we retain
+the historical term texel to refer to them. |
+
 Image Operations include the functionality of the following SPIR-V Image
 Instructions:
 
@@ -401,6 +408,12 @@ Given the offset Δi and Δj, the
 four texels selected by the offset are i0j'0,
 i1j'0, i0j'1, and i1j'1.
 
+|  | For formats with reduced-resolution components, Δi and
+| --- | --- |
+Δj are relative to the resolution of the
+highest-resolution component, and therefore may be divided by two relative
+to the unnormalized coordinate space of the lower-resolution components. |
+
 ![vulkantexture1 ll](../_images/vulkantexture1-ll.svg)
 
 Figure 2. Texel Coordinate Systems, Nearest Filtering
@@ -444,6 +457,12 @@ where:
   
 
   
+
+|  | NaN, if supported, is handled as in
+| --- | --- |
+
+[IEEE 754-2008](introduction.html#ieee-754) `minNum()` and `maxNum()`.
+This results in any NaN being mapped to zero. |
 
 The largest clamped component, maxclamped is determined:
 
@@ -709,6 +728,28 @@ sampler or image view that enables [sampler Y′CBCR conversion](samplers.html#s
 If the underlying `VkImage` format has an X component in its format
 description, **undefined** values are read from those bits.
 
+|  | If the `VkImage` format and `VkImageView` format are the same, these
+| --- | --- |
+bits will be unused by format conversion and this will have no effect.
+However, if the `VkImageView` format is different, then some bits of the
+result may be **undefined**.
+For example, when a `VK_FORMAT_R10X6_UNORM_PACK16` `VkImage` is
+sampled via a `VK_FORMAT_R16_UNORM` `VkImageView`, the low 6 bits of
+the value before format conversion are **undefined** and format conversion may
+return a range of different values. |
+
+|  | Some implementations will return **undefined** values in the case where a
+| --- | --- |
+sampler uses a [VkSamplerAddressMode](samplers.html#VkSamplerAddressMode) of
+`VK_SAMPLER_ADDRESS_MODE_MIRRORED_REPEAT`, the sampler is used with
+operands `Offset`, `ConstOffset`, or `ConstOffsets`, and the value
+of the offset is larger than or equal to the corresponding width, height, or
+depth of any accessed image level.
+
+This behavior was not tested prior to Vulkan conformance test suite version
+1.3.8.0.
+Affected implementations will have a conformance test waiver for this issue. |
+
 Integer texel coordinates are validated against the size of the image level,
 and the number of layers and number of samples in the image.
 For SPIR-V instructions that use integer texel coordinates, this is
@@ -885,67 +926,41 @@ Border texels are replaced with a value based on the image format and the
 `borderColor` of the sampler.
 The border color is:
 
-Table 1. Border Color B, Custom Border Color [VkSamplerCustomBorderColorCreateInfoEXT](samplers.html#VkSamplerCustomBorderColorCreateInfoEXT)::`customBorderColor` U
-
-Sampler `borderColor`
-Corresponding Border Color
-
-`VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK`
-[Br, Bg, Bb, Ba] = [0.0, 0.0, 0.0, 0.0]
-
-`VK_BORDER_COLOR_FLOAT_OPAQUE_BLACK`
-[Br, Bg, Bb, Ba] = [0.0, 0.0, 0.0, 1.0]
-
-`VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE`
-[Br, Bg, Bb, Ba] = [1.0, 1.0, 1.0, 1.0]
-
-`VK_BORDER_COLOR_INT_TRANSPARENT_BLACK`
-[Br, Bg, Bb, Ba] = [0, 0, 0, 0]
-
-`VK_BORDER_COLOR_INT_OPAQUE_BLACK`
-[Br, Bg, Bb, Ba] = [0, 0, 0, 1]
-
-`VK_BORDER_COLOR_INT_OPAQUE_WHITE`
-[Br, Bg, Bb, Ba] = [1, 1, 1, 1]
-
-`VK_BORDER_COLOR_FLOAT_CUSTOM_EXT`
-[Br, Bg, Bb, Ba] = [Ur, Ug, Ub, Ua]
-
-`VK_BORDER_COLOR_INT_CUSTOM_EXT`
-[Br, Bg, Bb, Ba] = [Ur, Ug, Ub, Ua]
+| Sampler `borderColor` | Corresponding Border Color |
+| --- | --- |
+| `VK_BORDER_COLOR_FLOAT_TRANSPARENT_BLACK` | [Br, Bg, Bb, Ba] = [0.0, 0.0, 0.0, 0.0] |
+| `VK_BORDER_COLOR_FLOAT_OPAQUE_BLACK` | [Br, Bg, Bb, Ba] = [0.0, 0.0, 0.0, 1.0] |
+| `VK_BORDER_COLOR_FLOAT_OPAQUE_WHITE` | [Br, Bg, Bb, Ba] = [1.0, 1.0, 1.0, 1.0] |
+| `VK_BORDER_COLOR_INT_TRANSPARENT_BLACK` | [Br, Bg, Bb, Ba] = [0, 0, 0, 0] |
+| `VK_BORDER_COLOR_INT_OPAQUE_BLACK` | [Br, Bg, Bb, Ba] = [0, 0, 0, 1] |
+| `VK_BORDER_COLOR_INT_OPAQUE_WHITE` | [Br, Bg, Bb, Ba] = [1, 1, 1, 1] |
+| `VK_BORDER_COLOR_FLOAT_CUSTOM_EXT` | [Br, Bg, Bb, Ba] = [Ur, Ug, Ub, Ua] |
+| `VK_BORDER_COLOR_INT_CUSTOM_EXT` | [Br, Bg, Bb, Ba] = [Ur, Ug, Ub, Ua] |
 
 The custom border color (U) **may** be rounded by implementations prior
 to texel replacement, but the error introduced by such a rounding **must** not
 exceed one ULP of the image’s `format`.
 
+|  | The names `VK_BORDER_COLOR_*_TRANSPARENT_BLACK`,
+| --- | --- |
+`VK_BORDER_COLOR_*_OPAQUE_BLACK`, and
+`VK_BORDER_COLOR_*_OPAQUE_WHITE` are meant to describe which components
+are zeros and ones in the vocabulary of compositing, and are not meant to
+imply that the numerical value of `VK_BORDER_COLOR_INT_OPAQUE_WHITE` is
+a saturating value for integers. |
+
 This is substituted for the texel value by replacing the number of
 components in the image format
 
-Table 2. Border Texel Components After Replacement
-
-Texel Aspect or Format
-Component Assignment
-
-Depth aspect
-D                                     = Br
-
-Stencil aspect
-S                                     = Br†
-
-One component color format
-Colorr                              = Br
-
-Two component color format
-[Colorr,Colorg]                   = [Br,Bg]
-
-Three component color format
-[Colorr,Colorg,Colorb]          = [Br,Bg,Bb]
-
-Four component color format
-[Colorr,Colorg,Colorb,Colora] = [Br,Bg,Bb,Ba]
-
-Single component alpha format
-[Colorr,Colorg,Colorb, Colora] = [0,0,0,Ba]
+| Texel Aspect or Format | Component Assignment |
+| --- | --- |
+| Depth aspect | D                                     = Br |
+| Stencil aspect | S                                     = Br† |
+| One component color format | Colorr                              = Br |
+| Two component color format | [Colorr,Colorg]                   = [Br,Bg] |
+| Three component color format | [Colorr,Colorg,Colorb]          = [Br,Bg,Bb] |
+| Four component color format | [Colorr,Colorg,Colorb,Colora] = [Br,Bg,Bb,Ba] |
+| Single component alpha format | [Colorr,Colorg,Colorb, Colora] = [0,0,0,Ba] |
 
 † S = Bg **may** be substituted as the replacement method by the
 implementation when [VkSamplerCreateInfo](samplers.html#VkSamplerCreateInfo)::`borderColor` is
@@ -1023,31 +1038,15 @@ or failures.
 The texel is expanded from one, two, or three components to four components
 based on the image base color:
 
-Table 3. Texel Color After Conversion To RGBA
-
-Texel Aspect or Format
-RGBA Color
-
-Depth aspect
-[Colorr,Colorg,Colorb, Colora] = [D,0,0,one]
-
-Stencil aspect
-[Colorr,Colorg,Colorb, Colora] = [S,0,0,one]
-
-One component color format
-[Colorr,Colorg,Colorb, Colora] = [Colorr,0,0,one]
-
-Two component color format
-[Colorr,Colorg,Colorb, Colora] = [Colorr,Colorg,0,one]
-
-Three component color format
-[Colorr,Colorg,Colorb, Colora] = [Colorr,Colorg,Colorb,one]
-
-Four component color format
-[Colorr,Colorg,Colorb, Colora] = [Colorr,Colorg,Colorb,Colora]
-
-One alpha component color format
-[Colorr,Colorg,Colorb, Colora] = [0,0,0,Colora]
+| Texel Aspect or Format | RGBA Color |
+| --- | --- |
+| Depth aspect | [Colorr,Colorg,Colorb, Colora] = [D,0,0,one] |
+| Stencil aspect | [Colorr,Colorg,Colorb, Colora] = [S,0,0,one] |
+| One component color format | [Colorr,Colorg,Colorb, Colora] = [Colorr,0,0,one] |
+| Two component color format | [Colorr,Colorg,Colorb, Colora] = [Colorr,Colorg,0,one] |
+| Three component color format | [Colorr,Colorg,Colorb, Colora] = [Colorr,Colorg,Colorb,one] |
+| Four component color format | [Colorr,Colorg,Colorb, Colora] = [Colorr,Colorg,Colorb,Colora] |
+| One alpha component color format | [Colorr,Colorg,Colorb, Colora] = [0,0,0,Colora] |
 
 where one = 1.0f for floating-point formats and depth aspects, and
 one = 1 for integer formats and stencil aspects.
@@ -1146,6 +1145,15 @@ coordinates and (*i*,*j*) integer texel positions in the luma component
 texel coordinates of reduced-resolution chroma components, shown as crosses
 in red.
 
+|  | If the chroma values are reconstructed at the locations of the luma samples
+| --- | --- |
+by means of interpolation, chroma samples from outside the image bounds are
+needed; these are determined according to [Wrapping Operation](#textures-wrapping-operation).
+These diagrams represent this by showing the bounds of the “chroma texel”
+extending beyond the image bounds, and including additional chroma sample
+positions where required for interpolation.
+The limits of a sample for `NEAREST` sampling is shown as a grid. |
+
 ![chromasamples 422 cosited](../_images/chromasamples_422_cosited.svg)
 
 Figure 4. 422 downsampling, xChromaOffset=COSITED_EVEN
@@ -1213,6 +1221,10 @@ reconstructed as follows:
 
   
 
+|  | `xChromaOffset` and `yChromaOffset` have no effect if
+| --- | --- |
+`chromaFilter` is `VK_FILTER_NEAREST` for explicit reconstruction. |
+
 If the `chromaFilter` member of the
 [VkSamplerYcbcrConversionCreateInfo](samplers.html#VkSamplerYcbcrConversionCreateInfo) structure is
 `VK_FILTER_LINEAR`:
@@ -1249,6 +1261,14 @@ concisely as follows:
 
   
 
+|  | In the case where the texture itself is bilinearly interpolated as described
+| --- | --- |
+in [Texel Filtering](#textures-texel-filtering), thus requiring four
+full-color samples for the filtering operation, and where the reconstruction
+of these samples uses bilinear interpolation in the chroma components due to
+`chromaFilter`=`VK_FILTER_LINEAR`, up to nine chroma samples may be
+required, depending on the sample location. |
+
 Implicit reconstruction takes place by the samples being interpolated, as
 required by the filter settings of the sampler, except that
 `chromaFilter` takes precedence for the chroma samples.
@@ -1256,6 +1276,10 @@ required by the filter settings of the sampler, except that
 If `chromaFilter` is `VK_FILTER_NEAREST`, an implementation **may**
 behave as if `xChromaOffset` and `yChromaOffset` were both
 `VK_CHROMA_LOCATION_MIDPOINT`, irrespective of the values set.
+
+|  | This will not have any visible effect if the locations of the luma samples
+| --- | --- |
+coincide with the location of the samples used for rasterization. |
 
 The sample coordinates are adjusted by the downsample factor of the
 component (such that, for example, the sample coordinates are divided by two
@@ -1310,6 +1334,14 @@ following transformations are applied:
 
   
 
+|  | These formulae correspond to the “full range” encoding in the
+| --- | --- |
+“Quantization schemes” chapter of the [Khronos Data Format Specification](introduction.html#data-format).
+
+Should any future amendments be made to the ITU specifications from which
+these equations are derived, the formulae used by Vulkan **may** also be
+updated to maintain parity. |
+
 * 
 If `ycbcrRange` is `VK_SAMPLER_YCBCR_RANGE_ITU_NARROW`, the
 following transformations are applied:
@@ -1317,6 +1349,10 @@ following transformations are applied:
   
 
   
+
+|  | These formulae correspond to the “narrow range” encoding in the
+| --- | --- |
+“Quantization schemes” chapter of the [Khronos Data Format Specification](introduction.html#data-format). |
 
 * 
 *n* is the bit-depth of the components in the format.
@@ -1373,6 +1409,70 @@ The precision of the operations performed during model conversion **must** be
 at least that of the source format.
 
 The alpha component is not modified by these model conversions.
+
+|  | Sampling operations in a non-linear color space can introduce color and
+| --- | --- |
+intensity shifts at sharp transition boundaries.
+To avoid this issue, the technically precise color correction sequence
+described in the “Introduction to Color Conversions” chapter of the
+[Khronos Data Format Specification](introduction.html#data-format) may be performed as
+follows:
+
+* 
+Calculate the [unnormalized texel    coordinates](#textures-normalized-to-unnormalized) corresponding to the desired sample position.
+
+* 
+For a `minFilter` or `magFilter` of `VK_FILTER_NEAREST`:
+
+Calculate (*i*,*j*) for the sample location as described under the
+“nearest filtering” formulae in [(u,v,w,a) to (i,j,k,l,n) Transformation and Array Layer Selection](#textures-unnormalized-to-integer)
+
+* 
+Calculate the normalized texel coordinates corresponding to these
+integer coordinates.
+
+* 
+Sample using [sampler Y′CBCR conversion](samplers.html#samplers-YCbCr-conversion)
+at this location.
+
+* 
+For a `minFilter` or `magFilter` of `VK_FILTER_LINEAR`:
+
+Calculate (*i[0,1]*,*j[0,1]*) for the sample location as described
+under the “linear filtering” formulae in
+[(u,v,w,a) to (i,j,k,l,n) Transformation and Array Layer Selection](#textures-unnormalized-to-integer)
+
+* 
+Calculate the normalized texel coordinates corresponding to these
+integer coordinates.
+
+* 
+Sample using [sampler Y′CBCR conversion](samplers.html#samplers-YCbCr-conversion)
+at each of these locations.
+
+* 
+Convert the non-linear A′R′G′B′ outputs of the Y′CBCR
+conversions to linear ARGB values as described in the “Transfer
+Functions” chapter of the [Khronos Data Format      Specification](introduction.html#data-format).
+
+* 
+Interpolate the linear ARGB values using the α and
+β values described in the “linear filtering” section of
+[(u,v,w,a) to (i,j,k,l,n) Transformation and Array Layer Selection](#textures-unnormalized-to-integer) and the equations in
+[Texel Filtering](#textures-texel-filtering).
+
+The additional calculations and, especially, additional number of sampling
+operations in the `VK_FILTER_LINEAR` case can be expected to have a
+performance impact compared with using the outputs directly.
+Since the variations from “correct” results are subtle for most content,
+the application author should determine whether a more costly implementation
+is strictly necessary.
+
+If `chromaFilter`, and `minFilter` or `magFilter` are both
+`VK_FILTER_NEAREST`, these operations are redundant and sampling using
+[sampler Y′CBCR conversion](samplers.html#samplers-YCbCr-conversion) at the desired
+sample coordinates will produce the “correct” results without further
+processing. |
 
 *Texel output instructions* are SPIR-V image instructions that write to an
 image.
@@ -1536,114 +1636,23 @@ selections for sc, tc, rc, and the selection of
 derivatives, are determined by the major axis direction as specified in the
 following two tables.
 
-Table 4. Cube Map Face and Coordinate Selection
+| Major Axis Direction | Layer Number | Cube Map Face | sc | tc | rc |
+| --- | --- | --- | --- | --- | --- |
+| +rx | 0 | Positive X | -rz | -ry | rx |
+| -rx | 1 | Negative X | +rz | -ry | rx |
+| +ry | 2 | Positive Y | +rx | +rz | ry |
+| -ry | 3 | Negative Y | +rx | -rz | ry |
+| +rz | 4 | Positive Z | +rx | -ry | rz |
+| -rz | 5 | Negative Z | -rx | -ry | rz |
 
-Major Axis Direction
-Layer Number
-Cube Map Face
-sc
-tc
-rc
-
-+rx
-0
-Positive X
--rz
--ry
-rx
-
--rx
-1
-Negative X
-+rz
--ry
-rx
-
-+ry
-2
-Positive Y
-+rx
-+rz
-ry
-
--ry
-3
-Negative Y
-+rx
--rz
-ry
-
-+rz
-4
-Positive Z
-+rx
--ry
-rz
-
--rz
-5
-Negative Z
--rx
--ry
-rz
-
-Table 5. Cube Map Derivative Selection
-
-Major Axis Direction
-∂sc / ∂x
-∂sc / ∂y
-∂tc / ∂x
-∂tc / ∂y
-∂rc / ∂x
-∂rc / ∂y
-
-+rx
--∂rz / ∂x
--∂rz / ∂y
--∂ry / ∂x
--∂ry / ∂y
-+∂rx / ∂x
-+∂rx / ∂y
-
--rx
-+∂rz / ∂x
-+∂rz / ∂y
--∂ry / ∂x
--∂ry / ∂y
--∂rx / ∂x
--∂rx / ∂y
-
-+ry
-+∂rx / ∂x
-+∂rx / ∂y
-+∂rz / ∂x
-+∂rz / ∂y
-+∂ry / ∂x
-+∂ry / ∂y
-
--ry
-+∂rx / ∂x
-+∂rx / ∂y
--∂rz / ∂x
--∂rz / ∂y
--∂ry / ∂x
--∂ry / ∂y
-
-+rz
-+∂rx / ∂x
-+∂rx / ∂y
--∂ry / ∂x
--∂ry / ∂y
-+∂rz / ∂x
-+∂rz / ∂y
-
--rz
--∂rx / ∂x
--∂rx / ∂y
--∂ry / ∂x
--∂ry / ∂y
--∂rz / ∂x
--∂rz / ∂y
+| Major Axis Direction | ∂sc / ∂x | ∂sc / ∂y | ∂tc / ∂x | ∂tc / ∂y | ∂rc / ∂x | ∂rc / ∂y |
+| --- | --- | --- | --- | --- | --- | --- |
+| +rx | -∂rz / ∂x | -∂rz / ∂y | -∂ry / ∂x | -∂ry / ∂y | +∂rx / ∂x | +∂rx / ∂y |
+| -rx | +∂rz / ∂x | +∂rz / ∂y | -∂ry / ∂x | -∂ry / ∂y | -∂rx / ∂x | -∂rx / ∂y |
+| +ry | +∂rx / ∂x | +∂rx / ∂y | +∂rz / ∂x | +∂rz / ∂y | +∂ry / ∂x | +∂ry / ∂y |
+| -ry | +∂rx / ∂x | +∂rx / ∂y | -∂rz / ∂x | -∂rz / ∂y | -∂ry / ∂x | -∂ry / ∂y |
+| +rz | +∂rx / ∂x | +∂rx / ∂y | -∂ry / ∂x | -∂ry / ∂y | +∂rz / ∂x | +∂rz / ∂y |
+| -rz | -∂rx / ∂x | -∂rx / ∂y | -∂ry / ∂x | -∂ry / ∂y | -∂rz / ∂x | -∂rz / ∂y |
 
   
 
@@ -2201,6 +2210,40 @@ filtering scheme used.
 In addition, implementations **should** consider `minLod` and `maxLod`
 of the sampler.
 
+|  | For historical reasons, vendor implementations of anisotropic filtering
+| --- | --- |
+interpret these sampler parameters in different ways, particularly in corner
+cases such as `magFilter`, `minFilter` of `VK_FILTER_NEAREST` or
+`maxAnisotropy` equal to 1.0.
+Applications should not expect consistent behavior in such cases, and should
+use anisotropic filtering only with parameters which are expected to give a
+quality improvement relative to `LINEAR` filtering.
+
+The following describes one particular approach to implementing anisotropic
+filtering for the 2D Image case; implementations **may** choose other methods:
+
+Given a `magFilter`, `minFilter` of `VK_FILTER_LINEAR` and a
+`mipmapMode` of `VK_SAMPLER_MIPMAP_MODE_NEAREST`:
+
+Instead of a single isotropic sample, N isotropic samples are sampled within
+the image footprint of the image level d to approximate an anisotropic
+filter.
+The sum τ2Daniso is defined using the single isotropic
+τ2D(u,v) at level d.
+
+  
+
+  
+
+When [VkSamplerReductionModeCreateInfo](samplers.html#VkSamplerReductionModeCreateInfo)::`reductionMode` is
+`VK_SAMPLER_REDUCTION_MODE_WEIGHTED_AVERAGE`, the above summation is
+used.
+However, if the reduction mode is `VK_SAMPLER_REDUCTION_MODE_MIN` or
+`VK_SAMPLER_REDUCTION_MODE_MAX`, the process operates on the above
+values, together with their weights, computing a component-wise minimum or
+maximum, respectively, of the components of the values with non-zero
+weights. |
+
 The SPIR-V instruction `OpImageSampleFootprintNV` evaluates the set of
 texels from a single mip level that would be accessed during a
 [texel filtering](#textures-texel-filtering) operation.
@@ -2212,75 +2255,24 @@ groups used to evaluate the footprint.
 Each bit in the returned footprint mask corresponds to an aligned block of
 texels whose size is given by the following table:
 
-Table 6. Texel Footprint Granularity Values
-
-`Granularity`
-`Dim` = 2D
-`Dim` = 3D
-
-0
-unsupported
-unsupported
-
-1
-2x2
-2x2x2
-
-2
-4x2
-unsupported
-
-3
-4x4
-4x4x2
-
-4
-8x4
-unsupported
-
-5
-8x8
-unsupported
-
-6
-16x8
-unsupported
-
-7
-16x16
-unsupported
-
-8
-unsupported
-unsupported
-
-9
-unsupported
-unsupported
-
-10
-unsupported
-16x16x16
-
-11
-64x64
-32x16x16
-
-12
-128x64
-32x32x16
-
-13
-128x128
-32x32x32
-
-14
-256x128
-64x32x32
-
-15
-256x256
-unsupported
+| `Granularity` | `Dim` = 2D | `Dim` = 3D |
+| --- | --- | --- |
+| 0 | unsupported | unsupported |
+| 1 | 2x2 | 2x2x2 |
+| 2 | 4x2 | unsupported |
+| 3 | 4x4 | 4x4x2 |
+| 4 | 8x4 | unsupported |
+| 5 | 8x8 | unsupported |
+| 6 | 16x8 | unsupported |
+| 7 | 16x16 | unsupported |
+| 8 | unsupported | unsupported |
+| 9 | unsupported | unsupported |
+| 10 | unsupported | 16x16x16 |
+| 11 | 64x64 | 32x16x16 |
+| 12 | 128x64 | 32x32x16 |
+| 13 | 128x128 | 32x32x32 |
+| 14 | 256x128 | 64x32x32 |
+| 15 | 256x256 | unsupported |
 
 The `Coarse` input is used to select between the two mip levels that **may**
 be accessed during texel filtering when using a `mipmapMode` of

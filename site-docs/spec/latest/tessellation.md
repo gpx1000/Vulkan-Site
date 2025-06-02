@@ -264,6 +264,14 @@ If the tessellation domain has a lower-left origin, the vertices of a
 triangle have counter-clockwise ordering if a is positive, and
 clockwise ordering if a is negative.
 
+|  | The value a is proportional (with a positive factor) to the signed
+| --- | --- |
+area of the triangle.
+
+In `Triangles` mode, even though the vertex coordinates have a w
+value, it does not participate directly in the computation of a, being
+an affine combination of u and v. |
+
 If the tessellation primitive mode is `Triangles`, an equilateral
 triangle is subdivided into a collection of triangles covering the area of
 the original triangle.
@@ -500,6 +508,12 @@ These line segments are generated with a topology similar to
 is generated, and the order in which the vertices are generated for each
 line segment, are implementation-dependent.
 
+|  | If the `[VK_KHR_portability_subset](../appendices/extensions.html#VK_KHR_portability_subset)` extension is enabled, and
+| --- | --- |
+[VkPhysicalDevicePortabilitySubsetFeaturesKHR](features.html#VkPhysicalDevicePortabilitySubsetFeaturesKHR)::`tessellationIsolines`
+is `VK_FALSE`, then isoline tessellation is not supported by the
+implementation. |
+
 For all primitive modes, the tessellator is capable of generating points
 instead of lines or triangles.
 If the tessellation control or tessellation evaluation shader specifies the
@@ -510,6 +524,12 @@ Otherwise, the tessellator will produce a collection of line segments or
 triangles according to the primitive mode.
 These points are generated with a topology similar to [point lists](drawing.html#drawing-point-lists), except the order in which the points are generated for each
 input primitive is **undefined**.
+
+|  | If the `[VK_KHR_portability_subset](../appendices/extensions.html#VK_KHR_portability_subset)` extension is enabled, and
+| --- | --- |
+[VkPhysicalDevicePortabilitySubsetFeaturesKHR](features.html#VkPhysicalDevicePortabilitySubsetFeaturesKHR)::`tessellationPointMode`
+is `VK_FALSE`, then tessellation point mode is not supported by the
+implementation. |
 
 The `pTessellationState` member of [VkGraphicsPipelineCreateInfo](pipelines.html#VkGraphicsPipelineCreateInfo) is
 a pointer to a `VkPipelineTessellationStateCreateInfo` structure.
@@ -725,17 +745,8 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |

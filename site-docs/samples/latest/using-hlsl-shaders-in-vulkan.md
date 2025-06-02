@@ -17,6 +17,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/api/hlsl_shaders). |
+| --- | --- |
+
 This tutorial, along with the accompanying example code, shows how to use shaders written in the High Level Shading Language (HLSL) in Vulkan at runtime.
 
 Vulkan does not directly consume shaders in a human-readable text format, but instead uses SPIR-V as an intermediate representation.

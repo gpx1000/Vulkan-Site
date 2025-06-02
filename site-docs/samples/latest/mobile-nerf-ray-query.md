@@ -12,6 +12,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/general/mobile_nerf_rayquery). |
+| --- | --- |
+
 NeRF is a new 3D representation method in Computer Vision that creates images of a 3D scene using several 2D pictures taken from different viewpoints.
 This method constructs a representation of the 3D volume. Various adaptations of NeRF target different use cases, including MobileNeRF, which focuses on rendering NeRF efficiently on mobile phones by leveraging existing traditional graphic hardware.
 

@@ -35,6 +35,9 @@
 
 ## Content
 
+|  | All SPIR-V assembly was generated with glslangValidator |
+| --- | --- |
+
 This chapter goes over how to [interface Vulkan with SPIR-V](https://docs.vulkan.org/spec/latest/chapters/interfaces.html) in order to map data. Using the `VkDeviceMemory` objects allocated from `vkAllocateMemory`, it is up to the application to properly map the data from Vulkan such that the SPIR-V shader understands how to consume it correctly.
 
 In core Vulkan, there are 5 fundamental ways to map data from your Vulkan application to interface with SPIR-V:
@@ -107,6 +110,9 @@ input.offset   = 0;
 
 The only thing left to do is bind the vertex buffer and optional index buffer prior to the draw call.
 
+|  | Using `VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` when creating the `VkBuffer` is what makes it a “vertex buffer” |
+| --- | --- |
+
 vkBeginCommandBuffer();
 // ...
 vkCmdBindVertexBuffer();
@@ -117,6 +123,9 @@ vkCmdBindIndexBuffer();
 vkCmdDrawIndexed();
 // ...
 vkEndCommandBuffer();
+
+|  | More information can be found in the [Vertex Input Data Processing](vertex_input_data_processing.html#vertex-input-data-processing) chapter |
+| --- | --- |
 
 A [resource descriptor](https://docs.vulkan.org/spec/latest/chapters/descriptorsets.html) is the core way to map data such as uniform buffers, storage buffers, samplers, etc. to any shader stage in Vulkan. One way to conceptualize a descriptor is by thinking of it as a pointer to memory that the shader can use.
 
@@ -241,6 +250,9 @@ OpDecorate %samplerDescriptor Binding 0
 
 `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`
 
+|  | On some implementations, it **may** be more efficient to sample from an image using a combination of sampler and sampled image that are stored together in the descriptor set in a combined descriptor. |
+| --- | --- |
+
 [Try Online](https://godbolt.org/z/aTrajsrY3)
 
 layout(set = 0, binding = 0) uniform sampler2D combinedImageSampler;
@@ -260,6 +272,9 @@ OpDecorate %combinedImageSampler Binding 0
 %textureSampled = OpImageSampleExplicitLod %v4float %load %coordinate Lod %float_0
 
 `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER`
+
+|  | Uniform buffers can also have [dynamic offsets at bind time](descriptor_dynamic_offset.html) (VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC) |
+| --- | --- |
 
 [Try Online](https://godbolt.org/z/qz6dcndxd)
 
@@ -284,6 +299,9 @@ OpDecorate %ubo Binding 0
 
 `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER`
 
+|  | Storage buffers can also have [dynamic offsets at bind time](descriptor_dynamic_offset.html) (VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC) |
+| --- | --- |
+
 [Try Online](https://godbolt.org/z/hEfe8PhfY)
 
 layout(set = 0, binding = 0) buffer storageBuffer {
@@ -294,6 +312,11 @@ layout(set = 0, binding = 0) buffer storageBuffer {
 // example of reading and writing SSBO in GLSL
 ssbo.a = ssbo.a + 1.0;
 ssbo.b = ssbo.b + 1;
+
+|  | Important
+| --- | --- |
+
+`BufferBlock` and `Uniform` would have been seen prior to [VK_KHR_storage_buffer_storage_class](extensions/shader_features.html#VK_KHR_storage_buffer_storage_class) |
 
 OpMemberDecorate %storageBuffer 0 Offset 0
 OpMemberDecorate %storageBuffer 1 Offset 4

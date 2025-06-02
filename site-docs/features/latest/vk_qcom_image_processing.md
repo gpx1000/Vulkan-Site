@@ -135,7 +135,8 @@ images.  The new instructions can be used in any shader stage.
 Exposing this functionality in Vulkan makes use of a corresponding SPIR-V extension, and the built-ins
 will be exposed in high-level languages (e.g., GLSL) via related extensions.
 
-**OpImageSampleWeightedQCOM**
+| **OpImageSampleWeightedQCOM**
+| --- | --- | --- | --- | --- | --- | --- |
 
 Weighted sample operation
 
@@ -149,21 +150,13 @@ underlying OpTypeImage must be 0.
 *Weight Image* must be an object whose type is OpTypeSampledImage. If the object is an interface object,
 it must be decorated with WeightTextureQCOM. Otherwise, a texture object which is used to construct the object
 must be decorated with WeightTextureQCOM.  The MS operand of the
-underlying OpTypeImage must be 0.
+underlying OpTypeImage must be 0. | Capability:
 
-Capability:
+**TextureSampleWeightedQCOM** |
+| 6 | 4480 | *Result Type* | ['Result ' ](#ResultId) | *Texture Sampled Image* | *Coordinate* | *Weight Image* |
 
-**TextureSampleWeightedQCOM**
-
-6
-4480
- *Result Type*
-['Result ' ](#ResultId)
- *Texture Sampled Image*
- *Coordinate*
- *Weight Image*
-
-**OpImageBoxFilterQCOM**
+| **OpImageBoxFilterQCOM**
+| --- | --- | --- | --- | --- | --- | --- |
 
 Image box filter operation.
 
@@ -174,21 +167,13 @@ underlying OpTypeImage must be 0.
 
 *Coordinate* must be a vector of floating-point type, whose vector size is 2.
 
-*Box Size* must be a vector of floating-point type, whose vector size is 2 and signedness is 0.
+*Box Size* must be a vector of floating-point type, whose vector size is 2 and signedness is 0. | Capability:
 
-Capability:
+**TextureBoxFilterQCOM** |
+| 6 | 4481 | *Result Type* | ['Result ' ](#ResultId) | *Texture Sampled Image* | *Coordinate* | *Box Size* |
 
-**TextureBoxFilterQCOM**
-
-6
-4481
- *Result Type*
-['Result ' ](#ResultId)
- *Texture Sampled Image*
- *Coordinate*
- *Box Size*
-
-**OpImageBlockMatchSADQCOM**
+| **OpImageBlockMatchSADQCOM**
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
 Image block match operation with sum of absolute differences.
 
@@ -208,23 +193,13 @@ The MS operand of the underlying OpTypeImage must be 0.
 
 *Reference Coordinate* must be a vector of integer type, whose vector size is 2 and signedness is 0.
 
-*Block Size* must be a vector of integer type, whose vector size is 2 and signedness is 0.
+*Block Size* must be a vector of integer type, whose vector size is 2 and signedness is 0. | Capability:
 
-Capability:
+**TextureBlockMatchQCOM** |
+| 8 | 4483 | *Result Type* | ['Result ' ](#ResultId) | *Target Sampled Image* | *Target Coordinate* | *Reference Sampled Image* | *Reference Coordinate* | *Block Size* |
 
-**TextureBlockMatchQCOM**
-
-8
-4483
- *Result Type*
-['Result ' ](#ResultId)
- *Target Sampled Image*
- *Target Coordinate*
- *Reference Sampled Image*
- *Reference Coordinate*
- *Block Size*
-
-**OpImageBlockMatchSSDQCOM**
+| **OpImageBlockMatchSSDQCOM**
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
 
 Image block match operation with sum of square differences.
 
@@ -244,63 +219,37 @@ The MS operand of the underlying OpTypeImage must be 0.
 
 *Reference Coordinate* must be a vector of integer type, whose vector size is 2 and signedness is 0.
 
-*Block Size* must be a vector of integer type, whose vector size is 2 and signedness is 0.
+*Block Size* must be a vector of integer type, whose vector size is 2 and signedness is 0. | Capability:
 
-Capability:
-
-**TextureBlockMatchQCOM**
-
-8
-4482
- *Result Type*
-['Result ' ](#ResultId)
- *Target Sampled Image*
- *Target Coordinate*
- *Reference Sampled Image*
- *Reference Coordinate*
- *Block Size*
+**TextureBlockMatchQCOM** |
+| 8 | 4482 | *Result Type* | ['Result ' ](#ResultId) | *Target Sampled Image* | *Target Coordinate* | *Reference Sampled Image* | *Reference Coordinate* | *Block Size* |
 
 The extension adds two new SPIR-V decorations
 
-Decoration
-Extra Operands
-Enabling Capabilities
+| Decoration | Extra Operands | Enabling Capabilities |
+| --- | --- | --- |
+| 4487 | **WeightTextureQCOM**
 
-4487
-**WeightTextureQCOM**
-
-Apply to a texture used as 'Weight Image' in OpImageSampleWeightedQCOM.  Behavior is defined by the runtime environment.
-
-**TextureSampleWeightedQCOM**
-
-4488
-**BlockMatchTextureQCOM**
+Apply to a texture used as 'Weight Image' in OpImageSampleWeightedQCOM.  Behavior is defined by the runtime environment. |  | **TextureSampleWeightedQCOM** |
+| 4488 | **BlockMatchTextureQCOM**
 
 Apply to textures used as 'Target Sampled Image' and 'Reference Sampled Image' in OpImageBlockMatchSSDQCOM/OpImageBlockMatchSADQCOM.
 
-Behavior is defined by the runtime environment.
-
-**TextureBlockMatchQCOM**
+Behavior is defined by the runtime environment. |  | **TextureBlockMatchQCOM** |
 
 This functionality is gated behind 3 SPIR-V capabilities:
 
-Capability
-Implicitly declares
+| Capability | Implicitly declares |
+| --- | --- |
+| 4484 | **TextureSampleWeightedQCOM**
 
-4484
-**TextureSampleWeightedQCOM**
+Add weighted sample operation. |  |
+| 4485 | **TextureBoxFilterQCOM**
 
-Add weighted sample operation.
+Add box filter operation. |  |
+| 4486 | **TextureBlockMatchQCOM**
 
-4485
-**TextureBoxFilterQCOM**
-
-Add box filter operation.
-
-4486
-**TextureBlockMatchQCOM**
-
-Add block matching operation (sum of absolute/square differences).
+Add block matching operation (sum of absolute/square differences). |  |
 
 The following summarizes how the built-ins are exposed in GLSL:
 

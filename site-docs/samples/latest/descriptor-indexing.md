@@ -46,6 +46,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/descriptor_indexing). |
+| --- | --- |
+
 Descriptor indexing is an extension which adds a **lot** of flexibility to how resources are accessed.
 The core functionality of this extension is that we can treat descriptor memory as one massive array, and we can freely access any resource we want at any time, by indexing.
 The main insight is that if an array is large enough, an index into that array is indistinguishable from a pointer.

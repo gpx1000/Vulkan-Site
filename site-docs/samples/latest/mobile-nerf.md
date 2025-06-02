@@ -14,6 +14,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/general/mobile_nerf). |
+| --- | --- |
+
 This sample is a modified version of the [Mobile Nerf](https://mobile-nerf.github.io/) developed by Google.
 It’s based on its original [source code](https://github.com/google-research/jax3d/tree/main/jax3d/projects/mobilenerf) but optimized for Vulkan.
 This is a different version from traditional NeRF rendering, which normally requires tracing rays (usually done via ray-marching) and querying a MLP multiple times for each ray. These many queries result in non-interactive frame rates on most of the GPUs.

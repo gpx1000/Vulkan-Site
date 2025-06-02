@@ -20,6 +20,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/mesh_shader_culling). |
+| --- | --- |
+
 ![Mesh Shader Culling](../../../_images/samples/extensions/mesh_shader_culling/images/mesh_shader_culling.png)
 
 This sample demonstrates how to incorporate the Vulkan extension [`VK_EXT_mesh_shader`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_EXT_mesh_shader), and introduces per primitive culling in a mesh shader.

@@ -20,6 +20,12 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/hpp_pipeline_cache). |
+| --- | --- |
+
+|  | A transcoded version of the performance sample [Pipeline Cache](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/pipeline_cache) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. |
+| --- | --- |
+
 Vulkan gives applications the ability to save internal representation of a pipeline (graphics or compute) to enable recreating the same pipeline later.
 This sample will look in detail at the implementation and performance implications of the pipeline creation, caching and management.
 

@@ -24,6 +24,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/graphics_pipeline_library). |
+| --- | --- |
+
 The [`VK_EXT_graphics_pipeline_library`](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_EXT_graphics_pipeline_library.html) extensions allows separate compilation of different parts of the graphics pipeline.
 With this it’s now possible to split up the monolithic pipeline creation into different steps and re-use common parts shared across different pipelines.
 

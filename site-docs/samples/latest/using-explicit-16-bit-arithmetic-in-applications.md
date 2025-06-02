@@ -26,6 +26,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/16bit_arithmetic). |
+| --- | --- |
+
 In the world of mobile GPUs, `mediump` has long been used as a critical optimization for performance and bandwidth.
 The desktop GPUs and APIs have not had much support for native 16-bit operations, but in recent architectures, this feature is becoming widespread, and FP16 in particular is becoming more common.
 In this sample, we demonstrate `VK_KHR_shader_float16_int8`, which adds standardized support for FP16 arithmetic (and INT8 arithmetic).

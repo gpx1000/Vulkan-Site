@@ -49,6 +49,9 @@ Table of Contents
 
 This extension enables applications to alias multiple descriptor types onto the same binding, reducing friction when porting between Vulkan and DirectX 12.
 
+|  | This extension is a direct promotion of [VK_VALVE_mutable_descriptor_type](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_VALVE_mutable_descriptor_type). As that extension already shipped before proposal documents existed, this document has been written retroactively during promotion to EXT. |
+| --- | --- |
+
 Applications porting to Vulkan from DirectX 12, or layers emulating DX12 on Vulkan, are faced with two major performance hurdles when dealing with descriptors due to a mismatch in how the two APIs handle descriptors and descriptor uploads.
 
 In DirectX 12, resource descriptors are stored in a uniform array of bindings in the API, such that the same array can contain both texture and buffer descriptors.
@@ -149,6 +152,9 @@ As a baseline, the extension guarantees that any combination of these descriptor
 * 
 `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER` (SRV or UAV depending on read-only)
 
+|  | Samplers live in separate heaps in DirectX 12, and do not need to be mutable like this. |
+| --- | --- |
+
 Support can be restricted if the descriptor type in question cannot be used with the descriptor flags in question.
 An example here would be `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER` which may not be supported with update-after-bind on some implementations.
 In this situations, applications need to use `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER` and modify the shaders accordingly, but ideally, plain uniform buffers should be used instead if possible.
@@ -156,6 +162,12 @@ In this situations, applications need to use `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER`
 It is possible to go beyond the minimum supported set. For this purpose, the desired descriptor set layout can be queried with [vkGetDescriptorSetLayoutSupport](https://docs.vulkan.org/spec/latest/chapters/descriptorsets.html#vkGetDescriptorSetLayoutSupport).
 
 The interactions between descriptor types and flags can be complicated enough that it is non-trivial to report a list of supported descriptor types at the physical device level.
+
+|  | Acceleration structures can also be implemented as a buffer containing `uint64_t` addresses using `OpConvertUToAccelerationStructureKHR`. No descriptor is required. Alternatively, a separate descriptor set for acceleration structures can also be used. |
+| --- | --- |
+
+|  | While it is valid to expose `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`, implementations are discouraged from doing so due to their large sizes and potentially awkward memory layout. Applications should never aim to use combined image samplers with mutable descriptors. |
+| --- | --- |
 
 A mutable descriptor is expected to consume as much memory as the largest descriptor type it supports,
 and it is expected that there will be holes in GPU memory between descriptors when smaller descriptor types are used.

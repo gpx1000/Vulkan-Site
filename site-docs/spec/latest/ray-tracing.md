@@ -71,45 +71,15 @@ shader stage.
 The following table lists all shader call instructions and which stages each
 one **can** directly call.
 
-Instruction
-Intersection
-Any-Hit
-Closest Hit
-Miss
-Callable
-
-`OpTraceRayKHR`
-X
-X
-X
-X
-
-`OpTraceRayMotionNV`
-X
-X
-X
-X
-
-`OpReportIntersectionKHR`
-
-X
-
-`OpExecuteCallableKHR`
-
-X
-
-`OpHitObjectTraceRayNV`
-X
-X
-
-`OpHitObjectTraceRayMotionNV`
-X
-X
-
-`OpHitObjectExecuteShaderNV`
-
-X
-X
+| Instruction | Intersection | Any-Hit | Closest Hit | Miss | Callable |
+| --- | --- | --- | --- | --- | --- |
+| `OpTraceRayKHR` | X | X | X | X |  |
+| `OpTraceRayMotionNV` | X | X | X | X |  |
+| `OpReportIntersectionKHR` |  | X |  |  |  |
+| `OpExecuteCallableKHR` |  |  |  |  | X |
+| `OpHitObjectTraceRayNV` | X | X |  |  |  |
+| `OpHitObjectTraceRayMotionNV` | X | X |  |  |  |
+| `OpHitObjectExecuteShaderNV` |  |  | X | X |  |
 
 The invocations created by shader call instructions are grouped into
 subgroups by the implementation.
@@ -166,6 +136,28 @@ The application **must** use [`Volatile` semantics](../appendices/spirvenv.html#
 closest hit, miss, intersection, and callable shaders.
 Similarly, the application **must** use `Volatile` semantics on any
 `RayTmaxKHR` decorated `Builtin` used in an intersection shader.
+
+|  | [Subgroup operations](shaders.html#shaders-group-operations) are permitted in the
+| --- | --- |
+programmable ray tracing shader stages.
+However, shader call instructions place a bound on where results of subgroup
+instructions or subgroup-scoped instructions that execute the dynamic
+instance of that instruction are potentially valid.
+For example, care **must** be taken when using the result of a ballot operation
+that was computed before an invocation repack instruction, after that repack
+instruction.
+The ballot **may** be incorrect as the set of invocations could have changed.
+
+While the `SubgroupSize` built-in is required to be declared
+`Volatile`, its value will never change unless
+`VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT` is set
+on pipeline creation, as without that bit set, its value is required to
+match that of [VkPhysicalDeviceSubgroupProperties](limits.html#VkPhysicalDeviceSubgroupProperties)::`subgroupSize`.
+
+For clock operations, the value of a `Subgroup` scoped
+`OpReadClockKHR` read before the dynamic instance of a repack instruction
+**should** not be compared to the result of that clock instruction after the
+repack instruction. |
 
 When a ray tracing shader executes a dynamic instance of an invocation
 repack instruction which results in another ray tracing shader being
@@ -1123,20 +1115,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 To dispatch ray tracing use:
 
@@ -2111,20 +2094,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 When invocation mask image usage is enabled in the bound ray tracing
 pipeline, the pipeline uses an invocation mask image specified by the
@@ -2251,20 +2225,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-State
+Secondary | Outside | Outside | Compute | State |
 
 To dispatch ray tracing, with some parameters sourced on the device, use:
 
@@ -3237,20 +3202,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 The `VkTraceRaysIndirectCommandKHR` structure is defined as:
 
@@ -4038,20 +3994,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 The `VkTraceRaysIndirectCommand2KHR` structure is defined as:
 
@@ -4414,6 +4361,17 @@ Accesses to the shader binding table from ray tracing pipelines **must** be
 [access type](synchronization.html#synchronization-access-types) of
 `VK_ACCESS_SHADER_READ_BIT`.
 
+|  | Because different shader record buffers can be associated with the same
+| --- | --- |
+shader, a shader variable with `ShaderRecordBufferKHR` storage class will
+not be dynamically uniform if different invocations of the same shader can
+reference different data in the shader record buffer, such as if the same
+shader occurs twice in the shader binding table with a different shader
+record buffer.
+In this case, indexing resources based on values in the
+`ShaderRecordBufferKHR` storage class, the index should be decorated as
+`NonUniform`. |
+
 In order to execute the correct shaders and access the correct resources
 during a ray tracing dispatch, the implementation **must** be able to locate
 shader binding table entries at various stages of execution.
@@ -4597,6 +4555,20 @@ The value that the application provides is the maximum value of the sum of
 all shaders in a call chain across all possible call chains, taking into
 account any application specific knowledge about the properties of the call
 chains.
+
+|  | For example, if an application has two types of closest hit and miss shaders
+| --- | --- |
+that it can use but the first level of rays will only use the first kind
+(possibly reflection) and the second level will only use the second kind
+(occlusion or shadow ray, for example) then the application can compute the
+stack size by something similar to:
+
+`rayGenStack` +  max(`closestHit1Stack`,
+`miss1Stack`) +  max(`closestHit2Stack`,
+`miss2Stack`)
+
+This is guaranteed to be no larger than the default stack size computation
+which assumes that both call levels may be the larger of the two. |
 
 In a similar way to
 [bufferDeviceAddressCaptureReplay](features.html#features-bufferDeviceAddressCaptureReplay),

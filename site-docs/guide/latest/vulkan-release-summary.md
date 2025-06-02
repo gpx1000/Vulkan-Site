@@ -19,6 +19,9 @@ Each minor release version of Vulkan [promoted](https://docs.vulkan.org/spec/lat
 
 The following summary contains a list of the extensions added to the respective core versions and why they were added. This list is taken from the [Vulkan spec](https://docs.vulkan.org/spec/latest/appendices/versions.html), but links jump to the various spots in the Vulkan Guide
 
+|  | [Vulkan Spec Section](https://docs.vulkan.org/spec/latest/appendices/versions.html#versions-1.1) |
+| --- | --- |
+
 Vulkan 1.1 was released on March 7, 2018
 
 Besides the listed extensions below, Vulkan 1.1 introduced the [subgroups](subgroups.html#subgroups), [protected memory](protected.html#protected), and the ability to query the instance version.
@@ -91,6 +94,9 @@ Besides the listed extensions below, Vulkan 1.1 introduced the [subgroups](subgr
 
 * 
 [VK_KHR_variable_pointers](extensions/shader_features.html#VK_KHR_variable_pointers)
+
+|  | [Vulkan Spec Section](https://docs.vulkan.org/spec/latest/appendices/versions.html#versions-1.2) |
+| --- | --- |
 
 Vulkan 1.2 was released on January 15, 2020
 
@@ -166,6 +172,9 @@ Vulkan 1.2 was released on January 15, 2020
 * 
 [VK_EXT_shader_viewport_index_layer](extensions/shader_features.html#VK_EXT_shader_viewport_index_layer)
 
+|  | [Vulkan Spec Section](https://docs.vulkan.org/spec/latest/appendices/versions.html#versions-1.3) |
+| --- | --- |
+
 Vulkan 1.3 was released on January 25, 2022
 
 * 
@@ -233,6 +242,9 @@ Vulkan 1.3 was released on January 25, 2022
 
 * 
 [VK_EXT_ycbcr_2plane_444_formats](extensions/cleanup.html#VK_EXT_4444_formats-and-VK_EXT_ycbcr_2plane_444_formats)
+
+|  | [Vulkan Spec Section](https://docs.vulkan.org/spec/latest/appendices/versions.html#versions-1.4) |
+| --- | --- |
 
 Vulkan 1.4 was released on December 3, 2024
 

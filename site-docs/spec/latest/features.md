@@ -23,6 +23,17 @@ that [VkDevice](devsandqueues.html#VkDevice).
 If a feature is *unsupported*, that functionality **cannot** be used with that
 [VkDevice](devsandqueues.html#VkDevice).
 
+|  | Features are reported via the basic [VkPhysicalDeviceFeatures](#VkPhysicalDeviceFeatures)
+| --- | --- |
+structure, as well as the extensible structure
+`VkPhysicalDeviceFeatures2`, which was added in the
+`[VK_KHR_get_physical_device_properties2](../appendices/extensions.html#VK_KHR_get_physical_device_properties2)` extension and included in
+Vulkan 1.1.
+When new features are added in future Vulkan versions or extensions, each
+extension **should** introduce one new feature structure, if needed.
+This structure **can** be added to the `pNext` chain of the
+`VkPhysicalDeviceFeatures2` structure. |
+
 For convenience, new core versions of Vulkan **may** introduce new unified
 feature structures for features promoted from extensions.
 At the same time, the extension’s original feature structure (if any) is
@@ -39,31 +50,15 @@ consistently: either all **must** be reported as supported, or none of them.
 When a promoted extension is available, any corresponding feature aliases
 **must** be supported.
 
-Table 1. Extension Feature Aliases
-
-Extension
-Feature(s)
-
-`[VK_KHR_shader_draw_parameters](../appendices/extensions.html#VK_KHR_shader_draw_parameters)`
-[`shaderDrawParameters`](#features-shaderDrawParameters)
-
-`[VK_KHR_draw_indirect_count](../appendices/extensions.html#VK_KHR_draw_indirect_count)`
-[`drawIndirectCount`](#features-drawIndirectCount)
-
-`[VK_KHR_sampler_mirror_clamp_to_edge](../appendices/extensions.html#VK_KHR_sampler_mirror_clamp_to_edge)`
-[`samplerMirrorClampToEdge`](#features-samplerMirrorClampToEdge)
-
-`[VK_EXT_descriptor_indexing](../appendices/extensions.html#VK_EXT_descriptor_indexing)`
-[`descriptorIndexing`](#features-descriptorIndexing)
-
-`[VK_EXT_sampler_filter_minmax](../appendices/extensions.html#VK_EXT_sampler_filter_minmax)`
-[`samplerFilterMinmax`](#features-samplerFilterMinmax)
-
-`[VK_EXT_shader_viewport_index_layer](../appendices/extensions.html#VK_EXT_shader_viewport_index_layer)`
-[`shaderOutputViewportIndex`](#features-shaderOutputViewportIndex), [`shaderOutputLayer`](#features-shaderOutputLayer)
-
-`[VK_KHR_push_descriptor](../appendices/extensions.html#VK_KHR_push_descriptor)`
-[`pushDescriptor`](#features-pushDescriptor)
+| Extension | Feature(s) |
+| --- | --- |
+| `[VK_KHR_shader_draw_parameters](../appendices/extensions.html#VK_KHR_shader_draw_parameters)` | [`shaderDrawParameters`](#features-shaderDrawParameters) |
+| `[VK_KHR_draw_indirect_count](../appendices/extensions.html#VK_KHR_draw_indirect_count)` | [`drawIndirectCount`](#features-drawIndirectCount) |
+| `[VK_KHR_sampler_mirror_clamp_to_edge](../appendices/extensions.html#VK_KHR_sampler_mirror_clamp_to_edge)` | [`samplerMirrorClampToEdge`](#features-samplerMirrorClampToEdge) |
+| `[VK_EXT_descriptor_indexing](../appendices/extensions.html#VK_EXT_descriptor_indexing)` | [`descriptorIndexing`](#features-descriptorIndexing) |
+| `[VK_EXT_sampler_filter_minmax](../appendices/extensions.html#VK_EXT_sampler_filter_minmax)` | [`samplerFilterMinmax`](#features-samplerFilterMinmax) |
+| `[VK_EXT_shader_viewport_index_layer](../appendices/extensions.html#VK_EXT_shader_viewport_index_layer)` | [`shaderOutputViewportIndex`](#features-shaderOutputViewportIndex), [`shaderOutputLayer`](#features-shaderOutputLayer) |
+| `[VK_KHR_push_descriptor](../appendices/extensions.html#VK_KHR_push_descriptor)` | [`pushDescriptor`](#features-pushDescriptor) |
 
 To query supported features, call:
 
@@ -120,6 +115,12 @@ Setting `pEnabledFeatures` to `NULL`
 and not including a [VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) in the `pNext` chain
 of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo)
 is equivalent to setting all members of the structure to `VK_FALSE`.
+
+|  | Some features, such as `robustBufferAccess`, **may** incur a runtime
+| --- | --- |
+performance cost.
+Application writers **should** carefully consider the implications of enabling
+all supported features. |
 
 To query supported features defined by the core or extensions, call:
 
@@ -306,6 +307,12 @@ feature is not enabled, then accesses using
 
 * 
 Accesses using `OpCooperativeVector*` are not bounds-checked.
+
+|  | If a SPIR-V `OpLoad` instruction loads a structure and the tail end of
+| --- | --- |
+the structure is out of bounds, then all members of the structure are
+considered out of bounds even if the members at the end are not statically
+used. |
 
 * 
 If
@@ -980,6 +987,22 @@ be supported in `optimalTilingFeatures` for the following formats:
 
 * 
 `VK_FORMAT_R8_UINT`
+
+|  | `shaderStorageImageExtendedFormats` feature only adds a guarantee of
+| --- | --- |
+format support, which is specified for the whole physical device.
+Therefore enabling or disabling the feature via [vkCreateDevice](devsandqueues.html#vkCreateDevice) has no
+practical effect.
+
+To query for additional properties, or if the feature is not supported,
+[vkGetPhysicalDeviceFormatProperties](formats.html#vkGetPhysicalDeviceFormatProperties) and
+[vkGetPhysicalDeviceImageFormatProperties](capabilities.html#vkGetPhysicalDeviceImageFormatProperties) **can** be used to check for
+supported properties of individual formats, as usual rules allow.
+
+`VK_FORMAT_R32G32_UINT`, `VK_FORMAT_R32G32_SINT`, and
+`VK_FORMAT_R32G32_SFLOAT` from `StorageImageExtendedFormats` SPIR-V
+capability, are already covered by core Vulkan
+[mandatory format support](formats.html#formats-mandatory-features-32bit). |
 
 `shaderStorageImageMultisample` specifies whether multisampled
 storage images are supported.
@@ -4822,6 +4845,11 @@ and acceleration structure
 addresses **must** not be queried on a logical device created with more
 than one physical device.
 
+|  | `bufferDeviceAddressMultiDevice` exists to allow certain legacy
+| --- | --- |
+platforms to be able to support `bufferDeviceAddress` without needing to
+support shared GPU virtual addresses for multi-device configurations. |
+
 See [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress) for more information.
 
 If the `VkPhysicalDeviceBufferDeviceAddressFeatures` structure is included in the `pNext` chain of the
@@ -4892,6 +4920,17 @@ If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with 
 described by `VkPhysicalDeviceBufferDeviceAddressFeaturesEXT`, it **must** add an instance of the structure,
 with the desired feature members set to `VK_TRUE`, to the `pNext`
 chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+|  | The `VkPhysicalDeviceBufferDeviceAddressFeaturesEXT` structure has the
+| --- | --- |
+same members as the `VkPhysicalDeviceBufferDeviceAddressFeatures`
+structure, but the functionality indicated by the members is expressed
+differently.
+The features indicated by the
+`VkPhysicalDeviceBufferDeviceAddressFeatures` structure requires
+additional flags to be passed at memory allocation time, and the capture and
+replay mechanism is built around opaque capture addresses for buffer and
+memory objects. |
 
 Valid Usage (Implicit)
 
@@ -5550,17 +5589,11 @@ supports importing `_screen_buffer` from applications.
 In this case, the application is responsible for the resource management
 of the `_screen_buffer`.
 
-Table 2. Functionality Supported for QNX Screen Buffer Features
-
-Features
-Functionality
-
-`screenBufferImport`
-[VkImportScreenBufferInfoQNX](memory.html#VkImportScreenBufferInfoQNX)
-
-Always supported1
-[vkGetScreenBufferPropertiesQNX](memory.html#vkGetScreenBufferPropertiesQNX), [VkScreenBufferPropertiesQNX](memory.html#VkScreenBufferPropertiesQNX), [VkScreenBufferFormatPropertiesQNX](memory.html#VkScreenBufferFormatPropertiesQNX),
-[VkExternalFormatQNX](resources.html#VkExternalFormatQNX)
+| Features | Functionality |
+| --- | --- |
+| `screenBufferImport` | [VkImportScreenBufferInfoQNX](memory.html#VkImportScreenBufferInfoQNX) |
+| Always supported1 | [vkGetScreenBufferPropertiesQNX](memory.html#vkGetScreenBufferPropertiesQNX), [VkScreenBufferPropertiesQNX](memory.html#VkScreenBufferPropertiesQNX), [VkScreenBufferFormatPropertiesQNX](memory.html#VkScreenBufferFormatPropertiesQNX),
+[VkExternalFormatQNX](resources.html#VkExternalFormatQNX) |
 
 1
 
@@ -6218,6 +6251,22 @@ described by `VkPhysicalDeviceSubgroupSizeControlFeatures`, it **must** add an i
 with the desired feature members set to `VK_TRUE`, to the `pNext`
 chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
 
+|  | The `VkPhysicalDeviceSubgroupSizeControlFeaturesEXT` structure was added
+| --- | --- |
+in version 2 of the `[VK_EXT_subgroup_size_control](../appendices/extensions.html#VK_EXT_subgroup_size_control)` extension.
+Version 1 implementations of this extension will not fill out the features
+structure but applications may assume that both `subgroupSizeControl`
+and `computeFullSubgroups` are supported if the extension is supported.
+(See also the [Feature Requirements](#features-requirements) section.)
+Applications are advised to add a
+`VkPhysicalDeviceSubgroupSizeControlFeaturesEXT` structure to the
+`pNext` chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) to enable the features
+regardless of the version of the extension supported by the implementation.
+If the implementation only supports version 1, it will safely ignore the
+`VkPhysicalDeviceSubgroupSizeControlFeaturesEXT` structure.
+
+Vulkan 1.3 implementations always support the features structure. |
+
 Valid Usage (Implicit)
 
 * 
@@ -6539,6 +6588,12 @@ structure.
  `videoEncodeQuantizationMap`
 indicates that the implementation supports
 [video encode quantization maps](videocoding.html#encode-quantization-map).
+
+|  | Support for `videoEncodeQuantizationMap` does not indicate that all
+| --- | --- |
+video encode profiles support quantization maps.
+Support for quantization maps for any specific video encode profile is
+subject to video-profile-specific capabilities. |
 
 If the `VkPhysicalDeviceVideoEncodeQuantizationMapFeaturesKHR` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
@@ -8175,6 +8230,12 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_4444_FORMATS_FEATURES_EXT`
 
+|  | Although the formats defined by the `[VK_EXT_4444_formats](../appendices/extensions.html#VK_EXT_4444_formats)` extension
+| --- | --- |
+were promoted to Vulkan 1.3 as optional formats, the
+[VkPhysicalDevice4444FormatsFeaturesEXT](#VkPhysicalDevice4444FormatsFeaturesEXT) structure was not promoted to
+Vulkan 1.3. |
+
 The `VkPhysicalDeviceMutableDescriptorTypeFeaturesEXT` structure is
 defined as:
 
@@ -8844,6 +8905,12 @@ Valid Usage (Implicit)
 [](#VUID-VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT-sType-sType) VUID-VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT-sType-sType
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_YCBCR_2_PLANE_444_FORMATS_FEATURES_EXT`
+
+|  | Although the formats defined by the `[VK_EXT_ycbcr_2plane_444_formats](../appendices/extensions.html#VK_EXT_ycbcr_2plane_444_formats)`
+| --- | --- |
+were promoted to Vulkan 1.3 as optional formats, the
+[VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT](#VkPhysicalDeviceYcbcr2Plane444FormatsFeaturesEXT) structure was not
+promoted to Vulkan 1.3. |
 
 The `VkPhysicalDeviceColorWriteEnableFeaturesEXT` structure is defined
 as:
@@ -10179,6 +10246,14 @@ structure.
  `pipelineRobustness`
 indicates that robustness **can** be requested on a per-pipeline-stage
 granularity.
+
+|  | Enabling the [`pipelineRobustness`](#features-pipelineRobustness)
+| --- | --- |
+feature may, on some platforms, incur a minor performance cost when the
+[`robustBufferAccess`](#features-robustBufferAccess) feature is not
+enabled, even for pipelines which do not make use of any robustness
+features.
+If robustness is not needed, the [`pipelineRobustness`](#features-pipelineRobustness) feature should not be enabled by an application. |
 
 If the `VkPhysicalDevicePipelineRobustnessFeatures` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
@@ -13184,6 +13259,55 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_METERING_FEATURES_NV`
 
+The `VkPhysicalDeviceFormatPackFeaturesARM` structure is defined as:
+
+// Provided by VK_ARM_format_pack
+typedef struct VkPhysicalDeviceFormatPackFeaturesARM {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           formatPack;
+} VkPhysicalDeviceFormatPackFeaturesARM;
+
+This structure describes the following feature:
+
+* 
+ `formatPack` indicates that the
+implementation **must** support using a [VkFormat](formats.html#VkFormat) of
+`VK_FORMAT_R10X6_UINT_PACK16_ARM`,
+`VK_FORMAT_R10X6G10X6_UINT_2PACK16_ARM`,
+`VK_FORMAT_R10X6G10X6B10X6A10X6_UINT_4PACK16_ARM`,
+`VK_FORMAT_R12X4_UINT_PACK16_ARM`,
+`VK_FORMAT_R12X4G12X4_UINT_2PACK16_ARM`,
+`VK_FORMAT_R12X4G12X4B12X4A12X4_UINT_4PACK16_ARM`,
+`VK_FORMAT_R14X2_UINT_PACK16_ARM`,
+`VK_FORMAT_R14X2G14X2_UINT_2PACK16_ARM`, and
+`VK_FORMAT_R14X2G14X2B14X2A14X2_UINT_4PACK16_ARM`, with at least the
+following [VkFormatFeatureFlagBits](formats.html#VkFormatFeatureFlagBits):
+
+`VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT`
+
+* 
+`VK_FORMAT_FEATURE_TRANSFER_SRC_BIT`
+
+* 
+`VK_FORMAT_FEATURE_TRANSFER_DST_BIT`
+
+If the `VkPhysicalDeviceFormatPackFeaturesARM` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDeviceFormatPackFeaturesARM`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceFormatPackFeaturesARM-sType-sType) VUID-VkPhysicalDeviceFormatPackFeaturesARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM`
+
 All Vulkan graphics implementations **must** support the following features:
 
 * 
@@ -14288,6 +14412,9 @@ If `[VK_ARM_pipeline_opacity_micromap](../appendices/extensions.html#VK_ARM_pipe
 
 If `[VK_EXT_vertex_attribute_robustness](../appendices/extensions.html#VK_EXT_vertex_attribute_robustness)` is supported,
 [`vertexAttributeRobustness`](#features-vertexAttributeRobustness) **must** be supported
+
+If `[VK_ARM_format_pack](../appendices/extensions.html#VK_ARM_format_pack)` is supported,
+[`formatPack`](#features-formatPack) **must** be supported
 
 If `[VK_NV_present_metering](../appendices/extensions.html#VK_NV_present_metering)` is supported,
 [`presentMetering`](#features-presentMetering) **must** be supported

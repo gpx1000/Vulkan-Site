@@ -26,6 +26,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/shader_object). |
+| --- | --- |
+
 ![Sample](../../../_images/samples/extensions/shader_object/images/shader_object_screenshot.png)
 
 This sample demonstrates how to use the `VK_EXT_shader_object` extension, which provides a way to specify shaders and state without using `VkPipeline` objects.

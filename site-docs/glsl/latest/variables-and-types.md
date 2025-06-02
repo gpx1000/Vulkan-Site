@@ -132,143 +132,53 @@ The OpenGL Shading Language supports the following basic data types, grouped as 
 
 **Transparent Types**
 
-Type
-Meaning
-
-**void**
-for functions that do not return a value
-
-**bool**
-a conditional type, taking on values of true or false
-
-**int**
-a signed integer
-
-**uint**
-an unsigned integer
-
-**float**
-a single-precision floating-point scalar
-
-**double**
-a double-precision floating-point scalar
-
-**vec2**
-a two-component single-precision floating-point vector
-
-**vec3**
-a three-component single-precision floating-point vector
-
-**vec4**
-a four-component single-precision floating-point vector
-
-**dvec2**
-a two-component double-precision floating-point vector
-
-**dvec3**
-a three-component double-precision floating-point vector
-
-**dvec4**
-a four-component double-precision floating-point vector
-
-**bvec2**
-a two-component Boolean vector
-
-**bvec3**
-a three-component Boolean vector
-
-**bvec4**
-a four-component Boolean vector
-
-**ivec2**
-a two-component signed integer vector
-
-**ivec3**
-a three-component signed integer vector
-
-**ivec4**
-a four-component signed integer vector
-
-**uvec2**
-a two-component unsigned integer vector
-
-**uvec3**
-a three-component unsigned integer vector
-
-**uvec4**
-a four-component unsigned integer vector
-
-**mat2**
-a 2 × 2 single-precision floating-point matrix
-
-**mat3**
-a 3 × 3 single-precision floating-point matrix
-
-**mat4**
-a 4 × 4 single-precision floating-point matrix
-
-**mat2x2**
-same as a **mat2**
-
-**mat2x3**
-a single-precision floating-point matrix with 2 columns and 3 rows
-
-**mat2x4**
-a single-precision floating-point matrix with 2 columns and 4 rows
-
-**mat3x2**
-a single-precision floating-point matrix with 3 columns and 2 rows
-
-**mat3x3**
-same as a **mat3**
-
-**mat3x4**
-a single-precision floating-point matrix with 3 columns and 4 rows
-
-**mat4x2**
-a single-precision floating-point matrix with 4 columns and 2 rows
-
-**mat4x3**
-a single-precision floating-point matrix with 4 columns and 3 rows
-
-**mat4x4**
-same as a **mat4**
-
-**dmat2**
-a 2 × 2 double-precision floating-point matrix
-
-**dmat3**
-a 3 × 3 double-precision floating-point matrix
-
-**dmat4**
-a 4 × 4 double-precision floating-point matrix
-
-**dmat2x2**
-same as a **dmat2**
-
-**dmat2x3**
-a double-precision floating-point matrix with 2 columns and 3 rows
-
-**dmat2x4**
-a double-precision floating-point matrix with 2 columns and 4 rows
-
-**dmat3x2**
-a double-precision floating-point matrix with 3 columns and 2 rows
-
-**dmat3x3**
-same as a **dmat3**
-
-**dmat3x4**
-a double-precision floating-point matrix with 3 columns and 4 rows
-
-**dmat4x2**
-a double-precision floating-point matrix with 4 columns and 2 rows
-
-**dmat4x3**
-a double-precision floating-point matrix with 4 columns and 3 rows
-
-**dmat4x4**
-same as a **dmat4**
+| Type | Meaning |
+| --- | --- |
+| **void** | for functions that do not return a value |
+| **bool** | a conditional type, taking on values of true or false |
+| **int** | a signed integer |
+| **uint** | an unsigned integer |
+| **float** | a single-precision floating-point scalar |
+| **double** | a double-precision floating-point scalar |
+| **vec2** | a two-component single-precision floating-point vector |
+| **vec3** | a three-component single-precision floating-point vector |
+| **vec4** | a four-component single-precision floating-point vector |
+| **dvec2** | a two-component double-precision floating-point vector |
+| **dvec3** | a three-component double-precision floating-point vector |
+| **dvec4** | a four-component double-precision floating-point vector |
+| **bvec2** | a two-component Boolean vector |
+| **bvec3** | a three-component Boolean vector |
+| **bvec4** | a four-component Boolean vector |
+| **ivec2** | a two-component signed integer vector |
+| **ivec3** | a three-component signed integer vector |
+| **ivec4** | a four-component signed integer vector |
+| **uvec2** | a two-component unsigned integer vector |
+| **uvec3** | a three-component unsigned integer vector |
+| **uvec4** | a four-component unsigned integer vector |
+| **mat2** | a 2 × 2 single-precision floating-point matrix |
+| **mat3** | a 3 × 3 single-precision floating-point matrix |
+| **mat4** | a 4 × 4 single-precision floating-point matrix |
+| **mat2x2** | same as a **mat2** |
+| **mat2x3** | a single-precision floating-point matrix with 2 columns and 3 rows |
+| **mat2x4** | a single-precision floating-point matrix with 2 columns and 4 rows |
+| **mat3x2** | a single-precision floating-point matrix with 3 columns and 2 rows |
+| **mat3x3** | same as a **mat3** |
+| **mat3x4** | a single-precision floating-point matrix with 3 columns and 4 rows |
+| **mat4x2** | a single-precision floating-point matrix with 4 columns and 2 rows |
+| **mat4x3** | a single-precision floating-point matrix with 4 columns and 3 rows |
+| **mat4x4** | same as a **mat4** |
+| **dmat2** | a 2 × 2 double-precision floating-point matrix |
+| **dmat3** | a 3 × 3 double-precision floating-point matrix |
+| **dmat4** | a 4 × 4 double-precision floating-point matrix |
+| **dmat2x2** | same as a **dmat2** |
+| **dmat2x3** | a double-precision floating-point matrix with 2 columns and 3 rows |
+| **dmat2x4** | a double-precision floating-point matrix with 2 columns and 4 rows |
+| **dmat3x2** | a double-precision floating-point matrix with 3 columns and 2 rows |
+| **dmat3x3** | same as a **dmat3** |
+| **dmat3x4** | a double-precision floating-point matrix with 3 columns and 4 rows |
+| **dmat4x2** | a double-precision floating-point matrix with 4 columns and 2 rows |
+| **dmat4x3** | a double-precision floating-point matrix with 4 columns and 3 rows |
+| **dmat4x4** | same as a **dmat4** |
 
 Note that where the following tables say “accessing a texture”, the
 **sampler*** opaque types access textures, and the **image*** opaque types
@@ -276,303 +186,205 @@ access images, of a specified type.
 
 **Floating-Point Opaque Types**
 
-Type
-Meaning
-
-**sampler1D**
+| Type | Meaning |
+| --- | --- |
+| **sampler1D**
 
   **texture1D**
 
-  **image1D**
-a handle for accessing a 1D texture
-
-**sampler1DShadow**
-a handle for accessing a 1D depth texture with comparison
-
-**sampler1DArray**
+  **image1D** | a handle for accessing a 1D texture |
+| **sampler1DShadow** | a handle for accessing a 1D depth texture with comparison |
+| **sampler1DArray**
 
   **texture1DArray**
 
-  **image1DArray**
-a handle for accessing a 1D array texture
-
-**sampler1DArrayShadow**
-a handle for accessing a 1D array depth texture with comparison
-
-**sampler2D**
+  **image1DArray** | a handle for accessing a 1D array texture |
+| **sampler1DArrayShadow** | a handle for accessing a 1D array depth texture with comparison |
+| **sampler2D**
 
   **texture2D**
 
-  **image2D**
-a handle for accessing a 2D texture
-
-**sampler2DShadow**
-a handle for accessing a 2D depth texture with comparison
-
-**sampler2DArray**
+  **image2D** | a handle for accessing a 2D texture |
+| **sampler2DShadow** | a handle for accessing a 2D depth texture with comparison |
+| **sampler2DArray**
 
   **texture2DArray**
 
-  **image2DArray**
-a handle for accessing a 2D array texture
-
-**sampler2DArrayShadow**
-a handle for accessing a 2D array depth texture with comparison
-
-**sampler2DMS**
+  **image2DArray** | a handle for accessing a 2D array texture |
+| **sampler2DArrayShadow** | a handle for accessing a 2D array depth texture with comparison |
+| **sampler2DMS**
 
   **texture2DMS**
 
-  **image2DMS**
-a handle for accessing a 2D multisample texture
-
-**sampler2DMSArray**
+  **image2DMS** | a handle for accessing a 2D multisample texture |
+| **sampler2DMSArray**
 
   **texture2DMSArray**
 
-  **image2DMSArray**
-a handle for accessing a 2D multisample array texture
-
-**sampler2DRect**
+  **image2DMSArray** | a handle for accessing a 2D multisample array texture |
+| **sampler2DRect**
 
   **texture2DRect**
 
-  **image2DRect**
-a handle for accessing a rectangle texture
-
-**sampler2DRectShadow**
-a handle for accessing a rectangle texture with comparison
-
-**sampler3D**
+  **image2DRect** | a handle for accessing a rectangle texture |
+| **sampler2DRectShadow** | a handle for accessing a rectangle texture with comparison |
+| **sampler3D**
 
   **texture3D**
 
-  **image3D**
-a handle for accessing a 3D texture
-
-**samplerCube**
+  **image3D** | a handle for accessing a 3D texture |
+| **samplerCube**
 
   **textureCube**
 
-  **imageCube**
-a handle for accessing a cube mapped texture
-
-**samplerCubeShadow**
-a handle for accessing a cube map depth texture with comparison
-
-**samplerCubeArray**
+  **imageCube** | a handle for accessing a cube mapped texture |
+| **samplerCubeShadow** | a handle for accessing a cube map depth texture with comparison |
+| **samplerCubeArray**
 
   **textureCubeArray**
 
-  **imageCubeArray**
-a handle for accessing a cube map array texture
-
-**samplerCubeArrayShadow**
-a handle for accessing a cube map array depth texture with comparison
-
-**samplerBuffer**
+  **imageCubeArray** | a handle for accessing a cube map array texture |
+| **samplerCubeArrayShadow** | a handle for accessing a cube map array depth texture with comparison |
+| **samplerBuffer**
 
   **textureBuffer**
 
-  **imageBuffer**
-a handle for accessing a buffer texture
-
-**subpassInput**
-a handle for accessing a floating-point subpass input
-
-**subpassInputMS**
-a handle for accessing a multi-sampled floating-point subpass input
+  **imageBuffer** | a handle for accessing a buffer texture |
+| **subpassInput** | a handle for accessing a floating-point subpass input |
+| **subpassInputMS** | a handle for accessing a multi-sampled floating-point subpass input |
 
 **Signed Integer Opaque Types**
 
-Type
-Meaning
-
-**isampler1D**
+| Type | Meaning |
+| --- | --- |
+| **isampler1D**
 
   **itexture1D**
 
-  **iimage1D**
-a handle for accessing an integer 1D texture
-
-**isampler1DArray**
+  **iimage1D** | a handle for accessing an integer 1D texture |
+| **isampler1DArray**
 
   **itexture1DArray**
 
-  **iimage1DArray**
-a handle for accessing an integer 1D array texture
-
-**isampler2D**
+  **iimage1DArray** | a handle for accessing an integer 1D array texture |
+| **isampler2D**
 
   **itexture2D**
 
-  **iimage2D**
-a handle for accessing an integer 2D texture
-
-**isampler2DArray**
+  **iimage2D** | a handle for accessing an integer 2D texture |
+| **isampler2DArray**
 
   **itexture2DArray**
 
-  **iimage2DArray**
-a handle for accessing an integer 2D array texture
-
-**isampler2DMS**
+  **iimage2DArray** | a handle for accessing an integer 2D array texture |
+| **isampler2DMS**
 
   **itexture2DMS**
 
-  **iimage2DMS**
-a handle for accessing an integer 2D multisample texture
-
-**isampler2DMSArray**
+  **iimage2DMS** | a handle for accessing an integer 2D multisample texture |
+| **isampler2DMSArray**
 
   **itexture2DMSArray**
 
-  **iimage2DMSArray**
-a handle for accessing an integer 2D multisample array texture
-
-**isampler2DRect**
+  **iimage2DMSArray** | a handle for accessing an integer 2D multisample array texture |
+| **isampler2DRect**
 
   **itexture2DRect**
 
-  **iimage2DRect**
-a handle for accessing an integer 2D rectangle texture
-
-**isampler3D**
+  **iimage2DRect** | a handle for accessing an integer 2D rectangle texture |
+| **isampler3D**
 
   **itexture3D**
 
-  **iimage3D**
-a handle for accessing an integer 3D texture
-
-**isamplerCube**
+  **iimage3D** | a handle for accessing an integer 3D texture |
+| **isamplerCube**
 
   **itextureCube**
 
-  **iimageCube**
-a handle for accessing an integer cube mapped texture
-
-**isamplerCubeArray**
+  **iimageCube** | a handle for accessing an integer cube mapped texture |
+| **isamplerCubeArray**
 
   **itextureCubeArray**
 
-  **iimageCubeArray**
-a handle for accessing an integer cube map array texture
-
-**isamplerBuffer**
+  **iimageCubeArray** | a handle for accessing an integer cube map array texture |
+| **isamplerBuffer**
 
   **itextureBuffer**
 
-  **iimageBuffer**
-a handle for accessing an integer buffer texture
-
-**isubpassInput**
-a handle for accessing an integer subpass input
-
-**isubpassInputMS**
-a handle for accessing a multi-sampled integer subpass input
+  **iimageBuffer** | a handle for accessing an integer buffer texture |
+| **isubpassInput** | a handle for accessing an integer subpass input |
+| **isubpassInputMS** | a handle for accessing a multi-sampled integer subpass input |
 
 **Unsigned Integer Opaque Types**
 
-Type
-Meaning
-
-**usampler1D**
+| Type | Meaning |
+| --- | --- |
+| **usampler1D**
 
   **utexture1D**
 
-  **uimage1D**
-a handle for accessing an unsigned integer 1D texture
-
-**usampler1DArray**
+  **uimage1D** | a handle for accessing an unsigned integer 1D texture |
+| **usampler1DArray**
 
   **utexture1DArray**
 
-  **uimage1DArray**
-a handle for accessing an unsigned integer 1D array texture
-
-**usampler2D**
+  **uimage1DArray** | a handle for accessing an unsigned integer 1D array texture |
+| **usampler2D**
 
   **utexture2D**
 
-  **uimage2D**
-a handle for accessing an unsigned integer 2D texture
-
-**usampler2DArray**
+  **uimage2D** | a handle for accessing an unsigned integer 2D texture |
+| **usampler2DArray**
 
   **utexture2DArray**
 
-  **uimage2DArray**
-a handle for accessing an unsigned integer 2D array texture
-
-**usampler2DMS**
+  **uimage2DArray** | a handle for accessing an unsigned integer 2D array texture |
+| **usampler2DMS**
 
   **utexture2DMS**
 
-  **uimage2DMS**
-a handle for accessing an unsigned integer 2D multisample texture
-
-**usampler2DMSArray**
+  **uimage2DMS** | a handle for accessing an unsigned integer 2D multisample texture |
+| **usampler2DMSArray**
 
   **utexture2DMSArray**
 
-  **uimage2DMSArray**
-a handle for accessing an unsigned integer 2D multisample array texture
-
-**usampler2DRect**
+  **uimage2DMSArray** | a handle for accessing an unsigned integer 2D multisample array texture |
+| **usampler2DRect**
 
   **utexture2DRect**
 
-  **uimage2DRect**
-a handle for accessing an unsigned integer rectangle texture
-
-**usampler3D**
+  **uimage2DRect** | a handle for accessing an unsigned integer rectangle texture |
+| **usampler3D**
 
   **utexture3D**
 
-  **uimage3D**
-a handle for accessing an unsigned integer 3D texture
-
-**usamplerCube**
+  **uimage3D** | a handle for accessing an unsigned integer 3D texture |
+| **usamplerCube**
 
   **utextureCube**
 
-  **uimageCube**
-a handle for accessing an unsigned integer cube mapped texture
-
-**usamplerCubeArray**
+  **uimageCube** | a handle for accessing an unsigned integer cube mapped texture |
+| **usamplerCubeArray**
 
   **utextureCubeArray**
 
-  **uimageCubeArray**
-a handle for accessing an unsigned integer cube map array texture
-
-**usamplerBuffer**
+  **uimageCubeArray** | a handle for accessing an unsigned integer cube map array texture |
+| **usamplerBuffer**
 
   **utextureBuffer**
 
-  **uimageBuffer**
-a handle for accessing an unsigned integer buffer texture
-
-**atomic_uint**
-a handle for accessing an unsigned integer atomic counter
-
-**usubpassInput**
-a handle for accessing an unsigned-integer subpass input
-
-**usubpassInputMS**
-a handle for accessing a multi-sampled unsigned-integer subpass input
+  **uimageBuffer** | a handle for accessing an unsigned integer buffer texture |
+| **atomic_uint** | a handle for accessing an unsigned integer atomic counter |
+| **usubpassInput** | a handle for accessing an unsigned-integer subpass input |
+| **usubpassInputMS** | a handle for accessing a multi-sampled unsigned-integer subpass input |
 
 **Sampler Opaque Types**
 
-Type
-Meaning
-
-**sampler**
-a handle for accessing state describing how to sample a texture
-
-**samplerShadow**
-a handle for accessing state describing how to sample a depth
-                            texture with comparison
+| Type | Meaning |
+| --- | --- |
+| **sampler** | a handle for accessing state describing how to sample a texture |
+| **samplerShadow** | a handle for accessing state describing how to sample a depth
+                            texture with comparison |
 
 In addition, a shader can aggregate these basic types using arrays and
 structures to build more complex types.
@@ -1112,6 +924,23 @@ constant index used earlier in the shader to index the array.
 Undefined behavior results from indexing an array with a non-constant
 expression that’s greater than or equal to the array’s size or less than 0.
 
+|  | Note
+| --- | --- |
+
+Some features outside the scope of GLSL, for example OpenGL or Vulkan’s "Robust
+Buffer Access" features, may further constrain what behaviors are valid here.
+Typically these features will prevent out-of-bounds indexing causing program
+termination and may determine which values must be returned. |
+
+|  | Note
+| --- | --- |
+
+All arrays are inherently homogeneous; made of elements all having the same
+type and size, with one exception.
+An array of shader storage blocks whose last member is a runtime-sized array
+allows the individual blocks to have different sizes and hence a different
+number of elements in the trailing array. |
+
 Some examples of array declarations are:
 
 float frequencies[3];
@@ -1262,95 +1091,53 @@ In some situations, an expression and its type will be implicitly converted
 to a different type.
 The following table shows all allowed implicit conversions:
 
-Type of expression
-Can be implicitly converted to
+| Type of expression | Can be implicitly converted to |
+| --- | --- |
+| **int** | **uint** |
+| **int**
 
-**int**
-**uint**
-
-**int**
-
-  **uint**
-**float**
-
-**int**
+  **uint** | **float** |
+| **int**
 
   **uint**
 
-  **float**
-**double**
+  **float** | **double** |
+| **ivec2** | **uvec2** |
+| **ivec3** | **uvec3** |
+| **ivec4** | **uvec4** |
+| **ivec2**
 
-**ivec2**
-**uvec2**
+  **uvec2** | **vec2** |
+| **ivec3**
 
-**ivec3**
-**uvec3**
+  **uvec3** | **vec3** |
+| **ivec4**
 
-**ivec4**
-**uvec4**
-
-**ivec2**
-
-  **uvec2**
-**vec2**
-
-**ivec3**
-
-  **uvec3**
-**vec3**
-
-**ivec4**
-
-  **uvec4**
-**vec4**
-
-**ivec2**
+  **uvec4** | **vec4** |
+| **ivec2**
 
   **uvec2**
 
-  **vec2**
-**dvec2**
-
-**ivec3**
+  **vec2** | **dvec2** |
+| **ivec3**
 
   **uvec3**
 
-  **vec3**
-**dvec3**
-
-**ivec4**
+  **vec3** | **dvec3** |
+| **ivec4**
 
   **uvec4**
 
-  **vec4**
-**dvec4**
-
-**mat2**
-**dmat2**
-
-**mat3**
-**dmat3**
-
-**mat4**
-**dmat4**
-
-**mat2x3**
-**dmat2x3**
-
-**mat2x4**
-**dmat2x4**
-
-**mat3x2**
-**dmat3x2**
-
-**mat3x4**
-**dmat3x4**
-
-**mat4x2**
-**dmat4x2**
-
-**mat4x3**
-**dmat4x3**
+  **vec4** | **dvec4** |
+| **mat2** | **dmat2** |
+| **mat3** | **dmat3** |
+| **mat4** | **dmat4** |
+| **mat2x3** | **dmat2x3** |
+| **mat2x4** | **dmat2x4** |
+| **mat3x2** | **dmat3x2** |
+| **mat3x4** | **dmat3x4** |
+| **mat4x2** | **dmat4x2** |
+| **mat4x3** | **dmat4x3** |
 
 There are no implicit array or structure conversions.
 For example, an array of **int** cannot be implicitly converted to an array of
@@ -1639,59 +1426,36 @@ Variable declarations may have at most one storage qualifier specified in
 front of the type.
 These are summarized as
 
-Storage Qualifier
-Meaning
-
-local read/write memory, or an input parameter to a
-                      function
-
-**const**
-a variable whose value cannot be changed
-
-**in**
-linkage into a shader from a previous stage, variable
-                      is copied in
-
-**out**
-linkage out of a shader to a subsequent stage,
-                      variable is copied out
-
-**attribute**
-compatibility profile only and vertex language only;
-                      same as **in** when in a vertex shader
-
-**uniform**
-value does not change across the primitive being
+| Storage Qualifier | Meaning |
+| --- | --- |
+|  | local read/write memory, or an input parameter to a
+                      function |
+| **const** | a variable whose value cannot be changed |
+| **in** | linkage into a shader from a previous stage, variable
+                      is copied in |
+| **out** | linkage out of a shader to a subsequent stage,
+                      variable is copied out |
+| **attribute** | compatibility profile only and vertex language only;
+                      same as **in** when in a vertex shader |
+| **uniform** | value does not change across the primitive being
                       processed, uniforms form the linkage between a shader,
-                      API, and the application
-
-**varying**
-compatibility profile only and vertex and fragment
+                      API, and the application |
+| **varying** | compatibility profile only and vertex and fragment
                       languages only; same as **out** when in a vertex shader
-                      and same as **in** when in a fragment shader
-
-**buffer**
-value is stored in a buffer object, and can be read or
-                      written both by shader invocations and the API
-
-**shared**
-compute shader only; variable storage is shared across
-                      all work items in a workgroup
+                      and same as **in** when in a fragment shader |
+| **buffer** | value is stored in a buffer object, and can be read or
+                      written both by shader invocations and the API |
+| **shared** | compute shader only; variable storage is shared across
+                      all work items in a workgroup |
 
 Some input and output qualified variables can be qualified with at most one
 additional auxiliary storage qualifier:
 
-Auxiliary Storage Qualifier
-Meaning
-
-**centroid**
-centroid-based interpolation
-
-**sample**
-per-sample interpolation
-
-**patch**
-per-tessellation-patch attributes
+| Auxiliary Storage Qualifier | Meaning |
+| --- | --- |
+| **centroid** | centroid-based interpolation |
+| **sample** | per-sample interpolation |
+| **patch** | per-tessellation-patch attributes |
 
 Not all combinations of qualification are allowed.
 Auxiliary storage qualifiers can only be used with the **in** or **out** storage
@@ -1931,28 +1695,12 @@ previous stage; it is allowed to have superfluous declarations of input
 variables.
 This is shown in the following table.
 
-Treatment of Mismatched Input Variables
-Consuming Shader (input variables)
-
-No Declaration
-Declared but no Static Use
-Declared and Static Use
-
-Generating Shader (output variables)
-No Declaration
-Allowed
-Allowed
-Link-Time Error
-
-Declared but no Static Use
-Allowed
-Allowed
-Allowed (values are undefined)
-
-Declared and Static Use
-Allowed
-Allowed
-Allowed (values are potentially undefined)
+| Treatment of Mismatched Input Variables | Consuming Shader (input variables) |
+| --- | --- | --- | --- | --- |
+| No Declaration | Declared but no Static Use | Declared and Static Use |
+| Generating Shader (output variables) | No Declaration | Allowed | Allowed | Link-Time Error |
+| Declared but no Static Use | Allowed | Allowed | Allowed (values are undefined) |
+| Declared and Static Use | Allowed | Allowed | Allowed (values are potentially undefined) |
 
 Consumption errors are based on static use only.
 Compilation may generate a warning, but not an error, for any dynamic use
@@ -2738,130 +2486,44 @@ The following table summarizes the use of layout qualifiers.
 It shows for each one what kinds of declarations it may be applied to.
 These are all discussed in detail in the following sections.
 
-Layout Qualifier
-Qualifier Only
-Individual Variable
-Block
-Block Member
-Allowed Interfaces
-
-**shared**
+| Layout Qualifier | Qualifier Only | Individual Variable | Block | Block Member | Allowed Interfaces |
+| --- | --- | --- | --- | --- | --- |
+| **shared**
 
   **packed**
 
   **std140**
 
-  **std430**
-X
+  **std430** | X |  | X |  | **uniform** / **buffer** |
+| **row_major**
 
-X
-
-**uniform** / **buffer**
-
-**row_major**
-
-  **column_major**
-X
-
-X
-X
-
-**binding** =
-
-opaque types only
-X
-
-**offset** =
-
-atomic counters only
-
-X
-
-**align** =
-
-X
-X
-
-**set** =
-
-opaque types only
-X
-
-**uniform** / **buffer** (Vulkan only)
-
-**push_constant**
-
-X
-
-**uniform** (Vulkan only)
-
-**input_attachment_index** =
-
-subpass types only
-
-**uniform** (Vulkan only)
-
-**location** =
-
-X
-
-**uniform** / **buffer** and subroutine variables
-
-**location** =
-
-X
-X
-X1
-all **in** / **out**, except for compute
-
-**component** =
-
-X
-
-X
-
-**index** =
-
-X
-
-fragment **out** and subroutine functions
-
-**triangles**
+  **column_major** | X |  | X | X |
+| **binding** = |  | opaque types only | X |  |
+| **offset** = |  | atomic counters only |  | X |
+| **align** = |  |  | X | X |
+| **set** = |  | opaque types only | X |  | **uniform** / **buffer** (Vulkan only) |
+| **push_constant** |  |  | X |  | **uniform** (Vulkan only) |
+| **input_attachment_index** = |  | subpass types only |  |  | **uniform** (Vulkan only) |
+| **location** = |  | X |  |  | **uniform** / **buffer** and subroutine variables |
+| **location** = |  | X | X | X1 | all **in** / **out**, except for compute |
+| **component** = |  | X |  | X |
+| **index** = |  | X |  |  | fragment **out** and subroutine functions |
+| **triangles**
 
   **quads**
 
-  **isolines**
-X
-
-tessellation evaluation **in**
-
-**equal_spacing**
+  **isolines** | X |  |  |  | tessellation evaluation **in** |
+| **equal_spacing**
 
   **fractional_even_spacing**
 
-  **fractional_odd_spacing**
-X
+  **fractional_odd_spacing** | X |  |  |  | tessellation evaluation **in** |
+| **cw**
 
-tessellation evaluation **in**
-
-**cw**
-
-  **ccw**
-X
-
-tessellation evaluation **in**
-
-**point_mode**
-X
-
-tessellation evaluation **in**
-
-**points**
-X
-
-geometry **in**/**out**
-
-[ **points** ]
+  **ccw** | X |  |  |  | tessellation evaluation **in** |
+| **point_mode** | X |  |  |  | tessellation evaluation **in** |
+| **points** | X |  |  |  | geometry **in**/**out** |
+| [ **points** ]
 
   **lines**
 
@@ -2869,102 +2531,43 @@ geometry **in**/**out**
 
   **triangles**
 
-  **triangles_adjacency**
-X
+  **triangles_adjacency** | X |  |  |  | geometry **in** |
+| **invocations** = | X |  |  |  | geometry **in** |
+| **origin_upper_left**
 
-geometry **in**
-
-**invocations** =
-X
-
-geometry **in**
-
-**origin_upper_left**
-
-  **pixel_center_integer**
-
-*gl_FragCoord* only
-
-fragment **in**
-
-**early_fragment_tests**
-X
-
-**local_size_x** =
+  **pixel_center_integer** |  | *gl_FragCoord* only |  |  | fragment **in** |
+| **early_fragment_tests** | X |  |  |  |
+| **local_size_x** =
 
   **local_size_y** =
 
-  **local_size_z** =
-X
-
-compute **in**
-
-**local_size_x_id** =
+  **local_size_z** = | X |  |  |  | compute **in** |
+| **local_size_x_id** =
 
   **local_size_y_id** =
 
-  **local_size_z_id** =
-X
+  **local_size_z_id** = | X |  |  |  | compute **in** (SPIR-V only) |
+| **xfb_buffer** =
 
-compute **in** (SPIR-V only)
-
-**xfb_buffer** =
-
-  **xfb_stride** =
-X
-X
-X
-X
-vertex, tessellation, and geometry **out**
-
-**xfb_offset** =
-
-X
-X
-X
-
-**vertices** =
-X
-
-tessellation control **out**
-
-[ **points** ]
+  **xfb_stride** = | X | X | X | X | vertex, tessellation, and geometry **out** |
+| **xfb_offset** = |  | X | X | X |
+| **vertices** = | X |  |  |  | tessellation control **out** |
+| [ **points** ]
 
   **line_strip**
 
-  **triangle_strip**
-X
-
-geometry **out**
-
-**max_vertices** =
-X
-
-**stream** =
-X
-X
-X
-X
-
-**depth_any**
+  **triangle_strip** | X |  |  |  | geometry **out** |
+| **max_vertices** = | X |  |  |  |
+| **stream** = | X | X | X | X |
+| **depth_any**
 
   **depth_greater**
 
   **depth_less**
 
-  **depth_unchanged**
-
-*gl_FragDepth* only
-
-fragment **out**
-
-**constant_id** =
-
-scalar only
-
-**const** (SPIR-V only)
-
-**rgba32f**
+  **depth_unchanged** |  | *gl_FragDepth* only |  |  | fragment **out** |
+| **constant_id** = |  | scalar only |  |  | **const** (SPIR-V only) |
+| **rgba32f**
 
   **rgba16f**
 
@@ -3040,11 +2643,7 @@ scalar only
 
   **r16ui**
 
-  **r8ui**
-
-image types only
-
-**uniform**
+  **r8ui** |  | image types only |  |  | **uniform** |
 
 1
 
@@ -3445,23 +3044,13 @@ All geometry shader input unsized array declarations will be sized by an
 earlier input primitive layout qualifier, when present, as per the following
 table.
 
-Layout
-Size of Input Arrays
-
-**points**
-1
-
-**lines**
-2
-
-**lines_adjacency**
-4
-
-**triangles**
-3
-
-**triangles_adjacency**
-6
+| Layout | Size of Input Arrays |
+| --- | --- |
+| **points** | 1 |
+| **lines** | 2 |
+| **lines_adjacency** | 4 |
+| **triangles** | 3 |
+| **triangles_adjacency** | 6 |
 
 The intrinsically declared input array *gl_in[]* will also be sized by any
 input primitive-layout declaration.
@@ -4774,17 +4363,11 @@ is greater than or equal to *gl_MaxInputAttachments*.
 Inputs and outputs that could be interpolated can be further qualified by at
 most one of the following interpolation qualifiers:
 
-Qualifier
-Meaning
-
-**smooth**
-perspective correct interpolation
-
-**flat**
-no interpolation
-
-**noperspective**
-linear interpolation
+| Qualifier | Meaning |
+| --- | --- |
+| **smooth** | perspective correct interpolation |
+| **flat** | no interpolation |
+| **noperspective** | linear interpolation |
 
 The presence of and type of interpolation is controlled by the above
 interpolation qualifiers as well as the auxiliary storage qualifiers
@@ -4884,24 +4467,15 @@ variables that are statically used within the shaders in a program.
 In addition to precision qualifiers and memory qualifiers, parameters can
 have these parameter qualifiers.
 
-Qualifier
-Meaning
-
-same as **in**
-
-**const**
-for function parameters that cannot be written to
-
-**in**
-for function parameters passed into a function
-
-**out**
-for function parameters passed back out of a function,
-                   but not initialized for use when passed in
-
-**inout**
-for function parameters passed both into and out of a
-                   function
+| Qualifier | Meaning |
+| --- | --- |
+|  | same as **in** |
+| **const** | for function parameters that cannot be written to |
+| **in** | for function parameters passed into a function |
+| **out** | for function parameters passed back out of a function,
+                   but not initialized for use when passed in |
+| **inout** | for function parameters passed both into and out of a
+                   function |
 
 Parameter qualifiers are discussed in more detail in
 “[Function Calling Conventions](statements.html#function-calling-conventions)”.
@@ -4961,46 +4535,24 @@ Precisions are expressed in terms of maximum relative error in units of ULP
 
 For single precision operations, precisions are required as follows:
 
-Operation
-Precision
-
-*a* + *b*, *a* - *b*, *a* * *b*
-Correctly rounded.
-
-, >=
-Correct result.
-
-*a* / *b*, 1.0 / *b*
-2.5 ULP for |b| in the range [2-126, 2126].
-
-*a* * *b* + *c*
-Correctly rounded single operation or
-                                    sequence of two correctly rounded operations.
-
-**fma**()
-Inherited from *a* * *b* + *c*.
-
-**pow**(*x*, *y*)
-Inherited from **exp2**(*y* * **log2**(*x*)).
-
-**exp**(*x*), **exp2**(*x*)
-(3 + 2 ⋅ |x|) ULP.
-
-**log**(), **log2**()
-3 ULP outside the range [0.5,2.0].
+| Operation | Precision |
+| --- | --- |
+| *a* + *b*, *a* - *b*, *a* * *b* | Correctly rounded. |
+| , >= | Correct result. |
+| *a* / *b*, 1.0 / *b* | 2.5 ULP for \|b\| in the range [2-126, 2126]. |
+| *a* * *b* + *c* | Correctly rounded single operation or
+                                    sequence of two correctly rounded operations. |
+| **fma**() | Inherited from *a* * *b* + *c*. |
+| **pow**(*x*, *y*) | Inherited from **exp2**(*y* * **log2**(*x*)). |
+| **exp**(*x*), **exp2**(*x*) | (3 + 2 ⋅ \|x\|) ULP. |
+| **log**(), **log2**() | 3 ULP outside the range [0.5,2.0].
 
                                     Absolute error -21 inside the range
-                                    [0.5,2.0].
-
-**sqrt**()
-Inherited from 1.0 / **inversesqrt**().
-
-**inversesqrt**()
-2 ULP.
-
-implicit and explicit
-  conversions between types
-Correctly rounded.
+                                    [0.5,2.0]. |
+| **sqrt**() | Inherited from 1.0 / **inversesqrt**(). |
+| **inversesqrt**() | 2 ULP. |
+| implicit and explicit
+  conversions between types | Correctly rounded. |
 
 Built-in functions defined in the specification with an equation built from
 the above operations inherit the above errors.
@@ -5038,18 +4590,12 @@ single-precision
 floating-point, integer, or opaque-type declaration can have the type
 preceded by one of these precision qualifiers:
 
-Qualifier
-Meaning
-
-**highp**
-32-bit two’s complement for integers,
-              32-bit IEEE 754 floating-point for **float**
-
-**mediump**
-SPIR-V **RelaxedPrecision** when targeting Vulkan, otherwise none.
-
-**lowp**
-SPIR-V **RelaxedPrecision** when targeting Vulkan, otherwise none.
+| Qualifier | Meaning |
+| --- | --- |
+| **highp** | 32-bit two’s complement for integers,
+              32-bit IEEE 754 floating-point for **float** |
+| **mediump** | SPIR-V **RelaxedPrecision** when targeting Vulkan, otherwise none. |
+| **lowp** | SPIR-V **RelaxedPrecision** when targeting Vulkan, otherwise none. |
 
 For example:
 
@@ -5390,30 +4936,20 @@ variables declared as image types (the basic opaque types with “**image**”
 in their keyword), can be further qualified with one or more of the
 following memory qualifiers:
 
-Qualifier
-Meaning
-
-**coherent**
-memory variable where reads and writes are coherent with
-                reads and writes from other shader invocations
-
-**volatile**
-memory variable whose underlying value may be changed at any
+| Qualifier | Meaning |
+| --- | --- |
+| **coherent** | memory variable where reads and writes are coherent with
+                reads and writes from other shader invocations |
+| **volatile** | memory variable whose underlying value may be changed at any
                 point during shader execution by some source other than the
-                current shader invocation
-
-**restrict**
-memory variable where use of that variable is the only way
+                current shader invocation |
+| **restrict** | memory variable where use of that variable is the only way
                 to read and write the underlying memory in the relevant
-                shader stage
-
-**readonly**
-memory variable that can be used to read the underlying
-                memory, but cannot be used to write the underlying memory
-
-**writeonly**
-memory variable that can be used to write the underlying
-                memory, but cannot be used to read the underlying memory
+                shader stage |
+| **readonly** | memory variable that can be used to read the underlying
+                memory, but cannot be used to write the underlying memory |
+| **writeonly** | memory variable that can be used to write the underlying
+                memory, but cannot be used to read the underlying memory |
 
 Memory accesses to image variables declared using the **coherent** qualifier
 are performed coherently with accesses to the same location from other

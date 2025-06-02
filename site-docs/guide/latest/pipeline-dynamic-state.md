@@ -18,6 +18,9 @@
 
 ## Content
 
+|  | [List of all dynamic states with details](dynamic_state_map.html) |
+| --- | --- |
+
 When creating a graphics `VkPipeline` object the logical flow for setting state is:
 
 // Using viewport state as an example
@@ -72,6 +75,9 @@ viewport.height = 64.0;
 vkCmdSetViewport(viewport);
 vkCmdDraw();
 vkEndCommandBuffer();
+
+|  | Vulkan is a tool, so as with most things, and there is no single answer for this. |
+| --- | --- |
 
 Some implementations might have a performance loss using some certain `VkDynamicState` state over a static value, but dynamic states might prevent an application from having to create many permutations of pipeline objects which might be a bigger desire for the application.
 

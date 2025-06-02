@@ -14,6 +14,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/tooling/profiles). |
+| --- | --- |
+
 This sample demonstrates the usage of the [Vulkan Profiles Library](https://github.com/KhronosGroup/Vulkan-Profiles).
 Profiles define a common requirement baseline of properties, features, extensions, etc.
 to make Vulkan applications more portable.

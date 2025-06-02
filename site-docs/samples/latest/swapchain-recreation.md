@@ -13,6 +13,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/api/swapchain_recreation). |
+| --- | --- |
+
 A sample that implements best practices in handling present resources and swapchain recreation, for example due to window resizing or present mode changes.
 
 Before VK_EXT_swapchain_maintenance1, there is no straightforward way to tell when a semaphore associated with a present operation can be recycled, or when a retired swapchain can be destroyed.

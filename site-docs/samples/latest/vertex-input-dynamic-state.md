@@ -15,6 +15,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/vertex_dynamic_state). |
+| --- | --- |
+
 ![Sample](../../../_images/samples/extensions/vertex_dynamic_state/images/sample.png)
 
 This sample demonstrates how to use the `VK_EXT_vertex_input_dynamic_state` extension, which eliminates the need to create multiple pipelines in case of different binding and/or attribute descriptions.
@@ -24,24 +27,16 @@ Instead of static description during pipeline creation, this extension allows de
 
 Below is a comparison of common Vulkan vertex input description and dynamic one.
 
-Vertex input static state
-Vertex input dynamic state
-
-dynamic_state = {}
-dynamic_state = {VK_DYNAMIC_STATE_VERTEX_INPUT_EXT}
-
-pVertexInputState = &vertex_input_state
-pVertexInputState = VK_NULL_HANDLE
-
-vkCreateGraphicsPipelines(model1) + vkCreateGraphicsPipelines(model2)
-vkCreateGraphicsPipelines(model)
-
-draw(model1, pipeline1) + draw(model2, pipeline2)
-vertex_bindings_description.stride  = sizeof(Vertex1);
+| Vertex input static state | Vertex input dynamic state |
+| --- | --- |
+| dynamic_state = {} | dynamic_state = {VK_DYNAMIC_STATE_VERTEX_INPUT_EXT} |
+| pVertexInputState = &vertex_input_state | pVertexInputState = VK_NULL_HANDLE |
+| vkCreateGraphicsPipelines(model1) + vkCreateGraphicsPipelines(model2) | vkCreateGraphicsPipelines(model) |
+| draw(model1, pipeline1) + draw(model2, pipeline2) | vertex_bindings_description.stride  = sizeof(Vertex1);
 + vertex_attribute_description.offset = offsetof(Vertex1, param);
 + vkCmdSetVertexInputEXT(&vertex1_params) + draw(model1, pipeline) + vertex_bindings_description.stride  = sizeof(Vertex2);
 + vertex_attribute_description.offset = offsetof(Vertex2, param);
-+ vkCmdSetVertexInputEXT(&vertex2_params) + draw(model2, pipeline)
++ vkCmdSetVertexInputEXT(&vertex2_params) + draw(model2, pipeline) |
 
 More details are provided in the sections that follow.
 

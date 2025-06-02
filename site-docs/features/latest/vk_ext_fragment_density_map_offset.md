@@ -53,6 +53,14 @@ This extension extends
 allow for finer control over the location of the local framebuffer regions in a
 render pass with a fragment density map attachment.
 
+|  | This extension is a promotion of
+| --- | --- |
+[VK_QCOM_fragment_density_map_offset](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_QCOM_fragment_density_map_offset),
+with the addition of support for
+[dynamic rendering](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_KHR_dynamic_rendering). As that extension
+already shipped before proposal documents existed, this document has been
+written retroactively during promotion to EXT. |
+
 Some use-cases for
 [VK_EXT_fragment_density_map](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_fragment_density_map), such
 as eye-tracking foveation, require the fragment density map to be updated

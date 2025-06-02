@@ -26,6 +26,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/buffer_device_address). |
+| --- | --- |
+
 Buffer device address is a very powerful and unique feature to Vulkan which is not present in any other modern graphics API.
 The main gist of it is that it exposes GPU virtual addresses directly to the application, and the application can then use said address to access buffer data freely through pointers rather than descriptors.
 What makes this feature unique is that we can place these addresses in buffers and load and store to them inside shaders, with full capability to perform pointer arithmetic and other fun tricks.

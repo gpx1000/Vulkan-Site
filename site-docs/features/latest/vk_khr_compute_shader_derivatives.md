@@ -38,6 +38,12 @@ Table of Contents
 
 This extension enables applications to use derivative operations from execution models with defined workgroups.
 
+|  | This extension is a promotion (with additions) of
+| --- | --- |
+[VK_NV_compute_shader_derivatives](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_NV_compute_shader_derivatives).
+As that extension already shipped before proposal documents existed, this document has been written
+retroactively during promotion to KHR. |
+
 The changes relative to `VK_NV_compute_shader_derivatives` are the inclusion of optional
 mesh and task shader support.
 

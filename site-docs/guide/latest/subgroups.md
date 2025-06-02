@@ -22,11 +22,17 @@
 
 The Vulkan Spec defines subgroups as:
 
+|  | A set of shader invocations that can synchronize and share data with each other efficiently. In compute shaders, the local workgroup is a superset of the subgroup. |
+| --- | --- |
+
 For many implementations, a subgroup is the groups of invocations that run the same instruction at once. Subgroups allow for a shader writer to work at a finer granularity than a single workgroup.
 
 For more detailed information about subgroups there is a great [Khronos blog post](https://www.khronos.org/blog/vulkan-subgroup-tutorial) as well as a presentation from Vulkan Developer Day 2018 ([slides](https://www.khronos.org/assets/uploads/developers/library/2018-vulkan-devday/06-subgroups.pdf) and [video](https://www.youtube.com/watch?v=8MyqQLu_tW0)). GLSL support can be found in the [GL_KHR_shader_subgroup](https://github.com/KhronosGroup/GLSL/blob/master/extensions/khr/GL_KHR_shader_subgroup.txt) extension.
 
 It is important to also realize the size of a subgroup can be dynamic for an implementation. Some implementations may dispatch shaders with a varying subgroup size for different subgroups. As a result, they could implicitly split a large subgroup into smaller subgroups or represent a small subgroup as a larger subgroup, some of whose invocations were inactive on launch.
+
+|  | Promoted to core in Vulkan 1.3 |
+| --- | --- |
 
 This extension was created due to some implementation having more than one subgroup size and Vulkan originally only exposing a single subgroup size.
 
@@ -53,7 +59,18 @@ if ((subgroupProperties.supportedOperations & VK_SUBGROUP_FEATURE_BALLOT_BIT) !=
 
 For supported stages, the Vulkan Spec guarantees the following support:
 
+|  | **supportedStages** will have the **VK_SHADER_STAGE_COMPUTE_BIT** bit set if any of the physical device’s queues support **VK_QUEUE_COMPUTE_BIT**. |
+| --- | --- |
+
 For supported operations, the Vulkan Spec guarantees the following support:
+
+|  | **supportedOperations** will have the **VK_SUBGROUP_FEATURE_BASIC_BIT** bit set if any of the physical device’s queues support **VK_QUEUE_GRAPHICS_BIT** or **VK_QUEUE_COMPUTE_BIT**. |
+| --- | --- |
+
+|  | Promoted to core in Vulkan 1.2
+| --- | --- |
+
+[GLSL_EXT_shader_subgroup_extended_types](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GLSL_EXT_shader_subgroup_extended_types.txt) |
 
 This extension allows subgroup operations to use 8-bit integer, 16-bit integer, 64-bit integer, 16-bit floating-point, and vectors of these types in group operations with subgroup scope if the implementation supports the types already.
 

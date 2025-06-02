@@ -23,6 +23,9 @@
 
 ## Content
 
+|  | Please read the [SPIRV-Guide](https://github.com/KhronosGroup/SPIRV-Guide) for more in detail information about SPIR-V |
+| --- | --- |
+
 [SPIR-V](https://registry.khronos.org/SPIR-V/) is a binary intermediate representation for graphical-shader stages and compute kernels. With Vulkan, an application can still write their shaders in a high-level shading language such as GLSL or [HLSL](hlsl.html), but a SPIR-V binary is needed when using [vkCreateShaderModule](https://docs.vulkan.org/spec/latest/chapters/shaders.html#vkCreateShaderModule). Khronos has a very nice [white paper](https://registry.khronos.org/SPIR-V/papers/WhitePaper.pdf) about SPIR-V and its advantages, and a high-level description of the representation. There are also two great Khronos presentations from Vulkan DevDay 2016 [here](https://www.khronos.org/assets/uploads/developers/library/2016-vulkan-devday-uk/3-Intro-to-spir-v-shaders.pdf) and [here](https://www.khronos.org/assets/uploads/developers/library/2016-vulkan-devday-uk/4-Using-spir-v-with-spirv-cross.pdf)
 ([video of both](https://www.youtube.com/watch?v=XRpVwdduzgU)).
 

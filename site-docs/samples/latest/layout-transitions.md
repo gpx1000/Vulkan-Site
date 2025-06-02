@@ -16,6 +16,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/layout_transitions). |
+| --- | --- |
+
 Vulkan requires the application to manage image layouts, so that all render pass attachments are in the correct layout when the render pass begins.
 This is usually done using pipeline barriers or the `initialLayout` and `finalLayout` parameters of the render pass.
 

@@ -12,6 +12,7 @@
       }(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
     </script>
     <link rel="stylesheet" href="../../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../../_/css/vendor/tabs.css">
     <link rel="apple-touch-icon" sizes="180x180" href="../../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../../_/img/favicon-16x16.png">
@@ -6607,10 +6608,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 <code>VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE</code> dynamic state enabled, and the
 <a href="../pipelines.html#dynamic-state-current-value" class="xref page">current value</a> of
-<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, then
-<a href="../fragops.html#vkCmdSetDepthWriteEnable" class="xref page">vkCmdSetDepthWriteEnable</a> <strong>must</strong> have been called and not
-subsequently <a href="../pipelines.html#dynamic-state-lifetime" class="xref page">invalidated</a> in the current
-command buffer prior to this drawing command</p>
+<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, and the
+<a href="../pipelines.html#dynamic-state-current-value" class="xref page">current value</a> of <code>depthTestEnable</code>
+is <code>VK_TRUE</code>, then <a href="../fragops.html#vkCmdSetDepthWriteEnable" class="xref page">vkCmdSetDepthWriteEnable</a> <strong>must</strong> have been
+called and not subsequently <a href="../pipelines.html#dynamic-state-lifetime" class="xref page">invalidated</a> in
+the current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-07845" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-07845"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-07845</span><br>
@@ -8912,6 +8914,12 @@ is enabled, the
 <a href="../features.html#features-tileShadingPerTileDraw" class="xref page">tileShadingPerTileDraw</a> feature <strong>must</strong>
 be enabled</p>
 </li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-10772" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-10772"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-10772</span><br>
+
+If a shader object is bound to any graphics stage, <em>multiview</em>
+functionality <strong>must</strong> not be enabled in the current render pass</p>
+</li>
 </ul>
 </div>
 <div class="ulist">
@@ -11037,10 +11045,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 <code>VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE</code> dynamic state enabled, and the
 <a href="../pipelines.html#dynamic-state-current-value" class="xref page">current value</a> of
-<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, then
-<a href="../fragops.html#vkCmdSetDepthWriteEnable" class="xref page">vkCmdSetDepthWriteEnable</a> <strong>must</strong> have been called and not
-subsequently <a href="../pipelines.html#dynamic-state-lifetime" class="xref page">invalidated</a> in the current
-command buffer prior to this drawing command</p>
+<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, and the
+<a href="../pipelines.html#dynamic-state-current-value" class="xref page">current value</a> of <code>depthTestEnable</code>
+is <code>VK_TRUE</code>, then <a href="../fragops.html#vkCmdSetDepthWriteEnable" class="xref page">vkCmdSetDepthWriteEnable</a> <strong>must</strong> have been
+called and not subsequently <a href="../pipelines.html#dynamic-state-lifetime" class="xref page">invalidated</a> in
+the current command buffer prior to this drawing command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-07845" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-07845"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-07845</span><br>
@@ -13342,6 +13351,12 @@ is enabled, the
 <a href="../features.html#features-tileShadingPerTileDraw" class="xref page">tileShadingPerTileDraw</a> feature <strong>must</strong>
 be enabled</p>
 </li>
+<li>
+<p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-10772" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-10772"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-10772</span><br>
+
+If a shader object is bound to any graphics stage, <em>multiview</em>
+functionality <strong>must</strong> not be enabled in the current render pass</p>
+</li>
 </ul>
 </div>
 <div class="ulist">
@@ -14295,5 +14310,6 @@ COMMAND_PREPROCESS_READ_BIT</p>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
 <script async src="../../../../search-index.js"></script>
+<script async src="../../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

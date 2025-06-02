@@ -21,6 +21,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/dynamic_primitive_clipping). |
+| --- | --- |
+
 ![screenshot](../../../_images/samples/extensions/dynamic_primitive_clipping/screenshot.png)
 
 This sample demonstrates how to apply **depth clipping** using `vkCmdSetDepthClipEnableEXT()` command which is a part of `VK_EXT_extended_dynamic_state3` extension.

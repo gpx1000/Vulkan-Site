@@ -12,6 +12,7 @@
       }(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
     </script>
     <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
     <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
@@ -8355,11 +8356,12 @@ descriptor set.</p>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorSets-pDescriptorSets-00358" href="#VUID-vkCmdBindDescriptorSets-pDescriptorSets-00358"></a> <span class="vuid">VUID-vkCmdBindDescriptorSets-pDescriptorSets-00358</span><br>
 
-Each element of <code>pDescriptorSets</code> <strong>must</strong> have been allocated with a
-<code>VkDescriptorSetLayout</code> that matches (is the same as, or identically
-defined as) the <code>VkDescriptorSetLayout</code> at set <em>n</em> in <code>layout</code>,
-where <em>n</em> is the sum of <code>firstSet</code> and the index into
-<code>pDescriptorSets</code></p>
+    Each element of <code>pDescriptorSets</code>
+that is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>
+    <strong>must</strong> have been allocated with a <code>VkDescriptorSetLayout</code> that
+    matches (is the same as, or identically defined as) the
+    <code>VkDescriptorSetLayout</code> at set <em>n</em> in <code>layout</code>, where <em>n</em> is the
+    sum of <code>firstSet</code> and the index into <code>pDescriptorSets</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBindDescriptorSets-dynamicOffsetCount-00359" href="#VUID-vkCmdBindDescriptorSets-dynamicOffsetCount-00359"></a> <span class="vuid">VUID-vkCmdBindDescriptorSets-dynamicOffsetCount-00359</span><br>
@@ -8761,11 +8763,12 @@ once with <code>VK_PIPELINE_BIND_POINT_COMPUTE</code>.</p>
 <li>
 <p><a id="VUID-VkBindDescriptorSetsInfo-pDescriptorSets-00358" href="#VUID-VkBindDescriptorSetsInfo-pDescriptorSets-00358"></a> <span class="vuid">VUID-VkBindDescriptorSetsInfo-pDescriptorSets-00358</span><br>
 
-Each element of <code>pDescriptorSets</code> <strong>must</strong> have been allocated with a
-<code>VkDescriptorSetLayout</code> that matches (is the same as, or identically
-defined as) the <code>VkDescriptorSetLayout</code> at set <em>n</em> in <code>layout</code>,
-where <em>n</em> is the sum of <code>firstSet</code> and the index into
-<code>pDescriptorSets</code></p>
+    Each element of <code>pDescriptorSets</code>
+that is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>
+    <strong>must</strong> have been allocated with a <code>VkDescriptorSetLayout</code> that
+    matches (is the same as, or identically defined as) the
+    <code>VkDescriptorSetLayout</code> at set <em>n</em> in <code>layout</code>, where <em>n</em> is the
+    sum of <code>firstSet</code> and the index into <code>pDescriptorSets</code></p>
 </li>
 <li>
 <p><a id="VUID-VkBindDescriptorSetsInfo-dynamicOffsetCount-00359" href="#VUID-VkBindDescriptorSetsInfo-dynamicOffsetCount-00359"></a> <span class="vuid">VUID-VkBindDescriptorSetsInfo-dynamicOffsetCount-00359</span><br>
@@ -14577,5 +14580,6 @@ using <a href="#vkGetBufferOpaqueCaptureDescriptorDataEXT">vkGetBufferOpaqueCapt
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
 <script async src="../../../search-index.js"></script>
+<script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

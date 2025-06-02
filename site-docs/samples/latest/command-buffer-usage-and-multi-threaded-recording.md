@@ -25,6 +25,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/command_buffer_usage). |
+| --- | --- |
+
 This sample demonstrates how to use and manage secondary command buffers, and how to record them concurrently.
 
 Implementing multi-threaded recording of draw calls can help reduce CPU frame time.
@@ -77,6 +80,9 @@ using more command buffers than threads.
 Similarly having more threads than buffers may have a performance impact.
 To keep all threads busy, the sample resizes the thread pool for low number of buffers.
 The sample slider can help illustrate these trade-offs and their impact on performance, as shown by the performance graphs.
+
+|  | Since the time of writing this tutorial, the CPU counter provider, HWCPipe, has been updated and it no longer provides CPU cycles. These may still be measured using external tools, as shown later. |
+| --- | --- |
 
 In this case, a scene with a high number of draw calls (~1800, this number may be found in the [debug window](../../../docs/misc.adoc#debug-window)) shows a 15% improvement in performance when dividing the workload among 8 buffers across 8 threads:
 
@@ -152,25 +158,11 @@ Filter for command buffer functions, and use the tooltips to find out how much t
 Capturing the C++ calls this way allows us to determine how much each function contributed to the overall running time.
 The results are captured in the table below.
 
-Mode
-Request + Reset command buffers (ms)
-Total capture (ms)
-Contribution
-
-Reset pool
-53.3
-11 877
-0.45 %
-
-Reset buffers
-140.29
-12 087
-1.16 %
-
-Allocate and free
-3 319.25
-11 513
-28.8 %
+| Mode | Request + Reset command buffers (ms) | Total capture (ms) | Contribution |
+| --- | --- | --- | --- |
+| Reset pool | 53.3 | 11 877 | 0.45 % |
+| Reset buffers | 140.29 | 12 087 | 1.16 % |
+| Allocate and free | 3 319.25 | 11 513 | 28.8 % |
 
 In this application the differences between individual reset and pool reset are more subtle, but allocating and freeing buffers are clearly the bottleneck in the worst performing case.
 

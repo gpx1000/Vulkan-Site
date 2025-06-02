@@ -38,7 +38,15 @@ Formats
 
 There are many other components in Vulkan that are labeled as properties. The term “properties” is an umbrella term for any read-only data that can be queried.
 
+|  | Check out the [Enabling Extensions](enabling_extensions.html#enabling-extensions) chapter for more information.
+| --- | --- |
+
+There is a [Registry](https://registry.khronos.org/vulkan/#repo-docs) with all available extensions. |
+
 There are many times when a set of new functionality is desired in Vulkan that doesn’t currently exist. Extensions have the ability to add new functionality. Extensions may define new Vulkan functions, enums, structs, or feature bits. While all of these extended items are found by default in the Vulkan Headers, it is **undefined behavior** to use extended Vulkan if the [extensions are not enabled](enabling_extensions.html#enabling-extensions).
+
+|  | Checkout the [Enabling Features](enabling_features.html#enabling-features) chapter for more information. |
+| --- | --- |
 
 Features describe functionality which is not supported on all implementations. Features can be [queried](https://docs.vulkan.org/spec/latest/chapters/features.html#vkGetPhysicalDeviceFeatures) and then enabled when creating the `VkDevice`. Besides the [list of all features](https://docs.vulkan.org/spec/latest/chapters/features.html), some [features are mandatory](https://docs.vulkan.org/spec/latest/chapters/features.html#features-requirements) due to newer Vulkan versions or use of extensions.
 

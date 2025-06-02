@@ -19,6 +19,9 @@
 
 ## Content
 
+|  | Vulkan is a new generation graphics and compute API that provides high-efficiency, cross-platform access to modern GPUs used in a wide variety of devices from PCs and consoles to mobile phones and embedded platforms. |
+| --- | --- |
+
 Vulkan is not a company, nor language, but rather a way for developers to program their modern GPU hardware in a cross-platform and cross-vendor fashion. The Khronos Group is a member-driven consortium that created and maintains Vulkan.
 
 At the core, Vulkan is an [API Specification](https://registry.khronos.org/vulkan/#apispecs) that conformant hardware implementations follow. The public specification is generated from the [./xml/vk.xml](https://github.com/KhronosGroup/Vulkan-Docs/blob/main/xml/vk.xml) Vulkan Registry file in the official public copy of the Vulkan Specification repo found at [Vulkan-Doc](https://github.com/KhronosGroup/Vulkan-Docs). Documentation of the [XML schema](https://registry.khronos.org/vulkan/specs/latest/registry.html) is also available.

@@ -66,6 +66,10 @@ MySample::MySample()
     add_device_extension(VK_SOME_DEVICE_EXTENSION_NAME);
 }
 
+|  | The framework uses the [Volk](https://github.com/zeux/volk) meta-loader, which will automatically load extension function pointers for all enabled extensions.
+| --- | --- |
+There is no need to manually get extension pointer functions. |
+
 By default all samples create a Vulkan 1.0 instance.
 Higher versions can be requested in the constructor of a sample:
 

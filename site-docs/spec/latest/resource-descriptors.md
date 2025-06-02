@@ -257,6 +257,11 @@ following layouts:
 * 
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT`
 
+|  | On some implementations, it **may** be more efficient to sample from an image
+| --- | --- |
+using a combination of sampler and sampled image that are stored together in
+the descriptor set in a combined descriptor. |
+
 A *uniform texel buffer* (`VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER`) is
 a descriptor type associated with a [buffer resource](resources.html#resources-buffers)
 via a [buffer view](resources.html#resources-buffer-views) that [image sampling operations](textures.html#textures) **can** be performed on.
@@ -309,6 +314,10 @@ A *storage buffer* (`VK_DESCRIPTOR_TYPE_STORAGE_BUFFER`) is a descriptor
 type associated with a [buffer resource](resources.html#resources-buffers) directly,
 described in a shader as a structure with various members that load, store,
 and atomic operations **can** be performed on.
+
+|  | Atomic operations **can** only be performed on members of certain types as
+| --- | --- |
+defined in the [SPIR-V environment appendix](../appendices/spirvenv.html#spirvenv). |
 
 A *uniform buffer* (`VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER`) is a descriptor
 type associated with a [buffer resource](resources.html#resources-buffers) directly,
@@ -459,6 +468,28 @@ considered an **undefined** descriptor.
 If a descriptor is consumed where the active descriptor type does not match
 what the shader expects, the descriptor is considered an **undefined**
 descriptor.
+
+|  | To find which descriptor types are supported as
+| --- | --- |
+`VK_DESCRIPTOR_TYPE_MUTABLE_EXT`, the application **can** use
+[vkGetDescriptorSetLayoutSupport](#vkGetDescriptorSetLayoutSupport) with a
+`VK_DESCRIPTOR_TYPE_MUTABLE_EXT` binding, with the list of descriptor
+types to query in the
+[VkMutableDescriptorTypeCreateInfoEXT](#VkMutableDescriptorTypeCreateInfoEXT)::`pMutableDescriptorTypeLists`
+array for that binding. |
+
+|  | The intention of a mutable descriptor type is that implementations allocate
+| --- | --- |
+N bytes per descriptor, where N is determined by the maximum descriptor size
+for a given descriptor binding.
+Implementations are not expected to keep track of the active descriptor
+type, and it should be considered a C-like union type.
+
+A mutable descriptor type is not considered as efficient in terms of runtime
+performance as using a non-mutable descriptor type, and applications are not
+encouraged to use them outside API layering efforts.
+Mutable descriptor types can be more efficient if the alternative is using
+many different descriptors to emulate mutable descriptor types. |
 
 Descriptors are grouped together into descriptor set objects.
 A descriptor set object is an opaque object containing storage for a set of
@@ -1081,6 +1112,10 @@ memory in the descriptor set layout even if not all descriptor bindings are
 used, though it **should** not consume additional memory from the descriptor
 pool.
 
+|  | The maximum binding number specified **should** be as compact as possible to
+| --- | --- |
+avoid wasted memory. |
+
 Valid Usage
 
 * 
@@ -1471,6 +1506,15 @@ any shader invocations.
 [`maxInlineUniformBlockSize`](devsandqueues.html#limits-maxInlineUniformBlockSize) and [`maxInlineUniformTotalSize`](devsandqueues.html#limits-maxInlineUniformTotalSize) limits
 instead.
 
+|  | Note that while `VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT` and
+| --- | --- |
+`VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT` both involve
+updates to descriptor sets after they are bound,
+`VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT` is a weaker
+requirement since it is only about descriptors that are not used, whereas
+`VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT` requires the
+implementation to observe updates to descriptors that are used. |
+
 // Provided by VK_VERSION_1_2
 typedef VkFlags VkDescriptorBindingFlags;
 
@@ -1534,6 +1578,10 @@ This command does not consider other limits such as
 supported according to this command **must** still satisfy the pipeline layout
 limits such as `maxPerStageDescriptor`* in order to be used in a
 pipeline layout.
+
+|  | This is a `VkDevice` query rather than `VkPhysicalDevice` because
+| --- | --- |
+the answer **may** depend on enabled features. |
 
 Valid Usage (Implicit)
 
@@ -1977,6 +2025,10 @@ included in the pipeline layout.
 ranges for use in a single pipeline layout.
 In addition to descriptor set layouts, a pipeline layout also describes
 how many push constants **can** be accessed by each stage of the pipeline.
+
+|  | Push constants represent a high speed path to modify constant data in
+| --- | --- |
+pipelines that is expected to outperform memory-backed resource updates. |
 
 Valid Usage
 
@@ -2699,64 +2751,36 @@ Additionally, there are limits on the total number of each type of resource
 that **can** be used in any pipeline stage as described in
 [Shader Resource Limits](interfaces.html#interfaces-resources-limits).
 
-Table 1. Pipeline Layout Resource Limits
-
-Total Resources Available
-Resource Types
-
-`maxDescriptorSetSamplers`
-or `maxDescriptorSetUpdateAfterBindSamplers`
-sampler
-
-combined image sampler
-
-`maxDescriptorSetSampledImages`
-or `maxDescriptorSetUpdateAfterBindSampledImages`
-sampled image
-
-combined image sampler
-
-uniform texel buffer
-
-`maxDescriptorSetStorageImages`
-or `maxDescriptorSetUpdateAfterBindStorageImages`
-storage image
-
-storage texel buffer
-
-`maxDescriptorSetUniformBuffers`
-or `maxDescriptorSetUpdateAfterBindUniformBuffers`
-uniform buffer
-
-uniform buffer dynamic
-
-`maxDescriptorSetUniformBuffersDynamic`
+| Total Resources Available | Resource Types |
+| --- | --- |
+| `maxDescriptorSetSamplers`
+or `maxDescriptorSetUpdateAfterBindSamplers` | sampler |
+| combined image sampler |
+| `maxDescriptorSetSampledImages`
+or `maxDescriptorSetUpdateAfterBindSampledImages` | sampled image |
+| combined image sampler |
+| uniform texel buffer |
+| `maxDescriptorSetStorageImages`
+or `maxDescriptorSetUpdateAfterBindStorageImages` | storage image |
+| storage texel buffer |
+| `maxDescriptorSetUniformBuffers`
+or `maxDescriptorSetUpdateAfterBindUniformBuffers` | uniform buffer |
+| uniform buffer dynamic |
+| `maxDescriptorSetUniformBuffersDynamic`
 or `maxDescriptorSetUpdateAfterBindUniformBuffersDynamic`
-or `maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic`
-uniform buffer dynamic
-
-`maxDescriptorSetStorageBuffers`
-or `maxDescriptorSetUpdateAfterBindStorageBuffers`
-storage buffer
-
-storage buffer dynamic
-
-`maxDescriptorSetStorageBuffersDynamic`
+or `maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic` | uniform buffer dynamic |
+| `maxDescriptorSetStorageBuffers`
+or `maxDescriptorSetUpdateAfterBindStorageBuffers` | storage buffer |
+| storage buffer dynamic |
+| `maxDescriptorSetStorageBuffersDynamic`
 or `maxDescriptorSetUpdateAfterBindStorageBuffersDynamic`
-or `maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic`
-storage buffer dynamic
-
-`maxDescriptorSetInputAttachments`
-or `maxDescriptorSetUpdateAfterBindInputAttachments`
-input attachment
-
-`maxDescriptorSetInlineUniformBlocks`
-or `maxDescriptorSetUpdateAfterBindInlineUniformBlocks`
-inline uniform block
-
-`maxDescriptorSetAccelerationStructures`
-or `maxDescriptorSetUpdateAfterBindAccelerationStructures`
-acceleration structure
+or `maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic` | storage buffer dynamic |
+| `maxDescriptorSetInputAttachments`
+or `maxDescriptorSetUpdateAfterBindInputAttachments` | input attachment |
+| `maxDescriptorSetInlineUniformBlocks`
+or `maxDescriptorSetUpdateAfterBindInlineUniformBlocks` | inline uniform block |
+| `maxDescriptorSetAccelerationStructures`
+or `maxDescriptorSetUpdateAfterBindAccelerationStructures` | acceleration structure |
 
 To destroy a pipeline layout, call:
 
@@ -2858,6 +2882,14 @@ pipeline.
 When a descriptor set is disturbed by binding descriptor sets, the disturbed
 set is considered to contain **undefined** descriptors bound with the same
 pipeline layout as the disturbing descriptor set.
+
+|  | Place the least frequently changing descriptor sets near the start of the
+| --- | --- |
+pipeline layout, and place the descriptor sets representing the most
+frequently changing resources near the end.
+When pipelines are switched, only the descriptor set bindings that have been
+invalidated will need to be updated and the remainder of the descriptor set
+bindings will remain in place. |
 
 The maximum number of descriptor sets that **can** be bound to a pipeline
 layout is queried from physical device properties (see
@@ -3078,6 +3110,12 @@ is considered to partially overlap any other pool entry which has a
 `VkMutableDescriptorTypeListEXT` assigned to it.
 The application **must** ensure that partial overlap does not exist in
 `pPoolSizes`.
+
+|  | The requirement of no partial overlap is intended to resolve ambiguity for
+| --- | --- |
+validation as there is no confusion which `pPoolSizes` entries will be
+allocated from.
+An implementation is not expected to depend on this requirement. |
 
 Valid Usage
 
@@ -3306,6 +3344,18 @@ allocate.
 If `type` is `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK` then
 `descriptorCount` is the number of bytes to allocate for descriptors
 of this type.
+
+|  | When creating a descriptor pool that will contain descriptors for combined
+| --- | --- |
+image samplers of [multi-planar formats](formats.html#formats-multiplanar), an
+application needs to account for non-trivial descriptor consumption when
+choosing the `descriptorCount` value, as indicated by
+[VkSamplerYcbcrConversionImageFormatProperties](capabilities.html#VkSamplerYcbcrConversionImageFormatProperties)::`combinedImageSamplerDescriptorCount`.
+
+For simplicity the application **can** use the
+[VkPhysicalDeviceMaintenance6Properties](limits.html#VkPhysicalDeviceMaintenance6Properties)::`maxCombinedImageSamplerDescriptorCount`
+property, which is sized to accommodate any and all
+[formats that require a sampler Y′CBCR conversion](formats.html#formats-requiring-sampler-ycbcr-conversion) supported by the implementation. |
 
 Valid Usage
 
@@ -4242,6 +4292,17 @@ In addition, if the [VkDescriptorType](#VkDescriptorType) is
 `VK_DESCRIPTOR_TYPE_MUTABLE_EXT`, the supported descriptor types in
 [VkMutableDescriptorTypeCreateInfoEXT](#VkMutableDescriptorTypeCreateInfoEXT) **must** be equally defined.
 
+|  | The same behavior applies to bindings with a descriptor type of
+| --- | --- |
+`VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK` where `descriptorCount`
+specifies the number of bytes to update while `dstArrayElement`
+specifies the starting byte offset, thus in this case if the
+`dstBinding` has a smaller byte size than the sum of
+`dstArrayElement` and `descriptorCount`, then the remainder will be
+used to update the subsequent binding - `dstBinding`+1 starting at
+offset zero.
+This falls out as a special case of the above rule. |
+
 Valid Usage
 
 * 
@@ -4827,6 +4888,14 @@ relative to this starting offset.
 update, or `VK_WHOLE_SIZE` to use the range from `offset` to the
 end of the buffer.
 
+|  | When setting `range` to `VK_WHOLE_SIZE`, the
+| --- | --- |
+[effective range](#buffer-info-effective-range) **must** not be larger than
+the maximum range for the descriptor type ([`maxUniformBufferRange`](limits.html#limits-maxUniformBufferRange) or [`maxStorageBufferRange`](limits.html#limits-maxStorageBufferRange)).
+This means that `VK_WHOLE_SIZE` is not typically useful in the common
+case where uniform buffer descriptors are suballocated from a buffer that is
+much larger than `maxUniformBufferRange`. |
+
 For `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC` and
 `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC` descriptor types,
 `offset` is the base offset from which the dynamic offset is applied and
@@ -5316,6 +5385,13 @@ If both `VkDescriptorSetLayoutBinding` for `srcBinding` and
 descriptor type in each source descriptor is copied into the corresponding
 destination descriptor.
 The active descriptor type **can** be different for each source descriptor.
+
+|  | The intention is that copies to and from mutable descriptors is a simple
+| --- | --- |
+memcpy.
+Copies between non-mutable and mutable descriptors are expected to require
+one memcpy per descriptor to handle the difference in size, but this use
+case with more than one `descriptorCount` is considered rare. |
 
 Valid Usage
 
@@ -6225,6 +6301,10 @@ If a descriptor is a mutable descriptor, the consuming descriptor type in
 the pipeline **must** match the active descriptor type for the descriptor to be
 considered valid.
 
+|  | Further validation may be carried out beyond validation for descriptor
+| --- | --- |
+types, e.g. [Texel Input Validation](textures.html#textures-input-validation). |
+
 If any of the sets being bound include dynamic uniform or storage buffers,
 then `pDynamicOffsets` includes one element for each array element in
 each dynamic descriptor type binding in each set.
@@ -6277,11 +6357,12 @@ Valid Usage
 * 
 [](#VUID-vkCmdBindDescriptorSets-pDescriptorSets-00358) VUID-vkCmdBindDescriptorSets-pDescriptorSets-00358
 
-Each element of `pDescriptorSets` **must** have been allocated with a
-`VkDescriptorSetLayout` that matches (is the same as, or identically
-defined as) the `VkDescriptorSetLayout` at set *n* in `layout`,
-where *n* is the sum of `firstSet` and the index into
-`pDescriptorSets`
+    Each element of `pDescriptorSets`
+that is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
+    **must** have been allocated with a `VkDescriptorSetLayout` that
+    matches (is the same as, or identically defined as) the
+    `VkDescriptorSetLayout` at set *n* in `layout`, where *n* is the
+    sum of `firstSet` and the index into `pDescriptorSets`
 
 * 
 [](#VUID-vkCmdBindDescriptorSets-dynamicOffsetCount-00359) VUID-vkCmdBindDescriptorSets-dynamicOffsetCount-00359
@@ -6414,22 +6495,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 Alternatively, to bind one or more descriptor sets to a command buffer,
 call:
@@ -6499,22 +6571,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 The `VkBindDescriptorSetsInfo` structure is defined as:
 
@@ -6590,11 +6653,12 @@ Valid Usage
 * 
 [](#VUID-VkBindDescriptorSetsInfo-pDescriptorSets-00358) VUID-VkBindDescriptorSetsInfo-pDescriptorSets-00358
 
-Each element of `pDescriptorSets` **must** have been allocated with a
-`VkDescriptorSetLayout` that matches (is the same as, or identically
-defined as) the `VkDescriptorSetLayout` at set *n* in `layout`,
-where *n* is the sum of `firstSet` and the index into
-`pDescriptorSets`
+    Each element of `pDescriptorSets`
+that is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
+    **must** have been allocated with a `VkDescriptorSetLayout` that
+    matches (is the same as, or identically defined as) the
+    `VkDescriptorSetLayout` at set *n* in `layout`, where *n* is the
+    sum of `firstSet` and the index into `pDescriptorSets`
 
 * 
 [](#VUID-VkBindDescriptorSetsInfo-dynamicOffsetCount-00359) VUID-VkBindDescriptorSetsInfo-dynamicOffsetCount-00359
@@ -6917,22 +6981,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 Alternatively, to push descriptor updates into a command buffer, call:
 
@@ -7007,22 +7062,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 The `VkPushDescriptorSetInfo` structure is defined as:
 
@@ -7318,22 +7364,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 API Example
 
@@ -7441,22 +7478,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 The `VkPushDescriptorSetWithTemplateInfo` structure is defined as:
 
@@ -7617,6 +7645,10 @@ As described above in section [Pipeline Layouts](#descriptorsets-pipelinelayout)
 updated via Vulkan commands rather than via writes to memory or copy
 commands.
 
+|  | Push constants represent a high speed path to modify constant data in
+| --- | --- |
+pipelines that is expected to outperform memory-backed resource updates. |
+
 To update push constants, call:
 
 // Provided by VK_VERSION_1_0
@@ -7667,6 +7699,12 @@ the values of all push constants in the pipeline layout’s push constant
 ranges, as described in [Pipeline Layout Compatibility](#descriptorsets-compatibility).
 Binding a pipeline with a layout that is not compatible with the push
 constant layout does not disturb the push constant values.
+
+|  | As `stageFlags` needs to include all flags the relevant push constant
+| --- | --- |
+ranges were created with, any flags that are not supported by the queue
+family that the [VkCommandPool](cmdbuffers.html#VkCommandPool) used to allocate `commandBuffer` was
+created on are ignored. |
 
 Valid Usage
 
@@ -7769,22 +7807,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 Alternatively, to update push constants, call:
 
@@ -7844,22 +7873,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 The `VkPushConstantsInfo` structure is defined as:
 
@@ -9088,6 +9108,19 @@ Immutable samplers written in a descriptor buffer **must** have identical
 parameters to the immutable samplers in the descriptor set layout that
 consumes the sampler.
 
+|  | If the descriptor set layout was created with
+| --- | --- |
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT`,
+there is no buffer backing for the immutable sampler, so this requirement
+does not exist.
+The implementation handles allocation of these descriptors internally. |
+
+|  | As descriptors are now in regular memory, drivers cannot hide copies of
+| --- | --- |
+immutable samplers that end up in descriptor sets from the application.
+As such, applications are required to provide these samplers as if they were
+not provided immutably. |
+
 Descriptor buffers have their own separate binding point on the command
 buffer, with buffers bound using [vkCmdBindDescriptorBuffersEXT](#vkCmdBindDescriptorBuffersEXT).
 [vkCmdSetDescriptorBufferOffsetsEXT](#vkCmdSetDescriptorBufferOffsetsEXT) assigns pairs of buffer binding
@@ -9240,22 +9273,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 Data describing a descriptor buffer binding is passed in a
 `VkDescriptorBufferBindingInfoEXT` structure:
@@ -9478,9 +9502,30 @@ If the `binding` in `layout` is declared with
 Applications **must** ensure that any descriptor which the implementation **may**
 read **must** be in-bounds of the underlying descriptor buffer binding.
 
+|  | Applications can freely decide how large a variable descriptor buffer
+| --- | --- |
+binding is, so it may not be safe to read such descriptor payloads
+statically.
+The intention of these rules is to allow implementations to speculatively
+prefetch descriptor payloads where feasible. |
+
 Dynamically accessing a resource through descriptor data from an unbound
 region of a [sparse partially-resident buffer](sparsemem.html#sparsememory-partially-resident-buffers) will result in invalid descriptor data being
 read, and therefore **undefined** behavior.
+
+|  | For descriptors written by the host, visibility is implied through the
+| --- | --- |
+automatic visibility operation on queue submit, and there is no need to
+consider `VK_ACCESS_2_DESCRIPTOR_BUFFER_READ_BIT`.
+Explicit synchronization for descriptors is only required when descriptors
+are updated on the device. |
+
+|  | The requirements above imply that all descriptor bindings have been defined
+| --- | --- |
+with the equivalent of `VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT`,
+`VK_DESCRIPTOR_BINDING_UPDATE_UNUSED_WHILE_PENDING_BIT` and
+`VK_DESCRIPTOR_BINDING_PARTIALLY_BOUND_BIT`, but enabling those features
+is not required to get this behavior. |
 
 Valid Usage
 
@@ -9616,22 +9661,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 Alternatively, to set descriptor buffer offsets in a command buffer, call:
 
@@ -9699,22 +9735,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 The `VkSetDescriptorBufferOffsetsInfoEXT` structure is defined as:
 
@@ -10007,22 +10034,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 Alternatively, to bind an embedded immutable sampler set to a command
 buffer, call:
@@ -10091,22 +10109,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 The `VkBindDescriptorBufferEmbeddedSamplersInfoEXT` structure is defined
 as:

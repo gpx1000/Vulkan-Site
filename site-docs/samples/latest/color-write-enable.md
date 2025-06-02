@@ -17,6 +17,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/color_write_enable). |
+| --- | --- |
+
 This sample demonstrates how to use the `VK_EXT_color_write_enable` extension.
 This extension allows to toggle the output color attachments using a pipeline dynamic state.
 It allows the program to prepare an additional framebuffer populated with the data from a defined color blend attachment which can be blended dynamically to the final scene.

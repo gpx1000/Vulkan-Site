@@ -82,6 +82,9 @@
 
 ## Content
 
+|  | This page hosts examples for the [VK_KHR_synchronization2](extensions/VK_KHR_synchronization2.html) APIs - examples for the original synchronization APIs can be found here: [Legacy-synchronization-APIs](https://github.com/KhronosGroup/Vulkan-Docs/wiki/Synchronization-Examples-(Legacy-synchronization-APIs)) |
+| --- | --- |
+
 Synchronization in Vulkan can be confusing.
 It takes a lot of time to understand, and even then it’s easy to trip up on small details.
 Most common use of Vulkan synchronization can be boiled down to a handful of use cases though, and this page lists a number of examples.
@@ -1476,6 +1479,9 @@ VkPresentInfoKHR presentInfo = {
     ...};
 
 vkQueuePresentKHR(..., &presentInfo);
+
+|  | You should **ONLY USE THIS FOR DEBUGGING** - this is not something that should ever ship in real code, this will flush and invalidate all caches and stall everything, it is a tool not to be used lightly! |
+| --- | --- |
 
 That said, it can be *really* handy if you think you have a race condition in your app and you just want to serialize everything so you can debug it.
 

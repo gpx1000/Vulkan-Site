@@ -60,6 +60,15 @@ Additional SPIR-V and GLSL extensions also expose the necessary programmable fun
 * 
 [GLSL_EXT_ray_flags_primitive_culling](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GLSL_EXT_ray_flags_primitive_culling.txt)
 
+|  | Many ray tracing applications require large contiguous memory
+| --- | --- |
+allocations. Due to the limited size of the address space, this can prove
+challenging on 32-bit systems. Whilst implementations are free to expose ray
+tracing extensions on 32-bit systems, applications may encounter intermittent
+memory-related issues such as allocation failures due to fragmentation.
+Additionally, some implementations may opt not to expose ray tracing
+extensions on 32-bit drivers. |
+
 Acceleration structures are an implementation-dependent opaque representation
 of geometric objects, which are used for ray tracing.
 By building objects into acceleration structures, ray tracing can be performed
@@ -353,6 +362,18 @@ Destination buffer uses `VK_ACCESS_TRANSFER_WRITE_BIT`
 
 * 
 Source buffer uses `VK_ACCESS_TRANSFER_READ_BIT`
+
+|  | Unlike other copy operations, `VK_PIPELINE_STAGE_TRANSFER_BIT` does not
+| --- | --- |
+work for acceleration structure copies.
+
+Use of `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR`/
+`VK_ACCESS_2_SHADER_BINDING_TABLE_READ_BIT_KHR` requires
+`VK_KHR_ray_tracing_maintenance1`.
+
+Use of `VK_PIPELINE_STAGE_2_MICROMAP_BUILD_BIT_EXT`/
+`VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT`/`VK_ACCESS_2_MICROMAP_READ_BIT_EXT`
+requires `VK_EXT_opacity_micromap`. |
 
 Ray query objects may be expensive in terms of thread private storage, so for
 performance, it’s best to use as few as possible. In most cases it should be

@@ -24,6 +24,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/descriptor_buffer_basic). |
+| --- | --- |
+
 Binding and managing descriptors in Vulkan can become pretty complex, both for the application and the driver.
 With the [`VK_EXT_descriptor_buffer`](https://www.khronos.org/registry/vulkan/specs/1.2-extensions/html/vkspec.html#VK_ext_descriptor_buffer) extension, this interface is simplified and maps more directly to how hardware sees descriptors.
 It also simplifies the programming model, as you no longer have to create descriptor pool upfront.

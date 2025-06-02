@@ -16,6 +16,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/dynamic_rendering). |
+| --- | --- |
+
 This sample demonstrates how to use the `VK_KHR_dynamic_rendering` extension, which eliminates the need to create render passes and improves flexibility while developing render pipelines.
 
 This extension changes how rendering resources are managed.
@@ -23,23 +26,14 @@ Rather than using render pass objects, this extension allows the developer to di
 
 Below is a comparison of the common Vulkan render pass construction and dynamic rendering.
 
-Vulkan 1.0
-Dynamic Rendering
-
-Rendering begins with `vkCmdBeginRenderPass`
-Rendering begins with `vkCmdBeginRenderingKHR`
-
-Rendering struct is `VkRenderPassBeginInfo`
-Rendering struct is `VkRenderingInfoKHR`
-
-Attachments are referenced by `VkFramebuffer`
-Attachments are referenced by `VkRenderingAttachmentInfoKHR`
-
-`VkFramebuffer` objects are heap-allocated and opaque
-`VkRenderingAttachmentInfoKHR` objects are stack-allocated
-
-Graphics pipeline creation references a `VkRenderPass`
-Graphics pipeline creation references a `VkPipelineRenderingCreateInfoKHR`
+| Vulkan 1.0 | Dynamic Rendering |
+| --- | --- |
+| Rendering begins with `vkCmdBeginRenderPass` | Rendering begins with `vkCmdBeginRenderingKHR` |
+| Rendering struct is `VkRenderPassBeginInfo` | Rendering struct is `VkRenderingInfoKHR` |
+| Attachments are referenced by `VkFramebuffer` | Attachments are referenced by `VkRenderingAttachmentInfoKHR` |
+| `VkFramebuffer` objects are heap-allocated and opaque | `VkRenderingAttachmentInfoKHR` objects are stack-allocated |
+| Graphics pipeline creation references a `VkRenderPass` | Graphics pipeline creation references a `VkPipelineRenderingCreateInfoKHR` |
+|  |  |
 
 More detail is provided in the sections that follow.
 

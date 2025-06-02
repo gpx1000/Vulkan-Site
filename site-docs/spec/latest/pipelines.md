@@ -759,6 +759,14 @@ When an identifier is used in lieu of a shader module, implementations **may**
 fail pipeline compilation with `VK_PIPELINE_COMPILE_REQUIRED` for any
 reason.
 
+|  | The rationale for the relaxed requirement on implementations to return a
+| --- | --- |
+pipeline with [VkPipelineShaderStageModuleIdentifierCreateInfoEXT](#VkPipelineShaderStageModuleIdentifierCreateInfoEXT) is
+that layers or tools may intercept pipeline creation calls and require the
+full SPIR-V context to operate correctly.
+ICDs are not expected to fail pipeline compilation if the pipeline exists in
+a cache somewhere. |
+
 Applications **can** use identifiers when creating pipelines with
 `VK_PIPELINE_CREATE_LIBRARY_BIT_KHR`.
 When creating such pipelines, `VK_SUCCESS` **may** be returned, but
@@ -1140,6 +1148,17 @@ shader stage.
 task, mesh, or
     compute stage.
 
+|  | If `VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT_EXT`
+| --- | --- |
+and `VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT` are
+specified and [`minSubgroupSize`](devsandqueues.html#limits-minSubgroupSize) does not
+equal [`maxSubgroupSize`](devsandqueues.html#limits-maxSubgroupSize) and no
+[required subgroup size](#pipelines-required-subgroup-size) is specified,
+then the only way to guarantee that the 'X' dimension of the local workgroup
+size is a multiple of [`SubgroupSize`](interfaces.html#interfaces-builtin-variables-sgs) is to make it a multiple of `maxSubgroupSize`.
+Under these conditions, you are guaranteed full subgroups but not any
+particular subgroup size. |
+
 Bits which **can** be set by commands and structures, specifying one or more
 shader stages, are:
 
@@ -1250,6 +1269,11 @@ stage.
 
 * 
 `VK_SHADER_STAGE_CALLABLE_BIT_KHR` specifies the callable stage.
+
+|  | `VK_SHADER_STAGE_ALL_GRAPHICS` only includes the original five graphics
+| --- | --- |
+stages included in Vulkan 1.0, and not any stages added by extensions.
+Thus, it may not have the desired effect in all cases. |
 
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkShaderStageFlags;
@@ -2061,24 +2085,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 Graphics pipelines consist of multiple shader stages, multiple
 fixed-function pipeline stages, and a pipeline layout.
@@ -2199,6 +2214,13 @@ If [VkPipelineBinaryInfoKHR](#VkPipelineBinaryInfoKHR)::`binaryCount` is not `0`
 element of `pCreateInfos`,
 `VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT_EXT` **must**
 not be set in the `flags` of that element
+
+|  | An implicit cache may be provided by the implementation or a layer.
+| --- | --- |
+For this reason, it is still valid to set
+`VK_PIPELINE_CREATE_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT` on
+`flags` for any element of `pCreateInfos` while passing
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) for `pipelineCache`. |
 
 Valid Usage (Implicit)
 
@@ -2446,6 +2468,14 @@ described in more detail in [Pipeline Derivatives](#pipelines-pipeline-derivativ
 If any shader stage fails to compile,
 the compile log will be reported back to the application, and
 `VK_ERROR_INVALID_SHADER_NV` will be generated.
+
+|  | With `[VK_EXT_extended_dynamic_state3](../appendices/extensions.html#VK_EXT_extended_dynamic_state3)`, it is possible that many of
+| --- | --- |
+the `VkGraphicsPipelineCreateInfo` members above **can** be `NULL` because
+all their state is dynamic and therefore ignored.
+This is optional so the application **can** still use a valid pointer if it
+needs to set the `pNext` or `flags` fields to specify state for
+other extensions. |
 
 The state required for a graphics pipeline is divided into
 [vertex input state](#pipelines-graphics-subsets-vertex-input),
@@ -6347,12 +6377,12 @@ specifies that the ray tracing pipeline **can** be used with acceleration
 structures which reference a displacement micromap array.
 
 * 
-`VK_PIPELINE_CREATE_2_NO_PROTECTED_ACCESS_BIT_EXT` specifies that
-the pipeline **must** not be bound to a protected command buffer.
+`VK_PIPELINE_CREATE_2_NO_PROTECTED_ACCESS_BIT` specifies that the
+pipeline **must** not be bound to a protected command buffer.
 
 * 
-`VK_PIPELINE_CREATE_2_PROTECTED_ACCESS_ONLY_BIT_EXT` specifies that
-the pipeline **must** not be bound to an unprotected command buffer.
+`VK_PIPELINE_CREATE_2_PROTECTED_ACCESS_ONLY_BIT` specifies that the
+pipeline **must** not be bound to an unprotected command buffer.
 
 * 
 `VK_PIPELINE_CREATE_2_CAPTURE_DATA_BIT_KHR` specifies that
@@ -6393,6 +6423,20 @@ linked libraries, implementations **should** always return an equivalent
 pipeline created with
 `VK_PIPELINE_CREATE_2_LINK_TIME_OPTIMIZATION_BIT_EXT` if available,
 whether or not that bit was specified.
+
+|  | Using `VK_PIPELINE_CREATE_2_LINK_TIME_OPTIMIZATION_BIT_EXT` (or not)
+| --- | --- |
+when linking pipeline libraries is intended as a performance tradeoff
+between host and device.
+If the bit is omitted, linking should be faster and produce a pipeline more
+rapidly, but performance of the pipeline on the target device may be
+reduced.
+If the bit is included, linking may be slower but should produce a pipeline
+with device performance comparable to a monolithically created pipeline.
+Using both options can allow latency-sensitive applications to generate a
+suboptimal but usable pipeline quickly, and then perform an optimal link in
+the background, substituting the result for the suboptimally linked pipeline
+as soon as it is available. |
 
 // Provided by VK_VERSION_1_4
 typedef VkFlags64 VkPipelineCreateFlags2;
@@ -6716,6 +6760,20 @@ linked libraries, implementations **should** always return an equivalent
 pipeline created with
 `VK_PIPELINE_CREATE_LINK_TIME_OPTIMIZATION_BIT_EXT` if available,
 whether or not that bit was specified.
+
+|  | Using `VK_PIPELINE_CREATE_LINK_TIME_OPTIMIZATION_BIT_EXT` (or not) when
+| --- | --- |
+linking pipeline libraries is intended as a performance tradeoff between
+host and device.
+If the bit is omitted, linking should be faster and produce a pipeline more
+rapidly, but performance of the pipeline on the target device may be
+reduced.
+If the bit is included, linking may be slower but should produce a pipeline
+with device performance comparable to a monolithically created pipeline.
+Using both options can allow latency-sensitive applications to generate a
+suboptimal but usable pipeline quickly, and then perform an optimal link in
+the background, substituting the result for the suboptimally linked pipeline
+as soon as it is available. |
 
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkPipelineCreateFlags;
@@ -9670,6 +9728,11 @@ specifies that a shader group that only intersects with custom geometry
 and **must** contain an intersection shader and **may** contain closest hit
 and any-hit shaders.
 
+|  | For current group types, the hit group type could be inferred from the
+| --- | --- |
+presence or absence of the intersection shader, but we provide the type
+explicitly for future hit groups that do not have that property. |
+
 The `VkRayTracingPipelineInterfaceCreateInfoKHR` structure is defined
 as:
 
@@ -9705,6 +9768,13 @@ As variables in these storage classes do not have explicit offsets, the size
 should be calculated as if each variable has a
 [scalar alignment](interfaces.html#interfaces-alignment-requirements) equal to the largest
 scalar alignment of any of the block’s members.
+
+|  | There is no explicit upper limit for `maxPipelineRayPayloadSize`, but in
+| --- | --- |
+practice it should be kept as small as possible.
+Similar to invocation local memory, it must be allocated for each shader
+invocation and for devices which support many simultaneous invocations, this
+storage can rapidly be exhausted, resulting in failure. |
 
 Valid Usage
 
@@ -10244,20 +10314,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-State
+Secondary | Outside | Outside | Compute | State |
 
 To destroy a pipeline, call:
 
@@ -10391,6 +10452,14 @@ structure containing initial parameters for the pipeline cache object.
 `pPipelineCache` is a pointer to a [VkPipelineCache](#VkPipelineCache) handle in
 which the resulting pipeline cache object is returned.
 
+|  | Applications **can** track and manage the total host memory size of a pipeline
+| --- | --- |
+cache object using the `pAllocator`.
+Applications **can** limit the amount of data retrieved from a pipeline cache
+object in `vkGetPipelineCacheData`.
+Implementations **should** not internally limit the total number of entries
+added to a pipeline cache object or the total host memory consumed. |
+
 Once created, a pipeline cache **can** be passed to the
 [vkCreateGraphicsPipelines](#vkCreateGraphicsPipelines)
 [vkCreateRayTracingPipelinesKHR](#vkCreateRayTracingPipelinesKHR),
@@ -10407,6 +10476,11 @@ If `flags` of `pCreateInfo` includes
 `VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT`, all commands
 that modify the returned pipeline cache object **must** be
 [externally synchronized](fundamentals.html#fundamentals-threadingbehavior).
+
+|  | Implementations **should** make every effort to limit any critical sections to
+| --- | --- |
+the actual accesses to the cache, which is expected to be significantly
+shorter than the duration of the `vkCreate*Pipelines` commands. |
 
 Valid Usage (Implicit)
 
@@ -10597,6 +10671,11 @@ into.
 which will be merged into `dstCache`.
 The previous contents of `dstCache` are included after the merge.
 
+|  | The details of the merge operation are implementation-dependent, but
+| --- | --- |
+implementations **should** merge the contents of the specified pipelines and
+prune duplicate entries. |
+
 Valid Usage
 
 * 
@@ -10707,6 +10786,16 @@ If `pDataSize` is less than what is necessary to store this header,
 nothing will be written to `pData` and zero will be written to
 `pDataSize`.
 
+|  | This query does not behave consistently with the behavior described in
+| --- | --- |
+[Opaque Binary Data Results](fundamentals.html#fundamentals-binaryresults), for historical
+reasons.
+
+If the amount of data available is larger than the passed `pDataSize`,
+the query returns up to the size of the passed buffer, and signals overflow
+with a `VK_INCOMPLETE` success status instead of returning a
+`VK_ERROR_NOT_ENOUGH_SPACE_KHR` error status. |
+
 Valid Usage (Implicit)
 
 * 
@@ -10760,6 +10849,16 @@ device ID, driver version, and other details of the device.
 To enable applications to detect when previously retrieved data is
 incompatible with the device, the pipeline cache data **must** begin with a
 valid pipeline cache header.
+
+|  | Structures described in this section are not part of the Vulkan API and are
+| --- | --- |
+only used to describe the representation of data elements in pipeline cache
+data.
+Accordingly, the valid usage clauses defined for structures defined in this
+section do not define valid usage conditions for APIs accepting pipeline
+cache data as input, as providing invalid pipeline cache data as input to
+any Vulkan API commands will result
+in the provided pipeline cache data being ignored. |
 
 Version one of the pipeline cache header is defined as:
 
@@ -11287,6 +11386,10 @@ is `VK_TRUE`, the implementation **may** be able to create pipeline
 binaries even when `pPipelineCreateInfo` has not been used to create
 binaries before by the application.
 
+|  | On some platforms, internal pipeline caches may be pre-populated before
+| --- | --- |
+running the application. |
+
 Valid Usage
 
 * 
@@ -11580,6 +11683,11 @@ the pipeline into a state as if
 `VK_PIPELINE_CREATE_2_CAPTURE_DATA_BIT_KHR` had not been provided at
 pipeline creation time.
 
+|  | Any resources captured as a result of creating the pipeline with
+| --- | --- |
+`VK_PIPELINE_CREATE_2_CAPTURE_DATA_BIT_KHR` are implicitly freed by
+[vkDestroyPipeline](#vkDestroyPipeline). |
+
 Valid Usage
 
 * 
@@ -11745,6 +11853,10 @@ module **can** have their constant value specified at the time the
 `VkPipeline` is created.
 This allows a SPIR-V module to have constants that **can** be modified while
 executing an application that uses the Vulkan API.
+
+|  | Specialization constants are useful to allow a compute shader to have its
+| --- | --- |
+local workgroup size changed at runtime by the user, for example. |
 
 Each [VkPipelineShaderStageCreateInfo](#VkPipelineShaderStageCreateInfo) structure contains a
 `pSpecializationInfo` member, which **can** be `NULL` to indicate no
@@ -12296,22 +12408,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 Possible values of [vkCmdBindPipeline](#vkCmdBindPipeline)::`pipelineBindPoint`,
 specifying the bind point of a pipeline object, are:
@@ -12452,22 +12555,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 If the [`shaderObject`](features.html#features-shaderObject) feature is enabled,
 applications **can** use both pipelines and [shader objects](shaders.html#shaders-objects)
@@ -12522,6 +12616,17 @@ and therefore do not disturb any such command buffer state.
 
 Dynamic state that does not affect the result of operations **can** be left
 **undefined**.
+
+|  | For example, if blending is disabled by the pipeline object state then the
+| --- | --- |
+dynamic color blend constants do not need to be specified in the command
+buffer, even if this state is specified as dynamic in the pipeline object. |
+
+|  | Applications running on Vulkan implementations advertising an
+| --- | --- |
+[VkPhysicalDeviceDriverProperties](devsandqueues.html#VkPhysicalDeviceDriverProperties)::`conformanceVersion` less than
+1.3.8.0 should be aware that rebinding the bound pipeline object may not
+reapply static state. |
 
 When a pipeline is created, its state and shaders are compiled into zero or
 more device-specific executables, which are used when executing commands
@@ -13336,6 +13441,16 @@ The formatting and contents of all other types of information, including
 `infoType` `VK_SHADER_INFO_TYPE_BINARY_AMD`, are left to the vendor
 and are not further specified by this extension.
 
+|  | This query does not behave consistently with the behavior described in
+| --- | --- |
+[Opaque Binary Data Results](fundamentals.html#fundamentals-binaryresults), for historical
+reasons.
+
+If the amount of data available is larger than the passed `pInfoSize`,
+the query returns up to the size of the passed buffer, and signals overflow
+with a `VK_INCOMPLETE` success status instead of returning a
+`VK_ERROR_NOT_ENOUGH_SPACE_KHR` error status. |
+
 Valid Usage (Implicit)
 
 * 
@@ -13600,6 +13715,11 @@ An implementation **must** set or clear the
 `pPipelineCreationFeedback` and every element of
 `pPipelineStageCreationFeedbacks`.
 
+|  | One common scenario for an implementation to skip per-stage feedback is when
+| --- | --- |
+`VK_PIPELINE_CREATION_FEEDBACK_APPLICATION_PIPELINE_CACHE_HIT_BIT` is
+set in `pPipelineCreationFeedback`. |
+
 When chained to
 [VkRayTracingPipelineCreateInfoKHR](#VkRayTracingPipelineCreateInfoKHR),
 [VkRayTracingPipelineCreateInfoNV](#VkRayTracingPipelineCreateInfoNV),
@@ -13700,6 +13820,15 @@ or [vkCreateComputePipelines](#vkCreateComputePipelines).
 When an implementation sets this bit for the entire pipeline, it **may** leave
 it unset for any stage.
 
+|  | Implementations are encouraged to provide a meaningful signal to
+| --- | --- |
+applications using this bit.
+The intention is to communicate to the application that the pipeline or
+pipeline stage was created “as fast as it gets” using the pipeline cache
+provided by the application.
+If an implementation uses an internal cache, it is discouraged from setting
+this bit as the feedback would be unactionable. |
+
 * 
 `VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT`
 specifies that the base pipeline specified by the
@@ -13710,6 +13839,12 @@ creation of the pipeline.
 An implementation **should** set the
 `VK_PIPELINE_CREATION_FEEDBACK_BASE_PIPELINE_ACCELERATION_BIT` bit if it
 was able to avoid a significant amount of work by using the base pipeline.
+
+|  | While “significant amount of work” is subjective, implementations are
+| --- | --- |
+encouraged to provide a meaningful signal to applications using this bit.
+For example, a 1% reduction in duration may not warrant setting this bit,
+while a 50% reduction would. |
 
 // Provided by VK_VERSION_1_3
 typedef VkFlags VkPipelineCreationFeedbackFlags;

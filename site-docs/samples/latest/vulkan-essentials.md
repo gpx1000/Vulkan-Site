@@ -42,37 +42,15 @@ This article compares OpenGL ES and Vulkan, and outlines what developers should 
 The two API choices for an Android mobile developer are either OpenGL ES or Vulkan, so it is a useful exercise to start by comparing the two APIs to see where the major differences lie.
 The table below gives a summary, and each feature is explored in more detail beneath the table.
 
-Feature
-OpenGL ES
-Vulkan
-
-State management
-Global state
-State objects
-
-API execution model
-Synchronous
-Asynchronous
-
-API threading model
-Single threaded
-Multi-threaded
-
-API error checking
-Extensive runtime checks
-Only via layers
-
-Render pass abstraction
-Inferred render passes
-Explicit render passes
-
-Memory allocation
-Client-server pools
-Shared memory pool
-
-Memory usage
-Typed allocations
-Typed views
+| Feature | OpenGL ES | Vulkan |
+| --- | --- | --- |
+| State management | Global state | State objects |
+| API execution model | Synchronous | Asynchronous |
+| API threading model | Single threaded | Multi-threaded |
+| API error checking | Extensive runtime checks | Only via layers |
+| Render pass abstraction | Inferred render passes | Explicit render passes |
+| Memory allocation | Client-server pools | Shared memory pool |
+| Memory usage | Typed allocations | Typed views |
 
 OpenGL ES uses a single global state, and must recreate the necessary render state and resource binding tables for every draw call that is made.
 The used state combinations are only known at draw time, meaning that some optimizations are difficult and/or expensive to apply.
@@ -151,6 +129,9 @@ it is an expert power-user API and it isn’t always the right choice for every 
 The most important thing to remember with Vulkan is that it is not necessarily going to give you a performance boost.
 The GPU hardware is the same and the rendering functionality exposed by Vulkan is almost identical to that found in OpenGL ES.
 If your application is limited by GPU rendering performance then it is unlikely that Vulkan will give you better performance.
+
+|  | + Reducing CPU load can free up thermal budget for the GPU, which may allow higher GPU frequencies to be used, so an indirect performance increase may be possible on some platforms. |
+| --- | --- |
 
 The biggest advantage that Vulkan brings is reduced CPU load in the drivers and application rendering logic.
 This is achieved through the streamlining of the API interface and the ability to multi-thread the application.

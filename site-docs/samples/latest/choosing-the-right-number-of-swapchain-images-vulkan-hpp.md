@@ -21,6 +21,12 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/hpp_swapchain_images). |
+| --- | --- |
+
+|  | A transcoded version of the performance sample [Swapchain Images](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/swapchain_images) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. |
+| --- | --- |
+
 This is the readme as written in [Swapchain Images](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/swapchain_images), with code transcoded to functions and classes from vulkan.hpp.
 
 Vulkan gives the application some significant control over the number of swapchain images to be created.

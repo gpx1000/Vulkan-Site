@@ -144,6 +144,9 @@ void vkCmdBindTileMemoryQCOM(
 
 Tile memory contents for ranges outside the currently bound `VkDeviceMemory` are discarded and become undefined if an action command is executed. This means that applications must bind the range of tile memory that should be preserved before issuing an action command. Only the tile memory resources that are also bound to this VkDeviceMemory object are allowed to be accessed.
 
+|  | For example, if a rendering or compute command uses N bytes of tile memory, then the application should bind a VkDeviceMemory object that was allocated with at least N bytes. This means that the range of tile memory from [0, N) is reserved for the application and the implementation may use any remaining (if any) tile memory starting from N for internal optimizations for all subsequent commands recorded in the command buffer. This means that applications should slot in their most frequently used tile objects at the start of the heap. |
+| --- | --- |
+
 Secondary command buffers must also have tile memory bound for its contents to not be discarded during the first action command executed by the secondary. If a secondary command buffer is executed within a render pass instance, then `VkTileMemoryBindInfoQCOM` must be provided as an extended structure to `VkCommandBufferInheritanceInfo` with the currently bound memory object in the primary. Otherwise, the secondary command buffer calls `vkCmdBindTileMemoryQCOM()` directly and behaves the same as a primary command buffer.
 
 VkImages can be bound to Tile Memory to make it backed by tile memory. A VkImage bound to Tile Memory must have been created with a new bit in VkImageUsageFlags to its `vkCreateImage()` call.
@@ -227,6 +230,9 @@ Existing `size` and `alignment` guarantees in the spec do not apply by default t
 
 Tile memory heap, unlike other heaps, is an atomic global resource. VkDeviceMemory will always return an address at the start of the heap’s range and its contents are aliased with other VkDeviceMemory objects bound to the same range. Applications can access the contents simultaneously from aliased resources following the existing memory aliasing rules within the same Queue.
 
+|  | Given the size of Tile Memory is small compared to other heaps and may only fit an image or two, the expected usage is to alias object bindings then time slice access to them during device execution. For example, if you wanted to persist a image through the execution of a few render passes in a command buffer, then discard the contents and persist a separate image across other render passes or into the next command buffer, then the application should alias these images in the heap since they are not required to be persisted simultaneously. |
+| --- | --- |
+
 Tile properties are dependent on the amount of tile memory available to the implementation. Before VK_QCOM_tile_memory_heap, this amount of tile memory was static but now the amount of tile memory available to the implementation may change from Render Pass to Render Pass which can alter tile properties.
 
 To specify the amount of tile memory in use during a Render Pass the following structure was added:
@@ -253,6 +259,9 @@ future non-tile shading passes within the tile memory defined boundary. This all
 For example, if a tile shading pass produced a VkImage and then that same VkImage was later consumed in future non-tile shading passes within the tile memory heap’s defined boundary,
 it may be better to keep this VkImage in tile memory and persist it past the tile shading pass where it was produced.
 VK_QCOM_tile_memory_heap allows this behavior by binding the VkImage to tile memory and persisting the memory with bound tile memory in the command buffers.
+
+|  | As described in the interactions with `VK_QCOM_tile_properties`, applications must ensure that the reserved `size` provided by `VkTileMemorySizeInfoQCOM` matches with the bound tile memory in tile shading passes. |
+| --- | --- |
 
 Resolve attachments must not be bound to tile memory.
 

@@ -339,6 +339,9 @@ Running `make test` should show the program running successfully, and displaying
 The application should exit with the success return code (`0`) when you close the empty window.
 You should now have a complete makefile that resembles the following:
 
+|  | If you’re on Wayland and the window does not show up: Don’t worry. The Wayland compositor might only display a window when the application actually presents something. The window will start to show up on Wayland once we reach the first chapter where we actually present to the window. |
+| --- | --- |
+
 CFLAGS = -std=c++17 -O2
 LDFLAGS = -lglfw -lvulkan -ldl -lpthread -lX11 -lXxf86vm -lXrandr -lXi
 

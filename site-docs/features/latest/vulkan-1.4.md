@@ -138,110 +138,39 @@ Vulkan 1.2 Optional Features
 
 The following limits from Roadmap 2022 are required in this version:
 
-Table 1. Vulkan 1.0 Limits
+| Limit Name | Required Value | Limit Type |
+| --- | --- | --- |
+| `maxImageDimension1D` | 8192 | min |
+| `maxImageDimension2D` | 8192 | min |
+| `maxImageDimensionCube` | 8192 | min |
+| `maxImageArrayLayers` | 2048 | min |
+| `maxUniformBufferRange` | 65536 | min |
+| `bufferImageGranularity` | 4096 | max |
+| `maxPerStageDescriptorUniformBuffers` | 15 | min |
+| `maxPerStageResources` | 200 | min |
+| `maxDescriptorSetUniformBuffers` | 90 | min, *n* × PerStage |
+| `maxDescriptorSetStorageBuffers` | 96 | min, *n* × PerStage |
+| `maxDescriptorSetStorageImages` | 144 | min, *n* × PerStage |
+| `maxFragmentCombinedOutputResources` | 16 | min |
+| `maxComputeWorkGroupInvocations` | 256 | min |
+| `maxComputeWorkGroupSize` | (256,256,64) | min |
+| `subTexelPrecisionBits` | 8 | min |
+| `mipmapPrecisionBits` | 6 | min |
+| `maxSamplerLodBias` | 14 | min |
+| `pointSizeGranularity` | 0.125 | max, fixed point increment |
+| `lineWidthGranularity` | 0.5 | max, fixed point increment |
+| `standardSampleLocations` | `VK_TRUE` | Boolean |
+| `maxColorAttachments` | 8 | min |
 
-Limit Name
-Required Value
-Limit Type
+|  | maxColorAttachments is bumped to 8 in line with Roadmap 2024, as opposed to the 7 required by Roadmap 2022. |
+| --- | --- |
 
-`maxImageDimension1D`
-8192
-min
+| Limit Name | Required Value | Limit Type |
+| --- | --- | --- |
+| `subgroupSupportedStages` | `VK_SHADER_STAGE_COMPUTE_BIT`
 
-`maxImageDimension2D`
-8192
-min
-
-`maxImageDimensionCube`
-8192
-min
-
-`maxImageArrayLayers`
-2048
-min
-
-`maxUniformBufferRange`
-65536
-min
-
-`bufferImageGranularity`
-4096
-max
-
-`maxPerStageDescriptorUniformBuffers`
-15
-min
-
-`maxPerStageResources`
-200
-min
-
-`maxDescriptorSetUniformBuffers`
-90
-min, *n* × PerStage
-
-`maxDescriptorSetStorageBuffers`
-96
-min, *n* × PerStage
-
-`maxDescriptorSetStorageImages`
-144
-min, *n* × PerStage
-
-`maxFragmentCombinedOutputResources`
-16
-min
-
-`maxComputeWorkGroupInvocations`
-256
-min
-
-`maxComputeWorkGroupSize`
-(256,256,64)
-min
-
-`subTexelPrecisionBits`
-8
-min
-
-`mipmapPrecisionBits`
-6
-min
-
-`maxSamplerLodBias`
-14
-min
-
-`pointSizeGranularity`
-0.125
-max, fixed point increment
-
-`lineWidthGranularity`
-0.5
-max, fixed point increment
-
-`standardSampleLocations`
-`VK_TRUE`
-Boolean
-
-`maxColorAttachments`
-8
-min
-
-Table 2. Vulkan 1.1 Limits
-
-Limit Name
-Required Value
-Limit Type
-
-`subgroupSupportedStages`
-`VK_SHADER_STAGE_COMPUTE_BIT`
-
-                                              `VK_SHADER_STAGE_FRAGMENT_BIT`
-flags
-
-`subgroupSupportedOperations`
-`VK_SUBGROUP_FEATURE_BASIC_BIT`
+                                              `VK_SHADER_STAGE_FRAGMENT_BIT` | flags |
+| `subgroupSupportedOperations` | `VK_SUBGROUP_FEATURE_BASIC_BIT`
 
                                               `VK_SUBGROUP_FEATURE_VOTE_BIT`
 
@@ -253,24 +182,17 @@ flags
 
                                               `VK_SUBGROUP_FEATURE_SHUFFLE_RELATIVE_BIT`
 
-                                              `VK_SUBGROUP_FEATURE_QUAD_BIT` *
-flags
+                                              `VK_SUBGROUP_FEATURE_QUAD_BIT` * | flags |
 
 *`VK_SUBGROUP_FEATURE_QUAD_BIT` is only supported if the advertised subgroup size is 4 or higher.
 
-Table 3. Vulkan 1.2 Limits
+|  | Vulkan 1.4 does not require a supported subgroup size of greater than 1, but if a vendor does have a meaningful subgroup size, all of the above features will be supported. |
+| --- | --- |
 
-Limit Name
-Required Value
-Limit Type
-
-`shaderSignedZeroInfNanPreserveFloat16`
-`VK_TRUE`*
-Boolean
-
-`shaderSignedZeroInfNanPreserveFloat32`
-`VK_TRUE`
-Boolean
+| Limit Name | Required Value | Limit Type |
+| --- | --- | --- |
+| `shaderSignedZeroInfNanPreserveFloat16` | `VK_TRUE`* | Boolean |
+| `shaderSignedZeroInfNanPreserveFloat32` | `VK_TRUE` | Boolean |
 
 *`shaderSignedZeroInfNanPreserveFloat16` is only supported if the `shaderFloat16` feature is supported.
 
@@ -301,23 +223,11 @@ Vulkan 1.2 Optional Features
 
 The following limits from Roadmap 2024 are now required in Vulkan 1.4:
 
-Table 4. Vulkan 1.0 Limits
-
-Limit Name
-Required Value
-Limit Type
-
-`maxBoundDescriptorSets`
-7
-min
-
-`maxColorAttachments`
-8
-min
-
-`timestampComputeAndGraphics`
-`VK_TRUE`
-Boolean
+| Limit Name | Required Value | Limit Type |
+| --- | --- | --- |
+| `maxBoundDescriptorSets` | 7 | min |
+| `maxColorAttachments` | 8 | min |
+| `timestampComputeAndGraphics` | `VK_TRUE` | Boolean |
 
 The following extensions are promoted in their entirety to Vulkan 1.4:
 
@@ -357,6 +267,9 @@ If `dynamicRenderingLocalReadDepthStencilAttachments` and `dynamicRenderingLocal
 If `dynamicRenderingLocalReadDepthStencilAttachments` is `VK_FALSE`, implementations do not support depth/stencil attachment access within dynamic rendering.
 If `dynamicRenderingLocalReadMultisampledAttachments` is `VK_FALSE`, implementations do not support multisampled attachment access within dynamic rendering.
 
+|  | Applications can work around the lack of depth stencil support by allocating an additional color attachment and writing depth/stencil values into it. |
+| --- | --- |
+
 While it is intended that there are as few additional features beyond the roadmap as possible - ideally limited to maintenance extensions - for the first version there are a number of additional required features.
 These are a mixture of items included in the Android 15 feature requirements, the Android Baseline 2022 profile, and a few items based on feedback that were missed during development of roadmap 2024.
 
@@ -376,21 +289,11 @@ The following additional features are required to be supported in Vulkan 1.4:
 
 The following additional limits are required in Vulkan 1.4:
 
-Limit Name
-Required Value
-Limit Type
-
-`maxImageDimension3D`
-512
-min
-
-`pointSizeRange[1]`
-256 - `pointSizeGranularity`
-min
-
-`maxPushConstantsSize`
-256
-min
+| Limit Name | Required Value | Limit Type |
+| --- | --- | --- |
+| `maxImageDimension3D` | 512 | min |
+| `pointSizeRange[1]` | 256 - `pointSizeGranularity` | min |
+| `maxPushConstantsSize` | 256 | min |
 
 The following additional extensions are promoted in their entirety to Vulkan 1.4:
 

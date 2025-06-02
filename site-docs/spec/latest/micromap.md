@@ -63,6 +63,10 @@ The `vkCmdBuildMicromapsEXT` command provides the ability to initiate
 multiple micromaps builds, however there is no ordering or synchronization
 implied between any of the individual micromap builds.
 
+|  | This means that there **cannot** be any memory aliasing between any micromap
+| --- | --- |
+memories or scratch memories being used by any of the builds. |
+
 Accesses to the micromap scratch buffers as identified by the
 [VkMicromapBuildInfoEXT](#VkMicromapBuildInfoEXT)::`scratchData` buffer device addresses
 **must** be [synchronized](../synchronization.html#synchronization-dependencies) with the
@@ -251,20 +255,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 Formats which **can** be set in [VkMicromapUsageEXT](#VkMicromapUsageEXT)::`format` and
 [VkMicromapTriangleEXT](#VkMicromapTriangleEXT)::`format` for micromap builds, are:
@@ -284,6 +279,9 @@ or fully transparent.
 `VK_OPACITY_MICROMAP_FORMAT_4_STATE_EXT` specifies that the given
 micromap format has two bits per subtriangle encoding four modes which
 can be interpreted as described in [ray    traversal](../raytraversal.html#ray-opacity-micromap).
+
+|  | For compactness, these values are stored as 16-bit in some structures. |
+| --- | --- |
 
 Formats which **can** be set in [VkMicromapUsageEXT](#VkMicromapUsageEXT)::`format` and
 [VkMicromapTriangleEXT](#VkMicromapTriangleEXT)::`format` for micromap builds, are:
@@ -312,6 +310,9 @@ worth of displacements in 128 bytes as described in
 specifies that the given micromap format encodes 1024 micro-triangles
 worth of displacements in 128 bytes as described in
 [Displacement Micromap Encoding](#displacement-micromap-encoding).
+
+|  | For compactness, these values are stored as 16-bit in some structures. |
+| --- | --- |
 
 The `VkMicromapBuildInfoEXT` structure is defined as:
 
@@ -790,20 +791,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 To copy a micromap call:
 
@@ -886,20 +878,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 The `VkCopyMicromapInfoEXT` structure is defined as:
 
@@ -1135,20 +1118,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 // Provided by VK_EXT_opacity_micromap
 typedef struct VkCopyMicromapToMemoryInfoEXT {
@@ -1314,20 +1288,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Compute
-Action
+Secondary | Outside | Outside | Compute | Action |
 
 The `VkCopyMemoryToMicromapInfoEXT` structure is defined as:
 
@@ -1471,6 +1436,14 @@ structure.
 `pVersionData` is a pointer to the version header of a micromap as
 defined in [vkCmdCopyMicromapToMemoryEXT](#vkCmdCopyMicromapToMemoryEXT)
 
+|  | `pVersionData` is a *pointer* to an array of 2×`VK_UUID_SIZE`
+| --- | --- |
+`uint8_t` values instead of two `VK_UUID_SIZE` arrays as the expected
+use case for this member is to be pointed at the header of a previously
+serialized micromap (via [vkCmdCopyMicromapToMemoryEXT](#vkCmdCopyMicromapToMemoryEXT) or
+[vkCopyMicromapToMemoryEXT](#vkCopyMicromapToMemoryEXT)) that is loaded in memory.
+Using arrays would necessitate extra memory copies of the UUIDs. |
+
 Valid Usage (Implicit)
 
 * 
@@ -1519,6 +1492,19 @@ host addresses instead of device addresses.
 Applications are not required to map micromap memory when using the host
 commands.
 
+|  | The [vkBuildMicromapsEXT](#vkBuildMicromapsEXT) and [vkCmdBuildMicromapsEXT](#vkCmdBuildMicromapsEXT) **may** use
+| --- | --- |
+different algorithms, and thus are not required to produce identical
+structures.
+
+Apart from these details, the host and device operations are
+interchangeable. |
+
+|  | For efficient execution, micromaps manipulated using these commands should
+| --- | --- |
+always be bound to host cached memory, as the implementation may need to
+repeatedly read and write this memory during the execution of the command. |
+
 To build micromaps on the host, call:
 
 // Provided by VK_EXT_opacity_micromap
@@ -1552,6 +1538,10 @@ executed by the host.
 The `vkBuildMicromapsEXT` command provides the ability to initiate
 multiple micromaps builds, however there is no ordering or synchronization
 implied between any of the individual micromap builds.
+
+|  | This means that there **cannot** be any memory aliasing between any micromap
+| --- | --- |
+memories or scratch memories being used by any of the builds. |
 
 Valid Usage
 
@@ -2230,29 +2220,11 @@ This is followed by 15 unused bits then 2 reserved bits which **must** be 0.
 If this block is used to store displacement for a subdivision level below 3
 the later unused values are ignored.
 
-Section
-Field
-Entries
-Bits per entry
-Starting bit offset
-
-Displacement amounts
-Vertex 0 - 44
-45
-11
-0
-
-Unused
-
-1
-15
-495
-
-Reserved
-Must be 0
-1
-2
-510
+| Section | Field | Entries | Bits per entry | Starting bit offset |
+| --- | --- | --- | --- | --- |
+| Displacement amounts | Vertex 0 - 44 | 45 | 11 | 0 |
+| Unused |  | 1 | 15 | 495 |
+| Reserved | Must be 0 | 1 | 2 | 510 |
 
 The `VK_DISPLACEMENT_MICROMAP_FORMAT_256_TRIANGLES_128_BYTES_NV` and
 `VK_DISPLACEMENT_MICROMAP_FORMAT_1024_TRIANGLES_128_BYTES_NV` formats
@@ -2283,132 +2255,32 @@ order in that order.
 The bit encoding for
 `VK_DISPLACEMENT_MICROMAP_FORMAT_256_TRIANGLES_128_BYTES_NV`
 
-Section
-Field
-Entries
-Bits per entry
-Starting bit offset
-
-Anchors
-Vertex 0 - 2
-3
-11
-0
-
-Corrections
-Level 1
-3
-11
-33
-
-Level 2
-9
-11
-66
-
-Level 3
-30
-10
-165
-
-Level 4
-108
-5
-465
-
-Unused
-
-1
-1
-1005
-
-Shifts
-Level 4
-4
-3
-1006
-
-Level 3
-4
-1
-1018
-
-Reserved
-Must be 0
-1
-2
-1022
+| Section | Field | Entries | Bits per entry | Starting bit offset |
+| --- | --- | --- | --- | --- |
+| Anchors | Vertex 0 - 2 | 3 | 11 | 0 |
+| Corrections | Level 1 | 3 | 11 | 33 |
+|  | Level 2 | 9 | 11 | 66 |
+|  | Level 3 | 30 | 10 | 165 |
+|  | Level 4 | 108 | 5 | 465 |
+| Unused |  | 1 | 1 | 1005 |
+| Shifts | Level 4 | 4 | 3 | 1006 |
+|  | Level 3 | 4 | 1 | 1018 |
+| Reserved | Must be 0 | 1 | 2 | 1022 |
 
 The bit encoding for
 `VK_DISPLACEMENT_MICROMAP_FORMAT_1024_TRIANGLES_128_BYTES_NV`
 
-Section
-Field
-Entries
-Bits per entry
-Starting bit offset
-
-Anchors
-Vertex 0 - 2
-3
-11
-0
-
-Corrections
-Level 1
-3
-11
-33
-
-Level 2
-9
-8
-66
-
-Level 3
-30
-4
-138
-
-Level 4
-108
-2
-258
-
-Level 5
-408
-1
-474
-
-Unused
-
-1
-88
-882
-
-Shifts
-Level 5
-4
-4
-970
-
-Level 4
-4
-4
-986
-
-Level 3
-4
-3
-1002
-
-Level 2
-4
-2
-1014
-
-Reserved
-Must be 0
-1
-2
-1022
+| Section | Field | Entries | Bits per entry | Starting bit offset |
+| --- | --- | --- | --- | --- |
+| Anchors | Vertex 0 - 2 | 3 | 11 | 0 |
+| Corrections | Level 1 | 3 | 11 | 33 |
+|  | Level 2 | 9 | 8 | 66 |
+|  | Level 3 | 30 | 4 | 138 |
+|  | Level 4 | 108 | 2 | 258 |
+|  | Level 5 | 408 | 1 | 474 |
+| Unused |  | 1 | 88 | 882 |
+| Shifts | Level 5 | 4 | 4 | 970 |
+|  | Level 4 | 4 | 4 | 986 |
+|  | Level 3 | 4 | 3 | 1002 |
+|  | Level 2 | 4 | 2 | 1014 |
+| Reserved | Must be 0 | 1 | 2 | 1022 |

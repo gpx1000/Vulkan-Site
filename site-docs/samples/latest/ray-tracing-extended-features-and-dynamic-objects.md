@@ -20,6 +20,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/ray_tracing_extended). |
+| --- | --- |
+
 This code sample demonstrates how to incorporate animations into a ray-traced scene, and shows how to incorporate different types of changing objects within the acceleration structures.
 
 The ray tracing acceleration structures are separated into two types: bottom-level acceleration structures (BLAS) and top-level acceleration structures (TLAS).

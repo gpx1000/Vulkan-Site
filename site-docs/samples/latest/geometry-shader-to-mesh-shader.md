@@ -17,6 +17,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/gshader_to_mshader). |
+| --- | --- |
+
 ![Sample](../../../_images/samples/extensions/gshader_to_mshader/images/visualization_of_normals.png)
 
 This sample demonstrates how a mesh shader can be used to achieve the same results as with geometry shader.

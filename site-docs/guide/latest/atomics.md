@@ -100,6 +100,11 @@ The current extensions that expose additional support for atomics are:
 
 Each explained in more details below.
 
+|  | Promoted to core in Vulkan 1.2
+| --- | --- |
+
+[GLSL - GL_EXT_shader_atomic_int64](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GL_EXT_shader_atomic_int64.txt) |
+
 This extension allows for `64-bit int` atomic operations for **buffers** and **shared memory**. If the `Int64Atomics` SPIR-V capability is declared, all supported SPIR-V operations can be used with `64-bit int`.
 
 The two feature bits, `shaderBufferInt64Atomics` and `shaderSharedInt64Atomics`, are used to query what storage classes are supported for `64-bit int` atomics.
@@ -112,9 +117,19 @@ The two feature bits, `shaderBufferInt64Atomics` and `shaderSharedInt64Atomics`,
 
 The `shaderBufferInt64Atomics` is always guaranteed to be supported if using Vulkan 1.2+ or the extension is exposed.
 
+|  | [SPV_EXT_shader_image_int64](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/EXT/SPV_EXT_shader_image_int64.html)
+| --- | --- |
+
+[GLSL_EXT_shader_image_int64](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GLSL_EXT_shader_image_int64.txt) |
+
 This extension allows for `64-bit int` atomic operations for **images** and **sparse images**. If the `Int64Atomics` and `Int64ImageEXT` SPIR-V capability is declared, all supported SPIR-V operations can be used with `64-bit int` on images.
 
 This extension exposes both a `shaderImageInt64Atomics` and `sparseImageInt64Atomics` feature bit. The `sparseImage*` feature is an additional feature bit and is only allowed to be used if the `shaderImage*` bit is enabled as well. Some hardware has a hard time doing atomics on images with [sparse resources](sparse_resources.html#sparse-resources), therefor the atomic feature is split up to allow **sparse images** as an additional feature an implementation can expose.
+
+|  | [SPV_EXT_shader_atomic_float_add](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/EXT/SPV_EXT_shader_atomic_float_add.html)
+| --- | --- |
+
+[GLSL_EXT_shader_atomic_float](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GLSL_EXT_shader_atomic_float.txt) |
 
 This extension allows for `float` atomic operations for **buffers**, **shared memory**, **images**, and **sparse images**. Only a subset of operations is supported for `float` types with this extension.
 
@@ -148,6 +163,16 @@ and `64-bit float` support:
 
 * 
 `shaderSharedFloat64*` - shared memory
+
+|  | OpenGLES [OES_shader_image_atomic](https://registry.khronos.org/OpenGL/extensions/OES/OES_shader_image_atomic.txt) allowed the use of atomics on `r32f` for `imageAtomicExchange`. For porting, an application will want to check for `shaderImageFloat32Atomics` support to be able to do the same in Vulkan. |
+| --- | --- |
+
+|  | [SPV_EXT_shader_atomic_float_min_max](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/EXT/SPV_EXT_shader_atomic_float_min_max.html)
+| --- | --- |
+
+[SPV_EXT_shader_atomic_float16_add](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/EXT/SPV_EXT_shader_atomic_float16_add.html)
+
+[GLSL_EXT_shader_atomic_float](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GLSL_EXT_shader_atomic_float.txt) |
 
 This extension adds 2 additional sets of features missing in `VK_EXT_shader_atomic_float`
 

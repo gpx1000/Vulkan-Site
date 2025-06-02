@@ -97,77 +97,56 @@ When enabled, shaders can use the `QuadControlKHR` capability in shaders.
 
 A new capability is added to SPIR-V:
 
-Capability
-Implicitly Declares
+| Capability | Implicitly Declares |
+| --- | --- |
+| 5087 | **QuadControlKHR**
 
-5087
-**QuadControlKHR**
-
-Module uses the *QuadDerivativesKHR* or *RequireFullQuadsKHR* execution modes, or the **OpGroupNonUniformQuadAllKHR** or **OpGroupNonUniformQuadAllKHR** instructions.
+Module uses the *QuadDerivativesKHR* or *RequireFullQuadsKHR* execution modes, or the **OpGroupNonUniformQuadAllKHR** or **OpGroupNonUniformQuadAllKHR** instructions. |  |
 
 Two new execution modes are provided:
 
-Execution Mode
-Extra Operands
-Enabling Capabilities
+| Execution Mode | Extra Operands | Enabling Capabilities |
+| --- | --- | --- |
+| 5088 | **QuadDerivativesKHR**
 
-5088
-**QuadDerivativesKHR**
+The derivative group must be equivalent to the quad groups. |  | **QuadControlKHR** |
+| 5089 | **RequireFullQuadsKHR**
 
-The derivative group must be equivalent to the quad groups.
-
-**QuadControlKHR**
-
-5089
-**RequireFullQuadsKHR**
-
-Helper invocations must be spawned such that all quad groups start with four active invocations. Only valid with the **Fragment** *Execution Model*.
-
-**QuadControlKHR**
+Helper invocations must be spawned such that all quad groups start with four active invocations. Only valid with the **Fragment** *Execution Model*. |  | **QuadControlKHR** |
 
 Two new instructions are added:
 
-**OpGroupNonUniformQuadAllKHR**
+| **OpGroupNonUniformQuadAllKHR**
+| --- | --- | --- | --- | --- |
 
 Evaluates a predicate for all active invocations in the group, resulting in **true** if predicate evaluates to **true** for all active invocations in the group, otherwise the result is **false**.
 
 *Result Type* must be a *Boolean Type*.
 
-*Predicate* must be a *Boolean Type*.
-Capability:
+*Predicate* must be a *Boolean Type*. | Capability:
 
-**QuadControlKHR**
+**QuadControlKHR** |
+| 4 | 5110 | **
 
-4
-5110
-**
+*Result Type* | *Result * | **
 
-*Result Type*
-*Result *
-**
+*Predicate* |
 
-*Predicate*
-
-**OpGroupNonUniformQuadAnyKHR**
+| **OpGroupNonUniformQuadAnyKHR**
+| --- | --- | --- | --- | --- |
 
 Evaluates a predicate for all active invocations in the group, resulting in **true** if predicate evaluates to **true** for any active invocation in the group, otherwise the result is **false**.
 
 *Result Type* must be a *Boolean Type*.
 
-*Predicate* must be a *Boolean Type*.
-Capability:
+*Predicate* must be a *Boolean Type*. | Capability:
 
-**QuadControlKHR**
+**QuadControlKHR** |
+| 4 | 5111 | **
 
-4
-5111
-**
+*Result Type* | *Result * | **
 
-*Result Type*
-*Result *
-**
-
-*Predicate*
+*Predicate* |
 
 The GLSL_EXT_shader_quad extension is added to glslang, providing quad operations and
 built-ins mapping to the subgroup operations roughly as follows:

@@ -17,6 +17,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/fragment_shader_barycentric). |
+| --- | --- |
+
 ![fragment_shader_barycentric](../../../_images/samples/extensions/fragment_shader_barycentric/images/fragment_shader_barycentric_screenshot.png)
 
 Fragment shader barycentric feature provides support for accessing the barycentric coordinates (linear and perspective) in the fragment shader and vertex attribute with the `pervertexEXT` decoration.
@@ -25,21 +28,11 @@ The [VK_KHR_fragment_shader_barycentric](https://registry.khronos.org/vulkan/spe
 
 The extension provides access to additional built-in variables and decorations:
 
-Type
-GLSL
-SPIR-V
-
-built-in variable
-in vec3 gl_BaryCoordEXT;
-BaryCoordKHR
-
-built-in variable
-in vec3 gl_BaryCoordNoPerspEXT;
-BaryCoordNoPerspKHR
-
-decoration
-pervertexEXT
-perVertexKHR
+| Type | GLSL | SPIR-V |
+| --- | --- | --- |
+| built-in variable | in vec3 gl_BaryCoordEXT; | BaryCoordKHR |
+| built-in variable | in vec3 gl_BaryCoordNoPerspEXT; | BaryCoordNoPerspKHR |
+| decoration | pervertexEXT | perVertexKHR |
 
 The built-in fragment shader input variables `gl_BaryCoordEXT` and `gl_BaryCoordNoPerspEXT` are three-component floating-point vectors that provide the barycentric coordinates for the fragment.
 The values for these built-ins are derived as described in [the Vulkan API Specifications](https://registry.khronos.org/vulkan/specs/1.3-extensions/html/vkspec.html#interfaces-builtin-variables).

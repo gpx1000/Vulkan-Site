@@ -534,20 +534,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 By default vertex data output from the last
 [pre-rasterization shader stage](pipelines.html#pipelines-graphics-subsets-pre-rasterization) are directed to vertex stream zero.
@@ -750,20 +741,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 Within a subpass of a [render pass instance](renderpass.html#renderpass), for a given
 (x,y,layer,sample) sample location, the following operations are guaranteed
@@ -976,20 +958,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 Each sample in a fragment is also assigned a unique *coverage index* j
 in the range [0, n × `rasterizationSamples`), where n
@@ -1019,35 +992,17 @@ p = px + (py × fw)
 
 The tables below illustrate the pixel index for multi-pixel fragments:
 
-Table 1. Pixel Indices - 1 Wide
+| 1x1 | 1x2 | 1x4 |
+| --- | --- | --- |
+| ![pixel index 1x1](../_images/pixel_index_1x1.svg) | ![pixel index 1x2](../_images/pixel_index_1x2.svg) | ![pixel index 1x4](../_images/pixel_index_1x4.svg) |
 
-1x1
-1x2
-1x4
+| 2x1 | 2x2 | 2x4 |
+| --- | --- | --- |
+| ![pixel index 2x1](../_images/pixel_index_2x1.svg) | ![pixel index 2x2](../_images/pixel_index_2x2.svg) | ![pixel index 2x4](../_images/pixel_index_2x4.svg) |
 
-![pixel index 1x1](../_images/pixel_index_1x1.svg)
-![pixel index 1x2](../_images/pixel_index_1x2.svg)
-![pixel index 1x4](../_images/pixel_index_1x4.svg)
-
-Table 2. Pixel Indices - 2 Wide
-
-2x1
-2x2
-2x4
-
-![pixel index 2x1](../_images/pixel_index_2x1.svg)
-![pixel index 2x2](../_images/pixel_index_2x2.svg)
-![pixel index 2x4](../_images/pixel_index_2x4.svg)
-
-Table 3. Pixel Indices - 4 Wide
-
-4x1
-4x2
-4x4
-
-![pixel index 4x1](../_images/pixel_index_4x1.svg)
-![pixel index 4x2](../_images/pixel_index_4x2.svg)
-![pixel index 4x4](../_images/pixel_index_4x4.svg)
+| 4x1 | 4x2 | 4x4 |
+| --- | --- | --- |
+| ![pixel index 4x1](../_images/pixel_index_4x1.svg) | ![pixel index 4x2](../_images/pixel_index_4x2.svg) | ![pixel index 4x4](../_images/pixel_index_4x4.svg) |
 
 The coverage mask includes B bits packed into W words, defined
 as:
@@ -1070,33 +1025,20 @@ standard sample locations.
 Locations are defined relative to an origin in the upper left corner of the
 fragment.
 
-Table 4. Standard Sample Locations
+| Sample count | Sample Locations |
+| --- | --- |
+| `VK_SAMPLE_COUNT_1_BIT` | (0.5,0.5) | ![sample count 1](../_images/sample_count_1.svg) |
+| `VK_SAMPLE_COUNT_2_BIT` | (0.75,0.75)
 
-Sample count
-Sample Locations
-
-`VK_SAMPLE_COUNT_1_BIT`
-(0.5,0.5)
-![sample count 1](../_images/sample_count_1.svg)
-
-`VK_SAMPLE_COUNT_2_BIT`
-(0.75,0.75)
-
-      (0.25,0.25)
-![sample count 2](../_images/sample_count_2.svg)
-
-`VK_SAMPLE_COUNT_4_BIT`
-(0.375, 0.125)
+      (0.25,0.25) | ![sample count 2](../_images/sample_count_2.svg) |
+| `VK_SAMPLE_COUNT_4_BIT` | (0.375, 0.125)
 
       (0.875, 0.375)
 
       (0.125, 0.625)
 
-      (0.625, 0.875)
-![sample count 4](../_images/sample_count_4.svg)
-
-`VK_SAMPLE_COUNT_8_BIT`
-(0.5625, 0.3125)
+      (0.625, 0.875) | ![sample count 4](../_images/sample_count_4.svg) |
+| `VK_SAMPLE_COUNT_8_BIT` | (0.5625, 0.3125)
 
       (0.4375, 0.6875)
 
@@ -1110,11 +1052,8 @@ Sample Locations
 
       (0.6875, 0.9375)
 
-      (0.9375, 0.0625)
-![sample count 8](../_images/sample_count_8.svg)
-
-`VK_SAMPLE_COUNT_16_BIT`
-(0.5625, 0.5625)
+      (0.9375, 0.0625) | ![sample count 8](../_images/sample_count_8.svg) |
+| `VK_SAMPLE_COUNT_16_BIT` | (0.5625, 0.5625)
 
       (0.4375, 0.3125)
 
@@ -1144,8 +1083,7 @@ Sample Locations
 
       (0.875,  0.9375)
 
-      (0.0625, 0.0)
-![sample count 16](../_images/sample_count_16.svg)
+      (0.0625, 0.0) | ![sample count 16](../_images/sample_count_16.svg) |
 
 Color images created with multiple samples per pixel use a compression
 technique where there are two arrays of data associated with each pixel.
@@ -1393,20 +1331,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the sample locations used
 for rasterization, call:
@@ -1485,20 +1414,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The features advertised by
 [VkPhysicalDeviceFragmentShadingRateFeaturesKHR](features.html#VkPhysicalDeviceFragmentShadingRateFeaturesKHR) allow an application to
@@ -1583,20 +1503,21 @@ equal to [    `maxFragmentShadingRateCoverageSamples`](limits.html#limits-maxFra
 
 Implementations **must** support at least the following shading rates:
 
-`sampleCounts`
-`fragmentSize`
-
-`VK_SAMPLE_COUNT_1_BIT` | `VK_SAMPLE_COUNT_4_BIT`
-{2,2}
-
-`VK_SAMPLE_COUNT_1_BIT` | `VK_SAMPLE_COUNT_4_BIT`
-{2,1}
-
-~0
-{1,1}
+| `sampleCounts` | `fragmentSize` |
+| --- | --- |
+| `VK_SAMPLE_COUNT_1_BIT` \| `VK_SAMPLE_COUNT_4_BIT` | {2,2} |
+| `VK_SAMPLE_COUNT_1_BIT` \| `VK_SAMPLE_COUNT_4_BIT` | {2,1} |
+| ~0 | {1,1} |
 
 If [`framebufferColorSampleCounts`](limits.html#limits-framebufferColorSampleCounts), includes `VK_SAMPLE_COUNT_2_BIT`,
 the required rates **must** also include `VK_SAMPLE_COUNT_2_BIT`.
+
+|  | Including the {1,1} fragment size is done for completeness; it has no actual
+| --- | --- |
+effect on the support of rendering without setting the fragment size.
+All sample counts
+and render pass transforms
+are supported for this rate. |
 
 The returned set of fragment shading rates **must** be returned in the native
 (rotated) coordinate system.
@@ -1604,6 +1525,13 @@ For rasterization using render pass `transform` not equal to
 `VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR`, the application **must** transform
 the returned fragment shading rates into the current (unrotated) coordinate
 system to get the supported rates for that transform.
+
+|  | For example, consider an implementation returning support for 4x2, but not
+| --- | --- |
+2x4 in the set of supported fragment shading rates.
+This means that for transforms `VK_SURFACE_TRANSFORM_ROTATE_90_BIT_KHR`
+and `VK_SURFACE_TRANSFORM_ROTATE_270_BIT_KHR`, 2x4 is a supported rate,
+but 4x2 is an unsupported rate. |
 
 Valid Usage (Implicit)
 
@@ -1879,20 +1807,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The *primitive fragment shading rate* **can** be set via the
 [`PrimitiveShadingRateKHR`](interfaces.html#interfaces-builtin-variables-primitiveshadingrate) built-in in the last active
@@ -2330,6 +2249,12 @@ Otherwise, this state is specified by the
 [VkPipelineFragmentShadingRateEnumStateCreateInfoNV](#VkPipelineFragmentShadingRateEnumStateCreateInfoNV) values used to
 create the currently active pipeline.
 
+|  | This command allows specifying additional shading rates beyond those
+| --- | --- |
+supported by [vkCmdSetFragmentShadingRateKHR](#vkCmdSetFragmentShadingRateKHR).
+For more information, refer to the
+`[VK_NV_fragment_shading_rate_enums](../appendices/extensions.html#VK_NV_fragment_shading_rate_enums)` appendix. |
+
 Valid Usage
 
 * 
@@ -2431,20 +2356,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 When the [`supersampleFragmentShadingRates`](features.html#features-supersampleFragmentShadingRates) or
 [`noInvocationFragmentShadingRates`](features.html#features-noInvocationFragmentShadingRates) features are enabled, the behavior
@@ -2689,20 +2605,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 When the shading rate image is enabled in the current pipeline, rasterizing
 a primitive covering the pixel with coordinates (*x*,*y*) will fetch a
@@ -2808,20 +2715,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the per-viewport shading
 rate image palettes, call:
@@ -2927,20 +2825,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The `VkShadingRatePaletteNV` structure specifies to contents of a single
 shading rate image palette and is defined as:
@@ -3013,70 +2902,20 @@ When processing regions of a primitive that have a shading rate of
 `VK_SHADING_RATE_PALETTE_ENTRY_NO_INVOCATIONS_NV`, no fragments will be
 generated in that region.
 
-Shading Rate
-Width
-Height
-Invocations
-
-`VK_SHADING_RATE_PALETTE_ENTRY_NO_INVOCATIONS_NV`
-0
-0
-0
-
-`VK_SHADING_RATE_PALETTE_ENTRY_16_INVOCATIONS_PER_PIXEL_NV`
-1
-1
-16
-
-`VK_SHADING_RATE_PALETTE_ENTRY_8_INVOCATIONS_PER_PIXEL_NV`
-1
-1
-8
-
-`VK_SHADING_RATE_PALETTE_ENTRY_4_INVOCATIONS_PER_PIXEL_NV`
-1
-1
-4
-
-`VK_SHADING_RATE_PALETTE_ENTRY_2_INVOCATIONS_PER_PIXEL_NV`
-1
-1
-2
-
-`VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_PIXEL_NV`
-1
-1
-1
-
-`VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X1_PIXELS_NV`
-2
-1
-1
-
-`VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_1X2_PIXELS_NV`
-1
-2
-1
-
-`VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X2_PIXELS_NV`
-2
-2
-1
-
-`VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_4X2_PIXELS_NV`
-4
-2
-1
-
-`VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X4_PIXELS_NV`
-2
-4
-1
-
-`VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_4X4_PIXELS_NV`
-4
-4
-1
+| Shading Rate | Width | Height | Invocations |
+| --- | --- | --- | --- |
+| `VK_SHADING_RATE_PALETTE_ENTRY_NO_INVOCATIONS_NV` | 0 | 0 | 0 |
+| `VK_SHADING_RATE_PALETTE_ENTRY_16_INVOCATIONS_PER_PIXEL_NV` | 1 | 1 | 16 |
+| `VK_SHADING_RATE_PALETTE_ENTRY_8_INVOCATIONS_PER_PIXEL_NV` | 1 | 1 | 8 |
+| `VK_SHADING_RATE_PALETTE_ENTRY_4_INVOCATIONS_PER_PIXEL_NV` | 1 | 1 | 4 |
+| `VK_SHADING_RATE_PALETTE_ENTRY_2_INVOCATIONS_PER_PIXEL_NV` | 1 | 1 | 2 |
+| `VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_PIXEL_NV` | 1 | 1 | 1 |
+| `VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X1_PIXELS_NV` | 2 | 1 | 1 |
+| `VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_1X2_PIXELS_NV` | 1 | 2 | 1 |
+| `VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X2_PIXELS_NV` | 2 | 2 | 1 |
+| `VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_4X2_PIXELS_NV` | 4 | 2 | 1 |
+| `VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_2X4_PIXELS_NV` | 2 | 4 | 1 |
+| `VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_4X4_PIXELS_NV` | 4 | 4 | 1 |
 
 When the shading rate image is disabled, a shading rate of
 `VK_SHADING_RATE_PALETTE_ENTRY_1_INVOCATION_PER_PIXEL_NV` will be used
@@ -3514,20 +3353,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 If the final shading rate for a primitive covering pixel (*x*,*y*) results
 in *n* invocations per pixel (*n* > 1), *n* separate fragment shader
@@ -3571,6 +3401,18 @@ If the `[VK_AMD_mixed_attachment_samples](../appendices/extensions.html#VK_AMD_m
 subpass uses color attachments, the `samples` value used to create each
 color attachment is used instead of `rasterizationSamples`.
 
+|  | If a shader decorates an input variable with `Sample` and that value
+| --- | --- |
+meaningfully impacts the output of a shader, sample shading will be enabled
+to ensure that the input is in fact interpolated per-sample.
+This is inherent to the specification and not spelled out here - if an
+application simply declares such a variable it is implementation-defined
+whether sample shading is enabled or not.
+It is possible to see the effects of this by using atomics in the shader or
+using a pipeline statistics query to query the number of fragment
+invocations, even if the shader itself does not use any per-sample
+variables. |
+
 If there are fewer fragment invocations than [covered samples](fragops.html#fragops),
 implementations **may** include those samples in fragment shader invocations in
 any manner as long as covered samples are all shaded at least once, and each
@@ -3610,96 +3452,32 @@ vertex index value, or is accessed while rasterizing a polygon when the
 the currently active pipeline is not `VK_POLYGON_MODE_FILL`, an
 **undefined** value is returned.
 
-Primitive Topology
-Vertex 0
-Vertex 1
-Vertex 2
-
-`VK_PRIMITIVE_TOPOLOGY_POINT_LIST`
-i
-i
-i
-
-`VK_PRIMITIVE_TOPOLOGY_LINE_LIST`
-2i
-2i+1
-2i+1
-
-`VK_PRIMITIVE_TOPOLOGY_LINE_STRIP`
-i
-i+1
-i+1
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST`
-3i
-3i+1
-3i+2
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP` (even)
-i
-i+1
-i+2
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP` (odd)
-i
-i+2
-i+1
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN`
-i+1
-i+2
-0
-
-`VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY`
-4i+1
-4i+2
-4i+2
-
-`VK_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY`
-i+1
-i+2
-i+2
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY`
-6i
-6i+2
-6i+4
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY` (even)
-2i
-2i+2
-2i+4
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY` (odd)
-2i
-2i+4
-2i+2
+| Primitive Topology | Vertex 0 | Vertex 1 | Vertex 2 |
+| --- | --- | --- | --- |
+| `VK_PRIMITIVE_TOPOLOGY_POINT_LIST` | i | i | i |
+| `VK_PRIMITIVE_TOPOLOGY_LINE_LIST` | 2i | 2i+1 | 2i+1 |
+| `VK_PRIMITIVE_TOPOLOGY_LINE_STRIP` | i | i+1 | i+1 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST` | 3i | 3i+1 | 3i+2 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP` (even) | i | i+1 | i+2 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP` (odd) | i | i+2 | i+1 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN` | i+1 | i+2 | 0 |
+| `VK_PRIMITIVE_TOPOLOGY_LINE_LIST_WITH_ADJACENCY` | 4i+1 | 4i+2 | 4i+2 |
+| `VK_PRIMITIVE_TOPOLOGY_LINE_STRIP_WITH_ADJACENCY` | i+1 | i+2 | i+2 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST_WITH_ADJACENCY` | 6i | 6i+2 | 6i+4 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY` (even) | 2i | 2i+2 | 2i+4 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY` (odd) | 2i | 2i+4 | 2i+2 |
 
 When the provoking vertex mode is
 `VK_PROVOKING_VERTEX_MODE_LAST_VERTEX_EXT`, the original vertex numbers
 used are the same as above except as indicated in the table below.
 
-Primitive Topology
-Vertex 0
-Vertex 1
-Vertex 2
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP` (odd, and
+| Primitive Topology | Vertex 0 | Vertex 1 | Vertex 2 |
+| --- | --- | --- | --- |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP` (odd, and
 `triStripVertexOrderIndependentOfProvokingVertex` of
-[VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR](limits.html#VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR) is `VK_FALSE`)
-i+1
-i
-i+2
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN`
-0
-i+1
-i+2
-
-`VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY` (odd)
-2i+2
-2i
-2i+4
+[VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR](limits.html#VkPhysicalDeviceFragmentShaderBarycentricPropertiesKHR) is `VK_FALSE`) | i+1 | i | i+2 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_FAN` | 0 | i+1 | i+2 |
+| `VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP_WITH_ADJACENCY` (odd) | 2i+2 | 2i | 2i+4 |
 
 When geometry
 or mesh
@@ -4087,20 +3865,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the `stippledLineEnable`
 state, call:
@@ -4171,20 +3940,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the line width, call:
 
@@ -4247,20 +4007,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 Not all line widths need be supported for line segment rasterization, but
 width 1.0 antialiased segments **must** be provided.
@@ -4534,6 +4285,17 @@ When Bresenham lines are being rasterized, sample locations **may** all be
 treated as being at the pixel center (this **may** affect attribute and depth
 interpolation).
 
+|  | The sample locations described above are **not** used for determining
+| --- | --- |
+coverage, they are only used for things like attribute interpolation.
+The rasterization rules that determine coverage are defined in terms of
+whether the line intersects **pixels**, as opposed to the point sampling rules
+used for other primitive types.
+So these rules are independent of the sample locations.
+One consequence of this is that Bresenham lines cover the same pixels
+regardless of the number of rasterization samples, and cover all samples in
+those pixels (unless masked out or killed). |
+
 If the `stippledLineEnable` member of
 [VkPipelineRasterizationLineStateCreateInfo](#VkPipelineRasterizationLineStateCreateInfo) is `VK_TRUE`, then
 lines are rasterized with a *line stipple* determined by
@@ -4668,20 +4430,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 If the `lineRasterizationMode` member of
 [VkPipelineRasterizationLineStateCreateInfo](#VkPipelineRasterizationLineStateCreateInfo) is
@@ -4697,6 +4450,11 @@ value that approximates the area of the intersection of the rectangle with
 the pixel square, and this coverage value is multiplied into the color
 location 0’s alpha value after fragment shading, as described in
 [Multisample Coverage](fragops.html#fragops-covg).
+
+|  | The details of the rasterization rules and area calculation are left
+| --- | --- |
+intentionally vague, to allow implementations to generate coverage and
+values that are aesthetically pleasing. |
 
 A polygon results from the decomposition of a triangle strip, triangle fan
 or a series of independent triangles.
@@ -4826,20 +4584,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 Once the orientation of triangles is determined, they are culled according
 to the [VkPipelineRasterizationStateCreateInfo](#VkPipelineRasterizationStateCreateInfo)::`cullMode` property
@@ -4961,20 +4710,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The rule for determining which fragments are produced by polygon
 rasterization is called *point sampling*.
@@ -5060,6 +4800,16 @@ For each i, 0 ≤ ai ≤ 1 and
   .
 The values of ai **may** differ from fragment to fragment, but at
 vertex i, ai = 1 and aj = 0 for j ≠ i.
+
+|  | One algorithm that achieves the required behavior is to triangulate a
+| --- | --- |
+polygon (without adding any vertices) and then treat each triangle
+individually as already discussed.
+A scan-line rasterizer that linearly interpolates data along each edge and
+then linearly interpolates data across each horizontal span from edge to
+edge also satisfies the restrictions (in this case the numerator and
+denominator of [perspective interpolation](#triangle_perspective_interpolation) are iterated independently, and a division is performed for
+each fragment). |
 
 Possible values of the
 [VkPipelineRasterizationStateCreateInfo](#VkPipelineRasterizationStateCreateInfo)::`polygonMode` property of
@@ -5205,20 +4955,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The depth values of all fragments generated by the rasterization of a
 polygon **can** be biased (offset) by a single depth bias value   
@@ -5313,20 +5054,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The depth bias depends on three parameters:
 
@@ -5508,20 +5240,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The `VkDepthBiasRepresentationInfoEXT` structure is defined as:
 
@@ -5725,20 +5448,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 If the `pNext` chain of [VkPipelineRasterizationStateCreateInfo](#VkPipelineRasterizationStateCreateInfo)
 includes a `VkPipelineRasterizationConservativeStateCreateInfoEXT`
@@ -5790,6 +5504,11 @@ Polygon rasterization **can** be made conservative by setting
 `VK_CONSERVATIVE_RASTERIZATION_MODE_OVERESTIMATE_EXT` or
 `VK_CONSERVATIVE_RASTERIZATION_MODE_UNDERESTIMATE_EXT` in
 `VkPipelineRasterizationConservativeStateCreateInfoEXT`.
+
+|  | If [`conservativePointAndLineRasterization`](limits.html#limits-conservativePointAndLineRasterization) is supported, conservative
+| --- | --- |
+rasterization can be applied to line and point primitives, otherwise it must
+be disabled. |
 
 Valid Usage
 
@@ -5922,20 +5641,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the
 `extraPrimitiveOverestimationSize`, call:
@@ -6013,20 +5723,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 When overestimate conservative rasterization is enabled, rather than
 evaluating coverage at individual sample locations, a determination is made

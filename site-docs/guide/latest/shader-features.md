@@ -34,7 +34,17 @@ Some of the following extensions were added alongside a SPIR-V extension. For ex
 
 For details how to use SPIR-V extension please read the [dedicated Vulkan Guide chapter](../spirv_extensions.html).
 
+|  | Promoted to core in Vulkan 1.2 |
+| --- | --- |
+
 This extension is designed for a Vulkan 1.1 implementations to expose the SPIR-V 1.4 feature set. Vulkan 1.1 only requires SPIR-V 1.3 and some use cases were found where an implementation might not upgrade to Vulkan 1.2, but still want to offer SPIR-V 1.4 features.
+
+|  | [SPV_KHR_8bit_storage](http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_8bit_storage.html)
+| --- | --- |
+
+[SPV_KHR_16bit_storage](http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_16bit_storage.html)
+
+[GLSL - GL_EXT_shader_16bit_storage](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GL_EXT_shader_16bit_storage.txt) defines both |
 
 Both `VK_KHR_8bit_storage` (promoted in Vulkan 1.2) and `VK_KHR_16bit_storage` (promoted in Vulkan 1.1) were added to allow the ability to use small values as input or output to a SPIR-V storage object. Prior to these extensions, all UBO, SSBO, and push constants needed to consume at least 4 bytes. With this, an application can now use 8-bit or 16-bit values directly from a buffer. It is also commonly paired with the use of `VK_KHR_shader_float16_int8` as this extension only deals with the storage interfaces.
 
@@ -67,9 +77,24 @@ void main() {
     uint b = uint(ssbo.dataB);
 }
 
+|  | Promoted to core in Vulkan 1.2
+| --- | --- |
+
+[GLSL - GL_EXT_shader_explicit_arithmetic_types](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GL_EXT_shader_explicit_arithmetic_types.txt) |
+
 This extension allows the use of 8-bit integer types or 16-bit floating-point types for arithmetic operations. This does not allow for 8-bit integer types or 16-bit floating-point types in any shader input and output interfaces and therefore is commonly paired with the use of `VK_KHR_8bit_storage` and `VK_KHR_16bit_storage`.
 
+|  | Promoted to core in Vulkan 1.2
+| --- | --- |
+
+[SPV_KHR_float_controls](http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_float_controls.html) |
+
 This extension allows the ability to set how rounding of floats are handled. The `VkPhysicalDeviceFloatControlsProperties` shows the full list of features that can be queried. This is useful when converting OpenCL kernels to Vulkan.
+
+|  | Promoted to core in Vulkan 1.1
+| --- | --- |
+
+[SPV_KHR_storage_buffer_storage_class](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_storage_buffer_storage_class.html) |
 
 Originally SPIR-V combined both UBO and SSBO into the 'Uniform' storage classes and differentiated them only through extra decorations. Because some hardware treats UBO and SSBO as two different storage objects, the SPIR-V wanted to reflect that. This extension serves the purpose of extending SPIR-V to have a new `StorageBuffer` class.
 
@@ -91,13 +116,36 @@ Since `SPV_KHR_storage_buffer_storage_class` was added to SPIR-V 1.3, if you tar
 %ptr = OpTypePointer StorageBuffer %ssbo
 %var = OpVariable %ptr StorageBuffer
 
+|  | [Try Online](https://godbolt.org/z/a8WMEeejs) |
+| --- | --- |
+
+|  | Promoted to core in Vulkan 1.1
+| --- | --- |
+
+[SPV_KHR_variable_pointers](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_variable_pointers.html) |
+
 A `Variable pointer` is defined in SPIR-V as
+
+|  | A pointer of logical pointer type that results from one of the following instructions: `OpSelect`, `OpPhi`, `OpFunctionCall`, `OpPtrAccessChain`, `OpLoad`, or `OpConstantNull` |
+| --- | --- |
 
 When this extension is enabled, invocation-private pointers can be dynamic and non-uniform. Without this extension a variable pointer must be selected from pointers pointing into the same structure or be `OpConstantNull`.
 
 This extension has two levels to it. The first is the `variablePointersStorageBuffer` feature bit which allows implementations to support the use of variable pointers into a SSBO only. The `variablePointers` feature bit allows the use of variable pointers outside the SSBO as well.
 
+|  | Promoted to core in Vulkan 1.2
+| --- | --- |
+
+[Comparing the Vulkan SPIR-V memory model to C’s](https://www.khronos.org/blog/comparing-the-vulkan-spir-v-memory-model-to-cs/) |
+
 The [Vulkan Memory Model](https://docs.vulkan.org/spec/latest/appendices/memorymodel.html) formally defines how to synchronize memory accesses to the same memory locations performed by multiple shader invocations and this extension exposes a boolean to let implementations to indicate support for it. This is important because with many things targeting Vulkan/SPIR-V it is important that any memory transfer operations an application might attempt to optimize doesn’t break across implementations.
+
+|  | Promoted to core in Vulkan 1.2
+| --- | --- |
+
+[SPV_EXT_shader_viewport_index_layer](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/EXT/SPV_EXT_shader_viewport_index_layer.html)
+
+[GLSL - GL_ARB_shader_viewport_layer_array](https://registry.khronos.org/OpenGL/extensions/ARB/ARB_shader_viewport_layer_array.txt) |
 
 This extension adds the `ViewportIndex`, `Layer` built-in for exporting from vertex or tessellation shaders.
 
@@ -105,21 +153,60 @@ In GLSL these are represented by `gl_ViewportIndex` and `gl_Layer` built-ins.
 
 When using Vulkan 1.0 or 1.1 the `ShaderViewportIndexLayerEXT` SPIR-V capability is used. Starting in Vulkan 1.2 the `ShaderViewportIndexLayerEXT` capability is split into the new `ShaderViewportIndex` and `ShaderLayer` capability.
 
+|  | Promoted to core in Vulkan 1.1
+| --- | --- |
+
+[SPV_KHR_shader_draw_parameters](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_shader_draw_parameters.html)
+
+[GLSL - GL_ARB_shader_draw_parameters](https://registry.khronos.org/OpenGL/extensions/ARB/ARB_shader_draw_parameters.txt) |
+
 This extension adds the `BaseInstance`, `BaseVertex`, and `DrawIndex` built-in for vertex shaders. This was added as there are legitimate use cases for both inclusion and exclusion of the `BaseVertex` or `BaseInstance` parameters in `VertexId` and `InstanceId`, respectively.
 
 In GLSL these are represented by `gl_BaseInstanceARB`, `gl_BaseVertexARB` and `gl_BaseInstanceARB` built-ins.
+
+|  | [SPV_EXT_shader_stencil_export](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/EXT/SPV_EXT_shader_stencil_export.html)
+| --- | --- |
+
+[GLSL - GL_ARB_shader_stencil_export](https://registry.khronos.org/OpenGL/extensions/ARB/ARB_shader_stencil_export.txt) |
 
 This extension allows a shader to generate the stencil reference value per invocation. When stencil testing is enabled, this allows the test to be performed against the value generated in the shader.
 
 In GLSL this is represented by a `out int gl_FragStencilRefARB` built-in.
 
+|  | Promoted to core in Vulkan 1.3
+| --- | --- |
+
+[SPV_EXT_demote_to_helper_invocation](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/EXT/SPV_EXT_demote_to_helper_invocation.html)
+
+[GLSL - GL_EXT_demote_to_helper_invocation](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GLSL_EXT_demote_to_helper_invocation.txt) |
+
 This extension was created to help with matching the HLSL `discard` instruction in SPIR-V by adding a `demote` keyword. When using `demote` in a fragment shader invocation it becomes a helper invocation. Any stores to memory after this instruction are suppressed and the fragment does not write outputs to the framebuffer.
+
+|  | [SPV_KHR_shader_clock](http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_shader_clock.html)
+| --- | --- |
+
+[GLSL - GL_EXT_shader_realtime_clock](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GL_EXT_shader_realtime_clock.txt) |
 
 This extension allows the shader to read the value of a monotonically incrementing counter provided by the implementation. This can be used as one possible method for debugging by tracking the order of when an invocation executes the instruction. It is worth noting that the addition of the `OpReadClockKHR` alters the shader one might want to debug. This means there is a certain level of accuracy representing the order as if the instructions did not exists.
 
+|  | Promoted to core in Vulkan 1.3
+| --- | --- |
+
+[SPV_KHR_non_semantic_info](http://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_shader_clock.html) |
+
 This extension exposes [SPV_KHR_non_semantic_info](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_non_semantic_info.html) which [adds the ability](https://github.com/KhronosGroup/SPIRV-Guide/blob/master/chapters/nonsemantic.md) to declare extended instruction sets that have no semantic impact and can be safely removed from a module.
 
+|  | Promoted to core in Vulkan 1.3
+| --- | --- |
+
+[SPV_KHR_terminate_invocation](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_terminate_invocation.html) |
+
 This extension adds the new instruction `OpTerminateInvocation` to provide a disambiguated functionality compared to the `OpKill` instruction.
+
+|  | [SPV_KHR_workgroup_memory_explicit_layout](https://htmlpreview.github.io/?https://github.com/KhronosGroup/SPIRV-Registry/blob/main/extensions/KHR/SPV_KHR_workgroup_memory_explicit_layout.html)
+| --- | --- |
+
+[GLSL - GL_EXT_shared_memory_block](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GL_EXT_shared_memory_block.txt) |
 
 This extension provides a way for the shader to define the layout of `Workgroup` `Storage Class` memory. `Workgroup` variables can be declared in blocks, and then use the same explicit layout decorations (e.g. `Offset`, `ArrayStride`) as other storage classes.
 
@@ -136,6 +223,9 @@ barrier()
 pass4 - read shmem using type B
 
 The explicit layout support and some form of aliasing is also required for layering OpenCL on top of Vulkan.
+
+|  | Promoted to core in Vulkan 1.3 |
+| --- | --- |
 
 This extension allows `OpVariable` with a `Workgroup` `Storage Class` to use the `Initializer` operand.
 

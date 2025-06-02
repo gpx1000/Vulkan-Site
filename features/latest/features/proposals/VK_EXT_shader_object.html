@@ -12,6 +12,7 @@
       }(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
     </script>
     <link rel="stylesheet" href="../../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../../_/css/vendor/tabs.css">
     <link rel="apple-touch-icon" sizes="180x180" href="../../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../../_/img/favicon-16x16.png">
@@ -551,6 +552,7 @@
 <li><a href="#_resolved_should_this_extension_expose_some_abstraction_for_setting_groups_of_related_state">5.6. RESOLVED: Should this extension expose some abstraction for setting groups of related state?</a></li>
 <li><a href="#_resolved_there_is_currently_no_dynamic_state_setting_functionality_for_sample_shading_how_should_this_be_handled">5.7. RESOLVED: There is currently no dynamic state setting functionality for sample shading. How should this be handled?</a></li>
 <li><a href="#_resolved_is_vk_incompatible_shader_binary_ext_a_success_code_or_an_error_code">5.8. RESOLVED: Is <code>VK_INCOMPATIBLE_SHADER_BINARY_EXT</code> a success code, or an error code?</a></li>
+<li><a href="#_resolved_is_multiview_allowed">5.9. RESOLVED: Is multiview allowed?</a></li>
 </ul>
 </li>
 <li><a href="#_further_functionality">6. Further Functionality</a></li>
@@ -1620,6 +1622,13 @@ much as <code>VK_INCOMPLETE</code> is, and aliased the original name to the curr
 without <code>ERROR</code> in it.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_resolved_is_multiview_allowed"><a class="anchor" href="#_resolved_is_multiview_allowed"></a>5.9. RESOLVED: Is multiview allowed?</h3>
+<div class="paragraph">
+<p>No. The multiview mask is widely required static state since implementations may compute all views in one big shader invocation.
+This concept may be re-introduced in a different extension.</p>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
@@ -1673,5 +1682,6 @@ without <code>ERROR</code> in it.</p>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
 <script async src="../../../../search-index.js"></script>
+<script async src="../../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

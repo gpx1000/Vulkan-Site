@@ -37,6 +37,9 @@
 
 ## Content
 
+|  | Promoted to core in Vulkan 1.3 |
+| --- | --- |
+
 The `VK_KHR_synchronization2` extension provides improvements to pipeline barriers, events, image layout transitions and queue submission. This document shows the difference between the original Vulkan synchronization operations and those provided by the extension. There are also examples of how to update application code to make use of the extension.
 
 One main change with the extension is to have pipeline stages and access flags now specified together in memory barrier structures. This makes the connection between the two more obvious.
@@ -320,3 +323,6 @@ VkSemaphoreSubmitInfoKHR signalSemaphoreSubmitInfo = {
 };
 
 For devices that do not natively support this extension, there is a portable implementation in the [Vulkan-Extensionlayer](https://github.com/KhronosGroup/Vulkan-ExtensionLayer) repository.   This layer should work with any Vulkan device. For more information see the [layer documentation](https://github.com/KhronosGroup/Vulkan-ExtensionLayer/blob/master/docs/synchronization2_layer.md) and the [Sync2Compat.Vulkan10](https://github.com/KhronosGroup/Vulkan-ExtensionLayer/blob/bd8a72b14c67d011561cd795d777fb838c926e0f/tests/synchronization2_tests.cpp#L1243) test case.
+
+|  | The `VK_KHR_synchronization2` specification lists `VK_KHR_create_renderpass2` and `VK_KHR_get_physical_device_properties2` as requirements. As a result, using synchronization2 without these extensions may result in validation errors. The extension requirements are being reevaluated and validation will be adjusted once this is complete. |
+| --- | --- |

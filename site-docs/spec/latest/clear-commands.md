@@ -238,22 +238,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Outside | Outside | Graphics
 
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
-
-Compute
-Action
+Compute | Action |
 
 To clear one or more subranges of a depth/stencil image, call:
 
@@ -490,20 +481,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
-Action
+Secondary | Outside | Outside | Graphics | Action |
 
 Clears outside render pass instances are treated as transfer operations for
 the purposes of memory barriers.
@@ -557,6 +539,11 @@ the `VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT` and
 `VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT` stages.
 
 `vkCmdClearAttachments` is not affected by the bound pipeline state.
+
+|  | It is generally preferable to clear attachments by using the
+| --- | --- |
+`VK_ATTACHMENT_LOAD_OP_CLEAR` load operation at the start of rendering,
+as it is more efficient on some implementations. |
 
 If any attachment’s `aspectMask` to be cleared is not backed by an image
 view, the clear has no effect on that aspect.
@@ -736,20 +723,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-Action
+Secondary | Inside | Outside | Graphics | Action |
 
 The `VkClearRect` structure is defined as:
 
@@ -1075,24 +1053,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
 
 To update buffer data inline in a command buffer, call:
 
@@ -1126,6 +1095,19 @@ of 4.
 `dataSize` **must** be less than or equal to 65536 bytes.
 For larger updates, applications **can** use buffer to buffer
 [copies](copies.html#copies-buffers).
+
+|  | Buffer updates performed with `vkCmdUpdateBuffer` first copy the data
+| --- | --- |
+into command buffer memory when the command is recorded (which requires
+additional storage and may incur an additional allocation), and then copy
+the data from the command buffer into `dstBuffer` when the command is
+executed on a device.
+
+The additional cost of this functionality compared to [buffer to buffer copies](copies.html#copies-buffers) means it should only be used for very small
+amounts of data, and is why it is limited to at most 65536 bytes.
+Applications **can** work around this restriction by issuing multiple
+`vkCmdUpdateBuffer` commands to different ranges of the same buffer, but
+doing so is not recommended. |
 
 The source data is copied from `pData` to the command buffer when the
 command is called.
@@ -1247,21 +1229,18 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Transfer
+Secondary | Outside | Outside | Transfer
 
 Graphics
 
-Compute
-Action
+Compute | Action |
+
+|  | The `pData` parameter was of type `uint32_t*` instead of `void*`
+| --- | --- |
+prior to version 1.0.19 of the Specification and [VK_HEADER_VERSION](../appendices/boilerplate.html#VK_HEADER_VERSION) 19
+of the [Vulkan Header Files](../appendices/boilerplate.html#boilerplate-headers).
+This was a historical anomaly, as the source data may be of other types. |

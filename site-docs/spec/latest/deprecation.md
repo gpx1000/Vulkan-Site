@@ -30,6 +30,13 @@ Does not work as originally intended
 * 
 Functionality cannot continue to work with newer features
 
+|  | Deprecation is tagged in the xml registry, with both core versions and
+| --- | --- |
+extensions able to express deprecation of any other interface.
+All deprecations will be listed in this section, however only functionality
+deprecated by a core version that is present will be emphasized with
+warnings. |
+
 Deprecated functionality will remain available for backwards compatibility
 until a new major [core version](../chapters/extensions.html#extendingvulkan-compatibility-coreversions) removes it, but applications targeting more recent versions of
 Vulkan **should** still avoid using deprecated functionality.
@@ -37,8 +44,19 @@ Interactions with deprecated functionality will often be omitted when new
 extensions or features are developed, so deprecated functionality may not
 work with the latest features.
 
+|  | Extensions can be deprecated in their entirety by a different mechanism, and
+| --- | --- |
+are marked as deprecated in their appendix.
+See [the Deprecation section of the Extensions chapter](../chapters/extensions.html#extendingvulkan-compatibility-deprecation) for more information. |
+
 When functionality is deprecated, an explanation of its deprecation will be
 added to the below sections.
+
+|  | This list is a work in progress - we intend to add other items to this
+| --- | --- |
+section over time; things such as shader modules (deprecated by
+[VK_KHR_maintenance5](extensions.html#VK_KHR_maintenance5)) and anything superseded by a new version of the
+same functionality (e.g. [VK_KHR_synchronization2](extensions.html#VK_KHR_synchronization2)). |
 
 In Vulkan 1.3, the [VK_KHR_dynamic_rendering](extensions.html#VK_KHR_dynamic_rendering) extension was promoted
 into core, which added a new way to specify render passes without needing to
@@ -54,6 +72,12 @@ requires applications to split work over multiple dynamic render pass
 instances.
 Functionality not covered with local reads would result in most or all
 vendors splitting the subpass internally.
+
+|  | [VK_QCOM_render_pass_shader_resolve](extensions.html#VK_QCOM_render_pass_shader_resolve) does not have equivalent
+| --- | --- |
+functionality exposed via dynamic rendering.
+Use of deprecated functionality will be required to use that extension
+unless/until replacements are created. |
 
 Outside of vendor extensions, applications are advised to make use of
 [vkCmdBeginRendering](../chapters/renderpass.html#vkCmdBeginRendering) and [vkCmdEndRendering](../chapters/renderpass.html#vkCmdEndRendering) to manage render

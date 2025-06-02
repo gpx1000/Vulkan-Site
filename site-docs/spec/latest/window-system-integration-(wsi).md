@@ -159,6 +159,12 @@ During the lifetime of a surface created using a particular
 same `ANativeWindow` and any attempts to connect to the same
 `ANativeWindow` through other platform mechanisms will fail.
 
+|  | In particular, only one `VkSurfaceKHR` **can** exist at a time for a given
+| --- | --- |
+window.
+Similarly, a native window **cannot** be used by both a `VkSurfaceKHR` and
+`EGLSurface` simultaneously. |
+
 If successful, `vkCreateAndroidSurfaceKHR` increments the
 `ANativeWindow`’s reference count, and `vkDestroySurfaceKHR` will
 decrement it.
@@ -427,6 +433,11 @@ If the application wishes to synchronize any window changes with a
 particular frame, such requests **must** be sent to the Wayland display server
 prior to calling [vkQueuePresentKHR](#vkQueuePresentKHR).
 
+The implementation **must** ensure that no `wp_color_management_surface_v1`
+object exists for a surface, which has no swapchains, or only swapchains
+with a `imageColorSpace` of `VK_COLOR_SPACE_PASS_THROUGH_EXT`
+associated with it.
+
 // Provided by VK_KHR_wayland_surface
 typedef VkFlags VkWaylandSurfaceCreateFlagsKHR;
 
@@ -595,6 +606,18 @@ With Win32, `minImageExtent`, `maxImageExtent`, and
 The `currentExtent` of a Win32 surface **must** have both `width` and
 `height` greater than 0, or both of them 0.
 
+|  | Due to above restrictions,
+| --- | --- |
+unless [VkSwapchainPresentScalingCreateInfoEXT](#VkSwapchainPresentScalingCreateInfoEXT) is used to specify
+handling of disparities between surface and swapchain dimensions,
+it is only possible to create a new swapchain on this platform with
+`imageExtent` being equal to the current size of the window, as reported
+in [VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`currentExtent`.
+
+The window size **may** become (0, 0) on this platform (e.g. when the
+window is minimized), and so a swapchain **cannot** be created until the size
+changes. |
+
 // Provided by VK_KHR_win32_surface
 typedef VkFlags VkWin32SurfaceCreateFlagsKHR;
 
@@ -728,6 +751,18 @@ With Xcb, `minImageExtent`, `maxImageExtent`, and
 
 The `currentExtent` of an Xcb surface **must** have both `width` and
 `height` greater than 0, or both of them 0.
+
+|  | Due to above restrictions,
+| --- | --- |
+unless [VkSwapchainPresentScalingCreateInfoEXT](#VkSwapchainPresentScalingCreateInfoEXT) is used to specify
+handling of disparities between surface and swapchain dimensions,
+it is only possible to create a new swapchain on this platform with
+`imageExtent` being equal to the current size of the window, as reported
+in [VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`currentExtent`.
+
+The window size **may** become (0, 0) on this platform (e.g. when the
+window is minimized), and so a swapchain **cannot** be created until the size
+changes. |
 
 Some Vulkan functions **may** send protocol over the specified xcb connection
 when using a swapchain or presentable images created from a
@@ -876,6 +911,18 @@ With Xlib, `minImageExtent`, `maxImageExtent`, and
 
 The `currentExtent` of an Xlib surface **must** have both `width` and
 `height` greater than 0, or both of them 0.
+
+|  | Due to above restrictions,
+| --- | --- |
+unless [VkSwapchainPresentScalingCreateInfoEXT](#VkSwapchainPresentScalingCreateInfoEXT) is used to specify
+handling of disparities between surface and swapchain dimensions,
+it is only possible to create a new swapchain on this platform with
+`imageExtent` being equal to the current size of the window, as reported
+in [VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`currentExtent`.
+
+The window size **may** become (0, 0) on this platform (e.g. when the
+window is minimized), and so a swapchain **cannot** be created until the size
+changes. |
 
 Some Vulkan functions **may** send protocol over the specified Xlib
 `Display` connection when using a swapchain or presentable images created
@@ -1313,6 +1360,11 @@ surface object when there is no more specific allocator available (see
 `pSurface` is a pointer to a [VkSurfaceKHR](#VkSurfaceKHR) handle in which the
 created surface object is returned.
 
+|  | The `vkCreateIOSSurfaceMVK` function is considered deprecated and has been
+| --- | --- |
+superseded by [vkCreateMetalSurfaceEXT](#vkCreateMetalSurfaceEXT) from the
+`[VK_EXT_metal_surface](../../appendices/extensions.html#VK_EXT_metal_surface)` extension. |
+
 Valid Usage (Implicit)
 
 * 
@@ -1441,6 +1493,11 @@ surface object when there is no more specific allocator available (see
 * 
 `pSurface` is a pointer to a [VkSurfaceKHR](#VkSurfaceKHR) handle in which the
 created surface object is returned.
+
+|  | The `vkCreateMacOSSurfaceMVK` function is considered deprecated and has been
+| --- | --- |
+superseded by [vkCreateMetalSurfaceEXT](#vkCreateMetalSurfaceEXT) from the
+`[VK_EXT_metal_surface](../../appendices/extensions.html#VK_EXT_metal_surface)` extension. |
 
 Valid Usage (Implicit)
 
@@ -2134,6 +2191,10 @@ visible portion of the display, in millimeters.
 `physicalResolution` describes the physical, native, or preferred
 resolution of the display.
 
+|  | For devices which have no natural value to return here, implementations
+| --- | --- |
+**should** return the maximum resolution supported. |
+
 * 
 `supportedTransforms` is a bitmask of
 [VkSurfaceTransformFlagBitsKHR](#VkSurfaceTransformFlagBitsKHR) describing which transforms are
@@ -2150,6 +2211,11 @@ this display in any order relative to each other.
 self-refresh/internal buffering.
 If this is true, the application **can** submit persistent present
 operations on swapchains created against this display.
+
+|  | Persistent presents **may** have higher latency, and **may** use less power when
+| --- | --- |
+the screen content is updated infrequently, or when only a portion of the
+screen needs to be updated in most frames. |
 
 To query information about the available displays, call:
 
@@ -2277,6 +2343,10 @@ If the X11 server associated with `dpy` does not own `display`, or
 if permission to access it has already been acquired by another entity, the
 call **must** return the error code `VK_ERROR_INITIALIZATION_FAILED`.
 
+|  | One example of when an X11 server loses access to a display is when it loses
+| --- | --- |
+ownership of its virtual terminal. |
+
 Valid Usage (Implicit)
 
 * 
@@ -2398,6 +2468,26 @@ fail with an appropriate error code.
 If permission to access `display` has already been acquired by another
 entity, the call **must** return the error code
 `VK_ERROR_INITIALIZATION_FAILED`.
+
+|  | The Vulkan instance acquires control of a
+| --- | --- |
+[“winrt::Windows::Devices::Display::Core::DisplayTarget”](https://docs.microsoft.com/en-us/uwp/api/windows.devices.display.core.displaytarget)
+by performing an operation equivalent to
+[“winrt::Windows::Devices::Display::Core::DisplayManager.TryAcquireTarget()”](https://docs.microsoft.com/en-us/uwp/api/windows.devices.display.core.displaymanager.tryacquiretarget)
+on the “DisplayTarget”. |
+
+|  | One example of when Windows 10 loses access to a display is when the display
+| --- | --- |
+is hot-unplugged. |
+
+|  | One example of when a display has already been acquired by another entity is
+| --- | --- |
+when the Windows desktop compositor (DWM) is in control of the display.
+Beginning with Windows 10 version 2004 it is possible to cause DWM to
+release a display by using the “Advanced display settings” sub-page of the
+“Display settings” control panel.
+[vkAcquireWinrtDisplayNV](#vkAcquireWinrtDisplayNV) does not itself cause DWM to release a
+display; this action must be performed outside of Vulkan. |
 
 Valid Usage (Implicit)
 
@@ -3170,6 +3260,9 @@ typedef struct VkDisplayModeParametersKHR {
 `refreshRate` is a `uint32_t` that is the number of times the
 display is refreshed each second multiplied by 1000.
 
+|  | For example, a 60Hz display mode would report a `refreshRate` of 60,000. |
+| --- | --- |
+
 Valid Usage
 
 * 
@@ -3582,6 +3675,9 @@ structure.
 `mode` is the display mode the application intends to program when
 using the specified plane.
 
+|  | This parameter also implicitly specifies a display. |
+| --- | --- |
+
 * 
 `planeIndex` is the plane which the application intends to use with
 the display.
@@ -3880,6 +3976,14 @@ specifying the type of alpha blending to use.
 `imageExtent` is the size of the presentable images to use with the
 surface.
 
+|  | Creating a display surface **must** not modify the state of the displays,
+| --- | --- |
+planes, or other resources it names.
+For example, it **must** not apply the specified mode to be set on the
+associated display.
+Application of display configuration occurs as a side effect of presenting
+to a display surface. |
+
 Valid Usage
 
 * 
@@ -4099,6 +4203,18 @@ signaling and emitters.
 
 Vulkan rendering can be presented to a headless surface, where the
 presentation operation is a no-op producing no externally-visible result.
+
+|  | Because there is no real presentation target, the headless presentation
+| --- | --- |
+engine may be extended to impose an arbitrary or customizable set of
+restrictions and features.
+This makes it a useful portable test target for applications targeting a
+wide range of presentation engines where the actual target presentation
+engines might be scarce, unavailable or otherwise undesirable or
+inconvenient to use for general Vulkan application development.
+
+The usual surface query mechanisms must be used to determine the actual
+restrictions and features of the implementation. |
 
 To create a headless `VkSurfaceKHR` object, call:
 
@@ -4578,6 +4694,14 @@ physical device.
 The resulting capabilities **can** be obtained with the queries listed below in
 this section.
 
+|  | In addition to the surface capabilities as obtained by surface queries
+| --- | --- |
+below, swapchain images are also subject to ordinary image creation limits
+as reported by [vkGetPhysicalDeviceImageFormatProperties](../capabilities.html#vkGetPhysicalDeviceImageFormatProperties).
+As an application is instructed by the appropriate Valid Usage sections,
+both the surface capabilities and the image creation limits have to be
+satisfied whenever swapchain images are created. |
+
 To query the basic capabilities of a surface, needed in order to create a
 swapchain, call:
 
@@ -4739,6 +4863,17 @@ with [VkPresentModeKHR](#VkPresentModeKHR) set to
 for the surface on the specified device.
 `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` **must** be included in the set.
 Implementations **may** support additional usages.
+
+|  | Supported usage flags of a presentable image when using
+| --- | --- |
+`VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR` or
+`VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR` presentation mode are
+provided by
+[VkSharedPresentSurfaceCapabilitiesKHR](#VkSharedPresentSurfaceCapabilitiesKHR)::`sharedPresentSupportedUsageFlags`. |
+
+|  | Formulas such as min(N, `maxImageCount`) are not correct, since
+| --- | --- |
+`maxImageCount` **may** be zero. |
 
 To query the basic capabilities of a surface defined by the core or
 extensions, call:
@@ -5027,6 +5162,17 @@ structure.
 `hmonitor` is the Win32 `HMONITOR` handle identifying the display
 to create the surface with.
 
+|  | If `hmonitor` is invalidated (e.g. the monitor is unplugged) during the
+| --- | --- |
+lifetime of a swapchain created with this structure, operations on that
+swapchain will return `VK_ERROR_OUT_OF_DATE_KHR`. |
+
+|  | It is the responsibility of the application to change the display settings
+| --- | --- |
+of the targeted Win32 display using the appropriate platform APIs.
+Such changes **may** alter the surface capabilities reported for the created
+surface. |
+
 Valid Usage
 
 * 
@@ -5198,15 +5344,17 @@ The `width` and `height` of the extent will each be greater than
 or equal to the corresponding `width` and `height` of
 [VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`maxImageExtent`.
 
-Before creating a swapchain whose scaling mode **can** be specified through the
-use of [VkSwapchainPresentScalingCreateInfoEXT](#VkSwapchainPresentScalingCreateInfoEXT), obtain the set of
-supported scaling modes by including a [VkSurfacePresentModeEXT](#VkSurfacePresentModeEXT)
-structure in the `pNext` chain of [VkPhysicalDeviceSurfaceInfo2KHR](#VkPhysicalDeviceSurfaceInfo2KHR)
-when calling [vkGetPhysicalDeviceSurfaceCapabilities2KHR](#vkGetPhysicalDeviceSurfaceCapabilities2KHR).
+To query the set of supported scaling modes for a given present mode, add a
+[VkSurfacePresentModeEXT](#VkSurfacePresentModeEXT) structure in the `pNext` chain of
+[VkPhysicalDeviceSurfaceInfo2KHR](#VkPhysicalDeviceSurfaceInfo2KHR) when calling
+[vkGetPhysicalDeviceSurfaceCapabilities2KHR](#vkGetPhysicalDeviceSurfaceCapabilities2KHR).
 The implementation **must** return the same values in
 `VkSurfacePresentScalingCapabilitiesEXT` for any of the compatible
 present modes as obtained through
 [VkSurfacePresentModeCompatibilityEXT](#VkSurfacePresentModeCompatibilityEXT).
+
+The application **can** specify the scaling mode when creating a swapchain
+through the use of [VkSwapchainPresentScalingCreateInfoEXT](#VkSwapchainPresentScalingCreateInfoEXT).
 
 Valid Usage (Implicit)
 
@@ -5319,6 +5467,26 @@ image counts **must** both be one.
 The per-present mode image counts **may** be less-than or greater-than the
 image counts returned when `VkSurfacePresentModeEXT` is not provided.
 
+|  | If [VkSwapchainPresentModesCreateInfoEXT](#VkSwapchainPresentModesCreateInfoEXT) is provided to swapchain
+| --- | --- |
+creation, the requirements for forward progress may be less strict.
+For example, a FIFO swapchain might only require 2 images to guarantee
+forward progress, but a MAILBOX one might require 4.
+Without the per-present image counts, such an implementation would have to
+return 4 in [VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`minImageCount`, which
+pessimizes FIFO.
+Conversely, an implementation may return a low number for minImageCount, but
+internally bump the image count when application queries
+[vkGetSwapchainImagesKHR](#vkGetSwapchainImagesKHR), which can surprise applications, and is not
+discoverable until swapchain creation.
+Using `VkSurfacePresentModeEXT` and
+[VkSwapchainPresentModesCreateInfoEXT](#VkSwapchainPresentModesCreateInfoEXT) together effectively removes this
+problem.
+
+[VkSwapchainPresentModesCreateInfoEXT](#VkSwapchainPresentModesCreateInfoEXT) is required for the specification
+to be backwards compatible with applications that do not know about, or make
+use of this feature. |
+
 Valid Usage
 
 * 
@@ -5380,12 +5548,13 @@ The implementation **must** include the present mode passed to
 [VkSurfacePresentModeEXT](#VkSurfacePresentModeEXT) in `pPresentModes`, unless
 `presentModeCount` is zero.
 
-Before creating a swapchain whose present modes **can** be modified through the
-use of [VkSwapchainPresentModesCreateInfoEXT](#VkSwapchainPresentModesCreateInfoEXT), obtain the set of present
-modes compatible with a given initial present mode by including a
-[VkSurfacePresentModeEXT](#VkSurfacePresentModeEXT) structure in the `pNext` chain of
-[VkPhysicalDeviceSurfaceInfo2KHR](#VkPhysicalDeviceSurfaceInfo2KHR) when calling
+To query the set of present modes compatible with a given initial present
+mode, add a [VkSurfacePresentModeEXT](#VkSurfacePresentModeEXT) structure in the `pNext` chain
+of [VkPhysicalDeviceSurfaceInfo2KHR](#VkPhysicalDeviceSurfaceInfo2KHR) when calling
 [vkGetPhysicalDeviceSurfaceCapabilities2KHR](#vkGetPhysicalDeviceSurfaceCapabilities2KHR).
+
+The application **can** create a swapchain whose present mode **can** be modified
+through the use of [VkSwapchainPresentModesCreateInfoEXT](#VkSwapchainPresentModesCreateInfoEXT).
 
 Valid Usage (Implicit)
 
@@ -6294,6 +6463,46 @@ display’s native color space.
 This matches the color space expectations of AMD’s FreeSync2 standard,
 for displays supporting it.
 
+|  | In the initial release of the `[VK_KHR_surface](../../appendices/extensions.html#VK_KHR_surface)` and
+| --- | --- |
+`[VK_KHR_swapchain](../../appendices/extensions.html#VK_KHR_swapchain)` extensions, the token
+`VK_COLORSPACE_SRGB_NONLINEAR_KHR` was used.
+Starting in the 2016-05-13 updates to the extension branches, matching
+release 1.0.13 of the core API specification,
+`VK_COLOR_SPACE_SRGB_NONLINEAR_KHR` is used instead for consistency with
+Vulkan naming rules.
+The older enum is still available for backwards compatibility. |
+
+|  | In older versions of this extension
+| --- | --- |
+`VK_COLOR_SPACE_DISPLAY_P3_LINEAR_EXT` was misnamed
+`VK_COLOR_SPACE_DCI_P3_LINEAR_EXT`.
+This has been updated to indicate that it uses RGB color encoding, not XYZ.
+The old name is deprecated but is maintained for backwards compatibility. |
+
+|  | In older versions of the `[VK_EXT_swapchain_colorspace](../../appendices/extensions.html#VK_EXT_swapchain_colorspace)` extension,
+| --- | --- |
+`VK_COLOR_SPACE_DOLBYVISION_EXT` was exposed.
+The intent was to indicate the presentation engine shall decode an image
+using the SMPTE ST 2084 Perceptual Quantizer (PQ) EOTF, and then apply a
+proprietary OOTF to process the image.
+However, Dolby Vision profile 8.4 describes an encoding using the Hybrid Log
+Gamma (HLG) OETF, and there is no swapchain extension for signaling Dolby
+Vision metadata to be used by a proprietary OOTF.
+This enum is deprecated but is maintained for backwards compatibility. |
+
+|  | For a traditional “Linear” or non-gamma transfer function color space use
+| --- | --- |
+`VK_COLOR_SPACE_PASS_THROUGH_EXT`. |
+
+|  | On Wayland, `VK_COLOR_SPACE_PASS_THROUGH_EXT` can be used to disable
+| --- | --- |
+color management by the WSI on a surface, which makes it possible for the
+application to create a `wp_color_management_surface_v1` object without
+triggering a `surface_exists` protocol error.
+
+See [vkCreateWaylandSurfaceKHR](#vkCreateWaylandSurfaceKHR) |
+
 The presentation engine interprets the pixel values of the R, G, and B
 components as having been encoded using an appropriate transfer function.
 Applications **should** ensure that the appropriate transfer function has been
@@ -6310,70 +6519,16 @@ The A channel is always interpreted as linearly encoded.
 This extension defines enums for [VkColorSpaceKHR](#VkColorSpaceKHR) that correspond to
 the following color spaces:
 
-Table 1. Color Spaces and Attributes
-
-Name
-Red Primary
-Green Primary
-Blue Primary
-White-point
-Transfer function
-
-DCI-P3
-1.000, 0.000
-0.000, 1.000
-0.000, 0.000
-0.3333, 0.3333
-DCI P3
-
-Display-P3
-0.680, 0.320
-0.265, 0.690
-0.150, 0.060
-0.3127, 0.3290 (D65)
-Display-P3
-
-BT709
-0.640, 0.330
-0.300, 0.600
-0.150, 0.060
-0.3127, 0.3290 (D65)
-BT709
-
-sRGB
-0.640, 0.330
-0.300, 0.600
-0.150, 0.060
-0.3127, 0.3290 (D65)
-sRGB
-
-extended sRGB
-0.640, 0.330
-0.300, 0.600
-0.150, 0.060
-0.3127, 0.3290 (D65)
-scRGB
-
-HDR10_ST2084
-0.708, 0.292
-0.170, 0.797
-0.131, 0.046
-0.3127, 0.3290 (D65)
-ST2084 PQ
-
-HDR10_HLG
-0.708, 0.292
-0.170, 0.797
-0.131, 0.046
-0.3127, 0.3290 (D65)
-HLG
-
-Adobe RGB
-0.640, 0.330
-0.210, 0.710
-0.150, 0.060
-0.3127, 0.3290 (D65)
-Adobe RGB
+| Name | Red Primary | Green Primary | Blue Primary | White-point | Transfer function |
+| --- | --- | --- | --- | --- | --- |
+| DCI-P3 | 1.000, 0.000 | 0.000, 1.000 | 0.000, 0.000 | 0.3333, 0.3333 | DCI P3 |
+| Display-P3 | 0.680, 0.320 | 0.265, 0.690 | 0.150, 0.060 | 0.3127, 0.3290 (D65) | Display-P3 |
+| BT709 | 0.640, 0.330 | 0.300, 0.600 | 0.150, 0.060 | 0.3127, 0.3290 (D65) | BT709 |
+| sRGB | 0.640, 0.330 | 0.300, 0.600 | 0.150, 0.060 | 0.3127, 0.3290 (D65) | sRGB |
+| extended sRGB | 0.640, 0.330 | 0.300, 0.600 | 0.150, 0.060 | 0.3127, 0.3290 (D65) | scRGB |
+| HDR10_ST2084 | 0.708, 0.292 | 0.170, 0.797 | 0.131, 0.046 | 0.3127, 0.3290 (D65) | ST2084 PQ |
+| HDR10_HLG | 0.708, 0.292 | 0.170, 0.797 | 0.131, 0.046 | 0.3127, 0.3290 (D65) | HLG |
+| Adobe RGB | 0.640, 0.330 | 0.210, 0.710 | 0.150, 0.060 | 0.3127, 0.3290 (D65) | Adobe RGB |
 
 The transfer functions are described in the “Transfer Functions” chapter
 of the [Khronos Data Format Specification](../introduction.html#data-format).
@@ -6386,6 +6541,9 @@ Except Display-P3 OETF, which is:
 
 where L is the linear value of a color component and E is the
 encoded value (as stored in the image in memory).
+
+|  | For most uses, the sRGB OETF is equivalent. |
+| --- | --- |
 
 To query the supported presentation modes for a surface, call:
 
@@ -6705,31 +6863,22 @@ The supported [VkImageUsageFlagBits](../resources.html#VkImageUsageFlagBits) of 
 swapchain created for a surface **may** differ depending on the presentation
 mode, and can be determined as per the table below:
 
-Table 2. Presentable Image Usage Queries
+| Presentation mode | Image usage flags |
+| --- | --- |
+| `VK_PRESENT_MODE_IMMEDIATE_KHR` | [VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`supportedUsageFlags` |
+| `VK_PRESENT_MODE_MAILBOX_KHR` | [VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`supportedUsageFlags` |
+| `VK_PRESENT_MODE_FIFO_KHR` | [VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`supportedUsageFlags` |
+| `VK_PRESENT_MODE_FIFO_RELAXED_KHR` | [VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`supportedUsageFlags` |
+| `VK_PRESENT_MODE_FIFO_LATEST_READY_EXT` | [VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`supportedUsageFlags` |
+| `VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR` | [VkSharedPresentSurfaceCapabilitiesKHR](#VkSharedPresentSurfaceCapabilitiesKHR)::`sharedPresentSupportedUsageFlags` |
+| `VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR` | [VkSharedPresentSurfaceCapabilitiesKHR](#VkSharedPresentSurfaceCapabilitiesKHR)::`sharedPresentSupportedUsageFlags` |
 
-Presentation mode
-Image usage flags
-
-`VK_PRESENT_MODE_IMMEDIATE_KHR`
-[VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`supportedUsageFlags`
-
-`VK_PRESENT_MODE_MAILBOX_KHR`
-[VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`supportedUsageFlags`
-
-`VK_PRESENT_MODE_FIFO_KHR`
-[VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`supportedUsageFlags`
-
-`VK_PRESENT_MODE_FIFO_RELAXED_KHR`
-[VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`supportedUsageFlags`
-
-`VK_PRESENT_MODE_FIFO_LATEST_READY_EXT`
-[VkSurfaceCapabilitiesKHR](#VkSurfaceCapabilitiesKHR)::`supportedUsageFlags`
-
-`VK_PRESENT_MODE_SHARED_DEMAND_REFRESH_KHR`
-[VkSharedPresentSurfaceCapabilitiesKHR](#VkSharedPresentSurfaceCapabilitiesKHR)::`sharedPresentSupportedUsageFlags`
-
-`VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR`
-[VkSharedPresentSurfaceCapabilitiesKHR](#VkSharedPresentSurfaceCapabilitiesKHR)::`sharedPresentSupportedUsageFlags`
+|  | For reference, the mode indicated by `VK_PRESENT_MODE_FIFO_KHR` is
+| --- | --- |
+equivalent to the behavior of {wgl\|glX\|egl}SwapBuffers with a swap interval
+of 1, while the mode indicated by `VK_PRESENT_MODE_FIFO_RELAXED_KHR` is
+equivalent to the behavior of {wgl\|glX}SwapBuffers with a swap interval of
+-1 (from the {WGL\|GLX}_EXT_swap_control_tear extensions). |
 
 Swapchains created with `fullScreenExclusive` set to
 `VK_FULL_SCREEN_EXCLUSIVE_APPLICATION_CONTROLLED_EXT` **must** acquire and
@@ -6837,6 +6986,12 @@ VkResult vkReleaseFullScreenExclusiveModeEXT(
 * 
 `swapchain` is the swapchain to release exclusive full-screen access
 from.
+
+|  | Applications will not be able to present to `swapchain` after this call
+| --- | --- |
+until exclusive full-screen access is reacquired.
+This is usually useful to handle when an application is minimized or
+otherwise intends to stop presenting for a time. |
 
 Valid Usage
 
@@ -7394,6 +7549,48 @@ typedef struct VkRefreshCycleDurationGOOGLE {
 `refreshDuration` is the number of nanoseconds from the start of one
 refresh cycle to the next.
 
+|  | The rate at which an application renders and presents new images is known as
+| --- | --- |
+the image present rate (IPR, aka frame rate).
+The inverse of IPR, or the duration between each image present, is the image
+present duration (IPD).
+In order to provide a smooth, stutter-free animation, an application will
+want its IPD to be a multiple of `refreshDuration`.
+For example, if a display has a 60Hz refresh rate, `refreshDuration`
+will be a value in nanoseconds that is approximately equal to 16.67ms.
+In such a case, an application will want an IPD of 16.67ms (1X multiplier of
+`refreshDuration`), or 33.33ms (2X multiplier of `refreshDuration`),
+or 50.0ms (3X multiplier of `refreshDuration`), etc.
+
+In order to determine a target IPD for a display (i.e. a multiple of
+`refreshDuration`), an application needs to determine when its images
+are actually displayed.
+Suppose an application has an initial target IPD of 16.67ms (1X multiplier
+of `refreshDuration`).
+It will therefore position the geometry of a new image 16.67ms later than
+the previous image.
+But suppose this application is running on slower hardware, so that it
+actually takes 20ms to render each new image.
+This will create visual anomalies, because the images will not be displayed
+to the user every 16.67ms, nor every 20ms.
+In this case, it is better for the application to adjust its target IPD to
+33.33ms (i.e. a 2X multiplier of `refreshDuration`), and tell the
+presentation engine to not present images any sooner than every 33.33ms.
+This will allow the geometry to be correctly positioned for each presentable
+image.
+
+Adjustments to an application’s IPD may be needed because different views of
+an application’s geometry can take different amounts of time to render.
+For example, looking at the sky may take less time to render than looking at
+multiple, complex items in a room.
+In general, it is good to not frequently change IPD, as that can cause
+visual anomalies.
+Adjustments to a larger IPD because of late images should happen quickly,
+but adjustments to a smaller IPD should only happen if the
+`actualPresentTime` and `earliestPresentTime` members of the
+[VkPastPresentationTimingGOOGLE](#VkPastPresentationTimingGOOGLE) structure are consistently different,
+and if `presentMargin` is consistently large, over multiple images. |
+
 The implementation will maintain a limited amount of history of timing
 information about previous presents.
 Because of the asynchronous nature of the presentation engine, the timing
@@ -7664,6 +7861,16 @@ swapchain at a time.
 Further, swapchains **cannot** be created for native windows that have a
 non-Vulkan graphics API surface associated with them.
 
+|  | The presentation engine is an abstraction for the platform’s compositor or
+| --- | --- |
+display engine.
+
+The presentation engine **may** be synchronous or asynchronous with respect to
+the application and/or logical device.
+
+Some implementations **may** use the device’s graphics queue or dedicated
+presentation hardware to perform presentation. |
+
 The presentable images of a swapchain are owned by the presentation engine.
 An application **can** acquire use of a presentable image from the presentation
 engine.
@@ -7687,6 +7894,13 @@ and skip the present operation.
 
 The presentation engine controls the order in which presentable images are
 acquired for use by the application.
+
+|  | This allows the platform to handle situations which require out-of-order
+| --- | --- |
+return of images after presentation.
+At the same time, it allows the application to generate command buffers
+referencing all of the images in the swapchain at initialization time,
+rather than in its main loop. |
 
 How this all works is described below.
 
@@ -7725,6 +7939,11 @@ This requires presentation engine timing information through
 platform-specific mechanisms and ensuring that color attachment writes are
 made available during the portion of the presentation engine’s refresh cycle
 they are intended for.
+
+|  | The `[VK_KHR_shared_presentable_image](../../appendices/extensions.html#VK_KHR_shared_presentable_image)` extension does not provide
+| --- | --- |
+functionality for determining the timing of the presentation engine’s
+refresh cycles. |
 
 In order to query a swapchain’s status when rendering to a shared
 presentable image, call:
@@ -7813,6 +8032,12 @@ that it is no longer compatible with the swapchain.
 * 
 `VK_ERROR_SURFACE_LOST_KHR` the surface is no longer available.
 
+|  | The swapchain state **may** be cached by implementations, so applications
+| --- | --- |
+**should** regularly call `vkGetSwapchainStatusKHR` when using a swapchain
+with [VkPresentModeKHR](#VkPresentModeKHR) equal to
+`VK_PRESENT_MODE_SHARED_CONTINUOUS_REFRESH_KHR`. |
+
 To create a swapchain, call:
 
 // Provided by VK_KHR_swapchain
@@ -7847,54 +8072,28 @@ way that equivalent non-presentable images **can** be used.
 A presentable image is equivalent to a non-presentable image created with
 the following [VkImageCreateInfo](../resources.html#VkImageCreateInfo) parameters:
 
-`VkImageCreateInfo` Field
-Value
-
-`flags`
-`VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT` is set if
+| `VkImageCreateInfo` Field | Value |
+| --- | --- |
+| `flags` | `VK_IMAGE_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT` is set if
 `VK_SWAPCHAIN_CREATE_SPLIT_INSTANCE_BIND_REGIONS_BIT_KHR` is set
 `VK_IMAGE_CREATE_PROTECTED_BIT` is set if
 `VK_SWAPCHAIN_CREATE_PROTECTED_BIT_KHR` is set
 `VK_IMAGE_CREATE_MUTABLE_FORMAT_BIT` and
 `VK_IMAGE_CREATE_EXTENDED_USAGE_BIT_KHR` are both set if
 `VK_SWAPCHAIN_CREATE_MUTABLE_FORMAT_BIT_KHR` is set
-all other bits are unset
-
-`imageType`
-`VK_IMAGE_TYPE_2D`
-
-`format`
-`pCreateInfo->imageFormat`
-
-`extent`
-{`pCreateInfo->imageExtent.width`, `pCreateInfo->imageExtent.height`, `1`}
-
-`mipLevels`
-1
-
-`arrayLayers`
-`pCreateInfo->imageArrayLayers`
-
-`samples`
-`VK_SAMPLE_COUNT_1_BIT`
-
-`tiling`
-`VK_IMAGE_TILING_OPTIMAL`
-
-`usage`
-`pCreateInfo->imageUsage`
-
-`sharingMode`
-`pCreateInfo->imageSharingMode`
-
-`queueFamilyIndexCount`
-`pCreateInfo->queueFamilyIndexCount`
-
-`pQueueFamilyIndices`
-`pCreateInfo->pQueueFamilyIndices`
-
-`initialLayout`
-`VK_IMAGE_LAYOUT_UNDEFINED`
+all other bits are unset |
+| `imageType` | `VK_IMAGE_TYPE_2D` |
+| `format` | `pCreateInfo->imageFormat` |
+| `extent` | {`pCreateInfo->imageExtent.width`, `pCreateInfo->imageExtent.height`, `1`} |
+| `mipLevels` | 1 |
+| `arrayLayers` | `pCreateInfo->imageArrayLayers` |
+| `samples` | `VK_SAMPLE_COUNT_1_BIT` |
+| `tiling` | `VK_IMAGE_TILING_OPTIMAL` |
+| `usage` | `pCreateInfo->imageUsage` |
+| `sharingMode` | `pCreateInfo->imageSharingMode` |
+| `queueFamilyIndexCount` | `pCreateInfo->queueFamilyIndexCount` |
+| `pQueueFamilyIndices` | `pCreateInfo->pQueueFamilyIndices` |
+| `initialLayout` | `VK_IMAGE_LAYOUT_UNDEFINED` |
 
 The `pCreateInfo->surface` **must** not be destroyed until after the
 swapchain is destroyed.
@@ -7929,11 +8128,23 @@ If the command succeeds in this case, the newly created swapchain will
 automatically acquire exclusive full-screen access from
 `pCreateInfo->oldSwapchain`.
 
+|  | This implicit transfer is intended to avoid exiting and entering full-screen
+| --- | --- |
+exclusive mode, which may otherwise cause unwanted visual updates to the
+display. |
+
 In some cases, swapchain creation **may** fail if exclusive full-screen mode is
 requested for application control, but for some implementation-specific
 reason exclusive full-screen access is unavailable for the particular
 combination of parameters provided.
 If this occurs, `VK_ERROR_INITIALIZATION_FAILED` will be returned.
+
+|  | In particular, it will fail if the `imageExtent` member of
+| --- | --- |
+`pCreateInfo` does not match the extents of the monitor.
+Other reasons for failure may include the application not being set as
+high-dpi aware, or if the physical device and monitor are not compatible in
+this mode. |
 
 If the `pNext` chain of [VkSwapchainCreateInfoKHR](#VkSwapchainCreateInfoKHR) includes a
 [VkSwapchainPresentBarrierCreateInfoNV](#VkSwapchainPresentBarrierCreateInfoNV) structure, then that structure
@@ -8066,6 +8277,15 @@ The behavior is platform-dependent if the image extent does not match
 the surface’s `currentExtent` as returned by
 `vkGetPhysicalDeviceSurfaceCapabilitiesKHR`.
 
+|  | On some platforms, it is normal that `maxImageExtent` **may** become `(0,
+| --- | --- |
+0)`, for example when the window is minimized.
+In such a case, it is not possible to create a swapchain due to the Valid
+Usage requirements
+, unless scaling is selected through
+[VkSwapchainPresentScalingCreateInfoEXT](#VkSwapchainPresentScalingCreateInfoEXT), if supported
+. |
+
 * 
 `imageArrayLayers` is the number of views in a multiview/stereo
 surface.
@@ -8128,6 +8348,12 @@ platforms.
 If `clipped` is `VK_FALSE`, presentable images associated with
 the swapchain will own all of the pixels they contain.
 
+|  | Applications **should** set this value to `VK_TRUE` if they do not expect
+| --- | --- |
+to read back the content of presentable images before presenting them or
+after reacquiring them, and if their fragment shaders do not have any side
+effects that require them to run for all pixels in the presentable image. |
+
 `oldSwapchain` is [VK_NULL_HANDLE](../../appendices/boilerplate.html#VK_NULL_HANDLE), or the existing non-retired
 swapchain currently associated with `surface`.
 Providing a valid `oldSwapchain` **may** aid in the resource reuse, and
@@ -8146,6 +8372,24 @@ acquired by the application **may** be freed by the implementation, which **may*
 occur even if creation of the new swapchain fails.
 The application **can** destroy `oldSwapchain` to free all memory
 associated with `oldSwapchain`.
+
+|  | Multiple retired swapchains **can** be associated with the same
+| --- | --- |
+`VkSurfaceKHR` through multiple uses of `oldSwapchain` that
+outnumber calls to [vkDestroySwapchainKHR](#vkDestroySwapchainKHR).
+
+After `oldSwapchain` is retired, the application **can** pass to
+[vkQueuePresentKHR](#vkQueuePresentKHR) any images it had already acquired from
+`oldSwapchain`.
+E.g., an application may present an image from the old swapchain before an
+image from the new swapchain is ready to be presented.
+As usual, [vkQueuePresentKHR](#vkQueuePresentKHR) **may** fail if `oldSwapchain` has
+entered a state that causes `VK_ERROR_OUT_OF_DATE_KHR` to be returned.
+
+The application **can** continue to use a shared presentable image obtained
+from `oldSwapchain` until a presentable image is acquired from the new
+swapchain, as long as it has not entered a state that causes it to return
+`VK_ERROR_OUT_OF_DATE_KHR`. |
 
 Valid Usage
 
@@ -9323,6 +9567,15 @@ Return Codes
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
+|  | By knowing all presentable images used in the swapchain, the application can
+| --- | --- |
+create command buffers that reference these images prior to entering its
+main rendering loop.
+However, command buffers are not allowed to reference presentable images
+created with `VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT`
+until their indices have been returned from [vkAcquireNextImageKHR](#vkAcquireNextImageKHR) at
+least once. |
+
 Images returned by [vkGetSwapchainImagesKHR](#vkGetSwapchainImagesKHR) are fully backed by memory
 before they are passed to the application, as if they are each bound
 completely and contiguously to a single `VkDeviceMemory` object
@@ -9577,6 +9830,16 @@ application has currently acquired is less than or equal to S-M,
 `vkAcquireNextImageKHR` **must** return in finite time with an allowed
 `VkResult` code.
 
+|  | Returning a result in finite time guarantees that the implementation cannot
+| --- | --- |
+deadlock an application, or suspend its execution indefinitely with correct
+API usage.
+Acquiring too many images at once may block indefinitely, which is covered
+by valid usage when attempting to use `UINT64_MAX`.
+For example, a scenario here is when a compositor holds on to images which
+are currently being presented, and there are not any vacant images left to
+be acquired. |
+
 If the swapchain images no longer match native surface properties, either
 `VK_SUBOPTIMAL_KHR` or `VK_ERROR_OUT_OF_DATE_KHR` **must** be returned.
 If `VK_ERROR_OUT_OF_DATE_KHR` is returned, no image is acquired and
@@ -9584,6 +9847,14 @@ attempts to present previously acquired images to the swapchain will also
 fail with `VK_ERROR_OUT_OF_DATE_KHR`.
 Applications need to create a new swapchain for the surface to continue
 presenting if `VK_ERROR_OUT_OF_DATE_KHR` is returned.
+
+|  | `VK_SUBOPTIMAL_KHR` **may** happen, for example, if the platform surface
+| --- | --- |
+has been resized but the platform is able to scale the presented images to
+the new size to produce valid surface updates.
+It is up to the application to decide whether it prefers to continue using
+the current swapchain in this state, or to re-create the swapchain to better
+match the platform surface properties. |
 
 If device loss occurs (see [Lost Device](../devsandqueues.html#devsandqueues-lost-device)) before
 the timeout has expired, `vkAcquireNextImageKHR` **must** return in finite
@@ -9594,15 +9865,53 @@ If `semaphore` is not [VK_NULL_HANDLE](../../appendices/boilerplate.html#VK_NULL
 unsignaled, with no signal or wait operations pending.
 It will become signaled when the application **can** use the image.
 
+|  | Use of `semaphore` allows rendering operations to be recorded and
+| --- | --- |
+submitted before the presentation engine has completed its use of the image. |
+
 If `fence` is not equal to [VK_NULL_HANDLE](../../appendices/boilerplate.html#VK_NULL_HANDLE), the fence **must** be
 unsignaled, with no signal operations pending.
 It will become signaled when the application **can** use the image.
 
+|  | Applications **should** not rely on `vkAcquireNextImageKHR` blocking in
+| --- | --- |
+order to meter their rendering speed.
+The implementation **may** return from this function immediately regardless of
+how many presentation requests are queued, and regardless of when queued
+presentation requests will complete relative to the call.
+Instead, applications **can** use `fence` to meter their frame generation
+work to match the presentation rate. |
+
 An application **must** wait until either the `semaphore` or `fence` is
 signaled before accessing the image’s data.
 
+|  | When the presentable image will be accessed by some stage S, the
+| --- | --- |
+recommended idiom for ensuring correct synchronization is:
+
+* 
+The [VkSubmitInfo](../cmdbuffers.html#VkSubmitInfo) used to submit the image layout transition for
+execution includes `vkAcquireNextImageKHR`::`semaphore` in its
+`pWaitSemaphores` member, with the corresponding element of
+`pWaitDstStageMask` including S.
+
+* 
+The [synchronization command](../synchronization.html#synchronization) that performs any
+necessary image layout transition includes S in both the
+`srcStageMask` and `dstStageMask`. |
+
 After a successful return, the image indicated by `pImageIndex` and its
 data will be unmodified compared to when it was presented.
+
+|  | Exclusive ownership of presentable images corresponding to a swapchain
+| --- | --- |
+created with `VK_SHARING_MODE_EXCLUSIVE` as defined in
+[Resource Sharing](../resources.html#resources-sharing) is not altered by a call to
+`vkAcquireNextImageKHR`.
+That means upon the first acquisition from such a swapchain presentable
+images are not owned by any queue family, while at subsequent acquisitions
+the presentable images remain owned by the queue family the image was
+previously presented on. |
 
 The possible return values for `vkAcquireNextImageKHR` depend on the
 `timeout` provided:
@@ -9628,6 +9937,14 @@ allowed.
 the swapchain no longer matches the surface properties exactly, but **can**
 still be used to present to the surface successfully.
 
+|  | This **may** happen, for example, if the platform surface has been resized but
+| --- | --- |
+the platform is able to scale the presented images to the new size to
+produce valid surface updates.
+It is up to the application to decide whether it prefers to continue using
+the current swapchain indefinitely or temporarily in this state, or to
+re-create the swapchain to better match the platform surface properties. |
+
 * 
 `VK_ERROR_OUT_OF_DATE_KHR` is returned if the surface has changed in
 such a way that it is no longer compatible with the swapchain, and
@@ -9650,6 +9967,16 @@ It is the application’s responsibility to detect surface size changes and
 react appropriately.
 If presentation fails because of a mismatch in the surface and presented
 image sizes, a `VK_ERROR_OUT_OF_DATE_KHR` error will be returned.
+
+|  | For example, consider a 4x3 window/surface that gets resized to be 3x4
+| --- | --- |
+(taller than wider).
+On some window systems, the portion of the window/surface that was
+previously and still is visible (the 3x3 part) will contain the same
+contents as before, while the remaining parts of the window will have
+**undefined** contents.
+Other window systems **may** squash/stretch the image to fill the new window
+size without any **undefined** contents, or apply some other mapping. |
 
 To acquire an available presentable image to use, and retrieve the index of
 that image, call:
@@ -9779,6 +10106,17 @@ image will be ready to use when the semaphore or fence is signaled.
 If [vkAcquireNextImageKHR](#vkAcquireNextImageKHR) is used, the device mask is considered to
 include all physical devices in the logical device.
 
+|  | [vkAcquireNextImage2KHR](#vkAcquireNextImage2KHR) signals at most one semaphore, even if the
+| --- | --- |
+application requests waiting for multiple physical devices to be ready via
+the `deviceMask`.
+However, only a single physical device **can** wait on that semaphore, since
+the semaphore becomes unsignaled when the wait succeeds.
+For other physical devices to wait for the image to be ready, it is
+necessary for the application to submit semaphore signal operation(s) to
+that first physical device to signal additional semaphore(s) after the wait
+succeeds, which the other physical device(s) **can** wait upon. |
+
 Valid Usage
 
 * 
@@ -9891,6 +10229,20 @@ surface’s platform on the same device as the image’s swapchain.
 `pPresentInfo` is a pointer to a [VkPresentInfoKHR](#VkPresentInfoKHR) structure
 specifying parameters of the presentation.
 
+|  | There is no requirement for an application to present images in the same
+| --- | --- |
+order that they were acquired - applications can arbitrarily present any
+image that is currently acquired. |
+
+|  | The origin of the native orientation of the surface coordinate system is not
+| --- | --- |
+specified in the Vulkan specification; it depends on the platform.
+For most platforms the origin is by default upper-left, meaning the pixel of
+the presented [VkImage](../resources.html#VkImage) at coordinates (0,0) would appear at the
+upper left pixel of the platform surface (assuming
+`VK_SURFACE_TRANSFORM_IDENTITY_BIT_KHR`, and the display standing the
+right way up). |
+
 The result codes `VK_ERROR_OUT_OF_DATE_KHR` and `VK_SUBOPTIMAL_KHR`
 have the same meaning when returned by `vkQueuePresentKHR` as they do
 when returned by `vkAcquireNextImageKHR`.
@@ -9998,6 +10350,11 @@ executed on **must** have ownership of the presented images as defined in
 presented images **must** not be used again before they have been reacquired
 using `vkAcquireNextImageKHR`.
 
+|  | The application **can** continue to present any acquired images from a retired
+| --- | --- |
+swapchain as long as the swapchain has not entered a state that causes
+[vkQueuePresentKHR](#vkQueuePresentKHR) to return `VK_ERROR_OUT_OF_DATE_KHR`. |
+
 Valid Usage
 
 * 
@@ -10063,18 +10420,9 @@ Host Synchronization
 Host access to `queue` **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
-
--
--
--
-Any
--
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| - | - | - | Any | - |
 
 Return Codes
 
@@ -10166,6 +10514,16 @@ transitioned to the `VK_IMAGE_LAYOUT_PRESENT_SRC_KHR`
 layout, or for a shared presentable image the
 `VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR`
 layout.
+
+|  | When transitioning the image to
+| --- | --- |
+`VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR` or
+`VK_IMAGE_LAYOUT_PRESENT_SRC_KHR`, there is no need to delay subsequent
+processing, or perform any visibility operations (as [vkQueuePresentKHR](#vkQueuePresentKHR)
+performs automatic visibility operations).
+To achieve this, the `dstAccessMask` member of the
+[VkImageMemoryBarrier](../synchronization.html#VkImageMemoryBarrier) **should** be `0`, and the `dstStageMask`
+parameter **should** be `VK_PIPELINE_STAGE_BOTTOM_OF_PIPE_BIT`. |
 
 Valid Usage
 
@@ -11254,6 +11612,10 @@ However, if a mechanism other than Vulkan is used to modify the platform
 window associated with the swapchain, the content of all presentable images
 in the swapchain becomes **undefined**.
 
+|  | This functionality is useful during swapchain recreation, where acquired
+| --- | --- |
+images from the old swapchain can be released instead of presented. |
+
 Valid Usage
 
 * 
@@ -11480,6 +11842,11 @@ anywhere in the content.
 
 If any of the above values are unknown, they **can** be set to 0.
 
+|  | The meta-data provided here is intended to be used as defined in the SMPTE
+| --- | --- |
+2086, CTA 861.3 and CIE 15:2004 specifications.
+The validity and use of this data is outside the scope of Vulkan. |
+
 Valid Usage (Implicit)
 
 * 
@@ -11524,6 +11891,11 @@ structure.
 
 * 
 `pDynamicMetadata` is a pointer to the dynamic metadata.
+
+|  | The HDR Vivid metadata is intended to be used as defined in the T/UWA
+| --- | --- |
+005.1-2022 specification.
+The validity and use of this data is outside the scope of Vulkan. |
 
 Valid Usage (Implicit)
 
@@ -12360,18 +12732,9 @@ Valid Usage (Implicit)
  `pQueueTypeInfo` **must** be a valid pointer to a valid [VkOutOfBandQueueTypeInfoNV](#VkOutOfBandQueueTypeInfoNV) structure
 
 Command Properties
-
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
-
--
--
--
-Any
--
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| - | - | - | Any | - |
 
 The [VkOutOfBandQueueTypeInfoNV](#VkOutOfBandQueueTypeInfoNV) structure is defined as:
 

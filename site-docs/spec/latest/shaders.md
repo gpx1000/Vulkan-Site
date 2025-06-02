@@ -1143,6 +1143,24 @@ attachment.
 `VK_SHADER_CREATE_INDIRECT_BINDABLE_BIT_EXT` specifies that the
 shader **can** be used in combination with [Device-Generated Commands](device_generated_commands/generatedcommands.html#device-generated-commands).
 
+|  | The behavior of
+| --- | --- |
+`VK_SHADER_CREATE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_EXT`
+and
+`VK_SHADER_CREATE_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT`
+differs subtly from the behavior of
+`VK_PIPELINE_CREATE_RENDERING_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
+and
+`VK_PIPELINE_CREATE_RENDERING_FRAGMENT_DENSITY_MAP_ATTACHMENT_BIT_EXT`
+in that the shader bit allows, but does not require the shader to be used
+with that type of attachment.
+This means that the application need not create multiple shaders when it
+does not know in advance whether the shader will be used with or without the
+attachment type, or when it needs the same shader to be compatible with
+usage both with and without.
+This **may** come at some performance cost on some implementations, so
+applications **should** still only set bits that are actually necessary. |
+
 Shader objects **can** be created using different types of shader code.
 Possible values of [VkShaderCreateInfoEXT](#VkShaderCreateInfoEXT)::`codeType`, are:
 
@@ -1191,6 +1209,22 @@ to `pData`.
 If `pDataSize` is less than the size of the binary shader code, nothing
 is written to `pData`, and `VK_INCOMPLETE` will be returned instead
 of `VK_SUCCESS`.
+
+|  | The behavior of this command when `pDataSize` is too small differs from
+| --- | --- |
+how some other getter-type commands work in Vulkan.
+Because shader binary data is only usable in its entirety, it would never be
+useful for the implementation to return partial data.
+Because of this, nothing is written to `pData` unless `pDataSize` is
+large enough to fit the data in its entirety.
+
+This behavior is not consistent with the behavior described in
+[Opaque Binary Data Results](fundamentals.html#fundamentals-binaryresults), for historical
+reasons.
+
+If the amount of data available is larger than the passed `pDataSize`,
+the query returns a `VK_INCOMPLETE` success status instead of a
+`VK_ERROR_NOT_ENOUGH_SPACE_KHR` error status. |
 
 Binary shader code retrieved using `vkGetShaderBinaryDataEXT` **can** be
 passed to a subsequent call to [vkCreateShadersEXT](#vkCreateShadersEXT) on a compatible
@@ -1293,6 +1327,13 @@ device on which [vkCreateShadersEXT](#vkCreateShadersEXT) is being called **may*
 for the new device in ways that do not change shader functionality, but it
 is still guaranteed to be usable to successfully create the shader
 object(s).
+
+|  | Implementations are encouraged to share `shaderBinaryUUID` between
+| --- | --- |
+devices and driver versions to the maximum extent their hardware naturally
+allows, and are **strongly** discouraged from ever changing the
+`shaderBinaryUUID` for the same hardware except unless absolutely
+necessary. |
 
 In addition to the shader compatibility guarantees described above, it is
 valid for an application to call [vkCreateShadersEXT](#vkCreateShadersEXT) with binary shader
@@ -1490,22 +1531,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-State
+Compute | State |
 
 Whenever shader objects are used to issue drawing commands, the appropriate
 [dynamic state](pipelines.html#pipelines-dynamic-state) setting commands **must** have been
@@ -1585,7 +1617,8 @@ line primitives is bound to the
 [vkCmdSetDepthTestEnable](fragops.html#vkCmdSetDepthTestEnable)
 
 * 
-[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable)
+[vkCmdSetDepthWriteEnable](fragops.html#vkCmdSetDepthWriteEnable), if `depthTestEnable` is
+`VK_TRUE`
 
 * 
 [vkCmdSetDepthCompareOp](fragops.html#vkCmdSetDepthCompareOp), if `depthTestEnable` is `VK_TRUE`
@@ -1996,6 +2029,15 @@ which the resulting shader module object is returned.
 
 Once a shader module has been created, any entry points it contains **can** be
 used in pipeline shader stages as described in [Compute Pipelines](pipelines.html#pipelines-compute) and [Graphics Pipelines](pipelines.html#pipelines-graphics).
+
+|  | If
+| --- | --- |
+the [`maintenance5`](features.html#features-maintenance5) feature
+is enabled, shader module creation can be omitted entirely.
+Instead, applications should provide the [VkShaderModuleCreateInfo](#VkShaderModuleCreateInfo)
+structure directly in to pipeline creation by chaining it to
+[VkPipelineShaderStageCreateInfo](pipelines.html#VkPipelineShaderStageCreateInfo).
+This avoids the overhead of creating and managing an additional object. |
 
 Valid Usage
 
@@ -2471,11 +2513,9 @@ Calling [vkCmdBindShadersEXT](#vkCmdBindShadersEXT) binds all stages in `pStages
 The following table describes the relationship between shader stages and
 pipeline bind points:
 
-Shader stage
-Pipeline bind point
-behavior controlled
-
-* 
+| Shader stage | Pipeline bind point | behavior controlled |
+| --- | --- | --- |
+| * 
 `VK_SHADER_STAGE_VERTEX_BIT`
 
 * 
@@ -2494,18 +2534,10 @@ behavior controlled
 `VK_SHADER_STAGE_TASK_BIT_EXT`
 
 * 
-`VK_SHADER_STAGE_MESH_BIT_EXT`
-
-`VK_PIPELINE_BIND_POINT_GRAPHICS`
-all [drawing commands](drawing.html#drawing)
-
-* 
-`VK_SHADER_STAGE_COMPUTE_BIT`
-
-`VK_PIPELINE_BIND_POINT_COMPUTE`
-all [dispatch commands](dispatch.html#dispatch)
-
-* 
+`VK_SHADER_STAGE_MESH_BIT_EXT` | `VK_PIPELINE_BIND_POINT_GRAPHICS` | all [drawing commands](drawing.html#drawing) |
+| * 
+`VK_SHADER_STAGE_COMPUTE_BIT` | `VK_PIPELINE_BIND_POINT_COMPUTE` | all [dispatch commands](dispatch.html#dispatch) |
+| * 
 `VK_SHADER_STAGE_ANY_HIT_BIT_KHR`
 
 * 
@@ -2521,26 +2553,15 @@ all [dispatch commands](dispatch.html#dispatch)
 `VK_SHADER_STAGE_MISS_BIT_KHR`
 
 * 
-`VK_SHADER_STAGE_RAYGEN_BIT_KHR`
-
-`VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR`
-[vkCmdTraceRaysNV](raytracing.html#vkCmdTraceRaysNV)
-[vkCmdTraceRaysKHR](raytracing.html#vkCmdTraceRaysKHR) and [vkCmdTraceRaysIndirectKHR](raytracing.html#vkCmdTraceRaysIndirectKHR)
-
-* 
+`VK_SHADER_STAGE_RAYGEN_BIT_KHR` | `VK_PIPELINE_BIND_POINT_RAY_TRACING_KHR` | [vkCmdTraceRaysNV](raytracing.html#vkCmdTraceRaysNV)
+[vkCmdTraceRaysKHR](raytracing.html#vkCmdTraceRaysKHR) and [vkCmdTraceRaysIndirectKHR](raytracing.html#vkCmdTraceRaysIndirectKHR) |
+| * 
 `VK_SHADER_STAGE_SUBPASS_SHADING_BIT_HUAWEI`
 
 * 
-`VK_SHADER_STAGE_CLUSTER_CULLING_BIT_HUAWEI`
-
-`VK_PIPELINE_BIND_POINT_SUBPASS_SHADING_HUAWEI`
-[vkCmdSubpassShadingHUAWEI](dispatch.html#vkCmdSubpassShadingHUAWEI)
-
-* 
-`VK_SHADER_STAGE_COMPUTE_BIT`
-
-`VK_PIPELINE_BIND_POINT_EXECUTION_GRAPH_AMDX`
-all [execution graph commands](executiongraphs.html#executiongraphs)
+`VK_SHADER_STAGE_CLUSTER_CULLING_BIT_HUAWEI` | `VK_PIPELINE_BIND_POINT_SUBPASS_SHADING_HUAWEI` | [vkCmdSubpassShadingHUAWEI](dispatch.html#vkCmdSubpassShadingHUAWEI) |
+| * 
+`VK_SHADER_STAGE_COMPUTE_BIT` | `VK_PIPELINE_BIND_POINT_EXECUTION_GRAPH_AMDX` | all [execution graph commands](executiongraphs.html#executiongraphs) |
 
 At each stage of the pipeline, multiple invocations of a shader **may** execute
 simultaneously.
@@ -2576,6 +2597,13 @@ become [helper invocations](#shaders-helper-invocations).
 A shader stage for a given command completes execution when all invocations
 for that stage have terminated.
 
+|  | Depending on the implementation, `OpKill` will be functionally equivalent
+| --- | --- |
+to either `OpTerminateInvocation` or `OpDemoteToHelperInvocation`.
+To obtain the most predictable behavior, shader authors should use
+`OpTerminateInvocation` or `OpDemoteToHelperInvocation` rather than
+`OpKill` wherever possible. |
+
 The order in which image or buffer memory is read or written by shaders is
 largely **undefined**.
 For some shader types (vertex, tessellation evaluation, and in some cases,
@@ -2607,6 +2635,14 @@ shader invocations are not.
 * 
 The relative execution order of invocations of different shader types is
 largely **undefined**.
+
+|  | The above limitations on shader invocation order make some forms of
+| --- | --- |
+synchronization between shader invocations within a single set of primitives
+unimplementable.
+For example, having one invocation poll memory written by another invocation
+assumes that the other invocation has been launched and will complete its
+writes in finite time. |
 
 The [Memory Model](../appendices/memorymodel.html#memory-model) appendix defines the terminology and rules
 for how to correctly communicate between shader invocations, such as when a
@@ -2760,6 +2796,12 @@ including the same index value multiple times in an index buffer) the
 implementation **may** reuse the results of vertex shading if it can statically
 determine that the vertex shader invocations will produce identical results.
 
+|  | It is implementation-dependent when and if results of vertex shading are
+| --- | --- |
+reused, and thus how many times the vertex shader will be executed.
+This is true also if the vertex shader contains stores or atomic operations
+(see [`vertexPipelineStoresAndAtomics`](features.html#features-vertexPipelineStoresAndAtomics)). |
+
 The tessellation control shader is used to read an input patch provided by
 the application and to produce an output patch.
 Each tessellation control shader invocation operates on an input patch
@@ -2847,20 +2889,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The size of the output patch is controlled by the `OpExecutionMode`
 `OutputVertices` specified in the tessellation control or tessellation
@@ -2921,7 +2954,7 @@ With few exceptions, fragment shaders do not have access to any data
 associated with other fragments and are considered to execute in isolation
 of fragment shader invocations associated with other fragments.
 
-Compute shaders are invoked via [_dispatching commands](dispatch.html#dispatch).
+Compute shaders are invoked via [dispatching commands](dispatch.html#dispatch).
 In general, they have access to similar resources as shader stages executing
 as part of a graphics pipeline.
 
@@ -3017,6 +3050,10 @@ Variables in the `Input` storage class in a fragment shader’s interface
 are interpolated from the values specified by the primitive being
 rasterized.
 
+|  | Interpolation decorations can be present on input and output variables in
+| --- | --- |
+pre-rasterization shaders but have no effect on the interpolation performed. |
+
 An undecorated input variable will be interpolated with perspective-correct
 interpolation according to the primitive type being rasterized.
 [Lines](primsrast.html#line_perspective_interpolation) and
@@ -3052,6 +3089,15 @@ the current fragment shader invocation.
 * 
 If a sample count of 1 is used, the interpolation position **must** be at
 the center of the fragment area.
+
+|  | As `Centroid` constrains the interpolation position to lie within the
+| --- | --- |
+covered area of the primitive, using it may cause the position to differ
+between neighboring fragments when it otherwise would not.
+Derivatives calculated based on these differing locations can produce
+inconsistent results compared to undecorated inputs.
+Thus using `Centroid` with input variables used in derivative
+calculations is not recommended. |
 
 If the `PerVertexKHR` decoration is present on an input variable, the
 value is not interpolated, and instead values from all input vertices are
@@ -3229,6 +3275,33 @@ In other shader stages, each invocation in a subgroup **must** be in the same
 
 Only [shader stages that support subgroup operations](devsandqueues.html#limits-subgroupSupportedStages) have defined subgroups.
 
+|  | Subgroups are not guaranteed to be a subset of a single command in
+| --- | --- |
+[shaders that do not have defined workgroups](#shaders-scope-workgroup).
+Values that are guaranteed to be uniform for a given command or sub command
+may then not be uniform for the subgroup, and vice versa.
+As such, applications must take care when dealing with mixed uniformity.
+
+A somewhat common example of this would something like trying to optimize
+access to per-draw data using subgroup operations:
+
+buffer { uint draw_data[]; };
+
+flat in int vDrawID; // Passed through from vertex shader
+
+void main()
+{
+    uint local_draw_data = subgroupBroadcastFirst(draw_data[local_draw_data]);
+}
+
+This can be done in an attempt to optimize the shader to only perform the
+loads once per subgroup.
+However, if the implementation packs multiple draws into a single subgroup,
+invocations from draws with a different drawID are now receiving data from
+the wrong invocation.
+Applications should rely on implementations to do this kind of optimization
+automatically where the implementation can, rather than trying to force it. |
+
 A *quad scope instance* is formed of four shader invocations.
 
 In a fragment shader, each invocation in a quad scope instance is formed of
@@ -3404,6 +3477,11 @@ Do any active group invocations evaluate an expression to true?
 * 
 Do all active group invocations have the same value of an expression?
 
+|  | These operations are useful in combination with control flow in that they
+| --- | --- |
+allow for developers to check whether conditions match across the group and
+choose potentially faster code-paths in these cases. |
+
 The arithmetic group operations allow invocations to perform scans and
 reductions across a group.
 The operators supported are add, mul, min, max, and, or, xor.
@@ -3515,6 +3593,12 @@ sufficient invocations to ensure their correct operation; additional
 [helper invocations](#shaders-helper-invocations) are launched for
 framebuffer locations not covered by rasterized fragments if necessary.
 
+|  | In a
+| --- | --- |
+mesh, task, or
+compute shader, it is the application’s responsibility to ensure that
+sufficient invocations are launched. |
+
 Derivative operations calculate their results as the difference between the
 result of P across invocations in the quad.
 For fine derivative operations (`OpDPdxFine` and `OpDPdyFine`), the
@@ -3540,6 +3624,26 @@ reusing the same result no matter the originating invocation.
 If an implementation does this, it **should** use the fine derivative
 calculations described for P0.
 
+|  | Derivative values are calculated between fragments rather than pixels.
+| --- | --- |
+If the fragment shader invocations involved in the calculation cover
+multiple pixels, these operations cover a wider area, resulting in larger
+derivative values.
+This in turn will result in a coarser LOD being selected for image sampling
+operations using derivatives.
+
+Applications may want to account for this when using multi-pixel fragments;
+if pixel derivatives are desired, applications should use explicit
+derivative operations and divide the results by the size of the fragment in
+each dimension as follows:
+
+DPdx(Pn)' = DPdx(Pn) / w
+
+DPdy(Pn)' = DPdy(Pn) / h
+
+where w and h are the size of the fragments in the quad, and
+DPdx(Pn)' and DPdy(Pn)' are the pixel derivatives. |
+
 The results for `OpDPdx` and `OpDPdy` **may** be calculated as either
 fine or coarse derivatives, with implementations favoring the most efficient
 approach.
@@ -3553,6 +3657,11 @@ Executing an `OpImage*Sample*ImplicitLod` instruction is equivalent to
 executing `OpDPdx`(`Coordinate`) and `OpDPdy`(`Coordinate`), and
 passing the results as the `Grad` operands `dx` and `dy`.
 
+|  | It is expected that using the `ImplicitLod` variants of sampling
+| --- | --- |
+functions will be substantially more efficient than using the
+`ExplicitLod` variants with explicitly generated derivatives. |
+
 When performing [derivative](#shaders-derivative-operations)
 or [quad group](#shaders-quad-operations)
 operations in a fragment shader, additional invocations **may** be spawned in
@@ -3563,6 +3672,14 @@ Stores and atomics performed by helper invocations **must** not have any effect
 on memory except for the `Function`, `Private` and `Output` storage
 classes, and values returned by atomic instructions in helper invocations
 are **undefined**.
+
+|  | While storage to `Output` storage class has an effect even in helper
+| --- | --- |
+invocations, it does not mean that helper invocations have an effect on the
+framebuffer.
+`Output` variables in fragment shaders can be read from as well, and they
+behave more like `Private` variables for the duration of the shader
+invocation. |
 
 If the `MaximallyReconvergesKHR` execution mode is applied to the entry
 point, helper invocations **must** remain active for all instructions for the
@@ -3997,6 +4114,12 @@ different granularities.
 
 All granularity values **must** be powers of two.
 
+|  | Different A/B types may require different granularities but share the same
+| --- | --- |
+accumulator type.
+In such a case, the supported granularity for a matrix with the accumulator
+type would be the smallest advertised granularity. |
+
 Valid Usage (Implicit)
 
 * 
@@ -4368,47 +4491,14 @@ than `inputInterpretation`.
 The following combinations **must** be supported (each row is a required
 combination):
 
-inputType
-inputInterpretation
-matrixInterpretation
-biasInterpretation
-resultType
-
-FLOAT16
-FLOAT16
-FLOAT16
-FLOAT16
-FLOAT16
-
-UINT32
-SINT8_PACKED
-SINT8
-SINT32
-SINT32
-
-SINT8
-SINT8
-SINT8
-SINT32
-SINT32
-
-FLOAT32
-SINT8
-SINT8
-SINT32
-SINT32
-
-FLOAT16
-FLOAT_E4M3
-FLOAT_E4M3
-FLOAT16
-FLOAT16
-
-FLOAT16
-FLOAT_E5M2
-FLOAT_E5M2
-FLOAT16
-FLOAT16
+| inputType | inputInterpretation | matrixInterpretation | biasInterpretation | resultType |
+| --- | --- | --- | --- | --- |
+| FLOAT16 | FLOAT16 | FLOAT16 | FLOAT16 | FLOAT16 |
+| UINT32 | SINT8_PACKED | SINT8 | SINT32 | SINT32 |
+| SINT8 | SINT8 | SINT8 | SINT32 | SINT32 |
+| FLOAT32 | SINT8 | SINT8 | SINT32 | SINT32 |
+| FLOAT16 | FLOAT_E4M3 | FLOAT_E4M3 | FLOAT16 | FLOAT16 |
+| FLOAT16 | FLOAT_E5M2 | FLOAT_E5M2 | FLOAT16 | FLOAT16 |
 
 Valid Usage (Implicit)
 
@@ -4878,22 +4968,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Outside | Outside | Graphics
 
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
-
-Compute
-Action
+Compute | Action |
 
 Validation cache objects allow the result of internal validation to be
 reused, both within a single application run and between multiple runs.
@@ -4940,6 +5021,14 @@ object.
 `pValidationCache` is a pointer to a [VkValidationCacheEXT](#VkValidationCacheEXT)
 handle in which the resulting validation cache object is returned.
 
+|  | Applications **can** track and manage the total host memory size of a
+| --- | --- |
+validation cache object using the `pAllocator`.
+Applications **can** limit the amount of data retrieved from a validation cache
+object in `vkGetValidationCacheDataEXT`.
+Implementations **should** not internally limit the total number of entries
+added to a validation cache object or the total host memory consumed. |
+
 Once created, a validation cache **can** be passed to the
 `vkCreateShaderModule` command by adding this object to the
 [VkShaderModuleCreateInfo](#VkShaderModuleCreateInfo) structure’s `pNext` chain.
@@ -4951,6 +5040,11 @@ content.
 The use of the validation cache object in these commands is internally
 synchronized, and the same validation cache object **can** be used in multiple
 threads simultaneously.
+
+|  | Implementations **should** make every effort to limit any critical sections to
+| --- | --- |
+the actual accesses to the cache, which is expected to be significantly
+shorter than the duration of the `vkCreateShaderModule` command. |
 
 Valid Usage (Implicit)
 
@@ -5087,6 +5181,11 @@ into.
 which will be merged into `dstCache`.
 The previous contents of `dstCache` are included after the merge.
 
+|  | The details of the merge operation are implementation-dependent, but
+| --- | --- |
+implementations **should** merge the contents of the specified validation
+caches and prune duplicate entries. |
+
 Valid Usage
 
 * 
@@ -5198,29 +5297,17 @@ To enable applications to detect when previously retrieved data is
 incompatible with the device, the initial bytes written to `pData` **must**
 be a header consisting of the following members:
 
-Table 1. Layout for Validation Cache Header Version `VK_VALIDATION_CACHE_HEADER_VERSION_ONE_EXT`
-
-Offset
-Size
-Meaning
-
-0
-4
-length in bytes of the entire validation cache header
+| Offset | Size | Meaning |
+| --- | --- | --- |
+| 0 | 4 | length in bytes of the entire validation cache header
                              written as a stream of bytes, with the least
-                             significant byte first
-
-4
-4
-a [VkValidationCacheHeaderVersionEXT](#VkValidationCacheHeaderVersionEXT) value
+                             significant byte first |
+| 4 | 4 | a [VkValidationCacheHeaderVersionEXT](#VkValidationCacheHeaderVersionEXT) value
                              written as a stream of bytes, with the least
-                             significant byte first
-
-8
-`VK_UUID_SIZE`
-a layer commit ID expressed as a UUID, which uniquely
+                             significant byte first |
+| 8 | `VK_UUID_SIZE` | a layer commit ID expressed as a UUID, which uniquely
                              identifies the version of the validation layers used
-                             to generate these validation results
+                             to generate these validation results |
 
 The first four bytes encode the length of the entire validation cache
 header, in bytes.
@@ -5235,6 +5322,16 @@ interpret the remainder of the cache header.
 If `pDataSize` is less than what is necessary to store this header,
 nothing will be written to `pData` and zero will be written to
 `pDataSize`.
+
+|  | This query does not behave consistently with the behavior described in
+| --- | --- |
+[Opaque Binary Data Results](fundamentals.html#fundamentals-binaryresults), for historical
+reasons.
+
+If the amount of data available is larger than the passed `pDataSize`,
+the query returns up to the size of the passed buffer, and signals overflow
+with a `VK_INCOMPLETE` success status instead of returning a
+`VK_ERROR_NOT_ENOUGH_SPACE_KHR` error status. |
 
 Valid Usage (Implicit)
 
@@ -5717,6 +5814,31 @@ instead of `VK_SUCCESS`.
 The returned cache **may** then be used later for further initialization of the
 CUDA module, by sending this cache *instead* of the PTX code when using
 [vkCreateCudaModuleNV](#vkCreateCudaModuleNV).
+
+|  | Using the binary cache instead of the original PTX code **should**
+| --- | --- |
+significantly speed up initialization of the CUDA module, given that the
+whole compilation and validation will not be necessary.
+
+As with [VkPipelineCache](pipelines.html#VkPipelineCache), the binary cache depends on the specific
+implementation.
+The application **must** assume the cache upload might fail in many
+circumstances and thus **may** have to get ready for falling back to the
+original PTX code if necessary.
+Most often, the cache **may** succeed if the same device driver and
+architecture is used between the cache generation from PTX and the use of
+this cache.
+In the event of a new driver version or if using a different device
+architecture, this cache **may** become invalid. |
+
+|  | This query does not behave consistently with the behavior described in
+| --- | --- |
+[Opaque Binary Data Results](fundamentals.html#fundamentals-binaryresults), for historical
+reasons.
+
+If the amount of data available is larger than the passed `pDataSize`,
+the query returns a `VK_INCOMPLETE` success status instead of a
+`VK_ERROR_NOT_ENOUGH_SPACE_KHR` error status. |
 
 Valid Usage (Implicit)
 

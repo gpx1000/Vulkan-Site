@@ -153,202 +153,43 @@ Vulkan 1.2 Optional Features
 
 The following core increased limits are **required**
 
-Table 1. Vulkan 1.0 Limits
+| Limit Name | Unsupported Limit | Core Limit | Profile Limit | Limit Type1 |
+| --- | --- | --- | --- | --- |
+| `maxImageDimension1D` | - | 4096 | 8192 | min |
+| `maxImageDimension2D` | - | 4096 | 8192 | min |
+| `maxImageDimensionCube` | - | 4096 | 8192 | min |
+| `maxImageArrayLayers` | - | 256 | 2048 | min |
+| `maxUniformBufferRange` | - | 16384 | 65536 | min |
+| `bufferImageGranularity` | - | 131072 | 4096 | max |
+| `maxPerStageDescriptorSamplers` | - | 16 | 64 | min |
+| `maxPerStageDescriptorUniformBuffers` | - | 12 | 15 | min |
+| `maxPerStageDescriptorStorageBuffers` | - | 4 | 30 | min |
+| `maxPerStageDescriptorSampledImages` | - | 16 | 200 | min |
+| `maxPerStageDescriptorStorageImages` | - | 4 | 16 | min |
+| `maxPerStageResources` | - | 128 | 200 | min |
+| `maxDescriptorSetSamplers` | - | 96 | 576 | min, *n* × PerStage |
+| `maxDescriptorSetUniformBuffers` | - | 72 | 90 | min, *n* × PerStage |
+| `maxDescriptorSetStorageBuffers` | - | 24 | 96 | min, *n* × PerStage |
+| `maxDescriptorSetSampledImages` | - | 96 | 1800 | min, *n* × PerStage |
+| `maxDescriptorSetStorageImages` | - | 24 | 144 | min, *n* × PerStage |
+| `maxFragmentCombinedOutputResources` | - | 4 | 16 | min |
+| `maxComputeWorkGroupInvocations` | - | 128 | 256 | min |
+| `maxComputeWorkGroupSize` | - | (128,128,64) | (256,256,64) | min |
+| `subTexelPrecisionBits` | - | 4 | 8 | min |
+| `mipmapPrecisionBits` | - | 4 | 6 | min |
+| `maxSamplerLodBias` | - | 2 | 14 | min |
+| `pointSizeGranularity` | 0.0 | 1.0 | 0.125 | max, fixed point increment |
+| `lineWidthGranularity` | 0.0 | 1.0 | 0.5 | max, fixed point increment |
+| `standardSampleLocations` | - | - | `VK_TRUE` | implementation-dependent |
+| `maxColorAttachments` | - | 4 | 7 | min |
 
-Limit Name
-Unsupported Limit
-Core Limit
-Profile Limit
-Limit Type1
+| Limit Name | Unsupported Limit | Core Limit | Profile Limit | Limit Type1 |
+| --- | --- | --- | --- | --- |
+| `subgroupSize` | - | 1/4 | 4 | implementation-dependent |
+| `subgroupSupportedStages` | - | `VK_SHADER_STAGE_COMPUTE_BIT` | `VK_SHADER_STAGE_COMPUTE_BIT`
 
-`maxImageDimension1D`
--
-4096
-8192
-min
-
-`maxImageDimension2D`
--
-4096
-8192
-min
-
-`maxImageDimensionCube`
--
-4096
-8192
-min
-
-`maxImageArrayLayers`
--
-256
-2048
-min
-
-`maxUniformBufferRange`
--
-16384
-65536
-min
-
-`bufferImageGranularity`
--
-131072
-4096
-max
-
-`maxPerStageDescriptorSamplers`
--
-16
-64
-min
-
-`maxPerStageDescriptorUniformBuffers`
--
-12
-15
-min
-
-`maxPerStageDescriptorStorageBuffers`
--
-4
-30
-min
-
-`maxPerStageDescriptorSampledImages`
--
-16
-200
-min
-
-`maxPerStageDescriptorStorageImages`
--
-4
-16
-min
-
-`maxPerStageResources`
--
-128
-200
-min
-
-`maxDescriptorSetSamplers`
--
-96
-576
-min, *n* × PerStage
-
-`maxDescriptorSetUniformBuffers`
--
-72
-90
-min, *n* × PerStage
-
-`maxDescriptorSetStorageBuffers`
--
-24
-96
-min, *n* × PerStage
-
-`maxDescriptorSetSampledImages`
--
-96
-1800
-min, *n* × PerStage
-
-`maxDescriptorSetStorageImages`
--
-24
-144
-min, *n* × PerStage
-
-`maxFragmentCombinedOutputResources`
--
-4
-16
-min
-
-`maxComputeWorkGroupInvocations`
--
-128
-256
-min
-
-`maxComputeWorkGroupSize`
--
-(128,128,64)
-(256,256,64)
-min
-
-`subTexelPrecisionBits`
--
-4
-8
-min
-
-`mipmapPrecisionBits`
--
-4
-6
-min
-
-`maxSamplerLodBias`
--
-2
-14
-min
-
-`pointSizeGranularity`
-0.0
-1.0
-0.125
-max, fixed point increment
-
-`lineWidthGranularity`
-0.0
-1.0
-0.5
-max, fixed point increment
-
-`standardSampleLocations`
--
--
-`VK_TRUE`
-implementation-dependent
-
-`maxColorAttachments`
--
-4
-7
-min
-
-Table 2. Vulkan 1.1 Limits
-
-Limit Name
-Unsupported Limit
-Core Limit
-Profile Limit
-Limit Type1
-
-`subgroupSize`
--
-1/4
-4
-implementation-dependent
-
-`subgroupSupportedStages`
--
-`VK_SHADER_STAGE_COMPUTE_BIT`
-`VK_SHADER_STAGE_COMPUTE_BIT`
-
-                                                   `VK_SHADER_STAGE_FRAGMENT_BIT`
-implementation-dependent
-
-`subgroupSupportedOperations`
--
-`VK_SUBGROUP_FEATURE_BASIC_BIT`
-`VK_SUBGROUP_FEATURE_BASIC_BIT`
+                                                   `VK_SHADER_STAGE_FRAGMENT_BIT` | implementation-dependent |
+| `subgroupSupportedOperations` | - | `VK_SUBGROUP_FEATURE_BASIC_BIT` | `VK_SUBGROUP_FEATURE_BASIC_BIT`
 
                                                    `VK_SUBGROUP_FEATURE_VOTE_BIT`
 
@@ -360,48 +201,17 @@ implementation-dependent
 
                                                    `VK_SUBGROUP_FEATURE_SHUFFLE_RELATIVE_BIT`
 
-                                                   `VK_SUBGROUP_FEATURE_QUAD_BIT`
-implementation-dependent
+                                                   `VK_SUBGROUP_FEATURE_QUAD_BIT` | implementation-dependent |
 
-Table 3. Vulkan 1.2 Limits
+| Limit Name | Unsupported Limit | Core Limit | Profile Limit | Limit Type1 |
+| --- | --- | --- | --- | --- |
+| `shaderSignedZeroInfNanPreserveFloat16` | - | - | `VK_TRUE` | implementation-dependent |
+| `shaderSignedZeroInfNanPreserveFloat32` | - | - | `VK_TRUE` | implementation-dependent |
+| `maxPerStageDescriptorUpdateAfterBindInputAttachments` | 0 | 4 | 7 | min |
 
-Limit Name
-Unsupported Limit
-Core Limit
-Profile Limit
-Limit Type1
-
-`shaderSignedZeroInfNanPreserveFloat16`
--
--
-`VK_TRUE`
-implementation-dependent
-
-`shaderSignedZeroInfNanPreserveFloat32`
--
--
-`VK_TRUE`
-implementation-dependent
-
-`maxPerStageDescriptorUpdateAfterBindInputAttachments`
-0
-4
-7
-min
-
-Table 4. Vulkan 1.3 Limits
-
-Limit Name
-Unsupported Limit
-Core Limit
-Profile Limit
-Limit Type1
-
-`maxSubgroupSize`
--
--
-4
-min
+| Limit Name | Unsupported Limit | Core Limit | Profile Limit | Limit Type1 |
+| --- | --- | --- | --- | --- |
+| `maxSubgroupSize` | - | - | 4 | min |
 
 The following extensions are **required**
 
@@ -465,51 +275,16 @@ Vulkan 1.2 Optional Features
 
 The following core increased limits are **required**
 
-Table 5. Vulkan 1.0 Limits
+| Limit Name | Unsupported Limit | Core Limit | Profile Limit | Limit Type1 |
+| --- | --- | --- | --- | --- |
+| `maxBoundDescriptorSets` | - | 4 | 7 | min |
+| `maxColorAttachments` | - | 4 | 8 | min |
+| `timestampComputeAndGraphics` | - | FALSE | TRUE | Boolean |
 
-Limit Name
-Unsupported Limit
-Core Limit
-Profile Limit
-Limit Type1
-
-`maxBoundDescriptorSets`
--
-4
-7
-min
-
-`maxColorAttachments`
--
-4
-8
-min
-
-`timestampComputeAndGraphics`
--
-FALSE
-TRUE
-Boolean
-
-Table 6. Vulkan 1.2 Limits
-
-Limit Name
-Unsupported Limit
-Core Limit
-Profile Limit
-Limit Type1
-
-`shaderRoundingModeRTEFloat16`
--
-FALSE
-TRUE
-Boolean
-
-`shaderRoundingModeRTEFloat32`
--
-FALSE
-TRUE
-Boolean
+| Limit Name | Unsupported Limit | Core Limit | Profile Limit | Limit Type1 |
+| --- | --- | --- | --- | --- |
+| `shaderRoundingModeRTEFloat16` | - | FALSE | TRUE | Boolean |
+| `shaderRoundingModeRTEFloat32` | - | FALSE | TRUE | Boolean |
 
 The following extensions are **required**
 

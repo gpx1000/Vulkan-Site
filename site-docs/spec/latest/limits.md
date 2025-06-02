@@ -20,6 +20,16 @@
 *Limits* are implementation-dependent minimums, maximums, and other device
 characteristics that an application **may** need to be aware of.
 
+|  | Limits are reported via the basic [VkPhysicalDeviceLimits](#VkPhysicalDeviceLimits) structure as
+| --- | --- |
+well as the extensible structure `VkPhysicalDeviceProperties2`, which
+was added in `[VK_KHR_get_physical_device_properties2](../appendices/extensions.html#VK_KHR_get_physical_device_properties2)` and included in
+Vulkan 1.1.
+When limits are added in future Vulkan versions or extensions, each
+extension **should** introduce one new limit structure, if needed.
+This structure **can** be added to the `pNext` chain of the
+`VkPhysicalDeviceProperties2` structure. |
+
 The `VkPhysicalDeviceLimits` structure is defined as:
 
 // Provided by VK_VERSION_1_0
@@ -739,6 +749,17 @@ This range **must** be at least [-2 × `size`, 2 ×
 `size` - 1], where `size` =
 max(`maxViewportDimensions`[0], `maxViewportDimensions`[1]).
 See [Controlling the Viewport](vertexpostproc.html#vertexpostproc-viewport).
+
+|  | The intent of the `viewportBoundsRange` limit is to allow a maximum
+| --- | --- |
+sized viewport to be arbitrarily shifted relative to the output target as
+long as at least some portion intersects.
+This would give a bounds limit of [-`size` +  1, 2 ×
+`size` - 1] which would allow all possible non-empty-set intersections
+of the output target and the viewport.
+Since these numbers are typically powers of two, picking the signed number
+range using the smallest possible number of bits ends up with the specified
+range. |
 
 * 
  `viewportSubPixelBits` is the number
@@ -1742,6 +1763,15 @@ If Vulkan 1.4 is supported, `VK_SUBGROUP_FEATURE_ROTATE_BIT` and
 `VK_SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT` **must** be returned in
 [VkPhysicalDeviceSubgroupProperties](#VkPhysicalDeviceSubgroupProperties)::`supportedOperations` and
 [VkPhysicalDeviceVulkan11Properties](devsandqueues.html#VkPhysicalDeviceVulkan11Properties)::`subgroupSupportedOperations`
+
+|  | `VK_SUBGROUP_FEATURE_ROTATE_BIT` and
+| --- | --- |
+`VK_SUBGROUP_FEATURE_ROTATE_CLUSTERED_BIT` were added in version 2 of
+the [VK_KHR_shader_subgroup_rotate](../appendices/extensions.html#VK_KHR_shader_subgroup_rotate) extension, after the initial
+release, so there are implementations that do not advertise these bits.
+Applications should use the [`shaderSubgroupRotate`](features.html#features-shaderSubgroupRotate) and [`shaderSubgroupRotateClustered`](features.html#features-shaderSubgroupRotateClustered) features to determine and enable
+support.
+These bits are advertised here for consistency and for future dependencies. |
 
 Valid Usage (Implicit)
 
@@ -5523,6 +5553,20 @@ implementations **must** report this as `VK_FALSE`.
 If `fragmentShadingRateNonTrivialCombinerOps` is `VK_TRUE`,
 implementations **should** report this as `VK_TRUE`.
 
+|  | Multiplication of the combiner rates using the fragment width/height in
+| --- | --- |
+linear space is equivalent to an addition of those values in log2 space.
+Some implementations inadvertently implemented an addition in linear space
+due to unclear requirements originating outside of this specification.
+This resulted in [`fragmentShadingRateStrictMultiplyCombiner`](#limits-fragmentShadingRateStrictMultiplyCombiner) being added.
+Fortunately, this only affects situations where a rate of 1 in either
+dimension is combined with another rate of 1.
+All other combinations result in the exact same result as if multiplication
+was performed in linear space due to the clamping logic, and the fact that
+both the sum and product of 2 and 2 are equal.
+In many cases, this limit will not affect the correct operation of
+applications. |
+
 If the `VkPhysicalDeviceFragmentShadingRatePropertiesKHR` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
 [vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
@@ -6267,6 +6311,22 @@ algorithm used to compute an identifier in
 Implementations **should** not change this value in different driver
 versions if the algorithm used to compute an identifier is the same.
 
+|  | The algorithm UUID may be the same in different ICDs if the algorithms are
+| --- | --- |
+guaranteed to produce the same results.
+This may happen in driver stacks which support different kinds of hardware
+with shared code.
+
+Khronos' conformance testing can not guarantee that
+`shaderModuleIdentifierAlgorithmUUID` values are actually unique, so
+implementors should make their own best efforts to ensure that their UUID is
+unlikely to conflict with other implementations which may use a different
+algorithm.
+In particular, hard-coded values which easily conflict, such as all-`0`
+bits, **should** never be used.
+Hard-coded values are acceptable if best effort is ensured that the value
+will not accidentally conflict. |
+
 If the `VkPhysicalDeviceShaderModuleIdentifierPropertiesEXT` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
 [vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
@@ -6619,6 +6679,11 @@ structure.
 * 
 `rayTracingInvocationReorderReorderingHint` is a hint indicating if
 the implementation will actually reorder at the reorder calls.
+
+|  | Because the extension changes how hits are managed there is a compatibility
+| --- | --- |
+reason to expose the extension even when an implementation does not have
+sorting active. |
 
 If the `VkPhysicalDeviceRayTracingInvocationReorderPropertiesNV` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
@@ -7079,6 +7144,17 @@ including from previous runs of the application.
 already compressed and so applications **should** not attempt to compress
 it.
 
+|  | These properties tend to be platform specific and may change depending on
+| --- | --- |
+external configuration which is outside the scope of this specification.
+These properties are intended to guide applications when implementations
+have dedicated caching solutions available.
+In particular, if the `pipelineBinaryPrefersInternalCache` limit is
+exposed, relying on the internal cache may provide some advantage compared
+to an application-specific solution.
+An application with its own dedicated solution may still use its own caching
+system even with this limit exposed. |
+
 If the `VkPhysicalDevicePipelineBinaryPropertiesKHR` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
 [vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
@@ -7294,3359 +7370,824 @@ the feature is supported and one when it is not supported.
 If an implementation supports a feature, the limits reported are the same
 whether or not the feature is enabled.
 
-Table 1. Required Limit Types
-
-Type
-Limit
-Feature
-
-`uint32_t`
-`maxImageDimension1D`
--
-
-`uint32_t`
-`maxImageDimension2D`
--
-
-`uint32_t`
-`maxImageDimension3D`
--
-
-`uint32_t`
-`maxImageDimensionCube`
--
-
-`uint32_t`
-`maxImageArrayLayers`
--
-
-`uint32_t`
-`maxTexelBufferElements`
--
-
-`uint32_t`
-`maxUniformBufferRange`
--
-
-`uint32_t`
-`maxStorageBufferRange`
--
-
-`uint32_t`
-`maxPushConstantsSize`
--
-
-`uint32_t`
-`maxMemoryAllocationCount`
--
-
-`uint32_t`
-`maxSamplerAllocationCount`
--
-
-`VkDeviceSize`
-`bufferImageGranularity`
--
-
-`VkDeviceSize`
-`sparseAddressSpaceSize`
-`sparseBinding`
-
-`uint32_t`
-`maxBoundDescriptorSets`
--
-
-`uint32_t`
-`maxPerStageDescriptorSamplers`
--
-
-`uint32_t`
-`maxPerStageDescriptorUniformBuffers`
--
-
-`uint32_t`
-`maxPerStageDescriptorStorageBuffers`
--
-
-`uint32_t`
-`maxPerStageDescriptorSampledImages`
--
-
-`uint32_t`
-`maxPerStageDescriptorStorageImages`
--
-
-`uint32_t`
-`maxPerStageDescriptorInputAttachments`
--
-
-`uint32_t`
-`maxPerStageResources`
--
-
-`uint32_t`
-`maxDescriptorSetSamplers`
--
-
-`uint32_t`
-`maxDescriptorSetUniformBuffers`
--
-
-`uint32_t`
-`maxDescriptorSetUniformBuffersDynamic`
--
-
-`uint32_t`
-`maxDescriptorSetStorageBuffers`
--
-
-`uint32_t`
-`maxDescriptorSetStorageBuffersDynamic`
--
-
-`uint32_t`
-`maxDescriptorSetSampledImages`
--
-
-`uint32_t`
-`maxDescriptorSetStorageImages`
--
-
-`uint32_t`
-`maxDescriptorSetInputAttachments`
--
-
-`uint32_t`
-`maxVertexInputAttributes`
--
-
-`uint32_t`
-`maxVertexInputBindings`
--
-
-`uint32_t`
-`maxVertexInputAttributeOffset`
--
-
-`uint32_t`
-`maxVertexInputBindingStride`
--
-
-`uint32_t`
-`maxVertexOutputComponents`
--
-
-`uint32_t`
-`maxTessellationGenerationLevel`
-`tessellationShader`
-
-`uint32_t`
-`maxTessellationPatchSize`
-`tessellationShader`
-
-`uint32_t`
-`maxTessellationControlPerVertexInputComponents`
-`tessellationShader`
-
-`uint32_t`
-`maxTessellationControlPerVertexOutputComponents`
-`tessellationShader`
-
-`uint32_t`
-`maxTessellationControlPerPatchOutputComponents`
-`tessellationShader`
-
-`uint32_t`
-`maxTessellationControlTotalOutputComponents`
-`tessellationShader`
-
-`uint32_t`
-`maxTessellationEvaluationInputComponents`
-`tessellationShader`
-
-`uint32_t`
-`maxTessellationEvaluationOutputComponents`
-`tessellationShader`
-
-`uint32_t`
-`maxGeometryShaderInvocations`
-`geometryShader`
-
-`uint32_t`
-`maxGeometryInputComponents`
-`geometryShader`
-
-`uint32_t`
-`maxGeometryOutputComponents`
-`geometryShader`
-
-`uint32_t`
-`maxGeometryOutputVertices`
-`geometryShader`
-
-`uint32_t`
-`maxGeometryTotalOutputComponents`
-`geometryShader`
-
-`uint32_t`
-`maxFragmentInputComponents`
--
-
-`uint32_t`
-`maxFragmentOutputAttachments`
--
-
-`uint32_t`
-`maxFragmentDualSrcAttachments`
-`dualSrcBlend`
-
-`uint32_t`
-`maxFragmentCombinedOutputResources`
--
-
-`uint32_t`
-`maxComputeSharedMemorySize`
--
-
-3 × `uint32_t`
-`maxComputeWorkGroupCount`
--
-
-`uint32_t`
-`maxComputeWorkGroupInvocations`
--
-
-3 × `uint32_t`
-`maxComputeWorkGroupSize`
--
-
-`uint32_t`
-`subPixelPrecisionBits`
--
-
-`uint32_t`
-`subTexelPrecisionBits`
--
-
-`uint32_t`
-`mipmapPrecisionBits`
--
-
-`uint32_t`
-`maxDrawIndexedIndexValue`
-`fullDrawIndexUint32`
-
-`uint32_t`
-`maxDrawIndirectCount`
-`multiDrawIndirect`
-
-`float`
-`maxSamplerLodBias`
--
-
-`float`
-`maxSamplerAnisotropy`
-`samplerAnisotropy`
-
-`uint32_t`
-`maxViewports`
-`multiViewport`
-
-2 × `uint32_t`
-`maxViewportDimensions`
--
-
-2 × `float`
-`viewportBoundsRange`
--
-
-`uint32_t`
-`viewportSubPixelBits`
--
-
-`size_t`
-`minMemoryMapAlignment`
--
-
-`VkDeviceSize`
-`minTexelBufferOffsetAlignment`
--
-
-`VkDeviceSize`
-`minUniformBufferOffsetAlignment`
--
-
-`VkDeviceSize`
-`minStorageBufferOffsetAlignment`
--
-
-`int32_t`
-`minTexelOffset`
--
-
-`uint32_t`
-`maxTexelOffset`
--
-
-`int32_t`
-`minTexelGatherOffset`
-`shaderImageGatherExtended`
-
-`uint32_t`
-`maxTexelGatherOffset`
-`shaderImageGatherExtended`
-
-`float`
-`minInterpolationOffset`
-`sampleRateShading`
-
-`float`
-`maxInterpolationOffset`
-`sampleRateShading`
-
-`uint32_t`
-`subPixelInterpolationOffsetBits`
-`sampleRateShading`
-
-`uint32_t`
-`maxFramebufferWidth`
--
-
-`uint32_t`
-`maxFramebufferHeight`
--
-
-`uint32_t`
-`maxFramebufferLayers`
--
-
-[VkSampleCountFlags](#VkSampleCountFlags)
-`framebufferColorSampleCounts`
--
-
-[VkSampleCountFlags](#VkSampleCountFlags)
-`framebufferIntegerColorSampleCounts`
--
-
-[VkSampleCountFlags](#VkSampleCountFlags)
-`framebufferDepthSampleCounts`
--
-
-[VkSampleCountFlags](#VkSampleCountFlags)
-`framebufferStencilSampleCounts`
--
-
-[VkSampleCountFlags](#VkSampleCountFlags)
-`framebufferNoAttachmentsSampleCounts`
--
-
-`uint32_t`
-`maxColorAttachments`
--
-
-[VkSampleCountFlags](#VkSampleCountFlags)
-`sampledImageColorSampleCounts`
--
-
-[VkSampleCountFlags](#VkSampleCountFlags)
-`sampledImageIntegerSampleCounts`
--
-
-[VkSampleCountFlags](#VkSampleCountFlags)
-`sampledImageDepthSampleCounts`
--
-
-[VkSampleCountFlags](#VkSampleCountFlags)
-`sampledImageStencilSampleCounts`
--
-
-[VkSampleCountFlags](#VkSampleCountFlags)
-`storageImageSampleCounts`
-`shaderStorageImageMultisample`
-
-`uint32_t`
-`maxSampleMaskWords`
--
-
-`VkBool32`
-`timestampComputeAndGraphics`
--
-
-`float`
-`timestampPeriod`
--
-
-`uint32_t`
-`maxClipDistances`
-`shaderClipDistance`
-
-`uint32_t`
-`maxCullDistances`
-`shaderCullDistance`
-
-`uint32_t`
-`maxCombinedClipAndCullDistances`
-`shaderCullDistance`
-
-`uint32_t`
-`discreteQueuePriorities`
--
-
-2 × `float`
-`pointSizeRange`
-`largePoints`
-
-2 × `float`
-`lineWidthRange`
-`wideLines`
-
-`float`
-`pointSizeGranularity`
-`largePoints`
-
-`float`
-`lineWidthGranularity`
-`wideLines`
-
-`VkBool32`
-`strictLines`
--
-
-`VkBool32`
-`standardSampleLocations`
--
-
-`VkDeviceSize`
-`optimalBufferCopyOffsetAlignment`
--
-
-`VkDeviceSize`
-`optimalBufferCopyRowPitchAlignment`
--
-
-`VkDeviceSize`
-`nonCoherentAtomSize`
--
-
-`uint32_t`
-`maxDiscardRectangles`
-`[VK_EXT_discard_rectangles](../appendices/extensions.html#VK_EXT_discard_rectangles)`
-
-`VkBool32`
-`filterMinmaxSingleComponentFormats`
-`[samplerFilterMinmax`](features.html#features-samplerFilterMinmax)
-`[VK_EXT_sampler_filter_minmax](../appendices/extensions.html#VK_EXT_sampler_filter_minmax)`
-
-`VkBool32`
-`filterMinmaxImageComponentMapping`
-`[samplerFilterMinmax`](features.html#features-samplerFilterMinmax)
-`[VK_EXT_sampler_filter_minmax](../appendices/extensions.html#VK_EXT_sampler_filter_minmax)`
-
-`VkDeviceSize`
-`maxBufferSize`
-`[maintenance4`](features.html#features-maintenance4)
-
-`float`
-`primitiveOverestimationSize`
-`[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)`
-
-`VkBool32`
-`maxExtraPrimitiveOverestimationSize`
-`[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)`
-
-`float`
-`extraPrimitiveOverestimationSizeGranularity`
-`[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)`
-
-`VkBool32`
-`degenerateTriangleRasterized`
-`[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)`
-
-`float`
-`degenerateLinesRasterized`
-`[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)`
-
-`VkBool32`
-`fullyCoveredFragmentShaderInputVariable`
-`[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)`
-
-`VkBool32`
-`conservativeRasterizationPostDepthCoverage`
-`[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)`
-
-`uint32_t`
-`maxUpdateAfterBindDescriptorsInAllPools`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`VkBool32`
-`shaderUniformBufferArrayNonUniformIndexingNative`
--
-
-`VkBool32`
-`shaderSampledImageArrayNonUniformIndexingNative`
--
-
-`VkBool32`
-`shaderStorageBufferArrayNonUniformIndexingNative`
--
-
-`VkBool32`
-`shaderStorageImageArrayNonUniformIndexingNative`
--
-
-`VkBool32`
-`shaderInputAttachmentArrayNonUniformIndexingNative`
--
-
-`uint32_t`
-`maxPerStageDescriptorUpdateAfterBindSamplers`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxPerStageDescriptorUpdateAfterBindUniformBuffers`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxPerStageDescriptorUpdateAfterBindStorageBuffers`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxPerStageDescriptorUpdateAfterBindSampledImages`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxPerStageDescriptorUpdateAfterBindStorageImages`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxPerStageDescriptorUpdateAfterBindInputAttachments`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxPerStageUpdateAfterBindResources`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindSamplers`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindUniformBuffers`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindUniformBuffersDynamic`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindStorageBuffers`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindStorageBuffersDynamic`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindSampledImages`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindStorageImages`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindInputAttachments`
-`[descriptorIndexing`](features.html#features-descriptorIndexing)
-
-`uint32_t`
-`maxInlineUniformBlockSize`
-`[inlineUniformBlock`](features.html#features-inlineUniformBlock)
-
-`uint32_t`
-`maxPerStageDescriptorInlineUniformBlocks`
-`[inlineUniformBlock`](features.html#features-inlineUniformBlock)
-
-`uint32_t`
-`maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks`
-`[inlineUniformBlock`](features.html#features-inlineUniformBlock)
-
-`uint32_t`
-`maxDescriptorSetInlineUniformBlocks`
-`[inlineUniformBlock`](features.html#features-inlineUniformBlock)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindInlineUniformBlocks`
-`[inlineUniformBlock`](features.html#features-inlineUniformBlock)
-
-`uint32_t`
-`maxInlineUniformTotalSize`
-`[inlineUniformBlock`](features.html#features-inlineUniformBlock)
-
-`uint32_t`
-`maxVertexAttribDivisor`
-Vulkan 1.4, [VK_KHR_vertex_attribute_divisor](../appendices/extensions.html#VK_KHR_vertex_attribute_divisor), [VK_EXT_vertex_attribute_divisor](../appendices/extensions.html#VK_EXT_vertex_attribute_divisor)
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxDrawMeshTasksCount`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskWorkGroupInvocations`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-3 × `uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskWorkGroupSize`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskTotalMemorySize`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskOutputCount`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshWorkGroupInvocations`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-3 × `uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshWorkGroupSize`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshTotalMemorySize`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshOutputVertices`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshOutputPrimitives`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshMultiviewViewCount`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`meshOutputPerVertexGranularity`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`meshOutputPerPrimitiveGranularity`
-`[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupTotalCount`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-3 × `uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupCount`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupInvocations`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-3 × `uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupSize`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskPayloadSize`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskSharedMemorySize`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskPayloadAndSharedMemorySize`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupTotalCount`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-3 × `uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupCount`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupInvocations`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-3 × `uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupSize`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshSharedMemorySize`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshPayloadAndSharedMemorySize`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputMemorySize`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshPayloadAndOutputMemorySize`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputComponents`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputVertices`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputPrimitives`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputLayers`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshMultiviewViewCount`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`meshOutputPerVertexGranularity`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`meshOutputPerPrimitiveGranularity`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxPreferredTaskWorkGroupInvocations`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxPreferredMeshWorkGroupInvocations`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`VkBool32`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersLocalInvocationVertexOutput`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`VkBool32`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersLocalInvocationPrimitiveOutput`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`VkBool32`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersCompactVertexOutput`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`VkBool32`
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersCompactPrimitiveOutput`
-`[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)`
-
-`uint32_t`
-`maxTransformFeedbackStreams`
-`[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)`
-
-`uint32_t`
-`maxTransformFeedbackBuffers`
-`[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)`
-
-`VkDeviceSize`
-`maxTransformFeedbackBufferSize`
-`[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)`
-
-`uint32_t`
-`maxTransformFeedbackStreamDataSize`
-`[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)`
-
-`uint32_t`
-`maxTransformFeedbackBufferDataSize`
-`[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)`
-
-`uint32_t`
-`maxTransformFeedbackBufferDataStride`
-`[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)`
-
-`VkBool32`
-`transformFeedbackQueries`
-`[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)`
-
-`VkBool32`
-`transformFeedbackStreamsLinesTriangles`
-`[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)`
-
-`VkBool32`
-`transformFeedbackRasterizationStreamSelect`
-`[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)`
-
-`VkBool32`
-`transformFeedbackDraw`
-`[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)`
-
-[VkExtent2D](fundamentals.html#VkExtent2D)
-`minFragmentDensityTexelSize`
-`[fragmentDensityMap`](features.html#features-fragmentDensityMap)
-
-[VkExtent2D](fundamentals.html#VkExtent2D)
-`maxFragmentDensityTexelSize`
-`[fragmentDensityMap`](features.html#features-fragmentDensityMap)
-
-`VkBool32`
-`fragmentDensityInvocations`
-`[fragmentDensityMap`](features.html#features-fragmentDensityMap)
-
-`VkBool32`
-`subsampledLoads`
-`[VK_EXT_fragment_density_map2](../appendices/extensions.html#VK_EXT_fragment_density_map2)`
-
-`VkBool32`
-`subsampledCoarseReconstructionEarlyAccess`
-`[VK_EXT_fragment_density_map2](../appendices/extensions.html#VK_EXT_fragment_density_map2)`
-
-`uint32_t`
-`maxSubsampledArrayLayers`
-`[VK_EXT_fragment_density_map2](../appendices/extensions.html#VK_EXT_fragment_density_map2)`
-
-`uint32_t`
-`maxDescriptorSetSubsampledSamplers`
-`[VK_EXT_fragment_density_map2](../appendices/extensions.html#VK_EXT_fragment_density_map2)`
-
-[VkExtent2D](fundamentals.html#VkExtent2D)
-`fragmentDensityOffsetGranularity`
-`[fragmentDensityMapOffset`](features.html#features-fragmentDensityMapOffset)
-
-`uint32_t`
-`maxGeometryCount`
-`[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)`
-
-`uint32_t`
-`maxInstanceCount`
-`[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)`
-
-`uint32_t`
-`maxVerticesPerCluster`
-`[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure)
-
-`uint32_t`
-`maxTrianglesPerCluster`
-`[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure)
-
-`uint32_t`
-`clusterScratchByteAlignment`
-`[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure)
-
-`uint32_t`
-`clusterByteAlignment`
-`[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure)
-
-`uint32_t`
-`clusterTemplateByteAlignment`
-`[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure)
-
-`uint32_t`
-`clusterBottomLevelByteAlignment`
-`[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure)
-
-`uint32_t`
-`clusterTemplateBoundsByteAlignment`
-`[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure)
-
-`uint32_t`
-`maxClusterGeometryIndex`
-`[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure)
-
-`uint32_t`
-`shaderGroupHandleSize`
-`[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)`
-
-`uint32_t`
-`maxShaderGroupStride`
-`[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)`
-
-`uint32_t`
-`shaderGroupBaseAlignment`
-`[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)`
-
-`uint32_t`
-`maxRecursionDepth`
-`[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`
-
-`uint32_t`
-`maxTriangleCount`
-`[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`
-
-`uint32_t`
-`maxPerStageDescriptorAccelerationStructures`
-`[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)`
-
-`uint32_t`
-`maxPerStageDescriptorUpdateAfterBindAccelerationStructures`
-`[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)`
-
-`uint32_t`
-`maxDescriptorSetAccelerationStructures`
-`[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)`
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindAccelerationStructures`
-`[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)`
-
-`uint32_t`
-`minAccelerationStructureScratchOffsetAlignment`
-`[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)`
-
-`uint32_t`
-`maxRayRecursionDepth`
-`[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)`
-
-`uint32_t`
-`shaderGroupHandleCaptureReplaySize`
-`[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)`
-
-`uint32_t`
-`maxRayDispatchInvocationCount`
-`[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)`
-
-`uint32_t`
-`shaderGroupHandleAlignment`
-`[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)`
-
-`uint32_t`
-`maxRayHitAttributeSize`
-`[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)`
-
-`uint32_t`
-`maxPartitionCount`
-`[partitionedAccelerationStructure`](features.html#features-partitionedAccelerationStructure)
-
-`uint64_t`
-`maxTimelineSemaphoreValueDifference`
-`[timelineSemaphore`](features.html#features-timelineSemaphore)
-
-`uint32_t`
-`lineSubPixelPrecisionBits`
-Vulkan 1.4, [VK_KHR_line_rasterization](../appendices/extensions.html#VK_KHR_line_rasterization), [VK_EXT_line_rasterization](../appendices/extensions.html#VK_EXT_line_rasterization)
-
-`uint32_t`
-`maxCustomBorderColorSamplers`
-`[VK_EXT_custom_border_color](../appendices/extensions.html#VK_EXT_custom_border_color)`
-
-`VkDeviceSize`
-`robustStorageBufferAccessSizeAlignment`
-`[VK_EXT_robustness2](../appendices/extensions.html#VK_EXT_robustness2)`, `[VK_KHR_robustness2](../appendices/extensions.html#VK_KHR_robustness2)`
-
-`VkDeviceSize`
-`robustUniformBufferAccessSizeAlignment`
-`[VK_EXT_robustness2](../appendices/extensions.html#VK_EXT_robustness2)`, `[VK_KHR_robustness2](../appendices/extensions.html#VK_KHR_robustness2)`
-
-2 × `uint32_t`
-`minFragmentShadingRateAttachmentTexelSize`
-`[attachmentFragmentShadingRate`](features.html#features-attachmentFragmentShadingRate)
-
-2 × `uint32_t`
-`maxFragmentShadingRateAttachmentTexelSize`
-`[attachmentFragmentShadingRate`](features.html#features-attachmentFragmentShadingRate)
-
-`uint32_t`
-`maxFragmentShadingRateAttachmentTexelSizeAspectRatio`
-`[attachmentFragmentShadingRate`](features.html#features-attachmentFragmentShadingRate)
-
-`VkBool32`
-`primitiveFragmentShadingRateWithMultipleViewports`
-`[primitiveFragmentShadingRate`](features.html#features-primitiveFragmentShadingRate)
-
-`VkBool32`
-`layeredShadingRateAttachments`
-`[attachmentFragmentShadingRate`](features.html#features-attachmentFragmentShadingRate)
-
-`VkBool32`
-`fragmentShadingRateNonTrivialCombinerOps`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-2 × `uint32_t`
-`maxFragmentSize`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-`uint32_t`
-`maxFragmentSizeAspectRatio`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-`uint32_t`
-`maxFragmentShadingRateCoverageSamples`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-[VkSampleCountFlagBits](#VkSampleCountFlagBits)
-`maxFragmentShadingRateRasterizationSamples`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-`VkBool32`
-`fragmentShadingRateWithShaderDepthStencilWrites`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-`VkBool32`
-`fragmentShadingRateWithSampleMask`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-`VkBool32`
-`fragmentShadingRateWithShaderSampleMask`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-`VkBool32`
-`fragmentShadingRateWithConservativeRasterization`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-`VkBool32`
-`fragmentShadingRateWithFragmentShaderInterlock`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-`VkBool32`
-`fragmentShadingRateWithCustomSampleLocations`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-`VkBool32`
-`fragmentShadingRateStrictMultiplyCombiner`
-`[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate)
-
-[VkSampleCountFlagBits](#VkSampleCountFlagBits)
-`maxFragmentShadingRateInvocationCount`
-`[supersampleFragmentShadingRates`](features.html#features-supersampleFragmentShadingRates)
-
-`VkBool32`
-`combinedImageSamplerDescriptorSingleArray`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`VkBool32`
-`bufferlessPushDescriptors`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`VkBool32`
-`allowSamplerImageViewPostSubmitCreation`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`VkDeviceSize`
-`descriptorBufferOffsetAlignment`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`uint32_t`
-`maxDescriptorBufferBindings`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`uint32_t`
-`maxResourceDescriptorBufferBindings`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`uint32_t`
-`maxSamplerDescriptorBufferBindings`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`uint32_t`
-`maxEmbeddedImmutableSamplerBindings`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`uint32_t`
-`maxEmbeddedImmutableSamplers`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`bufferCaptureReplayDescriptorDataSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`imageCaptureReplayDescriptorDataSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`imageViewCaptureReplayDescriptorDataSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`samplerCaptureReplayDescriptorDataSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`accelerationStructureCaptureReplayDescriptorDataSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`samplerDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`combinedImageSamplerDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`sampledImageDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`storageImageDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`uniformTexelBufferDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`robustUniformTexelBufferDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`storageTexelBufferDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`robustStorageTexelBufferDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`uniformBufferDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`robustUniformBufferDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`storageBufferDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`robustStorageBufferDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`inputAttachmentDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`accelerationStructureDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`VkDeviceSize`
-`maxSamplerDescriptorBufferRange`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`VkDeviceSize`
-`maxResourceDescriptorBufferRange`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`VkDeviceSize`
-`samplerDescriptorBufferAddressSpaceSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`VkDeviceSize`
-`resourceDescriptorBufferAddressSpaceSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`VkDeviceSize`
-`descriptorBufferAddressSpaceSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`size_t`
-`combinedImageSamplerDensityMapDescriptorSize`
-`[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)`
-
-`uint32_t`
-`maxSubpassShadingWorkgroupSizeAspectRatio`
-`[subpassShading`](features.html#features-subpassShading)
-
-`VkBool32`
-`graphicsPipelineLibraryFastLinking`
-`[graphicsPipelineLibrary`](features.html#features-graphicsPipelineLibrary)
-
-`VkBool32`
-`graphicsPipelineLibraryIndependentInterpolationDecoration`
-`[graphicsPipelineLibrary`](features.html#features-graphicsPipelineLibrary)
-
-`VkBool32`
-`triStripVertexOrderIndependentOfProvokingVertex`
--
-
-`uint32_t`
-`maxWeightFilterPhases`
-`[textureSampleWeighted`](features.html#features-textureSampleWeighted)
-
-2 × `uint32_t`
-`maxWeightFilterDimension`
-`[textureSampleWeighted`](features.html#features-textureSampleWeighted)
-
-2 × `uint32_t`
-`maxBlockMatchRegion`
-`[textureBlockMatch`](features.html#features-textureBlockMatch)
-
-2 × `uint32_t`
-`maxBoxFilterBlockSize`
-`[textureBoxFilter`](features.html#features-textureBoxFilter)
-
-`VkBool32`
-`dynamicPrimitiveTopologyUnrestricted`
-`[VK_EXT_extended_dynamic_state3](../appendices/extensions.html#VK_EXT_extended_dynamic_state3)`
-
-`uint32_t`
-`maxOpacity2StateSubdivisionLevel`
-`[VK_EXT_opacity_micromap](../appendices/extensions.html#VK_EXT_opacity_micromap)`
-
-`uint32_t`
-`maxOpacity4StateSubdivisionLevel`
-`[VK_EXT_opacity_micromap](../appendices/extensions.html#VK_EXT_opacity_micromap)`
-
-`uint64_t`
-`maxDecompressionIndirectCount`
-`[VK_NV_memory_decompression](../appendices/extensions.html#VK_NV_memory_decompression)`
-
-3 × `uint32_t`
-`maxWorkGroupCount`
-`[VK_HUAWEI_cluster_culling_shader](../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader)`
-
-3 × `uint32_t`
-`maxWorkGroupSize`
-`[VK_HUAWEI_cluster_culling_shader](../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader)`
-
-`uint32_t`
-`maxOutputClusterCount`
-`[VK_HUAWEI_cluster_culling_shader](../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader)`
-
-`VkDeviceSize`
-`indirectBufferOffsetAlignment`
-`[VK_HUAWEI_cluster_culling_shader](../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader)`
-
-`uint32_t`
-`maxExecutionGraphDepth`
-`[shaderEnqueue`](features.html#features-shaderEnqueue)
-
-`uint32_t`
-`maxExecutionGraphShaderOutputNodes`
-`[shaderEnqueue`](features.html#features-shaderEnqueue)
-
-`uint32_t`
-`maxExecutionGraphShaderPayloadSize`
-`[shaderEnqueue`](features.html#features-shaderEnqueue)
-
-`uint32_t`
-`maxExecutionGraphShaderPayloadCount`
-`[shaderEnqueue`](features.html#features-shaderEnqueue)
-
-`uint32_t`
-`executionGraphDispatchAddressAlignment`
-`[shaderEnqueue`](features.html#features-shaderEnqueue)
-
-`uint32_t`
-`maxExecutionGraphVertexBufferBindings`
-`[shaderEnqueue`](features.html#features-shaderEnqueue)
-
-3 × `uint32_t`
-`maxExecutionGraphWorkgroupCount`
-`[shaderEnqueue`](features.html#features-shaderEnqueue)
-
-`uint32_t`
-`maxExecutionGraphWorkgroups`
-`[shaderEnqueue`](features.html#features-shaderEnqueue)
-
-`uint32_t`
-`maxIndirectShaderObjectCount`
-`[shaderObject`](features.html#features-shaderObject)
-
-`VkDeviceSize`
-`extendedSparseAddressSpaceSize`
-`sparseBinding`, `[extendedSparseAddressSpace`](features.html#features-extendedSparseAddressSpace)
-
-`uint32_t`
-`supportedImageAlignmentMask`
-`[imageAlignmentControl`](features.html#features-imageAlignmentControl)
-
-`VkBool32`
-`separateDepthStencilAttachmentAccess`
-[`maintenance7`](features.html#features-maintenance7)
-
-`uint32_t`
-`maxDescriptorSetTotalUniformBuffersDynamic`
-`[maintenance7`](features.html#features-maintenance7)
-
-`uint32_t`
-`maxDescriptorSetTotalStorageBuffersDynamic`
-`[maintenance7`](features.html#features-maintenance7)
-
-`uint32_t`
-`maxDescriptorSetTotalBuffersDynamic`
-`[maintenance7`](features.html#features-maintenance7)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic`
-`[maintenance7`](features.html#features-maintenance7)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic`
-`[maintenance7`](features.html#features-maintenance7)
-
-`uint32_t`
-`maxDescriptorSetUpdateAfterBindTotalBuffersDynamic`
-`[maintenance7`](features.html#features-maintenance7)
-
-`uint32_t`
-`cooperativeMatrixWorkgroupScopeMaxWorkgroupSize`
-`[cooperativeMatrixWorkgroupScope`](features.html#features-cooperativeMatrixWorkgroupScope)
-
-`uint32_t`
-`cooperativeMatrixFlexibleDimensionsMaxDimension`
-`[cooperativeMatrixFlexibleDimensions`](features.html#features-cooperativeMatrixFlexibleDimensions)
-
-`uint32_t`
-`cooperativeMatrixWorkgroupScopeReservedSharedMemory`
-`[cooperativeMatrixWorkgroupScope`](features.html#features-cooperativeMatrixWorkgroupScope)
-
-`VkBool32`
-`shaderSignedZeroInfNanPreserveFloat16`
-`[shaderFloat16`](features.html#features-shaderFloat16)
-
-`VkBool32`
-`cooperativeVectorTrainingFloat16Accumulation`
--
-
-`VkBool32`
-`cooperativeVectorTrainingFloat32Accumulation`
--
-
-`uint32_t`
-`maxApronSize`
-`[tileShadingApron`](features.html#features-tileShadingApron)
-
-`VkBool32`
-`preferNonCoherent`
-`[tileShading`](features.html#features-tileShading)
-
-2 × `uint32_t`
-`tileGranularity`
-`[tileShading`](features.html#features-tileShading)
-
-2 × `uint32_t`
-`maxTileShadingRate`
-`[tileShadingDispatchTile`](features.html#features-tileShadingDispatchTile)
-
-Table 2. Required Limits
-
-Limit
-Unsupported Limit
-Supported Limit
-Limit Type1
-
-`maxImageDimension1D`
--
-4096 (Vulkan Core)
-
-                                                   8192 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`maxImageDimension2D`
--
-4096 (Vulkan Core)
-
-                                                   8192 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`maxImageDimension3D`
--
-256 (Vulkan Core)
-
-                                                   512 (Vulkan 1.4)
-min
-
-`maxImageDimensionCube`
--
-4096 (Vulkan Core)
-
-                                                   8192 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`maxImageArrayLayers`
--
-256 (Vulkan Core)
-
-                                                   2048 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`maxTexelBufferElements`
--
-65536
-min
-
-`maxUniformBufferRange`
--
-16384 (Vulkan Core)
-
-                                                   65536 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`maxStorageBufferRange`
--
-227
-min
-
-`maxPushConstantsSize`
--
-128 (Vulkan Core)
-
-                                                   256 (Vulkan 1.4)
-min
-
-`maxMemoryAllocationCount`
--
-4096
-min
-
-`maxSamplerAllocationCount`
--
-4000
-min
-
-`bufferImageGranularity`
--
-131072 (Vulkan Core)
-
-                                                   4096 (Vulkan Roadmap 2022, Vulkan 1.4)
-max
-
-`sparseAddressSpaceSize`
-0
-231
-min
-
-`maxBoundDescriptorSets`
--
-4 (Vulkan Core)
-
-                                                   7 (Vulkan Roadmap 2024, Vulkan 1.4)
-min
-
-`maxPerStageDescriptorSamplers`
--
-16
-min
-
-`maxPerStageDescriptorUniformBuffers`
--
-12 (Vulkan Core)
-
-                                                   15 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`maxPerStageDescriptorStorageBuffers`
--
-4 (Vulkan Core)
-
-                                                   30 (Vulkan Roadmap 2022)
-min
-
-`maxPerStageDescriptorSampledImages`
--
-16 (Vulkan Core)
-
-                                                   200 (Vulkan Roadmap 2022)
-min
-
-`maxPerStageDescriptorStorageImages`
--
-4 (Vulkan Core)
-
-                                                   144 (Vulkan Roadmap 2022)
-min
-
-`maxPerStageDescriptorInputAttachments`
--
-4
-min
-
-`maxPerStageResources`
--
-128 2 (Vulkan Core)
-
-                                                   200 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`maxDescriptorSetSamplers`
--
-96 8 (Vulkan Core)
-
-                                                   576 (Vulkan Roadmap 2022)
-min, *n* × PerStage
-
-`maxDescriptorSetUniformBuffers`
--
-72 8 (Vulkan Core)
-
-                                                   90 (Vulkan Roadmap 2022, Vulkan 1.4)
-min, *n* × PerStage
-
-`maxDescriptorSetUniformBuffersDynamic`
--
-8
-min
-
-`maxDescriptorSetStorageBuffers`
--
-24 8 (Vulkan Core)
-
-                                                   96 (Vulkan Roadmap 2022, Vulkan 1.4)
-min, *n* × PerStage
-
-`maxDescriptorSetStorageBuffersDynamic`
--
-4
-min
-
-`maxDescriptorSetTotalUniformBuffersDynamic`
--
-`maxDescriptorSetUniformBuffersDynamic`
-min
-
-`maxDescriptorSetTotalStorageBuffersDynamic`
--
-`maxDescriptorSetStorageBuffersDynamic`
-min
-
-`maxDescriptorSetTotalBuffersDynamic`
--
-`maxDescriptorSetUniformBuffersDynamic` +  `maxDescriptorSetStorageBuffersDynamic`
-min
-
-`maxDescriptorSetSampledImages`
--
-96 8 (Vulkan Core)
-
-                                                   1800 (Vulkan Roadmap 2022)
-min, *n* × PerStage
-
-`maxDescriptorSetStorageImages`
--
-24 8 (Vulkan Core)
-
-                                                   144 (Vulkan Roadmap 2022, Vulkan 1.4)
-min, *n* × PerStage
-
-`maxDescriptorSetInputAttachments`
--
-4
-min
-
-`maxVertexInputAttributes`
--
-16
-min
-
-`maxVertexInputBindings`
--
-16 10
-min
-
-`maxVertexInputAttributeOffset`
--
-2047
-min
-
-`maxVertexInputBindingStride`
--
-2048
-min
-
-`maxVertexOutputComponents`
--
-64
-min
-
-`maxTessellationGenerationLevel`
-0
-64
-min
-
-`maxTessellationPatchSize`
-0
-32
-min
-
-`maxTessellationControlPerVertexInputComponents`
-0
-64
-min
-
-`maxTessellationControlPerVertexOutputComponents`
-0
-64
-min
-
-`maxTessellationControlPerPatchOutputComponents`
-0
-120
-min
-
-`maxTessellationControlTotalOutputComponents`
-0
-2048
-min
-
-`maxTessellationEvaluationInputComponents`
-0
-64
-min
-
-`maxTessellationEvaluationOutputComponents`
-0
-64
-min
-
-`maxGeometryShaderInvocations`
-0
-32
-min
-
-`maxGeometryInputComponents`
-0
-64
-min
-
-`maxGeometryOutputComponents`
-0
-64
-min
-
-`maxGeometryOutputVertices`
-0
-256
-min
-
-`maxGeometryTotalOutputComponents`
-0
-1024
-min
-
-`maxFragmentInputComponents`
--
-64
-min
-
-`maxFragmentOutputAttachments`
--
-4
-min
-
-`maxFragmentDualSrcAttachments`
-0
-1
-min
-
-`maxFragmentCombinedOutputResources`
--
-4 (Vulkan Core)
-
-                                                   16 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`maxComputeSharedMemorySize`
--
-16384
-min
-
-`maxComputeWorkGroupCount`
--
-(65535,65535,65535)
-min
-
-`maxComputeWorkGroupInvocations`
--
-128 (Vulkan Core)
-
-                                                   256 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`maxComputeWorkGroupSize`
--
-(128,128,64) (Vulkan Core)
-
-                                                   (256,256,64) (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`subgroupSize`
--
-1/4 (Vulkan Core)
-
-                                                   4 (Vulkan Roadmap 2022)
-min
-
-`subgroupSupportedStages`
--
-`VK_SHADER_STAGE_COMPUTE_BIT` (Vulkan Core)
-
-                                                   `VK_SHADER_STAGE_COMPUTE_BIT` |
-
-                                                   `VK_SHADER_STAGE_FRAGMENT_BIT` (Vulkan Roadmap 2022)
-bitfield
-
-`subgroupSupportedOperations`
--
-`VK_SUBGROUP_FEATURE_BASIC_BIT` (Vulkan Core)
-
-                                                   `VK_SUBGROUP_FEATURE_BASIC_BIT` |
-
-                                                   `VK_SUBGROUP_FEATURE_VOTE_BIT` |
-
-                                                   `VK_SUBGROUP_FEATURE_ARITHMETIC_BIT` |
-
-                                                   `VK_SUBGROUP_FEATURE_BALLOT_BIT` |
-
-                                                   `VK_SUBGROUP_FEATURE_SHUFFLE_BIT` |
-
-                                                   `VK_SUBGROUP_FEATURE_SHUFFLE_RELATIVE_BIT` |
-
-                                                   `VK_SUBGROUP_FEATURE_QUAD_BIT` (Vulkan Roadmap 2022)
-bitfield
-
-`shaderSignedZeroInfNanPreserveFloat16`
--
-- (Vulkan Core)
-
-                                                    `VK_TRUE` (Vulkan Roadmap 2022, Vulkan 1.4)
-Boolean
-
-`shaderSignedZeroInfNanPreserveFloat32`
--
-- (Vulkan Core)
-
-                                                    `VK_TRUE` (Vulkan Roadmap 2022, Vulkan 1.4)
-Boolean
-
-`shaderRoundingModeRTEFloat16`
--
-`VK_FALSE` (Vulkan Core)
-
-                                                    `VK_TRUE` (Vulkan Roadmap 2024)
-Boolean
-
-`shaderRoundingModeRTEFloat32`
--
-`VK_FALSE` (Vulkan Core)
-
-                                                    `VK_TRUE` (Vulkan Roadmap 2024)
-Boolean
-
-`maxSubgroupSize`
--
-- (Vulkan Core)
-
-                                                   4 (Vulkan Roadmap 2022)
-min
-
-`subPixelPrecisionBits`
--
-4
-min
-
-`subTexelPrecisionBits`
--
-4 (Vulkan Core)
-
-                                                   8 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`mipmapPrecisionBits`
--
-4 (Vulkan Core)
-
-                                                   6 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`maxDrawIndexedIndexValue`
-224-1
-232-1
-min
-
-`maxDrawIndirectCount`
-1
-216-1
-min
-
-`maxSamplerLodBias`
--
-2 (Vulkan Core)
-
-                                                   14 (Vulkan Roadmap 2022, Vulkan 1.4)
-min
-
-`maxSamplerAnisotropy`
-1
-16
-min
-
-`maxViewports`
-1
-16
-min
-
-`maxViewportDimensions`
--
-(4096,4096) 3
-min
-
-`viewportBoundsRange`
--
-(-8192,8191) 4
-(max,min)
-
-`viewportSubPixelBits`
--
-0
-min
-
-`minMemoryMapAlignment`
--
-64
-min
-
-`minTexelBufferOffsetAlignment`
--
-256
-max
-
-`minUniformBufferOffsetAlignment`
--
-256
-max
-
-`minStorageBufferOffsetAlignment`
--
-256
-max
-
-`minTexelOffset`
--
--8
-max
-
-`maxTexelOffset`
--
-7
-min
-
-`minTexelGatherOffset`
-0
--8
-max
-
-`maxTexelGatherOffset`
-0
-7
-min
-
-`minInterpolationOffset`
-0.0
--0.5 5
-max
-
-`maxInterpolationOffset`
-0.0
-0.5 - (1 ULP) 5
-min
-
-`subPixelInterpolationOffsetBits`
-0
-4 5
-min
-
-`maxFramebufferWidth`
--
-4096
-min
-
-`maxFramebufferHeight`
--
-4096
-min
-
-`maxFramebufferLayers`
--
-256
-min
-
-`framebufferColorSampleCounts`
--
-(`VK_SAMPLE_COUNT_1_BIT` | `VK_SAMPLE_COUNT_4_BIT`)
-min
-
-`framebufferIntegerColorSampleCounts`
--
-(`VK_SAMPLE_COUNT_1_BIT`)
-min
-
-`framebufferDepthSampleCounts`
--
-(`VK_SAMPLE_COUNT_1_BIT` | `VK_SAMPLE_COUNT_4_BIT`)
-min
-
-`framebufferStencilSampleCounts`
--
-(`VK_SAMPLE_COUNT_1_BIT` | `VK_SAMPLE_COUNT_4_BIT`)
-min
-
-`framebufferNoAttachmentsSampleCounts`
--
-(`VK_SAMPLE_COUNT_1_BIT` | `VK_SAMPLE_COUNT_4_BIT`)
-min
-
-`maxColorAttachments`
--
-4 (Vulkan Core)
+| Type | Limit | Feature |
+| --- | --- | --- |
+| `uint32_t` | `maxImageDimension1D` | - |
+| `uint32_t` | `maxImageDimension2D` | - |
+| `uint32_t` | `maxImageDimension3D` | - |
+| `uint32_t` | `maxImageDimensionCube` | - |
+| `uint32_t` | `maxImageArrayLayers` | - |
+| `uint32_t` | `maxTexelBufferElements` | - |
+| `uint32_t` | `maxUniformBufferRange` | - |
+| `uint32_t` | `maxStorageBufferRange` | - |
+| `uint32_t` | `maxPushConstantsSize` | - |
+| `uint32_t` | `maxMemoryAllocationCount` | - |
+| `uint32_t` | `maxSamplerAllocationCount` | - |
+| `VkDeviceSize` | `bufferImageGranularity` | - |
+| `VkDeviceSize` | `sparseAddressSpaceSize` | `sparseBinding` |
+| `uint32_t` | `maxBoundDescriptorSets` | - |
+| `uint32_t` | `maxPerStageDescriptorSamplers` | - |
+| `uint32_t` | `maxPerStageDescriptorUniformBuffers` | - |
+| `uint32_t` | `maxPerStageDescriptorStorageBuffers` | - |
+| `uint32_t` | `maxPerStageDescriptorSampledImages` | - |
+| `uint32_t` | `maxPerStageDescriptorStorageImages` | - |
+| `uint32_t` | `maxPerStageDescriptorInputAttachments` | - |
+| `uint32_t` | `maxPerStageResources` | - |
+| `uint32_t` | `maxDescriptorSetSamplers` | - |
+| `uint32_t` | `maxDescriptorSetUniformBuffers` | - |
+| `uint32_t` | `maxDescriptorSetUniformBuffersDynamic` | - |
+| `uint32_t` | `maxDescriptorSetStorageBuffers` | - |
+| `uint32_t` | `maxDescriptorSetStorageBuffersDynamic` | - |
+| `uint32_t` | `maxDescriptorSetSampledImages` | - |
+| `uint32_t` | `maxDescriptorSetStorageImages` | - |
+| `uint32_t` | `maxDescriptorSetInputAttachments` | - |
+| `uint32_t` | `maxVertexInputAttributes` | - |
+| `uint32_t` | `maxVertexInputBindings` | - |
+| `uint32_t` | `maxVertexInputAttributeOffset` | - |
+| `uint32_t` | `maxVertexInputBindingStride` | - |
+| `uint32_t` | `maxVertexOutputComponents` | - |
+| `uint32_t` | `maxTessellationGenerationLevel` | `tessellationShader` |
+| `uint32_t` | `maxTessellationPatchSize` | `tessellationShader` |
+| `uint32_t` | `maxTessellationControlPerVertexInputComponents` | `tessellationShader` |
+| `uint32_t` | `maxTessellationControlPerVertexOutputComponents` | `tessellationShader` |
+| `uint32_t` | `maxTessellationControlPerPatchOutputComponents` | `tessellationShader` |
+| `uint32_t` | `maxTessellationControlTotalOutputComponents` | `tessellationShader` |
+| `uint32_t` | `maxTessellationEvaluationInputComponents` | `tessellationShader` |
+| `uint32_t` | `maxTessellationEvaluationOutputComponents` | `tessellationShader` |
+| `uint32_t` | `maxGeometryShaderInvocations` | `geometryShader` |
+| `uint32_t` | `maxGeometryInputComponents` | `geometryShader` |
+| `uint32_t` | `maxGeometryOutputComponents` | `geometryShader` |
+| `uint32_t` | `maxGeometryOutputVertices` | `geometryShader` |
+| `uint32_t` | `maxGeometryTotalOutputComponents` | `geometryShader` |
+| `uint32_t` | `maxFragmentInputComponents` | - |
+| `uint32_t` | `maxFragmentOutputAttachments` | - |
+| `uint32_t` | `maxFragmentDualSrcAttachments` | `dualSrcBlend` |
+| `uint32_t` | `maxFragmentCombinedOutputResources` | - |
+| `uint32_t` | `maxComputeSharedMemorySize` | - |
+| 3 × `uint32_t` | `maxComputeWorkGroupCount` | - |
+| `uint32_t` | `maxComputeWorkGroupInvocations` | - |
+| 3 × `uint32_t` | `maxComputeWorkGroupSize` | - |
+| `uint32_t` | `subPixelPrecisionBits` | - |
+| `uint32_t` | `subTexelPrecisionBits` | - |
+| `uint32_t` | `mipmapPrecisionBits` | - |
+| `uint32_t` | `maxDrawIndexedIndexValue` | `fullDrawIndexUint32` |
+| `uint32_t` | `maxDrawIndirectCount` | `multiDrawIndirect` |
+| `float` | `maxSamplerLodBias` | - |
+| `float` | `maxSamplerAnisotropy` | `samplerAnisotropy` |
+| `uint32_t` | `maxViewports` | `multiViewport` |
+| 2 × `uint32_t` | `maxViewportDimensions` | - |
+| 2 × `float` | `viewportBoundsRange` | - |
+| `uint32_t` | `viewportSubPixelBits` | - |
+| `size_t` | `minMemoryMapAlignment` | - |
+| `VkDeviceSize` | `minTexelBufferOffsetAlignment` | - |
+| `VkDeviceSize` | `minUniformBufferOffsetAlignment` | - |
+| `VkDeviceSize` | `minStorageBufferOffsetAlignment` | - |
+| `int32_t` | `minTexelOffset` | - |
+| `uint32_t` | `maxTexelOffset` | - |
+| `int32_t` | `minTexelGatherOffset` | `shaderImageGatherExtended` |
+| `uint32_t` | `maxTexelGatherOffset` | `shaderImageGatherExtended` |
+| `float` | `minInterpolationOffset` | `sampleRateShading` |
+| `float` | `maxInterpolationOffset` | `sampleRateShading` |
+| `uint32_t` | `subPixelInterpolationOffsetBits` | `sampleRateShading` |
+| `uint32_t` | `maxFramebufferWidth` | - |
+| `uint32_t` | `maxFramebufferHeight` | - |
+| `uint32_t` | `maxFramebufferLayers` | - |
+| [VkSampleCountFlags](#VkSampleCountFlags) | `framebufferColorSampleCounts` | - |
+| [VkSampleCountFlags](#VkSampleCountFlags) | `framebufferIntegerColorSampleCounts` | - |
+| [VkSampleCountFlags](#VkSampleCountFlags) | `framebufferDepthSampleCounts` | - |
+| [VkSampleCountFlags](#VkSampleCountFlags) | `framebufferStencilSampleCounts` | - |
+| [VkSampleCountFlags](#VkSampleCountFlags) | `framebufferNoAttachmentsSampleCounts` | - |
+| `uint32_t` | `maxColorAttachments` | - |
+| [VkSampleCountFlags](#VkSampleCountFlags) | `sampledImageColorSampleCounts` | - |
+| [VkSampleCountFlags](#VkSampleCountFlags) | `sampledImageIntegerSampleCounts` | - |
+| [VkSampleCountFlags](#VkSampleCountFlags) | `sampledImageDepthSampleCounts` | - |
+| [VkSampleCountFlags](#VkSampleCountFlags) | `sampledImageStencilSampleCounts` | - |
+| [VkSampleCountFlags](#VkSampleCountFlags) | `storageImageSampleCounts` | `shaderStorageImageMultisample` |
+| `uint32_t` | `maxSampleMaskWords` | - |
+| `VkBool32` | `timestampComputeAndGraphics` | - |
+| `float` | `timestampPeriod` | - |
+| `uint32_t` | `maxClipDistances` | `shaderClipDistance` |
+| `uint32_t` | `maxCullDistances` | `shaderCullDistance` |
+| `uint32_t` | `maxCombinedClipAndCullDistances` | `shaderCullDistance` |
+| `uint32_t` | `discreteQueuePriorities` | - |
+| 2 × `float` | `pointSizeRange` | `largePoints` |
+| 2 × `float` | `lineWidthRange` | `wideLines` |
+| `float` | `pointSizeGranularity` | `largePoints` |
+| `float` | `lineWidthGranularity` | `wideLines` |
+| `VkBool32` | `strictLines` | - |
+| `VkBool32` | `standardSampleLocations` | - |
+| `VkDeviceSize` | `optimalBufferCopyOffsetAlignment` | - |
+| `VkDeviceSize` | `optimalBufferCopyRowPitchAlignment` | - |
+| `VkDeviceSize` | `nonCoherentAtomSize` | - |
+| `uint32_t` | `maxDiscardRectangles` | `[VK_EXT_discard_rectangles](../appendices/extensions.html#VK_EXT_discard_rectangles)` |
+| `VkBool32` | `filterMinmaxSingleComponentFormats` | `[samplerFilterMinmax`](features.html#features-samplerFilterMinmax)
+`[VK_EXT_sampler_filter_minmax](../appendices/extensions.html#VK_EXT_sampler_filter_minmax)` |
+| `VkBool32` | `filterMinmaxImageComponentMapping` | `[samplerFilterMinmax`](features.html#features-samplerFilterMinmax)
+`[VK_EXT_sampler_filter_minmax](../appendices/extensions.html#VK_EXT_sampler_filter_minmax)` |
+| `VkDeviceSize` | `maxBufferSize` | `[maintenance4`](features.html#features-maintenance4) |
+| `float` | `primitiveOverestimationSize` | `[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)` |
+| `VkBool32` | `maxExtraPrimitiveOverestimationSize` | `[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)` |
+| `float` | `extraPrimitiveOverestimationSizeGranularity` | `[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)` |
+| `VkBool32` | `degenerateTriangleRasterized` | `[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)` |
+| `float` | `degenerateLinesRasterized` | `[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)` |
+| `VkBool32` | `fullyCoveredFragmentShaderInputVariable` | `[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)` |
+| `VkBool32` | `conservativeRasterizationPostDepthCoverage` | `[VK_EXT_conservative_rasterization](../appendices/extensions.html#VK_EXT_conservative_rasterization)` |
+| `uint32_t` | `maxUpdateAfterBindDescriptorsInAllPools` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `VkBool32` | `shaderUniformBufferArrayNonUniformIndexingNative` | - |
+| `VkBool32` | `shaderSampledImageArrayNonUniformIndexingNative` | - |
+| `VkBool32` | `shaderStorageBufferArrayNonUniformIndexingNative` | - |
+| `VkBool32` | `shaderStorageImageArrayNonUniformIndexingNative` | - |
+| `VkBool32` | `shaderInputAttachmentArrayNonUniformIndexingNative` | - |
+| `uint32_t` | `maxPerStageDescriptorUpdateAfterBindSamplers` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxPerStageDescriptorUpdateAfterBindUniformBuffers` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxPerStageDescriptorUpdateAfterBindStorageBuffers` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxPerStageDescriptorUpdateAfterBindSampledImages` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxPerStageDescriptorUpdateAfterBindStorageImages` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxPerStageDescriptorUpdateAfterBindInputAttachments` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxPerStageUpdateAfterBindResources` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindSamplers` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindUniformBuffers` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindUniformBuffersDynamic` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindStorageBuffers` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindStorageBuffersDynamic` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindSampledImages` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindStorageImages` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindInputAttachments` | `[descriptorIndexing`](features.html#features-descriptorIndexing) |
+| `uint32_t` | `maxInlineUniformBlockSize` | `[inlineUniformBlock`](features.html#features-inlineUniformBlock) |
+| `uint32_t` | `maxPerStageDescriptorInlineUniformBlocks` | `[inlineUniformBlock`](features.html#features-inlineUniformBlock) |
+| `uint32_t` | `maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks` | `[inlineUniformBlock`](features.html#features-inlineUniformBlock) |
+| `uint32_t` | `maxDescriptorSetInlineUniformBlocks` | `[inlineUniformBlock`](features.html#features-inlineUniformBlock) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindInlineUniformBlocks` | `[inlineUniformBlock`](features.html#features-inlineUniformBlock) |
+| `uint32_t` | `maxInlineUniformTotalSize` | `[inlineUniformBlock`](features.html#features-inlineUniformBlock) |
+| `uint32_t` | `maxVertexAttribDivisor` | Vulkan 1.4, [VK_KHR_vertex_attribute_divisor](../appendices/extensions.html#VK_KHR_vertex_attribute_divisor), [VK_EXT_vertex_attribute_divisor](../appendices/extensions.html#VK_EXT_vertex_attribute_divisor) |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxDrawMeshTasksCount` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskWorkGroupInvocations` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| 3 × `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskWorkGroupSize` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskTotalMemorySize` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskOutputCount` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshWorkGroupInvocations` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| 3 × `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshWorkGroupSize` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshTotalMemorySize` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshOutputVertices` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshOutputPrimitives` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshMultiviewViewCount` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`meshOutputPerVertexGranularity` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`meshOutputPerPrimitiveGranularity` | `[VK_NV_mesh_shader](../appendices/extensions.html#VK_NV_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupTotalCount` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| 3 × `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupCount` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupInvocations` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| 3 × `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupSize` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskPayloadSize` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskSharedMemorySize` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskPayloadAndSharedMemorySize` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupTotalCount` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| 3 × `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupCount` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupInvocations` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| 3 × `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupSize` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshSharedMemorySize` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshPayloadAndSharedMemorySize` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputMemorySize` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshPayloadAndOutputMemorySize` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputComponents` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputVertices` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputPrimitives` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputLayers` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshMultiviewViewCount` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`meshOutputPerVertexGranularity` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`meshOutputPerPrimitiveGranularity` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxPreferredTaskWorkGroupInvocations` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxPreferredMeshWorkGroupInvocations` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `VkBool32` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersLocalInvocationVertexOutput` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `VkBool32` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersLocalInvocationPrimitiveOutput` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `VkBool32` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersCompactVertexOutput` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `VkBool32` | [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersCompactPrimitiveOutput` | `[VK_EXT_mesh_shader](../appendices/extensions.html#VK_EXT_mesh_shader)` |
+| `uint32_t` | `maxTransformFeedbackStreams` | `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)` |
+| `uint32_t` | `maxTransformFeedbackBuffers` | `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)` |
+| `VkDeviceSize` | `maxTransformFeedbackBufferSize` | `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)` |
+| `uint32_t` | `maxTransformFeedbackStreamDataSize` | `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)` |
+| `uint32_t` | `maxTransformFeedbackBufferDataSize` | `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)` |
+| `uint32_t` | `maxTransformFeedbackBufferDataStride` | `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)` |
+| `VkBool32` | `transformFeedbackQueries` | `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)` |
+| `VkBool32` | `transformFeedbackStreamsLinesTriangles` | `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)` |
+| `VkBool32` | `transformFeedbackRasterizationStreamSelect` | `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)` |
+| `VkBool32` | `transformFeedbackDraw` | `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)` |
+| [VkExtent2D](fundamentals.html#VkExtent2D) | `minFragmentDensityTexelSize` | `[fragmentDensityMap`](features.html#features-fragmentDensityMap) |
+| [VkExtent2D](fundamentals.html#VkExtent2D) | `maxFragmentDensityTexelSize` | `[fragmentDensityMap`](features.html#features-fragmentDensityMap) |
+| `VkBool32` | `fragmentDensityInvocations` | `[fragmentDensityMap`](features.html#features-fragmentDensityMap) |
+| `VkBool32` | `subsampledLoads` | `[VK_EXT_fragment_density_map2](../appendices/extensions.html#VK_EXT_fragment_density_map2)` |
+| `VkBool32` | `subsampledCoarseReconstructionEarlyAccess` | `[VK_EXT_fragment_density_map2](../appendices/extensions.html#VK_EXT_fragment_density_map2)` |
+| `uint32_t` | `maxSubsampledArrayLayers` | `[VK_EXT_fragment_density_map2](../appendices/extensions.html#VK_EXT_fragment_density_map2)` |
+| `uint32_t` | `maxDescriptorSetSubsampledSamplers` | `[VK_EXT_fragment_density_map2](../appendices/extensions.html#VK_EXT_fragment_density_map2)` |
+| [VkExtent2D](fundamentals.html#VkExtent2D) | `fragmentDensityOffsetGranularity` | `[fragmentDensityMapOffset`](features.html#features-fragmentDensityMapOffset) |
+| `uint32_t` | `maxGeometryCount` | `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)` |
+| `uint32_t` | `maxInstanceCount` | `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)` |
+| `uint32_t` | `maxVerticesPerCluster` | `[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure) |
+| `uint32_t` | `maxTrianglesPerCluster` | `[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure) |
+| `uint32_t` | `clusterScratchByteAlignment` | `[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure) |
+| `uint32_t` | `clusterByteAlignment` | `[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure) |
+| `uint32_t` | `clusterTemplateByteAlignment` | `[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure) |
+| `uint32_t` | `clusterBottomLevelByteAlignment` | `[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure) |
+| `uint32_t` | `clusterTemplateBoundsByteAlignment` | `[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure) |
+| `uint32_t` | `maxClusterGeometryIndex` | `[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure) |
+| `uint32_t` | `shaderGroupHandleSize` | `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)` |
+| `uint32_t` | `maxShaderGroupStride` | `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)` |
+| `uint32_t` | `shaderGroupBaseAlignment` | `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)` |
+| `uint32_t` | `maxRecursionDepth` | `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)` |
+| `uint32_t` | `maxTriangleCount` | `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)` |
+| `uint32_t` | `maxPerStageDescriptorAccelerationStructures` | `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)` |
+| `uint32_t` | `maxPerStageDescriptorUpdateAfterBindAccelerationStructures` | `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)` |
+| `uint32_t` | `maxDescriptorSetAccelerationStructures` | `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)` |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindAccelerationStructures` | `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)` |
+| `uint32_t` | `minAccelerationStructureScratchOffsetAlignment` | `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)` |
+| `uint32_t` | `maxRayRecursionDepth` | `[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)` |
+| `uint32_t` | `shaderGroupHandleCaptureReplaySize` | `[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)` |
+| `uint32_t` | `maxRayDispatchInvocationCount` | `[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)` |
+| `uint32_t` | `shaderGroupHandleAlignment` | `[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)` |
+| `uint32_t` | `maxRayHitAttributeSize` | `[VK_KHR_ray_tracing_pipeline](../appendices/extensions.html#VK_KHR_ray_tracing_pipeline)` |
+| `uint32_t` | `maxPartitionCount` | `[partitionedAccelerationStructure`](features.html#features-partitionedAccelerationStructure) |
+| `uint64_t` | `maxTimelineSemaphoreValueDifference` | `[timelineSemaphore`](features.html#features-timelineSemaphore) |
+| `uint32_t` | `lineSubPixelPrecisionBits` | Vulkan 1.4, [VK_KHR_line_rasterization](../appendices/extensions.html#VK_KHR_line_rasterization), [VK_EXT_line_rasterization](../appendices/extensions.html#VK_EXT_line_rasterization) |
+| `uint32_t` | `maxCustomBorderColorSamplers` | `[VK_EXT_custom_border_color](../appendices/extensions.html#VK_EXT_custom_border_color)` |
+| `VkDeviceSize` | `robustStorageBufferAccessSizeAlignment` | `[VK_EXT_robustness2](../appendices/extensions.html#VK_EXT_robustness2)`, `[VK_KHR_robustness2](../appendices/extensions.html#VK_KHR_robustness2)` |
+| `VkDeviceSize` | `robustUniformBufferAccessSizeAlignment` | `[VK_EXT_robustness2](../appendices/extensions.html#VK_EXT_robustness2)`, `[VK_KHR_robustness2](../appendices/extensions.html#VK_KHR_robustness2)` |
+| 2 × `uint32_t` | `minFragmentShadingRateAttachmentTexelSize` | `[attachmentFragmentShadingRate`](features.html#features-attachmentFragmentShadingRate) |
+| 2 × `uint32_t` | `maxFragmentShadingRateAttachmentTexelSize` | `[attachmentFragmentShadingRate`](features.html#features-attachmentFragmentShadingRate) |
+| `uint32_t` | `maxFragmentShadingRateAttachmentTexelSizeAspectRatio` | `[attachmentFragmentShadingRate`](features.html#features-attachmentFragmentShadingRate) |
+| `VkBool32` | `primitiveFragmentShadingRateWithMultipleViewports` | `[primitiveFragmentShadingRate`](features.html#features-primitiveFragmentShadingRate) |
+| `VkBool32` | `layeredShadingRateAttachments` | `[attachmentFragmentShadingRate`](features.html#features-attachmentFragmentShadingRate) |
+| `VkBool32` | `fragmentShadingRateNonTrivialCombinerOps` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| 2 × `uint32_t` | `maxFragmentSize` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| `uint32_t` | `maxFragmentSizeAspectRatio` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| `uint32_t` | `maxFragmentShadingRateCoverageSamples` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| [VkSampleCountFlagBits](#VkSampleCountFlagBits) | `maxFragmentShadingRateRasterizationSamples` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| `VkBool32` | `fragmentShadingRateWithShaderDepthStencilWrites` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| `VkBool32` | `fragmentShadingRateWithSampleMask` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| `VkBool32` | `fragmentShadingRateWithShaderSampleMask` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| `VkBool32` | `fragmentShadingRateWithConservativeRasterization` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| `VkBool32` | `fragmentShadingRateWithFragmentShaderInterlock` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| `VkBool32` | `fragmentShadingRateWithCustomSampleLocations` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| `VkBool32` | `fragmentShadingRateStrictMultiplyCombiner` | `[pipelineFragmentShadingRate`](features.html#features-pipelineFragmentShadingRate) |
+| [VkSampleCountFlagBits](#VkSampleCountFlagBits) | `maxFragmentShadingRateInvocationCount` | `[supersampleFragmentShadingRates`](features.html#features-supersampleFragmentShadingRates) |
+| `VkBool32` | `combinedImageSamplerDescriptorSingleArray` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `VkBool32` | `bufferlessPushDescriptors` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `VkBool32` | `allowSamplerImageViewPostSubmitCreation` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `VkDeviceSize` | `descriptorBufferOffsetAlignment` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `uint32_t` | `maxDescriptorBufferBindings` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `uint32_t` | `maxResourceDescriptorBufferBindings` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `uint32_t` | `maxSamplerDescriptorBufferBindings` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `uint32_t` | `maxEmbeddedImmutableSamplerBindings` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `uint32_t` | `maxEmbeddedImmutableSamplers` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `bufferCaptureReplayDescriptorDataSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `imageCaptureReplayDescriptorDataSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `imageViewCaptureReplayDescriptorDataSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `samplerCaptureReplayDescriptorDataSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `accelerationStructureCaptureReplayDescriptorDataSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `samplerDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `combinedImageSamplerDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `sampledImageDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `storageImageDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `uniformTexelBufferDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `robustUniformTexelBufferDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `storageTexelBufferDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `robustStorageTexelBufferDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `uniformBufferDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `robustUniformBufferDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `storageBufferDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `robustStorageBufferDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `inputAttachmentDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `accelerationStructureDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `VkDeviceSize` | `maxSamplerDescriptorBufferRange` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `VkDeviceSize` | `maxResourceDescriptorBufferRange` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `VkDeviceSize` | `samplerDescriptorBufferAddressSpaceSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `VkDeviceSize` | `resourceDescriptorBufferAddressSpaceSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `VkDeviceSize` | `descriptorBufferAddressSpaceSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `size_t` | `combinedImageSamplerDensityMapDescriptorSize` | `[VK_EXT_descriptor_buffer](../appendices/extensions.html#VK_EXT_descriptor_buffer)` |
+| `uint32_t` | `maxSubpassShadingWorkgroupSizeAspectRatio` | `[subpassShading`](features.html#features-subpassShading) |
+| `VkBool32` | `graphicsPipelineLibraryFastLinking` | `[graphicsPipelineLibrary`](features.html#features-graphicsPipelineLibrary) |
+| `VkBool32` | `graphicsPipelineLibraryIndependentInterpolationDecoration` | `[graphicsPipelineLibrary`](features.html#features-graphicsPipelineLibrary) |
+| `VkBool32` | `triStripVertexOrderIndependentOfProvokingVertex` | - |
+| `uint32_t` | `maxWeightFilterPhases` | `[textureSampleWeighted`](features.html#features-textureSampleWeighted) |
+| 2 × `uint32_t` | `maxWeightFilterDimension` | `[textureSampleWeighted`](features.html#features-textureSampleWeighted) |
+| 2 × `uint32_t` | `maxBlockMatchRegion` | `[textureBlockMatch`](features.html#features-textureBlockMatch) |
+| 2 × `uint32_t` | `maxBoxFilterBlockSize` | `[textureBoxFilter`](features.html#features-textureBoxFilter) |
+| `VkBool32` | `dynamicPrimitiveTopologyUnrestricted` | `[VK_EXT_extended_dynamic_state3](../appendices/extensions.html#VK_EXT_extended_dynamic_state3)` |
+| `uint32_t` | `maxOpacity2StateSubdivisionLevel` | `[VK_EXT_opacity_micromap](../appendices/extensions.html#VK_EXT_opacity_micromap)` |
+| `uint32_t` | `maxOpacity4StateSubdivisionLevel` | `[VK_EXT_opacity_micromap](../appendices/extensions.html#VK_EXT_opacity_micromap)` |
+| `uint64_t` | `maxDecompressionIndirectCount` | `[VK_NV_memory_decompression](../appendices/extensions.html#VK_NV_memory_decompression)` |
+| 3 × `uint32_t` | `maxWorkGroupCount` | `[VK_HUAWEI_cluster_culling_shader](../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader)` |
+| 3 × `uint32_t` | `maxWorkGroupSize` | `[VK_HUAWEI_cluster_culling_shader](../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader)` |
+| `uint32_t` | `maxOutputClusterCount` | `[VK_HUAWEI_cluster_culling_shader](../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader)` |
+| `VkDeviceSize` | `indirectBufferOffsetAlignment` | `[VK_HUAWEI_cluster_culling_shader](../appendices/extensions.html#VK_HUAWEI_cluster_culling_shader)` |
+| `uint32_t` | `maxExecutionGraphDepth` | `[shaderEnqueue`](features.html#features-shaderEnqueue) |
+| `uint32_t` | `maxExecutionGraphShaderOutputNodes` | `[shaderEnqueue`](features.html#features-shaderEnqueue) |
+| `uint32_t` | `maxExecutionGraphShaderPayloadSize` | `[shaderEnqueue`](features.html#features-shaderEnqueue) |
+| `uint32_t` | `maxExecutionGraphShaderPayloadCount` | `[shaderEnqueue`](features.html#features-shaderEnqueue) |
+| `uint32_t` | `executionGraphDispatchAddressAlignment` | `[shaderEnqueue`](features.html#features-shaderEnqueue) |
+| `uint32_t` | `maxExecutionGraphVertexBufferBindings` | `[shaderEnqueue`](features.html#features-shaderEnqueue) |
+| 3 × `uint32_t` | `maxExecutionGraphWorkgroupCount` | `[shaderEnqueue`](features.html#features-shaderEnqueue) |
+| `uint32_t` | `maxExecutionGraphWorkgroups` | `[shaderEnqueue`](features.html#features-shaderEnqueue) |
+| `uint32_t` | `maxIndirectShaderObjectCount` | `[shaderObject`](features.html#features-shaderObject) |
+| `VkDeviceSize` | `extendedSparseAddressSpaceSize` | `sparseBinding`, `[extendedSparseAddressSpace`](features.html#features-extendedSparseAddressSpace) |
+| `uint32_t` | `supportedImageAlignmentMask` | `[imageAlignmentControl`](features.html#features-imageAlignmentControl) |
+| `VkBool32` | `separateDepthStencilAttachmentAccess` | [`maintenance7`](features.html#features-maintenance7) |
+| `uint32_t` | `maxDescriptorSetTotalUniformBuffersDynamic` | `[maintenance7`](features.html#features-maintenance7) |
+| `uint32_t` | `maxDescriptorSetTotalStorageBuffersDynamic` | `[maintenance7`](features.html#features-maintenance7) |
+| `uint32_t` | `maxDescriptorSetTotalBuffersDynamic` | `[maintenance7`](features.html#features-maintenance7) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic` | `[maintenance7`](features.html#features-maintenance7) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic` | `[maintenance7`](features.html#features-maintenance7) |
+| `uint32_t` | `maxDescriptorSetUpdateAfterBindTotalBuffersDynamic` | `[maintenance7`](features.html#features-maintenance7) |
+| `uint32_t` | `cooperativeMatrixWorkgroupScopeMaxWorkgroupSize` | `[cooperativeMatrixWorkgroupScope`](features.html#features-cooperativeMatrixWorkgroupScope) |
+| `uint32_t` | `cooperativeMatrixFlexibleDimensionsMaxDimension` | `[cooperativeMatrixFlexibleDimensions`](features.html#features-cooperativeMatrixFlexibleDimensions) |
+| `uint32_t` | `cooperativeMatrixWorkgroupScopeReservedSharedMemory` | `[cooperativeMatrixWorkgroupScope`](features.html#features-cooperativeMatrixWorkgroupScope) |
+| `VkBool32` | `shaderSignedZeroInfNanPreserveFloat16` | `[shaderFloat16`](features.html#features-shaderFloat16) |
+| `VkBool32` | `cooperativeVectorTrainingFloat16Accumulation` | - |
+| `VkBool32` | `cooperativeVectorTrainingFloat32Accumulation` | - |
+| `uint32_t` | `maxApronSize` | `[tileShadingApron`](features.html#features-tileShadingApron) |
+| `VkBool32` | `preferNonCoherent` | `[tileShading`](features.html#features-tileShading) |
+| 2 × `uint32_t` | `tileGranularity` | `[tileShading`](features.html#features-tileShading) |
+| 2 × `uint32_t` | `maxTileShadingRate` | `[tileShadingDispatchTile`](features.html#features-tileShadingDispatchTile) |
+
+| Limit | Unsupported Limit | Supported Limit | Limit Type1 |
+| --- | --- | --- | --- |
+| `maxImageDimension1D` | - | 4096 (Vulkan Core)
+
+                                                   8192 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `maxImageDimension2D` | - | 4096 (Vulkan Core)
+
+                                                   8192 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `maxImageDimension3D` | - | 256 (Vulkan Core)
+
+                                                   512 (Vulkan 1.4) | min |
+| `maxImageDimensionCube` | - | 4096 (Vulkan Core)
+
+                                                   8192 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `maxImageArrayLayers` | - | 256 (Vulkan Core)
+
+                                                   2048 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `maxTexelBufferElements` | - | 65536 | min |
+| `maxUniformBufferRange` | - | 16384 (Vulkan Core)
+
+                                                   65536 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `maxStorageBufferRange` | - | 227 | min |
+| `maxPushConstantsSize` | - | 128 (Vulkan Core)
+
+                                                   256 (Vulkan 1.4) | min |
+| `maxMemoryAllocationCount` | - | 4096 | min |
+| `maxSamplerAllocationCount` | - | 4000 | min |
+| `bufferImageGranularity` | - | 131072 (Vulkan Core)
+
+                                                   4096 (Vulkan Roadmap 2022, Vulkan 1.4) | max |
+| `sparseAddressSpaceSize` | 0 | 231 | min |
+| `maxBoundDescriptorSets` | - | 4 (Vulkan Core)
+
+                                                   7 (Vulkan Roadmap 2024, Vulkan 1.4) | min |
+| `maxPerStageDescriptorSamplers` | - | 16 | min |
+| `maxPerStageDescriptorUniformBuffers` | - | 12 (Vulkan Core)
+
+                                                   15 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `maxPerStageDescriptorStorageBuffers` | - | 4 (Vulkan Core)
+
+                                                   30 (Vulkan Roadmap 2022) | min |
+| `maxPerStageDescriptorSampledImages` | - | 16 (Vulkan Core)
+
+                                                   200 (Vulkan Roadmap 2022) | min |
+| `maxPerStageDescriptorStorageImages` | - | 4 (Vulkan Core)
+
+                                                   144 (Vulkan Roadmap 2022) | min |
+| `maxPerStageDescriptorInputAttachments` | - | 4 | min |
+| `maxPerStageResources` | - | 128 2 (Vulkan Core)
+
+                                                   200 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `maxDescriptorSetSamplers` | - | 96 8 (Vulkan Core)
+
+                                                   576 (Vulkan Roadmap 2022) | min, *n* × PerStage |
+| `maxDescriptorSetUniformBuffers` | - | 72 8 (Vulkan Core)
+
+                                                   90 (Vulkan Roadmap 2022, Vulkan 1.4) | min, *n* × PerStage |
+| `maxDescriptorSetUniformBuffersDynamic` | - | 8 | min |
+| `maxDescriptorSetStorageBuffers` | - | 24 8 (Vulkan Core)
+
+                                                   96 (Vulkan Roadmap 2022, Vulkan 1.4) | min, *n* × PerStage |
+| `maxDescriptorSetStorageBuffersDynamic` | - | 4 | min |
+| `maxDescriptorSetTotalUniformBuffersDynamic` | - | `maxDescriptorSetUniformBuffersDynamic` | min |
+| `maxDescriptorSetTotalStorageBuffersDynamic` | - | `maxDescriptorSetStorageBuffersDynamic` | min |
+| `maxDescriptorSetTotalBuffersDynamic` | - | `maxDescriptorSetUniformBuffersDynamic` +  `maxDescriptorSetStorageBuffersDynamic` | min |
+| `maxDescriptorSetSampledImages` | - | 96 8 (Vulkan Core)
+
+                                                   1800 (Vulkan Roadmap 2022) | min, *n* × PerStage |
+| `maxDescriptorSetStorageImages` | - | 24 8 (Vulkan Core)
+
+                                                   144 (Vulkan Roadmap 2022, Vulkan 1.4) | min, *n* × PerStage |
+| `maxDescriptorSetInputAttachments` | - | 4 | min |
+| `maxVertexInputAttributes` | - | 16 | min |
+| `maxVertexInputBindings` | - | 16 10 | min |
+| `maxVertexInputAttributeOffset` | - | 2047 | min |
+| `maxVertexInputBindingStride` | - | 2048 | min |
+| `maxVertexOutputComponents` | - | 64 | min |
+| `maxTessellationGenerationLevel` | 0 | 64 | min |
+| `maxTessellationPatchSize` | 0 | 32 | min |
+| `maxTessellationControlPerVertexInputComponents` | 0 | 64 | min |
+| `maxTessellationControlPerVertexOutputComponents` | 0 | 64 | min |
+| `maxTessellationControlPerPatchOutputComponents` | 0 | 120 | min |
+| `maxTessellationControlTotalOutputComponents` | 0 | 2048 | min |
+| `maxTessellationEvaluationInputComponents` | 0 | 64 | min |
+| `maxTessellationEvaluationOutputComponents` | 0 | 64 | min |
+| `maxGeometryShaderInvocations` | 0 | 32 | min |
+| `maxGeometryInputComponents` | 0 | 64 | min |
+| `maxGeometryOutputComponents` | 0 | 64 | min |
+| `maxGeometryOutputVertices` | 0 | 256 | min |
+| `maxGeometryTotalOutputComponents` | 0 | 1024 | min |
+| `maxFragmentInputComponents` | - | 64 | min |
+| `maxFragmentOutputAttachments` | - | 4 | min |
+| `maxFragmentDualSrcAttachments` | 0 | 1 | min |
+| `maxFragmentCombinedOutputResources` | - | 4 (Vulkan Core)
+
+                                                   16 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `maxComputeSharedMemorySize` | - | 16384 | min |
+| `maxComputeWorkGroupCount` | - | (65535,65535,65535) | min |
+| `maxComputeWorkGroupInvocations` | - | 128 (Vulkan Core)
+
+                                                   256 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `maxComputeWorkGroupSize` | - | (128,128,64) (Vulkan Core)
+
+                                                   (256,256,64) (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `subgroupSize` | - | 1/4 (Vulkan Core)
+
+                                                   4 (Vulkan Roadmap 2022) | min |
+| `subgroupSupportedStages` | - | `VK_SHADER_STAGE_COMPUTE_BIT` (Vulkan Core)
+
+                                                   `VK_SHADER_STAGE_COMPUTE_BIT` \|
+
+                                                   `VK_SHADER_STAGE_FRAGMENT_BIT` (Vulkan Roadmap 2022) | bitfield |
+| `subgroupSupportedOperations` | - | `VK_SUBGROUP_FEATURE_BASIC_BIT` (Vulkan Core)
+
+                                                   `VK_SUBGROUP_FEATURE_BASIC_BIT` \|
+
+                                                   `VK_SUBGROUP_FEATURE_VOTE_BIT` \|
+
+                                                   `VK_SUBGROUP_FEATURE_ARITHMETIC_BIT` \|
+
+                                                   `VK_SUBGROUP_FEATURE_BALLOT_BIT` \|
+
+                                                   `VK_SUBGROUP_FEATURE_SHUFFLE_BIT` \|
+
+                                                   `VK_SUBGROUP_FEATURE_SHUFFLE_RELATIVE_BIT` \|
+
+                                                   `VK_SUBGROUP_FEATURE_QUAD_BIT` (Vulkan Roadmap 2022) | bitfield |
+| `shaderSignedZeroInfNanPreserveFloat16` | - | - (Vulkan Core)
+
+                                                    `VK_TRUE` (Vulkan Roadmap 2022, Vulkan 1.4) | Boolean |
+| `shaderSignedZeroInfNanPreserveFloat32` | - | - (Vulkan Core)
+
+                                                    `VK_TRUE` (Vulkan Roadmap 2022, Vulkan 1.4) | Boolean |
+| `shaderRoundingModeRTEFloat16` | - | `VK_FALSE` (Vulkan Core)
+
+                                                    `VK_TRUE` (Vulkan Roadmap 2024) | Boolean |
+| `shaderRoundingModeRTEFloat32` | - | `VK_FALSE` (Vulkan Core)
+
+                                                    `VK_TRUE` (Vulkan Roadmap 2024) | Boolean |
+| `maxSubgroupSize` | - | - (Vulkan Core)
+
+                                                   4 (Vulkan Roadmap 2022) | min |
+| `subPixelPrecisionBits` | - | 4 | min |
+| `subTexelPrecisionBits` | - | 4 (Vulkan Core)
+
+                                                   8 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `mipmapPrecisionBits` | - | 4 (Vulkan Core)
+
+                                                   6 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `maxDrawIndexedIndexValue` | 224-1 | 232-1 | min |
+| `maxDrawIndirectCount` | 1 | 216-1 | min |
+| `maxSamplerLodBias` | - | 2 (Vulkan Core)
+
+                                                   14 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
+| `maxSamplerAnisotropy` | 1 | 16 | min |
+| `maxViewports` | 1 | 16 | min |
+| `maxViewportDimensions` | - | (4096,4096) 3 | min |
+| `viewportBoundsRange` | - | (-8192,8191) 4 | (max,min) |
+| `viewportSubPixelBits` | - | 0 | min |
+| `minMemoryMapAlignment` | - | 64 | min |
+| `minTexelBufferOffsetAlignment` | - | 256 | max |
+| `minUniformBufferOffsetAlignment` | - | 256 | max |
+| `minStorageBufferOffsetAlignment` | - | 256 | max |
+| `minTexelOffset` | - | -8 | max |
+| `maxTexelOffset` | - | 7 | min |
+| `minTexelGatherOffset` | 0 | -8 | max |
+| `maxTexelGatherOffset` | 0 | 7 | min |
+| `minInterpolationOffset` | 0.0 | -0.5 5 | max |
+| `maxInterpolationOffset` | 0.0 | 0.5 - (1 ULP) 5 | min |
+| `subPixelInterpolationOffsetBits` | 0 | 4 5 | min |
+| `maxFramebufferWidth` | - | 4096 | min |
+| `maxFramebufferHeight` | - | 4096 | min |
+| `maxFramebufferLayers` | - | 256 | min |
+| `framebufferColorSampleCounts` | - | (`VK_SAMPLE_COUNT_1_BIT` \| `VK_SAMPLE_COUNT_4_BIT`) | min |
+| `framebufferIntegerColorSampleCounts` | - | (`VK_SAMPLE_COUNT_1_BIT`) | min |
+| `framebufferDepthSampleCounts` | - | (`VK_SAMPLE_COUNT_1_BIT` \| `VK_SAMPLE_COUNT_4_BIT`) | min |
+| `framebufferStencilSampleCounts` | - | (`VK_SAMPLE_COUNT_1_BIT` \| `VK_SAMPLE_COUNT_4_BIT`) | min |
+| `framebufferNoAttachmentsSampleCounts` | - | (`VK_SAMPLE_COUNT_1_BIT` \| `VK_SAMPLE_COUNT_4_BIT`) | min |
+| `maxColorAttachments` | - | 4 (Vulkan Core)
 
                                                    7 (Vulkan Roadmap 2022)
 
-                                                   8 (Vulkan Roadmap 2024, Vulkan 1.4)
-min
-
-`sampledImageColorSampleCounts`
--
-(`VK_SAMPLE_COUNT_1_BIT` | `VK_SAMPLE_COUNT_4_BIT`)
-min
-
-`sampledImageIntegerSampleCounts`
--
-`VK_SAMPLE_COUNT_1_BIT`
-min
-
-`sampledImageDepthSampleCounts`
--
-(`VK_SAMPLE_COUNT_1_BIT` | `VK_SAMPLE_COUNT_4_BIT`)
-min
-
-`sampledImageStencilSampleCounts`
--
-(`VK_SAMPLE_COUNT_1_BIT` | `VK_SAMPLE_COUNT_4_BIT`)
-min
-
-`storageImageSampleCounts`
-`VK_SAMPLE_COUNT_1_BIT`
-(`VK_SAMPLE_COUNT_1_BIT` | `VK_SAMPLE_COUNT_4_BIT`)
-min
-
-`maxSampleMaskWords`
--
-1
-min
-
-`timestampComputeAndGraphics`
--
-- (Vulkan Core)
-
-                                                   `VK_TRUE` (Vulkan Roadmap 2024, Vulkan 1.4)
-Boolean
-
-`timestampPeriod`
--
--
-duration
-
-`maxClipDistances`
-0
-8
-min
-
-`maxCullDistances`
-0
-8
-min
-
-`maxCombinedClipAndCullDistances`
-0
-8
-min
-
-`discreteQueuePriorities`
--
-2
-min
-
-`pointSizeRange`
-(1.0,1.0)
-(1.0,64.0 - ULP) 6 (Vulkan Core)
-
-                                                           (1.0,256.0 - `pointSizeGranularity`) (Vulkan 1.4)
-(max,min)
-
-`lineWidthRange`
-(1.0,1.0)
-(1.0,8.0 - ULP) 7
-(max,min)
-
-`pointSizeGranularity`
-0.0
-1.0 6 (Vulkan Core)
-
-                                                      0.125 (Vulkan Roadmap 2022, Vulkan 1.4)
-max, fixed point increment
-
-`lineWidthGranularity`
-0.0
-1.0 7 (Vulkan Core)
-
-                                                      0.5 (Vulkan Roadmap 2022, Vulkan 1.4)
-max, fixed point increment
-
-`strictLines`
--
--
-implementation-dependent
-
-`standardSampleLocations`
--
-- (Vulkan Core)
-
-                                                   `VK_TRUE` (Vulkan Roadmap 2022, Vulkan 1.4)
-Boolean
-
-`optimalBufferCopyOffsetAlignment`
--
--
-recommendation
-
-`optimalBufferCopyRowPitchAlignment`
--
--
-recommendation
-
-`nonCoherentAtomSize`
--
-256
-max
-
-`maxPushDescriptors`
--
-32
-min
-
-`maxMultiviewViewCount`
--
-6
-min
-
-`maxMultiviewInstanceIndex`
--
-227-1
-min
-
-`maxDiscardRectangles`
-0
-4
-min
-
-`sampleLocationSampleCounts`
--
-`VK_SAMPLE_COUNT_4_BIT`
-min
-
-`maxSampleLocationGridSize`
--
-(1,1)
-min
-
-`sampleLocationCoordinateRange`
--
-(0.0, 0.9375)
-(max,min)
-
-`sampleLocationSubPixelBits`
--
-4
-min
-
-`variableSampleLocations`
--
-`VK_FALSE`
-implementation-dependent
-
-`nativeUnalignedPerformance`
--
-`VK_FALSE`
-implementation-dependent
-
-`minImportedHostPointerAlignment`
--
-65536
-max
-
-`perViewPositionAllComponents`
--
--
-implementation-dependent
-
-`filterMinmaxSingleComponentFormats`
--
--
-implementation-dependent
-
-`filterMinmaxImageComponentMapping`
--
--
-implementation-dependent
-
-`advancedBlendMaxColorAttachments`
--
-1
-min
-
-`advancedBlendIndependentBlend`
--
-`VK_FALSE`
-implementation-dependent
-
-`advancedBlendNonPremultipliedSrcColor`
--
-`VK_FALSE`
-implementation-dependent
-
-`advancedBlendNonPremultipliedDstColor`
--
-`VK_FALSE`
-implementation-dependent
-
-`advancedBlendCorrelatedOverlap`
--
-`VK_FALSE`
-implementation-dependent
-
-`advancedBlendAllOperations`
--
-`VK_FALSE`
-implementation-dependent
-
-`maxPerSetDescriptors`
--
-1024
-min
-
-`maxMemoryAllocationSize`
--
-230
-min
-
-`maxBufferSize`
--
-230
-min
-
-`primitiveOverestimationSize`
--
-0.0
-min
-
-`maxExtraPrimitiveOverestimationSize`
--
-0.0
-min
-
-`extraPrimitiveOverestimationSizeGranularity`
--
-0.0
-min
-
-`primitiveUnderestimation`
--
-`VK_FALSE`
-implementation-dependent
-
-`conservativePointAndLineRasterization`
--
-`VK_FALSE`
-implementation-dependent
-
-`degenerateTrianglesRasterized`
--
-`VK_FALSE`
-implementation-dependent
-
-`degenerateLinesRasterized`
--
-`VK_FALSE`
-implementation-dependent
-
-`fullyCoveredFragmentShaderInputVariable`
--
-`VK_FALSE`
-implementation-dependent
-
-`conservativeRasterizationPostDepthCoverage`
--
-`VK_FALSE`
-implementation-dependent
-
-`maxUpdateAfterBindDescriptorsInAllPools`
-0
-500000
-min
-
-`shaderUniformBufferArrayNonUniformIndexingNative`
--
-`VK_FALSE`
-implementation-dependent
-
-`shaderSampledImageArrayNonUniformIndexingNative`
--
-`VK_FALSE`
-implementation-dependent
-
-`shaderStorageBufferArrayNonUniformIndexingNative`
--
-`VK_FALSE`
-implementation-dependent
-
-`shaderStorageImageArrayNonUniformIndexingNative`
--
-`VK_FALSE`
-implementation-dependent
-
-`shaderInputAttachmentArrayNonUniformIndexingNative`
--
-`VK_FALSE`
-implementation-dependent
-
-`maxPerStageDescriptorUpdateAfterBindSamplers`
-0 9
-500000 9
-min
-
-`maxPerStageDescriptorUpdateAfterBindUniformBuffers`
-0 9
-12 9
-min
-
-`maxPerStageDescriptorUpdateAfterBindStorageBuffers`
-0 9
-500000 9
-min
-
-`maxPerStageDescriptorUpdateAfterBindSampledImages`
-0 9
-500000 9
-min
-
-`maxPerStageDescriptorUpdateAfterBindStorageImages`
-0 9
-500000 9
-min
-
-`maxPerStageDescriptorUpdateAfterBindInputAttachments`
-0 9
-4 9 (Vulkan Core)
-
-                                                                     7 (Vulkan Roadmap 2022)
-min
-
-`maxPerStageUpdateAfterBindResources`
-0 9
-500000 9
-min
-
-`maxDescriptorSetUpdateAfterBindSamplers`
-0 9
-500000 9
-min
-
-`maxDescriptorSetUpdateAfterBindUniformBuffers`
-0 9
-72 8 9
-min, *n* × PerStage
-
-`maxDescriptorSetUpdateAfterBindUniformBuffersDynamic`
-0 9
-8 9
-min
-
-`maxDescriptorSetUpdateAfterBindStorageBuffers`
-0 9
-500000 9
-min
-
-`maxDescriptorSetUpdateAfterBindStorageBuffersDynamic`
-0 9
-4 9
-min
-
-`maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic`
-0 9
-`maxDescriptorSetUpdateAfterBindUniformBuffersDynamic`
-min
-
-`maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic`
-0 9
-`maxDescriptorSetUpdateAfterBindStorageBuffersDynamic`
-min
-
-`maxDescriptorSetUpdateAfterBindTotalBuffersDynamic`
-0 9
-`maxDescriptorSetUpdateAfterBindUniformBuffersDynamic` +  `maxDescriptorSetUpdateAfterBindStorageBuffersDynamic`
-min
-
-`maxDescriptorSetUpdateAfterBindSampledImages`
-0 9
-500000 9
-min
-
-`maxDescriptorSetUpdateAfterBindStorageImages`
-0 9
-500000 9
-min
-
-`maxDescriptorSetUpdateAfterBindInputAttachments`
-0 9
-4 9
-min
-
-`maxInlineUniformBlockSize`
--
-256
-min
-
-`maxPerStageDescriptorInlineUniformBlocks`
--
-4
-min
-
-`maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks`
--
-4
-min
-
-`maxDescriptorSetInlineUniformBlocks`
--
-4
-min
-
-`maxDescriptorSetUpdateAfterBindInlineUniformBlocks`
--
-4
-min
-
-`maxInlineUniformTotalSize`
--
-256
-min
-
-`maxVertexAttribDivisor`
--
-216-1
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxDrawMeshTasksCount`
--
-216-1
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskWorkGroupInvocations`
--
-32
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskWorkGroupSize`
--
-(32,1,1)
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskTotalMemorySize`
--
-16384
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskOutputCount`
--
-216-1
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshWorkGroupInvocations`
--
-32
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshWorkGroupSize`
--
-(32,1,1)
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshTotalMemorySize`
--
-16384
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshOutputVertices`
--
-256
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshOutputPrimitives`
--
-256
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshMultiviewViewCount`
--
-1
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`meshOutputPerVertexGranularity`
--
--
-implementation-dependent
-
-[VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`meshOutputPerPrimitiveGranularity`
--
--
-implementation-dependent
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupTotalCount`
--
-2^22
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupCount`
--
-(65535,65535,65535)
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupInvocations`
--
-128
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupSize`
--
-(128,128,128)
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskPayloadSize`
--
-16384
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskSharedMemorySize`
--
-32768
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskPayloadAndSharedMemorySize`
--
-32768
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupTotalCount`
--
-2^22
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupCount`
--
-(65535,65535,65535)
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupInvocations`
--
-128
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupSize`
--
-(128,128,128)
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshSharedMemorySize`
--
-28672
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshPayloadAndSharedMemorySize`
--
-28672
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputMemorySize`
--
-32768
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshPayloadAndOutputMemorySize`
--
-48128
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputComponents`
--
-128
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputVertices`
--
-256
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputPrimitives`
--
-256
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputLayers`
--
-8
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshMultiviewViewCount`
--
-1
-min
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`meshOutputPerVertexGranularity`
-0
-32
-max
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`meshOutputPerPrimitiveGranularity`
-0
-32
-max
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxPreferredTaskWorkGroupInvocations`
--
--
-implementation-dependent
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxPreferredMeshWorkGroupInvocations`
--
--
-implementation-dependent
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersLocalInvocationVertexOutput`
--
--
-implementation-dependent
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersLocalInvocationPrimitiveOutput`
--
--
-implementation-dependent
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersCompactVertexOutput`
--
--
-implementation-dependent
-
-[VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersCompactPrimitiveOutput`
--
--
-implementation-dependent
-
-`maxTransformFeedbackStreams`
--
-1
-min
-
-`maxTransformFeedbackBuffers`
--
-1
-min
-
-`maxTransformFeedbackBufferSize`
--
-227
-min
-
-`maxTransformFeedbackStreamDataSize`
--
-512
-min
-
-`maxTransformFeedbackBufferDataSize`
--
-512
-min
-
-`maxTransformFeedbackBufferDataStride`
--
-512
-min
-
-`transformFeedbackQueries`
--
-`VK_FALSE`
-implementation-dependent
-
-`transformFeedbackStreamsLinesTriangles`
--
-`VK_FALSE`
-implementation-dependent
-
-`transformFeedbackRasterizationStreamSelect`
--
-`VK_FALSE`
-implementation-dependent
-
-`transformFeedbackDraw`
--
-`VK_FALSE`
-implementation-dependent
-
-`minFragmentDensityTexelSize`
--
-(1,1)
-min
-
-`maxFragmentDensityTexelSize`
--
-(1,1)
-min
-
-`fragmentDensityInvocations`
--
--
-implementation-dependent
-
-`subsampledLoads`
-`VK_TRUE`
-`VK_FALSE`
-implementation-dependent
-
-`subsampledCoarseReconstructionEarlyAccess`
-`VK_FALSE`
-`VK_FALSE`
-implementation-dependent
-
-`maxSubsampledArrayLayers`
-2
-2
-min
-
-`maxDescriptorSetSubsampledSamplers`
-1
-1
-min
-
-`fragmentDensityOffsetGranularity`
--
-(1024,1024)
-max
-
-[VkPhysicalDeviceRayTracingPropertiesNV](#VkPhysicalDeviceRayTracingPropertiesNV)::`shaderGroupHandleSize`
--
-16
-min
-
-[VkPhysicalDeviceRayTracingPropertiesNV](#VkPhysicalDeviceRayTracingPropertiesNV)::`maxRecursionDepth`
--
-31
-min
-
-[VkPhysicalDeviceRayTracingPipelinePropertiesKHR](#VkPhysicalDeviceRayTracingPipelinePropertiesKHR)::`shaderGroupHandleSize`
--
-32
-exact
-
-[VkPhysicalDeviceRayTracingPipelinePropertiesKHR](#VkPhysicalDeviceRayTracingPipelinePropertiesKHR)::`maxRayRecursionDepth`
--
-1
-min
-
-`maxShaderGroupStride`
--
-4096
-min
-
-`shaderGroupBaseAlignment`
--
-64
-max
-
-`maxGeometryCount`
--
-224-1
-min
-
-`maxInstanceCount`
--
-224-1
-min
-
-`maxTriangleCount`
--
-229-1
-min
-
-`maxPrimitiveCount`
--
-229-1
-min
-
-`maxPerStageDescriptorAccelerationStructures`
--
-16
-min
-
-`maxPerStageDescriptorUpdateAfterBindAccelerationStructures`
--
-500000 9
-min
-
-`maxVerticesPerCluster`
--
-256
-min
-
-`maxTrianglesPerCluster`
--
-256
-min
-
-`clusterScratchByteAlignment`
--
-256
-max
-
-`clusterByteAlignment`
--
-128
-max
-
-`clusterTemplateByteAlignment`
--
-32
-max
-
-`clusterBottomLevelByteAlignment`
--
-256
-max
-
-`clusterTemplateBoundsByteAlignment`
--
-32
-max
-
-`maxClusterGeometryIndex`
--
-224-1
-min
-
-`maxDescriptorSetAccelerationStructures`
--
-16
-min
-
-`maxDescriptorSetUpdateAfterBindAccelerationStructures`
--
-500000 9
-min
-
-`minAccelerationStructureScratchOffsetAlignment`
--
-256
-max
-
-`shaderGroupHandleCaptureReplaySize`
--
-64
-max
-
-`maxRayDispatchInvocationCount`
--
-230
-min
-
-`shaderGroupHandleAlignment`
--
-32
-max
-
-`maxRayHitAttributeSize`
--
-32
-min
-
-`maxPartitionCount`
--
-224-1
-min
-
-`maxTimelineSemaphoreValueDifference`
--
-231-1
-min
-
-`lineSubPixelPrecisionBits`
--
-4
-min
-
-`maxGraphicsShaderGroupCount`
--
-212
-min
-
-`maxIndirectCommandsStreamCount` +  (for NV extension)
--
-212
-min
-
-`maxIndirectCommandsStreamStride`
--
-2048
-min
-
-`minIndirectCommandsBufferOffsetAlignment`
--
-256
-max
-
-`minSequencesCountBufferOffsetAlignment`
--
-256
-max
-
-`minSequencesIndexBufferOffsetAlignment`
--
-256
-max
-
-`maxIndirectSequenceCount`
--
-220
-min
-
-`maxIndirectCommandsTokenCount`
--
-16
-min
-
-`maxIndirectCommandsTokenOffset`
--
-2047
-min
-
-`maxIndirectPipelineCount`
--
-212
-min
-
-`deviceGeneratedCommandsTransformFeedback`
--
-false
-implementation-dependent
-
-`deviceGeneratedCommandsMultiDrawIndirectCount`
--
-false
-implementation-dependent
-
-`maxIndirectShaderObjectCount`
-0
-212
-implementation-dependent
-
-`maxIndirectCommandsIndirectStride`
--
-2048
-min
-
-`supportedIndirectCommandsInputModes`
--
-`VK_INDIRECT_COMMANDS_INPUT_MODE_VULKAN_INDEX_BUFFER_EXT`
-min
-
-`supportedIndirectCommandsShaderStages`
--
-(`VK_SHADER_STAGE_COMPUTE_BIT` | `VK_SHADER_STAGE_VERTEX_BIT` | `VK_SHADER_STAGE_FRAGMENT_BIT`)
-min
-
-`supportedIndirectCommandsShaderStagesPipelineBinding`
--
-0
-min
-
-`supportedIndirectCommandsShaderStagesShaderBinding`
--
-0
-min
-
-`maxCustomBorderColorSamplers`
--
-32
-min
-
-`robustStorageBufferAccessSizeAlignment`
--
-4
-max
-
-`robustUniformBufferAccessSizeAlignment`
--
-256
-max
-
-`minFragmentShadingRateAttachmentTexelSize`
-(0,0)
-(32,32)
-max
-
-`maxFragmentShadingRateAttachmentTexelSize`
-(0,0)
-(8,8)
-min
-
-`maxFragmentShadingRateAttachmentTexelSizeAspectRatio`
-0
-1
-min
-
-`primitiveFragmentShadingRateWithMultipleViewports`
-`VK_FALSE`
-`VK_FALSE`
-implementation-dependent
-
-`layeredShadingRateAttachments`
-`VK_FALSE`
-`VK_FALSE`
-implementation-dependent
-
-`fragmentShadingRateNonTrivialCombinerOps`
--
-`VK_FALSE`
-implementation-dependent
-
-`maxFragmentSize`
--
-(2,2)
-min
-
-`maxFragmentSizeAspectRatio`
--
-2
-min
-
-`maxFragmentShadingRateCoverageSamples`
--
-16
-min
-
-`maxFragmentShadingRateRasterizationSamples`
--
-`VK_SAMPLE_COUNT_4_BIT`
-min
-
-`fragmentShadingRateWithShaderDepthStencilWrites`
--
-`VK_FALSE`
-implementation-dependent
-
-`fragmentShadingRateWithSampleMask`
--
-`VK_FALSE`
-implementation-dependent
-
-`fragmentShadingRateWithShaderSampleMask`
--
-`VK_FALSE`
-implementation-dependent
-
-`fragmentShadingRateWithConservativeRasterization`
--
-`VK_FALSE`
-implementation-dependent
-
-`fragmentShadingRateWithFragmentShaderInterlock`
--
-`VK_FALSE`
-implementation-dependent
-
-`fragmentShadingRateWithCustomSampleLocations`
--
-`VK_FALSE`
-implementation-dependent
-
-`fragmentShadingRateStrictMultiplyCombiner`
--
-`VK_FALSE`
-implementation-dependent
-
-`maxFragmentShadingRateInvocationCount`
--
-`VK_SAMPLE_COUNT_4_BIT`
-min
-
-`combinedImageSamplerDescriptorSingleArray`
--
-`VK_FALSE`
-implementation-dependent
-
-`bufferlessPushDescriptors`
--
-`VK_FALSE`
-implementation-dependent
-
-`allowSamplerImageViewPostSubmitCreation`
--
-`VK_FALSE`
-implementation-dependent
-
-`descriptorBufferOffsetAlignment`
--
-256
-max
-
-`maxDescriptorBufferBindings`
--
-3
-min
-
-`maxResourceDescriptorBufferBindings`
--
-1
-min
-
-`maxSamplerDescriptorBufferBindings`
--
-1
-min
-
-`maxEmbeddedImmutableSamplerBindings`
--
-1
-min
-
-`maxEmbeddedImmutableSamplers`
--
-2032
-min
-
-`bufferCaptureReplayDescriptorDataSize`
--
-64
-max
-
-`imageCaptureReplayDescriptorDataSize`
--
-64
-max
-
-`imageViewCaptureReplayDescriptorDataSize`
--
-64
-max
-
-`samplerCaptureReplayDescriptorDataSize`
--
-64
-max
-
-`accelerationStructureCaptureReplayDescriptorDataSize`
--
-64
-max
-
-`samplerDescriptorSize`
--
-256
-max
-
-`combinedImageSamplerDescriptorSize`
--
-256
-max
-
-`sampledImageDescriptorSize`
--
-256
-max
-
-`storageImageDescriptorSize`
--
-256
-max
-
-`uniformTexelBufferDescriptorSize`
--
-256
-max
-
-`robustUniformTexelBufferDescriptorSize`
--
-256
-max
-
-`storageTexelBufferDescriptorSize`
--
-256
-max
-
-`robustStorageTexelBufferDescriptorSize`
--
-256
-max
-
-`uniformBufferDescriptorSize`
--
-256
-max
-
-`robustUniformBufferDescriptorSize`
--
-256
-max
-
-`storageBufferDescriptorSize`
--
-256
-max
-
-`robustStorageBufferDescriptorSize`
--
-256
-max
-
-`inputAttachmentDescriptorSize`
--
-256
-max
-
-`accelerationStructureDescriptorSize`
--
-256
-max
-
-`maxSamplerDescriptorBufferRange`
--
-211 × `samplerDescriptorSize`
-min
-
-`maxResourceDescriptorBufferRange`
--
-(220 - 215) × `maxResourceDescriptorSize` 12
-min
-
-`samplerDescriptorBufferAddressSpaceSize`
--
-227
-min
-
-`resourceDescriptorBufferAddressSpaceSize`
--
-227
-min
-
-`descriptorBufferAddressSpaceSize`
--
-227
-min
-
-`combinedImageSamplerDensityMapDescriptorSize`
--
-256
-max
-
-`maxSubpassShadingWorkgroupSizeAspectRatio`
-0
-1
-min
-
-`maxMultiDrawCount`
--
-1024
-min
-
-`maxCommandBufferNestingLevel`
--
-1
-min
-
-`graphicsPipelineLibraryFastLinking`
--
-`VK_FALSE`
-implementation-dependent
-
-`graphicsPipelineLibraryIndependentInterpolationDecoration`
--
-`VK_FALSE`
-implementation-dependent
-
-`triStripVertexOrderIndependentOfProvokingVertex`
--
-`VK_FALSE`
-implementation-dependent
-
-`maxWeightFilterPhases`
--
-1024
-min
-
-`maxWeightFilterDimension`
--
-(64,64)
-min
-
-`maxBlockMatchRegion`
--
-(64,64)
-min
-
-`maxBoxFilterBlockSize`
--
-(64,64)
-min
-
-`dynamicPrimitiveTopologyUnrestricted`
--
--
-implementation-dependent
-
-`maxOpacity2StateSubdivisionLevel`
--
-3
-min
-
-`maxOpacity4StateSubdivisionLevel`
--
-3
-min
-
-`maxDecompressionIndirectCount`
-1
-216-1
-min
-
-`maxWorkGroupCount`
--
-(65536,1,1)
-min
-
-`maxWorkGroupSize`
--
-(32,1,1)
-min
-
-`maxOutputClusterCount`
--
-1024
-min
-
-`indirectBufferOffsetAlignment`
--
--
-implementation-dependent
-
-`maxExecutionGraphDepth`
--
-32
-min
-
-`maxExecutionGraphShaderOutputNodes`
--
-256
-min
-
-`maxExecutionGraphShaderPayloadSize`
--
-32768
-min
-
-`maxExecutionGraphShaderPayloadCount`
--
-256
-min
-
-`executionGraphDispatchAddressAlignment`
--
-4
-max
-
-`maxExecutionGraphVertexBufferBindings`
--
-1024
-min
-
-`maxExecutionGraphWorkgroupCount`
--
-(65535,65535,65535)
-min
-
-`maxExecutionGraphWorkgroups`
--
-224-1
-min
-
-`extendedSparseAddressSpaceSize`
-0
-`sparseAddressSpaceSize`
-min
-
-`renderPassStripeGranularity`
--
-(64,64)
-max
-
-`maxRenderPassStripes`
--
-32
-min
-
-`minPlacedMemoryMapAlignment`
--
-65536
-max
-
-`supportedImageAlignmentMask`
--
-1
-min
-
-`separateDepthStencilAttachmentAccess`
-`VK_FALSE`
--
-implementation-dependent
-
-`cooperativeMatrixWorkgroupScopeMaxWorkgroupSize`
--
-subgroupSize × 2
-min
-
-`cooperativeMatrixFlexibleDimensionsMaxDimension`
--
-256
-min
-
-`cooperativeMatrixWorkgroupScopeReservedSharedMemory`
--
-`maxComputeSharedMemorySize` / 2
-max
-
-`maxCooperativeVectorComponents`
--
-128
-min
-
-`maxApronSize`
--
-1
-min
-
-`preferNonCoherent`
--
--
-implementation-dependent
-
-`tileGranularity`
--
-(16,16)
-min
-
-`maxTileShadingRate`
--
-(8,8)
-min
+                                                   8 (Vulkan Roadmap 2024, Vulkan 1.4) | min |
+| `sampledImageColorSampleCounts` | - | (`VK_SAMPLE_COUNT_1_BIT` \| `VK_SAMPLE_COUNT_4_BIT`) | min |
+| `sampledImageIntegerSampleCounts` | - | `VK_SAMPLE_COUNT_1_BIT` | min |
+| `sampledImageDepthSampleCounts` | - | (`VK_SAMPLE_COUNT_1_BIT` \| `VK_SAMPLE_COUNT_4_BIT`) | min |
+| `sampledImageStencilSampleCounts` | - | (`VK_SAMPLE_COUNT_1_BIT` \| `VK_SAMPLE_COUNT_4_BIT`) | min |
+| `storageImageSampleCounts` | `VK_SAMPLE_COUNT_1_BIT` | (`VK_SAMPLE_COUNT_1_BIT` \| `VK_SAMPLE_COUNT_4_BIT`) | min |
+| `maxSampleMaskWords` | - | 1 | min |
+| `timestampComputeAndGraphics` | - | - (Vulkan Core)
+
+                                                   `VK_TRUE` (Vulkan Roadmap 2024, Vulkan 1.4) | Boolean |
+| `timestampPeriod` | - | - | duration |
+| `maxClipDistances` | 0 | 8 | min |
+| `maxCullDistances` | 0 | 8 | min |
+| `maxCombinedClipAndCullDistances` | 0 | 8 | min |
+| `discreteQueuePriorities` | - | 2 | min |
+| `pointSizeRange` | (1.0,1.0) | (1.0,64.0 - ULP) 6 (Vulkan Core)
+
+                                                           (1.0,256.0 - `pointSizeGranularity`) (Vulkan 1.4) | (max,min) |
+| `lineWidthRange` | (1.0,1.0) | (1.0,8.0 - ULP) 7 | (max,min) |
+| `pointSizeGranularity` | 0.0 | 1.0 6 (Vulkan Core)
+
+                                                      0.125 (Vulkan Roadmap 2022, Vulkan 1.4) | max, fixed point increment |
+| `lineWidthGranularity` | 0.0 | 1.0 7 (Vulkan Core)
+
+                                                      0.5 (Vulkan Roadmap 2022, Vulkan 1.4) | max, fixed point increment |
+| `strictLines` | - | - | implementation-dependent |
+| `standardSampleLocations` | - | - (Vulkan Core)
+
+                                                   `VK_TRUE` (Vulkan Roadmap 2022, Vulkan 1.4) | Boolean |
+| `optimalBufferCopyOffsetAlignment` | - | - | recommendation |
+| `optimalBufferCopyRowPitchAlignment` | - | - | recommendation |
+| `nonCoherentAtomSize` | - | 256 | max |
+| `maxPushDescriptors` | - | 32 | min |
+| `maxMultiviewViewCount` | - | 6 | min |
+| `maxMultiviewInstanceIndex` | - | 227-1 | min |
+| `maxDiscardRectangles` | 0 | 4 | min |
+| `sampleLocationSampleCounts` | - | `VK_SAMPLE_COUNT_4_BIT` | min |
+| `maxSampleLocationGridSize` | - | (1,1) | min |
+| `sampleLocationCoordinateRange` | - | (0.0, 0.9375) | (max,min) |
+| `sampleLocationSubPixelBits` | - | 4 | min |
+| `variableSampleLocations` | - | `VK_FALSE` | implementation-dependent |
+| `nativeUnalignedPerformance` | - | `VK_FALSE` | implementation-dependent |
+| `minImportedHostPointerAlignment` | - | 65536 | max |
+| `perViewPositionAllComponents` | - | - | implementation-dependent |
+| `filterMinmaxSingleComponentFormats` | - | - | implementation-dependent |
+| `filterMinmaxImageComponentMapping` | - | - | implementation-dependent |
+| `advancedBlendMaxColorAttachments` | - | 1 | min |
+| `advancedBlendIndependentBlend` | - | `VK_FALSE` | implementation-dependent |
+| `advancedBlendNonPremultipliedSrcColor` | - | `VK_FALSE` | implementation-dependent |
+| `advancedBlendNonPremultipliedDstColor` | - | `VK_FALSE` | implementation-dependent |
+| `advancedBlendCorrelatedOverlap` | - | `VK_FALSE` | implementation-dependent |
+| `advancedBlendAllOperations` | - | `VK_FALSE` | implementation-dependent |
+| `maxPerSetDescriptors` | - | 1024 | min |
+| `maxMemoryAllocationSize` | - | 230 | min |
+| `maxBufferSize` | - | 230 | min |
+| `primitiveOverestimationSize` | - | 0.0 | min |
+| `maxExtraPrimitiveOverestimationSize` | - | 0.0 | min |
+| `extraPrimitiveOverestimationSizeGranularity` | - | 0.0 | min |
+| `primitiveUnderestimation` | - | `VK_FALSE` | implementation-dependent |
+| `conservativePointAndLineRasterization` | - | `VK_FALSE` | implementation-dependent |
+| `degenerateTrianglesRasterized` | - | `VK_FALSE` | implementation-dependent |
+| `degenerateLinesRasterized` | - | `VK_FALSE` | implementation-dependent |
+| `fullyCoveredFragmentShaderInputVariable` | - | `VK_FALSE` | implementation-dependent |
+| `conservativeRasterizationPostDepthCoverage` | - | `VK_FALSE` | implementation-dependent |
+| `maxUpdateAfterBindDescriptorsInAllPools` | 0 | 500000 | min |
+| `shaderUniformBufferArrayNonUniformIndexingNative` | - | `VK_FALSE` | implementation-dependent |
+| `shaderSampledImageArrayNonUniformIndexingNative` | - | `VK_FALSE` | implementation-dependent |
+| `shaderStorageBufferArrayNonUniformIndexingNative` | - | `VK_FALSE` | implementation-dependent |
+| `shaderStorageImageArrayNonUniformIndexingNative` | - | `VK_FALSE` | implementation-dependent |
+| `shaderInputAttachmentArrayNonUniformIndexingNative` | - | `VK_FALSE` | implementation-dependent |
+| `maxPerStageDescriptorUpdateAfterBindSamplers` | 0 9 | 500000 9 | min |
+| `maxPerStageDescriptorUpdateAfterBindUniformBuffers` | 0 9 | 12 9 | min |
+| `maxPerStageDescriptorUpdateAfterBindStorageBuffers` | 0 9 | 500000 9 | min |
+| `maxPerStageDescriptorUpdateAfterBindSampledImages` | 0 9 | 500000 9 | min |
+| `maxPerStageDescriptorUpdateAfterBindStorageImages` | 0 9 | 500000 9 | min |
+| `maxPerStageDescriptorUpdateAfterBindInputAttachments` | 0 9 | 4 9 (Vulkan Core)
+
+                                                                     7 (Vulkan Roadmap 2022) | min |
+| `maxPerStageUpdateAfterBindResources` | 0 9 | 500000 9 | min |
+| `maxDescriptorSetUpdateAfterBindSamplers` | 0 9 | 500000 9 | min |
+| `maxDescriptorSetUpdateAfterBindUniformBuffers` | 0 9 | 72 8 9 | min, *n* × PerStage |
+| `maxDescriptorSetUpdateAfterBindUniformBuffersDynamic` | 0 9 | 8 9 | min |
+| `maxDescriptorSetUpdateAfterBindStorageBuffers` | 0 9 | 500000 9 | min |
+| `maxDescriptorSetUpdateAfterBindStorageBuffersDynamic` | 0 9 | 4 9 | min |
+| `maxDescriptorSetUpdateAfterBindTotalUniformBuffersDynamic` | 0 9 | `maxDescriptorSetUpdateAfterBindUniformBuffersDynamic` | min |
+| `maxDescriptorSetUpdateAfterBindTotalStorageBuffersDynamic` | 0 9 | `maxDescriptorSetUpdateAfterBindStorageBuffersDynamic` | min |
+| `maxDescriptorSetUpdateAfterBindTotalBuffersDynamic` | 0 9 | `maxDescriptorSetUpdateAfterBindUniformBuffersDynamic` +  `maxDescriptorSetUpdateAfterBindStorageBuffersDynamic` | min |
+| `maxDescriptorSetUpdateAfterBindSampledImages` | 0 9 | 500000 9 | min |
+| `maxDescriptorSetUpdateAfterBindStorageImages` | 0 9 | 500000 9 | min |
+| `maxDescriptorSetUpdateAfterBindInputAttachments` | 0 9 | 4 9 | min |
+| `maxInlineUniformBlockSize` | - | 256 | min |
+| `maxPerStageDescriptorInlineUniformBlocks` | - | 4 | min |
+| `maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks` | - | 4 | min |
+| `maxDescriptorSetInlineUniformBlocks` | - | 4 | min |
+| `maxDescriptorSetUpdateAfterBindInlineUniformBlocks` | - | 4 | min |
+| `maxInlineUniformTotalSize` | - | 256 | min |
+| `maxVertexAttribDivisor` | - | 216-1 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxDrawMeshTasksCount` | - | 216-1 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskWorkGroupInvocations` | - | 32 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskWorkGroupSize` | - | (32,1,1) | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskTotalMemorySize` | - | 16384 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxTaskOutputCount` | - | 216-1 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshWorkGroupInvocations` | - | 32 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshWorkGroupSize` | - | (32,1,1) | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshTotalMemorySize` | - | 16384 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshOutputVertices` | - | 256 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshOutputPrimitives` | - | 256 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`maxMeshMultiviewViewCount` | - | 1 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`meshOutputPerVertexGranularity` | - | - | implementation-dependent |
+| [VkPhysicalDeviceMeshShaderPropertiesNV](#VkPhysicalDeviceMeshShaderPropertiesNV)::`meshOutputPerPrimitiveGranularity` | - | - | implementation-dependent |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupTotalCount` | - | 2^22 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupCount` | - | (65535,65535,65535) | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupInvocations` | - | 128 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskWorkGroupSize` | - | (128,128,128) | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskPayloadSize` | - | 16384 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskSharedMemorySize` | - | 32768 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxTaskPayloadAndSharedMemorySize` | - | 32768 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupTotalCount` | - | 2^22 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupCount` | - | (65535,65535,65535) | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupInvocations` | - | 128 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshWorkGroupSize` | - | (128,128,128) | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshSharedMemorySize` | - | 28672 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshPayloadAndSharedMemorySize` | - | 28672 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputMemorySize` | - | 32768 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshPayloadAndOutputMemorySize` | - | 48128 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputComponents` | - | 128 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputVertices` | - | 256 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputPrimitives` | - | 256 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshOutputLayers` | - | 8 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxMeshMultiviewViewCount` | - | 1 | min |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`meshOutputPerVertexGranularity` | 0 | 32 | max |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`meshOutputPerPrimitiveGranularity` | 0 | 32 | max |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxPreferredTaskWorkGroupInvocations` | - | - | implementation-dependent |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`maxPreferredMeshWorkGroupInvocations` | - | - | implementation-dependent |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersLocalInvocationVertexOutput` | - | - | implementation-dependent |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersLocalInvocationPrimitiveOutput` | - | - | implementation-dependent |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersCompactVertexOutput` | - | - | implementation-dependent |
+| [VkPhysicalDeviceMeshShaderPropertiesEXT](#VkPhysicalDeviceMeshShaderPropertiesEXT)::`prefersCompactPrimitiveOutput` | - | - | implementation-dependent |
+| `maxTransformFeedbackStreams` | - | 1 | min |
+| `maxTransformFeedbackBuffers` | - | 1 | min |
+| `maxTransformFeedbackBufferSize` | - | 227 | min |
+| `maxTransformFeedbackStreamDataSize` | - | 512 | min |
+| `maxTransformFeedbackBufferDataSize` | - | 512 | min |
+| `maxTransformFeedbackBufferDataStride` | - | 512 | min |
+| `transformFeedbackQueries` | - | `VK_FALSE` | implementation-dependent |
+| `transformFeedbackStreamsLinesTriangles` | - | `VK_FALSE` | implementation-dependent |
+| `transformFeedbackRasterizationStreamSelect` | - | `VK_FALSE` | implementation-dependent |
+| `transformFeedbackDraw` | - | `VK_FALSE` | implementation-dependent |
+| `minFragmentDensityTexelSize` | - | (1,1) | min |
+| `maxFragmentDensityTexelSize` | - | (1,1) | min |
+| `fragmentDensityInvocations` | - | - | implementation-dependent |
+| `subsampledLoads` | `VK_TRUE` | `VK_FALSE` | implementation-dependent |
+| `subsampledCoarseReconstructionEarlyAccess` | `VK_FALSE` | `VK_FALSE` | implementation-dependent |
+| `maxSubsampledArrayLayers` | 2 | 2 | min |
+| `maxDescriptorSetSubsampledSamplers` | 1 | 1 | min |
+| `fragmentDensityOffsetGranularity` | - | (1024,1024) | max |
+| [VkPhysicalDeviceRayTracingPropertiesNV](#VkPhysicalDeviceRayTracingPropertiesNV)::`shaderGroupHandleSize` | - | 16 | min |
+| [VkPhysicalDeviceRayTracingPropertiesNV](#VkPhysicalDeviceRayTracingPropertiesNV)::`maxRecursionDepth` | - | 31 | min |
+| [VkPhysicalDeviceRayTracingPipelinePropertiesKHR](#VkPhysicalDeviceRayTracingPipelinePropertiesKHR)::`shaderGroupHandleSize` | - | 32 | exact |
+| [VkPhysicalDeviceRayTracingPipelinePropertiesKHR](#VkPhysicalDeviceRayTracingPipelinePropertiesKHR)::`maxRayRecursionDepth` | - | 1 | min |
+| `maxShaderGroupStride` | - | 4096 | min |
+| `shaderGroupBaseAlignment` | - | 64 | max |
+| `maxGeometryCount` | - | 224-1 | min |
+| `maxInstanceCount` | - | 224-1 | min |
+| `maxTriangleCount` | - | 229-1 | min |
+| `maxPrimitiveCount` | - | 229-1 | min |
+| `maxPerStageDescriptorAccelerationStructures` | - | 16 | min |
+| `maxPerStageDescriptorUpdateAfterBindAccelerationStructures` | - | 500000 9 | min |
+| `maxVerticesPerCluster` | - | 256 | min |
+| `maxTrianglesPerCluster` | - | 256 | min |
+| `clusterScratchByteAlignment` | - | 256 | max |
+| `clusterByteAlignment` | - | 128 | max |
+| `clusterTemplateByteAlignment` | - | 32 | max |
+| `clusterBottomLevelByteAlignment` | - | 256 | max |
+| `clusterTemplateBoundsByteAlignment` | - | 32 | max |
+| `maxClusterGeometryIndex` | - | 224-1 | min |
+| `maxDescriptorSetAccelerationStructures` | - | 16 | min |
+| `maxDescriptorSetUpdateAfterBindAccelerationStructures` | - | 500000 9 | min |
+| `minAccelerationStructureScratchOffsetAlignment` | - | 256 | max |
+| `shaderGroupHandleCaptureReplaySize` | - | 64 | max |
+| `maxRayDispatchInvocationCount` | - | 230 | min |
+| `shaderGroupHandleAlignment` | - | 32 | max |
+| `maxRayHitAttributeSize` | - | 32 | min |
+| `maxPartitionCount` | - | 224-1 | min |
+| `maxTimelineSemaphoreValueDifference` | - | 231-1 | min |
+| `lineSubPixelPrecisionBits` | - | 4 | min |
+| `maxGraphicsShaderGroupCount` | - | 212 | min |
+| `maxIndirectCommandsStreamCount` +  (for NV extension) | - | 212 | min |
+| `maxIndirectCommandsStreamStride` | - | 2048 | min |
+| `minIndirectCommandsBufferOffsetAlignment` | - | 256 | max |
+| `minSequencesCountBufferOffsetAlignment` | - | 256 | max |
+| `minSequencesIndexBufferOffsetAlignment` | - | 256 | max |
+| `maxIndirectSequenceCount` | - | 220 | min |
+| `maxIndirectCommandsTokenCount` | - | 16 | min |
+| `maxIndirectCommandsTokenOffset` | - | 2047 | min |
+| `maxIndirectPipelineCount` | - | 212 | min |
+| `deviceGeneratedCommandsTransformFeedback` | - | false | implementation-dependent |
+| `deviceGeneratedCommandsMultiDrawIndirectCount` | - | false | implementation-dependent |
+| `maxIndirectShaderObjectCount` | 0 | 212 | implementation-dependent |
+| `maxIndirectCommandsIndirectStride` | - | 2048 | min |
+| `supportedIndirectCommandsInputModes` | - | `VK_INDIRECT_COMMANDS_INPUT_MODE_VULKAN_INDEX_BUFFER_EXT` | min |
+| `supportedIndirectCommandsShaderStages` | - | (`VK_SHADER_STAGE_COMPUTE_BIT` \| `VK_SHADER_STAGE_VERTEX_BIT` \| `VK_SHADER_STAGE_FRAGMENT_BIT`) | min |
+| `supportedIndirectCommandsShaderStagesPipelineBinding` | - | 0 | min |
+| `supportedIndirectCommandsShaderStagesShaderBinding` | - | 0 | min |
+| `maxCustomBorderColorSamplers` | - | 32 | min |
+| `robustStorageBufferAccessSizeAlignment` | - | 4 | max |
+| `robustUniformBufferAccessSizeAlignment` | - | 256 | max |
+| `minFragmentShadingRateAttachmentTexelSize` | (0,0) | (32,32) | max |
+| `maxFragmentShadingRateAttachmentTexelSize` | (0,0) | (8,8) | min |
+| `maxFragmentShadingRateAttachmentTexelSizeAspectRatio` | 0 | 1 | min |
+| `primitiveFragmentShadingRateWithMultipleViewports` | `VK_FALSE` | `VK_FALSE` | implementation-dependent |
+| `layeredShadingRateAttachments` | `VK_FALSE` | `VK_FALSE` | implementation-dependent |
+| `fragmentShadingRateNonTrivialCombinerOps` | - | `VK_FALSE` | implementation-dependent |
+| `maxFragmentSize` | - | (2,2) | min |
+| `maxFragmentSizeAspectRatio` | - | 2 | min |
+| `maxFragmentShadingRateCoverageSamples` | - | 16 | min |
+| `maxFragmentShadingRateRasterizationSamples` | - | `VK_SAMPLE_COUNT_4_BIT` | min |
+| `fragmentShadingRateWithShaderDepthStencilWrites` | - | `VK_FALSE` | implementation-dependent |
+| `fragmentShadingRateWithSampleMask` | - | `VK_FALSE` | implementation-dependent |
+| `fragmentShadingRateWithShaderSampleMask` | - | `VK_FALSE` | implementation-dependent |
+| `fragmentShadingRateWithConservativeRasterization` | - | `VK_FALSE` | implementation-dependent |
+| `fragmentShadingRateWithFragmentShaderInterlock` | - | `VK_FALSE` | implementation-dependent |
+| `fragmentShadingRateWithCustomSampleLocations` | - | `VK_FALSE` | implementation-dependent |
+| `fragmentShadingRateStrictMultiplyCombiner` | - | `VK_FALSE` | implementation-dependent |
+| `maxFragmentShadingRateInvocationCount` | - | `VK_SAMPLE_COUNT_4_BIT` | min |
+| `combinedImageSamplerDescriptorSingleArray` | - | `VK_FALSE` | implementation-dependent |
+| `bufferlessPushDescriptors` | - | `VK_FALSE` | implementation-dependent |
+| `allowSamplerImageViewPostSubmitCreation` | - | `VK_FALSE` | implementation-dependent |
+| `descriptorBufferOffsetAlignment` | - | 256 | max |
+| `maxDescriptorBufferBindings` | - | 3 | min |
+| `maxResourceDescriptorBufferBindings` | - | 1 | min |
+| `maxSamplerDescriptorBufferBindings` | - | 1 | min |
+| `maxEmbeddedImmutableSamplerBindings` | - | 1 | min |
+| `maxEmbeddedImmutableSamplers` | - | 2032 | min |
+| `bufferCaptureReplayDescriptorDataSize` | - | 64 | max |
+| `imageCaptureReplayDescriptorDataSize` | - | 64 | max |
+| `imageViewCaptureReplayDescriptorDataSize` | - | 64 | max |
+| `samplerCaptureReplayDescriptorDataSize` | - | 64 | max |
+| `accelerationStructureCaptureReplayDescriptorDataSize` | - | 64 | max |
+| `samplerDescriptorSize` | - | 256 | max |
+| `combinedImageSamplerDescriptorSize` | - | 256 | max |
+| `sampledImageDescriptorSize` | - | 256 | max |
+| `storageImageDescriptorSize` | - | 256 | max |
+| `uniformTexelBufferDescriptorSize` | - | 256 | max |
+| `robustUniformTexelBufferDescriptorSize` | - | 256 | max |
+| `storageTexelBufferDescriptorSize` | - | 256 | max |
+| `robustStorageTexelBufferDescriptorSize` | - | 256 | max |
+| `uniformBufferDescriptorSize` | - | 256 | max |
+| `robustUniformBufferDescriptorSize` | - | 256 | max |
+| `storageBufferDescriptorSize` | - | 256 | max |
+| `robustStorageBufferDescriptorSize` | - | 256 | max |
+| `inputAttachmentDescriptorSize` | - | 256 | max |
+| `accelerationStructureDescriptorSize` | - | 256 | max |
+| `maxSamplerDescriptorBufferRange` | - | 211 × `samplerDescriptorSize` | min |
+| `maxResourceDescriptorBufferRange` | - | (220 - 215) × `maxResourceDescriptorSize` 12 | min |
+| `samplerDescriptorBufferAddressSpaceSize` | - | 227 | min |
+| `resourceDescriptorBufferAddressSpaceSize` | - | 227 | min |
+| `descriptorBufferAddressSpaceSize` | - | 227 | min |
+| `combinedImageSamplerDensityMapDescriptorSize` | - | 256 | max |
+| `maxSubpassShadingWorkgroupSizeAspectRatio` | 0 | 1 | min |
+| `maxMultiDrawCount` | - | 1024 | min |
+| `maxCommandBufferNestingLevel` | - | 1 | min |
+| `graphicsPipelineLibraryFastLinking` | - | `VK_FALSE` | implementation-dependent |
+| `graphicsPipelineLibraryIndependentInterpolationDecoration` | - | `VK_FALSE` | implementation-dependent |
+| `triStripVertexOrderIndependentOfProvokingVertex` | - | `VK_FALSE` | implementation-dependent |
+| `maxWeightFilterPhases` | - | 1024 | min |
+| `maxWeightFilterDimension` | - | (64,64) | min |
+| `maxBlockMatchRegion` | - | (64,64) | min |
+| `maxBoxFilterBlockSize` | - | (64,64) | min |
+| `dynamicPrimitiveTopologyUnrestricted` | - | - | implementation-dependent |
+| `maxOpacity2StateSubdivisionLevel` | - | 3 | min |
+| `maxOpacity4StateSubdivisionLevel` | - | 3 | min |
+| `maxDecompressionIndirectCount` | 1 | 216-1 | min |
+| `maxWorkGroupCount` | - | (65536,1,1) | min |
+| `maxWorkGroupSize` | - | (32,1,1) | min |
+| `maxOutputClusterCount` | - | 1024 | min |
+| `indirectBufferOffsetAlignment` | - | - | implementation-dependent |
+| `maxExecutionGraphDepth` | - | 32 | min |
+| `maxExecutionGraphShaderOutputNodes` | - | 256 | min |
+| `maxExecutionGraphShaderPayloadSize` | - | 32768 | min |
+| `maxExecutionGraphShaderPayloadCount` | - | 256 | min |
+| `executionGraphDispatchAddressAlignment` | - | 4 | max |
+| `maxExecutionGraphVertexBufferBindings` | - | 1024 | min |
+| `maxExecutionGraphWorkgroupCount` | - | (65535,65535,65535) | min |
+| `maxExecutionGraphWorkgroups` | - | 224-1 | min |
+| `extendedSparseAddressSpaceSize` | 0 | `sparseAddressSpaceSize` | min |
+| `renderPassStripeGranularity` | - | (64,64) | max |
+| `maxRenderPassStripes` | - | 32 | min |
+| `minPlacedMemoryMapAlignment` | - | 65536 | max |
+| `supportedImageAlignmentMask` | - | 1 | min |
+| `separateDepthStencilAttachmentAccess` | `VK_FALSE` | - | implementation-dependent |
+| `cooperativeMatrixWorkgroupScopeMaxWorkgroupSize` | - | subgroupSize × 2 | min |
+| `cooperativeMatrixFlexibleDimensionsMaxDimension` | - | 256 | min |
+| `cooperativeMatrixWorkgroupScopeReservedSharedMemory` | - | `maxComputeSharedMemorySize` / 2 | max |
+| `maxCooperativeVectorComponents` | - | 128 | min |
+| `maxApronSize` | - | 1 | min |
+| `preferNonCoherent` | - | - | implementation-dependent |
+| `tileGranularity` | - | (16,16) | min |
+| `maxTileShadingRate` | - | (8,8) | min |
 
 1
 
@@ -10820,130 +8361,40 @@ respectively, otherwise both members **must** be `0`.
 Implementations that claim support for the [Roadmap 2022](../appendices/roadmap.html#roadmap-2022)
 profile **must** satisfy the following additional limit requirements:
 
-Limit
-Supported Limit
-Limit Type1
+| Limit | Supported Limit | Limit Type1 |
+| --- | --- | --- |
+| `maxImageDimension1D` | 8192 | min |
+| `maxImageDimension2D` | 8192 | min |
+| `maxImageDimensionCube` | 8192 | min |
+| `maxImageArrayLayers` | 2048 | min |
+| `maxUniformBufferRange` | 65536 | min |
+| `bufferImageGranularity` | 4096 | max |
+| `maxPerStageDescriptorSamplers` | 64 | min |
+| `maxPerStageDescriptorUniformBuffers` | 15 | min |
+| `maxPerStageDescriptorStorageBuffers` | 30 | min |
+| `maxPerStageDescriptorSampledImages` | 200 | min |
+| `maxPerStageDescriptorStorageImages` | 16 | min |
+| `maxPerStageResources` | 200 | min |
+| `maxDescriptorSetSamplers` | 576 | min |
+| `maxDescriptorSetUniformBuffers` | 90 | min |
+| `maxDescriptorSetStorageBuffers` | 96 | min |
+| `maxDescriptorSetSampledImages` | 1800 | min |
+| `maxDescriptorSetStorageImages` | 144 | min |
+| `maxFragmentCombinedOutputResources` | 16 | min |
+| `maxComputeWorkGroupInvocations` | 256 | min |
+| `maxComputeWorkGroupSize` | (256,256,64) | min |
+| `subTexelPrecisionBits` | 8 | min |
+| `mipmapPrecisionBits` | 6 | min |
+| `maxSamplerLodBias` | 14 | min |
+| `pointSizeGranularity` | 0.125 | max |
+| `lineWidthGranularity` | 0.5 | max |
+| `standardSampleLocations` | `VK_TRUE` | Boolean |
+| `maxColorAttachments` | 7 | min |
+| `subgroupSize` | 4 | min |
+| `subgroupSupportedStages` | `VK_SHADER_STAGE_COMPUTE_BIT`
 
-`maxImageDimension1D`
-8192
-min
-
-`maxImageDimension2D`
-8192
-min
-
-`maxImageDimensionCube`
-8192
-min
-
-`maxImageArrayLayers`
-2048
-min
-
-`maxUniformBufferRange`
-65536
-min
-
-`bufferImageGranularity`
-4096
-max
-
-`maxPerStageDescriptorSamplers`
-64
-min
-
-`maxPerStageDescriptorUniformBuffers`
-15
-min
-
-`maxPerStageDescriptorStorageBuffers`
-30
-min
-
-`maxPerStageDescriptorSampledImages`
-200
-min
-
-`maxPerStageDescriptorStorageImages`
-16
-min
-
-`maxPerStageResources`
-200
-min
-
-`maxDescriptorSetSamplers`
-576
-min
-
-`maxDescriptorSetUniformBuffers`
-90
-min
-
-`maxDescriptorSetStorageBuffers`
-96
-min
-
-`maxDescriptorSetSampledImages`
-1800
-min
-
-`maxDescriptorSetStorageImages`
-144
-min
-
-`maxFragmentCombinedOutputResources`
-16
-min
-
-`maxComputeWorkGroupInvocations`
-256
-min
-
-`maxComputeWorkGroupSize`
-(256,256,64)
-min
-
-`subTexelPrecisionBits`
-8
-min
-
-`mipmapPrecisionBits`
-6
-min
-
-`maxSamplerLodBias`
-14
-min
-
-`pointSizeGranularity`
-0.125
-max
-
-`lineWidthGranularity`
-0.5
-max
-
-`standardSampleLocations`
-`VK_TRUE`
-Boolean
-
-`maxColorAttachments`
-7
-min
-
-`subgroupSize`
-4
-min
-
-`subgroupSupportedStages`
-`VK_SHADER_STAGE_COMPUTE_BIT`
-
-                                                `VK_SHADER_STAGE_FRAGMENT_BIT`
-bitfield
-
-`subgroupSupportedOperations`
-`VK_SUBGROUP_FEATURE_BASIC_BIT`
+                                                `VK_SHADER_STAGE_FRAGMENT_BIT` | bitfield |
+| `subgroupSupportedOperations` | `VK_SUBGROUP_FEATURE_BASIC_BIT`
 
                                                 `VK_SUBGROUP_FEATURE_VOTE_BIT`
 
@@ -10955,48 +8406,19 @@ bitfield
 
                                                 `VK_SUBGROUP_FEATURE_SHUFFLE_RELATIVE_BIT`
 
-                                                `VK_SUBGROUP_FEATURE_QUAD_BIT`
-bitfield
-
-`shaderSignedZeroInfNanPreserveFloat16`
-`VK_TRUE`
-Boolean
-
-`shaderSignedZeroInfNanPreserveFloat32`
-`VK_TRUE`
-Boolean
-
-`maxSubgroupSize`
-4
-min
-
-`maxPerStageDescriptorUpdateAfterBindInputAttachments`
-7
-min
+                                                `VK_SUBGROUP_FEATURE_QUAD_BIT` | bitfield |
+| `shaderSignedZeroInfNanPreserveFloat16` | `VK_TRUE` | Boolean |
+| `shaderSignedZeroInfNanPreserveFloat32` | `VK_TRUE` | Boolean |
+| `maxSubgroupSize` | 4 | min |
+| `maxPerStageDescriptorUpdateAfterBindInputAttachments` | 7 | min |
 
 Implementations that claim support for the [Roadmap 2024](../appendices/roadmap.html#roadmap-2024)
 profile **must** satisfy the following additional limit requirements:
 
-Limit
-Supported Limit
-Limit Type1
-
-`shaderRoundingModeRTEFloat16`
-`VK_TRUE`
-Boolean
-
-`shaderRoundingModeRTEFloat32`
-`VK_TRUE`
-Boolean
-
-`timestampComputeAndGraphics`
-`VK_TRUE`
-Boolean
-
-`maxColorAttachments`
-8
-min
-
-`maxBoundDescriptorSets`
-7
-min
+| Limit | Supported Limit | Limit Type1 |
+| --- | --- | --- |
+| `shaderRoundingModeRTEFloat16` | `VK_TRUE` | Boolean |
+| `shaderRoundingModeRTEFloat32` | `VK_TRUE` | Boolean |
+| `timestampComputeAndGraphics` | `VK_TRUE` | Boolean |
+| `maxColorAttachments` | 8 | min |
+| `maxBoundDescriptorSets` | 7 | min |

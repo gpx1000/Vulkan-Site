@@ -81,6 +81,14 @@ that, when using SPIR-V versions 1.4 and earlier: `Block`,
 also decorate types and type members used by variables in the `Private`
 and `Function` storage classes.
 
+|  | In this chapter, there are references to SPIR-V terms such as the
+| --- | --- |
+`MeshNV` execution model.
+These terms will appear even in a build of the specification which does not
+support any extensions.
+This is as intended, since these terms appear in the unified SPIR-V
+specification without such qualifiers. |
+
 When multiple stages are present in a pipeline, the outputs of one stage
 form an interface with the inputs of the next stage.
 When such an interface involves a shader, shader outputs are matched against
@@ -187,6 +195,11 @@ declaration.
 
 If both are structures and every member has an interface match.
 
+|  | The word “structure” above refers to both variables that have an
+| --- | --- |
+`OpTypeStruct` type and interface blocks (which are also declared as
+`OpTypeStruct`). |
+
 If the pipeline is compiled as separate graphics pipeline libraries and the
 [`graphicsPipelineLibraryIndependentInterpolationDecoration`](limits.html#limits-graphicsPipelineLibraryIndependentInterpolationDecoration) limit is
 not supported, matches are not found if the
@@ -264,46 +277,20 @@ Each effective `Location` **must** have a value less than the number of
 `Location` slots available for the given interface, as specified in the
 “Locations Available” column in [Shader Input and Output Locations](#interfaces-iointerfaces-limits).
 
-Table 1. Shader Input and Output Locations
-
-Shader Interface
-Locations Available
-
-vertex input
-`maxVertexInputAttributes`
-
-vertex output
-`maxVertexOutputComponents` / 4
-
-tessellation control input
-`maxTessellationControlPerVertexInputComponents` / 4
-
-tessellation control output
-`maxTessellationControlPerVertexOutputComponents` / 4
-
-tessellation evaluation input
-`maxTessellationEvaluationInputComponents` / 4
-
-tessellation evaluation output
-`maxTessellationEvaluationOutputComponents` / 4
-
-geometry input
-`maxGeometryInputComponents` / 4
-
-geometry output
-`maxGeometryOutputComponents` / 4
-
-fragment input
-`maxFragmentInputComponents` / 4
-
-fragment output
-`maxFragmentOutputAttachments`
-
-mesh output
-`maxMeshOutputComponents` / 4
-
-cluster culling output
-`maxOutputClusterCount`
+| Shader Interface | Locations Available |
+| --- | --- |
+| vertex input | `maxVertexInputAttributes` |
+| vertex output | `maxVertexOutputComponents` / 4 |
+| tessellation control input | `maxTessellationControlPerVertexInputComponents` / 4 |
+| tessellation control output | `maxTessellationControlPerVertexOutputComponents` / 4 |
+| tessellation evaluation input | `maxTessellationEvaluationInputComponents` / 4 |
+| tessellation evaluation output | `maxTessellationEvaluationOutputComponents` / 4 |
+| geometry input | `maxGeometryInputComponents` / 4 |
+| geometry output | `maxGeometryOutputComponents` / 4 |
+| fragment input | `maxFragmentInputComponents` / 4 |
+| fragment output | `maxFragmentOutputAttachments` |
+| mesh output | `maxMeshOutputComponents` / 4 |
+| cluster culling output | `maxOutputClusterCount` |
 
 When the vertex stage is present in a pipeline, the vertex shader input
 variables form an interface with the vertex input attributes.
@@ -465,20 +452,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-State
+Secondary | Inside | Outside | Graphics | State |
 
 The `VkRenderingAttachmentLocationInfo` structure is defined as:
 
@@ -657,6 +635,11 @@ This modification **must** only depend on the framebuffer coordinates
 The exact details of the dithering algorithm are unspecified, including the
 algorithm itself, the formats dithering is applied to, and the stage in
 which it is applied.
+
+|  | This extension is intended only for use by OpenGL emulation layers, and as
+| --- | --- |
+such the dithering algorithm applied to the subpass **should** be equivalent to
+the vendor’s OpenGL implementation, if any. |
 
 When a fragment stage is present in a pipeline, the fragment shader tile
 image variables decorated with `Location` form an interface with the
@@ -914,20 +897,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Inside
-Outside
-Graphics
-State
+Secondary | Inside | Outside | Graphics | State |
 
 The `VkRenderingInputAttachmentIndexInfo` structure is defined as:
 
@@ -1163,45 +1137,14 @@ the same structure for all shader stages using the payload for that ray.
 Any shader with an incoming ray payload, incoming callable data, or hit
 attribute **must** only declare one variable of that type.
 
-Table 2. Ray Pipeline Shader Interface
-
-Shader Stage
-Ray Payload
-Incoming Ray Payload
-Hit Attribute
-Callable Data
-Incoming Callable Data
-
-Ray Generation
-r/w
-
-r/w
-
-Intersection
-
-r/w
-
-Any-Hit
-
-r/w
-r
-
-Closest Hit
-r/w
-r/w
-r
-r/w
-
-Miss
-r/w
-r/w
-
-r/w
-
-Callable
-
-r/w
-r/w
+| Shader Stage | Ray Payload | Incoming Ray Payload | Hit Attribute | Callable Data | Incoming Callable Data |
+| --- | --- | --- | --- | --- | --- |
+| Ray Generation | r/w |  |  | r/w |  |
+| Intersection |  |  | r/w |  |  |
+| Any-Hit |  | r/w | r |  |  |
+| Closest Hit | r/w | r/w | r | r/w |  |
+| Miss | r/w | r/w |  | r/w |  |
+| Callable |  |  |  | r/w | r/w |
 
 When a shader stage accesses buffer or image resources, as described in the
 [Resource Descriptors](descriptorsets.html#descriptorsets) section, the shader resource
@@ -1464,143 +1407,73 @@ Dynamically uniform: Always supported.
 * 
 Non-uniform: Never supported.
 
+|  | Implementations must take care when implementing this if subgroups are not
+| --- | --- |
+necessarily a subset of the invocation group for their hardware (e.g. if
+multiple draw calls are packed together).
+If such an implementation needs uniformity across the subgroup for any
+resource access, the implementation is responsible for ensuring that indices
+that are only dynamically uniform across the invocation group still function
+as expected if they advertise the respective feature. |
+
 A combined image sampler in an array that
 enables sampler Y′CBCR conversion
 or
 samples a [subsampled image](samplers.html#samplers-subsamplesampler)
 **must** only be indexed by constant integral expressions.
 
-Table 3. Shader Resource and Descriptor Type Correspondence
-
-Resource type
-Descriptor Type
-
-sampler
-`VK_DESCRIPTOR_TYPE_SAMPLER` or
-                           `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`
-
-sampled image
-`VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE` or
-                           `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`
-
-storage image
-`VK_DESCRIPTOR_TYPE_STORAGE_IMAGE`
-
-combined image sampler
-`VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`
-
-uniform texel buffer
-`VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER`
-
-storage texel buffer
-`VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER`
-
-uniform buffer
-`VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER` or
-                           `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC`
-
-storage buffer
-`VK_DESCRIPTOR_TYPE_STORAGE_BUFFER` or
-                           `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC`
-
-input attachment
-`VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT`
-
-inline uniform block
-`VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`
-
-acceleration structure
-`VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR`
+| Resource type | Descriptor Type |
+| --- | --- |
+| sampler | `VK_DESCRIPTOR_TYPE_SAMPLER` or
+                           `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` |
+| sampled image | `VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE` or
+                           `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` |
+| storage image | `VK_DESCRIPTOR_TYPE_STORAGE_IMAGE` |
+| combined image sampler | `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` |
+| uniform texel buffer | `VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER` |
+| storage texel buffer | `VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER` |
+| uniform buffer | `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER` or
+                           `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC` |
+| storage buffer | `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER` or
+                           `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC` |
+| input attachment | `VK_DESCRIPTOR_TYPE_INPUT_ATTACHMENT` |
+| inline uniform block | `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK` |
+| acceleration structure | `VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR`
 or
-`VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV`
+`VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV` |
+| weight image | `VK_DESCRIPTOR_TYPE_SAMPLE_WEIGHT_IMAGE_QCOM` |
+| block matching image | `VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM` |
 
-weight image
-`VK_DESCRIPTOR_TYPE_SAMPLE_WEIGHT_IMAGE_QCOM`
-
-block matching image
-`VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM`
-
-Table 4. Shader Resource and Storage Class Correspondence
-
-Resource type
-Storage Class
-Type1
-Decoration(s)2
-
-sampler
-`UniformConstant`
-`OpTypeSampler`
-
-sampled image
-`UniformConstant`
-or + `TileAttachmentQCOM`
-`OpTypeImage` (`Sampled`=1)
-
-storage image
-`UniformConstant`
-or + `TileAttachmentQCOM`
-`OpTypeImage` (`Sampled`=2)
-
-combined image sampler
-`UniformConstant`
-or + `TileAttachmentQCOM`
-`OpTypeSampledImage`
+| Resource type | Storage Class | Type1 | Decoration(s)2 |
+| --- | --- | --- | --- |
+| sampler | `UniformConstant` | `OpTypeSampler` |  |
+| sampled image | `UniformConstant`
+or + `TileAttachmentQCOM` | `OpTypeImage` (`Sampled`=1) |  |
+| storage image | `UniformConstant`
+or + `TileAttachmentQCOM` | `OpTypeImage` (`Sampled`=2) |  |
+| combined image sampler | `UniformConstant`
+or + `TileAttachmentQCOM` | `OpTypeSampledImage`
 
           `OpTypeImage` (`Sampled`=1)
 
-          `OpTypeSampler`
+          `OpTypeSampler` |  |
+| uniform texel buffer | `UniformConstant` | `OpTypeImage` (`Dim`=`Buffer`, `Sampled`=1) |  |
+| storage texel buffer | `UniformConstant` | `OpTypeImage` (`Dim`=`Buffer`, `Sampled`=2) |  |
+| uniform buffer | `Uniform` | `OpTypeStruct` | `Block`, `Offset`, (`ArrayStride`), (`MatrixStride`) |
+| storage buffer | `Uniform` | `OpTypeStruct` | `BufferBlock`, `Offset`, (`ArrayStride`), (`MatrixStride`) |
+| `StorageBuffer` | `Block`, `Offset`, (`ArrayStride`), (`MatrixStride`) |
+| input attachment | `UniformConstant`
+or + `TileAttachmentQCOM` | `OpTypeImage` (`Dim`=`SubpassData`, `Sampled`=2) | `InputAttachmentIndex` |
+| inline uniform block | `Uniform` | `OpTypeStruct` | `Block`, `Offset`, (`ArrayStride`), (`MatrixStride`) |
+| acceleration structure | `UniformConstant` | `OpTypeAccelerationStructureKHR` |  |
+| sample weight image | `UniformConstant`
+or + `TileAttachmentQCOM` | `OpTypeImage` (`Depth`=0, `Dim`=`2D`,
 
-uniform texel buffer
-`UniformConstant`
-`OpTypeImage` (`Dim`=`Buffer`, `Sampled`=1)
+                            `Arrayed`=1, `MS`=0, `Sampled`=1) | `WeightTextureQCOM` |
+| block matching image | `UniformConstant`
+or + `TileAttachmentQCOM` | `OpTypeImage` (`Depth`=0, `Dim`=`2D`,
 
-storage texel buffer
-`UniformConstant`
-`OpTypeImage` (`Dim`=`Buffer`, `Sampled`=2)
-
-uniform buffer
-`Uniform`
-`OpTypeStruct`
-`Block`, `Offset`, (`ArrayStride`), (`MatrixStride`)
-
-storage buffer
-`Uniform`
-`OpTypeStruct`
-`BufferBlock`, `Offset`, (`ArrayStride`), (`MatrixStride`)
-
-`StorageBuffer`
-`Block`, `Offset`, (`ArrayStride`), (`MatrixStride`)
-
-input attachment
-`UniformConstant`
-or + `TileAttachmentQCOM`
-`OpTypeImage` (`Dim`=`SubpassData`, `Sampled`=2)
-`InputAttachmentIndex`
-
-inline uniform block
-`Uniform`
-`OpTypeStruct`
-`Block`, `Offset`, (`ArrayStride`), (`MatrixStride`)
-
-acceleration structure
-`UniformConstant`
-`OpTypeAccelerationStructureKHR`
-
-sample weight image
-`UniformConstant`
-or + `TileAttachmentQCOM`
-`OpTypeImage` (`Depth`=0, `Dim`=`2D`,
-
-                            `Arrayed`=1, `MS`=0, `Sampled`=1)
-`WeightTextureQCOM`
-
-block matching image
-`UniformConstant`
-or + `TileAttachmentQCOM`
-`OpTypeImage` (`Depth`=0, `Dim`=`2D`,
-
-                            `Arrayed`=0, `MS`=0, `Sampled`=1)
-`BlockMatchTextureQCOM`
+                            `Arrayed`=0, `MS`=0, `Sampled`=1) | `BlockMatchTextureQCOM` |
 
 1
 
@@ -1672,60 +1545,64 @@ and storage class, as defined in
 The descriptor set layout binding **must** be of a corresponding descriptor
 type, as defined in [Shader Resource and Descriptor Type Correspondence](#interfaces-resources-correspondence).
 
-Table 5. Shader Resource Limits
+|  | There are no limits on the number of shader variables that can have
+| --- | --- |
+overlapping set and binding values in a shader; but which resources are
+[statically used](shaders.html#shaders-staticuse) has an impact.
+If any shader variable identifying a resource is
+[statically used](shaders.html#shaders-staticuse) in a shader, then the underlying
+descriptor bound at the declared set and binding **must**
+[support the declared type in the shader](#interfaces-resources-correspondence) when the shader executes.
 
-Resources per Stage
-Resource Types
+If multiple shader variables are declared with the same set and binding
+values, and with the same underlying descriptor type, they can all be
+statically used within the same shader.
+However, accesses are not automatically synchronized, and `Aliased`
+decorations should be used to avoid data hazards (see
+[section
+2.18.2 Aliasing in the SPIR-V specification](https://registry.khronos.org/spir-v/specs/unified1/SPIRV.html#_a_id_aliasingsection_a_aliasing)).
 
-`maxPerStageDescriptorSamplers`
-or `maxPerStageDescriptorUpdateAfterBindSamplers`
-sampler
+If multiple shader variables with the same set and binding values are
+declared in a single shader, but with different declared types, where any of
+those are not supported by the relevant bound descriptor, that shader can
+only be executed if the variables with the unsupported type are not
+statically used.
 
-combined image sampler
+A noteworthy example of using multiple statically-used shader variables
+sharing the same descriptor set and binding values is a descriptor of type
+`VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` that has multiple
+corresponding shader variables in the `UniformConstant` storage class,
+where some could be `OpTypeImage` (`Sampled`=1), some could be
+`OpTypeSampler`, and some could be `OpTypeSampledImage`. |
 
-`maxPerStageDescriptorSampledImages`
-or `maxPerStageDescriptorUpdateAfterBindSampledImages`
-sampled image
-
-combined image sampler
-
-uniform texel buffer
-
-sample weight image
-
-block matching image
-
-`maxPerStageDescriptorStorageImages`
-or `maxPerStageDescriptorUpdateAfterBindStorageImages`
-storage image
-
-storage texel buffer
-
-`maxPerStageDescriptorUniformBuffers`
-or `maxPerStageDescriptorUpdateAfterBindUniformBuffers`
-uniform buffer
-
-uniform buffer dynamic
-
-`maxPerStageDescriptorStorageBuffers`
-or `maxPerStageDescriptorUpdateAfterBindStorageBuffers`
-storage buffer
-
-storage buffer dynamic
-
-`maxPerStageDescriptorInputAttachments`
-or `maxPerStageDescriptorUpdateAfterBindInputAttachments`
-input attachment1
-
-`maxPerStageDescriptorInlineUniformBlocks`
-or `maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks`
-inline uniform block
-
-`VkPhysicalDeviceRayTracingPropertiesNV`::`maxDescriptorSetAccelerationStructures`
+| Resources per Stage | Resource Types |
+| --- | --- |
+| `maxPerStageDescriptorSamplers`
+or `maxPerStageDescriptorUpdateAfterBindSamplers` | sampler |
+| combined image sampler |
+| `maxPerStageDescriptorSampledImages`
+or `maxPerStageDescriptorUpdateAfterBindSampledImages` | sampled image |
+| combined image sampler |
+| uniform texel buffer |
+| sample weight image |
+| block matching image |
+| `maxPerStageDescriptorStorageImages`
+or `maxPerStageDescriptorUpdateAfterBindStorageImages` | storage image |
+| storage texel buffer |
+| `maxPerStageDescriptorUniformBuffers`
+or `maxPerStageDescriptorUpdateAfterBindUniformBuffers` | uniform buffer |
+| uniform buffer dynamic |
+| `maxPerStageDescriptorStorageBuffers`
+or `maxPerStageDescriptorUpdateAfterBindStorageBuffers` | storage buffer |
+| storage buffer dynamic |
+| `maxPerStageDescriptorInputAttachments`
+or `maxPerStageDescriptorUpdateAfterBindInputAttachments` | input attachment1 |
+| `maxPerStageDescriptorInlineUniformBlocks`
+or `maxPerStageDescriptorUpdateAfterBindInlineUniformBlocks` | inline uniform block |
+| `VkPhysicalDeviceRayTracingPropertiesNV`::`maxDescriptorSetAccelerationStructures`
 or
 `maxPerStageDescriptorAccelerationStructures` or
-`maxPerStageDescriptorUpdateAfterBindAccelerationStructures`
-acceleration structure
+`maxPerStageDescriptorUpdateAfterBindAccelerationStructures` | acceleration structure |
 
 1
 
@@ -1736,6 +1613,10 @@ Certain objects **must** be explicitly laid out using the `Offset`,
 [SPIR-V
 explicit layout validation rules](https://registry.khronos.org/spir-v/specs/unified1/SPIRV.html#ShaderValidation).
 All such layouts also **must** conform to the following requirements.
+
+|  | The numeric order of `Offset` decorations does not need to follow member
+| --- | --- |
+declaration order. |
 
 **Alignment Requirements**
 
@@ -1864,6 +1745,10 @@ alignment.
 
 Every other member **must** be aligned according to its base alignment.
 
+|  | Even if scalar alignment is supported, it is generally more performant to
+| --- | --- |
+use the *base alignment*. |
+
 The memory layout **must** obey the following rules:
 
 * 
@@ -1900,6 +1785,12 @@ Vectors **must** not improperly straddle, as defined above.
 The `Offset` decoration of a member **must** not place it between the
 end of a structure, an array or a matrix and the next multiple of the
 alignment of that structure, array or matrix.
+
+|  | The **std430 layout** in GLSL satisfies these rules for types using the base
+| --- | --- |
+alignment.
+The **std140 layout** satisfies the rules for types using the extended
+alignment. |
 
 Built-in variables are accessed in shaders by declaring a variable decorated
 with a `BuiltIn` SPIR-V decoration.
@@ -2261,6 +2152,17 @@ A clip distance of 0 means the vertex is on the plane, a positive distance
 means the vertex is inside the clip half-space, and a negative distance
 means the vertex is outside the clip half-space.
 
+|  | The array variable decorated with `ClipDistance` is explicitly sized by
+| --- | --- |
+the shader. |
+
+|  | In the last [pre-rasterization shader stage](pipelines.html#pipelines-graphics-subsets-pre-rasterization), these values will be linearly interpolated across the
+| --- | --- |
+primitive and the portion of the primitive with interpolated distances less
+than 0 will be considered outside the clip volume.
+If `ClipDistance` is then used by a fragment shader, `ClipDistance`
+contains these linearly interpolated values. |
+
 Valid Usage
 
 * 
@@ -2380,6 +2282,15 @@ make that variable contain the mechanism for controlling user culling.
 If any member of this array is assigned a negative value for all vertices
 belonging to a primitive, then the primitive is discarded before
 rasterization.
+
+|  | In fragment shaders, the values of the `CullDistance` array are linearly
+| --- | --- |
+interpolated across each primitive. |
+
+|  | If `CullDistance` decorates an input variable, that variable will contain
+| --- | --- |
+the corresponding value from the `CullDistance` decorated output variable
+from the previous shader stage. |
 
 Valid Usage
 
@@ -3002,6 +2913,10 @@ invocation and zero otherwise.
 A helper invocation is an invocation of the shader that is produced to
 satisfy internal requirements such as the generation of derivatives.
 
+|  | It is very likely that a helper invocation will have a value of
+| --- | --- |
+`SampleMask` fragment shader input value that is zero. |
+
 Valid Usage
 
 * 
@@ -3557,6 +3472,14 @@ compute shader invocation within the local workgroup.
 Each component ranges from zero through to the size of the workgroup in that
 dimension minus one.
 
+|  | If the size of the workgroup in a particular dimension is one, then the
+| --- | --- |
+`LocalInvocationId` in that dimension will be zero.
+If the workgroup is effectively two-dimensional, then
+`LocalInvocationId.z` will be zero.
+If the workgroup is effectively one-dimensional, then both
+`LocalInvocationId.y` and `LocalInvocationId.z` will be zero. |
+
 Valid Usage
 
 * 
@@ -3849,6 +3772,10 @@ If the primitive the fragment shader invocation belongs to is not a point,
 then the variable decorated with `PointCoord` contains an **undefined**
 value.
 
+|  | Depending on how the point is rasterized, `PointCoord` **may** never reach
+| --- | --- |
+(0,0) or (1,1). |
+
 Valid Usage
 
 * 
@@ -3883,6 +3810,11 @@ produced by rasterization.
 If the [`maintenance5`](features.html#features-maintenance5) feature is enabled and
 a value is not written to a variable decorated with `PointSize`, a value
 of 1.0 is used as the size of points.
+
+|  | When `PointSize` decorates a variable in the `Input` `Storage` `Class`,
+| --- | --- |
+it contains the data written to the output variable decorated with
+`PointSize` from the previous shader stage. |
 
 Valid Usage
 
@@ -3921,6 +3853,11 @@ that variable contain the position of the current vertex.
 In the last [pre-rasterization shader stage](pipelines.html#pipelines-graphics-subsets-pre-rasterization), the value of the variable decorated with `Position` is
 used in subsequent primitive assembly, clipping, and rasterization
 operations.
+
+|  | When `Position` decorates a variable in the `Input` `Storage` `Class`, it
+| --- | --- |
+contains the data written to the output variable decorated with
+`Position` from the previous shader stage. |
 
 Valid Usage
 
@@ -4077,6 +4014,18 @@ present.
 
 In an intersection, any-hit, or closest hit shader, it will contain the
 index within the geometry of the triangle or bounding box being processed.
+
+|  | When the `PrimitiveId` decoration is applied to an output variable in the
+| --- | --- |
+mesh shader or
+geometry shader, the resulting value is seen through the `PrimitiveId`
+decorated input variable in the fragment shader.
+
+The fragment shader using `PrimitiveId` will need to declare either the
+`MeshShadingNV`,
+`MeshShadingEXT`,
+`Geometry` or `Tessellation` capability to satisfy the requirement
+SPIR-V has to use `PrimitiveId`. |
 
 Valid Usage
 
@@ -4926,6 +4875,29 @@ invocations active, i.e., there is an active invocation with
 `SubgroupLocalInvocationId` for each value in range
 [0,`SubgroupSize`-1].
 
+|  | There is no direct relationship between `SubgroupLocalInvocationId` and
+| --- | --- |
+`LocalInvocationId` or `LocalInvocationIndex`.
+If the pipeline
+or shader object
+was created with full subgroups applications can compute their own local
+invocation index to serve the same purpose:
+
+index = `SubgroupLocalInvocationId` + `SubgroupId` ×
+`SubgroupSize`
+
+If full subgroups are not enabled, some subgroups may be dispatched with
+inactive invocations that do not correspond to a local workgroup invocation,
+making the value of index unreliable. |
+
+|  | `VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT`
+| --- | --- |
+and `VK_SHADER_CREATE_REQUIRE_FULL_SUBGROUPS_BIT_EXT` are
+effectively deprecated when compiling SPIR-V 1.6 shaders, as this behavior
+is the default for Vulkan with SPIR-V 1.6.
+This is more aligned with developer expectations, and avoids applications
+unexpectedly breaking in the future. |
+
 Valid Usage
 
 * 
@@ -4982,6 +4954,12 @@ variable decorated with `SubgroupSize` will match [`subgroupSize`](devsandqueues
 
 The maximum number of invocations that an implementation can support per
 subgroup is 128.
+
+|  | The old behavior for `SubgroupSize` is considered deprecated as certain
+| --- | --- |
+compute algorithms cannot be easily implemented without the guarantees of
+`VK_PIPELINE_SHADER_STAGE_CREATE_ALLOW_VARYING_SUBGROUP_SIZE_BIT` and
+`VK_PIPELINE_SHADER_STAGE_CREATE_REQUIRE_FULL_SUBGROUPS_BIT`. |
 
 Valid Usage
 
@@ -5279,6 +5257,9 @@ vertex plus the `vertexOffset` parameter to [vkCmdDrawIndexed](drawing.html#vkCm
 the `vertexOffset` member of the structure consumed by
 [vkCmdDrawIndexedIndirect](drawing.html#vkCmdDrawIndexedIndirect).
 
+|  | `VertexIndex` starts at the same starting value for each instance. |
+| --- | --- |
+
 Valid Usage
 
 * 
@@ -5390,7 +5371,7 @@ If the [`multiviewPerViewViewports`](features.html#features-multiviewPerViewView
 [pre-rasterization shader stage](pipelines.html#pipelines-graphics-subsets-pre-rasterization) shader entry point’s interface does not include a variable decorated
 with `ViewportIndex`, then the value of `ViewIndex` is used as an
 index to select the viewport transform and scissor rectangle, and the value
-of `ViewportIndex` in the fragment shader is **undefined**:.
+of `ViewportIndex` in the fragment shader is **undefined**.
 
 Valid Usage
 
@@ -5646,6 +5627,12 @@ The variable decorated with `WorkgroupId` **must** be declared as a
 three-component vector of 32-bit integer values
 
 `WorkgroupSize`
+
+|  | SPIR-V 1.6 deprecated `WorkgroupSize` in favor of using the
+| --- | --- |
+`LocalSizeId` Execution Mode instead.
+Support for `LocalSizeId` was added with `[VK_KHR_maintenance4](../appendices/extensions.html#VK_KHR_maintenance4)` and
+promoted to core in Version 1.3. |
 
 Decorating an object with the `WorkgroupSize` built-in decoration will
 make that object contain the dimensions of a local workgroup.

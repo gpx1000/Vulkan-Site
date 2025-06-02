@@ -28,6 +28,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/texture_compression_basisu). |
+| --- | --- |
+
 This tutorial, along with the accompanying example code, demonstrates how to use Basis universal supercompressed GPU textures in a Vulkan application.
 
 [KTX](https://www.khronos.org/ktx/) is a GPU texture **container format** for storing different texture types (2D, cubemap, etc.) and texture formats (uncompressed and compressed).
@@ -217,3 +220,7 @@ device->flush_command_buffer(copy_command, queue, true);
 The sample allows transcoding of a fixed set of ETC1S/UASTC to supported native GPU target formats at runtime.
 The list of possible targets depends on the device’s capabilities.
 You can also zoom in and rotate the image to see the effect of different input and target format combinations.
+
+|  | Transcoding speed suffers a lot in debug builds.
+| --- | --- |
+For best performance, running a release build is advised. |

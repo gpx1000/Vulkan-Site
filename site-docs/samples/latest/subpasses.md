@@ -18,6 +18,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/subpasses). |
+| --- | --- |
+
 Vulkan introduces the concept of *subpasses* to subdivide a single [render pass](../render_passes/README.html) into separate logical phases.
 The benefit of using subpasses over multiple render passes is that a GPU is able to perform various optimizations.
 Tile-based renderers, for example, can take advantage of tile memory, which being on chip is decisively faster than external memory, potentially saving a considerable amount of bandwidth.

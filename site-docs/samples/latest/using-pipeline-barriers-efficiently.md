@@ -18,6 +18,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/pipeline_barriers). |
+| --- | --- |
+
 Vulkan gives the application significant control over memory access for resources.
 Pipeline barriers are particularly convenient for synchronizing memory accesses between render passes.
 

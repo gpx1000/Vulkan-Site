@@ -477,6 +477,10 @@ associated with a single DPB slot.
 In this case the state of the individual picture references **can** be
 independently updated.
 
+|  | As an example, H.264 decoding allows associating a separate top field and
+| --- | --- |
+bottom field picture with the same DPB slot. |
+
 As part of reference picture setup, the implementation **may** also generate
 [reference picture metadata](#reference-metadata).
 Such reference picture metadata is specific to each picture reference
@@ -940,6 +944,13 @@ decoding is intended to be used to consume a local video bitstream.
 decoding is intended to be used to consume a video bitstream received as
 a continuous flow over network.
 
+|  | There are no restrictions on the combination of bits that **can** be specified
+| --- | --- |
+by the application.
+However, applications **should** use reasonable combinations in order for the
+implementation to be able to select the most appropriate mode of operation
+for the particular use case. |
+
 // Provided by VK_KHR_video_decode_queue
 typedef VkFlags VkVideoDecodeUsageFlagsKHR;
 
@@ -1036,6 +1047,13 @@ consumption.
 `VK_VIDEO_ENCODE_USAGE_CONFERENCING_BIT_KHR` specifies that video
 encoding is intended to be used in a video conferencing scenario.
 
+|  | There are no restrictions on the combination of bits that **can** be specified
+| --- | --- |
+by the application.
+However, applications **should** use reasonable combinations in order for the
+implementation to be able to select the most appropriate mode of operation
+for the particular use case. |
+
 // Provided by VK_KHR_video_encode_queue
 typedef VkFlags VkVideoEncodeUsageFlagsKHR;
 
@@ -1065,6 +1083,13 @@ encoding is intended to be used to encode desktop content.
 * 
 `VK_VIDEO_ENCODE_CONTENT_RENDERED_BIT_KHR` specified that video
 encoding is intended to be used to encode rendered (e.g. game) content.
+
+|  | There are no restrictions on the combination of bits that **can** be specified
+| --- | --- |
+by the application.
+However, applications **should** use reasonable combinations in order for the
+implementation to be able to select the most appropriate mode of operation
+for the particular content type. |
 
 // Provided by VK_KHR_video_encode_queue
 typedef VkFlags VkVideoEncodeContentFlagsKHR;
@@ -1137,6 +1162,10 @@ array.
 * 
 `pProfiles` is a pointer to an array of [VkVideoProfileInfoKHR](#VkVideoProfileInfoKHR)
 structures.
+
+|  | Video transcoding is an example of a use case that necessitates the
+| --- | --- |
+specification of multiple profiles in various contexts. |
 
 When the application provides a video decode profile and one or more video
 encode profiles in the profile list, the implementation ensures that any
@@ -1359,6 +1388,15 @@ coding operation **can** use.
 [VkExtensionProperties](extensions.html#VkExtensionProperties) structure reporting the Video Std header
 name and version supported for the video profile.
 
+|  | It is common for video compression standards to allow using all reference
+| --- | --- |
+pictures associated with active DPB slots as active reference pictures,
+hence for video decode profiles the values returned in `maxDpbSlots` and
+`maxActiveReferencePictures` are often equal.
+Similarly, in case of video decode profiles supporting field pictures the
+value of `maxActiveReferencePictures` often equals
+`maxDpbSlots` × 2. |
+
 Valid Usage (Implicit)
 
 * 
@@ -1513,6 +1551,13 @@ If the implementation supports using images of a particular format in
 operations other than video decode/encode then the `imageUsageFlags`
 member of the corresponding [VkVideoFormatPropertiesKHR](#VkVideoFormatPropertiesKHR) structure
 returned will include additional image usage flags indicating that.
+
+|  | For most use cases, only decode or encode related usage flags are going to
+| --- | --- |
+be specified.
+For a use case such as transcode, if the image were to be shared between
+decode and encode session(s), then both decode and encode related usage
+flags **can** be set. |
 
 Multiple `VkVideoFormatPropertiesKHR` entries **may** be returned with the
 same `format` member with different `componentMapping`,
@@ -1902,6 +1947,12 @@ requirements of the used video compression standard, or if values derived
 from parameters according to the rules defined by the used video compression
 standard do not adhere to the capabilities of the video compression standard
 or the implementation.
+
+|  | Applications **should** not rely on the
+| --- | --- |
+`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR` error being returned by any
+command as a means to verify Video Std parameters, as implementations are
+not required to report the error in any specific set of cases. |
 
 Valid Usage (Implicit)
 
@@ -2327,6 +2378,16 @@ codec-specific encoding parameters to optimize video encode operations
 based on the use case information specified in the
 [video profile](#video-profiles) and the used
 [video encode quality level](#encode-quality-level).
+
+|  | Not specifying
+| --- | --- |
+`VK_VIDEO_SESSION_CREATE_ALLOW_ENCODE_PARAMETER_OPTIMIZATIONS_BIT_KHR`
+does not guarantee that the implementation will not do any codec-specific
+parameter overrides, as certain overrides are necessary for the correct
+operation of the video encoder implementation due to limitations to the
+available encoding tools on that implementation.
+This flag, however, enables the implementation to apply further optimizing
+overrides. |
 
 * 
 `VK_VIDEO_SESSION_CREATE_INLINE_QUERIES_BIT_KHR` specifies that
@@ -2841,6 +2902,21 @@ structure the image was created with:
 `VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR` and/or bits
 also set in [VkVideoFormatPropertiesKHR](#VkVideoFormatPropertiesKHR)::`imageCreateFlags`.
 
+|  | Specifying `VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR` when
+| --- | --- |
+creating
+[decode output pictures](#decode-output-picture)
+or
+[encode input pictures](#encode-input-picture)
+is always supported when the
+[videoMaintenance1](features.html#features-videoMaintenance1) feature is enabled,
+regardless of the supported [VkImageCreateFlags](resources.html#VkImageCreateFlags) reported in
+[VkVideoFormatPropertiesKHR](#VkVideoFormatPropertiesKHR)::`imageCreateFlags`.
+Accordingly, implementations **should** not report
+`VK_IMAGE_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR` in
+[VkVideoFormatPropertiesKHR](#VkVideoFormatPropertiesKHR)::`imageCreateFlags` for any video
+format. |
+
 * 
 [VkImageCreateInfo](resources.html#VkImageCreateInfo)::`imageType` equals
 [VkVideoFormatPropertiesKHR](#VkVideoFormatPropertiesKHR)::`imageType`.
@@ -2854,6 +2930,19 @@ also set in [VkVideoFormatPropertiesKHR](#VkVideoFormatPropertiesKHR)::`imageCre
 [VkVideoFormatPropertiesKHR](#VkVideoFormatPropertiesKHR)::`imageUsageFlags`, or
 [VkImageCreateInfo](resources.html#VkImageCreateInfo)::`flags` includes
 `VK_IMAGE_CREATE_EXTENDED_USAGE_BIT`.
+
+|  | While some of these rules allow creating buffer or image resources that **may**
+| --- | --- |
+be compatible with any video profile, applications **should** still prefer to
+include the specific video profiles the buffer or image resource is expected
+to be used with (through a [VkVideoProfileListInfoKHR](#VkVideoProfileListInfoKHR) structure
+included in the `pNext` chain of the corresponding create info
+structure) whenever the information about the complete set of video profiles
+is available at resource creation time, to enable the implementation to
+optimize the created resource for the specific use case.
+In the absence of that information, the implementation **may** have to make
+conservative decisions about the memory requirements or representation of
+the resource. |
 
 A [VkImageView](resources.html#VkImageView) is compatible with a video profile if the [VkImage](resources.html#VkImage)
 it was created from is also compatible with that video profile.
@@ -3002,6 +3091,15 @@ template object specified in
 with the same [video encode quality level](#encode-quality-level) as the
 newly created object.
 
+|  | This means that codec-specific parameters stored in video session parameters
+| --- | --- |
+objects **can** only be reused across different video encode quality levels by
+re-specifying them, as previously created video session parameters against
+other quality levels **cannot** be used as template because the original
+codec-specific parameters (before the implementation **may** have applied
+[parameter overrides](#encode-overrides)) **may** no longer be available in
+them for the purposes of constructing the derived object. |
+
 Video session parameters objects are only compatible with
 [quantization maps](#encode-quantization-map) if they are created with
 `pCreateInfo->flags` including
@@ -3016,6 +3114,16 @@ with a specific compatible [quantization map texel size](#encode-quantization-ma
 the [VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR](#VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR)
 structure included in the `pNext` chain of `pCreateInfo`.
 
+|  | This means that the quantization map texel size that such a video session
+| --- | --- |
+parameters object is compatible with is fixed for the lifetime of the
+object.
+Applications have to create separate video session parameters objects to use
+different quantization map texel sizes with a single video session object.
+This is necessary because the used quantization map texel size may affect
+the [parameter overrides](#encode-overrides) the implementation has to
+perform and thus the final values of the used codec-specific parameters. |
+
 For video session parameters objects created with
 `VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR`,
 the template object specified in
@@ -3024,6 +3132,15 @@ created with
 `VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR`
 and the same compatible [quantization map texel size](#encode-quantization-map-texel-size) specified in
 [VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR](#VkVideoEncodeQuantizationMapSessionParametersCreateInfoKHR)::`quantizationMapTexelSize`.
+
+|  | This means that codec-specific parameters stored in video session parameters
+| --- | --- |
+objects **can** only be reused with different quantization map texel sizes by
+re-specifying them, as previously created video session parameters against
+other quantization map texel sizes **cannot** be used as template because the
+original codec-specific parameters (before the implementation **may** have
+applied [parameter overrides](#encode-overrides)) **may** no longer be
+available in them for the purposes of constructing the derived object. |
 
 For video session parameters objects created without
 `VK_VIDEO_SESSION_PARAMETERS_CREATE_QUANTIZATION_MAP_COMPATIBLE_BIT_KHR`,
@@ -3260,6 +3377,12 @@ requirements of the used video compression standard, or if values derived
 from parameters according to the rules defined by the used video compression
 standard do not adhere to the capabilities of the video compression standard
 or the implementation.
+
+|  | Applications **should** not rely on the
+| --- | --- |
+`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR` error being returned by any
+command as a means to verify Video Std parameters, as implementations are
+not required to report the error in any specific set of cases. |
 
 Valid Usage (Implicit)
 
@@ -4024,6 +4147,15 @@ After a successful call to this command, the
 `videoSessionParameters` is changed to the value specified in
 `pUpdateInfo->updateSequenceCount`.
 
+|  | As each update issued to a video session parameters object needs to specify
+| --- | --- |
+the next available update sequence count value, concurrent updates of the
+same video session parameters object are inherently disallowed.
+However, recording video coding operations to command buffers referring to
+parameters previously added to the video session parameters object is
+allowed, even if there is a concurrent update in progress adding some new
+entries to the object. |
+
 If `videoSessionParameters` was created with the video codec operation
 `VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR` and the
 `pUpdateInfo->pNext` chain includes a
@@ -4100,6 +4232,12 @@ requirements of the used video compression standard, or if values derived
 from parameters according to the rules defined by the used video compression
 standard do not adhere to the capabilities of the video compression standard
 or the implementation.
+
+|  | Applications **should** not rely on the
+| --- | --- |
+`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR` error being returned by any
+command as a means to verify Video Std parameters, as implementations are
+not required to report the error in any specific set of cases. |
 
 Valid Usage
 
@@ -4537,10 +4675,45 @@ DPB slot.
 If `slotIndex` is negative and `pPictureResource` is `NULL`,
 then the element is ignored.
 
+|  | It is possible for multiple bound reference picture resources to be
+| --- | --- |
+associated with the same DPB slot index, or for a single bound reference
+picture to refer to multiple separate reference pictures.
+For example, in case of an [H.264 decode profile](#decode-h264-profile) with
+[interlaced frame support](#decode-h264-interlaced-support) a single DPB
+slot can refer to two separate pictures for the top and bottom fields.
+Depending on the picture layout used by the [H.264 decode profile](#decode-h264-profile), the following special cases **may** arise:
+
+* 
+If the picture layout is
+`VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_INTERLEAVED_LINES_BIT_KHR`,
+then the top and bottom field pictures are physically co-located in the
+same video picture resource with even scanlines corresponding to the top
+field and odd scanlines corresponding to the bottom field, respectively.
+
+* 
+If the picture layout is
+`VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR`,
+then the top and bottom field pictures are stored in separate video
+picture resources (in separate subregions of the same image layer, in
+separate layers of the same image, or in entirely separate images),
+hence two elements of
+[VkVideoBeginCodingInfoKHR](#VkVideoBeginCodingInfoKHR)::`pReferenceSlots` **can** contain the
+same `slotIndex` but specify different video picture resources in
+their `pPictureResource` members. |
+
 All non-negative `slotIndex` values specified in the elements of
 `pBeginInfo->pReferenceSlots` **must** identify DPB slots of the video
 session that are in the [active state](#dpb-slot-states) at the time this
 command is executed on the device.
+
+|  | The application does not have to specify an entry in
+| --- | --- |
+`pBeginInfo->pReferenceSlots` corresponding to all active DPB slots of
+the video session, but only for those which are intended to be used in the
+video coding scope.
+This way the application can avoid any potential runtime cost associated
+with binding the corresponding picture resources to the command buffer. |
 
 In case of a video encode session, the application is also responsible for
 providing information about the current [rate control state](#encode-rate-control-state) configured for the video session by including an instance of
@@ -4553,6 +4726,18 @@ is `VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DEFAULT_KHR`.
 The specified state **must** [match](#encode-rate-control-state-matching) the
 effective rate control state configured for the video session at the time
 the recorded command is executed on the device.
+
+|  | Including an instance of the [VkVideoEncodeRateControlInfoKHR](#VkVideoEncodeRateControlInfoKHR) structure
+| --- | --- |
+in the `pNext` chain of `pBeginInfo` does not change the rate
+control state configured for the video session, but only specifies the
+expected rate control state configured at the time the recorded command is
+executed on the device which allows the implementation to have information
+about the configured rate control state at command buffer recording time.
+In order to change the current rate control state of a video session, the
+application has to issue an appropriate [vkCmdControlVideoCodingKHR](#vkCmdControlVideoCodingKHR)
+command as described in the [Video Coding Control](#video-coding-control)
+and [Rate Control State](#encode-rate-control-state) sections. |
 
 Valid Usage
 
@@ -4740,22 +4925,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Outside | Outside | Decode
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Encode | Action
 
-Primary
-Outside
-Outside
-Decode
-
-Encode
-Action
-
-State
+State |
 
 The [VkVideoBeginCodingInfoKHR](#VkVideoBeginCodingInfoKHR) structure is defined as:
 
@@ -5136,22 +5312,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Outside | Inside | Decode
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Encode | Action
 
-Primary
-Outside
-Inside
-Decode
-
-Encode
-Action
-
-State
+State |
 
 The `VkVideoEndCodingInfoKHR` structure is defined as:
 
@@ -5312,20 +5479,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Outside | Inside | Decode
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-Outside
-Inside
-Decode
-
-Encode
-Action
+Encode | Action |
 
 The `VkVideoCodingControlInfoKHR` structure is defined as:
 
@@ -5465,6 +5623,13 @@ contained by subsequent query indices.
 * 
 `queryCount` is the number of queries to execute.
 
+|  | In practice, if `queryPool` is not `VK_NULL_HANDLE`, then
+| --- | --- |
+`queryCount` will always have to match the number of video coding
+operations issued by the video coding command this structure is specified
+to, meaning that using inline queries in a video coding command will always
+execute a query for each issued video coding operation. |
+
 This structure **can** be included in the `pNext` chain of the input
 parameter structure of video coding commands.
 
@@ -5508,6 +5673,13 @@ Valid Usage (Implicit)
 Video decode operations consume compressed video data from a video bitstream
 buffer and zero or more reference pictures, and produce a *decode output
 picture* and an optional [reconstructed picture](#reconstructed-picture).
+
+|  | Such decode output pictures can be shared with the [Decoded Picture Buffer](#dpb), and can also be used
+| --- | --- |
+as the [input](#encode-input-picture) of video encode operations,
+with graphics or compute operations,
+or with [Window System Integration](VK_KHR_surface/wsi.html#wsi) APIs,
+depending on the capabilities of the implementation. |
 
 Video decode operations **may** access the following resources in the
 `VK_PIPELINE_STAGE_2_VIDEO_DECODE_BIT_KHR` stage:
@@ -5683,10 +5855,30 @@ indicates support for using distinct video picture resources as the
 [decode output picture](#decode-output-picture) in a video decode
 operation.
 
+|  | Some video profiles allow using distinct video picture resources as the
+| --- | --- |
+reconstructed picture and decode output picture in specific video decode
+operations even when the video decode profile does not support
+`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR`.
+Even if the implementation only reports coincide, the decode output picture
+for [film grain](#decode-av1-film-grain) enabled frames must be a different
+video picture resource from the reconstructed picture because film grain is
+applied outside of the coding loop. |
+
 Implementations are only **required** to support one of
 `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR` and
 `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR`.
 Accordingly, applications **should** handle both cases to maximize portability.
+
+|  | If both `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR` and
+| --- | --- |
+`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR` are
+supported, an application can choose to create separate images for decode
+DPB and decode output.
+E.g. in cases when linear tiling is preferred (and supported) for the decode
+output picture and the DPB requires optimal tiling, this avoids the need for
+a separate copy at the expense of additional memory bandwidth requirements
+during decoding. |
 
 // Provided by VK_KHR_video_decode_queue
 typedef VkFlags VkVideoDecodeCapabilityFlagsKHR;
@@ -5791,6 +5983,11 @@ the [decode output picture](#decode-output-picture), but reference picture
 setup is not requested, the contents of the [video picture resource](#video-picture-resources) corresponding to the reconstructed picture will be
 **undefined** after the video decode operation.
 
+|  | Some implementations may always output the reconstructed picture or use it
+| --- | --- |
+as temporary storage during the video decode operation even when the
+reconstructed picture is not marked for future reference. |
+
 Decode Output Picture Information
 
 Information related to the [decode output picture](#decode-output-picture)
@@ -5826,6 +6023,12 @@ elements of the `pDecodeInfo->pReferenceSlots` array that have a
 `pNext` chain with both
 `pStdReferenceInfo->flags.top_field_flag` and
 `pStdReferenceInfo->flags.bottom_field_flag` set.
+
+|  | This means that the elements of `pDecodeInfo->pReferenceSlots` that
+| --- | --- |
+include both a top and bottom field reference are counted as two separate
+active reference pictures, as described in the
+[active reference picture list construction rules for H.264 decode operations](#decode-h264-active-reference-picture-info). |
 
 Let `VkOffset2D codedOffsetGranularity` be the minimum alignment
 requirement for the coded offset of video picture resources.
@@ -6749,18 +6952,9 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-Outside
-Inside
-Decode
-Action
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Outside | Inside | Decode | Action |
 
 The `VkVideoDecodeInfoKHR` structure is defined as:
 
@@ -6913,6 +7107,11 @@ currently reserved for future use.
 
 Video decode operations using an [H.264 decode profile](#decode-h264-profile) **can** be used to decode elementary video stream sequences compliant
 to the [ITU-T H.264 Specification](introduction.html#itu-t-h264).
+
+|  | Refer to the [Preamble](preamble.html#preamble) for information on how the Khronos
+| --- | --- |
+Intellectual Property Rights Policy relates to normative references to
+external materials not created by Khronos. |
 
 This process is performed according to the [video decode operation steps](#decode-operation-steps) with the codec-specific semantics defined in
 section 8 of the [ITU-T H.264 Specification](introduction.html#itu-t-h264) as follows:
@@ -7255,6 +7454,10 @@ ignored;
 `flags.color_description_present_flag` is interpreted as the value
 of `colour_description_present_flag`, as defined in section E.2.1 of
 the [ITU-T H.264 Specification](introduction.html#itu-t-h264);
+
+|  | The name of `colour_description_present_flag` was misspelled in the Video
+| --- | --- |
+Std header. |
 
 * 
 if `flags.nal_hrd_parameters_present_flag` or
@@ -7725,6 +7928,32 @@ Each added reference picture is associated with the
 [H.264 reference information](#decode-h264-reference-info) provided in
 `pStdReferenceInfo`.
 
+|  | When both the top and bottom field of an interlaced frame currently
+| --- | --- |
+associated with a DPB slot is intended to be used as an active reference
+picture and both fields are stored in the same image subregion (which is the
+case when using
+`VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_INTERLEAVED_LINES_BIT_KHR`
+which stores the two fields at even and odd scanlines of the same image
+subregion), both references have to be provided through a single
+[VkVideoReferenceSlotInfoKHR](#VkVideoReferenceSlotInfoKHR) structure that has both
+`flags.top_field_flag` and `flags.bottom_field_flag` set in the
+`StdVideoDecodeH264ReferenceInfo` structure pointed to by the
+`pStdReferenceInfo` member of the [VkVideoDecodeH264DpbSlotInfoKHR](#VkVideoDecodeH264DpbSlotInfoKHR)
+structure included in the corresponding [VkVideoReferenceSlotInfoKHR](#VkVideoReferenceSlotInfoKHR)
+structure’s `pNext` chain.
+However, this approach can only be used when both fields are stored in the
+same image subregion.
+If that is not the case (e.g. when using
+`VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR`
+which requires separate `codedOffset` values for the two fields and also
+allows storing the two fields of a frame in separate image layers or
+entirely separate images), then a separate [VkVideoReferenceSlotInfoKHR](#VkVideoReferenceSlotInfoKHR)
+structure needs to be provided for referencing the two fields, each only
+setting one of `flags.top_field_flag` or `flags.bottom_field_flag`,
+and providing the appropriate video picture resource information in
+[VkVideoReferenceSlotInfoKHR](#VkVideoReferenceSlotInfoKHR)::`pPictureResource`. |
+
 Reconstructed Picture Information
 
 When this structure is specified in the `pNext` chain of
@@ -7806,70 +8035,27 @@ codec operation `VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR`, as
 returned by [vkGetPhysicalDeviceQueueFamilyProperties2](devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2) in
 [VkQueueFamilyVideoPropertiesKHR](devsandqueues.html#VkQueueFamilyVideoPropertiesKHR)::`videoCodecOperations`.
 
-Table 1. Required [Video Std Header Versions](#video-std-header-version)
+| Video Std Header Name | Version |
+| --- | --- |
+| `vulkan_video_codec_h264std_decode` | 1.0.0 |
 
-Video Std Header Name
-Version
-
-`vulkan_video_codec_h264std_decode`
-1.0.0
-
-Table 2. Required Video Capabilities
-
-Video Capability
-Requirement
-Requirement Type1
-
-**[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)**
-
-`flags`
--
-min
-
-`minBitstreamBufferOffsetAlignment`
-4096
-max
-
-`minBitstreamBufferSizeAlignment`
-4096
-max
-
-`pictureAccessGranularity`
-(64,64)
-max
-
-`minCodedExtent`
--
-max
-
-`maxCodedExtent`
--
-min
-
-`maxDpbSlots`
-0
-min
-
-`maxActiveReferencePictures`
-0
-min
-
-**[VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR)**
-
-`flags`
-`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR` or
-                `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR`
-min
-
-**[VkVideoDecodeH264CapabilitiesKHR](#VkVideoDecodeH264CapabilitiesKHR)**
-
-`maxLevelIdc`
-`STD_VIDEO_H264_LEVEL_IDC_1_0`
-min
-
-`fieldOffsetGranularity`
-(0,0) except for profiles using `VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR`
-implementation-dependent
+| Video Capability | Requirement | Requirement Type1 |
+| --- | --- | --- |
+| **[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `minBitstreamBufferOffsetAlignment` | 4096 | max |
+| `minBitstreamBufferSizeAlignment` | 4096 | max |
+| `pictureAccessGranularity` | (64,64) | max |
+| `minCodedExtent` | - | max |
+| `maxCodedExtent` | - | min |
+| `maxDpbSlots` | 0 | min |
+| `maxActiveReferencePictures` | 0 | min |
+| **[VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR)** |  |  |
+| `flags` | `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR` or
+                `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR` | min |
+| **[VkVideoDecodeH264CapabilitiesKHR](#VkVideoDecodeH264CapabilitiesKHR)** |  |  |
+| `maxLevelIdc` | `STD_VIDEO_H264_LEVEL_IDC_1_0` | min |
+| `fieldOffsetGranularity` | (0,0) except for profiles using `VK_VIDEO_DECODE_H264_PICTURE_LAYOUT_INTERLACED_SEPARATE_PLANES_BIT_KHR` | implementation-dependent |
 
 1
 
@@ -7882,6 +8068,11 @@ set, but they **may** have additional bits set beyond this minimum.
 
 Video decode operations using an [H.265 decode profile](#decode-h265-profile) **can** be used to decode elementary video stream sequences compliant
 to the [ITU-T H.265 Specification](introduction.html#itu-t-h265).
+
+|  | Refer to the [Preamble](preamble.html#preamble) for information on how the Khronos
+| --- | --- |
+Intellectual Property Rights Policy relates to normative references to
+external materials not created by Khronos. |
 
 This process is performed according to the [video decode operation steps](#decode-operation-steps) with the codec-specific semantics defined in
 section 8 of [ITU-T H.265 Specification](introduction.html#itu-t-h265):
@@ -8876,66 +9067,26 @@ codec operation `VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR`, as
 returned by [vkGetPhysicalDeviceQueueFamilyProperties2](devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2) in
 [VkQueueFamilyVideoPropertiesKHR](devsandqueues.html#VkQueueFamilyVideoPropertiesKHR)::`videoCodecOperations`.
 
-Table 3. Required [Video Std Header Versions](#video-std-header-version)
+| Video Std Header Name | Version |
+| --- | --- |
+| `vulkan_video_codec_h265std_decode` | 1.0.0 |
 
-Video Std Header Name
-Version
-
-`vulkan_video_codec_h265std_decode`
-1.0.0
-
-Table 4. Required Video Capabilities
-
-Video Capability
-Requirement
-Requirement Type1
-
-**[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)**
-
-`flags`
--
-min
-
-`minBitstreamBufferOffsetAlignment`
-4096
-max
-
-`minBitstreamBufferSizeAlignment`
-4096
-max
-
-`pictureAccessGranularity`
-(64,64)
-max
-
-`minCodedExtent`
--
-max
-
-`maxCodedExtent`
--
-min
-
-`maxDpbSlots`
-0
-min
-
-`maxActiveReferencePictures`
-0
-min
-
-**[VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR)**
-
-`flags`
-`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR` or
-                `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR`
-min
-
-**[VkVideoDecodeH265CapabilitiesKHR](#VkVideoDecodeH265CapabilitiesKHR)**
-
-`maxLevelIdc`
-`STD_VIDEO_H265_LEVEL_IDC_1_0`
-min
+| Video Capability | Requirement | Requirement Type1 |
+| --- | --- | --- |
+| **[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `minBitstreamBufferOffsetAlignment` | 4096 | max |
+| `minBitstreamBufferSizeAlignment` | 4096 | max |
+| `pictureAccessGranularity` | (64,64) | max |
+| `minCodedExtent` | - | max |
+| `maxCodedExtent` | - | min |
+| `maxDpbSlots` | 0 | min |
+| `maxActiveReferencePictures` | 0 | min |
+| **[VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR)** |  |  |
+| `flags` | `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR` or
+                `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR` | min |
+| **[VkVideoDecodeH265CapabilitiesKHR](#VkVideoDecodeH265CapabilitiesKHR)** |  |  |
+| `maxLevelIdc` | `STD_VIDEO_H265_LEVEL_IDC_1_0` | min |
 
 1
 
@@ -8949,6 +9100,11 @@ set, but they **may** have additional bits set beyond this minimum.
 Video decode operations using an [AV1 decode profile](#decode-av1-profile)
 **can** be used to decode elementary video stream sequences compliant with the
 [AV1 Specification](introduction.html#aomedia-av1).
+
+|  | Refer to the [Preamble](preamble.html#preamble) for information on how the Khronos
+| --- | --- |
+Intellectual Property Rights Policy relates to normative references to
+external materials not created by Khronos. |
 
 This process is performed according to the [video decode operation steps](#decode-operation-steps) with the codec-specific semantics defined in
 section 7 of the [AV1 Specification](introduction.html#aomedia-av1):
@@ -9000,6 +9156,14 @@ is interpreted as defined in sections 6.9, 6.8, and 6.10 of the
 The offset specified in
 [VkVideoDecodeAV1PictureInfoKHR](#VkVideoDecodeAV1PictureInfoKHR)::`frameHeaderOffset` **should**
 specify the starting offset of the frame header OBU of the frame.
+
+|  | When the tiles of the frame are encoded into multiple tile groups, each
+| --- | --- |
+frame OBU has a separate frame header OBU but their content is expected to
+match per the requirements of the [AV1 Specification](introduction.html#aomedia-av1).
+Accordingly, the offset specified in `frameHeaderOffset` **can** be the
+offset of any of the otherwise identical frame header OBUs when multiple
+tile groups are present. |
 
 The offsets and sizes provided in
 [VkVideoDecodeAV1PictureInfoKHR](#VkVideoDecodeAV1PictureInfoKHR)::`pTileOffsets` and
@@ -9126,6 +9290,10 @@ When this member is `VK_TRUE`, video session objects created against
 the video profile will be able to decode pictures that have
 [film grain](#decode-av1-film-grain) enabled.
 
+|  | Enabling `filmGrainSupport` **may** increase the memory requirements of
+| --- | --- |
+video sessions and/or video picture resources on some implementations. |
+
 Valid Usage (Implicit)
 
 * 
@@ -9235,6 +9403,15 @@ structure.
 `StdVideoAV1SequenceHeader` structure describing the
 [AV1 sequence header](#decode-av1-sequence-header) entry to store in the
 created object.
+
+|  | As AV1 video session parameters objects will only ever contain a single AV1
+| --- | --- |
+sequence header, this has to be specified at object creation time and such
+video session parameters objects cannot be updated using the
+[vkUpdateVideoSessionParametersKHR](#vkUpdateVideoSessionParametersKHR) command.
+When a new AV1 sequence header is decoded from the input video bitstream the
+application needs to create a new video session parameters object to store
+it. |
 
 Valid Usage (Implicit)
 
@@ -9468,6 +9645,13 @@ element i of `loop_filter_mode_deltas` as defined in section
 all other members of `StdVideoAV1LoopFilter` are interpreted as
 defined in section 6.8.10 of the [AV1 Specification](introduction.html#aomedia-av1);
 
+|  | If the syntax elements corresponding to `loop_filter_ref_deltas` and
+| --- | --- |
+`loop_filter_mode_deltas` are not present or otherwise defined according
+to section 5.9.11 of the [AV1 Specification](introduction.html#aomedia-av1), the application
+should specify the previous values, as defined in section 6.8.10 of the
+[AV1 Specification](introduction.html#aomedia-av1). |
+
 if `flags.enable_cdef` is set in the
 [active sequence header](#decode-av1-active-sequence-header), then the
 members of the `StdVideoAV1CDEF` structure pointed to by `pCDEF`
@@ -9671,6 +9855,11 @@ section 6.8.2 of the [AV1 Specification](introduction.html#aomedia-av1);
 `frame_type` is interpreted as defined in section 6.8.2 of the
 [AV1 Specification](introduction.html#aomedia-av1);
 
+|  | The `frame_type` member is defined with the type `uint8_t`, but it
+| --- | --- |
+takes the same values defined in the `StdVideoAV1FrameType` enumeration
+type as `StdVideoDecodeAV1PictureInfo`::`frame_type`. |
+
 * 
 `RefFrameSignBias` is a bitmask where bit index i corresponds
 to `RefFrameSignBias[i]` as defined in section 6.8.2 of the
@@ -9683,6 +9872,24 @@ to `RefFrameSignBias[i]` as defined in section 6.8.2 of the
 * 
 `SavedOrderHints` is interpreted as defined in section 7.20 of the
 [AV1 Specification](introduction.html#aomedia-av1).
+
+|  | When the AV1 reference information is provided for the reconstructed
+| --- | --- |
+picture, certain parameters (e.g. `frame_type`) are specified both in the
+[AV1 picture information](#decode-av1-picture-info) and in the AV1 reference
+information.
+This is necessary because unlike the AV1 picture information, which is only
+used for the purposes of the video decode operation in question, the AV1
+reference information specified for the reconstructed picture **may** be
+associated with the activated DPB slot, meaning that some implementations
+**may** maintain it as part of the [reference picture metadata](#reference-metadata) corresponding to the video picture resource associated with the
+DPB slot.
+When the AV1 reference information is provided for an active reference
+picture, the specified parameters correspond to the parameters specified
+when the DPB slot was activated (set up) with the reference picture, as
+usual, in order to communicate these parameters for implementations that do
+not maintain any subset of these parameters as part of the DPB slot’s
+[reference picture metadata](#reference-metadata). |
 
 Valid Usage (Implicit)
 
@@ -9702,66 +9909,26 @@ operation `VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR`, as returned by
 [vkGetPhysicalDeviceQueueFamilyProperties2](devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2) in
 [VkQueueFamilyVideoPropertiesKHR](devsandqueues.html#VkQueueFamilyVideoPropertiesKHR)::`videoCodecOperations`.
 
-Table 5. Required [Video Std Header Versions](#video-std-header-version)
+| Video Std Header Name | Version |
+| --- | --- |
+| `vulkan_video_codec_av1std_decode` | 1.0.0 |
 
-Video Std Header Name
-Version
-
-`vulkan_video_codec_av1std_decode`
-1.0.0
-
-Table 6. Required Video Capabilities
-
-Video Capability
-Requirement
-Requirement Type1
-
-**[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)**
-
-`flags`
--
-min
-
-`minBitstreamBufferOffsetAlignment`
-4096
-max
-
-`minBitstreamBufferSizeAlignment`
-4096
-max
-
-`pictureAccessGranularity`
-(64,64)
-max
-
-`minCodedExtent`
--
-max
-
-`maxCodedExtent`
--
-min
-
-`maxDpbSlots`
-0
-min
-
-`maxActiveReferencePictures`
-0
-min
-
-**[VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR)**
-
-`flags`
-`VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR` or
-                `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR`
-min
-
-**[VkVideoDecodeAV1CapabilitiesKHR](#VkVideoDecodeAV1CapabilitiesKHR)**
-
-`maxLevel`
-`STD_VIDEO_AV1_LEVEL_2_0`
-min
+| Video Capability | Requirement | Requirement Type1 |
+| --- | --- | --- |
+| **[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `minBitstreamBufferOffsetAlignment` | 4096 | max |
+| `minBitstreamBufferSizeAlignment` | 4096 | max |
+| `pictureAccessGranularity` | (64,64) | max |
+| `minCodedExtent` | - | max |
+| `maxCodedExtent` | - | min |
+| `maxDpbSlots` | 0 | min |
+| `maxActiveReferencePictures` | 0 | min |
+| **[VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR)** |  |  |
+| `flags` | `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR` or
+                `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR` | min |
+| **[VkVideoDecodeAV1CapabilitiesKHR](#VkVideoDecodeAV1CapabilitiesKHR)** |  |  |
+| `maxLevel` | `STD_VIDEO_AV1_LEVEL_2_0` | min |
 
 1
 
@@ -9775,6 +9942,13 @@ set, but they **may** have additional bits set beyond this minimum.
 Video encode operations consume an *encode input picture* and zero or more
 reference pictures, and produce compressed video data to a video bitstream
 buffer and an optional [reconstructed picture](#reconstructed-picture).
+
+|  | Such encode input pictures can be used
+| --- | --- |
+as the [output](#decode-output-picture) of video decode operations,
+with graphics or compute operations,
+or with [Window System Integration](VK_KHR_surface/wsi.html#wsi) APIs,
+depending on the capabilities of the implementation. |
 
 Video encode operations **may** access the following resources in the
 `VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR` stage:
@@ -9929,6 +10103,13 @@ encoding operations.
 However, implementations **must** meet the conditions listed above even in case
 of such optimizing overrides.
 
+|  | Unless the application opts in for optimizing overrides, implementations are
+| --- | --- |
+not expected to override any of the codec-specific parameters, except when
+such overrides are necessary for the correct operation of video encoder
+implementation due to limitations to the available encoding tools on that
+implementation. |
+
 Each video encode operation performs the following steps in the
 `VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR` stage:
 
@@ -10042,6 +10223,18 @@ specified in the [VkVideoPictureResourceInfoKHR](#VkVideoPictureResourceInfoKHR)
 to the encode input picture (i.e. to the resolution of the image data to
 encode specified in its `codedExtent` member).
 
+|  | For example, the application requests the coded extent to be 1920x1080, but
+| --- | --- |
+the implementation is only able to source the encode input picture data at
+the granularity of the codec-specific coding block size which is 16x16
+pixels (or as otherwise indicated in `encodeInputPictureGranularity`).
+In this example, the content is horizontally aligned with the coding block
+size, but not vertically aligned with it.
+Thus encoding of the last row of coding blocks will be impacted by the
+contents of the input image at texel rows 1080 to 1087 (the latter being the
+next row which is vertically aligned with the coding block size, assuming a
+zero-based texel row index). |
+
 If `codedExtent` rounded up to the next integer multiple of
 `encodeInputPictureGranularity` is greater than the extent of the image
 subresource specified for the [encode input picture](#encode-input-picture),
@@ -10056,6 +10249,14 @@ whether the video encode operation produces a compliant bitstream, and **must**
 not have any other effects on the encoded picture data beyond what **may**
 otherwise result from using these texel values as input to any compression
 algorithm, as defined in the used video compression standard.
+
+|  | While not required, it is generally a good practice for applications to make
+| --- | --- |
+sure that the image subresource used for the encode input picture has an
+extent that is an integer multiple of the codec-specific coding block size
+(or at least `encodeInputPictureGranularity`) and that this padding area
+is filled with known values in order to improve encoding efficiency,
+portability, and reproducibility. |
 
 Valid Usage (Implicit)
 
@@ -10091,6 +10292,23 @@ video encode operation by reporting the
 `VK_QUERY_RESULT_STATUS_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR`
 [query result status code](queries.html#query-result-status-codes).
 
+|  | Some implementations **may** not be able to reliably detect insufficient
+| --- | --- |
+bitstream buffer range conditions in all situations.
+Such implementations will not report support for the
+`VK_VIDEO_ENCODE_CAPABILITY_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_DETECTION_BIT_KHR`
+encode capability flag for the video profile, but **may** still report the
+`VK_QUERY_RESULT_STATUS_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR` query
+result status code in certain cases.
+Applications **should** always check for the specific query result status code
+`VK_QUERY_RESULT_STATUS_INSUFFICIENT_BITSTREAM_BUFFER_RANGE_KHR` even
+when this encode capability flag is not supported by the implementation for
+the video profile in question.
+However, applications **must** not assume that a different negative query
+result status code indicating an unsuccessful completion of a video encode
+operation is not the result of an insufficient bitstream buffer condition
+unless this encode capability flag is supported. |
+
 * 
 `VK_VIDEO_ENCODE_CAPABILITY_QUANTIZATION_DELTA_MAP_BIT_KHR`
 indicates support for using [quantization    delta maps](#encode-quantization-delta-map).
@@ -10109,6 +10327,17 @@ Implementations **can** support more than one video encode quality levels for a
 video encode profile, which control the number and type of
 implementation-specific encoding tools and algorithms utilized in the
 encoding process.
+
+|  | Generally, using higher video encode quality levels **may** produce higher
+| --- | --- |
+quality video streams at the cost of additional processing time.
+However, as the final quality of an encoded picture depends on the contents
+of the [encode input picture](#encode-input-picture), the contents of the
+[active reference pictures](#active-reference-pictures), the codec-specific
+encode parameters, and the particular implementation-specific tools used
+corresponding to the individual video encode quality levels, there are no
+guarantees that using a higher video encode quality level will always
+produce a higher quality encoded picture for any given set of inputs. |
 
 To query properties for a specific video encode quality level supported by a
 video encode profile, call:
@@ -10372,6 +10601,15 @@ In such cases the application **must** call the
 parameter data from the used video session parameters object in order to be
 able to produce a compliant video bitstream.
 
+|  | This is needed because implementations **may** have changed some of the
+| --- | --- |
+codec-specific parameters stored in the video session parameters object, as
+defined in the [Video Encode Parameter Overrides](#encode-overrides)
+section.
+In addition, the [vkGetEncodedVideoSessionParametersKHR](#vkGetEncodedVideoSessionParametersKHR) command enables
+the application to retrieve the encoded parameter data without having to
+encode these codec-specific parameters manually. |
+
 Encoded parameter data **can** be retrieved from a video session parameters
 object created with a video encode operation using the command:
 
@@ -10424,6 +10662,23 @@ to the video session parameters object specified in
 `pVideoSessionParametersInfo->videoSessionParameters` will be filled
 with feedback about the requested parameter data on all successful calls to
 this command.
+
+|  | This includes the cases when `pData` is `NULL` or when
+| --- | --- |
+`VK_INCOMPLETE` is returned by the command, and enables the application
+to determine whether the implementation [overrode](#encode-overrides) any of
+the requested video session parameters without actually needing to retrieve
+the encoded parameter data itself. |
+
+|  | This query does not behave consistently with the behavior described in
+| --- | --- |
+[Opaque Binary Data Results](fundamentals.html#fundamentals-binaryresults), for historical
+reasons.
+
+If the amount of data available is larger than the passed `pDataSize`,
+the query returns a `VK_INCOMPLETE` success status instead of a
+`VK_ERROR_NOT_ENOUGH_SPACE_KHR` error status, and writes zero to
+`pDataSize`. |
 
 Valid Usage
 
@@ -10760,6 +11015,11 @@ setup is not requested, according to the codec-specific semantics, the
 contents of the [video picture resource](#video-picture-resources)
 corresponding to the reconstructed picture will be **undefined** after the
 video encode operation.
+
+|  | Some implementations may always output the reconstructed picture or use it
+| --- | --- |
+as temporary storage during the video encode operation even when the
+reconstructed picture is not marked for future reference. |
 
 Encode Input Picture Information
 
@@ -12229,18 +12489,9 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-Outside
-Inside
-Encode
-Action
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Outside | Inside | Encode | Action |
 
 The `VkVideoEncodeInfoKHR` structure is defined as:
 
@@ -12471,6 +12722,20 @@ Some of these parameters guarantee certain implementation behavior while
 others provide guidance for implementations to apply various rate control
 heuristics.
 
+|  | Applications need to make sure that they configure rate control parameters
+| --- | --- |
+appropriately and that they follow the promises made to the implementation
+through parameters providing guidance for the implementation’s rate control
+algorithms and heuristics in order to be able to get the desired rate
+control behavior and to be able to hit the set bitrate targets.
+In addition, the behavior of rate control may also differ across
+implementations even if the capabilities of the used video profile match
+between those implementations.
+This may happen due to implementations applying different rate control
+algorithms or heuristics internally, and thus even the same set of guidance
+parameter values may have different effects on the rate control behavior
+across implementations. |
+
 After a video session is reset to the [initial state](#video-session-uninitialized), the default behavior and parameters of video encode rate control
 are entirely implementation-dependent and the application **cannot** affect the
 bitrate or quality parameters of the encoded bitstream data produced by
@@ -12611,6 +12876,11 @@ encoded bitstream with varying data rate.
 The initial or start-up delay (`D`) is computed as:
 
 `D` = `F` / `R`
+
+|  | Applications need to configure the virtual buffer with sufficient size to
+| --- | --- |
+avoid or minimize buffer overflows and underflows while also keeping it
+small enough to meet their latency goals. |
 
 Some video compression standards and [video profiles](#video-profiles) allow
 associating encoded pictures with specific *video coding layers*.
@@ -12992,6 +13262,14 @@ the implementation’s rate control algorithm.
 * 
 `frameRateDenominator` is the denominator of the frame rate assumed
 by the implementation’s rate control algorithm.
+
+|  | The ability of the implementation’s rate control algorithm to be able to
+| --- | --- |
+match the requested average and/or peak bitrates **may** be limited by the set
+of other codec-independent and codec-specific rate control parameters
+specified by the application, the input content, as well as the application
+conforming to the rate control guidance provided to the implementation, as
+described [earlier](#encode-rate-control). |
 
 Additional structures providing codec-specific rate control parameters **can**
 be included in the `pNext` chain of
@@ -13413,6 +13691,17 @@ structure.
 [VkVideoEncodeH265CtbSizeFlagBitsKHR](#VkVideoEncodeH265CtbSizeFlagBitsKHR) indicating the CTB sizes that
 quantization maps using this video format are compatible with.
 
+|  | The value of `compatibleCtbSizes` does not limit the use of the specific
+| --- | --- |
+quantization map format, but does limit the implementation in being able to
+encode pictures with CTB sizes not included in `compatibleCtbSizes` but
+otherwise supported by the used video profile, as indicated by
+[VkVideoEncodeH265CapabilitiesKHR](#VkVideoEncodeH265CapabilitiesKHR)::`ctbSizes`.
+In particular, using smaller
+[quantization map texel sizes](#encode-quantization-map-texel-size) may
+prevent implementations from encoding with larger CTB sizes which may have a
+negative impact on the efficiency of the encoder. |
+
 The values returned in this structure are only defined if the allowed image
 usage flags returned in
 [VkVideoFormatPropertiesKHR](#VkVideoFormatPropertiesKHR)::`imageUsageFlags` for this video
@@ -13455,6 +13744,18 @@ structure.
 [VkVideoEncodeAV1SuperblockSizeFlagBitsKHR](#VkVideoEncodeAV1SuperblockSizeFlagBitsKHR) indicating the AV1
 superblock sizes that quantization maps using this video format are
 compatible with.
+
+|  | The value of `compatibleSuperblockSizes` does not limit the use of the
+| --- | --- |
+specific quantization map format, but does limit the implementation in being
+able to encode pictures with superblock sizes not included in
+`compatibleSuperblockSizes` but otherwise supported by the used video
+profile, as indicated by
+[VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR)::`superblockSizes`.
+In particular, using smaller
+[quantization map texel sizes](#encode-quantization-map-texel-size) may
+prevent implementations from encoding with larger superblock sizes which may
+have a negative impact on the efficiency of the encoder. |
 
 The values returned in this structure are only defined if the allowed image
 usage flags returned in
@@ -13529,6 +13830,11 @@ Valid Usage (Implicit)
 
 Video encode operations using an [H.264 encode profile](#encode-h264-profile) **can** be used to encode elementary video stream sequences compliant
 to the [ITU-T H.264 Specification](introduction.html#itu-t-h264).
+
+|  | Refer to the [Preamble](preamble.html#preamble) for information on how the Khronos
+| --- | --- |
+Intellectual Property Rights Policy relates to normative references to
+external materials not created by Khronos. |
 
 This process is performed according to the [video encode operation steps](#encode-operation-steps) with the codec-specific semantics defined in
 section 8 of the [ITU-T H.264 Specification](introduction.html#itu-t-h264) as follows:
@@ -13922,6 +14228,13 @@ codec-specific rules.
 reference pictures the implementation supports in the reference list L0
 for [P pictures](#encode-h264-p-pic).
 
+|  | As implementations **may** [override](#encode-overrides) the reference lists,
+| --- | --- |
+`maxPPictureL0ReferenceCount` does not limit the number of elements that
+the application **can** specify in the L0 reference list for P pictures.
+However, if `maxPPictureL0ReferenceCount` is zero, then the use of P
+pictures is not allowed. |
+
 * 
 `maxBPictureL0ReferenceCount` indicates the maximum number of
 reference pictures the implementation supports in the reference list L0
@@ -13931,6 +14244,14 @@ for [B pictures](#encode-h264-b-pic).
 `maxL1ReferenceCount` indicates the maximum number of reference
 pictures the implementation supports in the reference list L1 if
 encoding of [B pictures](#encode-h264-b-pic) is supported.
+
+|  | As implementations **may** [override](#encode-overrides) the reference lists,
+| --- | --- |
+`maxBPictureL0ReferenceCount` and `maxL1ReferenceCount` does not
+limit the number of elements that the application **can** specify in the L0 and
+L1 reference lists for B pictures.
+However, if `maxBPictureL0ReferenceCount` and `maxL1ReferenceCount`
+are both zero, then the use of B pictures is not allowed. |
 
 * 
 `maxTemporalLayerCount` indicates the maximum number of H.264
@@ -14071,6 +14392,11 @@ of subsequently encoded macroblocks, as defined in equation 7-37 of the
 If not supported, equation 7-37 of the [ITU-T H.264    Specification](introduction.html#itu-t-h264) is effectively reduced to the following:
 
 QPY = QPY,PREV +  `mb_qp_delta`
+
+|  | The effect of this is that the maximum QP difference across subsequent
+| --- | --- |
+macroblocks is limited to the [-(26 +  QpBdOffsetY / 2), 25
++  QpBdOffsetY / 2] range. |
 
 // Provided by VK_KHR_video_encode_h264
 typedef VkFlags VkVideoEncodeH264CapabilityFlagsKHR;
@@ -14448,6 +14774,10 @@ ignored;
 `flags.color_description_present_flag` is interpreted as the value
 of `colour_description_present_flag`, as defined in section E.2.1 of
 the [ITU-T H.264 Specification](introduction.html#itu-t-h264);
+
+|  | The name of `colour_description_present_flag` was misspelled in the Video
+| --- | --- |
+Std header. |
 
 * 
 if `flags.nal_hrd_parameters_present_flag` or
@@ -15313,6 +15643,11 @@ if any, as reference.
 
 Figure 5. H.264 dyadic temporal layer pattern
 
+|  | Multi-layer rate control and multi-layer coding are typically used for
+| --- | --- |
+streaming cases where low latency is expected, hence B pictures with
+backward prediction are usually not used. |
+
 The `VkVideoEncodeH264RateControlInfoKHR` structure is defined as:
 
 // Provided by VK_KHR_video_encode_h264
@@ -15373,6 +15708,13 @@ the rate control state is reset to an initial state to meet HRD compliance
 requirements.
 Otherwise the new rate control state **may** be applied without a reset
 depending on the implementation and the specified rate control parameters.
+
+|  | It would be possible to infer the picture type to be used when encoding a
+| --- | --- |
+frame, on the basis of the values provided for `consecutiveBFrameCount`,
+`idrPeriod`, and `gopFrameCount`, but this inferred picture type
+will not be used by implementations to override the picture type provided to
+the video encode operation. |
 
 Valid Usage
 
@@ -15549,6 +15891,12 @@ the encoded bitstream specified in the `averageBitrate` and
 The upper bounds on the encoded frame size, for each picture type,
 specified in the `maxFrameSize` member of
 `VkVideoEncodeH264RateControlLayerInfoKHR`.
+
+|  | In general, applications need to configure rate control parameters
+| --- | --- |
+appropriately in order to be able to get the desired rate control behavior,
+as described in the [Video Encode Rate Control](#encode-rate-control)
+section. |
 
 When an instance of this structure is included in the `pNext` chain of a
 [VkVideoEncodeRateControlLayerInfoKHR](#VkVideoEncodeRateControlLayerInfoKHR) structure specified in one of the
@@ -15831,6 +16179,12 @@ which the following implication is true:
 
 e1 2 ⇒ f(QP,e1) ≥ f(QP,e2)
 
+|  | This means that lower emphasis values will result in higher QP values,
+| --- | --- |
+whereas higher emphasis values will result in lower QP values, but the
+function is not strictly decreasing with respect to the input emphasis value
+for a given input QP value. |
+
 * 
 If clamping to minimum QP values is enabled in the applied rate control
 layer, then the QP value is clamped to the corresponding minimum QP
@@ -15847,6 +16201,13 @@ that the `mb_qp_delta` value of the encoded macroblock complies to
 the [modified version](#encode-h264-mb-qp-delta-wraparound) of equation
 7-37 of the [ITU-T H.264 Specification](introduction.html#itu-t-h264).
 
+|  | The effect of this is that the maximum QP difference across subsequent
+| --- | --- |
+macroblocks is limited to the [-(26 +  QpBdOffsetY / 2), 25
++  QpBdOffsetY / 2] range and only has an observable change in
+behavior when the video encode operation is issued with a
+[QP delta map](#encode-quantization-delta-map). |
+
 In all cases, the final QP value is clamped to the QP value range
 supported by the video profile, as reported in the `minQp` and
 `maxQp` members of [VkVideoEncodeH264CapabilitiesKHR](#VkVideoEncodeH264CapabilitiesKHR).
@@ -15857,151 +16218,49 @@ codec operation `VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR`, as
 returned by [vkGetPhysicalDeviceQueueFamilyProperties2](devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2) in
 [VkQueueFamilyVideoPropertiesKHR](devsandqueues.html#VkQueueFamilyVideoPropertiesKHR)::`videoCodecOperations`.
 
-Table 7. Required [Video Std Header Versions](#video-std-header-version)
+| Video Std Header Name | Version |
+| --- | --- |
+| `vulkan_video_codec_h264std_encode` | 1.0.0 |
 
-Video Std Header Name
-Version
+| Video Capability | Requirement | Requirement Type1 |
+| --- | --- | --- |
+| **[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `minBitstreamBufferOffsetAlignment` | 4096 | max |
+| `minBitstreamBufferSizeAlignment` | 4096 | max |
+| `pictureAccessGranularity` | (64,64) | max |
+| `minCodedExtent` | - | max |
+| `maxCodedExtent` | - | min |
+| `maxDpbSlots` | 0 | min |
+| `maxActiveReferencePictures` | 0 | min |
+| **[VkVideoEncodeCapabilitiesKHR](#VkVideoEncodeCapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `rateControlModes` | `VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR` 4 | min |
+| `maxBitrate` | 64000 | min |
+| `maxQualityLevels` | 1 | min |
+| `encodeInputPictureGranularity` | (64,64) | max |
+| `supportedEncodeFeedbackFlags` | `VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR`
 
-`vulkan_video_codec_h264std_encode`
-1.0.0
-
-Table 8. Required Video Capabilities
-
-Video Capability
-Requirement
-Requirement Type1
-
-**[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)**
-
-`flags`
--
-min
-
-`minBitstreamBufferOffsetAlignment`
-4096
-max
-
-`minBitstreamBufferSizeAlignment`
-4096
-max
-
-`pictureAccessGranularity`
-(64,64)
-max
-
-`minCodedExtent`
--
-max
-
-`maxCodedExtent`
--
-min
-
-`maxDpbSlots`
-0
-min
-
-`maxActiveReferencePictures`
-0
-min
-
-**[VkVideoEncodeCapabilitiesKHR](#VkVideoEncodeCapabilitiesKHR)**
-
-`flags`
--
-min
-
-`rateControlModes`
-`VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR` 4
-min
-
-`maxBitrate`
-64000
-min
-
-`maxQualityLevels`
-1
-min
-
-`encodeInputPictureGranularity`
-(64,64)
-max
-
-`supportedEncodeFeedbackFlags`
-`VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR`
-
-                                       `VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR`
-min
-
-**[VkVideoEncodeH264CapabilitiesKHR](#VkVideoEncodeH264CapabilitiesKHR)**
-
-`flags`
--
-min
-
-`maxLevelIdc`
-`STD_VIDEO_H264_LEVEL_IDC_1_0`
-min
-
-`maxSliceCount`
-1
-min
-
-`maxPPictureL0ReferenceCount`
-0
-min
-
-`maxBPictureL0ReferenceCount`
-0
-min
-
-`maxL1ReferenceCount`
-0
-min
-
-`maxTemporalLayerCount`
-1
-min
-
-`expectDyadicTemporalLayerPattern`
--
-implementation-dependent
-
-`minQp`
--
-max
-
-`maxQp`
--
-min
-
-`prefersGopRemainingFrames`
--
-implementation-dependent
-
-`requiresGopRemainingFrames`
--
-implementation-dependent
-
-`stdSyntaxFlags`
--
-min
-
-**[VkVideoEncodeQuantizationMapCapabilitiesKHR](#VkVideoEncodeQuantizationMapCapabilitiesKHR)**
-
-`maxQuantizationMapExtent`
-- 2
-min
-
-**[VkVideoEncodeH264QuantizationMapCapabilitiesKHR](#VkVideoEncodeH264QuantizationMapCapabilitiesKHR)**
-
-`minQpDelta`
-- 3
-max
-
-`maxQpDelta`
-- 3
-min
+                                       `VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR` | min |
+| **[VkVideoEncodeH264CapabilitiesKHR](#VkVideoEncodeH264CapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `maxLevelIdc` | `STD_VIDEO_H264_LEVEL_IDC_1_0` | min |
+| `maxSliceCount` | 1 | min |
+| `maxPPictureL0ReferenceCount` | 0 | min |
+| `maxBPictureL0ReferenceCount` | 0 | min |
+| `maxL1ReferenceCount` | 0 | min |
+| `maxTemporalLayerCount` | 1 | min |
+| `expectDyadicTemporalLayerPattern` | - | implementation-dependent |
+| `minQp` | - | max |
+| `maxQp` | - | min |
+| `prefersGopRemainingFrames` | - | implementation-dependent |
+| `requiresGopRemainingFrames` | - | implementation-dependent |
+| `stdSyntaxFlags` | - | min |
+| **[VkVideoEncodeQuantizationMapCapabilitiesKHR](#VkVideoEncodeQuantizationMapCapabilitiesKHR)** |  |  |
+| `maxQuantizationMapExtent` | - 2 | min |
+| **[VkVideoEncodeH264QuantizationMapCapabilitiesKHR](#VkVideoEncodeH264QuantizationMapCapabilitiesKHR)** |  |  |
+| `minQpDelta` | - 3 | max |
+| `maxQpDelta` | - 3 | min |
 
 1
 
@@ -16033,6 +16292,11 @@ supported.
 
 Video encode operations using an [H.265 encode profile](#encode-h265-profile) **can** be used to encode elementary video stream sequences compliant
 to the [ITU-T H.265 Specification](introduction.html#itu-t-h265).
+
+|  | Refer to the [Preamble](preamble.html#preamble) for information on how the Khronos
+| --- | --- |
+Intellectual Property Rights Policy relates to normative references to
+external materials not created by Khronos. |
 
 This process is performed according to the [video encode operation steps](#encode-operation-steps) with the codec-specific semantics defined in
 section 8 of the [ITU-T H.265 Specification](introduction.html#itu-t-h265) as follows:
@@ -16514,6 +16778,17 @@ supported transform block sizes.
 reference pictures the implementation supports in the reference list L0
 for [P pictures](#encode-h265-p-pic).
 
+|  | As implementations **may** [override](#encode-overrides) the reference lists,
+| --- | --- |
+`maxPPictureL0ReferenceCount` does not limit the number of elements that
+the application **can** specify in the L0 reference list for P pictures.
+However, if `maxPPictureL0ReferenceCount` is zero, then the use of P
+pictures is not allowed.
+In case of H.265 encoding, pictures **can** be encoded using only forward
+prediction even if P pictures are not supported, as the [ITU-T H.265 Specification](introduction.html#itu-t-h265) supports *generalized P & B frames* (also known as low
+delay B frames) whereas B frames **can** refer to past frames through both the
+L0 and L1 reference lists. |
+
 * 
 `maxBPictureL0ReferenceCount` indicates the maximum number of
 reference pictures the implementation supports in the reference list L0
@@ -16523,6 +16798,14 @@ for [B pictures](#encode-h265-b-pic).
 `maxL1ReferenceCount` indicates the maximum number of reference
 pictures the implementation supports in the reference list L1 if
 encoding of [B pictures](#encode-h265-b-pic) is supported.
+
+|  | As implementations **may** [override](#encode-overrides) the reference lists,
+| --- | --- |
+`maxBPictureL0ReferenceCount` and `maxL1ReferenceCount` does not
+limit the number of elements that the application **can** specify in the L0 and
+L1 reference lists for B pictures.
+However, if `maxBPictureL0ReferenceCount` and `maxL1ReferenceCount`
+are both zero, then the use of B pictures is not allowed. |
 
 * 
 `maxSubLayerCount` indicates the maximum number of H.265 sub-layers
@@ -16682,6 +16965,11 @@ the [ITU-T H.265 Specification](introduction.html#itu-t-h265).
 If not supported, equation 8-283 of the [ITU-T H.265    Specification](introduction.html#itu-t-h265) is effectively reduced to the following:
 
 QpY = qPY_PRED +  `CuQpDeltaVal`
+
+|  | The effect of this is that the maximum QP difference across subsequent
+| --- | --- |
+coding units is limited to the [-(26 +  QpBdOffsetY / 2), 25
++  QpBdOffsetY / 2] range. |
 
 // Provided by VK_KHR_video_encode_h265
 typedef VkFlags VkVideoEncodeH265CapabilityFlagsKHR;
@@ -18273,6 +18561,11 @@ if any, as reference.
 
 Figure 10. H.265 dyadic temporal sub-layer pattern
 
+|  | Multi-layer rate control and multi-layer coding are typically used for
+| --- | --- |
+streaming cases where low latency is expected, hence B pictures with
+backward prediction are usually not used. |
+
 The `VkVideoEncodeH265RateControlInfoKHR` structure is defined as:
 
 // Provided by VK_KHR_video_encode_h265
@@ -18333,6 +18626,13 @@ the rate control state is reset to an initial state to meet HRD compliance
 requirements.
 Otherwise the new rate control state **may** be applied without a reset
 depending on the implementation and the specified rate control parameters.
+
+|  | It would be possible to infer the picture type to be used when encoding a
+| --- | --- |
+frame, on the basis of the values provided for `consecutiveBFrameCount`,
+`idrPeriod`, and `gopFrameCount`, but this inferred picture type
+will not be used by implementations to override the picture type provided to
+the video encode operation. |
 
 Valid Usage
 
@@ -18509,6 +18809,12 @@ the encoded bitstream specified in the `averageBitrate` and
 The upper bounds on the encoded frame size, for each picture type,
 specified in the `maxFrameSize` member of
 `VkVideoEncodeH265RateControlLayerInfoKHR`.
+
+|  | In general, applications need to configure rate control parameters
+| --- | --- |
+appropriately in order to be able to get the desired rate control behavior,
+as described in the [Video Encode Rate Control](#encode-rate-control)
+section. |
 
 When an instance of this structure is included in the `pNext` chain of a
 [VkVideoEncodeRateControlLayerInfoKHR](#VkVideoEncodeRateControlLayerInfoKHR) structure specified in one of the
@@ -18792,6 +19098,12 @@ which the following implication is true:
 
 e1 2 ⇒ f(QP,e1) ≥ f(QP,e2)
 
+|  | This means that lower emphasis values will result in higher QP values,
+| --- | --- |
+whereas higher emphasis values will result in lower QP values, but the
+function is not strictly decreasing with respect to the input emphasis value
+for a given input QP value. |
+
 * 
 If clamping to minimum QP values is enabled in the applied rate control
 layer, then the QP value is clamped to the corresponding minimum QP
@@ -18808,6 +19120,13 @@ that the `CuQpDeltaVal` value of the encoded coding unit complies to
 the [modified version](#encode-h265-cu-qp-delta-wraparound) of equation
 8-283 of the [ITU-T H.265 Specification](introduction.html#itu-t-h265).
 
+|  | The effect of this is that the maximum QP difference across subsequent
+| --- | --- |
+coding units is limited to the [-(26 +  QpBdOffsetY / 2), 25
++  QpBdOffsetY / 2] range and only has an observable change in
+behavior when the video encode operation is issued with a
+[QP delta map](#encode-quantization-delta-map). |
+
 In all cases, the final QP value is clamped to the QP value range
 supported by the video profile, as reported in the `minQp` and
 `maxQp` members of [VkVideoEncodeH265CapabilitiesKHR](#VkVideoEncodeH265CapabilitiesKHR).
@@ -18818,163 +19137,52 @@ codec operation `VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR`, as
 returned by [vkGetPhysicalDeviceQueueFamilyProperties2](devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2) in
 [VkQueueFamilyVideoPropertiesKHR](devsandqueues.html#VkQueueFamilyVideoPropertiesKHR)::`videoCodecOperations`.
 
-Table 9. Required [Video Std Header Versions](#video-std-header-version)
+| Video Std Header Name | Version |
+| --- | --- |
+| `vulkan_video_codec_h265std_encode` | 1.0.0 |
 
-Video Std Header Name
-Version
+| Video Capability | Requirement | Requirement Type1 |
+| --- | --- | --- |
+| **[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `minBitstreamBufferOffsetAlignment` | 4096 | max |
+| `minBitstreamBufferSizeAlignment` | 4096 | max |
+| `pictureAccessGranularity` | (64,64) | max |
+| `minCodedExtent` | - | max |
+| `maxCodedExtent` | - | min |
+| `maxDpbSlots` | 0 | min |
+| `maxActiveReferencePictures` | 0 | min |
+| **[VkVideoEncodeCapabilitiesKHR](#VkVideoEncodeCapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `rateControlModes` | `VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR` 4 | min |
+| `maxBitrate` | 128000 | min |
+| `maxQualityLevels` | 1 | min |
+| `encodeInputPictureGranularity` | (64,64) | max |
+| `supportedEncodeFeedbackFlags` | `VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR`
 
-`vulkan_video_codec_h265std_encode`
-1.0.0
-
-Table 10. Required Video Capabilities
-
-Video Capability
-Requirement
-Requirement Type1
-
-**[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)**
-
-`flags`
--
-min
-
-`minBitstreamBufferOffsetAlignment`
-4096
-max
-
-`minBitstreamBufferSizeAlignment`
-4096
-max
-
-`pictureAccessGranularity`
-(64,64)
-max
-
-`minCodedExtent`
--
-max
-
-`maxCodedExtent`
--
-min
-
-`maxDpbSlots`
-0
-min
-
-`maxActiveReferencePictures`
-0
-min
-
-**[VkVideoEncodeCapabilitiesKHR](#VkVideoEncodeCapabilitiesKHR)**
-
-`flags`
--
-min
-
-`rateControlModes`
-`VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR` 4
-min
-
-`maxBitrate`
-128000
-min
-
-`maxQualityLevels`
-1
-min
-
-`encodeInputPictureGranularity`
-(64,64)
-max
-
-`supportedEncodeFeedbackFlags`
-`VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR`
-
-                                       `VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR`
-min
-
-**[VkVideoEncodeH265CapabilitiesKHR](#VkVideoEncodeH265CapabilitiesKHR)**
-
-`flags`
--
-min
-
-`maxLevelIdc`
-`STD_VIDEO_H265_LEVEL_IDC_1_0`
-min
-
-`maxSliceSegmentCount`
-1
-min
-
-`maxTiles`
-(1,1)
-min
-
-`ctbSizes`
-at least one bit set
-implementation-dependent
-
-`transformBlockSizes`
-at least one bit set
-implementation-dependent
-
-`maxPPictureL0ReferenceCount`
-0
-min
-
-`maxBPictureL0ReferenceCount`
-0
-min
-
-`maxL1ReferenceCount`
-0
-min
-
-`maxSubLayerCount`
-1
-min
-
-`expectDyadicTemporalSubLayerPattern`
--
-implementation-dependent
-
-`minQp`
--
-max
-
-`maxQp`
--
-min
-
-`prefersGopRemainingFrames`
--
-implementation-dependent
-
-`requiresGopRemainingFrames`
--
-implementation-dependent
-
-`stdSyntaxFlags`
--
-min
-
-**[VkVideoEncodeQuantizationMapCapabilitiesKHR](#VkVideoEncodeQuantizationMapCapabilitiesKHR)**
-
-`maxQuantizationMapExtent`
-- 2
-min
-
-**[VkVideoEncodeH265QuantizationMapCapabilitiesKHR](#VkVideoEncodeH265QuantizationMapCapabilitiesKHR)**
-
-`minQpDelta`
-- 3
-max
-
-`maxQpDelta`
-- 3
-min
+                                       `VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR` | min |
+| **[VkVideoEncodeH265CapabilitiesKHR](#VkVideoEncodeH265CapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `maxLevelIdc` | `STD_VIDEO_H265_LEVEL_IDC_1_0` | min |
+| `maxSliceSegmentCount` | 1 | min |
+| `maxTiles` | (1,1) | min |
+| `ctbSizes` | at least one bit set | implementation-dependent |
+| `transformBlockSizes` | at least one bit set | implementation-dependent |
+| `maxPPictureL0ReferenceCount` | 0 | min |
+| `maxBPictureL0ReferenceCount` | 0 | min |
+| `maxL1ReferenceCount` | 0 | min |
+| `maxSubLayerCount` | 1 | min |
+| `expectDyadicTemporalSubLayerPattern` | - | implementation-dependent |
+| `minQp` | - | max |
+| `maxQp` | - | min |
+| `prefersGopRemainingFrames` | - | implementation-dependent |
+| `requiresGopRemainingFrames` | - | implementation-dependent |
+| `stdSyntaxFlags` | - | min |
+| **[VkVideoEncodeQuantizationMapCapabilitiesKHR](#VkVideoEncodeQuantizationMapCapabilitiesKHR)** |  |  |
+| `maxQuantizationMapExtent` | - 2 | min |
+| **[VkVideoEncodeH265QuantizationMapCapabilitiesKHR](#VkVideoEncodeH265QuantizationMapCapabilitiesKHR)** |  |  |
+| `minQpDelta` | - 3 | max |
+| `maxQpDelta` | - 3 | min |
 
 1
 
@@ -19007,6 +19215,11 @@ supported.
 Video encode operations using an [AV1 encode profile](#encode-av1-profile)
 **can** be used to encode elementary video stream sequences compliant with the
 [AV1 Specification](introduction.html#aomedia-av1).
+
+|  | Refer to the [Preamble](preamble.html#preamble) for information on how the Khronos
+| --- | --- |
+Intellectual Property Rights Policy relates to normative references to
+external materials not created by Khronos. |
 
 This process is performed according to the [video encode operation steps](#encode-operation-steps) with the codec-specific semantics defined in
 section 7 of the [AV1 Specification](introduction.html#aomedia-av1):
@@ -19214,6 +19427,27 @@ If [VkVideoEncodeAV1PictureInfoKHR](#VkVideoEncodeAV1PictureInfoKHR)::`primaryRe
 set to `VK_TRUE` for a video encode operation, the implementation will
 not override `StdVideoEncodeAV1PictureInfo`::`primary_ref_frame`.
 
+|  | Implementations supporting the
+| --- | --- |
+`VK_VIDEO_ENCODE_AV1_STD_PRIMARY_REF_FRAME_BIT_KHR` AV1 syntax element
+capability reported in
+[VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR)::`stdSyntaxFlags` also guarantee
+the use of the application-specified value for
+`StdVideoEncodeAV1PictureInfo`::`primary_ref_frame`.
+While support for `VK_VIDEO_ENCODE_AV1_STD_PRIMARY_REF_FRAME_BIT_KHR`
+guarantees that the implementation will not override the
+application-specified `primary_ref_frame`, it does not mandate the
+implementation to use the reference picture indicated by
+`primary_ref_frame` for sample prediction as implementations can always
+decide to use only a subset of the application-specified reference pictures
+for sample prediction.
+This means that implementations supporting
+`VK_VIDEO_ENCODE_AV1_STD_PRIMARY_REF_FRAME_BIT_KHR` may end up using the
+reference picture indicated by `primary_ref_frame` only for CDF data
+reference even if the application did not set
+[VkVideoEncodeAV1PictureInfoKHR](#VkVideoEncodeAV1PictureInfoKHR)::`primaryReferenceCdfOnly` to
+`VK_TRUE`. |
+
 If [VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR)::`codedPictureAlignment` is not
 equal to `{8,8}` for the used video profile, implementations will override
 the coded picture’s resolution and parameters related to the width and
@@ -19238,6 +19472,23 @@ Otherwise the coded width will be `aW`.
 * 
 If `h` equals `aH`, no override will occur.
 Otherwise the coded height will be `aH`.
+
+|  | The AV1 specification codes all resolutions to an 8x8 alignment, but
+| --- | --- |
+supports unaligned resolutions through implicit cropping.
+Thus, if the original coded extent, aligned to 8x8, meets the implementation
+required alignment, no override needs to occur.
+Otherwise, the implementation cannot code the requested coded extent, so the
+final resolution in the bitstream is overridden to be aligned to the
+implementation required alignment.
+
+For example, consider an implementation that is only able to output
+bitstreams that are 16x16 aligned (as indicated by
+[VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR)::`codedPictureAlignment`).
+If an application requests the coded extent to be 1920x1080, the resulting
+bitstream will be 1920x1088.
+On the other hand, a request of 1920x1082 will result in no override, since
+the 8x8 alignment of this resolution (1920x1088) is 16x16 aligned. |
 
 In case of a [video session parameters](#encode-av1-parameter-sets) object
 created with
@@ -19686,6 +19937,16 @@ index i is set, it indicates support for the
 [AV1 reference name](#encode-av1-reference-names)
 `STD_VIDEO_AV1_REFERENCE_NAME_LAST_FRAME` +  i.
 
+|  | These masks indicate which elements of the `referenceNameSlotIndices`
+| --- | --- |
+member of [VkVideoEncodeAV1PictureInfoKHR](#VkVideoEncodeAV1PictureInfoKHR) are supported to be used by
+the implementation.
+It is important to note that both the bits of these masks and the elements
+of `referenceNameSlotIndices` are indexed such that the first value
+specifies the support bit and DPB slot index, respectively, for the AV1
+reference name `STD_VIDEO_AV1_REFERENCE_NAME_LAST_FRAME` (i.e. there is
+no bit or element for `STD_VIDEO_AV1_REFERENCE_NAME_INTRA_FRAME`). |
+
 `codedPictureAlignment` provides information about implementation
 limitations to encode arbitrary resolutions.
 In particular, some implementations **may** not be able to generate bitstreams
@@ -19701,6 +19962,19 @@ Any texel values outside of the region described by the encode input picture
 granularity are implementation-defined.
 Implementations **should** use well-defined values to minimize impact on the
 produced encoded content.
+
+|  | This capability does not impose additional application requirements.
+| --- | --- |
+However, these overrides change the effective resolution of the bitstream
+and add padding pixels.
+Applications sensitive to such overrides **can** use this capability and the
+corresponding [override behavior](#encode-av1-resolution-override) to
+compute the cropping needed to reproduce the original input of the encoding
+and transmit it in a side channel (i.e. by using cropping fields available
+in a container).
+Additionally, applications **can** explicitly consider this alignment in their
+coded extent, to avoid implementation-defined texel values being included in
+the encoded content. |
 
 Valid Usage (Implicit)
 
@@ -20288,6 +20562,11 @@ purposes and are otherwise ignored;
 * 
 `pSegmentation` **must** be `NULL`
 
+|  | AV1 segmentation is currently not supported in video encode operations.
+| --- | --- |
+Accordingly, the application needs to set `flags.segmentation_enabled` to
+`0` and `pSegmentation` to `NULL`. |
+
 * 
 `pTileInfo` is `NULL` or a pointer to a `StdVideoAV1TileInfo`
 structure specifying [AV1 tile parameters](#encode-av1-tile-params);
@@ -20447,6 +20726,17 @@ is determined in an implementation-dependent manner.
 If `flags.uniform_tile_spacing_flag` is not set and
 `pHeightInSbsMinus1` is `NULL`, then the height of individual tile rows
 is determined in an implementation-dependent manner.
+
+|  | In general, implementations are expected to respect the
+| --- | --- |
+application-specified AV1 tile parameters.
+However, as implementations may have restrictions on the combination of tile
+column and row counts, and tile widths and heights with respect to the
+extent of the encoded frame beyond the restrictions specified in the
+[AV1 Specification](introduction.html#aomedia-av1) and this specification (through video
+profile capabilities), certain parameter combinations may require the
+implementation to [override](#encode-overrides) them in order to conform to
+such implementation-specific limitations. |
 
 Active Parameter Sets
 
@@ -20678,6 +20968,13 @@ display order.
 specified when encoding AV1 frames that have backward references in
 display order.
 
+|  | While the application can specify any rate control group for any frame,
+| --- | --- |
+indifferent of the frame type, prediction mode, or prediction direction,
+specifying a rate control group that does not reflect the prediction
+direction used by the encoded frame may result in unexpected behavior of the
+implementation’s rate control algorithm. |
+
 A regular GOP is defined by the following parameters:
 
 * 
@@ -20815,6 +21112,11 @@ if any, as reference.
 ![av1 layer pattern dyadic](../_images/av1_layer_pattern_dyadic.svg)
 
 Figure 15. AV1 dyadic temporal layer pattern
+
+|  | Multi-layer rate control and multi-layer coding are typically used for
+| --- | --- |
+streaming cases where low latency is expected, hence frames usually do not
+use backward references in display order. |
 
 The `VkVideoEncodeAV1RateControlInfoKHR` structure is defined as:
 
@@ -21044,6 +21346,12 @@ The upper bounds on the encoded frame size, for each
 [rate control group](#encode-av1-rate-control-group), specified in the
 `maxFrameSize` member of
 `VkVideoEncodeAV1RateControlLayerInfoKHR`.
+
+|  | In general, applications need to configure rate control parameters
+| --- | --- |
+appropriately in order to be able to get the desired rate control behavior,
+as described in the [Video Encode Rate Control](#encode-rate-control)
+section. |
 
 When an instance of this structure is included in the `pNext` chain of a
 [VkVideoEncodeRateControlLayerInfoKHR](#VkVideoEncodeRateControlLayerInfoKHR) structure specified in one of the
@@ -21351,6 +21659,12 @@ true:
 
 e1 2 ⇒ f(QIndex,e1) ≥ f(QIndex,e2)
 
+|  | This means that lower emphasis values will result in higher quantizer index
+| --- | --- |
+values, whereas higher emphasis values will result in lower quantizer index
+values, but the function is not strictly decreasing with respect to the
+input emphasis value for a given input quantizer index value. |
+
 * 
 If clamping to minimum quantizer index values is enabled in the applied
 rate control layer, then the quantizer index value is clamped to the
@@ -21370,195 +21684,60 @@ operation `VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR`, as returned by
 [vkGetPhysicalDeviceQueueFamilyProperties2](devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2) in
 [VkQueueFamilyVideoPropertiesKHR](devsandqueues.html#VkQueueFamilyVideoPropertiesKHR)::`videoCodecOperations`.
 
-Table 11. Required [Video Std Header Versions](#video-std-header-version)
+| Video Std Header Name | Version |
+| --- | --- |
+| `vulkan_video_codec_av1std_encode` | 1.0.0 |
 
-Video Std Header Name
-Version
+| Video Capability | Requirement | Requirement Type1 |
+| --- | --- | --- |
+| **[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `minBitstreamBufferOffsetAlignment` | 4096 | max |
+| `minBitstreamBufferSizeAlignment` | 4096 | max |
+| `pictureAccessGranularity` | (64,64) | max |
+| `minCodedExtent` | - | max |
+| `maxCodedExtent` | - | min |
+| `maxDpbSlots` | 0 | min |
+| `maxActiveReferencePictures` | 0 | min |
+| **[VkVideoEncodeCapabilitiesKHR](#VkVideoEncodeCapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `rateControlModes` | `VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR` 8 | min |
+| `maxBitrate` | 5529600 | min |
+| `maxQualityLevels` | 1 | min |
+| `encodeInputPictureGranularity` | (64,64) | max |
+| `supportedEncodeFeedbackFlags` | `VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR`
 
-`vulkan_video_codec_av1std_encode`
-1.0.0
-
-Table 12. Required Video Capabilities
-
-Video Capability
-Requirement
-Requirement Type1
-
-**[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)**
-
-`flags`
--
-min
-
-`minBitstreamBufferOffsetAlignment`
-4096
-max
-
-`minBitstreamBufferSizeAlignment`
-4096
-max
-
-`pictureAccessGranularity`
-(64,64)
-max
-
-`minCodedExtent`
--
-max
-
-`maxCodedExtent`
--
-min
-
-`maxDpbSlots`
-0
-min
-
-`maxActiveReferencePictures`
-0
-min
-
-**[VkVideoEncodeCapabilitiesKHR](#VkVideoEncodeCapabilitiesKHR)**
-
-`flags`
--
-min
-
-`rateControlModes`
-`VK_VIDEO_ENCODE_RATE_CONTROL_MODE_DISABLED_BIT_KHR` 8
-min
-
-`maxBitrate`
-5529600
-min
-
-`maxQualityLevels`
-1
-min
-
-`encodeInputPictureGranularity`
-(64,64)
-max
-
-`supportedEncodeFeedbackFlags`
-`VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BUFFER_OFFSET_BIT_KHR`
-
-                                       `VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR`
-min
-
-**[VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR)**
-
-`flags`
--
-min
-
-`codedPictureAlignment`
-(8,8)
-min
-
-`maxTiles`
-1
-min
-
-`minTileSize`
--
-max
-
-`maxTileSize`
--
-min
-
-`maxLevel`
-`STD_VIDEO_AV1_LEVEL_2_0`
-min
-
-`superblockSizes`
-at least one bit set
-implementation-dependent
-
-`maxSingleReferenceCount`
-0
-min
-
-`singleReferenceNameMask`
-- 2
-min
-
-`maxUnidirectionalCompoundReferenceCount`
-0 3
-min
-
-`maxUnidirectionalCompoundGroup1ReferenceCount`
-0 3,4
-min
-
-`unidirectionalCompoundReferenceNameMask`
-- 2
-min
-
-`maxBidirectionalCompoundReferenceCount`
-0 3
-min
-
-`maxBidirectionalCompoundGroup1ReferenceCount`
-0 3,5
-min
-
-`maxBidirectionalCompoundGroup2ReferenceCount`
-0 3,5
-min
-
-`bidirectionalCompoundReferenceNameMask`
-- 2
-min
-
-`maxTemporalLayerCount`
-1
-min
-
-`maxSpatialLayerCount`
-1
-min
-
-`maxOperatingPoints`
-0
-min
-
-`minQIndex`
--
-max
-
-`maxQIndex`
--
-min
-
-`prefersGopRemainingFrames`
--
-implementation-dependent
-
-`requiresGopRemainingFrames`
--
-implementation-dependent
-
-`stdSyntaxFlags`
--
-min
-
-**[VkVideoEncodeQuantizationMapCapabilitiesKHR](#VkVideoEncodeQuantizationMapCapabilitiesKHR)**
-
-`maxQuantizationMapExtent`
-- 6
-min
-
-**[VkVideoEncodeAV1QuantizationMapCapabilitiesKHR](#VkVideoEncodeAV1QuantizationMapCapabilitiesKHR)**
-
-`minQIndexDelta`
-- 7
-max
-
-`maxQIndexDelta`
-- 7
-min
+                                       `VK_VIDEO_ENCODE_FEEDBACK_BITSTREAM_BYTES_WRITTEN_BIT_KHR` | min |
+| **[VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `codedPictureAlignment` | (8,8) | min |
+| `maxTiles` | 1 | min |
+| `minTileSize` | - | max |
+| `maxTileSize` | - | min |
+| `maxLevel` | `STD_VIDEO_AV1_LEVEL_2_0` | min |
+| `superblockSizes` | at least one bit set | implementation-dependent |
+| `maxSingleReferenceCount` | 0 | min |
+| `singleReferenceNameMask` | - 2 | min |
+| `maxUnidirectionalCompoundReferenceCount` | 0 3 | min |
+| `maxUnidirectionalCompoundGroup1ReferenceCount` | 0 3,4 | min |
+| `unidirectionalCompoundReferenceNameMask` | - 2 | min |
+| `maxBidirectionalCompoundReferenceCount` | 0 3 | min |
+| `maxBidirectionalCompoundGroup1ReferenceCount` | 0 3,5 | min |
+| `maxBidirectionalCompoundGroup2ReferenceCount` | 0 3,5 | min |
+| `bidirectionalCompoundReferenceNameMask` | - 2 | min |
+| `maxTemporalLayerCount` | 1 | min |
+| `maxSpatialLayerCount` | 1 | min |
+| `maxOperatingPoints` | 0 | min |
+| `minQIndex` | - | max |
+| `maxQIndex` | - | min |
+| `prefersGopRemainingFrames` | - | implementation-dependent |
+| `requiresGopRemainingFrames` | - | implementation-dependent |
+| `stdSyntaxFlags` | - | min |
+| **[VkVideoEncodeQuantizationMapCapabilitiesKHR](#VkVideoEncodeQuantizationMapCapabilitiesKHR)** |  |  |
+| `maxQuantizationMapExtent` | - 6 | min |
+| **[VkVideoEncodeAV1QuantizationMapCapabilitiesKHR](#VkVideoEncodeAV1QuantizationMapCapabilitiesKHR)** |  |  |
+| `minQIndexDelta` | - 7 | max |
+| `maxQIndexDelta` | - 7 | min |
 
 1
 

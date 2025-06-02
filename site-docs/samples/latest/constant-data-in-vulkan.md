@@ -47,6 +47,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/constant_data). |
+| --- | --- |
+
 The Vulkan API exposes a few different ways in which we can send uniform data into our shaders.
 There are enough methods that it raises the question "Which one is fastest?", and more often than not the answer is "It depends".
 
@@ -100,6 +103,9 @@ They have slightly different rules for what they do depending on the shader stag
 However, generally their use is to feed values from one stage to the next (e.g.
 from vertex shader to fragment shader).
 
+|  | You can read more about shader stage inputs and outputs [here](https://www.khronos.org/opengl/wiki/Type_Qualifier_(GLSL)#Shader_stage_inputs_and_outputs). |
+| --- | --- |
+
 Uniform types are global variables that have either the `uniform` or `buffer` storage type, these are *uniform buffer objects* and *shader storage buffer objects* respectively.
 They describe data which remains constant across an entire draw call, meaning that the values stay the same across the different shader stages and shader invocations.
 
@@ -111,6 +117,9 @@ They are *read-only* buffers, so trying to edit them in shader code will result 
 **Shader storage buffer objects (SSBOs)** are like special types of uniform buffer objects, denoted by the storage type `buffer`.
 Unlike UBOs they can be written to, meaning the values *can* be changed in the shaders so therefore they don’t always represent data that is constant.
 Having said this, depending on the implementation, they generally can hold a lot more data as opposed to UBOs.
+
+|  | To check how much data we can store in uniform buffers and storage buffers, you can query the physical device for its `VkPhysicalDeviceLimits` and check the values `maxUniformBufferRange` and `maxStorageBufferRange` respectively._ |
+| --- | --- |
 
 To implement our constant data we have to use an interface block.
 Interface blocks in shader code are used to group multiple global variables of the same `` type, so in theory they aren’t necessarily solely for constant data.
@@ -140,6 +149,9 @@ Buffers in Vulkan are just chunks of memory used for storing data, which can be 
 
 They need to be created and have their memory *manually* allocated, and then we can copy our constant data into the allocated memory.
 This data can then be plugged into the draw calls, so that it can finally be used in our shader computations.
+
+|  | The library [Vulkan Memory Allocator (VMA)](https://github.com/GPUOpen-LibrariesAndSDKs/VulkanMemoryAllocator) is extremely good for handling a lot of the common pitfalls that come with managing your Vulkan memory, without removing the control that you would otherwise have with native Vulkan. |
+| --- | --- |
 
 The following links are useful for learning how to create a Vulkan buffer in your application:
 
@@ -212,6 +224,9 @@ They are straightforward to use and integrate nicely into any codebase, making t
 A downside to push constants is that on some platforms they have strict limitations on how much data can be sent.
 The Vulkan spec guarantees that drivers will support at least 128 bytes of push constants.
 Many modern implementations of Vulkan will commonly support 256 bytes and sometimes much more.
+
+|  | To determine how many bytes your system supports, you can query the physical device for its `VkPhysicalDeviceLimits` and check the value `maxPushConstantsSize`. |
+| --- | --- |
 
 Having said this, 128/256 bytes is still a useful amount of data, even if it isn’t exactly scalable to a full game scenario.
 In the case of 128 bytes, we can at least send two float 4x4 matrices (2 * 4 * 16 = 128).
@@ -306,6 +321,9 @@ However, this can be considered an "overly cautious" restriction when we realise
 This is where newer versions of Vulkan have introduced the concept of "update after bind".
 
 Essentially it adds in a binding flag to descriptor set layouts which allows the contents of the **descriptor set** to be updated up until the command buffer *is submitted to the queue*, rather than when the descriptor set is *bound to the command buffer*.
+
+|  | Update-after-bind bindings cannot be used with dynamic descriptor sets. |
+| --- | --- |
 
 This should come with zero performance costs, and as a result this method is designed purely for offering flexibility to your codebase.
 

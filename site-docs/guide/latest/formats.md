@@ -31,6 +31,9 @@ It is important to understand that "format support" is not a single binary value
 
 The supported formats may vary across implementations, but a [minimum set of format features are guaranteed](https://docs.vulkan.org/spec/latest/chapters/features.html#features-required-format-support). An application can [query](https://docs.vulkan.org/spec/latest/chapters/formats.html#formats-properties) for the supported format properties.
 
+|  | Both [VK_KHR_get_physical_device_properties2](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_get_physical_device_properties2.html) and [VK_KHR_format_feature_flags2](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_format_feature_flags2.html) expose another way to query for format features. |
+| --- | --- |
+
 In this example, the code will check if the `VK_FORMAT_R8_UNORM` format supports being sampled from a `VkImage` created with `VK_IMAGE_TILING_LINEAR` for `VkImageCreateInfo::tiling`. To do this, the code will query the `linearTilingFeatures` flags for `VK_FORMAT_R8_UNORM` to see if the `VK_FORMAT_FEATURE_SAMPLED_IMAGE_BIT` is supported by the implementation.
 
 // Using core Vulkan 1.0
@@ -78,30 +81,21 @@ Formats with a `D` or `S` component. These formats are [considered opaque](https
 
 Some formats have both a depth and stencil component and can be accessed separately with `VK_IMAGE_ASPECT_DEPTH_BIT` and `VK_IMAGE_ASPECT_STENCIL_BIT`.
 
+|  | [VK_KHR_separate_depth_stencil_layouts](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_separate_depth_stencil_layouts.html) and [VK_EXT_separate_stencil_usage](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_separate_stencil_usage.html), which are both promoted to Vulkan 1.2, can be used to have finer control between the depth and stencil components. |
+| --- | --- |
+
 More information about depth format can also be found in the [depth chapter](depth.html#depth-formats).
 
 [Compressed image formats](https://docs.vulkan.org/spec/latest/appendices/compressedtex.html)
 representation of multiple pixels encoded interdependently within a region.
 
-Table 1. Vulkan Compressed Image Formats
-
-Format
-How to enable
-
-[BC (Block-Compressed)](https://docs.vulkan.org/spec/latest/appendices/compressedtex.html#appendix-compressedtex-bc)
-`VkPhysicalDeviceFeatures::textureCompressionBC`
-
-[ETC2 and EAC](https://docs.vulkan.org/spec/latest/appendices/compressedtex.html#appendix-compressedtex-etc2)
-`VkPhysicalDeviceFeatures::textureCompressionETC2`
-
-[ASTC LDR](https://docs.vulkan.org/spec/latest/appendices/compressedtex.html#appendix-compressedtex-astc)
-`VkPhysicalDeviceFeatures::textureCompressionASTC_LDR`
-
-[ASTC HDR](https://docs.vulkan.org/spec/latest/appendices/compressedtex.html#appendix-compressedtex-astc)
-[VK_EXT_texture_compression_astc_hdr](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_texture_compression_astc_hdr.html)
-
-[PVRTC](https://docs.vulkan.org/spec/latest/appendices/compressedtex.html#appendix-compressedtex-pvrtc)
-[VK_IMG_format_pvrtc](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_IMG_format_pvrtc.html)
+| Format | How to enable |
+| --- | --- |
+| [BC (Block-Compressed)](https://docs.vulkan.org/spec/latest/appendices/compressedtex.html#appendix-compressedtex-bc) | `VkPhysicalDeviceFeatures::textureCompressionBC` |
+| [ETC2 and EAC](https://docs.vulkan.org/spec/latest/appendices/compressedtex.html#appendix-compressedtex-etc2) | `VkPhysicalDeviceFeatures::textureCompressionETC2` |
+| [ASTC LDR](https://docs.vulkan.org/spec/latest/appendices/compressedtex.html#appendix-compressedtex-astc) | `VkPhysicalDeviceFeatures::textureCompressionASTC_LDR` |
+| [ASTC HDR](https://docs.vulkan.org/spec/latest/appendices/compressedtex.html#appendix-compressedtex-astc) | [VK_EXT_texture_compression_astc_hdr](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_texture_compression_astc_hdr.html) |
+| [PVRTC](https://docs.vulkan.org/spec/latest/appendices/compressedtex.html#appendix-compressedtex-pvrtc) | [VK_IMG_format_pvrtc](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_IMG_format_pvrtc.html) |
 
 [VK_KHR_sampler_ycbcr_conversion](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_KHR_sampler_ycbcr_conversion.html) and [VK_EXT_ycbcr_2plane_444_formats](https://registry.khronos.org/vulkan/specs/latest/man/html/VK_EXT_ycbcr_2plane_444_formats.html) add [multi-planar formats](extensions/VK_KHR_sampler_ycbcr_conversion.html#multi-planar-formats) to Vulkan. The planes can be accessed separately with `VK_IMAGE_ASPECT_PLANE_0_BIT`, `VK_IMAGE_ASPECT_PLANE_1_BIT`, and `VK_IMAGE_ASPECT_PLANE_2_BIT`.
 

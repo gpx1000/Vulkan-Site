@@ -26,6 +26,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/dynamic_rendering_local_read). |
+| --- | --- |
+
 ![Sample](../../../_images/samples/extensions/dynamic_rendering_local_read/images/sample.png)
 
 This sample demonstrates how to use the `VK_KHR_dynamic_rendering_local_read` extension in conjunction with the `VK_KHR_dynamic_rendering` extension. This combination can replace core render and subpasses, making it possible to do local reads via input attachments with dynamic rendering.
@@ -42,29 +45,15 @@ For a primer on the differences between renderpasses and dynamic rendering, see 
 
 Here is the comparison table from that example extended with the newly added features from `VK_KHR_dynamic_rendering_local_read` in **bold**:
 
-Vulkan 1.0
-Dynamic Rendering
-
-Rendering begins with `vkCmdBeginRenderPass`
-Rendering begins with `vkCmdBeginRenderingKHR`
-
-Rendering struct is `VkRenderPassBeginInfo`
-Rendering struct is `VkRenderingInfoKHR`
-
-Attachments are referenced by `VkFramebuffer`
-Attachments are referenced by `VkRenderingAttachmentInfoKHR`
-
-`VkFramebuffer` objects are heap-allocated and opaque
-`VkRenderingAttachmentInfoKHR` objects are stack-allocated
-
-Graphics pipeline creation references a `VkRenderPass`
-Graphics pipeline creation references a `VkPipelineRenderingCreateInfoKHR`
-
-**Subpasses are advanced with `vkCmdNextSubpass`**
-**`VkImageMemoryBarrier` to `VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR` image layout**
-
-**Local reads in shaders use `subpassLoad`**
-**Local reads in shaders use `subpassLoad`**
+| Vulkan 1.0 | Dynamic Rendering |
+| --- | --- |
+| Rendering begins with `vkCmdBeginRenderPass` | Rendering begins with `vkCmdBeginRenderingKHR` |
+| Rendering struct is `VkRenderPassBeginInfo` | Rendering struct is `VkRenderingInfoKHR` |
+| Attachments are referenced by `VkFramebuffer` | Attachments are referenced by `VkRenderingAttachmentInfoKHR` |
+| `VkFramebuffer` objects are heap-allocated and opaque | `VkRenderingAttachmentInfoKHR` objects are stack-allocated |
+| Graphics pipeline creation references a `VkRenderPass` | Graphics pipeline creation references a `VkPipelineRenderingCreateInfoKHR` |
+| **Subpasses are advanced with `vkCmdNextSubpass`** | **`VkImageMemoryBarrier` to `VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR` image layout** |
+| **Local reads in shaders use `subpassLoad`** | **Local reads in shaders use `subpassLoad`** |
 
 With subpasses it’s possible to do pixel local reads within a single renderpass. Local read means that you can’t freely sample (like with a texture + sampler) but are instead limited to reading the pixel value from the previous subpass at the exact same position. This is based on how esp. tile based GPU architectures work. On such architectures workloads that don’t need to sample arbitrarily can improve performance using subpasses and pixel local reads using input attachments. One such example  is a deferred renderer with a composition pass. First multiple attachments are filled with different information (albedo, normals, world space position) and then at a later point those attachments are combined into a single image. This composition step reads those attachments at the exact same position that the current pass is operating on, so instead of sampling from these we can use them as input attachments instead and do only pixel local reads.
 

@@ -760,60 +760,27 @@ These structures are described in the next section.
 
 This extension defines the following commands for state changes and operations:
 
-**Common Tokens**
-**Command Data**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT`
-`uint32_t[]` array of indices into the indirect execution set
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT`
-`uint32_t[]` raw data
-
-**Compute Tokens**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_EXT`
-`VkDispatchIndirectCommand`
-
-**Ray Tracing Tokens**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_TRACE_RAYS2_EXT`
-`VkTraceRaysIndirectCommand2KHR`
-
-**Graphics State Tokens**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_EXT`
-`VkBindIndexBufferIndirectCommandEXT`
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_EXT`
-`VkBindVertexBufferIndirectCommandEXT`
-
-**Graphics Draw Tokens**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_EXT`
-`VkDrawIndexedIndirectCommand`
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_EXT`
-`VkDrawIndirectCommand`
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_EXT`
-`VkDrawMeshTasksIndirectCommandEXT`
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV_EXT`
-`VkDrawMeshTasksIndirectCommandNV`
-
-**Graphics Draw Count Tokens**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_COUNT_EXT`
-`VkDrawIndirectCountIndirectCommandEXT` with `VkDrawIndexedIndirectCommand`
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_COUNT_EXT`
-`VkDrawIndirectCountIndirectCommandEXT` with `VkDrawIndirectCommand`
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_COUNT_EXT`
-`VkDrawIndirectCountIndirectCommandEXT` with `VkDrawMeshTasksIndirectCommandEXT`
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_COUNT_NV_EXT`
-`VkDrawIndirectCountIndirectCommandEXT` with `VkDrawMeshTasksIndirectCommandNV`
+| **Common Tokens** | **Command Data** |
+| --- | --- |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT` | `uint32_t[]` array of indices into the indirect execution set |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT` | `uint32_t[]` raw data |
+| **Compute Tokens** |  |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_EXT` | `VkDispatchIndirectCommand` |
+| **Ray Tracing Tokens** |  |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_TRACE_RAYS2_EXT` | `VkTraceRaysIndirectCommand2KHR` |
+| **Graphics State Tokens** |  |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_EXT` | `VkBindIndexBufferIndirectCommandEXT` |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_EXT` | `VkBindVertexBufferIndirectCommandEXT` |
+| **Graphics Draw Tokens** |  |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_EXT` | `VkDrawIndexedIndirectCommand` |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_EXT` | `VkDrawIndirectCommand` |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_EXT` | `VkDrawMeshTasksIndirectCommandEXT` |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV_EXT` | `VkDrawMeshTasksIndirectCommandNV` |
+| **Graphics Draw Count Tokens** |  |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_COUNT_EXT` | `VkDrawIndirectCountIndirectCommandEXT` with `VkDrawIndexedIndirectCommand` |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_COUNT_EXT` | `VkDrawIndirectCountIndirectCommandEXT` with `VkDrawIndirectCommand` |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_COUNT_EXT` | `VkDrawIndirectCountIndirectCommandEXT` with `VkDrawMeshTasksIndirectCommandEXT` |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_COUNT_NV_EXT` | `VkDrawIndirectCountIndirectCommandEXT` with `VkDrawMeshTasksIndirectCommandNV` |
 
 All commands can be stored 4-byte aligned, independent of 64-bit alignment of structures due to use of `VkDeviceAddress`.  This provides binary compatibility with D3D12.
 
@@ -1324,63 +1291,31 @@ If `VK_KHR_ray_tracing_maintenance1` is also enabled, the presence of ray tracin
 
 Most structures have direct equivalents:
 
-**D3D12 type**
-**Vulkan type**
-
-`D3D12_DRAW_ARGUMENTS`
-`VkDrawIndirectCommand`
-
-`D3D12_DRAW_INDEXED_ARGUMENTS`
-`VkDrawIndexedIndirectCommand`
-
-`D3D12_DISPATCH_ARGUMENTS`
-`VkDispatchIndirectCommand`
-
-`D3D12_INDEX_BUFFER_VIEW`
-`VkBindIndexBufferIndirectCommandEXT`
-
-`D3D12_VERTEX_BUFFER_VIEW`
-`VkBindVertexBufferIndirectCommandEXT`
+| **D3D12 type** | **Vulkan type** |
+| --- | --- |
+| `D3D12_DRAW_ARGUMENTS` | `VkDrawIndirectCommand` |
+| `D3D12_DRAW_INDEXED_ARGUMENTS` | `VkDrawIndexedIndirectCommand` |
+| `D3D12_DISPATCH_ARGUMENTS` | `VkDispatchIndirectCommand` |
+| `D3D12_INDEX_BUFFER_VIEW` | `VkBindIndexBufferIndirectCommandEXT` |
+| `D3D12_VERTEX_BUFFER_VIEW` | `VkBindVertexBufferIndirectCommandEXT` |
 
 Binding of views or constants require translation due to mismatches between the APIs.
 
 Maps to `VkIndirectCommandsTokenTypeEXT`:
 
-**D3D12 value**
-**Vulkan value**
-
-`D3D12_INDIRECT_ARGUMENT_TYPE_DRAW`
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_EXT`
-
-`D3D12_INDIRECT_ARGUMENT_TYPE_DRAW_INDEXED`
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_EXT`
-
-`D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH`
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_EXT`
-
-`D3D12_INDIRECT_ARGUMENT_TYPE_VERTEX_BUFFER_VIEW`
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_EXT`
-
-`D3D12_INDIRECT_ARGUMENT_TYPE_INDEX_BUFFER_VIEW`
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_EXT`
-
-`D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT`
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT`
-
-`D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT_BUFFER_VIEW`
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT`
-
-`D3D12_INDIRECT_ARGUMENT_TYPE_SHADER_RESOURCE_VIEW`
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT`
-
-`D3D12_INDIRECT_ARGUMENT_TYPE_UNORDERED_ACCESS_VIEW`
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT`
-
-`D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_RAYS`
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_TRACE_RAYS2_EXT`
-
-`D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_MESH`
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_EXT`
+| **D3D12 value** | **Vulkan value** |
+| --- | --- |
+| `D3D12_INDIRECT_ARGUMENT_TYPE_DRAW` | `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_EXT` |
+| `D3D12_INDIRECT_ARGUMENT_TYPE_DRAW_INDEXED` | `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_EXT` |
+| `D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH` | `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_EXT` |
+| `D3D12_INDIRECT_ARGUMENT_TYPE_VERTEX_BUFFER_VIEW` | `VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_EXT` |
+| `D3D12_INDIRECT_ARGUMENT_TYPE_INDEX_BUFFER_VIEW` | `VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_EXT` |
+| `D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT` | `VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT` |
+| `D3D12_INDIRECT_ARGUMENT_TYPE_CONSTANT_BUFFER_VIEW` | `VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT` |
+| `D3D12_INDIRECT_ARGUMENT_TYPE_SHADER_RESOURCE_VIEW` | `VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT` |
+| `D3D12_INDIRECT_ARGUMENT_TYPE_UNORDERED_ACCESS_VIEW` | `VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT` |
+| `D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_RAYS` | `VK_INDIRECT_COMMANDS_TOKEN_TYPE_TRACE_RAYS2_EXT` |
+| `D3D12_INDIRECT_ARGUMENT_TYPE_DISPATCH_MESH` | `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_EXT` |
 
 A root descriptor in D3D12 is a 64-bit virtual address to a raw buffer. To implement this, `VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT` tokens can be used to update buffer device addresses stored in push constants rather than interacting with the descriptor binding model. Similar techniques can be used to update non-root descriptors as well.
 

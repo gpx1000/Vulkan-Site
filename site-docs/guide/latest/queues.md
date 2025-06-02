@@ -18,6 +18,9 @@
 
 ## Content
 
+|  | Further resources for queues from [AMD](https://gpuopen.com/learn/concurrent-execution-asynchronous-queues/) and [NVIDIA](https://www.khronos.org/assets/uploads/developers/library/2016-vulkan-devday-uk/9-Asynchonous-compute.pdf) |
+| --- | --- |
+
 An application submits work to a `VkQueue`, normally in the form of `VkCommandBuffer` objects or [sparse bindings](sparse_resources.html#sparse-resources).
 
 Command buffers submitted to a `VkQueue` start in order, but are allowed to proceed independently after that and complete out of order.
@@ -27,6 +30,9 @@ Command buffers submitted to different queues are unordered relative to each oth
 You can only submit work to a `VkQueue` from one thread at a time, but different threads can submit work to a different `VkQueue` simultaneously.
 
 How a `VkQueue` is mapped to the underlying hardware is implementation-defined. Some implementations will have multiple hardware queues and submitting work to multiple `VkQueue`​s will proceed independently and concurrently. Some implementations will do scheduling at a kernel driver level before submitting work to the hardware. There is no current way in Vulkan to expose the exact details how each `VkQueue` is mapped.
+
+|  | Not all applications will require or benefit from multiple queues. It is reasonable for an application to have a single “universal” graphics supported queue to submit all the work to the GPU. |
+| --- | --- |
 
 There are various types of operations a `VkQueue` can support. A “Queue Family” just describes a set of `VkQueue`​s that have common properties and support the same functionality, as advertised in `VkQueueFamilyProperties`.
 

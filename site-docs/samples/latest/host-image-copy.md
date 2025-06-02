@@ -25,6 +25,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/host_image_copy). |
+| --- | --- |
+
 A common thing in Vulkan is copying image data to the GPU to sample from it in a shader (e.g. for texturing objects). Often that image data is coming from a file stored on disk (e.g. in KTX format) and needs to be moved from the host to the device.
 
 Depending on the memory setup of the implementation, this requires uploading the image data to a host visible buffer and then copying it over to a device local buffer to make it usable as an image in a shader. This also requires multiple image transitions (barriers). This is commonly referred to as "staging".
@@ -32,6 +35,9 @@ Depending on the memory setup of the implementation, this requires uploading the
 In some scenarios like streaming image data from disk, this way of uploading image data may come with drawbacks like added memory requirements and unnecessary copies. These may result in negative effects like memory swapping or stuttering.
 
 The `VK_EXT_host_image_copy` extension aims to improve this by providing a direct way of moving image data from host memory to/from the device without having to go through such a staging process. It also simplifies the image transition process.
+
+|  | A staged upload usually has to first perform a CPU copy of data to a GPU-visible buffer and then uses the GPU to convert that data into the optimal format. A host-image copy does the copy and conversion using the CPU alone. In many circumstances this can actually be faster than the staged approach even though the GPU is not involved in the transfer. |
+| --- | --- |
 
 The `VK_EXT_host_image_copy` extension needs to be enabled at device level. Depending on the Vulkan version you target, additional extensions might need to be enabled. See the [extension and version dependencies](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_EXT_host_image_copy.html#_extension_and_version_dependencies) of the extension spec for details.
 

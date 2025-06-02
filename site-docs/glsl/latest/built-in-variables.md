@@ -367,26 +367,14 @@ The face values are defined in table 9.3 of section 9.4.9 “Layered
 Framebuffers” of the [OpenGL Specification](references.html#references),
 but repeated below for clarity.
 
-Face Value
-Resulting Target
-
-0
-TEXTURE_CUBE_MAP_POSITIVE_X
-
-1
-TEXTURE_CUBE_MAP_NEGATIVE_X
-
-2
-TEXTURE_CUBE_MAP_POSITIVE_Y
-
-3
-TEXTURE_CUBE_MAP_NEGATIVE_Y
-
-4
-TEXTURE_CUBE_MAP_POSITIVE_Z
-
-5
-TEXTURE_CUBE_MAP_NEGATIVE_Z
+| Face Value | Resulting Target |
+| --- | --- |
+| 0 | TEXTURE_CUBE_MAP_POSITIVE_X |
+| 1 | TEXTURE_CUBE_MAP_NEGATIVE_X |
+| 2 | TEXTURE_CUBE_MAP_POSITIVE_Y |
+| 3 | TEXTURE_CUBE_MAP_NEGATIVE_Y |
+| 4 | TEXTURE_CUBE_MAP_POSITIVE_Z |
+| 5 | TEXTURE_CUBE_MAP_NEGATIVE_Z |
 
 For example, to render to the positive *y* cube map face located in the 5th
 layer of the cube map array, *gl_Layer* should be set to *5 * 6 + 2*.

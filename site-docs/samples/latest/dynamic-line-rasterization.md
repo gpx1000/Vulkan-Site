@@ -15,6 +15,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/dynamic_line_rasterization). |
+| --- | --- |
+
 ![screenshot](../../../_images/samples/extensions/dynamic_line_rasterization/screenshot.png)
 
 This sample demonstrates functions from various extensions related to dynamic line rasterization. These functions can be useful for developing CAD applications.

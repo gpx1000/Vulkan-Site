@@ -19,6 +19,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/afbc). |
+| --- | --- |
+
 AFBC (Arm Frame Buffer Compression) is a real-time lossless compression algorithm found in Arm Mali GPUs, designed to tackle the ever-growing demand for higher resolution graphics.
 This format is applied to the framebuffers that are to be written to the GPU.
 This technology can offer bandwidth reductions of [up to 50%](https://developer.arm.com/technologies/graphics-technologies/arm-frame-buffer-compression).
@@ -107,59 +110,34 @@ GPUs from Mali-G77 onwards support formats up to and including 32 bits per pixel
 
 Previous generations that support AFBC only support a subset of formats:
 
-Formats
-
-VK_FORMAT_R4G4B4A4_UNORM_PACK16
-
-VK_FORMAT_B4G4R4A4_UNORM_PACK16
-
-VK_FORMAT_R5G6B5_UNORM_PACK16
-
-VK_FORMAT_R5G5B5A1_UNORM_PACK16
-
-VK_FORMAT_B5G5R5A1_UNORM_PACK16
-
-VK_FORMAT_A1R5G5B5_UNORM_PACK16
-
-VK_FORMAT_B8G8R8_UNORM
-
-VK_FORMAT_B8G8R8A8_UNORM
-
-VK_FORMAT_B8G8R8A8_SRGB
-
-VK_FORMAT_A8B8G8R8_UNORM
-
-VK_FORMAT_A8B8G8R8_SRGB
-
-VK_FORMAT_A8R8G8B8_SRGB
-
-VK_FORMAT_B10G10R10A2_UNORM
-
-VK_FORMAT_R4G4B4A4_UNORM
-
-VK_FORMAT_R5G6B5_UNORM
-
-VK_FORMAT_R5G5B5A1_UNORM
-
-VK_FORMAT_R8_UNORM
-
-VK_FORMAT_R8G8_UNORM
-
-VK_FORMAT_R8G8B8_UNORM
-
-VK_FORMAT_R8G8B8A8_UNORM
-
-VK_FORMAT_R8G8B8A8_SRGB
-
-VK_FORMAT_A8R8G8B8_UNORM
-
-VK_FORMAT_R10G10B10A2_UNORM
-
-VK_FORMAT_D24_UNORM_S8_UINT
-
-VK_FORMAT_D16_UNORM
-
-VK_FORMAT_D32_SFLOAT
+| Formats |
+| --- |
+| VK_FORMAT_R4G4B4A4_UNORM_PACK16 |
+| VK_FORMAT_B4G4R4A4_UNORM_PACK16 |
+| VK_FORMAT_R5G6B5_UNORM_PACK16 |
+| VK_FORMAT_R5G5B5A1_UNORM_PACK16 |
+| VK_FORMAT_B5G5R5A1_UNORM_PACK16 |
+| VK_FORMAT_A1R5G5B5_UNORM_PACK16 |
+| VK_FORMAT_B8G8R8_UNORM |
+| VK_FORMAT_B8G8R8A8_UNORM |
+| VK_FORMAT_B8G8R8A8_SRGB |
+| VK_FORMAT_A8B8G8R8_UNORM |
+| VK_FORMAT_A8B8G8R8_SRGB |
+| VK_FORMAT_A8R8G8B8_SRGB |
+| VK_FORMAT_B10G10R10A2_UNORM |
+| VK_FORMAT_R4G4B4A4_UNORM |
+| VK_FORMAT_R5G6B5_UNORM |
+| VK_FORMAT_R5G5B5A1_UNORM |
+| VK_FORMAT_R8_UNORM |
+| VK_FORMAT_R8G8_UNORM |
+| VK_FORMAT_R8G8B8_UNORM |
+| VK_FORMAT_R8G8B8A8_UNORM |
+| VK_FORMAT_R8G8B8A8_SRGB |
+| VK_FORMAT_A8R8G8B8_UNORM |
+| VK_FORMAT_R10G10B10A2_UNORM |
+| VK_FORMAT_D24_UNORM_S8_UINT |
+| VK_FORMAT_D16_UNORM |
+| VK_FORMAT_D32_SFLOAT |
 
 * 
 [Arm Frame Buffer Compression](https://www.arm.com/why-arm/technologies/graphics-technologies/arm-frame-buffer-compression) - developer.arm.com

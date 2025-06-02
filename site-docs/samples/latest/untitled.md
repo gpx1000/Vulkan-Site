@@ -19,6 +19,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/sparse_image). |
+| --- | --- |
+
 ![Sample](../../../_images/samples/extensions/sparse_image/images/sparse_image_screenshot.png)
 
 The usage of

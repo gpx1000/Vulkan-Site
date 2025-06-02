@@ -37,12 +37,9 @@ Any proposal here has to support that functionality, as well as basic manipulati
 
 This extension adds a new *Floating Point Encoding* value, enabling the operand to be specified when creating a floating point type:
 
-FP Encoding
-Width(s)
-Enabling Capabilities
-
-0
-**BFloat16KHR**
+| FP Encoding | Width(s) | Enabling Capabilities |
+| --- | --- | --- |
+| 0 | **BFloat16KHR**
 
 The floating point type is encoded as the bfloat16 type, which is equivalent to the IEEE754 binary32 floating point encoding but with 16 fewer bits in its significand.
 This is encoded per chapter 3 of the IEEE 754-2008 standard with the following encoding parameters:
@@ -59,31 +56,21 @@ The additional precision parameters *p* and *emax* are calculated as *p = t+1* a
 The radix (or base) *b* is 2.
 
 The accuracy of floating-point operations on **BFloat16KHR** values is the same as operations on IEEE754 binary32 floating-point values, with the result rounded using round-to-nearest-even or round-to-zero rounding.
-It is implementation-defined whether intermediate values are rounded.
-16
-**BFloat16TypeKHR**
+It is implementation-defined whether intermediate values are rounded. | 16 | **BFloat16TypeKHR** |
 
 New capabilities enable both the declaration of the type and its use with dot product and cooperative matrix features:
 
-Capability
-Implicitly Declares
+| Capability | Implicitly Declares |
+| --- | --- |
+| 5116 | **BFloat16TypeKHR**
 
-5116
-**BFloat16TypeKHR**
+Uses **OpTypeFloat** to specify types with the **BFloat16KHR** [floating point encoding](#Floating_Point_Encoding) and the use of conversion functions for those types. |  |
+| 5117 | **BFloat16DotProductKHR**
 
-Uses **OpTypeFloat** to specify types with the **BFloat16KHR** [floating point encoding](#Floating_Point_Encoding) and the use of conversion functions for those types.
+Uses vectors with a **Component Type** of **OpTypeFloat** with the **BFloat16KHR** encoding with **OpDot**. | **BFloat16TypeKHR** |
+| 5118 | **BFloat16CooperativeMatrixKHR**
 
-5117
-**BFloat16DotProductKHR**
-
-Uses vectors with a **Component Type** of **OpTypeFloat** with the **BFloat16KHR** encoding with **OpDot**.
-**BFloat16TypeKHR**
-
-5118
-**BFloat16CooperativeMatrixKHR**
-
-Uses cooperative matrices with a **Component Type** of **OpTypeFloat** with the **BFloat16KHR** encoding.
-**BFloat16TypeKHR**, **CooperativeMatrixKHR**
+Uses cooperative matrices with a **Component Type** of **OpTypeFloat** with the **BFloat16KHR** encoding. | **BFloat16TypeKHR**, **CooperativeMatrixKHR** |
 
 The `BFloat16DotProductKHR` capability is required to use bfloat16 types with the `OpDot` instruction, and `BFloat16CooperativeMatrixKHR` is required to use cooperative matrix operations with a bfloat16 component type.
 

@@ -72,6 +72,15 @@ VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkIndirectCommandsLayoutNV)
 Each indirect command layout **must** have exactly one action command token and
 it **must** be the last token in the sequence.
 
+|  | If the indirect commands layout contains only 1 token, it will be an action
+| --- | --- |
+command token, and the contents of the indirect buffer will be a sequence of
+indirect command structures, similar to the ones used for indirect draws and
+dispatches.
+On some implementations, using indirect draws and dispatches for these cases
+will result in increased performance compared to using device-generated
+commands, due to the overhead that results from using the latter. |
+
 Indirect command layouts for `[VK_EXT_device_generated_commands](../../appendices/extensions.html#VK_EXT_device_generated_commands)` are
 created by:
 
@@ -692,6 +701,12 @@ The alignment for a specific token is equal to the scalar alignment of the
 data type as defined in [Alignment Requirements](../interfaces.html#interfaces-alignment-requirements), or
 `VkPhysicalDeviceDeviceGeneratedCommandsPropertiesNV`::`minIndirectCommandsBufferOffsetAlignment`,
 whichever is lower.
+
+|  | A `minIndirectCommandsBufferOffsetAlignment` of 4 allows
+| --- | --- |
+`VkDeviceAddress` to be packed as `uvec2` with scalar layout
+instead of `uint64_t` with 8 byte alignment.
+This enables direct compatibility with D3D12 command signature layouts. |
 
 Valid Usage
 
@@ -1401,65 +1416,28 @@ typedef enum VkIndirectCommandsTokenTypeEXT {
     VK_INDIRECT_COMMANDS_TOKEN_TYPE_TRACE_RAYS2_EXT = 1000386004,
 } VkIndirectCommandsTokenTypeEXT;
 
-Table 1. Supported Indirect Command Tokens
-
-**Common Tokens**
-**Command Data**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT`
-`u32[]` array of indices into the indirect execution set
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT`
-`u32[]` raw data
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_SEQUENCE_INDEX_EXT`
-`u32` placeholder data (not accessed by shader)
-
-**Compute Tokens**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_EXT`
-[VkDispatchIndirectCommand](../dispatch.html#VkDispatchIndirectCommand)
-
-**Ray Tracing Tokens**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_TRACE_RAYS2_EXT`
-[VkTraceRaysIndirectCommand2KHR](../raytracing.html#VkTraceRaysIndirectCommand2KHR)
-
-**Graphics State Tokens**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_EXT`
-[VkBindIndexBufferIndirectCommandEXT](#VkBindIndexBufferIndirectCommandEXT)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_EXT`
-[VkBindVertexBufferIndirectCommandEXT](#VkBindVertexBufferIndirectCommandEXT)
-
-**Graphics Draw Tokens**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_EXT`
-[VkDrawIndexedIndirectCommand](../drawing.html#VkDrawIndexedIndirectCommand)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_EXT`
-[VkDrawIndirectCommand](../drawing.html#VkDrawIndirectCommand)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_EXT`
-[VkDrawMeshTasksIndirectCommandEXT](../drawing.html#VkDrawMeshTasksIndirectCommandEXT)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV_EXT`
-[VkDrawMeshTasksIndirectCommandNV](../drawing.html#VkDrawMeshTasksIndirectCommandNV)
-
-**Graphics Draw Count Tokens**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_COUNT_EXT`
-[VkDrawIndirectCountIndirectCommandEXT](#VkDrawIndirectCountIndirectCommandEXT) with VkDrawIndexedIndirectCommand
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_COUNT_EXT`
-[VkDrawIndirectCountIndirectCommandEXT](#VkDrawIndirectCountIndirectCommandEXT) with VkDrawIndirectCommand
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_COUNT_EXT`
-[VkDrawIndirectCountIndirectCommandEXT](#VkDrawIndirectCountIndirectCommandEXT) with VkDrawMeshTasksIndirectCommandEXT
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_COUNT_NV_EXT`
-[VkDrawIndirectCountIndirectCommandEXT](#VkDrawIndirectCountIndirectCommandEXT) with VkDrawMeshTasksIndirectCommandNV
+| **Common Tokens** | **Command Data** |
+| --- | --- |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT` | `u32[]` array of indices into the indirect execution set |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT` | `u32[]` raw data |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_SEQUENCE_INDEX_EXT` | `u32` placeholder data (not accessed by shader) |
+| **Compute Tokens** |  |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_EXT` | [VkDispatchIndirectCommand](../dispatch.html#VkDispatchIndirectCommand) |
+| **Ray Tracing Tokens** |  |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_TRACE_RAYS2_EXT` | [VkTraceRaysIndirectCommand2KHR](../raytracing.html#VkTraceRaysIndirectCommand2KHR) |
+| **Graphics State Tokens** |  |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_EXT` | [VkBindIndexBufferIndirectCommandEXT](#VkBindIndexBufferIndirectCommandEXT) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_EXT` | [VkBindVertexBufferIndirectCommandEXT](#VkBindVertexBufferIndirectCommandEXT) |
+| **Graphics Draw Tokens** |  |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_EXT` | [VkDrawIndexedIndirectCommand](../drawing.html#VkDrawIndexedIndirectCommand) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_EXT` | [VkDrawIndirectCommand](../drawing.html#VkDrawIndirectCommand) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_EXT` | [VkDrawMeshTasksIndirectCommandEXT](../drawing.html#VkDrawMeshTasksIndirectCommandEXT) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV_EXT` | [VkDrawMeshTasksIndirectCommandNV](../drawing.html#VkDrawMeshTasksIndirectCommandNV) |
+| **Graphics Draw Count Tokens** |  |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_COUNT_EXT` | [VkDrawIndirectCountIndirectCommandEXT](#VkDrawIndirectCountIndirectCommandEXT) with VkDrawIndexedIndirectCommand |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_COUNT_EXT` | [VkDrawIndirectCountIndirectCommandEXT](#VkDrawIndirectCountIndirectCommandEXT) with VkDrawIndirectCommand |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_COUNT_EXT` | [VkDrawIndirectCountIndirectCommandEXT](#VkDrawIndirectCountIndirectCommandEXT) with VkDrawMeshTasksIndirectCommandEXT |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_COUNT_NV_EXT` | [VkDrawIndirectCountIndirectCommandEXT](#VkDrawIndirectCountIndirectCommandEXT) with VkDrawMeshTasksIndirectCommandNV |
 
 The `VkIndirectCommandsLayoutTokenEXT` structure specifies details to
 the function arguments that need to be known at layout creation time:
@@ -1959,43 +1937,19 @@ typedef enum VkIndirectCommandsTokenTypeNV {
     VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_NV = 1000428004,
 } VkIndirectCommandsTokenTypeNV;
 
-Table 2. Supported Indirect Command Tokens
-
-Token type
-Equivalent command
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_SHADER_GROUP_NV`
-[vkCmdBindPipelineShaderGroupNV](../pipelines.html#vkCmdBindPipelineShaderGroupNV)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_STATE_FLAGS_NV`
--
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_NV`
-[vkCmdBindIndexBuffer](../drawing.html#vkCmdBindIndexBuffer)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_NV`
-[vkCmdBindVertexBuffers](../fxvertex.html#vkCmdBindVertexBuffers)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV`
-[vkCmdPushConstants](../descriptorsets.html#vkCmdPushConstants)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_NV`
-[vkCmdDrawIndexedIndirect](../drawing.html#vkCmdDrawIndexedIndirect)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_NV`
-[vkCmdDrawIndirect](../drawing.html#vkCmdDrawIndirect)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_TASKS_NV`
-[vkCmdDrawMeshTasksIndirectNV](../drawing.html#vkCmdDrawMeshTasksIndirectNV)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV`
-[vkCmdDrawMeshTasksIndirectEXT](../drawing.html#vkCmdDrawMeshTasksIndirectEXT)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV`
-[vkCmdBindPipeline](../pipelines.html#vkCmdBindPipeline)
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_NV`
-[vkCmdDispatchIndirect](../dispatch.html#vkCmdDispatchIndirect)
+| Token type | Equivalent command |
+| --- | --- |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_SHADER_GROUP_NV` | [vkCmdBindPipelineShaderGroupNV](../pipelines.html#vkCmdBindPipelineShaderGroupNV) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_STATE_FLAGS_NV` | - |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_NV` | [vkCmdBindIndexBuffer](../drawing.html#vkCmdBindIndexBuffer) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_NV` | [vkCmdBindVertexBuffers](../fxvertex.html#vkCmdBindVertexBuffers) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_NV` | [vkCmdPushConstants](../descriptorsets.html#vkCmdPushConstants) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_INDEXED_NV` | [vkCmdDrawIndexedIndirect](../drawing.html#vkCmdDrawIndexedIndirect) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_NV` | [vkCmdDrawIndirect](../drawing.html#vkCmdDrawIndirect) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_TASKS_NV` | [vkCmdDrawMeshTasksIndirectNV](../drawing.html#vkCmdDrawMeshTasksIndirectNV) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DRAW_MESH_TASKS_NV` | [vkCmdDrawMeshTasksIndirectEXT](../drawing.html#vkCmdDrawMeshTasksIndirectEXT) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_PIPELINE_NV` | [vkCmdBindPipeline](../pipelines.html#vkCmdBindPipeline) |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_DISPATCH_NV` | [vkCmdDispatchIndirect](../dispatch.html#vkCmdDispatchIndirect) |
 
 The `VkIndirectCommandsLayoutTokenNV` structure specifies details to the
 function arguments that need to be known at layout creation time:
@@ -4782,10 +4736,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](../pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](../fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](../pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](../pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](../fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](../pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdExecuteGeneratedCommandsNV-None-07845) VUID-vkCmdExecuteGeneratedCommandsNV-None-07845
 
@@ -6888,6 +6843,11 @@ is enabled, the
 [tileShadingPerTileDraw](../features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdExecuteGeneratedCommandsNV-None-10772) VUID-vkCmdExecuteGeneratedCommandsNV-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdExecuteGeneratedCommandsNV-None-04007) VUID-vkCmdExecuteGeneratedCommandsNV-None-04007
 
@@ -7247,24 +7207,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Inside | Outside | Graphics
 
-Primary
+Compute | Action
 
-Secondary
-Inside
-Outside
-Graphics
-
-Compute
-Action
-
-Indirection
+Indirection |
 
 The `VkGeneratedCommandsInfoNV` is defined as:
 
@@ -7604,6 +7555,10 @@ cmdProcessAllSequences(commandBuffer, pipeline,
 // affect the state of subsequent commands in the target
 // command buffer (cmd)
 
+|  | It is important to note that the values of all state related to the
+| --- | --- |
+`pipelineBindPoint` used are **undefined** after this command. |
+
 Commands **can** be preprocessed prior execution using the following command:
 
 // Provided by VK_NV_device_generated_commands
@@ -7681,22 +7636,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Outside | Outside | Graphics
 
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
-
-Compute
-Action
+Compute | Action |
 
 The bound descriptor sets and push constants that will be used with indirect
 command generation for the compute pipelines **must** already be specified at
@@ -7750,25 +7696,13 @@ will become **undefined** according to the tokens executed.
 This table specifies the relationship between tokens used and state
 invalidation.
 
-Table 3. Indirect Execution State Invalidation
-
-**Common Tokens**
-**States Invalidated**
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT`
-Bound shaders and pipelines
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT`
-Push constant data
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_SEQUENCE_INDEX_EXT`
-Push constant data
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_EXT`
-Index buffer
-
-`VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_EXT`
-Vertex buffer
+| **Common Tokens** | **States Invalidated** |
+| --- | --- |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_EXECUTION_SET_EXT` | Bound shaders and pipelines |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_PUSH_CONSTANT_EXT` | Push constant data |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_SEQUENCE_INDEX_EXT` | Push constant data |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_INDEX_BUFFER_EXT` | Index buffer |
+| `VK_INDIRECT_COMMANDS_TOKEN_TYPE_VERTEX_BUFFER_EXT` | Vertex buffer |
 
 Valid Usage
 
@@ -8811,10 +8745,11 @@ a shader object is bound to any graphics stage or
 a graphics pipeline is bound which was created with the
 `VK_DYNAMIC_STATE_DEPTH_WRITE_ENABLE` dynamic state enabled, and the
 [current value](../pipelines.html#dynamic-state-current-value) of
-`rasterizerDiscardEnable` is `VK_FALSE`, then
-[vkCmdSetDepthWriteEnable](../fragops.html#vkCmdSetDepthWriteEnable) **must** have been called and not
-subsequently [invalidated](../pipelines.html#dynamic-state-lifetime) in the current
-command buffer prior to this drawing command
+`rasterizerDiscardEnable` is `VK_FALSE`, and the
+[current value](../pipelines.html#dynamic-state-current-value) of `depthTestEnable`
+is `VK_TRUE`, then [vkCmdSetDepthWriteEnable](../fragops.html#vkCmdSetDepthWriteEnable) **must** have been
+called and not subsequently [invalidated](../pipelines.html#dynamic-state-lifetime) in
+the current command buffer prior to this drawing command
 
 [](#VUID-vkCmdExecuteGeneratedCommandsEXT-None-07845) VUID-vkCmdExecuteGeneratedCommandsEXT-None-07845
 
@@ -10917,6 +10852,11 @@ is enabled, the
 [tileShadingPerTileDraw](../features.html#features-tileShadingPerTileDraw) feature **must**
 be enabled
 
+[](#VUID-vkCmdExecuteGeneratedCommandsEXT-None-10772) VUID-vkCmdExecuteGeneratedCommandsEXT-None-10772
+
+If a shader object is bound to any graphics stage, *multiview*
+functionality **must** not be enabled in the current render pass
+
 * 
 [](#VUID-vkCmdExecuteGeneratedCommandsEXT-commandBuffer-11045) VUID-vkCmdExecuteGeneratedCommandsEXT-commandBuffer-11045
 
@@ -11153,22 +11093,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Both | Outside | Graphics
 
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
+Compute | Action
 
-Primary
-Both
-Outside
-Graphics
-
-Compute
-Action
-
-Indirection
+Indirection |
 
 The `VkGeneratedCommandsInfoEXT` is defined as:
 
@@ -11475,6 +11406,12 @@ cmdProcessAllSequences(commandBuffer, indirectExecutionSet,
 // affect the state of subsequent commands in the target
 // command buffer (cmd)
 
+|  | It is important to note that the affected values of all state related to the
+| --- | --- |
+`shaderStages` used are **undefined** after this command.
+This means that e.g., if this command indirectly alters push constants, the
+push constant state becomes **undefined**. |
+
 Commands **can** be preprocessed prior execution using the following command:
 
 // Provided by VK_EXT_device_generated_commands
@@ -11501,6 +11438,11 @@ snapshotted.
 When a ray tracing action command token is used, ray tracing state is
 snapshotted.
 It can be deleted at any time after this command has been recorded.
+
+|  | `stateCommandBuffer` access is not synchronized by the driver, meaning
+| --- | --- |
+that this command buffer **must** not be modified between threads in an unsafe
+manner. |
 
 Valid Usage
 
@@ -11603,20 +11545,11 @@ Host access to `stateCommandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](../devsandqueues.html#VkQueueFlagBits) | [Command Type](../fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary | Outside | Outside | Graphics
 
-[Command Buffer Levels](../cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](../renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](../videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](../devsandqueues.html#VkQueueFlagBits)
-[Command Type](../fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-Outside
-Outside
-Graphics
-
-Compute
-Action
+Compute | Action |
 
 The bound descriptor sets and push constants that will be used with indirect
 command generation **must** already be specified on `stateCommandBuffer` at

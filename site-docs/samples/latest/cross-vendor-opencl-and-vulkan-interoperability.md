@@ -24,6 +24,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/open_cl_interop). |
+| --- | --- |
+
 Even though compute support in Vulkan is mandatory, there are still use-cases where the broader range of OpenCL’s compute features may be required, e.g. for complex scientific computations or for re-using existing OpenCL kernels. For that both apis offer a set of vendor independent extensions that allow zero-copy sharing of objects known to both apis (known as "api interoperability"). Zero-copy means that both apis can access these objects without the need to duplicate and copy them between the apis. This allows for an efficient sharing of these objects between Vulkan and OpenCL.
 
 ![OpenCL interop sample](../../../_images/samples/extensions/open_cl_interop/images/open_cl_interop.jpg)

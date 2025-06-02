@@ -119,51 +119,18 @@ shader vertex attribute `Location` being read, the value (0,0,0,0) or
 (0,0,0,1) is used for each of the equivalent (x,y,z,w) components consumed
 entries as specified below.
 
-Table 1. Input Attribute Components Accessed By 16-Bit and 32-Bit Input Variables
-
-16-bit or 32-bit data type
-`Component` decoration
-Components consumed
-
-scalar
-0 or unspecified
-(x, o, o, o)
-
-scalar
-1
-(o, y, o, o)
-
-scalar
-2
-(o, o, z, o)
-
-scalar
-3
-(o, o, o, w)
-
-two-component vector
-0 or unspecified
-(x, y, o, o)
-
-two-component vector
-1
-(o, y, z, o)
-
-two-component vector
-2
-(o, o, z, w)
-
-three-component vector
-0 or unspecified
-(x, y, z, o)
-
-three-component vector
-1
-(o, y, z, w)
-
-four-component vector
-0 or unspecified
-(x, y, z, w)
+| 16-bit or 32-bit data type | `Component` decoration | Components consumed |
+| --- | --- | --- |
+| scalar | 0 or unspecified | (x, o, o, o) |
+| scalar | 1 | (o, y, o, o) |
+| scalar | 2 | (o, o, z, o) |
+| scalar | 3 | (o, o, o, w) |
+| two-component vector | 0 or unspecified | (x, y, o, o) |
+| two-component vector | 1 | (o, y, z, o) |
+| two-component vector | 2 | (o, o, z, w) |
+| three-component vector | 0 or unspecified | (x, y, z, o) |
+| three-component vector | 1 | (o, y, z, w) |
+| four-component vector | 0 or unspecified | (x, y, z, w) |
 
 Components indicated by “o” are available for use by other input variables
 which are sourced from the same attribute, and if used, are either filled
@@ -181,57 +148,17 @@ with a [VkFormat](formats.html#VkFormat) that corresponds to the appropriate typ
 vector.
 The `Component` decoration **must** not be used with matrix types.
 
-Table 2. Input Attributes Accessed by 32-Bit Input Matrix Variables
-
-Data type
-Column vector type
-Locations consumed
-Components consumed
-
-mat2
-two-component vector
-i, i+1
-(x, y, o, o), (x, y, o, o)
-
-mat2x3
-three-component vector
-i, i+1
-(x, y, z, o), (x, y, z, o)
-
-mat2x4
-four-component vector
-i, i+1
-(x, y, z, w), (x, y, z, w)
-
-mat3x2
-two-component vector
-i, i+1, i+2
-(x, y, o, o), (x, y, o, o), (x, y, o, o)
-
-mat3
-three-component vector
-i, i+1, i+2
-(x, y, z, o), (x, y, z, o), (x, y, z, o)
-
-mat3x4
-four-component vector
-i, i+1, i+2
-(x, y, z, w), (x, y, z, w), (x, y, z, w)
-
-mat4x2
-two-component vector
-i, i+1, i+2, i+3
-(x, y, o, o), (x, y, o, o), (x, y, o, o), (x, y, o, o)
-
-mat4x3
-three-component vector
-i, i+1, i+2, i+3
-(x, y, z, o), (x, y, z, o), (x, y, z, o), (x, y, z, o)
-
-mat4
-four-component vector
-i, i+1, i+2, i+3
-(x, y, z, w), (x, y, z, w), (x, y, z, w), (x, y, z, w)
+| Data type | Column vector type | Locations consumed | Components consumed |
+| --- | --- | --- | --- |
+| mat2 | two-component vector | i, i+1 | (x, y, o, o), (x, y, o, o) |
+| mat2x3 | three-component vector | i, i+1 | (x, y, z, o), (x, y, z, o) |
+| mat2x4 | four-component vector | i, i+1 | (x, y, z, w), (x, y, z, w) |
+| mat3x2 | two-component vector | i, i+1, i+2 | (x, y, o, o), (x, y, o, o), (x, y, o, o) |
+| mat3 | three-component vector | i, i+1, i+2 | (x, y, z, o), (x, y, z, o), (x, y, z, o) |
+| mat3x4 | four-component vector | i, i+1, i+2 | (x, y, z, w), (x, y, z, w), (x, y, z, w) |
+| mat4x2 | two-component vector | i, i+1, i+2, i+3 | (x, y, o, o), (x, y, o, o), (x, y, o, o), (x, y, o, o) |
+| mat4x3 | three-component vector | i, i+1, i+2, i+3 | (x, y, z, o), (x, y, z, o), (x, y, z, o), (x, y, z, o) |
+| mat4 | four-component vector | i, i+1, i+2, i+3 | (x, y, z, w), (x, y, z, w), (x, y, z, w), (x, y, z, w) |
 
 Components indicated by “o” are available for use by other input variables
 which are sourced from the same attribute, and if used, are either filled
@@ -249,107 +176,25 @@ For 64-bit data types, no default attribute values are provided.
 Input variables **must** not use more components than provided by the
 attribute.
 
-Table 3. Input Attribute Locations and Components Accessed by 64-Bit Input Variables
-
-Input format
-Locations consumed
-64-bit data type
-`Location` decoration
-`Component` decoration
-32-bit components consumed
-
-R64
-i
-scalar
-i
-0 or unspecified
-(x, y, -, -)
-
-R64G64
-i
-scalar
-i
-0 or unspecified
-(x, y, o, o)
-
-scalar
-i
-2
-(o, o, z, w)
-
-two-component vector
-i
-0 or unspecified
-(x, y, z, w)
-
-R64G64B64
-i, i+1
-scalar
-i
-0 or unspecified
-(x, y, o, o), (o, o, -, -)
-
-scalar
-i
-2
-(o, o, z, w), (o, o, -, -)
-
-scalar
-i+1
-0 or unspecified
-(o, o, o, o), (x, y, -, -)
-
-two-component vector
-i
-0 or unspecified
-(x, y, z, w), (o, o, -, -)
-
-three-component vector
-i
-unspecified
-(x, y, z, w), (x, y, -, -)
-
-R64G64B64A64
-i, i+1
-scalar
-i
-0 or unspecified
-(x, y, o, o), (o, o, o, o)
-
-scalar
-i
-2
-(o, o, z, w), (o, o, o, o)
-
-scalar
-i+1
-0 or unspecified
-(o, o, o, o), (x, y, o, o)
-
-scalar
-i+1
-2
-(o, o, o, o), (o, o, z, w)
-
-two-component vector
-i
-0 or unspecified
-(x, y, z, w), (o, o, o, o)
-
-two-component vector
-i+1
-0 or unspecified
-(o, o, o, o), (x, y, z, w)
-
-three-component vector
-i
-unspecified
-(x, y, z, w), (x, y, o, o)
-
-four-component vector
-i
-unspecified
-(x, y, z, w), (x, y, z, w)
+| Input format | Locations consumed | 64-bit data type | `Location` decoration | `Component` decoration | 32-bit components consumed |
+| --- | --- | --- | --- | --- | --- |
+| R64 | i | scalar | i | 0 or unspecified | (x, y, -, -) |
+| R64G64 | i | scalar | i | 0 or unspecified | (x, y, o, o) |
+| scalar | i | 2 | (o, o, z, w) |
+| two-component vector | i | 0 or unspecified | (x, y, z, w) |
+| R64G64B64 | i, i+1 | scalar | i | 0 or unspecified | (x, y, o, o), (o, o, -, -) |
+| scalar | i | 2 | (o, o, z, w), (o, o, -, -) |
+| scalar | i+1 | 0 or unspecified | (o, o, o, o), (x, y, -, -) |
+| two-component vector | i | 0 or unspecified | (x, y, z, w), (o, o, -, -) |
+| three-component vector | i | unspecified | (x, y, z, w), (x, y, -, -) |
+| R64G64B64A64 | i, i+1 | scalar | i | 0 or unspecified | (x, y, o, o), (o, o, o, o) |
+| scalar | i | 2 | (o, o, z, w), (o, o, o, o) |
+| scalar | i+1 | 0 or unspecified | (o, o, o, o), (x, y, o, o) |
+| scalar | i+1 | 2 | (o, o, o, o), (o, o, z, w) |
+| two-component vector | i | 0 or unspecified | (x, y, z, w), (o, o, o, o) |
+| two-component vector | i+1 | 0 or unspecified | (o, o, o, o), (x, y, z, w) |
+| three-component vector | i | unspecified | (x, y, z, w), (x, y, o, o) |
+| four-component vector | i | unspecified | (x, y, z, w), (x, y, z, w) |
 
 Components indicated by “o” are available for use by other input variables
 which are sourced from the same attribute.
@@ -777,20 +622,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 The `VkVertexInputBindingDescription2EXT` structure is defined as:
 
@@ -1113,20 +949,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 Alternatively, to bind vertex buffers, along with their sizes and strides,
 to a command buffer for use in subsequent drawing commands, call:
@@ -1219,6 +1046,12 @@ the bound pipeline state object was also created with the
 `VK_DYNAMIC_STATE_VERTEX_INPUT_EXT` dynamic state enabled
 then [vkCmdSetVertexInputEXT](#vkCmdSetVertexInputEXT) **can** be used instead of
 `vkCmdBindVertexBuffers2` to set the stride.
+
+|  | Unlike the static state to set the same, `pStrides` must be between 0
+| --- | --- |
+and the maximum extent of the attributes in the binding.
+[vkCmdSetVertexInputEXT](#vkCmdSetVertexInputEXT) does not have this restriction so can be used
+if other stride values are desired. |
 
 Valid Usage
 
@@ -1352,20 +1185,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-State
+Secondary | Both | Outside | Graphics | State |
 
 If the [`vertexAttributeInstanceRateDivisor`](features.html#features-vertexAttributeInstanceRateDivisor) feature is enabled and the
 `pNext` chain of [VkPipelineVertexInputStateCreateInfo](#VkPipelineVertexInputStateCreateInfo) includes a

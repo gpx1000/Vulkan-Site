@@ -75,795 +75,625 @@ Any corresponding Vulkan property is supported.
 The corresponding core version is supported (as returned by
 [VkPhysicalDeviceProperties](../chapters/devsandqueues.html#VkPhysicalDeviceProperties)::`apiVersion`).
 
-Table 1. List of SPIR-V Capabilities and Corresponding Vulkan Features, Extensions, or Core Version
+| SPIR-V `OpCapability`
 
-SPIR-V `OpCapability`
+                  Vulkan feature, extension, or core version |
+| --- |
+| `Matrix`
 
-                  Vulkan feature, extension, or core version
+                [VK_VERSION_1_0](versions.html#versions-1.0) |
+| `Shader`
 
-`Matrix`
+                [VK_VERSION_1_0](versions.html#versions-1.0) |
+| `InputAttachment`
 
-                [VK_VERSION_1_0](versions.html#versions-1.0)
+                [VK_VERSION_1_0](versions.html#versions-1.0) |
+| `Sampled1D`
 
-`Shader`
+                [VK_VERSION_1_0](versions.html#versions-1.0) |
+| `Image1D`
 
-                [VK_VERSION_1_0](versions.html#versions-1.0)
+                [VK_VERSION_1_0](versions.html#versions-1.0) |
+| `SampledBuffer`
 
-`InputAttachment`
+                [VK_VERSION_1_0](versions.html#versions-1.0) |
+| `ImageBuffer`
 
-                [VK_VERSION_1_0](versions.html#versions-1.0)
+                [VK_VERSION_1_0](versions.html#versions-1.0) |
+| `ImageQuery`
 
-`Sampled1D`
+                [VK_VERSION_1_0](versions.html#versions-1.0) |
+| `DerivativeControl`
 
-                [VK_VERSION_1_0](versions.html#versions-1.0)
+                [VK_VERSION_1_0](versions.html#versions-1.0) |
+| `Geometry`
 
-`Image1D`
+                [`VkPhysicalDeviceFeatures`::`geometryShader`](../chapters/features.html#features-geometryShader) |
+| `Tessellation`
 
-                [VK_VERSION_1_0](versions.html#versions-1.0)
+                [`VkPhysicalDeviceFeatures`::`tessellationShader`](../chapters/features.html#features-tessellationShader) |
+| `Float64`
 
-`SampledBuffer`
+                [`VkPhysicalDeviceFeatures`::`shaderFloat64`](../chapters/features.html#features-shaderFloat64) |
+| `Int64`
 
-                [VK_VERSION_1_0](versions.html#versions-1.0)
-
-`ImageBuffer`
-
-                [VK_VERSION_1_0](versions.html#versions-1.0)
-
-`ImageQuery`
-
-                [VK_VERSION_1_0](versions.html#versions-1.0)
-
-`DerivativeControl`
-
-                [VK_VERSION_1_0](versions.html#versions-1.0)
-
-`Geometry`
-
-                [`VkPhysicalDeviceFeatures`::`geometryShader`](../chapters/features.html#features-geometryShader)
-
-`Tessellation`
-
-                [`VkPhysicalDeviceFeatures`::`tessellationShader`](../chapters/features.html#features-tessellationShader)
-
-`Float64`
-
-                [`VkPhysicalDeviceFeatures`::`shaderFloat64`](../chapters/features.html#features-shaderFloat64)
-
-`Int64`
-
-                [`VkPhysicalDeviceFeatures`::`shaderInt64`](../chapters/features.html#features-shaderInt64)
-
-`Int64Atomics`
+                [`VkPhysicalDeviceFeatures`::`shaderInt64`](../chapters/features.html#features-shaderInt64) |
+| `Int64Atomics`
 
                 [`VkPhysicalDeviceVulkan12Features`::`shaderBufferInt64Atomics`](../chapters/features.html#features-shaderBufferInt64Atomics)
 
                 [`VkPhysicalDeviceVulkan12Features`::`shaderSharedInt64Atomics`](../chapters/features.html#features-shaderSharedInt64Atomics)
 
-                [`VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT`::`shaderImageInt64Atomics`](../chapters/features.html#features-shaderImageInt64Atomics)
-
-`AtomicFloat16AddEXT`
+                [`VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT`::`shaderImageInt64Atomics`](../chapters/features.html#features-shaderImageInt64Atomics) |
+| `AtomicFloat16AddEXT`
 
                 [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderBufferFloat16AtomicAdd`](../chapters/features.html#features-shaderBufferFloat16AtomicAdd)
 
-                [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderSharedFloat16AtomicAdd`](../chapters/features.html#features-shaderSharedFloat16AtomicAdd)
-
-`AtomicFloat32AddEXT`
+                [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderSharedFloat16AtomicAdd`](../chapters/features.html#features-shaderSharedFloat16AtomicAdd) |
+| `AtomicFloat32AddEXT`
 
                 [`VkPhysicalDeviceShaderAtomicFloatFeaturesEXT`::`shaderBufferFloat32AtomicAdd`](../chapters/features.html#features-shaderBufferFloat32AtomicAdd)
 
                 [`VkPhysicalDeviceShaderAtomicFloatFeaturesEXT`::`shaderSharedFloat32AtomicAdd`](../chapters/features.html#features-shaderSharedFloat32AtomicAdd)
 
-                [`VkPhysicalDeviceShaderAtomicFloatFeaturesEXT`::`shaderImageFloat32AtomicAdd`](../chapters/features.html#features-shaderImageFloat32AtomicAdd)
-
-`AtomicFloat64AddEXT`
+                [`VkPhysicalDeviceShaderAtomicFloatFeaturesEXT`::`shaderImageFloat32AtomicAdd`](../chapters/features.html#features-shaderImageFloat32AtomicAdd) |
+| `AtomicFloat64AddEXT`
 
                 [`VkPhysicalDeviceShaderAtomicFloatFeaturesEXT`::`shaderBufferFloat64AtomicAdd`](../chapters/features.html#features-shaderBufferFloat64AtomicAdd)
 
-                [`VkPhysicalDeviceShaderAtomicFloatFeaturesEXT`::`shaderSharedFloat64AtomicAdd`](../chapters/features.html#features-shaderSharedFloat64AtomicAdd)
-
-`AtomicFloat16MinMaxEXT`
+                [`VkPhysicalDeviceShaderAtomicFloatFeaturesEXT`::`shaderSharedFloat64AtomicAdd`](../chapters/features.html#features-shaderSharedFloat64AtomicAdd) |
+| `AtomicFloat16MinMaxEXT`
 
                 [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderBufferFloat16AtomicMinMax`](../chapters/features.html#features-shaderBufferFloat16AtomicMinMax)
 
-                [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderSharedFloat16AtomicMinMax`](../chapters/features.html#features-shaderSharedFloat16AtomicMinMax)
-
-`AtomicFloat32MinMaxEXT`
+                [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderSharedFloat16AtomicMinMax`](../chapters/features.html#features-shaderSharedFloat16AtomicMinMax) |
+| `AtomicFloat32MinMaxEXT`
 
                 [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderBufferFloat32AtomicMinMax`](../chapters/features.html#features-shaderBufferFloat32AtomicMinMax)
 
                 [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderSharedFloat32AtomicMinMax`](../chapters/features.html#features-shaderSharedFloat32AtomicMinMax)
 
-                [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderImageFloat32AtomicMinMax`](../chapters/features.html#features-shaderImageFloat32AtomicMinMax)
-
-`AtomicFloat64MinMaxEXT`
+                [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderImageFloat32AtomicMinMax`](../chapters/features.html#features-shaderImageFloat32AtomicMinMax) |
+| `AtomicFloat64MinMaxEXT`
 
                 [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderBufferFloat64AtomicMinMax`](../chapters/features.html#features-shaderBufferFloat64AtomicMinMax)
 
-                [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderSharedFloat64AtomicMinMax`](../chapters/features.html#features-shaderSharedFloat64AtomicMinMax)
+                [`VkPhysicalDeviceShaderAtomicFloat2FeaturesEXT`::`shaderSharedFloat64AtomicMinMax`](../chapters/features.html#features-shaderSharedFloat64AtomicMinMax) |
+| `AtomicFloat16VectorNV`
 
-`AtomicFloat16VectorNV`
+                [`VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV`::`shaderFloat16VectorAtomics`](../chapters/features.html#features-shaderFloat16VectorAtomics) |
+| `Int64ImageEXT`
 
-                [`VkPhysicalDeviceShaderAtomicFloat16VectorFeaturesNV`::`shaderFloat16VectorAtomics`](../chapters/features.html#features-shaderFloat16VectorAtomics)
+                [`VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT`::`shaderImageInt64Atomics`](../chapters/features.html#features-shaderImageInt64Atomics) |
+| `Int16`
 
-`Int64ImageEXT`
+                [`VkPhysicalDeviceFeatures`::`shaderInt16`](../chapters/features.html#features-shaderInt16) |
+| `TessellationPointSize`
 
-                [`VkPhysicalDeviceShaderImageAtomicInt64FeaturesEXT`::`shaderImageInt64Atomics`](../chapters/features.html#features-shaderImageInt64Atomics)
+                [`VkPhysicalDeviceFeatures`::`shaderTessellationAndGeometryPointSize`](../chapters/features.html#features-shaderTessellationAndGeometryPointSize) |
+| `GeometryPointSize`
 
-`Int16`
+                [`VkPhysicalDeviceFeatures`::`shaderTessellationAndGeometryPointSize`](../chapters/features.html#features-shaderTessellationAndGeometryPointSize) |
+| `ImageGatherExtended`
 
-                [`VkPhysicalDeviceFeatures`::`shaderInt16`](../chapters/features.html#features-shaderInt16)
+                [`VkPhysicalDeviceFeatures`::`shaderImageGatherExtended`](../chapters/features.html#features-shaderImageGatherExtended) |
+| `StorageImageMultisample`
 
-`TessellationPointSize`
+                [`VkPhysicalDeviceFeatures`::`shaderStorageImageMultisample`](../chapters/features.html#features-shaderStorageImageMultisample) |
+| `UniformBufferArrayDynamicIndexing`
 
-                [`VkPhysicalDeviceFeatures`::`shaderTessellationAndGeometryPointSize`](../chapters/features.html#features-shaderTessellationAndGeometryPointSize)
+                [`VkPhysicalDeviceFeatures`::`shaderUniformBufferArrayDynamicIndexing`](../chapters/features.html#features-shaderUniformBufferArrayDynamicIndexing) |
+| `SampledImageArrayDynamicIndexing`
 
-`GeometryPointSize`
+                [`VkPhysicalDeviceFeatures`::`shaderSampledImageArrayDynamicIndexing`](../chapters/features.html#features-shaderSampledImageArrayDynamicIndexing) |
+| `StorageBufferArrayDynamicIndexing`
 
-                [`VkPhysicalDeviceFeatures`::`shaderTessellationAndGeometryPointSize`](../chapters/features.html#features-shaderTessellationAndGeometryPointSize)
+                [`VkPhysicalDeviceFeatures`::`shaderStorageBufferArrayDynamicIndexing`](../chapters/features.html#features-shaderStorageBufferArrayDynamicIndexing) |
+| `StorageImageArrayDynamicIndexing`
 
-`ImageGatherExtended`
+                [`VkPhysicalDeviceFeatures`::`shaderStorageImageArrayDynamicIndexing`](../chapters/features.html#features-shaderStorageImageArrayDynamicIndexing) |
+| `ClipDistance`
 
-                [`VkPhysicalDeviceFeatures`::`shaderImageGatherExtended`](../chapters/features.html#features-shaderImageGatherExtended)
+                [`VkPhysicalDeviceFeatures`::`shaderClipDistance`](../chapters/features.html#features-shaderClipDistance) |
+| `CullDistance`
 
-`StorageImageMultisample`
+                [`VkPhysicalDeviceFeatures`::`shaderCullDistance`](../chapters/features.html#features-shaderCullDistance) |
+| `ImageCubeArray`
 
-                [`VkPhysicalDeviceFeatures`::`shaderStorageImageMultisample`](../chapters/features.html#features-shaderStorageImageMultisample)
+                [`VkPhysicalDeviceFeatures`::`imageCubeArray`](../chapters/features.html#features-imageCubeArray) |
+| `SampleRateShading`
 
-`UniformBufferArrayDynamicIndexing`
+                [`VkPhysicalDeviceFeatures`::`sampleRateShading`](../chapters/features.html#features-sampleRateShading) |
+| `SparseResidency`
 
-                [`VkPhysicalDeviceFeatures`::`shaderUniformBufferArrayDynamicIndexing`](../chapters/features.html#features-shaderUniformBufferArrayDynamicIndexing)
+                [`VkPhysicalDeviceFeatures`::`shaderResourceResidency`](../chapters/features.html#features-shaderResourceResidency) |
+| `MinLod`
 
-`SampledImageArrayDynamicIndexing`
+                [`VkPhysicalDeviceFeatures`::`shaderResourceMinLod`](../chapters/features.html#features-shaderResourceMinLod) |
+| `SampledCubeArray`
 
-                [`VkPhysicalDeviceFeatures`::`shaderSampledImageArrayDynamicIndexing`](../chapters/features.html#features-shaderSampledImageArrayDynamicIndexing)
+                [`VkPhysicalDeviceFeatures`::`imageCubeArray`](../chapters/features.html#features-imageCubeArray) |
+| `ImageMSArray`
 
-`StorageBufferArrayDynamicIndexing`
+                [`VkPhysicalDeviceFeatures`::`shaderStorageImageMultisample`](../chapters/features.html#features-shaderStorageImageMultisample) |
+| `StorageImageExtendedFormats`
 
-                [`VkPhysicalDeviceFeatures`::`shaderStorageBufferArrayDynamicIndexing`](../chapters/features.html#features-shaderStorageBufferArrayDynamicIndexing)
+                [VK_VERSION_1_0](versions.html#versions-1.0) |
+| `InterpolationFunction`
 
-`StorageImageArrayDynamicIndexing`
-
-                [`VkPhysicalDeviceFeatures`::`shaderStorageImageArrayDynamicIndexing`](../chapters/features.html#features-shaderStorageImageArrayDynamicIndexing)
-
-`ClipDistance`
-
-                [`VkPhysicalDeviceFeatures`::`shaderClipDistance`](../chapters/features.html#features-shaderClipDistance)
-
-`CullDistance`
-
-                [`VkPhysicalDeviceFeatures`::`shaderCullDistance`](../chapters/features.html#features-shaderCullDistance)
-
-`ImageCubeArray`
-
-                [`VkPhysicalDeviceFeatures`::`imageCubeArray`](../chapters/features.html#features-imageCubeArray)
-
-`SampleRateShading`
-
-                [`VkPhysicalDeviceFeatures`::`sampleRateShading`](../chapters/features.html#features-sampleRateShading)
-
-`SparseResidency`
-
-                [`VkPhysicalDeviceFeatures`::`shaderResourceResidency`](../chapters/features.html#features-shaderResourceResidency)
-
-`MinLod`
-
-                [`VkPhysicalDeviceFeatures`::`shaderResourceMinLod`](../chapters/features.html#features-shaderResourceMinLod)
-
-`SampledCubeArray`
-
-                [`VkPhysicalDeviceFeatures`::`imageCubeArray`](../chapters/features.html#features-imageCubeArray)
-
-`ImageMSArray`
-
-                [`VkPhysicalDeviceFeatures`::`shaderStorageImageMultisample`](../chapters/features.html#features-shaderStorageImageMultisample)
-
-`StorageImageExtendedFormats`
-
-                [VK_VERSION_1_0](versions.html#versions-1.0)
-
-`InterpolationFunction`
-
-                [`VkPhysicalDeviceFeatures`::`sampleRateShading`](../chapters/features.html#features-sampleRateShading)
-
-`StorageImageReadWithoutFormat`
+                [`VkPhysicalDeviceFeatures`::`sampleRateShading`](../chapters/features.html#features-sampleRateShading) |
+| `StorageImageReadWithoutFormat`
 
                 [`VkPhysicalDeviceFeatures`::`shaderStorageImageReadWithoutFormat`](../chapters/features.html#features-shaderStorageImageReadWithoutFormat)
 
                 [VK_VERSION_1_3](versions.html#versions-1.3)
 
-                `[VK_KHR_format_feature_flags2](extensions.html#VK_KHR_format_feature_flags2)`
-
-`StorageImageWriteWithoutFormat`
+                `[VK_KHR_format_feature_flags2](extensions.html#VK_KHR_format_feature_flags2)` |
+| `StorageImageWriteWithoutFormat`
 
                 [`VkPhysicalDeviceFeatures`::`shaderStorageImageWriteWithoutFormat`](../chapters/features.html#features-shaderStorageImageWriteWithoutFormat)
 
                 [VK_VERSION_1_3](versions.html#versions-1.3)
 
-                `[VK_KHR_format_feature_flags2](extensions.html#VK_KHR_format_feature_flags2)`
+                `[VK_KHR_format_feature_flags2](extensions.html#VK_KHR_format_feature_flags2)` |
+| `MultiViewport`
 
-`MultiViewport`
-
-                [`VkPhysicalDeviceFeatures`::`multiViewport`](../chapters/features.html#features-multiViewport)
-
-`DrawParameters`
+                [`VkPhysicalDeviceFeatures`::`multiViewport`](../chapters/features.html#features-multiViewport) |
+| `DrawParameters`
 
                 [`VkPhysicalDeviceVulkan11Features`::`shaderDrawParameters`](../chapters/features.html#features-shaderDrawParameters)
 
                 [`VkPhysicalDeviceShaderDrawParametersFeatures`::`shaderDrawParameters`](../chapters/features.html#features-shaderDrawParameters)
 
-                `[VK_KHR_shader_draw_parameters](extensions.html#VK_KHR_shader_draw_parameters)`
-
-`MultiView`
+                `[VK_KHR_shader_draw_parameters](extensions.html#VK_KHR_shader_draw_parameters)` |
+| `MultiView`
 
                 [`VkPhysicalDeviceVulkan11Features`::`multiview`](../chapters/features.html#features-multiview)
 
-                [`VkPhysicalDeviceMultiviewFeatures`::`multiview`](../chapters/features.html#features-multiview)
-
-`DeviceGroup`
+                [`VkPhysicalDeviceMultiviewFeatures`::`multiview`](../chapters/features.html#features-multiview) |
+| `DeviceGroup`
 
                 [VK_VERSION_1_1](versions.html#versions-1.1)
 
-                `[VK_KHR_device_group](extensions.html#VK_KHR_device_group)`
-
-`VariablePointersStorageBuffer`
+                `[VK_KHR_device_group](extensions.html#VK_KHR_device_group)` |
+| `VariablePointersStorageBuffer`
 
                 [`VkPhysicalDeviceVulkan11Features`::`variablePointersStorageBuffer`](../chapters/features.html#features-variablePointersStorageBuffer)
 
-                [`VkPhysicalDeviceVariablePointersFeatures`::`variablePointersStorageBuffer`](../chapters/features.html#features-variablePointersStorageBuffer)
-
-`VariablePointers`
+                [`VkPhysicalDeviceVariablePointersFeatures`::`variablePointersStorageBuffer`](../chapters/features.html#features-variablePointersStorageBuffer) |
+| `VariablePointers`
 
                 [`VkPhysicalDeviceVulkan11Features`::`variablePointers`](../chapters/features.html#features-variablePointers)
 
-                [`VkPhysicalDeviceVariablePointersFeatures`::`variablePointers`](../chapters/features.html#features-variablePointers)
+                [`VkPhysicalDeviceVariablePointersFeatures`::`variablePointers`](../chapters/features.html#features-variablePointers) |
+| `ShaderClockKHR`
 
-`ShaderClockKHR`
+                `[VK_KHR_shader_clock](extensions.html#VK_KHR_shader_clock)` |
+| `StencilExportEXT`
 
-                `[VK_KHR_shader_clock](extensions.html#VK_KHR_shader_clock)`
+                `[VK_EXT_shader_stencil_export](extensions.html#VK_EXT_shader_stencil_export)` |
+| `SubgroupBallotKHR`
 
-`StencilExportEXT`
+                `[VK_EXT_shader_subgroup_ballot](extensions.html#VK_EXT_shader_subgroup_ballot)` |
+| `SubgroupVoteKHR`
 
-                `[VK_EXT_shader_stencil_export](extensions.html#VK_EXT_shader_stencil_export)`
+                `[VK_EXT_shader_subgroup_vote](extensions.html#VK_EXT_shader_subgroup_vote)` |
+| `ImageReadWriteLodAMD`
 
-`SubgroupBallotKHR`
+                `[VK_AMD_shader_image_load_store_lod](extensions.html#VK_AMD_shader_image_load_store_lod)` |
+| `ImageGatherBiasLodAMD`
 
-                `[VK_EXT_shader_subgroup_ballot](extensions.html#VK_EXT_shader_subgroup_ballot)`
+                `[VK_AMD_texture_gather_bias_lod](extensions.html#VK_AMD_texture_gather_bias_lod)` |
+| `FragmentMaskAMD`
 
-`SubgroupVoteKHR`
+                `[VK_AMD_shader_fragment_mask](extensions.html#VK_AMD_shader_fragment_mask)` |
+| `SampleMaskOverrideCoverageNV`
 
-                `[VK_EXT_shader_subgroup_vote](extensions.html#VK_EXT_shader_subgroup_vote)`
+                `[VK_NV_sample_mask_override_coverage](extensions.html#VK_NV_sample_mask_override_coverage)` |
+| `GeometryShaderPassthroughNV`
 
-`ImageReadWriteLodAMD`
+                `[VK_NV_geometry_shader_passthrough](extensions.html#VK_NV_geometry_shader_passthrough)` |
+| `ShaderViewportIndex`
 
-                `[VK_AMD_shader_image_load_store_lod](extensions.html#VK_AMD_shader_image_load_store_lod)`
+                [`VkPhysicalDeviceVulkan12Features`::`shaderOutputViewportIndex`](../chapters/features.html#features-shaderOutputViewportIndex) |
+| `ShaderLayer`
 
-`ImageGatherBiasLodAMD`
-
-                `[VK_AMD_texture_gather_bias_lod](extensions.html#VK_AMD_texture_gather_bias_lod)`
-
-`FragmentMaskAMD`
-
-                `[VK_AMD_shader_fragment_mask](extensions.html#VK_AMD_shader_fragment_mask)`
-
-`SampleMaskOverrideCoverageNV`
-
-                `[VK_NV_sample_mask_override_coverage](extensions.html#VK_NV_sample_mask_override_coverage)`
-
-`GeometryShaderPassthroughNV`
-
-                `[VK_NV_geometry_shader_passthrough](extensions.html#VK_NV_geometry_shader_passthrough)`
-
-`ShaderViewportIndex`
-
-                [`VkPhysicalDeviceVulkan12Features`::`shaderOutputViewportIndex`](../chapters/features.html#features-shaderOutputViewportIndex)
-
-`ShaderLayer`
-
-                [`VkPhysicalDeviceVulkan12Features`::`shaderOutputLayer`](../chapters/features.html#features-shaderOutputLayer)
-
-`ShaderViewportIndexLayerEXT`
+                [`VkPhysicalDeviceVulkan12Features`::`shaderOutputLayer`](../chapters/features.html#features-shaderOutputLayer) |
+| `ShaderViewportIndexLayerEXT`
 
                 `[VK_EXT_shader_viewport_index_layer](extensions.html#VK_EXT_shader_viewport_index_layer)`
 
-                `[VK_NV_viewport_array2](extensions.html#VK_NV_viewport_array2)`
+                `[VK_NV_viewport_array2](extensions.html#VK_NV_viewport_array2)` |
+| `ShaderViewportMaskNV`
 
-`ShaderViewportMaskNV`
+                `[VK_NV_viewport_array2](extensions.html#VK_NV_viewport_array2)` |
+| `PerViewAttributesNV`
 
-                `[VK_NV_viewport_array2](extensions.html#VK_NV_viewport_array2)`
-
-`PerViewAttributesNV`
-
-                `[VK_NVX_multiview_per_view_attributes](extensions.html#VK_NVX_multiview_per_view_attributes)`
-
-`StorageBuffer16BitAccess`
+                `[VK_NVX_multiview_per_view_attributes](extensions.html#VK_NVX_multiview_per_view_attributes)` |
+| `StorageBuffer16BitAccess`
 
                 [`VkPhysicalDeviceVulkan11Features`::`storageBuffer16BitAccess`](../chapters/features.html#features-storageBuffer16BitAccess)
 
-                [`VkPhysicalDevice16BitStorageFeatures`::`storageBuffer16BitAccess`](../chapters/features.html#features-storageBuffer16BitAccess)
-
-`UniformAndStorageBuffer16BitAccess`
+                [`VkPhysicalDevice16BitStorageFeatures`::`storageBuffer16BitAccess`](../chapters/features.html#features-storageBuffer16BitAccess) |
+| `UniformAndStorageBuffer16BitAccess`
 
                 [`VkPhysicalDeviceVulkan11Features`::`uniformAndStorageBuffer16BitAccess`](../chapters/features.html#features-uniformAndStorageBuffer16BitAccess)
 
-                [`VkPhysicalDevice16BitStorageFeatures`::`uniformAndStorageBuffer16BitAccess`](../chapters/features.html#features-uniformAndStorageBuffer16BitAccess)
-
-`StoragePushConstant16`
+                [`VkPhysicalDevice16BitStorageFeatures`::`uniformAndStorageBuffer16BitAccess`](../chapters/features.html#features-uniformAndStorageBuffer16BitAccess) |
+| `StoragePushConstant16`
 
                 [`VkPhysicalDeviceVulkan11Features`::`storagePushConstant16`](../chapters/features.html#features-storagePushConstant16)
 
-                [`VkPhysicalDevice16BitStorageFeatures`::`storagePushConstant16`](../chapters/features.html#features-storagePushConstant16)
-
-`StorageInputOutput16`
+                [`VkPhysicalDevice16BitStorageFeatures`::`storagePushConstant16`](../chapters/features.html#features-storagePushConstant16) |
+| `StorageInputOutput16`
 
                 [`VkPhysicalDeviceVulkan11Features`::`storageInputOutput16`](../chapters/features.html#features-storageInputOutput16)
 
-                [`VkPhysicalDevice16BitStorageFeatures`::`storageInputOutput16`](../chapters/features.html#features-storageInputOutput16)
+                [`VkPhysicalDevice16BitStorageFeatures`::`storageInputOutput16`](../chapters/features.html#features-storageInputOutput16) |
+| `GroupNonUniform`
 
-`GroupNonUniform`
+                [VK_SUBGROUP_FEATURE_BASIC_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations) |
+| `GroupNonUniformVote`
 
-                [VK_SUBGROUP_FEATURE_BASIC_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations)
+                [VK_SUBGROUP_FEATURE_VOTE_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations) |
+| `GroupNonUniformArithmetic`
 
-`GroupNonUniformVote`
+                [VK_SUBGROUP_FEATURE_ARITHMETIC_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations) |
+| `GroupNonUniformBallot`
 
-                [VK_SUBGROUP_FEATURE_VOTE_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations)
+                [VK_SUBGROUP_FEATURE_BALLOT_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations) |
+| `GroupNonUniformShuffle`
 
-`GroupNonUniformArithmetic`
+                [VK_SUBGROUP_FEATURE_SHUFFLE_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations) |
+| `GroupNonUniformShuffleRelative`
 
-                [VK_SUBGROUP_FEATURE_ARITHMETIC_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations)
+                [VK_SUBGROUP_FEATURE_SHUFFLE_RELATIVE_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations) |
+| `GroupNonUniformClustered`
 
-`GroupNonUniformBallot`
+                [VK_SUBGROUP_FEATURE_CLUSTERED_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations) |
+| `GroupNonUniformQuad`
 
-                [VK_SUBGROUP_FEATURE_BALLOT_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations)
+                [VK_SUBGROUP_FEATURE_QUAD_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations) |
+| `GroupNonUniformPartitionedNV`
 
-`GroupNonUniformShuffle`
+                [VK_SUBGROUP_FEATURE_PARTITIONED_BIT_NV](../chapters/devsandqueues.html#limits-subgroupSupportedOperations) |
+| `SampleMaskPostDepthCoverage`
 
-                [VK_SUBGROUP_FEATURE_SHUFFLE_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations)
-
-`GroupNonUniformShuffleRelative`
-
-                [VK_SUBGROUP_FEATURE_SHUFFLE_RELATIVE_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations)
-
-`GroupNonUniformClustered`
-
-                [VK_SUBGROUP_FEATURE_CLUSTERED_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations)
-
-`GroupNonUniformQuad`
-
-                [VK_SUBGROUP_FEATURE_QUAD_BIT](../chapters/devsandqueues.html#limits-subgroupSupportedOperations)
-
-`GroupNonUniformPartitionedNV`
-
-                [VK_SUBGROUP_FEATURE_PARTITIONED_BIT_NV](../chapters/devsandqueues.html#limits-subgroupSupportedOperations)
-
-`SampleMaskPostDepthCoverage`
-
-                `[VK_EXT_post_depth_coverage](extensions.html#VK_EXT_post_depth_coverage)`
-
-`ShaderNonUniform`
+                `[VK_EXT_post_depth_coverage](extensions.html#VK_EXT_post_depth_coverage)` |
+| `ShaderNonUniform`
 
                 [VK_VERSION_1_2](versions.html#versions-1.2)
 
-                `[VK_EXT_descriptor_indexing](extensions.html#VK_EXT_descriptor_indexing)`
+                `[VK_EXT_descriptor_indexing](extensions.html#VK_EXT_descriptor_indexing)` |
+| `RuntimeDescriptorArray`
 
-`RuntimeDescriptorArray`
+                [`VkPhysicalDeviceVulkan12Features`::`runtimeDescriptorArray`](../chapters/features.html#features-runtimeDescriptorArray) |
+| `InputAttachmentArrayDynamicIndexing`
 
-                [`VkPhysicalDeviceVulkan12Features`::`runtimeDescriptorArray`](../chapters/features.html#features-runtimeDescriptorArray)
+                [`VkPhysicalDeviceVulkan12Features`::`shaderInputAttachmentArrayDynamicIndexing`](../chapters/features.html#features-shaderInputAttachmentArrayDynamicIndexing) |
+| `UniformTexelBufferArrayDynamicIndexing`
 
-`InputAttachmentArrayDynamicIndexing`
+                [`VkPhysicalDeviceVulkan12Features`::`shaderUniformTexelBufferArrayDynamicIndexing`](../chapters/features.html#features-shaderUniformTexelBufferArrayDynamicIndexing) |
+| `StorageTexelBufferArrayDynamicIndexing`
 
-                [`VkPhysicalDeviceVulkan12Features`::`shaderInputAttachmentArrayDynamicIndexing`](../chapters/features.html#features-shaderInputAttachmentArrayDynamicIndexing)
+                [`VkPhysicalDeviceVulkan12Features`::`shaderStorageTexelBufferArrayDynamicIndexing`](../chapters/features.html#features-shaderStorageTexelBufferArrayDynamicIndexing) |
+| `UniformBufferArrayNonUniformIndexing`
 
-`UniformTexelBufferArrayDynamicIndexing`
+                [`VkPhysicalDeviceVulkan12Features`::`shaderUniformBufferArrayNonUniformIndexing`](../chapters/features.html#features-shaderUniformBufferArrayNonUniformIndexing) |
+| `SampledImageArrayNonUniformIndexing`
 
-                [`VkPhysicalDeviceVulkan12Features`::`shaderUniformTexelBufferArrayDynamicIndexing`](../chapters/features.html#features-shaderUniformTexelBufferArrayDynamicIndexing)
+                [`VkPhysicalDeviceVulkan12Features`::`shaderSampledImageArrayNonUniformIndexing`](../chapters/features.html#features-shaderSampledImageArrayNonUniformIndexing) |
+| `StorageBufferArrayNonUniformIndexing`
 
-`StorageTexelBufferArrayDynamicIndexing`
+                [`VkPhysicalDeviceVulkan12Features`::`shaderStorageBufferArrayNonUniformIndexing`](../chapters/features.html#features-shaderStorageBufferArrayNonUniformIndexing) |
+| `StorageImageArrayNonUniformIndexing`
 
-                [`VkPhysicalDeviceVulkan12Features`::`shaderStorageTexelBufferArrayDynamicIndexing`](../chapters/features.html#features-shaderStorageTexelBufferArrayDynamicIndexing)
+                [`VkPhysicalDeviceVulkan12Features`::`shaderStorageImageArrayNonUniformIndexing`](../chapters/features.html#features-shaderStorageImageArrayNonUniformIndexing) |
+| `InputAttachmentArrayNonUniformIndexing`
 
-`UniformBufferArrayNonUniformIndexing`
+                [`VkPhysicalDeviceVulkan12Features`::`shaderInputAttachmentArrayNonUniformIndexing`](../chapters/features.html#features-shaderInputAttachmentArrayNonUniformIndexing) |
+| `UniformTexelBufferArrayNonUniformIndexing`
 
-                [`VkPhysicalDeviceVulkan12Features`::`shaderUniformBufferArrayNonUniformIndexing`](../chapters/features.html#features-shaderUniformBufferArrayNonUniformIndexing)
+                [`VkPhysicalDeviceVulkan12Features`::`shaderUniformTexelBufferArrayNonUniformIndexing`](../chapters/features.html#features-shaderUniformTexelBufferArrayNonUniformIndexing) |
+| `StorageTexelBufferArrayNonUniformIndexing`
 
-`SampledImageArrayNonUniformIndexing`
+                [`VkPhysicalDeviceVulkan12Features`::`shaderStorageTexelBufferArrayNonUniformIndexing`](../chapters/features.html#features-shaderStorageTexelBufferArrayNonUniformIndexing) |
+| `FragmentFullyCoveredEXT`
 
-                [`VkPhysicalDeviceVulkan12Features`::`shaderSampledImageArrayNonUniformIndexing`](../chapters/features.html#features-shaderSampledImageArrayNonUniformIndexing)
-
-`StorageBufferArrayNonUniformIndexing`
-
-                [`VkPhysicalDeviceVulkan12Features`::`shaderStorageBufferArrayNonUniformIndexing`](../chapters/features.html#features-shaderStorageBufferArrayNonUniformIndexing)
-
-`StorageImageArrayNonUniformIndexing`
-
-                [`VkPhysicalDeviceVulkan12Features`::`shaderStorageImageArrayNonUniformIndexing`](../chapters/features.html#features-shaderStorageImageArrayNonUniformIndexing)
-
-`InputAttachmentArrayNonUniformIndexing`
-
-                [`VkPhysicalDeviceVulkan12Features`::`shaderInputAttachmentArrayNonUniformIndexing`](../chapters/features.html#features-shaderInputAttachmentArrayNonUniformIndexing)
-
-`UniformTexelBufferArrayNonUniformIndexing`
-
-                [`VkPhysicalDeviceVulkan12Features`::`shaderUniformTexelBufferArrayNonUniformIndexing`](../chapters/features.html#features-shaderUniformTexelBufferArrayNonUniformIndexing)
-
-`StorageTexelBufferArrayNonUniformIndexing`
-
-                [`VkPhysicalDeviceVulkan12Features`::`shaderStorageTexelBufferArrayNonUniformIndexing`](../chapters/features.html#features-shaderStorageTexelBufferArrayNonUniformIndexing)
-
-`FragmentFullyCoveredEXT`
-
-                `[VK_EXT_conservative_rasterization](extensions.html#VK_EXT_conservative_rasterization)`
-
-`Float16`
+                `[VK_EXT_conservative_rasterization](extensions.html#VK_EXT_conservative_rasterization)` |
+| `Float16`
 
                 [`VkPhysicalDeviceVulkan12Features`::`shaderFloat16`](../chapters/features.html#features-shaderFloat16)
 
-                `[VK_AMD_gpu_shader_half_float](extensions.html#VK_AMD_gpu_shader_half_float)`
+                `[VK_AMD_gpu_shader_half_float](extensions.html#VK_AMD_gpu_shader_half_float)` |
+| `Int8`
 
-`Int8`
+                [`VkPhysicalDeviceVulkan12Features`::`shaderInt8`](../chapters/features.html#features-shaderInt8) |
+| `StorageBuffer8BitAccess`
 
-                [`VkPhysicalDeviceVulkan12Features`::`shaderInt8`](../chapters/features.html#features-shaderInt8)
+                [`VkPhysicalDeviceVulkan12Features`::`storageBuffer8BitAccess`](../chapters/features.html#features-storageBuffer8BitAccess) |
+| `UniformAndStorageBuffer8BitAccess`
 
-`StorageBuffer8BitAccess`
+                [`VkPhysicalDeviceVulkan12Features`::`uniformAndStorageBuffer8BitAccess`](../chapters/features.html#features-uniformAndStorageBuffer8BitAccess) |
+| `StoragePushConstant8`
 
-                [`VkPhysicalDeviceVulkan12Features`::`storageBuffer8BitAccess`](../chapters/features.html#features-storageBuffer8BitAccess)
+                [`VkPhysicalDeviceVulkan12Features`::`storagePushConstant8`](../chapters/features.html#features-storagePushConstant8) |
+| `VulkanMemoryModel`
 
-`UniformAndStorageBuffer8BitAccess`
+                [`VkPhysicalDeviceVulkan12Features`::`vulkanMemoryModel`](../chapters/features.html#features-vulkanMemoryModel) |
+| `VulkanMemoryModelDeviceScope`
 
-                [`VkPhysicalDeviceVulkan12Features`::`uniformAndStorageBuffer8BitAccess`](../chapters/features.html#features-uniformAndStorageBuffer8BitAccess)
-
-`StoragePushConstant8`
-
-                [`VkPhysicalDeviceVulkan12Features`::`storagePushConstant8`](../chapters/features.html#features-storagePushConstant8)
-
-`VulkanMemoryModel`
-
-                [`VkPhysicalDeviceVulkan12Features`::`vulkanMemoryModel`](../chapters/features.html#features-vulkanMemoryModel)
-
-`VulkanMemoryModelDeviceScope`
-
-                [`VkPhysicalDeviceVulkan12Features`::`vulkanMemoryModelDeviceScope`](../chapters/features.html#features-vulkanMemoryModelDeviceScope)
-
-`DenormPreserve`
+                [`VkPhysicalDeviceVulkan12Features`::`vulkanMemoryModelDeviceScope`](../chapters/features.html#features-vulkanMemoryModelDeviceScope) |
+| `DenormPreserve`
 
                 [`VkPhysicalDeviceVulkan12Properties`::`shaderDenormPreserveFloat16`](../chapters/devsandqueues.html#limits-shaderDenormPreserveFloat16)
 
                 [`VkPhysicalDeviceVulkan12Properties`::`shaderDenormPreserveFloat32`](../chapters/devsandqueues.html#limits-shaderDenormPreserveFloat32)
 
-                [`VkPhysicalDeviceVulkan12Properties`::`shaderDenormPreserveFloat64`](../chapters/devsandqueues.html#limits-shaderDenormPreserveFloat64)
-
-`DenormFlushToZero`
+                [`VkPhysicalDeviceVulkan12Properties`::`shaderDenormPreserveFloat64`](../chapters/devsandqueues.html#limits-shaderDenormPreserveFloat64) |
+| `DenormFlushToZero`
 
                 [`VkPhysicalDeviceVulkan12Properties`::`shaderDenormFlushToZeroFloat16`](../chapters/devsandqueues.html#limits-shaderDenormFlushToZeroFloat16)
 
                 [`VkPhysicalDeviceVulkan12Properties`::`shaderDenormFlushToZeroFloat32`](../chapters/devsandqueues.html#limits-shaderDenormFlushToZeroFloat32)
 
-                [`VkPhysicalDeviceVulkan12Properties`::`shaderDenormFlushToZeroFloat64`](../chapters/devsandqueues.html#limits-shaderDenormFlushToZeroFloat64)
-
-`SignedZeroInfNanPreserve`
+                [`VkPhysicalDeviceVulkan12Properties`::`shaderDenormFlushToZeroFloat64`](../chapters/devsandqueues.html#limits-shaderDenormFlushToZeroFloat64) |
+| `SignedZeroInfNanPreserve`
 
                 [`VkPhysicalDeviceVulkan12Properties`::`shaderSignedZeroInfNanPreserveFloat16`](../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat16)
 
                 [`VkPhysicalDeviceVulkan12Properties`::`shaderSignedZeroInfNanPreserveFloat32`](../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat32)
 
-                [`VkPhysicalDeviceVulkan12Properties`::`shaderSignedZeroInfNanPreserveFloat64`](../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat64)
-
-`RoundingModeRTE`
+                [`VkPhysicalDeviceVulkan12Properties`::`shaderSignedZeroInfNanPreserveFloat64`](../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat64) |
+| `RoundingModeRTE`
 
                 [`VkPhysicalDeviceVulkan12Properties`::`shaderRoundingModeRTEFloat16`](../chapters/devsandqueues.html#limits-shaderRoundingModeRTEFloat16)
 
                 [`VkPhysicalDeviceVulkan12Properties`::`shaderRoundingModeRTEFloat32`](../chapters/devsandqueues.html#limits-shaderRoundingModeRTEFloat32)
 
-                [`VkPhysicalDeviceVulkan12Properties`::`shaderRoundingModeRTEFloat64`](../chapters/devsandqueues.html#limits-shaderRoundingModeRTEFloat64)
-
-`RoundingModeRTZ`
+                [`VkPhysicalDeviceVulkan12Properties`::`shaderRoundingModeRTEFloat64`](../chapters/devsandqueues.html#limits-shaderRoundingModeRTEFloat64) |
+| `RoundingModeRTZ`
 
                 [`VkPhysicalDeviceVulkan12Properties`::`shaderRoundingModeRTZFloat16`](../chapters/devsandqueues.html#limits-shaderRoundingModeRTZFloat16)
 
                 [`VkPhysicalDeviceVulkan12Properties`::`shaderRoundingModeRTZFloat32`](../chapters/devsandqueues.html#limits-shaderRoundingModeRTZFloat32)
 
-                [`VkPhysicalDeviceVulkan12Properties`::`shaderRoundingModeRTZFloat64`](../chapters/devsandqueues.html#limits-shaderRoundingModeRTZFloat64)
-
-`ComputeDerivativeGroupQuadsKHR`
+                [`VkPhysicalDeviceVulkan12Properties`::`shaderRoundingModeRTZFloat64`](../chapters/devsandqueues.html#limits-shaderRoundingModeRTZFloat64) |
+| `ComputeDerivativeGroupQuadsKHR`
 
                 [`VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR`::`computeDerivativeGroupQuads`](../chapters/features.html#features-computeDerivativeGroupQuads)
 
-                [`VkPhysicalDeviceComputeShaderDerivativesFeaturesNV`::`computeDerivativeGroupQuads`](../chapters/features.html#features-computeDerivativeGroupQuads)
-
-`ComputeDerivativeGroupLinearKHR`
+                [`VkPhysicalDeviceComputeShaderDerivativesFeaturesNV`::`computeDerivativeGroupQuads`](../chapters/features.html#features-computeDerivativeGroupQuads) |
+| `ComputeDerivativeGroupLinearKHR`
 
                 [`VkPhysicalDeviceComputeShaderDerivativesFeaturesKHR`::`computeDerivativeGroupLinear`](../chapters/features.html#features-computeDerivativeGroupLinear)
 
-                [`VkPhysicalDeviceComputeShaderDerivativesFeaturesNV`::`computeDerivativeGroupLinear`](../chapters/features.html#features-computeDerivativeGroupLinear)
+                [`VkPhysicalDeviceComputeShaderDerivativesFeaturesNV`::`computeDerivativeGroupLinear`](../chapters/features.html#features-computeDerivativeGroupLinear) |
+| `ImageFootprintNV`
 
-`ImageFootprintNV`
+                [`VkPhysicalDeviceShaderImageFootprintFeaturesNV`::`imageFootprint`](../chapters/features.html#features-imageFootprint) |
+| `MeshShadingNV`
 
-                [`VkPhysicalDeviceShaderImageFootprintFeaturesNV`::`imageFootprint`](../chapters/features.html#features-imageFootprint)
+                `[VK_NV_mesh_shader](extensions.html#VK_NV_mesh_shader)` |
+| `RayTracingKHR`
 
-`MeshShadingNV`
+                [`VkPhysicalDeviceRayTracingPipelineFeaturesKHR`::`rayTracingPipeline`](../chapters/features.html#features-rayTracingPipeline) |
+| `RayQueryKHR`
 
-                `[VK_NV_mesh_shader](extensions.html#VK_NV_mesh_shader)`
-
-`RayTracingKHR`
-
-                [`VkPhysicalDeviceRayTracingPipelineFeaturesKHR`::`rayTracingPipeline`](../chapters/features.html#features-rayTracingPipeline)
-
-`RayQueryKHR`
-
-                [`VkPhysicalDeviceRayQueryFeaturesKHR`::`rayQuery`](../chapters/features.html#features-rayQuery)
-
-`RayTraversalPrimitiveCullingKHR`
+                [`VkPhysicalDeviceRayQueryFeaturesKHR`::`rayQuery`](../chapters/features.html#features-rayQuery) |
+| `RayTraversalPrimitiveCullingKHR`
 
                 [`VkPhysicalDeviceRayTracingPipelineFeaturesKHR`::`rayTraversalPrimitiveCulling`](../chapters/features.html#features-rayTraversalPrimitiveCulling)
 
-                [`VkPhysicalDeviceRayQueryFeaturesKHR`::`rayQuery`](../chapters/features.html#features-rayQuery)
+                [`VkPhysicalDeviceRayQueryFeaturesKHR`::`rayQuery`](../chapters/features.html#features-rayQuery) |
+| `RayCullMaskKHR`
 
-`RayCullMaskKHR`
+                [`VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR`::`rayTracingMaintenance1`](../chapters/features.html#features-rayTracingMaintenance1) |
+| `RayTracingNV`
 
-                [`VkPhysicalDeviceRayTracingMaintenance1FeaturesKHR`::`rayTracingMaintenance1`](../chapters/features.html#features-rayTracingMaintenance1)
+                `[VK_NV_ray_tracing](extensions.html#VK_NV_ray_tracing)` |
+| `RayTracingMotionBlurNV`
 
-`RayTracingNV`
+                [`VkPhysicalDeviceRayTracingMotionBlurFeaturesNV`::`rayTracingMotionBlur`](../chapters/features.html#features-rayTracingMotionBlur) |
+| `TransformFeedback`
 
-                `[VK_NV_ray_tracing](extensions.html#VK_NV_ray_tracing)`
+                [`VkPhysicalDeviceTransformFeedbackFeaturesEXT`::`transformFeedback`](../chapters/features.html#features-transformFeedback) |
+| `GeometryStreams`
 
-`RayTracingMotionBlurNV`
-
-                [`VkPhysicalDeviceRayTracingMotionBlurFeaturesNV`::`rayTracingMotionBlur`](../chapters/features.html#features-rayTracingMotionBlur)
-
-`TransformFeedback`
-
-                [`VkPhysicalDeviceTransformFeedbackFeaturesEXT`::`transformFeedback`](../chapters/features.html#features-transformFeedback)
-
-`GeometryStreams`
-
-                [`VkPhysicalDeviceTransformFeedbackFeaturesEXT`::`geometryStreams`](../chapters/features.html#features-geometryStreams)
-
-`FragmentDensityEXT`
+                [`VkPhysicalDeviceTransformFeedbackFeaturesEXT`::`geometryStreams`](../chapters/features.html#features-geometryStreams) |
+| `FragmentDensityEXT`
 
                 [`VkPhysicalDeviceFragmentDensityMapFeaturesEXT`::`fragmentDensityMap`](../chapters/features.html#features-fragmentDensityMap)
 
-                [`VkPhysicalDeviceShadingRateImageFeaturesNV`::`shadingRateImage`](../chapters/features.html#features-shadingRateImage)
-
-`PhysicalStorageBufferAddresses`
+                [`VkPhysicalDeviceShadingRateImageFeaturesNV`::`shadingRateImage`](../chapters/features.html#features-shadingRateImage) |
+| `PhysicalStorageBufferAddresses`
 
                 [`VkPhysicalDeviceVulkan12Features`::`bufferDeviceAddress`](../chapters/features.html#features-bufferDeviceAddress)
 
-                [`VkPhysicalDeviceBufferDeviceAddressFeaturesEXT`::`bufferDeviceAddress`](../chapters/features.html#features-bufferDeviceAddressEXT)
+                [`VkPhysicalDeviceBufferDeviceAddressFeaturesEXT`::`bufferDeviceAddress`](../chapters/features.html#features-bufferDeviceAddressEXT) |
+| `CooperativeMatrixNV`
 
-`CooperativeMatrixNV`
+                [`VkPhysicalDeviceCooperativeMatrixFeaturesNV`::`cooperativeMatrix`](../chapters/features.html#features-cooperativeMatrixNV) |
+| `IntegerFunctions2INTEL`
 
-                [`VkPhysicalDeviceCooperativeMatrixFeaturesNV`::`cooperativeMatrix`](../chapters/features.html#features-cooperativeMatrixNV)
+                [`VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL`::`shaderIntegerFunctions2`](../chapters/features.html#features-shaderIntegerFunctions2) |
+| `ShaderSMBuiltinsNV`
 
-`IntegerFunctions2INTEL`
+                [`VkPhysicalDeviceShaderSMBuiltinsFeaturesNV`::`shaderSMBuiltins`](../chapters/features.html#features-shaderSMBuiltins) |
+| `FragmentShaderSampleInterlockEXT`
 
-                [`VkPhysicalDeviceShaderIntegerFunctions2FeaturesINTEL`::`shaderIntegerFunctions2`](../chapters/features.html#features-shaderIntegerFunctions2)
+                [`VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT`::`fragmentShaderSampleInterlock`](../chapters/features.html#features-fragmentShaderSampleInterlock) |
+| `FragmentShaderPixelInterlockEXT`
 
-`ShaderSMBuiltinsNV`
-
-                [`VkPhysicalDeviceShaderSMBuiltinsFeaturesNV`::`shaderSMBuiltins`](../chapters/features.html#features-shaderSMBuiltins)
-
-`FragmentShaderSampleInterlockEXT`
-
-                [`VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT`::`fragmentShaderSampleInterlock`](../chapters/features.html#features-fragmentShaderSampleInterlock)
-
-`FragmentShaderPixelInterlockEXT`
-
-                [`VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT`::`fragmentShaderPixelInterlock`](../chapters/features.html#features-fragmentShaderPixelInterlock)
-
-`FragmentShaderShadingRateInterlockEXT`
+                [`VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT`::`fragmentShaderPixelInterlock`](../chapters/features.html#features-fragmentShaderPixelInterlock) |
+| `FragmentShaderShadingRateInterlockEXT`
 
                 [`VkPhysicalDeviceFragmentShaderInterlockFeaturesEXT`::`fragmentShaderShadingRateInterlock`](../chapters/features.html#features-fragmentShaderShadingRateInterlock)
 
-                [`VkPhysicalDeviceShadingRateImageFeaturesNV`::`shadingRateImage`](../chapters/features.html#features-shadingRateImage)
-
-`DemoteToHelperInvocation`
+                [`VkPhysicalDeviceShadingRateImageFeaturesNV`::`shadingRateImage`](../chapters/features.html#features-shadingRateImage) |
+| `DemoteToHelperInvocation`
 
                 [`VkPhysicalDeviceVulkan13Features`::`shaderDemoteToHelperInvocation`](../chapters/features.html#features-shaderDemoteToHelperInvocation)
 
-                [`VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT`::`shaderDemoteToHelperInvocation`](../chapters/features.html#features-shaderDemoteToHelperInvocation)
-
-`FragmentShadingRateKHR`
+                [`VkPhysicalDeviceShaderDemoteToHelperInvocationFeaturesEXT`::`shaderDemoteToHelperInvocation`](../chapters/features.html#features-shaderDemoteToHelperInvocation) |
+| `FragmentShadingRateKHR`
 
                 [`VkPhysicalDeviceFragmentShadingRateFeaturesKHR`::`pipelineFragmentShadingRate`](../chapters/features.html#features-pipelineFragmentShadingRate)
 
                 [`VkPhysicalDeviceFragmentShadingRateFeaturesKHR`::`primitiveFragmentShadingRate`](../chapters/features.html#features-primitiveFragmentShadingRate)
 
-                [`VkPhysicalDeviceFragmentShadingRateFeaturesKHR`::`attachmentFragmentShadingRate`](../chapters/features.html#features-attachmentFragmentShadingRate)
+                [`VkPhysicalDeviceFragmentShadingRateFeaturesKHR`::`attachmentFragmentShadingRate`](../chapters/features.html#features-attachmentFragmentShadingRate) |
+| `WorkgroupMemoryExplicitLayoutKHR`
 
-`WorkgroupMemoryExplicitLayoutKHR`
+                [`VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR`::`workgroupMemoryExplicitLayout`](../chapters/features.html#features-workgroupMemoryExplicitLayout) |
+| `WorkgroupMemoryExplicitLayout8BitAccessKHR`
 
-                [`VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR`::`workgroupMemoryExplicitLayout`](../chapters/features.html#features-workgroupMemoryExplicitLayout)
+                [`VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR`::`workgroupMemoryExplicitLayout8BitAccess`](../chapters/features.html#features-workgroupMemoryExplicitLayout8BitAccess) |
+| `WorkgroupMemoryExplicitLayout16BitAccessKHR`
 
-`WorkgroupMemoryExplicitLayout8BitAccessKHR`
-
-                [`VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR`::`workgroupMemoryExplicitLayout8BitAccess`](../chapters/features.html#features-workgroupMemoryExplicitLayout8BitAccess)
-
-`WorkgroupMemoryExplicitLayout16BitAccessKHR`
-
-                [`VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR`::`workgroupMemoryExplicitLayout16BitAccess`](../chapters/features.html#features-workgroupMemoryExplicitLayout16BitAccess)
-
-`DotProductInputAll`
+                [`VkPhysicalDeviceWorkgroupMemoryExplicitLayoutFeaturesKHR`::`workgroupMemoryExplicitLayout16BitAccess`](../chapters/features.html#features-workgroupMemoryExplicitLayout16BitAccess) |
+| `DotProductInputAll`
 
                 [`VkPhysicalDeviceVulkan13Features`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct)
 
-                [`VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct)
-
-`DotProductInput4x8Bit`
-
-                [`VkPhysicalDeviceVulkan13Features`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct)
-
-                [`VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct)
-
-`DotProductInput4x8BitPacked`
+                [`VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct) |
+| `DotProductInput4x8Bit`
 
                 [`VkPhysicalDeviceVulkan13Features`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct)
 
-                [`VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct)
-
-`DotProduct`
+                [`VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct) |
+| `DotProductInput4x8BitPacked`
 
                 [`VkPhysicalDeviceVulkan13Features`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct)
 
-                [`VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct)
+                [`VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct) |
+| `DotProduct`
 
-`FragmentBarycentricKHR`
+                [`VkPhysicalDeviceVulkan13Features`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct)
+
+                [`VkPhysicalDeviceShaderIntegerDotProductFeaturesKHR`::`shaderIntegerDotProduct`](../chapters/features.html#features-shaderIntegerDotProduct) |
+| `FragmentBarycentricKHR`
 
                 [`VkPhysicalDeviceFragmentShaderBarycentricFeaturesKHR`::`fragmentShaderBarycentric`](../chapters/features.html#features-fragmentShaderBarycentric)
 
-                [`VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV`::`fragmentShaderBarycentric`](../chapters/features.html#features-fragmentShaderBarycentric)
+                [`VkPhysicalDeviceFragmentShaderBarycentricFeaturesNV`::`fragmentShaderBarycentric`](../chapters/features.html#features-fragmentShaderBarycentric) |
+| `TextureSampleWeightedQCOM`
 
-`TextureSampleWeightedQCOM`
+                [`VkPhysicalDeviceImageProcessingFeaturesQCOM`::`textureSampleWeighted`](../chapters/features.html#features-textureSampleWeighted) |
+| `TextureBoxFilterQCOM`
 
-                [`VkPhysicalDeviceImageProcessingFeaturesQCOM`::`textureSampleWeighted`](../chapters/features.html#features-textureSampleWeighted)
+                [`VkPhysicalDeviceImageProcessingFeaturesQCOM`::`textureBoxFilter`](../chapters/features.html#features-textureBoxFilter) |
+| `TextureBlockMatchQCOM`
 
-`TextureBoxFilterQCOM`
+                [`VkPhysicalDeviceImageProcessingFeaturesQCOM`::`textureBlockMatch`](../chapters/features.html#features-textureBlockMatch) |
+| `TextureBlockMatch2QCOM`
 
-                [`VkPhysicalDeviceImageProcessingFeaturesQCOM`::`textureBoxFilter`](../chapters/features.html#features-textureBoxFilter)
+                [`VkPhysicalDeviceImageProcessing2FeaturesQCOM`::`textureBlockMatch2`](../chapters/features.html#features-textureBlockMatch2) |
+| `MeshShadingEXT`
 
-`TextureBlockMatchQCOM`
+                `[VK_EXT_mesh_shader](extensions.html#VK_EXT_mesh_shader)` |
+| `RayTracingOpacityMicromapEXT`
 
-                [`VkPhysicalDeviceImageProcessingFeaturesQCOM`::`textureBlockMatch`](../chapters/features.html#features-textureBlockMatch)
+                `[VK_EXT_opacity_micromap](extensions.html#VK_EXT_opacity_micromap)` |
+| `CoreBuiltinsARM`
 
-`TextureBlockMatch2QCOM`
+                [`VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM`::`shaderCoreBuiltins`](../chapters/features.html#features-shaderCoreBuiltins) |
+| `ShaderInvocationReorderNV`
 
-                [`VkPhysicalDeviceImageProcessing2FeaturesQCOM`::`textureBlockMatch2`](../chapters/features.html#features-textureBlockMatch2)
+                `[VK_NV_ray_tracing_invocation_reorder](extensions.html#VK_NV_ray_tracing_invocation_reorder)` |
+| `ClusterCullingShadingHUAWEI`
 
-`MeshShadingEXT`
+                [`VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI`::`clustercullingShader`](../chapters/features.html#features-clustercullingShader) |
+| `RayTracingPositionFetchKHR`
 
-                `[VK_EXT_mesh_shader](extensions.html#VK_EXT_mesh_shader)`
+                [`VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR`::`rayTracingPositionFetch`](../chapters/features.html#features-rayTracingPositionFetch) |
+| `RayQueryPositionFetchKHR`
 
-`RayTracingOpacityMicromapEXT`
+                [`VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR`::`rayTracingPositionFetch`](../chapters/features.html#features-rayTracingPositionFetch) |
+| `TileImageColorReadAccessEXT`
 
-                `[VK_EXT_opacity_micromap](extensions.html#VK_EXT_opacity_micromap)`
+                [`VkPhysicalDeviceShaderTileImageFeaturesEXT`::`shaderTileImageColorReadAccess`](../chapters/features.html#features-shaderTileImageColorReadAccess) |
+| `TileImageDepthReadAccessEXT`
 
-`CoreBuiltinsARM`
+                [`VkPhysicalDeviceShaderTileImageFeaturesEXT`::`shaderTileImageDepthReadAccess`](../chapters/features.html#features-shaderTileImageDepthReadAccess) |
+| `TileImageStencilReadAccessEXT`
 
-                [`VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM`::`shaderCoreBuiltins`](../chapters/features.html#features-shaderCoreBuiltins)
+                [`VkPhysicalDeviceShaderTileImageFeaturesEXT`::`shaderTileImageStencilReadAccess`](../chapters/features.html#features-shaderTileImageStencilReadAccess) |
+| `CooperativeMatrixKHR`
 
-`ShaderInvocationReorderNV`
+                [`VkPhysicalDeviceCooperativeMatrixFeaturesKHR`::`cooperativeMatrix`](../chapters/features.html#features-cooperativeMatrix) |
+| `ShaderEnqueueAMDX`
 
-                `[VK_NV_ray_tracing_invocation_reorder](extensions.html#VK_NV_ray_tracing_invocation_reorder)`
-
-`ClusterCullingShadingHUAWEI`
-
-                [`VkPhysicalDeviceClusterCullingShaderFeaturesHUAWEI`::`clustercullingShader`](../chapters/features.html#features-clustercullingShader)
-
-`RayTracingPositionFetchKHR`
-
-                [`VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR`::`rayTracingPositionFetch`](../chapters/features.html#features-rayTracingPositionFetch)
-
-`RayQueryPositionFetchKHR`
-
-                [`VkPhysicalDeviceRayTracingPositionFetchFeaturesKHR`::`rayTracingPositionFetch`](../chapters/features.html#features-rayTracingPositionFetch)
-
-`TileImageColorReadAccessEXT`
-
-                [`VkPhysicalDeviceShaderTileImageFeaturesEXT`::`shaderTileImageColorReadAccess`](../chapters/features.html#features-shaderTileImageColorReadAccess)
-
-`TileImageDepthReadAccessEXT`
-
-                [`VkPhysicalDeviceShaderTileImageFeaturesEXT`::`shaderTileImageDepthReadAccess`](../chapters/features.html#features-shaderTileImageDepthReadAccess)
-
-`TileImageStencilReadAccessEXT`
-
-                [`VkPhysicalDeviceShaderTileImageFeaturesEXT`::`shaderTileImageStencilReadAccess`](../chapters/features.html#features-shaderTileImageStencilReadAccess)
-
-`CooperativeMatrixKHR`
-
-                [`VkPhysicalDeviceCooperativeMatrixFeaturesKHR`::`cooperativeMatrix`](../chapters/features.html#features-cooperativeMatrix)
-
-`ShaderEnqueueAMDX`
-
-                [`VkPhysicalDeviceShaderEnqueueFeaturesAMDX`::`shaderEnqueue`](../chapters/features.html#features-shaderEnqueue)
-
-`GroupNonUniformRotateKHR`
+                [`VkPhysicalDeviceShaderEnqueueFeaturesAMDX`::`shaderEnqueue`](../chapters/features.html#features-shaderEnqueue) |
+| `GroupNonUniformRotateKHR`
 
                 [`VkPhysicalDeviceVulkan14Features`::`shaderSubgroupRotate`](../chapters/features.html#features-shaderSubgroupRotate)
 
-                [`VkPhysicalDeviceShaderSubgroupRotateFeatures`::`shaderSubgroupRotate`](../chapters/features.html#features-shaderSubgroupRotate)
-
-`ExpectAssumeKHR`
+                [`VkPhysicalDeviceShaderSubgroupRotateFeatures`::`shaderSubgroupRotate`](../chapters/features.html#features-shaderSubgroupRotate) |
+| `ExpectAssumeKHR`
 
                 [`VkPhysicalDeviceVulkan14Features`::`shaderExpectAssume`](../chapters/features.html#features-shaderExpectAssume)
 
-                [`VkPhysicalDeviceShaderExpectAssumeFeatures`::`shaderExpectAssume`](../chapters/features.html#features-shaderExpectAssume)
-
-`FloatControls2`
+                [`VkPhysicalDeviceShaderExpectAssumeFeatures`::`shaderExpectAssume`](../chapters/features.html#features-shaderExpectAssume) |
+| `FloatControls2`
 
                 [`VkPhysicalDeviceVulkan14Features`::`shaderFloatControls2`](../chapters/features.html#features-shaderFloatControls2)
 
-                [`VkPhysicalDeviceShaderFloatControls2Features`::`shaderFloatControls2`](../chapters/features.html#features-shaderFloatControls2)
+                [`VkPhysicalDeviceShaderFloatControls2Features`::`shaderFloatControls2`](../chapters/features.html#features-shaderFloatControls2) |
+| `QuadControlKHR`
 
-`QuadControlKHR`
+                [`VkPhysicalDeviceShaderQuadControlFeaturesKHR`::`shaderQuadControl`](../chapters/features.html#features-shaderQuadControl) |
+| `BFloat16TypeKHR`
 
-                [`VkPhysicalDeviceShaderQuadControlFeaturesKHR`::`shaderQuadControl`](../chapters/features.html#features-shaderQuadControl)
+                [`VkPhysicalDeviceShaderBfloat16FeaturesKHR`::`shaderBFloat16Type`](../chapters/features.html#features-shaderBFloat16Type) |
+| `BFloat16DotProductKHR`
 
-`BFloat16TypeKHR`
+                [`VkPhysicalDeviceShaderBfloat16FeaturesKHR`::`shaderBFloat16DotProduct`](../chapters/features.html#features-shaderBFloat16DotProduct) |
+| `BFloat16CooperativeMatrixKHR`
 
-                [`VkPhysicalDeviceShaderBfloat16FeaturesKHR`::`shaderBFloat16Type`](../chapters/features.html#features-shaderBFloat16Type)
+                [`VkPhysicalDeviceShaderBfloat16FeaturesKHR`::`shaderBFloat16CooperativeMatrix`](../chapters/features.html#features-shaderBFloat16CooperativeMatrix) |
+| `RawAccessChainsNV`
 
-`BFloat16DotProductKHR`
+                [`VkPhysicalDeviceRawAccessChainsFeaturesNV`::`shaderRawAccessChains`](../chapters/features.html#features-shaderRawAccessChains) |
+| `ReplicatedCompositesEXT`
 
-                [`VkPhysicalDeviceShaderBfloat16FeaturesKHR`::`shaderBFloat16DotProduct`](../chapters/features.html#features-shaderBFloat16DotProduct)
+                [`VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT`::`shaderReplicatedComposites`](../chapters/features.html#features-shaderReplicatedComposites) |
+| `TensorAddressingNV`
 
-`BFloat16CooperativeMatrixKHR`
+                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixTensorAddressing`](../chapters/features.html#features-cooperativeMatrixTensorAddressing) |
+| `CooperativeMatrixReductionsNV`
 
-                [`VkPhysicalDeviceShaderBfloat16FeaturesKHR`::`shaderBFloat16CooperativeMatrix`](../chapters/features.html#features-shaderBFloat16CooperativeMatrix)
+                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixReductions`](../chapters/features.html#features-cooperativeMatrixReductions) |
+| `CooperativeMatrixConversionsNV`
 
-`RawAccessChainsNV`
+                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixConversions`](../chapters/features.html#features-cooperativeMatrixConversions) |
+| `CooperativeMatrixPerElementOperationsNV`
 
-                [`VkPhysicalDeviceRawAccessChainsFeaturesNV`::`shaderRawAccessChains`](../chapters/features.html#features-shaderRawAccessChains)
+                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixPerElementOperations`](../chapters/features.html#features-cooperativeMatrixPerElementOperations) |
+| `CooperativeMatrixTensorAddressingNV`
 
-`ReplicatedCompositesEXT`
+                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixTensorAddressing`](../chapters/features.html#features-cooperativeMatrixTensorAddressing) |
+| `CooperativeMatrixBlockLoadsNV`
 
-                [`VkPhysicalDeviceShaderReplicatedCompositesFeaturesEXT`::`shaderReplicatedComposites`](../chapters/features.html#features-shaderReplicatedComposites)
+                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixBlockLoads`](../chapters/features.html#features-cooperativeMatrixBlockLoads) |
+| `RayTracingSpheresGeometryNV`
 
-`TensorAddressingNV`
+                [`VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV`::`spheres`](../chapters/features.html#features-spheres) |
+| `RayTracingLinearSweptSpheresGeometryNV`
 
-                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixTensorAddressing`](../chapters/features.html#features-cooperativeMatrixTensorAddressing)
+                [`VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV`::`linearSweptSpheres`](../chapters/features.html#features-linearSweptSpheres) |
+| `RayTracingClusterAccelerationStructureNV`
 
-`CooperativeMatrixReductionsNV`
+                [`VkPhysicalDeviceClusterAccelerationStructureFeaturesNV`::`clusterAccelerationStructure`](../chapters/features.html#features-clusterAccelerationStructure) |
+| `CooperativeVectorNV`
 
-                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixReductions`](../chapters/features.html#features-cooperativeMatrixReductions)
+                [`VkPhysicalDeviceCooperativeVectorFeaturesNV`::`cooperativeVector`](../chapters/features.html#features-cooperativeVector) |
+| `CooperativeVectorTrainingNV`
 
-`CooperativeMatrixConversionsNV`
+                [`VkPhysicalDeviceCooperativeVectorFeaturesNV`::`cooperativeVectorTraining`](../chapters/features.html#features-cooperativeVectorTraining) |
+| `TileShadingQCOM`
 
-                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixConversions`](../chapters/features.html#features-cooperativeMatrixConversions)
-
-`CooperativeMatrixPerElementOperationsNV`
-
-                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixPerElementOperations`](../chapters/features.html#features-cooperativeMatrixPerElementOperations)
-
-`CooperativeMatrixTensorAddressingNV`
-
-                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixTensorAddressing`](../chapters/features.html#features-cooperativeMatrixTensorAddressing)
-
-`CooperativeMatrixBlockLoadsNV`
-
-                [`VkPhysicalDeviceCooperativeMatrix2FeaturesNV`::`cooperativeMatrixBlockLoads`](../chapters/features.html#features-cooperativeMatrixBlockLoads)
-
-`RayTracingSpheresGeometryNV`
-
-                [`VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV`::`spheres`](../chapters/features.html#features-spheres)
-
-`RayTracingLinearSweptSpheresGeometryNV`
-
-                [`VkPhysicalDeviceRayTracingLinearSweptSpheresFeaturesNV`::`linearSweptSpheres`](../chapters/features.html#features-linearSweptSpheres)
-
-`RayTracingClusterAccelerationStructureNV`
-
-                [`VkPhysicalDeviceClusterAccelerationStructureFeaturesNV`::`clusterAccelerationStructure`](../chapters/features.html#features-clusterAccelerationStructure)
-
-`CooperativeVectorNV`
-
-                [`VkPhysicalDeviceCooperativeVectorFeaturesNV`::`cooperativeVector`](../chapters/features.html#features-cooperativeVector)
-
-`CooperativeVectorTrainingNV`
-
-                [`VkPhysicalDeviceCooperativeVectorFeaturesNV`::`cooperativeVectorTraining`](../chapters/features.html#features-cooperativeVectorTraining)
-
-`TileShadingQCOM`
-
-                [`VkPhysicalDeviceTileShadingFeaturesQCOM`::`tileShading`](../chapters/features.html#features-tileShading)
+                [`VkPhysicalDeviceTileShadingFeaturesQCOM`::`tileShading`](../chapters/features.html#features-tileShading) |
 
 The application **must** not pass a SPIR-V module containing any of the
 following to [vkCreateShaderModule](../chapters/shaders.html#vkCreateShaderModule):
@@ -892,421 +722,327 @@ Any corresponding Vulkan extension is enabled.
 The corresponding core version is supported (as returned by
 [VkPhysicalDeviceProperties](../chapters/devsandqueues.html#VkPhysicalDeviceProperties)::`apiVersion`).
 
-Table 2. List of SPIR-V Extensions and Corresponding Vulkan Extensions or Core Version
+| SPIR-V `OpExtension`
 
-SPIR-V `OpExtension`
-
-                  Vulkan extension or core version
-
-`SPV_KHR_variable_pointers`
+                  Vulkan extension or core version |
+| --- |
+| `SPV_KHR_variable_pointers`
 
                 [VK_VERSION_1_1](versions.html#versions-1.1)
 
-                `[VK_KHR_variable_pointers](extensions.html#VK_KHR_variable_pointers)`
+                `[VK_KHR_variable_pointers](extensions.html#VK_KHR_variable_pointers)` |
+| `SPV_AMD_shader_explicit_vertex_parameter`
 
-`SPV_AMD_shader_explicit_vertex_parameter`
+                `[VK_AMD_shader_explicit_vertex_parameter](extensions.html#VK_AMD_shader_explicit_vertex_parameter)` |
+| `SPV_AMD_gcn_shader`
 
-                `[VK_AMD_shader_explicit_vertex_parameter](extensions.html#VK_AMD_shader_explicit_vertex_parameter)`
+                `[VK_AMD_gcn_shader](extensions.html#VK_AMD_gcn_shader)` |
+| `SPV_AMD_gpu_shader_half_float`
 
-`SPV_AMD_gcn_shader`
+                `[VK_AMD_gpu_shader_half_float](extensions.html#VK_AMD_gpu_shader_half_float)` |
+| `SPV_AMD_gpu_shader_int16`
 
-                `[VK_AMD_gcn_shader](extensions.html#VK_AMD_gcn_shader)`
+                `[VK_AMD_gpu_shader_int16](extensions.html#VK_AMD_gpu_shader_int16)` |
+| `SPV_AMD_shader_ballot`
 
-`SPV_AMD_gpu_shader_half_float`
+                `[VK_AMD_shader_ballot](extensions.html#VK_AMD_shader_ballot)` |
+| `SPV_AMD_shader_fragment_mask`
 
-                `[VK_AMD_gpu_shader_half_float](extensions.html#VK_AMD_gpu_shader_half_float)`
+                `[VK_AMD_shader_fragment_mask](extensions.html#VK_AMD_shader_fragment_mask)` |
+| `SPV_AMD_shader_image_load_store_lod`
 
-`SPV_AMD_gpu_shader_int16`
+                `[VK_AMD_shader_image_load_store_lod](extensions.html#VK_AMD_shader_image_load_store_lod)` |
+| `SPV_AMD_shader_trinary_minmax`
 
-                `[VK_AMD_gpu_shader_int16](extensions.html#VK_AMD_gpu_shader_int16)`
+                `[VK_AMD_shader_trinary_minmax](extensions.html#VK_AMD_shader_trinary_minmax)` |
+| `SPV_AMD_texture_gather_bias_lod`
 
-`SPV_AMD_shader_ballot`
+                `[VK_AMD_texture_gather_bias_lod](extensions.html#VK_AMD_texture_gather_bias_lod)` |
+| `SPV_AMD_shader_early_and_late_fragment_tests`
 
-                `[VK_AMD_shader_ballot](extensions.html#VK_AMD_shader_ballot)`
-
-`SPV_AMD_shader_fragment_mask`
-
-                `[VK_AMD_shader_fragment_mask](extensions.html#VK_AMD_shader_fragment_mask)`
-
-`SPV_AMD_shader_image_load_store_lod`
-
-                `[VK_AMD_shader_image_load_store_lod](extensions.html#VK_AMD_shader_image_load_store_lod)`
-
-`SPV_AMD_shader_trinary_minmax`
-
-                `[VK_AMD_shader_trinary_minmax](extensions.html#VK_AMD_shader_trinary_minmax)`
-
-`SPV_AMD_texture_gather_bias_lod`
-
-                `[VK_AMD_texture_gather_bias_lod](extensions.html#VK_AMD_texture_gather_bias_lod)`
-
-`SPV_AMD_shader_early_and_late_fragment_tests`
-
-                `[VK_AMD_shader_early_and_late_fragment_tests](extensions.html#VK_AMD_shader_early_and_late_fragment_tests)`
-
-`SPV_KHR_shader_draw_parameters`
+                `[VK_AMD_shader_early_and_late_fragment_tests](extensions.html#VK_AMD_shader_early_and_late_fragment_tests)` |
+| `SPV_KHR_shader_draw_parameters`
 
                 [VK_VERSION_1_1](versions.html#versions-1.1)
 
-                `[VK_KHR_shader_draw_parameters](extensions.html#VK_KHR_shader_draw_parameters)`
-
-`SPV_KHR_8bit_storage`
+                `[VK_KHR_shader_draw_parameters](extensions.html#VK_KHR_shader_draw_parameters)` |
+| `SPV_KHR_8bit_storage`
 
                 [VK_VERSION_1_2](versions.html#versions-1.2)
 
-                `[VK_KHR_8bit_storage](extensions.html#VK_KHR_8bit_storage)`
-
-`SPV_KHR_16bit_storage`
+                `[VK_KHR_8bit_storage](extensions.html#VK_KHR_8bit_storage)` |
+| `SPV_KHR_16bit_storage`
 
                 [VK_VERSION_1_1](versions.html#versions-1.1)
 
-                `[VK_KHR_16bit_storage](extensions.html#VK_KHR_16bit_storage)`
+                `[VK_KHR_16bit_storage](extensions.html#VK_KHR_16bit_storage)` |
+| `SPV_KHR_shader_clock`
 
-`SPV_KHR_shader_clock`
-
-                `[VK_KHR_shader_clock](extensions.html#VK_KHR_shader_clock)`
-
-`SPV_KHR_float_controls`
+                `[VK_KHR_shader_clock](extensions.html#VK_KHR_shader_clock)` |
+| `SPV_KHR_float_controls`
 
                 [VK_VERSION_1_2](versions.html#versions-1.2)
 
-                `[VK_KHR_shader_float_controls](extensions.html#VK_KHR_shader_float_controls)`
-
-`SPV_KHR_storage_buffer_storage_class`
+                `[VK_KHR_shader_float_controls](extensions.html#VK_KHR_shader_float_controls)` |
+| `SPV_KHR_storage_buffer_storage_class`
 
                 [VK_VERSION_1_1](versions.html#versions-1.1)
 
-                `[VK_KHR_storage_buffer_storage_class](extensions.html#VK_KHR_storage_buffer_storage_class)`
+                `[VK_KHR_storage_buffer_storage_class](extensions.html#VK_KHR_storage_buffer_storage_class)` |
+| `SPV_KHR_post_depth_coverage`
 
-`SPV_KHR_post_depth_coverage`
+                `[VK_EXT_post_depth_coverage](extensions.html#VK_EXT_post_depth_coverage)` |
+| `SPV_EXT_shader_stencil_export`
 
-                `[VK_EXT_post_depth_coverage](extensions.html#VK_EXT_post_depth_coverage)`
+                `[VK_EXT_shader_stencil_export](extensions.html#VK_EXT_shader_stencil_export)` |
+| `SPV_KHR_shader_ballot`
 
-`SPV_EXT_shader_stencil_export`
+                `[VK_EXT_shader_subgroup_ballot](extensions.html#VK_EXT_shader_subgroup_ballot)` |
+| `SPV_KHR_subgroup_vote`
 
-                `[VK_EXT_shader_stencil_export](extensions.html#VK_EXT_shader_stencil_export)`
+                `[VK_EXT_shader_subgroup_vote](extensions.html#VK_EXT_shader_subgroup_vote)` |
+| `SPV_NV_sample_mask_override_coverage`
 
-`SPV_KHR_shader_ballot`
+                `[VK_NV_sample_mask_override_coverage](extensions.html#VK_NV_sample_mask_override_coverage)` |
+| `SPV_NV_geometry_shader_passthrough`
 
-                `[VK_EXT_shader_subgroup_ballot](extensions.html#VK_EXT_shader_subgroup_ballot)`
+                `[VK_NV_geometry_shader_passthrough](extensions.html#VK_NV_geometry_shader_passthrough)` |
+| `SPV_NV_mesh_shader`
 
-`SPV_KHR_subgroup_vote`
+                `[VK_NV_mesh_shader](extensions.html#VK_NV_mesh_shader)` |
+| `SPV_NV_viewport_array2`
 
-                `[VK_EXT_shader_subgroup_vote](extensions.html#VK_EXT_shader_subgroup_vote)`
+                `[VK_NV_viewport_array2](extensions.html#VK_NV_viewport_array2)` |
+| `SPV_NV_shader_subgroup_partitioned`
 
-`SPV_NV_sample_mask_override_coverage`
+                `[VK_NV_shader_subgroup_partitioned](extensions.html#VK_NV_shader_subgroup_partitioned)` |
+| `SPV_NV_shader_invocation_reorder`
 
-                `[VK_NV_sample_mask_override_coverage](extensions.html#VK_NV_sample_mask_override_coverage)`
-
-`SPV_NV_geometry_shader_passthrough`
-
-                `[VK_NV_geometry_shader_passthrough](extensions.html#VK_NV_geometry_shader_passthrough)`
-
-`SPV_NV_mesh_shader`
-
-                `[VK_NV_mesh_shader](extensions.html#VK_NV_mesh_shader)`
-
-`SPV_NV_viewport_array2`
-
-                `[VK_NV_viewport_array2](extensions.html#VK_NV_viewport_array2)`
-
-`SPV_NV_shader_subgroup_partitioned`
-
-                `[VK_NV_shader_subgroup_partitioned](extensions.html#VK_NV_shader_subgroup_partitioned)`
-
-`SPV_NV_shader_invocation_reorder`
-
-                `[VK_NV_ray_tracing_invocation_reorder](extensions.html#VK_NV_ray_tracing_invocation_reorder)`
-
-`SPV_EXT_shader_viewport_index_layer`
+                `[VK_NV_ray_tracing_invocation_reorder](extensions.html#VK_NV_ray_tracing_invocation_reorder)` |
+| `SPV_EXT_shader_viewport_index_layer`
 
                 [VK_VERSION_1_2](versions.html#versions-1.2)
 
-                `[VK_EXT_shader_viewport_index_layer](extensions.html#VK_EXT_shader_viewport_index_layer)`
+                `[VK_EXT_shader_viewport_index_layer](extensions.html#VK_EXT_shader_viewport_index_layer)` |
+| `SPV_NVX_multiview_per_view_attributes`
 
-`SPV_NVX_multiview_per_view_attributes`
-
-                `[VK_NVX_multiview_per_view_attributes](extensions.html#VK_NVX_multiview_per_view_attributes)`
-
-`SPV_EXT_descriptor_indexing`
+                `[VK_NVX_multiview_per_view_attributes](extensions.html#VK_NVX_multiview_per_view_attributes)` |
+| `SPV_EXT_descriptor_indexing`
 
                 [VK_VERSION_1_2](versions.html#versions-1.2)
 
-                `[VK_EXT_descriptor_indexing](extensions.html#VK_EXT_descriptor_indexing)`
-
-`SPV_KHR_vulkan_memory_model`
-
-                [VK_VERSION_1_2](versions.html#versions-1.2)
-
-                `[VK_KHR_vulkan_memory_model](extensions.html#VK_KHR_vulkan_memory_model)`
-
-`SPV_NV_compute_shader_derivatives`
-
-                `[VK_NV_compute_shader_derivatives](extensions.html#VK_NV_compute_shader_derivatives)`
-
-`SPV_NV_fragment_shader_barycentric`
-
-                `[VK_NV_fragment_shader_barycentric](extensions.html#VK_NV_fragment_shader_barycentric)`
-
-`SPV_NV_shader_image_footprint`
-
-                `[VK_NV_shader_image_footprint](extensions.html#VK_NV_shader_image_footprint)`
-
-`SPV_NV_shading_rate`
-
-                `[VK_NV_shading_rate_image](extensions.html#VK_NV_shading_rate_image)`
-
-`SPV_NV_ray_tracing`
-
-                `[VK_NV_ray_tracing](extensions.html#VK_NV_ray_tracing)`
-
-`SPV_KHR_ray_tracing`
-
-                `[VK_KHR_ray_tracing_pipeline](extensions.html#VK_KHR_ray_tracing_pipeline)`
-
-`SPV_KHR_ray_query`
-
-                `[VK_KHR_ray_query](extensions.html#VK_KHR_ray_query)`
-
-`SPV_KHR_ray_cull_mask`
-
-                `[VK_KHR_ray_tracing_maintenance1](extensions.html#VK_KHR_ray_tracing_maintenance1)`
-
-`SPV_GOOGLE_hlsl_functionality1`
-
-                `[VK_GOOGLE_hlsl_functionality1](extensions.html#VK_GOOGLE_hlsl_functionality1)`
-
-`SPV_GOOGLE_user_type`
-
-                `[VK_GOOGLE_user_type](extensions.html#VK_GOOGLE_user_type)`
-
-`SPV_GOOGLE_decorate_string`
-
-                `[VK_GOOGLE_decorate_string](extensions.html#VK_GOOGLE_decorate_string)`
-
-`SPV_EXT_fragment_invocation_density`
-
-                `[VK_EXT_fragment_density_map](extensions.html#VK_EXT_fragment_density_map)`
-
-`SPV_KHR_physical_storage_buffer`
+                `[VK_EXT_descriptor_indexing](extensions.html#VK_EXT_descriptor_indexing)` |
+| `SPV_KHR_vulkan_memory_model`
 
                 [VK_VERSION_1_2](versions.html#versions-1.2)
 
-                `[VK_KHR_buffer_device_address](extensions.html#VK_KHR_buffer_device_address)`
+                `[VK_KHR_vulkan_memory_model](extensions.html#VK_KHR_vulkan_memory_model)` |
+| `SPV_NV_compute_shader_derivatives`
 
-`SPV_EXT_physical_storage_buffer`
+                `[VK_NV_compute_shader_derivatives](extensions.html#VK_NV_compute_shader_derivatives)` |
+| `SPV_NV_fragment_shader_barycentric`
 
-                `[VK_EXT_buffer_device_address](extensions.html#VK_EXT_buffer_device_address)`
+                `[VK_NV_fragment_shader_barycentric](extensions.html#VK_NV_fragment_shader_barycentric)` |
+| `SPV_NV_shader_image_footprint`
 
-`SPV_NV_cooperative_matrix`
+                `[VK_NV_shader_image_footprint](extensions.html#VK_NV_shader_image_footprint)` |
+| `SPV_NV_shading_rate`
 
-                `[VK_NV_cooperative_matrix](extensions.html#VK_NV_cooperative_matrix)`
+                `[VK_NV_shading_rate_image](extensions.html#VK_NV_shading_rate_image)` |
+| `SPV_NV_ray_tracing`
 
-`SPV_NV_shader_sm_builtins`
+                `[VK_NV_ray_tracing](extensions.html#VK_NV_ray_tracing)` |
+| `SPV_KHR_ray_tracing`
 
-                `[VK_NV_shader_sm_builtins](extensions.html#VK_NV_shader_sm_builtins)`
+                `[VK_KHR_ray_tracing_pipeline](extensions.html#VK_KHR_ray_tracing_pipeline)` |
+| `SPV_KHR_ray_query`
 
-`SPV_EXT_fragment_shader_interlock`
+                `[VK_KHR_ray_query](extensions.html#VK_KHR_ray_query)` |
+| `SPV_KHR_ray_cull_mask`
 
-                `[VK_EXT_fragment_shader_interlock](extensions.html#VK_EXT_fragment_shader_interlock)`
+                `[VK_KHR_ray_tracing_maintenance1](extensions.html#VK_KHR_ray_tracing_maintenance1)` |
+| `SPV_GOOGLE_hlsl_functionality1`
 
-`SPV_EXT_demote_to_helper_invocation`
+                `[VK_GOOGLE_hlsl_functionality1](extensions.html#VK_GOOGLE_hlsl_functionality1)` |
+| `SPV_GOOGLE_user_type`
+
+                `[VK_GOOGLE_user_type](extensions.html#VK_GOOGLE_user_type)` |
+| `SPV_GOOGLE_decorate_string`
+
+                `[VK_GOOGLE_decorate_string](extensions.html#VK_GOOGLE_decorate_string)` |
+| `SPV_EXT_fragment_invocation_density`
+
+                `[VK_EXT_fragment_density_map](extensions.html#VK_EXT_fragment_density_map)` |
+| `SPV_KHR_physical_storage_buffer`
+
+                [VK_VERSION_1_2](versions.html#versions-1.2)
+
+                `[VK_KHR_buffer_device_address](extensions.html#VK_KHR_buffer_device_address)` |
+| `SPV_EXT_physical_storage_buffer`
+
+                `[VK_EXT_buffer_device_address](extensions.html#VK_EXT_buffer_device_address)` |
+| `SPV_NV_cooperative_matrix`
+
+                `[VK_NV_cooperative_matrix](extensions.html#VK_NV_cooperative_matrix)` |
+| `SPV_NV_shader_sm_builtins`
+
+                `[VK_NV_shader_sm_builtins](extensions.html#VK_NV_shader_sm_builtins)` |
+| `SPV_EXT_fragment_shader_interlock`
+
+                `[VK_EXT_fragment_shader_interlock](extensions.html#VK_EXT_fragment_shader_interlock)` |
+| `SPV_EXT_demote_to_helper_invocation`
 
                 [VK_VERSION_1_3](versions.html#versions-1.3)
 
-                `[VK_EXT_shader_demote_to_helper_invocation](extensions.html#VK_EXT_shader_demote_to_helper_invocation)`
+                `[VK_EXT_shader_demote_to_helper_invocation](extensions.html#VK_EXT_shader_demote_to_helper_invocation)` |
+| `SPV_KHR_fragment_shading_rate`
 
-`SPV_KHR_fragment_shading_rate`
-
-                `[VK_KHR_fragment_shading_rate](extensions.html#VK_KHR_fragment_shading_rate)`
-
-`SPV_KHR_non_semantic_info`
+                `[VK_KHR_fragment_shading_rate](extensions.html#VK_KHR_fragment_shading_rate)` |
+| `SPV_KHR_non_semantic_info`
 
                 [VK_VERSION_1_3](versions.html#versions-1.3)
 
-                `[VK_KHR_shader_non_semantic_info](extensions.html#VK_KHR_shader_non_semantic_info)`
+                `[VK_KHR_shader_non_semantic_info](extensions.html#VK_KHR_shader_non_semantic_info)` |
+| `SPV_EXT_shader_image_int64`
 
-`SPV_EXT_shader_image_int64`
-
-                `[VK_EXT_shader_image_atomic_int64](extensions.html#VK_EXT_shader_image_atomic_int64)`
-
-`SPV_KHR_terminate_invocation`
+                `[VK_EXT_shader_image_atomic_int64](extensions.html#VK_EXT_shader_image_atomic_int64)` |
+| `SPV_KHR_terminate_invocation`
 
                 [VK_VERSION_1_3](versions.html#versions-1.3)
 
-                `[VK_KHR_shader_terminate_invocation](extensions.html#VK_KHR_shader_terminate_invocation)`
-
-`SPV_KHR_multiview`
+                `[VK_KHR_shader_terminate_invocation](extensions.html#VK_KHR_shader_terminate_invocation)` |
+| `SPV_KHR_multiview`
 
                 [VK_VERSION_1_1](versions.html#versions-1.1)
 
-                `[VK_KHR_multiview](extensions.html#VK_KHR_multiview)`
+                `[VK_KHR_multiview](extensions.html#VK_KHR_multiview)` |
+| `SPV_KHR_workgroup_memory_explicit_layout`
 
-`SPV_KHR_workgroup_memory_explicit_layout`
+                `[VK_KHR_workgroup_memory_explicit_layout](extensions.html#VK_KHR_workgroup_memory_explicit_layout)` |
+| `SPV_EXT_shader_atomic_float_add`
 
-                `[VK_KHR_workgroup_memory_explicit_layout](extensions.html#VK_KHR_workgroup_memory_explicit_layout)`
+                `[VK_EXT_shader_atomic_float](extensions.html#VK_EXT_shader_atomic_float)` |
+| `SPV_KHR_fragment_shader_barycentric`
 
-`SPV_EXT_shader_atomic_float_add`
+                `[VK_KHR_fragment_shader_barycentric](extensions.html#VK_KHR_fragment_shader_barycentric)` |
+| `SPV_KHR_subgroup_uniform_control_flow`
 
-                `[VK_EXT_shader_atomic_float](extensions.html#VK_EXT_shader_atomic_float)`
+                `[VK_KHR_shader_subgroup_uniform_control_flow](extensions.html#VK_KHR_shader_subgroup_uniform_control_flow)` |
+| `SPV_EXT_shader_atomic_float_min_max`
 
-`SPV_KHR_fragment_shader_barycentric`
+                `[VK_EXT_shader_atomic_float2](extensions.html#VK_EXT_shader_atomic_float2)` |
+| `SPV_EXT_shader_atomic_float16_add`
 
-                `[VK_KHR_fragment_shader_barycentric](extensions.html#VK_KHR_fragment_shader_barycentric)`
+                `[VK_EXT_shader_atomic_float2](extensions.html#VK_EXT_shader_atomic_float2)` |
+| `SPV_NV_shader_atomic_fp16_vector`
 
-`SPV_KHR_subgroup_uniform_control_flow`
+                `[VK_NV_shader_atomic_float16_vector](extensions.html#VK_NV_shader_atomic_float16_vector)` |
+| `SPV_EXT_fragment_fully_covered`
 
-                `[VK_KHR_shader_subgroup_uniform_control_flow](extensions.html#VK_KHR_shader_subgroup_uniform_control_flow)`
-
-`SPV_EXT_shader_atomic_float_min_max`
-
-                `[VK_EXT_shader_atomic_float2](extensions.html#VK_EXT_shader_atomic_float2)`
-
-`SPV_EXT_shader_atomic_float16_add`
-
-                `[VK_EXT_shader_atomic_float2](extensions.html#VK_EXT_shader_atomic_float2)`
-
-`SPV_NV_shader_atomic_fp16_vector`
-
-                `[VK_NV_shader_atomic_float16_vector](extensions.html#VK_NV_shader_atomic_float16_vector)`
-
-`SPV_EXT_fragment_fully_covered`
-
-                `[VK_EXT_conservative_rasterization](extensions.html#VK_EXT_conservative_rasterization)`
-
-`SPV_KHR_integer_dot_product`
+                `[VK_EXT_conservative_rasterization](extensions.html#VK_EXT_conservative_rasterization)` |
+| `SPV_KHR_integer_dot_product`
 
                 [VK_VERSION_1_3](versions.html#versions-1.3)
 
-                `[VK_KHR_shader_integer_dot_product](extensions.html#VK_KHR_shader_integer_dot_product)`
+                `[VK_KHR_shader_integer_dot_product](extensions.html#VK_KHR_shader_integer_dot_product)` |
+| `SPV_INTEL_shader_integer_functions2`
 
-`SPV_INTEL_shader_integer_functions2`
-
-                `[VK_INTEL_shader_integer_functions2](extensions.html#VK_INTEL_shader_integer_functions2)`
-
-`SPV_KHR_device_group`
+                `[VK_INTEL_shader_integer_functions2](extensions.html#VK_INTEL_shader_integer_functions2)` |
+| `SPV_KHR_device_group`
 
                 [VK_VERSION_1_1](versions.html#versions-1.1)
 
-                `[VK_KHR_device_group](extensions.html#VK_KHR_device_group)`
+                `[VK_KHR_device_group](extensions.html#VK_KHR_device_group)` |
+| `SPV_QCOM_image_processing`
 
-`SPV_QCOM_image_processing`
+                `[VK_QCOM_image_processing](extensions.html#VK_QCOM_image_processing)` |
+| `SPV_QCOM_image_processing2`
 
-                `[VK_QCOM_image_processing](extensions.html#VK_QCOM_image_processing)`
+                `[VK_QCOM_image_processing2](extensions.html#VK_QCOM_image_processing2)` |
+| `SPV_EXT_mesh_shader`
 
-`SPV_QCOM_image_processing2`
+                `[VK_EXT_mesh_shader](extensions.html#VK_EXT_mesh_shader)` |
+| `SPV_KHR_ray_tracing_position_fetch`
 
-                `[VK_QCOM_image_processing2](extensions.html#VK_QCOM_image_processing2)`
+                `[VK_KHR_ray_tracing_position_fetch](extensions.html#VK_KHR_ray_tracing_position_fetch)` |
+| `SPV_EXT_shader_tile_image`
 
-`SPV_EXT_mesh_shader`
+                `[VK_EXT_shader_tile_image](extensions.html#VK_EXT_shader_tile_image)` |
+| `SPV_EXT_opacity_micromap`
 
-                `[VK_EXT_mesh_shader](extensions.html#VK_EXT_mesh_shader)`
+                `[VK_EXT_opacity_micromap](extensions.html#VK_EXT_opacity_micromap)` |
+| `SPV_KHR_cooperative_matrix`
 
-`SPV_KHR_ray_tracing_position_fetch`
+                `[VK_KHR_cooperative_matrix](extensions.html#VK_KHR_cooperative_matrix)` |
+| `SPV_ARM_core_builtins`
 
-                `[VK_KHR_ray_tracing_position_fetch](extensions.html#VK_KHR_ray_tracing_position_fetch)`
+                `[VK_ARM_shader_core_builtins](extensions.html#VK_ARM_shader_core_builtins)` |
+| `SPV_AMDX_shader_enqueue`
 
-`SPV_EXT_shader_tile_image`
+                `[VK_AMDX_shader_enqueue](extensions.html#VK_AMDX_shader_enqueue)` |
+| `SPV_HUAWEI_cluster_culling_shader`
 
-                `[VK_EXT_shader_tile_image](extensions.html#VK_EXT_shader_tile_image)`
+                `[VK_HUAWEI_cluster_culling_shader](extensions.html#VK_HUAWEI_cluster_culling_shader)` |
+| `SPV_HUAWEI_subpass_shading`
 
-`SPV_EXT_opacity_micromap`
+                `[VK_HUAWEI_subpass_shading](extensions.html#VK_HUAWEI_subpass_shading)` |
+| `SPV_NV_ray_tracing_motion_blur`
 
-                `[VK_EXT_opacity_micromap](extensions.html#VK_EXT_opacity_micromap)`
+                `[VK_NV_ray_tracing_motion_blur](extensions.html#VK_NV_ray_tracing_motion_blur)` |
+| `SPV_KHR_maximal_reconvergence`
 
-`SPV_KHR_cooperative_matrix`
-
-                `[VK_KHR_cooperative_matrix](extensions.html#VK_KHR_cooperative_matrix)`
-
-`SPV_ARM_core_builtins`
-
-                `[VK_ARM_shader_core_builtins](extensions.html#VK_ARM_shader_core_builtins)`
-
-`SPV_AMDX_shader_enqueue`
-
-                `[VK_AMDX_shader_enqueue](extensions.html#VK_AMDX_shader_enqueue)`
-
-`SPV_HUAWEI_cluster_culling_shader`
-
-                `[VK_HUAWEI_cluster_culling_shader](extensions.html#VK_HUAWEI_cluster_culling_shader)`
-
-`SPV_HUAWEI_subpass_shading`
-
-                `[VK_HUAWEI_subpass_shading](extensions.html#VK_HUAWEI_subpass_shading)`
-
-`SPV_NV_ray_tracing_motion_blur`
-
-                `[VK_NV_ray_tracing_motion_blur](extensions.html#VK_NV_ray_tracing_motion_blur)`
-
-`SPV_KHR_maximal_reconvergence`
-
-                `[VK_KHR_shader_maximal_reconvergence](extensions.html#VK_KHR_shader_maximal_reconvergence)`
-
-`SPV_KHR_subgroup_rotate`
+                `[VK_KHR_shader_maximal_reconvergence](extensions.html#VK_KHR_shader_maximal_reconvergence)` |
+| `SPV_KHR_subgroup_rotate`
 
                 [VK_VERSION_1_4](versions.html#versions-1.4)
 
-                `[VK_KHR_shader_subgroup_rotate](extensions.html#VK_KHR_shader_subgroup_rotate)`
-
-`SPV_KHR_expect_assume`
-
-                [VK_VERSION_1_4](versions.html#versions-1.4)
-
-                `[VK_KHR_shader_expect_assume](extensions.html#VK_KHR_shader_expect_assume)`
-
-`SPV_KHR_float_controls2`
+                `[VK_KHR_shader_subgroup_rotate](extensions.html#VK_KHR_shader_subgroup_rotate)` |
+| `SPV_KHR_expect_assume`
 
                 [VK_VERSION_1_4](versions.html#versions-1.4)
 
-                `[VK_KHR_shader_float_controls2](extensions.html#VK_KHR_shader_float_controls2)`
+                `[VK_KHR_shader_expect_assume](extensions.html#VK_KHR_shader_expect_assume)` |
+| `SPV_KHR_float_controls2`
 
-`SPV_KHR_quad_control`
+                [VK_VERSION_1_4](versions.html#versions-1.4)
 
-                `[VK_KHR_shader_quad_control](extensions.html#VK_KHR_shader_quad_control)`
+                `[VK_KHR_shader_float_controls2](extensions.html#VK_KHR_shader_float_controls2)` |
+| `SPV_KHR_quad_control`
 
-`SPV_KHR_bfloat16`
+                `[VK_KHR_shader_quad_control](extensions.html#VK_KHR_shader_quad_control)` |
+| `SPV_KHR_bfloat16`
 
-                `[VK_KHR_shader_bfloat16](extensions.html#VK_KHR_shader_bfloat16)`
+                `[VK_KHR_shader_bfloat16](extensions.html#VK_KHR_shader_bfloat16)` |
+| `SPV_NV_raw_access_chains`
 
-`SPV_NV_raw_access_chains`
+                `[VK_NV_raw_access_chains](extensions.html#VK_NV_raw_access_chains)` |
+| `SPV_KHR_compute_shader_derivatives`
 
-                `[VK_NV_raw_access_chains](extensions.html#VK_NV_raw_access_chains)`
+                `[VK_KHR_compute_shader_derivatives](extensions.html#VK_KHR_compute_shader_derivatives)` |
+| `SPV_EXT_replicated_composites`
 
-`SPV_KHR_compute_shader_derivatives`
+                `[VK_EXT_shader_replicated_composites](extensions.html#VK_EXT_shader_replicated_composites)` |
+| `SPV_KHR_relaxed_extended_instruction`
 
-                `[VK_KHR_compute_shader_derivatives](extensions.html#VK_KHR_compute_shader_derivatives)`
+                `[VK_KHR_shader_relaxed_extended_instruction](extensions.html#VK_KHR_shader_relaxed_extended_instruction)` |
+| `SPV_NV_cooperative_matrix2`
 
-`SPV_EXT_replicated_composites`
+                `[VK_NV_cooperative_matrix2](extensions.html#VK_NV_cooperative_matrix2)` |
+| `SPV_NV_tensor_addressing`
 
-                `[VK_EXT_shader_replicated_composites](extensions.html#VK_EXT_shader_replicated_composites)`
+                `[VK_NV_cooperative_matrix2](extensions.html#VK_NV_cooperative_matrix2)` |
+| `SPV_NV_linear_swept_spheres`
 
-`SPV_KHR_relaxed_extended_instruction`
+                `[VK_NV_ray_tracing_linear_swept_spheres](extensions.html#VK_NV_ray_tracing_linear_swept_spheres)` |
+| `SPV_NV_cluster_acceleration_structure`
 
-                `[VK_KHR_shader_relaxed_extended_instruction](extensions.html#VK_KHR_shader_relaxed_extended_instruction)`
+                `[VK_NV_cluster_acceleration_structure](extensions.html#VK_NV_cluster_acceleration_structure)` |
+| `SPV_NV_cooperative_vector`
 
-`SPV_NV_cooperative_matrix2`
+                `[VK_NV_cooperative_vector](extensions.html#VK_NV_cooperative_vector)` |
+| `SPV_QCOM_tile_shading`
 
-                `[VK_NV_cooperative_matrix2](extensions.html#VK_NV_cooperative_matrix2)`
-
-`SPV_NV_tensor_addressing`
-
-                `[VK_NV_cooperative_matrix2](extensions.html#VK_NV_cooperative_matrix2)`
-
-`SPV_NV_linear_swept_spheres`
-
-                `[VK_NV_ray_tracing_linear_swept_spheres](extensions.html#VK_NV_ray_tracing_linear_swept_spheres)`
-
-`SPV_NV_cluster_acceleration_structure`
-
-                `[VK_NV_cluster_acceleration_structure](extensions.html#VK_NV_cluster_acceleration_structure)`
-
-`SPV_NV_cooperative_vector`
-
-                `[VK_NV_cooperative_vector](extensions.html#VK_NV_cooperative_vector)`
-
-`SPV_QCOM_tile_shading`
-
-                `[VK_QCOM_tile_shading](extensions.html#VK_QCOM_tile_shading)`
+                `[VK_QCOM_tile_shading](extensions.html#VK_QCOM_tile_shading)` |
 
 A SPIR-V module passed to [vkCreateShaderModule](../chapters/shaders.html#vkCreateShaderModule) **must** conform to the
 following rules:
@@ -2412,6 +2148,12 @@ feature is not enabled, the `Subgroup` scope **must** not be used for
 If the [`shaderDeviceClock`](../chapters/features.html#features-shaderDeviceClock) feature
 is not enabled, the `Device` scope **must** not be used for
 `OpReadClockKHR`
+
+* 
+[](#VUID-RuntimeSpirv-shaderRelaxedExtendedInstruction-10773) VUID-RuntimeSpirv-shaderRelaxedExtendedInstruction-10773
+
+If the [    `shaderRelaxedExtendedInstruction`](../chapters/features.html#features-shaderRelaxedExtendedInstruction) feature is not enabled, the
+`OpExtInstWithForwardRefsKHR` **must** not be used
 
 * 
 [](#VUID-RuntimeSpirv-None-09558) VUID-RuntimeSpirv-None-09558
@@ -4818,6 +4560,23 @@ the `Execution` `Mode` does not change which rearrangements are valid.
 This rearrangement **can** be prevented for particular operations by using the
 `NoContraction` decoration.
 
+|  | For example, in the absence of the `NoContraction` decoration
+| --- | --- |
+implementations are allowed to implement a + b - a and \({a
+\times b}\over{a}\) as b.
+The `SignedZeroInfNanPreserve` does not prevent these transformations,
+even though they may overflow to infinity or NaN when evaluated in
+floating-point.
+
+If the `NoContraction` decoration is applied then operations may not be
+rearranged, so, for example, a + a - a must account for possible
+overflow to infinity.
+If infinities are not preserved then the expression may be replaced with
+a, since the replacement is exact when overflow does not occur and
+infinities may be replaced with **undefined** values.
+If both `NoContraction` and `SignedZeroInfNanPreserve` are used then
+the result must be infinity for sufficiently large a. |
+
 The precision of individual operations is defined either in terms of
 rounding (correctly rounded), as an error bound in ULP, or as inherited from
 a formula as follows:
@@ -4902,286 +4661,98 @@ encoding is required to be
 For IEEE754 half- (16 bit) and single- (32 bit) precision instructions,
 precisions are **required** to be at least as follows:
 
-Table 3. Precision of Core SPIR-V Instructions
-
-Instruction
-Single precision, unless decorated with RelaxedPrecision
-Half precision
-
-`OpFNegate`
-Correct result.
-
-`OpFAdd`
-Correctly rounded.
-
-`OpFSub`
-Correctly rounded.
-
-`OpFMul`, `OpVectorTimesScalar`, `OpMatrixTimesScalar`
-Correctly rounded.
-
-`OpMatrixTimesVector`
-
-Inherited from   .
-
-`OpVectorTimesMatrix`
-
-Inherited from   .
-
-`OpMatrixTimesMatrix`
-
-Inherited from   .
-
-`OpOuterProduct`
-Correctly rounded.
-
-`OpDot`(x, y)
-
-Inherited from   .
-
-`OpIsNan`, `OpIsInf`
-Correct result.
-
-`OpFOrdEqual`, `OpFUnordEqual`
-Correct result.
-
-`OpFOrdNotEqual`, `OpFUnordNotEqual`
-Correct result.
-
-`OpFOrdLessThan`, `OpFUnordLessThan`
-Correct result.
-
-`OpFOrdGreaterThan`, `OpFUnordGreaterThan`
-Correct result.
-
-`OpFOrdLessThanEqual`, `OpFUnordLessThanEqual`
-Correct result.
-
-`OpFOrdGreaterThanEqual`, `OpFUnordGreaterThanEqual`
-Correct result.
-
-`OpSubgroupAllEqualKHR`
-Correct result.
-
-`OpGroupNonUniformAllEqual`
-Correct result.
-
-`OpGroupNonUniformFMin`, `OpGroupNonUniformFMax`
-Correct result.
-
-`OpFDiv`(x,y)
-2.5 ULP for |y| = 0 or |y| in the range [2-126, 2126].
-2.5 ULP for |y| = 0 or |y| in the range [2-14, 214].
-
-`OpFRem`(x,y)
-Inherited from x - y × trunc(x/y).
-
-`OpFMod`(x,y)
-Inherited from x - y × floor(x/y).
-
-`OpQuantizeToF16`
-Correctly rounded with implementation defined rounding mode.
-
-conversions between types
-Correctly rounded.
-
-`OpAtomicCompareExchange`, `OpAtomicCompareExchangeWeak`
-Correct result.
-
-`OpAtomicFAddEXT`
-Return value correct result, value in memory correctly rounded.
-
-`OpAtomicFMinEXT`, `OpAtomicFMaxEXT`
-Correct result.
-
-`OpDPdx`, `OpDPdy`, `OpFwidth`
-Correctly rounded.
-
-`OpDPdxCoarse`, `OpDPdyCoarse`, `OpFwidthCoarse`
-Correctly rounded.
-
-`OpDPdxFine`, `OpDPdyFine`, `OpFwidthFine`
-Correctly rounded.
-
-Table 4. Precision of GLSL.std.450 Instructions
-
-Instruction
-Single precision, unless decorated with RelaxedPrecision
-Half precision
-
-`fma`()
-Inherited from `OpFMul` followed by `OpFAdd`.
-
-`exp`(x),  `exp2`(x)
-
-   ULP.
-
-   ULP.
-
-`log`(),  `log2`()
-
-3 ULP outside the range   . Absolute error    inside the range   .
-
-3 ULP outside the range   . Absolute error    inside the range   .
-
-`pow`(x, y)
-Inherited from `exp2`(y × `log2`(x)).
-
-`sqrt`()
-Inherited from 1.0 / `inversesqrt`().
-
-`inversesqrt`()
-2 ULP.
-
-`radians`(x)
-
-Inherited from   , where    is a correctly rounded approximation to   .
-
-`degrees`(x)
-
-Inherited from   , where    is a correctly rounded approximation to   .
-
-`sin`()
-
-Absolute error    inside the range   .
-
-Absolute error    inside the range   .
-
-`cos`()
-
-Absolute error    inside the range   .
-
-Absolute error    inside the range   .
-
-`tan`()
-
-Inherited from   .
-
-`asin`(x)
-
-Inherited from   .
-
-`acos`(x)
-
-Inherited from   .
-
-`atan`(), `atan2`()
-4096 ULP
-5 ULP.
-
-`sinh`(x)
-
-Inherited from   .
-
-`cosh`(x)
-
-Inherited from   .
-
-`tanh`()
-
-Inherited from   .
-
-`asinh`(x)
-
-Inherited from   .
-
-`acosh`(x)
-
-Inherited from   .
-
-`atanh`(x)
-
-Inherited from   .
-
-`frexp`()
-Correct result.
-
-`ldexp`()
-Correctly rounded.
-
-`length`(x)
-
-Inherited from   .
-
-`distance`(x, y)
-
-Inherited from   .
-
-`cross`()
-Inherited from `OpFSub`(`OpFMul`, `OpFMul`).
-
-`normalize`(x)
-
-Inherited from   .
-
-`faceforward`(N, I, NRef)
-Inherited from `dot`(NRef, I) .
-
-`reflect`(x, y)
-Inherited from x - 2.0 × `dot`(y, x) × y.
-
-`refract`(I, N, eta)
-Inherited from k , where k = 1 - eta × eta × (1.0 - `dot`(N, I) × `dot`(N, I)).
-
-`round`
-Correctly rounded.
-
-`roundEven`
-Correctly rounded.
-
-`trunc`
-Correctly rounded.
-
-`fabs`
-Correct result.
-
-`fsign`
-Correct result.
-
-`floor`
-Correctly rounded.
-
-`ceil`
-Correctly rounded.
-
-`fract`
-Correctly rounded.
-
-`modf`
-Correctly rounded.
-
-`fmin`
-Correct result.
-
-`fmax`
-Correct result.
-
-`fclamp`
-Correct result.
-
-`fmix`(x, y, a)
-
-Inherited from   .
-
-`step`
-Correctly rounded.
-
-`smoothStep`(edge0, edge1, x)
-
-Inherited from   ,
-where   .
-
-`nmin`
-Correct result.
-
-`nmax`
-Correct result.
-
-`nclamp`
-Correct result.
-
-`packHalf2x16`
-Correctly rounded with implementation defined rounding mode.
+| Instruction | Single precision, unless decorated with RelaxedPrecision | Half precision |
+| --- | --- | --- |
+| `OpFNegate` | Correct result. |
+| `OpFAdd` | Correctly rounded. |
+| `OpFSub` | Correctly rounded. |
+| `OpFMul`, `OpVectorTimesScalar`, `OpMatrixTimesScalar` | Correctly rounded. |
+| `OpMatrixTimesVector` | Inherited from   . |
+| `OpVectorTimesMatrix` | Inherited from   . |
+| `OpMatrixTimesMatrix` | Inherited from   . |
+| `OpOuterProduct` | Correctly rounded. |
+| `OpDot`(x, y) | Inherited from   . |
+| `OpIsNan`, `OpIsInf` | Correct result. |
+| `OpFOrdEqual`, `OpFUnordEqual` | Correct result. |
+| `OpFOrdNotEqual`, `OpFUnordNotEqual` | Correct result. |
+| `OpFOrdLessThan`, `OpFUnordLessThan` | Correct result. |
+| `OpFOrdGreaterThan`, `OpFUnordGreaterThan` | Correct result. |
+| `OpFOrdLessThanEqual`, `OpFUnordLessThanEqual` | Correct result. |
+| `OpFOrdGreaterThanEqual`, `OpFUnordGreaterThanEqual` | Correct result. |
+| `OpSubgroupAllEqualKHR` | Correct result. |
+| `OpGroupNonUniformAllEqual` | Correct result. |
+| `OpGroupNonUniformFMin`, `OpGroupNonUniformFMax` | Correct result. |
+| `OpFDiv`(x,y) | 2.5 ULP for \|y\| = 0 or \|y\| in the range [2-126, 2126]. | 2.5 ULP for \|y\| = 0 or \|y\| in the range [2-14, 214]. |
+| `OpFRem`(x,y) | Inherited from x - y × trunc(x/y). |
+| `OpFMod`(x,y) | Inherited from x - y × floor(x/y). |
+| `OpQuantizeToF16` | Correctly rounded with implementation defined rounding mode. |
+| conversions between types | Correctly rounded. |
+| `OpAtomicCompareExchange`, `OpAtomicCompareExchangeWeak` | Correct result. |
+| `OpAtomicFAddEXT` | Return value correct result, value in memory correctly rounded. |
+| `OpAtomicFMinEXT`, `OpAtomicFMaxEXT` | Correct result. |
+| `OpDPdx`, `OpDPdy`, `OpFwidth` | Correctly rounded. |
+| `OpDPdxCoarse`, `OpDPdyCoarse`, `OpFwidthCoarse` | Correctly rounded. |
+| `OpDPdxFine`, `OpDPdyFine`, `OpFwidthFine` | Correctly rounded. |
+
+|  | The `OpFRem` and `OpFMod` instructions use cheap approximations of
+| --- | --- |
+remainder, and the error can be large due to the discontinuity in trunc()
+and floor().
+This can produce mathematically unexpected results in some cases, such as
+FMod(x,x) computing x rather than 0, and can also cause the result to have a
+different sign than the infinitely precise result. |
+
+| Instruction | Single precision, unless decorated with RelaxedPrecision | Half precision |
+| --- | --- | --- |
+| `fma`() | Inherited from `OpFMul` followed by `OpFAdd`. |
+| `exp`(x),  `exp2`(x) | ULP. | ULP. |
+| `log`(),  `log2`() | 3 ULP outside the range   . Absolute error    inside the range   . | 3 ULP outside the range   . Absolute error    inside the range   . |
+| `pow`(x, y) | Inherited from `exp2`(y × `log2`(x)). |
+| `sqrt`() | Inherited from 1.0 / `inversesqrt`(). |
+| `inversesqrt`() | 2 ULP. |
+| `radians`(x) | Inherited from   , where    is a correctly rounded approximation to   . |
+| `degrees`(x) | Inherited from   , where    is a correctly rounded approximation to   . |
+| `sin`() | Absolute error    inside the range   . | Absolute error    inside the range   . |
+| `cos`() | Absolute error    inside the range   . | Absolute error    inside the range   . |
+| `tan`() | Inherited from   . |
+| `asin`(x) | Inherited from   . |
+| `acos`(x) | Inherited from   . |
+| `atan`(), `atan2`() | 4096 ULP | 5 ULP. |
+| `sinh`(x) | Inherited from   . |
+| `cosh`(x) | Inherited from   . |
+| `tanh`() | Inherited from   . |
+| `asinh`(x) | Inherited from   . |
+| `acosh`(x) | Inherited from   . |
+| `atanh`(x) | Inherited from   . |
+| `frexp`() | Correct result. |
+| `ldexp`() | Correctly rounded. |
+| `length`(x) | Inherited from   . |
+| `distance`(x, y) | Inherited from   . |
+| `cross`() | Inherited from `OpFSub`(`OpFMul`, `OpFMul`). |
+| `normalize`(x) | Inherited from   . |
+| `faceforward`(N, I, NRef) | Inherited from `dot`(NRef, I) . |
+| `reflect`(x, y) | Inherited from x - 2.0 × `dot`(y, x) × y. |
+| `refract`(I, N, eta) | Inherited from k , where k = 1 - eta × eta × (1.0 - `dot`(N, I) × `dot`(N, I)). |
+| `round` | Correctly rounded. |
+| `roundEven` | Correctly rounded. |
+| `trunc` | Correctly rounded. |
+| `fabs` | Correct result. |
+| `fsign` | Correct result. |
+| `floor` | Correctly rounded. |
+| `ceil` | Correctly rounded. |
+| `fract` | Correctly rounded. |
+| `modf` | Correctly rounded. |
+| `fmin` | Correct result. |
+| `fmax` | Correct result. |
+| `fclamp` | Correct result. |
+| `fmix`(x, y, a) | Inherited from   . |
+| `step` | Correctly rounded. |
+| `smoothStep`(edge0, edge1, x) | Inherited from   ,
+where   . |
+| `nmin` | Correct result. |
+| `nmax` | Correct result. |
+| `nclamp` | Correct result. |
+| `packHalf2x16` | Correctly rounded with implementation defined rounding mode. |
 
 GLSL.std.450 extended instructions specifically defined in terms of the
 above instructions inherit the above errors.
@@ -5192,6 +4763,13 @@ If the [`maintenance8`](../chapters/features.html#features-maintenance8) feature
 and if
 either operand to `OpSRem` and `OpSMod` instructions is negative the
 result is **undefined**.
+
+|  | While the `OpSRem` and `OpSMod` instructions are supported by the
+| --- | --- |
+Vulkan environment,
+If the [`maintenance8`](../chapters/features.html#features-maintenance8) feature is not enabled,
+they require non-negative values and thus do not enable additional
+functionality beyond what `OpUMod` provides. |
 
 `OpCooperativeMatrixMulAddNV` performs its operations in an
 implementation-dependent order and internal precision.
@@ -5231,114 +4809,63 @@ converted bit width and type, as shown in the table below, **must** match the
 `Sampled` `Type`.
 The signedness **must** match the [signedness of any access](#spirvenv-image-signedness) to the image.
 
+|  | Formatted accesses are always converted from a shader readable type to the
+| --- | --- |
+resource’s format or vice versa via [Format Conversion](../chapters/textures.html#textures-format-conversion) for reads
+and [Texel Output Format Conversion](../chapters/textures.html#textures-output-format-conversion) for writes.
+As such, the bit width and format below do not necessarily match 1:1 with
+what might be expected for some formats. |
+
 For a given `Image` `Format`, the `Sampled` `Type` **must** be the
 type described in the *Type* column of the below table, with its
 `Literal` `Width` set to that in the *Bit Width* column.
 Every access that is made to the image **must** have a signedness equal to that
 in the *Signedness* column (where applicable).
 
-Image Format
-Type-Declaration instructions
-Bit Width
-Signedness
-
-`Unknown`
-Any
-Any
-Any
-
-`Rgba32f`
-`OpTypeFloat`
-32
-N/A
-
-`Rg32f`
-
-`R32f`
-
-`Rgba16f`
-
-`Rg16f`
-
-`R16f`
-
-`Rgba16`
-
-`Rg16`
-
-`R16`
-
-`Rgba16Snorm`
-
-`Rg16Snorm`
-
-`R16Snorm`
-
-`Rgb10A2`
-
-`R11fG11fB10f`
-
-`Rgba8`
-
-`Rg8`
-
-`R8`
-
-`Rgba8Snorm`
-
-`Rg8Snorm`
-
-`R8Snorm`
-
-`Rgba32i`
-`OpTypeInt`
-32
-1
-
-`Rg32i`
-
-`R32i`
-
-`Rgba16i`
-
-`Rg16i`
-
-`R16i`
-
-`Rgba8i`
-
-`Rg8i`
-
-`R8i`
-
-`Rgba32ui`
-0
-
-`Rg32ui`
-
-`R32ui`
-
-`Rgba16ui`
-
-`Rg16ui`
-
-`R16ui`
-
-`Rgb10a2ui`
-
-`Rgba8ui`
-
-`Rg8ui`
-
-`R8ui`
-
-`R64i`
-`OpTypeInt`
-64
-1
-
-`R64ui`
-0
+| Image Format | Type-Declaration instructions | Bit Width | Signedness |
+| --- | --- | --- | --- |
+| `Unknown` | Any | Any | Any |
+| `Rgba32f` | `OpTypeFloat` | 32 | N/A |
+| `Rg32f` |
+| `R32f` |
+| `Rgba16f` |
+| `Rg16f` |
+| `R16f` |
+| `Rgba16` |
+| `Rg16` |
+| `R16` |
+| `Rgba16Snorm` |
+| `Rg16Snorm` |
+| `R16Snorm` |
+| `Rgb10A2` |
+| `R11fG11fB10f` |
+| `Rgba8` |
+| `Rg8` |
+| `R8` |
+| `Rgba8Snorm` |
+| `Rg8Snorm` |
+| `R8Snorm` |
+| `Rgba32i` | `OpTypeInt` | 32 | 1 |
+| `Rg32i` |
+| `R32i` |
+| `Rgba16i` |
+| `Rg16i` |
+| `R16i` |
+| `Rgba8i` |
+| `Rg8i` |
+| `R8i` |
+| `Rgba32ui` | 0 |
+| `Rg32ui` |
+| `R32ui` |
+| `Rgba16ui` |
+| `Rg16ui` |
+| `R16ui` |
+| `Rgb10a2ui` |
+| `Rgba8ui` |
+| `Rg8ui` |
+| `R8ui` |
+| `R64i` | `OpTypeInt` | 64 | 1 |
+| `R64ui` | 0 |
 
 The *SPIR-V Type* is defined by an instruction in SPIR-V, declared with the
 Type-Declaration Instruction, Bit Width, and Signedness from above.
@@ -5346,156 +4873,60 @@ Type-Declaration Instruction, Bit Width, and Signedness from above.
 SPIR-V `Image` `Dim` values are compatible with [VkImageView](../chapters/resources.html#VkImageView)
 `viewType` values as defined below:
 
-Table 5. SPIR-V and Vulkan ImageView Dimension Compatibility
-
-SPIR-V Image Dim
-Compatible Vulkan ImageView viewTypes
-
-1D
-`VK_IMAGE_VIEW_TYPE_1D`, `VK_IMAGE_VIEW_TYPE_1D_ARRAY`
-
-2D
-`VK_IMAGE_VIEW_TYPE_2D`, `VK_IMAGE_VIEW_TYPE_2D_ARRAY`
-
-3D
-`VK_IMAGE_VIEW_TYPE_3D`
-
-Cube
-`VK_IMAGE_VIEW_TYPE_CUBE`, `VK_IMAGE_VIEW_TYPE_CUBE_ARRAY`
+| SPIR-V Image Dim | Compatible Vulkan ImageView viewTypes |
+| --- | --- |
+| 1D | `VK_IMAGE_VIEW_TYPE_1D`, `VK_IMAGE_VIEW_TYPE_1D_ARRAY` |
+| 2D | `VK_IMAGE_VIEW_TYPE_2D`, `VK_IMAGE_VIEW_TYPE_2D_ARRAY` |
+| 3D | `VK_IMAGE_VIEW_TYPE_3D` |
+| Cube | `VK_IMAGE_VIEW_TYPE_CUBE`, `VK_IMAGE_VIEW_TYPE_CUBE_ARRAY` |
 
 SPIR-V `Image` `Format` values are compatible with [VkFormat](../chapters/formats.html#VkFormat)
 values as defined below:
 
-Table 6. SPIR-V and Vulkan Image Format Compatibility
-
-SPIR-V Image Format
-Compatible Vulkan Format
-
-`Unknown`
-Any
-
-`R8`
-`VK_FORMAT_R8_UNORM`
-
-`R8Snorm`
-`VK_FORMAT_R8_SNORM`
-
-`R8ui`
-`VK_FORMAT_R8_UINT`
-
-`R8i`
-`VK_FORMAT_R8_SINT`
-
-`Rg8`
-`VK_FORMAT_R8G8_UNORM`
-
-`Rg8Snorm`
-`VK_FORMAT_R8G8_SNORM`
-
-`Rg8ui`
-`VK_FORMAT_R8G8_UINT`
-
-`Rg8i`
-`VK_FORMAT_R8G8_SINT`
-
-`Rgba8`
-`VK_FORMAT_R8G8B8A8_UNORM`
-
-`Rgba8Snorm`
-`VK_FORMAT_R8G8B8A8_SNORM`
-
-`Rgba8ui`
-`VK_FORMAT_R8G8B8A8_UINT`
-
-`Rgba8i`
-`VK_FORMAT_R8G8B8A8_SINT`
-
-`Rgb10A2`
-`VK_FORMAT_A2B10G10R10_UNORM_PACK32`
-
-`Rgb10a2ui`
-`VK_FORMAT_A2B10G10R10_UINT_PACK32`
-
-`R16`
-`VK_FORMAT_R16_UNORM`
-
-`R16Snorm`
-`VK_FORMAT_R16_SNORM`
-
-`R16ui`
-`VK_FORMAT_R16_UINT`
-
-`R16i`
-`VK_FORMAT_R16_SINT`
-
-`R16f`
-`VK_FORMAT_R16_SFLOAT`
-
-`Rg16`
-`VK_FORMAT_R16G16_UNORM`
-
-`Rg16Snorm`
-`VK_FORMAT_R16G16_SNORM`
-
-`Rg16ui`
-`VK_FORMAT_R16G16_UINT`
-
-`Rg16i`
-`VK_FORMAT_R16G16_SINT`
-
-`Rg16f`
-`VK_FORMAT_R16G16_SFLOAT`
-
-`Rgba16`
-`VK_FORMAT_R16G16B16A16_UNORM`
-
-`Rgba16Snorm`
-`VK_FORMAT_R16G16B16A16_SNORM`
-
-`Rgba16ui`
-`VK_FORMAT_R16G16B16A16_UINT`
-
-`Rgba16i`
-`VK_FORMAT_R16G16B16A16_SINT`
-
-`Rgba16f`
-`VK_FORMAT_R16G16B16A16_SFLOAT`
-
-`R32ui`
-`VK_FORMAT_R32_UINT`
-
-`R32i`
-`VK_FORMAT_R32_SINT`
-
-`R32f`
-`VK_FORMAT_R32_SFLOAT`
-
-`Rg32ui`
-`VK_FORMAT_R32G32_UINT`
-
-`Rg32i`
-`VK_FORMAT_R32G32_SINT`
-
-`Rg32f`
-`VK_FORMAT_R32G32_SFLOAT`
-
-`Rgba32ui`
-`VK_FORMAT_R32G32B32A32_UINT`
-
-`Rgba32i`
-`VK_FORMAT_R32G32B32A32_SINT`
-
-`Rgba32f`
-`VK_FORMAT_R32G32B32A32_SFLOAT`
-
-`R64ui`
-`VK_FORMAT_R64_UINT`
-
-`R64i`
-`VK_FORMAT_R64_SINT`
-
-`R11fG11fB10f`
-`VK_FORMAT_B10G11R11_UFLOAT_PACK32`
+| SPIR-V Image Format | Compatible Vulkan Format |
+| --- | --- |
+| `Unknown` | Any |
+| `R8` | `VK_FORMAT_R8_UNORM` |
+| `R8Snorm` | `VK_FORMAT_R8_SNORM` |
+| `R8ui` | `VK_FORMAT_R8_UINT` |
+| `R8i` | `VK_FORMAT_R8_SINT` |
+| `Rg8` | `VK_FORMAT_R8G8_UNORM` |
+| `Rg8Snorm` | `VK_FORMAT_R8G8_SNORM` |
+| `Rg8ui` | `VK_FORMAT_R8G8_UINT` |
+| `Rg8i` | `VK_FORMAT_R8G8_SINT` |
+| `Rgba8` | `VK_FORMAT_R8G8B8A8_UNORM` |
+| `Rgba8Snorm` | `VK_FORMAT_R8G8B8A8_SNORM` |
+| `Rgba8ui` | `VK_FORMAT_R8G8B8A8_UINT` |
+| `Rgba8i` | `VK_FORMAT_R8G8B8A8_SINT` |
+| `Rgb10A2` | `VK_FORMAT_A2B10G10R10_UNORM_PACK32` |
+| `Rgb10a2ui` | `VK_FORMAT_A2B10G10R10_UINT_PACK32` |
+| `R16` | `VK_FORMAT_R16_UNORM` |
+| `R16Snorm` | `VK_FORMAT_R16_SNORM` |
+| `R16ui` | `VK_FORMAT_R16_UINT` |
+| `R16i` | `VK_FORMAT_R16_SINT` |
+| `R16f` | `VK_FORMAT_R16_SFLOAT` |
+| `Rg16` | `VK_FORMAT_R16G16_UNORM` |
+| `Rg16Snorm` | `VK_FORMAT_R16G16_SNORM` |
+| `Rg16ui` | `VK_FORMAT_R16G16_UINT` |
+| `Rg16i` | `VK_FORMAT_R16G16_SINT` |
+| `Rg16f` | `VK_FORMAT_R16G16_SFLOAT` |
+| `Rgba16` | `VK_FORMAT_R16G16B16A16_UNORM` |
+| `Rgba16Snorm` | `VK_FORMAT_R16G16B16A16_SNORM` |
+| `Rgba16ui` | `VK_FORMAT_R16G16B16A16_UINT` |
+| `Rgba16i` | `VK_FORMAT_R16G16B16A16_SINT` |
+| `Rgba16f` | `VK_FORMAT_R16G16B16A16_SFLOAT` |
+| `R32ui` | `VK_FORMAT_R32_UINT` |
+| `R32i` | `VK_FORMAT_R32_SINT` |
+| `R32f` | `VK_FORMAT_R32_SFLOAT` |
+| `Rg32ui` | `VK_FORMAT_R32G32_UINT` |
+| `Rg32i` | `VK_FORMAT_R32G32_SINT` |
+| `Rg32f` | `VK_FORMAT_R32G32_SFLOAT` |
+| `Rgba32ui` | `VK_FORMAT_R32G32B32A32_UINT` |
+| `Rgba32i` | `VK_FORMAT_R32G32B32A32_SINT` |
+| `Rgba32f` | `VK_FORMAT_R32G32B32A32_SFLOAT` |
+| `R64ui` | `VK_FORMAT_R64_UINT` |
+| `R64i` | `VK_FORMAT_R64_SINT` |
+| `R11fG11fB10f` | `VK_FORMAT_B10G11R11_UFLOAT_PACK32` |
 
 The values returned by
 `OpRayQueryGetIntersectionTriangleVertexPositionsKHR` are transformed by

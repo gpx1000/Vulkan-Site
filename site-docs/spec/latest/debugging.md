@@ -145,157 +145,57 @@ typedef enum VkObjectType {
     VK_OBJECT_TYPE_PRIVATE_DATA_SLOT_EXT = VK_OBJECT_TYPE_PRIVATE_DATA_SLOT,
 } VkObjectType;
 
-Table 1. `VkObjectType` and Vulkan Handle Relationship
-
-[VkObjectType](#VkObjectType)
-Vulkan Handle Type
-
-`VK_OBJECT_TYPE_UNKNOWN`
-Unknown/Undefined Handle
-
-`VK_OBJECT_TYPE_INSTANCE`
-[VkInstance](initialization.html#VkInstance)
-
-`VK_OBJECT_TYPE_PHYSICAL_DEVICE`
-[VkPhysicalDevice](devsandqueues.html#VkPhysicalDevice)
-
-`VK_OBJECT_TYPE_DEVICE`
-[VkDevice](devsandqueues.html#VkDevice)
-
-`VK_OBJECT_TYPE_QUEUE`
-[VkQueue](devsandqueues.html#VkQueue)
-
-`VK_OBJECT_TYPE_SEMAPHORE`
-[VkSemaphore](synchronization.html#VkSemaphore)
-
-`VK_OBJECT_TYPE_COMMAND_BUFFER`
-[VkCommandBuffer](cmdbuffers.html#VkCommandBuffer)
-
-`VK_OBJECT_TYPE_FENCE`
-[VkFence](synchronization.html#VkFence)
-
-`VK_OBJECT_TYPE_DEVICE_MEMORY`
-[VkDeviceMemory](memory.html#VkDeviceMemory)
-
-`VK_OBJECT_TYPE_BUFFER`
-[VkBuffer](resources.html#VkBuffer)
-
-`VK_OBJECT_TYPE_IMAGE`
-[VkImage](resources.html#VkImage)
-
-`VK_OBJECT_TYPE_EVENT`
-[VkEvent](synchronization.html#VkEvent)
-
-`VK_OBJECT_TYPE_QUERY_POOL`
-[VkQueryPool](queries.html#VkQueryPool)
-
-`VK_OBJECT_TYPE_BUFFER_VIEW`
-[VkBufferView](resources.html#VkBufferView)
-
-`VK_OBJECT_TYPE_IMAGE_VIEW`
-[VkImageView](resources.html#VkImageView)
-
-`VK_OBJECT_TYPE_SHADER_MODULE`
-[VkShaderModule](shaders.html#VkShaderModule)
-
-`VK_OBJECT_TYPE_PIPELINE_CACHE`
-[VkPipelineCache](pipelines.html#VkPipelineCache)
-
-`VK_OBJECT_TYPE_PIPELINE_LAYOUT`
-[VkPipelineLayout](descriptorsets.html#VkPipelineLayout)
-
-`VK_OBJECT_TYPE_RENDER_PASS`
-[VkRenderPass](renderpass.html#VkRenderPass)
-
-`VK_OBJECT_TYPE_PIPELINE`
-[VkPipeline](pipelines.html#VkPipeline)
-
-`VK_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT`
-[VkDescriptorSetLayout](descriptorsets.html#VkDescriptorSetLayout)
-
-`VK_OBJECT_TYPE_SAMPLER`
-[VkSampler](samplers.html#VkSampler)
-
-`VK_OBJECT_TYPE_DESCRIPTOR_POOL`
-[VkDescriptorPool](descriptorsets.html#VkDescriptorPool)
-
-`VK_OBJECT_TYPE_DESCRIPTOR_SET`
-[VkDescriptorSet](descriptorsets.html#VkDescriptorSet)
-
-`VK_OBJECT_TYPE_FRAMEBUFFER`
-[VkFramebuffer](renderpass.html#VkFramebuffer)
-
-`VK_OBJECT_TYPE_COMMAND_POOL`
-[VkCommandPool](cmdbuffers.html#VkCommandPool)
-
-`VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION`
-[VkSamplerYcbcrConversion](samplers.html#VkSamplerYcbcrConversion)
-
-`VK_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE`
-[VkDescriptorUpdateTemplate](descriptorsets.html#VkDescriptorUpdateTemplate)
-
-`VK_OBJECT_TYPE_PRIVATE_DATA_SLOT`
-[VkPrivateDataSlot](VK_EXT_private_data.html#VkPrivateDataSlot)
-
-`VK_OBJECT_TYPE_SURFACE_KHR`
-[VkSurfaceKHR](VK_KHR_surface/wsi.html#VkSurfaceKHR)
-
-`VK_OBJECT_TYPE_SWAPCHAIN_KHR`
-[VkSwapchainKHR](VK_KHR_surface/wsi.html#VkSwapchainKHR)
-
-`VK_OBJECT_TYPE_DISPLAY_KHR`
-[VkDisplayKHR](VK_KHR_surface/wsi.html#VkDisplayKHR)
-
-`VK_OBJECT_TYPE_DISPLAY_MODE_KHR`
-[VkDisplayModeKHR](VK_KHR_surface/wsi.html#VkDisplayModeKHR)
-
-`VK_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT`
-[VkDebugReportCallbackEXT](#VkDebugReportCallbackEXT)
-
-`VK_OBJECT_TYPE_VIDEO_SESSION_KHR`
-[VkVideoSessionKHR](videocoding.html#VkVideoSessionKHR)
-
-`VK_OBJECT_TYPE_VIDEO_SESSION_PARAMETERS_KHR`
-[VkVideoSessionParametersKHR](videocoding.html#VkVideoSessionParametersKHR)
-
-`VK_OBJECT_TYPE_DEBUG_UTILS_MESSENGER_EXT`
-[VkDebugUtilsMessengerEXT](#VkDebugUtilsMessengerEXT)
-
-`VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR`
-[VkAccelerationStructureKHR](resources.html#VkAccelerationStructureKHR)
-
-`VK_OBJECT_TYPE_VALIDATION_CACHE_EXT`
-[VkValidationCacheEXT](shaders.html#VkValidationCacheEXT)
-
-`VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_NV`
-[VkAccelerationStructureNV](resources.html#VkAccelerationStructureNV)
-
-`VK_OBJECT_TYPE_PERFORMANCE_CONFIGURATION_INTEL`
-[VkPerformanceConfigurationINTEL](queries.html#VkPerformanceConfigurationINTEL)
-
-`VK_OBJECT_TYPE_DEFERRED_OPERATION_KHR`
-[VkDeferredOperationKHR](VK_KHR_deferred_host_operations/deferred_host_operations.html#VkDeferredOperationKHR)
-
-`VK_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_NV`
-[VkIndirectCommandsLayoutNV](device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutNV)
-
-`VK_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_EXT`
-[VkIndirectCommandsLayoutEXT](device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutEXT)
-
-`VK_OBJECT_TYPE_INDIRECT_EXECUTION_SET_EXT`
-[VkIndirectExecutionSetEXT](device_generated_commands/generatedcommands.html#VkIndirectExecutionSetEXT)
-
-`VK_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA`
-[VkBufferCollectionFUCHSIA](resources.html#VkBufferCollectionFUCHSIA)
-
-`VK_OBJECT_TYPE_MICROMAP_EXT`
-[VkMicromapEXT](resources.html#VkMicromapEXT)
-
-`VK_OBJECT_TYPE_OPTICAL_FLOW_SESSION_NV`
-[VkOpticalFlowSessionNV](VK_NV_optical_flow/optical_flow.html#VkOpticalFlowSessionNV)
-
-`VK_OBJECT_TYPE_SHADER_EXT`
-[VkShaderEXT](shaders.html#VkShaderEXT)
+| [VkObjectType](#VkObjectType) | Vulkan Handle Type |
+| --- | --- |
+| `VK_OBJECT_TYPE_UNKNOWN` | Unknown/Undefined Handle |
+| `VK_OBJECT_TYPE_INSTANCE` | [VkInstance](initialization.html#VkInstance) |
+| `VK_OBJECT_TYPE_PHYSICAL_DEVICE` | [VkPhysicalDevice](devsandqueues.html#VkPhysicalDevice) |
+| `VK_OBJECT_TYPE_DEVICE` | [VkDevice](devsandqueues.html#VkDevice) |
+| `VK_OBJECT_TYPE_QUEUE` | [VkQueue](devsandqueues.html#VkQueue) |
+| `VK_OBJECT_TYPE_SEMAPHORE` | [VkSemaphore](synchronization.html#VkSemaphore) |
+| `VK_OBJECT_TYPE_COMMAND_BUFFER` | [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) |
+| `VK_OBJECT_TYPE_FENCE` | [VkFence](synchronization.html#VkFence) |
+| `VK_OBJECT_TYPE_DEVICE_MEMORY` | [VkDeviceMemory](memory.html#VkDeviceMemory) |
+| `VK_OBJECT_TYPE_BUFFER` | [VkBuffer](resources.html#VkBuffer) |
+| `VK_OBJECT_TYPE_IMAGE` | [VkImage](resources.html#VkImage) |
+| `VK_OBJECT_TYPE_EVENT` | [VkEvent](synchronization.html#VkEvent) |
+| `VK_OBJECT_TYPE_QUERY_POOL` | [VkQueryPool](queries.html#VkQueryPool) |
+| `VK_OBJECT_TYPE_BUFFER_VIEW` | [VkBufferView](resources.html#VkBufferView) |
+| `VK_OBJECT_TYPE_IMAGE_VIEW` | [VkImageView](resources.html#VkImageView) |
+| `VK_OBJECT_TYPE_SHADER_MODULE` | [VkShaderModule](shaders.html#VkShaderModule) |
+| `VK_OBJECT_TYPE_PIPELINE_CACHE` | [VkPipelineCache](pipelines.html#VkPipelineCache) |
+| `VK_OBJECT_TYPE_PIPELINE_LAYOUT` | [VkPipelineLayout](descriptorsets.html#VkPipelineLayout) |
+| `VK_OBJECT_TYPE_RENDER_PASS` | [VkRenderPass](renderpass.html#VkRenderPass) |
+| `VK_OBJECT_TYPE_PIPELINE` | [VkPipeline](pipelines.html#VkPipeline) |
+| `VK_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT` | [VkDescriptorSetLayout](descriptorsets.html#VkDescriptorSetLayout) |
+| `VK_OBJECT_TYPE_SAMPLER` | [VkSampler](samplers.html#VkSampler) |
+| `VK_OBJECT_TYPE_DESCRIPTOR_POOL` | [VkDescriptorPool](descriptorsets.html#VkDescriptorPool) |
+| `VK_OBJECT_TYPE_DESCRIPTOR_SET` | [VkDescriptorSet](descriptorsets.html#VkDescriptorSet) |
+| `VK_OBJECT_TYPE_FRAMEBUFFER` | [VkFramebuffer](renderpass.html#VkFramebuffer) |
+| `VK_OBJECT_TYPE_COMMAND_POOL` | [VkCommandPool](cmdbuffers.html#VkCommandPool) |
+| `VK_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION` | [VkSamplerYcbcrConversion](samplers.html#VkSamplerYcbcrConversion) |
+| `VK_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE` | [VkDescriptorUpdateTemplate](descriptorsets.html#VkDescriptorUpdateTemplate) |
+| `VK_OBJECT_TYPE_PRIVATE_DATA_SLOT` | [VkPrivateDataSlot](VK_EXT_private_data.html#VkPrivateDataSlot) |
+| `VK_OBJECT_TYPE_SURFACE_KHR` | [VkSurfaceKHR](VK_KHR_surface/wsi.html#VkSurfaceKHR) |
+| `VK_OBJECT_TYPE_SWAPCHAIN_KHR` | [VkSwapchainKHR](VK_KHR_surface/wsi.html#VkSwapchainKHR) |
+| `VK_OBJECT_TYPE_DISPLAY_KHR` | [VkDisplayKHR](VK_KHR_surface/wsi.html#VkDisplayKHR) |
+| `VK_OBJECT_TYPE_DISPLAY_MODE_KHR` | [VkDisplayModeKHR](VK_KHR_surface/wsi.html#VkDisplayModeKHR) |
+| `VK_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT` | [VkDebugReportCallbackEXT](#VkDebugReportCallbackEXT) |
+| `VK_OBJECT_TYPE_VIDEO_SESSION_KHR` | [VkVideoSessionKHR](videocoding.html#VkVideoSessionKHR) |
+| `VK_OBJECT_TYPE_VIDEO_SESSION_PARAMETERS_KHR` | [VkVideoSessionParametersKHR](videocoding.html#VkVideoSessionParametersKHR) |
+| `VK_OBJECT_TYPE_DEBUG_UTILS_MESSENGER_EXT` | [VkDebugUtilsMessengerEXT](#VkDebugUtilsMessengerEXT) |
+| `VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_KHR` | [VkAccelerationStructureKHR](resources.html#VkAccelerationStructureKHR) |
+| `VK_OBJECT_TYPE_VALIDATION_CACHE_EXT` | [VkValidationCacheEXT](shaders.html#VkValidationCacheEXT) |
+| `VK_OBJECT_TYPE_ACCELERATION_STRUCTURE_NV` | [VkAccelerationStructureNV](resources.html#VkAccelerationStructureNV) |
+| `VK_OBJECT_TYPE_PERFORMANCE_CONFIGURATION_INTEL` | [VkPerformanceConfigurationINTEL](queries.html#VkPerformanceConfigurationINTEL) |
+| `VK_OBJECT_TYPE_DEFERRED_OPERATION_KHR` | [VkDeferredOperationKHR](VK_KHR_deferred_host_operations/deferred_host_operations.html#VkDeferredOperationKHR) |
+| `VK_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_NV` | [VkIndirectCommandsLayoutNV](device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutNV) |
+| `VK_OBJECT_TYPE_INDIRECT_COMMANDS_LAYOUT_EXT` | [VkIndirectCommandsLayoutEXT](device_generated_commands/generatedcommands.html#VkIndirectCommandsLayoutEXT) |
+| `VK_OBJECT_TYPE_INDIRECT_EXECUTION_SET_EXT` | [VkIndirectExecutionSetEXT](device_generated_commands/generatedcommands.html#VkIndirectExecutionSetEXT) |
+| `VK_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA` | [VkBufferCollectionFUCHSIA](resources.html#VkBufferCollectionFUCHSIA) |
+| `VK_OBJECT_TYPE_MICROMAP_EXT` | [VkMicromapEXT](resources.html#VkMicromapEXT) |
+| `VK_OBJECT_TYPE_OPTICAL_FLOW_SESSION_NV` | [VkOpticalFlowSessionNV](VK_NV_optical_flow/optical_flow.html#VkOpticalFlowSessionNV) |
+| `VK_OBJECT_TYPE_SHADER_EXT` | [VkShaderEXT](shaders.html#VkShaderEXT) |
 
 If this Specification was generated with any such extensions included, they
 will be described in the remainder of this chapter.
@@ -699,18 +599,9 @@ Host Synchronization
 Host access to `queue` **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
--
--
--
-Any
--
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| - | - | - | Any | - |
 
 The `VkDebugUtilsLabelEXT` structure is defined as:
 
@@ -790,18 +681,9 @@ Host Synchronization
 Host access to `queue` **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
--
--
--
-Any
--
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| - | - | - | Any | - |
 
 A single label can be inserted into a queue by calling:
 
@@ -835,18 +717,9 @@ Host Synchronization
 Host access to `queue` **must** be externally synchronized
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
--
--
--
-Any
--
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| - | - | - | Any | - |
 
 Typical Vulkan applications will submit many command buffers in each frame,
 with each command buffer containing a large number of individual commands.
@@ -914,24 +787,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
+Compute | Action
 
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-Action
-
-State
+State |
 
 A command buffer label region can be closed by calling:
 
@@ -1009,24 +873,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
+Compute | Action
 
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-Action
-
-State
+State |
 
 A single debug label can be inserted into a command buffer by calling:
 
@@ -1079,22 +934,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-Action
+Compute | Action |
 
 Vulkan allows an application to register multiple callbacks with any Vulkan
 component wishing to report debug information.
@@ -1339,6 +1185,22 @@ intended/desired, then simply ignore the warning.
 `VK_DEBUG_UTILS_MESSAGE_SEVERITY_ERROR_BIT_EXT` specifies that the
 application has violated a valid usage condition of the specification.
 
+|  | The values of [VkDebugUtilsMessageSeverityFlagBitsEXT](#VkDebugUtilsMessageSeverityFlagBitsEXT) are sorted based
+| --- | --- |
+on severity.
+The higher the flag value, the more severe the message.
+This allows for simple boolean operation comparisons when looking at
+[VkDebugUtilsMessageSeverityFlagBitsEXT](#VkDebugUtilsMessageSeverityFlagBitsEXT) values.
+
+For example:
+
+    if (messageSeverity >= VK_DEBUG_UTILS_MESSAGE_SEVERITY_WARNING_BIT_EXT) {
+        // Do something for warnings and errors
+    }
+
+In addition, space has been left between the enums to allow for later
+addition of new severities in between the existing values. |
+
 // Provided by VK_EXT_debug_utils
 typedef VkFlags VkDebugUtilsMessageSeverityFlagsEXT;
 
@@ -1507,12 +1369,32 @@ issue.
 The array is roughly in order or importance, but the 0th element is
 always guaranteed to be the most important object for this message.
 
+|  | This structure should only be considered valid during the lifetime of the
+| --- | --- |
+triggered callback. |
+
 Since adding queue and command buffer labels behaves like pushing and
 popping onto a stack, the order of both `pQueueLabels` and
 `pCmdBufLabels` is based on the order the labels were defined.
 The result is that the first label in either `pQueueLabels` or
 `pCmdBufLabels` will be the first defined (and therefore the oldest)
 while the last label in each list will be the most recent.
+
+|  | `pQueueLabels` will only be non-`NULL` if one of the objects in
+| --- | --- |
+`pObjects` can be related directly to a defined `VkQueue` which has
+had one or more labels associated with it.
+
+Likewise, `pCmdBufLabels` will only be non-`NULL` if one of the objects
+in `pObjects` can be related directly to a defined `VkCommandBuffer`
+which has had one or more labels associated with it.
+Additionally, while command buffer labels allow for beginning and ending
+across different command buffers, the debug messaging framework **cannot**
+guarantee that labels in `pCmdBufLables` will contain those defined
+outside of the associated command buffer.
+This is partially due to the fact that the association of one command buffer
+with another may not have been defined at the time the debug message is
+triggered. |
 
 Valid Usage (Implicit)
 
@@ -2178,22 +2060,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-Action
+Compute | Action |
 
 The `VkDebugMarkerMarkerInfoEXT` structure is defined as:
 
@@ -2312,22 +2185,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-Action
+Compute | Action |
 
 A single marker label can be inserted into a command buffer by calling:
 
@@ -2380,22 +2244,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Both | Outside | Graphics
 
-Primary
-
-Secondary
-Both
-Outside
-Graphics
-
-Compute
-Action
+Compute | Action |
 
 Debug report callbacks are represented by `VkDebugReportCallbackEXT`
 handles:
@@ -2711,106 +2566,46 @@ typedef enum VkDebugReportObjectTypeEXT {
     VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_KHR_EXT = VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_YCBCR_CONVERSION_EXT,
 } VkDebugReportObjectTypeEXT;
 
-Table 2. `VkDebugReportObjectTypeEXT` and Vulkan Handle Relationship
+| [VkDebugReportObjectTypeEXT](#VkDebugReportObjectTypeEXT) | Vulkan Handle Type |
+| --- | --- |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT` | Unknown/Undefined Handle |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_INSTANCE_EXT` | [VkInstance](initialization.html#VkInstance) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_PHYSICAL_DEVICE_EXT` | [VkPhysicalDevice](devsandqueues.html#VkPhysicalDevice) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_EXT` | [VkDevice](devsandqueues.html#VkDevice) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_QUEUE_EXT` | [VkQueue](devsandqueues.html#VkQueue) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_SEMAPHORE_EXT` | [VkSemaphore](synchronization.html#VkSemaphore) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_COMMAND_BUFFER_EXT` | [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_FENCE_EXT` | [VkFence](synchronization.html#VkFence) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_MEMORY_EXT` | [VkDeviceMemory](memory.html#VkDeviceMemory) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_EXT` | [VkBuffer](resources.html#VkBuffer) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_IMAGE_EXT` | [VkImage](resources.html#VkImage) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_EVENT_EXT` | [VkEvent](synchronization.html#VkEvent) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_QUERY_POOL_EXT` | [VkQueryPool](queries.html#VkQueryPool) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_VIEW_EXT` | [VkBufferView](resources.html#VkBufferView) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_IMAGE_VIEW_EXT` | [VkImageView](resources.html#VkImageView) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_SHADER_MODULE_EXT` | [VkShaderModule](shaders.html#VkShaderModule) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_CACHE_EXT` | [VkPipelineCache](pipelines.html#VkPipelineCache) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_LAYOUT_EXT` | [VkPipelineLayout](descriptorsets.html#VkPipelineLayout) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_RENDER_PASS_EXT` | [VkRenderPass](renderpass.html#VkRenderPass) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_EXT` | [VkPipeline](pipelines.html#VkPipeline) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT_EXT` | [VkDescriptorSetLayout](descriptorsets.html#VkDescriptorSetLayout) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_EXT` | [VkSampler](samplers.html#VkSampler) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_POOL_EXT` | [VkDescriptorPool](descriptorsets.html#VkDescriptorPool) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_SET_EXT` | [VkDescriptorSet](descriptorsets.html#VkDescriptorSet) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_FRAMEBUFFER_EXT` | [VkFramebuffer](renderpass.html#VkFramebuffer) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_COMMAND_POOL_EXT` | [VkCommandPool](cmdbuffers.html#VkCommandPool) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_SURFACE_KHR_EXT` | [VkSurfaceKHR](VK_KHR_surface/wsi.html#VkSurfaceKHR) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_SWAPCHAIN_KHR_EXT` | [VkSwapchainKHR](VK_KHR_surface/wsi.html#VkSwapchainKHR) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT_EXT` | [VkDebugReportCallbackEXT](#VkDebugReportCallbackEXT) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_KHR_EXT` | [VkDisplayKHR](VK_KHR_surface/wsi.html#VkDisplayKHR) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_MODE_KHR_EXT` | [VkDisplayModeKHR](VK_KHR_surface/wsi.html#VkDisplayModeKHR) |
+| `VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_EXT` | [VkDescriptorUpdateTemplate](descriptorsets.html#VkDescriptorUpdateTemplate) |
 
-[VkDebugReportObjectTypeEXT](#VkDebugReportObjectTypeEXT)
-Vulkan Handle Type
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_UNKNOWN_EXT`
-Unknown/Undefined Handle
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_INSTANCE_EXT`
-[VkInstance](initialization.html#VkInstance)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_PHYSICAL_DEVICE_EXT`
-[VkPhysicalDevice](devsandqueues.html#VkPhysicalDevice)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_EXT`
-[VkDevice](devsandqueues.html#VkDevice)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_QUEUE_EXT`
-[VkQueue](devsandqueues.html#VkQueue)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_SEMAPHORE_EXT`
-[VkSemaphore](synchronization.html#VkSemaphore)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_COMMAND_BUFFER_EXT`
-[VkCommandBuffer](cmdbuffers.html#VkCommandBuffer)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_FENCE_EXT`
-[VkFence](synchronization.html#VkFence)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_DEVICE_MEMORY_EXT`
-[VkDeviceMemory](memory.html#VkDeviceMemory)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_EXT`
-[VkBuffer](resources.html#VkBuffer)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_IMAGE_EXT`
-[VkImage](resources.html#VkImage)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_EVENT_EXT`
-[VkEvent](synchronization.html#VkEvent)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_QUERY_POOL_EXT`
-[VkQueryPool](queries.html#VkQueryPool)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_BUFFER_VIEW_EXT`
-[VkBufferView](resources.html#VkBufferView)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_IMAGE_VIEW_EXT`
-[VkImageView](resources.html#VkImageView)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_SHADER_MODULE_EXT`
-[VkShaderModule](shaders.html#VkShaderModule)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_CACHE_EXT`
-[VkPipelineCache](pipelines.html#VkPipelineCache)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_LAYOUT_EXT`
-[VkPipelineLayout](descriptorsets.html#VkPipelineLayout)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_RENDER_PASS_EXT`
-[VkRenderPass](renderpass.html#VkRenderPass)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_PIPELINE_EXT`
-[VkPipeline](pipelines.html#VkPipeline)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_SET_LAYOUT_EXT`
-[VkDescriptorSetLayout](descriptorsets.html#VkDescriptorSetLayout)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_SAMPLER_EXT`
-[VkSampler](samplers.html#VkSampler)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_POOL_EXT`
-[VkDescriptorPool](descriptorsets.html#VkDescriptorPool)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_SET_EXT`
-[VkDescriptorSet](descriptorsets.html#VkDescriptorSet)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_FRAMEBUFFER_EXT`
-[VkFramebuffer](renderpass.html#VkFramebuffer)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_COMMAND_POOL_EXT`
-[VkCommandPool](cmdbuffers.html#VkCommandPool)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_SURFACE_KHR_EXT`
-[VkSurfaceKHR](VK_KHR_surface/wsi.html#VkSurfaceKHR)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_SWAPCHAIN_KHR_EXT`
-[VkSwapchainKHR](VK_KHR_surface/wsi.html#VkSwapchainKHR)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_DEBUG_REPORT_CALLBACK_EXT_EXT`
-[VkDebugReportCallbackEXT](#VkDebugReportCallbackEXT)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_KHR_EXT`
-[VkDisplayKHR](VK_KHR_surface/wsi.html#VkDisplayKHR)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_DISPLAY_MODE_KHR_EXT`
-[VkDisplayModeKHR](VK_KHR_surface/wsi.html#VkDisplayModeKHR)
-
-`VK_DEBUG_REPORT_OBJECT_TYPE_DESCRIPTOR_UPDATE_TEMPLATE_EXT`
-[VkDescriptorUpdateTemplate](descriptorsets.html#VkDescriptorUpdateTemplate)
+|  | The primary expected use of `VK_ERROR_VALIDATION_FAILED_EXT` is for
+| --- | --- |
+validation layer testing.
+It is not expected that an application would see this error code during
+normal use of the validation layers. |
 
 To inject its own messages into the debug stream, call:
 
@@ -3022,24 +2817,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
+Secondary | Both | Outside | Graphics
 
 Compute
 
-Transfer
-Action
+Transfer | Action |
 
 Note that `pCheckpointMarker` is treated as an opaque value.
 It does not need to be a valid pointer and will not be dereferenced by the
@@ -3491,6 +3277,26 @@ virtual address space, rather than precise addresses.
 The precise memory address accessed or the precise value of the instruction
 pointer **must** lie within the region described.
 
+|  | Each element of `pAddressInfos` describes either:
+| --- | --- |
+
+* 
+A memory access which may have triggered a page fault and may have
+contributed to device loss
+
+* 
+The value of an active instruction pointer at the time a fault occurred.
+This value may be indicative of the active pipeline or shader at the
+time of device loss
+
+Comparison of the GPU virtual addresses described by `pAddressInfos` to
+GPU virtual address ranges reported by the
+`[VK_EXT_device_address_binding_report](../appendices/extensions.html#VK_EXT_device_address_binding_report)` extension may allow
+applications to correlate between these addresses and Vulkan objects.
+Applications should be aware that these addresses may also correspond to
+resources internal to an implementation, which will not be reported via the
+`[VK_EXT_device_address_binding_report](../appendices/extensions.html#VK_EXT_device_address_binding_report)` extension. |
+
 Valid Usage (Implicit)
 
 * 
@@ -3529,6 +3335,13 @@ the possible range of addresses to be calculated, such that:
 
 lower_address = (pInfo->reportedAddress & ~(pInfo->addressPrecision-1))
 upper_address = (pInfo->reportedAddress |  (pInfo->addressPrecision-1))
+
+|  | It is valid for the `reportedAddress` to contain a more precise address
+| --- | --- |
+than indicated by `addressPrecision`.
+In this case, the value of `reportedAddress` should be treated as an
+additional hint as to the value of the address that triggered the page
+fault, or to the value of an instruction pointer. |
 
 Valid Usage (Implicit)
 
@@ -3582,6 +3395,12 @@ instruction fault.
 * 
 `VK_DEVICE_FAULT_ADDRESS_TYPE_INSTRUCTION_POINTER_FAULT_EXT`
 specifies an instruction pointer value associated with a fault.
+
+|  | The instruction pointer values recorded may not identify the specific
+| --- | --- |
+instruction(s) that triggered the fault.
+The relationship between the instruction pointer reported and triggering
+instruction will be vendor-specific. |
 
 The `VkDeviceFaultVendorInfoEXT` structure is defined as:
 
@@ -4011,6 +3830,19 @@ submission call by adding a `VkFrameBoundaryEXT` structure to the
 `pNext` chain of [queue submission](devsandqueues.html#devsandqueues-submission),
 [VkPresentInfoKHR](VK_KHR_surface/wsi.html#VkPresentInfoKHR),
 or [VkBindSparseInfo](sparsemem.html#VkBindSparseInfo).
+
+|  | The frame identifier is used to associate one or more queue submissions to a
+| --- | --- |
+frame.
+It is meant to be unique within a frame lifetime, i.e. it is possible
+(though not recommended) to reuse frame identifiers, as long as any two
+frames that may have overlapping queue submissions (as in the example above)
+use different frame identifiers.
+
+Since the concept of frame is application-dependent, there is no way to
+validate the use of frame identifier.
+It is good practice to use a monotonically increasing counter as the frame
+identifier and not reuse identifiers between frames. |
 
 The `pImages` and `pBuffers` arrays contain a list of images and
 buffers which store the "end result" of the frame.

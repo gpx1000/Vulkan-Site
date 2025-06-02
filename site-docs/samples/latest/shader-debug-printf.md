@@ -23,6 +23,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/shader_debugprintf). |
+| --- | --- |
+
 ![Sample](../../../_images/samples/extensions/shader_debugprintf/images/sample.png)
 
 This sample demonstrates the usage of the [VK_KHR_shader_non_semantic_info](https://registry.khronos.org/vulkan/specs/1.3-extensions/man/html/VK_KHR_shader_non_semantic_info.html) for adding means to output debug messages from SPIR-V shaders using a print function at runtime.
@@ -112,6 +115,9 @@ But if you want to display or process those messages in your own application you
 
 	VK_CHECK(vkCreateDebugUtilsMessengerEXT(vulkan_instance, &debug_utils_messenger_create_info, nullptr, &debug_utils_messenger));
 
+|  | Shader printf messages are of `info` type, so in order for them to be passed to the callback you need to enable the `VK_DEBUG_UTILS_MESSAGE_SEVERITY_INFO_BIT_EXT` `messageSeverity` flag. |
+| --- | --- |
+
 With the validation layers and feature enabled and a debug callback wired up, we can process or output the shader printf messages. The most basic option could look like this:
 
 VKAPI_ATTR VkBool32 VKAPI_CALL ShaderDebugPrintf::debug_utils_message_callback(
@@ -149,6 +155,9 @@ VKAPI_ATTR VkBool32 VKAPI_CALL ShaderDebugPrintf::debug_utils_message_callback(
 }
 
 The default buffer size for debug outputs is limited. If you output a lot of messages, e.g. by doing a printf per fragment shader invocation, this may not suffice and you’ll get a validation warning telling you about the buffer being to small. This buffer size can be increased via the VkConfig utility from the LunarG SDK. See [this whitepaper](https://www.lunarg.com/wp-content/uploads/2021/08/Using-Debug-Printf-02August2021.pdf) for details on that.
+
+|  | This **does not** apply to outputting messages in graphics debuggers. |
+| --- | --- |
 
 Using debug printf will consume a descriptor set, so if you use every last descriptor set it may not work and you may need to increase the set count at pool allocation. Thus in the sample we allocate an additional set from the pool. It also consumes device memory based on the number and/or size fo the debug messages.
 

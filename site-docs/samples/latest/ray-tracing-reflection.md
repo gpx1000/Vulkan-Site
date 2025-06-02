@@ -24,6 +24,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/ray_tracing_reflection). |
+| --- | --- |
+
 ![img1](../../../_images/samples/extensions/ray_tracing_reflection/img1.png)
 
 This sample is a extended version of the [ray tracing basic](../ray_tracing_basic) with the addition of multiple geometries, instances and materials.
@@ -151,6 +154,9 @@ The direction starts at the camera direction, and then is reflected purely at th
 
 The recursion limit is set in the ray-generation shader.
 Currently it is set to **64**, changing its value will change the number of times the ray bounces off.
+
+|  | we could add a test on the attenuation and exist the loop if the value is below a certain threshold. |
+| --- | --- |
 
 ![img3](../../../_images/samples/extensions/ray_tracing_reflection/img3.png)
 

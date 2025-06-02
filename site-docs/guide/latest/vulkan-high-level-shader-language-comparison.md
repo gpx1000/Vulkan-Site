@@ -122,23 +122,22 @@ Table of Contents
 
 While Vulkan itself consumes shaders in a binary format called [SPIR-V](what_is_spirv.html), shaders are usually written in a high level language. This section provides a mapping between shader functionality for the most common ones used with Vulkan: GLSL and HLSL. This is mostly aimed at people wanting to migrate from one high level shader language to another. It’s meant as a starting point and not as a complete porting guide to one language from another
 
+|  | For more details on using HLSL with Vulkan, visit [this chapter](hlsl.html). |
+| --- | --- |
+
+|  | The following listings are by no means complete, and mappings for newer extensions may be missing. Also note that concepts do not always map 1:1 between GLSL and HLSL. E.g. there are no semantic in GLSL while some newer GLSL functionality may not (yet) be available in HLSL. |
+| --- | --- |
+
 In GLSL extensions need to be explicitly enabled using the `#extension` directive. This is **not** necessary in HLSL. The compiler will implicitly select suitable SPIR-V extensions based on the shader. If required one can use `-fspv-extension` arguments to explicitly select extensions.
 
-**GLSL**
-**HLSL**
-**Example**
+|  | Types work similar in GLSL and HLSL. But where GLSL e.g. has explicit vector or matrix types, HLSL uses basic types. On the other hand HLSL offers advanced type features like C++ templates. This paragraph contains a basic summary with some examples to show type differences between the two languages. |
+| --- | --- |
 
-vec*n*
-float*n*
-vec4 → float4
-
-ivec*n*
-int*n*
-ivec3 -→ int3
-
-mat*nxm* or shorthand mat*n*
-float*nxm*
-mat4 → float4x4
+| **GLSL** | **HLSL** | **Example** |
+| --- | --- | --- |
+| vec*n* | float*n* | vec4 → float4 |
+| ivec*n* | int*n* | ivec3 -→ int3 |
+| mat*nxm* or shorthand mat*n* | float*nxm* | mat4 → float4x4 |
 
 * 
 [HLSL data types (Microsoft)](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-data-types)
@@ -155,6 +154,9 @@ mat4x3 mat = mat4x3(ubo.view);
 HLSL:
 
 float4x3 mat = (float4x3)(ubo.view);
+
+|  | An important difference: Matrices in GLSL are column-major, while matrices in HLSL are row-major. This affects things like matrix construction. |
+| --- | --- |
 
 For Vulkan concepts that are not available in DirectX, an [implicit namespace](https://github.com/microsoft/DirectXShaderCompiler/blob/main/docs/SPIR-V.rst#the-implicit-vk-namespace) has been added that marks Vulkan specific features.
 
@@ -179,6 +181,9 @@ Example for setting up the built-in to access vertex positions in ray tracing:
 [[vk::ext_capability(RayTracingPositionFetchKHR)]]
 [[vk::ext_builtin_input(HitTriangleVertexPositionsKHR)]]
 const static float3 gl_HitTriangleVertexPositions[3];
+
+|  | While GLSL makes heavy use of input and output variables built into the languages called "built-ins", there is no such concept in HLSL. HLSL instead uses [semantics](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics), strings that are attached to inputs or inputs that contain information about the intended use of that variable. They are prefixed with `SV_`. For HLSL input values are explicit arguments for the main entry point and the shader needs to explicitly return an output. |
+| --- | --- |
 
 Writing positions from the vertex shader:
 
@@ -228,6 +233,9 @@ VSOutput main(VSInput input)
     VSOutput output = (VSOutput)0;
     output.UV = float2((input.VertexIndex 
 
+|  | Shader interfaces greatly differ between GLSL and HLSL. |
+| --- | --- |
+
 layout (set = , binding = ) uniform  
 
 There are two options for defining descriptor set and binding indices in HLSL when using Vulkan.
@@ -240,6 +248,9 @@ Using this syntax, descriptor set and binding indices will be implicitly assigne
  
 
 With this option, descriptor set and binding indices are explicitly set using `vk::binding`.
+
+|  | It’s possible to use both the `vk::binding[]` and `register()` syntax for one descriptor. This can be useful if a shader is used for both Vulkan and DirectX. |
+| --- | --- |
 
 layout (set = 1, binding = 0) uniform Node {
     mat4 matrix;
@@ -295,29 +306,13 @@ SamplerState samplerColor : register(s1);
 
 If using the HLSL descriptor binding syntax `` can be:
 
-**Type**
-**Register Description**
-**Vulkan resource**
-
-b
-Constant buffer
-Uniform buffer
-
-t
-Texture and texture buffer
-Uniform texel buffer and read-only shader storage buffer
-
-c
-Buffer offset
-`layout(offset = N)`
-
-s
-Sampler
-same
-
-u
-Unordered Access View
-Shader storage buffer, storage image and storage texel buffer
+| **Type** | **Register Description** | **Vulkan resource** |
+| --- | --- | --- |
+| b | Constant buffer | Uniform buffer |
+| t | Texture and texture buffer | Uniform texel buffer and read-only shader storage buffer |
+| c | Buffer offset | `layout(offset = N)` |
+| s | Sampler | same |
+| u | Unordered Access View | Shader storage buffer, storage image and storage texel buffer |
 
 layout (location = ) in  ;
 
@@ -345,49 +340,18 @@ VSOutput main(VSInput input) {
 
 `` can be
 
-**Semantic**
-**Description**
-**Type**
-
-BINORMAL[n]
-Binormal
-float4
-
-BLENDINDICES[n]
-Blend indices
-uint
-
-BLENDWEIGHT[n]
-Blend weights
-float
-
-COLOR[n]
-Diffuse and specular color
-float4
-
-NORMAL[n]
-Normal vector
-float4
-
-POSITION[n]
-Vertex position in object space.
-float4
-
-POSITIONT
-Transformed vertex position
-float4
-
-PSIZE[n]
-Point size
-float
-
-TANGENT[n]
-Tangent
-float4
-
-TEXCOORD[n]
-Texture coordinates
-float4
+| **Semantic** | **Description** | **Type** |
+| --- | --- | --- |
+| BINORMAL[n] | Binormal | float4 |
+| BLENDINDICES[n] | Blend indices | uint |
+| BLENDWEIGHT[n] | Blend weights | float |
+| COLOR[n] | Diffuse and specular color | float4 |
+| NORMAL[n] | Normal vector | float4 |
+| POSITION[n] | Vertex position in object space. | float4 |
+| POSITIONT | Transformed vertex position | float4 |
+| PSIZE[n] | Point size | float |
+| TANGENT[n] | Tangent | float4 |
+| TEXCOORD[n] | Texture coordinates | float4 |
 
 `n` is an optional integer between 0 and the number of resources supported. ([source](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-semantics))
 
@@ -461,6 +425,9 @@ FSOutput main(VSOutput input) {
     return output;
 }
 
+|  | Push constants must be handled through a root signature in D3D. |
+| --- | --- |
+
 layout (push_constant) uniform  {  } 
 
 Example:
@@ -475,6 +442,9 @@ struct PushConsts {
     float4x4 matrix;
 };
 [[vk::push_constant]] PushConsts pushConsts;
+
+|  | Specialization constants are only available in Vulkan, D3D doesn’t offer anything similar. |
+| --- | --- |
 
 layout (constant_id = ) const int  = ;
 
@@ -500,6 +470,9 @@ Example:
 
 [[vk::input_attachment_index(0)]][[vk::binding(0)]] SubpassInput input0;
 
+|  | Where GLSL uses global functions to access images, HLSL uses member functions of the texture object. |
+| --- | --- |
+
 Example:
 
 GLSL:
@@ -519,29 +492,15 @@ float4 main(VSOutput input) : SV_TARGET {
     float4 color = texture0.Sample(sampler0, input.UV);
 }
 
-**GLSL**
-**HLSL**
-
-texture
-Sample
-
-textureGrad
-SampleGrad
-
-textureLod
-SampleLevel
-
-textureSize
-GetDimensions
-
-textureProj
-n.a., requires manual perspective divide
-
-texelFetch
-Load
-
-sparseTexelsResidentARB
-CheckAccessFullyMapped
+| **GLSL** | **HLSL** |
+| --- | --- |
+| texture | Sample |
+| textureGrad | SampleGrad |
+| textureLod | SampleLevel |
+| textureSize | GetDimensions |
+| textureProj | n.a., requires manual perspective divide |
+| texelFetch | Load |
+| sparseTexelsResidentARB | CheckAccessFullyMapped |
 
 layout (set = , binding = , ) uniform   ;
 
@@ -556,6 +515,9 @@ Example:
 
 [[vk::image_format("rgba8")]]
 RWTexture2D resultImage : register(u0, space0);
+
+|  | Currently, HLSL only supports a [subset](https://github.com/microsoft/DirectXShaderCompiler/blob/main/docs/SPIR-V.rst#rawbufferload-and-rawbufferstore) of `VK_KHR_buffer_device_address`. |
+| --- | --- |
 
 Example:
 
@@ -604,153 +566,57 @@ struct SBT {
 [[vk::shader_record_ext]]
 ConstantBuffer sbt;
 
-**GLSL**
-**HLSL**
-Note
-
-accelerationStructureEXT
-RaytracingAccelerationStructure
-
-executeCallableEXT
-CallShader
-
-ignoreIntersectionEXT
-IgnoreHit
-
-reportIntersectionEXT
-ReportHit
-
-terminateRayEXT
-AcceptHitAndEndSearch
-
-traceRayEXT
-TraceRay
-
-rayPayloadEXT (storage qualifier)
-Last argument of TraceRay
-
-rayPayloadInEXT (storage qualifier)
-First argument for main entry of any hit, closest hit and miss stage
-
-hitAttributeEXT (storage qualifier)
-Last argument of ReportHit
-
-callableDataEXT (storage qualifier)
-Last argument of CallShader
-
-callableDataInEXT (storage qualifier)
-First argument for main entry of callabe stage
-
-gl_LaunchIDEXT
-DispatchRaysIndex
-
-gl_LaunchSizeEXT
-DispatchRaysDimensions
-
-gl_PrimitiveID
-PrimitiveIndex
-
-gl_InstanceID
-InstanceIndex
-
-gl_InstanceCustomIndexEXT
-InstanceID
-
-gl_GeometryIndexEXT
-GeometryIndex
-
-gl_VertexIndex
-SV_VertexID
-
-gl_WorldRayOriginEXT
-WorldRayOrigin
-
-gl_WorldRayDirectionEXT
-WorldRayDirection
-
-gl_ObjectRayOriginEXT
-ObjectRayOrigin
-
-gl_ObjectRayDirectionEXT
-ObjectRayDirection
-
-gl_RayTminEXT
-RayTMin
-
-gl_RayTmaxEXT
-RayTCurrent
-
-gl_IncomingRayFlagsEXT
-RayFlags
-
-gl_HitTEXT
-RayTCurrent
-
-gl_HitKindEXT
-HitKind
-
-gl_ObjectToWorldEXT
-ObjectToWorld4x3
-
-gl_WorldToObjectEXT
-WorldToObject4x3
-
-gl_WorldToObject3x4EXT
-WorldToObject3x4
-
-gl_ObjectToWorld3x4EXT
-ObjectToWorld3x4
-
-gl_RayFlagsNoneEXT
-RAY_FLAG_NONE
-
-gl_RayFlagsOpaqueEXT
-RAY_FLAG_FORCE_OPAQUE
-
-gl_RayFlagsNoOpaqueEXT
-RAY_FLAG_FORCE_NON_OPAQUE
-
-gl_RayFlagsTerminateOnFirstHitEXT
-RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH
-
-gl_RayFlagsSkipClosestHitShaderEXT
-RAY_FLAG_SKIP_CLOSEST_HIT_SHADER
-
-gl_RayFlagsCullBackFacingTrianglesEXT
-RAY_FLAG_CULL_BACK_FACING_TRIANGLES
-
-gl_RayFlagsCullFrontFacingTrianglesEXT
-RAY_FLAG_CULL_FRONT_FACING_TRIANGLES
-
-gl_RayFlagsCullOpaqueEXT
-RAY_FLAG_CULL_OPAQUE
-
-gl_RayFlagsCullNoOpaqueEXT
-RAY_FLAG_CULL_NON_OPAQUE
-requires `GL_EXT_ray_flags_primitive_culling`
-
-gl_RayFlagsSkipTrianglesEXT
-RAY_FLAG_SKIP_TRIANGLES
-requires `GL_EXT_ray_flags_primitive_culling`
-
-gl_RayFlagsSkipAABBEXT
-RAY_FLAG_SKIP_PROCEDURAL_PRIMITIVES
-
-gl_HitKindFrontFacingTriangleEXT
-HIT_KIND_TRIANGLE_FRONT_FACE
-
-gl_HitKindBackFacingTriangleEXT
-HIT_KIND_TRIANGLE_BACK_FACE
-
-gl_HitTriangleVertexPositionsEXT
-
-Requires [SPIR-V intrinsics](#_spir_v_intrinsics):
+| **GLSL** | **HLSL** | Note |
+| --- | --- | --- |
+| accelerationStructureEXT | RaytracingAccelerationStructure |  |
+| executeCallableEXT | CallShader |  |
+| ignoreIntersectionEXT | IgnoreHit |  |
+| reportIntersectionEXT | ReportHit |  |
+| terminateRayEXT | AcceptHitAndEndSearch |  |
+| traceRayEXT | TraceRay |  |
+| rayPayloadEXT (storage qualifier) | Last argument of TraceRay |  |
+| rayPayloadInEXT (storage qualifier) | First argument for main entry of any hit, closest hit and miss stage |  |
+| hitAttributeEXT (storage qualifier) | Last argument of ReportHit |  |
+| callableDataEXT (storage qualifier) | Last argument of CallShader |  |
+| callableDataInEXT (storage qualifier) | First argument for main entry of callabe stage |  |
+| gl_LaunchIDEXT | DispatchRaysIndex |  |
+| gl_LaunchSizeEXT | DispatchRaysDimensions |  |
+| gl_PrimitiveID | PrimitiveIndex |  |
+| gl_InstanceID | InstanceIndex |  |
+| gl_InstanceCustomIndexEXT | InstanceID |  |
+| gl_GeometryIndexEXT | GeometryIndex |  |
+| gl_VertexIndex | SV_VertexID |  |
+| gl_WorldRayOriginEXT | WorldRayOrigin |  |
+| gl_WorldRayDirectionEXT | WorldRayDirection |  |
+| gl_ObjectRayOriginEXT | ObjectRayOrigin |  |
+| gl_ObjectRayDirectionEXT | ObjectRayDirection |  |
+| gl_RayTminEXT | RayTMin |  |
+| gl_RayTmaxEXT | RayTCurrent |  |
+| gl_IncomingRayFlagsEXT | RayFlags |  |
+| gl_HitTEXT | RayTCurrent |  |
+| gl_HitKindEXT | HitKind |  |
+| gl_ObjectToWorldEXT | ObjectToWorld4x3 |  |
+| gl_WorldToObjectEXT | WorldToObject4x3 |  |
+| gl_WorldToObject3x4EXT | WorldToObject3x4 |  |
+| gl_ObjectToWorld3x4EXT | ObjectToWorld3x4 |  |
+| gl_RayFlagsNoneEXT | RAY_FLAG_NONE |  |
+| gl_RayFlagsOpaqueEXT | RAY_FLAG_FORCE_OPAQUE |  |
+| gl_RayFlagsNoOpaqueEXT | RAY_FLAG_FORCE_NON_OPAQUE |  |
+| gl_RayFlagsTerminateOnFirstHitEXT | RAY_FLAG_ACCEPT_FIRST_HIT_AND_END_SEARCH |  |
+| gl_RayFlagsSkipClosestHitShaderEXT | RAY_FLAG_SKIP_CLOSEST_HIT_SHADER |  |
+| gl_RayFlagsCullBackFacingTrianglesEXT | RAY_FLAG_CULL_BACK_FACING_TRIANGLES |  |
+| gl_RayFlagsCullFrontFacingTrianglesEXT | RAY_FLAG_CULL_FRONT_FACING_TRIANGLES |  |
+| gl_RayFlagsCullOpaqueEXT | RAY_FLAG_CULL_OPAQUE |  |
+| gl_RayFlagsCullNoOpaqueEXT | RAY_FLAG_CULL_NON_OPAQUE | requires `GL_EXT_ray_flags_primitive_culling` |
+| gl_RayFlagsSkipTrianglesEXT | RAY_FLAG_SKIP_TRIANGLES | requires `GL_EXT_ray_flags_primitive_culling` |
+| gl_RayFlagsSkipAABBEXT | RAY_FLAG_SKIP_PROCEDURAL_PRIMITIVES |  |
+| gl_HitKindFrontFacingTriangleEXT | HIT_KIND_TRIANGLE_FRONT_FACE |  |
+| gl_HitKindBackFacingTriangleEXT | HIT_KIND_TRIANGLE_BACK_FACE |  |
+| gl_HitTriangleVertexPositionsEXT | Requires [SPIR-V intrinsics](#_spir_v_intrinsics):
 
 [[vk::ext_extension("SPV_KHR_ray_tracing_position_fetch")]]
 [[vk::ext_capability(RayTracingPositionFetchKHR)]]
-[[vk::ext_builtin_input(HitTriangleVertexPositionsKHR)]]
-
-Requires `GL_EXT_ray_tracing_position_fetch`
+[[vk::ext_builtin_input(HitTriangleVertexPositionsKHR)]] | Requires `GL_EXT_ray_tracing_position_fetch` |
 
 layout (local_size_x = , local_size_y = , local_size_z = ) in;
 
@@ -773,26 +639,17 @@ Example:
 
 groupshared float4 sharedData[1024];
 
-**GLSL**
-**HLSL**
+| **GLSL** | **HLSL** |
+| --- | --- |
+| gl_GlobalInvocationID | SV_DispatchThreadID |
+| gl_LocalInvocationID | SV_GroupThreadID |
+| gl_WorkGroupID | SV_GroupID |
+| gl_LocalInvocationIndex | SV_GroupIndex |
+| gl_NumWorkGroups | n.a. |
+| gl_WorkGroupSize | n.a. |
 
-gl_GlobalInvocationID
-SV_DispatchThreadID
-
-gl_LocalInvocationID
-SV_GroupThreadID
-
-gl_WorkGroupID
-SV_GroupID
-
-gl_LocalInvocationIndex
-SV_GroupIndex
-
-gl_NumWorkGroups
-n.a.
-
-gl_WorkGroupSize
-n.a.
+|  | Barriers heavily differ between GLSL and HLSL. With one exception there is no direct mapping. To match HLSL in GLSL you often need to call multiple different barrier types in glsl. |
+| --- | --- |
 
 Example:
 
@@ -807,317 +664,123 @@ HLSL:
 GroupMemoryBarrierWithGroupSync();
 for (int j = 0; j 
 
-**GLSL**
-**HLSL**
-
-groupMemoryBarrier
-GroupMemoryBarrier
-
-groupMemoryBarrier + barrier
-GroupMemoryBarrierWithGroupSync
-
-memoryBarrier + memoryBarrierImage + memoryBarrierImage
-DeviceMemoryBarrier
-
-memoryBarrier + memoryBarrierImage + memoryBarrierImage + barrier
-DeviceMemoryBarrierWithGroupSync
-
-All above barriers + barrier
-AllMemoryBarrierWithGroupSync
-
-All above barriers
-AllMemoryBarrier
-
-memoryBarrierShared (only)
-n.a.
+| **GLSL** | **HLSL** |
+| --- | --- |
+| groupMemoryBarrier | GroupMemoryBarrier |
+| groupMemoryBarrier + barrier | GroupMemoryBarrierWithGroupSync |
+| memoryBarrier + memoryBarrierImage + memoryBarrierImage | DeviceMemoryBarrier |
+| memoryBarrier + memoryBarrierImage + memoryBarrierImage + barrier | DeviceMemoryBarrierWithGroupSync |
+| All above barriers + barrier | AllMemoryBarrierWithGroupSync |
+| All above barriers | AllMemoryBarrier |
+| memoryBarrierShared (only) | n.a. |
 
 These shader stages share several functions and built-ins
 
-**GLSL**
-**HLSL**
-
-EmitMeshTasksEXT
-DispatchMesh
-
-SetMeshOutputsEXT
-SetMeshOutputCounts
-
-EmitVertex
-*StreamType*.Append (e.g. {TriangleStream})
-
-EndPrimitive
-*StreamType*.RestartStrip
-
-gl_PrimitiveShadingRateEXT
-SV_ShadingRate
-
-gl_CullPrimitiveEXT
-SV_CullPrimitive
-
-gl_in
-Array argument for main entry (e.g. {triangle VSInput input[3]})
-
-**GLSL**
-**HLSL**
-
-gl_InvocationID
-SV_OutputControlPointID
-
-gl_TessLevelInner
-SV_InsideTessFactor
-
-gl_TessLevelOuter
-SV_TessFactor
-
-gl_TessCoord
-SV_DomainLocation
-
-**GLSL**
-**HLSL**
-
-gl_HelperInvocation
-WaveIsHelperLane
-
-n.a.
-WaveOnce
-
-readFirstInvocationARB
-WaveReadFirstLane
-
-readInvocationARB
-WaveReadLaneAt
-
-anyInvocationARB
-WaveAnyTrue
-
-allInvocationsARB
-WaveAllTrue
-
-allInvocationsEqualARB
-WaveAllEqual
-
-ballotARB
-WaveBallot
-
-gl_NumSubgroups
-NumSubgroups decorated OpVariable
-
-gl_SubgroupID
-SubgroupId decorated OpVariable
-
-gl_SubgroupSize
-WaveGetLaneCount
-
-gl_SubgroupInvocationID
-WaveGetLaneIndex
-
-gl_SubgroupEqMask
-n.a.
-
-gl_SubgroupGeMask
-n.a.
-
-gl_SubgroupGtMask
-n.a.
-
-gl_SubgroupLeMask
-n.a.
-
-gl_SubgroupLtMask
-SubgroupLtMask decorated OpVariable
-
-subgroupElect
-WaveIsFirstLane
-
-subgroupAny
-WaveActiveAnyTrue
-
-subgroupAll
-WaveActiveAllTrue
-
-subgroupBallot
-WaveActiveBallot
-
-subgroupAllEqual
-WaveActiveAllEqual
-
-subgroupBallotBitCount
-WaveActiveCountBits
-
-subgroupAnd
-WaveActiveBitAdd
-
-subgroupOr
-WaveActiveBitOr
-
-subgroupXor
-WaveActiveBitXor
-
-subgroupAdd
-WaveActiveSum
-
-subgroupMul
-WaveActiveProduct
-
-subgroupMin
-WaveActiveMin
-
-subgroupMax
-WaveActiveMax
-
-subgroupExclusiveAdd
-WavePrefixSum
-
-subgroupExclusiveMul
-WavePrefixProduct
-
-subgroupBallotExclusiveBitCount
-WavePrefixCountBits
-
-subgroupBroadcast
-WaveReadLaneAt
-
-subgroupBroadcastFirst
-WaveReadLaneFirst
-
-subgroupQuadSwapHorizontal
-QuadReadAcrossX
-
-subgroupQuadSwapVertical
-QuadReadAcrossY
-
-subgroupQuadSwapDiagonal
-QuadReadAcrossDiagonal
-
-subgroupQuadBroadcast
-QuadReadLaneAt
-
-**GLSL**
-**HLSL**
-**Note**
-
-gl_PointSize
-[[vk::builtin("PointSize")]]
-Vulkan only, no direct HLSL equivalent
-
-gl_BaseVertexARB
-[[vk::builtin("BaseVertex")]]
-Vulkan only, no direct HLSL equivalent
-
-gl_BaseInstanceARB
-[[vk::builtin("BaseInstance")]]
-Vulkan only, no direct HLSL equivalent
-
-gl_DrawID
-[[vk::builtin("DrawIndex")]]
-Vulkan only, no direct HLSL equivalent
-
-gl_DeviceIndex
-[[vk::builtin("DeviceIndex")]]
-Vulkan only, no direct HLSL equivalent
-
-gl_ViewportMask
-[[vk::builtin("ViewportMaskNV")]]
-Vulkan only, no direct HLSL equivalent
-
-gl_FragCoord
-SV_Position
-
-gl_FragDepth
-SV_Depth
-
-gl_FrontFacing
-SV_IsFrontFace
-
-gl_InstanceIndex
-SV_InstanceID
-
-gl_ViewIndex
-SV_ViewID
-
-gl_ClipDistance
-SV_ClipDistance
-
-gl_CullDistance
-SV_CullDistance
-
-gl_PointCoord
-SV_Position
-
-gl_Position
-SV_Position
-
-gl_PrimitiveID
-SV_PrimitiveID
-
-gl_ViewportIndex
-SV_ViewportArrayIndex
-
-gl_Layer
-SV_RenderTargetArrayIndex
-
-gl_SampleID
-SV_SampleIndex
-
-gl_SamplePosition
-EvaluateAttributeAtSample
-
-subpassLoad
-.SubpassLoad
-
-imageLoad
-RWTexture1D/2D/3D[]
-
-imageStore
-RWTexture1D/2D/3D[]
-
-atomicAdd
-InterlockedAdd
-
-atomicCompSwap
-InterlockedCompareExchange
-
-imageAtomicExchange
-InterlockedExchange
-
-nonuniformEXT
-NonUniformResourceIndex
-
-gl_BaryCoordEXT
-SV_Barycentrics
-
-gl_BaryCoordNoPerspEXT
-SV_Barycentrics with noperspective
-
-**GLSL**
-**HLSL**
-
-dFdx
-ddx
-
-dFdxCoarse
-ddx_coarse
-
-dFdxFine
-ddx_fine
-
-dFdy
-ddy
-
-dFdyCoarse
-ddy_coarse
-
-dFdyFine
-ddy_fine
-
-fma
-mad
-
-fract
-frac
-
-mix
-lerp
+| **GLSL** | **HLSL** |
+| --- | --- |
+| EmitMeshTasksEXT | DispatchMesh |
+| SetMeshOutputsEXT | SetMeshOutputCounts |
+| EmitVertex | *StreamType*.Append (e.g. {TriangleStream}) |
+| EndPrimitive | *StreamType*.RestartStrip |
+| gl_PrimitiveShadingRateEXT | SV_ShadingRate |
+| gl_CullPrimitiveEXT | SV_CullPrimitive |
+| gl_in | Array argument for main entry (e.g. {triangle VSInput input[3]}) |
+
+| **GLSL** | **HLSL** |
+| --- | --- |
+| gl_InvocationID | SV_OutputControlPointID |
+| gl_TessLevelInner | SV_InsideTessFactor |
+| gl_TessLevelOuter | SV_TessFactor |
+| gl_TessCoord | SV_DomainLocation |
+
+| **GLSL** | **HLSL** |
+| --- | --- |
+| gl_HelperInvocation | WaveIsHelperLane |
+| n.a. | WaveOnce |
+| readFirstInvocationARB | WaveReadFirstLane |
+| readInvocationARB | WaveReadLaneAt |
+| anyInvocationARB | WaveAnyTrue |
+| allInvocationsARB | WaveAllTrue |
+| allInvocationsEqualARB | WaveAllEqual |
+| ballotARB | WaveBallot |
+| gl_NumSubgroups | NumSubgroups decorated OpVariable |
+| gl_SubgroupID | SubgroupId decorated OpVariable |
+| gl_SubgroupSize | WaveGetLaneCount |
+| gl_SubgroupInvocationID | WaveGetLaneIndex |
+| gl_SubgroupEqMask | n.a. |
+| gl_SubgroupGeMask | n.a. |
+| gl_SubgroupGtMask | n.a. |
+| gl_SubgroupLeMask | n.a. |
+| gl_SubgroupLtMask | SubgroupLtMask decorated OpVariable |
+| subgroupElect | WaveIsFirstLane |
+| subgroupAny | WaveActiveAnyTrue |
+| subgroupAll | WaveActiveAllTrue |
+| subgroupBallot | WaveActiveBallot |
+| subgroupAllEqual | WaveActiveAllEqual |
+| subgroupBallotBitCount | WaveActiveCountBits |
+| subgroupAnd | WaveActiveBitAdd |
+| subgroupOr | WaveActiveBitOr |
+| subgroupXor | WaveActiveBitXor |
+| subgroupAdd | WaveActiveSum |
+| subgroupMul | WaveActiveProduct |
+| subgroupMin | WaveActiveMin |
+| subgroupMax | WaveActiveMax |
+| subgroupExclusiveAdd | WavePrefixSum |
+| subgroupExclusiveMul | WavePrefixProduct |
+| subgroupBallotExclusiveBitCount | WavePrefixCountBits |
+| subgroupBroadcast | WaveReadLaneAt |
+| subgroupBroadcastFirst | WaveReadLaneFirst |
+| subgroupQuadSwapHorizontal | QuadReadAcrossX |
+| subgroupQuadSwapVertical | QuadReadAcrossY |
+| subgroupQuadSwapDiagonal | QuadReadAcrossDiagonal |
+| subgroupQuadBroadcast | QuadReadLaneAt |
+
+| **GLSL** | **HLSL** | **Note** |
+| --- | --- | --- |
+| gl_PointSize | [[vk::builtin("PointSize")]] | Vulkan only, no direct HLSL equivalent |
+| gl_BaseVertexARB | [[vk::builtin("BaseVertex")]] | Vulkan only, no direct HLSL equivalent |
+| gl_BaseInstanceARB | [[vk::builtin("BaseInstance")]] | Vulkan only, no direct HLSL equivalent |
+| gl_DrawID | [[vk::builtin("DrawIndex")]] | Vulkan only, no direct HLSL equivalent |
+| gl_DeviceIndex | [[vk::builtin("DeviceIndex")]] | Vulkan only, no direct HLSL equivalent |
+| gl_ViewportMask | [[vk::builtin("ViewportMaskNV")]] | Vulkan only, no direct HLSL equivalent |
+| gl_FragCoord | SV_Position |  |
+| gl_FragDepth | SV_Depth |  |
+| gl_FrontFacing | SV_IsFrontFace |  |
+| gl_InstanceIndex | SV_InstanceID |  |
+| gl_ViewIndex | SV_ViewID |  |
+| gl_ClipDistance | SV_ClipDistance |  |
+| gl_CullDistance | SV_CullDistance |  |
+| gl_PointCoord | SV_Position |  |
+| gl_Position | SV_Position |  |
+| gl_PrimitiveID | SV_PrimitiveID |  |
+| gl_ViewportIndex | SV_ViewportArrayIndex |  |
+| gl_Layer | SV_RenderTargetArrayIndex |  |
+| gl_SampleID | SV_SampleIndex |  |
+| gl_SamplePosition | EvaluateAttributeAtSample |  |
+| subpassLoad | .SubpassLoad |  |
+| imageLoad | RWTexture1D/2D/3D[] |  |
+| imageStore | RWTexture1D/2D/3D[] |  |
+| atomicAdd | InterlockedAdd |  |
+| atomicCompSwap | InterlockedCompareExchange |  |
+| imageAtomicExchange | InterlockedExchange |  |
+| nonuniformEXT | NonUniformResourceIndex |  |
+| gl_BaryCoordEXT | SV_Barycentrics |  |
+| gl_BaryCoordNoPerspEXT | SV_Barycentrics with noperspective |  |
+
+|  | Most GLSL functions are also available in HLSL and vice-versa. This chapter lists functions with divergent names. Functions that have a 1:1 counterpart (e.g. `isNan`) aren’t listed. |
+| --- | --- |
+
+| **GLSL** | **HLSL** |
+| --- | --- |
+| dFdx | ddx |
+| dFdxCoarse | ddx_coarse |
+| dFdxFine | ddx_fine |
+| dFdy | ddy |
+| dFdyCoarse | ddy_coarse |
+| dFdyFine | ddy_fine |
+| fma | mad |
+| fract | frac |
+| mix | lerp |
 
 * 
 [HLSL intrinsic function (Microsoft)](https://learn.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-intrinsic-functions)

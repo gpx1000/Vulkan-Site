@@ -18,6 +18,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/wait_idle). |
+| --- | --- |
+
 This sample compares two methods for synchronizing between the CPU and GPU, `WaitIdle` and `Fences` demonstrating which one is the best option in order to avoid stalling.
 
 The simplest way to synchronize the CPU and GPU is to use either `vkQueueWaitIdle` or `vkDeviceWaitIdle`, these commands wait until the device or queue has finished executing all work dispatched to it.

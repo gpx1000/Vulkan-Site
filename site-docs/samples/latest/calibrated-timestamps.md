@@ -17,6 +17,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/calibrated_timestamps). |
+| --- | --- |
+
 This sample demonstrates the extension `VK_EXT_calibrated_timestamps`.
 The calibrated timestamps profiles any given portion of code, unlike timestamp queries, which only profiles an entire graphic queue.
 

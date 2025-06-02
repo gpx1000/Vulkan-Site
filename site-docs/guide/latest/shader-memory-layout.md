@@ -54,6 +54,9 @@ array
 * 
 struct
 
+|  | Promoted to core in Vulkan 1.2 |
+| --- | --- |
+
 This extension allows the use of `std430` memory layout in UBOs. [Vulkan Standard Buffer Layout Interface](https://docs.vulkan.org/spec/latest/chapters/interfaces.html#interfaces-resources-standard-layout) can be found outside this guide. These memory layout changes are only applied to `Uniforms` as other storage items such as Push Constants and SSBO already allow for std430 style layouts.
 
 One example of when the `uniformBufferStandardLayout` feature is needed is when an application doesn’t want the array stride for a UBO to be restricted to `extended alignment`
@@ -79,6 +82,11 @@ OpDecorate %array430 ArrayStride 4
 
 Make sure to set `--uniform-buffer-standard-layout` when running the SPIR-V Validator.
 
+|  | Promoted to core in Vulkan 1.1
+| --- | --- |
+
+There was never a feature bit added for this extension, so all Vulkan 1.1+ devices support relaxed block layout. |
+
 This extension allows implementations to indicate they can support more variation in block `Offset` decorations. This comes up when using `std430` memory layout where a `vec3` (which is 12 bytes) is still defined as a 16 byte alignment. With relaxed block layout an application can fit a `float` on either side of the `vec3` and maintain the 16 byte alignment between them.
 
 // SPIR-V offsets WITHOUT relaxed block layout
@@ -95,12 +103,29 @@ layout (set = 0, binding = 0) buffer block {
 
 `VK_KHR_relaxed_block_layout` can also be seen as a subset of `VK_EXT_scalar_block_layout`
 
+|  | Make sure to set `--relax-block-layout` when running the SPIR-V Validator and using a Vulkan 1.0 environment. |
+| --- | --- |
+
+|  | Currently there is no way in GLSL to legally express relaxed block layout, but an developer can use the `--hlsl-offsets` with `glslang` to produce the desired offsets. |
+| --- | --- |
+
+|  | Promoted to core in Vulkan 1.2
+| --- | --- |
+
+[GLSL - GL_EXT_scalar_block_layout](https://github.com/KhronosGroup/GLSL/blob/master/extensions/ext/GL_EXT_scalar_block_layout.txt) |
+
 This extension allows most storage types to be aligned in `scalar alignment`. A big difference is being able to straddle the 16-byte boundary.
 
 In GLSL this can be used with `scalar` keyword and extension
 
 #extension GL_EXT_scalar_block_layout : enable
 layout (scalar, binding = 0) buffer block { }
+
+|  | Make sure to set `--scalar-block-layout` when running the SPIR-V Validator. |
+| --- | --- |
+
+|  | The `Workgroup` storage class is not supported with `VK_EXT_scalar_block_layout` and the `workgroupMemoryExplicitLayoutScalarBlockLayout` in [VK_KHR_workgroup_memory_explicit_layout](extensions/shader_features.html#VK_KHR_workgroup_memory_explicit_layout) is needed to enabled scalar support. |
+| --- | --- |
 
 The following are some GLSL to SPIR-V examples to help better understand the difference in the alignments supported.
 

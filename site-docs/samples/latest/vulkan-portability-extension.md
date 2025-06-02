@@ -15,6 +15,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/portability). |
+| --- | --- |
+
 This tutorial, along with the accompanying example code, demonstrates the use of the [VK_KHR_portability_subset](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VK_KHR_portability_subset) extension.
 When the VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR is set in the `Instance` class, Vulkan will consider  devices that aren’t fully conformant such as [MoltenVk](https://github.com/KhronosGroup/MoltenVK) to be identified  as a conformant implementation.
 When this happens, use the VkPhysicalDevicePortabilitySubsetPropertiesKHR extension  with the [vkGetPhysicalDeviceFeatures2](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#vkGetPhysicalDeviceFeatures2) as detailed below to get the list of supported/unsupported features.
@@ -22,6 +25,11 @@ When this happens, use the VkPhysicalDevicePortabilitySubsetPropertiesKHR extens
 This tutorial along with the accompanying code also demonstrates the use of the [VkPhysicalDevicePortabilitySubsetPropertiesKHR](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/vkspec.html#VkPhysicalDevicePortabilitySubsetPropertiesKHR) which is currently a beta khronos extension.
 This extension  provides a list of supported and unsupported parts of Vulkan on a non-conformant Vulkan instance.
 Build with  VK_ENABLE_BETA_EXTENSIONS set to enable this.
+
+|  | Enabling the extension globally is done inside the framework, see the `Instance` class in [instance.
+| --- | --- |
+cpp](../../../framework/core/instance.cpp) for details.
+To enable the extension for all samples, build with  VKB_ENABLE_PORTABILITY defined. |
 
 Enabling the functionality for the portability subset is done by adding the extension to the list of extensions to  enable at instance level.
 The device instance can also be used to generate the subset of portability enabled device  items.

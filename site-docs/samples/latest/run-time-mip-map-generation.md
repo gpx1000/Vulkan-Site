@@ -27,6 +27,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/api/texture_mipmap_generation). |
+| --- | --- |
+
 Generates a complete texture mip-chain at runtime from a base image using image blits and proper image barriers.
 
 This examples demonstrates how to generate a complete texture mip-chain at runtime instead of loading offline generated mip-maps from a texture file.

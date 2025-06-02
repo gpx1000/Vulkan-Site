@@ -25,6 +25,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/open_cl_interop_arm). |
+| --- | --- |
+
 In certain scenarios OpenCL is used for compute, while another API is used for graphics, and interoperability between two APIs becomes important in this case.
 For example, in AR applications graphics rendering is often combined with machine learning workloads, which can be executed using OpenCL.
 In such cases we need zero-copy data sharing and efficient workload synchronization to achieve the best performance.
@@ -90,6 +93,10 @@ info.memory = shared_memory;
 vkGetMemoryAndroidHardwareBufferANDROID(device, &info, &hardware_buffer);
 
 In this case AHardwareBuffer is created first and then used for `VkDeviceMemory` allocation.
+
+|  | there are certain restrictions on image or buffer format and usage.
+| --- | --- |
+You can find the list of Android Hardware Buffer formats and their Vulkan counterparts in this [table](https://developer.android.com/ndk/reference/group/a-hardware-buffer#ahardwarebuffer_format). |
 
 A pointer to `dedicated_allocate_info` is provided as `pNext` of `VkImportAndroidHardwareBufferInfoANDROID`.
 Also the hardware buffer we want to import must be provided during this stage:

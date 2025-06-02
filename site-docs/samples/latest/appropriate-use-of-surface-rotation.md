@@ -21,6 +21,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/performance/surface_rotation). |
+| --- | --- |
+
 Mobile devices can be rotated, therefore the logical orientation of the application window and the physical orientation of the display may not match.
 Applications then need to be able to operate in two modes: portrait and landscape.
 The difference between these two modes can be simplified to just a change in resolution.
@@ -57,29 +60,19 @@ Note that not all devices will show obvious differences, as more and more includ
 
 In a nutshell, below are the steps required to handle pre-rotation:
 
-No pre-rotation
-Pre-rotation
-
-Destroy the Vulkan framebuffers and the swapchain
-Destroy the Vulkan framebuffers and the swapchain
-
-Re-create the swapchain using the new surface dimensions i.e.
+| No pre-rotation | Pre-rotation |
+| --- | --- |
+| Destroy the Vulkan framebuffers and the swapchain | Destroy the Vulkan framebuffers and the swapchain |
+| Re-create the swapchain using the new surface dimensions i.e.
 the swapchain dimensions match the surface’s.
 Ignore the `preTransform` field in [`VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSwapchainCreateInfoKHR.html).
-This will not match the value returned by [`vkGetPhysicalDeviceSurfaceCapabilitiesKHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html) and therefore the Android Compositor will rotate the scene before presenting it to the display
-Re-create the swapchain using the old swapchain dimensions, i.e.
+This will not match the value returned by [`vkGetPhysicalDeviceSurfaceCapabilitiesKHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/vkGetPhysicalDeviceSurfaceCapabilitiesKHR.html) and therefore the Android Compositor will rotate the scene before presenting it to the display | Re-create the swapchain using the old swapchain dimensions, i.e.
 the swapchain dimensions do not change.
 Update the `preTransform` field in [`VK_STRUCTURE_TYPE_SWAPCHAIN_CREATE_INFO_KHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSwapchainCreateInfoKHR.html) so that it matches the `currentTransform` field of the [`VkSurfaceCapabilitiesKHR`](https://www.khronos.org/registry/vulkan/specs/1.1-extensions/man/html/VkSurfaceCapabilitiesKHR.html) returned by the new surface.
-This communicates to Android that it does not need to rotate the scene.
-
-Re-create the framebuffers
-Re-create the framebuffers
-
-n/a
-Adjust the MVP matrix so that the world is rotated
-
-Render the scene
-Render the scene
+This communicates to Android that it does not need to rotate the scene. |
+| Re-create the framebuffers | Re-create the framebuffers |
+| n/a | Adjust the MVP matrix so that the world is rotated |
+| Render the scene | Render the scene |
 
 Android added pre-rotation to their [Vulkan Design Guidelines](https://developer.android.com/ndk/guides/graphics/design-notes).
 However, [by default](https://developer.android.com/guide/topics/resources/runtime-changes#HandlingTheChange), Android calls `onDestroy` when the screen is rotated.

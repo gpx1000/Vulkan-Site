@@ -14,6 +14,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/conditional_rendering). |
+| --- | --- |
+
 ![Sample](../../../_images/samples/extensions/conditional_rendering/images/sample.png)
 
 The [VK_EXT_conditional_rendering](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/man/html/VK_EXT_conditional_rendering.html) extension allows the execution of rendering commands to be conditional based on a value taken from a dedicated conditional buffer.

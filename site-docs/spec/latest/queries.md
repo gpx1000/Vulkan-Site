@@ -449,6 +449,12 @@ created, a compatible set of callbacks **must** be provided here
 If no `VkAllocationCallbacks` were provided when `queryPool` was
 created, `pAllocator` **must** be `NULL`
 
+|  | Applications **can** verify that `queryPool` **can** be destroyed by checking
+| --- | --- |
+that `vkGetQueryPoolResults`() without the
+`VK_QUERY_RESULT_PARTIAL_BIT` flag returns `VK_SUCCESS` for all
+queries that are used in command buffers submitted for execution. |
+
 Valid Usage (Implicit)
 
 * 
@@ -661,6 +667,14 @@ query indices [`firstQuery`, `firstQuery` +
 indicated by a call to
 [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](#vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR).
 
+|  | Because `vkCmdResetQueryPool` resets all the passes of the indicated
+| --- | --- |
+queries, applications must not record a `vkCmdResetQueryPool` command
+for a `queryPool` created with `VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR`
+in a command buffer that needs to be submitted multiple times as indicated
+by a call to [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](#vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR).
+Otherwise applications will never be able to complete the recorded queries. |
+
 Valid Usage
 
 * 
@@ -736,19 +750,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
+Secondary | Outside | Outside | Graphics
 
 Compute
 
@@ -756,8 +762,7 @@ Decode
 
 Encode
 
-Opticalflow
-Action
+Opticalflow | Action |
 
 To reset a range of queries in a query pool on the host, call:
 
@@ -944,6 +949,10 @@ the active query index.
 If the active query index gets incremented past the last activatable query
 index, issuing any further video coding operations results in **undefined**
 behavior.
+
+|  | In practice, this means that currently no more than a single video coding
+| --- | --- |
+operation **must** be issued between a begin and end query pair. |
 
 This command defines an execution dependency between other query commands
 that reference the same query.
@@ -1251,28 +1260,19 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Both
-Graphics
+Secondary | Both | Both | Graphics
 
 Compute
 
 Decode
 
-Encode
-Action
+Encode | Action
 
-State
+State |
 
 To begin an indexed query, call:
 
@@ -1652,28 +1652,19 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
+Secondary | Both | Outside | Graphics
 
 Compute
 
 Decode
 
-Encode
-Action
+Encode | Action
 
-State
+State |
 
 Bits which **can** be set in [vkCmdBeginQuery](#vkCmdBeginQuery)::`flags`, specifying
 constraints on the types of queries that **can** be performed, are:
@@ -1826,28 +1817,19 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Both
-Graphics
+Secondary | Both | Both | Graphics
 
 Compute
 
 Decode
 
-Encode
-Action
+Encode | Action
 
-State
+State |
 
 To end an indexed query after the set of desired drawing or dispatching
 commands is recorded, call:
@@ -1998,28 +1980,19 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
+Secondary | Both | Outside | Graphics
 
 Compute
 
 Decode
 
-Encode
-Action
+Encode | Action
 
-State
+State |
 
 An application **can** retrieve results either by requesting they be written
 into application-provided memory, or by requesting they be copied into a
@@ -2183,6 +2156,14 @@ within the query completed unsuccessfully, then all other results written by
 this command are **undefined** unless otherwise specified for any of the
 results of the used query type.
 
+|  | If `VK_QUERY_RESULT_WITH_AVAILABILITY_BIT`
+| --- | --- |
+or `VK_QUERY_RESULT_WITH_STATUS_BIT_KHR`
+is set, the layout of data in the buffer is a *(result,availability)*
+or *(result,status)*
+pair for each query returned, and `stride` is the stride between each
+pair. |
+
 Results for any available query written by this command are final and
 represent the final result of the query.
 If `VK_QUERY_RESULT_PARTIAL_BIT` is set, then for any query that is
@@ -2226,6 +2207,35 @@ includes the host operations of this command.
 If `VK_QUERY_RESULT_WAIT_BIT` is not set, `vkGetQueryPoolResults`
 **may** return `VK_NOT_READY` if there are queries in the unavailable
 state.
+
+|  | Applications **must** take care to ensure that use of the
+| --- | --- |
+`VK_QUERY_RESULT_WAIT_BIT` bit has the desired effect.
+
+For example, if a query has been used previously and a command buffer
+records the commands `vkCmdResetQueryPool`, `vkCmdBeginQuery`, and
+`vkCmdEndQuery` for that query, then the query will remain in the
+available state until
+`vkResetQueryPool` is called or
+the `vkCmdResetQueryPool` command executes on a queue.
+Applications **can** use fences or events to ensure that a query has already
+been reset before checking for its results or availability status.
+Otherwise, a stale value could be returned from a previous use of the query.
+
+The above also applies when `VK_QUERY_RESULT_WAIT_BIT` is used in
+combination with `VK_QUERY_RESULT_WITH_AVAILABILITY_BIT`.
+In this case, the returned availability status **may** reflect the result of a
+previous use of the query unless
+`vkResetQueryPool` is called or
+the `vkCmdResetQueryPool` command has been executed since the last use
+of the query.
+
+A similar situation can arise with the
+`VK_QUERY_RESULT_WITH_STATUS_BIT_KHR` flag. |
+
+|  | Applications **can** double-buffer query pool usage, with a pool per frame, and
+| --- | --- |
+reset queries at the end of the frame in which they are read. |
 
 Valid Usage
 
@@ -2774,22 +2784,13 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
+Secondary | Outside | Outside | Graphics
 
-Primary
-
-Secondary
-Outside
-Outside
-Graphics
-
-Compute
-Action
+Compute | Action |
 
 Rendering operations such as clears, MSAA resolves, attachment load/store
 operations, and blits **may** count towards the results of queries.
@@ -2814,11 +2815,30 @@ If `flags` does not contain `VK_QUERY_CONTROL_PRECISE_BIT` an
 implementation **may** generate any non-zero result value for the query if the
 count of passing samples is non-zero.
 
+|  | Not setting `VK_QUERY_CONTROL_PRECISE_BIT` mode **may** be more efficient
+| --- | --- |
+on some implementations, and **should** be used where it is sufficient to know
+a boolean result on whether any samples passed the per-fragment tests.
+In this case, some implementations **may** only return zero or one, indifferent
+to the actual number of samples passing the per-fragment tests.
+
+Setting `VK_QUERY_CONTROL_PRECISE_BIT` does not guarantee that different
+implementations return the same number of samples in an occlusion query.
+Some implementations may kill fragments in the
+[pre-rasterization shader stage](pipelines.html#pipelines-graphics-subsets-pre-rasterization), and these killed fragments do not contribute to the final result of
+the query.
+It is possible that some implementations generate a zero result value for
+the query, while others generate a non-zero value. |
+
 When an occlusion query finishes, the result for that query is marked as
 available.
 The application **can** then either copy the result to a buffer (via
 `vkCmdCopyQueryPoolResults`) or request it be put into host memory (via
 `vkGetQueryPoolResults`).
+
+|  | If occluding geometry is not drawn first, samples **can** pass the depth test,
+| --- | --- |
+but still not be visible in a final image. |
 
 Pipeline statistics queries allow the application to sample a specified set
 of `VkPipeline` counters.
@@ -2989,6 +3009,10 @@ Any or all counters **may** be affected by the issues described in
 This counting difference is especially true if the pipeline contains mesh or
 task shaders, which may affect several of the counters in unexpected ways.
 
+|  | For example, tile-based rendering devices **may** need to replay the scene
+| --- | --- |
+multiple times, affecting some of the counts. |
+
 If a pipeline has `rasterizerDiscardEnable` enabled, implementations
 **may** discard primitives after the final
 [pre-rasterization shader stage](pipelines.html#pipelines-graphics-subsets-pre-rasterization).
@@ -3076,6 +3100,10 @@ specified by `stage`.
 
 The second [synchronization scope](synchronization.html#synchronization-dependencies-scopes)
 includes only the timestamp write operation.
+
+|  | Implementations may write the timestamp at any stage that is
+| --- | --- |
+[logically later](synchronization.html#synchronization-pipeline-stages-order) than `stage`. |
 
 Any timestamp write that [happens-after](synchronization.html#synchronization-dependencies-execution) another timestamp write in the same submission **must** not
 have a lower value unless its value overflows the maximum supported integer
@@ -3314,19 +3342,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Both
-Transfer
+Secondary | Both | Both | Transfer
 
 Graphics
 
@@ -3334,8 +3354,7 @@ Compute
 
 Decode
 
-Encode
-Action
+Encode | Action |
 
 To request a timestamp and write the value to memory, call:
 
@@ -3373,6 +3392,10 @@ specified by `pipelineStage`.
 
 The second [synchronization scope](synchronization.html#synchronization-dependencies-scopes)
 includes only the timestamp write operation.
+
+|  | Implementations may write the timestamp at any stage that is
+| --- | --- |
+[logically later](synchronization.html#synchronization-pipeline-stages-order) than `stage`. |
 
 Any timestamp write that [happens-after](synchronization.html#synchronization-dependencies-execution) another timestamp write in the same submission **must** not
 have a lower value unless its value overflows the maximum supported integer
@@ -3573,19 +3596,11 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Both
-Transfer
+Secondary | Both | Both | Transfer
 
 Graphics
 
@@ -3595,8 +3610,7 @@ Decode
 
 Encode
 
-Opticalflow
-Action
+Opticalflow | Action |
 
 *Performance queries* provide applications with a mechanism for getting
 performance counter information about the execution of command buffers,
@@ -3607,6 +3621,11 @@ on a queue of that family via a call to
 [vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR](devsandqueues.html#vkEnumeratePhysicalDeviceQueueFamilyPerformanceQueryCountersKHR).
 Implementations **may** limit access to performance counters based on platform
 requirements or only to specialized drivers for development purposes.
+
+|  | This may include no performance counters being enumerated, or a reduced set.
+| --- | --- |
+Please refer to platform-specific documentation for guidance on any such
+restrictions. |
 
 Performance queries use the existing [vkCmdBeginQuery](#vkCmdBeginQuery) and
 [vkCmdEndQuery](#vkCmdEndQuery) to control what command buffers, render passes, or
@@ -3621,6 +3640,14 @@ index.
 The number of passes required for a given performance query pool **can** be
 queried via a call to
 [vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR](#vkGetPhysicalDeviceQueueFamilyPerformanceQueryPassesKHR).
+
+|  | Command buffers created with
+| --- | --- |
+`VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT` **must** not be re-submitted.
+Changing command buffer usage bits **may** affect performance.
+To avoid this, the application **should** re-record any command buffers with
+the `VK_COMMAND_BUFFER_USAGE_ONE_TIME_SUBMIT_BIT` when multiple counter
+passes are required. |
 
 Performance counter results from a performance query pool **can** be obtained
 with the command [vkGetQueryPoolResults](#vkGetQueryPoolResults).
@@ -3840,6 +3867,15 @@ marked as available.
 The application **can** then either copy the result to a buffer (via
 `vkCmdCopyQueryPoolResults`) or request it be put into host memory (via
 `vkGetQueryPoolResults`).
+
+|  | The result of this query is typically identical to
+| --- | --- |
+`VK_QUERY_PIPELINE_STATISTIC_CLIPPING_INVOCATIONS_BIT`, but the
+primitives generated query is deterministic, i.e. it must be identical to
+the number of primitives processed.
+`VK_QUERY_PIPELINE_STATISTIC_CLIPPING_INVOCATIONS_BIT` may vary for
+implementation-dependent reasons, e.g. the same primitive may be processed
+multiple times for purposes of clipping. |
 
 When a generated mesh primitives query is active, the
 mesh-primitives-generated count is incremented every time a primitive
@@ -4202,26 +4238,17 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
+Secondary | Both | Outside | Graphics
 
 Compute
 
-Transfer
-Action
+Transfer | Action
 
-State
+State |
 
 Return Codes
 
@@ -4326,26 +4353,17 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
+Secondary | Both | Outside | Graphics
 
 Compute
 
-Transfer
-Action
+Transfer | Action
 
-State
+State |
 
 Return Codes
 
@@ -4466,24 +4484,15 @@ Host access to `commandBuffer` **must** be externally synchronized
 Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
 
 Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
 
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
-Primary
-
-Secondary
-Both
-Outside
-Graphics
+Secondary | Both | Outside | Graphics
 
 Compute
 
-Transfer
-State
+Transfer | State |
 
 Return Codes
 
@@ -4704,18 +4713,9 @@ Valid Usage (Implicit)
  Both of `configuration`, and `queue` **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
 
 Command Properties
-
-[Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel)
-[Render Pass Scope](renderpass.html#vkCmdBeginRenderPass)
-[Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR)
-[Supported Queue Types](devsandqueues.html#VkQueueFlagBits)
-[Command Type](fundamentals.html#fundamentals-queueoperation-command-types)
-
--
--
--
-Any
--
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| - | - | - | Any | - |
 
 Return Codes
 
@@ -4908,6 +4908,12 @@ or `VK_QUERY_RESULT_WITH_STATUS_BIT_KHR` is specified, respectively.
 
 If the result status of a video encode feedback query is negative, then the
 results of all enabled video encode feedback values will be **undefined**.
+
+|  | Applications should always specify `VK_QUERY_RESULT_WITH_STATUS_BIT_KHR`
+| --- | --- |
+when retrieving the results of video encode feedback queries and ignore such
+**undefined** video encode feedback values for any
+[unsuccessfully](videocoding.html#encode-unsuccessful) completed video encode operations. |
 
 // Provided by VK_KHR_video_encode_queue
 typedef VkFlags VkVideoEncodeFeedbackFlagsKHR;

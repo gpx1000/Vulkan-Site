@@ -12,6 +12,7 @@
       }(localStorage && localStorage.getItem('theme') || (matchMedia('(prefers-color-scheme: dark)')?.matches && 'dark'))
     </script>
     <link rel="stylesheet" href="../../../_/css/site.css">
+    <link rel="stylesheet" href="../../../_/css/vendor/tabs.css">
     <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
@@ -4614,9 +4615,8 @@ contain <code>VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT</code>, then
 <li>
 <p><a id="VUID-VkImageCreateInfo-usage-10245" href="#VUID-VkImageCreateInfo-usage-10245"></a> <span class="vuid">VUID-VkImageCreateInfo-usage-10245</span><br>
 
-If <code>usage</code> includes <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT</code>, then
-the <a href="features.html#features-hostImageCopy" class="xref page"><code>hostImageCopy</code></a> feature <strong>must</strong> be
-enabled</p>
+If <code>usage</code> includes <code>VK_IMAGE_USAGE_HOST_TRANSFER_BIT</code>, then the
+<a href="features.html#features-hostImageCopy" class="xref page"><code>hostImageCopy</code></a> feature <strong>must</strong> be enabled</p>
 </li>
 <li>
 <p><a id="VUID-VkImageCreateInfo-tileMemoryHeap-10766" href="#VUID-VkImageCreateInfo-tileMemoryHeap-10766"></a> <span class="vuid">VUID-VkImageCreateInfo-tileMemoryHeap-10766</span><br>
@@ -12133,8 +12133,8 @@ If <code>createFlags</code> includes
 <li>
 <p><a id="VUID-VkAccelerationStructureCreateInfoKHR-offset-03616" href="#VUID-VkAccelerationStructureCreateInfoKHR-offset-03616"></a> <span class="vuid">VUID-VkAccelerationStructureCreateInfoKHR-offset-03616</span><br>
 
-The sum of <code>offset</code> and <code>size</code> <strong>must</strong> be less than the size of
-<code>buffer</code></p>
+The sum of <code>offset</code> and <code>size</code> <strong>must</strong> be less than or equal to
+the size of <code>buffer</code></p>
 </li>
 <li>
 <p><a id="VUID-VkAccelerationStructureCreateInfoKHR-offset-03734" href="#VUID-VkAccelerationStructureCreateInfoKHR-offset-03734"></a> <span class="vuid">VUID-VkAccelerationStructureCreateInfoKHR-offset-03734</span><br>
@@ -15037,8 +15037,8 @@ If <code>createFlags</code> includes
 <li>
 <p><a id="VUID-VkMicromapCreateInfoEXT-offset-07437" href="#VUID-VkMicromapCreateInfoEXT-offset-07437"></a> <span class="vuid">VUID-VkMicromapCreateInfoEXT-offset-07437</span><br>
 
-The sum of <code>offset</code> and <code>size</code> <strong>must</strong> be less than the size of
-<code>buffer</code></p>
+The sum of <code>offset</code> and <code>size</code> <strong>must</strong> be less than or equal to
+the size of <code>buffer</code></p>
 </li>
 <li>
 <p><a id="VUID-VkMicromapCreateInfoEXT-offset-07438" href="#VUID-VkMicromapCreateInfoEXT-offset-07438"></a> <span class="vuid">VUID-VkMicromapCreateInfoEXT-offset-07438</span><br>
@@ -21217,5 +21217,6 @@ respectively, <strong>may</strong> outlive <code>collection</code></p>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
 <script async src="../../../search-index.js"></script>
+<script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

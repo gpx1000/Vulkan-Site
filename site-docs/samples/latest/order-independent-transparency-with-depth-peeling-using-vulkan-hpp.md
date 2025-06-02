@@ -14,6 +14,12 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/api/hpp_oit_depth_peeling). |
+| --- | --- |
+
+|  | This is a transcoded version of the API sample [OIT depth peeling](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/api/oit_depth_peeling) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp. Please see there for the documentation on this sample. |
+| --- | --- |
+
 ![Sample](../../../_images/samples/api/oit_depth_peeling/images/sample.png)
 
 This sample implements an order-independent transparency (OIT) algorithm using depth peeling.
@@ -33,22 +39,10 @@ It merges the layer images from back to front to produce the final result.
 The algorithm can produce pixel-perfect results, even with intersecting geometry.
 When there are more geometry layers than gather passes, the backmost layers get skipped, but the visual results stay stable (i.e. no flickering pixels).
 
-Option
-Description
-Comments
-
-Camera auto-rotation
-Enable the automatic rotation of the camera
-
-Background grayscale
-Specify the grayscale value by which the background color is multiplied (0.0 to 1.0)
-
-Object alpha
-Specify the opacity of the transparent object (0.0 to 1.0)
-
-Front layer index
-The first layer to be rendered (0 to 7).
-
-Back layer index
-The last layer to be rendered (0 to 7).
-This cannot be less that the front layer index.
+| Option | Description | Comments |
+| --- | --- | --- |
+| Camera auto-rotation | Enable the automatic rotation of the camera |  |
+| Background grayscale | Specify the grayscale value by which the background color is multiplied (0.0 to 1.0) |  |
+| Object alpha | Specify the opacity of the transparent object (0.0 to 1.0) |  |
+| Front layer index | The first layer to be rendered (0 to 7). |  |
+| Back layer index | The last layer to be rendered (0 to 7). | This cannot be less that the front layer index. |

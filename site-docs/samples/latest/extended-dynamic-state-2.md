@@ -15,6 +15,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/extended_dynamic_state2). |
+| --- | --- |
+
 ![Sample](../../../_images/samples/extensions/extended_dynamic_state2/images/extended_dynamic_state2_screenshot.png)
 
 This sample demonstrates how to use `VK_EXT_extended_dynamic_state2` extension, which eliminates the need to create multiple pipelines in case of specific different parameters.
@@ -24,17 +27,11 @@ Instead of static description during pipeline creation, this extension allows de
 
 Below is a comparison of common Vulkan static and dynamic implementation of those extensions with additional usage of `vkCmdSetPrimitiveTopologyEXT` extension from dynamic state .
 
-Static/Non-dynamic
-Dynamic State 2
-
-dynamic_state = {}
-dynamic_state = {VK_DYNAMIC_STATE_VIEWPORT, + VK_DYNAMIC_STATE_SCISSOR, + VK_DYNAMIC_STATE_DEPTH_BIAS_ENABLE_EXT, + VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY_EXT, + VK_DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE_EXT, + VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY_EXT, + VK_DYNAMIC_STATE_PRIMITIVE_RESTART_ENABLE_EXT}
-
-vkCreateGraphicsPipelines(pipeline1) + vkCreateGraphicsPipelines(pipeline2) + vkCreateGraphicsPipelines(pipeline3) + vkCreateGraphicsPipelines(pipeline4)
-vkCreateGraphicsPipelines(pipeline1) + vkCreateGraphicsPipelines(pipeline2)
-
-draw(model1, pipeline1) + draw(model2, pipeline2) + draw(model3, pipeline3) + draw(model4, pipeline4)
-vkCmdSetPrimitiveRestartEnableEXT(commandBuffer1, primitiveBoolParam) + vkCmdSetDepthBiasEnableEXT(commandBuffer1, depthBiasBoolParam) + vkCmdSetRasterizerDiscardEnableEXT(commandBuffer1,rasterizerBoolParam) + vkCmdSetPrimitiveTopologyEXT(commandBuffer1, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST) + draw(model1, pipeline1) + vkCmdSetPrimitiveTopologyEXT(commandBuffer2, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP) + vkCmdSetPrimitiveRestartEnableEXT(commandBuffer2, primitiveBoolParam) + draw(model2, pipeline1) + vkCmdSetDepthBiasEnableEXT(commandBuffer3, depthBiasBoolParam) + vkCmdSetPrimitiveRestartEnableEXT(commandBuffer3, primitiveBoolParam) + draw(model3, pipeline1) + vkCmdSetPatchControlPointsEXT(commandBuffer4, patchControlPoints) + draw(model4, pipeline2)
+| Static/Non-dynamic | Dynamic State 2 |
+| --- | --- |
+| dynamic_state = {} | dynamic_state = {VK_DYNAMIC_STATE_VIEWPORT, + VK_DYNAMIC_STATE_SCISSOR, + VK_DYNAMIC_STATE_DEPTH_BIAS_ENABLE_EXT, + VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY_EXT, + VK_DYNAMIC_STATE_RASTERIZER_DISCARD_ENABLE_EXT, + VK_DYNAMIC_STATE_PRIMITIVE_TOPOLOGY_EXT, + VK_DYNAMIC_STATE_PRIMITIVE_RESTART_ENABLE_EXT} |
+| vkCreateGraphicsPipelines(pipeline1) + vkCreateGraphicsPipelines(pipeline2) + vkCreateGraphicsPipelines(pipeline3) + vkCreateGraphicsPipelines(pipeline4) | vkCreateGraphicsPipelines(pipeline1) + vkCreateGraphicsPipelines(pipeline2) |
+| draw(model1, pipeline1) + draw(model2, pipeline2) + draw(model3, pipeline3) + draw(model4, pipeline4) | vkCmdSetPrimitiveRestartEnableEXT(commandBuffer1, primitiveBoolParam) + vkCmdSetDepthBiasEnableEXT(commandBuffer1, depthBiasBoolParam) + vkCmdSetRasterizerDiscardEnableEXT(commandBuffer1,rasterizerBoolParam) + vkCmdSetPrimitiveTopologyEXT(commandBuffer1, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_LIST) + draw(model1, pipeline1) + vkCmdSetPrimitiveTopologyEXT(commandBuffer2, VK_PRIMITIVE_TOPOLOGY_TRIANGLE_STRIP) + vkCmdSetPrimitiveRestartEnableEXT(commandBuffer2, primitiveBoolParam) + draw(model2, pipeline1) + vkCmdSetDepthBiasEnableEXT(commandBuffer3, depthBiasBoolParam) + vkCmdSetPrimitiveRestartEnableEXT(commandBuffer3, primitiveBoolParam) + draw(model3, pipeline1) + vkCmdSetPatchControlPointsEXT(commandBuffer4, patchControlPoints) + draw(model4, pipeline2) |
 
 More details are provided in the sections that follow.
 

@@ -37,6 +37,25 @@ Table of Contents
 [6. Validation and Tools](#_validation_and_tools)
 [7. Further Functionality](#_further_functionality)
 
+|  | How to Use This Document
+| --- | --- |
+
+This document outlines the expected flow of a proposal - text in the following sections is there as guidance for how to fill out each section.
+When creating a new proposal, text inside these sections (including this note!) should be removed and replaced with actual proposal text.
+
+Proposal documents are standalone and do not use the attributes, extensions,
+and custom macros available to specification markup.
+They should only use pure Asciidoctor markup, so they can be viewed in the
+GitHub and GitLab asciidoctor renderers.
+
+When calling out existing API constructs or extensions, the `docs` attribute should be used to link to the relevant part of the Vulkan specification.
+For example - "…​used to extend [VkGraphicsPipelineCreateInfo](https://docs.vulkan.org/spec/latest/chapters/pipelines.html#VkGraphicsPipelineCreateInfo)…​"
+
+If adding an image to a proposal document, it must be located in
+`../images/proposals/`, and referred to as
+
+image::{images}/proposals/filename.svg[image options] |
+
 A short summary of this proposal should be written here.
 
 This section should detail the problem that is being addressed as succinctly as possible.

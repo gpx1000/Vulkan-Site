@@ -232,90 +232,35 @@ vkCreateShaderModule(device, &shaderModuleCI, nullptr, &shaderModule);
 
 When compiling HLSL with DXC you need to select a target shader profile. The name for a profile consists of the shader type and the desired shader model.
 
-Vulkan shader stage
-HLSL target shader profile
-Remarks
-
-`VK_SHADER_STAGE_VERTEX_BIT`
-`vs`
-
-`VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT`
-`hs`
-Hull shader in HLSL terminology
-
-`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT`
-`ds`
-Domain shader in HLSL terminology
-
-`VK_SHADER_STAGE_GEOMETRY_BIT`
-`gs`
-
-`VK_SHADER_STAGE_FRAGMENT_BIT`
-`ps`
-Pixel shader in HLSL terminology
-
-`VK_SHADER_STAGE_COMPUTE_BIT`
-`cs`
-
-`VK_SHADER_STAGE_RAYGEN_BIT_KHR`,
+| Vulkan shader stage | HLSL target shader profile | Remarks |
+| --- | --- | --- |
+| `VK_SHADER_STAGE_VERTEX_BIT` | `vs` |  |
+| `VK_SHADER_STAGE_TESSELLATION_CONTROL_BIT` | `hs` | Hull shader in HLSL terminology |
+| `VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` | `ds` | Domain shader in HLSL terminology |
+| `VK_SHADER_STAGE_GEOMETRY_BIT` | `gs` |  |
+| `VK_SHADER_STAGE_FRAGMENT_BIT` | `ps` | Pixel shader in HLSL terminology |
+| `VK_SHADER_STAGE_COMPUTE_BIT` | `cs` |  |
+| `VK_SHADER_STAGE_RAYGEN_BIT_KHR`,
 `VK_SHADER_STAGE_ANY_HIT_BIT_KHR`,
 `VK_SHADER_STAGE_CLOSEST_HIT_BIT_KHR`,
 `VK_SHADER_STAGE_MISS_BIT_KHR`,
 `VK_SHADER_STAGE_INTERSECTION_BIT_KHR`,
-`VK_SHADER_STAGE_CALLABLE_BIT_KHR`
-`lib`
-All raytracing related shaders are built using the `lib` shader target profile and must use at least shader model 6.3 (e.g. `lib_6_3`).
-
-`VK_SHADER_STAGE_TASK_BIT`
-`as`
-Amplification shader in HLSL terminology. Must use at least shader model 6.5 (e.g. `as_6_5`).
-
-`VK_SHADER_STAGE_MESH_BIT`
-`ms`
-Must use at least shader model 6.5 (e.g. `ms_6_5`).
+`VK_SHADER_STAGE_CALLABLE_BIT_KHR` | `lib` | All raytracing related shaders are built using the `lib` shader target profile and must use at least shader model 6.3 (e.g. `lib_6_3`). |
+| `VK_SHADER_STAGE_TASK_BIT` | `as` | Amplification shader in HLSL terminology. Must use at least shader model 6.5 (e.g. `as_6_5`). |
+| `VK_SHADER_STAGE_MESH_BIT` | `ms` | Must use at least shader model 6.5 (e.g. `ms_6_5`). |
 
 So if you for example you want to compile a compute shader targeting shader model 6.6 features, the target shader profile would be `cs_6_6`. For a ray tracing any hit shader it would be `lib_6_3`.
 
 DirectX and HLSL use a fixed shader model notion to describe the supported feature set. This is different from Vulkan and SPIR-V’s flexible extension based way of adding features to shaders. The following table tries to list Vulkan’s coverage for the HLSL shader models without guarantee of completeness:
 
-Table 1. Shader models
-
-Shader Model
-Supported
-Remarks
-
-Shader Model 5.1 and below
-✔
-Excluding features without Vulkan equivalent
-
-[Shader Model 6.0](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.0)
-✔
-Wave intrinsics, 64-bit integers
-
-[Shader Model 6.1](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.1)
-✔
-SV_ViewID, SV_Barycentrics
-
-[Shader Model 6.2](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.2)
-✔
-16-bit types, Denorm mode
-
-[Shader Model 6.3](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.3)
-✔
-Hardware accelerated ray tracing
-
-[Shader Model 6.4](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.4)
-✔
-Shader integer dot product, SV_ShadingRate
-
-[Shader Model 6.5](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.5)
-⚠️ (partially)
-DXR1.1 (KHR ray tracing), Mesh and Amplification shaders, additional Wave intrinsics
-
-[Shader Model 6.6](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.6)
-⚠️ (partially)
-VK_NV_compute_shader_derivatives, VK_KHR_shader_atomic_int64, VK_EXT_descriptor_buffer, VK_EXT_mutable_descriptor_type
-
-[Shader Model 6.7](https://microsoft.github.io/DirectX-Specs/d3d/HLSL_ShaderModel6_7.html)
-⚠️ (partially)
-VK_KHR_shader_quad_control, VkPhysicalDeviceFeatures::shaderStorageImageMultisample
+| Shader Model | Supported | Remarks |
+| --- | --- | --- |
+| Shader Model 5.1 and below | ✔ | Excluding features without Vulkan equivalent |
+| [Shader Model 6.0](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.0) | ✔ | Wave intrinsics, 64-bit integers |
+| [Shader Model 6.1](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.1) | ✔ | SV_ViewID, SV_Barycentrics |
+| [Shader Model 6.2](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.2) | ✔ | 16-bit types, Denorm mode |
+| [Shader Model 6.3](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.3) | ✔ | Hardware accelerated ray tracing |
+| [Shader Model 6.4](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.4) | ✔ | Shader integer dot product, SV_ShadingRate |
+| [Shader Model 6.5](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.5) | ⚠️ (partially) | DXR1.1 (KHR ray tracing), Mesh and Amplification shaders, additional Wave intrinsics |
+| [Shader Model 6.6](https://github.com/microsoft/DirectXShaderCompiler/wiki/Shader-Model-6.6) | ⚠️ (partially) | VK_NV_compute_shader_derivatives, VK_KHR_shader_atomic_int64, VK_EXT_descriptor_buffer, VK_EXT_mutable_descriptor_type |
+| [Shader Model 6.7](https://microsoft.github.io/DirectX-Specs/d3d/HLSL_ShaderModel6_7.html) | ⚠️ (partially) | VK_KHR_shader_quad_control, VkPhysicalDeviceFeatures::shaderStorageImageMultisample |

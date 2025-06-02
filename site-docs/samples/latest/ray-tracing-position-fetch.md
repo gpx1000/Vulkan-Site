@@ -19,6 +19,9 @@
 
 ## Content
 
+|  | The source for this sample can be found in the [Khronos Vulkan samples github repository](https://github.com/KhronosGroup/Vulkan-Samples/tree/main/samples/extensions/ray_tracing_position_fetch). |
+| --- | --- |
+
 Accessing per-vertex attributes in a ray tracing shader stage is a common use case, but often requires passing those attributes via some buffer and then doing manual indexing (and unpacking) in the shader. Even if it’s something already stored in the acceleration structure like vertex positions.
 
 Using the `VK_KHR_ray_tracing_position_fetch` extension it’s now possible to directly access vertex positions from an acceleration structure

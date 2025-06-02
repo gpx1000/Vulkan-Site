@@ -59,6 +59,15 @@ The offsetted coordinate (x',y') is computed as follows:
 
   
 
+|  | The offset is relative to the fragment density map, so it is subtracted from
+| --- | --- |
+the framebuffer coordinates to make the adjustment relative to the
+framebuffer.
+
+In other words, applying a positive offset in the x component will shift the
+fragment density map to the right relative to the framebuffer.
+This means the framebuffer coordinates need to undergo a shift to the left. |
+
 The offsetted coordinate (x',y') fetches a texel from the fragment
 density map at integer coordinates:
 
@@ -130,6 +139,13 @@ original fetched value.
 Implementations **may** vary the supported set of fragment areas per
 framebuffer region.
 Fragment area (1,1) **must** always be in the supported set.
+
+|  | For example, if the fetched fragment area is (1,4) but the
+| --- | --- |
+implementation only supports areas of {(1,1),(2,2)}, it could choose
+to clamp the area to (2,2) since it has the same size as (1,4).
+While this would produce fragments that have lower quality strictly in the
+x-axis, the overall density is maintained. |
 
 The clamped fragment area is assigned to the corresponding framebuffer
 region.

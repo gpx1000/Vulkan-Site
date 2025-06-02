@@ -282,6 +282,9 @@ When the decoded picture is not requested to be set up as a reference, implement
 
 Accordingly, `pSetupReferenceSlot` must never be `NULL`, except when the video session was created without any DPB slots.
 
+|  | The original version of this extension only required the specification of the reconstructed picture information (i.e. a non-`NULL` `pSetupReferenceSlot`) when the application intended to set up a reference picture by activating a DPB slot. Consequently, the presence of reconstructed picture information always implied DPB slot activation. This was changed in revision 8 of the extension, and whether DPB slot activation happens is now subject to codec-specific semantics. More details on this change are discussed in the corresponding issue in this proposal document. |
+| --- | --- |
+
 In summary, for decoded pictures requested to be set up as a reference, this parameter can be used to add new reference pictures to the DPB, and change the association between DPB slot indices and video picture resources. That also implies that the application has to specify a video picture resource in `pSetupReferenceSlot→pPictureResource` that was included in the set of bound reference picture resources specified when the video coding scope was started (in one of the elements of `VkVideoBeginCodingInfoKHR::pReferenceSlots`). No similar requirement exists for the decode output picture specified by `dstPictureResource` which can refer to any video picture resource.
 
 The application has to create the image view specified in `pSetupReferenceSlot→pPictureResource→imageViewBinding` with the new `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` usage flag, and must also include the used video session’s video profile in the `VkVideoProfileListInfoKHR` structure specified at image creation time.
@@ -308,6 +311,9 @@ One or more images usable as reconstructed pictures, some of which will contain 
 
 * 
 Optionally, an additional image usable as the decode output picture when the reconstructed picture has to be *distinct* or when using video sessions without any DPB slots.
+
+|  | In practice, applications will typically allocate more than one decode output pictures for buffering purposes and/or to minimize synchronization overhead resulting from having to prevent write-after-write hazards across subsequent video decode operations targeting the same decode output picture resource. Some applications may also allocate more resources for reference pictures than the number of DPB slots for similar reasons. |
+| --- | --- |
 
 The application should always create the image(s) backing the DPB with the `VK_IMAGE_USAGE_VIDEO_DECODE_DPB_BIT_KHR` usage flag. If only the *coincide* mode is supported for reconstructed pictures, then the DPB image(s) that may be used as a reconstructed picture in a video decode operation have to also include the `VK_IMAGE_USAGE_VIDEO_DECODE_DST_KHR` usage flag to allow them to be used as coinciding decode output and reconstructed pictures.
 

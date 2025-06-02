@@ -28,27 +28,60 @@
 
 ## Content
 
+|  | These are extensions that are unofficially called “cleanup extension”. The Vulkan Guide defines them as cleanup extensions due to their nature of only adding a small bit of functionality or being very simple, self-explanatory extensions in terms of their purpose. |
+| --- | --- |
+
+|  | Promoted to core in Vulkan 1.2 |
+| --- | --- |
+
 This extension adds more information to query about each implementation. The [VkDriverId](https://docs.vulkan.org/spec/latest/chapters/devsandqueues.html#VkDriverId) will be a registered vendor’s ID for the implementation. The [VkConformanceVersion](https://docs.vulkan.org/spec/latest/chapters/devsandqueues.html#VkConformanceVersion) displays which version of [the Vulkan Conformance Test Suite](../vulkan_cts.html#vulkan-cts) the implementation passed.
+
+|  | Promoted to core in Vulkan 1.2 |
+| --- | --- |
 
 This extension allows an application to call `vkResetQueryPool` from the host instead of needing to setup logic to submit `vkCmdResetQueryPool` since this is mainly just a quick write to memory for most implementations.
 
+|  | Promoted to core in Vulkan 1.2 |
+| --- | --- |
+
 This extension allows an application when using a depth/stencil format to do an image translation on each the depth and stencil separately. Starting in Vulkan 1.2 this functionality is required for all implementations.
+
+|  | Promoted to core in Vulkan 1.2 |
+| --- | --- |
 
 This extension adds support for automatically resolving multisampled depth/stencil attachments in a subpass in a similar manner as for color attachments.
 
 For more information please check out the GDC presentation. ([slides](https://www.khronos.org/assets/uploads/developers/presentations/Vulkan-Depth-Stencil-Resolve-GDC-Mar19.pdf) and [video](https://www.youtube.com/watch?v=GnnEmJFFC7Q&t=1980s))
 
+|  | Promoted to core in Vulkan 1.2 |
+| --- | --- |
+
 There are formats that express both the usage of depth and stencil, but there was no way to list a different usage for them. The `VkImageStencilUsageCreateInfo` now lets an application pass in a separate `VkImageUsageFlags` for the stencil usage of an image. The depth usage is the original usage passed into `VkImageCreateInfo::usage` and without using `VkImageStencilUsageCreateInfo` the stencil usage will be the same as well.
 
 A good use case of this is when using the [VK_KHR_image_format_list](VK_KHR_image_format_list.html#VK_KHR_image_format_list) extension. This provides a way for the application to more explicitly describe the possible image views of their `VkImage` at creation time. This allows some implementations to possibly do implementation dependent optimization depending on the usages set.
 
+|  | Promoted to core in Vulkan 1.1 |
+| --- | --- |
+
 Normally applications allocate large chunks for `VkDeviceMemory` and then suballocate to various buffers and images. There are times where it might be better to have a dedicated allocation for `VkImage` or `VkBuffer`. An application can pass `VkMemoryDedicatedRequirements` into `vkGetBufferMemoryRequirements2` or `vkGetImageMemoryRequirements2` to find out if a dedicated allocation is preferred or required. When dealing with external memory it will often require a dedicated allocation.
+
+|  | Promoted to core in Vulkan 1.2 |
+| --- | --- |
 
 By default, Vulkan samplers using linear filtering return a filtered texel value produced by computing a weighted average of a collection of texels in the neighborhood of the texture coordinate provided. This extension provides a new sampler parameter which allows applications to produce a filtered texel value by computing a component-wise minimum (`VK_SAMPLER_REDUCTION_MODE_MIN`) or maximum (`VK_SAMPLER_REDUCTION_MODE_MAX`) of the texels that would normally be averaged. This is similar to [GL EXT_texture_filter_minmax](https://registry.khronos.org/OpenGL/extensions/EXT/EXT_texture_filter_minmax.txt).
 
+|  | Promoted to core in Vulkan 1.2 |
+| --- | --- |
+
 This extension adds a new sampler address mode (`VK_SAMPLER_ADDRESS_MODE_MIRROR_CLAMP_TO_EDGE`) that effectively uses a texture map twice as large as the original image in which the additional half of the new image is a mirror image of the original image. This new mode relaxes the need to generate images whose opposite edges match by using the original image to generate a matching “mirror image”. This mode allows the texture to be mirrored only once in the negative `s`, `t`, and `r` directions.
 
+|  | Promoted to core in Vulkan 1.3 |
+| --- | --- |
+
 These extensions add new `VkFormat` that were not originally in the spec
+
+|  | Promoted to core in Vulkan 1.3 |
+| --- | --- |
 
 This extension adds a new `VkFormatFeatureFlagBits2KHR` 64bits format feature flag type to extend the existing `VkFormatFeatureFlagBits` which is limited to 31 flags.
 
@@ -114,6 +147,9 @@ Added to core in Vulkan 1.2
 Added to core in Vulkan 1.3
 
 All of these are very simple extensions and were promoted to core in their respective versions to make it easier to use without having to query for their support.
+
+|  | `VK_KHR_get_physical_device_properties2` has additional functionality as it adds the ability to query feature support for extensions and newer Vulkan versions. It has become a requirement for most other Vulkan extensions because of this. |
+| --- | --- |
 
 Using `VK_KHR_bind_memory2` as an example, instead of using the standard `vkBindImageMemory`
 

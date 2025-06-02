@@ -121,12 +121,21 @@ When such a pipeline barrier is provided, any resources specified (or all if a m
 These pipeline barriers cannot perform layout transitions or queue family transfers.
 Reading data outside of values written by a previous fragment shader has undefined behavior.
 
+|  | When writing to storage resources the actual location in the resource is not relevant - only the fragment locations accessing the values.
+| --- | --- |
+For instance, if a fragment at position (x=5,y=5) wrote to a storage image at position (x=6,y=6) and (x=21,y=700), then a subsequent fragment at (x=5,y=5) would be able to read (x=6,y=6) and (x=21,y=700) from the same storage image with an appropriate barrier between the accesses.
+In this same example, reading from (x=5,y=5) in the storage image would be a data race if any other fragment wrote to it.
+This allows applications to associate arbitrary amounts of data with a given pixel, and extends to the use of buffers or device addresses as well. |
+
 Images used for this purpose must be in either the `VK_IMAGE_LAYOUT_GENERAL` layout, or a new dedicated layout:
 
 VK_IMAGE_LAYOUT_RENDERING_LOCAL_READ_KHR = 1000232000;
 
 This layout can be used for storage images, and render pass color, depth/stencil, and input attachments.
 Writes to attachments can only be made visible in this way via input attachments, and writes via other resource types will not be made visible via input attachments.
+
+|  | While the same layout can be used for storage images and all attachments, there is still no way to write through one type of resource and then read through another in the same render pass instance. |
+| --- | --- |
 
 In order to facilitate applications porting multi-pass rendering to dynamic rendering, the following functionality is added to allow remapping of color attachment locations during rendering:
 
@@ -153,11 +162,18 @@ The index of each element of `pColorAttachmentLocations` corresponds to the same
 This does not allow an application to wholesale swap out color attachments, but if an application can specify all color attachments that would be used during dynamic rendering as a superset, fragment shaders written for render pass objects can be reused without modification when porting to this extension, simply by remapping the attachments.
 Values in `pColorAttachmentLocations` must each be unique.
 
+|  | The color attachment remapping does not affect things like blend state or format mappings - these always correspond 1:1 with the render pass attachments.
+| --- | --- |
+This means when porting from render pass objects, care must be taken to ensure these are reordered correctly, where before the values mapped to the reordered elements in the subpass. |
+
 When issuing a draw call, the location mapping must match between the bound graphics pipeline and the command buffer state set by `vkCmdSetRenderingAttachmentLocationsKHR`.
 
 `VkRenderingAttachmentLocationInfoKHR` can also be chained to [VkCommandBufferInheritanceInfo](https://docs.vulkan.org/spec/latest/chapters/cmdbuffers.html#VkCommandBufferInheritanceInfo) when using secondary command buffers, to specify the color attachment location mapping in the primary command buffer when [vkCmdExecuteCommands](https://docs.vulkan.org/spec/latest/chapters/cmdbuffers.html#vkCmdExecuteCommands) is called.
 If `VkRenderingAttachmentLocationInfoKHR` is not provided in the inheritance info, it is equivalent to providing it with the value of each element of `pColorAttachmentLocations` set to the value of its index within the array, with the color attachment count equal to that specified by [VkCommandBufferInheritanceRenderingInfo::colorAttachmentCount](https://docs.vulkan.org/spec/latest/chapters/cmdbuffers.html#VkCommandBufferInheritanceRenderingInfo).
 This information must match between the inheritance info and the state when [vkCmdExecuteCommands](https://docs.vulkan.org/spec/latest/chapters/cmdbuffers.html#vkCmdExecuteCommands) is called if there is a currently active render pass instance.
+
+|  | This functionality is provided primarily for porting existing content to the new API; new applications should maintain a consistent location for all attachments in their shaders during a render pass; this functionality can be considered immediately deprecated. |
+| --- | --- |
 
 While an attachment is mapped to `VK_ATTACHMENT_UNUSED` in command buffer state (either via `vkCmdSetRenderingAttachmentLocationsKHR` or inheritance state), it must not be cleared by [vkCmdClearAttachments](https://docs.vulkan.org/spec/latest/chapters/clears.html#vkCmdClearAttachments).
 Some implementations will update the render pass attachment bindings when remapping occurs, leaving unmapped attachments unavailable to be written to via the path that [vkCmdClearAttachments](https://docs.vulkan.org/spec/latest/chapters/clears.html#vkCmdClearAttachments) would use.
@@ -203,10 +219,16 @@ When issuing a draw call, the input attachment index mapping must match between 
 If `VkRenderingInputAttachmentIndexInfoKHR` is not provided in the inheritance info, it is equivalent to providing it with the value of each element of `pColorAttachmentInputIndices` set to the value of its index within the array, `colorAttachmentCount` set to the value of [VkCommandBufferInheritanceRenderingInfo::colorAttachmentCount](https://docs.vulkan.org/spec/latest/chapters/cmdbuffers.html#VkCommandBufferInheritanceRenderingInfo), and `pDepthInputAttachmentIndex` and `pStencilInputAttachmentIndex` set to `NULL`.
 This information must match between the inheritance info and the state when [vkCmdExecuteCommands](https://docs.vulkan.org/spec/latest/chapters/cmdbuffers.html#vkCmdExecuteCommands) is called if there is a currently active render pass instance.
 
+|  | The remapping functionality is provided primarily for porting existing content to the new API; new applications should set their index attachment indices consistently for all attachments in their shaders during a render pass; this functionality can be considered immediately deprecated. |
+| --- | --- |
+
 One quirk of render pass objects is that users can specify input attachments that are only used as input attachments.
 For dynamic rendering, these cannot be specified by tagging them as another attachment type as enabled by the above structures.
 
 Rather than specifying them in the render pass, as they must be associated with a descriptor, implementations will unconditionally fetch values from the input attachment descriptor if the `InputAttachmentIndex` is not mapped to another attachment.
+
+|  | Some implementations may have to now provide a real descriptor when advertising this extension where they did not before - which may affect things like [VK_EXT_descriptor_buffer](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_descriptor_buffer), where the size of the descriptor is advertised. |
+| --- | --- |
 
 If [VK_EXT_shader_object](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_shader_object) is enabled, `vkCmdSetRenderingAttachmentLocationsKHR` and `vkCmdSetRenderingInputAttachmentIndicesKHR` are the only way to set the remapping state; the respective structures do not need to be chained to shader object creation or match any static state.
 

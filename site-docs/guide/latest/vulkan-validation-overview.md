@@ -27,7 +27,13 @@
 
 ## Content
 
+|  | The purpose of this section is to give a full overview of how Vulkan deals with *valid usage* of the API. |
+| --- | --- |
+
 A **VU** is explicitly [defined in the Vulkan Spec](https://docs.vulkan.org/spec/latest/chapters/fundamentals.html#fundamentals-validusage) as:
+
+|  | set of conditions that **must** be met in order to achieve well-defined run-time behavior in an application. |
+| --- | --- |
 
 One of the main advantages of Vulkan, as an explicit API, is that the implementation (driver) doesn’t waste time checking for valid input. In OpenGL, the implementation would have to always check for valid usage which added noticeable overhead. There is no [glGetError](https://www.khronos.org/opengl/wiki/OpenGL_Error) equivalent in Vulkan.
 
@@ -61,6 +67,9 @@ Simple way to detect which is which is by looking for a number in the VUID
 `VUID-vkBindImageMemory-memory-parameter` is implicit
 
 Since Vulkan doesn’t do any error checking, it is **very important**, when developing, to enable the [Validation Layers](https://github.com/KhronosGroup/Vulkan-ValidationLayers) right away to help catch invalid behavior. Applications should also never ship the Validation Layers with their application as they noticeably reduce performance and are designed for the development phase.
+
+|  | The Khronos Validation Layer used to consist of multiple layers but now has been unified to a single `VK_LAYER_KHRONOS_validation` layer. [More details explained in LunarG’s whitepaper](https://www.lunarg.com/wp-content/uploads/2019/04/UberLayer_V3.pdf). |
+| --- | --- |
 
 The Validation Layers are constantly being updated and improved so it is always possible to grab the source and [build it yourself](https://github.com/KhronosGroup/Vulkan-ValidationLayers/blob/main/BUILD.md). In case you want a prebuilt version there are various options for all supported platforms:
 
