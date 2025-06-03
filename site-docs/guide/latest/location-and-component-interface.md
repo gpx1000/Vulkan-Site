@@ -67,8 +67,7 @@ The following attempt to have multiple variables alias the same component is [no
 layout(location=0) in vec2 in_a; // Components 0 and 1
 layout(location=0, component=1) in float in_f; // Invalid: overlaps component 1
 
-The following modification would make it legal as multiple variable can share a `Location`, just not a `Component
-`
+The following modification would make it legal as multiple variable can share a `Location`, just not a `Component`
 
 layout(location=0) in vec2 in_a;
 // Change in_f to use component 2 instead
