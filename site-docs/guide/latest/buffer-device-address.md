@@ -16,6 +16,7 @@
 - [Addressing Model](#_addressing_model)
 - [shaderInt64](#_shaderint64)
 - [Alignment](#_alignment)
+- [Alignment Example](#_alignment_example)
 - [Nullptr](#_nullptr)
 - [Cross stage variables](#_cross_stage_variables)
 - [Cross_stage_variables](#_cross_stage_variables)
@@ -78,7 +79,72 @@ OpStore %ptr %obj Aligned 16
 
 Shading languages will have a default, but can allow you to align it explicitly (ex `buffer_reference_alignment`).
 
-The goal of this alignment is this is a promise for how aligned this specific pointer is. The user is responsible to confirm the address they use is aligned to it.
+The goal of this alignment is this is a promise for how aligned this specific pointer is.
+The compiler has no idea what the address will be when the shader is compiled.
+By providing an alignment it can generate valid code to match the requirement.
+The user is responsible to confirm the address they use is aligned to it.
+
+layout(buffer_reference, buffer_reference_align = 64) buffer MyBDA {
+    uint data;
+};
+
+MyBDA ptr_a; // at 0x1000
+MyBDA ptr_b; // at 0x1010
+MyBDA ptr_c; // at 0x1040
+
+ptr_a.data = 0; // (Aligned 64) valid!
+ptr_b.data = 0; // (Aligned 64) invalid!
+ptr_c.data = 0; // (Aligned 64) valid!
+
+When deciding on an alignment, the minimum value will always be the size greater than or equal to the largest scalar/component type in the block.
+
+// alignment must be at least 4
+layout(buffer_reference) buffer MyBDA {
+    vec4 a; // scalar is float
+};
+
+// alignment must be at least 1
+layout(buffer_reference) buffer MyBDA {
+    uint8_t a; // scalar is 8-bit int
+};
+
+// alignment must be at least 8
+layout(buffer_reference) buffer MyBDA {
+    uint a; // 32-bit
+    double b; // 64-bit
+};
+
+To help explain alignment, lets take an example of loading an array of vectors
+
+layout(buffer_reference, buffer_reference_align = ???) buffer MyBDA {
+    uvec4 data[];
+};
+
+MyBDA ptr; // at 0x1000
+ptr.data[i] = uvec4(0);
+
+Here we have 2 options, we could set the `Aligned` to be `4` or `16`.
+
+If we set alignment to `16` we are letting the compiler know it can load 16 bytes at a time, so it will hopefully do a vector load/store on the memory.
+
+If we set alignment to `4` the compiler will likely have no way to infer the real alignment and will now do 4 scalar int load/store on the memory.
+
+|  | Some GPUs can do vector load/store even on unaligned addresses. |
+| --- | --- |
+
+For the next case, if we had `uvec3` instead of `uvec4` such as
+
+layout(buffer_reference, buffer_reference_align = 4, scalar) buffer MyBDA {
+    uvec3 data[];
+};
+
+data[0]; // 0x1000
+data[1]; // 0x100C
+data[2]; // 0x1018
+data[3]; // 0x1024
+
+We know that setting the alignment to `16` would be violated at `data[1]` and therefore we need to use an alignment of `4` in this case.
+Luckily shading languages will help do this for you as seen in both [glslang](https://godbolt.org/z/jWGKax1ed) and [slang](https://godbolt.org/z/Y7xW3Mfd4) .
 
 SPIR-V has a `OpConstantNull`, but that can’t be used with `PhysicalStorageBuffer`. The way around this is to either convert the pointer to an integer with `OpConvertPtrToU` or to a `uvec2` with `OpBitcast`.
 
