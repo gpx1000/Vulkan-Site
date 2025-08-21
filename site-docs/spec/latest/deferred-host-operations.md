@@ -152,6 +152,11 @@ Valid Usage (Implicit)
 
  `pDeferredOperation` **must** be a valid pointer to a [VkDeferredOperationKHR](#VkDeferredOperationKHR) handle
 
+* 
+[](#VUID-vkCreateDeferredOperationKHR-device-queuecount) VUID-vkCreateDeferredOperationKHR-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](../fundamentals.html#fundamentals-successcodes)
@@ -163,6 +168,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To assign a thread to a deferred operation, call:
 
@@ -256,10 +267,16 @@ Return Codes
 [Failure](../fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 When a deferred operation is completed, the application **can** destroy the
 tracking object by calling:
@@ -439,11 +456,15 @@ Return Codes
 [Success](../fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_NOT_READY`
 
 * 
-`VK_NOT_READY`
+`VK_SUCCESS`
 
 [Failure](../fundamentals.html#fundamentals-errorcodes)
 
-None
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`

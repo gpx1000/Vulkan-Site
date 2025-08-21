@@ -636,6 +636,9 @@ types available.
 
 To query memory properties, call:
 
+|  | This functionality is deprecated by [Vulkan Version 1.1](../appendices/versions.html#versions-1.1). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-gpdp2) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
 void vkGetPhysicalDeviceMemoryProperties(
     VkPhysicalDevice                            physicalDevice,
@@ -1500,6 +1503,11 @@ Valid Usage (Implicit)
 
  `pMemory` **must** be a valid pointer to a [VkDeviceMemory](#VkDeviceMemory) handle
 
+* 
+[](#VUID-vkAllocateMemory-device-queuecount) VUID-vkAllocateMemory-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -1510,16 +1518,22 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+
+* 
+`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMemoryAllocateInfo` structure is defined as:
 
@@ -1756,6 +1770,19 @@ the `pNext` chain **must** include a
 `VkDedicatedAllocationMemoryAllocateInfoNV` structure with either
 its `image` or `buffer` member set to a value other than
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
+
+* 
+[](#VUID-VkMemoryAllocateInfo-pNext-09858) VUID-VkMemoryAllocateInfo-pNext-09858
+
+If the `pNext` chain includes a `VkExportMemoryAllocateInfo`
+structure, and any of the handle types specified in
+`VkExportMemoryAllocateInfo`::`handleTypes` require a dedicated
+allocation, as reported by
+[vkGetPhysicalDeviceExternalTensorPropertiesARM](capabilities.html#vkGetPhysicalDeviceExternalTensorPropertiesARM) in
+`VkExternalTensorPropertiesARM`::`externalMemoryProperties.externalMemoryFeatures`,
+the `pNext` chain **must** include a
+`VkMemoryDedicatedAllocateInfoTensorARM` structure with its
+`tensor` member set to a value other than [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
 
 * 
 [](#VUID-VkMemoryAllocateInfo-pNext-00640) VUID-VkMemoryAllocateInfo-pNext-00640
@@ -2166,7 +2193,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkMemoryAllocateInfo-pNext-pNext) VUID-VkMemoryAllocateInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDedicatedAllocationMemoryAllocateInfoNV](#VkDedicatedAllocationMemoryAllocateInfoNV), [VkExportMemoryAllocateInfo](#VkExportMemoryAllocateInfo), [VkExportMemoryAllocateInfoNV](#VkExportMemoryAllocateInfoNV), [VkExportMemoryWin32HandleInfoKHR](#VkExportMemoryWin32HandleInfoKHR), [VkExportMemoryWin32HandleInfoNV](#VkExportMemoryWin32HandleInfoNV), [VkExportMetalObjectCreateInfoEXT](#VkExportMetalObjectCreateInfoEXT), [VkImportAndroidHardwareBufferInfoANDROID](#VkImportAndroidHardwareBufferInfoANDROID), [VkImportMemoryBufferCollectionFUCHSIA](resources.html#VkImportMemoryBufferCollectionFUCHSIA), [VkImportMemoryFdInfoKHR](#VkImportMemoryFdInfoKHR), [VkImportMemoryHostPointerInfoEXT](#VkImportMemoryHostPointerInfoEXT), [VkImportMemoryMetalHandleInfoEXT](#VkImportMemoryMetalHandleInfoEXT), [VkImportMemoryWin32HandleInfoKHR](#VkImportMemoryWin32HandleInfoKHR), [VkImportMemoryWin32HandleInfoNV](#VkImportMemoryWin32HandleInfoNV), [VkImportMemoryZirconHandleInfoFUCHSIA](#VkImportMemoryZirconHandleInfoFUCHSIA), [VkImportMetalBufferInfoEXT](#VkImportMetalBufferInfoEXT), [VkImportScreenBufferInfoQNX](#VkImportScreenBufferInfoQNX), [VkMemoryAllocateFlagsInfo](#VkMemoryAllocateFlagsInfo), [VkMemoryDedicatedAllocateInfo](#VkMemoryDedicatedAllocateInfo), [VkMemoryOpaqueCaptureAddressAllocateInfo](#VkMemoryOpaqueCaptureAddressAllocateInfo), or [VkMemoryPriorityAllocateInfoEXT](#VkMemoryPriorityAllocateInfoEXT)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDedicatedAllocationMemoryAllocateInfoNV](#VkDedicatedAllocationMemoryAllocateInfoNV), [VkExportMemoryAllocateInfo](#VkExportMemoryAllocateInfo), [VkExportMemoryAllocateInfoNV](#VkExportMemoryAllocateInfoNV), [VkExportMemoryWin32HandleInfoKHR](#VkExportMemoryWin32HandleInfoKHR), [VkExportMemoryWin32HandleInfoNV](#VkExportMemoryWin32HandleInfoNV), [VkExportMetalObjectCreateInfoEXT](#VkExportMetalObjectCreateInfoEXT), [VkImportAndroidHardwareBufferInfoANDROID](#VkImportAndroidHardwareBufferInfoANDROID), [VkImportMemoryBufferCollectionFUCHSIA](resources.html#VkImportMemoryBufferCollectionFUCHSIA), [VkImportMemoryFdInfoKHR](#VkImportMemoryFdInfoKHR), [VkImportMemoryHostPointerInfoEXT](#VkImportMemoryHostPointerInfoEXT), [VkImportMemoryMetalHandleInfoEXT](#VkImportMemoryMetalHandleInfoEXT), [VkImportMemoryWin32HandleInfoKHR](#VkImportMemoryWin32HandleInfoKHR), [VkImportMemoryWin32HandleInfoNV](#VkImportMemoryWin32HandleInfoNV), [VkImportMemoryZirconHandleInfoFUCHSIA](#VkImportMemoryZirconHandleInfoFUCHSIA), [VkImportMetalBufferInfoEXT](#VkImportMetalBufferInfoEXT), [VkImportScreenBufferInfoQNX](#VkImportScreenBufferInfoQNX), [VkMemoryAllocateFlagsInfo](#VkMemoryAllocateFlagsInfo), [VkMemoryDedicatedAllocateInfo](#VkMemoryDedicatedAllocateInfo), [VkMemoryDedicatedAllocateInfoTensorARM](#VkMemoryDedicatedAllocateInfoTensorARM), [VkMemoryOpaqueCaptureAddressAllocateInfo](#VkMemoryOpaqueCaptureAddressAllocateInfo), or [VkMemoryPriorityAllocateInfoEXT](#VkMemoryPriorityAllocateInfoEXT)
 
 * 
 [](#VUID-VkMemoryAllocateInfo-sType-unique) VUID-VkMemoryAllocateInfo-sType-unique
@@ -2419,6 +2446,10 @@ Secondary | Outside | Outside | Graphics
 
 Compute | State |
 
+Conditional Rendering
+
+vkCmdBindTileMemoryQCOM is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkTileMemoryBindInfoQCOM` structure is defined as:
 
 // Provided by VK_QCOM_tile_memory_heap
@@ -2451,7 +2482,7 @@ Valid Usage
 [](#VUID-VkTileMemoryBindInfoQCOM-memory-10726) VUID-VkTileMemoryBindInfoQCOM-memory-10726
 
 `memory` **must** have been allocated from a [VkMemoryHeap](#VkMemoryHeap) with
-the `VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM` property.
+the `VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM` property
 
 Valid Usage (Implicit)
 
@@ -2464,6 +2495,59 @@ Valid Usage (Implicit)
 [](#VUID-VkTileMemoryBindInfoQCOM-memory-parameter) VUID-VkTileMemoryBindInfoQCOM-memory-parameter
 
  `memory` **must** be a valid [VkDeviceMemory](#VkDeviceMemory) handle
+
+If the `pNext` chain includes a
+`VkMemoryDedicatedAllocateInfoTensorARM` structure, then that structure
+includes a handle of the sole tensor resource that the memory **can** be bound
+to.
+
+The `VkMemoryDedicatedAllocateInfoTensorARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkMemoryDedicatedAllocateInfoTensorARM {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkTensorARM        tensor;
+} VkMemoryDedicatedAllocateInfoTensorARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`tensor` is a handle of a tensor which this memory will be bound to.
+
+Valid Usage
+
+* 
+[](#VUID-VkMemoryDedicatedAllocateInfoTensorARM-allocationSize-09710) VUID-VkMemoryDedicatedAllocateInfoTensorARM-allocationSize-09710
+
+`VkMemoryAllocateInfo`::`allocationSize` **must** equal the
+`VkMemoryRequirements`::`size` of the tensor
+
+* 
+[](#VUID-VkMemoryDedicatedAllocateInfoTensorARM-tensor-09859) VUID-VkMemoryDedicatedAllocateInfoTensorARM-tensor-09859
+
+If [VkMemoryAllocateInfo](#VkMemoryAllocateInfo) defines a memory import operation with
+handle type `VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT`, the
+memory being imported **must** also be a dedicated tensor allocation and
+`tensor` **must** be identical to the tensor associated with the
+imported memory
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkMemoryDedicatedAllocateInfoTensorARM-sType-sType) VUID-VkMemoryDedicatedAllocateInfoTensorARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM`
+
+* 
+[](#VUID-VkMemoryDedicatedAllocateInfoTensorARM-tensor-parameter) VUID-VkMemoryDedicatedAllocateInfoTensorARM-tensor-parameter
+
+ `tensor` **must** be a valid [VkTensorARM](resources.html#VkTensorARM) handle
 
 If the `pNext` chain includes a
 `VkDedicatedAllocationMemoryAllocateInfoNV` structure, then that
@@ -2702,11 +2786,13 @@ allocation.
 Valid Usage
 
 * 
-[](#VUID-VkExportMemoryAllocateInfo-handleTypes-00656) VUID-VkExportMemoryAllocateInfo-handleTypes-00656
+[](#VUID-VkExportMemoryAllocateInfo-handleTypes-09860) VUID-VkExportMemoryAllocateInfo-handleTypes-09860
 
-The bits in `handleTypes` **must** be supported and compatible, as
-reported by [VkExternalImageFormatProperties](capabilities.html#VkExternalImageFormatProperties) or
-[VkExternalBufferProperties](capabilities.html#VkExternalBufferProperties)
+    The bits in `handleTypes` **must** be supported and compatible, as
+    reported by
+[VkExternalTensorPropertiesARM](capabilities.html#VkExternalTensorPropertiesARM),
+    [VkExternalImageFormatProperties](capabilities.html#VkExternalImageFormatProperties), or
+    [VkExternalBufferProperties](capabilities.html#VkExternalBufferProperties)
 
 Valid Usage (Implicit)
 
@@ -2896,11 +2982,13 @@ In all cases, each import operation **must** create a distinct
 Valid Usage
 
 * 
-[](#VUID-VkImportMemoryWin32HandleInfoKHR-handleType-00658) VUID-VkImportMemoryWin32HandleInfoKHR-handleType-00658
+[](#VUID-VkImportMemoryWin32HandleInfoKHR-handleType-09861) VUID-VkImportMemoryWin32HandleInfoKHR-handleType-09861
 
-If `handleType` is not `0`, it **must** be supported for import, as
-reported by [VkExternalImageFormatProperties](capabilities.html#VkExternalImageFormatProperties) or
-[VkExternalBufferProperties](capabilities.html#VkExternalBufferProperties)
+    If `handleType` is not `0`, it **must** be supported for import, as
+    reported by
+[VkExternalTensorPropertiesARM](capabilities.html#VkExternalTensorPropertiesARM),
+    [VkExternalImageFormatProperties](capabilities.html#VkExternalImageFormatProperties), or
+    [VkExternalBufferProperties](capabilities.html#VkExternalBufferProperties)
 
 * 
 [](#VUID-VkImportMemoryWin32HandleInfoKHR-handle-00659) VUID-VkImportMemoryWin32HandleInfoKHR-handle-00659
@@ -3029,10 +3117,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMemoryGetWin32HandleInfoKHR` structure is defined as:
 
@@ -3174,10 +3268,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMemoryWin32HandlePropertiesKHR` structure returned is defined as:
 
@@ -3438,10 +3538,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To import memory from a POSIX file descriptor handle, add a
 [VkImportMemoryFdInfoKHR](#VkImportMemoryFdInfoKHR) structure to the `pNext` chain of the
@@ -3485,11 +3591,13 @@ In all cases, each import operation **must** create a distinct
 Valid Usage
 
 * 
-[](#VUID-VkImportMemoryFdInfoKHR-handleType-00667) VUID-VkImportMemoryFdInfoKHR-handleType-00667
+[](#VUID-VkImportMemoryFdInfoKHR-handleType-09862) VUID-VkImportMemoryFdInfoKHR-handleType-09862
 
-If `handleType` is not `0`, it **must** be supported for import, as
-reported by [VkExternalImageFormatProperties](capabilities.html#VkExternalImageFormatProperties) or
-[VkExternalBufferProperties](capabilities.html#VkExternalBufferProperties)
+    If `handleType` is not `0`, it **must** be supported for import, as
+    reported by
+[VkExternalTensorPropertiesARM](capabilities.html#VkExternalTensorPropertiesARM),
+    [VkExternalImageFormatProperties](capabilities.html#VkExternalImageFormatProperties) or
+    [VkExternalBufferProperties](capabilities.html#VkExternalBufferProperties)
 
 * 
 [](#VUID-VkImportMemoryFdInfoKHR-fd-00668) VUID-VkImportMemoryFdInfoKHR-fd-00668
@@ -3594,10 +3702,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMemoryGetFdInfoKHR` structure is defined as:
 
@@ -3742,10 +3856,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMemoryFdPropertiesKHR` structure returned is defined as:
 
@@ -3990,10 +4110,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMemoryHostPointerPropertiesEXT` structure is defined as:
 
@@ -4065,12 +4191,13 @@ If the command fails, the implementation **must** not retain a reference.
 Valid Usage
 
 * 
-[](#VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-01880) VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-01880
+[](#VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-09863) VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-09863
 
-If `buffer` is not `NULL`, Android hardware buffers **must** be
-supported for import, as reported by
-[VkExternalImageFormatProperties](capabilities.html#VkExternalImageFormatProperties) or
-[VkExternalBufferProperties](capabilities.html#VkExternalBufferProperties)
+    If `buffer` is not `NULL`, Android hardware buffers **must** be
+    supported for import, as reported by
+[VkExternalTensorPropertiesARM](capabilities.html#VkExternalTensorPropertiesARM),
+    [VkExternalImageFormatProperties](capabilities.html#VkExternalImageFormatProperties), or
+    [VkExternalBufferProperties](capabilities.html#VkExternalBufferProperties)
 
 * 
 [](#VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-01881) VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-01881
@@ -4153,10 +4280,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMemoryGetAndroidHardwareBufferInfoANDROID` structure is defined
 as:
@@ -4270,10 +4403,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkAndroidHardwareBufferPropertiesANDROID` structure returned is
 defined as:
@@ -4634,6 +4773,12 @@ Return Codes
 * 
 `VK_ERROR_INVALID_EXTERNAL_HANDLE`
 
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
 The `VkMemoryGetRemoteAddressInfoNV` structure is defined as:
 
 // Provided by VK_NV_external_memory_rdma
@@ -4837,6 +4982,12 @@ Return Codes
 * 
 `VK_ERROR_INVALID_EXTERNAL_HANDLE`
 
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
 The `VkMemoryZirconHandlePropertiesFUCHSIA` structure is defined as:
 
 // Provided by VK_FUCHSIA_external_memory
@@ -4928,10 +5079,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 `VkMemoryGetZirconHandleInfoFUCHSIA` is defined as:
 
@@ -5978,10 +6135,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkScreenBufferPropertiesQNX` structure returned is defined as:
 
@@ -6243,10 +6406,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMemoryGetMetalHandleInfoEXT` structure is defined as:
 
@@ -6398,10 +6567,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMemoryMetalHandlePropertiesEXT` structure returned is defined as:
 
@@ -6897,13 +7072,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_MEMORY_MAP_FAILED`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_MEMORY_MAP_FAILED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Bits which **can** be set in [vkMapMemory](#vkMapMemory)::`flags` and
 [VkMemoryMapInfo](#VkMemoryMapInfo)::`flags`, specifying additional properties of a
@@ -6990,13 +7171,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_MEMORY_MAP_FAILED`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_MEMORY_MAP_FAILED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMemoryMapInfo` structure is defined as:
 
@@ -7363,10 +7550,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To invalidate ranges of non-coherent memory from the host caches, call:
 
@@ -7466,10 +7659,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMappedMemoryRange` structure is defined as:
 
@@ -7656,6 +7855,12 @@ Return Codes
 
 * 
 `VK_ERROR_MEMORY_MAP_FAILED`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMemoryUnmapInfo` structure is defined as:
 
@@ -7866,12 +8071,14 @@ not be visible to the host
 Resources:
 
 * 
-Unprotected images and unprotected buffers, to which unprotected memory
-**can** be bound
+Unprotected images
+, unprotected tensors,
+     and unprotected buffers, to which unprotected memory **can** be bound
 
 * 
-Protected images and protected buffers, to which protected memory **can**
-be bound
+Protected images
+, protected tensors,
+     and protected buffers, to which protected memory **can** be bound
 
 Command buffers:
 
@@ -7960,8 +8167,10 @@ device memory that is shareable across processes and that **can** be accessed
 by a variety of media APIs and the hardware used to implement them.
 These Android hardware buffer objects **may** be imported into
 [VkDeviceMemory](#VkDeviceMemory) objects for access via Vulkan, or exported from Vulkan.
-An [VkImage](resources.html#VkImage) or [VkBuffer](resources.html#VkBuffer) **can** be bound to the imported or exported
-[VkDeviceMemory](#VkDeviceMemory) object if it is created with
+An [VkImage](resources.html#VkImage) or [VkBuffer](resources.html#VkBuffer)
+or [VkTensorARM](resources.html#VkTensorARM)
+**can** be bound to the imported or exported [VkDeviceMemory](#VkDeviceMemory) object if it
+is created with
 `VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID`.
 
 To remove an unnecessary compile time dependency, an incomplete type
@@ -8517,7 +8726,7 @@ The [`bufferDeviceAddress`](features.html#features-bufferDeviceAddress) and
 * 
 [](#VUID-vkGetDeviceMemoryOpaqueCaptureAddress-pInfo-10727) VUID-vkGetDeviceMemoryOpaqueCaptureAddress-pInfo-10727
 
-`pInfo`::`memory` **must** have been allocated using the
+`pInfo->memory` **must** have been allocated using the
 `VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT` flag
 
 * 

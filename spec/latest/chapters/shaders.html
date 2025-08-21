@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -733,10 +745,10 @@ shader&#8217;s entry point <strong>must</strong> not declare a variable with a <
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPATIBLE_SHADER_BINARY_EXT</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPATIBLE_SHADER_BINARY_EXT</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -746,13 +758,19 @@ shader&#8217;s entry point <strong>must</strong> not declare a variable with a <
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -1297,7 +1315,7 @@ stage in <code>stageFlags</code></p>
 
 If <code>codeType</code> is <code>VK_SHADER_CODE_TYPE_SPIRV_EXT</code>, and if a push
 constant block is declared in a shader, then an element of
-<code>pPushConstantRanges</code>::<code>stageFlags</code> <strong>must</strong> match <code>stage</code></p>
+<code>pPushConstantRanges-&gt;stageFlags</code> <strong>must</strong> match <code>stage</code></p>
 </li>
 <li>
 <p><a id="VUID-VkShaderCreateInfoEXT-codeType-10065" href="#VUID-VkShaderCreateInfoEXT-codeType-10065"></a> <span class="vuid">VUID-VkShaderCreateInfoEXT-codeType-10065</span><br>
@@ -1700,10 +1718,10 @@ If <code>pData</code> is not <code>NULL</code>, it <strong>must</strong> be alig
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -1713,10 +1731,16 @@ If <code>pData</code> is not <code>NULL</code>, it <strong>must</strong> be alig
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -2045,6 +2069,14 @@ Compute</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdBindShadersEXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -2133,13 +2165,8 @@ command <strong>must</strong> have been called in the command buffer prior to dr
 <p><a href="primsrast.html#vkCmdSetPolygonModeEXT" class="xref page">vkCmdSetPolygonModeEXT</a></p>
 </li>
 <li>
-<p><a href="primsrast.html#vkCmdSetLineWidth" class="xref page">vkCmdSetLineWidth</a>, if <code>polygonMode</code> is
-<code>VK_POLYGON_MODE_LINE</code>, or if
-a shader is bound to the <code>VK_SHADER_STAGE_VERTEX_BIT</code> stage and
-<code>primitiveTopology</code> is a line topology, or if a shader which outputs
-line primitives is bound to the
-<code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code> or
-<code>VK_SHADER_STAGE_GEOMETRY_BIT</code> stage</p>
+<p><a href="primsrast.html#vkCmdSetLineWidth" class="xref page">vkCmdSetLineWidth</a>, if the <a href="drawing.html#drawing-rasterization-input-topology" class="xref page">    effective rasterization input topology</a> is in line
+<a href="drawing.html#drawing-primitive-topology-class" class="xref page">topology class</a></p>
 </li>
 <li>
 <p><a href="primsrast.html#vkCmdSetCullMode" class="xref page">vkCmdSetCullMode</a></p>
@@ -2335,13 +2362,10 @@ been called in the command buffer prior to drawing:</p>
 </div>
 <div class="paragraph">
 <p>If any of the <a href="features.html#features-stippledRectangularLines" class="xref page"><code>stippledRectangularLines</code></a>, <a href="features.html#features-stippledBresenhamLines" class="xref page"><code>stippledBresenhamLines</code></a>, or <a href="features.html#features-stippledSmoothLines" class="xref page"><code>stippledSmoothLines</code></a> features are enabled, and
-<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, and if <code>polygonMode</code> is
-<code>VK_POLYGON_MODE_LINE</code> or a shader is bound to the
-<code>VK_SHADER_STAGE_VERTEX_BIT</code> stage and <code>primitiveTopology</code> is a line
-topology or a shader which outputs line primitives is bound to the
-<code>VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT</code> or
-<code>VK_SHADER_STAGE_GEOMETRY_BIT</code> stage, the following commands <strong>must</strong> have
-been called in the command buffer prior to drawing:</p>
+<code>rasterizerDiscardEnable</code> is <code>VK_FALSE</code>, and if the
+<a href="drawing.html#drawing-rasterization-input-topology" class="xref page">effective rasterization input topology</a> is in line <a href="drawing.html#drawing-primitive-topology-class" class="xref page">topology class</a>,
+the following commands <strong>must</strong> have been called in the command buffer prior to
+drawing:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -2829,13 +2853,19 @@ or a pointer to a valid instance of</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_INVALID_SHADER_NV</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_SHADER_NV</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -3611,6 +3641,482 @@ To obtain the most predictable behavior, shader authors should use
 </div>
 </div>
 <div class="sect1">
+<h2 id="shaders-execution-memory-access-bounds"><a class="anchor" href="#shaders-execution-memory-access-bounds"></a>Shader Out-of-Bounds Memory Access</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Shader accesses to memory are not automatically bounds checked by the
+implementation.
+Applications <strong>must</strong> not execute operations that would access out of bounds
+memory locations unless some form of bounds checking is enabled.
+An access is considered out of bounds if any part of the access is outside
+of any specified memory range, whether that is the array length specified in
+a shader or a range specified in the API (e.g. descriptor size).</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>External tooling such as the Vulkan Validation Layers can be used to help
+validate that accesses are not out of bounds.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>An access <strong>can</strong> be independently out of bounds for each range that applies;
+if one is bounds checked and the others are not, behavior is still
+<strong>undefined</strong>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For example, given the following shader declaration</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c hljs" data-lang="c">// Buffer type
+struct MySSBO {
+    uint32_t data[2];
+};</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>accessing <code>data</code> at an index greater than 1 is <strong>undefined</strong> behavior, whether
+the underlying buffer is bigger than that or not.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Vulkan provides functionality that enables automatic bounds checking in some
+cases, as outlined below.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Automatic bounds checking can be used to ensure that accesses outside of
+certain bounds have predictable results, acting as a safety net for
+untrusted code, or simply as a way for applications to avoid their own
+bounds checks.
+While there may be a performance cost for enabling these features, they
+should not be slower than an application performing equivalent checks.
+Automatic checks do not necessarily account for all possible bounds - e.g.
+<a href="#shaders-robust-buffer-access">Robust Buffer Access</a> will not prevent <strong>undefined</strong> behavior in the
+buffer access example in the prior note.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="shaders-robust-buffer-access"><a class="anchor" href="#shaders-robust-buffer-access"></a>Robust Buffer Access</h3>
+<div class="paragraph">
+<p>Robust buffer access <strong>can</strong> be enabled by
+specifying <code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS</code>
+in <a href="pipelines.html#VkPipelineRobustnessCreateInfo" class="xref page">VkPipelineRobustnessCreateInfo</a>, or specifying
+<code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT</code> and enabling the
+the <a href="features.html#features-robustBufferAccess" class="xref page"><code>robustBufferAccess</code></a> feature.</p>
+</div>
+<div class="paragraph">
+<p>When robust buffer access is enabled, access to a buffer via a descriptor is
+bounds checked against the range specified for the descriptor, and access to
+vertex input data is bounds checked against the bound vertex buffer range.
+Reads from a vertex input <strong>may</strong> instead be bounds checked against a range
+rounded down to the nearest multiple of the stride of its binding.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The range of a descriptor is not necessarily equivalent to the size of the
+underlying resource; applications may suballocate descriptors from larger
+buffers, for instance.
+The APIs specifying the descriptor range vary between resource types and
+descriptor interfaces, but for example include the ranges specified by
+<a href="descriptorsets.html#VkDescriptorBufferInfo" class="xref page">VkDescriptorBufferInfo</a> or <a href="resources.html#VkBufferViewCreateInfo" class="xref page">VkBufferViewCreateInfo</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If any vertex input read is outside of the checked range, all other vertex
+input reads through the same binding in the same shader invocation <strong>may</strong>
+behave as if they were outside of the checked range.</p>
+</div>
+<div class="paragraph">
+<p>If any access to a uniform, storage, uniform texel, or storage texel buffer
+is outside of the checked range, any access of the same type (write,
+read-modify-write, or read) to the same buffer that is less than 16 bytes
+away from the first access <strong>may</strong> behave as if it is also outside of the
+checked range.</p>
+</div>
+<div class="paragraph">
+<p>Any non-atomic access to a uniform, storage, uniform texel, or storage texel
+buffer wider than 32-bits <strong>may</strong> be treated as multiple 32-bit accesses that
+are separately bounds checked.</p>
+</div>
+<div class="paragraph">
+<p>Writes to a storage or storage texel buffer outside of the checked range
+will either be discarded, or modify values within the memory range(s) bound
+to the underlying buffer (including outside of the checked range).
+They will not modify any other memory.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Non-atomic writes outside of the checked range <strong>can</strong> lead to data races, as
+the application has no control over where the data will be written.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Atomic read-modify-write operations to a storage or storage texel buffer
+outside of the checked range will behave the same as a write outside of the
+checked range, but will return an <strong>undefined</strong> value.</p>
+</div>
+<div class="paragraph">
+<p>Reading a uniform, storage, uniform texel, or storage texel buffer outside
+of the checked range will return one of the following values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Values from anywhere within the memory range(s) bound to the underlying
+buffer object, which <strong>may</strong> include bytes beyond the size of the buffer
+itself.</p>
+</li>
+<li>
+<p>Zero values</p>
+</li>
+<li>
+<p>For 4-component vectors, a value of <span class="eq">(0,0,0,x)</span>, where <span class="eq">x</span> is
+any of</p>
+<div class="ulist">
+<ul>
+<li>
+<p>0, 1, or the maximum positive integer value for integer components</p>
+</li>
+<li>
+<p>0.0 or 1.0 for floating-point components</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>The value of the last store to the same out-of-bounds location in the
+same shader invocation.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Using
+the <code>Volatile</code>/<code>VolatileTexel</code> memory/image operand, the
+<code>Volatile</code> memory semantic, or
+the <code>Volatile</code> decoration to load the value will prevent prior stored
+values from being returned.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Getting the value of the previous store is possible as implementations are
+free to optimize multiple accesses in the general case.
+There are several ways this <strong>can</strong> be prevented, but using volatile loads is
+by far the simplest.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Reads from a vertex input outside of the checked range will produce one of
+the following values:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Values from anywhere within the memory range(s) bound to the underlying
+buffer object, which <strong>may</strong> include bytes beyond the size of the buffer
+itself, converted via <a href="fxvertex.html#fxvertex-input-extraction" class="xref page">input extraction</a>.</p>
+</li>
+<li>
+<p>Zero values, converted via <a href="fxvertex.html#fxvertex-input-extraction" class="xref page">input    extraction</a>.</p>
+</li>
+<li>
+<p>Zero values</p>
+</li>
+<li>
+<p>For 4-component vectors, a value of <span class="eq">(0,0,0,x)</span>, where <span class="eq">x</span> is
+any of</p>
+<div class="ulist">
+<ul>
+<li>
+<p>0, 1, or the maximum positive integer value for integer components</p>
+</li>
+<li>
+<p>0.0 or 1.0 for floating-point components</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Accesses via <code>OpCooperativeMatrixLoadNV</code> and
+<code>OpCooperativeMatrixStoreNV</code> are only bounds checked in the above manner
+if the <a href="features.html#features-cooperativeMatrixRobustBufferAccessNV" class="xref page"><code>VkPhysicalDeviceCooperativeMatrixFeaturesNV</code>::<code>cooperativeMatrixRobustBufferAccess</code></a>
+feature is enabled.</p>
+</div>
+<div class="paragraph">
+<p>Accesses via <code>OpCooperativeMatrixLoadKHR</code> and
+<code>OpCooperativeMatrixStoreKHR</code> are only bounds checked in the above manner
+if the <a href="features.html#features-cooperativeMatrixRobustBufferAccess" class="xref page"><code>VkPhysicalDeviceCooperativeMatrixFeaturesKHR</code>::<code>cooperativeMatrixRobustBufferAccess</code></a>
+feature is enabled.</p>
+</div>
+<div class="paragraph">
+<p>Accesses using <code>OpCooperativeVector*</code> instructions are not
+bounds-checked.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="shaders-robust-buffer-access2"><a class="anchor" href="#shaders-robust-buffer-access2"></a>Robust Buffer Access 2</h3>
+<div class="paragraph">
+<p>Robust buffer access 2 <strong>can</strong> be enabled by
+specifying
+<code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2</code> in
+<a href="pipelines.html#VkPipelineRobustnessCreateInfo" class="xref page">VkPipelineRobustnessCreateInfo</a>, or specifying
+<code>VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT</code> and enabling the
+the <a href="features.html#features-robustBufferAccess" class="xref page"><code>robustBufferAccess2</code></a> feature.</p>
+</div>
+<div class="paragraph">
+<p>When robust buffer access 2 is enabled, access to a buffer via a descriptor
+is bounds checked against the range specified for the descriptor, and access
+to vertex input data is bounds checked against the bound vertex buffer
+range, similarly to <a href="#shaders-robust-buffer-access">Robust Buffer Access</a>, but with tighter
+bounds on the results.</p>
+</div>
+<div class="paragraph">
+<p>Accesses to a uniform buffer <strong>may</strong> instead be bounds checked against a range
+rounded up to <a href="limits.html#limits-robustUniformBufferAccessSizeAlignment" class="xref page"><code>robustUniformBufferAccessSizeAlignment</code></a>.
+Accesses inside the aligned range <strong>may</strong> behave as if they are in bounds, even
+if they are outside of the unaligned descriptor range, and access memory
+accordingly.
+The same is true for accesses to a storage buffer, using the
+<a href="limits.html#limits-robustStorageBufferAccessSizeAlignment" class="xref page"><code>robustStorageBufferAccessSizeAlignment</code></a> limit instead.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>To avoid unexpected data races between neighboring descriptor ranges,
+applications may wish to ensure suballocated ranges of buffers are aligned
+to these limits.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Any access to a uniform, storage, uniform texel, or storage texel buffer
+wider than 32-bits <strong>may</strong> be treated as multiple 32-bit accesses that are
+separately bounds checked.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Accesses to null descriptors are not considered out-of-bounds and have
+separate behavior controlled by the <a href="features.html#features-nullDescriptor" class="xref page"><code>nullDescriptor</code></a> feature.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Writes to a storage or storage texel buffer outside of the checked range
+will not modify any memory.</p>
+</div>
+<div class="paragraph">
+<p>Atomic read-modify-write operations to a storage or storage texel buffer
+outside of the checked range will behave the same as a write outside of the
+checked range, but will return an <strong>undefined</strong> value.</p>
+</div>
+<div class="paragraph">
+<p>Reads from a uniform or storage buffer outside of the checked range will
+return zero values.
+If a value was previously written to the same out of bounds location in the
+same shader invocation, that value <strong>may</strong> be returned instead; using
+the <code>Volatile</code>/<code>VolatileTexel</code> memory/image operand, the <code>Volatile</code>
+memory semantic, or
+the <code>Volatile</code> decoration to load the value will prevent prior stored
+values from being returned.</p>
+</div>
+<div class="paragraph">
+<p>Reading a uniform texel or storage texel buffer outside of the checked range
+will produce zero values, but <a href="textures.html#textures-conversion-to-rgba" class="xref page">conversion to RGBA</a> will still be applied based on the buffer view&#8217;s format, with the
+resulting value returned to the shader.
+If a value was previously written to the same out of bounds location in the
+same shader invocation, that value <strong>may</strong> be returned instead; using
+the <code>Volatile</code>/<code>VolatileTexel</code> memory/image operand, the <code>Volatile</code>
+memory semantic, or
+the <code>Volatile</code> decoration to load the value will prevent prior stored
+values from being returned.</p>
+</div>
+<div class="paragraph">
+<p>Reads from a vertex input outside of the checked range will produce zero
+values, but <a href="fxvertex.html#fxvertex-input-extraction" class="xref page">input extraction</a> will still be
+applied, filling missing G, B, or A components with <span class="eq">(0,0,1)</span>.</p>
+</div>
+<div class="paragraph">
+<p>Accesses via <code>OpCooperativeMatrixLoadNV</code> and
+<code>OpCooperativeMatrixStoreNV</code> are only bounds checked in the above manner
+if the <a href="features.html#features-cooperativeMatrixRobustBufferAccessNV" class="xref page"><code>VkPhysicalDeviceCooperativeMatrixFeaturesNV</code>::<code>cooperativeMatrixRobustBufferAccess</code></a>
+feature is enabled.</p>
+</div>
+<div class="paragraph">
+<p>Accesses via <code>OpCooperativeMatrixLoadKHR</code> and
+<code>OpCooperativeMatrixStoreKHR</code> are only bounds checked in the above manner
+if the <a href="features.html#features-cooperativeMatrixRobustBufferAccess" class="xref page"><code>VkPhysicalDeviceCooperativeMatrixFeaturesKHR</code>::<code>cooperativeMatrixRobustBufferAccess</code></a>
+feature is enabled.</p>
+</div>
+<div class="paragraph">
+<p>Accesses using <code>OpCooperativeVector*</code> instructions are not
+bounds-checked.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_image_sampling"><a class="anchor" href="#_image_sampling"></a>Image Sampling</h3>
+<div class="paragraph">
+<p>Sampling operations on an image descriptor are always well-defined when
+coordinates exceeding the dimensions specified for the descriptor are
+accessed, as described in the <a href="textures.html#textures-wrapping-operation" class="xref page">Wrapping Operation</a> section.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="shaders-robust-image-access"><a class="anchor" href="#shaders-robust-image-access"></a>Robust Image Access</h3>
+<div class="paragraph">
+<p>Robust image access <strong>can</strong> be enabled by
+specifying <code>VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS</code>
+in <a href="pipelines.html#VkPipelineRobustnessCreateInfo" class="xref page">VkPipelineRobustnessCreateInfo</a>, or specifying
+<code>VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_DEVICE_DEFAULT</code> and enabling the
+the <a href="features.html#features-robustImageAccess" class="xref page"><code>robustImageAccess</code></a> feature.</p>
+</div>
+<div class="paragraph">
+<p>If robust image access is enabled, accesses to image descriptors are bounds
+checked against the image view dimensions specified for the descriptor.</p>
+</div>
+<div class="paragraph">
+<p>Writes or atomic read-modify-write operations to a storage image outside of
+the checked dimensions will not modify any memory.</p>
+</div>
+<div class="paragraph">
+<p>Reads, atomic read-modify-write operations, or fetches from images outside
+of the checked dimensions will return zero values, with <span class="eq">(0,0,1)</span> or
+[eq]#(0,0,0) values <a href="textures.html#textures-conversion-to-rgba" class="xref page">inserted for missing G, B, or A components</a> based on the format.</p>
+</div>
+<div class="paragraph">
+<p>If a value was previously written to the same out of bounds location in the
+same shader invocation, that value <strong>may</strong> be returned instead; using
+the <code>VolatileTexel</code> image operand, the <code>Volatile</code> memory semantic, or
+the <code>Volatile</code> decoration to load the value will prevent prior stored
+values from being returned.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="shaders-robust-image-access2"><a class="anchor" href="#shaders-robust-image-access2"></a>Robust Image Access 2</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This is largely identical to <a href="#shaders-robust-image-access">Robust Image Access</a>; the only
+difference being that the alpha channel must be replaced with 1, rather than
+1 or 0, for out of bounds texel access.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Robust image access 2 <strong>can</strong> be enabled by
+specifying <code>VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_2</code>
+in <a href="pipelines.html#VkPipelineRobustnessCreateInfo" class="xref page">VkPipelineRobustnessCreateInfo</a>, or specifying
+<code>VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_DEVICE_DEFAULT</code> and enabling the
+the <a href="features.html#features-robustImageAccess2" class="xref page"><code>robustImageAccess2</code></a> feature.</p>
+</div>
+<div class="paragraph">
+<p>If robust image access 2 is enabled, accesses to image descriptors are
+bounds checked against the image view dimensions specified for the
+descriptor.</p>
+</div>
+<div class="paragraph">
+<p>Writes or atomic read-modify-write operations to a storage image outside of
+the checked dimensions will not modify any memory.</p>
+</div>
+<div class="paragraph">
+<p>Reads, atomic read-modify-write operations, or fetches from images outside
+of the checked dimensions will return zero values, with <span class="eq">(0,0,1)</span> values
+<a href="textures.html#textures-conversion-to-rgba" class="xref page">inserted for missing G, B, or A components</a>
+based on the format.</p>
+</div>
+<div class="paragraph">
+<p>If a value was previously written to the same out of bounds location in the
+same shader invocation, that value <strong>may</strong> be returned instead; using
+the <code>VolatileTexel</code> image operand, the <code>Volatile</code> memory semantic, or
+the <code>Volatile</code> decoration to load the value will prevent prior stored
+values from being returned.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="shaders-execution-memory-ordering"><a class="anchor" href="#shaders-execution-memory-ordering"></a>Shader Memory Access Ordering</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -3674,17 +4180,8 @@ writes in finite time.</p>
 <p>The <a href="../appendices/memorymodel.html#memory-model" class="xref page">Memory Model</a> appendix defines the terminology and rules
 for how to correctly communicate between shader invocations, such as when a
 write is <a href="../appendices/memorymodel.html#memory-model-visible-to" class="xref page">Visible-To</a> a read, and what constitutes
-a <a href="../appendices/memorymodel.html#memory-model-access-data-race" class="xref page">Data Race</a>.</p>
-</div>
-<div class="paragraph">
-<p>Applications <strong>must</strong> not cause a data race.</p>
-</div>
-<div class="paragraph">
-<p>The SPIR-V <strong>SubgroupMemory</strong>, <strong>CrossWorkgroupMemory</strong>, and
-<strong>AtomicCounterMemory</strong> memory semantics are ignored.
-Sequentially consistent atomics and barriers are not supported and
-<strong>SequentiallyConsistent</strong> is treated as <strong>AcquireRelease</strong>.
-<strong>SequentiallyConsistent</strong> <strong>should</strong> not be used.</p>
+a <a href="../appendices/memorymodel.html#memory-model-access-data-race" class="xref page">Data Race</a>.
+Applications <strong>must</strong> not cause a data race.</p>
 </div>
 </div>
 </div>
@@ -4060,6 +4557,14 @@ Secondary</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdSetPatchControlPointsEXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -4424,6 +4929,7 @@ vertices.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A SPIR-V module declares a global object in memory using the <code>OpVariable</code>
+or <code>OpUntypedVariableKHR</code>
 instruction, which results in a pointer <code>x</code> to that object.
 A specific entry point in a SPIR-V module is said to <em>statically use</em> that
 object if that entry point&#8217;s call tree contains a function containing a
@@ -5398,10 +5904,10 @@ properties were returned.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -5411,10 +5917,16 @@ properties were returned.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5505,10 +6017,10 @@ properties.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -5518,10 +6030,16 @@ properties.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5605,10 +6123,10 @@ properties were returned.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -5618,10 +6136,16 @@ properties were returned.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6088,10 +6612,10 @@ typedef enum VkComponentTypeKHR {
     VK_COMPONENT_TYPE_SINT8_PACKED_NV = 1000491000,
   // Provided by VK_NV_cooperative_vector
     VK_COMPONENT_TYPE_UINT8_PACKED_NV = 1000491001,
-  // Provided by VK_NV_cooperative_vector
-    VK_COMPONENT_TYPE_FLOAT_E4M3_NV = 1000491002,
-  // Provided by VK_NV_cooperative_vector
-    VK_COMPONENT_TYPE_FLOAT_E5M2_NV = 1000491003,
+  // Provided by VK_KHR_cooperative_matrix with VK_EXT_shader_float8
+    VK_COMPONENT_TYPE_FLOAT8_E4M3_EXT = 1000491002,
+  // Provided by VK_KHR_cooperative_matrix with VK_EXT_shader_float8
+    VK_COMPONENT_TYPE_FLOAT8_E5M2_EXT = 1000491003,
   // Provided by VK_NV_cooperative_matrix
     VK_COMPONENT_TYPE_FLOAT16_NV = VK_COMPONENT_TYPE_FLOAT16_KHR,
   // Provided by VK_NV_cooperative_matrix
@@ -6114,6 +6638,10 @@ typedef enum VkComponentTypeKHR {
     VK_COMPONENT_TYPE_UINT32_NV = VK_COMPONENT_TYPE_UINT32_KHR,
   // Provided by VK_NV_cooperative_matrix
     VK_COMPONENT_TYPE_UINT64_NV = VK_COMPONENT_TYPE_UINT64_KHR,
+  // Provided by VK_NV_cooperative_vector
+    VK_COMPONENT_TYPE_FLOAT_E4M3_NV = VK_COMPONENT_TYPE_FLOAT8_E4M3_EXT,
+  // Provided by VK_NV_cooperative_vector
+    VK_COMPONENT_TYPE_FLOAT_E5M2_NV = VK_COMPONENT_TYPE_FLOAT8_E5M2_EXT,
 } VkComponentTypeKHR;</code></pre>
 </div>
 </div>
@@ -6193,6 +6721,14 @@ exponent bits, followed by three mantissa bits.</p>
 <p><code>VK_COMPONENT_TYPE_FLOAT_E5M2_NV</code> corresponds to a floating-point
 type with a sign bit in the most significant bit, followed by five
 exponent bits, followed by two mantissa bits.</p>
+</li>
+<li>
+<p><code>VK_COMPONENT_TYPE_FLOAT8_E4M3_EXT</code> corresponds to SPIR-V
+<code>OpTypeFloat</code> 8 Float8E4M3EXT.</p>
+</li>
+<li>
+<p><code>VK_COMPONENT_TYPE_FLOAT8_E5M2_EXT</code> corresponds to SPIR-V
+<code>OpTypeFloat</code> 8 Float8E5M2EXT.</p>
 </li>
 </ul>
 </div>
@@ -6285,10 +6821,10 @@ properties were returned.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -6298,10 +6834,16 @@ properties were returned.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6586,10 +7128,10 @@ destination memory ranges <strong>must</strong> not overlap</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -6600,6 +7142,12 @@ destination memory ranges <strong>must</strong> not overlap</p>
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6925,20 +7473,26 @@ One conversion is performed for each of the <code>infoCount</code> elements of
 <li>
 <p><a id="VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10083" href="#VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10083"></a> <span class="vuid">VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10083</span><br>
 
-For each element of <code>pInfo</code>, <code>srcData</code>::<code>deviceAddress</code> and
-<code>dstData</code>::<code>deviceAddress</code> <strong>must</strong> be valid device addresses</p>
+For each element of <code>pInfo</code>, <code>srcData.deviceAddress</code> <strong>must</strong> be a
+valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10895" href="#VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10895"></a> <span class="vuid">VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10895</span><br>
+
+For each element of <code>pInfo</code>, <code>dstData.deviceAddress</code> <strong>must</strong> be a
+valid <code>VkDeviceAddress</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10084" href="#VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10084"></a> <span class="vuid">VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10084</span><br>
 
-For each element of <code>pInfo</code>, <code>srcData</code>::<code>deviceAddress</code>
-<strong>must</strong> be 64 byte aligned</p>
+For each element of <code>pInfo</code>, <code>srcData.deviceAddress</code> <strong>must</strong> be 64
+byte aligned</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10085" href="#VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10085"></a> <span class="vuid">VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10085</span><br>
 
-For each element of <code>pInfo</code>, <code>dstData</code>::<code>deviceAddress</code>
-<strong>must</strong> be 64 byte aligned</p>
+For each element of <code>pInfo</code>, <code>dstData.deviceAddress</code> <strong>must</strong> be 64
+byte aligned</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10086" href="#VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10086"></a> <span class="vuid">VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10086</span><br>
@@ -7049,6 +7603,14 @@ Compute</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdConvertCooperativeVectorMatrixNV is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -7191,6 +7753,10 @@ shorter than the duration of the <code>vkCreateShaderModule</code> command.</p>
 <p><a id="VUID-vkCreateValidationCacheEXT-pValidationCache-parameter" href="#VUID-vkCreateValidationCacheEXT-pValidationCache-parameter"></a> <span class="vuid">VUID-vkCreateValidationCacheEXT-pValidationCache-parameter</span><br>
  <code>pValidationCache</code> <strong>must</strong> be a valid pointer to a <a href="#VkValidationCacheEXT">VkValidationCacheEXT</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateValidationCacheEXT-device-queuecount" href="#VUID-vkCreateValidationCacheEXT-device-queuecount"></a> <span class="vuid">VUID-vkCreateValidationCacheEXT-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -7216,6 +7782,12 @@ shorter than the duration of the <code>vkCreateShaderModule</code> command.</p>
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -7462,10 +8034,16 @@ caches and prune duplicate entries.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -7658,10 +8236,10 @@ with a <code>VK_INCOMPLETE</code> success status instead of returning a
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -7671,10 +8249,16 @@ with a <code>VK_INCOMPLETE</code> success status instead of returning a
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -7882,6 +8466,10 @@ function entry point, which <strong>must</strong> refer to one function in the m
 <p><a id="VUID-vkCreateCudaModuleNV-pModule-parameter" href="#VUID-vkCreateCudaModuleNV-pModule-parameter"></a> <span class="vuid">VUID-vkCreateCudaModuleNV-pModule-parameter</span><br>
  <code>pModule</code> <strong>must</strong> be a valid pointer to a <a href="#VkCudaModuleNV">VkCudaModuleNV</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateCudaModuleNV-device-queuecount" href="#VUID-vkCreateCudaModuleNV-device-queuecount"></a> <span class="vuid">VUID-vkCreateCudaModuleNV-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -7910,6 +8498,12 @@ function entry point, which <strong>must</strong> refer to one function in the m
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -8069,6 +8663,10 @@ the resulting CUDA function object is returned.</p>
 <p><a id="VUID-vkCreateCudaFunctionNV-pFunction-parameter" href="#VUID-vkCreateCudaFunctionNV-pFunction-parameter"></a> <span class="vuid">VUID-vkCreateCudaFunctionNV-pFunction-parameter</span><br>
  <code>pFunction</code> <strong>must</strong> be a valid pointer to a <a href="#VkCudaFunctionNV">VkCudaFunctionNV</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateCudaFunctionNV-device-queuecount" href="#VUID-vkCreateCudaFunctionNV-device-queuecount"></a> <span class="vuid">VUID-vkCreateCudaFunctionNV-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -8097,6 +8695,12 @@ the resulting CUDA function object is returned.</p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -8432,10 +9036,10 @@ the query returns a <code>VK_INCOMPLETE</code> success status instead of a
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -8446,6 +9050,12 @@ the query returns a <code>VK_INCOMPLETE</code> success status instead of a
 <ul>
 <li>
 <p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -8532,7 +9142,30 @@ It may be less than what CUDA can offer.</p>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

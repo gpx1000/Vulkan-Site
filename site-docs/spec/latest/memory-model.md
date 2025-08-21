@@ -87,8 +87,9 @@ Memory locations for buffers and images are explicitly allocated in
 [VkDeviceMemory](../chapters/memory.html#VkDeviceMemory) objects, and are implicitly allocated for SPIR-V
 variables in each shader invocation.
 
-Variables with `Workgroup` storage class that point to a block-decorated
-type share a set of memory locations.
+Variables with `Workgroup` storage class that are decorated with
+`Aliased` and that point to a block-decorated type share a set of memory
+locations.
 
 The values stored in newly allocated memory locations are determined by a
 SPIR-V variable’s initializer, if present, or else are **undefined**.
@@ -135,8 +136,17 @@ of the array **may** be a unique reference.
 * 
 The address range for a buffer in `PhysicalStorageBuffer` storage
 class, where the base of the address range is queried with
-[vkGetBufferDeviceAddress](../chapters/descriptorsets.html#vkGetBufferDeviceAddress)
+[vkGetBufferDeviceAddress](../chapters/resources.html#vkGetBufferDeviceAddress)
 and the length of the range is the size of the buffer.
+
+* 
+A single common reference for all variables with `Workgroup` storage
+class that are decorated with `Aliased` and that point to a
+block-decorated type.
+
+* 
+The variable itself for all other variables in the `Workgroup`
+storage class.
 
 * 
 A single common reference for all variables with `Workgroup` storage
@@ -313,7 +323,7 @@ Device instructions that include semantics are `OpAtomic*`,
 Host instructions that include semantics are some std::atomic methods and
 memory fences.
 
-SPIR-V supports the following memory semantics:
+Vulkan supports the following memory semantics:
 
 * 
 Relaxed: No constraints on order of other memory accesses.
@@ -335,12 +345,15 @@ the limitations on ordering from both of those operations.
 A memory barrier with this semantic is both a release and acquire
 barrier.
 
+SequentiallyConsistent memory semantics is not supported and **must** not be
+used.
+
 |  | SPIR-V does not support “consume” semantics on the device. |
 | --- | --- |
 
-The memory semantics operand also includes *storage class semantics* which
-indicate which storage classes are constrained by the synchronization.
-SPIR-V storage class semantics include:
+The memory semantics operand **can** also include *storage class semantics*
+flags which indicate the storage classes constrained by the synchronization.
+Vulkan supports the following SPIR-V storage class semantics flags:
 
 * 
 UniformMemory
@@ -353,6 +366,9 @@ ImageMemory
 
 * 
 OutputMemory
+
+The remaining storage class semantics flags (SubgroupMemory,
+CrossWorkgroupMemory, and AtomicCounterMemory) are ignored.
 
 Each SPIR-V memory operation accesses a single storage class.
 Semantics in synchronization operations can include a combination of storage
@@ -607,9 +623,10 @@ If A system-synchronizes-with B, we also say A is
 By default, non-atomic memory operations are treated as *private*, meaning
 such a memory operation is not intended to be used for communication with
 other agents.
-Memory operations with the NonPrivatePointer/NonPrivateTexel bit set are
-treated as *non-private*, and are intended to be used for communication with
-other agents.
+Memory operations with the `NonPrivatePointer`, `NonPrivateTexel`
+, or `NonPrivateElementARM`
+bit set are treated as *non-private*, and are intended to be used for
+communication with other agents.
 
 More precisely, for private memory operations to be
 [Location-Ordered](#memory-model-location-ordered) between distinct agents
@@ -906,21 +923,25 @@ it also includes the memory domains that correspond to each smaller scope
 instance S' that is a subset of S and that includes A. Similarly for
 visibility operations.
 
-A memory write instruction that includes MakePointerAvailable, or an image
-write instruction that includes MakeTexelAvailable, performs an availability
-operation whose source scope includes the agent and reference used to
-perform the write and the memory locations written by the instruction, and
-whose destination scope is a set of memory domains selected by the Scope
-operand specified in [Availability and Visibility Semantics](#memory-model-availability-visibility-semantics).
+A memory write instruction that includes `MakePointerAvailable`, or an
+image write instruction that includes `MakeTexelAvailable`,
+or a tensor write instruction that includes `MakeElementAvailableARM`,
+performs an availability operation whose source scope includes the agent and
+reference used to perform the write and the memory locations written by the
+instruction, and whose destination scope is a set of memory domains selected
+by the Scope operand specified in
+[Availability and Visibility Semantics](#memory-model-availability-visibility-semantics).
 The implicit availability operation is program-ordered between the write and
 all other operations program-ordered after the write.
 
-A memory read instruction that includes MakePointerVisible, or an image read
-instruction that includes MakeTexelVisible, performs a visibility operation
-whose source scope is a set of memory domains selected by the Scope operand
-as specified in [Availability and Visibility Semantics](#memory-model-availability-visibility-semantics), and whose destination scope
-includes the agent and reference used to perform the read and the memory
-locations read by the instruction.
+A memory read instruction that includes `MakePointerVisible`, or an image
+read instruction that includes `MakeTexelVisible`,
+or a tensor read instruction that includes `MakeElementVisibleARM`
+performs a visibility operation whose source scope is a set of memory
+domains selected by the Scope operand as specified in
+[Availability and Visibility Semantics](#memory-model-availability-visibility-semantics), and whose destination scope includes the agent and
+reference used to perform the read and the memory locations read by the
+instruction.
 The implicit visibility operation is program-ordered between read and all
 other operations program-ordered before the read.
 

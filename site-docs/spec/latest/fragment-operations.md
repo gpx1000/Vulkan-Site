@@ -502,6 +502,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetDiscardRectangleEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) whether discard rectangles
 are enabled, call:
 
@@ -575,6 +579,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetDiscardRectangleEnableEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the discard rectangle mode,
 call:
@@ -651,6 +659,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetDiscardRectangleModeEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The scissor test compares the framebuffer coordinates (xf,yf) of
 each sample covered by a fragment against a *scissor rectangle* at the index
@@ -804,6 +816,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetScissor is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The exclusive scissor test compares the framebuffer coordinates
 (xf,yf) of each sample covered by a fragment against an *exclusive
@@ -1024,6 +1040,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetExclusiveScissorNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) whether an exclusive scissor
 is enabled or not, call:
 
@@ -1125,6 +1145,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetExclusiveScissorEnableNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The sample mask test compares the [coverage mask](primsrast.html#primsrast-multisampling-coverage-mask) for a fragment with the *sample mask* defined by
 [VkPipelineMultisampleStateCreateInfo](primsrast.html#VkPipelineMultisampleStateCreateInfo)::`pSampleMask`.
 
@@ -1216,6 +1240,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetSampleMaskEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Each bit of the coverage mask is associated with a sample index as described
 in the [rasterization chapter](primsrast.html#primsrast-multisampling-coverage-mask).
@@ -1624,6 +1652,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetAlphaToCoverageEnableEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the `alphaToOneEnable`
 state, call:
 
@@ -1703,6 +1735,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetAlphaToOneEnableEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 All alpha values in this section refer only to the alpha component of the
 fragment shader output that has a `Location` and `Index` decoration of
@@ -2068,6 +2104,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetDepthBoundsTestEnable is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the depth bounds range,
 call:
 
@@ -2147,6 +2187,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetDepthBounds is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The stencil test compares the stencil attachment value sa in the
 depth/stencil attachment at each sample’s framebuffer coordinates
@@ -2299,6 +2343,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetStencilTestEnable is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the stencil operation, call:
 
 // Provided by VK_VERSION_1_3
@@ -2439,6 +2487,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetStencilOp is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkStencilOpState` structure is defined as:
 
 // Provided by VK_VERSION_1_0
@@ -2578,6 +2630,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetStencilCompareMask is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 `VkStencilFaceFlagBits` values are:
 
 // Provided by VK_VERSION_1_0
@@ -2686,6 +2742,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetStencilWriteMask is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the stencil reference value,
 call:
 
@@ -2763,6 +2823,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetStencilReference is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Possible values of the `failOp`, `passOp`, and `depthFailOp`
 members of [VkStencilOpState](#VkStencilOpState), specifying what happens to the stored
@@ -3037,6 +3101,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetDepthClampRangeEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Both [VkPipelineViewportDepthClampControlCreateInfoEXT](#VkPipelineViewportDepthClampControlCreateInfoEXT) and
 [vkCmdSetDepthClampRangeEXT](#vkCmdSetDepthClampRangeEXT) use `VkDepthClampRangeEXT` to set the
 viewport depth clamp range parameters.
@@ -3187,6 +3255,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetDepthTestEnable is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the depth compare operator,
 call:
 
@@ -3280,6 +3352,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetDepthCompareOp is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the depth write enable,
 call:
 
@@ -3365,6 +3441,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetDepthWriteEnable is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The representative fragment test allows implementations to reduce the amount
 of rasterization and fragment processing work performed for each point,
@@ -3496,6 +3576,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetRepresentativeFragmentTestEnableNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Occlusion queries use query pool entries to track the number of samples that
 pass all the per-fragment tests.
@@ -3667,6 +3751,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetCoverageToColorEnableNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the
 `coverageToColorLocation` state, call:
 
@@ -3742,6 +3830,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetCoverageToColorLocationNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Coverage reduction takes the coverage information for a fragment and
 converts that to a boolean coverage value for each color sample in each
@@ -3975,6 +4067,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetCoverageReductionModeNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To query the set of mixed sample combinations of coverage reduction mode,
 rasterization samples and color, depth, stencil attachment sample counts
 that are supported by a physical device, call:
@@ -4033,18 +4129,24 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkFramebufferMixedSamplesCombinationNV` structure is defined as:
 
@@ -4335,6 +4437,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetCoverageModulationModeNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the
 `coverageModulationTableEnable` state, call:
 
@@ -4410,6 +4516,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetCoverageModulationTableEnableNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the
 `pCoverageModulationTable` state, call:
@@ -4503,3 +4613,7 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetCoverageModulationTableNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)

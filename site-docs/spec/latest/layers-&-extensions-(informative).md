@@ -255,223 +255,221 @@
 - [New_Enum_Constants](#_new_enum_constants_22)
 - [Issues](#_issues_18)
 - [Version History](#_version_history_22)
-- [VK_KHR_performance_query](#VK_KHR_performance_query)
+- [VK_KHR_maintenance9](#VK_KHR_maintenance9)
 - [Other Extension Metadata](#_other_extension_metadata_23)
 - [Other_Extension_Metadata](#_other_extension_metadata_23)
 - [Description](#_description_23)
-- [New Commands](#_new_commands_17)
 - [New Structures](#_new_structures_22)
-- [New Unions](#_new_unions_2)
 - [New Enums](#_new_enums_8)
-- [New Bitmasks](#_new_bitmasks_5)
 - [New Enum Constants](#_new_enum_constants_23)
 - [New_Enum_Constants](#_new_enum_constants_23)
 - [Issues](#_issues_19)
-- [Examples](#_examples_4)
 - [Version History](#_version_history_23)
-- [VK_KHR_pipeline_binary](#VK_KHR_pipeline_binary)
+- [VK_KHR_performance_query](#VK_KHR_performance_query)
 - [Other Extension Metadata](#_other_extension_metadata_24)
 - [Other_Extension_Metadata](#_other_extension_metadata_24)
 - [Description](#_description_24)
-- [New Object Types](#_new_object_types_4)
-- [New_Object_Types](#_new_object_types_4)
-- [New Commands](#_new_commands_18)
+- [New Commands](#_new_commands_17)
 - [New Structures](#_new_structures_23)
+- [New Unions](#_new_unions_2)
+- [New Enums](#_new_enums_9)
+- [New Bitmasks](#_new_bitmasks_5)
 - [New Enum Constants](#_new_enum_constants_24)
 - [New_Enum_Constants](#_new_enum_constants_24)
+- [Issues](#_issues_20)
+- [Examples](#_examples_4)
 - [Version History](#_version_history_24)
-- [VK_KHR_pipeline_executable_properties](#VK_KHR_pipeline_executable_properties)
+- [VK_KHR_pipeline_binary](#VK_KHR_pipeline_binary)
 - [Other Extension Metadata](#_other_extension_metadata_25)
 - [Other_Extension_Metadata](#_other_extension_metadata_25)
 - [Description](#_description_25)
-- [New Commands](#_new_commands_19)
+- [New Object Types](#_new_object_types_4)
+- [New_Object_Types](#_new_object_types_4)
+- [New Commands](#_new_commands_18)
 - [New Structures](#_new_structures_24)
-- [New Unions](#_new_unions_3)
-- [New Enums](#_new_enums_9)
 - [New Enum Constants](#_new_enum_constants_25)
 - [New_Enum_Constants](#_new_enum_constants_25)
-- [Issues](#_issues_20)
 - [Version History](#_version_history_25)
-- [VK_KHR_pipeline_library](#VK_KHR_pipeline_library)
+- [VK_KHR_pipeline_executable_properties](#VK_KHR_pipeline_executable_properties)
 - [Other Extension Metadata](#_other_extension_metadata_26)
 - [Other_Extension_Metadata](#_other_extension_metadata_26)
 - [Description](#_description_26)
+- [New Commands](#_new_commands_19)
 - [New Structures](#_new_structures_25)
+- [New Unions](#_new_unions_3)
+- [New Enums](#_new_enums_10)
 - [New Enum Constants](#_new_enum_constants_26)
 - [New_Enum_Constants](#_new_enum_constants_26)
+- [Issues](#_issues_21)
 - [Version History](#_version_history_26)
-- [VK_KHR_portability_enumeration](#VK_KHR_portability_enumeration)
+- [VK_KHR_pipeline_library](#VK_KHR_pipeline_library)
 - [Other Extension Metadata](#_other_extension_metadata_27)
 - [Other_Extension_Metadata](#_other_extension_metadata_27)
 - [Description](#_description_27)
+- [New Structures](#_new_structures_26)
 - [New Enum Constants](#_new_enum_constants_27)
 - [New_Enum_Constants](#_new_enum_constants_27)
 - [Version History](#_version_history_27)
-- [VK_KHR_present_id](#VK_KHR_present_id)
+- [VK_KHR_portability_enumeration](#VK_KHR_portability_enumeration)
 - [Other Extension Metadata](#_other_extension_metadata_28)
 - [Other_Extension_Metadata](#_other_extension_metadata_28)
 - [Description](#_description_28)
-- [New Structures](#_new_structures_26)
 - [New Enum Constants](#_new_enum_constants_28)
 - [New_Enum_Constants](#_new_enum_constants_28)
-- [Issues](#_issues_21)
-- [Examples](#_examples_5)
 - [Version History](#_version_history_28)
-- [VK_KHR_present_wait](#VK_KHR_present_wait)
+- [VK_KHR_present_id](#VK_KHR_present_id)
 - [Other Extension Metadata](#_other_extension_metadata_29)
 - [Other_Extension_Metadata](#_other_extension_metadata_29)
 - [Description](#_description_29)
-- [New Commands](#_new_commands_20)
 - [New Structures](#_new_structures_27)
 - [New Enum Constants](#_new_enum_constants_29)
 - [New_Enum_Constants](#_new_enum_constants_29)
 - [Issues](#_issues_22)
-- [Examples](#_examples_6)
+- [Examples](#_examples_5)
 - [Version History](#_version_history_29)
-- [VK_KHR_ray_query](#VK_KHR_ray_query)
+- [VK_KHR_present_id2](#VK_KHR_present_id2)
 - [Other Extension Metadata](#_other_extension_metadata_30)
 - [Other_Extension_Metadata](#_other_extension_metadata_30)
 - [Description](#_description_30)
 - [New Structures](#_new_structures_28)
 - [New Enum Constants](#_new_enum_constants_30)
 - [New_Enum_Constants](#_new_enum_constants_30)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_3)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_3)
-- [Sample Code](#_sample_code)
 - [Issues](#_issues_23)
+- [Examples](#_examples_6)
 - [Version History](#_version_history_30)
-- [VK_KHR_ray_tracing_maintenance1](#VK_KHR_ray_tracing_maintenance1)
+- [VK_KHR_present_mode_fifo_latest_ready](#VK_KHR_present_mode_fifo_latest_ready)
 - [Other Extension Metadata](#_other_extension_metadata_31)
 - [Other_Extension_Metadata](#_other_extension_metadata_31)
 - [Description](#_description_31)
-- [New Commands](#_new_commands_21)
 - [New Structures](#_new_structures_29)
 - [New Enum Constants](#_new_enum_constants_31)
 - [New_Enum_Constants](#_new_enum_constants_31)
-- [New Built-In Variables](#_new_built_in_variables_2)
-- [New_Built-In_Variables](#_new_built_in_variables_2)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_4)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_4)
-- [Issues](#_issues_24)
 - [Version History](#_version_history_31)
-- [VK_KHR_ray_tracing_pipeline](#VK_KHR_ray_tracing_pipeline)
+- [VK_KHR_present_wait](#VK_KHR_present_wait)
 - [Other Extension Metadata](#_other_extension_metadata_32)
 - [Other_Extension_Metadata](#_other_extension_metadata_32)
 - [Description](#_description_32)
-- [New Commands](#_new_commands_22)
+- [New Commands](#_new_commands_20)
 - [New Structures](#_new_structures_30)
-- [New Enums](#_new_enums_10)
 - [New Enum Constants](#_new_enum_constants_32)
 - [New_Enum_Constants](#_new_enum_constants_32)
-- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables)
-- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_5)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_5)
-- [Issues](#_issues_25)
-- [Sample Code](#_sample_code_2)
+- [Issues](#_issues_24)
+- [Examples](#_examples_7)
 - [Version History](#_version_history_32)
-- [VK_KHR_ray_tracing_position_fetch](#VK_KHR_ray_tracing_position_fetch)
+- [VK_KHR_present_wait2](#VK_KHR_present_wait2)
 - [Other Extension Metadata](#_other_extension_metadata_33)
 - [Other_Extension_Metadata](#_other_extension_metadata_33)
 - [Description](#_description_33)
+- [New Commands](#_new_commands_21)
 - [New Structures](#_new_structures_31)
 - [New Enum Constants](#_new_enum_constants_33)
 - [New_Enum_Constants](#_new_enum_constants_33)
-- [New Built-In Variables](#_new_built_in_variables_3)
-- [New_Built-In_Variables](#_new_built_in_variables_3)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_6)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_6)
-- [Issues](#_issues_26)
+- [Issues](#_issues_25)
+- [Examples](#_examples_8)
 - [Version History](#_version_history_33)
-- [VK_KHR_robustness2](#VK_KHR_robustness2)
+- [VK_KHR_ray_query](#VK_KHR_ray_query)
 - [Other Extension Metadata](#_other_extension_metadata_34)
 - [Other_Extension_Metadata](#_other_extension_metadata_34)
 - [Description](#_description_34)
 - [New Structures](#_new_structures_32)
 - [New Enum Constants](#_new_enum_constants_34)
 - [New_Enum_Constants](#_new_enum_constants_34)
-- [Issues](#_issues_27)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_3)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_3)
+- [Sample Code](#_sample_code)
+- [Issues](#_issues_26)
 - [Version History](#_version_history_34)
-- [VK_KHR_shader_bfloat16](#VK_KHR_shader_bfloat16)
+- [VK_KHR_ray_tracing_maintenance1](#VK_KHR_ray_tracing_maintenance1)
 - [Other Extension Metadata](#_other_extension_metadata_35)
 - [Other_Extension_Metadata](#_other_extension_metadata_35)
 - [Description](#_description_35)
+- [New Commands](#_new_commands_22)
 - [New Structures](#_new_structures_33)
 - [New Enum Constants](#_new_enum_constants_35)
 - [New_Enum_Constants](#_new_enum_constants_35)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_7)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_7)
+- [New Built-In Variables](#_new_built_in_variables_2)
+- [New_Built-In_Variables](#_new_built_in_variables_2)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_4)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_4)
+- [Issues](#_issues_27)
 - [Version History](#_version_history_35)
-- [VK_KHR_shader_clock](#VK_KHR_shader_clock)
+- [VK_KHR_ray_tracing_pipeline](#VK_KHR_ray_tracing_pipeline)
 - [Other Extension Metadata](#_other_extension_metadata_36)
 - [Other_Extension_Metadata](#_other_extension_metadata_36)
 - [Description](#_description_36)
+- [New Commands](#_new_commands_23)
 - [New Structures](#_new_structures_34)
+- [New Enums](#_new_enums_11)
 - [New Enum Constants](#_new_enum_constants_36)
 - [New_Enum_Constants](#_new_enum_constants_36)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_8)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_8)
+- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables)
+- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_5)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_5)
+- [Issues](#_issues_28)
+- [Sample Code](#_sample_code_2)
 - [Version History](#_version_history_36)
-- [VK_KHR_shader_maximal_reconvergence](#VK_KHR_shader_maximal_reconvergence)
+- [VK_KHR_ray_tracing_position_fetch](#VK_KHR_ray_tracing_position_fetch)
 - [Other Extension Metadata](#_other_extension_metadata_37)
 - [Other_Extension_Metadata](#_other_extension_metadata_37)
 - [Description](#_description_37)
 - [New Structures](#_new_structures_35)
 - [New Enum Constants](#_new_enum_constants_37)
 - [New_Enum_Constants](#_new_enum_constants_37)
+- [New Built-In Variables](#_new_built_in_variables_3)
+- [New_Built-In_Variables](#_new_built_in_variables_3)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_6)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_6)
+- [Issues](#_issues_29)
 - [Version History](#_version_history_37)
-- [VK_KHR_shader_quad_control](#VK_KHR_shader_quad_control)
+- [VK_KHR_robustness2](#VK_KHR_robustness2)
 - [Other Extension Metadata](#_other_extension_metadata_38)
 - [Other_Extension_Metadata](#_other_extension_metadata_38)
 - [Description](#_description_38)
 - [New Structures](#_new_structures_36)
 - [New Enum Constants](#_new_enum_constants_38)
 - [New_Enum_Constants](#_new_enum_constants_38)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_9)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_9)
+- [Issues](#_issues_30)
 - [Version History](#_version_history_38)
-- [VK_KHR_shader_relaxed_extended_instruction](#VK_KHR_shader_relaxed_extended_instruction)
+- [VK_KHR_shader_bfloat16](#VK_KHR_shader_bfloat16)
 - [Other Extension Metadata](#_other_extension_metadata_39)
 - [Other_Extension_Metadata](#_other_extension_metadata_39)
 - [Description](#_description_39)
 - [New Structures](#_new_structures_37)
 - [New Enum Constants](#_new_enum_constants_39)
 - [New_Enum_Constants](#_new_enum_constants_39)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_7)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_7)
 - [Version History](#_version_history_39)
-- [VK_KHR_shader_subgroup_uniform_control_flow](#VK_KHR_shader_subgroup_uniform_control_flow)
+- [VK_KHR_shader_clock](#VK_KHR_shader_clock)
 - [Other Extension Metadata](#_other_extension_metadata_40)
 - [Other_Extension_Metadata](#_other_extension_metadata_40)
 - [Description](#_description_40)
 - [New Structures](#_new_structures_38)
 - [New Enum Constants](#_new_enum_constants_40)
 - [New_Enum_Constants](#_new_enum_constants_40)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_8)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_8)
 - [Version History](#_version_history_40)
-- [VK_KHR_shared_presentable_image](#VK_KHR_shared_presentable_image)
+- [VK_KHR_shader_maximal_reconvergence](#VK_KHR_shader_maximal_reconvergence)
 - [Other Extension Metadata](#_other_extension_metadata_41)
 - [Other_Extension_Metadata](#_other_extension_metadata_41)
 - [Description](#_description_41)
-- [New Commands](#_new_commands_23)
 - [New Structures](#_new_structures_39)
 - [New Enum Constants](#_new_enum_constants_41)
 - [New_Enum_Constants](#_new_enum_constants_41)
-- [Issues](#_issues_28)
 - [Version History](#_version_history_41)
-- [VK_KHR_surface](#VK_KHR_surface)
+- [VK_KHR_shader_quad_control](#VK_KHR_shader_quad_control)
 - [Other Extension Metadata](#_other_extension_metadata_42)
 - [Other_Extension_Metadata](#_other_extension_metadata_42)
 - [Description](#_description_42)
-- [New Object Types](#_new_object_types_5)
-- [New_Object_Types](#_new_object_types_5)
-- [New Commands](#_new_commands_24)
 - [New Structures](#_new_structures_40)
-- [New Enums](#_new_enums_11)
-- [New Bitmasks](#_new_bitmasks_6)
 - [New Enum Constants](#_new_enum_constants_42)
 - [New_Enum_Constants](#_new_enum_constants_42)
-- [Examples](#_examples_7)
-- [Issues](#_issues_29)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_9)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_9)
 - [Version History](#_version_history_42)
-- [VK_KHR_surface_protected_capabilities](#VK_KHR_surface_protected_capabilities)
+- [VK_KHR_shader_relaxed_extended_instruction](#VK_KHR_shader_relaxed_extended_instruction)
 - [Other Extension Metadata](#_other_extension_metadata_43)
 - [Other_Extension_Metadata](#_other_extension_metadata_43)
 - [Description](#_description_43)
@@ -479,3833 +477,4015 @@
 - [New Enum Constants](#_new_enum_constants_43)
 - [New_Enum_Constants](#_new_enum_constants_43)
 - [Version History](#_version_history_43)
-- [VK_KHR_swapchain](#VK_KHR_swapchain)
+- [VK_KHR_shader_subgroup_uniform_control_flow](#VK_KHR_shader_subgroup_uniform_control_flow)
 - [Other Extension Metadata](#_other_extension_metadata_44)
 - [Other_Extension_Metadata](#_other_extension_metadata_44)
 - [Description](#_description_44)
-- [New Object Types](#_new_object_types_6)
-- [New_Object_Types](#_new_object_types_6)
-- [New Commands](#_new_commands_25)
 - [New Structures](#_new_structures_42)
-- [New Enums](#_new_enums_12)
-- [New Bitmasks](#_new_bitmasks_7)
 - [New Enum Constants](#_new_enum_constants_44)
 - [New_Enum_Constants](#_new_enum_constants_44)
-- [Issues](#_issues_30)
-- [Examples](#_examples_8)
 - [Version History](#_version_history_44)
-- [VK_KHR_swapchain_mutable_format](#VK_KHR_swapchain_mutable_format)
+- [VK_KHR_shader_untyped_pointers](#VK_KHR_shader_untyped_pointers)
+- [New Structures](#_new_structures_43)
+- [New Enum Constants](#_new_enum_constants_45)
+- [New_Enum_Constants](#_new_enum_constants_45)
+- [Version History](#_version_history_45)
+- [VK_KHR_shared_presentable_image](#VK_KHR_shared_presentable_image)
 - [Other Extension Metadata](#_other_extension_metadata_45)
 - [Other_Extension_Metadata](#_other_extension_metadata_45)
 - [Description](#_description_45)
-- [New Enum Constants](#_new_enum_constants_45)
-- [New_Enum_Constants](#_new_enum_constants_45)
+- [New Commands](#_new_commands_24)
+- [New Structures](#_new_structures_44)
+- [New Enum Constants](#_new_enum_constants_46)
+- [New_Enum_Constants](#_new_enum_constants_46)
 - [Issues](#_issues_31)
-- [Version History](#_version_history_45)
-- [VK_KHR_video_decode_av1](#VK_KHR_video_decode_av1)
+- [Version History](#_version_history_46)
+- [VK_KHR_surface](#VK_KHR_surface)
 - [Other Extension Metadata](#_other_extension_metadata_46)
 - [Other_Extension_Metadata](#_other_extension_metadata_46)
 - [Description](#_description_46)
-- [New Structures](#_new_structures_43)
-- [New Enum Constants](#_new_enum_constants_46)
-- [New_Enum_Constants](#_new_enum_constants_46)
-- [Version History](#_version_history_46)
-- [VK_KHR_video_decode_h264](#VK_KHR_video_decode_h264)
+- [New Object Types](#_new_object_types_5)
+- [New_Object_Types](#_new_object_types_5)
+- [New Commands](#_new_commands_25)
+- [New Structures](#_new_structures_45)
+- [New Enums](#_new_enums_12)
+- [New Bitmasks](#_new_bitmasks_6)
+- [New Enum Constants](#_new_enum_constants_47)
+- [New_Enum_Constants](#_new_enum_constants_47)
+- [Examples](#_examples_9)
+- [Issues](#_issues_32)
+- [Version History](#_version_history_47)
+- [VK_KHR_surface_maintenance1](#VK_KHR_surface_maintenance1)
 - [Other Extension Metadata](#_other_extension_metadata_47)
 - [Other_Extension_Metadata](#_other_extension_metadata_47)
 - [Description](#_description_47)
-- [New Structures](#_new_structures_44)
+- [New Structures](#_new_structures_46)
 - [New Enums](#_new_enums_13)
-- [New Bitmasks](#_new_bitmasks_8)
-- [New Enum Constants](#_new_enum_constants_47)
-- [New_Enum_Constants](#_new_enum_constants_47)
-- [Version History](#_version_history_47)
-- [VK_KHR_video_decode_h265](#VK_KHR_video_decode_h265)
-- [Other Extension Metadata](#_other_extension_metadata_48)
-- [Other_Extension_Metadata](#_other_extension_metadata_48)
-- [Description](#_description_48)
-- [New Structures](#_new_structures_45)
+- [New Bitmasks](#_new_bitmasks_7)
 - [New Enum Constants](#_new_enum_constants_48)
 - [New_Enum_Constants](#_new_enum_constants_48)
 - [Version History](#_version_history_48)
-- [VK_KHR_video_decode_queue](#VK_KHR_video_decode_queue)
-- [Other Extension Metadata](#_other_extension_metadata_49)
-- [Other_Extension_Metadata](#_other_extension_metadata_49)
-- [Description](#_description_49)
-- [New Commands](#_new_commands_26)
-- [New Structures](#_new_structures_46)
-- [New Enums](#_new_enums_14)
-- [New Bitmasks](#_new_bitmasks_9)
+- [VK_KHR_surface_protected_capabilities](#VK_KHR_surface_protected_capabilities)
+- [Other Extension Metadata](#_other_extension_metadata_48)
+- [Other_Extension_Metadata](#_other_extension_metadata_48)
+- [Description](#_description_48)
+- [New Structures](#_new_structures_47)
 - [New Enum Constants](#_new_enum_constants_49)
 - [New_Enum_Constants](#_new_enum_constants_49)
 - [Version History](#_version_history_49)
-- [VK_KHR_video_encode_av1](#VK_KHR_video_encode_av1)
+- [VK_KHR_swapchain](#VK_KHR_swapchain)
+- [Other Extension Metadata](#_other_extension_metadata_49)
+- [Other_Extension_Metadata](#_other_extension_metadata_49)
+- [Description](#_description_49)
+- [New Object Types](#_new_object_types_6)
+- [New_Object_Types](#_new_object_types_6)
+- [New Commands](#_new_commands_26)
+- [New Structures](#_new_structures_48)
+- [New Enums](#_new_enums_14)
+- [New Bitmasks](#_new_bitmasks_8)
+- [New Enum Constants](#_new_enum_constants_50)
+- [New_Enum_Constants](#_new_enum_constants_50)
+- [Issues](#_issues_33)
+- [Examples](#_examples_10)
+- [Version History](#_version_history_50)
+- [VK_KHR_swapchain_maintenance1](#VK_KHR_swapchain_maintenance1)
 - [Other Extension Metadata](#_other_extension_metadata_50)
 - [Other_Extension_Metadata](#_other_extension_metadata_50)
 - [Description](#_description_50)
-- [New Structures](#_new_structures_47)
-- [New Enums](#_new_enums_15)
-- [New Bitmasks](#_new_bitmasks_10)
-- [New Enum Constants](#_new_enum_constants_50)
-- [New_Enum_Constants](#_new_enum_constants_50)
-- [Version History](#_version_history_50)
-- [VK_KHR_video_encode_h264](#VK_KHR_video_encode_h264)
-- [Other Extension Metadata](#_other_extension_metadata_51)
-- [Other_Extension_Metadata](#_other_extension_metadata_51)
-- [Description](#_description_51)
-- [New Structures](#_new_structures_48)
-- [New Enums](#_new_enums_16)
-- [New Bitmasks](#_new_bitmasks_11)
+- [New Commands](#_new_commands_27)
+- [New Structures](#_new_structures_49)
 - [New Enum Constants](#_new_enum_constants_51)
 - [New_Enum_Constants](#_new_enum_constants_51)
 - [Version History](#_version_history_51)
-- [VK_KHR_video_encode_h265](#VK_KHR_video_encode_h265)
+- [VK_KHR_swapchain_mutable_format](#VK_KHR_swapchain_mutable_format)
+- [Other Extension Metadata](#_other_extension_metadata_51)
+- [Other_Extension_Metadata](#_other_extension_metadata_51)
+- [Description](#_description_51)
+- [New Enum Constants](#_new_enum_constants_52)
+- [New_Enum_Constants](#_new_enum_constants_52)
+- [Issues](#_issues_34)
+- [Version History](#_version_history_52)
+- [VK_KHR_unified_image_layouts](#VK_KHR_unified_image_layouts)
 - [Other Extension Metadata](#_other_extension_metadata_52)
 - [Other_Extension_Metadata](#_other_extension_metadata_52)
 - [Description](#_description_52)
-- [New Structures](#_new_structures_49)
-- [New Enums](#_new_enums_17)
-- [New Bitmasks](#_new_bitmasks_12)
-- [New Enum Constants](#_new_enum_constants_52)
-- [New_Enum_Constants](#_new_enum_constants_52)
-- [Version History](#_version_history_52)
-- [VK_KHR_video_encode_quantization_map](#VK_KHR_video_encode_quantization_map)
-- [Other Extension Metadata](#_other_extension_metadata_53)
-- [Other_Extension_Metadata](#_other_extension_metadata_53)
-- [Description](#_description_53)
 - [New Structures](#_new_structures_50)
-- [New Enums](#_new_enums_18)
 - [New Enum Constants](#_new_enum_constants_53)
 - [New_Enum_Constants](#_new_enum_constants_53)
 - [Version History](#_version_history_53)
-- [VK_KHR_video_encode_queue](#VK_KHR_video_encode_queue)
-- [Other Extension Metadata](#_other_extension_metadata_54)
-- [Other_Extension_Metadata](#_other_extension_metadata_54)
-- [Description](#_description_54)
-- [New Commands](#_new_commands_27)
+- [VK_KHR_video_decode_av1](#VK_KHR_video_decode_av1)
+- [Other Extension Metadata](#_other_extension_metadata_53)
+- [Other_Extension_Metadata](#_other_extension_metadata_53)
+- [Description](#_description_53)
 - [New Structures](#_new_structures_51)
-- [New Enums](#_new_enums_19)
-- [New Bitmasks](#_new_bitmasks_13)
 - [New Enum Constants](#_new_enum_constants_54)
 - [New_Enum_Constants](#_new_enum_constants_54)
 - [Version History](#_version_history_54)
-- [VK_KHR_video_maintenance1](#VK_KHR_video_maintenance1)
-- [Other Extension Metadata](#_other_extension_metadata_55)
-- [Other_Extension_Metadata](#_other_extension_metadata_55)
-- [Description](#_description_55)
+- [VK_KHR_video_decode_h264](#VK_KHR_video_decode_h264)
+- [Other Extension Metadata](#_other_extension_metadata_54)
+- [Other_Extension_Metadata](#_other_extension_metadata_54)
+- [Description](#_description_54)
 - [New Structures](#_new_structures_52)
+- [New Enums](#_new_enums_15)
+- [New Bitmasks](#_new_bitmasks_9)
 - [New Enum Constants](#_new_enum_constants_55)
 - [New_Enum_Constants](#_new_enum_constants_55)
 - [Version History](#_version_history_55)
-- [VK_KHR_video_maintenance2](#VK_KHR_video_maintenance2)
-- [Other Extension Metadata](#_other_extension_metadata_56)
-- [Other_Extension_Metadata](#_other_extension_metadata_56)
-- [Description](#_description_56)
+- [VK_KHR_video_decode_h265](#VK_KHR_video_decode_h265)
+- [Other Extension Metadata](#_other_extension_metadata_55)
+- [Other_Extension_Metadata](#_other_extension_metadata_55)
+- [Description](#_description_55)
 - [New Structures](#_new_structures_53)
 - [New Enum Constants](#_new_enum_constants_56)
 - [New_Enum_Constants](#_new_enum_constants_56)
 - [Version History](#_version_history_56)
-- [VK_KHR_video_queue](#VK_KHR_video_queue)
-- [Other Extension Metadata](#_other_extension_metadata_57)
-- [Other_Extension_Metadata](#_other_extension_metadata_57)
-- [Description](#_description_57)
-- [New Object Types](#_new_object_types_7)
-- [New_Object_Types](#_new_object_types_7)
+- [VK_KHR_video_decode_queue](#VK_KHR_video_decode_queue)
+- [Other Extension Metadata](#_other_extension_metadata_56)
+- [Other_Extension_Metadata](#_other_extension_metadata_56)
+- [Description](#_description_56)
 - [New Commands](#_new_commands_28)
 - [New Structures](#_new_structures_54)
-- [New Enums](#_new_enums_20)
-- [New Bitmasks](#_new_bitmasks_14)
+- [New Enums](#_new_enums_16)
+- [New Bitmasks](#_new_bitmasks_10)
 - [New Enum Constants](#_new_enum_constants_57)
 - [New_Enum_Constants](#_new_enum_constants_57)
 - [Version History](#_version_history_57)
-- [VK_KHR_wayland_surface](#VK_KHR_wayland_surface)
+- [VK_KHR_video_decode_vp9](#VK_KHR_video_decode_vp9)
+- [Other Extension Metadata](#_other_extension_metadata_57)
+- [Other_Extension_Metadata](#_other_extension_metadata_57)
+- [Description](#_description_57)
+- [New Structures](#_new_structures_55)
+- [New Enum Constants](#_new_enum_constants_58)
+- [New_Enum_Constants](#_new_enum_constants_58)
+- [Version History](#_version_history_58)
+- [VK_KHR_video_encode_av1](#VK_KHR_video_encode_av1)
 - [Other Extension Metadata](#_other_extension_metadata_58)
 - [Other_Extension_Metadata](#_other_extension_metadata_58)
 - [Description](#_description_58)
-- [New Commands](#_new_commands_29)
-- [New Structures](#_new_structures_55)
-- [New Bitmasks](#_new_bitmasks_15)
-- [New Enum Constants](#_new_enum_constants_58)
-- [New_Enum_Constants](#_new_enum_constants_58)
-- [Issues](#_issues_32)
-- [Version History](#_version_history_58)
-- [VK_KHR_win32_keyed_mutex](#VK_KHR_win32_keyed_mutex)
-- [Other Extension Metadata](#_other_extension_metadata_59)
-- [Other_Extension_Metadata](#_other_extension_metadata_59)
-- [Description](#_description_59)
 - [New Structures](#_new_structures_56)
+- [New Enums](#_new_enums_17)
+- [New Bitmasks](#_new_bitmasks_11)
 - [New Enum Constants](#_new_enum_constants_59)
 - [New_Enum_Constants](#_new_enum_constants_59)
 - [Version History](#_version_history_59)
-- [VK_KHR_win32_surface](#VK_KHR_win32_surface)
+- [VK_KHR_video_encode_h264](#VK_KHR_video_encode_h264)
+- [Other Extension Metadata](#_other_extension_metadata_59)
+- [Other_Extension_Metadata](#_other_extension_metadata_59)
+- [Description](#_description_59)
+- [New Structures](#_new_structures_57)
+- [New Enums](#_new_enums_18)
+- [New Bitmasks](#_new_bitmasks_12)
+- [New Enum Constants](#_new_enum_constants_60)
+- [New_Enum_Constants](#_new_enum_constants_60)
+- [Version History](#_version_history_60)
+- [VK_KHR_video_encode_h265](#VK_KHR_video_encode_h265)
 - [Other Extension Metadata](#_other_extension_metadata_60)
 - [Other_Extension_Metadata](#_other_extension_metadata_60)
 - [Description](#_description_60)
-- [New Commands](#_new_commands_30)
-- [New Structures](#_new_structures_57)
-- [New Bitmasks](#_new_bitmasks_16)
-- [New Enum Constants](#_new_enum_constants_60)
-- [New_Enum_Constants](#_new_enum_constants_60)
-- [Issues](#_issues_33)
-- [Version History](#_version_history_60)
-- [VK_KHR_workgroup_memory_explicit_layout](#VK_KHR_workgroup_memory_explicit_layout)
+- [New Structures](#_new_structures_58)
+- [New Enums](#_new_enums_19)
+- [New Bitmasks](#_new_bitmasks_13)
+- [New Enum Constants](#_new_enum_constants_61)
+- [New_Enum_Constants](#_new_enum_constants_61)
+- [Version History](#_version_history_61)
+- [VK_KHR_video_encode_intra_refresh](#VK_KHR_video_encode_intra_refresh)
 - [Other Extension Metadata](#_other_extension_metadata_61)
 - [Other_Extension_Metadata](#_other_extension_metadata_61)
 - [Description](#_description_61)
-- [New Structures](#_new_structures_58)
-- [New Enum Constants](#_new_enum_constants_61)
-- [New_Enum_Constants](#_new_enum_constants_61)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_10)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_10)
-- [Version History](#_version_history_61)
-- [VK_KHR_xcb_surface](#VK_KHR_xcb_surface)
+- [New Structures](#_new_structures_59)
+- [New Enums](#_new_enums_20)
+- [New Bitmasks](#_new_bitmasks_14)
+- [New Enum Constants](#_new_enum_constants_62)
+- [New_Enum_Constants](#_new_enum_constants_62)
+- [Version History](#_version_history_62)
+- [VK_KHR_video_encode_quantization_map](#VK_KHR_video_encode_quantization_map)
 - [Other Extension Metadata](#_other_extension_metadata_62)
 - [Other_Extension_Metadata](#_other_extension_metadata_62)
 - [Description](#_description_62)
-- [New Commands](#_new_commands_31)
-- [New Structures](#_new_structures_59)
-- [New Bitmasks](#_new_bitmasks_17)
-- [New Enum Constants](#_new_enum_constants_62)
-- [New_Enum_Constants](#_new_enum_constants_62)
-- [Issues](#_issues_34)
-- [Version History](#_version_history_62)
-- [VK_KHR_xlib_surface](#VK_KHR_xlib_surface)
+- [New Structures](#_new_structures_60)
+- [New Enums](#_new_enums_21)
+- [New Enum Constants](#_new_enum_constants_63)
+- [New_Enum_Constants](#_new_enum_constants_63)
+- [Version History](#_version_history_63)
+- [VK_KHR_video_encode_queue](#VK_KHR_video_encode_queue)
 - [Other Extension Metadata](#_other_extension_metadata_63)
 - [Other_Extension_Metadata](#_other_extension_metadata_63)
 - [Description](#_description_63)
-- [New Commands](#_new_commands_32)
-- [New Structures](#_new_structures_60)
-- [New Bitmasks](#_new_bitmasks_18)
-- [New Enum Constants](#_new_enum_constants_63)
-- [New_Enum_Constants](#_new_enum_constants_63)
-- [Issues](#_issues_35)
-- [Version History](#_version_history_63)
-- [VK_EXT_acquire_drm_display](#VK_EXT_acquire_drm_display)
+- [New Commands](#_new_commands_29)
+- [New Structures](#_new_structures_61)
+- [New Enums](#_new_enums_22)
+- [New Bitmasks](#_new_bitmasks_15)
+- [New Enum Constants](#_new_enum_constants_64)
+- [New_Enum_Constants](#_new_enum_constants_64)
+- [Version History](#_version_history_64)
+- [VK_KHR_video_maintenance1](#VK_KHR_video_maintenance1)
 - [Other Extension Metadata](#_other_extension_metadata_64)
 - [Other_Extension_Metadata](#_other_extension_metadata_64)
 - [Description](#_description_64)
-- [New Commands](#_new_commands_33)
-- [New Enum Constants](#_new_enum_constants_64)
-- [New_Enum_Constants](#_new_enum_constants_64)
-- [Issues](#_issues_36)
-- [Version History](#_version_history_64)
-- [VK_EXT_acquire_xlib_display](#VK_EXT_acquire_xlib_display)
+- [New Structures](#_new_structures_62)
+- [New Enum Constants](#_new_enum_constants_65)
+- [New_Enum_Constants](#_new_enum_constants_65)
+- [Version History](#_version_history_65)
+- [VK_KHR_video_maintenance2](#VK_KHR_video_maintenance2)
 - [Other Extension Metadata](#_other_extension_metadata_65)
 - [Other_Extension_Metadata](#_other_extension_metadata_65)
 - [Description](#_description_65)
-- [New Commands](#_new_commands_34)
-- [New Enum Constants](#_new_enum_constants_65)
-- [New_Enum_Constants](#_new_enum_constants_65)
-- [Issues](#_issues_37)
-- [Version History](#_version_history_65)
-- [VK_EXT_astc_decode_mode](#VK_EXT_astc_decode_mode)
+- [New Structures](#_new_structures_63)
+- [New Enum Constants](#_new_enum_constants_66)
+- [New_Enum_Constants](#_new_enum_constants_66)
+- [Version History](#_version_history_66)
+- [VK_KHR_video_queue](#VK_KHR_video_queue)
 - [Other Extension Metadata](#_other_extension_metadata_66)
 - [Other_Extension_Metadata](#_other_extension_metadata_66)
 - [Description](#_description_66)
-- [New Structures](#_new_structures_61)
-- [New Enum Constants](#_new_enum_constants_66)
-- [New_Enum_Constants](#_new_enum_constants_66)
-- [Issues](#_issues_38)
-- [Example](#_example)
-- [Version History](#_version_history_66)
-- [VK_EXT_attachment_feedback_loop_dynamic_state](#VK_EXT_attachment_feedback_loop_dynamic_state)
-- [Other Extension Metadata](#_other_extension_metadata_67)
-- [Other_Extension_Metadata](#_other_extension_metadata_67)
-- [Description](#_description_67)
-- [New Commands](#_new_commands_35)
-- [New Structures](#_new_structures_62)
+- [New Object Types](#_new_object_types_7)
+- [New_Object_Types](#_new_object_types_7)
+- [New Commands](#_new_commands_30)
+- [New Structures](#_new_structures_64)
+- [New Enums](#_new_enums_23)
+- [New Bitmasks](#_new_bitmasks_16)
 - [New Enum Constants](#_new_enum_constants_67)
 - [New_Enum_Constants](#_new_enum_constants_67)
 - [Version History](#_version_history_67)
-- [VK_EXT_attachment_feedback_loop_layout](#VK_EXT_attachment_feedback_loop_layout)
+- [VK_KHR_wayland_surface](#VK_KHR_wayland_surface)
+- [Other Extension Metadata](#_other_extension_metadata_67)
+- [Other_Extension_Metadata](#_other_extension_metadata_67)
+- [Description](#_description_67)
+- [New Commands](#_new_commands_31)
+- [New Structures](#_new_structures_65)
+- [New Bitmasks](#_new_bitmasks_17)
+- [New Enum Constants](#_new_enum_constants_68)
+- [New_Enum_Constants](#_new_enum_constants_68)
+- [Issues](#_issues_35)
+- [Version History](#_version_history_68)
+- [VK_KHR_win32_keyed_mutex](#VK_KHR_win32_keyed_mutex)
 - [Other Extension Metadata](#_other_extension_metadata_68)
 - [Other_Extension_Metadata](#_other_extension_metadata_68)
 - [Description](#_description_68)
-- [New Structures](#_new_structures_63)
-- [New Enum Constants](#_new_enum_constants_68)
-- [New_Enum_Constants](#_new_enum_constants_68)
-- [Version History](#_version_history_68)
-- [VK_EXT_blend_operation_advanced](#VK_EXT_blend_operation_advanced)
+- [New Structures](#_new_structures_66)
+- [New Enum Constants](#_new_enum_constants_69)
+- [New_Enum_Constants](#_new_enum_constants_69)
+- [Version History](#_version_history_69)
+- [VK_KHR_win32_surface](#VK_KHR_win32_surface)
 - [Other Extension Metadata](#_other_extension_metadata_69)
 - [Other_Extension_Metadata](#_other_extension_metadata_69)
 - [Description](#_description_69)
-- [New Structures](#_new_structures_64)
-- [New Enums](#_new_enums_21)
-- [New Enum Constants](#_new_enum_constants_69)
-- [New_Enum_Constants](#_new_enum_constants_69)
-- [Issues](#_issues_39)
-- [Version History](#_version_history_69)
-- [VK_EXT_border_color_swizzle](#VK_EXT_border_color_swizzle)
+- [New Commands](#_new_commands_32)
+- [New Structures](#_new_structures_67)
+- [New Bitmasks](#_new_bitmasks_18)
+- [New Enum Constants](#_new_enum_constants_70)
+- [New_Enum_Constants](#_new_enum_constants_70)
+- [Issues](#_issues_36)
+- [Version History](#_version_history_70)
+- [VK_KHR_workgroup_memory_explicit_layout](#VK_KHR_workgroup_memory_explicit_layout)
 - [Other Extension Metadata](#_other_extension_metadata_70)
 - [Other_Extension_Metadata](#_other_extension_metadata_70)
 - [Description](#_description_70)
-- [New Structures](#_new_structures_65)
-- [New Enum Constants](#_new_enum_constants_70)
-- [New_Enum_Constants](#_new_enum_constants_70)
-- [Issues](#_issues_40)
-- [Version History](#_version_history_70)
-- [VK_EXT_color_write_enable](#VK_EXT_color_write_enable)
+- [New Structures](#_new_structures_68)
+- [New Enum Constants](#_new_enum_constants_71)
+- [New_Enum_Constants](#_new_enum_constants_71)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_10)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_10)
+- [Version History](#_version_history_71)
+- [VK_KHR_xcb_surface](#VK_KHR_xcb_surface)
 - [Other Extension Metadata](#_other_extension_metadata_71)
 - [Other_Extension_Metadata](#_other_extension_metadata_71)
 - [Description](#_description_71)
-- [New Commands](#_new_commands_36)
-- [New Structures](#_new_structures_66)
-- [New Enum Constants](#_new_enum_constants_71)
-- [New_Enum_Constants](#_new_enum_constants_71)
-- [Version History](#_version_history_71)
-- [VK_EXT_conditional_rendering](#VK_EXT_conditional_rendering)
-- [Other Extension Metadata](#_other_extension_metadata_72)
-- [Other_Extension_Metadata](#_other_extension_metadata_72)
-- [Description](#_description_72)
-- [New Commands](#_new_commands_37)
-- [New Structures](#_new_structures_67)
-- [New Enums](#_new_enums_22)
+- [New Commands](#_new_commands_33)
+- [New Structures](#_new_structures_69)
 - [New Bitmasks](#_new_bitmasks_19)
 - [New Enum Constants](#_new_enum_constants_72)
 - [New_Enum_Constants](#_new_enum_constants_72)
-- [Issues](#_issues_41)
-- [Examples](#_examples_9)
+- [Issues](#_issues_37)
 - [Version History](#_version_history_72)
-- [VK_EXT_conservative_rasterization](#VK_EXT_conservative_rasterization)
-- [Other Extension Metadata](#_other_extension_metadata_73)
-- [Other_Extension_Metadata](#_other_extension_metadata_73)
-- [Description](#_description_73)
-- [New Structures](#_new_structures_68)
-- [New Enums](#_new_enums_23)
+- [VK_KHR_xlib_surface](#VK_KHR_xlib_surface)
+- [Other Extension Metadata](#_other_extension_metadata_72)
+- [Other_Extension_Metadata](#_other_extension_metadata_72)
+- [Description](#_description_72)
+- [New Commands](#_new_commands_34)
+- [New Structures](#_new_structures_70)
 - [New Bitmasks](#_new_bitmasks_20)
 - [New Enum Constants](#_new_enum_constants_73)
 - [New_Enum_Constants](#_new_enum_constants_73)
+- [Issues](#_issues_38)
+- [Version History](#_version_history_73)
+- [VK_EXT_acquire_drm_display](#VK_EXT_acquire_drm_display)
+- [Other Extension Metadata](#_other_extension_metadata_73)
+- [Other_Extension_Metadata](#_other_extension_metadata_73)
+- [Description](#_description_73)
+- [New Commands](#_new_commands_35)
+- [New Enum Constants](#_new_enum_constants_74)
+- [New_Enum_Constants](#_new_enum_constants_74)
+- [Issues](#_issues_39)
+- [Version History](#_version_history_74)
+- [VK_EXT_acquire_xlib_display](#VK_EXT_acquire_xlib_display)
+- [Other Extension Metadata](#_other_extension_metadata_74)
+- [Other_Extension_Metadata](#_other_extension_metadata_74)
+- [Description](#_description_74)
+- [New Commands](#_new_commands_36)
+- [New Enum Constants](#_new_enum_constants_75)
+- [New_Enum_Constants](#_new_enum_constants_75)
+- [Issues](#_issues_40)
+- [Version History](#_version_history_75)
+- [VK_EXT_astc_decode_mode](#VK_EXT_astc_decode_mode)
+- [Other Extension Metadata](#_other_extension_metadata_75)
+- [Other_Extension_Metadata](#_other_extension_metadata_75)
+- [Description](#_description_75)
+- [New Structures](#_new_structures_71)
+- [New Enum Constants](#_new_enum_constants_76)
+- [New_Enum_Constants](#_new_enum_constants_76)
+- [Issues](#_issues_41)
+- [Example](#_example)
+- [Version History](#_version_history_76)
+- [VK_EXT_attachment_feedback_loop_dynamic_state](#VK_EXT_attachment_feedback_loop_dynamic_state)
+- [Other Extension Metadata](#_other_extension_metadata_76)
+- [Other_Extension_Metadata](#_other_extension_metadata_76)
+- [Description](#_description_76)
+- [New Commands](#_new_commands_37)
+- [New Structures](#_new_structures_72)
+- [New Enum Constants](#_new_enum_constants_77)
+- [New_Enum_Constants](#_new_enum_constants_77)
+- [Version History](#_version_history_77)
+- [VK_EXT_attachment_feedback_loop_layout](#VK_EXT_attachment_feedback_loop_layout)
+- [Other Extension Metadata](#_other_extension_metadata_77)
+- [Other_Extension_Metadata](#_other_extension_metadata_77)
+- [Description](#_description_77)
+- [New Structures](#_new_structures_73)
+- [New Enum Constants](#_new_enum_constants_78)
+- [New_Enum_Constants](#_new_enum_constants_78)
+- [Version History](#_version_history_78)
+- [VK_EXT_blend_operation_advanced](#VK_EXT_blend_operation_advanced)
+- [Other Extension Metadata](#_other_extension_metadata_78)
+- [Other_Extension_Metadata](#_other_extension_metadata_78)
+- [Description](#_description_78)
+- [New Structures](#_new_structures_74)
+- [New Enums](#_new_enums_24)
+- [New Enum Constants](#_new_enum_constants_79)
+- [New_Enum_Constants](#_new_enum_constants_79)
+- [Issues](#_issues_42)
+- [Version History](#_version_history_79)
+- [VK_EXT_border_color_swizzle](#VK_EXT_border_color_swizzle)
+- [Other Extension Metadata](#_other_extension_metadata_79)
+- [Other_Extension_Metadata](#_other_extension_metadata_79)
+- [Description](#_description_79)
+- [New Structures](#_new_structures_75)
+- [New Enum Constants](#_new_enum_constants_80)
+- [New_Enum_Constants](#_new_enum_constants_80)
+- [Issues](#_issues_43)
+- [Version History](#_version_history_80)
+- [VK_EXT_color_write_enable](#VK_EXT_color_write_enable)
+- [Other Extension Metadata](#_other_extension_metadata_80)
+- [Other_Extension_Metadata](#_other_extension_metadata_80)
+- [Description](#_description_80)
+- [New Commands](#_new_commands_38)
+- [New Structures](#_new_structures_76)
+- [New Enum Constants](#_new_enum_constants_81)
+- [New_Enum_Constants](#_new_enum_constants_81)
+- [Version History](#_version_history_81)
+- [VK_EXT_conditional_rendering](#VK_EXT_conditional_rendering)
+- [Other Extension Metadata](#_other_extension_metadata_81)
+- [Other_Extension_Metadata](#_other_extension_metadata_81)
+- [Description](#_description_81)
+- [New Commands](#_new_commands_39)
+- [New Structures](#_new_structures_77)
+- [New Enums](#_new_enums_25)
+- [New Bitmasks](#_new_bitmasks_21)
+- [New Enum Constants](#_new_enum_constants_82)
+- [New_Enum_Constants](#_new_enum_constants_82)
+- [Issues](#_issues_44)
+- [Examples](#_examples_11)
+- [Version History](#_version_history_82)
+- [VK_EXT_conservative_rasterization](#VK_EXT_conservative_rasterization)
+- [Other Extension Metadata](#_other_extension_metadata_82)
+- [Other_Extension_Metadata](#_other_extension_metadata_82)
+- [Description](#_description_82)
+- [New Structures](#_new_structures_78)
+- [New Enums](#_new_enums_26)
+- [New Bitmasks](#_new_bitmasks_22)
+- [New Enum Constants](#_new_enum_constants_83)
+- [New_Enum_Constants](#_new_enum_constants_83)
 - [New Built-In Variables](#_new_built_in_variables_4)
 - [New_Built-In_Variables](#_new_built_in_variables_4)
 - [New SPIR-V Capabilities](#_new_spir_v_capabilities_11)
 - [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_11)
-- [Version History](#_version_history_73)
+- [Version History](#_version_history_83)
 - [VK_EXT_custom_border_color](#VK_EXT_custom_border_color)
-- [Other Extension Metadata](#_other_extension_metadata_74)
-- [Other_Extension_Metadata](#_other_extension_metadata_74)
-- [Description](#_description_74)
-- [New Structures](#_new_structures_69)
-- [New Enum Constants](#_new_enum_constants_74)
-- [New_Enum_Constants](#_new_enum_constants_74)
-- [Issues](#_issues_42)
-- [Version History](#_version_history_74)
-- [VK_EXT_debug_utils](#VK_EXT_debug_utils)
-- [Other Extension Metadata](#_other_extension_metadata_75)
-- [Other_Extension_Metadata](#_other_extension_metadata_75)
-- [Description](#_description_75)
-- [New Object Types](#_new_object_types_8)
-- [New_Object_Types](#_new_object_types_8)
-- [New Commands](#_new_commands_38)
-- [New Structures](#_new_structures_70)
-- [New Function Pointers](#_new_function_pointers)
-- [New_Function_Pointers](#_new_function_pointers)
-- [New Enums](#_new_enums_24)
-- [New Bitmasks](#_new_bitmasks_21)
-- [New Enum Constants](#_new_enum_constants_75)
-- [New_Enum_Constants](#_new_enum_constants_75)
-- [Examples](#_examples_10)
-- [Issues](#_issues_43)
-- [Version History](#_version_history_75)
-- [VK_EXT_depth_bias_control](#VK_EXT_depth_bias_control)
-- [Other Extension Metadata](#_other_extension_metadata_76)
-- [Other_Extension_Metadata](#_other_extension_metadata_76)
-- [Description](#_description_76)
-- [New Commands](#_new_commands_39)
-- [New Structures](#_new_structures_71)
-- [New Enums](#_new_enums_25)
-- [New Enum Constants](#_new_enum_constants_76)
-- [New_Enum_Constants](#_new_enum_constants_76)
-- [Version History](#_version_history_76)
-- [VK_EXT_depth_clamp_control](#VK_EXT_depth_clamp_control)
-- [Other Extension Metadata](#_other_extension_metadata_77)
-- [Other_Extension_Metadata](#_other_extension_metadata_77)
-- [Description](#_description_77)
-- [New Commands](#_new_commands_40)
-- [New Structures](#_new_structures_72)
-- [New Enums](#_new_enums_26)
-- [New Enum Constants](#_new_enum_constants_77)
-- [New_Enum_Constants](#_new_enum_constants_77)
-- [Issues](#_issues_44)
-- [Version History](#_version_history_77)
-- [VK_EXT_depth_clip_control](#VK_EXT_depth_clip_control)
-- [Other Extension Metadata](#_other_extension_metadata_78)
-- [Other_Extension_Metadata](#_other_extension_metadata_78)
-- [Description](#_description_78)
-- [New Structures](#_new_structures_73)
-- [New Enum Constants](#_new_enum_constants_78)
-- [New_Enum_Constants](#_new_enum_constants_78)
-- [Issues](#_issues_45)
-- [Version History](#_version_history_78)
-- [VK_EXT_depth_clip_enable](#VK_EXT_depth_clip_enable)
-- [Other Extension Metadata](#_other_extension_metadata_79)
-- [Other_Extension_Metadata](#_other_extension_metadata_79)
-- [Description](#_description_79)
-- [New Structures](#_new_structures_74)
-- [New Bitmasks](#_new_bitmasks_22)
-- [New Enum Constants](#_new_enum_constants_79)
-- [New_Enum_Constants](#_new_enum_constants_79)
-- [Version History](#_version_history_79)
-- [VK_EXT_depth_range_unrestricted](#VK_EXT_depth_range_unrestricted)
-- [Other Extension Metadata](#_other_extension_metadata_80)
-- [Other_Extension_Metadata](#_other_extension_metadata_80)
-- [Description](#_description_80)
-- [New Enum Constants](#_new_enum_constants_80)
-- [New_Enum_Constants](#_new_enum_constants_80)
-- [Issues](#_issues_46)
-- [Version History](#_version_history_80)
-- [VK_EXT_descriptor_buffer](#VK_EXT_descriptor_buffer)
-- [Other Extension Metadata](#_other_extension_metadata_81)
-- [Other_Extension_Metadata](#_other_extension_metadata_81)
-- [Description](#_description_81)
-- [New Commands](#_new_commands_41)
-- [New Structures](#_new_structures_75)
-- [New Unions](#_new_unions_4)
-- [New Enum Constants](#_new_enum_constants_81)
-- [New_Enum_Constants](#_new_enum_constants_81)
-- [Version History](#_version_history_81)
-- [VK_EXT_device_address_binding_report](#VK_EXT_device_address_binding_report)
-- [Other Extension Metadata](#_other_extension_metadata_82)
-- [Other_Extension_Metadata](#_other_extension_metadata_82)
-- [Description](#_description_82)
-- [New Structures](#_new_structures_76)
-- [New Enums](#_new_enums_27)
-- [New Bitmasks](#_new_bitmasks_23)
-- [New Enum Constants](#_new_enum_constants_82)
-- [New_Enum_Constants](#_new_enum_constants_82)
-- [Issues](#_issues_47)
-- [Version History](#_version_history_82)
-- [VK_EXT_device_fault](#VK_EXT_device_fault)
 - [Other Extension Metadata](#_other_extension_metadata_83)
 - [Other_Extension_Metadata](#_other_extension_metadata_83)
 - [Description](#_description_83)
-- [New Commands](#_new_commands_42)
-- [New Structures](#_new_structures_77)
-- [New Enums](#_new_enums_28)
-- [New Enum Constants](#_new_enum_constants_83)
-- [New_Enum_Constants](#_new_enum_constants_83)
-- [Version History](#_version_history_83)
-- [VK_EXT_device_generated_commands](#VK_EXT_device_generated_commands)
+- [New Structures](#_new_structures_79)
+- [New Enum Constants](#_new_enum_constants_84)
+- [New_Enum_Constants](#_new_enum_constants_84)
+- [Issues](#_issues_45)
+- [Version History](#_version_history_84)
+- [VK_EXT_debug_utils](#VK_EXT_debug_utils)
 - [Other Extension Metadata](#_other_extension_metadata_84)
 - [Other_Extension_Metadata](#_other_extension_metadata_84)
 - [Description](#_description_84)
-- [New Object Types](#_new_object_types_9)
-- [New_Object_Types](#_new_object_types_9)
-- [New Commands](#_new_commands_43)
-- [New Structures](#_new_structures_78)
-- [New Unions](#_new_unions_5)
-- [New Enums](#_new_enums_29)
-- [New Bitmasks](#_new_bitmasks_24)
-- [New Enum Constants](#_new_enum_constants_84)
-- [New_Enum_Constants](#_new_enum_constants_84)
-- [Example Code](#_example_code)
-- [Version History](#_version_history_84)
-- [VK_EXT_device_memory_report](#VK_EXT_device_memory_report)
+- [New Object Types](#_new_object_types_8)
+- [New_Object_Types](#_new_object_types_8)
+- [New Commands](#_new_commands_40)
+- [New Structures](#_new_structures_80)
+- [New Function Pointers](#_new_function_pointers)
+- [New_Function_Pointers](#_new_function_pointers)
+- [New Enums](#_new_enums_27)
+- [New Bitmasks](#_new_bitmasks_23)
+- [New Enum Constants](#_new_enum_constants_85)
+- [New_Enum_Constants](#_new_enum_constants_85)
+- [Examples](#_examples_12)
+- [Issues](#_issues_46)
+- [Version History](#_version_history_85)
+- [VK_EXT_depth_bias_control](#VK_EXT_depth_bias_control)
 - [Other Extension Metadata](#_other_extension_metadata_85)
 - [Other_Extension_Metadata](#_other_extension_metadata_85)
 - [Description](#_description_85)
-- [New Structures](#_new_structures_79)
-- [New Function Pointers](#_new_function_pointers_2)
-- [New_Function_Pointers](#_new_function_pointers_2)
-- [New Enums](#_new_enums_30)
-- [New Bitmasks](#_new_bitmasks_25)
-- [New Enum Constants](#_new_enum_constants_85)
-- [New_Enum_Constants](#_new_enum_constants_85)
-- [Issues](#_issues_48)
-- [Version History](#_version_history_85)
-- [VK_EXT_direct_mode_display](#VK_EXT_direct_mode_display)
+- [New Commands](#_new_commands_41)
+- [New Structures](#_new_structures_81)
+- [New Enums](#_new_enums_28)
+- [New Enum Constants](#_new_enum_constants_86)
+- [New_Enum_Constants](#_new_enum_constants_86)
+- [Version History](#_version_history_86)
+- [VK_EXT_depth_clamp_control](#VK_EXT_depth_clamp_control)
 - [Other Extension Metadata](#_other_extension_metadata_86)
 - [Other_Extension_Metadata](#_other_extension_metadata_86)
 - [Description](#_description_86)
-- [New Commands](#_new_commands_44)
-- [New Enum Constants](#_new_enum_constants_86)
-- [New_Enum_Constants](#_new_enum_constants_86)
-- [Issues](#_issues_49)
-- [Version History](#_version_history_86)
-- [VK_EXT_directfb_surface](#VK_EXT_directfb_surface)
+- [New Commands](#_new_commands_42)
+- [New Structures](#_new_structures_82)
+- [New Enums](#_new_enums_29)
+- [New Enum Constants](#_new_enum_constants_87)
+- [New_Enum_Constants](#_new_enum_constants_87)
+- [Issues](#_issues_47)
+- [Version History](#_version_history_87)
+- [VK_EXT_depth_clip_control](#VK_EXT_depth_clip_control)
 - [Other Extension Metadata](#_other_extension_metadata_87)
 - [Other_Extension_Metadata](#_other_extension_metadata_87)
 - [Description](#_description_87)
-- [New Commands](#_new_commands_45)
-- [New Structures](#_new_structures_80)
-- [New Bitmasks](#_new_bitmasks_26)
-- [New Enum Constants](#_new_enum_constants_87)
-- [New_Enum_Constants](#_new_enum_constants_87)
-- [Version History](#_version_history_87)
-- [VK_EXT_discard_rectangles](#VK_EXT_discard_rectangles)
+- [New Structures](#_new_structures_83)
+- [New Enum Constants](#_new_enum_constants_88)
+- [New_Enum_Constants](#_new_enum_constants_88)
+- [Issues](#_issues_48)
+- [Version History](#_version_history_88)
+- [VK_EXT_depth_clip_enable](#VK_EXT_depth_clip_enable)
 - [Other Extension Metadata](#_other_extension_metadata_88)
 - [Other_Extension_Metadata](#_other_extension_metadata_88)
 - [Description](#_description_88)
-- [New Commands](#_new_commands_46)
-- [New Structures](#_new_structures_81)
-- [New Enums](#_new_enums_31)
-- [New Bitmasks](#_new_bitmasks_27)
-- [New Enum Constants](#_new_enum_constants_88)
-- [New_Enum_Constants](#_new_enum_constants_88)
-- [Version History](#_version_history_88)
-- [VK_EXT_display_control](#VK_EXT_display_control)
+- [New Structures](#_new_structures_84)
+- [New Bitmasks](#_new_bitmasks_24)
+- [New Enum Constants](#_new_enum_constants_89)
+- [New_Enum_Constants](#_new_enum_constants_89)
+- [Version History](#_version_history_89)
+- [VK_EXT_depth_range_unrestricted](#VK_EXT_depth_range_unrestricted)
 - [Other Extension Metadata](#_other_extension_metadata_89)
 - [Other_Extension_Metadata](#_other_extension_metadata_89)
 - [Description](#_description_89)
-- [New Commands](#_new_commands_47)
-- [New Structures](#_new_structures_82)
-- [New Enums](#_new_enums_32)
-- [New Enum Constants](#_new_enum_constants_89)
-- [New_Enum_Constants](#_new_enum_constants_89)
-- [Issues](#_issues_50)
-- [Version History](#_version_history_89)
-- [VK_EXT_display_surface_counter](#VK_EXT_display_surface_counter)
+- [New Enum Constants](#_new_enum_constants_90)
+- [New_Enum_Constants](#_new_enum_constants_90)
+- [Issues](#_issues_49)
+- [Version History](#_version_history_90)
+- [VK_EXT_descriptor_buffer](#VK_EXT_descriptor_buffer)
 - [Other Extension Metadata](#_other_extension_metadata_90)
 - [Other_Extension_Metadata](#_other_extension_metadata_90)
 - [Description](#_description_90)
-- [New Commands](#_new_commands_48)
-- [New Structures](#_new_structures_83)
-- [New Enums](#_new_enums_33)
-- [New Bitmasks](#_new_bitmasks_28)
-- [New Enum Constants](#_new_enum_constants_90)
-- [New_Enum_Constants](#_new_enum_constants_90)
-- [Version History](#_version_history_90)
-- [VK_EXT_dynamic_rendering_unused_attachments](#VK_EXT_dynamic_rendering_unused_attachments)
+- [New Commands](#_new_commands_43)
+- [New Structures](#_new_structures_85)
+- [New Unions](#_new_unions_4)
+- [New Enum Constants](#_new_enum_constants_91)
+- [New_Enum_Constants](#_new_enum_constants_91)
+- [Version History](#_version_history_91)
+- [VK_EXT_device_address_binding_report](#VK_EXT_device_address_binding_report)
 - [Other Extension Metadata](#_other_extension_metadata_91)
 - [Other_Extension_Metadata](#_other_extension_metadata_91)
 - [Description](#_description_91)
-- [New Structures](#_new_structures_84)
-- [New Enum Constants](#_new_enum_constants_91)
-- [New_Enum_Constants](#_new_enum_constants_91)
-- [Issues](#_issues_51)
-- [Version History](#_version_history_91)
-- [VK_EXT_extended_dynamic_state3](#VK_EXT_extended_dynamic_state3)
+- [New Structures](#_new_structures_86)
+- [New Enums](#_new_enums_30)
+- [New Bitmasks](#_new_bitmasks_25)
+- [New Enum Constants](#_new_enum_constants_92)
+- [New_Enum_Constants](#_new_enum_constants_92)
+- [Issues](#_issues_50)
+- [Version History](#_version_history_92)
+- [VK_EXT_device_fault](#VK_EXT_device_fault)
 - [Other Extension Metadata](#_other_extension_metadata_92)
 - [Other_Extension_Metadata](#_other_extension_metadata_92)
 - [Description](#_description_92)
-- [New Commands](#_new_commands_49)
-- [New Structures](#_new_structures_85)
-- [New Enum Constants](#_new_enum_constants_92)
-- [New_Enum_Constants](#_new_enum_constants_92)
-- [Issues](#_issues_52)
-- [Version History](#_version_history_92)
-- [VK_EXT_external_memory_acquire_unmodified](#VK_EXT_external_memory_acquire_unmodified)
-- [Other Extension Metadata](#_other_extension_metadata_93)
-- [Other_Extension_Metadata](#_other_extension_metadata_93)
-- [Description](#_description_93)
-- [New Structures](#_new_structures_86)
+- [New Commands](#_new_commands_44)
+- [New Structures](#_new_structures_87)
+- [New Enums](#_new_enums_31)
 - [New Enum Constants](#_new_enum_constants_93)
 - [New_Enum_Constants](#_new_enum_constants_93)
 - [Version History](#_version_history_93)
-- [VK_EXT_external_memory_dma_buf](#VK_EXT_external_memory_dma_buf)
+- [VK_EXT_device_generated_commands](#VK_EXT_device_generated_commands)
+- [Other Extension Metadata](#_other_extension_metadata_93)
+- [Other_Extension_Metadata](#_other_extension_metadata_93)
+- [Description](#_description_93)
+- [New Object Types](#_new_object_types_9)
+- [New_Object_Types](#_new_object_types_9)
+- [New Commands](#_new_commands_45)
+- [New Structures](#_new_structures_88)
+- [New Unions](#_new_unions_5)
+- [New Enums](#_new_enums_32)
+- [New Bitmasks](#_new_bitmasks_26)
+- [New Enum Constants](#_new_enum_constants_94)
+- [New_Enum_Constants](#_new_enum_constants_94)
+- [Example Code](#_example_code)
+- [Version History](#_version_history_94)
+- [VK_EXT_device_memory_report](#VK_EXT_device_memory_report)
 - [Other Extension Metadata](#_other_extension_metadata_94)
 - [Other_Extension_Metadata](#_other_extension_metadata_94)
 - [Description](#_description_94)
-- [New Enum Constants](#_new_enum_constants_94)
-- [New_Enum_Constants](#_new_enum_constants_94)
-- [Issues](#_issues_53)
-- [Version History](#_version_history_94)
-- [VK_EXT_external_memory_host](#VK_EXT_external_memory_host)
+- [New Structures](#_new_structures_89)
+- [New Function Pointers](#_new_function_pointers_2)
+- [New_Function_Pointers](#_new_function_pointers_2)
+- [New Enums](#_new_enums_33)
+- [New Bitmasks](#_new_bitmasks_27)
+- [New Enum Constants](#_new_enum_constants_95)
+- [New_Enum_Constants](#_new_enum_constants_95)
+- [Issues](#_issues_51)
+- [Version History](#_version_history_95)
+- [VK_EXT_direct_mode_display](#VK_EXT_direct_mode_display)
 - [Other Extension Metadata](#_other_extension_metadata_95)
 - [Other_Extension_Metadata](#_other_extension_metadata_95)
 - [Description](#_description_95)
-- [New Commands](#_new_commands_50)
-- [New Structures](#_new_structures_87)
-- [New Enum Constants](#_new_enum_constants_95)
-- [New_Enum_Constants](#_new_enum_constants_95)
-- [Issues](#_issues_54)
-- [Version History](#_version_history_95)
-- [VK_EXT_external_memory_metal](#VK_EXT_external_memory_metal)
+- [New Commands](#_new_commands_46)
+- [New Enum Constants](#_new_enum_constants_96)
+- [New_Enum_Constants](#_new_enum_constants_96)
+- [Issues](#_issues_52)
+- [Version History](#_version_history_96)
+- [VK_EXT_directfb_surface](#VK_EXT_directfb_surface)
 - [Other Extension Metadata](#_other_extension_metadata_96)
 - [Other_Extension_Metadata](#_other_extension_metadata_96)
 - [Description](#_description_96)
-- [New Commands](#_new_commands_51)
-- [New Structures](#_new_structures_88)
-- [New Enum Constants](#_new_enum_constants_96)
-- [New_Enum_Constants](#_new_enum_constants_96)
-- [Version History](#_version_history_96)
-- [VK_EXT_filter_cubic](#VK_EXT_filter_cubic)
-- [Other Extension Metadata](#_other_extension_metadata_97)
-- [Other_Extension_Metadata](#_other_extension_metadata_97)
-- [Description](#_description_97)
-- [New Structures](#_new_structures_89)
+- [New Commands](#_new_commands_47)
+- [New Structures](#_new_structures_90)
+- [New Bitmasks](#_new_bitmasks_28)
 - [New Enum Constants](#_new_enum_constants_97)
 - [New_Enum_Constants](#_new_enum_constants_97)
 - [Version History](#_version_history_97)
-- [VK_EXT_fragment_density_map](#VK_EXT_fragment_density_map)
+- [VK_EXT_discard_rectangles](#VK_EXT_discard_rectangles)
+- [Other Extension Metadata](#_other_extension_metadata_97)
+- [Other_Extension_Metadata](#_other_extension_metadata_97)
+- [Description](#_description_97)
+- [New Commands](#_new_commands_48)
+- [New Structures](#_new_structures_91)
+- [New Enums](#_new_enums_34)
+- [New Bitmasks](#_new_bitmasks_29)
+- [New Enum Constants](#_new_enum_constants_98)
+- [New_Enum_Constants](#_new_enum_constants_98)
+- [Version History](#_version_history_98)
+- [VK_EXT_display_control](#VK_EXT_display_control)
 - [Other Extension Metadata](#_other_extension_metadata_98)
 - [Other_Extension_Metadata](#_other_extension_metadata_98)
 - [Description](#_description_98)
-- [New Structures](#_new_structures_90)
-- [New Enum Constants](#_new_enum_constants_98)
-- [New_Enum_Constants](#_new_enum_constants_98)
-- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_2)
-- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_2)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_12)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_12)
-- [Version History](#_version_history_98)
-- [VK_EXT_fragment_density_map2](#VK_EXT_fragment_density_map2)
+- [New Commands](#_new_commands_49)
+- [New Structures](#_new_structures_92)
+- [New Enums](#_new_enums_35)
+- [New Enum Constants](#_new_enum_constants_99)
+- [New_Enum_Constants](#_new_enum_constants_99)
+- [Issues](#_issues_53)
+- [Version History](#_version_history_99)
+- [VK_EXT_display_surface_counter](#VK_EXT_display_surface_counter)
 - [Other Extension Metadata](#_other_extension_metadata_99)
 - [Other_Extension_Metadata](#_other_extension_metadata_99)
 - [Description](#_description_99)
-- [New Structures](#_new_structures_91)
-- [New Enum Constants](#_new_enum_constants_99)
-- [New_Enum_Constants](#_new_enum_constants_99)
-- [Version History](#_version_history_99)
-- [VK_EXT_fragment_density_map_offset](#VK_EXT_fragment_density_map_offset)
-- [Other Extension Metadata](#_other_extension_metadata_100)
-- [Other_Extension_Metadata](#_other_extension_metadata_100)
-- [Description](#_description_100)
-- [New Commands](#_new_commands_52)
-- [New Structures](#_new_structures_92)
+- [New Commands](#_new_commands_50)
+- [New Structures](#_new_structures_93)
+- [New Enums](#_new_enums_36)
+- [New Bitmasks](#_new_bitmasks_30)
 - [New Enum Constants](#_new_enum_constants_100)
 - [New_Enum_Constants](#_new_enum_constants_100)
 - [Version History](#_version_history_100)
-- [VK_EXT_fragment_shader_interlock](#VK_EXT_fragment_shader_interlock)
+- [VK_EXT_dynamic_rendering_unused_attachments](#VK_EXT_dynamic_rendering_unused_attachments)
+- [Other Extension Metadata](#_other_extension_metadata_100)
+- [Other_Extension_Metadata](#_other_extension_metadata_100)
+- [Description](#_description_100)
+- [New Structures](#_new_structures_94)
+- [New Enum Constants](#_new_enum_constants_101)
+- [New_Enum_Constants](#_new_enum_constants_101)
+- [Issues](#_issues_54)
+- [Version History](#_version_history_101)
+- [VK_EXT_extended_dynamic_state3](#VK_EXT_extended_dynamic_state3)
 - [Other Extension Metadata](#_other_extension_metadata_101)
 - [Other_Extension_Metadata](#_other_extension_metadata_101)
 - [Description](#_description_101)
-- [New Structures](#_new_structures_93)
-- [New Enum Constants](#_new_enum_constants_101)
-- [New_Enum_Constants](#_new_enum_constants_101)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_13)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_13)
-- [Version History](#_version_history_101)
-- [VK_EXT_frame_boundary](#VK_EXT_frame_boundary)
+- [New Commands](#_new_commands_51)
+- [New Structures](#_new_structures_95)
+- [New Enum Constants](#_new_enum_constants_102)
+- [New_Enum_Constants](#_new_enum_constants_102)
+- [Issues](#_issues_55)
+- [Version History](#_version_history_102)
+- [VK_EXT_external_memory_acquire_unmodified](#VK_EXT_external_memory_acquire_unmodified)
 - [Other Extension Metadata](#_other_extension_metadata_102)
 - [Other_Extension_Metadata](#_other_extension_metadata_102)
 - [Description](#_description_102)
-- [New Structures](#_new_structures_94)
-- [New Enums](#_new_enums_34)
-- [New Bitmasks](#_new_bitmasks_29)
-- [New Enum Constants](#_new_enum_constants_102)
-- [New_Enum_Constants](#_new_enum_constants_102)
-- [Version History](#_version_history_102)
-- [VK_EXT_full_screen_exclusive](#VK_EXT_full_screen_exclusive)
+- [New Structures](#_new_structures_96)
+- [New Enum Constants](#_new_enum_constants_103)
+- [New_Enum_Constants](#_new_enum_constants_103)
+- [Version History](#_version_history_103)
+- [VK_EXT_external_memory_dma_buf](#VK_EXT_external_memory_dma_buf)
 - [Other Extension Metadata](#_other_extension_metadata_103)
 - [Other_Extension_Metadata](#_other_extension_metadata_103)
 - [Description](#_description_103)
-- [New Commands](#_new_commands_53)
-- [New Structures](#_new_structures_95)
-- [New Enums](#_new_enums_35)
-- [New Enum Constants](#_new_enum_constants_103)
-- [New_Enum_Constants](#_new_enum_constants_103)
-- [Issues](#_issues_55)
-- [Version History](#_version_history_103)
-- [VK_EXT_graphics_pipeline_library](#VK_EXT_graphics_pipeline_library)
+- [New Enum Constants](#_new_enum_constants_104)
+- [New_Enum_Constants](#_new_enum_constants_104)
+- [Issues](#_issues_56)
+- [Version History](#_version_history_104)
+- [VK_EXT_external_memory_host](#VK_EXT_external_memory_host)
 - [Other Extension Metadata](#_other_extension_metadata_104)
 - [Other_Extension_Metadata](#_other_extension_metadata_104)
 - [Description](#_description_104)
-- [New Structures](#_new_structures_96)
-- [New Enums](#_new_enums_36)
-- [New Bitmasks](#_new_bitmasks_30)
-- [New Enum Constants](#_new_enum_constants_104)
-- [New_Enum_Constants](#_new_enum_constants_104)
-- [Version History](#_version_history_104)
-- [VK_EXT_hdr_metadata](#VK_EXT_hdr_metadata)
-- [Other Extension Metadata](#_other_extension_metadata_105)
-- [Other_Extension_Metadata](#_other_extension_metadata_105)
-- [Description](#_description_105)
-- [New Commands](#_new_commands_54)
+- [New Commands](#_new_commands_52)
 - [New Structures](#_new_structures_97)
 - [New Enum Constants](#_new_enum_constants_105)
 - [New_Enum_Constants](#_new_enum_constants_105)
-- [Issues](#_issues_56)
+- [Issues](#_issues_57)
 - [Version History](#_version_history_105)
-- [VK_EXT_headless_surface](#VK_EXT_headless_surface)
-- [Other Extension Metadata](#_other_extension_metadata_106)
-- [Other_Extension_Metadata](#_other_extension_metadata_106)
-- [Description](#_description_106)
-- [New Commands](#_new_commands_55)
+- [VK_EXT_external_memory_metal](#VK_EXT_external_memory_metal)
+- [Other Extension Metadata](#_other_extension_metadata_105)
+- [Other_Extension_Metadata](#_other_extension_metadata_105)
+- [Description](#_description_105)
+- [New Commands](#_new_commands_53)
 - [New Structures](#_new_structures_98)
-- [New Bitmasks](#_new_bitmasks_31)
 - [New Enum Constants](#_new_enum_constants_106)
 - [New_Enum_Constants](#_new_enum_constants_106)
 - [Version History](#_version_history_106)
-- [VK_EXT_image_2d_view_of_3d](#VK_EXT_image_2d_view_of_3d)
-- [Other Extension Metadata](#_other_extension_metadata_107)
-- [Other_Extension_Metadata](#_other_extension_metadata_107)
-- [Description](#_description_107)
+- [VK_EXT_filter_cubic](#VK_EXT_filter_cubic)
+- [Other Extension Metadata](#_other_extension_metadata_106)
+- [Other_Extension_Metadata](#_other_extension_metadata_106)
+- [Description](#_description_106)
 - [New Structures](#_new_structures_99)
 - [New Enum Constants](#_new_enum_constants_107)
 - [New_Enum_Constants](#_new_enum_constants_107)
 - [Version History](#_version_history_107)
-- [VK_EXT_image_compression_control](#VK_EXT_image_compression_control)
+- [VK_EXT_fragment_density_map](#VK_EXT_fragment_density_map)
+- [Other Extension Metadata](#_other_extension_metadata_107)
+- [Other_Extension_Metadata](#_other_extension_metadata_107)
+- [Description](#_description_107)
+- [New Structures](#_new_structures_100)
+- [New Enum Constants](#_new_enum_constants_108)
+- [New_Enum_Constants](#_new_enum_constants_108)
+- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_2)
+- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_2)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_12)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_12)
+- [Version History](#_version_history_108)
+- [VK_EXT_fragment_density_map2](#VK_EXT_fragment_density_map2)
 - [Other Extension Metadata](#_other_extension_metadata_108)
 - [Other_Extension_Metadata](#_other_extension_metadata_108)
 - [Description](#_description_108)
-- [New Commands](#_new_commands_56)
-- [New Structures](#_new_structures_100)
-- [New Enums](#_new_enums_37)
-- [New Bitmasks](#_new_bitmasks_32)
-- [New Enum Constants](#_new_enum_constants_108)
-- [New_Enum_Constants](#_new_enum_constants_108)
-- [Version History](#_version_history_108)
-- [VK_EXT_image_compression_control_swapchain](#VK_EXT_image_compression_control_swapchain)
-- [Other Extension Metadata](#_other_extension_metadata_109)
-- [Other_Extension_Metadata](#_other_extension_metadata_109)
-- [Description](#_description_109)
 - [New Structures](#_new_structures_101)
 - [New Enum Constants](#_new_enum_constants_109)
 - [New_Enum_Constants](#_new_enum_constants_109)
 - [Version History](#_version_history_109)
-- [VK_EXT_image_drm_format_modifier](#VK_EXT_image_drm_format_modifier)
+- [VK_EXT_fragment_density_map_offset](#VK_EXT_fragment_density_map_offset)
+- [Other Extension Metadata](#_other_extension_metadata_109)
+- [Other_Extension_Metadata](#_other_extension_metadata_109)
+- [Description](#_description_109)
+- [New Commands](#_new_commands_54)
+- [New Structures](#_new_structures_102)
+- [New Enum Constants](#_new_enum_constants_110)
+- [New_Enum_Constants](#_new_enum_constants_110)
+- [Version History](#_version_history_110)
+- [VK_EXT_fragment_shader_interlock](#VK_EXT_fragment_shader_interlock)
 - [Other Extension Metadata](#_other_extension_metadata_110)
 - [Other_Extension_Metadata](#_other_extension_metadata_110)
 - [Description](#_description_110)
+- [New Structures](#_new_structures_103)
+- [New Enum Constants](#_new_enum_constants_111)
+- [New_Enum_Constants](#_new_enum_constants_111)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_13)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_13)
+- [Version History](#_version_history_111)
+- [VK_EXT_frame_boundary](#VK_EXT_frame_boundary)
+- [Other Extension Metadata](#_other_extension_metadata_111)
+- [Other_Extension_Metadata](#_other_extension_metadata_111)
+- [Description](#_description_111)
+- [New Structures](#_new_structures_104)
+- [New Enums](#_new_enums_37)
+- [New Bitmasks](#_new_bitmasks_31)
+- [New Enum Constants](#_new_enum_constants_112)
+- [New_Enum_Constants](#_new_enum_constants_112)
+- [Version History](#_version_history_112)
+- [VK_EXT_full_screen_exclusive](#VK_EXT_full_screen_exclusive)
+- [Other Extension Metadata](#_other_extension_metadata_112)
+- [Other_Extension_Metadata](#_other_extension_metadata_112)
+- [Description](#_description_112)
+- [New Commands](#_new_commands_55)
+- [New Structures](#_new_structures_105)
+- [New Enums](#_new_enums_38)
+- [New Enum Constants](#_new_enum_constants_113)
+- [New_Enum_Constants](#_new_enum_constants_113)
+- [Issues](#_issues_58)
+- [Version History](#_version_history_113)
+- [VK_EXT_graphics_pipeline_library](#VK_EXT_graphics_pipeline_library)
+- [Other Extension Metadata](#_other_extension_metadata_113)
+- [Other_Extension_Metadata](#_other_extension_metadata_113)
+- [Description](#_description_113)
+- [New Structures](#_new_structures_106)
+- [New Enums](#_new_enums_39)
+- [New Bitmasks](#_new_bitmasks_32)
+- [New Enum Constants](#_new_enum_constants_114)
+- [New_Enum_Constants](#_new_enum_constants_114)
+- [Version History](#_version_history_114)
+- [VK_EXT_hdr_metadata](#VK_EXT_hdr_metadata)
+- [Other Extension Metadata](#_other_extension_metadata_114)
+- [Other_Extension_Metadata](#_other_extension_metadata_114)
+- [Description](#_description_114)
+- [New Commands](#_new_commands_56)
+- [New Structures](#_new_structures_107)
+- [New Enum Constants](#_new_enum_constants_115)
+- [New_Enum_Constants](#_new_enum_constants_115)
+- [Issues](#_issues_59)
+- [Version History](#_version_history_115)
+- [VK_EXT_headless_surface](#VK_EXT_headless_surface)
+- [Other Extension Metadata](#_other_extension_metadata_115)
+- [Other_Extension_Metadata](#_other_extension_metadata_115)
+- [Description](#_description_115)
+- [New Commands](#_new_commands_57)
+- [New Structures](#_new_structures_108)
+- [New Bitmasks](#_new_bitmasks_33)
+- [New Enum Constants](#_new_enum_constants_116)
+- [New_Enum_Constants](#_new_enum_constants_116)
+- [Version History](#_version_history_116)
+- [VK_EXT_image_2d_view_of_3d](#VK_EXT_image_2d_view_of_3d)
+- [Other Extension Metadata](#_other_extension_metadata_116)
+- [Other_Extension_Metadata](#_other_extension_metadata_116)
+- [Description](#_description_116)
+- [New Structures](#_new_structures_109)
+- [New Enum Constants](#_new_enum_constants_117)
+- [New_Enum_Constants](#_new_enum_constants_117)
+- [Version History](#_version_history_117)
+- [VK_EXT_image_compression_control](#VK_EXT_image_compression_control)
+- [Other Extension Metadata](#_other_extension_metadata_117)
+- [Other_Extension_Metadata](#_other_extension_metadata_117)
+- [Description](#_description_117)
+- [New Commands](#_new_commands_58)
+- [New Structures](#_new_structures_110)
+- [New Enums](#_new_enums_40)
+- [New Bitmasks](#_new_bitmasks_34)
+- [New Enum Constants](#_new_enum_constants_118)
+- [New_Enum_Constants](#_new_enum_constants_118)
+- [Version History](#_version_history_118)
+- [VK_EXT_image_compression_control_swapchain](#VK_EXT_image_compression_control_swapchain)
+- [Other Extension Metadata](#_other_extension_metadata_118)
+- [Other_Extension_Metadata](#_other_extension_metadata_118)
+- [Description](#_description_118)
+- [New Structures](#_new_structures_111)
+- [New Enum Constants](#_new_enum_constants_119)
+- [New_Enum_Constants](#_new_enum_constants_119)
+- [Version History](#_version_history_119)
+- [VK_EXT_image_drm_format_modifier](#VK_EXT_image_drm_format_modifier)
+- [Other Extension Metadata](#_other_extension_metadata_119)
+- [Other_Extension_Metadata](#_other_extension_metadata_119)
+- [Description](#_description_119)
 - [Introduction to DRM Format Modifiers](#_introduction_to_drm_format_modifiers)
 - [Introduction_to_DRM_Format_Modifiers](#_introduction_to_drm_format_modifiers)
 - [Format Translation](#_format_translation)
 - [Usage Patterns](#_usage_patterns)
 - [Prior Art](#_prior_art)
-- [New Commands](#_new_commands_57)
-- [New Structures](#_new_structures_102)
-- [New Enum Constants](#_new_enum_constants_110)
-- [New_Enum_Constants](#_new_enum_constants_110)
-- [Issues](#_issues_57)
-- [References](#_references)
-- [Version History](#_version_history_110)
-- [VK_EXT_image_sliced_view_of_3d](#VK_EXT_image_sliced_view_of_3d)
-- [Other Extension Metadata](#_other_extension_metadata_111)
-- [Other_Extension_Metadata](#_other_extension_metadata_111)
-- [Description](#_description_111)
-- [New Structures](#_new_structures_103)
-- [New Enum Constants](#_new_enum_constants_111)
-- [New_Enum_Constants](#_new_enum_constants_111)
-- [Version History](#_version_history_111)
-- [VK_EXT_image_view_min_lod](#VK_EXT_image_view_min_lod)
-- [Other Extension Metadata](#_other_extension_metadata_112)
-- [Other_Extension_Metadata](#_other_extension_metadata_112)
-- [Description](#_description_112)
-- [New Structures](#_new_structures_104)
-- [New Enum Constants](#_new_enum_constants_112)
-- [New_Enum_Constants](#_new_enum_constants_112)
-- [Version History](#_version_history_112)
-- [VK_EXT_layer_settings](#VK_EXT_layer_settings)
-- [Other Extension Metadata](#_other_extension_metadata_113)
-- [Other_Extension_Metadata](#_other_extension_metadata_113)
-- [Description](#_description_113)
-- [New Structures](#_new_structures_105)
-- [New Enums](#_new_enums_38)
-- [New Enum Constants](#_new_enum_constants_113)
-- [New_Enum_Constants](#_new_enum_constants_113)
-- [Example](#_example_2)
-- [Issues](#_issues_58)
-- [Version History](#_version_history_113)
-- [VK_EXT_legacy_dithering](#VK_EXT_legacy_dithering)
-- [Other Extension Metadata](#_other_extension_metadata_114)
-- [Other_Extension_Metadata](#_other_extension_metadata_114)
-- [Description](#_description_114)
-- [New Structures](#_new_structures_106)
-- [New Enum Constants](#_new_enum_constants_114)
-- [New_Enum_Constants](#_new_enum_constants_114)
-- [Version History](#_version_history_114)
-- [Issues](#_issues_59)
-- [VK_EXT_legacy_vertex_attributes](#VK_EXT_legacy_vertex_attributes)
-- [Other Extension Metadata](#_other_extension_metadata_115)
-- [Other_Extension_Metadata](#_other_extension_metadata_115)
-- [Description](#_description_115)
-- [New Structures](#_new_structures_107)
-- [New Enum Constants](#_new_enum_constants_115)
-- [New_Enum_Constants](#_new_enum_constants_115)
+- [New Commands](#_new_commands_59)
+- [New Structures](#_new_structures_112)
+- [New Enum Constants](#_new_enum_constants_120)
+- [New_Enum_Constants](#_new_enum_constants_120)
 - [Issues](#_issues_60)
-- [Version History](#_version_history_115)
-- [VK_EXT_map_memory_placed](#VK_EXT_map_memory_placed)
-- [Other Extension Metadata](#_other_extension_metadata_116)
-- [Other_Extension_Metadata](#_other_extension_metadata_116)
-- [Description](#_description_116)
-- [New Structures](#_new_structures_108)
-- [New Enum Constants](#_new_enum_constants_116)
-- [New_Enum_Constants](#_new_enum_constants_116)
-- [Version History](#_version_history_116)
-- [VK_EXT_memory_budget](#VK_EXT_memory_budget)
-- [Other Extension Metadata](#_other_extension_metadata_117)
-- [Other_Extension_Metadata](#_other_extension_metadata_117)
-- [Description](#_description_117)
-- [New Structures](#_new_structures_109)
-- [New Enum Constants](#_new_enum_constants_117)
-- [New_Enum_Constants](#_new_enum_constants_117)
-- [Version History](#_version_history_117)
-- [VK_EXT_memory_priority](#VK_EXT_memory_priority)
-- [Other Extension Metadata](#_other_extension_metadata_118)
-- [Other_Extension_Metadata](#_other_extension_metadata_118)
-- [Description](#_description_118)
-- [New Structures](#_new_structures_110)
-- [New Enum Constants](#_new_enum_constants_118)
-- [New_Enum_Constants](#_new_enum_constants_118)
-- [Version History](#_version_history_118)
-- [VK_EXT_mesh_shader](#VK_EXT_mesh_shader)
-- [Other Extension Metadata](#_other_extension_metadata_119)
-- [Other_Extension_Metadata](#_other_extension_metadata_119)
-- [Description](#_description_119)
-- [New Commands](#_new_commands_58)
-- [New Structures](#_new_structures_111)
-- [New Enum Constants](#_new_enum_constants_119)
-- [New_Enum_Constants](#_new_enum_constants_119)
-- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_3)
-- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_3)
-- [New SPIR-V Capability](#_new_spir_v_capability_2)
-- [New_SPIR-V_Capability](#_new_spir_v_capability_2)
-- [Version History](#_version_history_119)
-- [VK_EXT_metal_objects](#VK_EXT_metal_objects)
+- [References](#_references)
+- [Version History](#_version_history_120)
+- [VK_EXT_image_sliced_view_of_3d](#VK_EXT_image_sliced_view_of_3d)
 - [Other Extension Metadata](#_other_extension_metadata_120)
 - [Other_Extension_Metadata](#_other_extension_metadata_120)
 - [Description](#_description_120)
-- [New Base Types](#_new_base_types_2)
-- [New_Base_Types](#_new_base_types_2)
-- [New Commands](#_new_commands_59)
-- [New Structures](#_new_structures_112)
-- [New Enums](#_new_enums_39)
-- [New Bitmasks](#_new_bitmasks_33)
-- [New Enum Constants](#_new_enum_constants_120)
-- [New_Enum_Constants](#_new_enum_constants_120)
-- [Issues](#_issues_61)
-- [Version History](#_version_history_120)
-- [VK_EXT_metal_surface](#VK_EXT_metal_surface)
-- [Other Extension Metadata](#_other_extension_metadata_121)
-- [Other_Extension_Metadata](#_other_extension_metadata_121)
-- [Description](#_description_121)
-- [New Base Types](#_new_base_types_3)
-- [New_Base_Types](#_new_base_types_3)
-- [New Commands](#_new_commands_60)
 - [New Structures](#_new_structures_113)
-- [New Bitmasks](#_new_bitmasks_34)
 - [New Enum Constants](#_new_enum_constants_121)
 - [New_Enum_Constants](#_new_enum_constants_121)
 - [Version History](#_version_history_121)
-- [VK_EXT_multi_draw](#VK_EXT_multi_draw)
-- [Other Extension Metadata](#_other_extension_metadata_122)
-- [Other_Extension_Metadata](#_other_extension_metadata_122)
-- [Description](#_description_122)
-- [New Commands](#_new_commands_61)
+- [VK_EXT_image_view_min_lod](#VK_EXT_image_view_min_lod)
+- [Other Extension Metadata](#_other_extension_metadata_121)
+- [Other_Extension_Metadata](#_other_extension_metadata_121)
+- [Description](#_description_121)
 - [New Structures](#_new_structures_114)
 - [New Enum Constants](#_new_enum_constants_122)
 - [New_Enum_Constants](#_new_enum_constants_122)
-- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_4)
-- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_4)
 - [Version History](#_version_history_122)
-- [VK_EXT_multisampled_render_to_single_sampled](#VK_EXT_multisampled_render_to_single_sampled)
+- [VK_EXT_layer_settings](#VK_EXT_layer_settings)
+- [Other Extension Metadata](#_other_extension_metadata_122)
+- [Other_Extension_Metadata](#_other_extension_metadata_122)
+- [Description](#_description_122)
+- [New Structures](#_new_structures_115)
+- [New Enums](#_new_enums_41)
+- [New Enum Constants](#_new_enum_constants_123)
+- [New_Enum_Constants](#_new_enum_constants_123)
+- [Example](#_example_2)
+- [Issues](#_issues_61)
+- [Version History](#_version_history_123)
+- [VK_EXT_legacy_dithering](#VK_EXT_legacy_dithering)
 - [Other Extension Metadata](#_other_extension_metadata_123)
 - [Other_Extension_Metadata](#_other_extension_metadata_123)
 - [Description](#_description_123)
-- [New Structures](#_new_structures_115)
-- [New Enum Constants](#_new_enum_constants_123)
-- [New_Enum_Constants](#_new_enum_constants_123)
-- [Issues](#_issues_62)
-- [Version History](#_version_history_123)
-- [VK_EXT_mutable_descriptor_type](#VK_EXT_mutable_descriptor_type)
-- [Other Extension Metadata](#_other_extension_metadata_124)
-- [Other_Extension_Metadata](#_other_extension_metadata_124)
-- [Description](#_description_124)
 - [New Structures](#_new_structures_116)
 - [New Enum Constants](#_new_enum_constants_124)
 - [New_Enum_Constants](#_new_enum_constants_124)
 - [Version History](#_version_history_124)
-- [VK_EXT_nested_command_buffer](#VK_EXT_nested_command_buffer)
-- [Other Extension Metadata](#_other_extension_metadata_125)
-- [Other_Extension_Metadata](#_other_extension_metadata_125)
-- [Description](#_description_125)
+- [Issues](#_issues_62)
+- [VK_EXT_legacy_vertex_attributes](#VK_EXT_legacy_vertex_attributes)
+- [Other Extension Metadata](#_other_extension_metadata_124)
+- [Other_Extension_Metadata](#_other_extension_metadata_124)
+- [Description](#_description_124)
 - [New Structures](#_new_structures_117)
 - [New Enum Constants](#_new_enum_constants_125)
 - [New_Enum_Constants](#_new_enum_constants_125)
 - [Issues](#_issues_63)
 - [Version History](#_version_history_125)
-- [VK_EXT_non_seamless_cube_map](#VK_EXT_non_seamless_cube_map)
-- [Other Extension Metadata](#_other_extension_metadata_126)
-- [Other_Extension_Metadata](#_other_extension_metadata_126)
-- [Description](#_description_126)
+- [VK_EXT_map_memory_placed](#VK_EXT_map_memory_placed)
+- [Other Extension Metadata](#_other_extension_metadata_125)
+- [Other_Extension_Metadata](#_other_extension_metadata_125)
+- [Description](#_description_125)
 - [New Structures](#_new_structures_118)
 - [New Enum Constants](#_new_enum_constants_126)
 - [New_Enum_Constants](#_new_enum_constants_126)
 - [Version History](#_version_history_126)
-- [VK_EXT_opacity_micromap](#VK_EXT_opacity_micromap)
+- [VK_EXT_memory_budget](#VK_EXT_memory_budget)
+- [Other Extension Metadata](#_other_extension_metadata_126)
+- [Other_Extension_Metadata](#_other_extension_metadata_126)
+- [Description](#_description_126)
+- [New Structures](#_new_structures_119)
+- [New Enum Constants](#_new_enum_constants_127)
+- [New_Enum_Constants](#_new_enum_constants_127)
+- [Version History](#_version_history_127)
+- [VK_EXT_memory_priority](#VK_EXT_memory_priority)
 - [Other Extension Metadata](#_other_extension_metadata_127)
 - [Other_Extension_Metadata](#_other_extension_metadata_127)
 - [Description](#_description_127)
-- [New Object Types](#_new_object_types_10)
-- [New_Object_Types](#_new_object_types_10)
-- [New Commands](#_new_commands_62)
-- [New Structures](#_new_structures_119)
-- [New Enums](#_new_enums_40)
-- [New Bitmasks](#_new_bitmasks_35)
-- [New Enum Constants](#_new_enum_constants_127)
-- [New_Enum_Constants](#_new_enum_constants_127)
-- [Reference Code](#_reference_code)
-- [Issues](#_issues_64)
-- [Version History](#_version_history_127)
-- [VK_EXT_pageable_device_local_memory](#VK_EXT_pageable_device_local_memory)
-- [Other Extension Metadata](#_other_extension_metadata_128)
-- [Other_Extension_Metadata](#_other_extension_metadata_128)
-- [Description](#_description_128)
-- [New Commands](#_new_commands_63)
 - [New Structures](#_new_structures_120)
 - [New Enum Constants](#_new_enum_constants_128)
 - [New_Enum_Constants](#_new_enum_constants_128)
 - [Version History](#_version_history_128)
-- [VK_EXT_pci_bus_info](#VK_EXT_pci_bus_info)
-- [Other Extension Metadata](#_other_extension_metadata_129)
-- [Other_Extension_Metadata](#_other_extension_metadata_129)
-- [Description](#_description_129)
+- [VK_EXT_mesh_shader](#VK_EXT_mesh_shader)
+- [Other Extension Metadata](#_other_extension_metadata_128)
+- [Other_Extension_Metadata](#_other_extension_metadata_128)
+- [Description](#_description_128)
+- [New Commands](#_new_commands_60)
 - [New Structures](#_new_structures_121)
 - [New Enum Constants](#_new_enum_constants_129)
 - [New_Enum_Constants](#_new_enum_constants_129)
+- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_3)
+- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_3)
+- [New SPIR-V Capability](#_new_spir_v_capability_2)
+- [New_SPIR-V_Capability](#_new_spir_v_capability_2)
 - [Version History](#_version_history_129)
-- [VK_EXT_physical_device_drm](#VK_EXT_physical_device_drm)
+- [VK_EXT_metal_objects](#VK_EXT_metal_objects)
+- [Other Extension Metadata](#_other_extension_metadata_129)
+- [Other_Extension_Metadata](#_other_extension_metadata_129)
+- [Description](#_description_129)
+- [New Base Types](#_new_base_types_2)
+- [New_Base_Types](#_new_base_types_2)
+- [New Commands](#_new_commands_61)
+- [New Structures](#_new_structures_122)
+- [New Enums](#_new_enums_42)
+- [New Bitmasks](#_new_bitmasks_35)
+- [New Enum Constants](#_new_enum_constants_130)
+- [New_Enum_Constants](#_new_enum_constants_130)
+- [Issues](#_issues_64)
+- [Version History](#_version_history_130)
+- [VK_EXT_metal_surface](#VK_EXT_metal_surface)
 - [Other Extension Metadata](#_other_extension_metadata_130)
 - [Other_Extension_Metadata](#_other_extension_metadata_130)
 - [Description](#_description_130)
-- [New Structures](#_new_structures_122)
-- [New Enum Constants](#_new_enum_constants_130)
-- [New_Enum_Constants](#_new_enum_constants_130)
-- [References](#_references_2)
-- [Version History](#_version_history_130)
-- [VK_EXT_pipeline_library_group_handles](#VK_EXT_pipeline_library_group_handles)
-- [Other Extension Metadata](#_other_extension_metadata_131)
-- [Other_Extension_Metadata](#_other_extension_metadata_131)
-- [Description](#_description_131)
+- [New Base Types](#_new_base_types_3)
+- [New_Base_Types](#_new_base_types_3)
+- [New Commands](#_new_commands_62)
 - [New Structures](#_new_structures_123)
+- [New Bitmasks](#_new_bitmasks_36)
 - [New Enum Constants](#_new_enum_constants_131)
 - [New_Enum_Constants](#_new_enum_constants_131)
 - [Version History](#_version_history_131)
-- [VK_EXT_pipeline_properties](#VK_EXT_pipeline_properties)
-- [Other Extension Metadata](#_other_extension_metadata_132)
-- [Other_Extension_Metadata](#_other_extension_metadata_132)
-- [Description](#_description_132)
-- [New Commands](#_new_commands_64)
+- [VK_EXT_multi_draw](#VK_EXT_multi_draw)
+- [Other Extension Metadata](#_other_extension_metadata_131)
+- [Other_Extension_Metadata](#_other_extension_metadata_131)
+- [Description](#_description_131)
+- [New Commands](#_new_commands_63)
 - [New Structures](#_new_structures_124)
 - [New Enum Constants](#_new_enum_constants_132)
 - [New_Enum_Constants](#_new_enum_constants_132)
-- [Issues](#_issues_65)
+- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_4)
+- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_4)
 - [Version History](#_version_history_132)
-- [VK_EXT_post_depth_coverage](#VK_EXT_post_depth_coverage)
+- [VK_EXT_multisampled_render_to_single_sampled](#VK_EXT_multisampled_render_to_single_sampled)
+- [Other Extension Metadata](#_other_extension_metadata_132)
+- [Other_Extension_Metadata](#_other_extension_metadata_132)
+- [Description](#_description_132)
+- [New Structures](#_new_structures_125)
+- [New Enum Constants](#_new_enum_constants_133)
+- [New_Enum_Constants](#_new_enum_constants_133)
+- [Issues](#_issues_65)
+- [Version History](#_version_history_133)
+- [VK_EXT_mutable_descriptor_type](#VK_EXT_mutable_descriptor_type)
 - [Other Extension Metadata](#_other_extension_metadata_133)
 - [Other_Extension_Metadata](#_other_extension_metadata_133)
 - [Description](#_description_133)
-- [New Enum Constants](#_new_enum_constants_133)
-- [New_Enum_Constants](#_new_enum_constants_133)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_14)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_14)
-- [Version History](#_version_history_133)
-- [VK_EXT_present_mode_fifo_latest_ready](#VK_EXT_present_mode_fifo_latest_ready)
-- [Other Extension Metadata](#_other_extension_metadata_134)
-- [Other_Extension_Metadata](#_other_extension_metadata_134)
-- [Description](#_description_134)
-- [New Structures](#_new_structures_125)
+- [New Structures](#_new_structures_126)
 - [New Enum Constants](#_new_enum_constants_134)
 - [New_Enum_Constants](#_new_enum_constants_134)
 - [Version History](#_version_history_134)
-- [VK_EXT_primitive_topology_list_restart](#VK_EXT_primitive_topology_list_restart)
+- [VK_EXT_nested_command_buffer](#VK_EXT_nested_command_buffer)
+- [Other Extension Metadata](#_other_extension_metadata_134)
+- [Other_Extension_Metadata](#_other_extension_metadata_134)
+- [Description](#_description_134)
+- [New Structures](#_new_structures_127)
+- [New Enum Constants](#_new_enum_constants_135)
+- [New_Enum_Constants](#_new_enum_constants_135)
+- [Issues](#_issues_66)
+- [Version History](#_version_history_135)
+- [VK_EXT_non_seamless_cube_map](#VK_EXT_non_seamless_cube_map)
 - [Other Extension Metadata](#_other_extension_metadata_135)
 - [Other_Extension_Metadata](#_other_extension_metadata_135)
 - [Description](#_description_135)
-- [New Structures](#_new_structures_126)
-- [New Enum Constants](#_new_enum_constants_135)
-- [New_Enum_Constants](#_new_enum_constants_135)
-- [Version History](#_version_history_135)
-- [VK_EXT_primitives_generated_query](#VK_EXT_primitives_generated_query)
+- [New Structures](#_new_structures_128)
+- [New Enum Constants](#_new_enum_constants_136)
+- [New_Enum_Constants](#_new_enum_constants_136)
+- [Version History](#_version_history_136)
+- [VK_EXT_opacity_micromap](#VK_EXT_opacity_micromap)
 - [Other Extension Metadata](#_other_extension_metadata_136)
 - [Other_Extension_Metadata](#_other_extension_metadata_136)
 - [Description](#_description_136)
-- [New Structures](#_new_structures_127)
-- [New Enum Constants](#_new_enum_constants_136)
-- [New_Enum_Constants](#_new_enum_constants_136)
-- [Issues](#_issues_66)
-- [Version History](#_version_history_136)
-- [VK_EXT_provoking_vertex](#VK_EXT_provoking_vertex)
+- [New Object Types](#_new_object_types_10)
+- [New_Object_Types](#_new_object_types_10)
+- [New Commands](#_new_commands_64)
+- [New Structures](#_new_structures_129)
+- [New Enums](#_new_enums_43)
+- [New Bitmasks](#_new_bitmasks_37)
+- [New Enum Constants](#_new_enum_constants_137)
+- [New_Enum_Constants](#_new_enum_constants_137)
+- [Reference Code](#_reference_code)
+- [Issues](#_issues_67)
+- [Version History](#_version_history_137)
+- [VK_EXT_pageable_device_local_memory](#VK_EXT_pageable_device_local_memory)
 - [Other Extension Metadata](#_other_extension_metadata_137)
 - [Other_Extension_Metadata](#_other_extension_metadata_137)
 - [Description](#_description_137)
-- [New Structures](#_new_structures_128)
-- [New Enums](#_new_enums_41)
-- [New Enum Constants](#_new_enum_constants_137)
-- [New_Enum_Constants](#_new_enum_constants_137)
-- [Issues](#_issues_67)
-- [Version History](#_version_history_137)
-- [VK_EXT_queue_family_foreign](#VK_EXT_queue_family_foreign)
-- [Other Extension Metadata](#_other_extension_metadata_138)
-- [Other_Extension_Metadata](#_other_extension_metadata_138)
-- [Description](#_description_138)
+- [New Commands](#_new_commands_65)
+- [New Structures](#_new_structures_130)
 - [New Enum Constants](#_new_enum_constants_138)
 - [New_Enum_Constants](#_new_enum_constants_138)
 - [Version History](#_version_history_138)
-- [VK_EXT_rasterization_order_attachment_access](#VK_EXT_rasterization_order_attachment_access)
+- [VK_EXT_pci_bus_info](#VK_EXT_pci_bus_info)
+- [Other Extension Metadata](#_other_extension_metadata_138)
+- [Other_Extension_Metadata](#_other_extension_metadata_138)
+- [Description](#_description_138)
+- [New Structures](#_new_structures_131)
+- [New Enum Constants](#_new_enum_constants_139)
+- [New_Enum_Constants](#_new_enum_constants_139)
+- [Version History](#_version_history_139)
+- [VK_EXT_physical_device_drm](#VK_EXT_physical_device_drm)
 - [Other Extension Metadata](#_other_extension_metadata_139)
 - [Other_Extension_Metadata](#_other_extension_metadata_139)
 - [Description](#_description_139)
-- [New Structures](#_new_structures_129)
-- [New Enums](#_new_enums_42)
-- [New Enum Constants](#_new_enum_constants_139)
-- [New_Enum_Constants](#_new_enum_constants_139)
-- [Examples](#_examples_11)
-- [Version History](#_version_history_139)
-- [VK_EXT_rgba10x6_formats](#VK_EXT_rgba10x6_formats)
+- [New Structures](#_new_structures_132)
+- [New Enum Constants](#_new_enum_constants_140)
+- [New_Enum_Constants](#_new_enum_constants_140)
+- [References](#_references_2)
+- [Version History](#_version_history_140)
+- [VK_EXT_pipeline_library_group_handles](#VK_EXT_pipeline_library_group_handles)
 - [Other Extension Metadata](#_other_extension_metadata_140)
 - [Other_Extension_Metadata](#_other_extension_metadata_140)
 - [Description](#_description_140)
-- [New Structures](#_new_structures_130)
-- [New Enum Constants](#_new_enum_constants_140)
-- [New_Enum_Constants](#_new_enum_constants_140)
-- [Issues](#_issues_68)
-- [Version History](#_version_history_140)
-- [VK_EXT_sample_locations](#VK_EXT_sample_locations)
-- [Other Extension Metadata](#_other_extension_metadata_141)
-- [Other_Extension_Metadata](#_other_extension_metadata_141)
-- [Description](#_description_141)
-- [New Commands](#_new_commands_65)
-- [New Structures](#_new_structures_131)
+- [New Structures](#_new_structures_133)
 - [New Enum Constants](#_new_enum_constants_141)
 - [New_Enum_Constants](#_new_enum_constants_141)
 - [Version History](#_version_history_141)
-- [VK_EXT_shader_atomic_float](#VK_EXT_shader_atomic_float)
+- [VK_EXT_pipeline_properties](#VK_EXT_pipeline_properties)
+- [Other Extension Metadata](#_other_extension_metadata_141)
+- [Other_Extension_Metadata](#_other_extension_metadata_141)
+- [Description](#_description_141)
+- [New Commands](#_new_commands_66)
+- [New Structures](#_new_structures_134)
+- [New Enum Constants](#_new_enum_constants_142)
+- [New_Enum_Constants](#_new_enum_constants_142)
+- [Issues](#_issues_68)
+- [Version History](#_version_history_142)
+- [VK_EXT_post_depth_coverage](#VK_EXT_post_depth_coverage)
 - [Other Extension Metadata](#_other_extension_metadata_142)
 - [Other_Extension_Metadata](#_other_extension_metadata_142)
 - [Description](#_description_142)
-- [New Structures](#_new_structures_132)
-- [New Enum Constants](#_new_enum_constants_142)
-- [New_Enum_Constants](#_new_enum_constants_142)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_15)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_15)
-- [Version History](#_version_history_142)
-- [VK_EXT_shader_atomic_float2](#VK_EXT_shader_atomic_float2)
+- [New Enum Constants](#_new_enum_constants_143)
+- [New_Enum_Constants](#_new_enum_constants_143)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_14)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_14)
+- [Version History](#_version_history_143)
+- [VK_EXT_primitive_topology_list_restart](#VK_EXT_primitive_topology_list_restart)
 - [Other Extension Metadata](#_other_extension_metadata_143)
 - [Other_Extension_Metadata](#_other_extension_metadata_143)
 - [Description](#_description_143)
-- [New Structures](#_new_structures_133)
-- [New Enum Constants](#_new_enum_constants_143)
-- [New_Enum_Constants](#_new_enum_constants_143)
-- [Issues](#_issues_69)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_16)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_16)
-- [Version History](#_version_history_143)
-- [VK_EXT_shader_image_atomic_int64](#VK_EXT_shader_image_atomic_int64)
-- [Other Extension Metadata](#_other_extension_metadata_144)
-- [Other_Extension_Metadata](#_other_extension_metadata_144)
-- [Description](#_description_144)
-- [New Structures](#_new_structures_134)
+- [New Structures](#_new_structures_135)
 - [New Enum Constants](#_new_enum_constants_144)
 - [New_Enum_Constants](#_new_enum_constants_144)
 - [Version History](#_version_history_144)
-- [VK_EXT_shader_module_identifier](#VK_EXT_shader_module_identifier)
+- [VK_EXT_primitives_generated_query](#VK_EXT_primitives_generated_query)
+- [Other Extension Metadata](#_other_extension_metadata_144)
+- [Other_Extension_Metadata](#_other_extension_metadata_144)
+- [Description](#_description_144)
+- [New Structures](#_new_structures_136)
+- [New Enum Constants](#_new_enum_constants_145)
+- [New_Enum_Constants](#_new_enum_constants_145)
+- [Issues](#_issues_69)
+- [Version History](#_version_history_145)
+- [VK_EXT_provoking_vertex](#VK_EXT_provoking_vertex)
 - [Other Extension Metadata](#_other_extension_metadata_145)
 - [Other_Extension_Metadata](#_other_extension_metadata_145)
 - [Description](#_description_145)
-- [New Commands](#_new_commands_66)
-- [New Structures](#_new_structures_135)
-- [New Enum Constants](#_new_enum_constants_145)
-- [New_Enum_Constants](#_new_enum_constants_145)
-- [Version History](#_version_history_145)
-- [VK_EXT_shader_object](#VK_EXT_shader_object)
+- [New Structures](#_new_structures_137)
+- [New Enums](#_new_enums_44)
+- [New Enum Constants](#_new_enum_constants_146)
+- [New_Enum_Constants](#_new_enum_constants_146)
+- [Issues](#_issues_70)
+- [Version History](#_version_history_146)
+- [VK_EXT_queue_family_foreign](#VK_EXT_queue_family_foreign)
 - [Other Extension Metadata](#_other_extension_metadata_146)
 - [Other_Extension_Metadata](#_other_extension_metadata_146)
 - [Description](#_description_146)
-- [New Object Types](#_new_object_types_11)
-- [New_Object_Types](#_new_object_types_11)
-- [New Commands](#_new_commands_67)
-- [New Structures](#_new_structures_136)
-- [New Enums](#_new_enums_43)
-- [New Bitmasks](#_new_bitmasks_36)
-- [New Enum Constants](#_new_enum_constants_146)
-- [New_Enum_Constants](#_new_enum_constants_146)
-- [Examples](#_examples_12)
-- [Version History](#_version_history_146)
-- [VK_EXT_shader_replicated_composites](#VK_EXT_shader_replicated_composites)
-- [New Structures](#_new_structures_137)
 - [New Enum Constants](#_new_enum_constants_147)
 - [New_Enum_Constants](#_new_enum_constants_147)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_17)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_17)
 - [Version History](#_version_history_147)
-- [VK_EXT_shader_stencil_export](#VK_EXT_shader_stencil_export)
+- [VK_EXT_rasterization_order_attachment_access](#VK_EXT_rasterization_order_attachment_access)
 - [Other Extension Metadata](#_other_extension_metadata_147)
 - [Other_Extension_Metadata](#_other_extension_metadata_147)
 - [Description](#_description_147)
+- [New Structures](#_new_structures_138)
+- [New Enums](#_new_enums_45)
 - [New Enum Constants](#_new_enum_constants_148)
 - [New_Enum_Constants](#_new_enum_constants_148)
+- [Examples](#_examples_13)
 - [Version History](#_version_history_148)
-- [VK_EXT_shader_tile_image](#VK_EXT_shader_tile_image)
+- [VK_EXT_rgba10x6_formats](#VK_EXT_rgba10x6_formats)
 - [Other Extension Metadata](#_other_extension_metadata_148)
 - [Other_Extension_Metadata](#_other_extension_metadata_148)
 - [Description](#_description_148)
-- [New Structures](#_new_structures_138)
+- [New Structures](#_new_structures_139)
 - [New Enum Constants](#_new_enum_constants_149)
 - [New_Enum_Constants](#_new_enum_constants_149)
-- [Issues](#_issues_70)
-- [Examples](#_examples_13)
+- [Issues](#_issues_71)
 - [Version History](#_version_history_149)
-- [VK_EXT_subpass_merge_feedback](#VK_EXT_subpass_merge_feedback)
+- [VK_EXT_sample_locations](#VK_EXT_sample_locations)
 - [Other Extension Metadata](#_other_extension_metadata_149)
 - [Other_Extension_Metadata](#_other_extension_metadata_149)
 - [Description](#_description_149)
-- [New Structures](#_new_structures_139)
-- [New Enums](#_new_enums_44)
+- [New Commands](#_new_commands_67)
+- [New Structures](#_new_structures_140)
 - [New Enum Constants](#_new_enum_constants_150)
 - [New_Enum_Constants](#_new_enum_constants_150)
+- [Issues](#_issues_72)
 - [Version History](#_version_history_150)
-- [VK_EXT_surface_maintenance1](#VK_EXT_surface_maintenance1)
+- [VK_EXT_shader_atomic_float](#VK_EXT_shader_atomic_float)
 - [Other Extension Metadata](#_other_extension_metadata_150)
 - [Other_Extension_Metadata](#_other_extension_metadata_150)
 - [Description](#_description_150)
-- [New Structures](#_new_structures_140)
-- [New Enums](#_new_enums_45)
-- [New Bitmasks](#_new_bitmasks_37)
+- [New Structures](#_new_structures_141)
 - [New Enum Constants](#_new_enum_constants_151)
 - [New_Enum_Constants](#_new_enum_constants_151)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_15)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_15)
 - [Version History](#_version_history_151)
-- [VK_EXT_swapchain_colorspace](#VK_EXT_swapchain_colorspace)
+- [VK_EXT_shader_atomic_float2](#VK_EXT_shader_atomic_float2)
 - [Other Extension Metadata](#_other_extension_metadata_151)
 - [Other_Extension_Metadata](#_other_extension_metadata_151)
 - [Description](#_description_151)
+- [New Structures](#_new_structures_142)
 - [New Enum Constants](#_new_enum_constants_152)
 - [New_Enum_Constants](#_new_enum_constants_152)
-- [Issues](#_issues_71)
+- [Issues](#_issues_73)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_16)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_16)
 - [Version History](#_version_history_152)
-- [VK_EXT_swapchain_maintenance1](#VK_EXT_swapchain_maintenance1)
+- [VK_EXT_shader_float8](#VK_EXT_shader_float8)
 - [Other Extension Metadata](#_other_extension_metadata_152)
 - [Other_Extension_Metadata](#_other_extension_metadata_152)
 - [Description](#_description_152)
-- [New Commands](#_new_commands_68)
-- [New Structures](#_new_structures_141)
+- [New Structures](#_new_structures_143)
 - [New Enum Constants](#_new_enum_constants_153)
 - [New_Enum_Constants](#_new_enum_constants_153)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_17)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_17)
+- [Issues](#_issues_74)
 - [Version History](#_version_history_153)
-- [VK_EXT_transform_feedback](#VK_EXT_transform_feedback)
+- [VK_EXT_shader_image_atomic_int64](#VK_EXT_shader_image_atomic_int64)
 - [Other Extension Metadata](#_other_extension_metadata_153)
 - [Other_Extension_Metadata](#_other_extension_metadata_153)
 - [Description](#_description_153)
-- [New Commands](#_new_commands_69)
-- [New Structures](#_new_structures_142)
-- [New Bitmasks](#_new_bitmasks_38)
+- [New Structures](#_new_structures_144)
 - [New Enum Constants](#_new_enum_constants_154)
 - [New_Enum_Constants](#_new_enum_constants_154)
-- [Issues](#_issues_72)
 - [Version History](#_version_history_154)
-- [VK_EXT_validation_cache](#VK_EXT_validation_cache)
+- [VK_EXT_shader_module_identifier](#VK_EXT_shader_module_identifier)
 - [Other Extension Metadata](#_other_extension_metadata_154)
 - [Other_Extension_Metadata](#_other_extension_metadata_154)
 - [Description](#_description_154)
-- [New Object Types](#_new_object_types_12)
-- [New_Object_Types](#_new_object_types_12)
-- [New Commands](#_new_commands_70)
-- [New Structures](#_new_structures_143)
-- [New Enums](#_new_enums_46)
-- [New Bitmasks](#_new_bitmasks_39)
+- [New Commands](#_new_commands_68)
+- [New Structures](#_new_structures_145)
 - [New Enum Constants](#_new_enum_constants_155)
 - [New_Enum_Constants](#_new_enum_constants_155)
 - [Version History](#_version_history_155)
-- [VK_EXT_vertex_attribute_robustness](#VK_EXT_vertex_attribute_robustness)
+- [VK_EXT_shader_object](#VK_EXT_shader_object)
 - [Other Extension Metadata](#_other_extension_metadata_155)
 - [Other_Extension_Metadata](#_other_extension_metadata_155)
 - [Description](#_description_155)
-- [New Structures](#_new_structures_144)
+- [New Object Types](#_new_object_types_11)
+- [New_Object_Types](#_new_object_types_11)
+- [New Commands](#_new_commands_69)
+- [New Structures](#_new_structures_146)
+- [New Enums](#_new_enums_46)
+- [New Bitmasks](#_new_bitmasks_38)
 - [New Enum Constants](#_new_enum_constants_156)
 - [New_Enum_Constants](#_new_enum_constants_156)
-- [Issues](#_issues_73)
+- [Examples](#_examples_14)
 - [Version History](#_version_history_156)
-- [VK_EXT_vertex_input_dynamic_state](#VK_EXT_vertex_input_dynamic_state)
+- [VK_EXT_shader_replicated_composites](#VK_EXT_shader_replicated_composites)
+- [New Structures](#_new_structures_147)
+- [New Enum Constants](#_new_enum_constants_157)
+- [New_Enum_Constants](#_new_enum_constants_157)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_18)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_18)
+- [Version History](#_version_history_157)
+- [VK_EXT_shader_stencil_export](#VK_EXT_shader_stencil_export)
 - [Other Extension Metadata](#_other_extension_metadata_156)
 - [Other_Extension_Metadata](#_other_extension_metadata_156)
 - [Description](#_description_156)
-- [New Commands](#_new_commands_71)
-- [New Structures](#_new_structures_145)
-- [New Enum Constants](#_new_enum_constants_157)
-- [New_Enum_Constants](#_new_enum_constants_157)
-- [Version History](#_version_history_157)
-- [VK_EXT_ycbcr_image_arrays](#VK_EXT_ycbcr_image_arrays)
-- [Other Extension Metadata](#_other_extension_metadata_157)
-- [Other_Extension_Metadata](#_other_extension_metadata_157)
-- [Description](#_description_157)
-- [New Structures](#_new_structures_146)
 - [New Enum Constants](#_new_enum_constants_158)
 - [New_Enum_Constants](#_new_enum_constants_158)
 - [Version History](#_version_history_158)
-- [VK_EXT_zero_initialize_device_memory](#VK_EXT_zero_initialize_device_memory)
+- [VK_EXT_shader_tile_image](#VK_EXT_shader_tile_image)
+- [Other Extension Metadata](#_other_extension_metadata_157)
+- [Other_Extension_Metadata](#_other_extension_metadata_157)
+- [Description](#_description_157)
+- [New Structures](#_new_structures_148)
+- [New Enum Constants](#_new_enum_constants_159)
+- [New_Enum_Constants](#_new_enum_constants_159)
+- [Issues](#_issues_75)
+- [Examples](#_examples_15)
+- [Version History](#_version_history_159)
+- [VK_EXT_subpass_merge_feedback](#VK_EXT_subpass_merge_feedback)
 - [Other Extension Metadata](#_other_extension_metadata_158)
 - [Other_Extension_Metadata](#_other_extension_metadata_158)
 - [Description](#_description_158)
-- [New Structures](#_new_structures_147)
-- [New Enum Constants](#_new_enum_constants_159)
-- [New_Enum_Constants](#_new_enum_constants_159)
-- [Version History](#_version_history_159)
-- [VK_AMD_anti_lag](#VK_AMD_anti_lag)
-- [Other Extension Metadata](#_other_extension_metadata_159)
-- [Other_Extension_Metadata](#_other_extension_metadata_159)
-- [Description](#_description_159)
-- [New Commands](#_new_commands_72)
-- [New Structures](#_new_structures_148)
+- [New Structures](#_new_structures_149)
 - [New Enums](#_new_enums_47)
 - [New Enum Constants](#_new_enum_constants_160)
 - [New_Enum_Constants](#_new_enum_constants_160)
 - [Version History](#_version_history_160)
-- [VK_AMD_buffer_marker](#VK_AMD_buffer_marker)
+- [VK_EXT_swapchain_colorspace](#VK_EXT_swapchain_colorspace)
+- [Other Extension Metadata](#_other_extension_metadata_159)
+- [Other_Extension_Metadata](#_other_extension_metadata_159)
+- [Description](#_description_159)
+- [New Enum Constants](#_new_enum_constants_161)
+- [New_Enum_Constants](#_new_enum_constants_161)
+- [Issues](#_issues_76)
+- [Version History](#_version_history_161)
+- [VK_EXT_transform_feedback](#VK_EXT_transform_feedback)
 - [Other Extension Metadata](#_other_extension_metadata_160)
 - [Other_Extension_Metadata](#_other_extension_metadata_160)
 - [Description](#_description_160)
-- [New Commands](#_new_commands_73)
-- [New Enum Constants](#_new_enum_constants_161)
-- [New_Enum_Constants](#_new_enum_constants_161)
-- [Examples](#_examples_14)
-- [Version History](#_version_history_161)
-- [VK_AMD_device_coherent_memory](#VK_AMD_device_coherent_memory)
+- [New Commands](#_new_commands_70)
+- [New Structures](#_new_structures_150)
+- [New Bitmasks](#_new_bitmasks_39)
+- [New Enum Constants](#_new_enum_constants_162)
+- [New_Enum_Constants](#_new_enum_constants_162)
+- [Issues](#_issues_77)
+- [Version History](#_version_history_162)
+- [VK_EXT_validation_cache](#VK_EXT_validation_cache)
 - [Other Extension Metadata](#_other_extension_metadata_161)
 - [Other_Extension_Metadata](#_other_extension_metadata_161)
 - [Description](#_description_161)
-- [New Structures](#_new_structures_149)
-- [New Enum Constants](#_new_enum_constants_162)
-- [New_Enum_Constants](#_new_enum_constants_162)
-- [Version History](#_version_history_162)
-- [VK_AMD_display_native_hdr](#VK_AMD_display_native_hdr)
+- [New Object Types](#_new_object_types_12)
+- [New_Object_Types](#_new_object_types_12)
+- [New Commands](#_new_commands_71)
+- [New Structures](#_new_structures_151)
+- [New Enums](#_new_enums_48)
+- [New Bitmasks](#_new_bitmasks_40)
+- [New Enum Constants](#_new_enum_constants_163)
+- [New_Enum_Constants](#_new_enum_constants_163)
+- [Version History](#_version_history_163)
+- [VK_EXT_vertex_input_dynamic_state](#VK_EXT_vertex_input_dynamic_state)
 - [Other Extension Metadata](#_other_extension_metadata_162)
 - [Other_Extension_Metadata](#_other_extension_metadata_162)
 - [Description](#_description_162)
-- [New Commands](#_new_commands_74)
-- [New Structures](#_new_structures_150)
-- [New Enum Constants](#_new_enum_constants_163)
-- [New_Enum_Constants](#_new_enum_constants_163)
-- [Issues](#_issues_74)
-- [Examples](#_examples_15)
-- [Version History](#_version_history_163)
-- [VK_AMD_gcn_shader](#VK_AMD_gcn_shader)
-- [Other Extension Metadata](#_other_extension_metadata_163)
-- [Other_Extension_Metadata](#_other_extension_metadata_163)
-- [Description](#_description_163)
+- [New Commands](#_new_commands_72)
+- [New Structures](#_new_structures_152)
 - [New Enum Constants](#_new_enum_constants_164)
 - [New_Enum_Constants](#_new_enum_constants_164)
 - [Version History](#_version_history_164)
-- [VK_AMD_memory_overallocation_behavior](#VK_AMD_memory_overallocation_behavior)
-- [Other Extension Metadata](#_other_extension_metadata_164)
-- [Other_Extension_Metadata](#_other_extension_metadata_164)
-- [Description](#_description_164)
-- [New Structures](#_new_structures_151)
-- [New Enums](#_new_enums_48)
+- [VK_EXT_ycbcr_image_arrays](#VK_EXT_ycbcr_image_arrays)
+- [Other Extension Metadata](#_other_extension_metadata_163)
+- [Other_Extension_Metadata](#_other_extension_metadata_163)
+- [Description](#_description_163)
+- [New Structures](#_new_structures_153)
 - [New Enum Constants](#_new_enum_constants_165)
 - [New_Enum_Constants](#_new_enum_constants_165)
 - [Version History](#_version_history_165)
-- [VK_AMD_mixed_attachment_samples](#VK_AMD_mixed_attachment_samples)
+- [VK_EXT_zero_initialize_device_memory](#VK_EXT_zero_initialize_device_memory)
+- [Other Extension Metadata](#_other_extension_metadata_164)
+- [Other_Extension_Metadata](#_other_extension_metadata_164)
+- [Description](#_description_164)
+- [New Structures](#_new_structures_154)
+- [New Enum Constants](#_new_enum_constants_166)
+- [New_Enum_Constants](#_new_enum_constants_166)
+- [Version History](#_version_history_166)
+- [VK_AMD_anti_lag](#VK_AMD_anti_lag)
 - [Other Extension Metadata](#_other_extension_metadata_165)
 - [Other_Extension_Metadata](#_other_extension_metadata_165)
 - [Description](#_description_165)
-- [New Structures](#_new_structures_152)
-- [New Enum Constants](#_new_enum_constants_166)
-- [New_Enum_Constants](#_new_enum_constants_166)
-- [Issues](#_issues_75)
-- [Version History](#_version_history_166)
-- [VK_AMD_pipeline_compiler_control](#VK_AMD_pipeline_compiler_control)
+- [New Commands](#_new_commands_73)
+- [New Structures](#_new_structures_155)
+- [New Enums](#_new_enums_49)
+- [New Enum Constants](#_new_enum_constants_167)
+- [New_Enum_Constants](#_new_enum_constants_167)
+- [Version History](#_version_history_167)
+- [VK_AMD_buffer_marker](#VK_AMD_buffer_marker)
 - [Other Extension Metadata](#_other_extension_metadata_166)
 - [Other_Extension_Metadata](#_other_extension_metadata_166)
 - [Description](#_description_166)
-- [New Structures](#_new_structures_153)
-- [New Enums](#_new_enums_49)
-- [New Bitmasks](#_new_bitmasks_40)
-- [New Enum Constants](#_new_enum_constants_167)
-- [New_Enum_Constants](#_new_enum_constants_167)
-- [Issues](#_issues_76)
+- [New Commands](#_new_commands_74)
+- [New Enum Constants](#_new_enum_constants_168)
+- [New_Enum_Constants](#_new_enum_constants_168)
 - [Examples](#_examples_16)
-- [Version History](#_version_history_167)
-- [VK_AMD_rasterization_order](#VK_AMD_rasterization_order)
+- [Version History](#_version_history_168)
+- [VK_AMD_device_coherent_memory](#VK_AMD_device_coherent_memory)
 - [Other Extension Metadata](#_other_extension_metadata_167)
 - [Other_Extension_Metadata](#_other_extension_metadata_167)
 - [Description](#_description_167)
-- [New Structures](#_new_structures_154)
-- [New Enums](#_new_enums_50)
-- [New Enum Constants](#_new_enum_constants_168)
-- [New_Enum_Constants](#_new_enum_constants_168)
-- [Issues](#_issues_77)
-- [Examples](#_examples_17)
-- [Issues](#_issues_78)
-- [Version History](#_version_history_168)
-- [VK_AMD_shader_ballot](#VK_AMD_shader_ballot)
-- [Other Extension Metadata](#_other_extension_metadata_168)
-- [Other_Extension_Metadata](#_other_extension_metadata_168)
-- [Description](#_description_168)
+- [New Structures](#_new_structures_156)
 - [New Enum Constants](#_new_enum_constants_169)
 - [New_Enum_Constants](#_new_enum_constants_169)
 - [Version History](#_version_history_169)
-- [VK_AMD_shader_core_properties](#VK_AMD_shader_core_properties)
+- [VK_AMD_display_native_hdr](#VK_AMD_display_native_hdr)
+- [Other Extension Metadata](#_other_extension_metadata_168)
+- [Other_Extension_Metadata](#_other_extension_metadata_168)
+- [Description](#_description_168)
+- [New Commands](#_new_commands_75)
+- [New Structures](#_new_structures_157)
+- [New Enum Constants](#_new_enum_constants_170)
+- [New_Enum_Constants](#_new_enum_constants_170)
+- [Issues](#_issues_78)
+- [Examples](#_examples_17)
+- [Version History](#_version_history_170)
+- [VK_AMD_gcn_shader](#VK_AMD_gcn_shader)
 - [Other Extension Metadata](#_other_extension_metadata_169)
 - [Other_Extension_Metadata](#_other_extension_metadata_169)
 - [Description](#_description_169)
-- [New Structures](#_new_structures_155)
-- [New Enum Constants](#_new_enum_constants_170)
-- [New_Enum_Constants](#_new_enum_constants_170)
-- [Examples](#_examples_18)
-- [Version History](#_version_history_170)
-- [VK_AMD_shader_core_properties2](#VK_AMD_shader_core_properties2)
+- [New Enum Constants](#_new_enum_constants_171)
+- [New_Enum_Constants](#_new_enum_constants_171)
+- [Version History](#_version_history_171)
+- [VK_AMD_memory_overallocation_behavior](#VK_AMD_memory_overallocation_behavior)
 - [Other Extension Metadata](#_other_extension_metadata_170)
 - [Other_Extension_Metadata](#_other_extension_metadata_170)
 - [Description](#_description_170)
-- [New Structures](#_new_structures_156)
-- [New Enums](#_new_enums_51)
-- [New Bitmasks](#_new_bitmasks_41)
-- [New Enum Constants](#_new_enum_constants_171)
-- [New_Enum_Constants](#_new_enum_constants_171)
-- [Examples](#_examples_19)
-- [Version History](#_version_history_171)
-- [VK_AMD_shader_early_and_late_fragment_tests](#VK_AMD_shader_early_and_late_fragment_tests)
-- [Other Extension Metadata](#_other_extension_metadata_171)
-- [Other_Extension_Metadata](#_other_extension_metadata_171)
-- [Description](#_description_171)
-- [New Structures](#_new_structures_157)
+- [New Structures](#_new_structures_158)
+- [New Enums](#_new_enums_50)
 - [New Enum Constants](#_new_enum_constants_172)
 - [New_Enum_Constants](#_new_enum_constants_172)
 - [Version History](#_version_history_172)
-- [VK_AMD_shader_explicit_vertex_parameter](#VK_AMD_shader_explicit_vertex_parameter)
+- [VK_AMD_mixed_attachment_samples](#VK_AMD_mixed_attachment_samples)
+- [Other Extension Metadata](#_other_extension_metadata_171)
+- [Other_Extension_Metadata](#_other_extension_metadata_171)
+- [Description](#_description_171)
+- [New Structures](#_new_structures_159)
+- [New Enum Constants](#_new_enum_constants_173)
+- [New_Enum_Constants](#_new_enum_constants_173)
+- [Issues](#_issues_79)
+- [Version History](#_version_history_173)
+- [VK_AMD_pipeline_compiler_control](#VK_AMD_pipeline_compiler_control)
 - [Other Extension Metadata](#_other_extension_metadata_172)
 - [Other_Extension_Metadata](#_other_extension_metadata_172)
 - [Description](#_description_172)
-- [New Enum Constants](#_new_enum_constants_173)
-- [New_Enum_Constants](#_new_enum_constants_173)
-- [Version History](#_version_history_173)
-- [VK_AMD_shader_fragment_mask](#VK_AMD_shader_fragment_mask)
+- [New Structures](#_new_structures_160)
+- [New Enums](#_new_enums_51)
+- [New Bitmasks](#_new_bitmasks_41)
+- [New Enum Constants](#_new_enum_constants_174)
+- [New_Enum_Constants](#_new_enum_constants_174)
+- [Issues](#_issues_80)
+- [Examples](#_examples_18)
+- [Version History](#_version_history_174)
+- [VK_AMD_rasterization_order](#VK_AMD_rasterization_order)
 - [Other Extension Metadata](#_other_extension_metadata_173)
 - [Other_Extension_Metadata](#_other_extension_metadata_173)
 - [Description](#_description_173)
-- [New Enum Constants](#_new_enum_constants_174)
-- [New_Enum_Constants](#_new_enum_constants_174)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_18)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_18)
-- [Examples](#_examples_20)
-- [Version History](#_version_history_174)
-- [VK_AMD_shader_image_load_store_lod](#VK_AMD_shader_image_load_store_lod)
+- [New Structures](#_new_structures_161)
+- [New Enums](#_new_enums_52)
+- [New Enum Constants](#_new_enum_constants_175)
+- [New_Enum_Constants](#_new_enum_constants_175)
+- [Issues](#_issues_81)
+- [Examples](#_examples_19)
+- [Issues](#_issues_82)
+- [Version History](#_version_history_175)
+- [VK_AMD_shader_ballot](#VK_AMD_shader_ballot)
 - [Other Extension Metadata](#_other_extension_metadata_174)
 - [Other_Extension_Metadata](#_other_extension_metadata_174)
 - [Description](#_description_174)
-- [New Enum Constants](#_new_enum_constants_175)
-- [New_Enum_Constants](#_new_enum_constants_175)
-- [Version History](#_version_history_175)
-- [VK_AMD_shader_info](#VK_AMD_shader_info)
+- [New Enum Constants](#_new_enum_constants_176)
+- [New_Enum_Constants](#_new_enum_constants_176)
+- [Version History](#_version_history_176)
+- [VK_AMD_shader_core_properties](#VK_AMD_shader_core_properties)
 - [Other Extension Metadata](#_other_extension_metadata_175)
 - [Other_Extension_Metadata](#_other_extension_metadata_175)
 - [Description](#_description_175)
-- [New Commands](#_new_commands_75)
-- [New Structures](#_new_structures_158)
-- [New Enums](#_new_enums_52)
-- [New Enum Constants](#_new_enum_constants_176)
-- [New_Enum_Constants](#_new_enum_constants_176)
-- [Examples](#_examples_21)
-- [Version History](#_version_history_176)
-- [VK_AMD_shader_trinary_minmax](#VK_AMD_shader_trinary_minmax)
+- [New Structures](#_new_structures_162)
+- [New Enum Constants](#_new_enum_constants_177)
+- [New_Enum_Constants](#_new_enum_constants_177)
+- [Examples](#_examples_20)
+- [Version History](#_version_history_177)
+- [VK_AMD_shader_core_properties2](#VK_AMD_shader_core_properties2)
 - [Other Extension Metadata](#_other_extension_metadata_176)
 - [Other_Extension_Metadata](#_other_extension_metadata_176)
 - [Description](#_description_176)
-- [New Enum Constants](#_new_enum_constants_177)
-- [New_Enum_Constants](#_new_enum_constants_177)
-- [Version History](#_version_history_177)
-- [VK_AMD_texture_gather_bias_lod](#VK_AMD_texture_gather_bias_lod)
+- [New Structures](#_new_structures_163)
+- [New Enums](#_new_enums_53)
+- [New Bitmasks](#_new_bitmasks_42)
+- [New Enum Constants](#_new_enum_constants_178)
+- [New_Enum_Constants](#_new_enum_constants_178)
+- [Examples](#_examples_21)
+- [Version History](#_version_history_178)
+- [VK_AMD_shader_early_and_late_fragment_tests](#VK_AMD_shader_early_and_late_fragment_tests)
 - [Other Extension Metadata](#_other_extension_metadata_177)
 - [Other_Extension_Metadata](#_other_extension_metadata_177)
 - [Description](#_description_177)
-- [New Structures](#_new_structures_159)
-- [New Enum Constants](#_new_enum_constants_178)
-- [New_Enum_Constants](#_new_enum_constants_178)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_19)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_19)
-- [Examples](#_examples_22)
-- [Version History](#_version_history_178)
-- [VK_ANDROID_external_format_resolve](#VK_ANDROID_external_format_resolve)
-- [Other Extension Metadata](#_other_extension_metadata_178)
-- [Other_Extension_Metadata](#_other_extension_metadata_178)
-- [Description](#_description_178)
-- [New Structures](#_new_structures_160)
+- [New Structures](#_new_structures_164)
 - [New Enum Constants](#_new_enum_constants_179)
 - [New_Enum_Constants](#_new_enum_constants_179)
 - [Version History](#_version_history_179)
-- [VK_ANDROID_external_memory_android_hardware_buffer](#VK_ANDROID_external_memory_android_hardware_buffer)
+- [VK_AMD_shader_explicit_vertex_parameter](#VK_AMD_shader_explicit_vertex_parameter)
+- [Other Extension Metadata](#_other_extension_metadata_178)
+- [Other_Extension_Metadata](#_other_extension_metadata_178)
+- [Description](#_description_178)
+- [New Enum Constants](#_new_enum_constants_180)
+- [New_Enum_Constants](#_new_enum_constants_180)
+- [Version History](#_version_history_180)
+- [VK_AMD_shader_fragment_mask](#VK_AMD_shader_fragment_mask)
 - [Other Extension Metadata](#_other_extension_metadata_179)
 - [Other_Extension_Metadata](#_other_extension_metadata_179)
 - [Description](#_description_179)
-- [New Base Types](#_new_base_types_4)
-- [New_Base_Types](#_new_base_types_4)
-- [New Commands](#_new_commands_76)
-- [New Structures](#_new_structures_161)
-- [New Enum Constants](#_new_enum_constants_180)
-- [New_Enum_Constants](#_new_enum_constants_180)
-- [Issues](#_issues_79)
-- [Version History](#_version_history_180)
-- [VK_ARM_format_pack](#VK_ARM_format_pack)
+- [New Enum Constants](#_new_enum_constants_181)
+- [New_Enum_Constants](#_new_enum_constants_181)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_19)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_19)
+- [Examples](#_examples_22)
+- [Version History](#_version_history_181)
+- [VK_AMD_shader_image_load_store_lod](#VK_AMD_shader_image_load_store_lod)
 - [Other Extension Metadata](#_other_extension_metadata_180)
 - [Other_Extension_Metadata](#_other_extension_metadata_180)
 - [Description](#_description_180)
-- [New Structures](#_new_structures_162)
-- [New Enum Constants](#_new_enum_constants_181)
-- [New_Enum_Constants](#_new_enum_constants_181)
-- [Issues](#_issues_80)
-- [What do we call this extension?](#_what_do_we_call_this_extension)
-- [What_do_we_call_this_extension?](#_what_do_we_call_this_extension)
-- [Compatibility classes](#_compatibility_classes)
-- [Format feature requirements](#_format_feature_requirements)
-- [Format_feature_requirements](#_format_feature_requirements)
-- [Version History](#_version_history_181)
-- [VK_ARM_pipeline_opacity_micromap](#VK_ARM_pipeline_opacity_micromap)
+- [New Enum Constants](#_new_enum_constants_182)
+- [New_Enum_Constants](#_new_enum_constants_182)
+- [Version History](#_version_history_182)
+- [VK_AMD_shader_info](#VK_AMD_shader_info)
 - [Other Extension Metadata](#_other_extension_metadata_181)
 - [Other_Extension_Metadata](#_other_extension_metadata_181)
 - [Description](#_description_181)
-- [New Structures](#_new_structures_163)
-- [New Enum Constants](#_new_enum_constants_182)
-- [New_Enum_Constants](#_new_enum_constants_182)
-- [Issues](#_issues_81)
+- [New Commands](#_new_commands_76)
+- [New Structures](#_new_structures_165)
+- [New Enums](#_new_enums_54)
+- [New Enum Constants](#_new_enum_constants_183)
+- [New_Enum_Constants](#_new_enum_constants_183)
 - [Examples](#_examples_23)
-- [Version History](#_version_history_182)
-- [VK_ARM_render_pass_striped](#VK_ARM_render_pass_striped)
+- [Version History](#_version_history_183)
+- [VK_AMD_shader_trinary_minmax](#VK_AMD_shader_trinary_minmax)
 - [Other Extension Metadata](#_other_extension_metadata_182)
 - [Other_Extension_Metadata](#_other_extension_metadata_182)
 - [Description](#_description_182)
-- [New Structures](#_new_structures_164)
-- [New Enum Constants](#_new_enum_constants_183)
-- [New_Enum_Constants](#_new_enum_constants_183)
-- [Examples](#_examples_24)
-- [Version History](#_version_history_183)
-- [VK_ARM_scheduling_controls](#VK_ARM_scheduling_controls)
+- [New Enum Constants](#_new_enum_constants_184)
+- [New_Enum_Constants](#_new_enum_constants_184)
+- [Version History](#_version_history_184)
+- [VK_AMD_texture_gather_bias_lod](#VK_AMD_texture_gather_bias_lod)
 - [Other Extension Metadata](#_other_extension_metadata_183)
 - [Other_Extension_Metadata](#_other_extension_metadata_183)
 - [Description](#_description_183)
-- [New Structures](#_new_structures_165)
-- [New Enums](#_new_enums_53)
-- [New Bitmasks](#_new_bitmasks_42)
-- [New Enum Constants](#_new_enum_constants_184)
-- [New_Enum_Constants](#_new_enum_constants_184)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_20)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_20)
-- [Issues](#_issues_82)
-- [Version History](#_version_history_184)
-- [VK_ARM_shader_core_builtins](#VK_ARM_shader_core_builtins)
-- [Other Extension Metadata](#_other_extension_metadata_184)
-- [Other_Extension_Metadata](#_other_extension_metadata_184)
-- [Description](#_description_184)
 - [New Structures](#_new_structures_166)
 - [New Enum Constants](#_new_enum_constants_185)
 - [New_Enum_Constants](#_new_enum_constants_185)
-- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_5)
-- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_5)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_21)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_21)
-- [Issues](#_issues_83)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_20)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_20)
+- [Examples](#_examples_24)
 - [Version History](#_version_history_185)
-- [VK_ARM_shader_core_properties](#VK_ARM_shader_core_properties)
-- [Other Extension Metadata](#_other_extension_metadata_185)
-- [Other_Extension_Metadata](#_other_extension_metadata_185)
-- [Description](#_description_185)
+- [VK_ANDROID_external_format_resolve](#VK_ANDROID_external_format_resolve)
+- [Other Extension Metadata](#_other_extension_metadata_184)
+- [Other_Extension_Metadata](#_other_extension_metadata_184)
+- [Description](#_description_184)
 - [New Structures](#_new_structures_167)
 - [New Enum Constants](#_new_enum_constants_186)
 - [New_Enum_Constants](#_new_enum_constants_186)
 - [Version History](#_version_history_186)
-- [VK_FUCHSIA_buffer_collection](#VK_FUCHSIA_buffer_collection)
+- [VK_ANDROID_external_memory_android_hardware_buffer](#VK_ANDROID_external_memory_android_hardware_buffer)
+- [Other Extension Metadata](#_other_extension_metadata_185)
+- [Other_Extension_Metadata](#_other_extension_metadata_185)
+- [Description](#_description_185)
+- [New Base Types](#_new_base_types_4)
+- [New_Base_Types](#_new_base_types_4)
+- [New Commands](#_new_commands_77)
+- [New Structures](#_new_structures_168)
+- [New Enum Constants](#_new_enum_constants_187)
+- [New_Enum_Constants](#_new_enum_constants_187)
+- [Issues](#_issues_83)
+- [Version History](#_version_history_187)
+- [VK_ARM_data_graph](#VK_ARM_data_graph)
 - [Other Extension Metadata](#_other_extension_metadata_186)
 - [Other_Extension_Metadata](#_other_extension_metadata_186)
 - [Description](#_description_186)
 - [New Object Types](#_new_object_types_13)
 - [New_Object_Types](#_new_object_types_13)
-- [New Commands](#_new_commands_77)
-- [New Structures](#_new_structures_168)
-- [New Enums](#_new_enums_54)
+- [New Commands](#_new_commands_78)
+- [New Structures](#_new_structures_169)
+- [New Enums](#_new_enums_55)
 - [New Bitmasks](#_new_bitmasks_43)
-- [New Enum Constants](#_new_enum_constants_187)
-- [New_Enum_Constants](#_new_enum_constants_187)
+- [New Enum Constants](#_new_enum_constants_188)
+- [New_Enum_Constants](#_new_enum_constants_188)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_21)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_21)
 - [Issues](#_issues_84)
-- [Version History](#_version_history_187)
-- [VK_FUCHSIA_external_memory](#VK_FUCHSIA_external_memory)
+- [Version History](#_version_history_188)
+- [VK_ARM_format_pack](#VK_ARM_format_pack)
 - [Other Extension Metadata](#_other_extension_metadata_187)
 - [Other_Extension_Metadata](#_other_extension_metadata_187)
 - [Description](#_description_187)
-- [New Commands](#_new_commands_78)
-- [New Structures](#_new_structures_169)
-- [New Enum Constants](#_new_enum_constants_188)
-- [New_Enum_Constants](#_new_enum_constants_188)
-- [Issues](#_issues_85)
-- [Version History](#_version_history_188)
-- [VK_FUCHSIA_external_semaphore](#VK_FUCHSIA_external_semaphore)
-- [Other Extension Metadata](#_other_extension_metadata_188)
-- [Other_Extension_Metadata](#_other_extension_metadata_188)
-- [Description](#_description_188)
-- [New Commands](#_new_commands_79)
 - [New Structures](#_new_structures_170)
 - [New Enum Constants](#_new_enum_constants_189)
 - [New_Enum_Constants](#_new_enum_constants_189)
-- [Issues](#_issues_86)
+- [Issues](#_issues_85)
+- [What do we call this extension?](#_what_do_we_call_this_extension)
+- [What_do_we_call_this_extension?](#_what_do_we_call_this_extension)
+- [Compatibility classes](#_compatibility_classes)
+- [Format feature requirements](#_format_feature_requirements)
+- [Format_feature_requirements](#_format_feature_requirements)
 - [Version History](#_version_history_189)
-- [VK_FUCHSIA_imagepipe_surface](#VK_FUCHSIA_imagepipe_surface)
+- [VK_ARM_pipeline_opacity_micromap](#VK_ARM_pipeline_opacity_micromap)
+- [Other Extension Metadata](#_other_extension_metadata_188)
+- [Other_Extension_Metadata](#_other_extension_metadata_188)
+- [Description](#_description_188)
+- [New Structures](#_new_structures_171)
+- [New Enum Constants](#_new_enum_constants_190)
+- [New_Enum_Constants](#_new_enum_constants_190)
+- [Issues](#_issues_86)
+- [Examples](#_examples_25)
+- [Version History](#_version_history_190)
+- [VK_ARM_render_pass_striped](#VK_ARM_render_pass_striped)
 - [Other Extension Metadata](#_other_extension_metadata_189)
 - [Other_Extension_Metadata](#_other_extension_metadata_189)
 - [Description](#_description_189)
-- [New Commands](#_new_commands_80)
-- [New Structures](#_new_structures_171)
-- [New Bitmasks](#_new_bitmasks_44)
-- [New Enum Constants](#_new_enum_constants_190)
-- [New_Enum_Constants](#_new_enum_constants_190)
-- [Version History](#_version_history_190)
-- [VK_GGP_frame_token](#VK_GGP_frame_token)
-- [Other Extension Metadata](#_other_extension_metadata_190)
-- [Other_Extension_Metadata](#_other_extension_metadata_190)
-- [Description](#_description_190)
 - [New Structures](#_new_structures_172)
 - [New Enum Constants](#_new_enum_constants_191)
 - [New_Enum_Constants](#_new_enum_constants_191)
+- [Examples](#_examples_26)
 - [Version History](#_version_history_191)
-- [VK_GGP_stream_descriptor_surface](#VK_GGP_stream_descriptor_surface)
+- [VK_ARM_scheduling_controls](#VK_ARM_scheduling_controls)
+- [Other Extension Metadata](#_other_extension_metadata_190)
+- [Other_Extension_Metadata](#_other_extension_metadata_190)
+- [Description](#_description_190)
+- [New Structures](#_new_structures_173)
+- [New Enums](#_new_enums_56)
+- [New Bitmasks](#_new_bitmasks_44)
+- [New Enum Constants](#_new_enum_constants_192)
+- [New_Enum_Constants](#_new_enum_constants_192)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_22)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_22)
+- [Issues](#_issues_87)
+- [Version History](#_version_history_192)
+- [VK_ARM_shader_core_builtins](#VK_ARM_shader_core_builtins)
 - [Other Extension Metadata](#_other_extension_metadata_191)
 - [Other_Extension_Metadata](#_other_extension_metadata_191)
 - [Description](#_description_191)
-- [New Commands](#_new_commands_81)
-- [New Structures](#_new_structures_173)
-- [New Bitmasks](#_new_bitmasks_45)
-- [New Enum Constants](#_new_enum_constants_192)
-- [New_Enum_Constants](#_new_enum_constants_192)
-- [Version History](#_version_history_192)
-- [VK_GOOGLE_decorate_string](#VK_GOOGLE_decorate_string)
+- [New Structures](#_new_structures_174)
+- [New Enum Constants](#_new_enum_constants_193)
+- [New_Enum_Constants](#_new_enum_constants_193)
+- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_5)
+- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_5)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_23)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_23)
+- [Issues](#_issues_88)
+- [Version History](#_version_history_193)
+- [VK_ARM_shader_core_properties](#VK_ARM_shader_core_properties)
 - [Other Extension Metadata](#_other_extension_metadata_192)
 - [Other_Extension_Metadata](#_other_extension_metadata_192)
 - [Description](#_description_192)
-- [New Enum Constants](#_new_enum_constants_193)
-- [New_Enum_Constants](#_new_enum_constants_193)
-- [Version History](#_version_history_193)
-- [VK_GOOGLE_display_timing](#VK_GOOGLE_display_timing)
+- [New Structures](#_new_structures_175)
+- [New Enum Constants](#_new_enum_constants_194)
+- [New_Enum_Constants](#_new_enum_constants_194)
+- [Version History](#_version_history_194)
+- [VK_ARM_tensors](#VK_ARM_tensors)
 - [Other Extension Metadata](#_other_extension_metadata_193)
 - [Other_Extension_Metadata](#_other_extension_metadata_193)
 - [Description](#_description_193)
-- [New Commands](#_new_commands_82)
-- [New Structures](#_new_structures_174)
-- [New Enum Constants](#_new_enum_constants_194)
-- [New_Enum_Constants](#_new_enum_constants_194)
-- [Examples](#_examples_25)
-- [Version History](#_version_history_194)
-- [VK_GOOGLE_hlsl_functionality1](#VK_GOOGLE_hlsl_functionality1)
+- [New Object Types](#_new_object_types_14)
+- [New_Object_Types](#_new_object_types_14)
+- [New Commands](#_new_commands_79)
+- [New Structures](#_new_structures_176)
+- [New Enums](#_new_enums_57)
+- [New Bitmasks](#_new_bitmasks_45)
+- [New Enum Constants](#_new_enum_constants_195)
+- [New_Enum_Constants](#_new_enum_constants_195)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_24)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_24)
+- [Issues](#_issues_89)
+- [Version History](#_version_history_195)
+- [VK_FUCHSIA_buffer_collection](#VK_FUCHSIA_buffer_collection)
 - [Other Extension Metadata](#_other_extension_metadata_194)
 - [Other_Extension_Metadata](#_other_extension_metadata_194)
 - [Description](#_description_194)
-- [New Enum Constants](#_new_enum_constants_195)
-- [New_Enum_Constants](#_new_enum_constants_195)
-- [Version History](#_version_history_195)
-- [VK_GOOGLE_surfaceless_query](#VK_GOOGLE_surfaceless_query)
+- [New Object Types](#_new_object_types_15)
+- [New_Object_Types](#_new_object_types_15)
+- [New Commands](#_new_commands_80)
+- [New Structures](#_new_structures_177)
+- [New Enums](#_new_enums_58)
+- [New Bitmasks](#_new_bitmasks_46)
+- [New Enum Constants](#_new_enum_constants_196)
+- [New_Enum_Constants](#_new_enum_constants_196)
+- [Issues](#_issues_90)
+- [Version History](#_version_history_196)
+- [VK_FUCHSIA_external_memory](#VK_FUCHSIA_external_memory)
 - [Other Extension Metadata](#_other_extension_metadata_195)
 - [Other_Extension_Metadata](#_other_extension_metadata_195)
 - [Description](#_description_195)
-- [New Enum Constants](#_new_enum_constants_196)
-- [New_Enum_Constants](#_new_enum_constants_196)
-- [Version History](#_version_history_196)
-- [VK_GOOGLE_user_type](#VK_GOOGLE_user_type)
+- [New Commands](#_new_commands_81)
+- [New Structures](#_new_structures_178)
+- [New Enum Constants](#_new_enum_constants_197)
+- [New_Enum_Constants](#_new_enum_constants_197)
+- [Issues](#_issues_91)
+- [Version History](#_version_history_197)
+- [VK_FUCHSIA_external_semaphore](#VK_FUCHSIA_external_semaphore)
 - [Other Extension Metadata](#_other_extension_metadata_196)
 - [Other_Extension_Metadata](#_other_extension_metadata_196)
 - [Description](#_description_196)
-- [New Enum Constants](#_new_enum_constants_197)
-- [New_Enum_Constants](#_new_enum_constants_197)
-- [Version History](#_version_history_197)
-- [VK_HUAWEI_cluster_culling_shader](#VK_HUAWEI_cluster_culling_shader)
+- [New Commands](#_new_commands_82)
+- [New Structures](#_new_structures_179)
+- [New Enum Constants](#_new_enum_constants_198)
+- [New_Enum_Constants](#_new_enum_constants_198)
+- [Issues](#_issues_92)
+- [Version History](#_version_history_198)
+- [VK_FUCHSIA_imagepipe_surface](#VK_FUCHSIA_imagepipe_surface)
 - [Other Extension Metadata](#_other_extension_metadata_197)
 - [Other_Extension_Metadata](#_other_extension_metadata_197)
 - [Description](#_description_197)
 - [New Commands](#_new_commands_83)
-- [New Structures](#_new_structures_175)
-- [New Enum Constants](#_new_enum_constants_198)
-- [New_Enum_Constants](#_new_enum_constants_198)
+- [New Structures](#_new_structures_180)
+- [New Bitmasks](#_new_bitmasks_47)
+- [New Enum Constants](#_new_enum_constants_199)
+- [New_Enum_Constants](#_new_enum_constants_199)
+- [Version History](#_version_history_199)
+- [VK_GGP_frame_token](#VK_GGP_frame_token)
+- [Other Extension Metadata](#_other_extension_metadata_198)
+- [Other_Extension_Metadata](#_other_extension_metadata_198)
+- [Description](#_description_198)
+- [New Structures](#_new_structures_181)
+- [New Enum Constants](#_new_enum_constants_200)
+- [New_Enum_Constants](#_new_enum_constants_200)
+- [Version History](#_version_history_200)
+- [VK_GGP_stream_descriptor_surface](#VK_GGP_stream_descriptor_surface)
+- [Other Extension Metadata](#_other_extension_metadata_199)
+- [Other_Extension_Metadata](#_other_extension_metadata_199)
+- [Description](#_description_199)
+- [New Commands](#_new_commands_84)
+- [New Structures](#_new_structures_182)
+- [New Bitmasks](#_new_bitmasks_48)
+- [New Enum Constants](#_new_enum_constants_201)
+- [New_Enum_Constants](#_new_enum_constants_201)
+- [Version History](#_version_history_201)
+- [VK_GOOGLE_decorate_string](#VK_GOOGLE_decorate_string)
+- [Other Extension Metadata](#_other_extension_metadata_200)
+- [Other_Extension_Metadata](#_other_extension_metadata_200)
+- [Description](#_description_200)
+- [New Enum Constants](#_new_enum_constants_202)
+- [New_Enum_Constants](#_new_enum_constants_202)
+- [Version History](#_version_history_202)
+- [VK_GOOGLE_display_timing](#VK_GOOGLE_display_timing)
+- [Other Extension Metadata](#_other_extension_metadata_201)
+- [Other_Extension_Metadata](#_other_extension_metadata_201)
+- [Description](#_description_201)
+- [New Commands](#_new_commands_85)
+- [New Structures](#_new_structures_183)
+- [New Enum Constants](#_new_enum_constants_203)
+- [New_Enum_Constants](#_new_enum_constants_203)
+- [Examples](#_examples_27)
+- [Version History](#_version_history_203)
+- [VK_GOOGLE_hlsl_functionality1](#VK_GOOGLE_hlsl_functionality1)
+- [Other Extension Metadata](#_other_extension_metadata_202)
+- [Other_Extension_Metadata](#_other_extension_metadata_202)
+- [Description](#_description_202)
+- [New Enum Constants](#_new_enum_constants_204)
+- [New_Enum_Constants](#_new_enum_constants_204)
+- [Version History](#_version_history_204)
+- [VK_GOOGLE_surfaceless_query](#VK_GOOGLE_surfaceless_query)
+- [Other Extension Metadata](#_other_extension_metadata_203)
+- [Other_Extension_Metadata](#_other_extension_metadata_203)
+- [Description](#_description_203)
+- [New Enum Constants](#_new_enum_constants_205)
+- [New_Enum_Constants](#_new_enum_constants_205)
+- [Version History](#_version_history_205)
+- [VK_GOOGLE_user_type](#VK_GOOGLE_user_type)
+- [Other Extension Metadata](#_other_extension_metadata_204)
+- [Other_Extension_Metadata](#_other_extension_metadata_204)
+- [Description](#_description_204)
+- [New Enum Constants](#_new_enum_constants_206)
+- [New_Enum_Constants](#_new_enum_constants_206)
+- [Version History](#_version_history_206)
+- [VK_HUAWEI_cluster_culling_shader](#VK_HUAWEI_cluster_culling_shader)
+- [Other Extension Metadata](#_other_extension_metadata_205)
+- [Other_Extension_Metadata](#_other_extension_metadata_205)
+- [Description](#_description_205)
+- [New Commands](#_new_commands_86)
+- [New Structures](#_new_structures_184)
+- [New Enum Constants](#_new_enum_constants_207)
+- [New_Enum_Constants](#_new_enum_constants_207)
 - [New Built-In Variables](#_new_built_in_variables_5)
 - [New_Built-In_Variables](#_new_built_in_variables_5)
 - [New SPIR-V Capability](#_new_spir_v_capability_3)
 - [New_SPIR-V_Capability](#_new_spir_v_capability_3)
 - [Sample Code](#_sample_code_3)
-- [Version History](#_version_history_198)
+- [Version History](#_version_history_207)
 - [VK_HUAWEI_hdr_vivid](#VK_HUAWEI_hdr_vivid)
-- [Other Extension Metadata](#_other_extension_metadata_198)
-- [Other_Extension_Metadata](#_other_extension_metadata_198)
-- [Description](#_description_198)
-- [New Structures](#_new_structures_176)
-- [New Enum Constants](#_new_enum_constants_199)
-- [New_Enum_Constants](#_new_enum_constants_199)
-- [Version History](#_version_history_199)
-- [VK_HUAWEI_invocation_mask](#VK_HUAWEI_invocation_mask)
-- [Other Extension Metadata](#_other_extension_metadata_199)
-- [Other_Extension_Metadata](#_other_extension_metadata_199)
-- [Description](#_description_199)
-- [New Commands](#_new_commands_84)
-- [New Structures](#_new_structures_177)
-- [New Enum Constants](#_new_enum_constants_200)
-- [New_Enum_Constants](#_new_enum_constants_200)
-- [Examples](#_examples_26)
-- [Version History](#_version_history_200)
-- [VK_HUAWEI_subpass_shading](#VK_HUAWEI_subpass_shading)
-- [Other Extension Metadata](#_other_extension_metadata_200)
-- [Other_Extension_Metadata](#_other_extension_metadata_200)
-- [Description](#_description_200)
-- [New Commands](#_new_commands_85)
-- [New Structures](#_new_structures_178)
-- [New Enum Constants](#_new_enum_constants_201)
-- [New_Enum_Constants](#_new_enum_constants_201)
-- [Sample Code](#_sample_code_4)
-- [Version History](#_version_history_201)
-- [VK_IMG_filter_cubic](#VK_IMG_filter_cubic)
-- [Other Extension Metadata](#_other_extension_metadata_201)
-- [Other_Extension_Metadata](#_other_extension_metadata_201)
-- [Description](#_description_201)
-- [New Enum Constants](#_new_enum_constants_202)
-- [New_Enum_Constants](#_new_enum_constants_202)
-- [Example](#_example_3)
-- [Version History](#_version_history_202)
-- [VK_IMG_relaxed_line_rasterization](#VK_IMG_relaxed_line_rasterization)
-- [Other Extension Metadata](#_other_extension_metadata_202)
-- [Other_Extension_Metadata](#_other_extension_metadata_202)
-- [Description](#_description_202)
-- [New Structures](#_new_structures_179)
-- [New Enum Constants](#_new_enum_constants_203)
-- [New_Enum_Constants](#_new_enum_constants_203)
-- [Issues](#_issues_87)
-- [Version History](#_version_history_203)
-- [VK_INTEL_performance_query](#VK_INTEL_performance_query)
-- [Other Extension Metadata](#_other_extension_metadata_203)
-- [Other_Extension_Metadata](#_other_extension_metadata_203)
-- [Description](#_description_203)
-- [New Object Types](#_new_object_types_14)
-- [New_Object_Types](#_new_object_types_14)
-- [New Commands](#_new_commands_86)
-- [New Structures](#_new_structures_180)
-- [New Unions](#_new_unions_6)
-- [New Enums](#_new_enums_55)
-- [New Enum Constants](#_new_enum_constants_204)
-- [New_Enum_Constants](#_new_enum_constants_204)
-- [Example Code](#_example_code_2)
-- [Version History](#_version_history_204)
-- [VK_INTEL_shader_integer_functions2](#VK_INTEL_shader_integer_functions2)
-- [Other Extension Metadata](#_other_extension_metadata_204)
-- [Other_Extension_Metadata](#_other_extension_metadata_204)
-- [Description](#_description_204)
-- [New Structures](#_new_structures_181)
-- [New Enum Constants](#_new_enum_constants_205)
-- [New_Enum_Constants](#_new_enum_constants_205)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_22)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_22)
-- [Version History](#_version_history_205)
-- [VK_LUNARG_direct_driver_loading](#VK_LUNARG_direct_driver_loading)
-- [Other Extension Metadata](#_other_extension_metadata_205)
-- [Other_Extension_Metadata](#_other_extension_metadata_205)
-- [Description](#_description_205)
-- [New Structures](#_new_structures_182)
-- [New Function Pointers](#_new_function_pointers_3)
-- [New_Function_Pointers](#_new_function_pointers_3)
-- [New Enums](#_new_enums_56)
-- [New Bitmasks](#_new_bitmasks_46)
-- [New Enum Constants](#_new_enum_constants_206)
-- [New_Enum_Constants](#_new_enum_constants_206)
-- [Version History](#_version_history_206)
-- [VK_MESA_image_alignment_control](#VK_MESA_image_alignment_control)
 - [Other Extension Metadata](#_other_extension_metadata_206)
 - [Other_Extension_Metadata](#_other_extension_metadata_206)
 - [Description](#_description_206)
-- [New Structures](#_new_structures_183)
-- [New Enum Constants](#_new_enum_constants_207)
-- [New_Enum_Constants](#_new_enum_constants_207)
-- [Version History](#_version_history_207)
-- [VK_MSFT_layered_driver](#VK_MSFT_layered_driver)
+- [New Structures](#_new_structures_185)
+- [New Enum Constants](#_new_enum_constants_208)
+- [New_Enum_Constants](#_new_enum_constants_208)
+- [Version History](#_version_history_208)
+- [VK_HUAWEI_invocation_mask](#VK_HUAWEI_invocation_mask)
 - [Other Extension Metadata](#_other_extension_metadata_207)
 - [Other_Extension_Metadata](#_other_extension_metadata_207)
 - [Description](#_description_207)
-- [New Structures](#_new_structures_184)
-- [New Enums](#_new_enums_57)
-- [New Enum Constants](#_new_enum_constants_208)
-- [New_Enum_Constants](#_new_enum_constants_208)
-- [Examples](#_examples_27)
-- [Version History](#_version_history_208)
-- [VK_NN_vi_surface](#VK_NN_vi_surface)
+- [New Commands](#_new_commands_87)
+- [New Structures](#_new_structures_186)
+- [New Enum Constants](#_new_enum_constants_209)
+- [New_Enum_Constants](#_new_enum_constants_209)
+- [Examples](#_examples_28)
+- [Version History](#_version_history_209)
+- [VK_HUAWEI_subpass_shading](#VK_HUAWEI_subpass_shading)
 - [Other Extension Metadata](#_other_extension_metadata_208)
 - [Other_Extension_Metadata](#_other_extension_metadata_208)
 - [Description](#_description_208)
-- [New Commands](#_new_commands_87)
-- [New Structures](#_new_structures_185)
-- [New Bitmasks](#_new_bitmasks_47)
-- [New Enum Constants](#_new_enum_constants_209)
-- [New_Enum_Constants](#_new_enum_constants_209)
-- [Issues](#_issues_88)
-- [Version History](#_version_history_209)
-- [VK_NV_acquire_winrt_display](#VK_NV_acquire_winrt_display)
+- [New Commands](#_new_commands_88)
+- [New Structures](#_new_structures_187)
+- [New Enum Constants](#_new_enum_constants_210)
+- [New_Enum_Constants](#_new_enum_constants_210)
+- [Sample Code](#_sample_code_4)
+- [Version History](#_version_history_210)
+- [VK_IMG_filter_cubic](#VK_IMG_filter_cubic)
 - [Other Extension Metadata](#_other_extension_metadata_209)
 - [Other_Extension_Metadata](#_other_extension_metadata_209)
 - [Description](#_description_209)
-- [New Commands](#_new_commands_88)
-- [New Enum Constants](#_new_enum_constants_210)
-- [New_Enum_Constants](#_new_enum_constants_210)
-- [Issues](#_issues_89)
-- [Version History](#_version_history_210)
-- [VK_NV_clip_space_w_scaling](#VK_NV_clip_space_w_scaling)
+- [New Enum Constants](#_new_enum_constants_211)
+- [New_Enum_Constants](#_new_enum_constants_211)
+- [Example](#_example_3)
+- [Version History](#_version_history_211)
+- [VK_IMG_relaxed_line_rasterization](#VK_IMG_relaxed_line_rasterization)
 - [Other Extension Metadata](#_other_extension_metadata_210)
 - [Other_Extension_Metadata](#_other_extension_metadata_210)
 - [Description](#_description_210)
-- [New Commands](#_new_commands_89)
-- [New Structures](#_new_structures_186)
-- [New Enum Constants](#_new_enum_constants_211)
-- [New_Enum_Constants](#_new_enum_constants_211)
-- [Issues](#_issues_90)
-- [Examples](#_examples_28)
-- [Version History](#_version_history_211)
-- [VK_NV_cluster_acceleration_structure](#VK_NV_cluster_acceleration_structure)
+- [New Structures](#_new_structures_188)
+- [New Enum Constants](#_new_enum_constants_212)
+- [New_Enum_Constants](#_new_enum_constants_212)
+- [Issues](#_issues_93)
+- [Version History](#_version_history_212)
+- [VK_INTEL_performance_query](#VK_INTEL_performance_query)
 - [Other Extension Metadata](#_other_extension_metadata_211)
 - [Other_Extension_Metadata](#_other_extension_metadata_211)
 - [Description](#_description_211)
+- [New Object Types](#_new_object_types_16)
+- [New_Object_Types](#_new_object_types_16)
+- [New Commands](#_new_commands_89)
+- [New Structures](#_new_structures_189)
+- [New Unions](#_new_unions_6)
+- [New Enums](#_new_enums_59)
+- [New Enum Constants](#_new_enum_constants_213)
+- [New_Enum_Constants](#_new_enum_constants_213)
+- [Example Code](#_example_code_2)
+- [Version History](#_version_history_213)
+- [VK_INTEL_shader_integer_functions2](#VK_INTEL_shader_integer_functions2)
+- [Other Extension Metadata](#_other_extension_metadata_212)
+- [Other_Extension_Metadata](#_other_extension_metadata_212)
+- [Description](#_description_212)
+- [New Structures](#_new_structures_190)
+- [New Enum Constants](#_new_enum_constants_214)
+- [New_Enum_Constants](#_new_enum_constants_214)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_25)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_25)
+- [Version History](#_version_history_214)
+- [VK_LUNARG_direct_driver_loading](#VK_LUNARG_direct_driver_loading)
+- [Other Extension Metadata](#_other_extension_metadata_213)
+- [Other_Extension_Metadata](#_other_extension_metadata_213)
+- [Description](#_description_213)
+- [New Structures](#_new_structures_191)
+- [New Function Pointers](#_new_function_pointers_3)
+- [New_Function_Pointers](#_new_function_pointers_3)
+- [New Enums](#_new_enums_60)
+- [New Bitmasks](#_new_bitmasks_49)
+- [New Enum Constants](#_new_enum_constants_215)
+- [New_Enum_Constants](#_new_enum_constants_215)
+- [Version History](#_version_history_215)
+- [VK_MESA_image_alignment_control](#VK_MESA_image_alignment_control)
+- [Other Extension Metadata](#_other_extension_metadata_214)
+- [Other_Extension_Metadata](#_other_extension_metadata_214)
+- [Description](#_description_214)
+- [New Structures](#_new_structures_192)
+- [New Enum Constants](#_new_enum_constants_216)
+- [New_Enum_Constants](#_new_enum_constants_216)
+- [Version History](#_version_history_216)
+- [VK_MSFT_layered_driver](#VK_MSFT_layered_driver)
+- [Other Extension Metadata](#_other_extension_metadata_215)
+- [Other_Extension_Metadata](#_other_extension_metadata_215)
+- [Description](#_description_215)
+- [New Structures](#_new_structures_193)
+- [New Enums](#_new_enums_61)
+- [New Enum Constants](#_new_enum_constants_217)
+- [New_Enum_Constants](#_new_enum_constants_217)
+- [Examples](#_examples_29)
+- [Version History](#_version_history_217)
+- [VK_NN_vi_surface](#VK_NN_vi_surface)
+- [Other Extension Metadata](#_other_extension_metadata_216)
+- [Other_Extension_Metadata](#_other_extension_metadata_216)
+- [Description](#_description_216)
 - [New Commands](#_new_commands_90)
-- [New Structures](#_new_structures_187)
+- [New Structures](#_new_structures_194)
+- [New Bitmasks](#_new_bitmasks_50)
+- [New Enum Constants](#_new_enum_constants_218)
+- [New_Enum_Constants](#_new_enum_constants_218)
+- [Issues](#_issues_94)
+- [Version History](#_version_history_218)
+- [VK_NV_acquire_winrt_display](#VK_NV_acquire_winrt_display)
+- [Other Extension Metadata](#_other_extension_metadata_217)
+- [Other_Extension_Metadata](#_other_extension_metadata_217)
+- [Description](#_description_217)
+- [New Commands](#_new_commands_91)
+- [New Enum Constants](#_new_enum_constants_219)
+- [New_Enum_Constants](#_new_enum_constants_219)
+- [Issues](#_issues_95)
+- [Version History](#_version_history_219)
+- [VK_NV_clip_space_w_scaling](#VK_NV_clip_space_w_scaling)
+- [Other Extension Metadata](#_other_extension_metadata_218)
+- [Other_Extension_Metadata](#_other_extension_metadata_218)
+- [Description](#_description_218)
+- [New Commands](#_new_commands_92)
+- [New Structures](#_new_structures_195)
+- [New Enum Constants](#_new_enum_constants_220)
+- [New_Enum_Constants](#_new_enum_constants_220)
+- [Issues](#_issues_96)
+- [Examples](#_examples_30)
+- [Version History](#_version_history_220)
+- [VK_NV_cluster_acceleration_structure](#VK_NV_cluster_acceleration_structure)
+- [Other Extension Metadata](#_other_extension_metadata_219)
+- [Other_Extension_Metadata](#_other_extension_metadata_219)
+- [Description](#_description_219)
+- [New Commands](#_new_commands_93)
+- [New Structures](#_new_structures_196)
 - [New Unions](#_new_unions_7)
-- [New Enums](#_new_enums_58)
-- [New Bitmasks](#_new_bitmasks_48)
-- [New Enum Constants](#_new_enum_constants_212)
-- [New_Enum_Constants](#_new_enum_constants_212)
+- [New Enums](#_new_enums_62)
+- [New Bitmasks](#_new_bitmasks_51)
+- [New Enum Constants](#_new_enum_constants_221)
+- [New_Enum_Constants](#_new_enum_constants_221)
 - [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_6)
 - [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_6)
 - [New SPIR-V Capability](#_new_spir_v_capability_4)
 - [New_SPIR-V_Capability](#_new_spir_v_capability_4)
-- [Version History](#_version_history_212)
+- [Version History](#_version_history_221)
 - [VK_NV_command_buffer_inheritance](#VK_NV_command_buffer_inheritance)
-- [Other Extension Metadata](#_other_extension_metadata_212)
-- [Other_Extension_Metadata](#_other_extension_metadata_212)
-- [Description](#_description_212)
-- [New Structures](#_new_structures_188)
-- [New Enum Constants](#_new_enum_constants_213)
-- [New_Enum_Constants](#_new_enum_constants_213)
-- [Issues](#_issues_91)
-- [Version History](#_version_history_213)
-- [VK_NV_cooperative_matrix](#VK_NV_cooperative_matrix)
-- [Other Extension Metadata](#_other_extension_metadata_213)
-- [Other_Extension_Metadata](#_other_extension_metadata_213)
-- [Description](#_description_213)
-- [New Commands](#_new_commands_91)
-- [New Structures](#_new_structures_189)
-- [New Enums](#_new_enums_59)
-- [New Enum Constants](#_new_enum_constants_214)
-- [New_Enum_Constants](#_new_enum_constants_214)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_23)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_23)
-- [Issues](#_issues_92)
-- [Version History](#_version_history_214)
-- [VK_NV_cooperative_matrix2](#VK_NV_cooperative_matrix2)
-- [Other Extension Metadata](#_other_extension_metadata_214)
-- [Other_Extension_Metadata](#_other_extension_metadata_214)
-- [Description](#_description_214)
-- [New Commands](#_new_commands_92)
-- [New Structures](#_new_structures_190)
-- [New Enum Constants](#_new_enum_constants_215)
-- [New_Enum_Constants](#_new_enum_constants_215)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_24)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_24)
-- [Issues](#_issues_93)
-- [Version History](#_version_history_215)
-- [VK_NV_cooperative_vector](#VK_NV_cooperative_vector)
-- [Other Extension Metadata](#_other_extension_metadata_215)
-- [Other_Extension_Metadata](#_other_extension_metadata_215)
-- [Description](#_description_215)
-- [New Commands](#_new_commands_93)
-- [New Structures](#_new_structures_191)
-- [New Unions](#_new_unions_8)
-- [New Enums](#_new_enums_60)
-- [New Enum Constants](#_new_enum_constants_216)
-- [New_Enum_Constants](#_new_enum_constants_216)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_25)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_25)
-- [Issues](#_issues_94)
-- [Version History](#_version_history_216)
-- [VK_NV_copy_memory_indirect](#VK_NV_copy_memory_indirect)
-- [Other Extension Metadata](#_other_extension_metadata_216)
-- [Other_Extension_Metadata](#_other_extension_metadata_216)
-- [Description](#_description_216)
-- [New Commands](#_new_commands_94)
-- [New Structures](#_new_structures_192)
-- [New Enum Constants](#_new_enum_constants_217)
-- [New_Enum_Constants](#_new_enum_constants_217)
-- [Version History](#_version_history_217)
-- [VK_NV_corner_sampled_image](#VK_NV_corner_sampled_image)
-- [Other Extension Metadata](#_other_extension_metadata_217)
-- [Other_Extension_Metadata](#_other_extension_metadata_217)
-- [Description](#_description_217)
-- [New Structures](#_new_structures_193)
-- [New Enum Constants](#_new_enum_constants_218)
-- [New_Enum_Constants](#_new_enum_constants_218)
-- [Issues](#_issues_95)
-- [Version History](#_version_history_218)
-- [VK_NV_coverage_reduction_mode](#VK_NV_coverage_reduction_mode)
-- [Other Extension Metadata](#_other_extension_metadata_218)
-- [Other_Extension_Metadata](#_other_extension_metadata_218)
-- [Description](#_description_218)
-- [New Commands](#_new_commands_95)
-- [New Structures](#_new_structures_194)
-- [New Enums](#_new_enums_61)
-- [New Bitmasks](#_new_bitmasks_49)
-- [New Enum Constants](#_new_enum_constants_219)
-- [New_Enum_Constants](#_new_enum_constants_219)
-- [Version History](#_version_history_219)
-- [VK_NV_dedicated_allocation_image_aliasing](#VK_NV_dedicated_allocation_image_aliasing)
-- [Other Extension Metadata](#_other_extension_metadata_219)
-- [Other_Extension_Metadata](#_other_extension_metadata_219)
-- [Description](#_description_219)
-- [New Structures](#_new_structures_195)
-- [New Enum Constants](#_new_enum_constants_220)
-- [New_Enum_Constants](#_new_enum_constants_220)
-- [Version History](#_version_history_220)
-- [VK_NV_descriptor_pool_overallocation](#VK_NV_descriptor_pool_overallocation)
 - [Other Extension Metadata](#_other_extension_metadata_220)
 - [Other_Extension_Metadata](#_other_extension_metadata_220)
 - [Description](#_description_220)
-- [New Structures](#_new_structures_196)
-- [New Enum Constants](#_new_enum_constants_221)
-- [New_Enum_Constants](#_new_enum_constants_221)
-- [Version History](#_version_history_221)
-- [VK_NV_device_diagnostic_checkpoints](#VK_NV_device_diagnostic_checkpoints)
-- [Other Extension Metadata](#_other_extension_metadata_221)
-- [Other_Extension_Metadata](#_other_extension_metadata_221)
-- [Description](#_description_221)
-- [New Commands](#_new_commands_96)
 - [New Structures](#_new_structures_197)
 - [New Enum Constants](#_new_enum_constants_222)
 - [New_Enum_Constants](#_new_enum_constants_222)
+- [Issues](#_issues_97)
 - [Version History](#_version_history_222)
-- [VK_NV_device_diagnostics_config](#VK_NV_device_diagnostics_config)
+- [VK_NV_cooperative_matrix](#VK_NV_cooperative_matrix)
+- [Other Extension Metadata](#_other_extension_metadata_221)
+- [Other_Extension_Metadata](#_other_extension_metadata_221)
+- [Description](#_description_221)
+- [New Commands](#_new_commands_94)
+- [New Structures](#_new_structures_198)
+- [New Enums](#_new_enums_63)
+- [New Enum Constants](#_new_enum_constants_223)
+- [New_Enum_Constants](#_new_enum_constants_223)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_26)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_26)
+- [Issues](#_issues_98)
+- [Version History](#_version_history_223)
+- [VK_NV_cooperative_matrix2](#VK_NV_cooperative_matrix2)
 - [Other Extension Metadata](#_other_extension_metadata_222)
 - [Other_Extension_Metadata](#_other_extension_metadata_222)
 - [Description](#_description_222)
-- [New Structures](#_new_structures_198)
-- [New Enums](#_new_enums_62)
-- [New Bitmasks](#_new_bitmasks_50)
-- [New Enum Constants](#_new_enum_constants_223)
-- [New_Enum_Constants](#_new_enum_constants_223)
-- [Version History](#_version_history_223)
-- [VK_NV_device_generated_commands](#VK_NV_device_generated_commands)
+- [New Commands](#_new_commands_95)
+- [New Structures](#_new_structures_199)
+- [New Enum Constants](#_new_enum_constants_224)
+- [New_Enum_Constants](#_new_enum_constants_224)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_27)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_27)
+- [Issues](#_issues_99)
+- [Version History](#_version_history_224)
+- [VK_NV_cooperative_vector](#VK_NV_cooperative_vector)
 - [Other Extension Metadata](#_other_extension_metadata_223)
 - [Other_Extension_Metadata](#_other_extension_metadata_223)
 - [Description](#_description_223)
-- [New Object Types](#_new_object_types_15)
-- [New_Object_Types](#_new_object_types_15)
-- [New Commands](#_new_commands_97)
-- [New Structures](#_new_structures_199)
-- [New Enums](#_new_enums_63)
-- [New Bitmasks](#_new_bitmasks_51)
-- [New Enum Constants](#_new_enum_constants_224)
-- [New_Enum_Constants](#_new_enum_constants_224)
-- [Issues](#_issues_96)
-- [Example Code](#_example_code_3)
-- [Version History](#_version_history_224)
-- [VK_NV_device_generated_commands_compute](#VK_NV_device_generated_commands_compute)
+- [New Commands](#_new_commands_96)
+- [New Structures](#_new_structures_200)
+- [New Unions](#_new_unions_8)
+- [New Enums](#_new_enums_64)
+- [New Enum Constants](#_new_enum_constants_225)
+- [New_Enum_Constants](#_new_enum_constants_225)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_28)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_28)
+- [Issues](#_issues_100)
+- [Version History](#_version_history_225)
+- [VK_NV_copy_memory_indirect](#VK_NV_copy_memory_indirect)
 - [Other Extension Metadata](#_other_extension_metadata_224)
 - [Other_Extension_Metadata](#_other_extension_metadata_224)
 - [Description](#_description_224)
-- [New Commands](#_new_commands_98)
-- [New Structures](#_new_structures_200)
-- [New Enum Constants](#_new_enum_constants_225)
-- [New_Enum_Constants](#_new_enum_constants_225)
-- [Version History](#_version_history_225)
-- [VK_NV_display_stereo](#VK_NV_display_stereo)
-- [Other Extension Metadata](#_other_extension_metadata_225)
-- [Other_Extension_Metadata](#_other_extension_metadata_225)
-- [Description](#_description_225)
+- [New Commands](#_new_commands_97)
 - [New Structures](#_new_structures_201)
-- [New Enums](#_new_enums_64)
 - [New Enum Constants](#_new_enum_constants_226)
 - [New_Enum_Constants](#_new_enum_constants_226)
 - [Version History](#_version_history_226)
-- [VK_NV_extended_sparse_address_space](#VK_NV_extended_sparse_address_space)
-- [Other Extension Metadata](#_other_extension_metadata_226)
-- [Other_Extension_Metadata](#_other_extension_metadata_226)
-- [Description](#_description_226)
+- [VK_NV_corner_sampled_image](#VK_NV_corner_sampled_image)
+- [Other Extension Metadata](#_other_extension_metadata_225)
+- [Other_Extension_Metadata](#_other_extension_metadata_225)
+- [Description](#_description_225)
 - [New Structures](#_new_structures_202)
 - [New Enum Constants](#_new_enum_constants_227)
 - [New_Enum_Constants](#_new_enum_constants_227)
+- [Issues](#_issues_101)
 - [Version History](#_version_history_227)
-- [VK_NV_external_compute_queue](#VK_NV_external_compute_queue)
+- [VK_NV_coverage_reduction_mode](#VK_NV_coverage_reduction_mode)
+- [Other Extension Metadata](#_other_extension_metadata_226)
+- [Other_Extension_Metadata](#_other_extension_metadata_226)
+- [Description](#_description_226)
+- [New Commands](#_new_commands_98)
+- [New Structures](#_new_structures_203)
+- [New Enums](#_new_enums_65)
+- [New Bitmasks](#_new_bitmasks_52)
+- [New Enum Constants](#_new_enum_constants_228)
+- [New_Enum_Constants](#_new_enum_constants_228)
+- [Version History](#_version_history_228)
+- [VK_NV_dedicated_allocation_image_aliasing](#VK_NV_dedicated_allocation_image_aliasing)
 - [Other Extension Metadata](#_other_extension_metadata_227)
 - [Other_Extension_Metadata](#_other_extension_metadata_227)
 - [Description](#_description_227)
-- [New Object Types](#_new_object_types_16)
-- [New_Object_Types](#_new_object_types_16)
-- [New Commands](#_new_commands_99)
-- [New Structures](#_new_structures_203)
-- [New Enum Constants](#_new_enum_constants_228)
-- [New_Enum_Constants](#_new_enum_constants_228)
-- [Issues](#_issues_97)
-- [Version History](#_version_history_228)
-- [VK_NV_external_memory_rdma](#VK_NV_external_memory_rdma)
-- [Other Extension Metadata](#_other_extension_metadata_228)
-- [Other_Extension_Metadata](#_other_extension_metadata_228)
-- [Description](#_description_228)
-- [New Base Types](#_new_base_types_5)
-- [New_Base_Types](#_new_base_types_5)
-- [New Commands](#_new_commands_100)
 - [New Structures](#_new_structures_204)
 - [New Enum Constants](#_new_enum_constants_229)
 - [New_Enum_Constants](#_new_enum_constants_229)
-- [Issues](#_issues_98)
-- [Examples](#_examples_29)
 - [Version History](#_version_history_229)
-- [VK_NV_fill_rectangle](#VK_NV_fill_rectangle)
-- [Other Extension Metadata](#_other_extension_metadata_229)
-- [Other_Extension_Metadata](#_other_extension_metadata_229)
-- [Description](#_description_229)
+- [VK_NV_descriptor_pool_overallocation](#VK_NV_descriptor_pool_overallocation)
+- [Other Extension Metadata](#_other_extension_metadata_228)
+- [Other_Extension_Metadata](#_other_extension_metadata_228)
+- [Description](#_description_228)
+- [New Structures](#_new_structures_205)
 - [New Enum Constants](#_new_enum_constants_230)
 - [New_Enum_Constants](#_new_enum_constants_230)
 - [Version History](#_version_history_230)
-- [VK_NV_fragment_coverage_to_color](#VK_NV_fragment_coverage_to_color)
-- [Other Extension Metadata](#_other_extension_metadata_230)
-- [Other_Extension_Metadata](#_other_extension_metadata_230)
-- [Description](#_description_230)
-- [New Structures](#_new_structures_205)
-- [New Bitmasks](#_new_bitmasks_52)
+- [VK_NV_device_diagnostic_checkpoints](#VK_NV_device_diagnostic_checkpoints)
+- [Other Extension Metadata](#_other_extension_metadata_229)
+- [Other_Extension_Metadata](#_other_extension_metadata_229)
+- [Description](#_description_229)
+- [New Commands](#_new_commands_99)
+- [New Structures](#_new_structures_206)
 - [New Enum Constants](#_new_enum_constants_231)
 - [New_Enum_Constants](#_new_enum_constants_231)
 - [Version History](#_version_history_231)
-- [VK_NV_fragment_shading_rate_enums](#VK_NV_fragment_shading_rate_enums)
-- [Other Extension Metadata](#_other_extension_metadata_231)
-- [Other_Extension_Metadata](#_other_extension_metadata_231)
-- [Description](#_description_231)
-- [New Commands](#_new_commands_101)
-- [New Structures](#_new_structures_206)
-- [New Enums](#_new_enums_65)
-- [New Enum Constants](#_new_enum_constants_232)
-- [New_Enum_Constants](#_new_enum_constants_232)
-- [Issues](#_issues_99)
-- [Version History](#_version_history_232)
-- [VK_NV_framebuffer_mixed_samples](#VK_NV_framebuffer_mixed_samples)
-- [Other Extension Metadata](#_other_extension_metadata_232)
-- [Other_Extension_Metadata](#_other_extension_metadata_232)
-- [Description](#_description_232)
+- [VK_NV_device_diagnostics_config](#VK_NV_device_diagnostics_config)
+- [Other Extension Metadata](#_other_extension_metadata_230)
+- [Other_Extension_Metadata](#_other_extension_metadata_230)
+- [Description](#_description_230)
 - [New Structures](#_new_structures_207)
 - [New Enums](#_new_enums_66)
 - [New Bitmasks](#_new_bitmasks_53)
+- [New Enum Constants](#_new_enum_constants_232)
+- [New_Enum_Constants](#_new_enum_constants_232)
+- [Version History](#_version_history_232)
+- [VK_NV_device_generated_commands](#VK_NV_device_generated_commands)
+- [Other Extension Metadata](#_other_extension_metadata_231)
+- [Other_Extension_Metadata](#_other_extension_metadata_231)
+- [Description](#_description_231)
+- [New Object Types](#_new_object_types_17)
+- [New_Object_Types](#_new_object_types_17)
+- [New Commands](#_new_commands_100)
+- [New Structures](#_new_structures_208)
+- [New Enums](#_new_enums_67)
+- [New Bitmasks](#_new_bitmasks_54)
 - [New Enum Constants](#_new_enum_constants_233)
 - [New_Enum_Constants](#_new_enum_constants_233)
+- [Issues](#_issues_102)
+- [Example Code](#_example_code_3)
 - [Version History](#_version_history_233)
-- [VK_NV_geometry_shader_passthrough](#VK_NV_geometry_shader_passthrough)
+- [VK_NV_device_generated_commands_compute](#VK_NV_device_generated_commands_compute)
+- [Other Extension Metadata](#_other_extension_metadata_232)
+- [Other_Extension_Metadata](#_other_extension_metadata_232)
+- [Description](#_description_232)
+- [New Commands](#_new_commands_101)
+- [New Structures](#_new_structures_209)
+- [New Enum Constants](#_new_enum_constants_234)
+- [New_Enum_Constants](#_new_enum_constants_234)
+- [Version History](#_version_history_234)
+- [VK_NV_display_stereo](#VK_NV_display_stereo)
 - [Other Extension Metadata](#_other_extension_metadata_233)
 - [Other_Extension_Metadata](#_other_extension_metadata_233)
 - [Description](#_description_233)
-- [New Enum Constants](#_new_enum_constants_234)
-- [New_Enum_Constants](#_new_enum_constants_234)
-- [New Variable Decoration](#_new_variable_decoration)
-- [New_Variable_Decoration](#_new_variable_decoration)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_26)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_26)
-- [Issues](#_issues_100)
-- [Sample Code](#_sample_code_5)
-- [Version History](#_version_history_234)
-- [VK_NV_inherited_viewport_scissor](#VK_NV_inherited_viewport_scissor)
+- [New Structures](#_new_structures_210)
+- [New Enums](#_new_enums_68)
+- [New Enum Constants](#_new_enum_constants_235)
+- [New_Enum_Constants](#_new_enum_constants_235)
+- [Version History](#_version_history_235)
+- [VK_NV_extended_sparse_address_space](#VK_NV_extended_sparse_address_space)
 - [Other Extension Metadata](#_other_extension_metadata_234)
 - [Other_Extension_Metadata](#_other_extension_metadata_234)
 - [Description](#_description_234)
-- [New Structures](#_new_structures_208)
-- [New Enum Constants](#_new_enum_constants_235)
-- [New_Enum_Constants](#_new_enum_constants_235)
-- [Issues](#_issues_101)
-- [Version History](#_version_history_235)
-- [VK_NV_linear_color_attachment](#VK_NV_linear_color_attachment)
-- [Other Extension Metadata](#_other_extension_metadata_235)
-- [Other_Extension_Metadata](#_other_extension_metadata_235)
-- [Description](#_description_235)
-- [New Structures](#_new_structures_209)
+- [New Structures](#_new_structures_211)
 - [New Enum Constants](#_new_enum_constants_236)
 - [New_Enum_Constants](#_new_enum_constants_236)
 - [Version History](#_version_history_236)
-- [VK_NV_low_latency](#VK_NV_low_latency)
+- [VK_NV_external_compute_queue](#VK_NV_external_compute_queue)
+- [Other Extension Metadata](#_other_extension_metadata_235)
+- [Other_Extension_Metadata](#_other_extension_metadata_235)
+- [Description](#_description_235)
+- [New Object Types](#_new_object_types_18)
+- [New_Object_Types](#_new_object_types_18)
+- [New Commands](#_new_commands_102)
+- [New Structures](#_new_structures_212)
+- [New Enum Constants](#_new_enum_constants_237)
+- [New_Enum_Constants](#_new_enum_constants_237)
+- [Issues](#_issues_103)
+- [Version History](#_version_history_237)
+- [VK_NV_external_memory_rdma](#VK_NV_external_memory_rdma)
 - [Other Extension Metadata](#_other_extension_metadata_236)
 - [Other_Extension_Metadata](#_other_extension_metadata_236)
 - [Description](#_description_236)
-- [New Structures](#_new_structures_210)
-- [New Enum Constants](#_new_enum_constants_237)
-- [New_Enum_Constants](#_new_enum_constants_237)
-- [Issues](#_issues_102)
-- [Version History](#_version_history_237)
-- [VK_NV_low_latency2](#VK_NV_low_latency2)
-- [Other Extension Metadata](#_other_extension_metadata_237)
-- [Other_Extension_Metadata](#_other_extension_metadata_237)
-- [New Commands](#_new_commands_102)
-- [New Structures](#_new_structures_211)
-- [New Enums](#_new_enums_67)
+- [New Base Types](#_new_base_types_5)
+- [New_Base_Types](#_new_base_types_5)
+- [New Commands](#_new_commands_103)
+- [New Structures](#_new_structures_213)
 - [New Enum Constants](#_new_enum_constants_238)
 - [New_Enum_Constants](#_new_enum_constants_238)
-- [Description](#_description_237)
-- [Issues](#_issues_103)
+- [Issues](#_issues_104)
+- [Examples](#_examples_31)
 - [Version History](#_version_history_238)
-- [VK_NV_memory_decompression](#VK_NV_memory_decompression)
-- [Other Extension Metadata](#_other_extension_metadata_238)
-- [Other_Extension_Metadata](#_other_extension_metadata_238)
-- [Description](#_description_238)
-- [New Commands](#_new_commands_103)
-- [New Structures](#_new_structures_212)
-- [New Enums](#_new_enums_68)
-- [New Bitmasks](#_new_bitmasks_54)
+- [VK_NV_fill_rectangle](#VK_NV_fill_rectangle)
+- [Other Extension Metadata](#_other_extension_metadata_237)
+- [Other_Extension_Metadata](#_other_extension_metadata_237)
+- [Description](#_description_237)
 - [New Enum Constants](#_new_enum_constants_239)
 - [New_Enum_Constants](#_new_enum_constants_239)
 - [Version History](#_version_history_239)
-- [VK_NV_mesh_shader](#VK_NV_mesh_shader)
+- [VK_NV_fragment_coverage_to_color](#VK_NV_fragment_coverage_to_color)
+- [Other Extension Metadata](#_other_extension_metadata_238)
+- [Other_Extension_Metadata](#_other_extension_metadata_238)
+- [Description](#_description_238)
+- [New Structures](#_new_structures_214)
+- [New Bitmasks](#_new_bitmasks_55)
+- [New Enum Constants](#_new_enum_constants_240)
+- [New_Enum_Constants](#_new_enum_constants_240)
+- [Version History](#_version_history_240)
+- [VK_NV_fragment_shading_rate_enums](#VK_NV_fragment_shading_rate_enums)
 - [Other Extension Metadata](#_other_extension_metadata_239)
 - [Other_Extension_Metadata](#_other_extension_metadata_239)
 - [Description](#_description_239)
 - [New Commands](#_new_commands_104)
-- [New Structures](#_new_structures_213)
-- [New Enum Constants](#_new_enum_constants_240)
-- [New_Enum_Constants](#_new_enum_constants_240)
-- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_7)
-- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_7)
-- [New SPIR-V Capability](#_new_spir_v_capability_5)
-- [New_SPIR-V_Capability](#_new_spir_v_capability_5)
-- [Issues](#_issues_104)
-- [Version History](#_version_history_240)
-- [VK_NV_optical_flow](#VK_NV_optical_flow)
+- [New Structures](#_new_structures_215)
+- [New Enums](#_new_enums_69)
+- [New Enum Constants](#_new_enum_constants_241)
+- [New_Enum_Constants](#_new_enum_constants_241)
+- [Issues](#_issues_105)
+- [Version History](#_version_history_241)
+- [VK_NV_framebuffer_mixed_samples](#VK_NV_framebuffer_mixed_samples)
 - [Other Extension Metadata](#_other_extension_metadata_240)
 - [Other_Extension_Metadata](#_other_extension_metadata_240)
 - [Description](#_description_240)
-- [New Object Types](#_new_object_types_17)
-- [New_Object_Types](#_new_object_types_17)
-- [New Commands](#_new_commands_105)
-- [New Structures](#_new_structures_214)
-- [New Enums](#_new_enums_69)
-- [New Bitmasks](#_new_bitmasks_55)
-- [New Enum Constants](#_new_enum_constants_241)
-- [New_Enum_Constants](#_new_enum_constants_241)
-- [Examples](#_examples_30)
-- [Version History](#_version_history_241)
-- [VK_NV_partitioned_acceleration_structure](#VK_NV_partitioned_acceleration_structure)
-- [Other Extension Metadata](#_other_extension_metadata_241)
-- [Other_Extension_Metadata](#_other_extension_metadata_241)
-- [Description](#_description_241)
-- [New Commands](#_new_commands_106)
-- [New Structures](#_new_structures_215)
+- [New Structures](#_new_structures_216)
 - [New Enums](#_new_enums_70)
 - [New Bitmasks](#_new_bitmasks_56)
 - [New Enum Constants](#_new_enum_constants_242)
 - [New_Enum_Constants](#_new_enum_constants_242)
 - [Version History](#_version_history_242)
-- [VK_NV_per_stage_descriptor_set](#VK_NV_per_stage_descriptor_set)
+- [VK_NV_geometry_shader_passthrough](#VK_NV_geometry_shader_passthrough)
+- [Other Extension Metadata](#_other_extension_metadata_241)
+- [Other_Extension_Metadata](#_other_extension_metadata_241)
+- [Description](#_description_241)
+- [New Enum Constants](#_new_enum_constants_243)
+- [New_Enum_Constants](#_new_enum_constants_243)
+- [New Variable Decoration](#_new_variable_decoration)
+- [New_Variable_Decoration](#_new_variable_decoration)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_29)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_29)
+- [Issues](#_issues_106)
+- [Sample Code](#_sample_code_5)
+- [Version History](#_version_history_243)
+- [VK_NV_inherited_viewport_scissor](#VK_NV_inherited_viewport_scissor)
 - [Other Extension Metadata](#_other_extension_metadata_242)
 - [Other_Extension_Metadata](#_other_extension_metadata_242)
 - [Description](#_description_242)
-- [New Structures](#_new_structures_216)
-- [New Enum Constants](#_new_enum_constants_243)
-- [New_Enum_Constants](#_new_enum_constants_243)
-- [Issues](#_issues_105)
-- [Version History](#_version_history_243)
-- [VK_NV_present_barrier](#VK_NV_present_barrier)
-- [Other Extension Metadata](#_other_extension_metadata_243)
-- [Other_Extension_Metadata](#_other_extension_metadata_243)
-- [Description](#_description_243)
 - [New Structures](#_new_structures_217)
 - [New Enum Constants](#_new_enum_constants_244)
 - [New_Enum_Constants](#_new_enum_constants_244)
-- [Issues](#_issues_106)
+- [Issues](#_issues_107)
 - [Version History](#_version_history_244)
-- [VK_NV_raw_access_chains](#VK_NV_raw_access_chains)
+- [VK_NV_linear_color_attachment](#VK_NV_linear_color_attachment)
+- [Other Extension Metadata](#_other_extension_metadata_243)
+- [Other_Extension_Metadata](#_other_extension_metadata_243)
+- [Description](#_description_243)
+- [New Structures](#_new_structures_218)
+- [New Enum Constants](#_new_enum_constants_245)
+- [New_Enum_Constants](#_new_enum_constants_245)
+- [Version History](#_version_history_245)
+- [VK_NV_low_latency](#VK_NV_low_latency)
 - [Other Extension Metadata](#_other_extension_metadata_244)
 - [Other_Extension_Metadata](#_other_extension_metadata_244)
 - [Description](#_description_244)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_27)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_27)
-- [Version History](#_version_history_245)
-- [VK_NV_ray_tracing_invocation_reorder](#VK_NV_ray_tracing_invocation_reorder)
+- [New Structures](#_new_structures_219)
+- [New Enum Constants](#_new_enum_constants_246)
+- [New_Enum_Constants](#_new_enum_constants_246)
+- [Issues](#_issues_108)
+- [Version History](#_version_history_246)
+- [VK_NV_low_latency2](#VK_NV_low_latency2)
 - [Other Extension Metadata](#_other_extension_metadata_245)
 - [Other_Extension_Metadata](#_other_extension_metadata_245)
-- [Description](#_description_245)
-- [New Structures](#_new_structures_218)
+- [New Commands](#_new_commands_105)
+- [New Structures](#_new_structures_220)
 - [New Enums](#_new_enums_71)
-- [New Enum Constants](#_new_enum_constants_245)
-- [New_Enum_Constants](#_new_enum_constants_245)
-- [HLSL Mapping](#_hlsl_mapping)
-- [Version History](#_version_history_246)
-- [VK_NV_ray_tracing_linear_swept_spheres](#VK_NV_ray_tracing_linear_swept_spheres)
+- [New Enum Constants](#_new_enum_constants_247)
+- [New_Enum_Constants](#_new_enum_constants_247)
+- [Description](#_description_245)
+- [Issues](#_issues_109)
+- [Version History](#_version_history_247)
+- [VK_NV_memory_decompression](#VK_NV_memory_decompression)
 - [Other Extension Metadata](#_other_extension_metadata_246)
 - [Other_Extension_Metadata](#_other_extension_metadata_246)
 - [Description](#_description_246)
-- [New Structures](#_new_structures_219)
+- [New Commands](#_new_commands_106)
+- [New Structures](#_new_structures_221)
 - [New Enums](#_new_enums_72)
-- [New Enum Constants](#_new_enum_constants_246)
-- [New_Enum_Constants](#_new_enum_constants_246)
-- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_8)
-- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_8)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_28)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_28)
-- [Version History](#_version_history_247)
-- [VK_NV_ray_tracing_motion_blur](#VK_NV_ray_tracing_motion_blur)
+- [New Bitmasks](#_new_bitmasks_57)
+- [New Enum Constants](#_new_enum_constants_248)
+- [New_Enum_Constants](#_new_enum_constants_248)
+- [Version History](#_version_history_248)
+- [VK_NV_mesh_shader](#VK_NV_mesh_shader)
 - [Other Extension Metadata](#_other_extension_metadata_247)
 - [Other_Extension_Metadata](#_other_extension_metadata_247)
 - [Description](#_description_247)
-- [New Structures](#_new_structures_220)
-- [New Unions](#_new_unions_9)
-- [New Enums](#_new_enums_73)
-- [New Bitmasks](#_new_bitmasks_57)
-- [New Enum Constants](#_new_enum_constants_247)
-- [New_Enum_Constants](#_new_enum_constants_247)
-- [Issues](#_issues_107)
-- [Version History](#_version_history_248)
-- [VK_NV_ray_tracing_validation](#VK_NV_ray_tracing_validation)
-- [Other Extension Metadata](#_other_extension_metadata_248)
-- [Other_Extension_Metadata](#_other_extension_metadata_248)
-- [Description](#_description_248)
-- [New Structures](#_new_structures_221)
-- [New Enum Constants](#_new_enum_constants_248)
-- [New_Enum_Constants](#_new_enum_constants_248)
-- [Version History](#_version_history_249)
-- [VK_NV_representative_fragment_test](#VK_NV_representative_fragment_test)
-- [Other Extension Metadata](#_other_extension_metadata_249)
-- [Other_Extension_Metadata](#_other_extension_metadata_249)
-- [Description](#_description_249)
+- [New Commands](#_new_commands_107)
 - [New Structures](#_new_structures_222)
 - [New Enum Constants](#_new_enum_constants_249)
 - [New_Enum_Constants](#_new_enum_constants_249)
-- [Issues](#_issues_108)
+- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_7)
+- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_7)
+- [New SPIR-V Capability](#_new_spir_v_capability_5)
+- [New_SPIR-V_Capability](#_new_spir_v_capability_5)
+- [Issues](#_issues_110)
+- [Version History](#_version_history_249)
+- [VK_NV_optical_flow](#VK_NV_optical_flow)
+- [Other Extension Metadata](#_other_extension_metadata_248)
+- [Other_Extension_Metadata](#_other_extension_metadata_248)
+- [Description](#_description_248)
+- [New Object Types](#_new_object_types_19)
+- [New_Object_Types](#_new_object_types_19)
+- [New Commands](#_new_commands_108)
+- [New Structures](#_new_structures_223)
+- [New Enums](#_new_enums_73)
+- [New Bitmasks](#_new_bitmasks_58)
+- [New Enum Constants](#_new_enum_constants_250)
+- [New_Enum_Constants](#_new_enum_constants_250)
+- [Examples](#_examples_32)
 - [Version History](#_version_history_250)
-- [VK_NV_sample_mask_override_coverage](#VK_NV_sample_mask_override_coverage)
+- [VK_NV_partitioned_acceleration_structure](#VK_NV_partitioned_acceleration_structure)
+- [Other Extension Metadata](#_other_extension_metadata_249)
+- [Other_Extension_Metadata](#_other_extension_metadata_249)
+- [Description](#_description_249)
+- [New Commands](#_new_commands_109)
+- [New Structures](#_new_structures_224)
+- [New Enums](#_new_enums_74)
+- [New Bitmasks](#_new_bitmasks_59)
+- [New Enum Constants](#_new_enum_constants_251)
+- [New_Enum_Constants](#_new_enum_constants_251)
+- [Version History](#_version_history_251)
+- [VK_NV_per_stage_descriptor_set](#VK_NV_per_stage_descriptor_set)
 - [Other Extension Metadata](#_other_extension_metadata_250)
 - [Other_Extension_Metadata](#_other_extension_metadata_250)
 - [Description](#_description_250)
-- [New Enum Constants](#_new_enum_constants_250)
-- [New_Enum_Constants](#_new_enum_constants_250)
-- [New Variable Decoration](#_new_variable_decoration_2)
-- [New_Variable_Decoration](#_new_variable_decoration_2)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_29)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_29)
-- [Version History](#_version_history_251)
-- [VK_NV_scissor_exclusive](#VK_NV_scissor_exclusive)
+- [New Structures](#_new_structures_225)
+- [New Enum Constants](#_new_enum_constants_252)
+- [New_Enum_Constants](#_new_enum_constants_252)
+- [Issues](#_issues_111)
+- [Version History](#_version_history_252)
+- [VK_NV_present_barrier](#VK_NV_present_barrier)
 - [Other Extension Metadata](#_other_extension_metadata_251)
 - [Other_Extension_Metadata](#_other_extension_metadata_251)
 - [Description](#_description_251)
-- [New Commands](#_new_commands_107)
-- [New Structures](#_new_structures_223)
-- [New Enum Constants](#_new_enum_constants_251)
-- [New_Enum_Constants](#_new_enum_constants_251)
-- [Issues](#_issues_109)
-- [Version History](#_version_history_252)
-- [VK_NV_shader_atomic_float16_vector](#VK_NV_shader_atomic_float16_vector)
+- [New Structures](#_new_structures_226)
+- [New Enum Constants](#_new_enum_constants_253)
+- [New_Enum_Constants](#_new_enum_constants_253)
+- [Issues](#_issues_112)
+- [Version History](#_version_history_253)
+- [VK_NV_raw_access_chains](#VK_NV_raw_access_chains)
 - [Other Extension Metadata](#_other_extension_metadata_252)
 - [Other_Extension_Metadata](#_other_extension_metadata_252)
 - [Description](#_description_252)
-- [New Structures](#_new_structures_224)
-- [New Enum Constants](#_new_enum_constants_252)
-- [New_Enum_Constants](#_new_enum_constants_252)
-- [Issues](#_issues_110)
 - [New SPIR-V Capabilities](#_new_spir_v_capabilities_30)
 - [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_30)
-- [Version History](#_version_history_253)
-- [VK_NV_shader_image_footprint](#VK_NV_shader_image_footprint)
+- [Version History](#_version_history_254)
+- [VK_NV_ray_tracing_invocation_reorder](#VK_NV_ray_tracing_invocation_reorder)
 - [Other Extension Metadata](#_other_extension_metadata_253)
 - [Other_Extension_Metadata](#_other_extension_metadata_253)
 - [Description](#_description_253)
-- [New Structures](#_new_structures_225)
-- [New Enum Constants](#_new_enum_constants_253)
-- [New_Enum_Constants](#_new_enum_constants_253)
-- [New SPIR-V Capability](#_new_spir_v_capability_6)
-- [New_SPIR-V_Capability](#_new_spir_v_capability_6)
-- [Issues](#_issues_111)
-- [Examples](#_examples_31)
-- [Version History](#_version_history_254)
-- [VK_NV_shader_sm_builtins](#VK_NV_shader_sm_builtins)
+- [New Structures](#_new_structures_227)
+- [New Enums](#_new_enums_75)
+- [New Enum Constants](#_new_enum_constants_254)
+- [New_Enum_Constants](#_new_enum_constants_254)
+- [HLSL Mapping](#_hlsl_mapping)
+- [Version History](#_version_history_255)
+- [VK_NV_ray_tracing_linear_swept_spheres](#VK_NV_ray_tracing_linear_swept_spheres)
 - [Other Extension Metadata](#_other_extension_metadata_254)
 - [Other_Extension_Metadata](#_other_extension_metadata_254)
 - [Description](#_description_254)
-- [New Structures](#_new_structures_226)
-- [New Enum Constants](#_new_enum_constants_254)
-- [New_Enum_Constants](#_new_enum_constants_254)
-- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_9)
-- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_9)
+- [New Structures](#_new_structures_228)
+- [New Enums](#_new_enums_76)
+- [New Enum Constants](#_new_enum_constants_255)
+- [New_Enum_Constants](#_new_enum_constants_255)
+- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_8)
+- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_8)
 - [New SPIR-V Capabilities](#_new_spir_v_capabilities_31)
 - [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_31)
-- [Issues](#_issues_112)
-- [Version History](#_version_history_255)
-- [VK_NV_shader_subgroup_partitioned](#VK_NV_shader_subgroup_partitioned)
+- [Version History](#_version_history_256)
+- [VK_NV_ray_tracing_motion_blur](#VK_NV_ray_tracing_motion_blur)
 - [Other Extension Metadata](#_other_extension_metadata_255)
 - [Other_Extension_Metadata](#_other_extension_metadata_255)
 - [Description](#_description_255)
-- [New Enum Constants](#_new_enum_constants_255)
-- [New_Enum_Constants](#_new_enum_constants_255)
-- [Version History](#_version_history_256)
-- [VK_NV_shading_rate_image](#VK_NV_shading_rate_image)
-- [Other Extension Metadata](#_other_extension_metadata_256)
-- [Other_Extension_Metadata](#_other_extension_metadata_256)
-- [Description](#_description_256)
-- [New Commands](#_new_commands_108)
-- [New Structures](#_new_structures_227)
-- [New Enums](#_new_enums_74)
+- [New Structures](#_new_structures_229)
+- [New Unions](#_new_unions_9)
+- [New Enums](#_new_enums_77)
+- [New Bitmasks](#_new_bitmasks_60)
 - [New Enum Constants](#_new_enum_constants_256)
 - [New_Enum_Constants](#_new_enum_constants_256)
 - [Issues](#_issues_113)
 - [Version History](#_version_history_257)
-- [VK_NV_viewport_array2](#VK_NV_viewport_array2)
+- [VK_NV_ray_tracing_validation](#VK_NV_ray_tracing_validation)
+- [Other Extension Metadata](#_other_extension_metadata_256)
+- [Other_Extension_Metadata](#_other_extension_metadata_256)
+- [Description](#_description_256)
+- [New Structures](#_new_structures_230)
+- [New Enum Constants](#_new_enum_constants_257)
+- [New_Enum_Constants](#_new_enum_constants_257)
+- [Version History](#_version_history_258)
+- [VK_NV_representative_fragment_test](#VK_NV_representative_fragment_test)
 - [Other Extension Metadata](#_other_extension_metadata_257)
 - [Other_Extension_Metadata](#_other_extension_metadata_257)
 - [Description](#_description_257)
-- [New Enum Constants](#_new_enum_constants_257)
-- [New_Enum_Constants](#_new_enum_constants_257)
-- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_10)
-- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_10)
-- [New Variable Decoration](#_new_variable_decoration_3)
-- [New_Variable_Decoration](#_new_variable_decoration_3)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_32)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_32)
-- [Version History](#_version_history_258)
-- [VK_NV_viewport_swizzle](#VK_NV_viewport_swizzle)
-- [Other Extension Metadata](#_other_extension_metadata_258)
-- [Other_Extension_Metadata](#_other_extension_metadata_258)
-- [Description](#_description_258)
-- [New Structures](#_new_structures_228)
-- [New Enums](#_new_enums_75)
-- [New Bitmasks](#_new_bitmasks_58)
+- [New Structures](#_new_structures_231)
 - [New Enum Constants](#_new_enum_constants_258)
 - [New_Enum_Constants](#_new_enum_constants_258)
 - [Issues](#_issues_114)
 - [Version History](#_version_history_259)
-- [VK_NVX_binary_import](#VK_NVX_binary_import)
+- [VK_NV_sample_mask_override_coverage](#VK_NV_sample_mask_override_coverage)
+- [Other Extension Metadata](#_other_extension_metadata_258)
+- [Other_Extension_Metadata](#_other_extension_metadata_258)
+- [Description](#_description_258)
+- [New Enum Constants](#_new_enum_constants_259)
+- [New_Enum_Constants](#_new_enum_constants_259)
+- [New Variable Decoration](#_new_variable_decoration_2)
+- [New_Variable_Decoration](#_new_variable_decoration_2)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_32)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_32)
+- [Version History](#_version_history_260)
+- [VK_NV_scissor_exclusive](#VK_NV_scissor_exclusive)
 - [Other Extension Metadata](#_other_extension_metadata_259)
 - [Other_Extension_Metadata](#_other_extension_metadata_259)
 - [Description](#_description_259)
-- [New Object Types](#_new_object_types_18)
-- [New_Object_Types](#_new_object_types_18)
-- [New Commands](#_new_commands_109)
-- [New Structures](#_new_structures_229)
-- [New Enum Constants](#_new_enum_constants_259)
-- [New_Enum_Constants](#_new_enum_constants_259)
-- [Stub API References](#_stub_api_references)
-- [Stub_API_References](#_stub_api_references)
-- [Version History](#_version_history_260)
-- [VK_NVX_image_view_handle](#VK_NVX_image_view_handle)
+- [New Commands](#_new_commands_110)
+- [New Structures](#_new_structures_232)
+- [New Enum Constants](#_new_enum_constants_260)
+- [New_Enum_Constants](#_new_enum_constants_260)
+- [Issues](#_issues_115)
+- [Version History](#_version_history_261)
+- [VK_NV_shader_atomic_float16_vector](#VK_NV_shader_atomic_float16_vector)
 - [Other Extension Metadata](#_other_extension_metadata_260)
 - [Other_Extension_Metadata](#_other_extension_metadata_260)
 - [Description](#_description_260)
-- [New Commands](#_new_commands_110)
-- [New Structures](#_new_structures_230)
-- [New Enum Constants](#_new_enum_constants_260)
-- [New_Enum_Constants](#_new_enum_constants_260)
-- [Version History](#_version_history_261)
-- [VK_NVX_multiview_per_view_attributes](#VK_NVX_multiview_per_view_attributes)
+- [New Structures](#_new_structures_233)
+- [New Enum Constants](#_new_enum_constants_261)
+- [New_Enum_Constants](#_new_enum_constants_261)
+- [Issues](#_issues_116)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_33)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_33)
+- [Version History](#_version_history_262)
+- [VK_NV_shader_image_footprint](#VK_NV_shader_image_footprint)
 - [Other Extension Metadata](#_other_extension_metadata_261)
 - [Other_Extension_Metadata](#_other_extension_metadata_261)
 - [Description](#_description_261)
-- [New Structures](#_new_structures_231)
-- [New Enum Constants](#_new_enum_constants_261)
-- [New_Enum_Constants](#_new_enum_constants_261)
-- [New Built-In Variables](#_new_built_in_variables_6)
-- [New_Built-In_Variables](#_new_built_in_variables_6)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_33)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_33)
-- [Examples](#_examples_32)
-- [Version History](#_version_history_262)
-- [VK_QCOM_filter_cubic_clamp](#VK_QCOM_filter_cubic_clamp)
+- [New Structures](#_new_structures_234)
+- [New Enum Constants](#_new_enum_constants_262)
+- [New_Enum_Constants](#_new_enum_constants_262)
+- [New SPIR-V Capability](#_new_spir_v_capability_6)
+- [New_SPIR-V_Capability](#_new_spir_v_capability_6)
+- [Issues](#_issues_117)
+- [Examples](#_examples_33)
+- [Version History](#_version_history_263)
+- [VK_NV_shader_sm_builtins](#VK_NV_shader_sm_builtins)
 - [Other Extension Metadata](#_other_extension_metadata_262)
 - [Other_Extension_Metadata](#_other_extension_metadata_262)
 - [Description](#_description_262)
-- [New Structures](#_new_structures_232)
-- [New Enum Constants](#_new_enum_constants_262)
-- [New_Enum_Constants](#_new_enum_constants_262)
-- [Version History](#_version_history_263)
-- [VK_QCOM_filter_cubic_weights](#VK_QCOM_filter_cubic_weights)
+- [New Structures](#_new_structures_235)
+- [New Enum Constants](#_new_enum_constants_263)
+- [New_Enum_Constants](#_new_enum_constants_263)
+- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_9)
+- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_9)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_34)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_34)
+- [Issues](#_issues_118)
+- [Version History](#_version_history_264)
+- [VK_NV_shader_subgroup_partitioned](#VK_NV_shader_subgroup_partitioned)
 - [Other Extension Metadata](#_other_extension_metadata_263)
 - [Other_Extension_Metadata](#_other_extension_metadata_263)
 - [Description](#_description_263)
-- [New Structures](#_new_structures_233)
-- [New Enums](#_new_enums_76)
-- [New Enum Constants](#_new_enum_constants_263)
-- [New_Enum_Constants](#_new_enum_constants_263)
-- [Version History](#_version_history_264)
-- [VK_QCOM_image_processing](#VK_QCOM_image_processing)
-- [Other Extension Metadata](#_other_extension_metadata_264)
-- [Other_Extension_Metadata](#_other_extension_metadata_264)
-- [Description](#_description_264)
-- [New Structures](#_new_structures_234)
 - [New Enum Constants](#_new_enum_constants_264)
 - [New_Enum_Constants](#_new_enum_constants_264)
 - [Version History](#_version_history_265)
-- [VK_QCOM_image_processing2](#VK_QCOM_image_processing2)
+- [VK_NV_shading_rate_image](#VK_NV_shading_rate_image)
+- [Other Extension Metadata](#_other_extension_metadata_264)
+- [Other_Extension_Metadata](#_other_extension_metadata_264)
+- [Description](#_description_264)
+- [New Commands](#_new_commands_111)
+- [New Structures](#_new_structures_236)
+- [New Enums](#_new_enums_78)
+- [New Enum Constants](#_new_enum_constants_265)
+- [New_Enum_Constants](#_new_enum_constants_265)
+- [Issues](#_issues_119)
+- [Version History](#_version_history_266)
+- [VK_NV_viewport_array2](#VK_NV_viewport_array2)
 - [Other Extension Metadata](#_other_extension_metadata_265)
 - [Other_Extension_Metadata](#_other_extension_metadata_265)
 - [Description](#_description_265)
-- [New Structures](#_new_structures_235)
-- [New Enums](#_new_enums_77)
-- [New Enum Constants](#_new_enum_constants_265)
-- [New_Enum_Constants](#_new_enum_constants_265)
-- [Issues](#_issues_115)
-- [Version History](#_version_history_266)
-- [VK_QCOM_multiview_per_view_render_areas](#VK_QCOM_multiview_per_view_render_areas)
+- [New Enum Constants](#_new_enum_constants_266)
+- [New_Enum_Constants](#_new_enum_constants_266)
+- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_10)
+- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_10)
+- [New Variable Decoration](#_new_variable_decoration_3)
+- [New_Variable_Decoration](#_new_variable_decoration_3)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_35)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_35)
+- [Version History](#_version_history_267)
+- [VK_NV_viewport_swizzle](#VK_NV_viewport_swizzle)
 - [Other Extension Metadata](#_other_extension_metadata_266)
 - [Other_Extension_Metadata](#_other_extension_metadata_266)
 - [Description](#_description_266)
-- [New Structures](#_new_structures_236)
-- [New Enum Constants](#_new_enum_constants_266)
-- [New_Enum_Constants](#_new_enum_constants_266)
-- [Issues](#_issues_116)
-- [Version History](#_version_history_267)
-- [VK_QCOM_multiview_per_view_viewports](#VK_QCOM_multiview_per_view_viewports)
+- [New Structures](#_new_structures_237)
+- [New Enums](#_new_enums_79)
+- [New Bitmasks](#_new_bitmasks_61)
+- [New Enum Constants](#_new_enum_constants_267)
+- [New_Enum_Constants](#_new_enum_constants_267)
+- [Issues](#_issues_120)
+- [Version History](#_version_history_268)
+- [VK_NVX_binary_import](#VK_NVX_binary_import)
 - [Other Extension Metadata](#_other_extension_metadata_267)
 - [Other_Extension_Metadata](#_other_extension_metadata_267)
 - [Description](#_description_267)
-- [New Structures](#_new_structures_237)
-- [New Enum Constants](#_new_enum_constants_267)
-- [New_Enum_Constants](#_new_enum_constants_267)
-- [Issues](#_issues_117)
-- [Version History](#_version_history_268)
-- [VK_QCOM_render_pass_shader_resolve](#VK_QCOM_render_pass_shader_resolve)
+- [New Object Types](#_new_object_types_20)
+- [New_Object_Types](#_new_object_types_20)
+- [New Commands](#_new_commands_112)
+- [New Structures](#_new_structures_238)
+- [New Enum Constants](#_new_enum_constants_268)
+- [New_Enum_Constants](#_new_enum_constants_268)
+- [Stub API References](#_stub_api_references)
+- [Stub_API_References](#_stub_api_references)
+- [Version History](#_version_history_269)
+- [VK_NVX_image_view_handle](#VK_NVX_image_view_handle)
 - [Other Extension Metadata](#_other_extension_metadata_268)
 - [Other_Extension_Metadata](#_other_extension_metadata_268)
 - [Description](#_description_268)
-- [New Enum Constants](#_new_enum_constants_268)
-- [New_Enum_Constants](#_new_enum_constants_268)
-- [Issues](#_issues_118)
-- [Version History](#_version_history_269)
-- [VK_QCOM_render_pass_store_ops](#VK_QCOM_render_pass_store_ops)
-- [Other Extension Metadata](#_other_extension_metadata_269)
-- [Other_Extension_Metadata](#_other_extension_metadata_269)
-- [Description](#_description_269)
+- [New Commands](#_new_commands_113)
+- [New Structures](#_new_structures_239)
 - [New Enum Constants](#_new_enum_constants_269)
 - [New_Enum_Constants](#_new_enum_constants_269)
 - [Version History](#_version_history_270)
-- [VK_QCOM_render_pass_transform](#VK_QCOM_render_pass_transform)
+- [VK_NVX_multiview_per_view_attributes](#VK_NVX_multiview_per_view_attributes)
+- [Other Extension Metadata](#_other_extension_metadata_269)
+- [Other_Extension_Metadata](#_other_extension_metadata_269)
+- [Description](#_description_269)
+- [New Structures](#_new_structures_240)
+- [New Enum Constants](#_new_enum_constants_270)
+- [New_Enum_Constants](#_new_enum_constants_270)
+- [New Built-In Variables](#_new_built_in_variables_6)
+- [New_Built-In_Variables](#_new_built_in_variables_6)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_36)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_36)
+- [Examples](#_examples_34)
+- [Version History](#_version_history_271)
+- [VK_OHOS_surface](#VK_OHOS_surface)
 - [Other Extension Metadata](#_other_extension_metadata_270)
 - [Other_Extension_Metadata](#_other_extension_metadata_270)
 - [Description](#_description_270)
-- [New Structures](#_new_structures_238)
-- [New Enum Constants](#_new_enum_constants_270)
-- [New_Enum_Constants](#_new_enum_constants_270)
-- [Issues](#_issues_119)
-- [Version History](#_version_history_271)
-- [VK_QCOM_rotated_copy_commands](#VK_QCOM_rotated_copy_commands)
-- [Other Extension Metadata](#_other_extension_metadata_271)
-- [Other_Extension_Metadata](#_other_extension_metadata_271)
-- [Description](#_description_271)
-- [Issues](#_issues_120)
-- [New Structures](#_new_structures_239)
+- [New Base Types](#_new_base_types_6)
+- [New_Base_Types](#_new_base_types_6)
+- [New Commands](#_new_commands_114)
+- [New Structures](#_new_structures_241)
+- [New Bitmasks](#_new_bitmasks_62)
 - [New Enum Constants](#_new_enum_constants_271)
 - [New_Enum_Constants](#_new_enum_constants_271)
 - [Version History](#_version_history_272)
-- [VK_QCOM_tile_memory_heap](#VK_QCOM_tile_memory_heap)
-- [Other Extension Metadata](#_other_extension_metadata_272)
-- [Other_Extension_Metadata](#_other_extension_metadata_272)
-- [Description](#_description_272)
-- [Issues](#_issues_121)
-- [New Commands](#_new_commands_111)
-- [New Structures](#_new_structures_240)
+- [VK_QCOM_filter_cubic_clamp](#VK_QCOM_filter_cubic_clamp)
+- [Other Extension Metadata](#_other_extension_metadata_271)
+- [Other_Extension_Metadata](#_other_extension_metadata_271)
+- [Description](#_description_271)
+- [New Structures](#_new_structures_242)
 - [New Enum Constants](#_new_enum_constants_272)
 - [New_Enum_Constants](#_new_enum_constants_272)
 - [Version History](#_version_history_273)
-- [VK_QCOM_tile_properties](#VK_QCOM_tile_properties)
-- [Other Extension Metadata](#_other_extension_metadata_273)
-- [Other_Extension_Metadata](#_other_extension_metadata_273)
-- [Description](#_description_273)
-- [New Commands](#_new_commands_112)
-- [New Structures](#_new_structures_241)
+- [VK_QCOM_filter_cubic_weights](#VK_QCOM_filter_cubic_weights)
+- [Other Extension Metadata](#_other_extension_metadata_272)
+- [Other_Extension_Metadata](#_other_extension_metadata_272)
+- [Description](#_description_272)
+- [New Structures](#_new_structures_243)
+- [New Enums](#_new_enums_80)
 - [New Enum Constants](#_new_enum_constants_273)
 - [New_Enum_Constants](#_new_enum_constants_273)
 - [Version History](#_version_history_274)
-- [VK_QCOM_tile_shading](#VK_QCOM_tile_shading)
+- [VK_QCOM_image_processing](#VK_QCOM_image_processing)
+- [Other Extension Metadata](#_other_extension_metadata_273)
+- [Other_Extension_Metadata](#_other_extension_metadata_273)
+- [Description](#_description_273)
+- [New Structures](#_new_structures_244)
+- [New Enum Constants](#_new_enum_constants_274)
+- [New_Enum_Constants](#_new_enum_constants_274)
+- [Version History](#_version_history_275)
+- [VK_QCOM_image_processing2](#VK_QCOM_image_processing2)
 - [Other Extension Metadata](#_other_extension_metadata_274)
 - [Other_Extension_Metadata](#_other_extension_metadata_274)
 - [Description](#_description_274)
-- [New Commands](#_new_commands_113)
-- [New Structures](#_new_structures_242)
-- [New Enums](#_new_enums_78)
-- [New Bitmasks](#_new_bitmasks_59)
-- [New Enum Constants](#_new_enum_constants_274)
-- [New_Enum_Constants](#_new_enum_constants_274)
-- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_11)
-- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_11)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_34)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_34)
-- [Issues](#_issues_122)
-- [Version History](#_version_history_275)
-- [VK_QCOM_ycbcr_degamma](#VK_QCOM_ycbcr_degamma)
+- [New Structures](#_new_structures_245)
+- [New Enums](#_new_enums_81)
+- [New Enum Constants](#_new_enum_constants_275)
+- [New_Enum_Constants](#_new_enum_constants_275)
+- [Issues](#_issues_121)
+- [Version History](#_version_history_276)
+- [VK_QCOM_multiview_per_view_render_areas](#VK_QCOM_multiview_per_view_render_areas)
 - [Other Extension Metadata](#_other_extension_metadata_275)
 - [Other_Extension_Metadata](#_other_extension_metadata_275)
 - [Description](#_description_275)
-- [New Structures](#_new_structures_243)
-- [New Enum Constants](#_new_enum_constants_275)
-- [New_Enum_Constants](#_new_enum_constants_275)
-- [Issues](#_issues_123)
-- [Version History](#_version_history_276)
-- [VK_QNX_external_memory_screen_buffer](#VK_QNX_external_memory_screen_buffer)
+- [New Structures](#_new_structures_246)
+- [New Enum Constants](#_new_enum_constants_276)
+- [New_Enum_Constants](#_new_enum_constants_276)
+- [Issues](#_issues_122)
+- [Version History](#_version_history_277)
+- [VK_QCOM_multiview_per_view_viewports](#VK_QCOM_multiview_per_view_viewports)
 - [Other Extension Metadata](#_other_extension_metadata_276)
 - [Other_Extension_Metadata](#_other_extension_metadata_276)
 - [Description](#_description_276)
-- [New Commands](#_new_commands_114)
-- [New Structures](#_new_structures_244)
-- [New Enum Constants](#_new_enum_constants_276)
-- [New_Enum_Constants](#_new_enum_constants_276)
-- [Issues](#_issues_124)
-- [Version History](#_version_history_277)
-- [VK_QNX_screen_surface](#VK_QNX_screen_surface)
+- [New Structures](#_new_structures_247)
+- [New Enum Constants](#_new_enum_constants_277)
+- [New_Enum_Constants](#_new_enum_constants_277)
+- [Issues](#_issues_123)
+- [Version History](#_version_history_278)
+- [VK_QCOM_render_pass_shader_resolve](#VK_QCOM_render_pass_shader_resolve)
 - [Other Extension Metadata](#_other_extension_metadata_277)
 - [Other_Extension_Metadata](#_other_extension_metadata_277)
 - [Description](#_description_277)
-- [New Commands](#_new_commands_115)
-- [New Structures](#_new_structures_245)
-- [New Bitmasks](#_new_bitmasks_60)
-- [New Enum Constants](#_new_enum_constants_277)
-- [New_Enum_Constants](#_new_enum_constants_277)
-- [Version History](#_version_history_278)
-- [VK_SEC_amigo_profiling](#VK_SEC_amigo_profiling)
+- [New Enum Constants](#_new_enum_constants_278)
+- [New_Enum_Constants](#_new_enum_constants_278)
+- [Issues](#_issues_124)
+- [Version History](#_version_history_279)
+- [VK_QCOM_render_pass_store_ops](#VK_QCOM_render_pass_store_ops)
 - [Other Extension Metadata](#_other_extension_metadata_278)
 - [Other_Extension_Metadata](#_other_extension_metadata_278)
 - [Description](#_description_278)
-- [New Structures](#_new_structures_246)
-- [New Enum Constants](#_new_enum_constants_278)
-- [New_Enum_Constants](#_new_enum_constants_278)
-- [Stub API References](#_stub_api_references_2)
-- [Stub_API_References](#_stub_api_references_2)
-- [Version History](#_version_history_279)
-- [VK_VALVE_descriptor_set_host_mapping](#VK_VALVE_descriptor_set_host_mapping)
+- [New Enum Constants](#_new_enum_constants_279)
+- [New_Enum_Constants](#_new_enum_constants_279)
+- [Version History](#_version_history_280)
+- [VK_QCOM_render_pass_transform](#VK_QCOM_render_pass_transform)
 - [Other Extension Metadata](#_other_extension_metadata_279)
 - [Other_Extension_Metadata](#_other_extension_metadata_279)
 - [Description](#_description_279)
-- [New Commands](#_new_commands_116)
-- [New Structures](#_new_structures_247)
-- [New Enum Constants](#_new_enum_constants_279)
-- [New_Enum_Constants](#_new_enum_constants_279)
-- [Stub API References](#_stub_api_references_3)
-- [Stub_API_References](#_stub_api_references_3)
-- [Version History](#_version_history_280)
-- [List of Provisional Extensions](#provisional-extension-appendices-list)
-- [List_of_Provisional_Extensions](#provisional-extension-appendices-list)
-- [VK_KHR_portability_subset](#VK_KHR_portability_subset)
-- [Other Extension Metadata](#_other_extension_metadata_280)
-- [Other_Extension_Metadata](#_other_extension_metadata_280)
-- [Description](#_description_280)
 - [New Structures](#_new_structures_248)
 - [New Enum Constants](#_new_enum_constants_280)
 - [New_Enum_Constants](#_new_enum_constants_280)
 - [Issues](#_issues_125)
 - [Version History](#_version_history_281)
-- [VK_AMDX_shader_enqueue](#VK_AMDX_shader_enqueue)
-- [Other Extension Metadata](#_other_extension_metadata_281)
-- [Other_Extension_Metadata](#_other_extension_metadata_281)
-- [Description](#_description_281)
-- [New Commands](#_new_commands_117)
+- [VK_QCOM_rotated_copy_commands](#VK_QCOM_rotated_copy_commands)
+- [Other Extension Metadata](#_other_extension_metadata_280)
+- [Other_Extension_Metadata](#_other_extension_metadata_280)
+- [Description](#_description_280)
+- [Issues](#_issues_126)
 - [New Structures](#_new_structures_249)
-- [New Unions](#_new_unions_10)
 - [New Enum Constants](#_new_enum_constants_281)
 - [New_Enum_Constants](#_new_enum_constants_281)
 - [Version History](#_version_history_282)
-- [VK_NV_cuda_kernel_launch](#VK_NV_cuda_kernel_launch)
-- [Other Extension Metadata](#_other_extension_metadata_282)
-- [Other_Extension_Metadata](#_other_extension_metadata_282)
-- [Description](#_description_282)
-- [New Object Types](#_new_object_types_19)
-- [New_Object_Types](#_new_object_types_19)
-- [New Commands](#_new_commands_118)
+- [VK_QCOM_tile_memory_heap](#VK_QCOM_tile_memory_heap)
+- [Other Extension Metadata](#_other_extension_metadata_281)
+- [Other_Extension_Metadata](#_other_extension_metadata_281)
+- [Description](#_description_281)
+- [Issues](#_issues_127)
+- [New Commands](#_new_commands_115)
 - [New Structures](#_new_structures_250)
 - [New Enum Constants](#_new_enum_constants_282)
 - [New_Enum_Constants](#_new_enum_constants_282)
-- [Issues](#_issues_126)
 - [Version History](#_version_history_283)
-- [VK_NV_present_metering](#VK_NV_present_metering)
-- [Other Extension Metadata](#_other_extension_metadata_283)
-- [Other_Extension_Metadata](#_other_extension_metadata_283)
-- [Description](#_description_283)
+- [VK_QCOM_tile_properties](#VK_QCOM_tile_properties)
+- [Other Extension Metadata](#_other_extension_metadata_282)
+- [Other_Extension_Metadata](#_other_extension_metadata_282)
+- [Description](#_description_282)
+- [New Commands](#_new_commands_116)
 - [New Structures](#_new_structures_251)
 - [New Enum Constants](#_new_enum_constants_283)
 - [New_Enum_Constants](#_new_enum_constants_283)
-- [Issues](#_issues_127)
 - [Version History](#_version_history_284)
-- [List of Deprecated Extensions](#deprecated-extension-appendices-list)
-- [List_of_Deprecated_Extensions](#deprecated-extension-appendices-list)
-- [VK_KHR_16bit_storage](#VK_KHR_16bit_storage)
+- [VK_QCOM_tile_shading](#VK_QCOM_tile_shading)
+- [Other Extension Metadata](#_other_extension_metadata_283)
+- [Other_Extension_Metadata](#_other_extension_metadata_283)
+- [Description](#_description_283)
+- [New Commands](#_new_commands_117)
+- [New Structures](#_new_structures_252)
+- [New Enums](#_new_enums_82)
+- [New Bitmasks](#_new_bitmasks_63)
+- [New Enum Constants](#_new_enum_constants_284)
+- [New_Enum_Constants](#_new_enum_constants_284)
+- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_11)
+- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_11)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_37)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_37)
+- [Issues](#_issues_128)
+- [Version History](#_version_history_285)
+- [VK_QCOM_ycbcr_degamma](#VK_QCOM_ycbcr_degamma)
 - [Other Extension Metadata](#_other_extension_metadata_284)
 - [Other_Extension_Metadata](#_other_extension_metadata_284)
 - [Description](#_description_284)
+- [New Structures](#_new_structures_253)
+- [New Enum Constants](#_new_enum_constants_285)
+- [New_Enum_Constants](#_new_enum_constants_285)
+- [Issues](#_issues_129)
+- [Version History](#_version_history_286)
+- [VK_QNX_external_memory_screen_buffer](#VK_QNX_external_memory_screen_buffer)
+- [Other Extension Metadata](#_other_extension_metadata_285)
+- [Other_Extension_Metadata](#_other_extension_metadata_285)
+- [Description](#_description_285)
+- [New Commands](#_new_commands_118)
+- [New Structures](#_new_structures_254)
+- [New Enum Constants](#_new_enum_constants_286)
+- [New_Enum_Constants](#_new_enum_constants_286)
+- [Issues](#_issues_130)
+- [Version History](#_version_history_287)
+- [VK_QNX_screen_surface](#VK_QNX_screen_surface)
+- [Other Extension Metadata](#_other_extension_metadata_286)
+- [Other_Extension_Metadata](#_other_extension_metadata_286)
+- [Description](#_description_286)
+- [New Commands](#_new_commands_119)
+- [New Structures](#_new_structures_255)
+- [New Bitmasks](#_new_bitmasks_64)
+- [New Enum Constants](#_new_enum_constants_287)
+- [New_Enum_Constants](#_new_enum_constants_287)
+- [Version History](#_version_history_288)
+- [VK_SEC_amigo_profiling](#VK_SEC_amigo_profiling)
+- [Other Extension Metadata](#_other_extension_metadata_287)
+- [Other_Extension_Metadata](#_other_extension_metadata_287)
+- [Description](#_description_287)
+- [New Structures](#_new_structures_256)
+- [New Enum Constants](#_new_enum_constants_288)
+- [New_Enum_Constants](#_new_enum_constants_288)
+- [Stub API References](#_stub_api_references_2)
+- [Stub_API_References](#_stub_api_references_2)
+- [Version History](#_version_history_289)
+- [VK_SEC_pipeline_cache_incremental_mode](#VK_SEC_pipeline_cache_incremental_mode)
+- [Other Extension Metadata](#_other_extension_metadata_288)
+- [Other_Extension_Metadata](#_other_extension_metadata_288)
+- [Description](#_description_288)
+- [New Structures](#_new_structures_257)
+- [New Enum Constants](#_new_enum_constants_289)
+- [New_Enum_Constants](#_new_enum_constants_289)
+- [Stub API References](#_stub_api_references_3)
+- [Stub_API_References](#_stub_api_references_3)
+- [Version History](#_version_history_290)
+- [VK_VALVE_descriptor_set_host_mapping](#VK_VALVE_descriptor_set_host_mapping)
+- [Other Extension Metadata](#_other_extension_metadata_289)
+- [Other_Extension_Metadata](#_other_extension_metadata_289)
+- [Description](#_description_289)
+- [New Commands](#_new_commands_120)
+- [New Structures](#_new_structures_258)
+- [New Enum Constants](#_new_enum_constants_290)
+- [New_Enum_Constants](#_new_enum_constants_290)
+- [Stub API References](#_stub_api_references_4)
+- [Stub_API_References](#_stub_api_references_4)
+- [Version History](#_version_history_291)
+- [VK_VALVE_fragment_density_map_layered](#VK_VALVE_fragment_density_map_layered)
+- [Other Extension Metadata](#_other_extension_metadata_290)
+- [Other_Extension_Metadata](#_other_extension_metadata_290)
+- [Description](#_description_290)
+- [New Structures](#_new_structures_259)
+- [New Enum Constants](#_new_enum_constants_291)
+- [New_Enum_Constants](#_new_enum_constants_291)
+- [Version History](#_version_history_292)
+- [List of Provisional Extensions](#provisional-extension-appendices-list)
+- [List_of_Provisional_Extensions](#provisional-extension-appendices-list)
+- [VK_KHR_portability_subset](#VK_KHR_portability_subset)
+- [Other Extension Metadata](#_other_extension_metadata_291)
+- [Other_Extension_Metadata](#_other_extension_metadata_291)
+- [Description](#_description_291)
+- [New Structures](#_new_structures_260)
+- [New Enum Constants](#_new_enum_constants_292)
+- [New_Enum_Constants](#_new_enum_constants_292)
+- [Issues](#_issues_131)
+- [Version History](#_version_history_293)
+- [VK_AMDX_dense_geometry_format](#VK_AMDX_dense_geometry_format)
+- [Other Extension Metadata](#_other_extension_metadata_292)
+- [Other_Extension_Metadata](#_other_extension_metadata_292)
+- [Description](#_description_292)
+- [New Structures](#_new_structures_261)
+- [New Enums](#_new_enums_83)
+- [New Enum Constants](#_new_enum_constants_293)
+- [New_Enum_Constants](#_new_enum_constants_293)
+- [Issues](#_issues_132)
+- [Examples](#_examples_35)
+- [Version History](#_version_history_294)
+- [VK_AMDX_shader_enqueue](#VK_AMDX_shader_enqueue)
+- [Other Extension Metadata](#_other_extension_metadata_293)
+- [Other_Extension_Metadata](#_other_extension_metadata_293)
+- [Description](#_description_293)
+- [New Commands](#_new_commands_121)
+- [New Structures](#_new_structures_262)
+- [New Unions](#_new_unions_10)
+- [New Enum Constants](#_new_enum_constants_294)
+- [New_Enum_Constants](#_new_enum_constants_294)
+- [Version History](#_version_history_295)
+- [VK_NV_cuda_kernel_launch](#VK_NV_cuda_kernel_launch)
+- [Other Extension Metadata](#_other_extension_metadata_294)
+- [Other_Extension_Metadata](#_other_extension_metadata_294)
+- [Description](#_description_294)
+- [New Object Types](#_new_object_types_21)
+- [New_Object_Types](#_new_object_types_21)
+- [New Commands](#_new_commands_122)
+- [New Structures](#_new_structures_263)
+- [New Enum Constants](#_new_enum_constants_295)
+- [New_Enum_Constants](#_new_enum_constants_295)
+- [Issues](#_issues_133)
+- [Version History](#_version_history_296)
+- [VK_NV_present_metering](#VK_NV_present_metering)
+- [Other Extension Metadata](#_other_extension_metadata_295)
+- [Other_Extension_Metadata](#_other_extension_metadata_295)
+- [Description](#_description_295)
+- [New Structures](#_new_structures_264)
+- [New Enum Constants](#_new_enum_constants_296)
+- [New_Enum_Constants](#_new_enum_constants_296)
+- [Issues](#_issues_134)
+- [Version History](#_version_history_297)
+- [List of Deprecated Extensions](#deprecated-extension-appendices-list)
+- [List_of_Deprecated_Extensions](#deprecated-extension-appendices-list)
+- [VK_KHR_16bit_storage](#VK_KHR_16bit_storage)
+- [Other Extension Metadata](#_other_extension_metadata_296)
+- [Other_Extension_Metadata](#_other_extension_metadata_296)
+- [Description](#_description_296)
 - [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1)
 - [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4)
-- [New Structures](#_new_structures_252)
-- [New Enum Constants](#_new_enum_constants_284)
-- [New_Enum_Constants](#_new_enum_constants_284)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_35)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_35)
-- [Version History](#_version_history_285)
+- [New Structures](#_new_structures_265)
+- [New Enum Constants](#_new_enum_constants_297)
+- [New_Enum_Constants](#_new_enum_constants_297)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_38)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_38)
+- [Version History](#_version_history_298)
 - [VK_KHR_8bit_storage](#VK_KHR_8bit_storage)
-- [Other Extension Metadata](#_other_extension_metadata_285)
-- [Other_Extension_Metadata](#_other_extension_metadata_285)
-- [Description](#_description_285)
+- [Other Extension Metadata](#_other_extension_metadata_297)
+- [Other_Extension_Metadata](#_other_extension_metadata_297)
+- [Description](#_description_297)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_2)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_2)
-- [New Structures](#_new_structures_253)
-- [New Enum Constants](#_new_enum_constants_285)
-- [New_Enum_Constants](#_new_enum_constants_285)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_36)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_36)
-- [Version History](#_version_history_286)
+- [New Structures](#_new_structures_266)
+- [New Enum Constants](#_new_enum_constants_298)
+- [New_Enum_Constants](#_new_enum_constants_298)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_39)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_39)
+- [Version History](#_version_history_299)
 - [VK_KHR_bind_memory2](#VK_KHR_bind_memory2)
-- [Other Extension Metadata](#_other_extension_metadata_286)
-- [Other_Extension_Metadata](#_other_extension_metadata_286)
-- [Description](#_description_286)
+- [Other Extension Metadata](#_other_extension_metadata_298)
+- [Other_Extension_Metadata](#_other_extension_metadata_298)
+- [Description](#_description_298)
 - [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_2)
 - [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_2)
-- [New Commands](#_new_commands_119)
-- [New Structures](#_new_structures_254)
-- [New Enum Constants](#_new_enum_constants_286)
-- [New_Enum_Constants](#_new_enum_constants_286)
-- [Version History](#_version_history_287)
+- [New Commands](#_new_commands_123)
+- [New Structures](#_new_structures_267)
+- [New Enum Constants](#_new_enum_constants_299)
+- [New_Enum_Constants](#_new_enum_constants_299)
+- [Version History](#_version_history_300)
 - [VK_KHR_buffer_device_address](#VK_KHR_buffer_device_address)
-- [Other Extension Metadata](#_other_extension_metadata_287)
-- [Other_Extension_Metadata](#_other_extension_metadata_287)
-- [Description](#_description_287)
+- [Other Extension Metadata](#_other_extension_metadata_299)
+- [Other_Extension_Metadata](#_other_extension_metadata_299)
+- [Description](#_description_299)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_2)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_2)
 - [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3)
 - [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3)
-- [New Commands](#_new_commands_120)
-- [New Structures](#_new_structures_255)
-- [New Enum Constants](#_new_enum_constants_287)
-- [New_Enum_Constants](#_new_enum_constants_287)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_37)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_37)
-- [Version History](#_version_history_288)
-- [VK_KHR_copy_commands2](#VK_KHR_copy_commands2)
-- [Other Extension Metadata](#_other_extension_metadata_288)
-- [Other_Extension_Metadata](#_other_extension_metadata_288)
-- [Description](#_description_288)
-- [New Commands](#_new_commands_121)
-- [New Structures](#_new_structures_256)
-- [New Enum Constants](#_new_enum_constants_288)
-- [New_Enum_Constants](#_new_enum_constants_288)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_2)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_2)
-- [Version History](#_version_history_289)
-- [VK_KHR_create_renderpass2](#VK_KHR_create_renderpass2)
-- [Other Extension Metadata](#_other_extension_metadata_289)
-- [Other_Extension_Metadata](#_other_extension_metadata_289)
-- [Description](#_description_289)
-- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_3)
-- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_3)
-- [New Commands](#_new_commands_122)
-- [New Structures](#_new_structures_257)
-- [New Enum Constants](#_new_enum_constants_289)
-- [New_Enum_Constants](#_new_enum_constants_289)
-- [Version History](#_version_history_290)
-- [VK_KHR_dedicated_allocation](#VK_KHR_dedicated_allocation)
-- [Other Extension Metadata](#_other_extension_metadata_290)
-- [Other_Extension_Metadata](#_other_extension_metadata_290)
-- [Description](#_description_290)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_3)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_3)
-- [New Structures](#_new_structures_258)
-- [New Enum Constants](#_new_enum_constants_290)
-- [New_Enum_Constants](#_new_enum_constants_290)
-- [Examples](#_examples_33)
-- [Version History](#_version_history_291)
-- [VK_KHR_depth_stencil_resolve](#VK_KHR_depth_stencil_resolve)
-- [Other Extension Metadata](#_other_extension_metadata_291)
-- [Other_Extension_Metadata](#_other_extension_metadata_291)
-- [Description](#_description_291)
-- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_4)
-- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_4)
-- [New Structures](#_new_structures_259)
-- [New Enums](#_new_enums_79)
-- [New Bitmasks](#_new_bitmasks_61)
-- [New Enum Constants](#_new_enum_constants_291)
-- [New_Enum_Constants](#_new_enum_constants_291)
-- [Version History](#_version_history_292)
-- [VK_KHR_descriptor_update_template](#VK_KHR_descriptor_update_template)
-- [Other Extension Metadata](#_other_extension_metadata_292)
-- [Other_Extension_Metadata](#_other_extension_metadata_292)
-- [Description](#_description_292)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_4)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_4)
-- [New Object Types](#_new_object_types_20)
-- [New_Object_Types](#_new_object_types_20)
-- [New Commands](#_new_commands_123)
-- [New Structures](#_new_structures_260)
-- [New Enums](#_new_enums_80)
-- [New Bitmasks](#_new_bitmasks_62)
-- [New Enum Constants](#_new_enum_constants_292)
-- [New_Enum_Constants](#_new_enum_constants_292)
-- [Version History](#_version_history_293)
-- [VK_KHR_device_group](#VK_KHR_device_group)
-- [Other Extension Metadata](#_other_extension_metadata_293)
-- [Other_Extension_Metadata](#_other_extension_metadata_293)
-- [Description](#_description_293)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_5)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_5)
 - [New Commands](#_new_commands_124)
-- [New Structures](#_new_structures_261)
-- [New Enums](#_new_enums_81)
-- [New Bitmasks](#_new_bitmasks_63)
-- [New Enum Constants](#_new_enum_constants_293)
-- [New_Enum_Constants](#_new_enum_constants_293)
-- [New Built-in Variables](#_new_built_in_variables_7)
-- [New_Built-in_Variables](#_new_built_in_variables_7)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_38)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_38)
-- [Version History](#_version_history_294)
-- [VK_KHR_device_group_creation](#VK_KHR_device_group_creation)
-- [Other Extension Metadata](#_other_extension_metadata_294)
-- [Other_Extension_Metadata](#_other_extension_metadata_294)
-- [Description](#_description_294)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_6)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_6)
-- [New Commands](#_new_commands_125)
-- [New Structures](#_new_structures_262)
-- [New Enum Constants](#_new_enum_constants_294)
-- [New_Enum_Constants](#_new_enum_constants_294)
-- [Examples](#_examples_34)
-- [Version History](#_version_history_295)
-- [VK_KHR_draw_indirect_count](#VK_KHR_draw_indirect_count)
-- [Other Extension Metadata](#_other_extension_metadata_295)
-- [Other_Extension_Metadata](#_other_extension_metadata_295)
-- [Description](#_description_295)
-- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_5)
-- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_5)
-- [New Commands](#_new_commands_126)
-- [New Enum Constants](#_new_enum_constants_295)
-- [New_Enum_Constants](#_new_enum_constants_295)
-- [Version History](#_version_history_296)
-- [VK_KHR_driver_properties](#VK_KHR_driver_properties)
-- [Other Extension Metadata](#_other_extension_metadata_296)
-- [Other_Extension_Metadata](#_other_extension_metadata_296)
-- [Description](#_description_296)
-- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_6)
-- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_6)
-- [New Structures](#_new_structures_263)
-- [New Enums](#_new_enums_82)
-- [New Enum Constants](#_new_enum_constants_296)
-- [New_Enum_Constants](#_new_enum_constants_296)
-- [Version History](#_version_history_297)
-- [VK_KHR_dynamic_rendering](#VK_KHR_dynamic_rendering)
-- [Other Extension Metadata](#_other_extension_metadata_297)
-- [Other_Extension_Metadata](#_other_extension_metadata_297)
-- [Description](#_description_297)
-- [New Commands](#_new_commands_127)
-- [New Structures](#_new_structures_264)
-- [New Enums](#_new_enums_83)
-- [New Bitmasks](#_new_bitmasks_64)
-- [New Enum Constants](#_new_enum_constants_297)
-- [New_Enum_Constants](#_new_enum_constants_297)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_3)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_3)
-- [Version History](#_version_history_298)
-- [VK_KHR_dynamic_rendering_local_read](#VK_KHR_dynamic_rendering_local_read)
-- [Other Extension Metadata](#_other_extension_metadata_298)
-- [Other_Extension_Metadata](#_other_extension_metadata_298)
-- [Description](#_description_298)
-- [New Commands](#_new_commands_128)
-- [New Structures](#_new_structures_265)
-- [New Enum Constants](#_new_enum_constants_298)
-- [New_Enum_Constants](#_new_enum_constants_298)
-- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_3)
-- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_3)
-- [Version History](#_version_history_299)
-- [VK_KHR_external_fence](#VK_KHR_external_fence)
-- [Other Extension Metadata](#_other_extension_metadata_299)
-- [Other_Extension_Metadata](#_other_extension_metadata_299)
-- [Description](#_description_299)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_7)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_7)
-- [New Structures](#_new_structures_266)
-- [New Enums](#_new_enums_84)
-- [New Bitmasks](#_new_bitmasks_65)
-- [New Enum Constants](#_new_enum_constants_299)
-- [New_Enum_Constants](#_new_enum_constants_299)
-- [Issues](#_issues_128)
-- [Version History](#_version_history_300)
-- [VK_KHR_external_fence_capabilities](#VK_KHR_external_fence_capabilities)
+- [New Structures](#_new_structures_268)
+- [New Enum Constants](#_new_enum_constants_300)
+- [New_Enum_Constants](#_new_enum_constants_300)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_40)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_40)
+- [Version History](#_version_history_301)
+- [VK_KHR_copy_commands2](#VK_KHR_copy_commands2)
 - [Other Extension Metadata](#_other_extension_metadata_300)
 - [Other_Extension_Metadata](#_other_extension_metadata_300)
 - [Description](#_description_300)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_8)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_8)
-- [New Commands](#_new_commands_129)
-- [New Structures](#_new_structures_267)
-- [New Enums](#_new_enums_85)
-- [New Bitmasks](#_new_bitmasks_66)
-- [New Enum Constants](#_new_enum_constants_300)
-- [New_Enum_Constants](#_new_enum_constants_300)
-- [Version History](#_version_history_301)
-- [VK_KHR_external_memory](#VK_KHR_external_memory)
+- [New Commands](#_new_commands_125)
+- [New Structures](#_new_structures_269)
+- [New Enum Constants](#_new_enum_constants_301)
+- [New_Enum_Constants](#_new_enum_constants_301)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_2)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_2)
+- [Version History](#_version_history_302)
+- [VK_KHR_create_renderpass2](#VK_KHR_create_renderpass2)
 - [Other Extension Metadata](#_other_extension_metadata_301)
 - [Other_Extension_Metadata](#_other_extension_metadata_301)
 - [Description](#_description_301)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_9)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_9)
-- [New Structures](#_new_structures_268)
-- [New Enum Constants](#_new_enum_constants_301)
-- [New_Enum_Constants](#_new_enum_constants_301)
-- [Issues](#_issues_129)
-- [Version History](#_version_history_302)
-- [VK_KHR_external_memory_capabilities](#VK_KHR_external_memory_capabilities)
+- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_3)
+- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_3)
+- [New Commands](#_new_commands_126)
+- [New Structures](#_new_structures_270)
+- [New Enum Constants](#_new_enum_constants_302)
+- [New_Enum_Constants](#_new_enum_constants_302)
+- [Version History](#_version_history_303)
+- [VK_KHR_dedicated_allocation](#VK_KHR_dedicated_allocation)
 - [Other Extension Metadata](#_other_extension_metadata_302)
 - [Other_Extension_Metadata](#_other_extension_metadata_302)
 - [Description](#_description_302)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_10)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_10)
-- [New Commands](#_new_commands_130)
-- [New Structures](#_new_structures_269)
-- [New Enums](#_new_enums_86)
-- [New Bitmasks](#_new_bitmasks_67)
-- [New Enum Constants](#_new_enum_constants_302)
-- [New_Enum_Constants](#_new_enum_constants_302)
-- [Issues](#_issues_130)
-- [Version History](#_version_history_303)
-- [VK_KHR_external_semaphore](#VK_KHR_external_semaphore)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_3)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_3)
+- [New Structures](#_new_structures_271)
+- [New Enum Constants](#_new_enum_constants_303)
+- [New_Enum_Constants](#_new_enum_constants_303)
+- [Examples](#_examples_36)
+- [Version History](#_version_history_304)
+- [VK_KHR_depth_stencil_resolve](#VK_KHR_depth_stencil_resolve)
 - [Other Extension Metadata](#_other_extension_metadata_303)
 - [Other_Extension_Metadata](#_other_extension_metadata_303)
 - [Description](#_description_303)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_11)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_11)
-- [New Structures](#_new_structures_270)
-- [New Enums](#_new_enums_87)
-- [New Bitmasks](#_new_bitmasks_68)
-- [New Enum Constants](#_new_enum_constants_303)
-- [New_Enum_Constants](#_new_enum_constants_303)
-- [Issues](#_issues_131)
-- [Version History](#_version_history_304)
-- [VK_KHR_external_semaphore_capabilities](#VK_KHR_external_semaphore_capabilities)
-- [Other Extension Metadata](#_other_extension_metadata_304)
-- [Other_Extension_Metadata](#_other_extension_metadata_304)
-- [Description](#_description_304)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_12)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_12)
-- [New Commands](#_new_commands_131)
-- [New Structures](#_new_structures_271)
-- [New Enums](#_new_enums_88)
-- [New Bitmasks](#_new_bitmasks_69)
+- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_4)
+- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_4)
+- [New Structures](#_new_structures_272)
+- [New Enums](#_new_enums_84)
+- [New Bitmasks](#_new_bitmasks_65)
 - [New Enum Constants](#_new_enum_constants_304)
 - [New_Enum_Constants](#_new_enum_constants_304)
 - [Version History](#_version_history_305)
-- [VK_KHR_format_feature_flags2](#VK_KHR_format_feature_flags2)
+- [VK_KHR_descriptor_update_template](#VK_KHR_descriptor_update_template)
+- [Other Extension Metadata](#_other_extension_metadata_304)
+- [Other_Extension_Metadata](#_other_extension_metadata_304)
+- [Description](#_description_304)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_4)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_4)
+- [New Object Types](#_new_object_types_22)
+- [New_Object_Types](#_new_object_types_22)
+- [New Commands](#_new_commands_127)
+- [New Structures](#_new_structures_273)
+- [New Enums](#_new_enums_85)
+- [New Bitmasks](#_new_bitmasks_66)
+- [New Enum Constants](#_new_enum_constants_305)
+- [New_Enum_Constants](#_new_enum_constants_305)
+- [Version History](#_version_history_306)
+- [VK_KHR_device_group](#VK_KHR_device_group)
 - [Other Extension Metadata](#_other_extension_metadata_305)
 - [Other_Extension_Metadata](#_other_extension_metadata_305)
 - [Description](#_description_305)
-- [New Structures](#_new_structures_272)
-- [New Enums](#_new_enums_89)
-- [New Bitmasks](#_new_bitmasks_70)
-- [New Enum Constants](#_new_enum_constants_305)
-- [New_Enum_Constants](#_new_enum_constants_305)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_4)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_4)
-- [Version History](#_version_history_306)
-- [VK_KHR_get_memory_requirements2](#VK_KHR_get_memory_requirements2)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_5)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_5)
+- [New Commands](#_new_commands_128)
+- [New Structures](#_new_structures_274)
+- [New Enums](#_new_enums_86)
+- [New Bitmasks](#_new_bitmasks_67)
+- [New Enum Constants](#_new_enum_constants_306)
+- [New_Enum_Constants](#_new_enum_constants_306)
+- [New Built-in Variables](#_new_built_in_variables_7)
+- [New_Built-in_Variables](#_new_built_in_variables_7)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_41)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_41)
+- [Version History](#_version_history_307)
+- [VK_KHR_device_group_creation](#VK_KHR_device_group_creation)
 - [Other Extension Metadata](#_other_extension_metadata_306)
 - [Other_Extension_Metadata](#_other_extension_metadata_306)
 - [Description](#_description_306)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_13)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_13)
-- [New Commands](#_new_commands_132)
-- [New Structures](#_new_structures_273)
-- [New Enum Constants](#_new_enum_constants_306)
-- [New_Enum_Constants](#_new_enum_constants_306)
-- [Version History](#_version_history_307)
-- [VK_KHR_get_physical_device_properties2](#VK_KHR_get_physical_device_properties2)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_6)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_6)
+- [New Commands](#_new_commands_129)
+- [New Structures](#_new_structures_275)
+- [New Enum Constants](#_new_enum_constants_307)
+- [New_Enum_Constants](#_new_enum_constants_307)
+- [Examples](#_examples_37)
+- [Version History](#_version_history_308)
+- [VK_KHR_draw_indirect_count](#VK_KHR_draw_indirect_count)
 - [Other Extension Metadata](#_other_extension_metadata_307)
 - [Other_Extension_Metadata](#_other_extension_metadata_307)
 - [Description](#_description_307)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_14)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_14)
-- [New Commands](#_new_commands_133)
-- [New Structures](#_new_structures_274)
-- [New Enum Constants](#_new_enum_constants_307)
-- [New_Enum_Constants](#_new_enum_constants_307)
-- [Examples](#_examples_35)
-- [Version History](#_version_history_308)
-- [VK_KHR_global_priority](#VK_KHR_global_priority)
+- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_5)
+- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_5)
+- [New Commands](#_new_commands_130)
+- [New Enum Constants](#_new_enum_constants_308)
+- [New_Enum_Constants](#_new_enum_constants_308)
+- [Version History](#_version_history_309)
+- [VK_KHR_driver_properties](#VK_KHR_driver_properties)
 - [Other Extension Metadata](#_other_extension_metadata_308)
 - [Other_Extension_Metadata](#_other_extension_metadata_308)
 - [Description](#_description_308)
-- [New Structures](#_new_structures_275)
-- [New Enums](#_new_enums_90)
-- [New Enum Constants](#_new_enum_constants_308)
-- [New_Enum_Constants](#_new_enum_constants_308)
-- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_4)
-- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_4)
-- [Issues](#_issues_132)
-- [Version History](#_version_history_309)
-- [VK_KHR_image_format_list](#VK_KHR_image_format_list)
-- [Other Extension Metadata](#_other_extension_metadata_309)
-- [Other_Extension_Metadata](#_other_extension_metadata_309)
-- [Description](#_description_309)
-- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_7)
-- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_7)
+- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_6)
+- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_6)
 - [New Structures](#_new_structures_276)
+- [New Enums](#_new_enums_87)
 - [New Enum Constants](#_new_enum_constants_309)
 - [New_Enum_Constants](#_new_enum_constants_309)
 - [Version History](#_version_history_310)
-- [VK_KHR_imageless_framebuffer](#VK_KHR_imageless_framebuffer)
+- [VK_KHR_dynamic_rendering](#VK_KHR_dynamic_rendering)
+- [Other Extension Metadata](#_other_extension_metadata_309)
+- [Other_Extension_Metadata](#_other_extension_metadata_309)
+- [Description](#_description_309)
+- [New Commands](#_new_commands_131)
+- [New Structures](#_new_structures_277)
+- [New Enums](#_new_enums_88)
+- [New Bitmasks](#_new_bitmasks_68)
+- [New Enum Constants](#_new_enum_constants_310)
+- [New_Enum_Constants](#_new_enum_constants_310)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_3)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_3)
+- [Version History](#_version_history_311)
+- [VK_KHR_dynamic_rendering_local_read](#VK_KHR_dynamic_rendering_local_read)
 - [Other Extension Metadata](#_other_extension_metadata_310)
 - [Other_Extension_Metadata](#_other_extension_metadata_310)
 - [Description](#_description_310)
-- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_8)
-- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_8)
-- [New Structures](#_new_structures_277)
-- [New Enum Constants](#_new_enum_constants_310)
-- [New_Enum_Constants](#_new_enum_constants_310)
-- [Version History](#_version_history_311)
-- [VK_KHR_index_type_uint8](#VK_KHR_index_type_uint8)
-- [Other Extension Metadata](#_other_extension_metadata_311)
-- [Other_Extension_Metadata](#_other_extension_metadata_311)
-- [Description](#_description_311)
+- [New Commands](#_new_commands_132)
 - [New Structures](#_new_structures_278)
 - [New Enum Constants](#_new_enum_constants_311)
 - [New_Enum_Constants](#_new_enum_constants_311)
-- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_5)
-- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_5)
+- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_3)
+- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_3)
 - [Version History](#_version_history_312)
-- [VK_KHR_line_rasterization](#VK_KHR_line_rasterization)
+- [VK_KHR_external_fence](#VK_KHR_external_fence)
+- [Other Extension Metadata](#_other_extension_metadata_311)
+- [Other_Extension_Metadata](#_other_extension_metadata_311)
+- [Description](#_description_311)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_7)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_7)
+- [New Structures](#_new_structures_279)
+- [New Enums](#_new_enums_89)
+- [New Bitmasks](#_new_bitmasks_69)
+- [New Enum Constants](#_new_enum_constants_312)
+- [New_Enum_Constants](#_new_enum_constants_312)
+- [Issues](#_issues_135)
+- [Version History](#_version_history_313)
+- [VK_KHR_external_fence_capabilities](#VK_KHR_external_fence_capabilities)
 - [Other Extension Metadata](#_other_extension_metadata_312)
 - [Other_Extension_Metadata](#_other_extension_metadata_312)
 - [Description](#_description_312)
-- [New Commands](#_new_commands_134)
-- [New Structures](#_new_structures_279)
-- [New Enums](#_new_enums_91)
-- [New Enum Constants](#_new_enum_constants_312)
-- [New_Enum_Constants](#_new_enum_constants_312)
-- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_6)
-- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_6)
-- [Issues](#_issues_133)
-- [Version History](#_version_history_313)
-- [VK_KHR_load_store_op_none](#VK_KHR_load_store_op_none)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_8)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_8)
+- [New Commands](#_new_commands_133)
+- [New Structures](#_new_structures_280)
+- [New Enums](#_new_enums_90)
+- [New Bitmasks](#_new_bitmasks_70)
+- [New Enum Constants](#_new_enum_constants_313)
+- [New_Enum_Constants](#_new_enum_constants_313)
+- [Version History](#_version_history_314)
+- [VK_KHR_external_memory](#VK_KHR_external_memory)
 - [Other Extension Metadata](#_other_extension_metadata_313)
 - [Other_Extension_Metadata](#_other_extension_metadata_313)
 - [Description](#_description_313)
-- [New Enum Constants](#_new_enum_constants_313)
-- [New_Enum_Constants](#_new_enum_constants_313)
-- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_7)
-- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_7)
-- [Version History](#_version_history_314)
-- [VK_KHR_maintenance1](#VK_KHR_maintenance1)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_9)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_9)
+- [New Structures](#_new_structures_281)
+- [New Enum Constants](#_new_enum_constants_314)
+- [New_Enum_Constants](#_new_enum_constants_314)
+- [Issues](#_issues_136)
+- [Version History](#_version_history_315)
+- [VK_KHR_external_memory_capabilities](#VK_KHR_external_memory_capabilities)
 - [Other Extension Metadata](#_other_extension_metadata_314)
 - [Other_Extension_Metadata](#_other_extension_metadata_314)
 - [Description](#_description_314)
-- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_15)
-- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_15)
-- [New Commands](#_new_commands_135)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_10)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_10)
+- [New Commands](#_new_commands_134)
+- [New Structures](#_new_structures_282)
+- [New Enums](#_new_enums_91)
 - [New Bitmasks](#_new_bitmasks_71)
-- [New Enum Constants](#_new_enum_constants_314)
-- [New_Enum_Constants](#_new_enum_constants_314)
-- [Issues](#_issues_134)
-- [Version History](#_version_history_315)
-- [VK_KHR_maintenance2](#VK_KHR_maintenance2)
+- [New Enum Constants](#_new_enum_constants_315)
+- [New_Enum_Constants](#_new_enum_constants_315)
+- [Issues](#_issues_137)
+- [Version History](#_version_history_316)
+- [VK_KHR_external_semaphore](#VK_KHR_external_semaphore)
 - [Other Extension Metadata](#_other_extension_metadata_315)
 - [Other_Extension_Metadata](#_other_extension_metadata_315)
 - [Description](#_description_315)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_11)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_11)
+- [New Structures](#_new_structures_283)
+- [New Enums](#_new_enums_92)
+- [New Bitmasks](#_new_bitmasks_72)
+- [New Enum Constants](#_new_enum_constants_316)
+- [New_Enum_Constants](#_new_enum_constants_316)
+- [Issues](#_issues_138)
+- [Version History](#_version_history_317)
+- [VK_KHR_external_semaphore_capabilities](#VK_KHR_external_semaphore_capabilities)
+- [Other Extension Metadata](#_other_extension_metadata_316)
+- [Other_Extension_Metadata](#_other_extension_metadata_316)
+- [Description](#_description_316)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_12)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_12)
+- [New Commands](#_new_commands_135)
+- [New Structures](#_new_structures_284)
+- [New Enums](#_new_enums_93)
+- [New Bitmasks](#_new_bitmasks_73)
+- [New Enum Constants](#_new_enum_constants_317)
+- [New_Enum_Constants](#_new_enum_constants_317)
+- [Version History](#_version_history_318)
+- [VK_KHR_format_feature_flags2](#VK_KHR_format_feature_flags2)
+- [Other Extension Metadata](#_other_extension_metadata_317)
+- [Other_Extension_Metadata](#_other_extension_metadata_317)
+- [Description](#_description_317)
+- [New Structures](#_new_structures_285)
+- [New Enums](#_new_enums_94)
+- [New Bitmasks](#_new_bitmasks_74)
+- [New Enum Constants](#_new_enum_constants_318)
+- [New_Enum_Constants](#_new_enum_constants_318)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_4)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_4)
+- [Version History](#_version_history_319)
+- [VK_KHR_get_memory_requirements2](#VK_KHR_get_memory_requirements2)
+- [Other Extension Metadata](#_other_extension_metadata_318)
+- [Other_Extension_Metadata](#_other_extension_metadata_318)
+- [Description](#_description_318)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_13)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_13)
+- [New Commands](#_new_commands_136)
+- [New Structures](#_new_structures_286)
+- [New Enum Constants](#_new_enum_constants_319)
+- [New_Enum_Constants](#_new_enum_constants_319)
+- [Version History](#_version_history_320)
+- [VK_KHR_get_physical_device_properties2](#VK_KHR_get_physical_device_properties2)
+- [Other Extension Metadata](#_other_extension_metadata_319)
+- [Other_Extension_Metadata](#_other_extension_metadata_319)
+- [Description](#_description_319)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_14)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_14)
+- [New Commands](#_new_commands_137)
+- [New Structures](#_new_structures_287)
+- [New Enum Constants](#_new_enum_constants_320)
+- [New_Enum_Constants](#_new_enum_constants_320)
+- [Examples](#_examples_38)
+- [Version History](#_version_history_321)
+- [VK_KHR_global_priority](#VK_KHR_global_priority)
+- [Other Extension Metadata](#_other_extension_metadata_320)
+- [Other_Extension_Metadata](#_other_extension_metadata_320)
+- [Description](#_description_320)
+- [New Structures](#_new_structures_288)
+- [New Enums](#_new_enums_95)
+- [New Enum Constants](#_new_enum_constants_321)
+- [New_Enum_Constants](#_new_enum_constants_321)
+- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_4)
+- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_4)
+- [Issues](#_issues_139)
+- [Version History](#_version_history_322)
+- [VK_KHR_image_format_list](#VK_KHR_image_format_list)
+- [Other Extension Metadata](#_other_extension_metadata_321)
+- [Other_Extension_Metadata](#_other_extension_metadata_321)
+- [Description](#_description_321)
+- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_7)
+- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_7)
+- [New Structures](#_new_structures_289)
+- [New Enum Constants](#_new_enum_constants_322)
+- [New_Enum_Constants](#_new_enum_constants_322)
+- [Version History](#_version_history_323)
+- [VK_KHR_imageless_framebuffer](#VK_KHR_imageless_framebuffer)
+- [Other Extension Metadata](#_other_extension_metadata_322)
+- [Other_Extension_Metadata](#_other_extension_metadata_322)
+- [Description](#_description_322)
+- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_8)
+- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_8)
+- [New Structures](#_new_structures_290)
+- [New Enum Constants](#_new_enum_constants_323)
+- [New_Enum_Constants](#_new_enum_constants_323)
+- [Version History](#_version_history_324)
+- [VK_KHR_index_type_uint8](#VK_KHR_index_type_uint8)
+- [Other Extension Metadata](#_other_extension_metadata_323)
+- [Other_Extension_Metadata](#_other_extension_metadata_323)
+- [Description](#_description_323)
+- [New Structures](#_new_structures_291)
+- [New Enum Constants](#_new_enum_constants_324)
+- [New_Enum_Constants](#_new_enum_constants_324)
+- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_5)
+- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_5)
+- [Version History](#_version_history_325)
+- [VK_KHR_line_rasterization](#VK_KHR_line_rasterization)
+- [Other Extension Metadata](#_other_extension_metadata_324)
+- [Other_Extension_Metadata](#_other_extension_metadata_324)
+- [Description](#_description_324)
+- [New Commands](#_new_commands_138)
+- [New Structures](#_new_structures_292)
+- [New Enums](#_new_enums_96)
+- [New Enum Constants](#_new_enum_constants_325)
+- [New_Enum_Constants](#_new_enum_constants_325)
+- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_6)
+- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_6)
+- [Issues](#_issues_140)
+- [Version History](#_version_history_326)
+- [VK_KHR_load_store_op_none](#VK_KHR_load_store_op_none)
+- [Other Extension Metadata](#_other_extension_metadata_325)
+- [Other_Extension_Metadata](#_other_extension_metadata_325)
+- [Description](#_description_325)
+- [New Enum Constants](#_new_enum_constants_326)
+- [New_Enum_Constants](#_new_enum_constants_326)
+- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_7)
+- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_7)
+- [Version History](#_version_history_327)
+- [VK_KHR_maintenance1](#VK_KHR_maintenance1)
+- [Other Extension Metadata](#_other_extension_metadata_326)
+- [Other_Extension_Metadata](#_other_extension_metadata_326)
+- [Description](#_description_326)
+- [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_15)
+- [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_15)
+- [New Commands](#_new_commands_139)
+- [New Bitmasks](#_new_bitmasks_75)
+- [New Enum Constants](#_new_enum_constants_327)
+- [New_Enum_Constants](#_new_enum_constants_327)
+- [Issues](#_issues_141)
+- [Version History](#_version_history_328)
+- [VK_KHR_maintenance2](#VK_KHR_maintenance2)
+- [Other Extension Metadata](#_other_extension_metadata_327)
+- [Other_Extension_Metadata](#_other_extension_metadata_327)
+- [Description](#_description_327)
 - [Input Attachment Specification](#_input_attachment_specification)
 - [Input_Attachment_Specification](#_input_attachment_specification)
 - [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_16)
 - [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_16)
-- [New Structures](#_new_structures_280)
-- [New Enums](#_new_enums_92)
-- [New Enum Constants](#_new_enum_constants_315)
-- [New_Enum_Constants](#_new_enum_constants_315)
+- [New Structures](#_new_structures_293)
+- [New Enums](#_new_enums_97)
+- [New Enum Constants](#_new_enum_constants_328)
+- [New_Enum_Constants](#_new_enum_constants_328)
 - [Input Attachment Specification Example](#_input_attachment_specification_example)
 - [Input_Attachment_Specification_Example](#_input_attachment_specification_example)
-- [Issues](#_issues_135)
-- [Version History](#_version_history_316)
+- [Issues](#_issues_142)
+- [Version History](#_version_history_329)
 - [VK_KHR_maintenance3](#VK_KHR_maintenance3)
-- [Other Extension Metadata](#_other_extension_metadata_316)
-- [Other_Extension_Metadata](#_other_extension_metadata_316)
-- [Description](#_description_316)
+- [Other Extension Metadata](#_other_extension_metadata_328)
+- [Other_Extension_Metadata](#_other_extension_metadata_328)
+- [Description](#_description_328)
 - [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_17)
 - [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_17)
-- [New Commands](#_new_commands_136)
-- [New Structures](#_new_structures_281)
-- [New Enum Constants](#_new_enum_constants_316)
-- [New_Enum_Constants](#_new_enum_constants_316)
-- [Version History](#_version_history_317)
+- [New Commands](#_new_commands_140)
+- [New Structures](#_new_structures_294)
+- [New Enum Constants](#_new_enum_constants_329)
+- [New_Enum_Constants](#_new_enum_constants_329)
+- [Version History](#_version_history_330)
 - [VK_KHR_maintenance4](#VK_KHR_maintenance4)
-- [Other Extension Metadata](#_other_extension_metadata_317)
-- [Other_Extension_Metadata](#_other_extension_metadata_317)
-- [Description](#_description_317)
-- [New Commands](#_new_commands_137)
-- [New Structures](#_new_structures_282)
-- [New Enum Constants](#_new_enum_constants_317)
-- [New_Enum_Constants](#_new_enum_constants_317)
+- [Other Extension Metadata](#_other_extension_metadata_329)
+- [Other_Extension_Metadata](#_other_extension_metadata_329)
+- [Description](#_description_329)
+- [New Commands](#_new_commands_141)
+- [New Structures](#_new_structures_295)
+- [New Enum Constants](#_new_enum_constants_330)
+- [New_Enum_Constants](#_new_enum_constants_330)
 - [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_5)
 - [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_5)
-- [Issues](#_issues_136)
-- [Version History](#_version_history_318)
+- [Issues](#_issues_143)
+- [Version History](#_version_history_331)
 - [VK_KHR_maintenance5](#VK_KHR_maintenance5)
-- [Other Extension Metadata](#_other_extension_metadata_318)
-- [Other_Extension_Metadata](#_other_extension_metadata_318)
-- [Description](#_description_318)
-- [New Commands](#_new_commands_138)
-- [New Structures](#_new_structures_283)
-- [New Enums](#_new_enums_93)
-- [New Bitmasks](#_new_bitmasks_72)
-- [New Enum Constants](#_new_enum_constants_318)
-- [New_Enum_Constants](#_new_enum_constants_318)
+- [Other Extension Metadata](#_other_extension_metadata_330)
+- [Other_Extension_Metadata](#_other_extension_metadata_330)
+- [Description](#_description_330)
+- [New Commands](#_new_commands_142)
+- [New Structures](#_new_structures_296)
+- [New Enums](#_new_enums_98)
+- [New Bitmasks](#_new_bitmasks_76)
+- [New Enum Constants](#_new_enum_constants_331)
+- [New_Enum_Constants](#_new_enum_constants_331)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_8)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_8)
-- [Version History](#_version_history_319)
+- [Version History](#_version_history_332)
 - [VK_KHR_maintenance6](#VK_KHR_maintenance6)
-- [Other Extension Metadata](#_other_extension_metadata_319)
-- [Other_Extension_Metadata](#_other_extension_metadata_319)
-- [Description](#_description_319)
-- [New Commands](#_new_commands_139)
-- [New Structures](#_new_structures_284)
-- [New Enum Constants](#_new_enum_constants_319)
-- [New_Enum_Constants](#_new_enum_constants_319)
+- [Other Extension Metadata](#_other_extension_metadata_331)
+- [Other_Extension_Metadata](#_other_extension_metadata_331)
+- [Description](#_description_331)
+- [New Commands](#_new_commands_143)
+- [New Structures](#_new_structures_297)
+- [New Enum Constants](#_new_enum_constants_332)
+- [New_Enum_Constants](#_new_enum_constants_332)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_9)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_9)
-- [Version History](#_version_history_320)
+- [Version History](#_version_history_333)
 - [VK_KHR_map_memory2](#VK_KHR_map_memory2)
-- [Other Extension Metadata](#_other_extension_metadata_320)
-- [Other_Extension_Metadata](#_other_extension_metadata_320)
-- [Description](#_description_320)
-- [New Commands](#_new_commands_140)
-- [New Structures](#_new_structures_285)
-- [New Enums](#_new_enums_94)
-- [New Bitmasks](#_new_bitmasks_73)
-- [New Enum Constants](#_new_enum_constants_320)
-- [New_Enum_Constants](#_new_enum_constants_320)
+- [Other Extension Metadata](#_other_extension_metadata_332)
+- [Other_Extension_Metadata](#_other_extension_metadata_332)
+- [Description](#_description_332)
+- [New Commands](#_new_commands_144)
+- [New Structures](#_new_structures_298)
+- [New Enums](#_new_enums_99)
+- [New Bitmasks](#_new_bitmasks_77)
+- [New Enum Constants](#_new_enum_constants_333)
+- [New_Enum_Constants](#_new_enum_constants_333)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_10)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_10)
-- [Version History](#_version_history_321)
+- [Version History](#_version_history_334)
 - [VK_KHR_multiview](#VK_KHR_multiview)
-- [Other Extension Metadata](#_other_extension_metadata_321)
-- [Other_Extension_Metadata](#_other_extension_metadata_321)
-- [Description](#_description_321)
+- [Other Extension Metadata](#_other_extension_metadata_333)
+- [Other_Extension_Metadata](#_other_extension_metadata_333)
+- [Description](#_description_333)
 - [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_18)
 - [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_18)
-- [New Structures](#_new_structures_286)
-- [New Enum Constants](#_new_enum_constants_321)
-- [New_Enum_Constants](#_new_enum_constants_321)
+- [New Structures](#_new_structures_299)
+- [New Enum Constants](#_new_enum_constants_334)
+- [New_Enum_Constants](#_new_enum_constants_334)
 - [New Built-In Variables](#_new_built_in_variables_8)
 - [New_Built-In_Variables](#_new_built_in_variables_8)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_39)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_39)
-- [Version History](#_version_history_322)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_42)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_42)
+- [Version History](#_version_history_335)
 - [VK_KHR_push_descriptor](#VK_KHR_push_descriptor)
-- [Other Extension Metadata](#_other_extension_metadata_322)
-- [Other_Extension_Metadata](#_other_extension_metadata_322)
-- [Description](#_description_322)
-- [New Commands](#_new_commands_141)
-- [New Structures](#_new_structures_287)
-- [New Enum Constants](#_new_enum_constants_322)
-- [New_Enum_Constants](#_new_enum_constants_322)
+- [Other Extension Metadata](#_other_extension_metadata_334)
+- [Other_Extension_Metadata](#_other_extension_metadata_334)
+- [Description](#_description_334)
+- [New Commands](#_new_commands_145)
+- [New Structures](#_new_structures_300)
+- [New Enum Constants](#_new_enum_constants_335)
+- [New_Enum_Constants](#_new_enum_constants_335)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_11)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_11)
-- [Version History](#_version_history_323)
+- [Version History](#_version_history_336)
 - [VK_KHR_relaxed_block_layout](#VK_KHR_relaxed_block_layout)
-- [Other Extension Metadata](#_other_extension_metadata_323)
-- [Other_Extension_Metadata](#_other_extension_metadata_323)
-- [Description](#_description_323)
+- [Other Extension Metadata](#_other_extension_metadata_335)
+- [Other_Extension_Metadata](#_other_extension_metadata_335)
+- [Description](#_description_335)
 - [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_19)
 - [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_19)
-- [New Enum Constants](#_new_enum_constants_323)
-- [New_Enum_Constants](#_new_enum_constants_323)
-- [Version History](#_version_history_324)
+- [New Enum Constants](#_new_enum_constants_336)
+- [New_Enum_Constants](#_new_enum_constants_336)
+- [Version History](#_version_history_337)
 - [VK_KHR_sampler_mirror_clamp_to_edge](#VK_KHR_sampler_mirror_clamp_to_edge)
-- [Other Extension Metadata](#_other_extension_metadata_324)
-- [Other_Extension_Metadata](#_other_extension_metadata_324)
-- [Description](#_description_324)
+- [Other Extension Metadata](#_other_extension_metadata_336)
+- [Other_Extension_Metadata](#_other_extension_metadata_336)
+- [Description](#_description_336)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_9)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_9)
-- [New Enum Constants](#_new_enum_constants_324)
-- [New_Enum_Constants](#_new_enum_constants_324)
+- [New Enum Constants](#_new_enum_constants_337)
+- [New_Enum_Constants](#_new_enum_constants_337)
 - [Example](#_example_4)
-- [Issues](#_issues_137)
-- [Version History](#_version_history_325)
+- [Issues](#_issues_144)
+- [Version History](#_version_history_338)
 - [VK_KHR_sampler_ycbcr_conversion](#VK_KHR_sampler_ycbcr_conversion)
-- [Other Extension Metadata](#_other_extension_metadata_325)
-- [Other_Extension_Metadata](#_other_extension_metadata_325)
-- [Description](#_description_325)
+- [Other Extension Metadata](#_other_extension_metadata_337)
+- [Other_Extension_Metadata](#_other_extension_metadata_337)
+- [Description](#_description_337)
 - [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_20)
 - [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_20)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_12)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_12)
-- [New Object Types](#_new_object_types_21)
-- [New_Object_Types](#_new_object_types_21)
-- [New Commands](#_new_commands_142)
-- [New Structures](#_new_structures_288)
-- [New Enums](#_new_enums_95)
-- [New Enum Constants](#_new_enum_constants_325)
-- [New_Enum_Constants](#_new_enum_constants_325)
-- [Version History](#_version_history_326)
+- [New Object Types](#_new_object_types_23)
+- [New_Object_Types](#_new_object_types_23)
+- [New Commands](#_new_commands_146)
+- [New Structures](#_new_structures_301)
+- [New Enums](#_new_enums_100)
+- [New Enum Constants](#_new_enum_constants_338)
+- [New_Enum_Constants](#_new_enum_constants_338)
+- [Version History](#_version_history_339)
 - [VK_KHR_separate_depth_stencil_layouts](#VK_KHR_separate_depth_stencil_layouts)
-- [Other Extension Metadata](#_other_extension_metadata_326)
-- [Other_Extension_Metadata](#_other_extension_metadata_326)
-- [Description](#_description_326)
+- [Other Extension Metadata](#_other_extension_metadata_338)
+- [Other_Extension_Metadata](#_other_extension_metadata_338)
+- [Description](#_description_338)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_10)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_10)
-- [New Structures](#_new_structures_289)
-- [New Enum Constants](#_new_enum_constants_326)
-- [New_Enum_Constants](#_new_enum_constants_326)
-- [Version History](#_version_history_327)
+- [New Structures](#_new_structures_302)
+- [New Enum Constants](#_new_enum_constants_339)
+- [New_Enum_Constants](#_new_enum_constants_339)
+- [Version History](#_version_history_340)
 - [VK_KHR_shader_atomic_int64](#VK_KHR_shader_atomic_int64)
-- [Other Extension Metadata](#_other_extension_metadata_327)
-- [Other_Extension_Metadata](#_other_extension_metadata_327)
-- [Description](#_description_327)
+- [Other Extension Metadata](#_other_extension_metadata_339)
+- [Other_Extension_Metadata](#_other_extension_metadata_339)
+- [Description](#_description_339)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_11)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_11)
-- [New Structures](#_new_structures_290)
-- [New Enum Constants](#_new_enum_constants_327)
-- [New_Enum_Constants](#_new_enum_constants_327)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_40)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_40)
-- [Version History](#_version_history_328)
+- [New Structures](#_new_structures_303)
+- [New Enum Constants](#_new_enum_constants_340)
+- [New_Enum_Constants](#_new_enum_constants_340)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_43)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_43)
+- [Version History](#_version_history_341)
 - [VK_KHR_shader_draw_parameters](#VK_KHR_shader_draw_parameters)
-- [Other Extension Metadata](#_other_extension_metadata_328)
-- [Other_Extension_Metadata](#_other_extension_metadata_328)
-- [Description](#_description_328)
+- [Other Extension Metadata](#_other_extension_metadata_340)
+- [Other_Extension_Metadata](#_other_extension_metadata_340)
+- [Description](#_description_340)
 - [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_21)
 - [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_21)
-- [New Enum Constants](#_new_enum_constants_328)
-- [New_Enum_Constants](#_new_enum_constants_328)
+- [New Enum Constants](#_new_enum_constants_341)
+- [New_Enum_Constants](#_new_enum_constants_341)
 - [New Built-In Variables](#_new_built_in_variables_9)
 - [New_Built-In_Variables](#_new_built_in_variables_9)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_41)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_41)
-- [Issues](#_issues_138)
-- [Version History](#_version_history_329)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_44)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_44)
+- [Issues](#_issues_145)
+- [Version History](#_version_history_342)
 - [VK_KHR_shader_expect_assume](#VK_KHR_shader_expect_assume)
-- [Other Extension Metadata](#_other_extension_metadata_329)
-- [Other_Extension_Metadata](#_other_extension_metadata_329)
-- [Description](#_description_329)
-- [New Structures](#_new_structures_291)
-- [New Enum Constants](#_new_enum_constants_329)
-- [New_Enum_Constants](#_new_enum_constants_329)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_42)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_42)
+- [Other Extension Metadata](#_other_extension_metadata_341)
+- [Other_Extension_Metadata](#_other_extension_metadata_341)
+- [Description](#_description_341)
+- [New Structures](#_new_structures_304)
+- [New Enum Constants](#_new_enum_constants_342)
+- [New_Enum_Constants](#_new_enum_constants_342)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_45)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_45)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_13)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_13)
-- [Version History](#_version_history_330)
+- [Version History](#_version_history_343)
 - [VK_KHR_shader_float16_int8](#VK_KHR_shader_float16_int8)
-- [Other Extension Metadata](#_other_extension_metadata_330)
-- [Other_Extension_Metadata](#_other_extension_metadata_330)
-- [Description](#_description_330)
+- [Other Extension Metadata](#_other_extension_metadata_342)
+- [Other_Extension_Metadata](#_other_extension_metadata_342)
+- [Description](#_description_342)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_12)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_12)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_14)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_14)
-- [New Structures](#_new_structures_292)
-- [New Enum Constants](#_new_enum_constants_330)
-- [New_Enum_Constants](#_new_enum_constants_330)
-- [Version History](#_version_history_331)
+- [New Structures](#_new_structures_305)
+- [New Enum Constants](#_new_enum_constants_343)
+- [New_Enum_Constants](#_new_enum_constants_343)
+- [Version History](#_version_history_344)
 - [VK_KHR_shader_float_controls](#VK_KHR_shader_float_controls)
-- [Other Extension Metadata](#_other_extension_metadata_331)
-- [Other_Extension_Metadata](#_other_extension_metadata_331)
-- [Description](#_description_331)
+- [Other Extension Metadata](#_other_extension_metadata_343)
+- [Other_Extension_Metadata](#_other_extension_metadata_343)
+- [Description](#_description_343)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_13)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_13)
-- [New Structures](#_new_structures_293)
-- [New Enums](#_new_enums_96)
-- [New Enum Constants](#_new_enum_constants_331)
-- [New_Enum_Constants](#_new_enum_constants_331)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_43)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_43)
-- [Issues](#_issues_139)
-- [Version 4 API Incompatibility](#VK_KHR_shader_controls_v4_incompatibility)
-- [Version_4_API_Incompatibility](#VK_KHR_shader_controls_v4_incompatibility)
-- [Version History](#_version_history_332)
-- [VK_KHR_shader_float_controls2](#VK_KHR_shader_float_controls2)
-- [Other Extension Metadata](#_other_extension_metadata_332)
-- [Other_Extension_Metadata](#_other_extension_metadata_332)
-- [Description](#_description_332)
-- [New Structures](#_new_structures_294)
-- [New Enum Constants](#_new_enum_constants_332)
-- [New_Enum_Constants](#_new_enum_constants_332)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_44)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_44)
-- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_15)
-- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_15)
-- [Version History](#_version_history_333)
-- [VK_KHR_shader_integer_dot_product](#VK_KHR_shader_integer_dot_product)
-- [Other Extension Metadata](#_other_extension_metadata_333)
-- [Other_Extension_Metadata](#_other_extension_metadata_333)
-- [Description](#_description_333)
-- [New Structures](#_new_structures_295)
-- [New Enum Constants](#_new_enum_constants_333)
-- [New_Enum_Constants](#_new_enum_constants_333)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_6)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_6)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_45)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_45)
-- [Version History](#_version_history_334)
-- [VK_KHR_shader_non_semantic_info](#VK_KHR_shader_non_semantic_info)
-- [Other Extension Metadata](#_other_extension_metadata_334)
-- [Other_Extension_Metadata](#_other_extension_metadata_334)
-- [Description](#_description_334)
-- [New Enum Constants](#_new_enum_constants_334)
-- [New_Enum_Constants](#_new_enum_constants_334)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_7)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_7)
-- [Version History](#_version_history_335)
-- [VK_KHR_shader_subgroup_extended_types](#VK_KHR_shader_subgroup_extended_types)
-- [Other Extension Metadata](#_other_extension_metadata_335)
-- [Other_Extension_Metadata](#_other_extension_metadata_335)
-- [Description](#_description_335)
-- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_14)
-- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_14)
-- [New Structures](#_new_structures_296)
-- [New Enum Constants](#_new_enum_constants_335)
-- [New_Enum_Constants](#_new_enum_constants_335)
-- [Version History](#_version_history_336)
-- [VK_KHR_shader_subgroup_rotate](#VK_KHR_shader_subgroup_rotate)
-- [New Structures](#_new_structures_297)
-- [New Enum Constants](#_new_enum_constants_336)
-- [New_Enum_Constants](#_new_enum_constants_336)
+- [New Structures](#_new_structures_306)
+- [New Enums](#_new_enums_101)
+- [New Enum Constants](#_new_enum_constants_344)
+- [New_Enum_Constants](#_new_enum_constants_344)
 - [New SPIR-V Capabilities](#_new_spir_v_capabilities_46)
 - [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_46)
+- [Issues](#_issues_146)
+- [Version 4 API Incompatibility](#VK_KHR_shader_controls_v4_incompatibility)
+- [Version_4_API_Incompatibility](#VK_KHR_shader_controls_v4_incompatibility)
+- [Version History](#_version_history_345)
+- [VK_KHR_shader_float_controls2](#VK_KHR_shader_float_controls2)
+- [Other Extension Metadata](#_other_extension_metadata_344)
+- [Other_Extension_Metadata](#_other_extension_metadata_344)
+- [Description](#_description_344)
+- [New Structures](#_new_structures_307)
+- [New Enum Constants](#_new_enum_constants_345)
+- [New_Enum_Constants](#_new_enum_constants_345)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_47)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_47)
+- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_15)
+- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_15)
+- [Version History](#_version_history_346)
+- [VK_KHR_shader_integer_dot_product](#VK_KHR_shader_integer_dot_product)
+- [Other Extension Metadata](#_other_extension_metadata_345)
+- [Other_Extension_Metadata](#_other_extension_metadata_345)
+- [Description](#_description_345)
+- [New Structures](#_new_structures_308)
+- [New Enum Constants](#_new_enum_constants_346)
+- [New_Enum_Constants](#_new_enum_constants_346)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_6)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_6)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_48)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_48)
+- [Version History](#_version_history_347)
+- [VK_KHR_shader_non_semantic_info](#VK_KHR_shader_non_semantic_info)
+- [Other Extension Metadata](#_other_extension_metadata_346)
+- [Other_Extension_Metadata](#_other_extension_metadata_346)
+- [Description](#_description_346)
+- [New Enum Constants](#_new_enum_constants_347)
+- [New_Enum_Constants](#_new_enum_constants_347)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_7)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_7)
+- [Version History](#_version_history_348)
+- [VK_KHR_shader_subgroup_extended_types](#VK_KHR_shader_subgroup_extended_types)
+- [Other Extension Metadata](#_other_extension_metadata_347)
+- [Other_Extension_Metadata](#_other_extension_metadata_347)
+- [Description](#_description_347)
+- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_14)
+- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_14)
+- [New Structures](#_new_structures_309)
+- [New Enum Constants](#_new_enum_constants_348)
+- [New_Enum_Constants](#_new_enum_constants_348)
+- [Version History](#_version_history_349)
+- [VK_KHR_shader_subgroup_rotate](#VK_KHR_shader_subgroup_rotate)
+- [New Structures](#_new_structures_310)
+- [New Enum Constants](#_new_enum_constants_349)
+- [New_Enum_Constants](#_new_enum_constants_349)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_49)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_49)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_16)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_16)
-- [Version History](#_version_history_337)
+- [Version History](#_version_history_350)
 - [VK_KHR_shader_terminate_invocation](#VK_KHR_shader_terminate_invocation)
-- [Other Extension Metadata](#_other_extension_metadata_336)
-- [Other_Extension_Metadata](#_other_extension_metadata_336)
-- [Description](#_description_336)
-- [New Structures](#_new_structures_298)
-- [New Enum Constants](#_new_enum_constants_337)
-- [New_Enum_Constants](#_new_enum_constants_337)
+- [Other Extension Metadata](#_other_extension_metadata_348)
+- [Other_Extension_Metadata](#_other_extension_metadata_348)
+- [Description](#_description_348)
+- [New Structures](#_new_structures_311)
+- [New Enum Constants](#_new_enum_constants_350)
+- [New_Enum_Constants](#_new_enum_constants_350)
 - [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_8)
 - [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_8)
-- [Version History](#_version_history_338)
+- [Version History](#_version_history_351)
 - [VK_KHR_spirv_1_4](#VK_KHR_spirv_1_4)
-- [Other Extension Metadata](#_other_extension_metadata_337)
-- [Other_Extension_Metadata](#_other_extension_metadata_337)
-- [Description](#_description_337)
+- [Other Extension Metadata](#_other_extension_metadata_349)
+- [Other_Extension_Metadata](#_other_extension_metadata_349)
+- [Description](#_description_349)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_15)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_15)
-- [New Enum Constants](#_new_enum_constants_338)
-- [New_Enum_Constants](#_new_enum_constants_338)
-- [Issues](#_issues_140)
-- [Version History](#_version_history_339)
+- [New Enum Constants](#_new_enum_constants_351)
+- [New_Enum_Constants](#_new_enum_constants_351)
+- [Issues](#_issues_147)
+- [Version History](#_version_history_352)
 - [VK_KHR_storage_buffer_storage_class](#VK_KHR_storage_buffer_storage_class)
-- [Other Extension Metadata](#_other_extension_metadata_338)
-- [Other_Extension_Metadata](#_other_extension_metadata_338)
-- [Description](#_description_338)
+- [Other Extension Metadata](#_other_extension_metadata_350)
+- [Other_Extension_Metadata](#_other_extension_metadata_350)
+- [Description](#_description_350)
 - [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_22)
 - [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_22)
-- [New Enum Constants](#_new_enum_constants_339)
-- [New_Enum_Constants](#_new_enum_constants_339)
-- [Version History](#_version_history_340)
+- [New Enum Constants](#_new_enum_constants_352)
+- [New_Enum_Constants](#_new_enum_constants_352)
+- [Version History](#_version_history_353)
 - [VK_KHR_synchronization2](#VK_KHR_synchronization2)
-- [Other Extension Metadata](#_other_extension_metadata_339)
-- [Other_Extension_Metadata](#_other_extension_metadata_339)
-- [Description](#_description_339)
-- [New Base Types](#_new_base_types_6)
-- [New_Base_Types](#_new_base_types_6)
-- [New Commands](#_new_commands_143)
-- [New Structures](#_new_structures_299)
-- [New Enums](#_new_enums_97)
-- [New Bitmasks](#_new_bitmasks_74)
-- [New Enum Constants](#_new_enum_constants_340)
-- [New_Enum_Constants](#_new_enum_constants_340)
+- [Other Extension Metadata](#_other_extension_metadata_351)
+- [Other_Extension_Metadata](#_other_extension_metadata_351)
+- [Description](#_description_351)
+- [New Base Types](#_new_base_types_7)
+- [New_Base_Types](#_new_base_types_7)
+- [New Commands](#_new_commands_147)
+- [New Structures](#_new_structures_312)
+- [New Enums](#_new_enums_102)
+- [New Bitmasks](#_new_bitmasks_78)
+- [New Enum Constants](#_new_enum_constants_353)
+- [New_Enum_Constants](#_new_enum_constants_353)
 - [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_9)
 - [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_9)
-- [Examples](#_examples_36)
-- [Version History](#_version_history_341)
+- [Examples](#_examples_39)
+- [Version History](#_version_history_354)
 - [VK_KHR_timeline_semaphore](#VK_KHR_timeline_semaphore)
-- [Other Extension Metadata](#_other_extension_metadata_340)
-- [Other_Extension_Metadata](#_other_extension_metadata_340)
-- [Description](#_description_340)
+- [Other Extension Metadata](#_other_extension_metadata_352)
+- [Other_Extension_Metadata](#_other_extension_metadata_352)
+- [Description](#_description_352)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_16)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_16)
-- [New Commands](#_new_commands_144)
-- [New Structures](#_new_structures_300)
-- [New Enums](#_new_enums_98)
-- [New Bitmasks](#_new_bitmasks_75)
-- [New Enum Constants](#_new_enum_constants_341)
-- [New_Enum_Constants](#_new_enum_constants_341)
-- [Issues](#_issues_141)
-- [Version History](#_version_history_342)
+- [New Commands](#_new_commands_148)
+- [New Structures](#_new_structures_313)
+- [New Enums](#_new_enums_103)
+- [New Bitmasks](#_new_bitmasks_79)
+- [New Enum Constants](#_new_enum_constants_354)
+- [New_Enum_Constants](#_new_enum_constants_354)
+- [Issues](#_issues_148)
+- [Version History](#_version_history_355)
 - [VK_KHR_uniform_buffer_standard_layout](#VK_KHR_uniform_buffer_standard_layout)
-- [Other Extension Metadata](#_other_extension_metadata_341)
-- [Other_Extension_Metadata](#_other_extension_metadata_341)
-- [Description](#_description_341)
+- [Other Extension Metadata](#_other_extension_metadata_353)
+- [Other_Extension_Metadata](#_other_extension_metadata_353)
+- [Description](#_description_353)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_17)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_17)
-- [New Structures](#_new_structures_301)
-- [New Enum Constants](#_new_enum_constants_342)
-- [New_Enum_Constants](#_new_enum_constants_342)
-- [Version History](#_version_history_343)
+- [New Structures](#_new_structures_314)
+- [New Enum Constants](#_new_enum_constants_355)
+- [New_Enum_Constants](#_new_enum_constants_355)
+- [Version History](#_version_history_356)
 - [VK_KHR_variable_pointers](#VK_KHR_variable_pointers)
-- [Other Extension Metadata](#_other_extension_metadata_342)
-- [Other_Extension_Metadata](#_other_extension_metadata_342)
-- [Description](#_description_342)
+- [Other Extension Metadata](#_other_extension_metadata_354)
+- [Other_Extension_Metadata](#_other_extension_metadata_354)
+- [Description](#_description_354)
 - [Promotion to Vulkan 1.1](#_promotion_to_vulkan_1_1_23)
 - [Promotion_to_Vulkan_1.1](#_promotion_to_vulkan_1_1_23)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_17)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_17)
-- [New Structures](#_new_structures_302)
-- [New Enum Constants](#_new_enum_constants_343)
-- [New_Enum_Constants](#_new_enum_constants_343)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_47)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_47)
-- [Issues](#_issues_142)
-- [Version History](#_version_history_344)
+- [New Structures](#_new_structures_315)
+- [New Enum Constants](#_new_enum_constants_356)
+- [New_Enum_Constants](#_new_enum_constants_356)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_50)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_50)
+- [Issues](#_issues_149)
+- [Version History](#_version_history_357)
 - [VK_KHR_vertex_attribute_divisor](#VK_KHR_vertex_attribute_divisor)
-- [Other Extension Metadata](#_other_extension_metadata_343)
-- [Other_Extension_Metadata](#_other_extension_metadata_343)
-- [Description](#_description_343)
-- [New Structures](#_new_structures_303)
-- [New Enum Constants](#_new_enum_constants_344)
-- [New_Enum_Constants](#_new_enum_constants_344)
+- [Other Extension Metadata](#_other_extension_metadata_355)
+- [Other_Extension_Metadata](#_other_extension_metadata_355)
+- [Description](#_description_355)
+- [New Structures](#_new_structures_316)
+- [New Enum Constants](#_new_enum_constants_357)
+- [New_Enum_Constants](#_new_enum_constants_357)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_18)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_18)
-- [Version History](#_version_history_345)
+- [Version History](#_version_history_358)
 - [VK_KHR_vulkan_memory_model](#VK_KHR_vulkan_memory_model)
-- [Other Extension Metadata](#_other_extension_metadata_344)
-- [Other_Extension_Metadata](#_other_extension_metadata_344)
-- [Description](#_description_344)
+- [Other Extension Metadata](#_other_extension_metadata_356)
+- [Other_Extension_Metadata](#_other_extension_metadata_356)
+- [Description](#_description_356)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_18)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_18)
 - [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_10)
 - [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_10)
-- [New Structures](#_new_structures_304)
-- [New Enum Constants](#_new_enum_constants_345)
-- [New_Enum_Constants](#_new_enum_constants_345)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_48)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_48)
-- [Version History](#_version_history_346)
+- [New Structures](#_new_structures_317)
+- [New Enum Constants](#_new_enum_constants_358)
+- [New_Enum_Constants](#_new_enum_constants_358)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_51)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_51)
+- [Version History](#_version_history_359)
 - [VK_KHR_zero_initialize_workgroup_memory](#VK_KHR_zero_initialize_workgroup_memory)
-- [Other Extension Metadata](#_other_extension_metadata_345)
-- [Other_Extension_Metadata](#_other_extension_metadata_345)
-- [Description](#_description_345)
-- [New Structures](#_new_structures_305)
-- [New Enum Constants](#_new_enum_constants_346)
-- [New_Enum_Constants](#_new_enum_constants_346)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_11)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_11)
-- [Version History](#_version_history_347)
-- [VK_EXT_4444_formats](#VK_EXT_4444_formats)
-- [Other Extension Metadata](#_other_extension_metadata_346)
-- [Other_Extension_Metadata](#_other_extension_metadata_346)
-- [Description](#_description_346)
-- [New Structures](#_new_structures_306)
-- [New Enum Constants](#_new_enum_constants_347)
-- [New_Enum_Constants](#_new_enum_constants_347)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_12)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_12)
-- [Version History](#_version_history_348)
-- [VK_EXT_buffer_device_address](#VK_EXT_buffer_device_address)
-- [Other Extension Metadata](#_other_extension_metadata_347)
-- [Other_Extension_Metadata](#_other_extension_metadata_347)
-- [Description](#_description_347)
-- [New Commands](#_new_commands_145)
-- [New Structures](#_new_structures_307)
-- [New Enum Constants](#_new_enum_constants_348)
-- [New_Enum_Constants](#_new_enum_constants_348)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_49)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_49)
-- [Issues](#_issues_143)
-- [Version History](#_version_history_349)
-- [VK_EXT_calibrated_timestamps](#VK_EXT_calibrated_timestamps)
-- [Other Extension Metadata](#_other_extension_metadata_348)
-- [Other_Extension_Metadata](#_other_extension_metadata_348)
-- [Description](#_description_348)
-- [Promotion to VK_KHR_calibrated_timestamps](#_promotion_to_vk_khr_calibrated_timestamps)
-- [Promotion_to_VK_KHR_calibrated_timestamps](#_promotion_to_vk_khr_calibrated_timestamps)
-- [New Commands](#_new_commands_146)
-- [New Structures](#_new_structures_308)
-- [New Enums](#_new_enums_99)
-- [New Enum Constants](#_new_enum_constants_349)
-- [New_Enum_Constants](#_new_enum_constants_349)
-- [Version History](#_version_history_350)
-- [VK_EXT_debug_marker](#VK_EXT_debug_marker)
-- [Other Extension Metadata](#_other_extension_metadata_349)
-- [Other_Extension_Metadata](#_other_extension_metadata_349)
-- [Description](#_description_349)
-- [New Commands](#_new_commands_147)
-- [New Structures](#_new_structures_309)
-- [New Enums](#_new_enums_100)
-- [New Enum Constants](#_new_enum_constants_350)
-- [New_Enum_Constants](#_new_enum_constants_350)
-- [Examples](#_examples_37)
-- [Issues](#_issues_144)
-- [Version History](#_version_history_351)
-- [VK_EXT_debug_report](#VK_EXT_debug_report)
-- [Other Extension Metadata](#_other_extension_metadata_350)
-- [Other_Extension_Metadata](#_other_extension_metadata_350)
-- [Description](#_description_350)
-- [New Object Types](#_new_object_types_22)
-- [New_Object_Types](#_new_object_types_22)
-- [New Commands](#_new_commands_148)
-- [New Structures](#_new_structures_310)
-- [New Function Pointers](#_new_function_pointers_4)
-- [New_Function_Pointers](#_new_function_pointers_4)
-- [New Enums](#_new_enums_101)
-- [New Bitmasks](#_new_bitmasks_76)
-- [New Enum Constants](#_new_enum_constants_351)
-- [New_Enum_Constants](#_new_enum_constants_351)
-- [Examples](#_examples_38)
-- [Issues](#_issues_145)
-- [Version History](#_version_history_352)
-- [VK_EXT_depth_clamp_zero_one](#VK_EXT_depth_clamp_zero_one)
-- [Other Extension Metadata](#_other_extension_metadata_351)
-- [Other_Extension_Metadata](#_other_extension_metadata_351)
-- [Description](#_description_351)
-- [Promotion to VK_KHR_depth_clamp_zero_one](#_promotion_to_vk_khr_depth_clamp_zero_one)
-- [Promotion_to_VK_KHR_depth_clamp_zero_one](#_promotion_to_vk_khr_depth_clamp_zero_one)
-- [New Structures](#_new_structures_311)
-- [New Enum Constants](#_new_enum_constants_352)
-- [New_Enum_Constants](#_new_enum_constants_352)
-- [Version History](#_version_history_353)
-- [VK_EXT_descriptor_indexing](#VK_EXT_descriptor_indexing)
-- [Other Extension Metadata](#_other_extension_metadata_352)
-- [Other_Extension_Metadata](#_other_extension_metadata_352)
-- [Description](#_description_352)
-- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_19)
-- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_19)
-- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_19)
-- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_19)
-- [New Structures](#_new_structures_312)
-- [New Enums](#_new_enums_102)
-- [New Bitmasks](#_new_bitmasks_77)
-- [New Enum Constants](#_new_enum_constants_353)
-- [New_Enum_Constants](#_new_enum_constants_353)
-- [Version History](#_version_history_354)
-- [VK_EXT_extended_dynamic_state](#VK_EXT_extended_dynamic_state)
-- [Other Extension Metadata](#_other_extension_metadata_353)
-- [Other_Extension_Metadata](#_other_extension_metadata_353)
-- [Description](#_description_353)
-- [New Commands](#_new_commands_149)
-- [New Structures](#_new_structures_313)
-- [New Enum Constants](#_new_enum_constants_354)
-- [New_Enum_Constants](#_new_enum_constants_354)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_13)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_13)
-- [Issues](#_issues_146)
-- [Version History](#_version_history_355)
-- [VK_EXT_extended_dynamic_state2](#VK_EXT_extended_dynamic_state2)
-- [Other Extension Metadata](#_other_extension_metadata_354)
-- [Other_Extension_Metadata](#_other_extension_metadata_354)
-- [Description](#_description_354)
-- [New Commands](#_new_commands_150)
-- [New Structures](#_new_structures_314)
-- [New Enum Constants](#_new_enum_constants_355)
-- [New_Enum_Constants](#_new_enum_constants_355)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_14)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_14)
-- [Version History](#_version_history_356)
-- [VK_EXT_global_priority](#VK_EXT_global_priority)
-- [Other Extension Metadata](#_other_extension_metadata_355)
-- [Other_Extension_Metadata](#_other_extension_metadata_355)
-- [Description](#_description_355)
-- [New Structures](#_new_structures_315)
-- [New Enums](#_new_enums_103)
-- [New Enum Constants](#_new_enum_constants_356)
-- [New_Enum_Constants](#_new_enum_constants_356)
-- [Version History](#_version_history_357)
-- [VK_EXT_global_priority_query](#VK_EXT_global_priority_query)
-- [Other Extension Metadata](#_other_extension_metadata_356)
-- [Other_Extension_Metadata](#_other_extension_metadata_356)
-- [Description](#_description_356)
-- [New Structures](#_new_structures_316)
-- [New Enum Constants](#_new_enum_constants_357)
-- [New_Enum_Constants](#_new_enum_constants_357)
-- [Issues](#_issues_147)
-- [Version History](#_version_history_358)
-- [VK_EXT_host_image_copy](#VK_EXT_host_image_copy)
 - [Other Extension Metadata](#_other_extension_metadata_357)
 - [Other_Extension_Metadata](#_other_extension_metadata_357)
 - [Description](#_description_357)
-- [New Commands](#_new_commands_151)
-- [New Structures](#_new_structures_317)
-- [New Enums](#_new_enums_104)
-- [New Bitmasks](#_new_bitmasks_78)
-- [New Enum Constants](#_new_enum_constants_358)
-- [New_Enum_Constants](#_new_enum_constants_358)
-- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_20)
-- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_20)
-- [Issues](#_issues_148)
-- [Version History](#_version_history_359)
-- [VK_EXT_host_query_reset](#VK_EXT_host_query_reset)
-- [Other Extension Metadata](#_other_extension_metadata_358)
-- [Other_Extension_Metadata](#_other_extension_metadata_358)
-- [Description](#_description_358)
-- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_20)
-- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_20)
-- [New Commands](#_new_commands_152)
 - [New Structures](#_new_structures_318)
 - [New Enum Constants](#_new_enum_constants_359)
 - [New_Enum_Constants](#_new_enum_constants_359)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_11)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_11)
 - [Version History](#_version_history_360)
-- [VK_EXT_image_robustness](#VK_EXT_image_robustness)
-- [Other Extension Metadata](#_other_extension_metadata_359)
-- [Other_Extension_Metadata](#_other_extension_metadata_359)
-- [Description](#_description_359)
+- [VK_EXT_4444_formats](#VK_EXT_4444_formats)
+- [Other Extension Metadata](#_other_extension_metadata_358)
+- [Other_Extension_Metadata](#_other_extension_metadata_358)
+- [Description](#_description_358)
 - [New Structures](#_new_structures_319)
 - [New Enum Constants](#_new_enum_constants_360)
 - [New_Enum_Constants](#_new_enum_constants_360)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_15)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_15)
-- [Issues](#_issues_149)
-- [Examples](#_examples_39)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_12)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_12)
 - [Version History](#_version_history_361)
-- [VK_EXT_index_type_uint8](#VK_EXT_index_type_uint8)
-- [Other Extension Metadata](#_other_extension_metadata_360)
-- [Other_Extension_Metadata](#_other_extension_metadata_360)
-- [Description](#_description_360)
-- [Promotion to VK_KHR_index_type_uint8](#_promotion_to_vk_khr_index_type_uint8)
-- [Promotion_to_VK_KHR_index_type_uint8](#_promotion_to_vk_khr_index_type_uint8)
+- [VK_EXT_buffer_device_address](#VK_EXT_buffer_device_address)
+- [Other Extension Metadata](#_other_extension_metadata_359)
+- [Other_Extension_Metadata](#_other_extension_metadata_359)
+- [Description](#_description_359)
+- [New Commands](#_new_commands_149)
 - [New Structures](#_new_structures_320)
 - [New Enum Constants](#_new_enum_constants_361)
 - [New_Enum_Constants](#_new_enum_constants_361)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_52)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_52)
+- [Issues](#_issues_150)
 - [Version History](#_version_history_362)
-- [VK_EXT_inline_uniform_block](#VK_EXT_inline_uniform_block)
+- [VK_EXT_calibrated_timestamps](#VK_EXT_calibrated_timestamps)
+- [Other Extension Metadata](#_other_extension_metadata_360)
+- [Other_Extension_Metadata](#_other_extension_metadata_360)
+- [Description](#_description_360)
+- [Promotion to VK_KHR_calibrated_timestamps](#_promotion_to_vk_khr_calibrated_timestamps)
+- [Promotion_to_VK_KHR_calibrated_timestamps](#_promotion_to_vk_khr_calibrated_timestamps)
+- [New Commands](#_new_commands_150)
+- [New Structures](#_new_structures_321)
+- [New Enums](#_new_enums_104)
+- [New Enum Constants](#_new_enum_constants_362)
+- [New_Enum_Constants](#_new_enum_constants_362)
+- [Version History](#_version_history_363)
+- [VK_EXT_debug_marker](#VK_EXT_debug_marker)
 - [Other Extension Metadata](#_other_extension_metadata_361)
 - [Other_Extension_Metadata](#_other_extension_metadata_361)
 - [Description](#_description_361)
-- [New Structures](#_new_structures_321)
-- [New Enum Constants](#_new_enum_constants_362)
-- [New_Enum_Constants](#_new_enum_constants_362)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_16)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_16)
-- [Issues](#_issues_150)
-- [Version History](#_version_history_363)
-- [VK_EXT_line_rasterization](#VK_EXT_line_rasterization)
-- [Other Extension Metadata](#_other_extension_metadata_362)
-- [Other_Extension_Metadata](#_other_extension_metadata_362)
-- [Description](#_description_362)
-- [Promotion to VK_KHR_line_rasterization](#_promotion_to_vk_khr_line_rasterization)
-- [Promotion_to_VK_KHR_line_rasterization](#_promotion_to_vk_khr_line_rasterization)
-- [New Commands](#_new_commands_153)
+- [New Commands](#_new_commands_151)
 - [New Structures](#_new_structures_322)
 - [New Enums](#_new_enums_105)
 - [New Enum Constants](#_new_enum_constants_363)
 - [New_Enum_Constants](#_new_enum_constants_363)
+- [Examples](#_examples_40)
 - [Issues](#_issues_151)
 - [Version History](#_version_history_364)
-- [VK_EXT_load_store_op_none](#VK_EXT_load_store_op_none)
+- [VK_EXT_debug_report](#VK_EXT_debug_report)
+- [Other Extension Metadata](#_other_extension_metadata_362)
+- [Other_Extension_Metadata](#_other_extension_metadata_362)
+- [Description](#_description_362)
+- [New Object Types](#_new_object_types_24)
+- [New_Object_Types](#_new_object_types_24)
+- [New Commands](#_new_commands_152)
+- [New Structures](#_new_structures_323)
+- [New Function Pointers](#_new_function_pointers_4)
+- [New_Function_Pointers](#_new_function_pointers_4)
+- [New Enums](#_new_enums_106)
+- [New Bitmasks](#_new_bitmasks_80)
+- [New Enum Constants](#_new_enum_constants_364)
+- [New_Enum_Constants](#_new_enum_constants_364)
+- [Examples](#_examples_41)
+- [Issues](#_issues_152)
+- [Version History](#_version_history_365)
+- [VK_EXT_depth_clamp_zero_one](#VK_EXT_depth_clamp_zero_one)
 - [Other Extension Metadata](#_other_extension_metadata_363)
 - [Other_Extension_Metadata](#_other_extension_metadata_363)
 - [Description](#_description_363)
-- [Promotion to VK_KHR_load_store_op_none](#_promotion_to_vk_khr_load_store_op_none)
-- [Promotion_to_VK_KHR_load_store_op_none](#_promotion_to_vk_khr_load_store_op_none)
-- [New Enum Constants](#_new_enum_constants_364)
-- [New_Enum_Constants](#_new_enum_constants_364)
-- [Version History](#_version_history_365)
-- [VK_EXT_pipeline_creation_cache_control](#VK_EXT_pipeline_creation_cache_control)
+- [Promotion to VK_KHR_depth_clamp_zero_one](#_promotion_to_vk_khr_depth_clamp_zero_one)
+- [Promotion_to_VK_KHR_depth_clamp_zero_one](#_promotion_to_vk_khr_depth_clamp_zero_one)
+- [New Structures](#_new_structures_324)
+- [New Enum Constants](#_new_enum_constants_365)
+- [New_Enum_Constants](#_new_enum_constants_365)
+- [Version History](#_version_history_366)
+- [VK_EXT_descriptor_indexing](#VK_EXT_descriptor_indexing)
 - [Other Extension Metadata](#_other_extension_metadata_364)
 - [Other_Extension_Metadata](#_other_extension_metadata_364)
 - [Description](#_description_364)
-- [Background](#_background)
-- [New Structures](#_new_structures_323)
-- [New Enums](#_new_enums_106)
-- [New Enum Constants](#_new_enum_constants_365)
-- [New_Enum_Constants](#_new_enum_constants_365)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_17)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_17)
-- [Version History](#_version_history_366)
-- [VK_EXT_pipeline_creation_feedback](#VK_EXT_pipeline_creation_feedback)
+- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_19)
+- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_19)
+- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_19)
+- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_19)
+- [New Structures](#_new_structures_325)
+- [New Enums](#_new_enums_107)
+- [New Bitmasks](#_new_bitmasks_81)
+- [New Enum Constants](#_new_enum_constants_366)
+- [New_Enum_Constants](#_new_enum_constants_366)
+- [Version History](#_version_history_367)
+- [VK_EXT_extended_dynamic_state](#VK_EXT_extended_dynamic_state)
 - [Other Extension Metadata](#_other_extension_metadata_365)
 - [Other_Extension_Metadata](#_other_extension_metadata_365)
 - [Description](#_description_365)
-- [New Structures](#_new_structures_324)
-- [New Enums](#_new_enums_107)
-- [New Bitmasks](#_new_bitmasks_79)
-- [New Enum Constants](#_new_enum_constants_366)
-- [New_Enum_Constants](#_new_enum_constants_366)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_18)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_18)
-- [Version History](#_version_history_367)
-- [VK_EXT_pipeline_protected_access](#VK_EXT_pipeline_protected_access)
+- [New Commands](#_new_commands_153)
+- [New Structures](#_new_structures_326)
+- [New Enum Constants](#_new_enum_constants_367)
+- [New_Enum_Constants](#_new_enum_constants_367)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_13)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_13)
+- [Issues](#_issues_153)
+- [Version History](#_version_history_368)
+- [VK_EXT_extended_dynamic_state2](#VK_EXT_extended_dynamic_state2)
 - [Other Extension Metadata](#_other_extension_metadata_366)
 - [Other_Extension_Metadata](#_other_extension_metadata_366)
 - [Description](#_description_366)
-- [New Structures](#_new_structures_325)
-- [New Enum Constants](#_new_enum_constants_367)
-- [New_Enum_Constants](#_new_enum_constants_367)
-- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_21)
-- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_21)
-- [Version History](#_version_history_368)
-- [VK_EXT_pipeline_robustness](#VK_EXT_pipeline_robustness)
+- [New Commands](#_new_commands_154)
+- [New Structures](#_new_structures_327)
+- [New Enum Constants](#_new_enum_constants_368)
+- [New_Enum_Constants](#_new_enum_constants_368)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_14)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_14)
+- [Version History](#_version_history_369)
+- [VK_EXT_global_priority](#VK_EXT_global_priority)
 - [Other Extension Metadata](#_other_extension_metadata_367)
 - [Other_Extension_Metadata](#_other_extension_metadata_367)
 - [Description](#_description_367)
-- [New Structures](#_new_structures_326)
+- [New Structures](#_new_structures_328)
 - [New Enums](#_new_enums_108)
-- [New Enum Constants](#_new_enum_constants_368)
-- [New_Enum_Constants](#_new_enum_constants_368)
-- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_22)
-- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_22)
-- [Version History](#_version_history_369)
-- [VK_EXT_private_data](#VK_EXT_private_data)
+- [New Enum Constants](#_new_enum_constants_369)
+- [New_Enum_Constants](#_new_enum_constants_369)
+- [Version History](#_version_history_370)
+- [VK_EXT_global_priority_query](#VK_EXT_global_priority_query)
 - [Other Extension Metadata](#_other_extension_metadata_368)
 - [Other_Extension_Metadata](#_other_extension_metadata_368)
 - [Description](#_description_368)
-- [New Object Types](#_new_object_types_23)
-- [New_Object_Types](#_new_object_types_23)
-- [New Commands](#_new_commands_154)
-- [New Structures](#_new_structures_327)
-- [New Bitmasks](#_new_bitmasks_80)
-- [New Enum Constants](#_new_enum_constants_369)
-- [New_Enum_Constants](#_new_enum_constants_369)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_19)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_19)
-- [Examples](#_examples_40)
-- [Issues](#_issues_152)
-- [Version History](#_version_history_370)
-- [VK_EXT_robustness2](#VK_EXT_robustness2)
+- [New Structures](#_new_structures_329)
+- [New Enum Constants](#_new_enum_constants_370)
+- [New_Enum_Constants](#_new_enum_constants_370)
+- [Issues](#_issues_154)
+- [Version History](#_version_history_371)
+- [VK_EXT_host_image_copy](#VK_EXT_host_image_copy)
 - [Other Extension Metadata](#_other_extension_metadata_369)
 - [Other_Extension_Metadata](#_other_extension_metadata_369)
 - [Description](#_description_369)
-- [Promotion to VK_KHR_robustness2](#_promotion_to_vk_khr_robustness2)
-- [Promotion_to_VK_KHR_robustness2](#_promotion_to_vk_khr_robustness2)
-- [New Structures](#_new_structures_328)
-- [New Enum Constants](#_new_enum_constants_370)
-- [New_Enum_Constants](#_new_enum_constants_370)
-- [Issues](#_issues_153)
-- [Examples](#_examples_41)
-- [Version History](#_version_history_371)
-- [VK_EXT_sampler_filter_minmax](#VK_EXT_sampler_filter_minmax)
+- [New Commands](#_new_commands_155)
+- [New Structures](#_new_structures_330)
+- [New Enums](#_new_enums_109)
+- [New Bitmasks](#_new_bitmasks_82)
+- [New Enum Constants](#_new_enum_constants_371)
+- [New_Enum_Constants](#_new_enum_constants_371)
+- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_20)
+- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_20)
+- [Issues](#_issues_155)
+- [Version History](#_version_history_372)
+- [VK_EXT_host_query_reset](#VK_EXT_host_query_reset)
 - [Other Extension Metadata](#_other_extension_metadata_370)
 - [Other_Extension_Metadata](#_other_extension_metadata_370)
 - [Description](#_description_370)
-- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_21)
-- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_21)
-- [New Structures](#_new_structures_329)
-- [New Enums](#_new_enums_109)
-- [New Enum Constants](#_new_enum_constants_371)
-- [New_Enum_Constants](#_new_enum_constants_371)
-- [Version History](#_version_history_372)
-- [VK_EXT_scalar_block_layout](#VK_EXT_scalar_block_layout)
+- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_20)
+- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_20)
+- [New Commands](#_new_commands_156)
+- [New Structures](#_new_structures_331)
+- [New Enum Constants](#_new_enum_constants_372)
+- [New_Enum_Constants](#_new_enum_constants_372)
+- [Version History](#_version_history_373)
+- [VK_EXT_image_robustness](#VK_EXT_image_robustness)
 - [Other Extension Metadata](#_other_extension_metadata_371)
 - [Other_Extension_Metadata](#_other_extension_metadata_371)
 - [Description](#_description_371)
+- [New Structures](#_new_structures_332)
+- [New Enum Constants](#_new_enum_constants_373)
+- [New_Enum_Constants](#_new_enum_constants_373)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_15)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_15)
+- [Issues](#_issues_156)
+- [Examples](#_examples_42)
+- [Version History](#_version_history_374)
+- [VK_EXT_index_type_uint8](#VK_EXT_index_type_uint8)
+- [Other Extension Metadata](#_other_extension_metadata_372)
+- [Other_Extension_Metadata](#_other_extension_metadata_372)
+- [Description](#_description_372)
+- [Promotion to VK_KHR_index_type_uint8](#_promotion_to_vk_khr_index_type_uint8)
+- [Promotion_to_VK_KHR_index_type_uint8](#_promotion_to_vk_khr_index_type_uint8)
+- [New Structures](#_new_structures_333)
+- [New Enum Constants](#_new_enum_constants_374)
+- [New_Enum_Constants](#_new_enum_constants_374)
+- [Version History](#_version_history_375)
+- [VK_EXT_inline_uniform_block](#VK_EXT_inline_uniform_block)
+- [Other Extension Metadata](#_other_extension_metadata_373)
+- [Other_Extension_Metadata](#_other_extension_metadata_373)
+- [Description](#_description_373)
+- [New Structures](#_new_structures_334)
+- [New Enum Constants](#_new_enum_constants_375)
+- [New_Enum_Constants](#_new_enum_constants_375)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_16)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_16)
+- [Issues](#_issues_157)
+- [Version History](#_version_history_376)
+- [VK_EXT_line_rasterization](#VK_EXT_line_rasterization)
+- [Other Extension Metadata](#_other_extension_metadata_374)
+- [Other_Extension_Metadata](#_other_extension_metadata_374)
+- [Description](#_description_374)
+- [Promotion to VK_KHR_line_rasterization](#_promotion_to_vk_khr_line_rasterization)
+- [Promotion_to_VK_KHR_line_rasterization](#_promotion_to_vk_khr_line_rasterization)
+- [New Commands](#_new_commands_157)
+- [New Structures](#_new_structures_335)
+- [New Enums](#_new_enums_110)
+- [New Enum Constants](#_new_enum_constants_376)
+- [New_Enum_Constants](#_new_enum_constants_376)
+- [Issues](#_issues_158)
+- [Version History](#_version_history_377)
+- [VK_EXT_load_store_op_none](#VK_EXT_load_store_op_none)
+- [Other Extension Metadata](#_other_extension_metadata_375)
+- [Other_Extension_Metadata](#_other_extension_metadata_375)
+- [Description](#_description_375)
+- [Promotion to VK_KHR_load_store_op_none](#_promotion_to_vk_khr_load_store_op_none)
+- [Promotion_to_VK_KHR_load_store_op_none](#_promotion_to_vk_khr_load_store_op_none)
+- [New Enum Constants](#_new_enum_constants_377)
+- [New_Enum_Constants](#_new_enum_constants_377)
+- [Version History](#_version_history_378)
+- [VK_EXT_pipeline_creation_cache_control](#VK_EXT_pipeline_creation_cache_control)
+- [Other Extension Metadata](#_other_extension_metadata_376)
+- [Other_Extension_Metadata](#_other_extension_metadata_376)
+- [Description](#_description_376)
+- [Background](#_background)
+- [New Structures](#_new_structures_336)
+- [New Enums](#_new_enums_111)
+- [New Enum Constants](#_new_enum_constants_378)
+- [New_Enum_Constants](#_new_enum_constants_378)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_17)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_17)
+- [Version History](#_version_history_379)
+- [VK_EXT_pipeline_creation_feedback](#VK_EXT_pipeline_creation_feedback)
+- [Other Extension Metadata](#_other_extension_metadata_377)
+- [Other_Extension_Metadata](#_other_extension_metadata_377)
+- [Description](#_description_377)
+- [New Structures](#_new_structures_337)
+- [New Enums](#_new_enums_112)
+- [New Bitmasks](#_new_bitmasks_83)
+- [New Enum Constants](#_new_enum_constants_379)
+- [New_Enum_Constants](#_new_enum_constants_379)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_18)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_18)
+- [Version History](#_version_history_380)
+- [VK_EXT_pipeline_protected_access](#VK_EXT_pipeline_protected_access)
+- [Other Extension Metadata](#_other_extension_metadata_378)
+- [Other_Extension_Metadata](#_other_extension_metadata_378)
+- [Description](#_description_378)
+- [New Structures](#_new_structures_338)
+- [New Enum Constants](#_new_enum_constants_380)
+- [New_Enum_Constants](#_new_enum_constants_380)
+- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_21)
+- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_21)
+- [Version History](#_version_history_381)
+- [VK_EXT_pipeline_robustness](#VK_EXT_pipeline_robustness)
+- [Other Extension Metadata](#_other_extension_metadata_379)
+- [Other_Extension_Metadata](#_other_extension_metadata_379)
+- [Description](#_description_379)
+- [New Structures](#_new_structures_339)
+- [New Enums](#_new_enums_113)
+- [New Enum Constants](#_new_enum_constants_381)
+- [New_Enum_Constants](#_new_enum_constants_381)
+- [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_22)
+- [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_22)
+- [Version History](#_version_history_382)
+- [VK_EXT_present_mode_fifo_latest_ready](#VK_EXT_present_mode_fifo_latest_ready)
+- [Other Extension Metadata](#_other_extension_metadata_380)
+- [Other_Extension_Metadata](#_other_extension_metadata_380)
+- [Description](#_description_380)
+- [Promotion to VK_KHR_present_mode_fifo_latest_ready](#_promotion_to_vk_khr_present_mode_fifo_latest_ready)
+- [Promotion_to_VK_KHR_present_mode_fifo_latest_ready](#_promotion_to_vk_khr_present_mode_fifo_latest_ready)
+- [New Structures](#_new_structures_340)
+- [New Enum Constants](#_new_enum_constants_382)
+- [New_Enum_Constants](#_new_enum_constants_382)
+- [Version History](#_version_history_383)
+- [VK_EXT_private_data](#VK_EXT_private_data)
+- [Other Extension Metadata](#_other_extension_metadata_381)
+- [Other_Extension_Metadata](#_other_extension_metadata_381)
+- [Description](#_description_381)
+- [New Object Types](#_new_object_types_25)
+- [New_Object_Types](#_new_object_types_25)
+- [New Commands](#_new_commands_158)
+- [New Structures](#_new_structures_341)
+- [New Bitmasks](#_new_bitmasks_84)
+- [New Enum Constants](#_new_enum_constants_383)
+- [New_Enum_Constants](#_new_enum_constants_383)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_19)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_19)
+- [Examples](#_examples_43)
+- [Issues](#_issues_159)
+- [Version History](#_version_history_384)
+- [VK_EXT_robustness2](#VK_EXT_robustness2)
+- [Other Extension Metadata](#_other_extension_metadata_382)
+- [Other_Extension_Metadata](#_other_extension_metadata_382)
+- [Description](#_description_382)
+- [Promotion to VK_KHR_robustness2](#_promotion_to_vk_khr_robustness2)
+- [Promotion_to_VK_KHR_robustness2](#_promotion_to_vk_khr_robustness2)
+- [New Structures](#_new_structures_342)
+- [New Enum Constants](#_new_enum_constants_384)
+- [New_Enum_Constants](#_new_enum_constants_384)
+- [Issues](#_issues_160)
+- [Examples](#_examples_44)
+- [Version History](#_version_history_385)
+- [VK_EXT_sampler_filter_minmax](#VK_EXT_sampler_filter_minmax)
+- [Other Extension Metadata](#_other_extension_metadata_383)
+- [Other_Extension_Metadata](#_other_extension_metadata_383)
+- [Description](#_description_383)
+- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_21)
+- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_21)
+- [New Structures](#_new_structures_343)
+- [New Enums](#_new_enums_114)
+- [New Enum Constants](#_new_enum_constants_385)
+- [New_Enum_Constants](#_new_enum_constants_385)
+- [Version History](#_version_history_386)
+- [VK_EXT_scalar_block_layout](#VK_EXT_scalar_block_layout)
+- [Other Extension Metadata](#_other_extension_metadata_384)
+- [Other_Extension_Metadata](#_other_extension_metadata_384)
+- [Description](#_description_384)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_22)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_22)
 - [Promotion to Vulkan 1.4](#_promotion_to_vulkan_1_4_23)
 - [Promotion_to_Vulkan_1.4](#_promotion_to_vulkan_1_4_23)
-- [New Structures](#_new_structures_330)
-- [New Enum Constants](#_new_enum_constants_372)
-- [New_Enum_Constants](#_new_enum_constants_372)
-- [Version History](#_version_history_373)
+- [New Structures](#_new_structures_344)
+- [New Enum Constants](#_new_enum_constants_386)
+- [New_Enum_Constants](#_new_enum_constants_386)
+- [Version History](#_version_history_387)
 - [VK_EXT_separate_stencil_usage](#VK_EXT_separate_stencil_usage)
-- [Other Extension Metadata](#_other_extension_metadata_372)
-- [Other_Extension_Metadata](#_other_extension_metadata_372)
-- [Description](#_description_372)
+- [Other Extension Metadata](#_other_extension_metadata_385)
+- [Other_Extension_Metadata](#_other_extension_metadata_385)
+- [Description](#_description_385)
 - [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_23)
 - [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_23)
-- [New Structures](#_new_structures_331)
-- [New Enum Constants](#_new_enum_constants_373)
-- [New_Enum_Constants](#_new_enum_constants_373)
-- [Version History](#_version_history_374)
+- [New Structures](#_new_structures_345)
+- [New Enum Constants](#_new_enum_constants_387)
+- [New_Enum_Constants](#_new_enum_constants_387)
+- [Version History](#_version_history_388)
 - [VK_EXT_shader_demote_to_helper_invocation](#VK_EXT_shader_demote_to_helper_invocation)
-- [Other Extension Metadata](#_other_extension_metadata_373)
-- [Other_Extension_Metadata](#_other_extension_metadata_373)
-- [Description](#_description_373)
-- [New Structures](#_new_structures_332)
-- [New Enum Constants](#_new_enum_constants_374)
-- [New_Enum_Constants](#_new_enum_constants_374)
+- [Other Extension Metadata](#_other_extension_metadata_386)
+- [Other_Extension_Metadata](#_other_extension_metadata_386)
+- [Description](#_description_386)
+- [New Structures](#_new_structures_346)
+- [New Enum Constants](#_new_enum_constants_388)
+- [New_Enum_Constants](#_new_enum_constants_388)
 - [New SPIR-V Capability](#_new_spir_v_capability_7)
 - [New_SPIR-V_Capability](#_new_spir_v_capability_7)
 - [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_20)
 - [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_20)
-- [Version History](#_version_history_375)
+- [Version History](#_version_history_389)
 - [VK_EXT_shader_subgroup_ballot](#VK_EXT_shader_subgroup_ballot)
-- [Other Extension Metadata](#_other_extension_metadata_374)
-- [Other_Extension_Metadata](#_other_extension_metadata_374)
-- [Description](#_description_374)
-- [Deprecated by Vulkan 1.2](#_deprecated_by_vulkan_1_2)
-- [Deprecated_by_Vulkan_1.2](#_deprecated_by_vulkan_1_2)
-- [New Enum Constants](#_new_enum_constants_375)
-- [New_Enum_Constants](#_new_enum_constants_375)
-- [New Built-In Variables](#_new_built_in_variables_10)
-- [New_Built-In_Variables](#_new_built_in_variables_10)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_50)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_50)
-- [Version History](#_version_history_376)
-- [VK_EXT_shader_subgroup_vote](#VK_EXT_shader_subgroup_vote)
-- [Other Extension Metadata](#_other_extension_metadata_375)
-- [Other_Extension_Metadata](#_other_extension_metadata_375)
-- [Description](#_description_375)
-- [Deprecated by Vulkan 1.1](#_deprecated_by_vulkan_1_1)
-- [Deprecated_by_Vulkan_1.1](#_deprecated_by_vulkan_1_1)
-- [New Enum Constants](#_new_enum_constants_376)
-- [New_Enum_Constants](#_new_enum_constants_376)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_51)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_51)
-- [Version History](#_version_history_377)
-- [VK_EXT_shader_viewport_index_layer](#VK_EXT_shader_viewport_index_layer)
-- [Other Extension Metadata](#_other_extension_metadata_376)
-- [Other_Extension_Metadata](#_other_extension_metadata_376)
-- [Description](#_description_376)
-- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_24)
-- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_24)
-- [New Enum Constants](#_new_enum_constants_377)
-- [New_Enum_Constants](#_new_enum_constants_377)
-- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_12)
-- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_12)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_52)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_52)
-- [Version History](#_version_history_378)
-- [VK_EXT_subgroup_size_control](#VK_EXT_subgroup_size_control)
-- [Other Extension Metadata](#_other_extension_metadata_377)
-- [Other_Extension_Metadata](#_other_extension_metadata_377)
-- [Description](#_description_377)
-- [New Structures](#_new_structures_333)
-- [New Enum Constants](#_new_enum_constants_378)
-- [New_Enum_Constants](#_new_enum_constants_378)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_21)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_21)
-- [Version History](#_version_history_379)
-- [VK_EXT_texel_buffer_alignment](#VK_EXT_texel_buffer_alignment)
-- [Other Extension Metadata](#_other_extension_metadata_378)
-- [Other_Extension_Metadata](#_other_extension_metadata_378)
-- [Description](#_description_378)
-- [New Structures](#_new_structures_334)
-- [New Enum Constants](#_new_enum_constants_379)
-- [New_Enum_Constants](#_new_enum_constants_379)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_22)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_22)
-- [Version History](#_version_history_380)
-- [VK_EXT_texture_compression_astc_hdr](#VK_EXT_texture_compression_astc_hdr)
-- [Other Extension Metadata](#_other_extension_metadata_379)
-- [Other_Extension_Metadata](#_other_extension_metadata_379)
-- [Description](#_description_379)
-- [New Structures](#_new_structures_335)
-- [New Enum Constants](#_new_enum_constants_380)
-- [New_Enum_Constants](#_new_enum_constants_380)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_23)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_23)
-- [Issues](#_issues_154)
-- [Version History](#_version_history_381)
-- [VK_EXT_tooling_info](#VK_EXT_tooling_info)
-- [Other Extension Metadata](#_other_extension_metadata_380)
-- [Other_Extension_Metadata](#_other_extension_metadata_380)
-- [Description](#_description_380)
-- [New Commands](#_new_commands_155)
-- [New Structures](#_new_structures_336)
-- [New Enums](#_new_enums_110)
-- [New Bitmasks](#_new_bitmasks_81)
-- [New Enum Constants](#_new_enum_constants_381)
-- [New_Enum_Constants](#_new_enum_constants_381)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_24)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_24)
-- [Examples](#_examples_42)
-- [Issues](#_issues_155)
-- [Version History](#_version_history_382)
-- [VK_EXT_validation_features](#VK_EXT_validation_features)
-- [Other Extension Metadata](#_other_extension_metadata_381)
-- [Other_Extension_Metadata](#_other_extension_metadata_381)
-- [Description](#_description_381)
-- [Deprecation by VK_EXT_layer_settings](#_deprecation_by_vk_ext_layer_settings)
-- [Deprecation_by_VK_EXT_layer_settings](#_deprecation_by_vk_ext_layer_settings)
-- [New Structures](#_new_structures_337)
-- [New Enums](#_new_enums_111)
-- [New Enum Constants](#_new_enum_constants_382)
-- [New_Enum_Constants](#_new_enum_constants_382)
-- [Version History](#_version_history_383)
-- [VK_EXT_validation_flags](#VK_EXT_validation_flags)
-- [Other Extension Metadata](#_other_extension_metadata_382)
-- [Other_Extension_Metadata](#_other_extension_metadata_382)
-- [Description](#_description_382)
-- [Deprecation by VK_EXT_layer_settings](#_deprecation_by_vk_ext_layer_settings_2)
-- [Deprecation_by_VK_EXT_layer_settings](#_deprecation_by_vk_ext_layer_settings_2)
-- [New Structures](#_new_structures_338)
-- [New Enums](#_new_enums_112)
-- [New Enum Constants](#_new_enum_constants_383)
-- [New_Enum_Constants](#_new_enum_constants_383)
-- [Version History](#_version_history_384)
-- [VK_EXT_vertex_attribute_divisor](#VK_EXT_vertex_attribute_divisor)
-- [Other Extension Metadata](#_other_extension_metadata_383)
-- [Other_Extension_Metadata](#_other_extension_metadata_383)
-- [Description](#_description_383)
-- [New Structures](#_new_structures_339)
-- [New Enum Constants](#_new_enum_constants_384)
-- [New_Enum_Constants](#_new_enum_constants_384)
-- [Issues](#_issues_156)
-- [Examples](#_examples_43)
-- [Version History](#_version_history_385)
-- [VK_EXT_ycbcr_2plane_444_formats](#VK_EXT_ycbcr_2plane_444_formats)
-- [Other Extension Metadata](#_other_extension_metadata_384)
-- [Other_Extension_Metadata](#_other_extension_metadata_384)
-- [Description](#_description_384)
-- [New Structures](#_new_structures_340)
-- [New Enum Constants](#_new_enum_constants_385)
-- [New_Enum_Constants](#_new_enum_constants_385)
-- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_25)
-- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_25)
-- [Version History](#_version_history_386)
-- [VK_AMD_draw_indirect_count](#VK_AMD_draw_indirect_count)
-- [Other Extension Metadata](#_other_extension_metadata_385)
-- [Other_Extension_Metadata](#_other_extension_metadata_385)
-- [Description](#_description_385)
-- [Promotion to VK_KHR_draw_indirect_count](#_promotion_to_vk_khr_draw_indirect_count)
-- [Promotion_to_VK_KHR_draw_indirect_count](#_promotion_to_vk_khr_draw_indirect_count)
-- [New Commands](#_new_commands_156)
-- [New Enum Constants](#_new_enum_constants_386)
-- [New_Enum_Constants](#_new_enum_constants_386)
-- [Version History](#_version_history_387)
-- [VK_AMD_gpu_shader_half_float](#VK_AMD_gpu_shader_half_float)
-- [Other Extension Metadata](#_other_extension_metadata_386)
-- [Other_Extension_Metadata](#_other_extension_metadata_386)
-- [Description](#_description_386)
-- [Deprecation by VK_KHR_shader_float16_int8](#_deprecation_by_vk_khr_shader_float16_int8)
-- [Deprecation_by_VK_KHR_shader_float16_int8](#_deprecation_by_vk_khr_shader_float16_int8)
-- [New Enum Constants](#_new_enum_constants_387)
-- [New_Enum_Constants](#_new_enum_constants_387)
-- [Version History](#_version_history_388)
-- [VK_AMD_gpu_shader_int16](#VK_AMD_gpu_shader_int16)
 - [Other Extension Metadata](#_other_extension_metadata_387)
 - [Other_Extension_Metadata](#_other_extension_metadata_387)
 - [Description](#_description_387)
-- [Deprecation by VK_KHR_shader_float16_int8](#_deprecation_by_vk_khr_shader_float16_int8_2)
-- [Deprecation_by_VK_KHR_shader_float16_int8](#_deprecation_by_vk_khr_shader_float16_int8_2)
-- [New Enum Constants](#_new_enum_constants_388)
-- [New_Enum_Constants](#_new_enum_constants_388)
-- [Version History](#_version_history_389)
-- [VK_AMD_negative_viewport_height](#VK_AMD_negative_viewport_height)
+- [Deprecated by Vulkan 1.2](#_deprecated_by_vulkan_1_2)
+- [Deprecated_by_Vulkan_1.2](#_deprecated_by_vulkan_1_2)
+- [New Enum Constants](#_new_enum_constants_389)
+- [New_Enum_Constants](#_new_enum_constants_389)
+- [New Built-In Variables](#_new_built_in_variables_10)
+- [New_Built-In_Variables](#_new_built_in_variables_10)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_53)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_53)
+- [Version History](#_version_history_390)
+- [VK_EXT_shader_subgroup_vote](#VK_EXT_shader_subgroup_vote)
 - [Other Extension Metadata](#_other_extension_metadata_388)
 - [Other_Extension_Metadata](#_other_extension_metadata_388)
 - [Description](#_description_388)
-- [Obsoletion by VK_KHR_maintenance1 and Vulkan 1.1](#_obsoletion_by_vk_khr_maintenance1_and_vulkan_1_1)
-- [Obsoletion_by_VK_KHR_maintenance1_and_Vulkan_1.1](#_obsoletion_by_vk_khr_maintenance1_and_vulkan_1_1)
-- [New Enum Constants](#_new_enum_constants_389)
-- [New_Enum_Constants](#_new_enum_constants_389)
-- [Version History](#_version_history_390)
-- [VK_ARM_rasterization_order_attachment_access](#VK_ARM_rasterization_order_attachment_access)
+- [Deprecated by Vulkan 1.1](#_deprecated_by_vulkan_1_1)
+- [Deprecated_by_Vulkan_1.1](#_deprecated_by_vulkan_1_1)
+- [New Enum Constants](#_new_enum_constants_390)
+- [New_Enum_Constants](#_new_enum_constants_390)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_54)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_54)
+- [Version History](#_version_history_391)
+- [VK_EXT_shader_viewport_index_layer](#VK_EXT_shader_viewport_index_layer)
 - [Other Extension Metadata](#_other_extension_metadata_389)
 - [Other_Extension_Metadata](#_other_extension_metadata_389)
 - [Description](#_description_389)
-- [New Structures](#_new_structures_341)
-- [New Enum Constants](#_new_enum_constants_390)
-- [New_Enum_Constants](#_new_enum_constants_390)
-- [Issues](#_issues_157)
-- [Examples](#_examples_44)
-- [Version History](#_version_history_391)
-- [VK_IMG_format_pvrtc](#VK_IMG_format_pvrtc)
+- [Promotion to Vulkan 1.2](#_promotion_to_vulkan_1_2_24)
+- [Promotion_to_Vulkan_1.2](#_promotion_to_vulkan_1_2_24)
+- [New Enum Constants](#_new_enum_constants_391)
+- [New_Enum_Constants](#_new_enum_constants_391)
+- [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_12)
+- [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_12)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_55)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_55)
+- [Version History](#_version_history_392)
+- [VK_EXT_subgroup_size_control](#VK_EXT_subgroup_size_control)
 - [Other Extension Metadata](#_other_extension_metadata_390)
 - [Other_Extension_Metadata](#_other_extension_metadata_390)
 - [Description](#_description_390)
-- [Deprecation](#_deprecation)
-- [New Enum Constants](#_new_enum_constants_391)
-- [New_Enum_Constants](#_new_enum_constants_391)
-- [Version History](#_version_history_392)
-- [VK_MVK_ios_surface](#VK_MVK_ios_surface)
+- [New Structures](#_new_structures_347)
+- [New Enum Constants](#_new_enum_constants_392)
+- [New_Enum_Constants](#_new_enum_constants_392)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_21)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_21)
+- [Version History](#_version_history_393)
+- [VK_EXT_surface_maintenance1](#VK_EXT_surface_maintenance1)
 - [Other Extension Metadata](#_other_extension_metadata_391)
 - [Other_Extension_Metadata](#_other_extension_metadata_391)
 - [Description](#_description_391)
-- [Deprecation by VK_EXT_metal_surface](#_deprecation_by_vk_ext_metal_surface)
-- [Deprecation_by_VK_EXT_metal_surface](#_deprecation_by_vk_ext_metal_surface)
-- [New Commands](#_new_commands_157)
-- [New Structures](#_new_structures_342)
-- [New Bitmasks](#_new_bitmasks_82)
-- [New Enum Constants](#_new_enum_constants_392)
-- [New_Enum_Constants](#_new_enum_constants_392)
-- [Version History](#_version_history_393)
-- [VK_MVK_macos_surface](#VK_MVK_macos_surface)
-- [Other Extension Metadata](#_other_extension_metadata_392)
-- [Other_Extension_Metadata](#_other_extension_metadata_392)
-- [Description](#_description_392)
-- [Deprecation by VK_EXT_metal_surface](#_deprecation_by_vk_ext_metal_surface_2)
-- [Deprecation_by_VK_EXT_metal_surface](#_deprecation_by_vk_ext_metal_surface_2)
-- [New Commands](#_new_commands_158)
-- [New Structures](#_new_structures_343)
-- [New Bitmasks](#_new_bitmasks_83)
+- [Promotion to VK_KHR_surface_maintenance1](#_promotion_to_vk_khr_surface_maintenance1)
+- [Promotion_to_VK_KHR_surface_maintenance1](#_promotion_to_vk_khr_surface_maintenance1)
+- [New Structures](#_new_structures_348)
+- [New Enums](#_new_enums_115)
+- [New Bitmasks](#_new_bitmasks_85)
 - [New Enum Constants](#_new_enum_constants_393)
 - [New_Enum_Constants](#_new_enum_constants_393)
 - [Version History](#_version_history_394)
-- [VK_NV_compute_shader_derivatives](#VK_NV_compute_shader_derivatives)
+- [VK_EXT_swapchain_maintenance1](#VK_EXT_swapchain_maintenance1)
+- [Other Extension Metadata](#_other_extension_metadata_392)
+- [Other_Extension_Metadata](#_other_extension_metadata_392)
+- [Description](#_description_392)
+- [Promotion to VK_KHR_swapchain_maintenance1](#_promotion_to_vk_khr_swapchain_maintenance1)
+- [Promotion_to_VK_KHR_swapchain_maintenance1](#_promotion_to_vk_khr_swapchain_maintenance1)
+- [New Commands](#_new_commands_159)
+- [New Structures](#_new_structures_349)
+- [New Enum Constants](#_new_enum_constants_394)
+- [New_Enum_Constants](#_new_enum_constants_394)
+- [Version History](#_version_history_395)
+- [VK_EXT_texel_buffer_alignment](#VK_EXT_texel_buffer_alignment)
 - [Other Extension Metadata](#_other_extension_metadata_393)
 - [Other_Extension_Metadata](#_other_extension_metadata_393)
 - [Description](#_description_393)
-- [New Structures](#_new_structures_344)
-- [New Enum Constants](#_new_enum_constants_394)
-- [New_Enum_Constants](#_new_enum_constants_394)
-- [New SPIR-V Capability](#_new_spir_v_capability_8)
-- [New_SPIR-V_Capability](#_new_spir_v_capability_8)
-- [Issues](#_issues_158)
-- [Examples](#_examples_45)
-- [Version History](#_version_history_395)
-- [VK_NV_dedicated_allocation](#VK_NV_dedicated_allocation)
+- [New Structures](#_new_structures_350)
+- [New Enum Constants](#_new_enum_constants_395)
+- [New_Enum_Constants](#_new_enum_constants_395)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_22)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_22)
+- [Version History](#_version_history_396)
+- [VK_EXT_texture_compression_astc_hdr](#VK_EXT_texture_compression_astc_hdr)
 - [Other Extension Metadata](#_other_extension_metadata_394)
 - [Other_Extension_Metadata](#_other_extension_metadata_394)
 - [Description](#_description_394)
-- [New Structures](#_new_structures_345)
-- [New Enum Constants](#_new_enum_constants_395)
-- [New_Enum_Constants](#_new_enum_constants_395)
-- [Examples](#_examples_46)
-- [Version History](#_version_history_396)
-- [VK_NV_displacement_micromap](#VK_NV_displacement_micromap)
+- [New Structures](#_new_structures_351)
+- [New Enum Constants](#_new_enum_constants_396)
+- [New_Enum_Constants](#_new_enum_constants_396)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_23)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_23)
+- [Issues](#_issues_161)
+- [Version History](#_version_history_397)
+- [VK_EXT_tooling_info](#VK_EXT_tooling_info)
 - [Other Extension Metadata](#_other_extension_metadata_395)
 - [Other_Extension_Metadata](#_other_extension_metadata_395)
 - [Description](#_description_395)
-- [New Structures](#_new_structures_346)
-- [New Enums](#_new_enums_113)
-- [New Enum Constants](#_new_enum_constants_396)
-- [New_Enum_Constants](#_new_enum_constants_396)
-- [Issues](#_issues_159)
-- [Version History](#_version_history_397)
-- [VK_NV_external_memory](#VK_NV_external_memory)
+- [New Commands](#_new_commands_160)
+- [New Structures](#_new_structures_352)
+- [New Enums](#_new_enums_116)
+- [New Bitmasks](#_new_bitmasks_86)
+- [New Enum Constants](#_new_enum_constants_397)
+- [New_Enum_Constants](#_new_enum_constants_397)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_24)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_24)
+- [Examples](#_examples_45)
+- [Issues](#_issues_162)
+- [Version History](#_version_history_398)
+- [VK_EXT_validation_features](#VK_EXT_validation_features)
 - [Other Extension Metadata](#_other_extension_metadata_396)
 - [Other_Extension_Metadata](#_other_extension_metadata_396)
 - [Description](#_description_396)
-- [New Structures](#_new_structures_347)
-- [New Enum Constants](#_new_enum_constants_397)
-- [New_Enum_Constants](#_new_enum_constants_397)
-- [Issues](#_issues_160)
-- [Examples](#_examples_47)
-- [Version History](#_version_history_398)
-- [VK_NV_external_memory_capabilities](#VK_NV_external_memory_capabilities)
+- [Deprecation by VK_EXT_layer_settings](#_deprecation_by_vk_ext_layer_settings)
+- [Deprecation_by_VK_EXT_layer_settings](#_deprecation_by_vk_ext_layer_settings)
+- [New Structures](#_new_structures_353)
+- [New Enums](#_new_enums_117)
+- [New Enum Constants](#_new_enum_constants_398)
+- [New_Enum_Constants](#_new_enum_constants_398)
+- [Version History](#_version_history_399)
+- [VK_EXT_validation_flags](#VK_EXT_validation_flags)
 - [Other Extension Metadata](#_other_extension_metadata_397)
 - [Other_Extension_Metadata](#_other_extension_metadata_397)
 - [Description](#_description_397)
-- [New Commands](#_new_commands_159)
-- [New Structures](#_new_structures_348)
-- [New Enums](#_new_enums_114)
-- [New Bitmasks](#_new_bitmasks_84)
-- [New Enum Constants](#_new_enum_constants_398)
-- [New_Enum_Constants](#_new_enum_constants_398)
-- [Issues](#_issues_161)
-- [Version History](#_version_history_399)
-- [VK_NV_external_memory_win32](#VK_NV_external_memory_win32)
+- [Deprecation by VK_EXT_layer_settings](#_deprecation_by_vk_ext_layer_settings_2)
+- [Deprecation_by_VK_EXT_layer_settings](#_deprecation_by_vk_ext_layer_settings_2)
+- [New Structures](#_new_structures_354)
+- [New Enums](#_new_enums_118)
+- [New Enum Constants](#_new_enum_constants_399)
+- [New_Enum_Constants](#_new_enum_constants_399)
+- [Version History](#_version_history_400)
+- [VK_EXT_vertex_attribute_divisor](#VK_EXT_vertex_attribute_divisor)
 - [Other Extension Metadata](#_other_extension_metadata_398)
 - [Other_Extension_Metadata](#_other_extension_metadata_398)
 - [Description](#_description_398)
-- [New Commands](#_new_commands_160)
-- [New Structures](#_new_structures_349)
-- [New Enum Constants](#_new_enum_constants_399)
-- [New_Enum_Constants](#_new_enum_constants_399)
-- [Issues](#_issues_162)
-- [Examples](#_examples_48)
-- [Version History](#_version_history_400)
-- [VK_NV_fragment_shader_barycentric](#VK_NV_fragment_shader_barycentric)
+- [New Structures](#_new_structures_355)
+- [New Enum Constants](#_new_enum_constants_400)
+- [New_Enum_Constants](#_new_enum_constants_400)
+- [Issues](#_issues_163)
+- [Examples](#_examples_46)
+- [Version History](#_version_history_401)
+- [VK_EXT_vertex_attribute_robustness](#VK_EXT_vertex_attribute_robustness)
 - [Other Extension Metadata](#_other_extension_metadata_399)
 - [Other_Extension_Metadata](#_other_extension_metadata_399)
 - [Description](#_description_399)
+- [New Structures](#_new_structures_356)
+- [New Enum Constants](#_new_enum_constants_401)
+- [New_Enum_Constants](#_new_enum_constants_401)
+- [Issues](#_issues_164)
+- [Version History](#_version_history_402)
+- [VK_EXT_ycbcr_2plane_444_formats](#VK_EXT_ycbcr_2plane_444_formats)
+- [Other Extension Metadata](#_other_extension_metadata_400)
+- [Other_Extension_Metadata](#_other_extension_metadata_400)
+- [Description](#_description_400)
+- [New Structures](#_new_structures_357)
+- [New Enum Constants](#_new_enum_constants_402)
+- [New_Enum_Constants](#_new_enum_constants_402)
+- [Promotion to Vulkan 1.3](#_promotion_to_vulkan_1_3_25)
+- [Promotion_to_Vulkan_1.3](#_promotion_to_vulkan_1_3_25)
+- [Version History](#_version_history_403)
+- [VK_AMD_draw_indirect_count](#VK_AMD_draw_indirect_count)
+- [Other Extension Metadata](#_other_extension_metadata_401)
+- [Other_Extension_Metadata](#_other_extension_metadata_401)
+- [Description](#_description_401)
+- [Promotion to VK_KHR_draw_indirect_count](#_promotion_to_vk_khr_draw_indirect_count)
+- [Promotion_to_VK_KHR_draw_indirect_count](#_promotion_to_vk_khr_draw_indirect_count)
+- [New Commands](#_new_commands_161)
+- [New Enum Constants](#_new_enum_constants_403)
+- [New_Enum_Constants](#_new_enum_constants_403)
+- [Version History](#_version_history_404)
+- [VK_AMD_gpu_shader_half_float](#VK_AMD_gpu_shader_half_float)
+- [Other Extension Metadata](#_other_extension_metadata_402)
+- [Other_Extension_Metadata](#_other_extension_metadata_402)
+- [Description](#_description_402)
+- [Deprecation by VK_KHR_shader_float16_int8](#_deprecation_by_vk_khr_shader_float16_int8)
+- [Deprecation_by_VK_KHR_shader_float16_int8](#_deprecation_by_vk_khr_shader_float16_int8)
+- [New Enum Constants](#_new_enum_constants_404)
+- [New_Enum_Constants](#_new_enum_constants_404)
+- [Version History](#_version_history_405)
+- [VK_AMD_gpu_shader_int16](#VK_AMD_gpu_shader_int16)
+- [Other Extension Metadata](#_other_extension_metadata_403)
+- [Other_Extension_Metadata](#_other_extension_metadata_403)
+- [Description](#_description_403)
+- [Deprecation by VK_KHR_shader_float16_int8](#_deprecation_by_vk_khr_shader_float16_int8_2)
+- [Deprecation_by_VK_KHR_shader_float16_int8](#_deprecation_by_vk_khr_shader_float16_int8_2)
+- [New Enum Constants](#_new_enum_constants_405)
+- [New_Enum_Constants](#_new_enum_constants_405)
+- [Version History](#_version_history_406)
+- [VK_AMD_negative_viewport_height](#VK_AMD_negative_viewport_height)
+- [Other Extension Metadata](#_other_extension_metadata_404)
+- [Other_Extension_Metadata](#_other_extension_metadata_404)
+- [Description](#_description_404)
+- [Obsoletion by VK_KHR_maintenance1 and Vulkan 1.1](#_obsoletion_by_vk_khr_maintenance1_and_vulkan_1_1)
+- [Obsoletion_by_VK_KHR_maintenance1_and_Vulkan_1.1](#_obsoletion_by_vk_khr_maintenance1_and_vulkan_1_1)
+- [New Enum Constants](#_new_enum_constants_406)
+- [New_Enum_Constants](#_new_enum_constants_406)
+- [Version History](#_version_history_407)
+- [VK_ARM_rasterization_order_attachment_access](#VK_ARM_rasterization_order_attachment_access)
+- [Other Extension Metadata](#_other_extension_metadata_405)
+- [Other_Extension_Metadata](#_other_extension_metadata_405)
+- [Description](#_description_405)
+- [New Structures](#_new_structures_358)
+- [New Enum Constants](#_new_enum_constants_407)
+- [New_Enum_Constants](#_new_enum_constants_407)
+- [Issues](#_issues_165)
+- [Examples](#_examples_47)
+- [Version History](#_version_history_408)
+- [VK_IMG_format_pvrtc](#VK_IMG_format_pvrtc)
+- [Other Extension Metadata](#_other_extension_metadata_406)
+- [Other_Extension_Metadata](#_other_extension_metadata_406)
+- [Description](#_description_406)
+- [Deprecation](#_deprecation)
+- [New Enum Constants](#_new_enum_constants_408)
+- [New_Enum_Constants](#_new_enum_constants_408)
+- [Version History](#_version_history_409)
+- [VK_MVK_ios_surface](#VK_MVK_ios_surface)
+- [Other Extension Metadata](#_other_extension_metadata_407)
+- [Other_Extension_Metadata](#_other_extension_metadata_407)
+- [Description](#_description_407)
+- [Deprecation by VK_EXT_metal_surface](#_deprecation_by_vk_ext_metal_surface)
+- [Deprecation_by_VK_EXT_metal_surface](#_deprecation_by_vk_ext_metal_surface)
+- [New Commands](#_new_commands_162)
+- [New Structures](#_new_structures_359)
+- [New Bitmasks](#_new_bitmasks_87)
+- [New Enum Constants](#_new_enum_constants_409)
+- [New_Enum_Constants](#_new_enum_constants_409)
+- [Version History](#_version_history_410)
+- [VK_MVK_macos_surface](#VK_MVK_macos_surface)
+- [Other Extension Metadata](#_other_extension_metadata_408)
+- [Other_Extension_Metadata](#_other_extension_metadata_408)
+- [Description](#_description_408)
+- [Deprecation by VK_EXT_metal_surface](#_deprecation_by_vk_ext_metal_surface_2)
+- [Deprecation_by_VK_EXT_metal_surface](#_deprecation_by_vk_ext_metal_surface_2)
+- [New Commands](#_new_commands_163)
+- [New Structures](#_new_structures_360)
+- [New Bitmasks](#_new_bitmasks_88)
+- [New Enum Constants](#_new_enum_constants_410)
+- [New_Enum_Constants](#_new_enum_constants_410)
+- [Version History](#_version_history_411)
+- [VK_NV_compute_shader_derivatives](#VK_NV_compute_shader_derivatives)
+- [Other Extension Metadata](#_other_extension_metadata_409)
+- [Other_Extension_Metadata](#_other_extension_metadata_409)
+- [Description](#_description_409)
+- [New Structures](#_new_structures_361)
+- [New Enum Constants](#_new_enum_constants_411)
+- [New_Enum_Constants](#_new_enum_constants_411)
+- [New SPIR-V Capability](#_new_spir_v_capability_8)
+- [New_SPIR-V_Capability](#_new_spir_v_capability_8)
+- [Issues](#_issues_166)
+- [Examples](#_examples_48)
+- [Version History](#_version_history_412)
+- [VK_NV_dedicated_allocation](#VK_NV_dedicated_allocation)
+- [Other Extension Metadata](#_other_extension_metadata_410)
+- [Other_Extension_Metadata](#_other_extension_metadata_410)
+- [Description](#_description_410)
+- [New Structures](#_new_structures_362)
+- [New Enum Constants](#_new_enum_constants_412)
+- [New_Enum_Constants](#_new_enum_constants_412)
+- [Examples](#_examples_49)
+- [Version History](#_version_history_413)
+- [VK_NV_displacement_micromap](#VK_NV_displacement_micromap)
+- [Other Extension Metadata](#_other_extension_metadata_411)
+- [Other_Extension_Metadata](#_other_extension_metadata_411)
+- [Description](#_description_411)
+- [New Structures](#_new_structures_363)
+- [New Enums](#_new_enums_119)
+- [New Enum Constants](#_new_enum_constants_413)
+- [New_Enum_Constants](#_new_enum_constants_413)
+- [Issues](#_issues_167)
+- [Version History](#_version_history_414)
+- [VK_NV_external_memory](#VK_NV_external_memory)
+- [Other Extension Metadata](#_other_extension_metadata_412)
+- [Other_Extension_Metadata](#_other_extension_metadata_412)
+- [Description](#_description_412)
+- [New Structures](#_new_structures_364)
+- [New Enum Constants](#_new_enum_constants_414)
+- [New_Enum_Constants](#_new_enum_constants_414)
+- [Issues](#_issues_168)
+- [Examples](#_examples_50)
+- [Version History](#_version_history_415)
+- [VK_NV_external_memory_capabilities](#VK_NV_external_memory_capabilities)
+- [Other Extension Metadata](#_other_extension_metadata_413)
+- [Other_Extension_Metadata](#_other_extension_metadata_413)
+- [Description](#_description_413)
+- [New Commands](#_new_commands_164)
+- [New Structures](#_new_structures_365)
+- [New Enums](#_new_enums_120)
+- [New Bitmasks](#_new_bitmasks_89)
+- [New Enum Constants](#_new_enum_constants_415)
+- [New_Enum_Constants](#_new_enum_constants_415)
+- [Issues](#_issues_169)
+- [Version History](#_version_history_416)
+- [VK_NV_external_memory_win32](#VK_NV_external_memory_win32)
+- [Other Extension Metadata](#_other_extension_metadata_414)
+- [Other_Extension_Metadata](#_other_extension_metadata_414)
+- [Description](#_description_414)
+- [New Commands](#_new_commands_165)
+- [New Structures](#_new_structures_366)
+- [New Enum Constants](#_new_enum_constants_416)
+- [New_Enum_Constants](#_new_enum_constants_416)
+- [Issues](#_issues_170)
+- [Examples](#_examples_51)
+- [Version History](#_version_history_417)
+- [VK_NV_fragment_shader_barycentric](#VK_NV_fragment_shader_barycentric)
+- [Other Extension Metadata](#_other_extension_metadata_415)
+- [Other_Extension_Metadata](#_other_extension_metadata_415)
+- [Description](#_description_415)
 - [Promotion to VK_KHR_fragment_shader_barycentric](#_promotion_to_vk_khr_fragment_shader_barycentric)
 - [Promotion_to_VK_KHR_fragment_shader_barycentric](#_promotion_to_vk_khr_fragment_shader_barycentric)
-- [New Structures](#_new_structures_350)
-- [New Enum Constants](#_new_enum_constants_400)
-- [New_Enum_Constants](#_new_enum_constants_400)
+- [New Structures](#_new_structures_367)
+- [New Enum Constants](#_new_enum_constants_417)
+- [New_Enum_Constants](#_new_enum_constants_417)
 - [New Built-In Variables](#_new_built_in_variables_11)
 - [New_Built-In_Variables](#_new_built_in_variables_11)
 - [New SPIR-V Decorations](#_new_spir_v_decorations_2)
 - [New_SPIR-V_Decorations](#_new_spir_v_decorations_2)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_53)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_53)
-- [Issues](#_issues_163)
-- [Version History](#_version_history_401)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_56)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_56)
+- [Issues](#_issues_171)
+- [Version History](#_version_history_418)
 - [VK_NV_glsl_shader](#VK_NV_glsl_shader)
-- [Other Extension Metadata](#_other_extension_metadata_400)
-- [Other_Extension_Metadata](#_other_extension_metadata_400)
-- [Description](#_description_400)
+- [Other Extension Metadata](#_other_extension_metadata_416)
+- [Other_Extension_Metadata](#_other_extension_metadata_416)
+- [Description](#_description_416)
 - [Deprecation](#_deprecation_2)
-- [New Enum Constants](#_new_enum_constants_401)
-- [New_Enum_Constants](#_new_enum_constants_401)
-- [Examples](#_examples_49)
-- [Version History](#_version_history_402)
+- [New Enum Constants](#_new_enum_constants_418)
+- [New_Enum_Constants](#_new_enum_constants_418)
+- [Examples](#_examples_52)
+- [Version History](#_version_history_419)
 - [VK_NV_ray_tracing](#VK_NV_ray_tracing)
-- [Other Extension Metadata](#_other_extension_metadata_401)
-- [Other_Extension_Metadata](#_other_extension_metadata_401)
-- [Description](#_description_401)
-- [New Object Types](#_new_object_types_24)
-- [New_Object_Types](#_new_object_types_24)
-- [New Commands](#_new_commands_161)
-- [New Structures](#_new_structures_351)
-- [New Enums](#_new_enums_115)
-- [New Bitmasks](#_new_bitmasks_85)
-- [New Enum Constants](#_new_enum_constants_402)
-- [New_Enum_Constants](#_new_enum_constants_402)
+- [Other Extension Metadata](#_other_extension_metadata_417)
+- [Other_Extension_Metadata](#_other_extension_metadata_417)
+- [Description](#_description_417)
+- [New Object Types](#_new_object_types_26)
+- [New_Object_Types](#_new_object_types_26)
+- [New Commands](#_new_commands_166)
+- [New Structures](#_new_structures_368)
+- [New Enums](#_new_enums_121)
+- [New Bitmasks](#_new_bitmasks_90)
+- [New Enum Constants](#_new_enum_constants_419)
+- [New_Enum_Constants](#_new_enum_constants_419)
 - [New or Modified Built-In Variables](#_new_or_modified_built_in_variables_13)
 - [New_or_Modified_Built-In_Variables](#_new_or_modified_built_in_variables_13)
-- [New SPIR-V Capabilities](#_new_spir_v_capabilities_54)
-- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_54)
-- [Issues](#_issues_164)
+- [New SPIR-V Capabilities](#_new_spir_v_capabilities_57)
+- [New_SPIR-V_Capabilities](#_new_spir_v_capabilities_57)
+- [Issues](#_issues_172)
 - [Sample Code](#_sample_code_6)
-- [Version History](#_version_history_403)
+- [Version History](#_version_history_420)
 - [VK_NV_win32_keyed_mutex](#VK_NV_win32_keyed_mutex)
-- [Other Extension Metadata](#_other_extension_metadata_402)
-- [Other_Extension_Metadata](#_other_extension_metadata_402)
-- [Description](#_description_402)
-- [New Structures](#_new_structures_352)
-- [New Enum Constants](#_new_enum_constants_403)
-- [New_Enum_Constants](#_new_enum_constants_403)
-- [Examples](#_examples_50)
-- [Version History](#_version_history_404)
+- [Other Extension Metadata](#_other_extension_metadata_418)
+- [Other_Extension_Metadata](#_other_extension_metadata_418)
+- [Description](#_description_418)
+- [New Structures](#_new_structures_369)
+- [New Enum Constants](#_new_enum_constants_420)
+- [New_Enum_Constants](#_new_enum_constants_420)
+- [Examples](#_examples_53)
+- [Version History](#_version_history_421)
 - [VK_QCOM_fragment_density_map_offset](#VK_QCOM_fragment_density_map_offset)
-- [Other Extension Metadata](#_other_extension_metadata_403)
-- [Other_Extension_Metadata](#_other_extension_metadata_403)
-- [Description](#_description_403)
-- [New Structures](#_new_structures_353)
-- [New Enum Constants](#_new_enum_constants_404)
-- [New_Enum_Constants](#_new_enum_constants_404)
-- [Version History](#_version_history_405)
+- [Other Extension Metadata](#_other_extension_metadata_419)
+- [Other_Extension_Metadata](#_other_extension_metadata_419)
+- [Description](#_description_419)
+- [New Structures](#_new_structures_370)
+- [New Enum Constants](#_new_enum_constants_421)
+- [New_Enum_Constants](#_new_enum_constants_421)
+- [Version History](#_version_history_422)
 - [VK_VALVE_mutable_descriptor_type](#VK_VALVE_mutable_descriptor_type)
-- [Other Extension Metadata](#_other_extension_metadata_404)
-- [Other_Extension_Metadata](#_other_extension_metadata_404)
-- [Description](#_description_404)
-- [New Structures](#_new_structures_354)
-- [New Enum Constants](#_new_enum_constants_405)
-- [New_Enum_Constants](#_new_enum_constants_405)
-- [Version History](#_version_history_406)
+- [Other Extension Metadata](#_other_extension_metadata_420)
+- [Other_Extension_Metadata](#_other_extension_metadata_420)
+- [Description](#_description_420)
+- [New Structures](#_new_structures_371)
+- [New Enum Constants](#_new_enum_constants_422)
+- [New_Enum_Constants](#_new_enum_constants_422)
+- [Version History](#_version_history_423)
 
 ## Content
 
@@ -5071,7 +5251,7 @@ unions
 [VkAccelerationStructureVersionInfoKHR](../chapters/accelstructures.html#VkAccelerationStructureVersionInfoKHR) struct
 
 * 
-[VkStridedDeviceAddressRegionKHR](../chapters/descriptorsets.html#VkStridedDeviceAddressRegionKHR) struct
+[VkStridedDeviceAddressRegionKHR](../chapters/resources.html#VkStridedDeviceAddressRegionKHR) struct
 
 * 
 [VkCopyAccelerationStructureToMemoryInfoKHR](../chapters/accelstructures.html#VkCopyAccelerationStructureToMemoryInfoKHR) struct
@@ -6099,7 +6279,7 @@ Graeme Leese, Broadcom
 Hans-Kristian Arntzen, Valve
 
 * 
-Matthew Netsh, Qualcomm
+Matthew Netsch, Qualcomm
 
 This extension adds Vulkan support for the
 [`SPV_KHR_compute_shader_derivatives`](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_compute_shader_derivatives.html)
@@ -9285,6 +9465,9 @@ Extending [VkSubpassDependency2](../chapters/renderpass.html#VkSubpassDependency
 [VkAccessFlagBits3KHR](../chapters/synchronization.html#VkAccessFlagBits3KHR)
 
 * 
+[VkPipelineCacheCreateFlagBits](../chapters/pipelines.html#VkPipelineCacheCreateFlagBits)
+
+* 
 [VkAccessFlags3KHR](../chapters/synchronization.html#VkAccessFlags3KHR)
 
 * 
@@ -9317,6 +9500,163 @@ None.
 Revision 1, 2024-06-20 (Jon Leech)
 
 Initial revision
+
+**Name String**
+
+`VK_KHR_maintenance9`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+585
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_get_physical_device_properties2](#VK_KHR_get_physical_device_properties2)
+
+or
+
+[Vulkan Version 1.1](versions.html#versions-1.1)
+
+**Contact**
+
+* 
+Mike Blumenkrantz [zmike](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_maintenance9] @zmike%0A*Here describe the issue or question you have about the VK_KHR_maintenance9 extension*)
+
+**Extension Proposal**
+
+[VK_KHR_maintenance9](../../../features/latest/features/proposals/VK_KHR_maintenance9.html)
+
+**Last Modified Date**
+
+2025-05-29
+
+**Interactions and External Dependencies**
+**Contributors**
+
+* 
+Mike Blumenkrantz, Valve
+
+* 
+Shahbaz Youssefi, Google
+
+* 
+Hans-Kristian Arntzen, Valve
+
+* 
+Piers Daniell, NVIDIA
+
+* 
+Daniel Story, Nintendo
+
+* 
+Jeff Bolz, NVIDIA
+
+[VK_KHR_maintenance9](#VK_KHR_maintenance9) adds a collection of minor features, none of
+which would warrant an entire extension of their own.
+
+The new features are as follows:
+
+* 
+Support VkDevice with no queues.
+These can be used as effectively an offline compiler to prepopulate
+pipeline caches, without expensive queue creation or internal memory
+allocations.
+
+* 
+Allow `vkCmdSetEvent2` to not provide a dependency, providing
+`vkCmdSetEvent`-style usage using enums from `VK_KHR_synchronization2`
+
+* 
+Add a
+[VkQueryPoolCreateFlagBits](../chapters/queries.html#VkQueryPoolCreateFlagBits)::`VK_QUERY_POOL_CREATE_RESET_BIT_KHR`
+flag to create a query pool with all queries initialized to the reset
+state.
+
+* 
+Allow any integer bit width for specific bit-wise operations.
+
+* 
+Add a property to enable sparse support with
+`VK_EXT_image_2d_view_of_3d`.
+
+* 
+Add a property to indicate the implementation will return (0,0,0,0) or
+(0,0,0,1) to vertex shaders that read unassigned attributes.
+
+* 
+The effects of image memory barriers and image layout transitions on 3D
+images created with VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT are scoped
+to the slices specified by the user-provided VkImageSubresourceRange.
+
+* 
+Queue family ownership transfers are no longer required for buffers and
+linear images, and a new physical device queue family property is
+exposed to indicate whether queue family ownership transfers are
+required for optimal images.
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDeviceMaintenance9FeaturesKHR](../chapters/features.html#VkPhysicalDeviceMaintenance9FeaturesKHR)
+
+Extending [VkPhysicalDeviceProperties2](../chapters/devsandqueues.html#VkPhysicalDeviceProperties2):
+
+* 
+[VkPhysicalDeviceMaintenance9PropertiesKHR](../chapters/limits.html#VkPhysicalDeviceMaintenance9PropertiesKHR)
+
+Extending [VkQueueFamilyProperties2](../chapters/devsandqueues.html#VkQueueFamilyProperties2):
+
+* 
+[VkQueueFamilyOwnershipTransferPropertiesKHR](../chapters/devsandqueues.html#VkQueueFamilyOwnershipTransferPropertiesKHR)
+
+* 
+[VkDefaultVertexAttributeValueKHR](../chapters/limits.html#VkDefaultVertexAttributeValueKHR)
+
+* 
+`VK_KHR_MAINTENANCE_9_EXTENSION_NAME`
+
+* 
+`VK_KHR_MAINTENANCE_9_SPEC_VERSION`
+
+* 
+Extending [VkDependencyFlagBits](../chapters/synchronization.html#VkDependencyFlagBits):
+
+`VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`
+
+Extending [VkQueryPoolCreateFlagBits](../chapters/queries.html#VkQueryPoolCreateFlagBits):
+
+* 
+`VK_QUERY_POOL_CREATE_RESET_BIT_KHR`
+
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR`
+
+None.
+
+* 
+Revision 1, 2025-05-29 (Contributors)
+
+Internal revisions
 
 **Name String**
 
@@ -10269,6 +10609,221 @@ Initial version
 
 **Name String**
 
+`VK_KHR_present_id2`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+480
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_get_surface_capabilities2](#VK_KHR_get_surface_capabilities2)
+
+and
+
+[VK_KHR_surface](#VK_KHR_surface)
+
+and
+
+[VK_KHR_swapchain](#VK_KHR_swapchain)
+
+**Contact**
+
+* 
+Daniel Stone
+
+**Extension Proposal**
+
+[VK_KHR_present_id2](../../../features/latest/features/proposals/VK_KHR_present_id2.html)
+
+**Last Modified Date**
+
+2025-01-06
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Hans-Kristian Arntzen, Valve
+
+* 
+James Jones, NVIDIA
+
+* 
+Daniel Stone, Collabora
+
+* 
+Derek Foreman, Collabora
+
+* 
+*contributors to `[VK_KHR_present_id](#VK_KHR_present_id)`*
+
+This device extension allows an application that uses the
+`[VK_KHR_swapchain](#VK_KHR_swapchain)` extension to provide an identifier for present
+operations on a swapchain.
+An application **can** use this to reference specific present operations in
+other extensions.
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDevicePresentId2FeaturesKHR](../chapters/features.html#VkPhysicalDevicePresentId2FeaturesKHR)
+
+Extending [VkPresentInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentInfoKHR):
+
+* 
+[VkPresentId2KHR](../chapters/VK_KHR_surface/wsi.html#VkPresentId2KHR)
+
+Extending [VkSurfaceCapabilities2KHR](../chapters/VK_KHR_surface/wsi.html#VkSurfaceCapabilities2KHR):
+
+* 
+[VkSurfaceCapabilitiesPresentId2KHR](../chapters/VK_KHR_surface/wsi.html#VkSurfaceCapabilitiesPresentId2KHR)
+
+* 
+`VK_KHR_PRESENT_ID_2_EXTENSION_NAME`
+
+* 
+`VK_KHR_PRESENT_ID_2_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_PRESENT_ID_2_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_ID_2_KHR`
+
+Extending [VkSwapchainCreateFlagBitsKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainCreateFlagBitsKHR):
+
+* 
+`VK_SWAPCHAIN_CREATE_PRESENT_ID_2_BIT_KHR`
+
+None.
+
+* 
+Revision 1, 2022-05-10 (Daniel Stone)
+
+Repurposed VK_KHR_present_id to be driven by surface capabilities
+
+**Name String**
+
+`VK_KHR_present_mode_fifo_latest_ready`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+622
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_swapchain](#VK_KHR_swapchain)
+
+**Contact**
+
+* 
+Lionel Duc [nvlduc](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_present_mode_fifo_latest_ready] @nvlduc%0A*Here describe the issue or question you have about the VK_KHR_present_mode_fifo_latest_ready extension*)
+
+**Extension Proposal**
+
+[VK_KHR_present_mode_fifo_latest_ready](../../../features/latest/features/proposals/VK_KHR_present_mode_fifo_latest_ready.html)
+
+**Last Modified Date**
+
+2025-03-18
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+James Jones, NVIDIA
+
+* 
+Lionel Duc, NVIDIA
+
+* 
+Lina Versace, Google
+
+This extension is based on `[VK_EXT_present_mode_fifo_latest_ready](#VK_EXT_present_mode_fifo_latest_ready)`
+and provides equivalent functionality.
+
+This extension adds a new present mode,
+`VK_PRESENT_MODE_FIFO_LATEST_READY_KHR`.
+
+This tear-free present mode behaves much like
+`VK_PRESENT_MODE_FIFO_KHR`, except that each vertical blanking period
+dequeues consecutive present requests until the latest ready is found to
+update the current image.
+
+While this seems similar in concept to `VK_PRESENT_MODE_MAILBOX_KHR`,
+the fundamental difference is that the processing of the present requests is
+done during vblank.
+From the application perspective, this means for example, that in a
+flip-based model, a single vblank **may** cause multiple swapchain images to be
+released at once, while `VK_PRESENT_MODE_MAILBOX_KHR` **may** continuously
+be releasing images as new requests become ready.
+
+This additional present mode is useful when using a time-based present API.
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR](../chapters/features.html#VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR)
+
+* 
+`VK_KHR_PRESENT_MODE_FIFO_LATEST_READY_EXTENSION_NAME`
+
+* 
+`VK_KHR_PRESENT_MODE_FIFO_LATEST_READY_SPEC_VERSION`
+
+* 
+Extending [VkPresentModeKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentModeKHR):
+
+`VK_PRESENT_MODE_FIFO_LATEST_READY_KHR`
+
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR`
+
+* 
+Revision 1, 2025-03-18 (Lina Versace)
+
+Internal revisions
+
+**Name String**
+
 `VK_KHR_present_wait`
 
 **Extension Type**
@@ -10397,6 +10952,226 @@ track all outstanding presentId values.
 Revision 1, 2019-02-19 (Keith Packard)
 
 Initial version
+
+**Name String**
+
+`VK_KHR_present_wait2`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+481
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_get_surface_capabilities2](#VK_KHR_get_surface_capabilities2)
+
+and
+
+[VK_KHR_surface](#VK_KHR_surface)
+
+and
+
+[VK_KHR_swapchain](#VK_KHR_swapchain)
+
+and
+
+[VK_KHR_present_id2](#VK_KHR_present_id2)
+
+**Contact**
+
+* 
+Daniel Stone
+
+**Extension Proposal**
+
+[VK_KHR_present_wait2](../../../features/latest/features/proposals/VK_KHR_present_wait2.html)
+
+**Last Modified Date**
+
+2025-05-30
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Hans-Kristian Arntzen, Valve
+
+* 
+James Jones, NVIDIA
+
+* 
+Daniel Stone, Collabora
+
+* 
+Derek Foreman, Collabora
+
+* 
+*contributors to `[VK_KHR_present_wait](#VK_KHR_present_wait)`*
+
+This device extension allows an application that uses the
+`[VK_KHR_swapchain](#VK_KHR_swapchain)` extension to wait for present operations to
+complete.
+An application can use this to monitor and control the pacing of the
+application by managing the number of outstanding images yet to be
+presented.
+
+* 
+[vkWaitForPresent2KHR](../chapters/VK_KHR_surface/wsi.html#vkWaitForPresent2KHR)
+
+* 
+[VkPresentWait2InfoKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentWait2InfoKHR)
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDevicePresentWait2FeaturesKHR](../chapters/features.html#VkPhysicalDevicePresentWait2FeaturesKHR)
+
+Extending [VkSurfaceCapabilities2KHR](../chapters/VK_KHR_surface/wsi.html#VkSurfaceCapabilities2KHR):
+
+* 
+[VkSurfaceCapabilitiesPresentWait2KHR](../chapters/VK_KHR_surface/wsi.html#VkSurfaceCapabilitiesPresentWait2KHR)
+
+* 
+`VK_KHR_PRESENT_WAIT_2_EXTENSION_NAME`
+
+* 
+`VK_KHR_PRESENT_WAIT_2_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_PRESENT_WAIT_2_INFO_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR`
+
+Extending [VkSwapchainCreateFlagBitsKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainCreateFlagBitsKHR):
+
+* 
+`VK_SWAPCHAIN_CREATE_PRESENT_WAIT_2_BIT_KHR`
+
+1) When does the wait finish?
+
+**RESOLVED**.
+The wait request will complete when the timeout expires, or after the
+corresponding presentation request has either taken effect within the
+presentation engine or has been replaced without presentation.
+Additionally, a wait may complete immediately if the swapchain becomes out
+of date.
+
+In circumstances outside the application’s control, this wait may be
+particularly long.
+For example, a user session may have the display locked and switched off for
+multiple days.
+During this time, the latest image presented through the WSI will never be
+presented to the user (because nothing is being presented), or replaced
+(because nothing newer has been queued by the application).
+Each operating system may have a separate mechanism to inform the
+application of states such as these, however it is out of scope of the
+Vulkan WSI.
+
+There is no requirement for any precise timing relationship between the
+presentation of the image to the user and the end of the wait.
+
+This extension is not intended for time-to-light estimation, which is better
+solved by a separate extension dedicated to present-timing feedback for
+audio/visual/input synchronization.
+
+2) Should this use fences or other existing synchronization mechanism?
+
+**RESOLVED**.
+VkFence is a legacy primitive.
+Building a new API around a legacy primitive is undesirable.
+
+Other existing synchronization mechanisms may lack a platform-provided
+framework for sharing synchronization objects between display and render
+drivers.
+
+For these reasons, this extension will provide a separate synchronization
+API.
+
+3) Should this extension share present identification with other extensions?
+
+**RESOLVED**.
+Yes.
+A new extension, `[VK_KHR_present_id2](#VK_KHR_present_id2)`, should be created to provide a
+shared structure for presentation identifiers.
+
+4) What happens when presentations complete out of order with respect to
+calls to vkQueuePresent? This could happen if the semaphores for the
+presentations were ready out of order.
+
+**OPTION A**: Require that when a PresentId is set that the driver ensure that
+images are always presented in the order of calls to vkQueuePresent.
+
+**OPTION B**: Finish both waits when the earliest present completes.
+This will complete the later present wait earlier than the actual
+presentation.
+This should be the easiest to implement as the driver need only track the
+largest present ID completed.
+This is also the 'natural' consequence of interpreting the existing
+vkWaitForPresentKHR specification.
+
+**OPTION C**: Finish both waits when both have completed.
+This will complete the earlier presentation later than the actual
+presentation time.
+This is allowed by the current specification as there is no precise timing
+requirement for when the presentId value is updated.
+This requires slightly more complexity in the driver as it will need to
+track all outstanding presentId values.
+
+**OPTION D**: The order of completion between outstanding
+`vkWaitForPresent2KHR` calls is always undefined.
+However, a `VK_SUCCESS` return value in
+[VkPresentWait2InfoKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentWait2InfoKHR)::`presentId` implies that future calls to
+`vkWaitForPresent2KHR` where
+[VkPresentWait2InfoKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentWait2InfoKHR)::`presentId` is less than or equal to N will
+complete immediately.
+
+**RESOLVED**.
+**OPTION D**: This option ensures implementations do not need to create
+complex internal queues to generate signals in the right order.
+
+5) Should this extension deviate from `[VK_KHR_present_wait](#VK_KHR_present_wait)` and
+require the presentation engine to provide the presentId values?
+
+**RESOLVED**.
+No.
+This extension is intended to be a bugfix of `[VK_KHR_present_wait](#VK_KHR_present_wait)`,
+and existing low-latency apis require an application provided id.
+At least on some platforms, a mapping mechanism would be required to
+translate between presentation engine and application ids.
+This exceeds the intended scope of this extension.
+
+When needed in the future, we can introduce an independent presentation
+engine driven id and a mechanism for mapping presentation engine ids to
+application provided ids.
+
+* 
+Revision 1, 2022-10-05 (Daniel Stone)
+
+Repurposed from VK_KHR_present_wait to be based on surface capabilities
+
+* 
+Reworded wait finish section to avoid time-to-light
 
 **Name String**
 
@@ -11146,7 +11921,7 @@ This extension adds support for the following SPIR-V extension in Vulkan:
 [VkRayTracingShaderGroupCreateInfoKHR](../chapters/pipelines.html#VkRayTracingShaderGroupCreateInfoKHR)
 
 * 
-[VkStridedDeviceAddressRegionKHR](../chapters/descriptorsets.html#VkStridedDeviceAddressRegionKHR)
+[VkStridedDeviceAddressRegionKHR](../chapters/resources.html#VkStridedDeviceAddressRegionKHR)
 
 * 
 [VkTraceRaysIndirectCommandKHR](../chapters/raytracing.html#VkTraceRaysIndirectCommandKHR)
@@ -11357,7 +12132,7 @@ reworked geometry structures so they could be better shared between
 device, host, and indirect builds
 
 changed SBT parameters to a structure and added size
-([VkStridedDeviceAddressRegionKHR](../chapters/descriptorsets.html#VkStridedDeviceAddressRegionKHR))
+([VkStridedDeviceAddressRegionKHR](../chapters/resources.html#VkStridedDeviceAddressRegionKHR))
 
 add parameter for requesting memory requirements for host and/or device
 build
@@ -11443,7 +12218,7 @@ unions
 [VkRayTracingPipelineInterfaceCreateInfoKHR](../chapters/pipelines.html#VkRayTracingPipelineInterfaceCreateInfoKHR) struct
 
 * 
-[VkStridedDeviceAddressRegionKHR](../chapters/descriptorsets.html#VkStridedDeviceAddressRegionKHR) struct
+[VkStridedDeviceAddressRegionKHR](../chapters/resources.html#VkStridedDeviceAddressRegionKHR) struct
 
 * 
 [vkCmdTraceRaysIndirectKHR](../chapters/raytracing.html#vkCmdTraceRaysIndirectKHR) command and
@@ -11485,7 +12260,7 @@ added
 to [VkPipelineCreateFlagBits](../chapters/pipelines.html#VkPipelineCreateFlagBits)
 
 replace `VkStridedBufferRegionKHR` with
-[VkStridedDeviceAddressRegionKHR](../chapters/descriptorsets.html#VkStridedDeviceAddressRegionKHR) and change
+[VkStridedDeviceAddressRegionKHR](../chapters/resources.html#VkStridedDeviceAddressRegionKHR) and change
 [vkCmdTraceRaysKHR](../chapters/raytracing.html#vkCmdTraceRaysKHR), [vkCmdTraceRaysIndirectKHR](../chapters/raytracing.html#vkCmdTraceRaysIndirectKHR), to take these
 for the shader binding table and use device addresses instead of
 buffers.
@@ -11826,7 +12601,7 @@ positions in the shader from a hit triangle as stored in the acceleration
 structure.
 
 An application adds
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR` to the
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_BIT_KHR` to the
 acceleration structure at build time.
 Then, if the hit is a triangle geometry, the shader (any-hit or closest hit
 for ray pipelines or using ray query) **can** fetch the three, three-component
@@ -11846,6 +12621,9 @@ Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDevice
 * 
 Extending [VkBuildAccelerationStructureFlagBitsKHR](../chapters/resources.html#VkBuildAccelerationStructureFlagBitsKHR):
 
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_BIT_KHR`
+
+* 
 `VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR`
 
 Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
@@ -12589,6 +13367,112 @@ Internal draft version
 
 **Name String**
 
+`VK_KHR_shader_untyped_pointers`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+388
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_get_physical_device_properties2](#VK_KHR_get_physical_device_properties2)
+
+**SPIR-V Dependencies**
+
+* 
+[SPV_KHR_untyped_pointers](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_untyped_pointers.html)
+
+**Contact**
+
+* 
+Alan Baker [alan-baker](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_shader_untyped_pointers] @alan-baker%0A*Here describe the issue or question you have about the VK_KHR_shader_untyped_pointers extension*)
+
+**Extension Proposal**
+
+[VK_KHR_shader_untyped_pointers](../../../features/latest/features/proposals/VK_KHR_shader_untyped_pointers.html)
+
+**Last Modified Date**
+
+2024-03-26
+
+**IP Status**
+
+No known IP claims.
+
+**Interactions and External Dependencies**
+
+* 
+Requires the
+[`SPV_KHR_untyped_pointers`](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_untyped_pointers.html)
+SPIR-V extension.
+
+**Contributors**
+
+* 
+Alan Baker, Google
+
+* 
+Jan-Harald Fredriksen, Arm
+
+* 
+Tom Olson, Arm
+
+* 
+Spencer Fricke, LunarG
+
+* 
+Shahbaz Youssefi, Google
+
+* 
+Tobias Hector, AMD
+
+This extension adds Vulkan support for the
+[`SPV_KHR_untyped_pointers`](https://github.khronos.org/SPIRV-Registry/extensions/KHR/SPV_KHR_untyped_pointers.html) SPIR-V
+extension.
+It provides an alternative to strongly-typed pointers.
+Untyped pointers allow shader authors to reinterpret data accessed through
+memory and atomic instructions versus the data type declared in the variable
+without extra conversion instructions.
+Untyped pointers also provide an efficient translation from templated
+load/store operations in high-level languages and simplify shaders that
+support operations, but not storage, on smaller data types (e.g. 16-bit
+floating-point types).
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDeviceShaderUntypedPointersFeaturesKHR](../chapters/features.html#VkPhysicalDeviceShaderUntypedPointersFeaturesKHR)
+
+* 
+`VK_KHR_SHADER_UNTYPED_POINTERS_EXTENSION_NAME`
+
+* 
+`VK_KHR_SHADER_UNTYPED_POINTERS_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR`
+
+* 
+Revision 1, 2024-03-26 (Alan Baker)
+
+Internal draft version
+
+**Name String**
+
 `VK_KHR_shared_presentable_image`
 
 **Extension Type**
@@ -13207,6 +14091,140 @@ to split out a new example to show how to obtain function pointers.
 * 
 A note was added at the beginning of the example code, stating that it
 will be removed from future versions of the appendix.
+
+**Name String**
+
+`VK_KHR_surface_maintenance1`
+
+**Extension Type**
+
+Instance extension
+
+**Registered Extension Number**
+
+487
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_surface](#VK_KHR_surface)
+
+or
+
+[VK_KHR_get_surface_capabilities2](#VK_KHR_get_surface_capabilities2)
+
+**Contact**
+
+* 
+Shahbaz Youssefi [syoussefi](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_surface_maintenance1] @syoussefi%0A*Here describe the issue or question you have about the VK_KHR_surface_maintenance1 extension*)
+
+**Extension Proposal**
+
+[VK_KHR_surface_maintenance1](../../../features/latest/features/proposals/VK_KHR_surface_maintenance1.html)
+
+**Last Modified Date**
+
+2025-03-31
+
+**Contributors**
+
+* 
+James Jones, NVIDIA
+
+* 
+Jeff Juliano, NVIDIA
+
+* 
+Lionel Landwerlin, Intel
+
+* 
+Shahbaz Youssefi, Google
+
+* 
+Chris Forbes, Google
+
+* 
+Ian Elliott, Google
+
+* 
+Hans-Kristian Arntzen, Valve
+
+* 
+Daniel Stone, Collabora
+
+This extension is based off the `[VK_EXT_surface_maintenance1](#VK_EXT_surface_maintenance1)`
+extension.
+
+`[VK_KHR_surface_maintenance1](#VK_KHR_surface_maintenance1)` adds a collection of window system
+integration features that were intentionally left out or overlooked in the
+original `[VK_KHR_surface](#VK_KHR_surface)` extension.
+
+The new features are as follows:
+
+* 
+Allow querying number of min/max images from a surface for a particular
+presentation mode.
+
+* 
+Allow querying a surface’s scaled presentation capabilities.
+
+* 
+Allow querying a surface for the set of presentation modes which can be
+easily switched between without requiring swapchain recreation.
+
+* 
+Extending [VkPhysicalDeviceSurfaceInfo2KHR](../chapters/VK_KHR_surface/wsi.html#VkPhysicalDeviceSurfaceInfo2KHR):
+
+[VkSurfacePresentModeKHR](../chapters/VK_KHR_surface/wsi.html#VkSurfacePresentModeKHR)
+
+Extending [VkSurfaceCapabilities2KHR](../chapters/VK_KHR_surface/wsi.html#VkSurfaceCapabilities2KHR):
+
+* 
+[VkSurfacePresentModeCompatibilityKHR](../chapters/VK_KHR_surface/wsi.html#VkSurfacePresentModeCompatibilityKHR)
+
+* 
+[VkSurfacePresentScalingCapabilitiesKHR](../chapters/VK_KHR_surface/wsi.html#VkSurfacePresentScalingCapabilitiesKHR)
+
+* 
+[VkPresentGravityFlagBitsKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentGravityFlagBitsKHR)
+
+* 
+[VkPresentScalingFlagBitsKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentScalingFlagBitsKHR)
+
+* 
+[VkPresentGravityFlagsKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentGravityFlagsKHR)
+
+* 
+[VkPresentScalingFlagsKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentScalingFlagsKHR)
+
+* 
+`VK_KHR_SURFACE_MAINTENANCE_1_EXTENSION_NAME`
+
+* 
+`VK_KHR_SURFACE_MAINTENANCE_1_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_KHR`
+
+* 
+Revision 1, 2025-03-31 (Shahbaz Youssefi)
+
+Based on VK_EXT_surface_maintenance1
 
 **Name String**
 
@@ -14516,6 +15534,201 @@ Corrected interactions with Vulkan 1.1
 
 **Name String**
 
+`VK_KHR_swapchain_maintenance1`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+488
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_swapchain](#VK_KHR_swapchain)
+
+or
+
+[VK_KHR_surface_maintenance1](#VK_KHR_surface_maintenance1)
+
+or
+
+[VK_KHR_get_physical_device_properties2](#VK_KHR_get_physical_device_properties2)
+
+**Contact**
+
+* 
+Shahbaz Youssefi [syoussefi](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_swapchain_maintenance1] @syoussefi%0A*Here describe the issue or question you have about the VK_KHR_swapchain_maintenance1 extension*)
+
+**Extension Proposal**
+
+[VK_KHR_swapchain_maintenance1](../../../features/latest/features/proposals/VK_KHR_swapchain_maintenance1.html)
+
+**Last Modified Date**
+
+2025-03-31
+
+**Contributors**
+
+* 
+James Jones, NVIDIA
+
+* 
+Jeff Juliano, NVIDIA
+
+* 
+Shahbaz Youssefi, Google
+
+* 
+Chris Forbes, Google
+
+* 
+Ian Elliott, Google
+
+* 
+Yiwei Zhang, Google
+
+* 
+Charlie Lao, Google
+
+* 
+Chad Versace, Google
+
+* 
+Ralph Potter, Samsung
+
+* 
+Igor Nazarov, Samsung
+
+* 
+Hyunchang Kim, Samsung
+
+* 
+Suenghwan Lee, Samsung
+
+* 
+Munseong Kang, Samsung
+
+* 
+Joonyong Park, Samsung
+
+* 
+Hans-Kristian Arntzen, Valve
+
+* 
+Lisa Wu, Arm
+
+* 
+Daniel Stone, Collabora
+
+* 
+Pan Gao, Huawei
+
+This extension is based off the `[VK_EXT_swapchain_maintenance1](#VK_EXT_swapchain_maintenance1)`
+extension.
+
+`[VK_KHR_swapchain_maintenance1](#VK_KHR_swapchain_maintenance1)` adds a collection of window system
+integration features that were intentionally left out or overlooked in the
+original `[VK_KHR_swapchain](#VK_KHR_swapchain)` extension.
+
+The new features are as follows:
+
+* 
+Specify a fence that will be signaled when the resources associated with
+a present operation **can** be safely destroyed.
+
+* 
+Allow changing the present mode a swapchain is using at per-present
+granularity.
+
+* 
+Allow applications to define the behavior when presenting a swapchain
+image to a surface with different dimensions than the image.
+Using this feature **may** allow implementations to avoid returning
+`VK_ERROR_OUT_OF_DATE_KHR` in this situation.
+
+* 
+Allow applications to defer swapchain memory allocation for improved
+startup time and memory footprint.
+
+* 
+Allow applications to release previously acquired images without
+presenting them.
+
+* 
+[vkReleaseSwapchainImagesKHR](../chapters/VK_KHR_surface/wsi.html#vkReleaseSwapchainImagesKHR)
+
+* 
+[VkReleaseSwapchainImagesInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkReleaseSwapchainImagesInfoKHR)
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR](../chapters/features.html#VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR)
+
+Extending [VkPresentInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentInfoKHR):
+
+* 
+[VkSwapchainPresentFenceInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentFenceInfoKHR)
+
+* 
+[VkSwapchainPresentModeInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentModeInfoKHR)
+
+Extending [VkSwapchainCreateInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainCreateInfoKHR):
+
+* 
+[VkSwapchainPresentModesCreateInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentModesCreateInfoKHR)
+
+* 
+[VkSwapchainPresentScalingCreateInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentScalingCreateInfoKHR)
+
+* 
+`VK_KHR_SWAPCHAIN_MAINTENANCE_1_EXTENSION_NAME`
+
+* 
+`VK_KHR_SWAPCHAIN_MAINTENANCE_1_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR`
+
+Extending [VkSwapchainCreateFlagBitsKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainCreateFlagBitsKHR):
+
+* 
+`VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_KHR`
+
+* 
+Revision 1, 2025-03-31 (Shahbaz Youssefi)
+
+Based on VK_EXT_swapchain_maintenance1
+
+**Name String**
+
 `VK_KHR_swapchain_mutable_format`
 
 **Extension Type**
@@ -14632,6 +15845,169 @@ The structure is required to be included in the `pNext` chain of
 Revision 1, 2018-03-28 (Daniel Rakos)
 
 Internal revisions.
+
+**Name String**
+
+`VK_KHR_unified_image_layouts`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+528
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+None
+
+**API Interactions**
+
+* 
+Interacts with VK_VERSION_1_3
+
+* 
+Interacts with VK_EXT_attachment_feedback_loop_layout
+
+* 
+Interacts with VK_KHR_dynamic_rendering
+
+**Contact**
+
+* 
+Shahbaz Youssefi [syoussefi](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_unified_image_layouts] @syoussefi%0A*Here describe the issue or question you have about the VK_KHR_unified_image_layouts extension*)
+
+**Extension Proposal**
+
+[VK_KHR_unified_image_layouts](../../../features/latest/features/proposals/VK_KHR_unified_image_layouts.html)
+
+**Last Modified Date**
+
+2024-10-15
+
+**Interactions and External Dependencies**
+
+* 
+This extension interacts with
+`[VK_EXT_attachment_feedback_loop_layout](#VK_EXT_attachment_feedback_loop_layout)`
+
+* 
+This extension interacts with `[VK_KHR_video_decode_queue](#VK_KHR_video_decode_queue)`
+
+* 
+This extension interacts with `[VK_KHR_video_encode_queue](#VK_KHR_video_encode_queue)`
+
+* 
+This extension interacts with
+`[VK_KHR_video_encode_quantization_map](#VK_KHR_video_encode_quantization_map)`
+
+**Contributors**
+
+* 
+Ahmed Abdelkhalek, AMD
+
+* 
+Tobias Hector, AMD
+
+* 
+Jan-Harald Fredriksen, ARM
+
+* 
+Ting Wei, ARM
+
+* 
+Faith Ekstrand, Collabora
+
+* 
+Lina Versace, Google
+
+* 
+Shahbaz Youssefi, Google
+
+* 
+James Fitzpatrick, Imagination
+
+* 
+Daniel Story, Nintendo
+
+* 
+James Jones, NVIDIA
+
+* 
+Jeff Juliano, NVIDIA
+
+* 
+Piers Daniell, NVIDIA
+
+* 
+Tony Zlatinski, NVIDIA
+
+* 
+Matthew Netsch, Qualcomm
+
+* 
+Patrick Boyle, Qualcomm
+
+* 
+Daniel Rakos, RasterGrid
+
+* 
+Ralph Potter, Samsung
+
+* 
+Hans-Kristian Arntzen, VALVE
+
+* 
+Samuel Pitoiset, VALVE
+
+This extension significantly simplifies synchronization in Vulkan by
+removing the need for image layout transitions in most cases.
+In particular, it guarantees that using the `VK_IMAGE_LAYOUT_GENERAL` layout
+everywhere possible is just as efficient as using the other layouts.
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR](../chapters/features.html#VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR)
+
+If [VK_EXT_attachment_feedback_loop_layout](#VK_EXT_attachment_feedback_loop_layout) and [Vulkan Version 1.3](versions.html#versions-1.3) or [VK_KHR_dynamic_rendering](#VK_KHR_dynamic_rendering) is supported:
+
+* 
+Extending [VkRenderingAttachmentInfo](../chapters/renderpass.html#VkRenderingAttachmentInfo):
+
+[VkAttachmentFeedbackLoopInfoEXT](../chapters/renderpass.html#VkAttachmentFeedbackLoopInfoEXT)
+
+* 
+`VK_KHR_UNIFIED_IMAGE_LAYOUTS_EXTENSION_NAME`
+
+* 
+`VK_KHR_UNIFIED_IMAGE_LAYOUTS_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR`
+
+If [VK_EXT_attachment_feedback_loop_layout](#VK_EXT_attachment_feedback_loop_layout) and [Vulkan Version 1.3](versions.html#versions-1.3) or [VK_KHR_dynamic_rendering](#VK_KHR_dynamic_rendering) is supported:
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_ATTACHMENT_FEEDBACK_LOOP_INFO_EXT`
+
+* 
+Revision 1, 2024-10-15 (Shahbaz Youssefi)
+
+Initial revision
 
 **Name String**
 
@@ -15481,6 +16857,142 @@ shipping implementations
 Make DPB slot activation behavior codec-specific to continue allowing
 application control over reference picture setup now that a
 reconstructed picture is always mandatory
+
+**Name String**
+
+`VK_KHR_video_decode_vp9`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+515
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_video_decode_queue](#VK_KHR_video_decode_queue)
+
+**Contact**
+
+* 
+Ahmed Abdelkhalek [aabdelkh](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_video_decode_vp9] @aabdelkh%0A*Here describe the issue or question you have about the VK_KHR_video_decode_vp9 extension*)
+
+**Extension Proposal**
+
+[VK_KHR_video_decode_vp9](../../../features/latest/features/proposals/VK_KHR_video_decode_vp9.html)
+
+**Last Modified Date**
+
+2025-04-11
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Ahmed Abdelkhalek, AMD
+
+* 
+Benjamin Cheng, AMD
+
+* 
+Lynne Iribarren, Independent
+
+* 
+David Airlie, Red Hat, Inc.
+
+* 
+Ping Liu, Intel
+
+* 
+Srinath Kumarapuram, NVIDIA
+
+* 
+Vassili Nikolaev, NVIDIA
+
+* 
+Tony Zlatinski, NVIDIA
+
+* 
+Konda Raju, NVIDIA
+
+* 
+Daniel Almeida, Collabora
+
+* 
+Nicolas Dufresne, Collabora
+
+* 
+Daniel Rakos, RasterGrid
+
+This extension builds upon the `[VK_KHR_video_decode_queue](#VK_KHR_video_decode_queue)` extension
+by adding support for decoding elementary video stream sequences compliant
+with the VP9 video compression standard.
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDeviceVideoDecodeVP9FeaturesKHR](../chapters/features.html#VkPhysicalDeviceVideoDecodeVP9FeaturesKHR)
+
+Extending [VkVideoCapabilitiesKHR](../chapters/videocoding.html#VkVideoCapabilitiesKHR):
+
+* 
+[VkVideoDecodeVP9CapabilitiesKHR](../chapters/videocoding.html#VkVideoDecodeVP9CapabilitiesKHR)
+
+Extending [VkVideoDecodeInfoKHR](../chapters/videocoding.html#VkVideoDecodeInfoKHR):
+
+* 
+[VkVideoDecodeVP9PictureInfoKHR](../chapters/videocoding.html#VkVideoDecodeVP9PictureInfoKHR)
+
+Extending [VkVideoProfileInfoKHR](../chapters/videocoding.html#VkVideoProfileInfoKHR), [VkQueryPoolCreateInfo](../chapters/queries.html#VkQueryPoolCreateInfo):
+
+* 
+[VkVideoDecodeVP9ProfileInfoKHR](../chapters/videocoding.html#VkVideoDecodeVP9ProfileInfoKHR)
+
+* 
+`VK_KHR_VIDEO_DECODE_VP9_EXTENSION_NAME`
+
+* 
+`VK_KHR_VIDEO_DECODE_VP9_SPEC_VERSION`
+
+* 
+`VK_MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_CAPABILITIES_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_PICTURE_INFO_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_PROFILE_INFO_KHR`
+
+Extending [VkVideoCodecOperationFlagBitsKHR](../chapters/videocoding.html#VkVideoCodecOperationFlagBitsKHR):
+
+* 
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`
+
+* 
+Revision 1, 2025-04-11 (Daniel Rakos)
+
+Internal revisions
 
 **Name String**
 
@@ -16712,6 +18224,170 @@ Revision 14, 2023-12-05 (Daniel Rakos)
 * 
 Condition reference picture setup based on the value of
 `StdVideoEncodeH265PictureInfo::flags.is_reference`
+
+**Name String**
+
+`VK_KHR_video_encode_intra_refresh`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+553
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_video_encode_queue](#VK_KHR_video_encode_queue)
+
+**API Interactions**
+
+* 
+Interacts with VK_KHR_video_encode_av1
+
+* 
+Interacts with VK_KHR_video_encode_h264
+
+* 
+Interacts with VK_KHR_video_encode_h265
+
+**Contact**
+
+* 
+Ahmed Abdelkhalek [aabdelkh](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_KHR_video_encode_intra_refresh] @aabdelkh%0A*Here describe the issue or question you have about the VK_KHR_video_encode_intra_refresh extension*)
+
+**Extension Proposal**
+
+[VK_KHR_video_encode_intra_refresh](../../../features/latest/features/proposals/VK_KHR_video_encode_intra_refresh.html)
+
+**Last Modified Date**
+
+2025-03-28
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Ahmed Abdelkhalek, AMD
+
+* 
+Benjamin Cheng, AMD
+
+* 
+Srinath Kumarapuram, NVIDIA
+
+* 
+Tony Zlatinski, NVIDIA
+
+* 
+Ping Liu, Intel
+
+* 
+Daniel Rakos, RasterGrid
+
+* 
+Lynne Iribarren, Independent
+
+This extension builds upon the `[VK_KHR_video_encode_queue](#VK_KHR_video_encode_queue)` extension
+by enabling the application to perform intra refresh in video encode
+operations.
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR](../chapters/features.html#VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR)
+
+Extending [VkVideoCapabilitiesKHR](../chapters/videocoding.html#VkVideoCapabilitiesKHR):
+
+* 
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](../chapters/videocoding.html#VkVideoEncodeIntraRefreshCapabilitiesKHR)
+
+Extending [VkVideoEncodeInfoKHR](../chapters/videocoding.html#VkVideoEncodeInfoKHR):
+
+* 
+[VkVideoEncodeIntraRefreshInfoKHR](../chapters/videocoding.html#VkVideoEncodeIntraRefreshInfoKHR)
+
+Extending [VkVideoReferenceSlotInfoKHR](../chapters/videocoding.html#VkVideoReferenceSlotInfoKHR):
+
+* 
+[VkVideoReferenceIntraRefreshInfoKHR](../chapters/videocoding.html#VkVideoReferenceIntraRefreshInfoKHR)
+
+Extending [VkVideoSessionCreateInfoKHR](../chapters/videocoding.html#VkVideoSessionCreateInfoKHR):
+
+* 
+[VkVideoEncodeSessionIntraRefreshCreateInfoKHR](../chapters/videocoding.html#VkVideoEncodeSessionIntraRefreshCreateInfoKHR)
+
+* 
+[VkVideoEncodeIntraRefreshModeFlagBitsKHR](../chapters/videocoding.html#VkVideoEncodeIntraRefreshModeFlagBitsKHR)
+
+* 
+[VkVideoEncodeIntraRefreshModeFlagsKHR](../chapters/videocoding.html#VkVideoEncodeIntraRefreshModeFlagsKHR)
+
+* 
+`VK_KHR_VIDEO_ENCODE_INTRA_REFRESH_EXTENSION_NAME`
+
+* 
+`VK_KHR_VIDEO_ENCODE_INTRA_REFRESH_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR`
+
+* 
+`VK_STRUCTURE_TYPE_VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR`
+
+Extending [VkVideoEncodeFlagBitsKHR](../chapters/videocoding.html#VkVideoEncodeFlagBitsKHR):
+
+* 
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`
+
+If [VK_KHR_video_encode_av1](#VK_KHR_video_encode_av1) is supported:
+
+* 
+Extending [VkVideoEncodeAV1CapabilityFlagBitsKHR](../chapters/videocoding.html#VkVideoEncodeAV1CapabilityFlagBitsKHR):
+
+`VK_VIDEO_ENCODE_AV1_CAPABILITY_COMPOUND_PREDICTION_INTRA_REFRESH_BIT_KHR`
+
+If [VK_KHR_video_encode_h264](#VK_KHR_video_encode_h264) is supported:
+
+* 
+Extending [VkVideoEncodeH264CapabilityFlagBitsKHR](../chapters/videocoding.html#VkVideoEncodeH264CapabilityFlagBitsKHR):
+
+`VK_VIDEO_ENCODE_H264_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR`
+
+If [VK_KHR_video_encode_h265](#VK_KHR_video_encode_h265) is supported:
+
+* 
+Extending [VkVideoEncodeH265CapabilityFlagBitsKHR](../chapters/videocoding.html#VkVideoEncodeH265CapabilityFlagBitsKHR):
+
+`VK_VIDEO_ENCODE_H265_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR`
+
+* 
+Revision 1, 2025-03-28 (Daniel Rakos)
+
+Internal revisions
 
 **Name String**
 
@@ -20306,7 +21982,7 @@ Device extension
 
 **Ratification Status**
 
-Not ratified
+Ratified
 
 **Extension and Version Dependencies**
 
@@ -22119,7 +23795,7 @@ If [VK_KHR_acceleration_structure](#VK_KHR_acceleration_structure) or [VK_NV_ray
 [VkSamplerCaptureDescriptorDataInfoEXT](../chapters/descriptorsets.html#VkSamplerCaptureDescriptorDataInfoEXT)
 
 * 
-Extending [VkBufferCreateInfo](../chapters/resources.html#VkBufferCreateInfo), [VkImageCreateInfo](../chapters/resources.html#VkImageCreateInfo), [VkImageViewCreateInfo](../chapters/resources.html#VkImageViewCreateInfo), [VkSamplerCreateInfo](../chapters/samplers.html#VkSamplerCreateInfo), [VkAccelerationStructureCreateInfoKHR](../chapters/resources.html#VkAccelerationStructureCreateInfoKHR), [VkAccelerationStructureCreateInfoNV](../chapters/resources.html#VkAccelerationStructureCreateInfoNV):
+Extending [VkBufferCreateInfo](../chapters/resources.html#VkBufferCreateInfo), [VkImageCreateInfo](../chapters/resources.html#VkImageCreateInfo), [VkImageViewCreateInfo](../chapters/resources.html#VkImageViewCreateInfo), [VkSamplerCreateInfo](../chapters/samplers.html#VkSamplerCreateInfo), [VkAccelerationStructureCreateInfoKHR](../chapters/resources.html#VkAccelerationStructureCreateInfoKHR), [VkAccelerationStructureCreateInfoNV](../chapters/resources.html#VkAccelerationStructureCreateInfoNV), [VkTensorCreateInfoARM](../chapters/resources.html#VkTensorCreateInfoARM), [VkTensorViewCreateInfoARM](../chapters/resources.html#VkTensorViewCreateInfoARM):
 
 [VkOpaqueCaptureDescriptorDataCreateInfoEXT](../chapters/descriptorsets.html#VkOpaqueCaptureDescriptorDataCreateInfoEXT)
 
@@ -22795,7 +24471,7 @@ The intended usage for this extension is for the application to:
 
 * 
 create `VkBuffer` objects and retrieve physical addresses from them
-via [vkGetBufferDeviceAddress](../chapters/descriptorsets.html#vkGetBufferDeviceAddress)
+via [vkGetBufferDeviceAddress](../chapters/resources.html#vkGetBufferDeviceAddress)
 
 * 
 create a `VkIndirectExecutionSetEXT` for the ability to change
@@ -23121,7 +24797,7 @@ or
 **Contact**
 
 * 
-Yiwei Zhang [zhangyiwei](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_device_memory_report] @zhangyiwei%0A*Here describe the issue or question you have about the VK_EXT_device_memory_report extension*)
+Yiwei Zhang [zzyiwei](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_device_memory_report] @zzyiwei%0A*Here describe the issue or question you have about the VK_EXT_device_memory_report extension*)
 
 **Last Modified Date**
 
@@ -25373,7 +27049,7 @@ Device extension
 
 **Ratification Status**
 
-Not ratified
+Ratified
 
 **Extension and Version Dependencies**
 
@@ -27267,7 +28943,7 @@ Device extension
 
 **Ratification Status**
 
-Not ratified
+Ratified
 
 **Extension and Version Dependencies**
 
@@ -29578,7 +31254,7 @@ micromap to the geometry of the acceleration structure.
 [VkMicromapVersionInfoEXT](../chapters/VK_EXT_opacity_micromap/micromaps.html#VkMicromapVersionInfoEXT)
 
 * 
-Extending [VkAccelerationStructureGeometryTrianglesDataKHR](../chapters/accelstructures.html#VkAccelerationStructureGeometryTrianglesDataKHR):
+Extending [VkAccelerationStructureGeometryTrianglesDataKHR](../chapters/accelstructures.html#VkAccelerationStructureGeometryTrianglesDataKHR), [VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX](../chapters/accelstructures.html#VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX):
 
 [VkAccelerationStructureTrianglesOpacityMicromapEXT](../chapters/accelstructures.html#VkAccelerationStructureTrianglesOpacityMicromapEXT)
 
@@ -29644,10 +31320,19 @@ Extending [VkBufferUsageFlagBits](../chapters/resources.html#VkBufferUsageFlagBi
 Extending [VkBuildAccelerationStructureFlagBitsKHR](../chapters/resources.html#VkBuildAccelerationStructureFlagBitsKHR):
 
 * 
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_BIT_EXT`
+
+* 
 `VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_EXT`
 
 * 
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_BIT_EXT`
+
+* 
 `VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT`
+
+* 
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_BIT_EXT`
 
 * 
 `VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_EXT`
@@ -29655,7 +31340,13 @@ Extending [VkBuildAccelerationStructureFlagBitsKHR](../chapters/resources.html#V
 Extending [VkGeometryInstanceFlagBitsKHR](../chapters/accelstructures.html#VkGeometryInstanceFlagBitsKHR):
 
 * 
+`VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT`
+
+* 
 `VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT`
+
+* 
+`VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_BIT_EXT`
 
 * 
 `VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_EXT`
@@ -30111,7 +31802,7 @@ Device extension
 
 **Ratification Status**
 
-Not ratified
+Ratified
 
 **Extension and Version Dependencies**
 
@@ -30423,99 +32114,6 @@ mode.
 
 * 
 Revision 1, 2017-07-17 (Daniel Koch)
-
-Internal revisions
-
-**Name String**
-
-`VK_EXT_present_mode_fifo_latest_ready`
-
-**Extension Type**
-
-Device extension
-
-**Registered Extension Number**
-
-362
-
-**Revision**
-
-1
-
-**Ratification Status**
-
-Ratified
-
-**Extension and Version Dependencies**
-
-[VK_KHR_swapchain](#VK_KHR_swapchain)
-
-**Contact**
-
-* 
-Lionel Duc [nvlduc](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_present_mode_fifo_latest_ready] @nvlduc%0A*Here describe the issue or question you have about the VK_EXT_present_mode_fifo_latest_ready extension*)
-
-**Extension Proposal**
-
-[VK_EXT_present_mode_fifo_latest_ready](../../../features/latest/features/proposals/VK_EXT_present_mode_fifo_latest_ready.html)
-
-**Last Modified Date**
-
-2024-05-28
-
-**IP Status**
-
-No known IP claims.
-
-**Contributors**
-
-* 
-James Jones, NVIDIA
-
-* 
-Lionel Duc, NVIDIA
-
-This device extension adds a new present mode,
-`VK_PRESENT_MODE_FIFO_LATEST_READY_EXT`.
-
-This tear-free present mode behaves much like
-`VK_PRESENT_MODE_FIFO_KHR`, except that each vertical blanking period
-dequeues consecutive present requests until the latest ready is found to
-update the current image.
-
-While this seems similar in concept to `VK_PRESENT_MODE_MAILBOX_KHR`,
-the fundamental difference is that the processing of the present requests is
-done during vblank.
-From the application perspective, this means for example, that in a
-flip-based model, a single vblank **may** cause multiple swapchain images to be
-released at once, while `VK_PRESENT_MODE_MAILBOX_KHR` **may** continuously
-be releasing images as new requests become ready.
-
-This additional present mode is useful when using a time-based present API.
-
-* 
-Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
-
-[VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT](../chapters/features.html#VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT)
-
-* 
-`VK_EXT_PRESENT_MODE_FIFO_LATEST_READY_EXTENSION_NAME`
-
-* 
-`VK_EXT_PRESENT_MODE_FIFO_LATEST_READY_SPEC_VERSION`
-
-* 
-Extending [VkPresentModeKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentModeKHR):
-
-`VK_PRESENT_MODE_FIFO_LATEST_READY_EXT`
-
-Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
-
-* 
-`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_EXT`
-
-* 
-Revision 1, 2024-05-28 (Lionel Duc)
 
 Internal revisions
 
@@ -31390,6 +32988,12 @@ Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
 * 
 `VK_STRUCTURE_TYPE_SAMPLE_LOCATIONS_INFO_EXT`
 
+1) When using with Dynamic Rendering, is there a
+VkRenderPassSampleLocationsBeginInfoEXT equivalent struct
+
+**RESOLVED**: No, there are no subpasses that need to have a sample location
+set.
+
 * 
 Revision 1, 2017-08-02 (Daniel Rakos)
 
@@ -31613,6 +33217,122 @@ would make sense and is outside the scope of this extension.
 Revision 1, 2020-08-14 (Faith Ekstrand)
 
 Internal revisions
+
+**Name String**
+
+`VK_EXT_shader_float8`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+568
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Not ratified
+
+**Extension and Version Dependencies**
+
+None
+
+**API Interactions**
+
+* 
+Interacts with VK_KHR_cooperative_matrix
+
+**SPIR-V Dependencies**
+
+* 
+[SPV_EXT_float8](https://github.khronos.org/SPIRV-Registry/extensions/EXT/SPV_EXT_float8.html)
+
+**Contact**
+
+* 
+Kevin Petit [kpet](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_shader_float8] @kpet%0A*Here describe the issue or question you have about the VK_EXT_shader_float8 extension*)
+
+**Extension Proposal**
+
+[VK_EXT_shader_float8](../../../features/latest/features/proposals/VK_EXT_shader_float8.html)
+
+**Last Modified Date**
+
+2025-04-16
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Kévin Petit, Arm Ltd.
+
+* 
+Stu Smith, AMD
+
+* 
+Jeff Bolz, NVIDIA
+
+* 
+Craig Graham, Samsung
+
+This extension enables support for 8-bit floating-point data types as
+defined in SPV_EXT_float8.
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDeviceShaderFloat8FeaturesEXT](../chapters/features.html#VkPhysicalDeviceShaderFloat8FeaturesEXT)
+
+* 
+`VK_EXT_SHADER_FLOAT8_EXTENSION_NAME`
+
+* 
+`VK_EXT_SHADER_FLOAT8_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT`
+
+If [VK_KHR_cooperative_matrix](#VK_KHR_cooperative_matrix) is supported:
+
+* 
+Extending [VkComponentTypeKHR](../chapters/shaders.html#VkComponentTypeKHR):
+
+`VK_COMPONENT_TYPE_FLOAT8_E4M3_EXT`
+
+* 
+`VK_COMPONENT_TYPE_FLOAT8_E5M2_EXT`
+
+* 
+[Float8EXT](spirvenv.html#spirvenv-capabilities-table-Float8EXT)
+
+* 
+[Float8CooperativeMatrixEXT](spirvenv.html#spirvenv-capabilities-table-Float8CooperativeMatrixEXT)
+
+1) Resolve interactions with the changes VK_KHR_shader_float16 makes to
+rules for denorm flushing (always allowed by default for all FP formats).
+How to describe the requirement to preserve subnormals?
+
++
+**RESOLVED**: Subnormals are always preserved when converting FP8 values to
+IEEE 754 binary 16.
+In all other cases, subnormals may be flushed to zero.
+
++
+
+* 
+Revision 1, 2025-04-16 (Kévin Petit)
+
+Initial draft
 
 **Name String**
 
@@ -32066,7 +33786,7 @@ Faith Ekstrand, Collabora
 Timur Kristóf, Valve
 
 * 
-Constantine Shablya, Collabora
+Caterina Shablia, Collabora
 
 * 
 Daniel Koch, NVIDIA
@@ -33128,139 +34848,6 @@ Fix structextends and constness issues.
 
 **Name String**
 
-`VK_EXT_surface_maintenance1`
-
-**Extension Type**
-
-Instance extension
-
-**Registered Extension Number**
-
-275
-
-**Revision**
-
-1
-
-**Ratification Status**
-
-Ratified
-
-**Extension and Version Dependencies**
-
-[VK_KHR_surface](#VK_KHR_surface)
-
-and
-
-[VK_KHR_get_surface_capabilities2](#VK_KHR_get_surface_capabilities2)
-
-**Contact**
-
-* 
-Shahbaz Youssefi [syoussefi](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_surface_maintenance1] @syoussefi%0A*Here describe the issue or question you have about the VK_EXT_surface_maintenance1 extension*)
-
-**Extension Proposal**
-
-[VK_EXT_surface_maintenance1](../../../features/latest/features/proposals/VK_EXT_surface_maintenance1.html)
-
-**Last Modified Date**
-
-2022-11-09
-
-**Contributors**
-
-* 
-Jeff Juliano, NVIDIA
-
-* 
-Lionel Landwerlin, Intel
-
-* 
-Shahbaz Youssefi, Google
-
-* 
-Chris Forbes, Google
-
-* 
-Ian Elliott, Google
-
-* 
-Hans-Kristian Arntzen, Valve
-
-* 
-Daniel Stone, Collabora
-
-`[VK_EXT_surface_maintenance1](#VK_EXT_surface_maintenance1)` adds a collection of window system
-integration features that were intentionally left out or overlooked in the
-original `[VK_KHR_surface](#VK_KHR_surface)` extension.
-
-The new features are as follows:
-
-* 
-Allow querying number of min/max images from a surface for a particular
-presentation mode.
-
-* 
-Allow querying a surface’s scaled presentation capabilities.
-
-* 
-Allow querying a surface for the set of presentation modes which can be
-easily switched between without requiring swapchain recreation.
-
-* 
-Extending [VkPhysicalDeviceSurfaceInfo2KHR](../chapters/VK_KHR_surface/wsi.html#VkPhysicalDeviceSurfaceInfo2KHR):
-
-[VkSurfacePresentModeEXT](../chapters/VK_KHR_surface/wsi.html#VkSurfacePresentModeEXT)
-
-Extending [VkSurfaceCapabilities2KHR](../chapters/VK_KHR_surface/wsi.html#VkSurfaceCapabilities2KHR):
-
-* 
-[VkSurfacePresentModeCompatibilityEXT](../chapters/VK_KHR_surface/wsi.html#VkSurfacePresentModeCompatibilityEXT)
-
-* 
-[VkSurfacePresentScalingCapabilitiesEXT](../chapters/VK_KHR_surface/wsi.html#VkSurfacePresentScalingCapabilitiesEXT)
-
-* 
-[VkPresentGravityFlagBitsEXT](../chapters/VK_KHR_surface/wsi.html#VkPresentGravityFlagBitsEXT)
-
-* 
-[VkPresentScalingFlagBitsEXT](../chapters/VK_KHR_surface/wsi.html#VkPresentScalingFlagBitsEXT)
-
-* 
-[VkPresentGravityFlagsEXT](../chapters/VK_KHR_surface/wsi.html#VkPresentGravityFlagsEXT)
-
-* 
-[VkPresentScalingFlagsEXT](../chapters/VK_KHR_surface/wsi.html#VkPresentScalingFlagsEXT)
-
-* 
-`VK_EXT_SURFACE_MAINTENANCE_1_EXTENSION_NAME`
-
-* 
-`VK_EXT_SURFACE_MAINTENANCE_1_SPEC_VERSION`
-
-* 
-Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
-
-`VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_EXT`
-
-* 
-`VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_EXT`
-
-* 
-`VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT`
-
-* 
-Revision 0, 2019-02-27 (Lionel Landwerlin)
-
-Internal revisions
-
-Revision 1, 2022-11-09 (Shahbaz Youssefi)
-
-* 
-Add functionality and complete spec
-
-**Name String**
-
 `VK_EXT_swapchain_colorspace`
 
 **Extension Type**
@@ -33415,204 +35002,6 @@ Fix interchanged concepts of EOTF and OETF.
 
 * 
 Clarify that the presentation engine can accept the color spaces.
-
-**Name String**
-
-`VK_EXT_swapchain_maintenance1`
-
-**Extension Type**
-
-Device extension
-
-**Registered Extension Number**
-
-276
-
-**Revision**
-
-1
-
-**Ratification Status**
-
-Ratified
-
-**Extension and Version Dependencies**
-
-[VK_KHR_swapchain](#VK_KHR_swapchain)
-
-and
-
-[VK_EXT_surface_maintenance1](#VK_EXT_surface_maintenance1)
-
-and
-
-     [VK_KHR_get_physical_device_properties2](#VK_KHR_get_physical_device_properties2)
-
-     or
-
-     [Vulkan Version 1.1](versions.html#versions-1.1)
-
-**Contact**
-
-* 
-Shahbaz Youssefi [syoussefi](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_swapchain_maintenance1] @syoussefi%0A*Here describe the issue or question you have about the VK_EXT_swapchain_maintenance1 extension*)
-
-**Extension Proposal**
-
-[VK_EXT_swapchain_maintenance1](../../../features/latest/features/proposals/VK_EXT_swapchain_maintenance1.html)
-
-**Last Modified Date**
-
-2022-10-28
-
-**Contributors**
-
-* 
-Jeff Juliano, NVIDIA
-
-* 
-Shahbaz Youssefi, Google
-
-* 
-Chris Forbes, Google
-
-* 
-Ian Elliott, Google
-
-* 
-Yiwei Zhang, Google
-
-* 
-Charlie Lao, Google
-
-* 
-Lina Versace, Google
-
-* 
-Ralph Potter, Samsung
-
-* 
-Igor Nazarov, Samsung
-
-* 
-Hyunchang Kim, Samsung
-
-* 
-Suenghwan Lee, Samsung
-
-* 
-Munseong Kang, Samsung
-
-* 
-Joonyong Park, Samsung
-
-* 
-Hans-Kristian Arntzen, Valve
-
-* 
-Lisa Wu, Arm
-
-* 
-Daniel Stone, Collabora
-
-* 
-Pan Gao, Huawei
-
-`[VK_EXT_swapchain_maintenance1](#VK_EXT_swapchain_maintenance1)` adds a collection of window system
-integration features that were intentionally left out or overlooked in the
-original `[VK_KHR_swapchain](#VK_KHR_swapchain)` extension.
-
-The new features are as follows:
-
-* 
-Specify a fence that will be signaled when the resources associated with
-a present operation **can** be safely destroyed.
-
-* 
-Allow changing the present mode a swapchain is using at per-present
-granularity.
-
-* 
-Allow applications to define the behavior when presenting a swapchain
-image to a surface with different dimensions than the image.
-Using this feature **may** allow implementations to avoid returning
-`VK_ERROR_OUT_OF_DATE_KHR` in this situation.
-
-* 
-Allow applications to defer swapchain memory allocation for improved
-startup time and memory footprint.
-
-* 
-Allow applications to release previously acquired images without
-presenting them.
-
-* 
-[vkReleaseSwapchainImagesEXT](../chapters/VK_KHR_surface/wsi.html#vkReleaseSwapchainImagesEXT)
-
-* 
-[VkReleaseSwapchainImagesInfoEXT](../chapters/VK_KHR_surface/wsi.html#VkReleaseSwapchainImagesInfoEXT)
-
-* 
-Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
-
-[VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT](../chapters/features.html#VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT)
-
-Extending [VkPresentInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentInfoKHR):
-
-* 
-[VkSwapchainPresentFenceInfoEXT](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentFenceInfoEXT)
-
-* 
-[VkSwapchainPresentModeInfoEXT](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentModeInfoEXT)
-
-Extending [VkSwapchainCreateInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainCreateInfoKHR):
-
-* 
-[VkSwapchainPresentModesCreateInfoEXT](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentModesCreateInfoEXT)
-
-* 
-[VkSwapchainPresentScalingCreateInfoEXT](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentScalingCreateInfoEXT)
-
-* 
-`VK_EXT_SWAPCHAIN_MAINTENANCE_1_EXTENSION_NAME`
-
-* 
-`VK_EXT_SWAPCHAIN_MAINTENANCE_1_SPEC_VERSION`
-
-* 
-Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
-
-`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT`
-
-* 
-`VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_EXT`
-
-* 
-`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_EXT`
-
-* 
-`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT`
-
-* 
-`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_EXT`
-
-* 
-`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT`
-
-Extending [VkSwapchainCreateFlagBitsKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainCreateFlagBitsKHR):
-
-* 
-`VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT`
-
-* 
-Revision 0, 2019-05-28
-
-Initial revisions
-
-Revision 1, 2022-08-21 (Shahbaz Youssefi)
-
-* 
-Add functionality and complete spec
 
 **Name String**
 
@@ -33970,83 +35359,6 @@ Initial draft
 
 **Name String**
 
-`VK_EXT_vertex_attribute_robustness`
-
-**Extension Type**
-
-Device extension
-
-**Registered Extension Number**
-
-609
-
-**Revision**
-
-1
-
-**Ratification Status**
-
-Not ratified
-
-**Extension and Version Dependencies**
-
-[VK_KHR_get_physical_device_properties2](#VK_KHR_get_physical_device_properties2)
-
-or
-
-[Vulkan Version 1.1](versions.html#versions-1.1)
-
-**Contact**
-
-* 
-Piers Daniell [pdaniell-nv](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_vertex_attribute_robustness] @pdaniell-nv%0A*Here describe the issue or question you have about the VK_EXT_vertex_attribute_robustness extension*)
-
-**Last Modified Date**
-
-2024-11-01
-
-**IP Status**
-
-No known IP claims.
-
-**Contributors**
-
-* 
-Daniel Story, Nintendo
-
-It can be detrimental to performance for applications to have to define fake
-vertex attribute locations and buffer bindings for vertex shaders that may
-reference attribute locations for which there is no vertex data.
-
-This extension allows applications to not have to specify fake vertex
-attribute locations, and if the vertex shader reads those attributes it will
-read (0,0,0,0) or (0,0,0,1).
-
-* 
-Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
-
-[VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT](../chapters/features.html#VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT)
-
-* 
-`VK_EXT_VERTEX_ATTRIBUTE_ROBUSTNESS_EXTENSION_NAME`
-
-* 
-`VK_EXT_VERTEX_ATTRIBUTE_ROBUSTNESS_SPEC_VERSION`
-
-* 
-Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
-
-`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT`
-
-None
-
-* 
-Revision 1, 2024-11-01 (Piers Daniell)
-
-Internal revisions
-
-**Name String**
-
 `VK_EXT_vertex_input_dynamic_state`
 
 **Extension Type**
@@ -34242,7 +35554,7 @@ Device extension
 
 **Ratification Status**
 
-Not ratified
+Ratified
 
 **Extension and Version Dependencies**
 
@@ -36418,6 +37730,9 @@ Extending [VkResolveModeFlagBits](../chapters/renderpass.html#VkResolveModeFlagB
 `VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`
 
 * 
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`
+
+* 
 Revision 1, 2023-05-34 (Tobias Hector)
 
 Initial version
@@ -36720,6 +38035,415 @@ Revision 1, 2018-03-04 (Jesse Hall)
 
 * 
 Initial version
+
+**Name String**
+
+`VK_ARM_data_graph`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+508
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Not ratified
+
+**Extension and Version Dependencies**
+
+[Vulkan Version 1.3](versions.html#versions-1.3)
+
+and
+
+[VK_KHR_maintenance5](#VK_KHR_maintenance5)
+
+and
+
+[VK_KHR_deferred_host_operations](#VK_KHR_deferred_host_operations)
+
+**API Interactions**
+
+* 
+Interacts with VK_ARM_tensors
+
+**SPIR-V Dependencies**
+
+* 
+[SPV_ARM_graph](https://github.khronos.org/SPIRV-Registry/extensions/ARM/SPV_ARM_graph.html)
+
+**Contact**
+
+* 
+Kevin Petit [kpet](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_ARM_data_graph] @kpet%0A*Here describe the issue or question you have about the VK_ARM_data_graph extension*)
+
+**Last Modified Date**
+
+2025-06-18
+
+**Interactions and External Dependencies**
+
+* 
+This extension requires [`SPV_ARM_graph`](https://github.khronos.org/SPIRV-Registry/extensions/EXT/SPV_ARM_graph.html)
+
+* 
+This extension interacts with `[VK_EXT_mutable_descriptor_type](#VK_EXT_mutable_descriptor_type)`
+
+* 
+This extension interacts with `[VK_EXT_pipeline_protected_access](#VK_EXT_pipeline_protected_access)`
+
+* 
+This extension interacts with `[VK_ARM_tensors](#VK_ARM_tensors)`
+
+* 
+This extension interacts with `[VK_EXT_descriptor_buffer](#VK_EXT_descriptor_buffer)`
+
+* 
+This extension interacts with `[VK_KHR_maintenance6](#VK_KHR_maintenance6)`
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Kévin Petit, Arm Ltd.
+
+* 
+Emma Ben Yossef, Arm Ltd.
+
+* 
+Stefano Bucciarelli, Arm Ltd.
+
+* 
+Marco Cattani, Arm Ltd.
+
+* 
+Aaron DeBattista, Arm Ltd.
+
+* 
+Jan-Harald Fredriksen, Arm Ltd.
+
+* 
+Einar Hov, Arm Ltd.
+
+* 
+Robert Hughes, Arm Ltd.
+
+* 
+Oualid Khelifi, Arm Ltd.
+
+* 
+Derek Lamberti, Arm Ltd.
+
+* 
+Chetan Mistry, Arm Ltd.
+
+* 
+Georgios Teneketzis, Arm Ltd.
+
+This extension adds support for a new type of pipeline, data graph
+pipelines, that provide an encapsulation construct for computational graphs
+operating on full resources (e.g. ML/AI graphs, image processing pipelines,
+etc).
+This extension only supports tensor resources and does not define any
+operations that can be used within those graphs.
+These operations will be defined by separate extensions.
+
+* 
+[VkDataGraphPipelineSessionARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineSessionARM)
+
+* 
+[vkBindDataGraphPipelineSessionMemoryARM](../chapters/VK_ARM_data_graph/graphs.html#vkBindDataGraphPipelineSessionMemoryARM)
+
+* 
+[vkCmdDispatchDataGraphARM](../chapters/VK_ARM_data_graph/graphs.html#vkCmdDispatchDataGraphARM)
+
+* 
+[vkCreateDataGraphPipelineSessionARM](../chapters/VK_ARM_data_graph/graphs.html#vkCreateDataGraphPipelineSessionARM)
+
+* 
+[vkCreateDataGraphPipelinesARM](../chapters/VK_ARM_data_graph/graphs.html#vkCreateDataGraphPipelinesARM)
+
+* 
+[vkDestroyDataGraphPipelineSessionARM](../chapters/VK_ARM_data_graph/graphs.html#vkDestroyDataGraphPipelineSessionARM)
+
+* 
+[vkGetDataGraphPipelineAvailablePropertiesARM](../chapters/VK_ARM_data_graph/graphs.html#vkGetDataGraphPipelineAvailablePropertiesARM)
+
+* 
+[vkGetDataGraphPipelinePropertiesARM](../chapters/VK_ARM_data_graph/graphs.html#vkGetDataGraphPipelinePropertiesARM)
+
+* 
+[vkGetDataGraphPipelineSessionBindPointRequirementsARM](../chapters/VK_ARM_data_graph/graphs.html#vkGetDataGraphPipelineSessionBindPointRequirementsARM)
+
+* 
+[vkGetDataGraphPipelineSessionMemoryRequirementsARM](../chapters/VK_ARM_data_graph/graphs.html#vkGetDataGraphPipelineSessionMemoryRequirementsARM)
+
+* 
+[vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM](../chapters/VK_ARM_data_graph/graphs.html#vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM)
+
+* 
+[vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM](../chapters/VK_ARM_data_graph/graphs.html#vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM)
+
+* 
+[VkBindDataGraphPipelineSessionMemoryInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkBindDataGraphPipelineSessionMemoryInfoARM)
+
+* 
+[VkDataGraphPipelineConstantARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineConstantARM)
+
+* 
+[VkDataGraphPipelineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCreateInfoARM)
+
+* 
+[VkDataGraphPipelineDispatchInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineDispatchInfoARM)
+
+* 
+[VkDataGraphPipelineInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineInfoARM)
+
+* 
+[VkDataGraphPipelinePropertyQueryResultARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelinePropertyQueryResultARM)
+
+* 
+[VkDataGraphPipelineResourceInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineResourceInfoARM)
+
+* 
+[VkDataGraphPipelineSessionBindPointRequirementARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineSessionBindPointRequirementARM)
+
+* 
+[VkDataGraphPipelineSessionBindPointRequirementsInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineSessionBindPointRequirementsInfoARM)
+
+* 
+[VkDataGraphPipelineSessionCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineSessionCreateInfoARM)
+
+* 
+[VkDataGraphPipelineSessionMemoryRequirementsInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineSessionMemoryRequirementsInfoARM)
+
+* 
+[VkPhysicalDeviceDataGraphOperationSupportARM](../chapters/VK_ARM_data_graph/graphs.html#VkPhysicalDeviceDataGraphOperationSupportARM)
+
+* 
+[VkPhysicalDeviceDataGraphProcessingEngineARM](../chapters/VK_ARM_data_graph/graphs.html#VkPhysicalDeviceDataGraphProcessingEngineARM)
+
+* 
+[VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkPhysicalDeviceQueueFamilyDataGraphProcessingEngineInfoARM)
+
+* 
+[VkQueueFamilyDataGraphProcessingEnginePropertiesARM](../chapters/VK_ARM_data_graph/graphs.html#VkQueueFamilyDataGraphProcessingEnginePropertiesARM)
+
+* 
+[VkQueueFamilyDataGraphPropertiesARM](../chapters/VK_ARM_data_graph/graphs.html#VkQueueFamilyDataGraphPropertiesARM)
+
+* 
+Extending [VkDataGraphPipelineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCreateInfoARM):
+
+[VkDataGraphPipelineCompilerControlCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCompilerControlCreateInfoARM)
+
+* 
+[VkDataGraphPipelineIdentifierCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineIdentifierCreateInfoARM)
+
+* 
+[VkDataGraphPipelineShaderModuleCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineShaderModuleCreateInfoARM)
+
+Extending [VkDataGraphPipelineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCreateInfoARM), [VkDescriptorPoolCreateInfo](../chapters/descriptorsets.html#VkDescriptorPoolCreateInfo), [VkCommandPoolCreateInfo](../chapters/cmdbuffers.html#VkCommandPoolCreateInfo):
+
+* 
+[VkDataGraphProcessingEngineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM)
+
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+* 
+[VkPhysicalDeviceDataGraphFeaturesARM](../chapters/features.html#VkPhysicalDeviceDataGraphFeaturesARM)
+
+If [VK_ARM_tensors](#VK_ARM_tensors) is supported:
+
+* 
+Extending [VkDataGraphPipelineConstantARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineConstantARM):
+
+[VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineConstantTensorSemiStructuredSparsityInfoARM)
+
+* 
+[VkDataGraphPipelineDispatchFlagBitsARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineDispatchFlagBitsARM)
+
+* 
+[VkDataGraphPipelinePropertyARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelinePropertyARM)
+
+* 
+[VkDataGraphPipelineSessionBindPointARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineSessionBindPointARM)
+
+* 
+[VkDataGraphPipelineSessionBindPointTypeARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineSessionBindPointTypeARM)
+
+* 
+[VkDataGraphPipelineSessionCreateFlagBitsARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineSessionCreateFlagBitsARM)
+
+* 
+[VkPhysicalDeviceDataGraphOperationTypeARM](../chapters/VK_ARM_data_graph/graphs.html#VkPhysicalDeviceDataGraphOperationTypeARM)
+
+* 
+[VkPhysicalDeviceDataGraphProcessingEngineTypeARM](../chapters/VK_ARM_data_graph/graphs.html#VkPhysicalDeviceDataGraphProcessingEngineTypeARM)
+
+* 
+[VkDataGraphPipelineDispatchFlagsARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineDispatchFlagsARM)
+
+* 
+[VkDataGraphPipelineSessionCreateFlagsARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineSessionCreateFlagsARM)
+
+* 
+`VK_ARM_DATA_GRAPH_EXTENSION_NAME`
+
+* 
+`VK_ARM_DATA_GRAPH_SPEC_VERSION`
+
+* 
+`VK_MAX_PHYSICAL_DEVICE_DATA_GRAPH_OPERATION_SET_NAME_SIZE_ARM`
+
+* 
+Extending [VkAccessFlagBits2](../chapters/synchronization.html#VkAccessFlagBits2):
+
+`VK_ACCESS_2_DATA_GRAPH_READ_BIT_ARM`
+
+* 
+`VK_ACCESS_2_DATA_GRAPH_WRITE_BIT_ARM`
+
+Extending [VkBufferUsageFlagBits2](../chapters/resources.html#VkBufferUsageFlagBits2):
+
+* 
+`VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM`
+
+Extending [VkFormatFeatureFlagBits2](../chapters/formats.html#VkFormatFeatureFlagBits2):
+
+* 
+`VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM`
+
+Extending [VkObjectType](../chapters/debugging.html#VkObjectType):
+
+* 
+`VK_OBJECT_TYPE_DATA_GRAPH_PIPELINE_SESSION_ARM`
+
+Extending [VkPipelineBindPoint](../chapters/pipelines.html#VkPipelineBindPoint):
+
+* 
+`VK_PIPELINE_BIND_POINT_DATA_GRAPH_ARM`
+
+Extending [VkPipelineStageFlagBits2](../chapters/synchronization.html#VkPipelineStageFlagBits2):
+
+* 
+`VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM`
+
+Extending [VkQueueFlagBits](../chapters/devsandqueues.html#VkQueueFlagBits):
+
+* 
+`VK_QUEUE_DATA_GRAPH_BIT_ARM`
+
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+* 
+`VK_STRUCTURE_TYPE_BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CREATE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM`
+
+Extending [VkTensorUsageFlagBitsARM](../chapters/resources.html#VkTensorUsageFlagBitsARM):
+
+* 
+`VK_TENSOR_USAGE_DATA_GRAPH_BIT_ARM`
+
+If [VK_ARM_tensors](#VK_ARM_tensors) is supported:
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM`
+
+* 
+[GraphARM](spirvenv.html#spirvenv-capabilities-table-GraphARM)
+
+1) Should graph pipeline resource info structures be integrated into
+   pipeline layouts? Would a new graph pipeline layout be a better fit?
+
+**RESOLVED**: Graph pipeline resource info are passed separately at pipeline
+creation time.
+
+2) Do we need a new shader stage for graph pipelines for use in creating
+descriptor set layouts?
+
+**RESOLVED**: Currently using `VK_SHADER_STAGE_ALL`.
+
+3) Should this extension provide applications with a way of knowing which
+   combinations of sparsity information implementations can take advantage
+   of when processing graph constants?
+
+**RESOLVED**: No.
+Describing the exact combinations is in some cases complex and it is always
+valid for implementations to ignore the sparsity information and treat the
+data as dense.
+Specific implementations can provide guidance to application writers if they
+so desire and applications are encouraged to always provide sparsity
+information that they have.
+
+* 
+Revision 1, 2025-06-18 (Kévin Petit)
+
+Initial revision
 
 **Name String**
 
@@ -37390,6 +39114,454 @@ Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
 Revision 1, 2023-02-07 (Jan-Harald Fredriksen)
 
 Initial draft.
+
+**Name String**
+
+`VK_ARM_tensors`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+461
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Not ratified
+
+**Extension and Version Dependencies**
+
+[Vulkan Version 1.3](versions.html#versions-1.3)
+
+**API Interactions**
+
+* 
+Interacts with VK_EXT_descriptor_buffer
+
+* 
+Interacts with VK_EXT_frame_boundary
+
+**SPIR-V Dependencies**
+
+* 
+[SPV_ARM_tensors](https://github.khronos.org/SPIRV-Registry/extensions/ARM/SPV_ARM_tensors.html)
+
+**Contact**
+
+* 
+Kevin Petit [kpet](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_ARM_tensors] @kpet%0A*Here describe the issue or question you have about the VK_ARM_tensors extension*)
+
+**Extension Proposal**
+
+[VK_ARM_tensors](../../../features/latest/features/proposals/VK_ARM_tensors.html)
+
+**Last Modified Date**
+
+2025-06-03
+
+**Interactions and External Dependencies**
+
+* 
+This extension requires
+[`SPV_ARM_tensors`](https://github.khronos.org/SPIRV-Registry/extensions/ARM/SPV_ARM_tensors.html)
+
+* 
+This extension provides API support for
+[`GL_ARM_tensors`](https://github.com/KhronosGroup/GLSL/blob/main/extensions/arm/GL_ARM_tensors.txt)
+
+* 
+This extension interacts with `[VK_EXT_mutable_descriptor_type](#VK_EXT_mutable_descriptor_type)`
+
+* 
+This extension interacts with `[VK_EXT_descriptor_buffer](#VK_EXT_descriptor_buffer)`
+
+* 
+This extension interacts with `[VK_EXT_frame_boundary](#VK_EXT_frame_boundary)`
+
+* 
+This extension interacts with `[VK_EXT_robustness2](#VK_EXT_robustness2)`
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Kévin Petit, Arm Ltd.
+
+* 
+Einar Hov, Arm Ltd.
+
+* 
+Dominic Symes, Arm Ltd.
+
+* 
+Jan-Harald Fredriksen, Arm Ltd.
+
+* 
+Marco Cattani, Arm Ltd.
+
+* 
+Lisa Wu, Arm Ltd.
+
+* 
+Robert Hughes, Arm Ltd.
+
+* 
+David Garbett, Arm Ltd.
+
+* 
+Oualid Khelifi, Arm Ltd.
+
+This extension adds support for tensors.
+
+* 
+[VkTensorARM](../chapters/resources.html#VkTensorARM)
+
+* 
+[VkTensorViewARM](../chapters/resources.html#VkTensorViewARM)
+
+* 
+[vkBindTensorMemoryARM](../chapters/resources.html#vkBindTensorMemoryARM)
+
+* 
+[vkCmdCopyTensorARM](../chapters/copies.html#vkCmdCopyTensorARM)
+
+* 
+[vkCreateTensorARM](../chapters/resources.html#vkCreateTensorARM)
+
+* 
+[vkCreateTensorViewARM](../chapters/resources.html#vkCreateTensorViewARM)
+
+* 
+[vkDestroyTensorARM](../chapters/resources.html#vkDestroyTensorARM)
+
+* 
+[vkDestroyTensorViewARM](../chapters/resources.html#vkDestroyTensorViewARM)
+
+* 
+[vkGetDeviceTensorMemoryRequirementsARM](../chapters/resources.html#vkGetDeviceTensorMemoryRequirementsARM)
+
+* 
+[vkGetPhysicalDeviceExternalTensorPropertiesARM](../chapters/capabilities.html#vkGetPhysicalDeviceExternalTensorPropertiesARM)
+
+* 
+[vkGetTensorMemoryRequirementsARM](../chapters/resources.html#vkGetTensorMemoryRequirementsARM)
+
+If [VK_EXT_descriptor_buffer](#VK_EXT_descriptor_buffer) is supported:
+
+* 
+[vkGetTensorOpaqueCaptureDescriptorDataARM](../chapters/descriptorsets.html#vkGetTensorOpaqueCaptureDescriptorDataARM)
+
+* 
+[vkGetTensorViewOpaqueCaptureDescriptorDataARM](../chapters/descriptorsets.html#vkGetTensorViewOpaqueCaptureDescriptorDataARM)
+
+* 
+[VkBindTensorMemoryInfoARM](../chapters/resources.html#VkBindTensorMemoryInfoARM)
+
+* 
+[VkCopyTensorInfoARM](../chapters/copies.html#VkCopyTensorInfoARM)
+
+* 
+[VkDeviceTensorMemoryRequirementsARM](../chapters/resources.html#VkDeviceTensorMemoryRequirementsARM)
+
+* 
+[VkExternalTensorPropertiesARM](../chapters/capabilities.html#VkExternalTensorPropertiesARM)
+
+* 
+[VkPhysicalDeviceExternalTensorInfoARM](../chapters/capabilities.html#VkPhysicalDeviceExternalTensorInfoARM)
+
+* 
+[VkTensorCopyARM](../chapters/copies.html#VkTensorCopyARM)
+
+* 
+[VkTensorCreateInfoARM](../chapters/resources.html#VkTensorCreateInfoARM)
+
+* 
+[VkTensorMemoryRequirementsInfoARM](../chapters/resources.html#VkTensorMemoryRequirementsInfoARM)
+
+* 
+[VkTensorViewCreateInfoARM](../chapters/resources.html#VkTensorViewCreateInfoARM)
+
+* 
+Extending [VkDataGraphPipelineResourceInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineResourceInfoARM), [VkDataGraphPipelineConstantARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineConstantARM):
+
+[VkTensorDescriptionARM](../chapters/resources.html#VkTensorDescriptionARM)
+
+Extending [VkDependencyInfo](../chapters/synchronization.html#VkDependencyInfo):
+
+* 
+[VkTensorDependencyInfoARM](../chapters/synchronization.html#VkTensorDependencyInfoARM)
+
+* 
+[VkTensorMemoryBarrierARM](../chapters/synchronization.html#VkTensorMemoryBarrierARM)
+
+Extending [VkFormatProperties2](../chapters/formats.html#VkFormatProperties2):
+
+* 
+[VkTensorFormatPropertiesARM](../chapters/formats.html#VkTensorFormatPropertiesARM)
+
+Extending [VkMemoryAllocateInfo](../chapters/memory.html#VkMemoryAllocateInfo):
+
+* 
+[VkMemoryDedicatedAllocateInfoTensorARM](../chapters/memory.html#VkMemoryDedicatedAllocateInfoTensorARM)
+
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+* 
+[VkPhysicalDeviceTensorFeaturesARM](../chapters/features.html#VkPhysicalDeviceTensorFeaturesARM)
+
+Extending [VkPhysicalDeviceProperties2](../chapters/devsandqueues.html#VkPhysicalDeviceProperties2):
+
+* 
+[VkPhysicalDeviceTensorPropertiesARM](../chapters/limits.html#VkPhysicalDeviceTensorPropertiesARM)
+
+Extending [VkTensorCreateInfoARM](../chapters/resources.html#VkTensorCreateInfoARM):
+
+* 
+[VkExternalMemoryTensorCreateInfoARM](../chapters/resources.html#VkExternalMemoryTensorCreateInfoARM)
+
+Extending [VkWriteDescriptorSet](../chapters/descriptorsets.html#VkWriteDescriptorSet):
+
+* 
+[VkWriteDescriptorSetTensorARM](../chapters/descriptorsets.html#VkWriteDescriptorSetTensorARM)
+
+If [VK_EXT_descriptor_buffer](#VK_EXT_descriptor_buffer) is supported:
+
+* 
+[VkTensorCaptureDescriptorDataInfoARM](../chapters/descriptorsets.html#VkTensorCaptureDescriptorDataInfoARM)
+
+* 
+[VkTensorViewCaptureDescriptorDataInfoARM](../chapters/descriptorsets.html#VkTensorViewCaptureDescriptorDataInfoARM)
+
+* 
+Extending [VkDescriptorGetInfoEXT](../chapters/descriptorsets.html#VkDescriptorGetInfoEXT):
+
+[VkDescriptorGetTensorInfoARM](../chapters/descriptorsets.html#VkDescriptorGetTensorInfoARM)
+
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+* 
+[VkPhysicalDeviceDescriptorBufferTensorFeaturesARM](../chapters/features.html#VkPhysicalDeviceDescriptorBufferTensorFeaturesARM)
+
+Extending [VkPhysicalDeviceProperties2](../chapters/devsandqueues.html#VkPhysicalDeviceProperties2):
+
+* 
+[VkPhysicalDeviceDescriptorBufferTensorPropertiesARM](../chapters/limits.html#VkPhysicalDeviceDescriptorBufferTensorPropertiesARM)
+
+If [VK_EXT_frame_boundary](#VK_EXT_frame_boundary) is supported:
+
+* 
+Extending [VkSubmitInfo](../chapters/cmdbuffers.html#VkSubmitInfo), [VkSubmitInfo2](../chapters/cmdbuffers.html#VkSubmitInfo2), [VkPresentInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentInfoKHR), [VkBindSparseInfo](../chapters/sparsemem.html#VkBindSparseInfo):
+
+[VkFrameBoundaryTensorsARM](../chapters/debugging.html#VkFrameBoundaryTensorsARM)
+
+* 
+[VkTensorCreateFlagBitsARM](../chapters/resources.html#VkTensorCreateFlagBitsARM)
+
+* 
+[VkTensorTilingARM](../chapters/resources.html#VkTensorTilingARM)
+
+* 
+[VkTensorUsageFlagBitsARM](../chapters/resources.html#VkTensorUsageFlagBitsARM)
+
+* 
+[VkTensorViewCreateFlagBitsARM](../chapters/resources.html#VkTensorViewCreateFlagBitsARM)
+
+* 
+[VkTensorCreateFlagsARM](../chapters/resources.html#VkTensorCreateFlagsARM)
+
+* 
+[VkTensorUsageFlagsARM](../chapters/resources.html#VkTensorUsageFlagsARM)
+
+* 
+[VkTensorViewCreateFlagsARM](../chapters/resources.html#VkTensorViewCreateFlagsARM)
+
+* 
+`VK_ARM_TENSORS_EXTENSION_NAME`
+
+* 
+`VK_ARM_TENSORS_SPEC_VERSION`
+
+* 
+Extending [VkDescriptorType](../chapters/descriptorsets.html#VkDescriptorType):
+
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM`
+
+Extending [VkFormat](../chapters/formats.html#VkFormat):
+
+* 
+`VK_FORMAT_R8_BOOL_ARM`
+
+Extending [VkFormatFeatureFlagBits2](../chapters/formats.html#VkFormatFeatureFlagBits2):
+
+* 
+`VK_FORMAT_FEATURE_2_TENSOR_IMAGE_ALIASING_BIT_ARM`
+
+* 
+`VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM`
+
+Extending [VkImageLayout](../chapters/resources.html#VkImageLayout):
+
+* 
+`VK_IMAGE_LAYOUT_TENSOR_ALIASING_ARM`
+
+Extending [VkImageUsageFlagBits](../chapters/resources.html#VkImageUsageFlagBits):
+
+* 
+`VK_IMAGE_USAGE_TENSOR_ALIASING_BIT_ARM`
+
+Extending [VkObjectType](../chapters/debugging.html#VkObjectType):
+
+* 
+`VK_OBJECT_TYPE_TENSOR_ARM`
+
+* 
+`VK_OBJECT_TYPE_TENSOR_VIEW_ARM`
+
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+* 
+`VK_STRUCTURE_TYPE_BIND_TENSOR_MEMORY_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_COPY_TENSOR_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_EXTERNAL_TENSOR_PROPERTIES_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_FEATURES_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_TENSOR_COPY_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_TENSOR_CREATE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_TENSOR_DEPENDENCY_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_TENSOR_DESCRIPTION_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_TENSOR_FORMAT_PROPERTIES_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_TENSOR_MEMORY_BARRIER_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_TENSOR_MEMORY_REQUIREMENTS_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_TENSOR_VIEW_CREATE_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_TENSOR_ARM`
+
+If [VK_EXT_descriptor_buffer](#VK_EXT_descriptor_buffer) is supported:
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_DESCRIPTOR_GET_TENSOR_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM`
+
+* 
+`VK_STRUCTURE_TYPE_TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM`
+
+Extending [VkTensorCreateFlagBitsARM](../chapters/resources.html#VkTensorCreateFlagBitsARM):
+
+* 
+`VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM`
+
+Extending [VkTensorViewCreateFlagBitsARM](../chapters/resources.html#VkTensorViewCreateFlagBitsARM):
+
+* 
+`VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM`
+
+If [VK_EXT_frame_boundary](#VK_EXT_frame_boundary) is supported:
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_FRAME_BOUNDARY_TENSORS_ARM`
+
+* 
+[`TensorsARM`](spirvenv.html#spirvenv-capabilities-table-TensorsARM)
+
+* 
+[    `StorageTensorArrayDynamicIndexingARM`](spirvenv.html#spirvenv-capabilities-table-StorageTensorArrayDynamicIndexingARM)
+
+* 
+[    `StorageTensorArrayNonUniformIndexingARM`](spirvenv.html#spirvenv-capabilities-table-StorageTensorArrayNonUniformIndexingARM)
+
+1) Should tensor strides be passed in elements or in bytes?
+
+**RESOLVED**: Strides are passed in bytes but are required to be a multiple of
+the tensor element size.
+Passing strides in bytes makes it possible to relax this requirement in the
+future without an interface change.
+It also makes it easier to describe memory alignment requirements.
+
+2) Should there be commands to copy data between tensors and buffers/images?
+
+**RESOLVED**: Adding these commands would result in a rather large API surface
+and not insignificant implementation and validation cost.
+The same outcome can be achieved with memory aliasing and tensor to tensor
+copy operations.
+
+3) Should this extension define transpose and/or other data reorganization
+operations?
+
+**RESOLVED**: These operations are useful to expose but this extension is only
+meant to add base support for tensors.
+Additional operations should be layered on top and defined in other
+extensions.
+
+4) Why are tensor strides described using signed integers?
+
+**RESOLVED**: Negative strides make it possible to describe different linear
+data layouts.
+While this extension does not allow negative strides, it uses signed
+integers for strides to make it possible to relax this limitation in future
+extensions.
+
+* 
+Revision 1, 2025-06-03 (Kévin Petit)
+
+Initial revision
 
 **Name String**
 
@@ -40724,7 +42896,7 @@ Device extension
 
 **Revision**
 
-2
+4
 
 **Ratification Status**
 
@@ -40822,6 +42994,9 @@ This extension adds support for the following SPIR-V extension in Vulkan:
 [VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV](../chapters/accelstructures.html#VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV)
 
 * 
+[VkClusterAccelerationStructureGetTemplateIndicesInfoNV](../chapters/accelstructures.html#VkClusterAccelerationStructureGetTemplateIndicesInfoNV)
+
+* 
 [VkClusterAccelerationStructureInputInfoNV](../chapters/accelstructures.html#VkClusterAccelerationStructureInputInfoNV)
 
 * 
@@ -40899,8 +43074,13 @@ Extending [VkRayTracingPipelineCreateInfoKHR](../chapters/pipelines.html#VkRayTr
 `VK_NV_CLUSTER_ACCELERATION_STRUCTURE_SPEC_VERSION`
 
 * 
+Extending [VkBuildAccelerationStructureFlagBitsKHR](../chapters/resources.html#VkBuildAccelerationStructureFlagBitsKHR):
+
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_CLUSTER_OPACITY_MICROMAPS_BIT_NV`
+
 Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
 
+* 
 `VK_STRUCTURE_TYPE_CLUSTER_ACCELERATION_STRUCTURE_CLUSTERS_BOTTOM_LEVEL_INPUT_NV`
 
 * 
@@ -40938,8 +43118,18 @@ Extending [VkOpacityMicromapSpecialIndexEXT](../chapters/accelstructures.html#Vk
 [    `RayTracingClusterAccelerationStructureNV`](spirvenv.html#spirvenv-capabilities-table-RayTracingClusterAccelerationStructureNV)
 
 * 
+Revision 4, 2025-07-16 (Vikram Kushwaha)
+
+Adding build flag to enable OMM in cluster acceleration structure
+
+Revision 3, 2025-06-18 (Vikram Kushwaha)
+
+* 
+Adding a OpType to get template’s index data
+
 Revision 2, 2024-09-09 (Vikram Kushwaha)
 
+* 
 Changes to some structures causing incompatibility with Revision 1
 
 Revision 1, 2024-08-29 (Vikram Kushwaha)
@@ -42435,7 +44625,7 @@ The intended usage for this extension is for the application to:
 
 * 
 create `VkBuffer` objects and retrieve physical addresses from them
-via [vkGetBufferDeviceAddressEXT](../chapters/descriptorsets.html#vkGetBufferDeviceAddressEXT)
+via [vkGetBufferDeviceAddressEXT](../chapters/resources.html#vkGetBufferDeviceAddressEXT)
 
 * 
 create a graphics pipeline using
@@ -43262,34 +45452,34 @@ execution between work submitted from these compatible external APIs and
 work that has been submitted through the Vulkan API.
 
 At device creation time, an application **must** supply a
-[VkExternalComputeQueueDeviceCreateInfoNV](#undefined.adoc#VkExternalComputeQueueDeviceCreateInfoNV).
+[VkExternalComputeQueueDeviceCreateInfoNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#VkExternalComputeQueueDeviceCreateInfoNV).
 This communicates to the implementation the maximum number of external
 queues that the application **can** create at once.
 This information **may** be used by the implementation to aid in decisions made
 during device creation.
 
-After device creation, the function [vkCreateExternalComputeQueueNV](#undefined.adoc#vkCreateExternalComputeQueueNV) is
+After device creation, the function [vkCreateExternalComputeQueueNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#vkCreateExternalComputeQueueNV) is
 used by an application to create a new `VkExternalComputeQueueNV`
 object.
 The `VkExternalComputeQueueNV` object holds information and reserves
 resources necessary for a compatible external API to be able to join a
 `VkDevice`.
 This information can be queried through the
-[vkGetExternalComputeQueueDataNV](#undefined.adoc#vkGetExternalComputeQueueDataNV) function, returning an opaque blob of
+[vkGetExternalComputeQueueDataNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#vkGetExternalComputeQueueDataNV) function, returning an opaque blob of
 data which can be passed to compatible external APIs.
-The application **must** finally call [vkDestroyExternalComputeQueueNV](#undefined.adoc#vkDestroyExternalComputeQueueNV)
+The application **must** finally call [vkDestroyExternalComputeQueueNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#vkDestroyExternalComputeQueueNV)
 when it is done in order to release the reserved resources.
 
 This extension introduces a new properties structure,
-[VkPhysicalDeviceExternalComputeQueuePropertiesNV](#undefined.adoc#VkPhysicalDeviceExternalComputeQueuePropertiesNV), which can be queried
+[VkPhysicalDeviceExternalComputeQueuePropertiesNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#VkPhysicalDeviceExternalComputeQueuePropertiesNV), which can be queried
 through [vkGetPhysicalDeviceProperties2](../chapters/devsandqueues.html#vkGetPhysicalDeviceProperties2).
 The structure provides information on functional limits to the extension as
 well as a way of querying the size of the application allocated memory which
-**must** be passed to the [vkGetExternalComputeQueueDataNV](#undefined.adoc#vkGetExternalComputeQueueDataNV) function.
+**must** be passed to the [vkGetExternalComputeQueueDataNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#vkGetExternalComputeQueueDataNV) function.
 
 When creating a `VkExternalComputeQueueNV` through
-[vkCreateExternalComputeQueueNV](#undefined.adoc#vkCreateExternalComputeQueueNV), the
-[VkExternalComputeQueueCreateInfoNV](#undefined.adoc#VkExternalComputeQueueCreateInfoNV) structure requires an application
+[vkCreateExternalComputeQueueNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#vkCreateExternalComputeQueueNV), the
+[VkExternalComputeQueueCreateInfoNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#VkExternalComputeQueueCreateInfoNV) structure requires an application
 to supply a `VkQueue` to aid in external compute queue creation.
 The supplied `VkQueue` is a strong scheduling hint about which queue it
 expects to submit graphics workloads to and with which it expects
@@ -43297,32 +45487,32 @@ simultaneous execution of compute workloads submitted through the external
 API.
 
 * 
-[VkExternalComputeQueueNV](#undefined.adoc#VkExternalComputeQueueNV)
+[VkExternalComputeQueueNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#VkExternalComputeQueueNV)
 
 * 
-[vkCreateExternalComputeQueueNV](#undefined.adoc#vkCreateExternalComputeQueueNV)
+[vkCreateExternalComputeQueueNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#vkCreateExternalComputeQueueNV)
 
 * 
-[vkDestroyExternalComputeQueueNV](#undefined.adoc#vkDestroyExternalComputeQueueNV)
+[vkDestroyExternalComputeQueueNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#vkDestroyExternalComputeQueueNV)
 
 * 
-[vkGetExternalComputeQueueDataNV](#undefined.adoc#vkGetExternalComputeQueueDataNV)
+[vkGetExternalComputeQueueDataNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#vkGetExternalComputeQueueDataNV)
 
 * 
-[VkExternalComputeQueueCreateInfoNV](#undefined.adoc#VkExternalComputeQueueCreateInfoNV)
+[VkExternalComputeQueueCreateInfoNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#VkExternalComputeQueueCreateInfoNV)
 
 * 
-[VkExternalComputeQueueDataParamsNV](#undefined.adoc#VkExternalComputeQueueDataParamsNV)
+[VkExternalComputeQueueDataParamsNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#VkExternalComputeQueueDataParamsNV)
 
 * 
 Extending [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
 
-[VkExternalComputeQueueDeviceCreateInfoNV](#undefined.adoc#VkExternalComputeQueueDeviceCreateInfoNV)
+[VkExternalComputeQueueDeviceCreateInfoNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#VkExternalComputeQueueDeviceCreateInfoNV)
 
 Extending [VkPhysicalDeviceProperties2](../chapters/devsandqueues.html#VkPhysicalDeviceProperties2):
 
 * 
-[VkPhysicalDeviceExternalComputeQueuePropertiesNV](#undefined.adoc#VkPhysicalDeviceExternalComputeQueuePropertiesNV)
+[VkPhysicalDeviceExternalComputeQueuePropertiesNV](../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html#VkPhysicalDeviceExternalComputeQueuePropertiesNV)
 
 * 
 `VK_NV_EXTERNAL_COMPUTE_QUEUE_EXTENSION_NAME`
@@ -44409,11 +46599,19 @@ Not ratified
 
 **Extension and Version Dependencies**
 
-[Vulkan Version 1.2](versions.html#versions-1.2)
+     [Vulkan Version 1.2](versions.html#versions-1.2)
 
-or
+     or
 
-[VK_KHR_timeline_semaphore](#VK_KHR_timeline_semaphore)
+     [VK_KHR_timeline_semaphore](#VK_KHR_timeline_semaphore)
+
+and
+
+     [VK_KHR_present_id](#VK_KHR_present_id)
+
+     or
+
+     [VK_KHR_present_id2](#VK_KHR_present_id2)
 
 **Contact**
 
@@ -48039,6 +50237,11 @@ Valid Usage (Implicit)
 
  `pFunction` **must** be a valid pointer to a [VkCuFunctionNVX](#VkCuFunctionNVX) handle
 
+* 
+[](#VUID-vkCreateCuFunctionNVX-device-queuecount) VUID-vkCreateCuFunctionNVX-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](../chapters/fundamentals.html#fundamentals-successcodes)
@@ -48049,10 +50252,16 @@ Return Codes
 [Failure](../chapters/fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INITIALIZATION_FAILED`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INITIALIZATION_FAILED`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 There is currently no specification language written for this type.
 This section acts only as placeholder and to avoid dead links in the
@@ -48153,6 +50362,11 @@ Valid Usage (Implicit)
 
  `pModule` **must** be a valid pointer to a [VkCuModuleNVX](#VkCuModuleNVX) handle
 
+* 
+[](#VUID-vkCreateCuModuleNVX-device-queuecount) VUID-vkCreateCuModuleNVX-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](../chapters/fundamentals.html#fundamentals-successcodes)
@@ -48163,10 +50377,16 @@ Return Codes
 [Failure](../chapters/fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INITIALIZATION_FAILED`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INITIALIZATION_FAILED`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 There is currently no specification language written for this type.
 This section acts only as placeholder and to avoid dead links in the
@@ -48301,6 +50521,10 @@ Command Properties
 Secondary | Both | Outside | Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdCuLaunchKernelNVX is not affected by [conditional rendering](../chapters/drawing.html#drawing-conditional-rendering)
 
 There is currently no specification language written for this type.
 This section acts only as placeholder and to avoid dead links in the
@@ -48623,6 +50847,98 @@ void main()
 
 * 
 Revision 1, 2017-01-13 (Jeff Bolz)
+
+Internal revisions
+
+**Name String**
+
+`VK_OHOS_surface`
+
+**Extension Type**
+
+Instance extension
+
+**Registered Extension Number**
+
+588
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Not ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_surface](#VK_KHR_surface)
+
+**Contact**
+
+* 
+Weilan Chen [wchen-h](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_OHOS_surface] @wchen-h%0A*Here describe the issue or question you have about the VK_OHOS_surface extension*)
+
+**Last Modified Date**
+
+2025-05-16
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Weilan Chen, Huawei
+
+* 
+Zehui Lin, Huawei
+
+* 
+Pan Gao, Huawei
+
+* 
+Zhao Zhang, Huawei
+
+* 
+Yang Shi, Huawei
+
+The `VK_OHOS_surface` extension is an instance extension.
+It provides a mechanism to create a [VkSurfaceKHR](../chapters/VK_KHR_surface/wsi.html#VkSurfaceKHR) object (defined by
+the `[VK_KHR_surface](#VK_KHR_surface)` extension) that refers to an
+`OHNativeWindow`, the native surface type of Open Harmony OS.
+Common consumer endpoints for `OHNativeWindows` are the system window
+compositor, video encoders, and application-specific compositors.
+
+* 
+`OHNativeWindow`
+
+* 
+[vkCreateSurfaceOHOS](../chapters/VK_KHR_surface/wsi.html#vkCreateSurfaceOHOS)
+
+* 
+[VkOHSurfaceCreateInfoOHOS](../chapters/VK_KHR_surface/wsi.html#VkOHSurfaceCreateInfoOHOS)
+
+* 
+[VkSurfaceCreateInfoOHOS](../chapters/VK_KHR_surface/wsi.html#VkSurfaceCreateInfoOHOS)
+
+* 
+[VkSurfaceCreateFlagsOHOS](../chapters/VK_KHR_surface/wsi.html#VkSurfaceCreateFlagsOHOS)
+
+* 
+`VK_OHOS_SURFACE_EXTENSION_NAME`
+
+* 
+`VK_OHOS_SURFACE_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_OH_SURFACE_CREATE_INFO_OHOS`
+
+* 
+Revision 1, 2025-05-19 (Weilan Chen)
 
 Internal revisions
 
@@ -49699,7 +52015,7 @@ Device extension
 
 **Revision**
 
-4
+5
 
 **Ratification Status**
 
@@ -49716,7 +52032,7 @@ Matthew Netsch [mnetsch](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?
 
 **Last Modified Date**
 
-2023-12-13
+2025-06-30
 
 **Interactions and External Dependencies**
 
@@ -49748,6 +52064,9 @@ Matthew Netsch, Qualcomm Technologies, Inc.
 
 * 
 Arpit Agarwal, Qualcomm Technologies, Inc.
+
+* 
+Žiga Markuš, LunarG, Inc.
 
 This extension provides a mechanism for applications to enable driver
 support for [render pass transform](../chapters/vertexpostproc.html#vertexpostproc-renderpass-transform).
@@ -49950,6 +52269,11 @@ Revision 4, 2023-12-13 (Matthew Netsch)
 
 * 
 Relax dependencies on VK_KHR_surface and VK_KHR_swapchain
+
+Revision 5, 2025-06-30 (Matthew Netsch)
+
+* 
+Fix pNext const on info structs
 
 **Name String**
 
@@ -50520,7 +52844,7 @@ rather than a single pixel or sample.
 * 
 A tile shading render pass can also enable tiling "aprons".
 This is a specialized rendering mode where the GPU renders overlapping
-tiles that enable specific use-cases.
+tiles that enable specific use cases.
 
 * 
 [vkCmdBeginPerTileExecutionQCOM](../chapters/renderpass.html#vkCmdBeginPerTileExecutionQCOM)
@@ -51108,6 +53432,108 @@ Initial specification
 
 **Name String**
 
+`VK_SEC_pipeline_cache_incremental_mode`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+638
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Not ratified
+
+**Extension and Version Dependencies**
+
+None
+
+**Contact**
+
+* 
+Chris Hambacher [chambacher](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_SEC_pipeline_cache_incremental_mode] @chambacher%0A*Here describe the issue or question you have about the VK_SEC_pipeline_cache_incremental_mode extension*)
+
+**Last Modified Date**
+
+2025-06-24
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Chris Hambacher, Samsung
+
+* 
+Mohan Maiya, Samsung
+
+* 
+Brandon Schade, Samsung
+
+This extension allows layered implementations such as ANGLE to modify the
+default behavior of VkPipelineCache to return only the incremental data from
+the previous call to vkGetPipelineCacheData.
+Application developers should avoid using this extension.
+
+|  | There is currently no specification language written for this extension.
+| --- | --- |
+The links to APIs defined by the extension are to stubs that only include
+generated content such as API declarations and implicit valid usage
+statements. |
+
+|  | This extension is only intended for use in specific embedded environments
+| --- | --- |
+with known implementation details, and is therefore undocumented. |
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC](#VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC)
+
+* 
+`VK_SEC_PIPELINE_CACHE_INCREMENTAL_MODE_EXTENSION_NAME`
+
+* 
+`VK_SEC_PIPELINE_CACHE_INCREMENTAL_MODE_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC`
+
+There is currently no specification language written for this type.
+This section acts only as placeholder and to avoid dead links in the
+specification and reference pages.
+
+// Provided by VK_SEC_pipeline_cache_incremental_mode
+typedef struct VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           pipelineCacheIncrementalMode;
+} VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC;
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC-sType-sType) VUID-VkPhysicalDevicePipelineCacheIncrementalModeFeaturesSEC-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC`
+
+* 
+Revision 1, 2025-06-24 (Chris Hambacher)
+
+Initial specification
+
+**Name String**
+
 `VK_VALVE_descriptor_set_host_mapping`
 
 **Extension Type**
@@ -51344,6 +53770,127 @@ Initial specification
 
 **Name String**
 
+`VK_VALVE_fragment_density_map_layered`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+612
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Not ratified
+
+**Extension and Version Dependencies**
+
+     [VK_KHR_maintenance5](#VK_KHR_maintenance5)
+
+     or
+
+     [Vulkan Version 1.4](versions.html#versions-1.4)
+
+and
+
+[VK_EXT_fragment_density_map](#VK_EXT_fragment_density_map)
+
+**Contact**
+
+* 
+Connor Abbott [cwabbott0](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_VALVE_fragment_density_map_layered] @cwabbott0%0A*Here describe the issue or question you have about the VK_VALVE_fragment_density_map_layered extension*)
+
+**Last Modified Date**
+
+2025-06-06
+
+**Interactions and External Dependencies**
+
+* 
+Interacts with Vulkan 1.1.
+
+* 
+Interacts with Vulkan 1.3.
+
+* 
+Interacts with Vulkan 1.4.
+
+* 
+Interacts with `[VK_EXT_fragment_density_map](#VK_EXT_fragment_density_map)`.
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Connor Abbott, VALVE
+
+* 
+Mike Blumenkrantz, VALVE
+
+This extension enables the use of layered fragment density maps.
+
+* 
+Extending [VkGraphicsPipelineCreateInfo](../chapters/pipelines.html#VkGraphicsPipelineCreateInfo):
+
+[VkPipelineFragmentDensityMapLayeredCreateInfoVALVE](../chapters/pipelines.html#VkPipelineFragmentDensityMapLayeredCreateInfoVALVE)
+
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+* 
+[VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE](../chapters/features.html#VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE)
+
+Extending [VkPhysicalDeviceProperties2](../chapters/devsandqueues.html#VkPhysicalDeviceProperties2):
+
+* 
+[VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE](../chapters/limits.html#VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE)
+
+* 
+`VK_VALVE_FRAGMENT_DENSITY_MAP_LAYERED_EXTENSION_NAME`
+
+* 
+`VK_VALVE_FRAGMENT_DENSITY_MAP_LAYERED_SPEC_VERSION`
+
+* 
+Extending [VkPipelineCreateFlagBits2](../chapters/pipelines.html#VkPipelineCreateFlagBits2):
+
+`VK_PIPELINE_CREATE_2_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE`
+
+Extending [VkRenderingFlagBits](../chapters/renderpass.html#VkRenderingFlagBits):
+
+* 
+`VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE`
+
+Extending [VkRenderPassCreateFlagBits](../chapters/renderpass.html#VkRenderPassCreateFlagBits):
+
+* 
+`VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE`
+
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE`
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE`
+
+* 
+`VK_STRUCTURE_TYPE_PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE`
+
+* 
+Revision 1, 2025-06-06 (Mike Blumenkrantz)
+
+Initial version
+
+**Name String**
+
 `VK_KHR_portability_subset`
 
 **Extension Type**
@@ -51477,6 +54024,128 @@ Initial draft.
 
 **Name String**
 
+`VK_AMDX_dense_geometry_format`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+479
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Not ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_acceleration_structure](#VK_KHR_acceleration_structure)
+
+and
+
+     [VK_KHR_maintenance5](#VK_KHR_maintenance5)
+
+     or
+
+     [Vulkan Version 1.4](versions.html#versions-1.4)
+
+* 
+**This is a *provisional* extension and must** be used with caution.
+See the [description](boilerplate.html#boilerplate-provisional-header) of provisional header files for enablement and stability details.
+
+**Contact**
+
+* 
+Stu Smith [stu-s](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_AMDX_dense_geometry_format] @stu-s%0A*Here describe the issue or question you have about the VK_AMDX_dense_geometry_format extension*)
+
+**Extension Proposal**
+
+[VK_AMDX_dense_geometry_format](../../../features/latest/features/proposals/VK_AMDX_dense_geometry_format.html)
+
+**Last Modified Date**
+
+2025-07-10
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Stu Smith, AMD
+
+* 
+Josh Barczak, AMD
+
+* 
+Carsten Benthin, AMD
+
+* 
+David McAllister, AMD
+
+This extension adds the ability to build ray tracing acceleration structures
+from pre-compressed `Dense Geometry Format` geometry data.
+
+* 
+Extending [VkAccelerationStructureGeometryKHR](../chapters/accelstructures.html#VkAccelerationStructureGeometryKHR):
+
+[VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX](../chapters/accelstructures.html#VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX)
+
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+* 
+[VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX](../chapters/features.html#VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX)
+
+* 
+[VkCompressedTriangleFormatAMDX](../chapters/accelstructures.html#VkCompressedTriangleFormatAMDX)
+
+* 
+`VK_AMDX_DENSE_GEOMETRY_FORMAT_EXTENSION_NAME`
+
+* 
+`VK_AMDX_DENSE_GEOMETRY_FORMAT_SPEC_VERSION`
+
+* 
+`VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_ALIGNMENT_AMDX`
+
+* 
+`VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_BYTE_STRIDE_AMDX`
+
+* 
+Extending [VkBufferUsageFlagBits2](../chapters/resources.html#VkBufferUsageFlagBits2):
+
+`VK_BUFFER_USAGE_2_COMPRESSED_DATA_DGF1_BIT_AMDX`
+
+Extending [VkGeometryTypeKHR](../chapters/resources.html#VkGeometryTypeKHR):
+
+* 
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`
+
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+* 
+`VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX`
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX`
+
+None.
+
+None.
+
+* 
+Revision 1, 2025-07-10 (Stu Smith)
+
+Initial revision.
+
+**Name String**
+
 `VK_AMDX_shader_enqueue`
 
 **Extension Type**
@@ -51533,11 +54202,6 @@ Interacts with VK_EXT_mesh_shader
 
 * 
 Interacts with VK_KHR_maintenance5
-
-**SPIR-V Dependencies**
-
-* 
-[SPV_AMDX_shader_enqueue](https://github.khronos.org/SPIRV-Registry/extensions/AMDX/SPV_AMDX_shader_enqueue.html)
 
 **Contact**
 
@@ -52424,11 +55088,11 @@ SPIR-V extension.
 
 Another way to describe this extension is that it adds “pointers to buffer
 memory in shaders”.
-By calling [vkGetBufferDeviceAddress](../chapters/descriptorsets.html#vkGetBufferDeviceAddress) with a `VkBuffer`, it will
+By calling [vkGetBufferDeviceAddress](../chapters/resources.html#vkGetBufferDeviceAddress) with a `VkBuffer`, it will
 return a `VkDeviceAddress` value which represents the address of the
 start of the buffer.
 
-[vkGetBufferOpaqueCaptureAddress](../chapters/descriptorsets.html#vkGetBufferOpaqueCaptureAddress) and
+[vkGetBufferOpaqueCaptureAddress](../chapters/resources.html#vkGetBufferOpaqueCaptureAddress) and
 [vkGetDeviceMemoryOpaqueCaptureAddress](../chapters/memory.html#vkGetDeviceMemoryOpaqueCaptureAddress) allow opaque addresses for
 buffers and memory objects to be queried for the current process.
 A trace capture and replay tool can then supply these addresses to be used
@@ -52450,16 +55114,16 @@ If Vulkan 1.3 is supported, support for the `bufferDeviceAddress`
 capability is required.
 
 * 
-[vkGetBufferDeviceAddressKHR](../chapters/descriptorsets.html#vkGetBufferDeviceAddressKHR)
+[vkGetBufferDeviceAddressKHR](../chapters/resources.html#vkGetBufferDeviceAddressKHR)
 
 * 
-[vkGetBufferOpaqueCaptureAddressKHR](../chapters/descriptorsets.html#vkGetBufferOpaqueCaptureAddressKHR)
+[vkGetBufferOpaqueCaptureAddressKHR](../chapters/resources.html#vkGetBufferOpaqueCaptureAddressKHR)
 
 * 
 [vkGetDeviceMemoryOpaqueCaptureAddressKHR](../chapters/memory.html#vkGetDeviceMemoryOpaqueCaptureAddressKHR)
 
 * 
-[VkBufferDeviceAddressInfoKHR](../chapters/descriptorsets.html#VkBufferDeviceAddressInfoKHR)
+[VkBufferDeviceAddressInfoKHR](../chapters/resources.html#VkBufferDeviceAddressInfoKHR)
 
 * 
 [VkDeviceMemoryOpaqueCaptureAddressInfoKHR](../chapters/memory.html#VkDeviceMemoryOpaqueCaptureAddressInfoKHR)
@@ -53655,6 +56319,9 @@ Extending [VkPeerMemoryFeatureFlagBits](../chapters/memory.html#VkPeerMemoryFeat
 `VK_PEER_MEMORY_FEATURE_GENERIC_SRC_BIT_KHR`
 
 Extending [VkPipelineCreateFlagBits](../chapters/pipelines.html#VkPipelineCreateFlagBits):
+
+* 
+`VK_PIPELINE_CREATE_DISPATCH_BASE_BIT_KHR`
 
 * 
 `VK_PIPELINE_CREATE_DISPATCH_BASE_KHR`
@@ -62980,10 +65647,10 @@ It also allows buffer device addresses to be provided by a trace replay
 tool, so that it matches the address used when the trace was captured.
 
 * 
-[vkGetBufferDeviceAddressEXT](../chapters/descriptorsets.html#vkGetBufferDeviceAddressEXT)
+[vkGetBufferDeviceAddressEXT](../chapters/resources.html#vkGetBufferDeviceAddressEXT)
 
 * 
-[VkBufferDeviceAddressInfoEXT](../chapters/descriptorsets.html#VkBufferDeviceAddressInfoEXT)
+[VkBufferDeviceAddressInfoEXT](../chapters/resources.html#VkBufferDeviceAddressInfoEXT)
 
 * 
 Extending [VkBufferCreateInfo](../chapters/resources.html#VkBufferCreateInfo):
@@ -64595,7 +67262,7 @@ Which in turn was *promoted* to
 **Contact**
 
 * 
-Yiwei Zhang [zhangyiwei](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_global_priority_query] @zhangyiwei%0A*Here describe the issue or question you have about the VK_EXT_global_priority_query extension*)
+Yiwei Zhang [zzyiwei](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_global_priority_query] @zzyiwei%0A*Here describe the issue or question you have about the VK_EXT_global_priority_query extension*)
 
 **Last Modified Date**
 
@@ -64764,7 +67431,8 @@ To support initializing a new image in preparation for a host copy, it is
 now possible to transition a new image to `VK_IMAGE_LAYOUT_GENERAL` or
 other host-copyable layouts via [vkTransitionImageLayoutEXT](../chapters/synchronization.html#vkTransitionImageLayoutEXT).
 Additionally, it is possible to perform copies that preserve the swizzling
-layout of the image by using the `VK_HOST_IMAGE_COPY_MEMCPY_EXT` flag.
+layout of the image by using the `VK_HOST_IMAGE_COPY_MEMCPY_BIT_EXT`
+flag.
 In that case, the memory size needed for copies to or from a buffer can be
 retrieved by chaining [VkSubresourceHostMemcpySizeEXT](../chapters/resources.html#VkSubresourceHostMemcpySizeEXT) to `pLayout`
 in [vkGetImageSubresourceLayout2EXT](../chapters/resources.html#vkGetImageSubresourceLayout2EXT).
@@ -64846,6 +67514,9 @@ Extending [VkFormatFeatureFlagBits2](../chapters/formats.html#VkFormatFeatureFla
 `VK_FORMAT_FEATURE_2_HOST_IMAGE_TRANSFER_BIT_EXT`
 
 Extending [VkHostImageCopyFlagBits](../chapters/copies.html#VkHostImageCopyFlagBits):
+
+* 
+`VK_HOST_IMAGE_COPY_MEMCPY_BIT_EXT`
 
 * 
 `VK_HOST_IMAGE_COPY_MEMCPY_EXT`
@@ -66014,7 +68685,7 @@ effective pipeline caches are shipped to customers.
 [VkPipelineCreationFeedbackEXT](../chapters/pipelines.html#VkPipelineCreationFeedbackEXT)
 
 * 
-Extending [VkGraphicsPipelineCreateInfo](../chapters/pipelines.html#VkGraphicsPipelineCreateInfo), [VkComputePipelineCreateInfo](../chapters/pipelines.html#VkComputePipelineCreateInfo), [VkRayTracingPipelineCreateInfoNV](../chapters/pipelines.html#VkRayTracingPipelineCreateInfoNV), [VkRayTracingPipelineCreateInfoKHR](../chapters/pipelines.html#VkRayTracingPipelineCreateInfoKHR), [VkExecutionGraphPipelineCreateInfoAMDX](../chapters/executiongraphs.html#VkExecutionGraphPipelineCreateInfoAMDX):
+Extending [VkGraphicsPipelineCreateInfo](../chapters/pipelines.html#VkGraphicsPipelineCreateInfo), [VkComputePipelineCreateInfo](../chapters/pipelines.html#VkComputePipelineCreateInfo), [VkRayTracingPipelineCreateInfoNV](../chapters/pipelines.html#VkRayTracingPipelineCreateInfoNV), [VkRayTracingPipelineCreateInfoKHR](../chapters/pipelines.html#VkRayTracingPipelineCreateInfoKHR), [VkExecutionGraphPipelineCreateInfoAMDX](../chapters/executiongraphs.html#VkExecutionGraphPipelineCreateInfoAMDX), [VkDataGraphPipelineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCreateInfoARM):
 
 [VkPipelineCreationFeedbackCreateInfoEXT](../chapters/pipelines.html#VkPipelineCreationFeedbackCreateInfoEXT)
 
@@ -66076,7 +68747,7 @@ Device extension
 
 **Ratification Status**
 
-Not ratified
+Ratified
 
 **Extension and Version Dependencies**
 
@@ -66322,6 +68993,112 @@ the core functionality.
 Revision 1, 2022-07-12 (Jarred Davies)
 
 Initial version
+
+**Name String**
+
+`VK_EXT_present_mode_fifo_latest_ready`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+362
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_swapchain](#VK_KHR_swapchain)
+
+**Deprecation State**
+
+* 
+*Promoted* to
+[VK_KHR_present_mode_fifo_latest_ready](#VK_KHR_present_mode_fifo_latest_ready)
+extension
+
+**Contact**
+
+* 
+Lionel Duc [nvlduc](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_present_mode_fifo_latest_ready] @nvlduc%0A*Here describe the issue or question you have about the VK_EXT_present_mode_fifo_latest_ready extension*)
+
+**Extension Proposal**
+
+[VK_EXT_present_mode_fifo_latest_ready](../../../features/latest/features/proposals/VK_EXT_present_mode_fifo_latest_ready.html)
+
+**Last Modified Date**
+
+2024-05-28
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+James Jones, NVIDIA
+
+* 
+Lionel Duc, NVIDIA
+
+This device extension adds a new present mode,
+`VK_PRESENT_MODE_FIFO_LATEST_READY_EXT`.
+
+This tear-free present mode behaves much like
+`VK_PRESENT_MODE_FIFO_KHR`, except that each vertical blanking period
+dequeues consecutive present requests until the latest ready is found to
+update the current image.
+
+While this seems similar in concept to `VK_PRESENT_MODE_MAILBOX_KHR`,
+the fundamental difference is that the processing of the present requests is
+done during vblank.
+From the application perspective, this means for example, that in a
+flip-based model, a single vblank **may** cause multiple swapchain images to be
+released at once, while `VK_PRESENT_MODE_MAILBOX_KHR` **may** continuously
+be releasing images as new requests become ready.
+
+This additional present mode is useful when using a time-based present API.
+
+All functionality in this extension is included in
+`[VK_KHR_present_mode_fifo_latest_ready](#VK_KHR_present_mode_fifo_latest_ready)`, with the suffix changed to
+KHR.
+The original type and enum names are still available as aliases of the KHR
+names.
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT](../chapters/features.html#VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT)
+
+* 
+`VK_EXT_PRESENT_MODE_FIFO_LATEST_READY_EXTENSION_NAME`
+
+* 
+`VK_EXT_PRESENT_MODE_FIFO_LATEST_READY_SPEC_VERSION`
+
+* 
+Extending [VkPresentModeKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentModeKHR):
+
+`VK_PRESENT_MODE_FIFO_LATEST_READY_EXT`
+
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+* 
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_EXT`
+
+* 
+Revision 1, 2024-05-28 (Lionel Duc)
+
+Internal revisions
 
 **Name String**
 
@@ -67681,6 +70458,382 @@ for querying subgroup size control features.
 
 **Name String**
 
+`VK_EXT_surface_maintenance1`
+
+**Extension Type**
+
+Instance extension
+
+**Registered Extension Number**
+
+275
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_surface](#VK_KHR_surface)
+
+and
+
+[VK_KHR_get_surface_capabilities2](#VK_KHR_get_surface_capabilities2)
+
+**Deprecation State**
+
+* 
+*Promoted* to
+[VK_KHR_surface_maintenance1](#VK_KHR_surface_maintenance1)
+extension
+
+**Contact**
+
+* 
+Shahbaz Youssefi [syoussefi](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_surface_maintenance1] @syoussefi%0A*Here describe the issue or question you have about the VK_EXT_surface_maintenance1 extension*)
+
+**Extension Proposal**
+
+[VK_EXT_surface_maintenance1](../../../features/latest/features/proposals/VK_EXT_surface_maintenance1.html)
+
+**Last Modified Date**
+
+2022-12-16
+
+**Interactions and External Dependencies**
+
+* 
+Promoted to `[VK_KHR_surface_maintenance1](#VK_KHR_surface_maintenance1)`
+
+**Contributors**
+
+* 
+James Jones, NVIDIA
+
+* 
+Jeff Juliano, NVIDIA
+
+* 
+Lionel Landwerlin, Intel
+
+* 
+Shahbaz Youssefi, Google
+
+* 
+Chris Forbes, Google
+
+* 
+Ian Elliott, Google
+
+* 
+Hans-Kristian Arntzen, Valve
+
+* 
+Daniel Stone, Collabora
+
+`[VK_EXT_surface_maintenance1](#VK_EXT_surface_maintenance1)` adds a collection of window system
+integration features that were intentionally left out or overlooked in the
+original `[VK_KHR_surface](#VK_KHR_surface)` extension.
+
+The new features are as follows:
+
+* 
+Allow querying number of min/max images from a surface for a particular
+presentation mode.
+
+* 
+Allow querying a surface’s scaled presentation capabilities.
+
+* 
+Allow querying a surface for the set of presentation modes which can be
+easily switched between without requiring swapchain recreation.
+
+All functionality in this extension is included in
+`[VK_KHR_surface_maintenance1](#VK_KHR_surface_maintenance1)`, with the suffix changed to KHR.
+The original type, enum and command names are still available as aliases of
+the KHR functionality.
+
+* 
+Extending [VkPhysicalDeviceSurfaceInfo2KHR](../chapters/VK_KHR_surface/wsi.html#VkPhysicalDeviceSurfaceInfo2KHR):
+
+[VkSurfacePresentModeEXT](../chapters/VK_KHR_surface/wsi.html#VkSurfacePresentModeEXT)
+
+Extending [VkSurfaceCapabilities2KHR](../chapters/VK_KHR_surface/wsi.html#VkSurfaceCapabilities2KHR):
+
+* 
+[VkSurfacePresentModeCompatibilityEXT](../chapters/VK_KHR_surface/wsi.html#VkSurfacePresentModeCompatibilityEXT)
+
+* 
+[VkSurfacePresentScalingCapabilitiesEXT](../chapters/VK_KHR_surface/wsi.html#VkSurfacePresentScalingCapabilitiesEXT)
+
+* 
+[VkPresentGravityFlagBitsEXT](../chapters/VK_KHR_surface/wsi.html#VkPresentGravityFlagBitsEXT)
+
+* 
+[VkPresentScalingFlagBitsEXT](../chapters/VK_KHR_surface/wsi.html#VkPresentScalingFlagBitsEXT)
+
+* 
+[VkPresentGravityFlagsEXT](../chapters/VK_KHR_surface/wsi.html#VkPresentGravityFlagsEXT)
+
+* 
+[VkPresentScalingFlagsEXT](../chapters/VK_KHR_surface/wsi.html#VkPresentScalingFlagsEXT)
+
+* 
+`VK_EXT_SURFACE_MAINTENANCE_1_EXTENSION_NAME`
+
+* 
+`VK_EXT_SURFACE_MAINTENANCE_1_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_EXT`
+
+* 
+`VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_EXT`
+
+* 
+`VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT`
+
+* 
+Revision 0, 2019-02-27 (Lionel Landwerlin)
+
+Internal revisions
+
+Revision 0, 2020-06-15 (James Jones)
+
+* 
+Internal revisions
+
+Revision 1, 2022-11-09 (Shahbaz Youssefi)
+
+* 
+Add functionality and complete spec
+
+**Name String**
+
+`VK_EXT_swapchain_maintenance1`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+276
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_swapchain](#VK_KHR_swapchain)
+
+and
+
+[VK_EXT_surface_maintenance1](#VK_EXT_surface_maintenance1)
+
+and
+
+     [VK_KHR_get_physical_device_properties2](#VK_KHR_get_physical_device_properties2)
+
+     or
+
+     [Vulkan Version 1.1](versions.html#versions-1.1)
+
+**Deprecation State**
+
+* 
+*Promoted* to
+[VK_KHR_swapchain_maintenance1](#VK_KHR_swapchain_maintenance1)
+extension
+
+**Contact**
+
+* 
+Shahbaz Youssefi [syoussefi](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_swapchain_maintenance1] @syoussefi%0A*Here describe the issue or question you have about the VK_EXT_swapchain_maintenance1 extension*)
+
+**Extension Proposal**
+
+[VK_EXT_swapchain_maintenance1](../../../features/latest/features/proposals/VK_EXT_swapchain_maintenance1.html)
+
+**Last Modified Date**
+
+2022-12-16
+
+**Interactions and External Dependencies**
+
+* 
+Promoted to `[VK_KHR_swapchain_maintenance1](#VK_KHR_swapchain_maintenance1)`
+
+**Contributors**
+
+* 
+James Jones, NVIDIA
+
+* 
+Jeff Juliano, NVIDIA
+
+* 
+Shahbaz Youssefi, Google
+
+* 
+Chris Forbes, Google
+
+* 
+Ian Elliott, Google
+
+* 
+Yiwei Zhang, Google
+
+* 
+Charlie Lao, Google
+
+* 
+Lina Versace, Google
+
+* 
+Ralph Potter, Samsung
+
+* 
+Igor Nazarov, Samsung
+
+* 
+Hyunchang Kim, Samsung
+
+* 
+Suenghwan Lee, Samsung
+
+* 
+Munseong Kang, Samsung
+
+* 
+Joonyong Park, Samsung
+
+* 
+Hans-Kristian Arntzen, Valve
+
+* 
+Lisa Wu, Arm
+
+* 
+Daniel Stone, Collabora
+
+* 
+Pan Gao, Huawei
+
+`[VK_EXT_swapchain_maintenance1](#VK_EXT_swapchain_maintenance1)` adds a collection of window system
+integration features that were intentionally left out or overlooked in the
+original `[VK_KHR_swapchain](#VK_KHR_swapchain)` extension.
+
+The new features are as follows:
+
+* 
+Specify a fence that will be signaled when the resources associated with
+a present operation **can** be safely destroyed.
+
+* 
+Allow changing the present mode a swapchain is using at per-present
+granularity.
+
+* 
+Allow applications to define the behavior when presenting a swapchain
+image to a surface with different dimensions than the image.
+Using this feature **may** allow implementations to avoid returning
+`VK_ERROR_OUT_OF_DATE_KHR` in this situation.
+
+* 
+Allow applications to defer swapchain memory allocation for improved
+startup time and memory footprint.
+
+* 
+Allow applications to release previously acquired images without
+presenting them.
+
+All functionality in this extension is included in
+`[VK_KHR_swapchain_maintenance1](#VK_KHR_swapchain_maintenance1)`, with the suffix changed to KHR.
+The original type, enum and command names are still available as aliases of
+the KHR functionality.
+
+* 
+[vkReleaseSwapchainImagesEXT](../chapters/VK_KHR_surface/wsi.html#vkReleaseSwapchainImagesEXT)
+
+* 
+[VkReleaseSwapchainImagesInfoEXT](../chapters/VK_KHR_surface/wsi.html#VkReleaseSwapchainImagesInfoEXT)
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT](../chapters/features.html#VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT)
+
+Extending [VkPresentInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkPresentInfoKHR):
+
+* 
+[VkSwapchainPresentFenceInfoEXT](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentFenceInfoEXT)
+
+* 
+[VkSwapchainPresentModeInfoEXT](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentModeInfoEXT)
+
+Extending [VkSwapchainCreateInfoKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainCreateInfoKHR):
+
+* 
+[VkSwapchainPresentModesCreateInfoEXT](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentModesCreateInfoEXT)
+
+* 
+[VkSwapchainPresentScalingCreateInfoEXT](../chapters/VK_KHR_surface/wsi.html#VkSwapchainPresentScalingCreateInfoEXT)
+
+* 
+`VK_EXT_SWAPCHAIN_MAINTENANCE_1_EXTENSION_NAME`
+
+* 
+`VK_EXT_SWAPCHAIN_MAINTENANCE_1_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT`
+
+* 
+`VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_EXT`
+
+* 
+`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_EXT`
+
+* 
+`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT`
+
+* 
+`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_EXT`
+
+* 
+`VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT`
+
+Extending [VkSwapchainCreateFlagBitsKHR](../chapters/VK_KHR_surface/wsi.html#VkSwapchainCreateFlagBitsKHR):
+
+* 
+`VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT`
+
+* 
+Revision 0, 2019-05-28 (James Jones)
+
+Initial revisions
+
+Revision 1, 2022-08-21 (Shahbaz Youssefi)
+
+* 
+Add functionality and complete spec
+
+**Name String**
+
 `VK_EXT_texel_buffer_alignment`
 
 **Extension Type**
@@ -68514,6 +71667,90 @@ Allow a zero divisor.
 
 * 
 Add a physical device features structure to query/enable this feature.
+
+**Name String**
+
+`VK_EXT_vertex_attribute_robustness`
+
+**Extension Type**
+
+Device extension
+
+**Registered Extension Number**
+
+609
+
+**Revision**
+
+1
+
+**Ratification Status**
+
+Not ratified
+
+**Extension and Version Dependencies**
+
+[VK_KHR_get_physical_device_properties2](#VK_KHR_get_physical_device_properties2)
+
+or
+
+[Vulkan Version 1.1](versions.html#versions-1.1)
+
+**Deprecation State**
+
+* 
+*Promoted* to
+[VK_KHR_maintenance9](#VK_KHR_maintenance9)
+extension
+
+**Contact**
+
+* 
+Piers Daniell [pdaniell-nv](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?body=[VK_EXT_vertex_attribute_robustness] @pdaniell-nv%0A*Here describe the issue or question you have about the VK_EXT_vertex_attribute_robustness extension*)
+
+**Last Modified Date**
+
+2024-11-01
+
+**IP Status**
+
+No known IP claims.
+
+**Contributors**
+
+* 
+Daniel Story, Nintendo
+
+It can be detrimental to performance for applications to have to define fake
+vertex attribute locations and buffer bindings for vertex shaders that may
+reference attribute locations for which there is no vertex data.
+
+This extension allows applications to not have to specify fake vertex
+attribute locations, and if the vertex shader reads those attributes it will
+read (0,0,0,0) or (0,0,0,1).
+
+* 
+Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):
+
+[VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT](../chapters/features.html#VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT)
+
+* 
+`VK_EXT_VERTEX_ATTRIBUTE_ROBUSTNESS_EXTENSION_NAME`
+
+* 
+`VK_EXT_VERTEX_ATTRIBUTE_ROBUSTNESS_SPEC_VERSION`
+
+* 
+Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
+
+`VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT`
+
+None
+
+* 
+Revision 1, 2024-11-01 (Piers Daniell)
+
+Internal revisions
 
 **Name String**
 
@@ -69807,6 +73044,9 @@ Extending [VkPhysicalDeviceProperties2](../chapters/devsandqueues.html#VkPhysica
 * 
 Extending [VkBuildAccelerationStructureFlagBitsKHR](../chapters/resources.html#VkBuildAccelerationStructureFlagBitsKHR):
 
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_BIT_NV`
+
+* 
 `VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV`
 
 Extending [VkMicromapTypeEXT](../chapters/resources.html#VkMicromapTypeEXT):

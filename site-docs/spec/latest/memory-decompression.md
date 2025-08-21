@@ -95,6 +95,10 @@ Secondary | Outside | Outside | Graphics
 
 Compute | Action |
 
+Conditional Rendering
+
+vkCmdDecompressMemoryNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkDecompressMemoryRegionNV` structure is defined as:
 
 // Provided by VK_NV_memory_decompression
@@ -178,6 +182,16 @@ region **must** not overlap with the `dstAddress` and `dstAddress`
 Valid Usage (Implicit)
 
 * 
+[](#VUID-VkDecompressMemoryRegionNV-srcAddress-parameter) VUID-VkDecompressMemoryRegionNV-srcAddress-parameter
+
+ `srcAddress` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkDecompressMemoryRegionNV-dstAddress-parameter) VUID-VkDecompressMemoryRegionNV-dstAddress-parameter
+
+ `dstAddress` **must** be a valid `VkDeviceAddress` value
+
+* 
 [](#VUID-VkDecompressMemoryRegionNV-decompressionMethod-parameter) VUID-VkDecompressMemoryRegionNV-decompressionMethod-parameter
 
  `decompressionMethod` **must** be a valid combination of [VkMemoryDecompressionMethodFlagBitsNV](#VkMemoryDecompressionMethodFlagBitsNV) values
@@ -227,13 +241,6 @@ The [`memoryDecompression`](features.html#features-memoryDecompression) feature
 **must** be enabled
 
 * 
-[](#VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsAddress-07693) VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsAddress-07693
-
-If `indirectCommandsAddress` comes from a non-sparse buffer then it
-**must** be bound completely and contiguously to a single
-`VkDeviceMemory` object
-
-* 
 [](#VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsAddress-07694) VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsAddress-07694
 
 The [VkBuffer](resources.html#VkBuffer) that `indirectCommandsAddress` comes from **must**
@@ -244,13 +251,6 @@ set
 [](#VUID-vkCmdDecompressMemoryIndirectCountNV-offset-07695) VUID-vkCmdDecompressMemoryIndirectCountNV-offset-07695
 
 `offset` **must** be a multiple of `4`
-
-* 
-[](#VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07696) VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07696
-
-If `indirectCommandsCountAddress` comes from a non-sparse buffer
-then it **must** be bound completely and contiguously to a single
-`VkDeviceMemory` object
 
 * 
 [](#VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07697) VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-07697
@@ -304,6 +304,16 @@ Valid Usage (Implicit)
  `commandBuffer` **must** be a valid [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) handle
 
 * 
+[](#VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsAddress-parameter) VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsAddress-parameter
+
+ `indirectCommandsAddress` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-parameter) VUID-vkCmdDecompressMemoryIndirectCountNV-indirectCommandsCountAddress-parameter
+
+ `indirectCommandsCountAddress` **must** be a valid `VkDeviceAddress` value
+
+* 
 [](#VUID-vkCmdDecompressMemoryIndirectCountNV-commandBuffer-recording) VUID-vkCmdDecompressMemoryIndirectCountNV-commandBuffer-recording
 
  `commandBuffer` **must** be in the [recording state](cmdbuffers.html#commandbuffers-lifecycle)
@@ -339,6 +349,10 @@ Command Properties
 Secondary | Outside | Outside | Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdDecompressMemoryIndirectCountNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Bits which **can** be set in
 `VkDecompressMemoryRegionNV`::`decompressionMethod` specifying the

@@ -121,10 +121,10 @@ Return Codes
 [Success](../fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_INCOMPLETE`
 
 * 
-`VK_INCOMPLETE`
+`VK_SUCCESS`
 
 [Failure](../fundamentals.html#fundamentals-errorcodes)
 
@@ -132,10 +132,16 @@ Return Codes
 `VK_ERROR_EXTENSION_NOT_PRESENT`
 
 * 
+`VK_ERROR_FORMAT_NOT_SUPPORTED`
+
+* 
 `VK_ERROR_INITIALIZATION_FAILED`
 
 * 
-`VK_ERROR_FORMAT_NOT_SUPPORTED`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 |  | `VK_FORMAT_B8G8R8A8_UNORM`, `VK_FORMAT_R8_UNORM` and
 | --- | --- |
@@ -320,6 +326,11 @@ Valid Usage (Implicit)
 
  `pSession` **must** be a valid pointer to a [VkOpticalFlowSessionNV](#VkOpticalFlowSessionNV) handle
 
+* 
+[](#VUID-vkCreateOpticalFlowSessionNV-device-queuecount) VUID-vkCreateOpticalFlowSessionNV-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](../fundamentals.html#fundamentals-successcodes)
@@ -330,10 +341,16 @@ Return Codes
 [Failure](../fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INITIALIZATION_FAILED`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INITIALIZATION_FAILED`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The [VkOpticalFlowSessionCreateInfoNV](#VkOpticalFlowSessionCreateInfoNV) structure is defined as:
 
@@ -845,10 +862,16 @@ Return Codes
 [Failure](../fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INITIALIZATION_FAILED`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INITIALIZATION_FAILED`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The optical flow session binding points are defined with the following:
 
@@ -983,6 +1006,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Opticalflow | Action |
+
+Conditional Rendering
+
+vkCmdOpticalFlowExecuteNV is not affected by [conditional rendering](../drawing.html#drawing-conditional-rendering)
 
 The [VkOpticalFlowExecuteInfoNV](#VkOpticalFlowExecuteInfoNV) structure is defined as:
 

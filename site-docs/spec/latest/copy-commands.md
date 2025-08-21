@@ -22,6 +22,8 @@
 - [Resolving Multisample Images](#copies-resolve)
 - [Resolving_Multisample_Images](#copies-resolve)
 - [Buffer Markers](#copies-buffer-markers)
+- [Copying Data Between Tensors](#copies-tensors)
+- [Copying_Data_Between_Tensors](#copies-tensors)
 
 ## Content
 
@@ -219,6 +221,10 @@ Graphics
 
 Compute | Action |
 
+Conditional Rendering
+
+vkCmdCopyBuffer is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkBufferCopy` structure is defined as:
 
 // Provided by VK_VERSION_1_0
@@ -350,6 +356,10 @@ Secondary | Outside | Outside | Transfer
 Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyBuffer2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkCopyBufferInfo2` structure is defined as:
 
@@ -726,9 +736,9 @@ not a [multi-planar format](formats.html#formats-multiplanar), the
 
  In a copy to or from a plane of a
 [multi-planar image](formats.html#formats-multiplanar), the [VkFormat](formats.html#VkFormat) of the
- image and plane **must** be compatible according to
- [the description of compatible planes](formats.html#formats-compatible-planes) for
- the plane being copied
+image and plane **must** be compatible according to
+[the description of compatible planes](formats.html#formats-compatible-planes) for
+the plane being copied
 
 * 
 [](#VUID-vkCmdCopyImage-srcImage-09247) VUID-vkCmdCopyImage-srcImage-09247
@@ -914,8 +924,14 @@ element of `pRegions`, `srcOffset.z` **must** be `0` and
 [](#VUID-vkCmdCopyImage-dstImage-01786) VUID-vkCmdCopyImage-dstImage-01786
 
 If `dstImage` is of type `VK_IMAGE_TYPE_1D`, then for each
-element of `pRegions`, `dstOffset.z` **must** be `0` and
-`extent.depth` **must** be `1`
+element of `pRegions`, `dstOffset.z` **must** be `0`
+
+* 
+[](#VUID-vkCmdCopyImage-srcImage-10907) VUID-vkCmdCopyImage-srcImage-10907
+
+If either the [VkFormat](formats.html#VkFormat) of each of `srcImage` and
+`dstImage` is not a [compressed image    format](../appendices/compressedtex.html#compressed_image_formats), and `dstImage` is of type `VK_IMAGE_TYPE_1D`, then for
+each element of `pRegions`, `extent.depth` **must** be `1`
 
 * 
 [](#VUID-vkCmdCopyImage-srcImage-01787) VUID-vkCmdCopyImage-srcImage-01787
@@ -1006,33 +1022,43 @@ is of type `VK_IMAGE_TYPE_3D`, then for each element of
 [](#VUID-vkCmdCopyImage-dstOffset-00150) VUID-vkCmdCopyImage-dstOffset-00150
 
 For each element of `pRegions`, `dstOffset.x` and
-(`extent.width` +  `dstOffset.x`) **must** both be
-greater than or equal to `0` and less than or equal to the width of the
-specified `dstSubresource` of `dstImage`
+(`extent.width` +  `dstOffset.x`), where `extent`
+is [adjusted for size-compatibility](formats.html#formats-size-compatibility),
+**must** both be greater than or equal to `0` and less than or equal to the
+width of the specified `dstSubresource` of `dstImage`
 
 * 
 [](#VUID-vkCmdCopyImage-dstOffset-00151) VUID-vkCmdCopyImage-dstOffset-00151
 
 For each element of `pRegions`, `dstOffset.y` and
-(`extent.height` +  `dstOffset.y`) **must** both be
-greater than or equal to `0` and less than or equal to the height of the
-specified `dstSubresource` of `dstImage`
+(`extent.height` +  `dstOffset.y`), where `extent`
+is [adjusted for size-compatibility](formats.html#formats-size-compatibility),
+**must** both be greater than or equal to `0` and less than or equal to the
+height of the specified `dstSubresource` of `dstImage`
 
 * 
 [](#VUID-vkCmdCopyImage-dstImage-00152) VUID-vkCmdCopyImage-dstImage-00152
 
 If `dstImage` is of type `VK_IMAGE_TYPE_1D`, then for each
-element of `pRegions`, `dstOffset.y` **must** be `0` and
-`extent.height` **must** be `1`
+element of `pRegions`, `dstOffset.y` **must** be `0`
+
+* 
+[](#VUID-vkCmdCopyImage-srcImage-10908) VUID-vkCmdCopyImage-srcImage-10908
+
+If either the [VkFormat](formats.html#VkFormat) of each of `srcImage` and
+`dstImage` is not a [compressed image    format](../appendices/compressedtex.html#compressed_image_formats), and `dstImage` is of type `VK_IMAGE_TYPE_1D`, then for
+each element of `pRegions`, `extent.height` **must** be `1`, where
+`extent` is [adjusted for    size-compatibility](formats.html#formats-size-compatibility)
 
 * 
 [](#VUID-vkCmdCopyImage-dstOffset-00153) VUID-vkCmdCopyImage-dstOffset-00153
 
 If `dstImage` is of type `VK_IMAGE_TYPE_3D`, then for each
 element of `pRegions`, `dstOffset.z` and
-(`extent.depth` +  `dstOffset.z`) **must** both be
-greater than or equal to `0` and less than or equal to the depth of the
-specified `dstSubresource` of `dstImage`
+(`extent.depth` +  `dstOffset.z`), where `extent`
+is [adjusted for size-compatibility](formats.html#formats-size-compatibility),
+**must** both be greater than or equal to `0` and less than or equal to the
+depth of the specified `dstSubresource` of `dstImage`
 
 * 
 [](#VUID-vkCmdCopyImage-pRegions-07278) VUID-vkCmdCopyImage-pRegions-07278
@@ -1276,6 +1302,10 @@ Secondary | Outside | Outside | Transfer
 Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyImage is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkImageCopy` structure is defined as:
 
@@ -1546,6 +1576,10 @@ Graphics
 
 Compute | Action |
 
+Conditional Rendering
+
+vkCmdCopyImage2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkCopyImageInfo2` structure is defined as:
 
 // Provided by VK_VERSION_1_3
@@ -1667,9 +1701,9 @@ not a [multi-planar format](formats.html#formats-multiplanar), the
 
  In a copy to or from a plane of a
 [multi-planar image](formats.html#formats-multiplanar), the [VkFormat](formats.html#VkFormat) of the
- image and plane **must** be compatible according to
- [the description of compatible planes](formats.html#formats-compatible-planes) for
- the plane being copied
+image and plane **must** be compatible according to
+[the description of compatible planes](formats.html#formats-compatible-planes) for
+the plane being copied
 
 * 
 [](#VUID-VkCopyImageInfo2-srcImage-09247) VUID-VkCopyImageInfo2-srcImage-09247
@@ -1855,8 +1889,14 @@ element of `pRegions`, `srcOffset.z` **must** be `0` and
 [](#VUID-VkCopyImageInfo2-dstImage-01786) VUID-VkCopyImageInfo2-dstImage-01786
 
 If `dstImage` is of type `VK_IMAGE_TYPE_1D`, then for each
-element of `pRegions`, `dstOffset.z` **must** be `0` and
-`extent.depth` **must** be `1`
+element of `pRegions`, `dstOffset.z` **must** be `0`
+
+* 
+[](#VUID-VkCopyImageInfo2-srcImage-10907) VUID-VkCopyImageInfo2-srcImage-10907
+
+If either the [VkFormat](formats.html#VkFormat) of each of `srcImage` and
+`dstImage` is not a [compressed image    format](../appendices/compressedtex.html#compressed_image_formats), and `dstImage` is of type `VK_IMAGE_TYPE_1D`, then for
+each element of `pRegions`, `extent.depth` **must** be `1`
 
 * 
 [](#VUID-VkCopyImageInfo2-srcImage-01787) VUID-VkCopyImageInfo2-srcImage-01787
@@ -1947,33 +1987,43 @@ is of type `VK_IMAGE_TYPE_3D`, then for each element of
 [](#VUID-VkCopyImageInfo2-dstOffset-00150) VUID-VkCopyImageInfo2-dstOffset-00150
 
 For each element of `pRegions`, `dstOffset.x` and
-(`extent.width` +  `dstOffset.x`) **must** both be
-greater than or equal to `0` and less than or equal to the width of the
-specified `dstSubresource` of `dstImage`
+(`extent.width` +  `dstOffset.x`), where `extent`
+is [adjusted for size-compatibility](formats.html#formats-size-compatibility),
+**must** both be greater than or equal to `0` and less than or equal to the
+width of the specified `dstSubresource` of `dstImage`
 
 * 
 [](#VUID-VkCopyImageInfo2-dstOffset-00151) VUID-VkCopyImageInfo2-dstOffset-00151
 
 For each element of `pRegions`, `dstOffset.y` and
-(`extent.height` +  `dstOffset.y`) **must** both be
-greater than or equal to `0` and less than or equal to the height of the
-specified `dstSubresource` of `dstImage`
+(`extent.height` +  `dstOffset.y`), where `extent`
+is [adjusted for size-compatibility](formats.html#formats-size-compatibility),
+**must** both be greater than or equal to `0` and less than or equal to the
+height of the specified `dstSubresource` of `dstImage`
 
 * 
 [](#VUID-VkCopyImageInfo2-dstImage-00152) VUID-VkCopyImageInfo2-dstImage-00152
 
 If `dstImage` is of type `VK_IMAGE_TYPE_1D`, then for each
-element of `pRegions`, `dstOffset.y` **must** be `0` and
-`extent.height` **must** be `1`
+element of `pRegions`, `dstOffset.y` **must** be `0`
+
+* 
+[](#VUID-VkCopyImageInfo2-srcImage-10908) VUID-VkCopyImageInfo2-srcImage-10908
+
+If either the [VkFormat](formats.html#VkFormat) of each of `srcImage` and
+`dstImage` is not a [compressed image    format](../appendices/compressedtex.html#compressed_image_formats), and `dstImage` is of type `VK_IMAGE_TYPE_1D`, then for
+each element of `pRegions`, `extent.height` **must** be `1`, where
+`extent` is [adjusted for    size-compatibility](formats.html#formats-size-compatibility)
 
 * 
 [](#VUID-VkCopyImageInfo2-dstOffset-00153) VUID-VkCopyImageInfo2-dstOffset-00153
 
 If `dstImage` is of type `VK_IMAGE_TYPE_3D`, then for each
 element of `pRegions`, `dstOffset.z` and
-(`extent.depth` +  `dstOffset.z`) **must** both be
-greater than or equal to `0` and less than or equal to the depth of the
-specified `dstSubresource` of `dstImage`
+(`extent.depth` +  `dstOffset.z`), where `extent`
+is [adjusted for size-compatibility](formats.html#formats-size-compatibility),
+**must** both be greater than or equal to `0` and less than or equal to the
+depth of the specified `dstSubresource` of `dstImage`
 
 * 
 [](#VUID-VkCopyImageInfo2-pRegions-07278) VUID-VkCopyImageInfo2-pRegions-07278
@@ -2920,6 +2970,10 @@ Graphics
 
 Compute | Action |
 
+Conditional Rendering
+
+vkCmdCopyBufferToImage is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To copy data from an image object to a buffer object, call:
 
 // Provided by VK_VERSION_1_0
@@ -3427,6 +3481,10 @@ Graphics
 
 Compute | Action |
 
+Conditional Rendering
+
+vkCmdCopyImageToBuffer is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 For both [vkCmdCopyBufferToImage](#vkCmdCopyBufferToImage) and [vkCmdCopyImageToBuffer](#vkCmdCopyImageToBuffer), each
 element of `pRegions` is a structure defined as:
 
@@ -3634,6 +3692,10 @@ Secondary | Outside | Outside | Transfer
 Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyBufferToImage2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkCopyBufferToImageInfo2` structure is defined as:
 
@@ -4233,6 +4295,10 @@ Secondary | Outside | Outside | Transfer
 Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyImageToBuffer2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkCopyImageToBufferInfo2` structure is defined as:
 
@@ -4935,13 +5001,19 @@ Return Codes
 `VK_ERROR_INITIALIZATION_FAILED`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_MEMORY_MAP_FAILED`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_MEMORY_MAP_FAILED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkCopyMemoryToImageInfo` structure is defined as:
 
@@ -5037,14 +5109,14 @@ If non-stencil aspects of `dstImage` are accessed,
 * 
 [](#VUID-VkCopyMemoryToImageInfo-imageOffset-09114) VUID-VkCopyMemoryToImageInfo-imageOffset-09114
 
-If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY`, the `x`,
-`y`, and `z` members of the `imageOffset` member of each
-element of `pRegions` **must** be `0`
+If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY_BIT`, the
+`x`, `y`, and `z` members of the `imageOffset` member
+of each element of `pRegions` **must** be `0`
 
 * 
 [](#VUID-VkCopyMemoryToImageInfo-dstImage-09115) VUID-VkCopyMemoryToImageInfo-dstImage-09115
 
-If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY`, the
+If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY_BIT`, the
 `imageExtent` member of each element of `pRegions` **must** equal
 the extents of `dstImage` identified by `imageSubresource`
 
@@ -5327,9 +5399,9 @@ subresources of `dstImage` specified in `pRegions`
 * 
 [](#VUID-VkCopyMemoryToImageInfo-flags-09393) VUID-VkCopyMemoryToImageInfo-flags-09393
 
-If `flags` includes `VK_HOST_IMAGE_COPY_MEMCPY`, for each region
-in `pRegions`, `memoryRowLength` and `memoryImageHeight`
-**must** both be 0
+If `flags` includes `VK_HOST_IMAGE_COPY_MEMCPY_BIT`, for each
+region in `pRegions`, `memoryRowLength` and
+`memoryImageHeight` **must** both be 0
 
 Valid Usage (Implicit)
 
@@ -5557,13 +5629,19 @@ Return Codes
 `VK_ERROR_INITIALIZATION_FAILED`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_MEMORY_MAP_FAILED`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_MEMORY_MAP_FAILED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkCopyImageToMemoryInfo` structure is defined as:
 
@@ -5658,14 +5736,14 @@ If non-stencil aspects of `srcImage` are accessed,
 * 
 [](#VUID-VkCopyImageToMemoryInfo-imageOffset-09114) VUID-VkCopyImageToMemoryInfo-imageOffset-09114
 
-If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY`, the `x`,
-`y`, and `z` members of the `imageOffset` member of each
-element of `pRegions` **must** be `0`
+If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY_BIT`, the
+`x`, `y`, and `z` members of the `imageOffset` member
+of each element of `pRegions` **must** be `0`
 
 * 
 [](#VUID-VkCopyImageToMemoryInfo-srcImage-09115) VUID-VkCopyImageToMemoryInfo-srcImage-09115
 
-If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY`, the
+If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY_BIT`, the
 `imageExtent` member of each element of `pRegions` **must** equal
 the extents of `srcImage` identified by `imageSubresource`
 
@@ -5948,9 +6026,9 @@ subresources of `srcImage` specified in `pRegions`
 * 
 [](#VUID-VkCopyImageToMemoryInfo-flags-09394) VUID-VkCopyImageToMemoryInfo-flags-09394
 
-If `flags` includes `VK_HOST_IMAGE_COPY_MEMCPY`, for each region
-in `pRegions`, `memoryRowLength` and `memoryImageHeight`
-**must** both be 0
+If `flags` includes `VK_HOST_IMAGE_COPY_MEMCPY_BIT`, for each
+region in `pRegions`, `memoryRowLength` and
+`memoryImageHeight` **must** both be 0
 
 Valid Usage (Implicit)
 
@@ -6124,9 +6202,14 @@ parameters are:
 
 // Provided by VK_VERSION_1_4
 typedef enum VkHostImageCopyFlagBits {
-    VK_HOST_IMAGE_COPY_MEMCPY = 0x00000001,
+    VK_HOST_IMAGE_COPY_MEMCPY_BIT = 0x00000001,
+  // VK_HOST_IMAGE_COPY_MEMCPY is a deprecated alias
+    VK_HOST_IMAGE_COPY_MEMCPY = VK_HOST_IMAGE_COPY_MEMCPY_BIT,
   // Provided by VK_EXT_host_image_copy
-    VK_HOST_IMAGE_COPY_MEMCPY_EXT = VK_HOST_IMAGE_COPY_MEMCPY,
+    VK_HOST_IMAGE_COPY_MEMCPY_BIT_EXT = VK_HOST_IMAGE_COPY_MEMCPY_BIT,
+  // Provided by VK_EXT_host_image_copy
+  // VK_HOST_IMAGE_COPY_MEMCPY_EXT is a deprecated alias
+    VK_HOST_IMAGE_COPY_MEMCPY_EXT = VK_HOST_IMAGE_COPY_MEMCPY_BIT,
 } VkHostImageCopyFlagBits;
 
 or the equivalent
@@ -6135,7 +6218,7 @@ or the equivalent
 typedef VkHostImageCopyFlagBits VkHostImageCopyFlagBitsEXT;
 
 * 
-`VK_HOST_IMAGE_COPY_MEMCPY` specifies that no memory layout
+`VK_HOST_IMAGE_COPY_MEMCPY_BIT` specifies that no memory layout
 swizzling is to be applied during data copy.
 For copies between memory and images, this flag indicates that image
 data in host memory is swizzled in exactly the same way as the image
@@ -6225,13 +6308,19 @@ Return Codes
 `VK_ERROR_INITIALIZATION_FAILED`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_MEMORY_MAP_FAILED`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_MEMORY_MAP_FAILED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkCopyImageToImageInfo` structure is defined as:
 
@@ -6337,14 +6426,14 @@ If non-stencil aspects of `srcImage` are accessed,
 * 
 [](#VUID-VkCopyImageToImageInfo-srcOffset-09114) VUID-VkCopyImageToImageInfo-srcOffset-09114
 
-If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY`, the `x`,
-`y`, and `z` members of the `srcOffset` member of each
-element of `pRegions` **must** be `0`
+If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY_BIT`, the
+`x`, `y`, and `z` members of the `srcOffset` member
+of each element of `pRegions` **must** be `0`
 
 * 
 [](#VUID-VkCopyImageToImageInfo-srcImage-09115) VUID-VkCopyImageToImageInfo-srcImage-09115
 
-If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY`, the
+If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY_BIT`, the
 `extent` member of each element of `pRegions` **must** equal
 the extents of `srcImage` identified by `srcSubresource`
 
@@ -6624,14 +6713,14 @@ If non-stencil aspects of `dstImage` are accessed,
 * 
 [](#VUID-VkCopyImageToImageInfo-dstOffset-09114) VUID-VkCopyImageToImageInfo-dstOffset-09114
 
-If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY`, the `x`,
-`y`, and `z` members of the `dstOffset` member of each
-element of `pRegions` **must** be `0`
+If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY_BIT`, the
+`x`, `y`, and `z` members of the `dstOffset` member
+of each element of `pRegions` **must** be `0`
 
 * 
 [](#VUID-VkCopyImageToImageInfo-dstImage-09115) VUID-VkCopyImageToImageInfo-dstImage-09115
 
-If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY`, the
+If `flags` contains `VK_HOST_IMAGE_COPY_MEMCPY_BIT`, the
 `extent` member of each element of `pRegions` **must** equal
 the extents of `dstImage` identified by `dstSubresource`
 
@@ -7018,6 +7107,11 @@ Valid Usage (Implicit)
  `commandBuffer` **must** be a valid [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) handle
 
 * 
+[](#VUID-vkCmdCopyMemoryIndirectNV-copyBufferAddress-parameter) VUID-vkCmdCopyMemoryIndirectNV-copyBufferAddress-parameter
+
+ `copyBufferAddress` **must** be a valid `VkDeviceAddress` value
+
+* 
 [](#VUID-vkCmdCopyMemoryIndirectNV-commandBuffer-recording) VUID-vkCmdCopyMemoryIndirectNV-commandBuffer-recording
 
  `commandBuffer` **must** be in the [recording state](cmdbuffers.html#commandbuffers-lifecycle)
@@ -7056,6 +7150,10 @@ Graphics
 
 Compute | Action |
 
+Conditional Rendering
+
+vkCmdCopyMemoryIndirectNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The structure describing source and destination memory regions,
 `VkCopyMemoryIndirectCommandNV` is defined as:
 
@@ -7093,6 +7191,18 @@ The `dstAddress` **must** be 4 byte aligned
 [](#VUID-VkCopyMemoryIndirectCommandNV-size-07659) VUID-VkCopyMemoryIndirectCommandNV-size-07659
 
 The `size` **must** be 4 byte aligned
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkCopyMemoryIndirectCommandNV-srcAddress-parameter) VUID-VkCopyMemoryIndirectCommandNV-srcAddress-parameter
+
+ `srcAddress` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkCopyMemoryIndirectCommandNV-dstAddress-parameter) VUID-VkCopyMemoryIndirectCommandNV-dstAddress-parameter
+
+ `dstAddress` **must** be a valid `VkDeviceAddress` value
 
 To copy data from a memory region to an image object by specifying copy
 parameters in a buffer, call:
@@ -7268,6 +7378,11 @@ Valid Usage (Implicit)
  `commandBuffer` **must** be a valid [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) handle
 
 * 
+[](#VUID-vkCmdCopyMemoryToImageIndirectNV-copyBufferAddress-parameter) VUID-vkCmdCopyMemoryToImageIndirectNV-copyBufferAddress-parameter
+
+ `copyBufferAddress` **must** be a valid `VkDeviceAddress` value
+
+* 
 [](#VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-parameter) VUID-vkCmdCopyMemoryToImageIndirectNV-dstImage-parameter
 
  `dstImage` **must** be a valid [VkImage](resources.html#VkImage) handle
@@ -7330,6 +7445,10 @@ Secondary | Outside | Outside | Transfer
 Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyMemoryToImageIndirectNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkCopyMemoryToImageIndirectCommandNV` is defined as:
 
@@ -7400,6 +7519,11 @@ The `srcAddress` **must** be 4 byte aligned
 and can be `0`
 
 Valid Usage (Implicit)
+
+* 
+[](#VUID-VkCopyMemoryToImageIndirectCommandNV-srcAddress-parameter) VUID-VkCopyMemoryToImageIndirectCommandNV-srcAddress-parameter
+
+ `srcAddress` **must** be a valid `VkDeviceAddress` value
 
 * 
 [](#VUID-VkCopyMemoryToImageIndirectCommandNV-imageSubresource-parameter) VUID-VkCopyMemoryToImageIndirectCommandNV-imageSubresource-parameter
@@ -8004,6 +8128,10 @@ Command Properties
 
 Secondary | Outside | Outside | Graphics | Action |
 
+Conditional Rendering
+
+vkCmdBlitImage is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkImageBlit` structure is defined as:
 
 // Provided by VK_VERSION_1_0
@@ -8168,6 +8296,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Graphics | Action |
+
+Conditional Rendering
+
+vkCmdBlitImage2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkBlitImageInfo2` structure is defined as:
 
@@ -9293,6 +9425,10 @@ Command Properties
 
 Secondary | Outside | Outside | Graphics | Action |
 
+Conditional Rendering
+
+vkCmdResolveImage is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkImageResolve` structure is defined as:
 
 // Provided by VK_VERSION_1_0
@@ -9454,6 +9590,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Graphics | Action |
+
+Conditional Rendering
+
+vkCmdResolveImage2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkResolveImageInfo2` structure is defined as:
 
@@ -10131,6 +10271,10 @@ Graphics
 
 Compute | Action |
 
+Conditional Rendering
+
+vkCmdWriteBufferMarker2AMD is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To write a 32-bit marker value into a buffer as a pipelined operation, call:
 
 // Provided by VK_AMD_buffer_marker
@@ -10347,3 +10491,317 @@ Secondary | Both | Outside | Transfer
 Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdWriteBufferMarkerAMD is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
+[vkCmdCopyTensorARM](#vkCmdCopyTensorARM) performs tensor copies in a similar manner to a
+host memcpy.
+It does not perform general-purpose conversions such as scaling, resizing,
+or format conversions.
+Rather, it simply copies raw tensor data.
+[vkCmdCopyTensorARM](#vkCmdCopyTensorARM) **can** copy between tensors with different formats,
+provided the formats are compatible.
+Tensor formats are compatible if they share the same class, as shown in the
+[Compatible Formats](formats.html#formats-compatibility).
+
+To copy data between tensor objects, call:
+
+// Provided by VK_ARM_tensors
+void vkCmdCopyTensorARM(
+    VkCommandBuffer                             commandBuffer,
+     const VkCopyTensorInfoARM*                 pCopyTensorInfo);
+
+* 
+`commandBuffer` is the command buffer into which the command will be
+recorded.
+
+* 
+`pCopyTensorInfo` is a pointer to [VkCopyTensorInfoARM](#VkCopyTensorInfoARM)
+structure describing the copy parameters.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkCmdCopyTensorARM-commandBuffer-parameter) VUID-vkCmdCopyTensorARM-commandBuffer-parameter
+
+ `commandBuffer` **must** be a valid [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) handle
+
+* 
+[](#VUID-vkCmdCopyTensorARM-pCopyTensorInfo-parameter) VUID-vkCmdCopyTensorARM-pCopyTensorInfo-parameter
+
+ `pCopyTensorInfo` **must** be a valid pointer to a valid [VkCopyTensorInfoARM](#VkCopyTensorInfoARM) structure
+
+* 
+[](#VUID-vkCmdCopyTensorARM-commandBuffer-recording) VUID-vkCmdCopyTensorARM-commandBuffer-recording
+
+ `commandBuffer` **must** be in the [recording state](cmdbuffers.html#commandbuffers-lifecycle)
+
+* 
+[](#VUID-vkCmdCopyTensorARM-commandBuffer-cmdpool) VUID-vkCmdCopyTensorARM-commandBuffer-cmdpool
+
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, or compute operations
+
+* 
+[](#VUID-vkCmdCopyTensorARM-renderpass) VUID-vkCmdCopyTensorARM-renderpass
+
+ This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyTensorARM-videocoding) VUID-vkCmdCopyTensorARM-videocoding
+
+ This command **must** only be called outside of a video coding scope
+
+Host Synchronization
+
+* 
+Host access to `commandBuffer` **must** be externally synchronized
+
+* 
+Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
+
+Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
+
+Secondary | Outside | Outside | Transfer
+
+Graphics
+
+Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyTensorARM is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
+The `VkCopyTensorInfoARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkCopyTensorInfoARM {
+    VkStructureType           sType;
+    const void*               pNext;
+    VkTensorARM               srcTensor;
+    VkTensorARM               dstTensor;
+    uint32_t                  regionCount;
+    const VkTensorCopyARM*    pRegions;
+} VkCopyTensorInfoARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is NULL or a pointer to a structure extending this
+structure.
+
+* 
+`srcTensor` is the source tensor.
+
+* 
+`dstTensor` is the destination tensor.
+
+* 
+`regionCount` is the number of regions to copy.
+
+* 
+`pRegions` is a pointer to an array of [VkTensorCopyARM](#VkTensorCopyARM)
+structures specifying the regions to copy.
+
+Each region in `pRegions` describes a region to be copied from the
+source tensor to a corresponding region of the destination tensor.
+`srcTensor` and `dstTensor` **can** be the same tensor or alias the
+same memory.
+
+The formats of `srcTensor` and `dstTensor` **must** be compatible.
+Formats are compatible if they share the same class, as shown in the
+[Compatible Formats](formats.html#formats-compatibility) table.
+
+`vkCmdCopyTensorARM` allows copying between *size-compatible* internal
+formats.
+
+Valid Usage
+
+* 
+[](#VUID-VkCopyTensorInfoARM-srcTensor-09684) VUID-VkCopyTensorInfoARM-srcTensor-09684
+
+`srcTensor` and `dstTensor` **must** have been created with equal
+values for [VkTensorDescriptionARM](resources.html#VkTensorDescriptionARM)::`dimensionCount`
+
+* 
+[](#VUID-VkCopyTensorInfoARM-pDimensions-09685) VUID-VkCopyTensorInfoARM-pDimensions-09685
+
+For each of the elements of
+[VkTensorDescriptionARM](resources.html#VkTensorDescriptionARM)::`pDimensions`, `srcTensor` and
+`dstTensor` **must** be the same size
+
+* 
+[](#VUID-VkCopyTensorInfoARM-regionCount-09686) VUID-VkCopyTensorInfoARM-regionCount-09686
+
+`regionCount` must be equal to 1
+
+* 
+[](#VUID-VkCopyTensorInfoARM-pSrcOffset-09687) VUID-VkCopyTensorInfoARM-pSrcOffset-09687
+
+pRegions must point to a [VkTensorCopyARM](#VkTensorCopyARM) structure whose
+`pSrcOffset` is `NULL` or whose elements are all `0`
+
+* 
+[](#VUID-VkCopyTensorInfoARM-pDstOffset-09688) VUID-VkCopyTensorInfoARM-pDstOffset-09688
+
+pRegions must point to a [VkTensorCopyARM](#VkTensorCopyARM) structure whose
+`pDstOffset`, is `NULL` or whose elements are all `0`
+
+* 
+[](#VUID-VkCopyTensorInfoARM-pExtent-09689) VUID-VkCopyTensorInfoARM-pExtent-09689
+
+pRegions must point to a [VkTensorCopyARM](#VkTensorCopyARM) structure whose
+`pExtent` is `NULL` or equal to the
+[VkTensorDescriptionARM](resources.html#VkTensorDescriptionARM)::`pDimensions` array specified when
+`srcTensor` and `dstTensor` were created
+
+* 
+[](#VUID-VkCopyTensorInfoARM-srcTensor-09690) VUID-VkCopyTensorInfoARM-srcTensor-09690
+
+The [format features](resources.html#resources-tensor-view-format-features) of
+`srcTensor` **must** contain `VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT`
+
+* 
+[](#VUID-VkCopyTensorInfoARM-srcTensor-09691) VUID-VkCopyTensorInfoARM-srcTensor-09691
+
+`srcTensor` **must** have been created with
+`VK_TENSOR_USAGE_TRANSFER_SRC_BIT_ARM` usage flag
+
+* 
+[](#VUID-VkCopyTensorInfoARM-dstTensor-09692) VUID-VkCopyTensorInfoARM-dstTensor-09692
+
+The [format features](resources.html#resources-tensor-view-format-features) of
+`dstTensor` **must** contain `VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT`
+
+* 
+[](#VUID-VkCopyTensorInfoARM-dstTensor-09693) VUID-VkCopyTensorInfoARM-dstTensor-09693
+
+`dstTensor` **must** have been created with
+`VK_TENSOR_USAGE_TRANSFER_DST_BIT_ARM` usage flag
+
+* 
+[](#VUID-VkCopyTensorInfoARM-srcTensor-09694) VUID-VkCopyTensorInfoARM-srcTensor-09694
+
+If `srcTensor` is non-sparse then it **must** be bound completely and
+contiguously to a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+
+* 
+[](#VUID-VkCopyTensorInfoARM-dstTensor-09695) VUID-VkCopyTensorInfoARM-dstTensor-09695
+
+If `dstTensor` is non-sparse then it **must** be bound completely and
+contiguously to a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkCopyTensorInfoARM-sType-sType) VUID-VkCopyTensorInfoARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_COPY_TENSOR_INFO_ARM`
+
+* 
+[](#VUID-VkCopyTensorInfoARM-pNext-pNext) VUID-VkCopyTensorInfoARM-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkCopyTensorInfoARM-srcTensor-parameter) VUID-VkCopyTensorInfoARM-srcTensor-parameter
+
+ `srcTensor` **must** be a valid [VkTensorARM](resources.html#VkTensorARM) handle
+
+* 
+[](#VUID-VkCopyTensorInfoARM-dstTensor-parameter) VUID-VkCopyTensorInfoARM-dstTensor-parameter
+
+ `dstTensor` **must** be a valid [VkTensorARM](resources.html#VkTensorARM) handle
+
+* 
+[](#VUID-VkCopyTensorInfoARM-pRegions-parameter) VUID-VkCopyTensorInfoARM-pRegions-parameter
+
+ `pRegions` **must** be a valid pointer to an array of `regionCount` valid [VkTensorCopyARM](#VkTensorCopyARM) structures
+
+* 
+[](#VUID-VkCopyTensorInfoARM-regionCount-arraylength) VUID-VkCopyTensorInfoARM-regionCount-arraylength
+
+ `regionCount` **must** be greater than `0`
+
+* 
+[](#VUID-VkCopyTensorInfoARM-commonparent) VUID-VkCopyTensorInfoARM-commonparent
+
+ Both of `dstTensor`, and `srcTensor` **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
+
+The `VkTensorCopyARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkTensorCopyARM {
+    VkStructureType    sType;
+    const void*        pNext;
+    uint32_t           dimensionCount;
+    const uint64_t*    pSrcOffset;
+    const uint64_t*    pDstOffset;
+    const uint64_t*    pExtent;
+} VkTensorCopyARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`dimensionCount` is the number of elements in the `pSrcOffset`,
+`pDstOffset` and `pExtent` arrays.
+
+* 
+`pSrcOffset` is `NULL` or an array of size `dimensionCount`
+providing an offset into the source tensor.
+When `pSrcOffset` is `NULL`, the offset into the source tensor is
+`0` in all dimensions.
+
+* 
+`pDstOffset` is `NULL` or an array of size `dimensionCount`
+providing an offset into the destination tensor.
+When `pDstOffset` is `NULL`, the offset into the destination tensor
+is `0` in all dimensions.
+
+* 
+`pExtent` is `NULL` or an array of size `dimensionCount`
+providing the number of elements to copy in each dimension.
+When `pExtent` is `NULL`, the number of elements to copy is taken as
+the total number of elements in each dimension of the source tensor.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkTensorCopyARM-sType-sType) VUID-VkTensorCopyARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_TENSOR_COPY_ARM`
+
+* 
+[](#VUID-VkTensorCopyARM-pNext-pNext) VUID-VkTensorCopyARM-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkTensorCopyARM-pSrcOffset-parameter) VUID-VkTensorCopyARM-pSrcOffset-parameter
+
+ If `pSrcOffset` is not `NULL`, `pSrcOffset` **must** be a valid pointer to an array of `dimensionCount` `uint64_t` values
+
+* 
+[](#VUID-VkTensorCopyARM-pDstOffset-parameter) VUID-VkTensorCopyARM-pDstOffset-parameter
+
+ If `pDstOffset` is not `NULL`, `pDstOffset` **must** be a valid pointer to an array of `dimensionCount` `uint64_t` values
+
+* 
+[](#VUID-VkTensorCopyARM-pExtent-parameter) VUID-VkTensorCopyARM-pExtent-parameter
+
+ If `pExtent` is not `NULL`, `pExtent` **must** be a valid pointer to an array of `dimensionCount` `uint64_t` values
+
+* 
+[](#VUID-VkTensorCopyARM-dimensionCount-arraylength) VUID-VkTensorCopyARM-dimensionCount-arraylength
+
+ `dimensionCount` **must** be greater than `0`

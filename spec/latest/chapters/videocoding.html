@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -950,6 +962,13 @@ If <code>videoCodecOperation</code> is
 chain <strong>must</strong> include a <a href="#VkVideoDecodeH265ProfileInfoKHR">VkVideoDecodeH265ProfileInfoKHR</a> structure</p>
 </li>
 <li>
+<p><a id="VUID-VkVideoProfileInfoKHR-videoCodecOperation-10791" href="#VUID-VkVideoProfileInfoKHR-videoCodecOperation-10791"></a> <span class="vuid">VUID-VkVideoProfileInfoKHR-videoCodecOperation-10791</span><br>
+
+If <code>videoCodecOperation</code> is
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, then the <code>pNext</code>
+chain <strong>must</strong> include a <a href="#VkVideoDecodeVP9ProfileInfoKHR">VkVideoDecodeVP9ProfileInfoKHR</a> structure</p>
+</li>
+<li>
 <p><a id="VUID-VkVideoProfileInfoKHR-videoCodecOperation-09256" href="#VUID-VkVideoProfileInfoKHR-videoCodecOperation-09256"></a> <span class="vuid">VUID-VkVideoProfileInfoKHR-videoCodecOperation-09256</span><br>
 
 If <code>videoCodecOperation</code> is
@@ -1044,6 +1063,8 @@ typedef enum VkVideoCodecOperationFlagBitsKHR {
     VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR = 0x00000004,
   // Provided by VK_KHR_video_encode_av1
     VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR = 0x00040000,
+  // Provided by VK_KHR_video_decode_vp9
+    VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR = 0x00000008,
 } VkVideoCodecOperationFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -1060,6 +1081,10 @@ operations are supported.</p>
 <li>
 <p><code>VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR</code> specifies support for
 <a href="#decode-h265">H.265 decode operations</a>.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code> specifies support for
+<a href="#decode-vp9">VP9 decode operations</a>.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR</code> specifies support for
@@ -1763,6 +1788,14 @@ chain of <code>pCapabilities</code> <strong>must</strong> include a
 <a href="#VkVideoDecodeH265CapabilitiesKHR">VkVideoDecodeH265CapabilitiesKHR</a> structure</p>
 </li>
 <li>
+<p><a id="VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pVideoProfile-10792" href="#VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pVideoProfile-10792"></a> <span class="vuid">VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pVideoProfile-10792</span><br>
+
+If <code>pVideoProfile-&gt;videoCodecOperation</code> is
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, then the <code>pNext</code>
+chain of <code>pCapabilities</code> <strong>must</strong> include a
+<a href="#VkVideoDecodeVP9CapabilitiesKHR">VkVideoDecodeVP9CapabilitiesKHR</a> structure</p>
+</li>
+<li>
 <p><a id="VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pVideoProfile-09257" href="#VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pVideoProfile-09257"></a> <span class="vuid">VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pVideoProfile-09257</span><br>
 
 If <code>pVideoProfile-&gt;videoCodecOperation</code> is
@@ -1846,22 +1879,28 @@ chain of <code>pCapabilities</code> <strong>must</strong> include a
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
-</li>
-<li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -1975,7 +2014,7 @@ value of <code>maxActiveReferencePictures</code> often equals
 </li>
 <li>
 <p><a id="VUID-VkVideoCapabilitiesKHR-pNext-pNext" href="#VUID-VkVideoCapabilitiesKHR-pNext-pNext"></a> <span class="vuid">VUID-VkVideoCapabilitiesKHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoDecodeAV1CapabilitiesKHR">VkVideoDecodeAV1CapabilitiesKHR</a>, <a href="#VkVideoDecodeCapabilitiesKHR">VkVideoDecodeCapabilitiesKHR</a>, <a href="#VkVideoDecodeH264CapabilitiesKHR">VkVideoDecodeH264CapabilitiesKHR</a>, <a href="#VkVideoDecodeH265CapabilitiesKHR">VkVideoDecodeH265CapabilitiesKHR</a>, <a href="#VkVideoEncodeAV1CapabilitiesKHR">VkVideoEncodeAV1CapabilitiesKHR</a>, <a href="#VkVideoEncodeAV1QuantizationMapCapabilitiesKHR">VkVideoEncodeAV1QuantizationMapCapabilitiesKHR</a>, <a href="#VkVideoEncodeCapabilitiesKHR">VkVideoEncodeCapabilitiesKHR</a>, <a href="#VkVideoEncodeH264CapabilitiesKHR">VkVideoEncodeH264CapabilitiesKHR</a>, <a href="#VkVideoEncodeH264QuantizationMapCapabilitiesKHR">VkVideoEncodeH264QuantizationMapCapabilitiesKHR</a>, <a href="#VkVideoEncodeH265CapabilitiesKHR">VkVideoEncodeH265CapabilitiesKHR</a>, <a href="#VkVideoEncodeH265QuantizationMapCapabilitiesKHR">VkVideoEncodeH265QuantizationMapCapabilitiesKHR</a>, or <a href="#VkVideoEncodeQuantizationMapCapabilitiesKHR">VkVideoEncodeQuantizationMapCapabilitiesKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoDecodeAV1CapabilitiesKHR">VkVideoDecodeAV1CapabilitiesKHR</a>, <a href="#VkVideoDecodeCapabilitiesKHR">VkVideoDecodeCapabilitiesKHR</a>, <a href="#VkVideoDecodeH264CapabilitiesKHR">VkVideoDecodeH264CapabilitiesKHR</a>, <a href="#VkVideoDecodeH265CapabilitiesKHR">VkVideoDecodeH265CapabilitiesKHR</a>, <a href="#VkVideoDecodeVP9CapabilitiesKHR">VkVideoDecodeVP9CapabilitiesKHR</a>, <a href="#VkVideoEncodeAV1CapabilitiesKHR">VkVideoEncodeAV1CapabilitiesKHR</a>, <a href="#VkVideoEncodeAV1QuantizationMapCapabilitiesKHR">VkVideoEncodeAV1QuantizationMapCapabilitiesKHR</a>, <a href="#VkVideoEncodeCapabilitiesKHR">VkVideoEncodeCapabilitiesKHR</a>, <a href="#VkVideoEncodeH264CapabilitiesKHR">VkVideoEncodeH264CapabilitiesKHR</a>, <a href="#VkVideoEncodeH264QuantizationMapCapabilitiesKHR">VkVideoEncodeH264QuantizationMapCapabilitiesKHR</a>, <a href="#VkVideoEncodeH265CapabilitiesKHR">VkVideoEncodeH265CapabilitiesKHR</a>, <a href="#VkVideoEncodeH265QuantizationMapCapabilitiesKHR">VkVideoEncodeH265QuantizationMapCapabilitiesKHR</a>, <a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>, or <a href="#VkVideoEncodeQuantizationMapCapabilitiesKHR">VkVideoEncodeQuantizationMapCapabilitiesKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkVideoCapabilitiesKHR-sType-unique" href="#VUID-VkVideoCapabilitiesKHR-sType-unique"></a> <span class="vuid">VUID-VkVideoCapabilitiesKHR-sType-unique</span><br>
@@ -2357,10 +2396,10 @@ greater than <code>0</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -2370,25 +2409,31 @@ greater than <code>0</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR</code></p>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -2727,6 +2772,10 @@ not required to report the error in any specific set of cases.</p>
 <p><a id="VUID-vkCreateVideoSessionKHR-pVideoSession-parameter" href="#VUID-vkCreateVideoSessionKHR-pVideoSession-parameter"></a> <span class="vuid">VUID-vkCreateVideoSessionKHR-pVideoSession-parameter</span><br>
  <code>pVideoSession</code> <strong>must</strong> be a valid pointer to a <a href="#VkVideoSessionKHR">VkVideoSessionKHR</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateVideoSessionKHR-device-queuecount" href="#VUID-vkCreateVideoSessionKHR-device-queuecount"></a> <span class="vuid">VUID-vkCreateVideoSessionKHR-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -2751,19 +2800,25 @@ not required to report the error in any specific set of cases.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR</code></p>
-</li>
-<li>
-<p><code>VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -3033,6 +3088,30 @@ chain of its <code>pVideoFormatInfo</code> parameter whose <code>pProfiles</code
 member contains an element matching <code>pVideoProfile</code></p>
 </li>
 <li>
+<p><a id="VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10835" href="#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10835"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10835</span><br>
+
+If <code>pVideoProfile-&gt;videoCodecOperation</code> specifies an encode
+operation, the <code>pNext</code> chain of this structure includes a
+<a href="#VkVideoEncodeSessionIntraRefreshCreateInfoKHR">VkVideoEncodeSessionIntraRefreshCreateInfoKHR</a> structure, and its
+<code>intraRefreshMode</code> member is not
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_NONE_KHR</code>, then the
+<a href="features.html#features-videoEncodeIntraRefresh" class="xref page"><code>videoEncodeIntraRefresh</code></a>
+feature <strong>must</strong> be enabled</p>
+</li>
+<li>
+<p><a id="VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10836" href="#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10836"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10836</span><br>
+
+If <code>pVideoProfile-&gt;videoCodecOperation</code> specifies an encode
+operation, the <code>pNext</code> chain of this structure includes a
+<a href="#VkVideoEncodeSessionIntraRefreshCreateInfoKHR">VkVideoEncodeSessionIntraRefreshCreateInfoKHR</a> structure, and its
+<code>intraRefreshMode</code> member is not
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_NONE_KHR</code>, then
+<code>intraRefreshMode</code> <strong>must</strong> specify one of the bits included in
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>intraRefreshModes</code>,
+as returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the
+video profile specified by <code>pVideoProfile</code></p>
+</li>
+<li>
 <p><a id="VUID-VkVideoSessionCreateInfoKHR-pStdHeaderVersion-07190" href="#VUID-VkVideoSessionCreateInfoKHR-pStdHeaderVersion-07190"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-pStdHeaderVersion-07190</span><br>
 
 <code>pStdHeaderVersion-&gt;extensionName</code> <strong>must</strong> match
@@ -3047,6 +3126,14 @@ profile specified by <code>pVideoProfile</code></p>
 <a href="#VkVideoCapabilitiesKHR">VkVideoCapabilitiesKHR</a>::<code>stdHeaderVersion.specVersion</code>, as
 returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video
 profile specified by <code>pVideoProfile</code></p>
+</li>
+<li>
+<p><a id="VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10793" href="#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10793"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10793</span><br>
+
+If <code>pVideoProfile-&gt;videoCodecOperation</code> is
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, then the
+<a href="features.html#features-videoDecodeVP9" class="xref page"><code>videoDecodeVP9</code></a> feature <strong>must</strong> be
+enabled</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-08251" href="#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-08251"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-08251</span><br>
@@ -3107,7 +3194,7 @@ specified in <code>pVideoProfile</code></p>
 </li>
 <li>
 <p><a id="VUID-VkVideoSessionCreateInfoKHR-pNext-pNext" href="#VUID-VkVideoSessionCreateInfoKHR-pNext-pNext"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoEncodeAV1SessionCreateInfoKHR">VkVideoEncodeAV1SessionCreateInfoKHR</a>, <a href="#VkVideoEncodeH264SessionCreateInfoKHR">VkVideoEncodeH264SessionCreateInfoKHR</a>, or <a href="#VkVideoEncodeH265SessionCreateInfoKHR">VkVideoEncodeH265SessionCreateInfoKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoEncodeAV1SessionCreateInfoKHR">VkVideoEncodeAV1SessionCreateInfoKHR</a>, <a href="#VkVideoEncodeH264SessionCreateInfoKHR">VkVideoEncodeH264SessionCreateInfoKHR</a>, <a href="#VkVideoEncodeH265SessionCreateInfoKHR">VkVideoEncodeH265SessionCreateInfoKHR</a>, or <a href="#VkVideoEncodeSessionIntraRefreshCreateInfoKHR">VkVideoEncodeSessionIntraRefreshCreateInfoKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkVideoSessionCreateInfoKHR-sType-unique" href="#VUID-VkVideoSessionCreateInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkVideoSessionCreateInfoKHR-sType-unique</span><br>
@@ -3440,17 +3527,26 @@ indicate that not all required memory binding requirements were returned.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
 </dd>
 <dt class="hdlist1"><a href="fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
 <dd>
-<p>None</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
+</li>
+</ul>
+</div>
 </dd>
 </dl>
 </div>
@@ -3690,10 +3786,16 @@ structure</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -4054,6 +4156,11 @@ section.</p>
 <p>For <code>VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR</code> these are defined
 in the <a href="#decode-h265-parameter-sets">H.265 Decode Parameter Sets</a>
 section.</p>
+</li>
+<li>
+<p>For <code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code> there are no
+defined parameter sets and therefore do not use video session parameters
+objects.</p>
 </li>
 <li>
 <p>For <code>VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR</code> these are defined
@@ -4602,6 +4709,10 @@ not required to report the error in any specific set of cases.</p>
 <p><a id="VUID-vkCreateVideoSessionParametersKHR-pVideoSessionParameters-parameter" href="#VUID-vkCreateVideoSessionParametersKHR-pVideoSessionParameters-parameter"></a> <span class="vuid">VUID-vkCreateVideoSessionParametersKHR-pVideoSessionParameters-parameter</span><br>
  <code>pVideoSessionParameters</code> <strong>must</strong> be a valid pointer to a <a href="#VkVideoSessionParametersKHR">VkVideoSessionParametersKHR</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateVideoSessionParametersKHR-device-queuecount" href="#VUID-vkCreateVideoSessionParametersKHR-device-queuecount"></a> <span class="vuid">VUID-vkCreateVideoSessionParametersKHR-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -4626,16 +4737,22 @@ not required to report the error in any specific set of cases.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5120,6 +5237,12 @@ elements of <code>ppsAddList</code> <strong>must</strong> be less than or equal 
 <code>maxStdPPSCount</code> specified in the
 <a href="#VkVideoDecodeH265SessionParametersCreateInfoKHR">VkVideoDecodeH265SessionParametersCreateInfoKHR</a> structure included
 in the <code>pNext</code> chain</p>
+</li>
+<li>
+<p><a id="VUID-VkVideoSessionParametersCreateInfoKHR-videoSession-10794" href="#VUID-VkVideoSessionParametersCreateInfoKHR-videoSession-10794"></a> <span class="vuid">VUID-VkVideoSessionParametersCreateInfoKHR-videoSession-10794</span><br>
+
+<code>videoSession</code> <strong>must</strong> not have been created with the codec operation
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code></p>
 </li>
 <li>
 <p><a id="VUID-VkVideoSessionParametersCreateInfoKHR-videoSession-09258" href="#VUID-VkVideoSessionParametersCreateInfoKHR-videoSession-09258"></a> <span class="vuid">VUID-VkVideoSessionParametersCreateInfoKHR-videoSession-09258</span><br>
@@ -6008,13 +6131,19 @@ codec operation <code>VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6505,6 +6634,14 @@ State</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdBeginVideoCodingKHR is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -6684,8 +6821,8 @@ been created with <code>VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR</code></p>
 If <code>videoSession</code> was created with the video codec operation
 <code>VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR</code>, then
 <code>videoSessionParameters</code> <strong>must</strong> not be <code>VK_NULL_HANDLE</code>
-, unless <a href="features.html#features-videoMaintenance2" class="xref page"><code>videoMaintenance2</code></a> is
-enabled</p>
+, unless the <a href="features.html#features-videoMaintenance2" class="xref page"><code>videoMaintenance2</code></a>
+feature is enabled</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoBeginCodingInfoKHR-videoSession-07248" href="#VUID-VkVideoBeginCodingInfoKHR-videoSession-07248"></a> <span class="vuid">VUID-VkVideoBeginCodingInfoKHR-videoSession-07248</span><br>
@@ -6693,8 +6830,8 @@ enabled</p>
 If <code>videoSession</code> was created with the video codec operation
 <code>VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR</code>, then
 <code>videoSessionParameters</code> <strong>must</strong> not be <code>VK_NULL_HANDLE</code>
-, unless <a href="features.html#features-videoMaintenance2" class="xref page"><code>videoMaintenance2</code></a> is
-enabled</p>
+, unless the <a href="features.html#features-videoMaintenance2" class="xref page"><code>videoMaintenance2</code></a>
+feature is enabled</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoBeginCodingInfoKHR-videoSession-09261" href="#VUID-VkVideoBeginCodingInfoKHR-videoSession-09261"></a> <span class="vuid">VUID-VkVideoBeginCodingInfoKHR-videoSession-09261</span><br>
@@ -6702,8 +6839,8 @@ enabled</p>
 If <code>videoSession</code> was created with the video codec operation
 <code>VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR</code>, then
 <code>videoSessionParameters</code> <strong>must</strong> not be <code>VK_NULL_HANDLE</code>
-, unless <a href="features.html#features-videoMaintenance2" class="xref page"><code>videoMaintenance2</code></a> is
-enabled</p>
+, unless the <a href="features.html#features-videoMaintenance2" class="xref page"><code>videoMaintenance2</code></a>
+feature is enabled</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoBeginCodingInfoKHR-videoSession-07249" href="#VUID-VkVideoBeginCodingInfoKHR-videoSession-07249"></a> <span class="vuid">VUID-VkVideoBeginCodingInfoKHR-videoSession-07249</span><br>
@@ -6846,7 +6983,7 @@ DPB slot index specified by <code>slotIndex</code>.</p>
 </li>
 <li>
 <p><a id="VUID-VkVideoReferenceSlotInfoKHR-pNext-pNext" href="#VUID-VkVideoReferenceSlotInfoKHR-pNext-pNext"></a> <span class="vuid">VUID-VkVideoReferenceSlotInfoKHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoDecodeAV1DpbSlotInfoKHR">VkVideoDecodeAV1DpbSlotInfoKHR</a>, <a href="#VkVideoDecodeH264DpbSlotInfoKHR">VkVideoDecodeH264DpbSlotInfoKHR</a>, <a href="#VkVideoDecodeH265DpbSlotInfoKHR">VkVideoDecodeH265DpbSlotInfoKHR</a>, <a href="#VkVideoEncodeAV1DpbSlotInfoKHR">VkVideoEncodeAV1DpbSlotInfoKHR</a>, <a href="#VkVideoEncodeH264DpbSlotInfoKHR">VkVideoEncodeH264DpbSlotInfoKHR</a>, or <a href="#VkVideoEncodeH265DpbSlotInfoKHR">VkVideoEncodeH265DpbSlotInfoKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoDecodeAV1DpbSlotInfoKHR">VkVideoDecodeAV1DpbSlotInfoKHR</a>, <a href="#VkVideoDecodeH264DpbSlotInfoKHR">VkVideoDecodeH264DpbSlotInfoKHR</a>, <a href="#VkVideoDecodeH265DpbSlotInfoKHR">VkVideoDecodeH265DpbSlotInfoKHR</a>, <a href="#VkVideoEncodeAV1DpbSlotInfoKHR">VkVideoEncodeAV1DpbSlotInfoKHR</a>, <a href="#VkVideoEncodeH264DpbSlotInfoKHR">VkVideoEncodeH264DpbSlotInfoKHR</a>, <a href="#VkVideoEncodeH265DpbSlotInfoKHR">VkVideoEncodeH265DpbSlotInfoKHR</a>, or <a href="#VkVideoReferenceIntraRefreshInfoKHR">VkVideoReferenceIntraRefreshInfoKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkVideoReferenceSlotInfoKHR-sType-unique" href="#VUID-VkVideoReferenceSlotInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkVideoReferenceSlotInfoKHR-sType-unique</span><br>
@@ -6992,6 +7129,14 @@ State</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdEndVideoCodingKHR is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -7244,6 +7389,14 @@ Encode</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdControlVideoCodingKHR is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -7578,23 +7731,35 @@ follows:</p>
 <li>
 <p>If the image subresource is used in the video decode operation only as
 <a href="#decode-output-picture">decode output picture</a>, then it <strong>must</strong> be in the
-<code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR</code> layout.</p>
+<code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR</code> layout
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout
+.</p>
 </li>
 <li>
 <p>If the image subresource is used in the video decode operation both as
 <a href="#decode-output-picture">decode output picture</a> and
 <a href="#reconstructed-picture">reconstructed picture</a>, then it <strong>must</strong> be in the
-<code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR</code> layout.</p>
+<code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR</code> layout
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout
+.</p>
 </li>
 <li>
 <p>If the image subresource is used in the video decode operation only as
 <a href="#reconstructed-picture">reconstructed picture</a>, then it <strong>must</strong> be in the
-<code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR</code> layout.</p>
+<code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR</code> layout
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout
+.</p>
 </li>
 <li>
 <p>If the image subresource is used in the video decode operation as a
 <a href="#reference-picture">reference picture</a>, then it <strong>must</strong> be in the
-<code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR</code> layout.</p>
+<code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR</code> layout
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout
+.</p>
 </li>
 </ul>
 </div>
@@ -7656,6 +7821,12 @@ defined in the <a href="#decode-h264">H.264 Decode Operations</a> section.</p>
 <code>VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR</code>, then the
 codec-specific aspects of the video decoding process are performed as
 defined in the <a href="#decode-h265">H.265 Decode Operations</a> section.</p>
+</li>
+<li>
+<p>If the used video codec operation is
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, then the
+codec-specific aspects of the video decoding process are performed as
+defined in the <a href="#decode-vp9">VP9 Decode Operations</a> section.</p>
 </li>
 <li>
 <p>If the used video codec operation is
@@ -7776,14 +7947,14 @@ typedef enum VkVideoDecodeCapabilityFlagBitsKHR {
 <ul>
 <li>
 <p><code>VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR</code>
-indicates support for using the same video picture resource as the
+specifies support for using the same video picture resource as the
 <a href="#reconstructed-picture">reconstructed picture</a> and
 <a href="#decode-output-picture">decode output picture</a> in a video decode
 operation.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR</code>
-indicates support for using distinct video picture resources as the
+specifies support for using distinct video picture resources as the
 <a href="#reconstructed-picture">reconstructed picture</a> and
 <a href="#decode-output-picture">decode output picture</a> in a video decode
 operation.</p>
@@ -8479,7 +8650,7 @@ All elements of <code>dpbBottomFieldUseCount</code> <strong>must</strong> be les
 to <code>1</code></p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07252" href="#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07252"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07252</span><br>
+<p><a id="VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10801" href="#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10801"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10801</span><br>
 
 If <code>pDecodeInfo-&gt;pSetupReferenceSlot</code> is <code>NULL</code> or
 <code>pDecodeInfo-&gt;pSetupReferenceSlot&#8594;pPictureResource</code> does not
@@ -8488,10 +8659,12 @@ subresource as <code>pDecodeInfo-&gt;dstPictureResource</code>, then the image
 subresource <a href="#video-image-subresource-reference">referred</a> to by
 <code>pDecodeInfo-&gt;dstPictureResource</code> <strong>must</strong> be in the
 <code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR</code> layout at the time the video
-decode operation is executed on the device</p>
+decode operation is executed on the device
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07253" href="#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07253"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07253</span><br>
+<p><a id="VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10802" href="#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10802"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10802</span><br>
 
 If <code>pDecodeInfo-&gt;pSetupReferenceSlot</code> is not <code>NULL</code> and
 <code>pDecodeInfo-&gt;pSetupReferenceSlot&#8594;pPictureResource</code>
@@ -8500,25 +8673,31 @@ subresource as <code>pDecodeInfo-&gt;dstPictureResource</code>, then the image
 subresource <a href="#video-image-subresource-reference">referred</a> to by
 <code>pDecodeInfo-&gt;dstPictureResource</code> <strong>must</strong> be in the
 <code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR</code> layout at the time the video
-decode operation is executed on the device</p>
+decode operation is executed on the device
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07254" href="#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07254"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07254</span><br>
+<p><a id="VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10803" href="#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10803"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10803</span><br>
 
 If <code>pDecodeInfo-&gt;pSetupReferenceSlot</code> is not <code>NULL</code>, then the image
 subresource <a href="#video-image-subresource-reference">referred</a> to by
 <code>pDecodeInfo-&gt;pSetupReferenceSlot&#8594;pPictureResource</code> <strong>must</strong> be in the
 <code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR</code> layout at the time the video
-decode operation is executed on the device</p>
+decode operation is executed on the device
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdDecodeVideoKHR-pPictureResource-07255" href="#VUID-vkCmdDecodeVideoKHR-pPictureResource-07255"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-pPictureResource-07255</span><br>
+<p><a id="VUID-vkCmdDecodeVideoKHR-pPictureResource-10804" href="#VUID-vkCmdDecodeVideoKHR-pPictureResource-10804"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-pPictureResource-10804</span><br>
 
 The image subresource <a href="#video-image-subresource-reference">referred</a> to
 by the <code>pPictureResource</code> member of each element of
 <code>pDecodeInfo-&gt;pReferenceSlots</code> <strong>must</strong> be in the
 <code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR</code> layout at the time the video
-decode operation is executed on the device</p>
+decode operation is executed on the device
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDecodeVideoKHR-pNext-07152" href="#VUID-vkCmdDecodeVideoKHR-pNext-07152"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-pNext-07152</span><br>
@@ -8934,6 +9113,65 @@ chain of each element of <code>pDecodeInfo-&gt;pReferenceSlots</code> <strong>mu
 include a <a href="#VkVideoDecodeH265DpbSlotInfoKHR">VkVideoDecodeH265DpbSlotInfoKHR</a> structure</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDecodeVideoKHR-pNext-10805" href="#VUID-vkCmdDecodeVideoKHR-pNext-10805"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-pNext-10805</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, then the <code>pNext</code>
+chain of <code>pDecodeInfo</code> <strong>must</strong> include a
+<a href="#VkVideoDecodeVP9PictureInfoKHR">VkVideoDecodeVP9PictureInfoKHR</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDecodeVideoKHR-uncompressedHeaderOffset-10806" href="#VUID-vkCmdDecodeVideoKHR-uncompressedHeaderOffset-10806"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-uncompressedHeaderOffset-10806</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, then the
+<code>uncompressedHeaderOffset</code> member of the
+<a href="#VkVideoDecodeVP9PictureInfoKHR">VkVideoDecodeVP9PictureInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pDecodeInfo</code> <strong>must</strong> be less than
+<code>pDecodeInfo-&gt;srcBufferRange</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDecodeVideoKHR-compressedHeaderOffset-10807" href="#VUID-vkCmdDecodeVideoKHR-compressedHeaderOffset-10807"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-compressedHeaderOffset-10807</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, then the
+<code>compressedHeaderOffset</code> member of the
+<a href="#VkVideoDecodeVP9PictureInfoKHR">VkVideoDecodeVP9PictureInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pDecodeInfo</code> <strong>must</strong> be less than
+<code>pDecodeInfo-&gt;srcBufferRange</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDecodeVideoKHR-tilesOffset-10808" href="#VUID-vkCmdDecodeVideoKHR-tilesOffset-10808"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-tilesOffset-10808</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, then the
+<code>tilesOffset</code> member of the <a href="#VkVideoDecodeVP9PictureInfoKHR">VkVideoDecodeVP9PictureInfoKHR</a>
+structure included in the <code>pNext</code> chain of <code>pDecodeInfo</code> <strong>must</strong>
+be less than <code>pDecodeInfo-&gt;srcBufferRange</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDecodeVideoKHR-referenceNameSlotIndices-10809" href="#VUID-vkCmdDecodeVideoKHR-referenceNameSlotIndices-10809"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-referenceNameSlotIndices-10809</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, then each element of
+the <code>referenceNameSlotIndices</code> array member of the
+<a href="#VkVideoDecodeVP9PictureInfoKHR">VkVideoDecodeVP9PictureInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pDecodeInfo</code> <strong>must</strong> either be negative or <strong>must</strong>
+equal the <code>slotIndex</code> member of one of the elements of
+<code>pDecodeInfo-&gt;pReferenceSlots</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDecodeVideoKHR-slotIndex-10810" href="#VUID-vkCmdDecodeVideoKHR-slotIndex-10810"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-slotIndex-10810</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, then the
+<code>slotIndex</code> member of each element of
+<code>pDecodeInfo-&gt;pReferenceSlots</code> <strong>must</strong> equal one of the elements of
+the <code>referenceNameSlotIndices</code> array member of the
+<a href="#VkVideoDecodeVP9PictureInfoKHR">VkVideoDecodeVP9PictureInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pDecodeInfo</code></p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDecodeVideoKHR-filmGrainSupport-09248" href="#VUID-vkCmdDecodeVideoKHR-filmGrainSupport-09248"></a> <span class="vuid">VUID-vkCmdDecodeVideoKHR-filmGrainSupport-09248</span><br>
 
 If the bound video session was created with the video codec operation
@@ -9145,6 +9383,14 @@ in the <code>pNext</code> chain of <code>pDecodeInfo</code> is not <code>NULL</c
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdDecodeVideoKHR is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -9276,7 +9522,7 @@ The <code>pPictureResource</code> member of each element of
 </li>
 <li>
 <p><a id="VUID-VkVideoDecodeInfoKHR-pNext-pNext" href="#VUID-VkVideoDecodeInfoKHR-pNext-pNext"></a> <span class="vuid">VUID-VkVideoDecodeInfoKHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoDecodeAV1InlineSessionParametersInfoKHR">VkVideoDecodeAV1InlineSessionParametersInfoKHR</a>, <a href="#VkVideoDecodeAV1PictureInfoKHR">VkVideoDecodeAV1PictureInfoKHR</a>, <a href="#VkVideoDecodeH264InlineSessionParametersInfoKHR">VkVideoDecodeH264InlineSessionParametersInfoKHR</a>, <a href="#VkVideoDecodeH264PictureInfoKHR">VkVideoDecodeH264PictureInfoKHR</a>, <a href="#VkVideoDecodeH265InlineSessionParametersInfoKHR">VkVideoDecodeH265InlineSessionParametersInfoKHR</a>, <a href="#VkVideoDecodeH265PictureInfoKHR">VkVideoDecodeH265PictureInfoKHR</a>, or <a href="#VkVideoInlineQueryInfoKHR">VkVideoInlineQueryInfoKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoDecodeAV1InlineSessionParametersInfoKHR">VkVideoDecodeAV1InlineSessionParametersInfoKHR</a>, <a href="#VkVideoDecodeAV1PictureInfoKHR">VkVideoDecodeAV1PictureInfoKHR</a>, <a href="#VkVideoDecodeH264InlineSessionParametersInfoKHR">VkVideoDecodeH264InlineSessionParametersInfoKHR</a>, <a href="#VkVideoDecodeH264PictureInfoKHR">VkVideoDecodeH264PictureInfoKHR</a>, <a href="#VkVideoDecodeH265InlineSessionParametersInfoKHR">VkVideoDecodeH265InlineSessionParametersInfoKHR</a>, <a href="#VkVideoDecodeH265PictureInfoKHR">VkVideoDecodeH265PictureInfoKHR</a>, <a href="#VkVideoDecodeVP9PictureInfoKHR">VkVideoDecodeVP9PictureInfoKHR</a>, or <a href="#VkVideoInlineQueryInfoKHR">VkVideoInlineQueryInfoKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkVideoDecodeInfoKHR-sType-unique" href="#VUID-VkVideoDecodeInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkVideoDecodeInfoKHR-sType-unique</span><br>
@@ -9774,6 +10020,12 @@ are otherwise ignored;</p>
 <p><code>level_idc</code> is one of the enum constants
 <code>STD_VIDEO_H264_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;</code> identifying the H.264 level
 <code>&lt;major&gt;.&lt;minor&gt;</code> as defined in section A.3 of the <a href="introduction.html#itu-t-h264" class="xref page">ITU-T    H.264 Specification</a>;</p>
+</li>
+<li>
+<p><code>pOffsetForRefFrame</code> is a pointer to an array of
+<code>num_ref_frames_in_pic_order_cnt_cycle</code> number of signed integers
+specifying the elements of the <code>offset_for_ref_frame</code> array, as
+defined in section 7.4.2.1.1 of the <a href="introduction.html#itu-t-h264" class="xref page">ITU-T H.264    Specification</a>;</p>
 </li>
 <li>
 <p>if <code>flags.seq_scaling_matrix_present_flag</code> is set, then the
@@ -12219,6 +12471,682 @@ set, but they <strong>may</strong> have additional bits set beyond this minimum.
 </div>
 </div>
 <div class="sect1">
+<h2 id="decode-vp9"><a class="anchor" href="#decode-vp9"></a>VP9 Decode Operations</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Video decode operations using an <a href="#decode-vp9-profile">VP9 decode profile</a>
+<strong>can</strong> be used to decode elementary video stream sequences compliant with the
+<a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Refer to the <a href="preamble.html#preamble" class="xref page">Preamble</a> for information on how the Khronos
+Intellectual Property Rights Policy relates to normative references to
+external materials not created by Khronos.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This process is performed according to the <a href="#decode-operation-steps">video decode operation steps</a> with the codec-specific semantics defined in
+section 8 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Syntax elements, derived values, and other parameters are applied from
+the <code>StdVideoDecodeVP9PictureInfo</code> structure specifying the
+<a href="#decode-vp9-picture-info">VP9 picture information</a>.</p>
+</li>
+<li>
+<p>The contents of the provided video bitstream buffer range are
+interpreted as defined in the <a href="#decode-vp9-bitstream-data-access">VP9    Decode Bitstream Data Access</a> section.</p>
+</li>
+<li>
+<p>Picture data in the <a href="#video-picture-resources">video picture resources</a>
+corresponding to the used <a href="#decode-active-reference-picture-info">active    reference pictures</a>, <a href="#decode-vp9-output-picture-info">decode output    picture</a>, and optional <a href="#decode-reconstructed-picture-info">    reconstructed picture</a> is accessed as defined in the
+<a href="#decode-vp9-picture-data-access">VP9 Decode Picture Data Access</a>
+section.</p>
+</li>
+<li>
+<p>The decision on <a href="#decode-ref-pic-setup">reference picture setup</a> is made
+according to the parameters specified in the
+<a href="#decode-vp9-ref-pic-setup">VP9 picture information</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the parameters and the bitstream adhere to the syntactic and semantic
+requirements defined in the corresponding sections of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>, as described above, and the <a href="#dpb-slot">DPB slots</a>
+associated with the <a href="#active-reference-pictures">active reference pictures</a>
+all refer to <a href="#dpb-slot-states">valid picture references</a>, then the video
+decode operation will complete successfully.
+Otherwise, the video decode operation <strong>may</strong> complete
+<a href="#decode-unsuccessful">unsuccessfully</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="decode-vp9-bitstream-data-access"><a class="anchor" href="#decode-vp9-bitstream-data-access"></a>VP9 Decode Bitstream Data Access</h3>
+<div class="paragraph">
+<p>The video bitstream buffer range <strong>should</strong> contain the bitstream that
+represents an entire frame, as defined in section 6.1, and this data is
+interpreted as defined in section 7.1 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>, respectively.</p>
+</div>
+<div class="paragraph">
+<p>The offset specified in
+<a href="#VkVideoDecodeVP9PictureInfoKHR">VkVideoDecodeVP9PictureInfoKHR</a>::<code>uncompressedHeaderOffset</code> <strong>should</strong>
+specify the starting offset of the uncompressed header of the frame, as
+defined in section 6.2 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>.</p>
+</div>
+<div class="paragraph">
+<p>The offset specified in
+<a href="#VkVideoDecodeVP9PictureInfoKHR">VkVideoDecodeVP9PictureInfoKHR</a>::<code>compressedHeaderOffset</code> <strong>should</strong>
+specify the starting offset of the compressed header of the frame, as
+defined in section 6.3 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>.</p>
+</div>
+<div class="paragraph">
+<p>The offset specified in
+<a href="#VkVideoDecodeVP9PictureInfoKHR">VkVideoDecodeVP9PictureInfoKHR</a>::<code>tilesOffset</code> <strong>should</strong> specify the
+starting offset of the frame tile data, as defined in section 6.4 of the
+<a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="decode-vp9-picture-data-access"><a class="anchor" href="#decode-vp9-picture-data-access"></a>VP9 Decode Picture Data Access</h3>
+<div class="paragraph">
+<p>Accesses to image data within a video picture resource happen at the
+granularity indicated by
+<a href="#VkVideoCapabilitiesKHR">VkVideoCapabilitiesKHR</a>::<code>pictureAccessGranularity</code>, as returned by
+<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the used <a href="#video-profiles">video profile</a>.
+Accordingly, the complete image subregion of a
+<a href="#decode-output-picture">decode output picture</a>,
+<a href="#reference-picture">reference picture</a>, or
+<a href="#reconstructed-picture">reconstructed picture</a> accessed by video coding
+operations using an <a href="#decode-vp9-profile">VP9 decode profile</a> is defined as
+the set of texels within the coordinate range:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1"></dt>
+<dd>
+<p><span class="eq">([0,<code>endX</code>), [0,<code>endY</code>))</span></p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Where:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><span class="eq"><code>endX</code></span> equals <span class="eq"><code>codedExtent.width</code></span> rounded up to the
+nearest integer multiple of <code>pictureAccessGranularity.width</code> and
+clamped to the width of the image subresource
+<a href="#video-image-subresource-reference">referred</a> to by the corresponding
+<a href="#VkVideoPictureResourceInfoKHR">VkVideoPictureResourceInfoKHR</a> structure;</p>
+</li>
+<li>
+<p><span class="eq">endY</span> equals <span class="eq"><code>codedExtent.height</code></span> rounded up to the
+nearest integer multiple of <code>pictureAccessGranularity.height</code> and
+clamped to the height of the image subresource
+<a href="#video-image-subresource-reference">referred</a> to by the corresponding
+<a href="#VkVideoPictureResourceInfoKHR">VkVideoPictureResourceInfoKHR</a> structure;</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Where <code>codedExtent</code> is the member of the
+<a href="#VkVideoPictureResourceInfoKHR">VkVideoPictureResourceInfoKHR</a> structure corresponding to the picture.</p>
+</div>
+<div class="paragraph">
+<p>In case of video decode operations using an <a href="#decode-vp9-profile">VP9 decode profile</a>, any access to a picture at the coordinates
+<span class="eq">(<code>x</code>,<code>y</code>)</span>, as defined by the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>,
+is an access to the image subresource
+<a href="#video-image-subresource-reference">referred</a> to by the corresponding
+<a href="#VkVideoPictureResourceInfoKHR">VkVideoPictureResourceInfoKHR</a> structure at the texel coordinates
+<span class="eq">(<code>x</code>,<code>y</code>)</span>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="decode-vp9-reference-names"><a class="anchor" href="#decode-vp9-reference-names"></a>VP9 Reference Names and Semantics</h3>
+<div class="paragraph">
+<p>Individual reference frames used in the decoding process have different
+semantics, as defined in section 7.4.12 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>.
+The VP9 semantics associated with a reference picture are indicated by the
+corresponding enumeration constant defined in the Video Std enumeration type
+<code>StdVideoVP9ReferenceName</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>STD_VIDEO_VP9_REFERENCE_NAME_INTRA_FRAME</code> identifies the reference
+used for intra coding (<code>INTRA_FRAME</code>), as defined in sections 2 and
+8.5.1 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>.</p>
+</li>
+<li>
+<p>All other enumeration constants refer to backward or forward references
+used for inter coding, as defined in sections 2 and 8.5.2 of the
+<a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>STD_VIDEO_VP9_REFERENCE_NAME_LAST_FRAME</code> identifies the
+<code>LAST_FRAME</code> reference</p>
+</li>
+<li>
+<p><code>STD_VIDEO_VP9_REFERENCE_NAME_GOLDEN_FRAME</code> identifies the
+<code>GOLDEN_FRAME</code> reference</p>
+</li>
+<li>
+<p><code>STD_VIDEO_VP9_REFERENCE_NAME_ALTREF_FRAME</code> identifies the
+<code>ALTREF_FRAME</code> reference</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These enumeration constants are not directly used in any APIs but are used
+to indirectly index into certain Video Std and Vulkan API parameter arrays.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="decode-vp9-profile"><a class="anchor" href="#decode-vp9-profile"></a>VP9 Decode Profile</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>A video profile supporting VP9 video decode operations is specified by
+setting <a href="#VkVideoProfileInfoKHR">VkVideoProfileInfoKHR</a>::<code>videoCodecOperation</code> to
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code> and adding a
+<code>VkVideoDecodeVP9ProfileInfoKHR</code> structure to the
+<a href="#VkVideoProfileInfoKHR">VkVideoProfileInfoKHR</a>::<code>pNext</code> chain.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkVideoDecodeVP9ProfileInfoKHR</code> structure is defined as:</p>
+</div>
+<div id="VkVideoDecodeVP9ProfileInfoKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_decode_vp9
+typedef struct VkVideoDecodeVP9ProfileInfoKHR {
+    VkStructureType       sType;
+    const void*           pNext;
+    StdVideoVP9Profile    stdProfile;
+} VkVideoDecodeVP9ProfileInfoKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>stdProfile</code> is a <code>StdVideoVP9Profile</code> value specifying the VP9
+codec profile, as defined in section 7.2 of the <a href="introduction.html#google-vp9" class="xref page">VP9    Specification</a>.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkVideoDecodeVP9ProfileInfoKHR-sType-sType" href="#VUID-VkVideoDecodeVP9ProfileInfoKHR-sType-sType"></a> <span class="vuid">VUID-VkVideoDecodeVP9ProfileInfoKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_PROFILE_INFO_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vp9_decode_capabilities"><a class="anchor" href="#_vp9_decode_capabilities"></a>VP9 Decode Capabilities</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>When calling <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> to query the
+capabilities for an <a href="#decode-vp9-profile">VP9 decode profile</a>, the
+<a href="#VkVideoCapabilitiesKHR">VkVideoCapabilitiesKHR</a>::<code>pNext</code> chain <strong>must</strong> include a
+<code>VkVideoDecodeVP9CapabilitiesKHR</code> structure that will be filled with the
+profile-specific capabilities.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkVideoDecodeVP9CapabilitiesKHR</code> structure is defined as:</p>
+</div>
+<div id="VkVideoDecodeVP9CapabilitiesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_decode_vp9
+typedef struct VkVideoDecodeVP9CapabilitiesKHR {
+    VkStructureType     sType;
+    void*               pNext;
+    StdVideoVP9Level    maxLevel;
+} VkVideoDecodeVP9CapabilitiesKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>maxLevel</code> is a <code>StdVideoVP9Level</code> value specifying the maximum
+VP9 level supported by the profile, as defined in section A.1 of the
+<a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkVideoDecodeVP9CapabilitiesKHR-sType-sType" href="#VUID-VkVideoDecodeVP9CapabilitiesKHR-sType-sType"></a> <span class="vuid">VUID-VkVideoDecodeVP9CapabilitiesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_CAPABILITIES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_vp9_decoding_parameters"><a class="anchor" href="#_vp9_decoding_parameters"></a>VP9 Decoding Parameters</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkVideoDecodeVP9PictureInfoKHR</code> structure is defined as:</p>
+</div>
+<div id="VkVideoDecodeVP9PictureInfoKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_decode_vp9
+typedef struct VkVideoDecodeVP9PictureInfoKHR {
+    VkStructureType                        sType;
+    const void*                            pNext;
+    const StdVideoDecodeVP9PictureInfo*    pStdPictureInfo;
+    int32_t                                referenceNameSlotIndices[VK_MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR];
+    uint32_t                               uncompressedHeaderOffset;
+    uint32_t                               compressedHeaderOffset;
+    uint32_t                               tilesOffset;
+} VkVideoDecodeVP9PictureInfoKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>pStdPictureInfo</code> is a pointer to a
+<code>StdVideoDecodeVP9PictureInfo</code> structure specifying
+<a href="#decode-vp9-picture-info">VP9 picture information</a>.</p>
+</li>
+<li>
+<p><code>referenceNameSlotIndices</code> is an array of three
+(<code>VK_MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR</code>, which is equal to the
+Video Std definition <code>STD_VIDEO_VP9_REFS_PER_FRAME</code>) signed integer
+values specifying the index of the <a href="#dpb-slot">DPB slot</a> or a negative
+integer value for each <a href="#decode-vp9-reference-names">VP9 reference name</a>
+used for inter coding.
+In particular, the DPB slot index for the VP9 reference name <code>frame</code>
+is specified in <code>referenceNameSlotIndices</code>[<code>frame</code> -
+<code>STD_VIDEO_VP9_REFERENCE_NAME_LAST_FRAME</code>].</p>
+</li>
+<li>
+<p><code>uncompressedHeaderOffset</code> is the byte offset of the uncompressed
+frame header, as defined in section 6.2 of the <a href="introduction.html#google-vp9" class="xref page">VP9    Specification</a>.</p>
+</li>
+<li>
+<p><code>compressedHeaderOffset</code> is the byte offset of the compressed frame
+header, as defined in section 6.3 of the <a href="introduction.html#google-vp9" class="xref page">VP9    Specification</a>.</p>
+</li>
+<li>
+<p><code>tilesOffset</code> is the byte offset of the frame tile data, as defined
+in section 6.4 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This structure is specified in the <code>pNext</code> chain of the
+<a href="#VkVideoDecodeInfoKHR">VkVideoDecodeInfoKHR</a> structure passed to <a href="#vkCmdDecodeVideoKHR">vkCmdDecodeVideoKHR</a> to
+specify the codec-specific picture information for an <a href="#decode-vp9">VP9 decode operation</a>.</p>
+</div>
+<div id="decode-vp9-output-picture-info" class="dlist">
+<dl>
+<dt class="hdlist1">Decode Output Picture Information</dt>
+<dd>
+<p>When this structure is specified in the <code>pNext</code> chain of the
+<a href="#VkVideoDecodeInfoKHR">VkVideoDecodeInfoKHR</a> structure passed to <a href="#vkCmdDecodeVideoKHR">vkCmdDecodeVideoKHR</a>,
+the information related to the <a href="#decode-output-picture-info">decode output picture</a> is defined as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The image subregion used is determined according to the
+<a href="#decode-vp9-picture-data-access">VP9 Decode Picture Data Access</a>
+section.</p>
+</li>
+<li>
+<p>The decode output picture is associated with the
+<a href="#decode-vp9-picture-info">VP9 picture information</a> provided in
+<code>pStdPictureInfo</code>.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div id="decode-vp9-picture-info" class="dlist">
+<dl>
+<dt class="hdlist1">Std Picture Information</dt>
+<dd>
+<p>The members of the <code>StdVideoDecodeVP9PictureInfo</code> structure pointed to by
+<code>pStdPictureInfo</code> are interpreted as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>flags.reserved</code> and <code>reserved1</code> are used only for padding
+purposes and are otherwise ignored;</p>
+</li>
+<li>
+<p><code>ref_frame_sign_bias_mask</code> is a bitmask where bit index <span class="eq">i</span>
+corresponds to <code>ref_frame_sign_bias[i]</code> as defined in section 7.2 of the
+<a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>;</p>
+</li>
+<li>
+<p>the <code>StdVideoVP9ColorConfig</code> structure pointed to by
+<code>pColorConfig</code> is interpreted as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>flags.reserved</code> and <code>reserved1</code> are used only for padding
+purposes and are otherwise ignored;</p>
+</li>
+<li>
+<p>all other members of <code>StdVideoVP9ColorConfig</code> are interpreted as
+defined in sections 6.2, 6.2.2, and 7.2.2 of the <a href="introduction.html#google-vp9" class="xref page">VP9     Specification</a>;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>the <code>StdVideoVP9LoopFilter</code> structure pointed to by <code>pLoopFilter</code>
+is interpreted as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>flags.reserved</code> is used only for padding purposes and is otherwise
+ignored;</p>
+</li>
+<li>
+<p><code>update_ref_delta</code> is a bitmask where bit index <span class="eq">i</span> is
+interpreted as the value of <code>update_ref_delta</code> corresponding to
+element <span class="eq">i</span> of <code>loop_filter_ref_deltas</code> as defined in section
+7.2.8 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>;</p>
+</li>
+<li>
+<p><code>update_mode_delta</code> is a bitmask where bit index <span class="eq">i</span> is
+interpreted as the value of <code>update_mode_delta</code> corresponding to
+element <span class="eq">i</span> of <code>loop_filter_mode_deltas</code> as defined in section
+7.2.8 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>;</p>
+</li>
+<li>
+<p>all other members of <code>StdVideoVP9LoopFilter</code> are interpreted as
+defined in section 7.2.8 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>;</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If the syntax elements corresponding to <code>loop_filter_ref_deltas</code> and
+<code>loop_filter_mode_deltas</code> are not present, the application should specify
+the previous values, as defined in section 7.2.8 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>if <code>flags.segmentation_enabled</code> is set, then the
+<code>StdVideoVP9Segmentation</code> structure pointed to by <code>pSegmentation</code>
+is interpreted as follows:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>flags.reserved</code> is used only for padding purposes and is otherwise
+ignored;</p>
+</li>
+<li>
+<p>the elements of <code>FeatureEnabled</code> are bitmasks where bit index
+<span class="eq">j</span> of element <span class="eq">i</span> corresponds to <code>FeatureEnabled[i][j]</code> as
+defined in section 6.2.11 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>;</p>
+</li>
+<li>
+<p><code>FeatureData</code> is interpreted as defined in section 6.2.11 of the
+<a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>;</p>
+</li>
+<li>
+<p>all other members of <code>StdVideoVP9Segmentation</code> are interpreted as
+defined in section 7.2.10 of the <a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>;</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>all other members are interpreted as defined in section 7.2 of the
+<a href="introduction.html#google-vp9" class="xref page">VP9 Specification</a>.</p>
+</li>
+</ul>
+</div>
+</dd>
+</dl>
+</div>
+<div id="decode-vp9-ref-pic-setup" class="paragraph">
+<p>Reference picture setup is controlled by the value of
+<code>StdVideoDecodeVP9PictureInfo</code>::<code>refresh_frame_flags</code>.
+If it is not zero and a <a href="#decode-reconstructed-picture-info">reconstructed picture</a> is specified, then the latter is used as the target of picture
+reconstruction to <a href="#dpb-slot-states">activate</a> the <a href="#dpb-slot">DPB slot</a>
+specified in <code>pDecodeInfo-&gt;pSetupReferenceSlot&#8594;slotIndex</code>.
+If <code>StdVideoDecodeVP9PictureInfo</code>::<code>refresh_frame_flags</code> is zero, but
+a <a href="#decode-reconstructed-picture-info">reconstructed picture</a> is specified,
+then the corresponding picture reference associated with the <a href="#dpb-slot">DPB slot</a> is invalidated, as described in the <a href="#dpb-slot-states">DPB Slot States</a> section.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkVideoDecodeVP9PictureInfoKHR-sType-sType" href="#VUID-VkVideoDecodeVP9PictureInfoKHR-sType-sType"></a> <span class="vuid">VUID-VkVideoDecodeVP9PictureInfoKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_PICTURE_INFO_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-VkVideoDecodeVP9PictureInfoKHR-pStdPictureInfo-parameter" href="#VUID-VkVideoDecodeVP9PictureInfoKHR-pStdPictureInfo-parameter"></a> <span class="vuid">VUID-VkVideoDecodeVP9PictureInfoKHR-pStdPictureInfo-parameter</span><br>
+ <code>pStdPictureInfo</code> <strong>must</strong> be a valid pointer to a valid <code>StdVideoDecodeVP9PictureInfo</code> value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>VP9 decode operations do not need any std reference information to be
+specified for the active reference pictures and the optional reconstructed
+picture.
+Accordingly, no DPB slot info structure exists in the API that would need to
+be chained to the corresponding <a href="#VkVideoReferenceSlotInfoKHR">VkVideoReferenceSlotInfoKHR</a> structures
+and no <code>StdVideoDecodeVP9ReferenceInfo</code> structure exists in the VP9 Video
+Std Headers.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="decode-vp9-requirements"><a class="anchor" href="#decode-vp9-requirements"></a>VP9 Decode Requirements</h3>
+<div class="paragraph">
+<p>This section describes the <strong>required</strong> VP9 decoding capabilities for physical
+devices that have at least one queue family that supports the video codec
+operation <code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, as returned by
+<a href="devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2" class="xref page">vkGetPhysicalDeviceQueueFamilyProperties2</a> in
+<a href="devsandqueues.html#VkQueueFamilyVideoPropertiesKHR" class="xref page">VkQueueFamilyVideoPropertiesKHR</a>::<code>videoCodecOperations</code>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 5. Required <a href="#video-std-header-version">Video Std Header Versions</a></caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Video Std Header Name</th>
+<th class="tableblock halign-left valign-top">Version</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>vulkan_video_codec_vp9std_decode</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1.0.0</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 6. Required Video Capabilities</caption>
+<colgroup>
+<col style="width: 58.3333%;">
+<col style="width: 23.3333%;">
+<col style="width: 18.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Video Capability</th>
+<th class="tableblock halign-left valign-top">Requirement</th>
+<th class="tableblock halign-left valign-top">Requirement Type<sup>1</sup></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><a href="#VkVideoCapabilitiesKHR">VkVideoCapabilitiesKHR</a></strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>flags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>minBitstreamBufferOffsetAlignment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4096</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>minBitstreamBufferSizeAlignment</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4096</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pictureAccessGranularity</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">(64,64)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>minCodedExtent</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">max</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxCodedExtent</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxDpbSlots</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxActiveReferencePictures</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><a href="#VkVideoDecodeCapabilitiesKHR">VkVideoDecodeCapabilitiesKHR</a></strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>flags</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR</code> or
+                <code>VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><a href="#VkVideoDecodeVP9CapabilitiesKHR">VkVideoDecodeVP9CapabilitiesKHR</a></strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxLevel</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>STD_VIDEO_VP9_LEVEL_2_0</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+</tbody>
+</table>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">1</dt>
+<dd>
+<p>The <strong>Requirement Type</strong> column specifies the requirement is either the
+minimum value all implementations <strong>must</strong> support, the maximum value all
+implementations <strong>must</strong> support, or the exact value all implementations
+<strong>must</strong> support.
+For bitmasks a minimum value is the least bits all implementations <strong>must</strong>
+set, but they <strong>may</strong> have additional bits set beyond this minimum.</p>
+</dd>
+</dl>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="decode-av1"><a class="anchor" href="#decode-av1"></a>AV1 Decode Operations</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -13057,7 +13985,9 @@ section 6.10.14 of the <a href="introduction.html#aomedia-av1" class="xref page"
 </div>
 </li>
 <li>
-<p>the <code>StdVideoAV1LoopRestoration</code> structure pointed to by
+<p>if <code>flags.UsesLr</code> is set in the
+<a href="#encode-av1-active-sequence-header">active sequence header</a>, then the
+<code>StdVideoAV1LoopRestoration</code> structure pointed to by
 <code>pLoopRestoration</code> is interpreted as follows:</p>
 <div class="ulist">
 <ul>
@@ -13075,8 +14005,8 @@ section 6.10.15 of the <a href="introduction.html#aomedia-av1" class="xref page"
 </div>
 </li>
 <li>
-<p>the members of the <code>StdVideoAV1GlobalMotion</code> structure provided in
-<code>global_motion</code> are interpreted as defined in section 7.10 of the
+<p>the members of the <code>StdVideoAV1GlobalMotion</code> structure pointed to by
+<code>pGlobalMotion</code> are interpreted as defined in section 7.10 of the
 <a href="introduction.html#aomedia-av1" class="xref page">AV1 Specification</a>;</p>
 </li>
 <li>
@@ -13396,7 +14326,7 @@ operation <code>VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR</code>, as returned 
 <a href="devsandqueues.html#VkQueueFamilyVideoPropertiesKHR" class="xref page">VkQueueFamilyVideoPropertiesKHR</a>::<code>videoCodecOperations</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 5. Required <a href="#video-std-header-version">Video Std Header Versions</a></caption>
+<caption class="title">Table 7. Required <a href="#video-std-header-version">Video Std Header Versions</a></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -13415,7 +14345,7 @@ operation <code>VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR</code>, as returned 
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 6. Required Video Capabilities</caption>
+<caption class="title">Table 8. Required Video Capabilities</caption>
 <colgroup>
 <col style="width: 58.3333%;">
 <col style="width: 23.3333%;">
@@ -13556,6 +14486,11 @@ access <code>VK_ACCESS_2_VIDEO_ENCODE_READ_BIT_KHR</code>.</p>
 <a href="#encode-reconstructed-picture-info">reconstructed picture</a> with access
 <code>VK_ACCESS_2_VIDEO_ENCODE_WRITE_BIT_KHR</code>.</p>
 </li>
+<li>
+<p>The image subregion corresponding to a
+<a href="#encode-quantization-map">quantization map</a> used in the video encode
+operation with access <code>VK_ACCESS_2_VIDEO_ENCODE_READ_BIT_KHR</code>.</p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -13569,17 +14504,26 @@ follows:</p>
 <li>
 <p>If the image subresource is used in the video encode operation as an
 <a href="#encode-input-picture">encode input picture</a>, then it <strong>must</strong> be in the
-<code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR</code> layout.</p>
+<code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR</code> layout
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout
+.</p>
 </li>
 <li>
 <p>If the image subresource is used in the video encode operation as a
 <a href="#reconstructed-picture">reconstructed picture</a> or <a href="#reference-picture">    reference picture</a>, then it <strong>must</strong> be in the
-<code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR</code> layout.</p>
+<code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR</code> layout
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout
+.</p>
 </li>
 <li>
 <p>If the image subresource is used in the video encode operation as a
 <a href="#encode-quantization-map">quantization map</a>, then it <strong>must</strong> be in the
-<code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR</code> layout.</p>
+<code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR</code> layout
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout
+.</p>
 </li>
 </ul>
 </div>
@@ -14033,7 +14977,7 @@ unless this encode capability flag is supported.</p>
 <ul>
 <li>
 <p><code>VK_VIDEO_ENCODE_CAPABILITY_QUANTIZATION_DELTA_MAP_BIT_KHR</code>
-indicates support for using <a href="#encode-quantization-delta-map">quantization    delta maps</a>.</p>
+specifies support for using <a href="#encode-quantization-delta-map">quantization    delta maps</a>.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_ENCODE_CAPABILITY_EMPHASIS_MAP_BIT_KHR</code> specifies support
@@ -14194,22 +15138,28 @@ chain of <code>pQualityLevelProperties</code> <strong>must</strong> include a
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
-</li>
-<li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -14737,10 +15687,10 @@ respectively</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -14750,10 +15700,16 @@ respectively</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -15201,6 +16157,19 @@ for which <code>slotIndex</code> equals the reference index in question.</p>
 </div>
 </li>
 <li>
+<p>If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR</code> and with the
+<a href="#encode-intra-refresh-modes">intra refresh mode</a>
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>,
+<code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, and the <code>pNext</code> chain
+of <code>pEncodeInfo</code> includes a <a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a>
+structure, then let <code>uint32_t intraRefreshH264SliceIndex</code> be the
+<a href="#encode-intra-refresh-index">intra refresh index</a> specified in
+<a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a>::<code>intraRefreshIndex</code>.
+Otherwise <code>intraRefreshH264SliceIndex</code> is not defined.</p>
+</li>
+<li>
 <p>If the bound video session object was created with an
 <a href="#encode-h264-profile">H.265 encode profile</a>, then:</p>
 <div class="ulist">
@@ -15231,6 +16200,19 @@ for which <code>slotIndex</code> equals the reference index in question.</p>
 </li>
 </ul>
 </div>
+</li>
+<li>
+<p>If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR</code> and with the
+<a href="#encode-intra-refresh-modes">intra refresh mode</a>
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>,
+<code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, and the <code>pNext</code> chain
+of <code>pEncodeInfo</code> includes a <a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a>
+structure, then let <code>uint32_t intraRefreshH265SliceSegmentIndex</code> be the
+<a href="#encode-intra-refresh-index">intra refresh index</a> specified in
+<a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a>::<code>intraRefreshIndex</code>.
+Otherwise <code>intraRefreshH265SliceSegmentIndex</code> is not defined.</p>
 </li>
 <li>
 <p>If the bound video session object was created with an
@@ -15495,30 +16477,36 @@ All elements of <code>dpbFrameUseCount</code> <strong>must</strong> be less than
 <code>1</code></p>
 </li>
 <li>
-<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08222" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08222"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08222</span><br>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10811" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10811"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10811</span><br>
 
 The image subresource <a href="#video-image-subresource-reference">referred</a> to
 by <code>pEncodeInfo-&gt;srcPictureResource</code> <strong>must</strong> be in the
 <code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR</code> layout at the time the video
-encode operation is executed on the device</p>
+encode operation is executed on the device
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08223" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08223"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08223</span><br>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10812" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10812"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10812</span><br>
 
 If <code>pEncodeInfo-&gt;pSetupReferenceSlot</code> is not <code>NULL</code>, then the image
 subresource <a href="#video-image-subresource-reference">referred</a> to by
 <code>pEncodeInfo-&gt;pSetupReferenceSlot&#8594;pPictureResource</code> <strong>must</strong> be in the
 <code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR</code> layout at the time the video
-encode operation is executed on the device</p>
+encode operation is executed on the device
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout</p>
 </li>
 <li>
-<p><a id="VUID-vkCmdEncodeVideoKHR-pPictureResource-08224" href="#VUID-vkCmdEncodeVideoKHR-pPictureResource-08224"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pPictureResource-08224</span><br>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pPictureResource-10813" href="#VUID-vkCmdEncodeVideoKHR-pPictureResource-10813"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pPictureResource-10813</span><br>
 
 The image subresource <a href="#video-image-subresource-reference">referred</a> to
 by the <code>pPictureResource</code> member of each element of
 <code>pEncodeInfo-&gt;pReferenceSlots</code> <strong>must</strong> be in the
 <code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR</code> layout at the time the video
-encode operation is executed on the device</p>
+encode operation is executed on the device
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10306" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10306"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10306</span><br>
@@ -15605,7 +16593,9 @@ structure is included in the <code>pNext</code> chain of <code>pEncodeInfo</code
 its <code>quantizationMap</code> member is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, then the
 image subresource range referenced by <code>quantizationMap</code> <strong>must</strong> be in
 the <code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR</code> layout at
-the time the video encode operation is executed on the device</p>
+the time the video encode operation is executed on the device
+, unless the <a href="features.html#features-unifiedImageLayoutsVideo" class="xref page">    <code>unifiedImageLayoutsVideo</code></a> feature is enabled, in which case it
+<strong>may</strong> be in the <code>VK_IMAGE_LAYOUT_GENERAL</code> layout</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-pNext-10315" href="#VUID-vkCmdEncodeVideoKHR-pNext-10315"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pNext-10315</span><br>
@@ -15628,6 +16618,86 @@ bound video session parameters object created with
 then <code>quantizationMapExtent</code> <strong>must</strong> equal
 <span class="eq">⌈<code>pEncodeInfo-&gt;srcPictureResource.codedExtent</code> /
 <code>quantizationMapTexelSize</code>⌉</span></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10837" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10837"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10837</span><br>
+
+If <code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, then the
+<a href="#encode-intra-refresh-modes">intra refresh mode</a> the bound video
+session was created with <strong>must</strong> not be
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_NONE_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10838" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10838"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10838</span><br>
+
+If <code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, then
+<code>pEncodeInfo-&gt;activeReferencePictureCount</code> <strong>must</strong> be less than or
+equal to
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>maxIntraRefreshActiveReferencePictures</code>,
+as returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the
+video profile the bound video session was created with</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10839" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10839"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10839</span><br>
+
+If <code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, then the <code>pNext</code> chain
+of <code>pEncodeInfo</code> <strong>must</strong> include a
+<a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a> structure</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10840" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10840"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10840</span><br>
+
+If <code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, then the
+<code>intraRefreshCycleDuration</code> member of the
+<a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> not be zero</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10841" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10841"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10841</span><br>
+
+If <code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, then the
+<code>intraRefreshIndex</code> member of the
+<a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> be less than
+<a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a>::<code>intraRefreshCycleDuration</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pNext-10842" href="#VUID-vkCmdEncodeVideoKHR-pNext-10842"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pNext-10842</span><br>
+
+If the <code>pNext</code> chain of any element of
+<code>pEncodeInfo-&gt;pReferenceSlots</code> includes a
+<a href="#VkVideoReferenceIntraRefreshInfoKHR">VkVideoReferenceIntraRefreshInfoKHR</a> structure with a non-zero
+<code>dirtyIntraRefreshRegions</code> member, then <code>pEncodeInfo-&gt;flags</code>
+<strong>must</strong> include <code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pNext-10843" href="#VUID-vkCmdEncodeVideoKHR-pNext-10843"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pNext-10843</span><br>
+
+If the <code>pNext</code> chain of any element of
+<code>pEncodeInfo-&gt;pReferenceSlots</code> includes a
+<a href="#VkVideoReferenceIntraRefreshInfoKHR">VkVideoReferenceIntraRefreshInfoKHR</a> structure with a non-zero
+<code>dirtyIntraRefreshRegions</code> member, then for each such element
+<code>dirtyIntraRefreshRegions</code> <strong>must</strong> equal
+<code>intraRefreshCycleDuration</code> minus <code>intraRefreshIndex</code> where
+<code>intraRefreshCycleDuration</code> and <code>intraRefreshIndex</code> are the
+members of the <a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a> structure included
+in the <code>pNext</code> chain of <code>pEncodeInfo</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pNext-10844" href="#VUID-vkCmdEncodeVideoKHR-pNext-10844"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pNext-10844</span><br>
+
+If the <code>pNext</code> chain of <code>pEncodeInfo</code> includes a
+<a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a> structure, then its
+<code>intraRefreshCycleDuration</code> member <strong>must</strong> be zero or <strong>must</strong> be between
+<code>2</code> and
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>maxIntraRefreshCycleDuration</code>,
+as returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the
+video profile the bound video session was created with</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-pNext-08225" href="#VUID-vkCmdEncodeVideoKHR-pNext-08225"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pNext-08225</span><br>
@@ -15747,6 +16817,94 @@ profile the bound video session was created with, then the
 <a href="#VkVideoEncodeH264PictureInfoKHR">VkVideoEncodeH264PictureInfoKHR</a> structure included in the
 <code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> be less than or equal to
 <code>minCodingBlockExtent.height</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10845" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10845"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10845</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR</code> and with an
+<a href="#encode-intra-refresh-modes">intra refresh mode</a> other than
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>,
+<code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, and
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>partitionIndependentIntraRefreshRegions</code>
+is <code>VK_FALSE</code>, as returned by
+<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video profile the
+bound video session was created with, then the <code>naluSliceEntryCount</code>
+member of the <a href="#VkVideoEncodeH264PictureInfoKHR">VkVideoEncodeH264PictureInfoKHR</a> structure included
+in the <code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> equal <code>1</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10846" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10846"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10846</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR</code> and with the
+<a href="#encode-intra-refresh-modes">intra refresh mode</a>
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>,
+and <code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, then the
+<code>naluSliceEntryCount</code> member of the
+<a href="#VkVideoEncodeH264PictureInfoKHR">VkVideoEncodeH264PictureInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> equal the
+<code>intraRefreshCycleDuration</code> member of the
+<a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pEncodeInfo</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-intraRefreshH264SliceIndex-10847" href="#VUID-vkCmdEncodeVideoKHR-intraRefreshH264SliceIndex-10847"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-intraRefreshH264SliceIndex-10847</span><br>
+
+If <code>intraRefreshH264SliceIndex</code> is defined, then
+<code>pNaluSliceEntries</code>[<code>intraRefreshH264SliceIndex</code>].<code>pStdSliceHeader-&gt;slice_type</code>
+<strong>must</strong> be <code>STD_VIDEO_H264_SLICE_TYPE_I</code> in the
+<a href="#VkVideoEncodeH264PictureInfoKHR">VkVideoEncodeH264PictureInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pEncodeInfo</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10848" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10848"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10848</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR</code> and with the
+<a href="#encode-intra-refresh-modes">intra refresh mode</a>
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>,
+<code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, and
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>nonRectangularIntraRefreshRegions</code>
+is <code>VK_FALSE</code>, as returned by
+<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video profile the
+bound video session was created with, then the <code>naluSliceEntryCount</code>
+member of the <a href="#VkVideoEncodeH264PictureInfoKHR">VkVideoEncodeH264PictureInfoKHR</a> structure included
+in the <code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> be less than or
+equal to <code>minCodingBlockExtent.height</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-h264PictureType-10849" href="#VUID-vkCmdEncodeVideoKHR-h264PictureType-10849"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-h264PictureType-10849</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR</code>,
+<code>h264PictureType</code> is <code>STD_VIDEO_H264_PICTURE_TYPE_B</code>, and
+<a href="#VkVideoEncodeH264CapabilitiesKHR">VkVideoEncodeH264CapabilitiesKHR</a>::<code>flags</code>, as returned by
+<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video profile the
+bound video session was created with, does not include
+<code>VK_VIDEO_ENCODE_H264_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR</code>,
+then <code>pEncodeInfo-&gt;flags</code> <strong>must</strong> not include
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-flags-10850" href="#VUID-vkCmdEncodeVideoKHR-flags-10850"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-flags-10850</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR</code> and
+<a href="#VkVideoEncodeH264CapabilitiesKHR">VkVideoEncodeH264CapabilitiesKHR</a>::<code>flags</code>, as returned by
+<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video profile the
+bound video session was created with, does not include
+<code>VK_VIDEO_ENCODE_H264_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_KHR</code>, then
+<code>pNaluSliceEntries</code>[<span class="eq">i</span>].<code>pStdSliceHeader-&gt;slice_type</code> <strong>must</strong>
+be identical for all elements <span class="eq">i</span> of the <code>pNaluSliceEntries</code>
+member of the <a href="#VkVideoEncodeH264PictureInfoKHR">VkVideoEncodeH264PictureInfoKHR</a> structure included
+in the <code>pNext</code> chain of <code>pEncodeInfo</code>
+, except for element index <span class="eq">i</span> equal to
+<code>intraRefreshH264SliceIndex</code>, if <code>intraRefreshH264SliceIndex</code> is
+defined</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-pNext-08352" href="#VUID-vkCmdEncodeVideoKHR-pNext-08352"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pNext-08352</span><br>
@@ -15971,6 +17129,96 @@ video profile the bound video session was created with, then the
 <a href="#VkVideoEncodeH265PictureInfoKHR">VkVideoEncodeH265PictureInfoKHR</a> structure included in the
 <code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> be less than or equal to
 <code>minCodingBlockExtent.height</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10851" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10851"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10851</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR</code> and with an
+<a href="#encode-intra-refresh-modes">intra refresh mode</a> other than
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>,
+<code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, and
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>partitionIndependentIntraRefreshRegions</code>
+is <code>VK_FALSE</code>, as returned by
+<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video profile the
+bound video session was created with, then the
+<code>naluSliceSegmentEntryCount</code> member of the
+<a href="#VkVideoEncodeH265PictureInfoKHR">VkVideoEncodeH265PictureInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> equal <code>1</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10852" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10852"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10852</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR</code> and with the
+<a href="#encode-intra-refresh-modes">intra refresh mode</a>
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>,
+and <code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, then the
+<code>naluSliceSegmentEntryCount</code> member of the
+<a href="#VkVideoEncodeH265PictureInfoKHR">VkVideoEncodeH265PictureInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> equal
+<a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a>::<code>intraRefreshCycleDuration</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-intraRefreshH265SliceSegmentIndex-10853" href="#VUID-vkCmdEncodeVideoKHR-intraRefreshH265SliceSegmentIndex-10853"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-intraRefreshH265SliceSegmentIndex-10853</span><br>
+
+If <code>intraRefreshH265SliceSegmentIndex</code> is defined, then
+<code>pNaluSliceSegmentEntries</code>[<code>intraRefreshH265SliceSegmentIndex</code>].<code>pStdSliceSegmentHeader-&gt;slice_type</code>
+<strong>must</strong> be <code>STD_VIDEO_H265_SLICE_TYPE_I</code> in the
+<a href="#VkVideoEncodeH265PictureInfoKHR">VkVideoEncodeH265PictureInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pEncodeInfo</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10854" href="#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10854"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10854</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR</code> and with the
+<a href="#encode-intra-refresh-modes">intra refresh mode</a>
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>,
+<code>pEncodeInfo-&gt;flags</code> includes
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>, and
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>nonRectangularIntraRefreshRegions</code>
+is <code>VK_FALSE</code>, as returned by
+<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video profile the
+bound video session was created with, then the
+<code>naluSliceSegmentEntryCount</code> member of the
+<a href="#VkVideoEncodeH265PictureInfoKHR">VkVideoEncodeH265PictureInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pEncodeInfo</code> <strong>must</strong> be less than or equal to
+<code>minCodingBlockExtent.height</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-h265PictureType-10855" href="#VUID-vkCmdEncodeVideoKHR-h265PictureType-10855"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-h265PictureType-10855</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR</code>,
+<code>h265PictureType</code> is <code>STD_VIDEO_H265_PICTURE_TYPE_B</code>, and
+<a href="#VkVideoEncodeH265CapabilitiesKHR">VkVideoEncodeH265CapabilitiesKHR</a>::<code>flags</code>, as returned by
+<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video profile the
+bound video session was created with, does not include
+<code>VK_VIDEO_ENCODE_H265_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR</code>,
+then <code>pEncodeInfo-&gt;flags</code> <strong>must</strong> not include
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-flags-10856" href="#VUID-vkCmdEncodeVideoKHR-flags-10856"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-flags-10856</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR</code> and
+<a href="#VkVideoEncodeH265CapabilitiesKHR">VkVideoEncodeH265CapabilitiesKHR</a>::<code>flags</code>, as returned by
+<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the used video
+profile, does not include
+<code>VK_VIDEO_ENCODE_H265_CAPABILITY_DIFFERENT_SLICE_SEGMENT_TYPE_BIT_KHR</code>,
+then
+<code>pNaluSliceSegmentEntries</code>[<span class="eq">i</span>].<code>pStdSliceSegmentHeader-&gt;slice_type</code>
+<strong>must</strong> be identical for all elements <span class="eq">i</span> of the
+<code>pNaluSliceSegmentEntries</code> member of the
+<a href="#VkVideoEncodeH265PictureInfoKHR">VkVideoEncodeH265PictureInfoKHR</a> structure included in the
+<code>pNext</code> chain of <code>pEncodeInfo</code>
+, except for element index <span class="eq">i</span> equal to
+<code>intraRefreshH265SliceSegmentIndex</code>, if
+<code>intraRefreshH265SliceSegmentIndex</code> is defined</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-pNext-08354" href="#VUID-vkCmdEncodeVideoKHR-pNext-08354"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-pNext-08354</span><br>
@@ -16275,6 +17523,22 @@ with element indices <span class="eq">i ∈ {0,1,2,3}</span> and <span class="eq
 <a href="#VkVideoEncodeAV1CapabilitiesKHR">VkVideoEncodeAV1CapabilitiesKHR</a>::<code>bidirectionalCompoundReferenceNameMask</code>,
 as returned by <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the
 video profile the bound video session was created with</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdEncodeVideoKHR-predictionMode-10857" href="#VUID-vkCmdEncodeVideoKHR-predictionMode-10857"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-predictionMode-10857</span><br>
+
+If the bound video session was created with the video codec operation
+<code>VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR</code>, the
+<code>predictionMode</code> member of the <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR</a>
+structure included in the <code>pNext</code> chain of <code>pEncodeInfo</code> is
+<code>VK_VIDEO_ENCODE_AV1_PREDICTION_MODE_UNIDIRECTIONAL_COMPOUND_KHR</code> or
+<code>VK_VIDEO_ENCODE_AV1_PREDICTION_MODE_BIDIRECTIONAL_COMPOUND_KHR</code>,
+and <a href="#VkVideoEncodeAV1CapabilitiesKHR">VkVideoEncodeAV1CapabilitiesKHR</a>::<code>flags</code>, as returned by
+<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the video profile the
+bound video session was created with, does not include
+<code>VK_VIDEO_ENCODE_AV1_CAPABILITY_COMPOUND_PREDICTION_INTRA_REFRESH_BIT_KHR</code>,
+then <code>pEncodeInfo-&gt;flags</code> <strong>must</strong> not include
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdEncodeVideoKHR-referenceNameSlotIndices-10334" href="#VUID-vkCmdEncodeVideoKHR-referenceNameSlotIndices-10334"></a> <span class="vuid">VUID-vkCmdEncodeVideoKHR-referenceNameSlotIndices-10334</span><br>
@@ -16588,6 +17852,14 @@ for the <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdEncodeVideoKHR is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -16726,7 +17998,7 @@ The <code>pPictureResource</code> member of each element of
 </li>
 <li>
 <p><a id="VUID-VkVideoEncodeInfoKHR-pNext-pNext" href="#VUID-VkVideoEncodeInfoKHR-pNext-pNext"></a> <span class="vuid">VUID-VkVideoEncodeInfoKHR-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR</a>, <a href="#VkVideoEncodeH264PictureInfoKHR">VkVideoEncodeH264PictureInfoKHR</a>, <a href="#VkVideoEncodeH265PictureInfoKHR">VkVideoEncodeH265PictureInfoKHR</a>, <a href="#VkVideoEncodeQuantizationMapInfoKHR">VkVideoEncodeQuantizationMapInfoKHR</a>, or <a href="#VkVideoInlineQueryInfoKHR">VkVideoInlineQueryInfoKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkVideoEncodeAV1PictureInfoKHR">VkVideoEncodeAV1PictureInfoKHR</a>, <a href="#VkVideoEncodeH264PictureInfoKHR">VkVideoEncodeH264PictureInfoKHR</a>, <a href="#VkVideoEncodeH265PictureInfoKHR">VkVideoEncodeH265PictureInfoKHR</a>, <a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a>, <a href="#VkVideoEncodeQuantizationMapInfoKHR">VkVideoEncodeQuantizationMapInfoKHR</a>, or <a href="#VkVideoInlineQueryInfoKHR">VkVideoInlineQueryInfoKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkVideoEncodeInfoKHR-sType-unique" href="#VUID-VkVideoEncodeInfoKHR-sType-unique"></a> <span class="vuid">VUID-VkVideoEncodeInfoKHR-sType-unique</span><br>
@@ -16768,6 +18040,8 @@ specifying video encode flags, are:</p>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_encode_quantization_map
 typedef enum VkVideoEncodeFlagBitsKHR {
+  // Provided by VK_KHR_video_encode_intra_refresh
+    VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR = 0x00000004,
   // Provided by VK_KHR_video_encode_quantization_map
     VK_VIDEO_ENCODE_WITH_QUANTIZATION_DELTA_MAP_BIT_KHR = 0x00000001,
   // Provided by VK_KHR_video_encode_quantization_map
@@ -16787,6 +18061,10 @@ issued <a href="#video-encode-operations">video encode operations</a>.</p>
 <a href="#encode-emphasis-map">emphasis map</a> in the issued
 <a href="#video-encode-operations">video encode operations</a>.</p>
 </li>
+<li>
+<p><code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code> enables
+<a href="#encode-intra-refresh">intra refresh</a> for the encoded picture.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -16804,6 +18082,698 @@ typedef VkFlags VkVideoEncodeFlagsKHR;</code></pre>
 more <a href="#VkVideoEncodeFlagBitsKHR">VkVideoEncodeFlagBitsKHR</a>.</p>
 </div>
 </div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="encode-intra-refresh"><a class="anchor" href="#encode-intra-refresh"></a>Video Encode Intra Refresh</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Encoding a picture with intra refresh enables encoding a subset of the
+coding blocks produced for an <a href="#encode-input-picture">encode input picture</a>
+with intra prediction.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This enables the application to perform a decoder refresh through a series
+of pictures instead of a single picture.
+In conjunction with <a href="#encode-intra-refresh-reference-pictures">restricting reference picture prediction</a>, this enables avoiding error propagation
+across refresh cycles without introducing sudden spikes in the bitrate.
+This is achieved by amortizing the bitstream consumption of the refresh
+across a series of subsequent pictures.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="encode-intra-refresh-cycle" class="paragraph">
+<p>An <em>intra refresh cycle</em> is a series of encode operations using intra
+refresh that contain at least one encode operation for any subregion of the
+coded extent that encoded the subregion with intra prediction.</p>
+</div>
+<div id="encode-intra-refresh-cycle-duration" class="paragraph">
+<p>The <em>intra refresh cycle duration</em> is the number of encode operations in an
+intra refresh cycle.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/encode_intra_refresh_cycle_duration.svg" alt="encode intra refresh cycle duration">
+</div>
+<div class="title">Figure 1. Intra refresh cycle duration</div>
+</div>
+<div id="encode-intra-refresh-regions" class="paragraph">
+<p>For the purposes of performing an intra refresh cycle, the coded extent is
+divided into a set of <em>intra refresh regions</em>.
+The number of intra refresh regions for a given intra refresh cycle equals
+the intra refresh cycle duration.</p>
+</div>
+<div class="paragraph">
+<p>Implementations <strong>may</strong> partition the coded extent into intra refresh regions
+in an implementation-specific manner, unless otherwise specified.
+The following is true for the resulting set of intra refresh regions:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Each intra refresh region encompasses entire coding blocks.</p>
+</li>
+<li>
+<p>Any intra refresh region <strong>may</strong> be non-rectangular.</p>
+</li>
+<li>
+<p>Some intra refresh regions <strong>may</strong> be empty.</p>
+</li>
+<li>
+<p>The union of intra refresh regions of a given partitioning covers the
+entire coded extent.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>While intra refresh regions are generally disjoint, there may be overlap
+between distinct intra refresh regions of a given partitioning in order to
+accommodate for any filtering that may need to be applied across coding
+blocks of neighboring intra refresh regions.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="../_images/encode_intra_refresh_regions.svg" alt="encode intra refresh regions">
+</div>
+<div class="title">Figure 2. Examples of picture partitioning into intra refresh regions</div>
+</div>
+<div id="encode-intra-refresh-index" class="paragraph">
+<p>An intra refresh cycle is performed by encoding subsequent pictures with
+intra refresh, each encoding subsequent intra refresh regions using intra
+prediction.
+This inherently defines an ordering of encode operations within an intra
+refresh cycle.
+Therefore each encode operation in an intra refresh cycle has an <em>intra
+refresh index</em> that provides the following information:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The intra refresh index of an encode operation using intra refresh is
+the ordinal index of the intra refresh region being encoded using intra
+prediction.</p>
+</li>
+<li>
+<p>The intra refresh index of an encode operation using intra refresh
+inherently tells the number of intra refresh regions already refreshed
+by previous encode operations of the intra refresh cycle.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For AV1 encoding, applications should consider setting the
+<code>error_resilient_mode</code> flag for the first frame encoded as part of the
+intra refresh cycle in order to avoid any error propagation of CDF data.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div id="encode-dirty-intra-refresh-regions" class="paragraph">
+<p>An intra refresh region of a picture encoded using intra refresh is
+considered <em>clean</em> once the encode operation within the intra refresh cycle
+that encoded that intra refresh region using intra prediction is complete.
+Otherwise, the intra refresh region is considered <em>dirty</em>.</p>
+</div>
+<div class="paragraph">
+<p>The number of <em>dirty intra refresh regions</em> of a picture encoded using intra
+refresh is always one less than the difference between the intra refresh
+cycle duration and the intra refresh index used to encode that picture.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As the intra refresh cycle progresses, each subsequent picture encoded with
+intra refresh will have fewer dirty intra refresh regions.
+Consequently, the final encode operation of the intra refresh cycle will
+produce an encoded picture with no more dirty intra refresh regions.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_intra_refresh_capabilities"><a class="anchor" href="#_intra_refresh_capabilities"></a>Intra Refresh Capabilities</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>When calling <a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> with
+<code>pVideoProfile-&gt;videoCodecOperation</code> specifying an encode operation, the
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a> structure <strong>can</strong> be included in
+the <code>pNext</code> chain of the <a href="#VkVideoCapabilitiesKHR">VkVideoCapabilitiesKHR</a> structure to
+retrieve capabilities specific to video encode intra refresh.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkVideoEncodeIntraRefreshCapabilitiesKHR</code> structure is defined as:</p>
+</div>
+<div id="VkVideoEncodeIntraRefreshCapabilitiesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_encode_intra_refresh
+typedef struct VkVideoEncodeIntraRefreshCapabilitiesKHR {
+    VkStructureType                          sType;
+    void*                                    pNext;
+    VkVideoEncodeIntraRefreshModeFlagsKHR    intraRefreshModes;
+    uint32_t                                 maxIntraRefreshCycleDuration;
+    uint32_t                                 maxIntraRefreshActiveReferencePictures;
+    VkBool32                                 partitionIndependentIntraRefreshRegions;
+    VkBool32                                 nonRectangularIntraRefreshRegions;
+} VkVideoEncodeIntraRefreshCapabilitiesKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>intraRefreshModes</code> is a bitmask of
+<a href="#VkVideoEncodeIntraRefreshModeFlagBitsKHR">VkVideoEncodeIntraRefreshModeFlagBitsKHR</a> values indicating the set
+of supported <a href="#encode-intra-refresh-modes">intra refresh modes</a>.</p>
+</li>
+<li>
+<p><code>maxIntraRefreshCycleDuration</code> specifies the maximum supported
+<a href="#encode-intra-refresh-cycle-duration">intra refresh cycle duration</a>.</p>
+</li>
+<li>
+<p><code>maxIntraRefreshActiveReferencePictures</code> is the maximum number of
+<a href="#active-reference-pictures">active reference pictures</a> when encoding
+pictures with <a href="#encode-intra-refresh">intra refresh</a> enabled.
+This capability indicates additional restrictions beyond the maximum
+number of <a href="#active-reference-pictures">active reference pictures</a>
+supported by the video profile, as reported in
+<a href="#VkVideoCapabilitiesKHR">VkVideoCapabilitiesKHR</a>::<code>maxActiveReferencePictures</code> and the
+maximum requested at video session creation time in
+<a href="#VkVideoSessionCreateInfoKHR">VkVideoSessionCreateInfoKHR</a>::<code>maxActiveReferencePictures</code>.</p>
+</li>
+<li>
+<p><code>partitionIndependentIntraRefreshRegions</code> specifies whether the
+implementation supports intra refresh regions that are independent of
+the picture partitioning used during encoding.
+If it is <code>VK_TRUE</code>, then pictures <strong>can</strong> be encoded with multiple
+picture partitions, independent of the used intra refresh mode.
+Otherwise, pictures <strong>cannot</strong> be encoded with multiple picture partitions
+with any intra refresh mode other than
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This capability is only indicative for <a href="#encode-av1-profile">AV1 encode profiles</a> and does not impose any restrictions on the application as
+implementations may change the application requested picture partitioning
+according to implementation-specific restrictions.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p><code>nonRectangularIntraRefreshRegions</code> specifies whether the
+implementation supports non-rectangular intra refresh regions.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If this capability is not supported, then using per picture partition intra
+refresh may impose additional restrictions on the number of picture
+partitions a picture can be encoded with.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkVideoEncodeIntraRefreshCapabilitiesKHR-sType-sType" href="#VUID-VkVideoEncodeIntraRefreshCapabilitiesKHR-sType-sType"></a> <span class="vuid">VUID-VkVideoEncodeIntraRefreshCapabilitiesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="encode-intra-refresh-modes"><a class="anchor" href="#encode-intra-refresh-modes"></a>Intra Refresh Modes</h3>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The intra refresh modes are defined with the following enums:</p>
+</div>
+<div id="VkVideoEncodeIntraRefreshModeFlagBitsKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_encode_intra_refresh
+typedef enum VkVideoEncodeIntraRefreshModeFlagBitsKHR {
+    VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_NONE_KHR = 0,
+    VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR = 0x00000001,
+    VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_BASED_BIT_KHR = 0x00000002,
+    VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_ROW_BASED_BIT_KHR = 0x00000004,
+    VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_COLUMN_BASED_BIT_KHR = 0x00000008,
+} VkVideoEncodeIntraRefreshModeFlagBitsKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_NONE_KHR</code> specifies that intra
+refresh <strong>must</strong> not be used.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>
+specifies the use of <em>per picture partition intra refresh</em>.
+In this mode each intra refresh region <span class="eq">i</span> corresponds to the
+encoded picture partition <span class="eq">i</span>.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_BASED_BIT_KHR</code> specifies
+the use of any <em>block-based intra refresh</em>.
+In this mode each intra refresh region encompasses a set of coding
+blocks, independent of encoded picture partitions but without any
+additional guarantees on the granularity at which the picture is split
+into intra refresh regions.
+When using this mode, the set of coding blocks comprising the intra
+refresh regions and the direction of intra refresh are
+implementation-defined.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_ROW_BASED_BIT_KHR</code>
+specifies the use of <em>block-row-based intra refresh</em>.
+This mode is a block-based intra refresh mode where each intra refresh
+region encompasses a set of coding block rows.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_COLUMN_BASED_BIT_KHR</code>
+specifies the use of <em>block-column-based intra refresh</em>.
+This mode is a block-based intra refresh mode where each intra refresh
+region encompasses a set of coding block columns.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Implementations reporting support for
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_ROW_BASED_BIT_KHR</code> and/or
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_COLUMN_BASED_BIT_KHR</code> in
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>intraRefreshModes</code> are
+also <strong>required</strong> to report support for
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_BASED_BIT_KHR</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Both block-row-based and block-column-based intra refresh are just specific
+types of block-based intra refresh that provide additional guarantees about
+the granularity at which the picture is split into intra refresh regions,
+therefore implementations supporting either block-row-based or
+block-column-based intra refresh inherently support block-based intra
+refresh.
+Applications can use
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_BASED_BIT_KHR</code> on such
+implementations when they do not have any preference for a more specific
+block-based mode and would rather leave the decision about the division into
+intra refresh regions to the implementation.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock">
+<div class="content">
+<div id="VkVideoEncodeIntraRefreshModeFlagsKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_encode_intra_refresh
+typedef VkFlags VkVideoEncodeIntraRefreshModeFlagsKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>VkVideoEncodeIntraRefreshModeFlagsKHR</code> is a bitmask type for setting a
+mask of zero or more <a href="#VkVideoEncodeIntraRefreshModeFlagBitsKHR">VkVideoEncodeIntraRefreshModeFlagBitsKHR</a>.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The used intra refresh mode is selected at <a href="#video-session-creation">video session creation time</a> by including an instance of the
+<a href="#VkVideoEncodeSessionIntraRefreshCreateInfoKHR">VkVideoEncodeSessionIntraRefreshCreateInfoKHR</a> structure in the
+<code>pNext</code> chain of the <a href="#VkVideoSessionCreateInfoKHR">VkVideoSessionCreateInfoKHR</a> structure and
+specifying one of the supported intra refresh modes, as returned in
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>intraRefreshModes</code>, in
+its <code>intraRefreshMode</code> member.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkVideoEncodeSessionIntraRefreshCreateInfoKHR</code> structure is defined
+as:</p>
+</div>
+<div id="VkVideoEncodeSessionIntraRefreshCreateInfoKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_encode_intra_refresh
+typedef struct VkVideoEncodeSessionIntraRefreshCreateInfoKHR {
+    VkStructureType                             sType;
+    const void*                                 pNext;
+    VkVideoEncodeIntraRefreshModeFlagBitsKHR    intraRefreshMode;
+} VkVideoEncodeSessionIntraRefreshCreateInfoKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>intraRefreshMode</code> is a
+<a href="#VkVideoEncodeIntraRefreshModeFlagBitsKHR">VkVideoEncodeIntraRefreshModeFlagBitsKHR</a> specifying the used
+<a href="#encode-intra-refresh-modes">intra refresh mode</a>.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkVideoEncodeSessionIntraRefreshCreateInfoKHR-sType-sType" href="#VUID-VkVideoEncodeSessionIntraRefreshCreateInfoKHR-sType-sType"></a> <span class="vuid">VUID-VkVideoEncodeSessionIntraRefreshCreateInfoKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-VkVideoEncodeSessionIntraRefreshCreateInfoKHR-intraRefreshMode-parameter" href="#VUID-VkVideoEncodeSessionIntraRefreshCreateInfoKHR-intraRefreshMode-parameter"></a> <span class="vuid">VUID-VkVideoEncodeSessionIntraRefreshCreateInfoKHR-intraRefreshMode-parameter</span><br>
+ If <code>intraRefreshMode</code> is not <code>0</code>, <code>intraRefreshMode</code> <strong>must</strong> be a valid <a href="#VkVideoEncodeIntraRefreshModeFlagBitsKHR">VkVideoEncodeIntraRefreshModeFlagBitsKHR</a> value</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_encoding_pictures_with_intra_refresh"><a class="anchor" href="#_encoding_pictures_with_intra_refresh"></a>Encoding Pictures with Intra Refresh</h3>
+<div class="paragraph">
+<p>If the video encode operation is issued with the
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code> flag, the picture will be
+encoded with intra refresh, resulting in the <a href="#encode-intra-refresh-regions">intra refresh region</a> identified by the specified
+<a href="#encode-intra-refresh-index">intra refresh index</a> to be encoded with intra
+prediction.</p>
+</div>
+<div class="paragraph">
+<p>Intra refresh parameters are specified to video encode operations by
+including an instance of the <a href="#VkVideoEncodeIntraRefreshInfoKHR">VkVideoEncodeIntraRefreshInfoKHR</a>
+structure in the <code>pNext</code> chain of the <a href="#VkVideoEncodeInfoKHR">VkVideoEncodeInfoKHR</a>
+structure specified to the video encode command.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkVideoEncodeIntraRefreshInfoKHR</code> structure is defined as:</p>
+</div>
+<div id="VkVideoEncodeIntraRefreshInfoKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_encode_intra_refresh
+typedef struct VkVideoEncodeIntraRefreshInfoKHR {
+    VkStructureType    sType;
+    const void*        pNext;
+    uint32_t           intraRefreshCycleDuration;
+    uint32_t           intraRefreshIndex;
+} VkVideoEncodeIntraRefreshInfoKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>intraRefreshCycleDuration</code> is the used
+<a href="#encode-intra-refresh-cycle-duration">intra refresh cycle duration</a>.</p>
+</li>
+<li>
+<p><code>intraRefreshIndex</code> is the <a href="#encode-intra-refresh-index">intra    refresh index</a> of the encoded picture.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkVideoEncodeIntraRefreshInfoKHR-sType-sType" href="#VUID-VkVideoEncodeIntraRefreshInfoKHR-sType-sType"></a> <span class="vuid">VUID-VkVideoEncodeIntraRefreshInfoKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="encode-intra-refresh-reference-pictures"><a class="anchor" href="#encode-intra-refresh-reference-pictures"></a>Referencing Pictures Encoded with Intra Refresh</h3>
+<div class="paragraph">
+<p>When using pictures encoded with intra refresh as an
+<a href="#active-reference-pictures">active reference picture</a> in a video encode
+operation, applications <strong>may</strong> want to limit the set of
+<a href="#encode-intra-refresh-regions">intra refresh regions</a> of the reference
+picture that are used to predict samples of the encoded picture to exclude
+<a href="#encode-dirty-intra-refresh-regions">dirty intra refresh regions</a> of the
+reference picture in question.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This enables the application to avoid error propagation from previous
+refresh cycles by only using already refreshed (clean) intra refresh regions
+for sample prediction.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In order to limit the set of <a href="#encode-intra-refresh-regions">intra refresh regions</a> of an <a href="#active-reference-pictures">active reference picture</a> used
+for sample prediction, the application <strong>must</strong> specify an instance of the
+<a href="#VkVideoReferenceIntraRefreshInfoKHR">VkVideoReferenceIntraRefreshInfoKHR</a> structure in the <code>pNext</code> chain
+of the <a href="#VkVideoReferenceSlotInfoKHR">VkVideoReferenceSlotInfoKHR</a> structure specifying the active
+reference picture in question.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkVideoReferenceIntraRefreshInfoKHR</code> structure is defined as:</p>
+</div>
+<div id="VkVideoReferenceIntraRefreshInfoKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_encode_intra_refresh
+typedef struct VkVideoReferenceIntraRefreshInfoKHR {
+    VkStructureType    sType;
+    const void*        pNext;
+    uint32_t           dirtyIntraRefreshRegions;
+} VkVideoReferenceIntraRefreshInfoKHR;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>dirtyIntraRefreshRegions</code> is the number of
+<a href="#encode-dirty-intra-refresh-regions">dirty intra refresh regions</a> in
+the reference picture.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkVideoReferenceIntraRefreshInfoKHR-sType-sType" href="#VUID-VkVideoReferenceIntraRefreshInfoKHR-sType-sType"></a> <span class="vuid">VUID-VkVideoReferenceIntraRefreshInfoKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>In order to use active reference pictures with a non-zero number of dirty
+intra refresh regions and therefore limit sample prediction to clean intra
+refresh regions, the currently encoded picture <strong>must</strong> be encoded with intra
+refresh enabled.</p>
+</div>
+<div class="paragraph">
+<p>When limiting sample prediction to clean intra refresh regions of a
+reference picture with a non-zero number of
+<a href="#encode-dirty-intra-refresh-regions">dirty intra refresh regions</a>, the
+number of dirty intra refresh regions <strong>must</strong> equal the used
+<a href="#encode-intra-refresh-cycle-duration">intra refresh cycle duration</a> minus
+the <a href="#encode-intra-refresh-index">intra refresh index</a> of the encoded
+picture.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This has the practical effect that pictures can only reference the previous
+picture within the intra refresh cycle or pictures outside of the intra
+refresh cycle.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Given an <a href="#active-reference-pictures">active reference picture</a> with
+<code>dirtyIntraRefreshRegions</code> number of
+<a href="#encode-dirty-intra-refresh-regions">dirty intra refresh regions</a> and an
+<a href="#encode-intra-refresh-cycle-duration">intra refresh cycle duration</a> of
+<code>intraRefreshCycleDuration</code>, the samples within intra refresh region
+index <span class="eq">i</span> of the encoded picture are allowed to be predicted by samples
+within intra refresh region index <span class="eq">j</span> of the active reference picture in
+question if and only if any of the following conditions are true:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The picture is encoded with <code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>
+and <span class="eq">i</span> is greater than the <code>intraRefreshIndex</code> of the encoded
+picture.</p>
+</li>
+<li>
+<p>The picture is encoded with <code>VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR</code>,
+<span class="eq">i</span> is less than the <code>intraRefreshIndex</code> of the encoded picture,
+and <span class="eq">j</span> is less than the difference of
+<code>intraRefreshCycleDuration</code> and <code>dirtyIntraRefreshRegions</code>.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Even if a particular intra refresh region is allowed to be used for sample
+prediction, as defined above, implementations may not always support sample
+prediction from the given intra refresh region.</p>
+</div>
+<div class="paragraph">
+<p>Some implementations may only support sample prediction from a single set of
+intra refresh regions across the entire set of active reference pictures.
+For example, when encoding a picture with two active reference pictures, one
+with no dirty intra refresh regions, and one with some dirty intra refresh
+regions, sample prediction may not happen from those intra refresh regions
+of the first active reference picture which are marked dirty in the second
+active reference picture.</p>
+</div>
+<div class="paragraph">
+<p>Other implementations may have the additional restriction that the set of
+intra refresh regions to use for sample prediction across the entire set of
+active reference pictures is implied from the intra refresh index of the
+currently encoded picture, further restricting the set of intra refresh
+regions that such implementations can use for sample prediction.
+For example, when encoding a picture with intra refresh using an active
+reference picture that has no dirty intra refresh regions, sample prediction
+may not happen from intra refresh regions of the active reference picture
+which have an index greater than or equal to the currently encoded picture&#8217;s
+intra refresh index, even though those intra refresh regions were not marked
+as dirty.</p>
+</div>
+<div class="paragraph">
+<p>None of these implementation limitations will have an effect on application
+behavior from the perspective of correctness, but they may negatively impact
+the encoding efficiency.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -19083,6 +21053,8 @@ typedef enum VkVideoEncodeH264CapabilityFlagBitsKHR {
     VK_VIDEO_ENCODE_H264_CAPABILITY_PER_PICTURE_TYPE_MIN_MAX_QP_BIT_KHR = 0x00000040,
     VK_VIDEO_ENCODE_H264_CAPABILITY_PER_SLICE_CONSTANT_QP_BIT_KHR = 0x00000080,
     VK_VIDEO_ENCODE_H264_CAPABILITY_GENERATE_PREFIX_NALU_BIT_KHR = 0x00000100,
+  // Provided by VK_KHR_video_encode_h264 with VK_KHR_video_encode_intra_refresh
+    VK_VIDEO_ENCODE_H264_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR = 0x00000400,
   // Provided by VK_KHR_video_encode_h264 with VK_KHR_video_encode_quantization_map
     VK_VIDEO_ENCODE_H264_CAPABILITY_MB_QP_DIFF_WRAPAROUND_BIT_KHR = 0x00000200,
 } VkVideoEncodeH264CapabilityFlagBitsKHR;</code></pre>
@@ -19118,7 +21090,11 @@ specifies that each slice in a frame with multiple slices may begin or
 finish at any offset in a macroblock row.
 If not supported, all slices in the frame <strong>must</strong> begin at the start of a
 macroblock row (and hence each slice <strong>must</strong> finish at the end of a
-macroblock row).</p>
+macroblock row).
+When a picture is encoded with <a href="#encode-intra-refresh">intra refresh</a>,
+encoding non-rectangular slices also requires: support for the
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>nonRectangularIntraRefreshRegions</code>
+capability.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_ENCODE_H264_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_KHR</code>
@@ -19127,7 +21103,15 @@ implementation allows encoding each slice with a different
 <code>StdVideoEncodeH264SliceHeader</code>::<code>slice_type</code> specified in the
 <a href="#encode-h264-slice-header-params">H.264 slice header parameters</a>.
 If not supported, all slices of the frame <strong>must</strong> be encoded with the same
-<code>slice_type</code> which corresponds to the picture type of the frame.</p>
+<code>slice_type</code> which corresponds to the picture type of the frame.
+There is one exception to this rule: if the picture is encoded with the
+<a href="#encode-intra-refresh-modes">intra refresh mode</a>
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>,
+then the currently refreshed slice <strong>must</strong> specify the <code>slice_type</code>
+<code>STD_VIDEO_H264_SLICE_TYPE_I</code> and <strong>can</strong> differ from the
+<code>slice_type</code> of the other slices regardless of whether
+<code>VK_VIDEO_ENCODE_H264_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_KHR</code> is
+supported.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_ENCODE_H264_CAPABILITY_B_FRAME_IN_L0_LIST_BIT_KHR</code>
@@ -19185,6 +21169,11 @@ macroblocks is limited to the <span class="eq">[-(26 +  QpBdOffset<sub>Y</sub> /
 </tr>
 </table>
 </div>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_H264_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR</code>
+indicates support for encoding <a href="#encode-h264-b-pic">B pictures</a> with
+<a href="#encode-intra-refresh">intra refresh</a> enabled.</p>
 </li>
 </ul>
 </div>
@@ -19615,6 +21604,12 @@ are otherwise ignored;</p>
 <p><code>level_idc</code> is one of the enum constants
 <code>STD_VIDEO_H264_LEVEL_IDC_&lt;major&gt;_&lt;minor&gt;</code> identifying the H.264 level
 <code>&lt;major&gt;.&lt;minor&gt;</code> as defined in section A.3 of the <a href="introduction.html#itu-t-h264" class="xref page">ITU-T    H.264 Specification</a>;</p>
+</li>
+<li>
+<p><code>pOffsetForRefFrame</code> is a pointer to an array of
+<code>num_ref_frames_in_pic_order_cnt_cycle</code> number of signed integers
+specifying the elements of the <code>offset_for_ref_frame</code> array, as
+defined in section 7.4.2.1.1 of the <a href="introduction.html#itu-t-h264" class="xref page">ITU-T H.264    Specification</a>;</p>
 </li>
 <li>
 <p>if <code>flags.seq_scaling_matrix_present_flag</code> is set, then the
@@ -20386,16 +22381,6 @@ then
 <a href="#VkVideoEncodeH264NaluSliceInfoKHR">VkVideoEncodeH264NaluSliceInfoKHR</a>::<code>pStdSliceHeader-&gt;pWeightTable</code>
 <strong>must</strong> not be <code>NULL</code> for that element of <code>pNaluSliceEntries</code></p>
 </li>
-<li>
-<p><a id="VUID-VkVideoEncodeH264PictureInfoKHR-flags-08315" href="#VUID-VkVideoEncodeH264PictureInfoKHR-flags-08315"></a> <span class="vuid">VUID-VkVideoEncodeH264PictureInfoKHR-flags-08315</span><br>
-
-If <a href="#VkVideoEncodeH264CapabilitiesKHR">VkVideoEncodeH264CapabilitiesKHR</a>::<code>flags</code>, as returned by
-<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the used video
-profile, does not include
-<code>VK_VIDEO_ENCODE_H264_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_KHR</code>, then
-<a href="#VkVideoEncodeH264NaluSliceInfoKHR">VkVideoEncodeH264NaluSliceInfoKHR</a>::<code>pStdSliceHeader-&gt;slice_type</code>
-<strong>must</strong> be identical for all elements of <code>pNaluSliceEntries</code></p>
-</li>
 </ul>
 </div>
 </div>
@@ -20728,7 +22713,7 @@ frame is a P frame and the algorithm continues from step 2.</p>
 <div class="content">
 <img src="../_images/h26x_open_gop.svg" alt="h26x open gop">
 </div>
-<div class="title">Figure 1. H.264 open GOP</div>
+<div class="title">Figure 3. H.264 open GOP</div>
 </div>
 <div id="encode-h264-idr-period" class="paragraph">
 <p>In case of a closed GOP, an <a href="#encode-h264-idr-pic">IDR frame</a> is used at a
@@ -20738,7 +22723,7 @@ certain period.</p>
 <div class="content">
 <img src="../_images/h26x_closed_gop.svg" alt="h26x closed gop">
 </div>
-<div class="title">Figure 2. H.264 closed GOP</div>
+<div class="title">Figure 4. H.264 closed GOP</div>
 </div>
 <div class="paragraph">
 <p>It is also typical for H.264 encoding to use specific reference picture
@@ -20768,7 +22753,7 @@ backward reference.</p>
 <div class="content">
 <img src="../_images/h26x_ref_pattern_flat.svg" alt="h26x ref pattern flat">
 </div>
-<div class="title">Figure 3. H.264 flat reference pattern</div>
+<div class="title">Figure 5. H.264 flat reference pattern</div>
 </div>
 <div id="encode-h264-ref-pattern-dyadic" class="dlist">
 <dl>
@@ -20816,7 +22801,7 @@ middle, if any.</p>
 <div class="content">
 <img src="../_images/h26x_ref_pattern_dyadic.svg" alt="h26x ref pattern dyadic">
 </div>
-<div class="title">Figure 4. H.264 dyadic reference pattern</div>
+<div class="title">Figure 6. H.264 dyadic reference pattern</div>
 </div>
 <div class="paragraph">
 <p>The application <strong>can</strong> provide guidance to the implementation&#8217;s rate control
@@ -20869,7 +22854,7 @@ if any, as reference.</p>
 <div class="content">
 <img src="../_images/h26x_layer_pattern_dyadic.svg" alt="h26x layer pattern dyadic">
 </div>
-<div class="title">Figure 5. H.264 dyadic temporal layer pattern</div>
+<div class="title">Figure 7. H.264 dyadic temporal layer pattern</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -21668,7 +23653,7 @@ returned by <a href="devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties
 <a href="devsandqueues.html#VkQueueFamilyVideoPropertiesKHR" class="xref page">VkQueueFamilyVideoPropertiesKHR</a>::<code>videoCodecOperations</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 7. Required <a href="#video-std-header-version">Video Std Header Versions</a></caption>
+<caption class="title">Table 9. Required <a href="#video-std-header-version">Video Std Header Versions</a></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -21687,7 +23672,7 @@ returned by <a href="devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 8. Required Video Capabilities</caption>
+<caption class="title">Table 10. Required Video Capabilities</caption>
 <colgroup>
 <col style="width: 58.3333%;">
 <col style="width: 23.3333%;">
@@ -21877,6 +23862,36 @@ returned by <a href="devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties
 <td class="tableblock halign-left valign-top"><p class="tableblock">- <sup>3</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a></strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>intraRefreshModes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIntraRefreshCycleDuration</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 <sup>5</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIntraRefreshActiveReferencePictures</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 <sup>5</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>partitionIndependentIntraRefreshRegions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">implementation-dependent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nonRectangularIntraRefreshRegions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">implementation-dependent</p></td>
+</tr>
 </tbody>
 </table>
 <div class="dlist">
@@ -21908,6 +23923,12 @@ set, but they <strong>may</strong> have additional bits set beyond this minimum.
 <dd>
 <p>If the <a href="features.html#features-videoMaintenance2" class="xref page"><code>videoMaintenance2</code></a> feature is
 supported.</p>
+</dd>
+<dt class="hdlist1">5</dt>
+<dd>
+<p>If
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>intraRefreshModes</code>
+is not zero.</p>
 </dd>
 </dl>
 </div>
@@ -22675,6 +24696,8 @@ typedef enum VkVideoEncodeH265CapabilityFlagBitsKHR {
     VK_VIDEO_ENCODE_H265_CAPABILITY_PER_SLICE_SEGMENT_CONSTANT_QP_BIT_KHR = 0x00000080,
     VK_VIDEO_ENCODE_H265_CAPABILITY_MULTIPLE_TILES_PER_SLICE_SEGMENT_BIT_KHR = 0x00000100,
     VK_VIDEO_ENCODE_H265_CAPABILITY_MULTIPLE_SLICE_SEGMENTS_PER_TILE_BIT_KHR = 0x00000200,
+  // Provided by VK_KHR_video_encode_h265 with VK_KHR_video_encode_intra_refresh
+    VK_VIDEO_ENCODE_H265_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR = 0x00000800,
   // Provided by VK_KHR_video_encode_h265 with VK_KHR_video_encode_quantization_map
     VK_VIDEO_ENCODE_H265_CAPABILITY_CU_QP_DIFF_WRAPAROUND_BIT_KHR = 0x00000400,
 } VkVideoEncodeH265CapabilityFlagBitsKHR;</code></pre>
@@ -22717,7 +24740,11 @@ per tile may begin or finish at any offset within the enclosing tile&#8217;s
 CTB row.
 If not supported, slice segments in such a frame <strong>must</strong> begin at the
 start of the enclosing tile&#8217;s CTB row (and hence each slice segment
-<strong>must</strong> finish at the end of the enclosing tile&#8217;s CTB row).</p>
+<strong>must</strong> finish at the end of the enclosing tile&#8217;s CTB row).
+When a picture is encoded with <a href="#encode-intra-refresh">intra refresh</a>,
+encoding non-rectangular slice segments also requires: support for the
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>nonRectangularIntraRefreshRegions</code>
+capability.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_ENCODE_H265_CAPABILITY_DIFFERENT_SLICE_SEGMENT_TYPE_BIT_KHR</code>
@@ -22727,7 +24754,15 @@ implementation allows encoding each slice segment with a different
 the <a href="#encode-h265-slice-segment-header-params">H.265 slice segment header    parameters</a>.
 If not supported, all slice segments of the frame <strong>must</strong> be encoded with
 the same <code>slice_type</code> which corresponds to the picture type of the
-frame.</p>
+frame.
+There is one exception to this rule: if the picture is encoded with the
+<a href="#encode-intra-refresh-modes">intra refresh mode</a>
+<code>VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR</code>,
+then the currently refreshed slice segment <strong>must</strong> specify the
+<code>slice_type</code> <code>STD_VIDEO_H265_SLICE_TYPE_I</code> and <strong>can</strong> differ from
+the <code>slice_type</code> of the other slice segments regardless of whether
+<code>VK_VIDEO_ENCODE_H265_CAPABILITY_DIFFERENT_SLICE_SEGMENT_TYPE_BIT_KHR</code>
+is supported.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_ENCODE_H265_CAPABILITY_B_FRAME_IN_L0_LIST_BIT_KHR</code>
@@ -22795,6 +24830,11 @@ coding units is limited to the <span class="eq">[-(26 +  QpBdOffset<sub>Y</sub> 
 </tr>
 </table>
 </div>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_H265_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR</code>
+indicates support for encoding <a href="#encode-h265-b-pic">B pictures</a> with
+<a href="#encode-intra-refresh">intra refresh</a> enabled.</p>
 </li>
 </ul>
 </div>
@@ -24442,17 +26482,6 @@ and the slice segment corresponding to any element of
 <a href="#VkVideoEncodeH265NaluSliceSegmentInfoKHR">VkVideoEncodeH265NaluSliceSegmentInfoKHR</a>::<code>pStdSliceSegmentHeader-&gt;pWeightTable</code>
 <strong>must</strong> not be <code>NULL</code> for that element of <code>pNaluSliceSegmentEntries</code></p>
 </li>
-<li>
-<p><a id="VUID-VkVideoEncodeH265PictureInfoKHR-flags-08317" href="#VUID-VkVideoEncodeH265PictureInfoKHR-flags-08317"></a> <span class="vuid">VUID-VkVideoEncodeH265PictureInfoKHR-flags-08317</span><br>
-
-If <a href="#VkVideoEncodeH265CapabilitiesKHR">VkVideoEncodeH265CapabilitiesKHR</a>::<code>flags</code>, as returned by
-<a href="#vkGetPhysicalDeviceVideoCapabilitiesKHR">vkGetPhysicalDeviceVideoCapabilitiesKHR</a> for the used video
-profile, does not include
-<code>VK_VIDEO_ENCODE_H265_CAPABILITY_DIFFERENT_SLICE_SEGMENT_TYPE_BIT_KHR</code>,
-then
-<a href="#VkVideoEncodeH265NaluSliceSegmentInfoKHR">VkVideoEncodeH265NaluSliceSegmentInfoKHR</a>::<code>pStdSliceSegmentHeader-&gt;slice_type</code>
-<strong>must</strong> be identical for all elements of <code>pNaluSliceSegmentEntries</code></p>
-</li>
 </ul>
 </div>
 </div>
@@ -24789,7 +26818,7 @@ frame is a P frame and the algorithm continues from step 2.</p>
 <div class="content">
 <img src="../_images/h26x_open_gop.svg" alt="h26x open gop">
 </div>
-<div class="title">Figure 6. H.265 open GOP</div>
+<div class="title">Figure 8. H.265 open GOP</div>
 </div>
 <div id="encode-h265-idr-period" class="paragraph">
 <p>In case of a closed GOP, an <a href="#encode-h265-idr-pic">IDR frame</a> is used at a
@@ -24799,7 +26828,7 @@ certain period.</p>
 <div class="content">
 <img src="../_images/h26x_closed_gop.svg" alt="h26x closed gop">
 </div>
-<div class="title">Figure 7. H.265 closed GOP</div>
+<div class="title">Figure 9. H.265 closed GOP</div>
 </div>
 <div class="paragraph">
 <p>It is also typical for H.265 encoding to use specific reference picture
@@ -24829,7 +26858,7 @@ backward reference.</p>
 <div class="content">
 <img src="../_images/h26x_ref_pattern_flat.svg" alt="h26x ref pattern flat">
 </div>
-<div class="title">Figure 8. H.265 flat reference pattern</div>
+<div class="title">Figure 10. H.265 flat reference pattern</div>
 </div>
 <div id="encode-h265-ref-pattern-dyadic" class="dlist">
 <dl>
@@ -24877,7 +26906,7 @@ middle, if any.</p>
 <div class="content">
 <img src="../_images/h26x_ref_pattern_dyadic.svg" alt="h26x ref pattern dyadic">
 </div>
-<div class="title">Figure 9. H.265 dyadic reference pattern</div>
+<div class="title">Figure 11. H.265 dyadic reference pattern</div>
 </div>
 <div class="paragraph">
 <p>The application <strong>can</strong> provide guidance to the implementation&#8217;s rate control
@@ -24930,7 +26959,7 @@ if any, as reference.</p>
 <div class="content">
 <img src="../_images/h26x_layer_pattern_dyadic.svg" alt="h26x layer pattern dyadic">
 </div>
-<div class="title">Figure 10. H.265 dyadic temporal sub-layer pattern</div>
+<div class="title">Figure 12. H.265 dyadic temporal sub-layer pattern</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -25730,7 +27759,7 @@ returned by <a href="devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties
 <a href="devsandqueues.html#VkQueueFamilyVideoPropertiesKHR" class="xref page">VkQueueFamilyVideoPropertiesKHR</a>::<code>videoCodecOperations</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 9. Required <a href="#video-std-header-version">Video Std Header Versions</a></caption>
+<caption class="title">Table 11. Required <a href="#video-std-header-version">Video Std Header Versions</a></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -25749,7 +27778,7 @@ returned by <a href="devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 10. Required Video Capabilities</caption>
+<caption class="title">Table 12. Required Video Capabilities</caption>
 <colgroup>
 <col style="width: 58.3333%;">
 <col style="width: 23.3333%;">
@@ -25954,6 +27983,36 @@ returned by <a href="devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties
 <td class="tableblock halign-left valign-top"><p class="tableblock">- <sup>3</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a></strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>intraRefreshModes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIntraRefreshCycleDuration</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 <sup>5</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIntraRefreshActiveReferencePictures</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 <sup>5</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>partitionIndependentIntraRefreshRegions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">implementation-dependent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nonRectangularIntraRefreshRegions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">implementation-dependent</p></td>
+</tr>
 </tbody>
 </table>
 <div class="dlist">
@@ -25985,6 +28044,12 @@ set, but they <strong>may</strong> have additional bits set beyond this minimum.
 <dd>
 <p>If the <a href="features.html#features-videoMaintenance2" class="xref page"><code>videoMaintenance2</code></a> feature is
 supported.</p>
+</dd>
+<dt class="hdlist1">5</dt>
+<dd>
+<p>If
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>intraRefreshModes</code>
+is not zero.</p>
 </dd>
 </dl>
 </div>
@@ -26672,6 +28737,17 @@ unidirectional compound prediction mode.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="encode-av1-frame-tile"><a class="anchor" href="#encode-av1-frame-tile"></a>AV1 Frame and Tile</h3>
+<div class="paragraph">
+<p>AV1 frames are partitioned into tiles, as defined in section 2 of the
+<a href="introduction.html#aomedia-av1" class="xref page">AV1 Specification</a>.</p>
+</div>
+<div class="paragraph">
+<p>For the purposes of this specification, the AV1 tiles comprising a frame are
+referred to as the <em>picture partitions</em> of the frame.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="encode-av1-coding-blocks"><a class="anchor" href="#encode-av1-coding-blocks"></a>AV1 Coding Blocks</h3>
 <div class="paragraph">
 <p>AV1 encode supports two types of coding blocks, as defined in section 2 of
@@ -27026,6 +29102,8 @@ typedef enum VkVideoEncodeAV1CapabilityFlagBitsKHR {
     VK_VIDEO_ENCODE_AV1_CAPABILITY_PRIMARY_REFERENCE_CDF_ONLY_BIT_KHR = 0x00000004,
     VK_VIDEO_ENCODE_AV1_CAPABILITY_FRAME_SIZE_OVERRIDE_BIT_KHR = 0x00000008,
     VK_VIDEO_ENCODE_AV1_CAPABILITY_MOTION_VECTOR_SCALING_BIT_KHR = 0x00000010,
+  // Provided by VK_KHR_video_encode_av1 with VK_KHR_video_encode_intra_refresh
+    VK_VIDEO_ENCODE_AV1_CAPABILITY_COMPOUND_PREDICTION_INTRA_REFRESH_BIT_KHR = 0x00000020,
 } VkVideoEncodeAV1CapabilityFlagBitsKHR;</code></pre>
 </div>
 </div>
@@ -27033,24 +29111,24 @@ typedef enum VkVideoEncodeAV1CapabilityFlagBitsKHR {
 <ul>
 <li>
 <p><code>VK_VIDEO_ENCODE_AV1_CAPABILITY_PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_BIT_KHR</code>
-indicates support for specifying different quantizer index values in the
+specifies support for specifying different quantizer index values in the
 members of <a href="#VkVideoEncodeAV1QIndexKHR">VkVideoEncodeAV1QIndexKHR</a>.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_ENCODE_AV1_CAPABILITY_GENERATE_OBU_EXTENSION_HEADER_BIT_KHR</code>
-indicates support for generating OBU extension headers, as defined in
+specifies support for generating OBU extension headers, as defined in
 section 5.3.3 of the <a href="introduction.html#aomedia-av1" class="xref page">AV1 Specification</a>.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_ENCODE_AV1_CAPABILITY_PRIMARY_REFERENCE_CDF_ONLY_BIT_KHR</code>
-indicates support for using the primary reference frame indicated by the
+specifies support for using the primary reference frame indicated by the
 value of <code>StdVideoEncodeAV1PictureInfo</code>::<code>primary_ref_frame</code> in
 the <a href="#encode-av1-picture-info">AV1 picture information</a> only for CDF
 data reference, as defined in section 6.8.2 of the <a href="introduction.html#aomedia-av1" class="xref page">AV1    Specification</a>.</p>
 </li>
 <li>
 <p><code>VK_VIDEO_ENCODE_AV1_CAPABILITY_FRAME_SIZE_OVERRIDE_BIT_KHR</code>
-indicates support for encoding a picture with a frame size different
+specifies support for encoding a picture with a frame size different
 from the maximum frame size defined in the
 <a href="#encode-av1-active-sequence-header">active AV1 sequence header</a>.
 If this capability is not supported, then <code>frame_size_override_flag</code>
@@ -27061,7 +29139,7 @@ coded extent allowed by the <a href="#encode-av1-active-sequence-header">active 
 </li>
 <li>
 <p><code>VK_VIDEO_ENCODE_AV1_CAPABILITY_MOTION_VECTOR_SCALING_BIT_KHR</code>
-indicates support for motion vector scaling, as defined in section
+specifies support for motion vector scaling, as defined in section
 7.11.3.3 of the <a href="introduction.html#aomedia-av1" class="xref page">AV1 Specification</a>.
 If this capability is not supported, then the coded extent of all
 <a href="#active-reference-pictures">active reference pictures</a> <strong>must</strong> match the
@@ -27069,6 +29147,11 @@ coded extent of the <a href="#encode-input-picture">encode input picture</a>.
 This capability <strong>may</strong> only be supported by a video profile when
 <code>VK_VIDEO_ENCODE_AV1_CAPABILITY_FRAME_SIZE_OVERRIDE_BIT_KHR</code> is also
 supported.</p>
+</li>
+<li>
+<p><code>VK_VIDEO_ENCODE_AV1_CAPABILITY_COMPOUND_PREDICTION_INTRA_REFRESH_BIT_KHR</code>
+indicates support for encoding frames using
+<a href="#encode-av1-prediction-modes">unidirectional or bidirectional compound    prediction mode</a> with <a href="#encode-intra-refresh">intra refresh</a> enabled.</p>
 </li>
 </ul>
 </div>
@@ -27110,7 +29193,7 @@ typedef enum VkVideoEncodeAV1StdFlagBitsKHR {
 <ul>
 <li>
 <p><code>VK_VIDEO_ENCODE_AV1_STD_UNIFORM_TILE_SPACING_FLAG_SET_BIT_KHR</code>
-indicates whether the implementation supports using the
+specifies whether the implementation supports using the
 application-provided value for
 <code>StdVideoAV1TileInfoFlags</code>::<code>uniform_tile_spacing_flag</code> in the
 <a href="#encode-av1-tile-params">AV1 tile parameters</a> when that value is <code>1</code>,
@@ -27887,8 +29970,8 @@ section 6.10.15 of the <a href="introduction.html#aomedia-av1" class="xref page"
 </div>
 </li>
 <li>
-<p>the members of the <code>StdVideoAV1GlobalMotion</code> structure provided in
-<code>global_motion</code> are interpreted as defined in section 7.10 of the
+<p>the members of the <code>StdVideoAV1GlobalMotion</code> structure pointed to by
+<code>pGlobalMotion</code> are interpreted as defined in section 7.10 of the
 <a href="introduction.html#aomedia-av1" class="xref page">AV1 Specification</a>;</p>
 </li>
 <li>
@@ -28391,7 +30474,7 @@ algorithm continues from step 2.</p>
 <div class="content">
 <img src="../_images/av1_open_gop.svg" alt="av1 open gop">
 </div>
-<div class="title">Figure 11. AV1 open GOP</div>
+<div class="title">Figure 13. AV1 open GOP</div>
 </div>
 <div id="encode-av1-key-frame-period" class="paragraph">
 <p>In case of a closed GOP, a frame with the AV1 frame type
@@ -28401,7 +30484,7 @@ algorithm continues from step 2.</p>
 <div class="content">
 <img src="../_images/av1_closed_gop.svg" alt="av1 closed gop">
 </div>
-<div class="title">Figure 12. AV1 closed GOP</div>
+<div class="title">Figure 14. AV1 closed GOP</div>
 </div>
 <div class="paragraph">
 <p>It is also typical for AV1 encoding to use specific reference picture usage
@@ -28440,7 +30523,7 @@ display order, as its backward reference.</p>
 <div class="content">
 <img src="../_images/av1_ref_pattern_flat.svg" alt="av1 ref pattern flat">
 </div>
-<div class="title">Figure 13. AV1 flat reference pattern</div>
+<div class="title">Figure 15. AV1 flat reference pattern</div>
 </div>
 <div id="encode-av1-ref-pattern-dyadic" class="dlist">
 <dl>
@@ -28495,7 +30578,7 @@ if any.</p>
 <div class="content">
 <img src="../_images/av1_ref_pattern_dyadic.svg" alt="av1 ref pattern dyadic">
 </div>
-<div class="title">Figure 14. AV1 dyadic reference pattern</div>
+<div class="title">Figure 16. AV1 dyadic reference pattern</div>
 </div>
 <div class="paragraph">
 <p>The application <strong>can</strong> provide guidance to the implementation&#8217;s rate control
@@ -28548,7 +30631,7 @@ if any, as reference.</p>
 <div class="content">
 <img src="../_images/av1_layer_pattern_dyadic.svg" alt="av1 layer pattern dyadic">
 </div>
-<div class="title">Figure 15. AV1 dyadic temporal layer pattern</div>
+<div class="title">Figure 17. AV1 dyadic temporal layer pattern</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -29319,7 +31402,7 @@ operation <code>VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR</code>, as returned 
 <a href="devsandqueues.html#VkQueueFamilyVideoPropertiesKHR" class="xref page">VkQueueFamilyVideoPropertiesKHR</a>::<code>videoCodecOperations</code>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 11. Required <a href="#video-std-header-version">Video Std Header Versions</a></caption>
+<caption class="title">Table 13. Required <a href="#video-std-header-version">Video Std Header Versions</a></caption>
 <colgroup>
 <col style="width: 50%;">
 <col style="width: 50%;">
@@ -29338,7 +31421,7 @@ operation <code>VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR</code>, as returned 
 </tbody>
 </table>
 <table class="tableblock frame-all grid-all stretch">
-<caption class="title">Table 12. Required Video Capabilities</caption>
+<caption class="title">Table 14. Required Video Capabilities</caption>
 <colgroup>
 <col style="width: 58.3333%;">
 <col style="width: 23.3333%;">
@@ -29583,6 +31666,36 @@ operation <code>VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR</code>, as returned 
 <td class="tableblock halign-left valign-top"><p class="tableblock">- <sup>7</sup></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a></strong></p></td>
+<td class="tableblock halign-left valign-top"></td>
+<td class="tableblock halign-left valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>intraRefreshModes</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIntraRefreshCycleDuration</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 <sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>maxIntraRefreshActiveReferencePictures</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 <sup>9</sup></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">min</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>partitionIndependentIntraRefreshRegions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">implementation-dependent</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>nonRectangularIntraRefreshRegions</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">-</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">implementation-dependent</p></td>
+</tr>
 </tbody>
 </table>
 <div class="dlist">
@@ -29639,6 +31752,12 @@ or equal to <code>maxBidirectionalCompoundReferenceCount</code></p>
 <p>If the <a href="features.html#features-videoMaintenance2" class="xref page"><code>videoMaintenance2</code></a> feature is
 supported.</p>
 </dd>
+<dt class="hdlist1">9</dt>
+<dd>
+<p>If
+<a href="#VkVideoEncodeIntraRefreshCapabilitiesKHR">VkVideoEncodeIntraRefreshCapabilitiesKHR</a>::<code>intraRefreshModes</code>
+is not zero.</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -29676,7 +31795,30 @@ supported.</p>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

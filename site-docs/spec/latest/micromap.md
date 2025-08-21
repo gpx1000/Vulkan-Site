@@ -183,18 +183,20 @@ queried **must** have been created with
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-pInfos-07512) VUID-vkCmdBuildMicromapsEXT-pInfos-07512
 
-For each element of `pInfos`, its `scratchData.deviceAddress`,
-`data.deviceAddress`, and `triangleArray.deviceAddress` members
-**must** be valid device addresses obtained from
-[vkGetBufferDeviceAddress](../descriptorsets.html#vkGetBufferDeviceAddress)
+For each element of `pInfos`, `scratchData.deviceAddress` **must**
+be a valid `VkDeviceAddress`
 
 * 
-[](#VUID-vkCmdBuildMicromapsEXT-pInfos-07513) VUID-vkCmdBuildMicromapsEXT-pInfos-07513
+[](#VUID-vkCmdBuildMicromapsEXT-pInfos-10896) VUID-vkCmdBuildMicromapsEXT-pInfos-10896
 
-For each element of `pInfos`, if `scratchData.deviceAddress`,
-`data.deviceAddress`, or `triangleArray.deviceAddress` is the
-address of a non-sparse buffer then it **must** be bound completely and
-contiguously to a single [VkDeviceMemory](../memory.html#VkDeviceMemory) object
+For each element of `pInfos`, `data.deviceAddress` **must** be a
+valid `VkDeviceAddress`
+
+* 
+[](#VUID-vkCmdBuildMicromapsEXT-pInfos-10897) VUID-vkCmdBuildMicromapsEXT-pInfos-10897
+
+For each element of `pInfos`, `triangleArray.deviceAddress`
+**must** be a valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildMicromapsEXT-pInfos-07514) VUID-vkCmdBuildMicromapsEXT-pInfos-07514
@@ -260,6 +262,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdBuildMicromapsEXT is not affected by [conditional rendering](../drawing.html#drawing-conditional-rendering)
 
 Formats which **can** be set in [VkMicromapUsageEXT](#VkMicromapUsageEXT)::`format` and
 [VkMicromapTriangleEXT](#VkMicromapTriangleEXT)::`format` for micromap builds, are:
@@ -797,6 +803,10 @@ Command Properties
 
 Secondary | Outside | Outside | Compute | Action |
 
+Conditional Rendering
+
+vkCmdWriteMicromapsPropertiesEXT is not affected by [conditional rendering](../drawing.html#drawing-conditional-rendering)
+
 To copy a micromap call:
 
 // Provided by VK_EXT_opacity_micromap
@@ -883,6 +893,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyMicromapEXT is not affected by [conditional rendering](../drawing.html#drawing-conditional-rendering)
 
 The `VkCopyMicromapInfoEXT` structure is defined as:
 
@@ -1056,8 +1070,7 @@ Valid Usage
 * 
 [](#VUID-vkCmdCopyMicromapToMemoryEXT-pInfo-07536) VUID-vkCmdCopyMicromapToMemoryEXT-pInfo-07536
 
-`pInfo->dst.deviceAddress` **must** be a valid device address for a
-buffer bound to device memory
+`pInfo->dst.deviceAddress` **must** be a valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdCopyMicromapToMemoryEXT-pInfo-07537) VUID-vkCmdCopyMicromapToMemoryEXT-pInfo-07537
@@ -1123,6 +1136,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyMicromapToMemoryEXT is not affected by [conditional rendering](../drawing.html#drawing-conditional-rendering)
 
 // Provided by VK_EXT_opacity_micromap
 typedef struct VkCopyMicromapToMemoryInfoEXT {
@@ -1226,8 +1243,7 @@ Valid Usage
 * 
 [](#VUID-vkCmdCopyMemoryToMicromapEXT-pInfo-07543) VUID-vkCmdCopyMemoryToMicromapEXT-pInfo-07543
 
-`pInfo->src.deviceAddress` **must** be a valid device address for a
-buffer bound to device memory
+`pInfo->src.deviceAddress` **must** be a valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdCopyMemoryToMicromapEXT-pInfo-07544) VUID-vkCmdCopyMemoryToMicromapEXT-pInfo-07544
@@ -1293,6 +1309,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyMemoryToMicromapEXT is not affected by [conditional rendering](../drawing.html#drawing-conditional-rendering)
 
 The `VkCopyMemoryToMicromapInfoEXT` structure is defined as:
 
@@ -1673,21 +1693,27 @@ Return Codes
 [Success](../fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_OPERATION_DEFERRED_KHR`
 
 * 
 `VK_OPERATION_NOT_DEFERRED_KHR`
 
+* 
+`VK_SUCCESS`
+
 [Failure](../fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To copy or compact a micromap on the host, call:
 
@@ -1777,21 +1803,27 @@ Return Codes
 [Success](../fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_OPERATION_DEFERRED_KHR`
 
 * 
 `VK_OPERATION_NOT_DEFERRED_KHR`
 
+* 
+`VK_SUCCESS`
+
 [Failure](../fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To copy host accessible memory to a micromap, call:
 
@@ -1882,21 +1914,27 @@ Return Codes
 [Success](../fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_OPERATION_DEFERRED_KHR`
 
 * 
 `VK_OPERATION_NOT_DEFERRED_KHR`
 
+* 
+`VK_SUCCESS`
+
 [Failure](../fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To copy a micromap to host accessible memory, call:
 
@@ -1991,21 +2029,27 @@ Return Codes
 [Success](../fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_OPERATION_DEFERRED_KHR`
 
 * 
 `VK_OPERATION_NOT_DEFERRED_KHR`
 
+* 
+`VK_SUCCESS`
+
 [Failure](../fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To query micromap size parameters on the host, call:
 
@@ -2157,10 +2201,16 @@ Return Codes
 [Failure](../fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 A displacement micromap in an acceleration structure includes information in
 the [VkAccelerationStructureTrianglesDisplacementMicromapNV](../accelstructures.html#VkAccelerationStructureTrianglesDisplacementMicromapNV) to define a

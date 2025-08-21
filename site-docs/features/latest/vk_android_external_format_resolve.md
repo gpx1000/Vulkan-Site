@@ -118,13 +118,13 @@ This extension extends both render pass objects and dynamic rendering functional
 
 When using dynamic rendering, a new resolve mode is added to specify that the resolve attachment will have an external format:
 
-    VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID;
+    VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID;
 
 When this resolve mode is specified, the `resolveImageView` member of [VkRenderingAttachmentInfo](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#VkRenderingAttachmentInfo) used as a color attachment must be set to a `VkImageView` created with an image with a non-zero external format.
 If chroma planes of the external format are subsampled, the implementation will reduce the relevant planes by either averaging the corresponding values in the color attachment, or by simply selecting one of the values as representative.
 Implementations may resolve a color attachment to an external format resolve attachment at any time, or bypass writing to a color attachment altogether.
 
-With the resolve mode set to `VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`, the following additional constraints also apply:
+With the resolve mode set to `VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, the following additional constraints also apply:
 
 * 
 If `nullColorAttachmentWithExternalFormatResolve` property is `VK_TRUE`, `imageView` must be `VK_NULL_HANDLE`.
@@ -165,7 +165,7 @@ If the color attachment is not `VK_ATTACHMENT_UNUSED`, it must be a single sampl
 
 `colorAttachmentCount` must be 1.
 
-Color attachment values written during rendering are resolved in the same manner as specified for `VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`.
+Color attachment values written during rendering are resolved in the same manner as specified for `VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`.
 
 If the `nullColorAttachmentWithExternalFormatResolve` property is `VK_FALSE`, applications can bind the color attachment as they normally would with any other color attachment, with value reads working as expected.
 Using an external format image as an input attachment is only valid when the feature bits queried via [vkGetAndroidHardwareBufferPropertiesANDROID](https://docs.vulkan.org/spec/latest/chapters/memory.html#vkGetAndroidHardwareBufferPropertiesANDROID) advertise this functionality.
@@ -317,7 +317,7 @@ VkRenderingAttachmentInfo colorAttachment = {
     NULL,
     nullColorAttachmentWithExternalFormatResolve ? VK_NULL_HANDLE : colorImageView;
     VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL,
-    VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID,
+    VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID,
     externalResolveImageView,
     VK_IMAGE_LAYOUT_ATTACHMENT_OPTIMAL,
     VK_LOAD_OP_LOAD,

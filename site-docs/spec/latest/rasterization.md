@@ -540,6 +540,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetRasterizerDiscardEnable is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 By default vertex data output from the last
 [pre-rasterization shader stage](pipelines.html#pipelines-graphics-subsets-pre-rasterization) are directed to vertex stream zero.
 Geometry shaders **can** emit primitives to multiple independent vertex
@@ -746,6 +750,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetRasterizationStreamEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Within a subpass of a [render pass instance](renderpass.html#renderpass), for a given
 (x,y,layer,sample) sample location, the following operations are guaranteed
@@ -963,6 +971,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetRasterizationSamplesEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Each sample in a fragment is also assigned a unique *coverage index* j
 in the range [0, n × `rasterizationSamples`), where n
@@ -1337,6 +1349,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetSampleLocationsEnableEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the sample locations used
 for rasterization, call:
 
@@ -1419,6 +1435,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetSampleLocationsEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The features advertised by
 [VkPhysicalDeviceFragmentShadingRateFeaturesKHR](features.html#VkPhysicalDeviceFragmentShadingRateFeaturesKHR) allow an application to
@@ -1555,15 +1575,21 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_INCOMPLETE`
 
 * 
-`VK_INCOMPLETE`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkPhysicalDeviceFragmentShadingRateKHR` structure is defined as
 
@@ -1812,6 +1838,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetFragmentShadingRateKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The *primitive fragment shading rate* **can** be set via the
 [`PrimitiveShadingRateKHR`](interfaces.html#interfaces-builtin-variables-primitiveshadingrate) built-in in the last active
@@ -2362,6 +2392,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetFragmentShadingRateEnumNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 When the [`supersampleFragmentShadingRates`](features.html#features-supersampleFragmentShadingRates) or
 [`noInvocationFragmentShadingRates`](features.html#features-noInvocationFragmentShadingRates) features are enabled, the behavior
 of the [shading rate combiner operations](#primsrast-fragment-shading-rate-combining) is extended to support the shading rates enabled by those
@@ -2611,6 +2645,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdBindShadingRateImageNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 When the shading rate image is enabled in the current pipeline, rasterizing
 a primitive covering the pixel with coordinates (*x*,*y*) will fetch a
 shading rate index value from the shading rate image bound by
@@ -2721,6 +2759,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetShadingRateImageEnableNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the per-viewport shading
 rate image palettes, call:
 
@@ -2830,6 +2872,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetViewportShadingRatePaletteNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkShadingRatePaletteNV` structure specifies to contents of a single
 shading rate image palette and is defined as:
@@ -3359,6 +3405,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetCoarseSampleOrderNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 If the final shading rate for a primitive covering pixel (*x*,*y*) results
 in *n* invocations per pixel (*n* > 1), *n* separate fragment shader
 invocations will be generated for the fragment.
@@ -3871,6 +3921,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetLineRasterizationModeEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the `stippledLineEnable`
 state, call:
 
@@ -3946,6 +4000,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetLineStippleEnableEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the line width, call:
 
 // Provided by VK_VERSION_1_0
@@ -4012,6 +4070,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetLineWidth is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Not all line widths need be supported for line segment rasterization, but
 width 1.0 antialiased segments **must** be provided.
@@ -4436,6 +4498,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetLineStipple is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 If the `lineRasterizationMode` member of
 [VkPipelineRasterizationLineStateCreateInfo](#VkPipelineRasterizationLineStateCreateInfo) is
 `VK_LINE_RASTERIZATION_MODE_RECTANGULAR_SMOOTH`, then lines are
@@ -4590,6 +4656,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetFrontFace is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Once the orientation of triangles is determined, they are culled according
 to the [VkPipelineRasterizationStateCreateInfo](#VkPipelineRasterizationStateCreateInfo)::`cullMode` property
 of the currently active pipeline.
@@ -4715,6 +4785,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetCullMode is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The rule for determining which fragments are produced by polygon
 rasterization is called *point sampling*.
@@ -4961,6 +5035,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetPolygonModeEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The depth values of all fragments generated by the rasterization of a
 polygon **can** be biased (offset) by a single depth bias value   
 that is computed for that polygon.
@@ -5059,6 +5137,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetDepthBiasEnable is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The depth bias depends on three parameters:
 
@@ -5245,6 +5327,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetDepthBias is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkDepthBiasRepresentationInfoEXT` structure is defined as:
 
@@ -5454,6 +5540,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetDepthBias2EXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 If the `pNext` chain of [VkPipelineRasterizationStateCreateInfo](#VkPipelineRasterizationStateCreateInfo)
 includes a `VkPipelineRasterizationConservativeStateCreateInfoEXT`
 structure, then that structure includes parameters controlling conservative
@@ -5647,6 +5737,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetConservativeRasterizationModeEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the
 `extraPrimitiveOverestimationSize`, call:
 
@@ -5728,6 +5822,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetExtraPrimitiveOverestimationSizeEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 When overestimate conservative rasterization is enabled, rather than
 evaluating coverage at individual sample locations, a determination is made

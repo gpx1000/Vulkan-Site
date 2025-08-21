@@ -70,7 +70,7 @@ MySample::MySample()
 | --- | --- |
 There is no need to manually get extension pointer functions. |
 
-By default all samples create a Vulkan 1.0 instance.
+By default all samples create a Vulkan 1.1 instance.
 Higher versions can be requested in the constructor of a sample:
 
 MySample::MySample()

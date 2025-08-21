@@ -63,8 +63,8 @@
 - [HPP_High_dynamic_range](#_hpp_high_dynamic_range)
 - [HPP Hello Triangle](#_hpp_hello_triangle)
 - [HPP_Hello_Triangle](#_hpp_hello_triangle)
-- [HPP HLSL shaders](#_hpp_hlsl_shaders)
-- [HPP_HLSL_shaders](#_hpp_hlsl_shaders)
+- [HPP Hello Triangle 1.3](#_hpp_hello_triangle_1_3)
+- [HPP_Hello_Triangle_1.3](#_hpp_hello_triangle_1_3)
 - [HPP Instancing](#_hpp_instancing)
 - [HPP OIT Depth Peeling](#_hpp_oit_depth_peeling)
 - [HPP_OIT_Depth_Peeling](#_hpp_oit_depth_peeling)
@@ -87,7 +87,6 @@
 - [Texture loading](#_texture_loading)
 - [Texture run-time mip-map generation](#_texture_run_time_mip_map_generation)
 - [Texture_run-time_mip-map_generation](#_texture_run_time_mip_map_generation)
-- [HLSL shaders](#_hlsl_shaders)
 - [Timestamp queries](#_timestamp_queries)
 - [Swapchain recreation](#_swapchain_recreation)
 - [Order-independent transparency with per-pixel ordered linked lists](#_order_independent_transparency_with_per_pixel_ordered_linked_lists)
@@ -281,35 +280,35 @@ Dynamic uniform buffers are used for rendering multiple objects with separate ma
 
 Implements a high dynamic range rendering pipeline using 16/32 bit floating point precision for all calculations.
 
-A self-contained (minimal use of framework) sample that illustrates the rendering of a triangle using unextended Vulkan 1.0.
+A self-contained (minimal use of framework) sample that illustrates the rendering of a triangle using unextended Vulkan 1.1.
 
 A self-contained (minimal use of framework) sample that illustrates the rendering of a triangle using Vulkan 1.3 features.
 
-A transcoded version of the API sample [Compute N-Body](api/compute_nbody/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [Compute N-Body](api/compute_nbody/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample [Dynamic Uniform buffers](api/dynamic_uniform_buffers/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [Dynamic Uniform buffers](api/dynamic_uniform_buffers/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample [High dynamic range](api/hdr/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [High dynamic range](api/hdr/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample [Hello Triangle](api/hello_triangle/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [Hello Triangle](api/hello_triangle/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample [HLSL Shaders](api/hlsl_shaders/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [Hello Triangle 1.3](api/hello_triangle_1_3/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample [Instancing](api/instancing/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [Instancing](api/instancing/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample [OIT Depth Peeling](api/oit_depth_peeling/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [OIT Depth Peeling](api/oit_depth_peeling/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample [OIT Linked Lists](api/oit_linked_lists/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [OIT Linked Lists](api/oit_linked_lists/README.html) that illustrates the usage of the C++ bindings of Vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample [Separate image sampler](api/separate_image_sampler/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [Separate image sampler](api/separate_image_sampler/README.html) that illustrates the usage of the C++ bindings of vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample [Terrain Tessellation](api/terrain_tessellation/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [Terrain Tessellation](api/terrain_tessellation/README.html) that illustrates the usage of the C++ bindings of vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample [Texture loading](api/texture_loading/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [Texture loading](api/texture_loading/README.html) that illustrates the usage of the C++ bindings of vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample [Texture run-time mip-map generation](api/texture_mipmap_generation/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+A transcoded version of the API sample [Texture run-time mip-map generation](api/texture_mipmap_generation/README.html) that illustrates the usage of the C++ bindings of vulkan provided by Vulkan-Hpp.
 
-A transcoded version of the API sample[Timestamp queries](api/timestamp_queries/README.html) that illustrates the usage of the C++ bindings of vulkan provided by vulkan.hpp.
+A transcoded version of the API sample[Timestamp queries](api/timestamp_queries/README.html) that illustrates the usage of the C++ bindings of vulkan provided by Vulkan-Hpp.
 
 Uses the instancing feature for rendering many instances of the same mesh from a single vertex buffer with variable parameters and textures.
 
@@ -321,8 +320,6 @@ Uses a tessellation shader for rendering a terrain with dynamic level-of-detail 
 Loading and rendering of a 2D texture map from a file.
 
 Generates a complete mip-chain for a texture at runtime instead of loading it from a file.
-
-Converts High Level Shading Language (HLSL) shaders to Vulkan-compatible SPIR-V.
 
 Using timestamp queries for profiling GPU workloads.
 

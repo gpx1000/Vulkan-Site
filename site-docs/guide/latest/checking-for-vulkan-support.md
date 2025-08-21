@@ -78,4 +78,4 @@ View the [SDK documentation on VIA](https://vulkan.lunarg.com/doc/sdk/latest/win
 
 A simple way to check for Vulkan support cross platform is to create a simple “Hello World” Vulkan application. The `vkCreateInstance` function is used to create a Vulkan Instance and is also the shortest way to write a valid Vulkan application.
 
-The Vulkan SDK provides a minimal [vkCreateInstance](https://vulkan.lunarg.com/doc/view/latest/windows/tutorial/html/01-init_instance.html) example `01-init_instance.cpp` that can be used.
+The Vulkan SDK provides a minimal [vkCreateInstance](https://docs.vulkan.org/tutorial/latest/03_Drawing_a_triangle/00_Setup/01_Instance.html) example `01-init_instance.cpp` that can be used.

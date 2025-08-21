@@ -63,6 +63,7 @@
 - [Unsigned_11-Bit_Floating-Point_Numbers](#fundamentals-fp11)
 - [Unsigned 10-Bit Floating-Point Numbers](#fundamentals-fp10)
 - [Unsigned_10-Bit_Floating-Point_Numbers](#fundamentals-fp10)
+- [8-bit booleans](#fundamentals-bool)
 - [General Requirements](#fundamentals-general)
 - [Fixed-Point Data Conversions](#fundamentals-fixedconv)
 - [Fixed-Point_Data_Conversions](#fundamentals-fixedconv)
@@ -457,6 +458,24 @@ typedef uint64_t VkDeviceSize;
 // Provided by VK_VERSION_1_0
 typedef uint64_t VkDeviceAddress;
 
+Valid Usage
+
+* 
+[](#VUID-VkDeviceAddress-size-11364) VUID-VkDeviceAddress-size-11364
+
+A valid `VkDeviceAddress` **must** be equal to the sum of an address
+retrieved from a [VkBuffer](resources.html#VkBuffer) via [vkGetBufferDeviceAddress](resources.html#vkGetBufferDeviceAddress), and
+any offset in the range [0, `size`), where `size` is the
+value of [VkBufferCreateInfo](resources.html#VkBufferCreateInfo)::`size` used to create that
+[VkBuffer](resources.html#VkBuffer)
+
+* 
+[](#VUID-VkDeviceAddress-None-10894) VUID-VkDeviceAddress-None-10894
+
+If a `VkDeviceAddress` was retrieved from a non-sparse buffer,
+that buffer **must** be bound completely and contiguously to a single
+`VkDeviceMemory` object
+
 Commands that create Vulkan objects are of the form `vkCreate*` and take
 `Vk*CreateInfo` structures with the parameters needed to create the
 object.
@@ -765,6 +784,15 @@ The `shaderModule` parameter in [vkDestroyShaderModule](shaders.html#vkDestroySh
 The `pipelineCache` parameter in [vkDestroyPipelineCache](pipelines.html#vkDestroyPipelineCache)
 
 * 
+The `dstCache` parameter in [vkMergePipelineCaches](pipelines.html#vkMergePipelineCaches), conditionally1
+
+* 
+The `pipelineCache` parameter in [vkCreateGraphicsPipelines](pipelines.html#vkCreateGraphicsPipelines), conditionally1
+
+* 
+The `pipelineCache` parameter in [vkCreateComputePipelines](pipelines.html#vkCreateComputePipelines), conditionally1
+
+* 
 The `pipeline` parameter in [vkDestroyPipeline](pipelines.html#vkDestroyPipeline)
 
 * 
@@ -955,6 +983,9 @@ The `ycbcrConversion` parameter in [vkDestroySamplerYcbcrConversion](samplers.ht
 
 * 
 The `descriptorUpdateTemplate` parameter in [vkDestroyDescriptorUpdateTemplate](descriptorsets.html#vkDestroyDescriptorUpdateTemplate)
+
+* 
+The `descriptorSet` parameter in [vkUpdateDescriptorSetWithTemplate](descriptorsets.html#vkUpdateDescriptorSetWithTemplate), conditionally1
 
 * 
 The `commandBuffer` parameter in [vkCmdDrawIndirectCount](drawing.html#vkCmdDrawIndirectCount)
@@ -1170,6 +1201,9 @@ The `commandBuffer` parameter in [vkCmdPushDescriptorSetWithTemplateKHR](descrip
 The `descriptorUpdateTemplate` parameter in [vkDestroyDescriptorUpdateTemplateKHR](descriptorsets.html#vkDestroyDescriptorUpdateTemplateKHR)
 
 * 
+The `descriptorSet` parameter in [vkUpdateDescriptorSetWithTemplateKHR](descriptorsets.html#vkUpdateDescriptorSetWithTemplateKHR), conditionally1
+
+* 
 The `commandBuffer` parameter in [vkCmdBeginRenderPass2KHR](renderpass.html#vkCmdBeginRenderPass2KHR)
 
 * 
@@ -1252,6 +1286,9 @@ The `commandBuffer` parameter in [vkCmdTraceRaysIndirect2KHR](raytracing.html#vk
 
 * 
 The `commandBuffer` parameter in [vkCmdBindIndexBuffer2KHR](drawing.html#vkCmdBindIndexBuffer2KHR)
+
+* 
+The `swapchain` parameter in [vkWaitForPresent2KHR](VK_KHR_surface/wsi.html#vkWaitForPresent2KHR)
 
 * 
 The `pipelineBinary` parameter in [vkDestroyPipelineBinaryKHR](pipelines.html#vkDestroyPipelineBinaryKHR)
@@ -1362,6 +1399,9 @@ The `commandBuffer` parameter in [vkCmdInsertDebugUtilsLabelEXT](debugging.html#
 The `messenger` parameter in [vkDestroyDebugUtilsMessengerEXT](debugging.html#vkDestroyDebugUtilsMessengerEXT)
 
 * 
+The `pipelineCache` parameter in [vkCreateExecutionGraphPipelinesAMDX](executiongraphs.html#vkCreateExecutionGraphPipelinesAMDX), conditionally1
+
+* 
 The `commandBuffer` parameter in [vkCmdSetSampleLocationsEXT](primsrast.html#vkCmdSetSampleLocationsEXT)
 
 * 
@@ -1390,6 +1430,9 @@ The `commandBuffer` parameter in [vkCmdCopyAccelerationStructureNV](accelstructu
 
 * 
 The `commandBuffer` parameter in [vkCmdTraceRaysNV](raytracing.html#vkCmdTraceRaysNV)
+
+* 
+The `pipelineCache` parameter in [vkCreateRayTracingPipelinesNV](pipelines.html#vkCreateRayTracingPipelinesNV), conditionally1
 
 * 
 The `commandBuffer` parameter in [vkCmdWriteAccelerationStructuresPropertiesNV](accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesNV)
@@ -1429,6 +1472,9 @@ The `commandBuffer` parameter in [vkCmdSetPerformanceOverrideINTEL](queries.html
 
 * 
 The `configuration` parameter in [vkReleasePerformanceConfigurationINTEL](queries.html#vkReleasePerformanceConfigurationINTEL)
+
+* 
+The `queue` parameter in [vkQueueSetPerformanceConfigurationINTEL](queries.html#vkQueueSetPerformanceConfigurationINTEL)
 
 * 
 The `commandBuffer` parameter in [vkCmdSetLineStippleEXT](primsrast.html#vkCmdSetLineStippleEXT)
@@ -1665,6 +1711,15 @@ The `commandBuffer` parameter in [vkCmdSetRepresentativeFragmentTestEnableNV](fr
 The `commandBuffer` parameter in [vkCmdSetCoverageReductionModeNV](fragops.html#vkCmdSetCoverageReductionModeNV)
 
 * 
+The `tensor` parameter in [vkDestroyTensorARM](resources.html#vkDestroyTensorARM)
+
+* 
+The `tensorView` parameter in [vkDestroyTensorViewARM](resources.html#vkDestroyTensorViewARM)
+
+* 
+The `commandBuffer` parameter in [vkCmdCopyTensorARM](copies.html#vkCmdCopyTensorARM)
+
+* 
 The `shader` parameter in [vkDestroyShaderEXT](shaders.html#vkDestroyShaderEXT)
 
 * 
@@ -1675,6 +1730,12 @@ The `commandBuffer` parameter in [vkCmdSetDepthClampRangeEXT](fragops.html#vkCmd
 
 * 
 The `commandBuffer` parameter in [vkCmdConvertCooperativeVectorMatrixNV](shaders.html#vkCmdConvertCooperativeVectorMatrixNV)
+
+* 
+The `session` parameter in [vkDestroyDataGraphPipelineSessionARM](VK_ARM_data_graph/graphs.html#vkDestroyDataGraphPipelineSessionARM)
+
+* 
+The `commandBuffer` parameter in [vkCmdDispatchDataGraphARM](VK_ARM_data_graph/graphs.html#vkCmdDispatchDataGraphARM)
 
 * 
 The `commandBuffer` parameter in [vkCmdSetAttachmentFeedbackLoopEnableEXT](renderpass.html#vkCmdSetAttachmentFeedbackLoopEnableEXT)
@@ -1737,6 +1798,9 @@ The `commandBuffer` parameter in [vkCmdWriteAccelerationStructuresPropertiesKHR]
 The `commandBuffer` parameter in [vkCmdTraceRaysKHR](raytracing.html#vkCmdTraceRaysKHR)
 
 * 
+The `pipelineCache` parameter in [vkCreateRayTracingPipelinesKHR](pipelines.html#vkCreateRayTracingPipelinesKHR), conditionally1
+
+* 
 The `commandBuffer` parameter in [vkCmdTraceRaysIndirectKHR](raytracing.html#vkCmdTraceRaysIndirectKHR)
 
 * 
@@ -1752,10 +1816,19 @@ The `commandBuffer` parameter in [vkCmdDrawMeshTasksIndirectEXT](drawing.html#vk
 The `commandBuffer` parameter in [vkCmdDrawMeshTasksIndirectCountEXT](drawing.html#vkCmdDrawMeshTasksIndirectCountEXT)
 
 * 
+The `dstSet` member of [VkCopyDescriptorSet](descriptorsets.html#VkCopyDescriptorSet), conditionally1
+
+* 
 The `descriptorPool` member of [VkDescriptorSetAllocateInfo](descriptorsets.html#VkDescriptorSetAllocateInfo)
 
 * 
 The `commandPool` member of [VkCommandBufferAllocateInfo](cmdbuffers.html#VkCommandBufferAllocateInfo)
+
+* 
+The `buffer` member of [VkBindBufferMemoryInfo](resources.html#VkBindBufferMemoryInfo)
+
+* 
+The `image` member of [VkBindImageMemoryInfo](resources.html#VkBindImageMemoryInfo)
 
 * 
 The `memory` member of [VkMemoryMapInfo](memory.html#VkMemoryMapInfo)
@@ -1800,6 +1873,9 @@ The `mode` member of [VkDisplayPlaneInfo2KHR](VK_KHR_surface/wsi.html#VkDisplayP
 The `pipeline` member of [VkReleaseCapturedPipelineDataInfoKHR](pipelines.html#VkReleaseCapturedPipelineDataInfoKHR)
 
 * 
+The `swapchain` member of [VkReleaseSwapchainImagesInfoKHR](VK_KHR_surface/wsi.html#VkReleaseSwapchainImagesInfoKHR)
+
+* 
 The `object` member of [VkDebugMarkerObjectNameInfoEXT](debugging.html#VkDebugMarkerObjectNameInfoEXT)
 
 * 
@@ -1809,15 +1885,12 @@ The `object` member of [VkDebugMarkerObjectTagInfoEXT](debugging.html#VkDebugMar
 The `objectHandle` member of [VkDebugUtilsObjectTagInfoEXT](debugging.html#VkDebugUtilsObjectTagInfoEXT)
 
 * 
-The `swapchain` member of [VkReleaseSwapchainImagesInfoEXT](VK_KHR_surface/wsi.html#VkReleaseSwapchainImagesInfoEXT)
-
-* 
 The `semaphore` member of [VkImportSemaphoreZirconHandleInfoFUCHSIA](synchronization.html#VkImportSemaphoreZirconHandleInfoFUCHSIA)
 
-For [VkPipelineCache](pipelines.html#VkPipelineCache) objects created with `flags` containing
-`VK_PIPELINE_CACHE_CREATE_EXTERNALLY_SYNCHRONIZED_BIT`, the above table
-is extended with the `pipelineCache` parameter to
-`vkCreate*Pipelines` being externally synchronized.
+* 
+The `tensor` member of [VkBindTensorMemoryInfoARM](resources.html#VkBindTensorMemoryInfoARM)
+
+1 See Valid Usage language for this token for details.
 
 There are also a few instances where a command **can** take in an
 application-allocated list whose contents are externally synchronized
@@ -1835,6 +1908,9 @@ Each element of the `pFences` parameter in [vkResetFences](synchronization.html#
 Each element of the `pDescriptorSets` parameter in [vkFreeDescriptorSets](descriptorsets.html#vkFreeDescriptorSets)
 
 * 
+The `dstSet` member of each element of the `pDescriptorWrites` parameter in [vkUpdateDescriptorSets](descriptorsets.html#vkUpdateDescriptorSets), conditionally1
+
+* 
 Each element of the `pCommandBuffers` parameter in [vkFreeCommandBuffers](cmdbuffers.html#vkFreeCommandBuffers)
 
 * 
@@ -1842,6 +1918,8 @@ Each element of the `pWaitSemaphores` member of [VkPresentInfoKHR](VK_KHR_surfac
 
 * 
 Each element of the `pSwapchains` member of [VkPresentInfoKHR](VK_KHR_surface/wsi.html#VkPresentInfoKHR)
+
+1 See Valid Usage language for this token for details.
 
 In addition, there are some implicit parameters that need to be externally
 synchronized.
@@ -2627,6 +2705,9 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetReprese
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetCoverageReductionModeNV](fragops.html#vkCmdSetCoverageReductionModeNV)
 
 * 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdCopyTensorARM](copies.html#vkCmdCopyTensorARM)
+
+* 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdOpticalFlowExecuteNV](VK_NV_optical_flow/optical_flow.html#vkCmdOpticalFlowExecuteNV)
 
 * 
@@ -2637,6 +2718,9 @@ The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetDepthCl
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdConvertCooperativeVectorMatrixNV](shaders.html#vkCmdConvertCooperativeVectorMatrixNV)
+
+* 
+The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdDispatchDataGraphARM](VK_ARM_data_graph/graphs.html#vkCmdDispatchDataGraphARM)
 
 * 
 The `VkCommandPool` that `commandBuffer` was allocated from, in [vkCmdSetAttachmentFeedbackLoopEnableEXT](renderpass.html#vkCmdSetAttachmentFeedbackLoopEnableEXT)
@@ -3148,6 +3232,8 @@ typedef enum VkResult {
     VK_ERROR_FORMAT_NOT_SUPPORTED = -11,
     VK_ERROR_FRAGMENTED_POOL = -12,
     VK_ERROR_UNKNOWN = -13,
+  // Provided by VK_VERSION_1_0
+    VK_ERROR_VALIDATION_FAILED = -1000011001,
   // Provided by VK_VERSION_1_1
     VK_ERROR_OUT_OF_POOL_MEMORY = -1000069000,
   // Provided by VK_VERSION_1_1
@@ -3170,8 +3256,6 @@ typedef enum VkResult {
     VK_ERROR_OUT_OF_DATE_KHR = -1000001004,
   // Provided by VK_KHR_display_swapchain
     VK_ERROR_INCOMPATIBLE_DISPLAY_KHR = -1000003001,
-  // Provided by VK_EXT_debug_report
-    VK_ERROR_VALIDATION_FAILED_EXT = -1000011001,
   // Provided by VK_NV_glsl_shader
     VK_ERROR_INVALID_SHADER_NV = -1000012000,
   // Provided by VK_KHR_video_queue
@@ -3208,6 +3292,8 @@ typedef enum VkResult {
     VK_PIPELINE_BINARY_MISSING_KHR = 1000483000,
   // Provided by VK_KHR_pipeline_binary
     VK_ERROR_NOT_ENOUGH_SPACE_KHR = -1000483000,
+  // Provided by VK_EXT_debug_report
+    VK_ERROR_VALIDATION_FAILED_EXT = VK_ERROR_VALIDATION_FAILED,
   // Provided by VK_KHR_maintenance1
     VK_ERROR_OUT_OF_POOL_MEMORY_KHR = VK_ERROR_OUT_OF_POOL_MEMORY,
   // Provided by VK_KHR_external_memory
@@ -3408,9 +3494,9 @@ This **may** occur due to implementation-dependent reasons, outside of the
 application’s control.
 
 * 
-`VK_ERROR_VALIDATION_FAILED_EXT`
-A command failed because invalid usage was detected by the
-implementation or a validation-layer.
+`VK_ERROR_VALIDATION_FAILED` A command failed because invalid usage
+was detected by the implementation or a validation layer.
+This **may** result in the command not being dispatched to the ICD.
 
 * 
 `VK_ERROR_COMPRESSION_EXHAUSTED_EXT` An image creation failed
@@ -3493,16 +3579,14 @@ Under these conditions, it **may** be returned from any command returning a
 |  | `VK_ERROR_UNKNOWN` is not expected to ever be returned if the
 | --- | --- |
 application behavior is valid, and if the implementation is bug-free.
-If `VK_ERROR_UNKNOWN` is received, the application should be checked
+If `VK_ERROR_UNKNOWN` is returned, the application should be checked
 against the latest validation layers to verify correct behavior as much as
 possible.
 If no issues are identified it could be an implementation issue, and the
 implementor should be contacted for support. |
 
 Any command returning a [VkResult](#VkResult) **may** return
-`VK_ERROR_VALIDATION_FAILED_EXT`
-if a violation of valid usage is detected, even though commands do not
-explicitly list this as a possible return code.
+`VK_ERROR_VALIDATION_FAILED` if a violation of valid usage is detected.
 
 Performance-critical commands generally do not have return codes.
 If a runtime error occurs in such commands, the implementation will defer
@@ -3583,6 +3667,14 @@ floating-point numbers” section of the [Khronos Data Format Specification](int
 
 Unsigned 10-bit floating-point numbers are defined in the “Unsigned 10-bit
 floating-point numbers” section of the [Khronos Data Format Specification](introduction.html#data-format).
+
+An 8-bit boolean uses the following representation for `true` and `false`:
+
+* 
+Zero to represent `false`
+
+* 
+Any non-zero value to represent `true`
 
 Any representable floating-point value in the appropriate format is legal as
 input to a Vulkan command that requires floating-point data.
@@ -4971,24 +5063,6 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_MEMORY_MAP_PLACED_INFO_EXT = 1000272002,
   // Provided by VK_EXT_shader_atomic_float2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT_2_FEATURES_EXT = 1000273000,
-  // Provided by VK_EXT_surface_maintenance1
-    VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_EXT = 1000274000,
-  // Provided by VK_EXT_surface_maintenance1
-    VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT = 1000274001,
-  // Provided by VK_EXT_surface_maintenance1
-    VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_EXT = 1000274002,
-  // Provided by VK_EXT_swapchain_maintenance1
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT = 1000275000,
-  // Provided by VK_EXT_swapchain_maintenance1
-    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_EXT = 1000275001,
-  // Provided by VK_EXT_swapchain_maintenance1
-    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT = 1000275002,
-  // Provided by VK_EXT_swapchain_maintenance1
-    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_EXT = 1000275003,
-  // Provided by VK_EXT_swapchain_maintenance1
-    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT = 1000275004,
-  // Provided by VK_EXT_swapchain_maintenance1
-    VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_EXT = 1000275005,
   // Provided by VK_NV_device_generated_commands
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEVICE_GENERATED_COMMANDS_PROPERTIES_NV = 1000277000,
   // Provided by VK_NV_device_generated_commands
@@ -5233,8 +5307,6 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLIP_CONTROL_CREATE_INFO_EXT = 1000355001,
   // Provided by VK_EXT_primitive_topology_list_restart
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVE_TOPOLOGY_LIST_RESTART_FEATURES_EXT = 1000356000,
-  // Provided by VK_EXT_present_mode_fifo_latest_ready
-    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_EXT = 1000361000,
   // Provided by VK_FUCHSIA_external_memory
     VK_STRUCTURE_TYPE_IMPORT_MEMORY_ZIRCON_HANDLE_INFO_FUCHSIA = 1000364000,
   // Provided by VK_FUCHSIA_external_memory
@@ -5303,6 +5375,8 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRIMITIVES_GENERATED_QUERY_FEATURES_EXT = 1000382000,
   // Provided by VK_KHR_ray_tracing_maintenance1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_MAINTENANCE_1_FEATURES_KHR = 1000386000,
+  // Provided by VK_KHR_shader_untyped_pointers
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR = 1000387000,
   // Provided by VK_EXT_image_view_min_lod
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_IMAGE_VIEW_MIN_LOD_FEATURES_EXT = 1000391000,
   // Provided by VK_EXT_image_view_min_lod
@@ -5445,6 +5519,54 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_INFO_LUNARG = 1000459000,
   // Provided by VK_LUNARG_direct_driver_loading
     VK_STRUCTURE_TYPE_DIRECT_DRIVER_LOADING_LIST_LUNARG = 1000459001,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_TENSOR_CREATE_INFO_ARM = 1000460000,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_TENSOR_VIEW_CREATE_INFO_ARM = 1000460001,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_BIND_TENSOR_MEMORY_INFO_ARM = 1000460002,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_TENSOR_ARM = 1000460003,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM = 1000460004,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_TENSOR_FORMAT_PROPERTIES_ARM = 1000460005,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_TENSOR_DESCRIPTION_ARM = 1000460006,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_TENSOR_MEMORY_REQUIREMENTS_INFO_ARM = 1000460007,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_TENSOR_MEMORY_BARRIER_ARM = 1000460008,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_FEATURES_ARM = 1000460009,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM = 1000460010,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_COPY_TENSOR_INFO_ARM = 1000460011,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_TENSOR_COPY_ARM = 1000460012,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_TENSOR_DEPENDENCY_INFO_ARM = 1000460013,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM = 1000460014,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM = 1000460015,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_EXTERNAL_TENSOR_PROPERTIES_ARM = 1000460016,
+  // Provided by VK_ARM_tensors
+    VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM = 1000460017,
+  // Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM = 1000460018,
+  // Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM = 1000460019,
+  // Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+    VK_STRUCTURE_TYPE_DESCRIPTOR_GET_TENSOR_INFO_ARM = 1000460020,
+  // Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+    VK_STRUCTURE_TYPE_TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM = 1000460021,
+  // Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+    VK_STRUCTURE_TYPE_TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM = 1000460022,
+  // Provided by VK_EXT_frame_boundary with VK_ARM_tensors
+    VK_STRUCTURE_TYPE_FRAME_BOUNDARY_TENSORS_ARM = 1000460023,
   // Provided by VK_EXT_shader_module_identifier
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_MODULE_IDENTIFIER_FEATURES_EXT = 1000462000,
   // Provided by VK_EXT_shader_module_identifier
@@ -5483,6 +5605,26 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_ANTI_LAG_DATA_AMD = 1000476001,
   // Provided by VK_AMD_anti_lag
     VK_STRUCTURE_TYPE_ANTI_LAG_PRESENTATION_INFO_AMD = 1000476002,
+#ifdef VK_ENABLE_BETA_EXTENSIONS
+  // Provided by VK_AMDX_dense_geometry_format
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX = 1000478000,
+#endif
+#ifdef VK_ENABLE_BETA_EXTENSIONS
+  // Provided by VK_AMDX_dense_geometry_format
+    VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX = 1000478001,
+#endif
+  // Provided by VK_KHR_present_id2
+    VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_ID_2_KHR = 1000479000,
+  // Provided by VK_KHR_present_id2
+    VK_STRUCTURE_TYPE_PRESENT_ID_2_KHR = 1000479001,
+  // Provided by VK_KHR_present_id2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR = 1000479002,
+  // Provided by VK_KHR_present_wait2
+    VK_STRUCTURE_TYPE_SURFACE_CAPABILITIES_PRESENT_WAIT_2_KHR = 1000480000,
+  // Provided by VK_KHR_present_wait2
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR = 1000480001,
+  // Provided by VK_KHR_present_wait2
+    VK_STRUCTURE_TYPE_PRESENT_WAIT_2_INFO_KHR = 1000480002,
   // Provided by VK_KHR_ray_tracing_position_fetch
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_POSITION_FETCH_FEATURES_KHR = 1000481000,
   // Provided by VK_EXT_shader_object
@@ -5519,6 +5661,24 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_AMIGO_PROFILING_FEATURES_SEC = 1000485000,
   // Provided by VK_SEC_amigo_profiling
     VK_STRUCTURE_TYPE_AMIGO_PROFILING_SUBMIT_INFO_SEC = 1000485001,
+  // Provided by VK_KHR_surface_maintenance1
+    VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_KHR = 1000274000,
+  // Provided by VK_KHR_surface_maintenance1
+    VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_KHR = 1000274001,
+  // Provided by VK_KHR_surface_maintenance1
+    VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_KHR = 1000274002,
+  // Provided by VK_KHR_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR = 1000275000,
+  // Provided by VK_KHR_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_KHR = 1000275001,
+  // Provided by VK_KHR_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR = 1000275002,
+  // Provided by VK_KHR_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_KHR = 1000275003,
+  // Provided by VK_KHR_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR = 1000275004,
+  // Provided by VK_KHR_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_KHR = 1000275005,
   // Provided by VK_QCOM_multiview_per_view_viewports
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_VIEWPORTS_FEATURES_QCOM = 1000488000,
   // Provided by VK_NV_ray_tracing_invocation_reorder
@@ -5579,6 +5739,46 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_COOPERATIVE_MATRIX_PROPERTIES_KHR = 1000506001,
   // Provided by VK_KHR_cooperative_matrix
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_COOPERATIVE_MATRIX_PROPERTIES_KHR = 1000506002,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CREATE_INFO_ARM = 1000507000,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_CREATE_INFO_ARM = 1000507001,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_RESOURCE_INFO_ARM = 1000507002,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_ARM = 1000507003,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_MEMORY_REQUIREMENTS_INFO_ARM = 1000507004,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_BIND_DATA_GRAPH_PIPELINE_SESSION_MEMORY_INFO_ARM = 1000507005,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM = 1000507006,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SHADER_MODULE_CREATE_INFO_ARM = 1000507007,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_PROPERTY_QUERY_RESULT_ARM = 1000507008,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_INFO_ARM = 1000507009,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_COMPILER_CONTROL_CREATE_INFO_ARM = 1000507010,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENTS_INFO_ARM = 1000507011,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_SESSION_BIND_POINT_REQUIREMENT_ARM = 1000507012,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_IDENTIFIER_CREATE_INFO_ARM = 1000507013,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_DISPATCH_INFO_ARM = 1000507014,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PROCESSING_ENGINE_CREATE_INFO_ARM = 1000507016,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_PROPERTIES_ARM = 1000507017,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_QUEUE_FAMILY_DATA_GRAPH_PROPERTIES_ARM = 1000507018,
+  // Provided by VK_ARM_data_graph
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_QUEUE_FAMILY_DATA_GRAPH_PROCESSING_ENGINE_INFO_ARM = 1000507019,
+  // Provided by VK_ARM_data_graph with VK_ARM_tensors
+    VK_STRUCTURE_TYPE_DATA_GRAPH_PIPELINE_CONSTANT_TENSOR_SEMI_STRUCTURED_SPARSITY_INFO_ARM = 1000507015,
   // Provided by VK_QCOM_multiview_per_view_render_areas
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MULTIVIEW_PER_VIEW_RENDER_AREAS_FEATURES_QCOM = 1000510000,
   // Provided by VK_QCOM_multiview_per_view_render_areas
@@ -5619,6 +5819,14 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_SESSION_CREATE_INFO_KHR = 1000513009,
   // Provided by VK_KHR_video_encode_av1
     VK_STRUCTURE_TYPE_VIDEO_ENCODE_AV1_GOP_REMAINING_FRAME_INFO_KHR = 1000513010,
+  // Provided by VK_KHR_video_decode_vp9
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR = 1000514000,
+  // Provided by VK_KHR_video_decode_vp9
+    VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_CAPABILITIES_KHR = 1000514001,
+  // Provided by VK_KHR_video_decode_vp9
+    VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_PICTURE_INFO_KHR = 1000514002,
+  // Provided by VK_KHR_video_decode_vp9
+    VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_PROFILE_INFO_KHR = 1000514003,
   // Provided by VK_KHR_video_maintenance1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_MAINTENANCE_1_FEATURES_KHR = 1000515000,
   // Provided by VK_KHR_video_maintenance1
@@ -5645,6 +5853,10 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_CUBIC_CLAMP_FEATURES_QCOM = 1000521000,
   // Provided by VK_EXT_attachment_feedback_loop_dynamic_state
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ATTACHMENT_FEEDBACK_LOOP_DYNAMIC_STATE_FEATURES_EXT = 1000524000,
+  // Provided by VK_KHR_unified_image_layouts
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR = 1000527000,
+  // Provided by VK_KHR_unified_image_layouts with VK_EXT_attachment_feedback_loop_layout and (VK_VERSION_1_3 or VK_KHR_dynamic_rendering)
+    VK_STRUCTURE_TYPE_ATTACHMENT_FEEDBACK_LOOP_INFO_EXT = 1000527001,
   // Provided by VK_QNX_external_memory_screen_buffer
     VK_STRUCTURE_TYPE_SCREEN_BUFFER_PROPERTIES_QNX = 1000529000,
   // Provided by VK_QNX_external_memory_screen_buffer
@@ -5679,6 +5891,16 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_DISPLAY_SURFACE_STEREO_CREATE_INFO_NV = 1000551000,
   // Provided by VK_NV_display_stereo
     VK_STRUCTURE_TYPE_DISPLAY_MODE_STEREO_PROPERTIES_NV = 1000551001,
+  // Provided by VK_KHR_video_encode_intra_refresh
+    VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR = 1000552000,
+  // Provided by VK_KHR_video_encode_intra_refresh
+    VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR = 1000552001,
+  // Provided by VK_KHR_video_encode_intra_refresh
+    VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR = 1000552002,
+  // Provided by VK_KHR_video_encode_intra_refresh
+    VK_STRUCTURE_TYPE_VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR = 1000552003,
+  // Provided by VK_KHR_video_encode_intra_refresh
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR = 1000552004,
   // Provided by VK_KHR_video_encode_quantization_map
     VK_STRUCTURE_TYPE_VIDEO_ENCODE_QUANTIZATION_MAP_CAPABILITIES_KHR = 1000553000,
   // Provided by VK_KHR_video_encode_quantization_map
@@ -5727,6 +5949,8 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_ATOMIC_FLOAT16_VECTOR_FEATURES_NV = 1000563000,
   // Provided by VK_EXT_shader_replicated_composites
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_REPLICATED_COMPOSITES_FEATURES_EXT = 1000564000,
+  // Provided by VK_EXT_shader_float8
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT = 1000567000,
   // Provided by VK_NV_ray_tracing_validation
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_RAY_TRACING_VALIDATION_FEATURES_NV = 1000568000,
   // Provided by VK_NV_cluster_acceleration_structure
@@ -5799,6 +6023,12 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DEPTH_CLAMP_CONTROL_FEATURES_EXT = 1000582000,
   // Provided by VK_EXT_depth_clamp_control
     VK_STRUCTURE_TYPE_PIPELINE_VIEWPORT_DEPTH_CLAMP_CONTROL_CREATE_INFO_EXT = 1000582001,
+  // Provided by VK_KHR_maintenance9
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR = 1000584000,
+  // Provided by VK_KHR_maintenance9
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR = 1000584001,
+  // Provided by VK_KHR_maintenance9
+    VK_STRUCTURE_TYPE_QUEUE_FAMILY_OWNERSHIP_TRANSFER_PROPERTIES_KHR = 1000584002,
   // Provided by VK_KHR_video_maintenance2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_MAINTENANCE_2_FEATURES_KHR = 1000586000,
   // Provided by VK_KHR_video_decode_h264 with VK_KHR_video_maintenance2
@@ -5807,6 +6037,8 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_VIDEO_DECODE_H265_INLINE_SESSION_PARAMETERS_INFO_KHR = 1000586002,
   // Provided by VK_KHR_video_decode_av1 with VK_KHR_video_maintenance2
     VK_STRUCTURE_TYPE_VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR = 1000586003,
+  // Provided by VK_OHOS_surface
+    VK_STRUCTURE_TYPE_OH_SURFACE_CREATE_INFO_OHOS = 1000587000,
   // Provided by VK_HUAWEI_hdr_vivid
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI = 1000590000,
   // Provided by VK_HUAWEI_hdr_vivid
@@ -5831,6 +6063,12 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VERTEX_ATTRIBUTE_ROBUSTNESS_FEATURES_EXT = 1000608000,
   // Provided by VK_ARM_format_pack
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM = 1000609000,
+  // Provided by VK_VALVE_fragment_density_map_layered
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE = 1000611000,
+  // Provided by VK_VALVE_fragment_density_map_layered
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE = 1000611001,
+  // Provided by VK_VALVE_fragment_density_map_layered
+    VK_STRUCTURE_TYPE_PIPELINE_FRAGMENT_DENSITY_MAP_LAYERED_CREATE_INFO_VALVE = 1000611002,
   // Provided by VK_KHR_robustness2
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ROBUSTNESS_2_FEATURES_KHR = 1000286000,
   // Provided by VK_KHR_robustness2
@@ -5853,6 +6091,10 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_RENDERING_END_INFO_EXT = 1000619003,
   // Provided by VK_EXT_zero_initialize_device_memory
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_ZERO_INITIALIZE_DEVICE_MEMORY_FEATURES_EXT = 1000620000,
+  // Provided by VK_KHR_present_mode_fifo_latest_ready
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR = 1000361000,
+  // Provided by VK_SEC_pipeline_cache_incremental_mode
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PIPELINE_CACHE_INCREMENTAL_MODE_FEATURES_SEC = 1000637000,
   // Provided by VK_VERSION_1_1
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTER_FEATURES = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VARIABLE_POINTERS_FEATURES,
   // Provided by VK_VERSION_1_1
@@ -6182,6 +6424,24 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_MEMORY_MAP_INFO_KHR = VK_STRUCTURE_TYPE_MEMORY_MAP_INFO,
   // Provided by VK_KHR_map_memory2
     VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO_KHR = VK_STRUCTURE_TYPE_MEMORY_UNMAP_INFO,
+  // Provided by VK_EXT_surface_maintenance1
+    VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_EXT = VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_KHR,
+  // Provided by VK_EXT_surface_maintenance1
+    VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_EXT = VK_STRUCTURE_TYPE_SURFACE_PRESENT_SCALING_CAPABILITIES_KHR,
+  // Provided by VK_EXT_surface_maintenance1
+    VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_EXT = VK_STRUCTURE_TYPE_SURFACE_PRESENT_MODE_COMPATIBILITY_KHR,
+  // Provided by VK_EXT_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR,
+  // Provided by VK_EXT_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_EXT = VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_FENCE_INFO_KHR,
+  // Provided by VK_EXT_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_EXT = VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODES_CREATE_INFO_KHR,
+  // Provided by VK_EXT_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_EXT = VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_MODE_INFO_KHR,
+  // Provided by VK_EXT_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_EXT = VK_STRUCTURE_TYPE_SWAPCHAIN_PRESENT_SCALING_CREATE_INFO_KHR,
+  // Provided by VK_EXT_swapchain_maintenance1
+    VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_EXT = VK_STRUCTURE_TYPE_RELEASE_SWAPCHAIN_IMAGES_INFO_KHR,
   // Provided by VK_EXT_shader_demote_to_helper_invocation
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES_EXT = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_DEMOTE_TO_HELPER_INVOCATION_FEATURES,
   // Provided by VK_KHR_shader_integer_dot_product
@@ -6256,6 +6516,8 @@ typedef enum VkStructureType {
     VK_STRUCTURE_TYPE_MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_VALVE = VK_STRUCTURE_TYPE_MUTABLE_DESCRIPTOR_TYPE_CREATE_INFO_EXT,
   // Provided by VK_KHR_format_feature_flags2
     VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_3_KHR = VK_STRUCTURE_TYPE_FORMAT_PROPERTIES_3,
+  // Provided by VK_EXT_present_mode_fifo_latest_ready
+    VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_EXT = VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR,
   // Provided by VK_EXT_pipeline_properties
     VK_STRUCTURE_TYPE_PIPELINE_INFO_EXT = VK_STRUCTURE_TYPE_PIPELINE_INFO_KHR,
   // Provided by VK_EXT_global_priority_query

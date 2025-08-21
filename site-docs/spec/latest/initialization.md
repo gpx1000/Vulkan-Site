@@ -270,6 +270,12 @@ Return Codes
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
 To create an instance object, call:
 
 // Provided by VK_VERSION_1_0
@@ -338,10 +344,10 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_EXTENSION_NOT_PRESENT`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_INCOMPATIBLE_DRIVER`
 
 * 
 `VK_ERROR_INITIALIZATION_FAILED`
@@ -350,10 +356,16 @@ Return Codes
 `VK_ERROR_LAYER_NOT_PRESENT`
 
 * 
-`VK_ERROR_EXTENSION_NOT_PRESENT`
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INCOMPATIBLE_DRIVER`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkInstanceCreateInfo` structure is defined as:
 

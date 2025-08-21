@@ -27,6 +27,8 @@
 Blending combines the incoming *source* fragment’s R, G, B, and A values
 with the *destination* R, G, B, and A values of each sample stored in the
 framebuffer at the fragment’s (xf,yf) location.
+If any components are missing in the framebuffer attachment, they are
+replaced as described in [Conversion to RGBA](textures.html#textures-conversion-to-rgba).
 Blending is performed for each color sample covered by the fragment, rather
 than just once for each fragment.
 
@@ -534,6 +536,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetColorBlendEnableEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) color blend factors and
 operations, call:
 
@@ -635,6 +641,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetColorBlendEquationEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkColorBlendEquationEXT` structure is defined as:
 
@@ -895,6 +905,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetColorWriteMaskEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The source and destination color and alpha blending factors are selected
 from the enum:
 
@@ -1030,6 +1044,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetBlendConstants is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Blend factors that use the secondary color input
 (Rs1,Gs1,Bs1,As1) (`VK_BLEND_FACTOR_SRC1_COLOR`,
@@ -1430,6 +1448,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetColorBlendAdvancedEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkColorBlendAdvancedEXT` structure is defined as:
 
@@ -1913,6 +1935,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetLogicOpEnableEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the logical operation to
 apply for blend state, call:
 
@@ -1992,6 +2018,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetLogicOpEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Bits which **can** be set in
 [VkPipelineColorBlendAttachmentState](#VkPipelineColorBlendAttachmentState)::`colorWriteMask`, determining
@@ -2222,6 +2252,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetColorWriteEnableEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To query the tile properties from the attachments in framebuffer, call:
 
 // Provided by VK_QCOM_tile_properties
@@ -2297,11 +2331,15 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_INCOMPLETE`
 
 * 
-`VK_INCOMPLETE`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
-None
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`

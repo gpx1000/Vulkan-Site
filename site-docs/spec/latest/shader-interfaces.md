@@ -110,6 +110,10 @@ Each class has a different set of matching criteria.
 shader writes to them or uses the `Initializer` operand when declaring
 the variable.
 
+For compute shaders, the input interface is formed by the built-in
+interface.
+The output interface is empty.
+
 Shader [built-in](#interfaces-builtin-variables) variables meeting the
 following requirements define the *built-in interface block*.
 They **must**
@@ -239,30 +243,29 @@ level is also disregarded when assigning `Location` slots.
 
 An array of size n with elements consuming l `Location` slots
 each will consume l × n `Location` slots.
-Each element of the array will consume all four `Component` slots in each
-`Location` slot.
+Each element of the array will consume `Component` slots in each
+`Location` slot identically to a declaration using the element type.
 
 Matrices of size n × m are assigned locations identically to
 arrays of size n of vectors of length 4 (consuming all `Component`
 slots) with an identical element type.
 
-When an `OpVariable` with a structure type is decorated with a
-`Location`, the members in the structure type **must** not be decorated with
-a `Location`.
-The `OpVariable`’s members are assigned consecutive locations in
-declaration order, starting from the first member, which is assigned the
-location decoration from the `OpVariable`.
+When a variable with a structure type is decorated with a `Location`, the
+members in the structure type **must** not be decorated with a `Location`.
+The variable’s members are assigned consecutive locations in declaration
+order, starting from the first member, which is assigned the location
+decoration from the variable.
 The `Location` slots consumed by structure members are determined by
 applying the rules above in a depth-first traversal of the instantiated
 members as though the structure or block member were declared as an input or
 output variable of the same type.
 
-An `OpVariable` with a structure type that is not decorated with
-`Block` **must** be decorated with a `Location`.
+A variable with a structure type that is not decorated with `Block` **must**
+be decorated with a `Location`.
 
-When an `OpVariable` with a structure type decorated with `Block` is
-declared without a `Location` decoration, each member in the structure
-**must** be decorated with a `Location`.
+When a variable with a structure type decorated with `Block` is declared
+without a `Location` decoration, each member in the structure **must** be
+decorated with a `Location`.
 Types nested deeper than the top-level members **must** not have `Location`
 decorations.
 
@@ -457,6 +460,10 @@ Command Properties
 | Primary
 
 Secondary | Inside | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetRenderingAttachmentLocations is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkRenderingAttachmentLocationInfo` structure is defined as:
 
@@ -903,6 +910,10 @@ Command Properties
 
 Secondary | Inside | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetRenderingInputAttachmentIndices is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkRenderingInputAttachmentIndexInfo` structure is defined as:
 
 // Provided by VK_VERSION_1_4
@@ -1146,9 +1157,11 @@ attribute **must** only declare one variable of that type.
 | Miss | r/w | r/w |  | r/w |  |
 | Callable |  |  |  | r/w | r/w |
 
-When a shader stage accesses buffer or image resources, as described in the
-[Resource Descriptors](descriptorsets.html#descriptorsets) section, the shader resource
-variables **must** be matched with the [pipeline layout](descriptorsets.html#descriptorsets-pipelinelayout) that is provided at pipeline creation time.
+When a shader stage accesses
+buffer, tensor,
+or image resources, as described in the [Resource Descriptors](descriptorsets.html#descriptorsets) section, the shader resource variables **must** be matched with
+the [pipeline layout](descriptorsets.html#descriptorsets-pipelinelayout) that is provided at
+pipeline creation time.
 
 The set of shader variables that form the *shader resource interface* for a
 stage are the variables statically used by that stage’s `OpEntryPoint`
@@ -1407,6 +1420,16 @@ Dynamically uniform: Always supported.
 * 
 Non-uniform: Never supported.
 
+Storage tensors:
+
+* 
+Dynamically uniform: `shaderStorageTensorArrayDynamicIndexing` and
+`StorageTensorArrayDynamicIndexingARM`
+
+* 
+Non-uniform: `shaderStorageTensorArrayNonUniformIndexing` and
+`StorageTensorArrayNonUniformIndexingARM`
+
 |  | Implementations must take care when implementing this if subgroups are not
 | --- | --- |
 necessarily a subset of the invocation group for their hardware (e.g. if
@@ -1443,6 +1466,7 @@ or
 `VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV` |
 | weight image | `VK_DESCRIPTOR_TYPE_SAMPLE_WEIGHT_IMAGE_QCOM` |
 | block matching image | `VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM` |
+| storage tensor | `VK_DESCRIPTOR_TYPE_TENSOR_ARM` |
 
 | Resource type | Storage Class | Type1 | Decoration(s)2 |
 | --- | --- | --- | --- |
@@ -1474,6 +1498,7 @@ or + `TileAttachmentQCOM` | `OpTypeImage` (`Depth`=0, `Dim`=`2D`,
 or + `TileAttachmentQCOM` | `OpTypeImage` (`Depth`=0, `Dim`=`2D`,
 
                             `Arrayed`=0, `MS`=0, `Sampled`=1) | `BlockMatchTextureQCOM` |
+| storage tensor | `UniformConstant` | `OpTypeTensorARM` |  |
 
 1
 
@@ -1608,11 +1633,10 @@ or
 
 Input attachments **can** only be used in the fragment shader stage
 
-Certain objects **must** be explicitly laid out using the `Offset`,
-`ArrayStride`, and `MatrixStride`, as described in
-[SPIR-V
-explicit layout validation rules](https://registry.khronos.org/spir-v/specs/unified1/SPIRV.html#ShaderValidation).
-All such layouts also **must** conform to the following requirements.
+When a SPIR-V object is declared using an
+[explicit
+layout](https://registry.khronos.org/spir-v/specs/unified1/SPIRV.html#ExplicitLayout), it **must** be laid out according to the following additional
+requirements.
 
 |  | The numeric order of `Offset` decorations does not need to follow member
 | --- | --- |
@@ -1807,10 +1831,10 @@ inputs and outputs.
 This level of arrayness is not included in the type descriptions below, but
 **must** be included when declaring the built-in.
 
-Any two `Input` storage class `OpVariable` declarations listed as
+Any two variables declared in the `Input` storage class listed as
 operands on the same `OpEntryPoint` **must** not have the same `BuiltIn`
 decoration.
-Any two `Output` storage class `OpVariable` declarations listed as
+Any two variables declared in the `Output` storage class listed as
 operands on the same `OpEntryPoint` **must** not have the same `BuiltIn`
 decoration.
 
@@ -2387,7 +2411,7 @@ using the `Output` `Storage` `Class`
 
 `CullPrimitiveEXT` **must** decorate a scalar boolean member of a
 structure decorated as `Block`, or decorate a variable of type
-`OpTypeArray` of boolean values.
+`OpTypeArray` of boolean values
 
 * 
 [](#VUID-CullPrimitiveEXT-CullPrimitiveEXT-10589) VUID-CullPrimitiveEXT-CullPrimitiveEXT-10589
@@ -2407,7 +2431,7 @@ that matches the value specified by `OutputPrimitivesEXT`
 [](#VUID-CullPrimitiveEXT-CullPrimitiveEXT-10591) VUID-CullPrimitiveEXT-CullPrimitiveEXT-10591
 
 There must be only one declaration of the `CullPrimitiveEXT`
-associated with a entry point’s interface.
+associated with a entry point’s interface
 
 * 
 [](#VUID-CullPrimitiveEXT-CullPrimitiveEXT-07038) VUID-CullPrimitiveEXT-CullPrimitiveEXT-07038
@@ -3034,7 +3058,7 @@ used only if the value of `HitKindKHR` is
 
 The acceleration structure corresponding to the current intersection
 **must** have been built with
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_BIT_KHR`
 
 `IncomingRayFlagsKHR`
 
@@ -3400,7 +3424,7 @@ The variable decorated with `Layer` within the `Fragment`
 
 The variable decorated with `Layer` **must** be declared as a scalar
 32-bit integer value for all supported execution models except
-`MeshEXT`.
+`MeshEXT`
 
 * 
 [](#VUID-Layer-Layer-07039) VUID-Layer-Layer-07039
@@ -3415,13 +3439,14 @@ decoration
 `Layer` within the `MeshEXT` `Execution` `Model` **must** decorate a
 scalar 32-bit integer member of a structure decorated as `Block`, or
 decorate a variable of type `OpTypeArray` of scalar 32-bit integer
-values.
+values
 
 * 
 [](#VUID-Layer-Layer-10593) VUID-Layer-Layer-10593
 
-If `Layer` is declared as an array of boolean values, the size of the
-array **must** match the value specified by `OutputPrimitivesEXT`
+If `Layer` is declared as an array of 32-bit integer values, within
+the `MeshEXT` `Execution` `Model`, size of the array **must** match the
+value specified by `OutputPrimitivesEXT`
 
 * 
 [](#VUID-Layer-Layer-10594) VUID-Layer-Layer-10594
@@ -4105,8 +4130,7 @@ decoration
 
 `PrimitiveId` within the `MeshEXT` `Execution` `Model` **must** decorate
 a scalar 32-bit integer member of a structure decorated as `Block`,
-or decorate a variable of type `OpTypeArray` of 32-bit integer
-values.
+or decorate a variable of type `OpTypeArray` of 32-bit integer values
 
 * 
 [](#VUID-PrimitiveId-PrimitiveId-10596) VUID-PrimitiveId-PrimitiveId-10596
@@ -4393,14 +4417,14 @@ The variable decorated with `PrimitiveShadingRateKHR` within the
 `PrimitiveShadingRateKHR` within the `MeshEXT` `Execution` `Model`
 **must** decorate a scalar 32-bit integer member of a structure decorated
 as `Block`, or decorate a variable of type `OpTypeArray` of 32-bit
-integer values.
+integer values
 
 * 
 [](#VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-10599) VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-10599
 
-If `PrimitiveShadingRateKHR` is declared as an array of boolean
-values, the size of the array **must** match the value specified by
-`OutputPrimitivesEXT`
+If `PrimitiveShadingRateKHR` is declared as an array of 32-bit
+integer values, within the `MeshEXT` `Execution` `Model`, size of the
+array **must** match the value specified by `OutputPrimitivesEXT`
 
 * 
 [](#VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-10600) VUID-PrimitiveShadingRateKHR-PrimitiveShadingRateKHR-10600
@@ -5139,7 +5163,7 @@ Valid Usage
 [](#VUID-TileOffsetQCOM-TileOffsetQCOM-10626) VUID-TileOffsetQCOM-TileOffsetQCOM-10626
 
 The `TileOffsetQCOM` decoration **must** be used only within the
-`Fragment` `Execution` `Model` or `GLCompute` `Execution` `Model`.
+`Fragment` `Execution` `Model` or `GLCompute` `Execution` `Model`
 
 * 
 [](#VUID-TileOffsetQCOM-TileOffsetQCOM-10627) VUID-TileOffsetQCOM-TileOffsetQCOM-10627
@@ -5172,7 +5196,7 @@ Valid Usage
 [](#VUID-TileDimensionQCOM-TileDimensionQCOM-10629) VUID-TileDimensionQCOM-TileDimensionQCOM-10629
 
 The `TileDimensionQCOM` decoration **must** be used only within the
-`Fragment` `Execution` `Model` or `GLCompute` `Execution` `Model`.
+`Fragment` `Execution` `Model` or `GLCompute` `Execution` `Model`
 
 * 
 [](#VUID-TileDimensionQCOM-TileDimensionQCOM-10630) VUID-TileDimensionQCOM-TileDimensionQCOM-10630
@@ -5208,7 +5232,7 @@ Valid Usage
 [](#VUID-TileApronSizeQCOM-TileApronSizeQCOM-10632) VUID-TileApronSizeQCOM-TileApronSizeQCOM-10632
 
 The `TileApronSizeQCOM` decoration **must** be used only within the
-`Fragment` `Execution` `Model` or `GLCompute` `Execution` `Model`.
+`Fragment` `Execution` `Model` or `GLCompute` `Execution` `Model`
 
 * 
 [](#VUID-TileApronSizeQCOM-TileApronSizeQCOM-10633) VUID-TileApronSizeQCOM-TileApronSizeQCOM-10633
@@ -5420,15 +5444,16 @@ decoration
 [](#VUID-ViewportIndex-ViewportIndex-10601) VUID-ViewportIndex-ViewportIndex-10601
 
 `ViewportIndex` within the `MeshEXT` `Execution` `Model` **must**
-decorate a scalar boolean member of a structure decorated as `Block`,
-or decorate a variable of type `OpTypeArray` of boolean values.
+decorate a scalar 32-bit integer member of a structure decorated as
+`Block`, or decorate a variable of type `OpTypeArray` of scalar
+32-bit integer values
 
 * 
 [](#VUID-ViewportIndex-ViewportIndex-10602) VUID-ViewportIndex-ViewportIndex-10602
 
-If `ViewportIndex` is declared as an array of boolean values, the
-size of the array **must** match the value specified by
-`OutputPrimitivesEXT`
+If `ViewportIndex` is declared as an array of 32-bit integer values,
+within the `MeshEXT` `Execution` `Model`, size of the array **must** match
+the value specified by `OutputPrimitivesEXT`
 
 * 
 [](#VUID-ViewportIndex-ViewportIndex-10603) VUID-ViewportIndex-ViewportIndex-10603
@@ -5600,10 +5625,13 @@ The variable decorated with `WarpIDNV` **must** be declared as a scalar
 `WorkgroupId`
 
 Decorating a variable with the `WorkgroupId` built-in decoration will
-make that variable contain the global workgroup that the current invocation
-is a member of.
-Each component ranges from a base value to a base +  count value,
-based on the parameters passed into the dispatching commands.
+make that variable contain the global coordinate of the local workgroup that
+the current invocation is a member of.
+Each component is in the range [base,base +  count), where
+base and count are based on the parameters passed into the
+dispatching
+or drawing
+commands in each dimension.
 
 Valid Usage
 

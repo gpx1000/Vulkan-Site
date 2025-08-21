@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -1163,7 +1175,19 @@ types available.</p>
 <div class="paragraph">
 <p>To query memory properties, call:</p>
 </div>
-<div id="vkGetPhysicalDeviceMemoryProperties" class="listingblock">
+<div id="vkGetPhysicalDeviceMemoryProperties" class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.1" class="xref page">Vulkan Version 1.1</a>. See <a href="../appendices/deprecation.html#deprecation-gpdp2" class="xref page">Deprecated Functionality</a> for more information.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_0
 void vkGetPhysicalDeviceMemoryProperties(
@@ -2286,6 +2310,10 @@ memory type that corresponds to a <a href="#VkMemoryHeap">VkMemoryHeap</a> with 
 <p><a id="VUID-vkAllocateMemory-pMemory-parameter" href="#VUID-vkAllocateMemory-pMemory-parameter"></a> <span class="vuid">VUID-vkAllocateMemory-pMemory-parameter</span><br>
  <code>pMemory</code> <strong>must</strong> be a valid pointer to a <a href="#VkDeviceMemory">VkDeviceMemory</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkAllocateMemory-device-queuecount" href="#VUID-vkAllocateMemory-device-queuecount"></a> <span class="vuid">VUID-vkAllocateMemory-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -2310,16 +2338,22 @@ memory type that corresponds to a <a href="#VkMemoryHeap">VkMemoryHeap</a> with 
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -2603,6 +2637,19 @@ the <code>pNext</code> chain <strong>must</strong> include a
 <code>VkDedicatedAllocationMemoryAllocateInfoNV</code> structure with either
 its <code>image</code> or <code>buffer</code> member set to a value other than
 <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryAllocateInfo-pNext-09858" href="#VUID-VkMemoryAllocateInfo-pNext-09858"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-pNext-09858</span><br>
+
+If the <code>pNext</code> chain includes a <code>VkExportMemoryAllocateInfo</code>
+structure, and any of the handle types specified in
+<code>VkExportMemoryAllocateInfo</code>::<code>handleTypes</code> require a dedicated
+allocation, as reported by
+<a href="capabilities.html#vkGetPhysicalDeviceExternalTensorPropertiesARM" class="xref page">vkGetPhysicalDeviceExternalTensorPropertiesARM</a> in
+<code>VkExternalTensorPropertiesARM</code>::<code>externalMemoryProperties.externalMemoryFeatures</code>,
+the <code>pNext</code> chain <strong>must</strong> include a
+<code>VkMemoryDedicatedAllocateInfoTensorARM</code> structure with its
+<code>tensor</code> member set to a value other than <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
 </li>
 <li>
 <p><a id="VUID-VkMemoryAllocateInfo-pNext-00640" href="#VUID-VkMemoryAllocateInfo-pNext-00640"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-pNext-00640</span><br>
@@ -3018,7 +3065,7 @@ If the <code>pNext</code> chain includes a
 </li>
 <li>
 <p><a id="VUID-VkMemoryAllocateInfo-pNext-pNext" href="#VUID-VkMemoryAllocateInfo-pNext-pNext"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDedicatedAllocationMemoryAllocateInfoNV">VkDedicatedAllocationMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryAllocateInfo">VkExportMemoryAllocateInfo</a>, <a href="#VkExportMemoryAllocateInfoNV">VkExportMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryWin32HandleInfoKHR">VkExportMemoryWin32HandleInfoKHR</a>, <a href="#VkExportMemoryWin32HandleInfoNV">VkExportMemoryWin32HandleInfoNV</a>, <a href="#VkExportMetalObjectCreateInfoEXT">VkExportMetalObjectCreateInfoEXT</a>, <a href="#VkImportAndroidHardwareBufferInfoANDROID">VkImportAndroidHardwareBufferInfoANDROID</a>, <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>, <a href="#VkImportMemoryFdInfoKHR">VkImportMemoryFdInfoKHR</a>, <a href="#VkImportMemoryHostPointerInfoEXT">VkImportMemoryHostPointerInfoEXT</a>, <a href="#VkImportMemoryMetalHandleInfoEXT">VkImportMemoryMetalHandleInfoEXT</a>, <a href="#VkImportMemoryWin32HandleInfoKHR">VkImportMemoryWin32HandleInfoKHR</a>, <a href="#VkImportMemoryWin32HandleInfoNV">VkImportMemoryWin32HandleInfoNV</a>, <a href="#VkImportMemoryZirconHandleInfoFUCHSIA">VkImportMemoryZirconHandleInfoFUCHSIA</a>, <a href="#VkImportMetalBufferInfoEXT">VkImportMetalBufferInfoEXT</a>, <a href="#VkImportScreenBufferInfoQNX">VkImportScreenBufferInfoQNX</a>, <a href="#VkMemoryAllocateFlagsInfo">VkMemoryAllocateFlagsInfo</a>, <a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a>, <a href="#VkMemoryOpaqueCaptureAddressAllocateInfo">VkMemoryOpaqueCaptureAddressAllocateInfo</a>, or <a href="#VkMemoryPriorityAllocateInfoEXT">VkMemoryPriorityAllocateInfoEXT</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDedicatedAllocationMemoryAllocateInfoNV">VkDedicatedAllocationMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryAllocateInfo">VkExportMemoryAllocateInfo</a>, <a href="#VkExportMemoryAllocateInfoNV">VkExportMemoryAllocateInfoNV</a>, <a href="#VkExportMemoryWin32HandleInfoKHR">VkExportMemoryWin32HandleInfoKHR</a>, <a href="#VkExportMemoryWin32HandleInfoNV">VkExportMemoryWin32HandleInfoNV</a>, <a href="#VkExportMetalObjectCreateInfoEXT">VkExportMetalObjectCreateInfoEXT</a>, <a href="#VkImportAndroidHardwareBufferInfoANDROID">VkImportAndroidHardwareBufferInfoANDROID</a>, <a href="resources.html#VkImportMemoryBufferCollectionFUCHSIA" class="xref page">VkImportMemoryBufferCollectionFUCHSIA</a>, <a href="#VkImportMemoryFdInfoKHR">VkImportMemoryFdInfoKHR</a>, <a href="#VkImportMemoryHostPointerInfoEXT">VkImportMemoryHostPointerInfoEXT</a>, <a href="#VkImportMemoryMetalHandleInfoEXT">VkImportMemoryMetalHandleInfoEXT</a>, <a href="#VkImportMemoryWin32HandleInfoKHR">VkImportMemoryWin32HandleInfoKHR</a>, <a href="#VkImportMemoryWin32HandleInfoNV">VkImportMemoryWin32HandleInfoNV</a>, <a href="#VkImportMemoryZirconHandleInfoFUCHSIA">VkImportMemoryZirconHandleInfoFUCHSIA</a>, <a href="#VkImportMetalBufferInfoEXT">VkImportMetalBufferInfoEXT</a>, <a href="#VkImportScreenBufferInfoQNX">VkImportScreenBufferInfoQNX</a>, <a href="#VkMemoryAllocateFlagsInfo">VkMemoryAllocateFlagsInfo</a>, <a href="#VkMemoryDedicatedAllocateInfo">VkMemoryDedicatedAllocateInfo</a>, <a href="#VkMemoryDedicatedAllocateInfoTensorARM">VkMemoryDedicatedAllocateInfoTensorARM</a>, <a href="#VkMemoryOpaqueCaptureAddressAllocateInfo">VkMemoryOpaqueCaptureAddressAllocateInfo</a>, or <a href="#VkMemoryPriorityAllocateInfoEXT">VkMemoryPriorityAllocateInfoEXT</a></p>
 </li>
 <li>
 <p><a id="VUID-VkMemoryAllocateInfo-sType-unique" href="#VUID-VkMemoryAllocateInfo-sType-unique"></a> <span class="vuid">VUID-VkMemoryAllocateInfo-sType-unique</span><br>
@@ -3347,6 +3394,14 @@ Compute</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdBindTileMemoryQCOM is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -3397,7 +3452,7 @@ is executed.</p>
 <p><a id="VUID-VkTileMemoryBindInfoQCOM-memory-10726" href="#VUID-VkTileMemoryBindInfoQCOM-memory-10726"></a> <span class="vuid">VUID-VkTileMemoryBindInfoQCOM-memory-10726</span><br>
 
 <code>memory</code> <strong>must</strong> have been allocated from a <a href="#VkMemoryHeap">VkMemoryHeap</a> with
-the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property.</p>
+the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property</p>
 </li>
 </ul>
 </div>
@@ -3415,6 +3470,84 @@ the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property.</p>
 <li>
 <p><a id="VUID-VkTileMemoryBindInfoQCOM-memory-parameter" href="#VUID-VkTileMemoryBindInfoQCOM-memory-parameter"></a> <span class="vuid">VUID-VkTileMemoryBindInfoQCOM-memory-parameter</span><br>
  <code>memory</code> <strong>must</strong> be a valid <a href="#VkDeviceMemory">VkDeviceMemory</a> handle</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>If the <code>pNext</code> chain includes a
+<code>VkMemoryDedicatedAllocateInfoTensorARM</code> structure, then that structure
+includes a handle of the sole tensor resource that the memory <strong>can</strong> be bound
+to.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkMemoryDedicatedAllocateInfoTensorARM</code> structure is defined as:</p>
+</div>
+<div id="VkMemoryDedicatedAllocateInfoTensorARM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_ARM_tensors
+typedef struct VkMemoryDedicatedAllocateInfoTensorARM {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkTensorARM        tensor;
+} VkMemoryDedicatedAllocateInfoTensorARM;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>tensor</code> is a handle of a tensor which this memory will be bound to.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkMemoryDedicatedAllocateInfoTensorARM-allocationSize-09710" href="#VUID-VkMemoryDedicatedAllocateInfoTensorARM-allocationSize-09710"></a> <span class="vuid">VUID-VkMemoryDedicatedAllocateInfoTensorARM-allocationSize-09710</span><br>
+
+<code>VkMemoryAllocateInfo</code>::<code>allocationSize</code> <strong>must</strong> equal the
+<code>VkMemoryRequirements</code>::<code>size</code> of the tensor</p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryDedicatedAllocateInfoTensorARM-tensor-09859" href="#VUID-VkMemoryDedicatedAllocateInfoTensorARM-tensor-09859"></a> <span class="vuid">VUID-VkMemoryDedicatedAllocateInfoTensorARM-tensor-09859</span><br>
+
+If <a href="#VkMemoryAllocateInfo">VkMemoryAllocateInfo</a> defines a memory import operation with
+handle type <code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_OPAQUE_FD_BIT</code>, the
+memory being imported <strong>must</strong> also be a dedicated tensor allocation and
+<code>tensor</code> <strong>must</strong> be identical to the tensor associated with the
+imported memory</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkMemoryDedicatedAllocateInfoTensorARM-sType-sType" href="#VUID-VkMemoryDedicatedAllocateInfoTensorARM-sType-sType"></a> <span class="vuid">VUID-VkMemoryDedicatedAllocateInfoTensorARM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_MEMORY_DEDICATED_ALLOCATE_INFO_TENSOR_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-VkMemoryDedicatedAllocateInfoTensorARM-tensor-parameter" href="#VUID-VkMemoryDedicatedAllocateInfoTensorARM-tensor-parameter"></a> <span class="vuid">VUID-VkMemoryDedicatedAllocateInfoTensorARM-tensor-parameter</span><br>
+ <code>tensor</code> <strong>must</strong> be a valid <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> handle</p>
 </li>
 </ul>
 </div>
@@ -3752,11 +3885,13 @@ allocation.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkExportMemoryAllocateInfo-handleTypes-00656" href="#VUID-VkExportMemoryAllocateInfo-handleTypes-00656"></a> <span class="vuid">VUID-VkExportMemoryAllocateInfo-handleTypes-00656</span><br>
+<p><a id="VUID-VkExportMemoryAllocateInfo-handleTypes-09860" href="#VUID-VkExportMemoryAllocateInfo-handleTypes-09860"></a> <span class="vuid">VUID-VkExportMemoryAllocateInfo-handleTypes-09860</span><br>
 
-The bits in <code>handleTypes</code> <strong>must</strong> be supported and compatible, as
-reported by <a href="capabilities.html#VkExternalImageFormatProperties" class="xref page">VkExternalImageFormatProperties</a> or
-<a href="capabilities.html#VkExternalBufferProperties" class="xref page">VkExternalBufferProperties</a></p>
+    The bits in <code>handleTypes</code> <strong>must</strong> be supported and compatible, as
+    reported by
+<a href="capabilities.html#VkExternalTensorPropertiesARM" class="xref page">VkExternalTensorPropertiesARM</a>,
+    <a href="capabilities.html#VkExternalImageFormatProperties" class="xref page">VkExternalImageFormatProperties</a>, or
+    <a href="capabilities.html#VkExternalBufferProperties" class="xref page">VkExternalBufferProperties</a></p>
 </li>
 </ul>
 </div>
@@ -4041,11 +4176,13 @@ In all cases, each import operation <strong>must</strong> create a distinct
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkImportMemoryWin32HandleInfoKHR-handleType-00658" href="#VUID-VkImportMemoryWin32HandleInfoKHR-handleType-00658"></a> <span class="vuid">VUID-VkImportMemoryWin32HandleInfoKHR-handleType-00658</span><br>
+<p><a id="VUID-VkImportMemoryWin32HandleInfoKHR-handleType-09861" href="#VUID-VkImportMemoryWin32HandleInfoKHR-handleType-09861"></a> <span class="vuid">VUID-VkImportMemoryWin32HandleInfoKHR-handleType-09861</span><br>
 
-If <code>handleType</code> is not <code>0</code>, it <strong>must</strong> be supported for import, as
-reported by <a href="capabilities.html#VkExternalImageFormatProperties" class="xref page">VkExternalImageFormatProperties</a> or
-<a href="capabilities.html#VkExternalBufferProperties" class="xref page">VkExternalBufferProperties</a></p>
+    If <code>handleType</code> is not <code>0</code>, it <strong>must</strong> be supported for import, as
+    reported by
+<a href="capabilities.html#VkExternalTensorPropertiesARM" class="xref page">VkExternalTensorPropertiesARM</a>,
+    <a href="capabilities.html#VkExternalImageFormatProperties" class="xref page">VkExternalImageFormatProperties</a>, or
+    <a href="capabilities.html#VkExternalBufferProperties" class="xref page">VkExternalBufferProperties</a></p>
 </li>
 <li>
 <p><a id="VUID-VkImportMemoryWin32HandleInfoKHR-handle-00659" href="#VUID-VkImportMemoryWin32HandleInfoKHR-handle-00659"></a> <span class="vuid">VUID-VkImportMemoryWin32HandleInfoKHR-handle-00659</span><br>
@@ -4221,10 +4358,16 @@ handles sharing that payload will become invalid.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -4429,10 +4572,16 @@ specifying the type of the handle <code>handle</code>.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -4818,10 +4967,16 @@ is returned.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -4892,11 +5047,13 @@ In all cases, each import operation <strong>must</strong> create a distinct
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkImportMemoryFdInfoKHR-handleType-00667" href="#VUID-VkImportMemoryFdInfoKHR-handleType-00667"></a> <span class="vuid">VUID-VkImportMemoryFdInfoKHR-handleType-00667</span><br>
+<p><a id="VUID-VkImportMemoryFdInfoKHR-handleType-09862" href="#VUID-VkImportMemoryFdInfoKHR-handleType-09862"></a> <span class="vuid">VUID-VkImportMemoryFdInfoKHR-handleType-09862</span><br>
 
-If <code>handleType</code> is not <code>0</code>, it <strong>must</strong> be supported for import, as
-reported by <a href="capabilities.html#VkExternalImageFormatProperties" class="xref page">VkExternalImageFormatProperties</a> or
-<a href="capabilities.html#VkExternalBufferProperties" class="xref page">VkExternalBufferProperties</a></p>
+    If <code>handleType</code> is not <code>0</code>, it <strong>must</strong> be supported for import, as
+    reported by
+<a href="capabilities.html#VkExternalTensorPropertiesARM" class="xref page">VkExternalTensorPropertiesARM</a>,
+    <a href="capabilities.html#VkExternalImageFormatProperties" class="xref page">VkExternalImageFormatProperties</a> or
+    <a href="capabilities.html#VkExternalBufferProperties" class="xref page">VkExternalBufferProperties</a></p>
 </li>
 <li>
 <p><a id="VUID-VkImportMemoryFdInfoKHR-fd-00668" href="#VUID-VkImportMemoryFdInfoKHR-fd-00668"></a> <span class="vuid">VUID-VkImportMemoryFdInfoKHR-fd-00668</span><br>
@@ -5037,10 +5194,16 @@ is made.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5259,10 +5422,16 @@ handle <code>fd</code> are returned.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5605,10 +5774,16 @@ If <code>handleType</code> is
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5724,12 +5899,13 @@ If the command fails, the implementation <strong>must</strong> not retain a refe
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-01880" href="#VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-01880"></a> <span class="vuid">VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-01880</span><br>
+<p><a id="VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-09863" href="#VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-09863"></a> <span class="vuid">VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-09863</span><br>
 
-If <code>buffer</code> is not <code>NULL</code>, Android hardware buffers <strong>must</strong> be
-supported for import, as reported by
-<a href="capabilities.html#VkExternalImageFormatProperties" class="xref page">VkExternalImageFormatProperties</a> or
-<a href="capabilities.html#VkExternalBufferProperties" class="xref page">VkExternalBufferProperties</a></p>
+    If <code>buffer</code> is not <code>NULL</code>, Android hardware buffers <strong>must</strong> be
+    supported for import, as reported by
+<a href="capabilities.html#VkExternalTensorPropertiesARM" class="xref page">VkExternalTensorPropertiesARM</a>,
+    <a href="capabilities.html#VkExternalImageFormatProperties" class="xref page">VkExternalImageFormatProperties</a>, or
+    <a href="capabilities.html#VkExternalBufferProperties" class="xref page">VkExternalBufferProperties</a></p>
 </li>
 <li>
 <p><a id="VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-01881" href="#VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-01881"></a> <span class="vuid">VUID-VkImportAndroidHardwareBufferInfoANDROID-buffer-01881</span><br>
@@ -5848,10 +6024,16 @@ hardware buffer object.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6028,10 +6210,16 @@ least one of the <code>AHARDWAREBUFFER_USAGE_GPU_*</code> flags in its
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6532,6 +6720,12 @@ requested from the vendors of the devices.</p>
 <li>
 <p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
 </li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
+</li>
 </ul>
 </div>
 </dd>
@@ -6838,6 +7032,12 @@ result will be stored.</p>
 <li>
 <p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
 </li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
+</li>
 </ul>
 </div>
 </dd>
@@ -6984,10 +7184,16 @@ resulting Zircon handle.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -8443,10 +8649,16 @@ structure in which the properties of <code>buffer</code> are returned.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE_KHR</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -8807,10 +9019,16 @@ will be the same as the associated <code>VkDeviceMemory</code>.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -9024,10 +9242,16 @@ id&lt;MTLDevice&gt;</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -9786,13 +10010,19 @@ less than or equal to the size of the <code>memory</code> minus <code>offset</co
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_MEMORY_MAP_FAILED</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_MEMORY_MAP_FAILED</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -9937,13 +10167,19 @@ function arguments.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_MEMORY_MAP_FAILED</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_MEMORY_MAP_FAILED</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -10464,10 +10700,16 @@ reused for a different mapping (or memory allocation).</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -10647,10 +10889,16 @@ to avoid data races.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -10930,6 +11178,12 @@ function arguments.</p>
 <ul>
 <li>
 <p><code>VK_ERROR_MEMORY_MAP_FAILED</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -11264,12 +11518,14 @@ not be visible to the host</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Unprotected images and unprotected buffers, to which unprotected memory
-<strong>can</strong> be bound</p>
+<p>Unprotected images
+, unprotected tensors,
+     and unprotected buffers, to which unprotected memory <strong>can</strong> be bound</p>
 </li>
 <li>
-<p>Protected images and protected buffers, to which protected memory <strong>can</strong>
-be bound</p>
+<p>Protected images
+, protected tensors,
+     and protected buffers, to which protected memory <strong>can</strong> be bound</p>
 </li>
 </ul>
 </div>
@@ -11415,8 +11671,10 @@ device memory that is shareable across processes and that <strong>can</strong> b
 by a variety of media APIs and the hardware used to implement them.
 These Android hardware buffer objects <strong>may</strong> be imported into
 <a href="#VkDeviceMemory">VkDeviceMemory</a> objects for access via Vulkan, or exported from Vulkan.
-An <a href="resources.html#VkImage" class="xref page">VkImage</a> or <a href="resources.html#VkBuffer" class="xref page">VkBuffer</a> <strong>can</strong> be bound to the imported or exported
-<a href="#VkDeviceMemory">VkDeviceMemory</a> object if it is created with
+An <a href="resources.html#VkImage" class="xref page">VkImage</a> or <a href="resources.html#VkBuffer" class="xref page">VkBuffer</a>
+or <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a>
+<strong>can</strong> be bound to the imported or exported <a href="#VkDeviceMemory">VkDeviceMemory</a> object if it
+is created with
 <code>VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID</code>.</p>
 </div>
 <div class="openblock">
@@ -12314,7 +12572,7 @@ The <a href="features.html#features-bufferDeviceAddress" class="xref page"><code
 <li>
 <p><a id="VUID-vkGetDeviceMemoryOpaqueCaptureAddress-pInfo-10727" href="#VUID-vkGetDeviceMemoryOpaqueCaptureAddress-pInfo-10727"></a> <span class="vuid">VUID-vkGetDeviceMemoryOpaqueCaptureAddress-pInfo-10727</span><br>
 
-<code>pInfo</code>::<code>memory</code> <strong>must</strong> have been allocated using the
+<code>pInfo-&gt;memory</code> <strong>must</strong> have been allocated using the
 <code>VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT</code> flag</p>
 </li>
 <li>
@@ -12457,7 +12715,30 @@ structure.</p>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

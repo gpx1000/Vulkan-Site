@@ -86,6 +86,22 @@
 - [H.265_Decoding_Parameters](#_h_265_decoding_parameters)
 - [H.265 Decode Requirements](#decode-h265-requirements)
 - [H.265_Decode_Requirements](#decode-h265-requirements)
+- [VP9 Decode Operations](#decode-vp9)
+- [VP9_Decode_Operations](#decode-vp9)
+- [VP9 Decode Bitstream Data Access](#decode-vp9-bitstream-data-access)
+- [VP9_Decode_Bitstream_Data_Access](#decode-vp9-bitstream-data-access)
+- [VP9 Decode Picture Data Access](#decode-vp9-picture-data-access)
+- [VP9_Decode_Picture_Data_Access](#decode-vp9-picture-data-access)
+- [VP9 Reference Names and Semantics](#decode-vp9-reference-names)
+- [VP9_Reference_Names_and_Semantics](#decode-vp9-reference-names)
+- [VP9 Decode Profile](#decode-vp9-profile)
+- [VP9_Decode_Profile](#decode-vp9-profile)
+- [VP9 Decode Capabilities](#_vp9_decode_capabilities)
+- [VP9_Decode_Capabilities](#_vp9_decode_capabilities)
+- [VP9 Decoding Parameters](#_vp9_decoding_parameters)
+- [VP9_Decoding_Parameters](#_vp9_decoding_parameters)
+- [VP9 Decode Requirements](#decode-vp9-requirements)
+- [VP9_Decode_Requirements](#decode-vp9-requirements)
 - [AV1 Decode Operations](#decode-av1)
 - [AV1_Decode_Operations](#decode-av1)
 - [AV1 Decode Bitstream Data Access](#decode-av1-bitstream-data-access)
@@ -120,6 +136,16 @@
 - [Retrieving_Encoded_Session_Parameters](#_retrieving_encoded_session_parameters)
 - [Video Encode Commands](#video-encode-commands)
 - [Video_Encode_Commands](#video-encode-commands)
+- [Video Encode Intra Refresh](#encode-intra-refresh)
+- [Video_Encode_Intra_Refresh](#encode-intra-refresh)
+- [Intra Refresh Capabilities](#_intra_refresh_capabilities)
+- [Intra_Refresh_Capabilities](#_intra_refresh_capabilities)
+- [Intra Refresh Modes](#encode-intra-refresh-modes)
+- [Intra_Refresh_Modes](#encode-intra-refresh-modes)
+- [Encoding Pictures with Intra Refresh](#_encoding_pictures_with_intra_refresh)
+- [Encoding_Pictures_with_Intra_Refresh](#_encoding_pictures_with_intra_refresh)
+- [Referencing Pictures Encoded with Intra Refresh](#encode-intra-refresh-reference-pictures)
+- [Referencing_Pictures_Encoded_with_Intra_Refresh](#encode-intra-refresh-reference-pictures)
 - [Video Encode Rate Control](#encode-rate-control)
 - [Video_Encode_Rate_Control](#encode-rate-control)
 - [Rate Control Modes](#encode-rate-control-modes)
@@ -231,6 +257,8 @@
 - [AV1_Reference_Names_and_Semantics](#encode-av1-reference-names)
 - [AV1 Prediction Modes](#encode-av1-prediction-modes)
 - [AV1_Prediction_Modes](#encode-av1-prediction-modes)
+- [AV1 Frame and Tile](#encode-av1-frame-tile)
+- [AV1_Frame_and_Tile](#encode-av1-frame-tile)
 - [AV1 Coding Blocks](#encode-av1-coding-blocks)
 - [AV1_Coding_Blocks](#encode-av1-coding-blocks)
 - [AV1 Encode Profile](#encode-av1-profile)
@@ -694,6 +722,13 @@ If `videoCodecOperation` is
 chain **must** include a [VkVideoDecodeH265ProfileInfoKHR](#VkVideoDecodeH265ProfileInfoKHR) structure
 
 * 
+[](#VUID-VkVideoProfileInfoKHR-videoCodecOperation-10791) VUID-VkVideoProfileInfoKHR-videoCodecOperation-10791
+
+If `videoCodecOperation` is
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the `pNext`
+chain **must** include a [VkVideoDecodeVP9ProfileInfoKHR](#VkVideoDecodeVP9ProfileInfoKHR) structure
+
+* 
 [](#VUID-VkVideoProfileInfoKHR-videoCodecOperation-09256) VUID-VkVideoProfileInfoKHR-videoCodecOperation-09256
 
 If `videoCodecOperation` is
@@ -777,6 +812,8 @@ typedef enum VkVideoCodecOperationFlagBitsKHR {
     VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR = 0x00000004,
   // Provided by VK_KHR_video_encode_av1
     VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR = 0x00040000,
+  // Provided by VK_KHR_video_decode_vp9
+    VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR = 0x00000008,
 } VkVideoCodecOperationFlagBitsKHR;
 
 * 
@@ -790,6 +827,10 @@ operations are supported.
 * 
 `VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR` specifies support for
 [H.265 decode operations](#decode-h265).
+
+* 
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR` specifies support for
+[VP9 decode operations](#decode-vp9).
 
 * 
 `VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR` specifies support for
@@ -1244,6 +1285,14 @@ chain of `pCapabilities` **must** include a
 [VkVideoDecodeH265CapabilitiesKHR](#VkVideoDecodeH265CapabilitiesKHR) structure
 
 * 
+[](#VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pVideoProfile-10792) VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pVideoProfile-10792
+
+If `pVideoProfile->videoCodecOperation` is
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the `pNext`
+chain of `pCapabilities` **must** include a
+[VkVideoDecodeVP9CapabilitiesKHR](#VkVideoDecodeVP9CapabilitiesKHR) structure
+
+* 
 [](#VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pVideoProfile-09257) VUID-vkGetPhysicalDeviceVideoCapabilitiesKHR-pVideoProfile-09257
 
 If `pVideoProfile->videoCodecOperation` is
@@ -1309,22 +1358,28 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
-
-* 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 * 
 `VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR`
 
 * 
 `VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR`
+
+* 
+`VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+
+* 
+`VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
 
 The `VkVideoCapabilitiesKHR` structure is defined as:
 
@@ -1407,7 +1462,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkVideoCapabilitiesKHR-pNext-pNext) VUID-VkVideoCapabilitiesKHR-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoDecodeAV1CapabilitiesKHR](#VkVideoDecodeAV1CapabilitiesKHR), [VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR), [VkVideoDecodeH264CapabilitiesKHR](#VkVideoDecodeH264CapabilitiesKHR), [VkVideoDecodeH265CapabilitiesKHR](#VkVideoDecodeH265CapabilitiesKHR), [VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR), [VkVideoEncodeAV1QuantizationMapCapabilitiesKHR](#VkVideoEncodeAV1QuantizationMapCapabilitiesKHR), [VkVideoEncodeCapabilitiesKHR](#VkVideoEncodeCapabilitiesKHR), [VkVideoEncodeH264CapabilitiesKHR](#VkVideoEncodeH264CapabilitiesKHR), [VkVideoEncodeH264QuantizationMapCapabilitiesKHR](#VkVideoEncodeH264QuantizationMapCapabilitiesKHR), [VkVideoEncodeH265CapabilitiesKHR](#VkVideoEncodeH265CapabilitiesKHR), [VkVideoEncodeH265QuantizationMapCapabilitiesKHR](#VkVideoEncodeH265QuantizationMapCapabilitiesKHR), or [VkVideoEncodeQuantizationMapCapabilitiesKHR](#VkVideoEncodeQuantizationMapCapabilitiesKHR)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoDecodeAV1CapabilitiesKHR](#VkVideoDecodeAV1CapabilitiesKHR), [VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR), [VkVideoDecodeH264CapabilitiesKHR](#VkVideoDecodeH264CapabilitiesKHR), [VkVideoDecodeH265CapabilitiesKHR](#VkVideoDecodeH265CapabilitiesKHR), [VkVideoDecodeVP9CapabilitiesKHR](#VkVideoDecodeVP9CapabilitiesKHR), [VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR), [VkVideoEncodeAV1QuantizationMapCapabilitiesKHR](#VkVideoEncodeAV1QuantizationMapCapabilitiesKHR), [VkVideoEncodeCapabilitiesKHR](#VkVideoEncodeCapabilitiesKHR), [VkVideoEncodeH264CapabilitiesKHR](#VkVideoEncodeH264CapabilitiesKHR), [VkVideoEncodeH264QuantizationMapCapabilitiesKHR](#VkVideoEncodeH264QuantizationMapCapabilitiesKHR), [VkVideoEncodeH265CapabilitiesKHR](#VkVideoEncodeH265CapabilitiesKHR), [VkVideoEncodeH265QuantizationMapCapabilitiesKHR](#VkVideoEncodeH265QuantizationMapCapabilitiesKHR), [VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR), or [VkVideoEncodeQuantizationMapCapabilitiesKHR](#VkVideoEncodeQuantizationMapCapabilitiesKHR)
 
 * 
 [](#VUID-VkVideoCapabilitiesKHR-sType-unique) VUID-VkVideoCapabilitiesKHR-sType-unique
@@ -1697,33 +1752,39 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
-
-* 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
-
-* 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`
 
 * 
-`VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 * 
 `VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR`
 
 * 
 `VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR`
+
+* 
+`VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+
+* 
+`VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
 
 The `VkPhysicalDeviceVideoFormatInfoKHR` structure is defined as:
 
@@ -1976,6 +2037,11 @@ Valid Usage (Implicit)
 
  `pVideoSession` **must** be a valid pointer to a [VkVideoSessionKHR](#VkVideoSessionKHR) handle
 
+* 
+[](#VUID-vkCreateVideoSessionKHR-device-queuecount) VUID-vkCreateVideoSessionKHR-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -1986,19 +2052,25 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INITIALIZATION_FAILED`
+
+* 
+`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INITIALIZATION_FAILED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 * 
 `VK_ERROR_VIDEO_STD_VERSION_NOT_SUPPORTED_KHR`
-
-* 
-`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
 
 The [VkVideoSessionCreateInfoKHR](#VkVideoSessionCreateInfoKHR) structure is defined as:
 
@@ -2246,6 +2318,30 @@ chain of its `pVideoFormatInfo` parameter whose `pProfiles`
 member contains an element matching `pVideoProfile`
 
 * 
+[](#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10835) VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10835
+
+If `pVideoProfile->videoCodecOperation` specifies an encode
+operation, the `pNext` chain of this structure includes a
+[VkVideoEncodeSessionIntraRefreshCreateInfoKHR](#VkVideoEncodeSessionIntraRefreshCreateInfoKHR) structure, and its
+`intraRefreshMode` member is not
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_NONE_KHR`, then the
+[`videoEncodeIntraRefresh`](features.html#features-videoEncodeIntraRefresh)
+feature **must** be enabled
+
+* 
+[](#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10836) VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10836
+
+If `pVideoProfile->videoCodecOperation` specifies an encode
+operation, the `pNext` chain of this structure includes a
+[VkVideoEncodeSessionIntraRefreshCreateInfoKHR](#VkVideoEncodeSessionIntraRefreshCreateInfoKHR) structure, and its
+`intraRefreshMode` member is not
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_NONE_KHR`, then
+`intraRefreshMode` **must** specify one of the bits included in
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`intraRefreshModes`,
+as returned by [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the
+video profile specified by `pVideoProfile`
+
+* 
 [](#VUID-VkVideoSessionCreateInfoKHR-pStdHeaderVersion-07190) VUID-VkVideoSessionCreateInfoKHR-pStdHeaderVersion-07190
 
 `pStdHeaderVersion->extensionName` **must** match
@@ -2260,6 +2356,14 @@ profile specified by `pVideoProfile`
 [VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)::`stdHeaderVersion.specVersion`, as
 returned by [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the video
 profile specified by `pVideoProfile`
+
+* 
+[](#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10793) VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-10793
+
+If `pVideoProfile->videoCodecOperation` is
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the
+[`videoDecodeVP9`](features.html#features-videoDecodeVP9) feature **must** be
+enabled
 
 * 
 [](#VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-08251) VUID-VkVideoSessionCreateInfoKHR-pVideoProfile-08251
@@ -2315,7 +2419,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkVideoSessionCreateInfoKHR-pNext-pNext) VUID-VkVideoSessionCreateInfoKHR-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoEncodeAV1SessionCreateInfoKHR](#VkVideoEncodeAV1SessionCreateInfoKHR), [VkVideoEncodeH264SessionCreateInfoKHR](#VkVideoEncodeH264SessionCreateInfoKHR), or [VkVideoEncodeH265SessionCreateInfoKHR](#VkVideoEncodeH265SessionCreateInfoKHR)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoEncodeAV1SessionCreateInfoKHR](#VkVideoEncodeAV1SessionCreateInfoKHR), [VkVideoEncodeH264SessionCreateInfoKHR](#VkVideoEncodeH264SessionCreateInfoKHR), [VkVideoEncodeH265SessionCreateInfoKHR](#VkVideoEncodeH265SessionCreateInfoKHR), or [VkVideoEncodeSessionIntraRefreshCreateInfoKHR](#VkVideoEncodeSessionIntraRefreshCreateInfoKHR)
 
 * 
 [](#VUID-VkVideoSessionCreateInfoKHR-sType-unique) VUID-VkVideoSessionCreateInfoKHR-sType-unique
@@ -2562,14 +2666,18 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_INCOMPLETE`
 
 * 
-`VK_INCOMPLETE`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
-None
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkVideoSessionMemoryRequirementsKHR` structure is defined as:
 
@@ -2745,10 +2853,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkBindVideoSessionMemoryInfoKHR` structure is defined as:
 
@@ -3005,6 +3119,11 @@ section.
 For `VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR` these are defined
 in the [H.265 Decode Parameter Sets](#decode-h265-parameter-sets)
 section.
+
+* 
+For `VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR` there are no
+defined parameter sets and therefore do not use video session parameters
+objects.
 
 * 
 For `VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR` these are defined
@@ -3406,6 +3525,11 @@ Valid Usage (Implicit)
 
  `pVideoSessionParameters` **must** be a valid pointer to a [VkVideoSessionParametersKHR](#VkVideoSessionParametersKHR) handle
 
+* 
+[](#VUID-vkCreateVideoSessionParametersKHR-device-queuecount) VUID-vkCreateVideoSessionParametersKHR-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -3416,16 +3540,22 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INITIALIZATION_FAILED`
+
+* 
+`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INITIALIZATION_FAILED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkVideoSessionParametersCreateInfoKHR` structure is defined as:
 
@@ -3828,6 +3958,12 @@ elements of `ppsAddList` **must** be less than or equal to the
 `maxStdPPSCount` specified in the
 [VkVideoDecodeH265SessionParametersCreateInfoKHR](#VkVideoDecodeH265SessionParametersCreateInfoKHR) structure included
 in the `pNext` chain
+
+* 
+[](#VUID-VkVideoSessionParametersCreateInfoKHR-videoSession-10794) VUID-VkVideoSessionParametersCreateInfoKHR-videoSession-10794
+
+`videoSession` **must** not have been created with the codec operation
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`
 
 * 
 [](#VUID-VkVideoSessionParametersCreateInfoKHR-videoSession-09258) VUID-VkVideoSessionParametersCreateInfoKHR-videoSession-09258
@@ -4564,13 +4700,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkVideoSessionParametersUpdateInfoKHR` structure is defined as:
 
@@ -4933,6 +5075,10 @@ Encode | Action
 
 State |
 
+Conditional Rendering
+
+vkCmdBeginVideoCodingKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The [VkVideoBeginCodingInfoKHR](#VkVideoBeginCodingInfoKHR) structure is defined as:
 
 // Provided by VK_KHR_video_queue
@@ -5087,8 +5233,8 @@ been created with `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR`
 If `videoSession` was created with the video codec operation
 `VK_VIDEO_CODEC_OPERATION_DECODE_H264_BIT_KHR`, then
 `videoSessionParameters` **must** not be `VK_NULL_HANDLE`
-, unless [`videoMaintenance2`](features.html#features-videoMaintenance2) is
-enabled
+, unless the [`videoMaintenance2`](features.html#features-videoMaintenance2)
+feature is enabled
 
 * 
 [](#VUID-VkVideoBeginCodingInfoKHR-videoSession-07248) VUID-VkVideoBeginCodingInfoKHR-videoSession-07248
@@ -5096,8 +5242,8 @@ enabled
 If `videoSession` was created with the video codec operation
 `VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR`, then
 `videoSessionParameters` **must** not be `VK_NULL_HANDLE`
-, unless [`videoMaintenance2`](features.html#features-videoMaintenance2) is
-enabled
+, unless the [`videoMaintenance2`](features.html#features-videoMaintenance2)
+feature is enabled
 
 * 
 [](#VUID-VkVideoBeginCodingInfoKHR-videoSession-09261) VUID-VkVideoBeginCodingInfoKHR-videoSession-09261
@@ -5105,8 +5251,8 @@ enabled
 If `videoSession` was created with the video codec operation
 `VK_VIDEO_CODEC_OPERATION_DECODE_AV1_BIT_KHR`, then
 `videoSessionParameters` **must** not be `VK_NULL_HANDLE`
-, unless [`videoMaintenance2`](features.html#features-videoMaintenance2) is
-enabled
+, unless the [`videoMaintenance2`](features.html#features-videoMaintenance2)
+feature is enabled
 
 * 
 [](#VUID-VkVideoBeginCodingInfoKHR-videoSession-07249) VUID-VkVideoBeginCodingInfoKHR-videoSession-07249
@@ -5226,7 +5372,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkVideoReferenceSlotInfoKHR-pNext-pNext) VUID-VkVideoReferenceSlotInfoKHR-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoDecodeAV1DpbSlotInfoKHR](#VkVideoDecodeAV1DpbSlotInfoKHR), [VkVideoDecodeH264DpbSlotInfoKHR](#VkVideoDecodeH264DpbSlotInfoKHR), [VkVideoDecodeH265DpbSlotInfoKHR](#VkVideoDecodeH265DpbSlotInfoKHR), [VkVideoEncodeAV1DpbSlotInfoKHR](#VkVideoEncodeAV1DpbSlotInfoKHR), [VkVideoEncodeH264DpbSlotInfoKHR](#VkVideoEncodeH264DpbSlotInfoKHR), or [VkVideoEncodeH265DpbSlotInfoKHR](#VkVideoEncodeH265DpbSlotInfoKHR)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoDecodeAV1DpbSlotInfoKHR](#VkVideoDecodeAV1DpbSlotInfoKHR), [VkVideoDecodeH264DpbSlotInfoKHR](#VkVideoDecodeH264DpbSlotInfoKHR), [VkVideoDecodeH265DpbSlotInfoKHR](#VkVideoDecodeH265DpbSlotInfoKHR), [VkVideoEncodeAV1DpbSlotInfoKHR](#VkVideoEncodeAV1DpbSlotInfoKHR), [VkVideoEncodeH264DpbSlotInfoKHR](#VkVideoEncodeH264DpbSlotInfoKHR), [VkVideoEncodeH265DpbSlotInfoKHR](#VkVideoEncodeH265DpbSlotInfoKHR), or [VkVideoReferenceIntraRefreshInfoKHR](#VkVideoReferenceIntraRefreshInfoKHR)
 
 * 
 [](#VUID-VkVideoReferenceSlotInfoKHR-sType-unique) VUID-VkVideoReferenceSlotInfoKHR-sType-unique
@@ -5319,6 +5465,10 @@ Command Properties
 Encode | Action
 
 State |
+
+Conditional Rendering
+
+vkCmdEndVideoCodingKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkVideoEndCodingInfoKHR` structure is defined as:
 
@@ -5484,6 +5634,10 @@ Command Properties
 | Primary | Outside | Inside | Decode
 
 Encode | Action |
+
+Conditional Rendering
+
+vkCmdControlVideoCodingKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkVideoCodingControlInfoKHR` structure is defined as:
 
@@ -5703,23 +5857,35 @@ follows:
 * 
 If the image subresource is used in the video decode operation only as
 [decode output picture](#decode-output-picture), then it **must** be in the
-`VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR` layout.
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR` layout
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
+.
 
 * 
 If the image subresource is used in the video decode operation both as
 [decode output picture](#decode-output-picture) and
 [reconstructed picture](#reconstructed-picture), then it **must** be in the
-`VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` layout.
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` layout
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
+.
 
 * 
 If the image subresource is used in the video decode operation only as
 [reconstructed picture](#reconstructed-picture), then it **must** be in the
-`VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` layout.
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` layout
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
+.
 
 * 
 If the image subresource is used in the video decode operation as a
 [reference picture](#reference-picture), then it **must** be in the
-`VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` layout.
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` layout
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
+.
 
 A video decode operation **may** complete unsuccessfully.
 In this case the [decode output picture](#decode-output-picture) will have
@@ -5768,6 +5934,12 @@ If the used video codec operation is
 `VK_VIDEO_CODEC_OPERATION_DECODE_H265_BIT_KHR`, then the
 codec-specific aspects of the video decoding process are performed as
 defined in the [H.265 Decode Operations](#decode-h265) section.
+
+* 
+If the used video codec operation is
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the
+codec-specific aspects of the video decoding process are performed as
+defined in the [VP9 Decode Operations](#decode-vp9) section.
 
 * 
 If the used video codec operation is
@@ -5843,14 +6015,14 @@ typedef enum VkVideoDecodeCapabilityFlagBitsKHR {
 
 * 
 `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR`
-indicates support for using the same video picture resource as the
+specifies support for using the same video picture resource as the
 [reconstructed picture](#reconstructed-picture) and
 [decode output picture](#decode-output-picture) in a video decode
 operation.
 
 * 
 `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR`
-indicates support for using distinct video picture resources as the
+specifies support for using distinct video picture resources as the
 [reconstructed picture](#reconstructed-picture) and
 [decode output picture](#decode-output-picture) in a video decode
 operation.
@@ -6383,7 +6555,7 @@ All elements of `dpbTopFieldUseCount` **must** be less than or equal to
 All elements of `dpbBottomFieldUseCount` **must** be less than or equal
 to `1`
 
-[](#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07252) VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07252
+[](#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10801) VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10801
 
 If `pDecodeInfo->pSetupReferenceSlot` is `NULL` or
 `pDecodeInfo->pSetupReferenceSlot→pPictureResource` does not
@@ -6393,8 +6565,10 @@ subresource [referred](#video-image-subresource-reference) to by
 `pDecodeInfo->dstPictureResource` **must** be in the
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR` layout at the time the video
 decode operation is executed on the device
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
 
-[](#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07253) VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07253
+[](#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10802) VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10802
 
 If `pDecodeInfo->pSetupReferenceSlot` is not `NULL` and
 `pDecodeInfo->pSetupReferenceSlot→pPictureResource`
@@ -6404,22 +6578,28 @@ subresource [referred](#video-image-subresource-reference) to by
 `pDecodeInfo->dstPictureResource` **must** be in the
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` layout at the time the video
 decode operation is executed on the device
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
 
-[](#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07254) VUID-vkCmdDecodeVideoKHR-pDecodeInfo-07254
+[](#VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10803) VUID-vkCmdDecodeVideoKHR-pDecodeInfo-10803
 
 If `pDecodeInfo->pSetupReferenceSlot` is not `NULL`, then the image
 subresource [referred](#video-image-subresource-reference) to by
 `pDecodeInfo->pSetupReferenceSlot→pPictureResource` **must** be in the
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` layout at the time the video
 decode operation is executed on the device
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
 
-[](#VUID-vkCmdDecodeVideoKHR-pPictureResource-07255) VUID-vkCmdDecodeVideoKHR-pPictureResource-07255
+[](#VUID-vkCmdDecodeVideoKHR-pPictureResource-10804) VUID-vkCmdDecodeVideoKHR-pPictureResource-10804
 
 The image subresource [referred](#video-image-subresource-reference) to
 by the `pPictureResource` member of each element of
 `pDecodeInfo->pReferenceSlots` **must** be in the
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR` layout at the time the video
 decode operation is executed on the device
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
 
 [](#VUID-vkCmdDecodeVideoKHR-pNext-07152) VUID-vkCmdDecodeVideoKHR-pNext-07152
 
@@ -6797,6 +6977,59 @@ If the bound video session was created with the video codec operation
 chain of each element of `pDecodeInfo->pReferenceSlots` **must**
 include a [VkVideoDecodeH265DpbSlotInfoKHR](#VkVideoDecodeH265DpbSlotInfoKHR) structure
 
+[](#VUID-vkCmdDecodeVideoKHR-pNext-10805) VUID-vkCmdDecodeVideoKHR-pNext-10805
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the `pNext`
+chain of `pDecodeInfo` **must** include a
+[VkVideoDecodeVP9PictureInfoKHR](#VkVideoDecodeVP9PictureInfoKHR) structure
+
+[](#VUID-vkCmdDecodeVideoKHR-uncompressedHeaderOffset-10806) VUID-vkCmdDecodeVideoKHR-uncompressedHeaderOffset-10806
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the
+`uncompressedHeaderOffset` member of the
+[VkVideoDecodeVP9PictureInfoKHR](#VkVideoDecodeVP9PictureInfoKHR) structure included in the
+`pNext` chain of `pDecodeInfo` **must** be less than
+`pDecodeInfo->srcBufferRange`
+
+[](#VUID-vkCmdDecodeVideoKHR-compressedHeaderOffset-10807) VUID-vkCmdDecodeVideoKHR-compressedHeaderOffset-10807
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the
+`compressedHeaderOffset` member of the
+[VkVideoDecodeVP9PictureInfoKHR](#VkVideoDecodeVP9PictureInfoKHR) structure included in the
+`pNext` chain of `pDecodeInfo` **must** be less than
+`pDecodeInfo->srcBufferRange`
+
+[](#VUID-vkCmdDecodeVideoKHR-tilesOffset-10808) VUID-vkCmdDecodeVideoKHR-tilesOffset-10808
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the
+`tilesOffset` member of the [VkVideoDecodeVP9PictureInfoKHR](#VkVideoDecodeVP9PictureInfoKHR)
+structure included in the `pNext` chain of `pDecodeInfo` **must**
+be less than `pDecodeInfo->srcBufferRange`
+
+[](#VUID-vkCmdDecodeVideoKHR-referenceNameSlotIndices-10809) VUID-vkCmdDecodeVideoKHR-referenceNameSlotIndices-10809
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then each element of
+the `referenceNameSlotIndices` array member of the
+[VkVideoDecodeVP9PictureInfoKHR](#VkVideoDecodeVP9PictureInfoKHR) structure included in the
+`pNext` chain of `pDecodeInfo` **must** either be negative or **must**
+equal the `slotIndex` member of one of the elements of
+`pDecodeInfo->pReferenceSlots`
+
+[](#VUID-vkCmdDecodeVideoKHR-slotIndex-10810) VUID-vkCmdDecodeVideoKHR-slotIndex-10810
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the
+`slotIndex` member of each element of
+`pDecodeInfo->pReferenceSlots` **must** equal one of the elements of
+the `referenceNameSlotIndices` array member of the
+[VkVideoDecodeVP9PictureInfoKHR](#VkVideoDecodeVP9PictureInfoKHR) structure included in the
+`pNext` chain of `pDecodeInfo`
+
 [](#VUID-vkCmdDecodeVideoKHR-filmGrainSupport-09248) VUID-vkCmdDecodeVideoKHR-filmGrainSupport-09248
 
 If the bound video session was created with the video codec operation
@@ -6956,6 +7189,10 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary | Outside | Inside | Decode | Action |
 
+Conditional Rendering
+
+vkCmdDecodeVideoKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkVideoDecodeInfoKHR` structure is defined as:
 
 // Provided by VK_KHR_video_decode_queue
@@ -7067,7 +7304,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkVideoDecodeInfoKHR-pNext-pNext) VUID-VkVideoDecodeInfoKHR-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoDecodeAV1InlineSessionParametersInfoKHR](#VkVideoDecodeAV1InlineSessionParametersInfoKHR), [VkVideoDecodeAV1PictureInfoKHR](#VkVideoDecodeAV1PictureInfoKHR), [VkVideoDecodeH264InlineSessionParametersInfoKHR](#VkVideoDecodeH264InlineSessionParametersInfoKHR), [VkVideoDecodeH264PictureInfoKHR](#VkVideoDecodeH264PictureInfoKHR), [VkVideoDecodeH265InlineSessionParametersInfoKHR](#VkVideoDecodeH265InlineSessionParametersInfoKHR), [VkVideoDecodeH265PictureInfoKHR](#VkVideoDecodeH265PictureInfoKHR), or [VkVideoInlineQueryInfoKHR](#VkVideoInlineQueryInfoKHR)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoDecodeAV1InlineSessionParametersInfoKHR](#VkVideoDecodeAV1InlineSessionParametersInfoKHR), [VkVideoDecodeAV1PictureInfoKHR](#VkVideoDecodeAV1PictureInfoKHR), [VkVideoDecodeH264InlineSessionParametersInfoKHR](#VkVideoDecodeH264InlineSessionParametersInfoKHR), [VkVideoDecodeH264PictureInfoKHR](#VkVideoDecodeH264PictureInfoKHR), [VkVideoDecodeH265InlineSessionParametersInfoKHR](#VkVideoDecodeH265InlineSessionParametersInfoKHR), [VkVideoDecodeH265PictureInfoKHR](#VkVideoDecodeH265PictureInfoKHR), [VkVideoDecodeVP9PictureInfoKHR](#VkVideoDecodeVP9PictureInfoKHR), or [VkVideoInlineQueryInfoKHR](#VkVideoInlineQueryInfoKHR)
 
 * 
 [](#VUID-VkVideoDecodeInfoKHR-sType-unique) VUID-VkVideoDecodeInfoKHR-sType-unique
@@ -7420,6 +7657,12 @@ are otherwise ignored;
 `level_idc` is one of the enum constants
 `STD_VIDEO_H264_LEVEL_IDC__` identifying the H.264 level
 `.` as defined in section A.3 of the [ITU-T    H.264 Specification](introduction.html#itu-t-h264);
+
+* 
+`pOffsetForRefFrame` is a pointer to an array of
+`num_ref_frames_in_pic_order_cnt_cycle` number of signed integers
+specifying the elements of the `offset_for_ref_frame` array, as
+defined in section 7.4.2.1.1 of the [ITU-T H.264    Specification](introduction.html#itu-t-h264);
 
 * 
 if `flags.seq_scaling_matrix_present_flag` is set, then the
@@ -9097,6 +9340,412 @@ implementations **must** support, or the exact value all implementations
 For bitmasks a minimum value is the least bits all implementations **must**
 set, but they **may** have additional bits set beyond this minimum.
 
+Video decode operations using an [VP9 decode profile](#decode-vp9-profile)
+**can** be used to decode elementary video stream sequences compliant with the
+[VP9 Specification](introduction.html#google-vp9).
+
+|  | Refer to the [Preamble](preamble.html#preamble) for information on how the Khronos
+| --- | --- |
+Intellectual Property Rights Policy relates to normative references to
+external materials not created by Khronos. |
+
+This process is performed according to the [video decode operation steps](#decode-operation-steps) with the codec-specific semantics defined in
+section 8 of the [VP9 Specification](introduction.html#google-vp9):
+
+* 
+Syntax elements, derived values, and other parameters are applied from
+the `StdVideoDecodeVP9PictureInfo` structure specifying the
+[VP9 picture information](#decode-vp9-picture-info).
+
+* 
+The contents of the provided video bitstream buffer range are
+interpreted as defined in the [VP9    Decode Bitstream Data Access](#decode-vp9-bitstream-data-access) section.
+
+* 
+Picture data in the [video picture resources](#video-picture-resources)
+corresponding to the used [active    reference pictures](#decode-active-reference-picture-info), [decode output    picture](#decode-vp9-output-picture-info), and optional [    reconstructed picture](#decode-reconstructed-picture-info) is accessed as defined in the
+[VP9 Decode Picture Data Access](#decode-vp9-picture-data-access)
+section.
+
+* 
+The decision on [reference picture setup](#decode-ref-pic-setup) is made
+according to the parameters specified in the
+[VP9 picture information](#decode-vp9-ref-pic-setup).
+
+If the parameters and the bitstream adhere to the syntactic and semantic
+requirements defined in the corresponding sections of the [VP9 Specification](introduction.html#google-vp9), as described above, and the [DPB slots](#dpb-slot)
+associated with the [active reference pictures](#active-reference-pictures)
+all refer to [valid picture references](#dpb-slot-states), then the video
+decode operation will complete successfully.
+Otherwise, the video decode operation **may** complete
+[unsuccessfully](#decode-unsuccessful).
+
+The video bitstream buffer range **should** contain the bitstream that
+represents an entire frame, as defined in section 6.1, and this data is
+interpreted as defined in section 7.1 of the [VP9 Specification](introduction.html#google-vp9), respectively.
+
+The offset specified in
+[VkVideoDecodeVP9PictureInfoKHR](#VkVideoDecodeVP9PictureInfoKHR)::`uncompressedHeaderOffset` **should**
+specify the starting offset of the uncompressed header of the frame, as
+defined in section 6.2 of the [VP9 Specification](introduction.html#google-vp9).
+
+The offset specified in
+[VkVideoDecodeVP9PictureInfoKHR](#VkVideoDecodeVP9PictureInfoKHR)::`compressedHeaderOffset` **should**
+specify the starting offset of the compressed header of the frame, as
+defined in section 6.3 of the [VP9 Specification](introduction.html#google-vp9).
+
+The offset specified in
+[VkVideoDecodeVP9PictureInfoKHR](#VkVideoDecodeVP9PictureInfoKHR)::`tilesOffset` **should** specify the
+starting offset of the frame tile data, as defined in section 6.4 of the
+[VP9 Specification](introduction.html#google-vp9).
+
+Accesses to image data within a video picture resource happen at the
+granularity indicated by
+[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)::`pictureAccessGranularity`, as returned by
+[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the used [video profile](#video-profiles).
+Accordingly, the complete image subregion of a
+[decode output picture](#decode-output-picture),
+[reference picture](#reference-picture), or
+[reconstructed picture](#reconstructed-picture) accessed by video coding
+operations using an [VP9 decode profile](#decode-vp9-profile) is defined as
+the set of texels within the coordinate range:
+
+([0,`endX`), [0,`endY`))
+
+Where:
+
+* 
+`endX` equals `codedExtent.width` rounded up to the
+nearest integer multiple of `pictureAccessGranularity.width` and
+clamped to the width of the image subresource
+[referred](#video-image-subresource-reference) to by the corresponding
+[VkVideoPictureResourceInfoKHR](#VkVideoPictureResourceInfoKHR) structure;
+
+* 
+endY equals `codedExtent.height` rounded up to the
+nearest integer multiple of `pictureAccessGranularity.height` and
+clamped to the height of the image subresource
+[referred](#video-image-subresource-reference) to by the corresponding
+[VkVideoPictureResourceInfoKHR](#VkVideoPictureResourceInfoKHR) structure;
+
+Where `codedExtent` is the member of the
+[VkVideoPictureResourceInfoKHR](#VkVideoPictureResourceInfoKHR) structure corresponding to the picture.
+
+In case of video decode operations using an [VP9 decode profile](#decode-vp9-profile), any access to a picture at the coordinates
+(`x`,`y`), as defined by the [VP9 Specification](introduction.html#google-vp9),
+is an access to the image subresource
+[referred](#video-image-subresource-reference) to by the corresponding
+[VkVideoPictureResourceInfoKHR](#VkVideoPictureResourceInfoKHR) structure at the texel coordinates
+(`x`,`y`).
+
+Individual reference frames used in the decoding process have different
+semantics, as defined in section 7.4.12 of the [VP9 Specification](introduction.html#google-vp9).
+The VP9 semantics associated with a reference picture are indicated by the
+corresponding enumeration constant defined in the Video Std enumeration type
+`StdVideoVP9ReferenceName`:
+
+* 
+`STD_VIDEO_VP9_REFERENCE_NAME_INTRA_FRAME` identifies the reference
+used for intra coding (`INTRA_FRAME`), as defined in sections 2 and
+8.5.1 of the [VP9 Specification](introduction.html#google-vp9).
+
+* 
+All other enumeration constants refer to backward or forward references
+used for inter coding, as defined in sections 2 and 8.5.2 of the
+[VP9 Specification](introduction.html#google-vp9):
+
+`STD_VIDEO_VP9_REFERENCE_NAME_LAST_FRAME` identifies the
+`LAST_FRAME` reference
+
+* 
+`STD_VIDEO_VP9_REFERENCE_NAME_GOLDEN_FRAME` identifies the
+`GOLDEN_FRAME` reference
+
+* 
+`STD_VIDEO_VP9_REFERENCE_NAME_ALTREF_FRAME` identifies the
+`ALTREF_FRAME` reference
+
+These enumeration constants are not directly used in any APIs but are used
+to indirectly index into certain Video Std and Vulkan API parameter arrays.
+
+A video profile supporting VP9 video decode operations is specified by
+setting [VkVideoProfileInfoKHR](#VkVideoProfileInfoKHR)::`videoCodecOperation` to
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR` and adding a
+`VkVideoDecodeVP9ProfileInfoKHR` structure to the
+[VkVideoProfileInfoKHR](#VkVideoProfileInfoKHR)::`pNext` chain.
+
+The `VkVideoDecodeVP9ProfileInfoKHR` structure is defined as:
+
+// Provided by VK_KHR_video_decode_vp9
+typedef struct VkVideoDecodeVP9ProfileInfoKHR {
+    VkStructureType       sType;
+    const void*           pNext;
+    StdVideoVP9Profile    stdProfile;
+} VkVideoDecodeVP9ProfileInfoKHR;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`stdProfile` is a `StdVideoVP9Profile` value specifying the VP9
+codec profile, as defined in section 7.2 of the [VP9    Specification](introduction.html#google-vp9).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkVideoDecodeVP9ProfileInfoKHR-sType-sType) VUID-VkVideoDecodeVP9ProfileInfoKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_PROFILE_INFO_KHR`
+
+When calling [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) to query the
+capabilities for an [VP9 decode profile](#decode-vp9-profile), the
+[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)::`pNext` chain **must** include a
+`VkVideoDecodeVP9CapabilitiesKHR` structure that will be filled with the
+profile-specific capabilities.
+
+The `VkVideoDecodeVP9CapabilitiesKHR` structure is defined as:
+
+// Provided by VK_KHR_video_decode_vp9
+typedef struct VkVideoDecodeVP9CapabilitiesKHR {
+    VkStructureType     sType;
+    void*               pNext;
+    StdVideoVP9Level    maxLevel;
+} VkVideoDecodeVP9CapabilitiesKHR;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`maxLevel` is a `StdVideoVP9Level` value specifying the maximum
+VP9 level supported by the profile, as defined in section A.1 of the
+[VP9 Specification](introduction.html#google-vp9).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkVideoDecodeVP9CapabilitiesKHR-sType-sType) VUID-VkVideoDecodeVP9CapabilitiesKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_CAPABILITIES_KHR`
+
+The `VkVideoDecodeVP9PictureInfoKHR` structure is defined as:
+
+// Provided by VK_KHR_video_decode_vp9
+typedef struct VkVideoDecodeVP9PictureInfoKHR {
+    VkStructureType                        sType;
+    const void*                            pNext;
+    const StdVideoDecodeVP9PictureInfo*    pStdPictureInfo;
+    int32_t                                referenceNameSlotIndices[VK_MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR];
+    uint32_t                               uncompressedHeaderOffset;
+    uint32_t                               compressedHeaderOffset;
+    uint32_t                               tilesOffset;
+} VkVideoDecodeVP9PictureInfoKHR;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`pStdPictureInfo` is a pointer to a
+`StdVideoDecodeVP9PictureInfo` structure specifying
+[VP9 picture information](#decode-vp9-picture-info).
+
+* 
+`referenceNameSlotIndices` is an array of three
+(`VK_MAX_VIDEO_VP9_REFERENCES_PER_FRAME_KHR`, which is equal to the
+Video Std definition `STD_VIDEO_VP9_REFS_PER_FRAME`) signed integer
+values specifying the index of the [DPB slot](#dpb-slot) or a negative
+integer value for each [VP9 reference name](#decode-vp9-reference-names)
+used for inter coding.
+In particular, the DPB slot index for the VP9 reference name `frame`
+is specified in `referenceNameSlotIndices`[`frame` -
+`STD_VIDEO_VP9_REFERENCE_NAME_LAST_FRAME`].
+
+* 
+`uncompressedHeaderOffset` is the byte offset of the uncompressed
+frame header, as defined in section 6.2 of the [VP9    Specification](introduction.html#google-vp9).
+
+* 
+`compressedHeaderOffset` is the byte offset of the compressed frame
+header, as defined in section 6.3 of the [VP9    Specification](introduction.html#google-vp9).
+
+* 
+`tilesOffset` is the byte offset of the frame tile data, as defined
+in section 6.4 of the [VP9 Specification](introduction.html#google-vp9).
+
+This structure is specified in the `pNext` chain of the
+[VkVideoDecodeInfoKHR](#VkVideoDecodeInfoKHR) structure passed to [vkCmdDecodeVideoKHR](#vkCmdDecodeVideoKHR) to
+specify the codec-specific picture information for an [VP9 decode operation](#decode-vp9).
+
+Decode Output Picture Information
+
+When this structure is specified in the `pNext` chain of the
+[VkVideoDecodeInfoKHR](#VkVideoDecodeInfoKHR) structure passed to [vkCmdDecodeVideoKHR](#vkCmdDecodeVideoKHR),
+the information related to the [decode output picture](#decode-output-picture-info) is defined as follows:
+
+* 
+The image subregion used is determined according to the
+[VP9 Decode Picture Data Access](#decode-vp9-picture-data-access)
+section.
+
+* 
+The decode output picture is associated with the
+[VP9 picture information](#decode-vp9-picture-info) provided in
+`pStdPictureInfo`.
+
+Std Picture Information
+
+The members of the `StdVideoDecodeVP9PictureInfo` structure pointed to by
+`pStdPictureInfo` are interpreted as follows:
+
+* 
+`flags.reserved` and `reserved1` are used only for padding
+purposes and are otherwise ignored;
+
+* 
+`ref_frame_sign_bias_mask` is a bitmask where bit index i
+corresponds to `ref_frame_sign_bias[i]` as defined in section 7.2 of the
+[VP9 Specification](introduction.html#google-vp9);
+
+* 
+the `StdVideoVP9ColorConfig` structure pointed to by
+`pColorConfig` is interpreted as follows:
+
+`flags.reserved` and `reserved1` are used only for padding
+purposes and are otherwise ignored;
+
+* 
+all other members of `StdVideoVP9ColorConfig` are interpreted as
+defined in sections 6.2, 6.2.2, and 7.2.2 of the [VP9     Specification](introduction.html#google-vp9);
+
+the `StdVideoVP9LoopFilter` structure pointed to by `pLoopFilter`
+is interpreted as follows:
+
+* 
+`flags.reserved` is used only for padding purposes and is otherwise
+ignored;
+
+* 
+`update_ref_delta` is a bitmask where bit index i is
+interpreted as the value of `update_ref_delta` corresponding to
+element i of `loop_filter_ref_deltas` as defined in section
+7.2.8 of the [VP9 Specification](introduction.html#google-vp9);
+
+* 
+`update_mode_delta` is a bitmask where bit index i is
+interpreted as the value of `update_mode_delta` corresponding to
+element i of `loop_filter_mode_deltas` as defined in section
+7.2.8 of the [VP9 Specification](introduction.html#google-vp9);
+
+* 
+all other members of `StdVideoVP9LoopFilter` are interpreted as
+defined in section 7.2.8 of the [VP9 Specification](introduction.html#google-vp9);
+
+|  | If the syntax elements corresponding to `loop_filter_ref_deltas` and
+| --- | --- |
+`loop_filter_mode_deltas` are not present, the application should specify
+the previous values, as defined in section 7.2.8 of the [VP9 Specification](introduction.html#google-vp9). |
+
+if `flags.segmentation_enabled` is set, then the
+`StdVideoVP9Segmentation` structure pointed to by `pSegmentation`
+is interpreted as follows:
+
+* 
+`flags.reserved` is used only for padding purposes and is otherwise
+ignored;
+
+* 
+the elements of `FeatureEnabled` are bitmasks where bit index
+j of element i corresponds to `FeatureEnabled[i][j]` as
+defined in section 6.2.11 of the [VP9 Specification](introduction.html#google-vp9);
+
+* 
+`FeatureData` is interpreted as defined in section 6.2.11 of the
+[VP9 Specification](introduction.html#google-vp9);
+
+* 
+all other members of `StdVideoVP9Segmentation` are interpreted as
+defined in section 7.2.10 of the [VP9 Specification](introduction.html#google-vp9);
+
+all other members are interpreted as defined in section 7.2 of the
+[VP9 Specification](introduction.html#google-vp9).
+
+Reference picture setup is controlled by the value of
+`StdVideoDecodeVP9PictureInfo`::`refresh_frame_flags`.
+If it is not zero and a [reconstructed picture](#decode-reconstructed-picture-info) is specified, then the latter is used as the target of picture
+reconstruction to [activate](#dpb-slot-states) the [DPB slot](#dpb-slot)
+specified in `pDecodeInfo->pSetupReferenceSlot→slotIndex`.
+If `StdVideoDecodeVP9PictureInfo`::`refresh_frame_flags` is zero, but
+a [reconstructed picture](#decode-reconstructed-picture-info) is specified,
+then the corresponding picture reference associated with the [DPB slot](#dpb-slot) is invalidated, as described in the [DPB Slot States](#dpb-slot-states) section.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkVideoDecodeVP9PictureInfoKHR-sType-sType) VUID-VkVideoDecodeVP9PictureInfoKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_VIDEO_DECODE_VP9_PICTURE_INFO_KHR`
+
+* 
+[](#VUID-VkVideoDecodeVP9PictureInfoKHR-pStdPictureInfo-parameter) VUID-VkVideoDecodeVP9PictureInfoKHR-pStdPictureInfo-parameter
+
+ `pStdPictureInfo` **must** be a valid pointer to a valid `StdVideoDecodeVP9PictureInfo` value
+
+|  | VP9 decode operations do not need any std reference information to be
+| --- | --- |
+specified for the active reference pictures and the optional reconstructed
+picture.
+Accordingly, no DPB slot info structure exists in the API that would need to
+be chained to the corresponding [VkVideoReferenceSlotInfoKHR](#VkVideoReferenceSlotInfoKHR) structures
+and no `StdVideoDecodeVP9ReferenceInfo` structure exists in the VP9 Video
+Std Headers. |
+
+This section describes the **required** VP9 decoding capabilities for physical
+devices that have at least one queue family that supports the video codec
+operation `VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, as returned by
+[vkGetPhysicalDeviceQueueFamilyProperties2](devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2) in
+[VkQueueFamilyVideoPropertiesKHR](devsandqueues.html#VkQueueFamilyVideoPropertiesKHR)::`videoCodecOperations`.
+
+| Video Std Header Name | Version |
+| --- | --- |
+| `vulkan_video_codec_vp9std_decode` | 1.0.0 |
+
+| Video Capability | Requirement | Requirement Type1 |
+| --- | --- | --- |
+| **[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)** |  |  |
+| `flags` | - | min |
+| `minBitstreamBufferOffsetAlignment` | 4096 | max |
+| `minBitstreamBufferSizeAlignment` | 4096 | max |
+| `pictureAccessGranularity` | (64,64) | max |
+| `minCodedExtent` | - | max |
+| `maxCodedExtent` | - | min |
+| `maxDpbSlots` | 0 | min |
+| `maxActiveReferencePictures` | 0 | min |
+| **[VkVideoDecodeCapabilitiesKHR](#VkVideoDecodeCapabilitiesKHR)** |  |  |
+| `flags` | `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_COINCIDE_BIT_KHR` or
+                `VK_VIDEO_DECODE_CAPABILITY_DPB_AND_OUTPUT_DISTINCT_BIT_KHR` | min |
+| **[VkVideoDecodeVP9CapabilitiesKHR](#VkVideoDecodeVP9CapabilitiesKHR)** |  |  |
+| `maxLevel` | `STD_VIDEO_VP9_LEVEL_2_0` | min |
+
+1
+
+The **Requirement Type** column specifies the requirement is either the
+minimum value all implementations **must** support, the maximum value all
+implementations **must** support, or the exact value all implementations
+**must** support.
+For bitmasks a minimum value is the least bits all implementations **must**
+set, but they **may** have additional bits set beyond this minimum.
+
 Video decode operations using an [AV1 decode profile](#decode-av1-profile)
 **can** be used to decode elementary video stream sequences compliant with the
 [AV1 Specification](introduction.html#aomedia-av1).
@@ -9666,7 +10315,9 @@ section 5.9.19 of the [AV1 Specification](introduction.html#aomedia-av1);
 all other members of `StdVideoAV1CDEF` are interpreted as defined in
 section 6.10.14 of the [AV1 Specification](introduction.html#aomedia-av1);
 
-the `StdVideoAV1LoopRestoration` structure pointed to by
+if `flags.UsesLr` is set in the
+[active sequence header](#encode-av1-active-sequence-header), then the
+`StdVideoAV1LoopRestoration` structure pointed to by
 `pLoopRestoration` is interpreted as follows:
 
 * 
@@ -9679,8 +10330,8 @@ the [AV1 Specification](introduction.html#aomedia-av1).
 all other members of `StdVideoAV1LoopRestoration` are defined as in
 section 6.10.15 of the [AV1 Specification](introduction.html#aomedia-av1);
 
-the members of the `StdVideoAV1GlobalMotion` structure provided in
-`global_motion` are interpreted as defined in section 7.10 of the
+the members of the `StdVideoAV1GlobalMotion` structure pointed to by
+`pGlobalMotion` are interpreted as defined in section 7.10 of the
 [AV1 Specification](introduction.html#aomedia-av1);
 
 if `flags.film_grain_params_present` is set in the
@@ -9964,6 +10615,11 @@ The destination video bitstream buffer range and the optional
 [reconstructed picture](#encode-reconstructed-picture-info) with access
 `VK_ACCESS_2_VIDEO_ENCODE_WRITE_BIT_KHR`.
 
+* 
+The image subregion corresponding to a
+[quantization map](#encode-quantization-map) used in the video encode
+operation with access `VK_ACCESS_2_VIDEO_ENCODE_READ_BIT_KHR`.
+
 The image subresource of each [video picture resource](#video-picture-resources) accessed by the video encode operation is specified using a
 corresponding [VkVideoPictureResourceInfoKHR](#VkVideoPictureResourceInfoKHR) structure.
 Each such image subresource **must** be in the appropriate image layout as
@@ -9972,17 +10628,26 @@ follows:
 * 
 If the image subresource is used in the video encode operation as an
 [encode input picture](#encode-input-picture), then it **must** be in the
-`VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR` layout.
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR` layout
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
+.
 
 * 
 If the image subresource is used in the video encode operation as a
 [reconstructed picture](#reconstructed-picture) or [    reference picture](#reference-picture), then it **must** be in the
-`VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR` layout.
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR` layout
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
+.
 
 * 
 If the image subresource is used in the video encode operation as a
 [quantization map](#encode-quantization-map), then it **must** be in the
-`VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR` layout.
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR` layout
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
+.
 
 A video encode operation **may** complete unsuccessfully.
 In this case the target video bitstream buffer will have **undefined**
@@ -10311,7 +10976,7 @@ unless this encode capability flag is supported. |
 
 * 
 `VK_VIDEO_ENCODE_CAPABILITY_QUANTIZATION_DELTA_MAP_BIT_KHR`
-indicates support for using [quantization    delta maps](#encode-quantization-delta-map).
+specifies support for using [quantization    delta maps](#encode-quantization-delta-map).
 
 * 
 `VK_VIDEO_ENCODE_CAPABILITY_EMPHASIS_MAP_BIT_KHR` specifies support
@@ -10416,22 +11081,28 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
-
-* 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 * 
 `VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR`
 
 * 
 `VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR`
+
+* 
+`VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+
+* 
+`VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
 
 The `VkPhysicalDeviceVideoEncodeQualityLevelInfoKHR` structure is
 defined as:
@@ -10817,18 +11488,24 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkVideoEncodeSessionParametersGetInfoKHR` structure is defined as:
 
@@ -11158,6 +11835,18 @@ where `pStdReferenceInfo` is the member of the
 `pNext` chain of the element of `pEncodeInfo->pReferenceSlots`
 for which `slotIndex` equals the reference index in question.
 
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR` and with the
+[intra refresh mode](#encode-intra-refresh-modes)
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`,
+`pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, and the `pNext` chain
+of `pEncodeInfo` includes a [VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR)
+structure, then let `uint32_t intraRefreshH264SliceIndex` be the
+[intra refresh index](#encode-intra-refresh-index) specified in
+[VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR)::`intraRefreshIndex`.
+Otherwise `intraRefreshH264SliceIndex` is not defined.
+
 If the bound video session object was created with an
 [H.265 encode profile](#encode-h264-profile), then:
 
@@ -11184,6 +11873,18 @@ or `h265L1PictureTypes`, respectively, where
 [VkVideoEncodeH265DpbSlotInfoKHR](#VkVideoEncodeH265DpbSlotInfoKHR) structure included in the
 `pNext` chain of the element of `pEncodeInfo->pReferenceSlots`
 for which `slotIndex` equals the reference index in question.
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR` and with the
+[intra refresh mode](#encode-intra-refresh-modes)
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`,
+`pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, and the `pNext` chain
+of `pEncodeInfo` includes a [VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR)
+structure, then let `uint32_t intraRefreshH265SliceSegmentIndex` be the
+[intra refresh index](#encode-intra-refresh-index) specified in
+[VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR)::`intraRefreshIndex`.
+Otherwise `intraRefreshH265SliceSegmentIndex` is not defined.
 
 If the bound video session object was created with an
 [AV1 encode profile](#encode-av1-profile), then:
@@ -11438,30 +12139,36 @@ All elements of `dpbFrameUseCount` **must** be less than or equal to
 `1`
 
 * 
-[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08222) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08222
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10811) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10811
 
 The image subresource [referred](#video-image-subresource-reference) to
 by `pEncodeInfo->srcPictureResource` **must** be in the
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR` layout at the time the video
 encode operation is executed on the device
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
 
 * 
-[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08223) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-08223
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10812) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10812
 
 If `pEncodeInfo->pSetupReferenceSlot` is not `NULL`, then the image
 subresource [referred](#video-image-subresource-reference) to by
 `pEncodeInfo->pSetupReferenceSlot→pPictureResource` **must** be in the
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR` layout at the time the video
 encode operation is executed on the device
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
 
 * 
-[](#VUID-vkCmdEncodeVideoKHR-pPictureResource-08224) VUID-vkCmdEncodeVideoKHR-pPictureResource-08224
+[](#VUID-vkCmdEncodeVideoKHR-pPictureResource-10813) VUID-vkCmdEncodeVideoKHR-pPictureResource-10813
 
 The image subresource [referred](#video-image-subresource-reference) to
 by the `pPictureResource` member of each element of
 `pEncodeInfo->pReferenceSlots` **must** be in the
 `VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR` layout at the time the video
 encode operation is executed on the device
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10306) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10306
@@ -11549,6 +12256,8 @@ its `quantizationMap` member is not [VK_NULL_HANDLE](../appendices/boilerplate.h
 image subresource range referenced by `quantizationMap` **must** be in
 the `VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR` layout at
 the time the video encode operation is executed on the device
+, unless the [    `unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo) feature is enabled, in which case it
+**may** be in the `VK_IMAGE_LAYOUT_GENERAL` layout
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-pNext-10315) VUID-vkCmdEncodeVideoKHR-pNext-10315
@@ -11571,6 +12280,86 @@ bound video session parameters object created with
 then `quantizationMapExtent` **must** equal
 ⌈`pEncodeInfo->srcPictureResource.codedExtent` /
 `quantizationMapTexelSize`⌉
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10837) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10837
+
+If `pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, then the
+[intra refresh mode](#encode-intra-refresh-modes) the bound video
+session was created with **must** not be
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_NONE_KHR`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10838) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10838
+
+If `pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, then
+`pEncodeInfo->activeReferencePictureCount` **must** be less than or
+equal to
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`maxIntraRefreshActiveReferencePictures`,
+as returned by [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the
+video profile the bound video session was created with
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10839) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10839
+
+If `pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, then the `pNext` chain
+of `pEncodeInfo` **must** include a
+[VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR) structure
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10840) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10840
+
+If `pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, then the
+`intraRefreshCycleDuration` member of the
+[VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR) structure included in the
+`pNext` chain of `pEncodeInfo` **must** not be zero
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10841) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10841
+
+If `pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, then the
+`intraRefreshIndex` member of the
+[VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR) structure included in the
+`pNext` chain of `pEncodeInfo` **must** be less than
+[VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR)::`intraRefreshCycleDuration`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pNext-10842) VUID-vkCmdEncodeVideoKHR-pNext-10842
+
+If the `pNext` chain of any element of
+`pEncodeInfo->pReferenceSlots` includes a
+[VkVideoReferenceIntraRefreshInfoKHR](#VkVideoReferenceIntraRefreshInfoKHR) structure with a non-zero
+`dirtyIntraRefreshRegions` member, then `pEncodeInfo->flags`
+**must** include `VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pNext-10843) VUID-vkCmdEncodeVideoKHR-pNext-10843
+
+If the `pNext` chain of any element of
+`pEncodeInfo->pReferenceSlots` includes a
+[VkVideoReferenceIntraRefreshInfoKHR](#VkVideoReferenceIntraRefreshInfoKHR) structure with a non-zero
+`dirtyIntraRefreshRegions` member, then for each such element
+`dirtyIntraRefreshRegions` **must** equal
+`intraRefreshCycleDuration` minus `intraRefreshIndex` where
+`intraRefreshCycleDuration` and `intraRefreshIndex` are the
+members of the [VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR) structure included
+in the `pNext` chain of `pEncodeInfo`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pNext-10844) VUID-vkCmdEncodeVideoKHR-pNext-10844
+
+If the `pNext` chain of `pEncodeInfo` includes a
+[VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR) structure, then its
+`intraRefreshCycleDuration` member **must** be zero or **must** be between
+`2` and
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`maxIntraRefreshCycleDuration`,
+as returned by [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the
+video profile the bound video session was created with
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-pNext-08225) VUID-vkCmdEncodeVideoKHR-pNext-08225
@@ -11690,6 +12479,94 @@ profile the bound video session was created with, then the
 [VkVideoEncodeH264PictureInfoKHR](#VkVideoEncodeH264PictureInfoKHR) structure included in the
 `pNext` chain of `pEncodeInfo` **must** be less than or equal to
 `minCodingBlockExtent.height`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10845) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10845
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR` and with an
+[intra refresh mode](#encode-intra-refresh-modes) other than
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`,
+`pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, and
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`partitionIndependentIntraRefreshRegions`
+is `VK_FALSE`, as returned by
+[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the video profile the
+bound video session was created with, then the `naluSliceEntryCount`
+member of the [VkVideoEncodeH264PictureInfoKHR](#VkVideoEncodeH264PictureInfoKHR) structure included
+in the `pNext` chain of `pEncodeInfo` **must** equal `1`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10846) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10846
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR` and with the
+[intra refresh mode](#encode-intra-refresh-modes)
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`,
+and `pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, then the
+`naluSliceEntryCount` member of the
+[VkVideoEncodeH264PictureInfoKHR](#VkVideoEncodeH264PictureInfoKHR) structure included in the
+`pNext` chain of `pEncodeInfo` **must** equal the
+`intraRefreshCycleDuration` member of the
+[VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR) structure included in the
+`pNext` chain of `pEncodeInfo`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-intraRefreshH264SliceIndex-10847) VUID-vkCmdEncodeVideoKHR-intraRefreshH264SliceIndex-10847
+
+If `intraRefreshH264SliceIndex` is defined, then
+`pNaluSliceEntries`[`intraRefreshH264SliceIndex`].`pStdSliceHeader->slice_type`
+**must** be `STD_VIDEO_H264_SLICE_TYPE_I` in the
+[VkVideoEncodeH264PictureInfoKHR](#VkVideoEncodeH264PictureInfoKHR) structure included in the
+`pNext` chain of `pEncodeInfo`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10848) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10848
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR` and with the
+[intra refresh mode](#encode-intra-refresh-modes)
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`,
+`pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, and
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`nonRectangularIntraRefreshRegions`
+is `VK_FALSE`, as returned by
+[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the video profile the
+bound video session was created with, then the `naluSliceEntryCount`
+member of the [VkVideoEncodeH264PictureInfoKHR](#VkVideoEncodeH264PictureInfoKHR) structure included
+in the `pNext` chain of `pEncodeInfo` **must** be less than or
+equal to `minCodingBlockExtent.height`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-h264PictureType-10849) VUID-vkCmdEncodeVideoKHR-h264PictureType-10849
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR`,
+`h264PictureType` is `STD_VIDEO_H264_PICTURE_TYPE_B`, and
+[VkVideoEncodeH264CapabilitiesKHR](#VkVideoEncodeH264CapabilitiesKHR)::`flags`, as returned by
+[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the video profile the
+bound video session was created with, does not include
+`VK_VIDEO_ENCODE_H264_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR`,
+then `pEncodeInfo->flags` **must** not include
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-flags-10850) VUID-vkCmdEncodeVideoKHR-flags-10850
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H264_BIT_KHR` and
+[VkVideoEncodeH264CapabilitiesKHR](#VkVideoEncodeH264CapabilitiesKHR)::`flags`, as returned by
+[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the video profile the
+bound video session was created with, does not include
+`VK_VIDEO_ENCODE_H264_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_KHR`, then
+`pNaluSliceEntries`[i].`pStdSliceHeader->slice_type` **must**
+be identical for all elements i of the `pNaluSliceEntries`
+member of the [VkVideoEncodeH264PictureInfoKHR](#VkVideoEncodeH264PictureInfoKHR) structure included
+in the `pNext` chain of `pEncodeInfo`
+, except for element index i equal to
+`intraRefreshH264SliceIndex`, if `intraRefreshH264SliceIndex` is
+defined
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-pNext-08352) VUID-vkCmdEncodeVideoKHR-pNext-08352
@@ -11914,6 +12791,96 @@ video profile the bound video session was created with, then the
 [VkVideoEncodeH265PictureInfoKHR](#VkVideoEncodeH265PictureInfoKHR) structure included in the
 `pNext` chain of `pEncodeInfo` **must** be less than or equal to
 `minCodingBlockExtent.height`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10851) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10851
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR` and with an
+[intra refresh mode](#encode-intra-refresh-modes) other than
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`,
+`pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, and
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`partitionIndependentIntraRefreshRegions`
+is `VK_FALSE`, as returned by
+[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the video profile the
+bound video session was created with, then the
+`naluSliceSegmentEntryCount` member of the
+[VkVideoEncodeH265PictureInfoKHR](#VkVideoEncodeH265PictureInfoKHR) structure included in the
+`pNext` chain of `pEncodeInfo` **must** equal `1`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10852) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10852
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR` and with the
+[intra refresh mode](#encode-intra-refresh-modes)
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`,
+and `pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, then the
+`naluSliceSegmentEntryCount` member of the
+[VkVideoEncodeH265PictureInfoKHR](#VkVideoEncodeH265PictureInfoKHR) structure included in the
+`pNext` chain of `pEncodeInfo` **must** equal
+[VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR)::`intraRefreshCycleDuration`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-intraRefreshH265SliceSegmentIndex-10853) VUID-vkCmdEncodeVideoKHR-intraRefreshH265SliceSegmentIndex-10853
+
+If `intraRefreshH265SliceSegmentIndex` is defined, then
+`pNaluSliceSegmentEntries`[`intraRefreshH265SliceSegmentIndex`].`pStdSliceSegmentHeader->slice_type`
+**must** be `STD_VIDEO_H265_SLICE_TYPE_I` in the
+[VkVideoEncodeH265PictureInfoKHR](#VkVideoEncodeH265PictureInfoKHR) structure included in the
+`pNext` chain of `pEncodeInfo`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10854) VUID-vkCmdEncodeVideoKHR-pEncodeInfo-10854
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR` and with the
+[intra refresh mode](#encode-intra-refresh-modes)
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`,
+`pEncodeInfo->flags` includes
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`, and
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`nonRectangularIntraRefreshRegions`
+is `VK_FALSE`, as returned by
+[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the video profile the
+bound video session was created with, then the
+`naluSliceSegmentEntryCount` member of the
+[VkVideoEncodeH265PictureInfoKHR](#VkVideoEncodeH265PictureInfoKHR) structure included in the
+`pNext` chain of `pEncodeInfo` **must** be less than or equal to
+`minCodingBlockExtent.height`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-h265PictureType-10855) VUID-vkCmdEncodeVideoKHR-h265PictureType-10855
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR`,
+`h265PictureType` is `STD_VIDEO_H265_PICTURE_TYPE_B`, and
+[VkVideoEncodeH265CapabilitiesKHR](#VkVideoEncodeH265CapabilitiesKHR)::`flags`, as returned by
+[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the video profile the
+bound video session was created with, does not include
+`VK_VIDEO_ENCODE_H265_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR`,
+then `pEncodeInfo->flags` **must** not include
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`
+
+* 
+[](#VUID-vkCmdEncodeVideoKHR-flags-10856) VUID-vkCmdEncodeVideoKHR-flags-10856
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_H265_BIT_KHR` and
+[VkVideoEncodeH265CapabilitiesKHR](#VkVideoEncodeH265CapabilitiesKHR)::`flags`, as returned by
+[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the used video
+profile, does not include
+`VK_VIDEO_ENCODE_H265_CAPABILITY_DIFFERENT_SLICE_SEGMENT_TYPE_BIT_KHR`,
+then
+`pNaluSliceSegmentEntries`[i].`pStdSliceSegmentHeader->slice_type`
+**must** be identical for all elements i of the
+`pNaluSliceSegmentEntries` member of the
+[VkVideoEncodeH265PictureInfoKHR](#VkVideoEncodeH265PictureInfoKHR) structure included in the
+`pNext` chain of `pEncodeInfo`
+, except for element index i equal to
+`intraRefreshH265SliceSegmentIndex`, if
+`intraRefreshH265SliceSegmentIndex` is defined
 
 * 
 [](#VUID-vkCmdEncodeVideoKHR-pNext-08354) VUID-vkCmdEncodeVideoKHR-pNext-08354
@@ -12220,6 +13187,22 @@ as returned by [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVid
 video profile the bound video session was created with
 
 * 
+[](#VUID-vkCmdEncodeVideoKHR-predictionMode-10857) VUID-vkCmdEncodeVideoKHR-predictionMode-10857
+
+If the bound video session was created with the video codec operation
+`VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR`, the
+`predictionMode` member of the [VkVideoEncodeAV1PictureInfoKHR](#VkVideoEncodeAV1PictureInfoKHR)
+structure included in the `pNext` chain of `pEncodeInfo` is
+`VK_VIDEO_ENCODE_AV1_PREDICTION_MODE_UNIDIRECTIONAL_COMPOUND_KHR` or
+`VK_VIDEO_ENCODE_AV1_PREDICTION_MODE_BIDIRECTIONAL_COMPOUND_KHR`,
+and [VkVideoEncodeAV1CapabilitiesKHR](#VkVideoEncodeAV1CapabilitiesKHR)::`flags`, as returned by
+[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the video profile the
+bound video session was created with, does not include
+`VK_VIDEO_ENCODE_AV1_CAPABILITY_COMPOUND_PREDICTION_INTRA_REFRESH_BIT_KHR`,
+then `pEncodeInfo->flags` **must** not include
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`
+
+* 
 [](#VUID-vkCmdEncodeVideoKHR-referenceNameSlotIndices-10334) VUID-vkCmdEncodeVideoKHR-referenceNameSlotIndices-10334
 
 If the bound video session was created with the video codec operation
@@ -12493,6 +13476,10 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary | Outside | Inside | Encode | Action |
 
+Conditional Rendering
+
+vkCmdEncodeVideoKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkVideoEncodeInfoKHR` structure is defined as:
 
 // Provided by VK_KHR_video_encode_queue
@@ -12611,7 +13598,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkVideoEncodeInfoKHR-pNext-pNext) VUID-VkVideoEncodeInfoKHR-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoEncodeAV1PictureInfoKHR](#VkVideoEncodeAV1PictureInfoKHR), [VkVideoEncodeH264PictureInfoKHR](#VkVideoEncodeH264PictureInfoKHR), [VkVideoEncodeH265PictureInfoKHR](#VkVideoEncodeH265PictureInfoKHR), [VkVideoEncodeQuantizationMapInfoKHR](#VkVideoEncodeQuantizationMapInfoKHR), or [VkVideoInlineQueryInfoKHR](#VkVideoInlineQueryInfoKHR)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkVideoEncodeAV1PictureInfoKHR](#VkVideoEncodeAV1PictureInfoKHR), [VkVideoEncodeH264PictureInfoKHR](#VkVideoEncodeH264PictureInfoKHR), [VkVideoEncodeH265PictureInfoKHR](#VkVideoEncodeH265PictureInfoKHR), [VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR), [VkVideoEncodeQuantizationMapInfoKHR](#VkVideoEncodeQuantizationMapInfoKHR), or [VkVideoInlineQueryInfoKHR](#VkVideoInlineQueryInfoKHR)
 
 * 
 [](#VUID-VkVideoEncodeInfoKHR-sType-unique) VUID-VkVideoEncodeInfoKHR-sType-unique
@@ -12648,6 +13635,8 @@ specifying video encode flags, are:
 
 // Provided by VK_KHR_video_encode_quantization_map
 typedef enum VkVideoEncodeFlagBitsKHR {
+  // Provided by VK_KHR_video_encode_intra_refresh
+    VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR = 0x00000004,
   // Provided by VK_KHR_video_encode_quantization_map
     VK_VIDEO_ENCODE_WITH_QUANTIZATION_DELTA_MAP_BIT_KHR = 0x00000001,
   // Provided by VK_KHR_video_encode_quantization_map
@@ -12664,11 +13653,452 @@ issued [video encode operations](#video-encode-operations).
 [emphasis map](#encode-emphasis-map) in the issued
 [video encode operations](#video-encode-operations).
 
+* 
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR` enables
+[intra refresh](#encode-intra-refresh) for the encoded picture.
+
 // Provided by VK_KHR_video_encode_queue
 typedef VkFlags VkVideoEncodeFlagsKHR;
 
 [VkVideoEncodeFlagsKHR](#VkVideoEncodeFlagsKHR) is a bitmask type for setting a mask of zero or
 more [VkVideoEncodeFlagBitsKHR](#VkVideoEncodeFlagBitsKHR).
+
+Encoding a picture with intra refresh enables encoding a subset of the
+coding blocks produced for an [encode input picture](#encode-input-picture)
+with intra prediction.
+
+|  | This enables the application to perform a decoder refresh through a series
+| --- | --- |
+of pictures instead of a single picture.
+In conjunction with [restricting reference picture prediction](#encode-intra-refresh-reference-pictures), this enables avoiding error propagation
+across refresh cycles without introducing sudden spikes in the bitrate.
+This is achieved by amortizing the bitstream consumption of the refresh
+across a series of subsequent pictures. |
+
+An *intra refresh cycle* is a series of encode operations using intra
+refresh that contain at least one encode operation for any subregion of the
+coded extent that encoded the subregion with intra prediction.
+
+The *intra refresh cycle duration* is the number of encode operations in an
+intra refresh cycle.
+
+![encode intra refresh cycle duration](../_images/encode_intra_refresh_cycle_duration.svg)
+
+Figure 1. Intra refresh cycle duration
+
+For the purposes of performing an intra refresh cycle, the coded extent is
+divided into a set of *intra refresh regions*.
+The number of intra refresh regions for a given intra refresh cycle equals
+the intra refresh cycle duration.
+
+Implementations **may** partition the coded extent into intra refresh regions
+in an implementation-specific manner, unless otherwise specified.
+The following is true for the resulting set of intra refresh regions:
+
+* 
+Each intra refresh region encompasses entire coding blocks.
+
+* 
+Any intra refresh region **may** be non-rectangular.
+
+* 
+Some intra refresh regions **may** be empty.
+
+* 
+The union of intra refresh regions of a given partitioning covers the
+entire coded extent.
+
+|  | While intra refresh regions are generally disjoint, there may be overlap
+| --- | --- |
+between distinct intra refresh regions of a given partitioning in order to
+accommodate for any filtering that may need to be applied across coding
+blocks of neighboring intra refresh regions. |
+
+![encode intra refresh regions](../_images/encode_intra_refresh_regions.svg)
+
+Figure 2. Examples of picture partitioning into intra refresh regions
+
+An intra refresh cycle is performed by encoding subsequent pictures with
+intra refresh, each encoding subsequent intra refresh regions using intra
+prediction.
+This inherently defines an ordering of encode operations within an intra
+refresh cycle.
+Therefore each encode operation in an intra refresh cycle has an *intra
+refresh index* that provides the following information:
+
+* 
+The intra refresh index of an encode operation using intra refresh is
+the ordinal index of the intra refresh region being encoded using intra
+prediction.
+
+* 
+The intra refresh index of an encode operation using intra refresh
+inherently tells the number of intra refresh regions already refreshed
+by previous encode operations of the intra refresh cycle.
+
+|  | For AV1 encoding, applications should consider setting the
+| --- | --- |
+`error_resilient_mode` flag for the first frame encoded as part of the
+intra refresh cycle in order to avoid any error propagation of CDF data. |
+
+An intra refresh region of a picture encoded using intra refresh is
+considered *clean* once the encode operation within the intra refresh cycle
+that encoded that intra refresh region using intra prediction is complete.
+Otherwise, the intra refresh region is considered *dirty*.
+
+The number of *dirty intra refresh regions* of a picture encoded using intra
+refresh is always one less than the difference between the intra refresh
+cycle duration and the intra refresh index used to encode that picture.
+
+|  | As the intra refresh cycle progresses, each subsequent picture encoded with
+| --- | --- |
+intra refresh will have fewer dirty intra refresh regions.
+Consequently, the final encode operation of the intra refresh cycle will
+produce an encoded picture with no more dirty intra refresh regions. |
+
+When calling [vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) with
+`pVideoProfile->videoCodecOperation` specifying an encode operation, the
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR) structure **can** be included in
+the `pNext` chain of the [VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR) structure to
+retrieve capabilities specific to video encode intra refresh.
+
+The `VkVideoEncodeIntraRefreshCapabilitiesKHR` structure is defined as:
+
+// Provided by VK_KHR_video_encode_intra_refresh
+typedef struct VkVideoEncodeIntraRefreshCapabilitiesKHR {
+    VkStructureType                          sType;
+    void*                                    pNext;
+    VkVideoEncodeIntraRefreshModeFlagsKHR    intraRefreshModes;
+    uint32_t                                 maxIntraRefreshCycleDuration;
+    uint32_t                                 maxIntraRefreshActiveReferencePictures;
+    VkBool32                                 partitionIndependentIntraRefreshRegions;
+    VkBool32                                 nonRectangularIntraRefreshRegions;
+} VkVideoEncodeIntraRefreshCapabilitiesKHR;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`intraRefreshModes` is a bitmask of
+[VkVideoEncodeIntraRefreshModeFlagBitsKHR](#VkVideoEncodeIntraRefreshModeFlagBitsKHR) values indicating the set
+of supported [intra refresh modes](#encode-intra-refresh-modes).
+
+* 
+`maxIntraRefreshCycleDuration` specifies the maximum supported
+[intra refresh cycle duration](#encode-intra-refresh-cycle-duration).
+
+* 
+`maxIntraRefreshActiveReferencePictures` is the maximum number of
+[active reference pictures](#active-reference-pictures) when encoding
+pictures with [intra refresh](#encode-intra-refresh) enabled.
+This capability indicates additional restrictions beyond the maximum
+number of [active reference pictures](#active-reference-pictures)
+supported by the video profile, as reported in
+[VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)::`maxActiveReferencePictures` and the
+maximum requested at video session creation time in
+[VkVideoSessionCreateInfoKHR](#VkVideoSessionCreateInfoKHR)::`maxActiveReferencePictures`.
+
+* 
+`partitionIndependentIntraRefreshRegions` specifies whether the
+implementation supports intra refresh regions that are independent of
+the picture partitioning used during encoding.
+If it is `VK_TRUE`, then pictures **can** be encoded with multiple
+picture partitions, independent of the used intra refresh mode.
+Otherwise, pictures **cannot** be encoded with multiple picture partitions
+with any intra refresh mode other than
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`.
+
+|  | This capability is only indicative for [AV1 encode profiles](#encode-av1-profile) and does not impose any restrictions on the application as
+| --- | --- |
+implementations may change the application requested picture partitioning
+according to implementation-specific restrictions. |
+
+* 
+`nonRectangularIntraRefreshRegions` specifies whether the
+implementation supports non-rectangular intra refresh regions.
+
+|  | If this capability is not supported, then using per picture partition intra
+| --- | --- |
+refresh may impose additional restrictions on the number of picture
+partitions a picture can be encoded with. |
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkVideoEncodeIntraRefreshCapabilitiesKHR-sType-sType) VUID-VkVideoEncodeIntraRefreshCapabilitiesKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_CAPABILITIES_KHR`
+
+The intra refresh modes are defined with the following enums:
+
+// Provided by VK_KHR_video_encode_intra_refresh
+typedef enum VkVideoEncodeIntraRefreshModeFlagBitsKHR {
+    VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_NONE_KHR = 0,
+    VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR = 0x00000001,
+    VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_BASED_BIT_KHR = 0x00000002,
+    VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_ROW_BASED_BIT_KHR = 0x00000004,
+    VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_COLUMN_BASED_BIT_KHR = 0x00000008,
+} VkVideoEncodeIntraRefreshModeFlagBitsKHR;
+
+* 
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_NONE_KHR` specifies that intra
+refresh **must** not be used.
+
+* 
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`
+specifies the use of *per picture partition intra refresh*.
+In this mode each intra refresh region i corresponds to the
+encoded picture partition i.
+
+* 
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_BASED_BIT_KHR` specifies
+the use of any *block-based intra refresh*.
+In this mode each intra refresh region encompasses a set of coding
+blocks, independent of encoded picture partitions but without any
+additional guarantees on the granularity at which the picture is split
+into intra refresh regions.
+When using this mode, the set of coding blocks comprising the intra
+refresh regions and the direction of intra refresh are
+implementation-defined.
+
+* 
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_ROW_BASED_BIT_KHR`
+specifies the use of *block-row-based intra refresh*.
+This mode is a block-based intra refresh mode where each intra refresh
+region encompasses a set of coding block rows.
+
+* 
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_COLUMN_BASED_BIT_KHR`
+specifies the use of *block-column-based intra refresh*.
+This mode is a block-based intra refresh mode where each intra refresh
+region encompasses a set of coding block columns.
+
+Implementations reporting support for
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_ROW_BASED_BIT_KHR` and/or
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_COLUMN_BASED_BIT_KHR` in
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`intraRefreshModes` are
+also **required** to report support for
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_BASED_BIT_KHR`.
+
+|  | Both block-row-based and block-column-based intra refresh are just specific
+| --- | --- |
+types of block-based intra refresh that provide additional guarantees about
+the granularity at which the picture is split into intra refresh regions,
+therefore implementations supporting either block-row-based or
+block-column-based intra refresh inherently support block-based intra
+refresh.
+Applications can use
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_BLOCK_BASED_BIT_KHR` on such
+implementations when they do not have any preference for a more specific
+block-based mode and would rather leave the decision about the division into
+intra refresh regions to the implementation. |
+
+// Provided by VK_KHR_video_encode_intra_refresh
+typedef VkFlags VkVideoEncodeIntraRefreshModeFlagsKHR;
+
+`VkVideoEncodeIntraRefreshModeFlagsKHR` is a bitmask type for setting a
+mask of zero or more [VkVideoEncodeIntraRefreshModeFlagBitsKHR](#VkVideoEncodeIntraRefreshModeFlagBitsKHR).
+
+The used intra refresh mode is selected at [video session creation time](#video-session-creation) by including an instance of the
+[VkVideoEncodeSessionIntraRefreshCreateInfoKHR](#VkVideoEncodeSessionIntraRefreshCreateInfoKHR) structure in the
+`pNext` chain of the [VkVideoSessionCreateInfoKHR](#VkVideoSessionCreateInfoKHR) structure and
+specifying one of the supported intra refresh modes, as returned in
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`intraRefreshModes`, in
+its `intraRefreshMode` member.
+
+The `VkVideoEncodeSessionIntraRefreshCreateInfoKHR` structure is defined
+as:
+
+// Provided by VK_KHR_video_encode_intra_refresh
+typedef struct VkVideoEncodeSessionIntraRefreshCreateInfoKHR {
+    VkStructureType                             sType;
+    const void*                                 pNext;
+    VkVideoEncodeIntraRefreshModeFlagBitsKHR    intraRefreshMode;
+} VkVideoEncodeSessionIntraRefreshCreateInfoKHR;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`intraRefreshMode` is a
+[VkVideoEncodeIntraRefreshModeFlagBitsKHR](#VkVideoEncodeIntraRefreshModeFlagBitsKHR) specifying the used
+[intra refresh mode](#encode-intra-refresh-modes).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkVideoEncodeSessionIntraRefreshCreateInfoKHR-sType-sType) VUID-VkVideoEncodeSessionIntraRefreshCreateInfoKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_VIDEO_ENCODE_SESSION_INTRA_REFRESH_CREATE_INFO_KHR`
+
+* 
+[](#VUID-VkVideoEncodeSessionIntraRefreshCreateInfoKHR-intraRefreshMode-parameter) VUID-VkVideoEncodeSessionIntraRefreshCreateInfoKHR-intraRefreshMode-parameter
+
+ If `intraRefreshMode` is not `0`, `intraRefreshMode` **must** be a valid [VkVideoEncodeIntraRefreshModeFlagBitsKHR](#VkVideoEncodeIntraRefreshModeFlagBitsKHR) value
+
+If the video encode operation is issued with the
+`VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR` flag, the picture will be
+encoded with intra refresh, resulting in the [intra refresh region](#encode-intra-refresh-regions) identified by the specified
+[intra refresh index](#encode-intra-refresh-index) to be encoded with intra
+prediction.
+
+Intra refresh parameters are specified to video encode operations by
+including an instance of the [VkVideoEncodeIntraRefreshInfoKHR](#VkVideoEncodeIntraRefreshInfoKHR)
+structure in the `pNext` chain of the [VkVideoEncodeInfoKHR](#VkVideoEncodeInfoKHR)
+structure specified to the video encode command.
+
+The `VkVideoEncodeIntraRefreshInfoKHR` structure is defined as:
+
+// Provided by VK_KHR_video_encode_intra_refresh
+typedef struct VkVideoEncodeIntraRefreshInfoKHR {
+    VkStructureType    sType;
+    const void*        pNext;
+    uint32_t           intraRefreshCycleDuration;
+    uint32_t           intraRefreshIndex;
+} VkVideoEncodeIntraRefreshInfoKHR;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`intraRefreshCycleDuration` is the used
+[intra refresh cycle duration](#encode-intra-refresh-cycle-duration).
+
+* 
+`intraRefreshIndex` is the [intra    refresh index](#encode-intra-refresh-index) of the encoded picture.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkVideoEncodeIntraRefreshInfoKHR-sType-sType) VUID-VkVideoEncodeIntraRefreshInfoKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_VIDEO_ENCODE_INTRA_REFRESH_INFO_KHR`
+
+When using pictures encoded with intra refresh as an
+[active reference picture](#active-reference-pictures) in a video encode
+operation, applications **may** want to limit the set of
+[intra refresh regions](#encode-intra-refresh-regions) of the reference
+picture that are used to predict samples of the encoded picture to exclude
+[dirty intra refresh regions](#encode-dirty-intra-refresh-regions) of the
+reference picture in question.
+
+|  | This enables the application to avoid error propagation from previous
+| --- | --- |
+refresh cycles by only using already refreshed (clean) intra refresh regions
+for sample prediction. |
+
+In order to limit the set of [intra refresh regions](#encode-intra-refresh-regions) of an [active reference picture](#active-reference-pictures) used
+for sample prediction, the application **must** specify an instance of the
+[VkVideoReferenceIntraRefreshInfoKHR](#VkVideoReferenceIntraRefreshInfoKHR) structure in the `pNext` chain
+of the [VkVideoReferenceSlotInfoKHR](#VkVideoReferenceSlotInfoKHR) structure specifying the active
+reference picture in question.
+
+The `VkVideoReferenceIntraRefreshInfoKHR` structure is defined as:
+
+// Provided by VK_KHR_video_encode_intra_refresh
+typedef struct VkVideoReferenceIntraRefreshInfoKHR {
+    VkStructureType    sType;
+    const void*        pNext;
+    uint32_t           dirtyIntraRefreshRegions;
+} VkVideoReferenceIntraRefreshInfoKHR;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`dirtyIntraRefreshRegions` is the number of
+[dirty intra refresh regions](#encode-dirty-intra-refresh-regions) in
+the reference picture.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkVideoReferenceIntraRefreshInfoKHR-sType-sType) VUID-VkVideoReferenceIntraRefreshInfoKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_VIDEO_REFERENCE_INTRA_REFRESH_INFO_KHR`
+
+In order to use active reference pictures with a non-zero number of dirty
+intra refresh regions and therefore limit sample prediction to clean intra
+refresh regions, the currently encoded picture **must** be encoded with intra
+refresh enabled.
+
+When limiting sample prediction to clean intra refresh regions of a
+reference picture with a non-zero number of
+[dirty intra refresh regions](#encode-dirty-intra-refresh-regions), the
+number of dirty intra refresh regions **must** equal the used
+[intra refresh cycle duration](#encode-intra-refresh-cycle-duration) minus
+the [intra refresh index](#encode-intra-refresh-index) of the encoded
+picture.
+
+|  | This has the practical effect that pictures can only reference the previous
+| --- | --- |
+picture within the intra refresh cycle or pictures outside of the intra
+refresh cycle. |
+
+Given an [active reference picture](#active-reference-pictures) with
+`dirtyIntraRefreshRegions` number of
+[dirty intra refresh regions](#encode-dirty-intra-refresh-regions) and an
+[intra refresh cycle duration](#encode-intra-refresh-cycle-duration) of
+`intraRefreshCycleDuration`, the samples within intra refresh region
+index i of the encoded picture are allowed to be predicted by samples
+within intra refresh region index j of the active reference picture in
+question if and only if any of the following conditions are true:
+
+* 
+The picture is encoded with `VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`
+and i is greater than the `intraRefreshIndex` of the encoded
+picture.
+
+* 
+The picture is encoded with `VK_VIDEO_ENCODE_INTRA_REFRESH_BIT_KHR`,
+i is less than the `intraRefreshIndex` of the encoded picture,
+and j is less than the difference of
+`intraRefreshCycleDuration` and `dirtyIntraRefreshRegions`.
+
+|  | Even if a particular intra refresh region is allowed to be used for sample
+| --- | --- |
+prediction, as defined above, implementations may not always support sample
+prediction from the given intra refresh region.
+
+Some implementations may only support sample prediction from a single set of
+intra refresh regions across the entire set of active reference pictures.
+For example, when encoding a picture with two active reference pictures, one
+with no dirty intra refresh regions, and one with some dirty intra refresh
+regions, sample prediction may not happen from those intra refresh regions
+of the first active reference picture which are marked dirty in the second
+active reference picture.
+
+Other implementations may have the additional restriction that the set of
+intra refresh regions to use for sample prediction across the entire set of
+active reference pictures is implied from the intra refresh index of the
+currently encoded picture, further restricting the set of intra refresh
+regions that such implementations can use for sample prediction.
+For example, when encoding a picture with intra refresh using an active
+reference picture that has no dirty intra refresh regions, sample prediction
+may not happen from intra refresh regions of the active reference picture
+which have an index greater than or equal to the currently encoded picture’s
+intra refresh index, even though those intra refresh regions were not marked
+as dirty.
+
+None of these implementation limitations will have an effect on application
+behavior from the perspective of correctness, but they may negatively impact
+the encoding efficiency. |
 
 The size of the encoded bitstream data produced by video encode operations
 is a function of the following set of constraints:
@@ -14310,6 +15740,8 @@ typedef enum VkVideoEncodeH264CapabilityFlagBitsKHR {
     VK_VIDEO_ENCODE_H264_CAPABILITY_PER_PICTURE_TYPE_MIN_MAX_QP_BIT_KHR = 0x00000040,
     VK_VIDEO_ENCODE_H264_CAPABILITY_PER_SLICE_CONSTANT_QP_BIT_KHR = 0x00000080,
     VK_VIDEO_ENCODE_H264_CAPABILITY_GENERATE_PREFIX_NALU_BIT_KHR = 0x00000100,
+  // Provided by VK_KHR_video_encode_h264 with VK_KHR_video_encode_intra_refresh
+    VK_VIDEO_ENCODE_H264_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR = 0x00000400,
   // Provided by VK_KHR_video_encode_h264 with VK_KHR_video_encode_quantization_map
     VK_VIDEO_ENCODE_H264_CAPABILITY_MB_QP_DIFF_WRAPAROUND_BIT_KHR = 0x00000200,
 } VkVideoEncodeH264CapabilityFlagBitsKHR;
@@ -14343,6 +15775,10 @@ finish at any offset in a macroblock row.
 If not supported, all slices in the frame **must** begin at the start of a
 macroblock row (and hence each slice **must** finish at the end of a
 macroblock row).
+When a picture is encoded with [intra refresh](#encode-intra-refresh),
+encoding non-rectangular slices also requires: support for the
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`nonRectangularIntraRefreshRegions`
+capability.
 
 * 
 `VK_VIDEO_ENCODE_H264_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_KHR`
@@ -14352,6 +15788,14 @@ implementation allows encoding each slice with a different
 [H.264 slice header parameters](#encode-h264-slice-header-params).
 If not supported, all slices of the frame **must** be encoded with the same
 `slice_type` which corresponds to the picture type of the frame.
+There is one exception to this rule: if the picture is encoded with the
+[intra refresh mode](#encode-intra-refresh-modes)
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`,
+then the currently refreshed slice **must** specify the `slice_type`
+`STD_VIDEO_H264_SLICE_TYPE_I` and **can** differ from the
+`slice_type` of the other slices regardless of whether
+`VK_VIDEO_ENCODE_H264_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_KHR` is
+supported.
 
 * 
 `VK_VIDEO_ENCODE_H264_CAPABILITY_B_FRAME_IN_L0_LIST_BIT_KHR`
@@ -14397,6 +15841,11 @@ QPY = QPY,PREV +  `mb_qp_delta`
 | --- | --- |
 macroblocks is limited to the [-(26 +  QpBdOffsetY / 2), 25
 +  QpBdOffsetY / 2] range. |
+
+* 
+`VK_VIDEO_ENCODE_H264_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR`
+indicates support for encoding [B pictures](#encode-h264-b-pic) with
+[intra refresh](#encode-intra-refresh) enabled.
 
 // Provided by VK_KHR_video_encode_h264
 typedef VkFlags VkVideoEncodeH264CapabilityFlagsKHR;
@@ -14740,6 +16189,12 @@ are otherwise ignored;
 `level_idc` is one of the enum constants
 `STD_VIDEO_H264_LEVEL_IDC__` identifying the H.264 level
 `.` as defined in section A.3 of the [ITU-T    H.264 Specification](introduction.html#itu-t-h264);
+
+* 
+`pOffsetForRefFrame` is a pointer to an array of
+`num_ref_frames_in_pic_order_cnt_cycle` number of signed integers
+specifying the elements of the `offset_for_ref_frame` array, as
+defined in section 7.4.2.1.1 of the [ITU-T H.264    Specification](introduction.html#itu-t-h264);
 
 * 
 if `flags.seq_scaling_matrix_present_flag` is set, then the
@@ -15310,16 +16765,6 @@ then
 [VkVideoEncodeH264NaluSliceInfoKHR](#VkVideoEncodeH264NaluSliceInfoKHR)::`pStdSliceHeader->pWeightTable`
 **must** not be `NULL` for that element of `pNaluSliceEntries`
 
-* 
-[](#VUID-VkVideoEncodeH264PictureInfoKHR-flags-08315) VUID-VkVideoEncodeH264PictureInfoKHR-flags-08315
-
-If [VkVideoEncodeH264CapabilitiesKHR](#VkVideoEncodeH264CapabilitiesKHR)::`flags`, as returned by
-[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the used video
-profile, does not include
-`VK_VIDEO_ENCODE_H264_CAPABILITY_DIFFERENT_SLICE_TYPE_BIT_KHR`, then
-[VkVideoEncodeH264NaluSliceInfoKHR](#VkVideoEncodeH264NaluSliceInfoKHR)::`pStdSliceHeader->slice_type`
-**must** be identical for all elements of `pNaluSliceEntries`
-
 Valid Usage (Implicit)
 
 * 
@@ -15549,14 +16994,14 @@ frame is a P frame and the algorithm continues from step 2.
 
 ![h26x open gop](../_images/h26x_open_gop.svg)
 
-Figure 1. H.264 open GOP
+Figure 3. H.264 open GOP
 
 In case of a closed GOP, an [IDR frame](#encode-h264-idr-pic) is used at a
 certain period.
 
 ![h26x closed gop](../_images/h26x_closed_gop.svg)
 
-Figure 2. H.264 closed GOP
+Figure 4. H.264 closed GOP
 
 It is also typical for H.264 encoding to use specific reference picture
 usage patterns across the frames of the GOP.
@@ -15574,7 +17019,7 @@ backward reference.
 
 ![h26x ref pattern flat](../_images/h26x_ref_pattern_flat.svg)
 
-Figure 3. H.264 flat reference pattern
+Figure 5. H.264 flat reference pattern
 
 Dyadic Reference Pattern
 
@@ -15601,7 +17046,7 @@ middle, if any.
 
 ![h26x ref pattern dyadic](../_images/h26x_ref_pattern_dyadic.svg)
 
-Figure 4. H.264 dyadic reference pattern
+Figure 6. H.264 dyadic reference pattern
 
 The application **can** provide guidance to the implementation’s rate control
 algorithm about the structure of the GOP used by the application.
@@ -15641,7 +17086,7 @@ if any, as reference.
 
 ![h26x layer pattern dyadic](../_images/h26x_layer_pattern_dyadic.svg)
 
-Figure 5. H.264 dyadic temporal layer pattern
+Figure 7. H.264 dyadic temporal layer pattern
 
 |  | Multi-layer rate control and multi-layer coding are typically used for
 | --- | --- |
@@ -16261,6 +17706,12 @@ returned by [vkGetPhysicalDeviceQueueFamilyProperties2](devsandqueues.html#vkGet
 | **[VkVideoEncodeH264QuantizationMapCapabilitiesKHR](#VkVideoEncodeH264QuantizationMapCapabilitiesKHR)** |  |  |
 | `minQpDelta` | - 3 | max |
 | `maxQpDelta` | - 3 | min |
+| **[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)** |  |  |
+| `intraRefreshModes` | 0 | min |
+| `maxIntraRefreshCycleDuration` | 2 5 | min |
+| `maxIntraRefreshActiveReferencePictures` | 1 5 | min |
+| `partitionIndependentIntraRefreshRegions` | - | implementation-dependent |
+| `nonRectangularIntraRefreshRegions` | - | implementation-dependent |
 
 1
 
@@ -16289,6 +17740,12 @@ If [VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)::`flags` includes
 
 If the [`videoMaintenance2`](features.html#features-videoMaintenance2) feature is
 supported.
+
+5
+
+If
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`intraRefreshModes`
+is not zero.
 
 Video encode operations using an [H.265 encode profile](#encode-h265-profile) **can** be used to encode elementary video stream sequences compliant
 to the [ITU-T H.265 Specification](introduction.html#itu-t-h265).
@@ -16865,6 +18322,8 @@ typedef enum VkVideoEncodeH265CapabilityFlagBitsKHR {
     VK_VIDEO_ENCODE_H265_CAPABILITY_PER_SLICE_SEGMENT_CONSTANT_QP_BIT_KHR = 0x00000080,
     VK_VIDEO_ENCODE_H265_CAPABILITY_MULTIPLE_TILES_PER_SLICE_SEGMENT_BIT_KHR = 0x00000100,
     VK_VIDEO_ENCODE_H265_CAPABILITY_MULTIPLE_SLICE_SEGMENTS_PER_TILE_BIT_KHR = 0x00000200,
+  // Provided by VK_KHR_video_encode_h265 with VK_KHR_video_encode_intra_refresh
+    VK_VIDEO_ENCODE_H265_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR = 0x00000800,
   // Provided by VK_KHR_video_encode_h265 with VK_KHR_video_encode_quantization_map
     VK_VIDEO_ENCODE_H265_CAPABILITY_CU_QP_DIFF_WRAPAROUND_BIT_KHR = 0x00000400,
 } VkVideoEncodeH265CapabilityFlagBitsKHR;
@@ -16905,6 +18364,10 @@ CTB row.
 If not supported, slice segments in such a frame **must** begin at the
 start of the enclosing tile’s CTB row (and hence each slice segment
 **must** finish at the end of the enclosing tile’s CTB row).
+When a picture is encoded with [intra refresh](#encode-intra-refresh),
+encoding non-rectangular slice segments also requires: support for the
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`nonRectangularIntraRefreshRegions`
+capability.
 
 * 
 `VK_VIDEO_ENCODE_H265_CAPABILITY_DIFFERENT_SLICE_SEGMENT_TYPE_BIT_KHR`
@@ -16915,6 +18378,14 @@ the [H.265 slice segment header    parameters](#encode-h265-slice-segment-header
 If not supported, all slice segments of the frame **must** be encoded with
 the same `slice_type` which corresponds to the picture type of the
 frame.
+There is one exception to this rule: if the picture is encoded with the
+[intra refresh mode](#encode-intra-refresh-modes)
+`VK_VIDEO_ENCODE_INTRA_REFRESH_MODE_PER_PICTURE_PARTITION_BIT_KHR`,
+then the currently refreshed slice segment **must** specify the
+`slice_type` `STD_VIDEO_H265_SLICE_TYPE_I` and **can** differ from
+the `slice_type` of the other slice segments regardless of whether
+`VK_VIDEO_ENCODE_H265_CAPABILITY_DIFFERENT_SLICE_SEGMENT_TYPE_BIT_KHR`
+is supported.
 
 * 
 `VK_VIDEO_ENCODE_H265_CAPABILITY_B_FRAME_IN_L0_LIST_BIT_KHR`
@@ -16970,6 +18441,11 @@ QpY = qPY_PRED +  `CuQpDeltaVal`
 | --- | --- |
 coding units is limited to the [-(26 +  QpBdOffsetY / 2), 25
 +  QpBdOffsetY / 2] range. |
+
+* 
+`VK_VIDEO_ENCODE_H265_CAPABILITY_B_PICTURE_INTRA_REFRESH_BIT_KHR`
+indicates support for encoding [B pictures](#encode-h265-b-pic) with
+[intra refresh](#encode-intra-refresh) enabled.
 
 // Provided by VK_KHR_video_encode_h265
 typedef VkFlags VkVideoEncodeH265CapabilityFlagsKHR;
@@ -18223,17 +19699,6 @@ and the slice segment corresponding to any element of
 [VkVideoEncodeH265NaluSliceSegmentInfoKHR](#VkVideoEncodeH265NaluSliceSegmentInfoKHR)::`pStdSliceSegmentHeader->pWeightTable`
 **must** not be `NULL` for that element of `pNaluSliceSegmentEntries`
 
-* 
-[](#VUID-VkVideoEncodeH265PictureInfoKHR-flags-08317) VUID-VkVideoEncodeH265PictureInfoKHR-flags-08317
-
-If [VkVideoEncodeH265CapabilitiesKHR](#VkVideoEncodeH265CapabilitiesKHR)::`flags`, as returned by
-[vkGetPhysicalDeviceVideoCapabilitiesKHR](#vkGetPhysicalDeviceVideoCapabilitiesKHR) for the used video
-profile, does not include
-`VK_VIDEO_ENCODE_H265_CAPABILITY_DIFFERENT_SLICE_SEGMENT_TYPE_BIT_KHR`,
-then
-[VkVideoEncodeH265NaluSliceSegmentInfoKHR](#VkVideoEncodeH265NaluSliceSegmentInfoKHR)::`pStdSliceSegmentHeader->slice_type`
-**must** be identical for all elements of `pNaluSliceSegmentEntries`
-
 Valid Usage (Implicit)
 
 * 
@@ -18467,14 +19932,14 @@ frame is a P frame and the algorithm continues from step 2.
 
 ![h26x open gop](../_images/h26x_open_gop.svg)
 
-Figure 6. H.265 open GOP
+Figure 8. H.265 open GOP
 
 In case of a closed GOP, an [IDR frame](#encode-h265-idr-pic) is used at a
 certain period.
 
 ![h26x closed gop](../_images/h26x_closed_gop.svg)
 
-Figure 7. H.265 closed GOP
+Figure 9. H.265 closed GOP
 
 It is also typical for H.265 encoding to use specific reference picture
 usage patterns across the frames of the GOP.
@@ -18492,7 +19957,7 @@ backward reference.
 
 ![h26x ref pattern flat](../_images/h26x_ref_pattern_flat.svg)
 
-Figure 8. H.265 flat reference pattern
+Figure 10. H.265 flat reference pattern
 
 Dyadic Reference Pattern
 
@@ -18519,7 +19984,7 @@ middle, if any.
 
 ![h26x ref pattern dyadic](../_images/h26x_ref_pattern_dyadic.svg)
 
-Figure 9. H.265 dyadic reference pattern
+Figure 11. H.265 dyadic reference pattern
 
 The application **can** provide guidance to the implementation’s rate control
 algorithm about the structure of the GOP used by the application.
@@ -18559,7 +20024,7 @@ if any, as reference.
 
 ![h26x layer pattern dyadic](../_images/h26x_layer_pattern_dyadic.svg)
 
-Figure 10. H.265 dyadic temporal sub-layer pattern
+Figure 12. H.265 dyadic temporal sub-layer pattern
 
 |  | Multi-layer rate control and multi-layer coding are typically used for
 | --- | --- |
@@ -19183,6 +20648,12 @@ returned by [vkGetPhysicalDeviceQueueFamilyProperties2](devsandqueues.html#vkGet
 | **[VkVideoEncodeH265QuantizationMapCapabilitiesKHR](#VkVideoEncodeH265QuantizationMapCapabilitiesKHR)** |  |  |
 | `minQpDelta` | - 3 | max |
 | `maxQpDelta` | - 3 | min |
+| **[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)** |  |  |
+| `intraRefreshModes` | 0 | min |
+| `maxIntraRefreshCycleDuration` | 2 5 | min |
+| `maxIntraRefreshActiveReferencePictures` | 1 5 | min |
+| `partitionIndependentIntraRefreshRegions` | - | implementation-dependent |
+| `nonRectangularIntraRefreshRegions` | - | implementation-dependent |
 
 1
 
@@ -19211,6 +20682,12 @@ If [VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)::`flags` includes
 
 If the [`videoMaintenance2`](features.html#features-videoMaintenance2) feature is
 supported.
+
+5
+
+If
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`intraRefreshModes`
+is not zero.
 
 Video encode operations using an [AV1 encode profile](#encode-av1-profile)
 **can** be used to encode elementary video stream sequences compliant with the
@@ -19719,6 +21196,12 @@ Frames encoded with bidirectional compound prediction mode **may** contain
 mode info blocks encoded with intra-only, single reference, or
 unidirectional compound prediction mode.
 
+AV1 frames are partitioned into tiles, as defined in section 2 of the
+[AV1 Specification](introduction.html#aomedia-av1).
+
+For the purposes of this specification, the AV1 tiles comprising a frame are
+referred to as the *picture partitions* of the frame.
+
 AV1 encode supports two types of coding blocks, as defined in section 2 of
 the [AV1 Specification](introduction.html#aomedia-av1):
 
@@ -19994,28 +21477,30 @@ typedef enum VkVideoEncodeAV1CapabilityFlagBitsKHR {
     VK_VIDEO_ENCODE_AV1_CAPABILITY_PRIMARY_REFERENCE_CDF_ONLY_BIT_KHR = 0x00000004,
     VK_VIDEO_ENCODE_AV1_CAPABILITY_FRAME_SIZE_OVERRIDE_BIT_KHR = 0x00000008,
     VK_VIDEO_ENCODE_AV1_CAPABILITY_MOTION_VECTOR_SCALING_BIT_KHR = 0x00000010,
+  // Provided by VK_KHR_video_encode_av1 with VK_KHR_video_encode_intra_refresh
+    VK_VIDEO_ENCODE_AV1_CAPABILITY_COMPOUND_PREDICTION_INTRA_REFRESH_BIT_KHR = 0x00000020,
 } VkVideoEncodeAV1CapabilityFlagBitsKHR;
 
 * 
 `VK_VIDEO_ENCODE_AV1_CAPABILITY_PER_RATE_CONTROL_GROUP_MIN_MAX_Q_INDEX_BIT_KHR`
-indicates support for specifying different quantizer index values in the
+specifies support for specifying different quantizer index values in the
 members of [VkVideoEncodeAV1QIndexKHR](#VkVideoEncodeAV1QIndexKHR).
 
 * 
 `VK_VIDEO_ENCODE_AV1_CAPABILITY_GENERATE_OBU_EXTENSION_HEADER_BIT_KHR`
-indicates support for generating OBU extension headers, as defined in
+specifies support for generating OBU extension headers, as defined in
 section 5.3.3 of the [AV1 Specification](introduction.html#aomedia-av1).
 
 * 
 `VK_VIDEO_ENCODE_AV1_CAPABILITY_PRIMARY_REFERENCE_CDF_ONLY_BIT_KHR`
-indicates support for using the primary reference frame indicated by the
+specifies support for using the primary reference frame indicated by the
 value of `StdVideoEncodeAV1PictureInfo`::`primary_ref_frame` in
 the [AV1 picture information](#encode-av1-picture-info) only for CDF
 data reference, as defined in section 6.8.2 of the [AV1    Specification](introduction.html#aomedia-av1).
 
 * 
 `VK_VIDEO_ENCODE_AV1_CAPABILITY_FRAME_SIZE_OVERRIDE_BIT_KHR`
-indicates support for encoding a picture with a frame size different
+specifies support for encoding a picture with a frame size different
 from the maximum frame size defined in the
 [active AV1 sequence header](#encode-av1-active-sequence-header).
 If this capability is not supported, then `frame_size_override_flag`
@@ -20026,7 +21511,7 @@ coded extent allowed by the [active    AV1 sequence header](#encode-av1-active-s
 
 * 
 `VK_VIDEO_ENCODE_AV1_CAPABILITY_MOTION_VECTOR_SCALING_BIT_KHR`
-indicates support for motion vector scaling, as defined in section
+specifies support for motion vector scaling, as defined in section
 7.11.3.3 of the [AV1 Specification](introduction.html#aomedia-av1).
 If this capability is not supported, then the coded extent of all
 [active reference pictures](#active-reference-pictures) **must** match the
@@ -20034,6 +21519,11 @@ coded extent of the [encode input picture](#encode-input-picture).
 This capability **may** only be supported by a video profile when
 `VK_VIDEO_ENCODE_AV1_CAPABILITY_FRAME_SIZE_OVERRIDE_BIT_KHR` is also
 supported.
+
+* 
+`VK_VIDEO_ENCODE_AV1_CAPABILITY_COMPOUND_PREDICTION_INTRA_REFRESH_BIT_KHR`
+indicates support for encoding frames using
+[unidirectional or bidirectional compound    prediction mode](#encode-av1-prediction-modes) with [intra refresh](#encode-intra-refresh) enabled.
 
 // Provided by VK_KHR_video_encode_av1
 typedef VkFlags VkVideoEncodeAV1CapabilityFlagsKHR;
@@ -20055,7 +21545,7 @@ typedef enum VkVideoEncodeAV1StdFlagBitsKHR {
 
 * 
 `VK_VIDEO_ENCODE_AV1_STD_UNIFORM_TILE_SPACING_FLAG_SET_BIT_KHR`
-indicates whether the implementation supports using the
+specifies whether the implementation supports using the
 application-provided value for
 `StdVideoAV1TileInfoFlags`::`uniform_tile_spacing_flag` in the
 [AV1 tile parameters](#encode-av1-tile-params) when that value is `1`,
@@ -20634,8 +22124,8 @@ the [AV1 Specification](introduction.html#aomedia-av1);
 all other members of `StdVideoAV1LoopRestoration` are defined as in
 section 6.10.15 of the [AV1 Specification](introduction.html#aomedia-av1);
 
-the members of the `StdVideoAV1GlobalMotion` structure provided in
-`global_motion` are interpreted as defined in section 7.10 of the
+the members of the `StdVideoAV1GlobalMotion` structure pointed to by
+`pGlobalMotion` are interpreted as defined in section 7.10 of the
 [AV1 Specification](introduction.html#aomedia-av1);
 
 `pExtensionHeader` is `NULL` or a pointer to a
@@ -21003,14 +22493,14 @@ algorithm continues from step 2.
 
 ![av1 open gop](../_images/av1_open_gop.svg)
 
-Figure 11. AV1 open GOP
+Figure 13. AV1 open GOP
 
 In case of a closed GOP, a frame with the AV1 frame type
 `STD_VIDEO_AV1_FRAME_TYPE_KEY` is used at a certain period.
 
 ![av1 closed gop](../_images/av1_closed_gop.svg)
 
-Figure 12. AV1 closed GOP
+Figure 14. AV1 closed GOP
 
 It is also typical for AV1 encoding to use specific reference picture usage
 patterns across the frames of the GOP.
@@ -21037,7 +22527,7 @@ display order, as its backward reference.
 
 ![av1 ref pattern flat](../_images/av1_ref_pattern_flat.svg)
 
-Figure 13. AV1 flat reference pattern
+Figure 15. AV1 flat reference pattern
 
 Dyadic Reference Pattern
 
@@ -21071,7 +22561,7 @@ if any.
 
 ![av1 ref pattern dyadic](../_images/av1_ref_pattern_dyadic.svg)
 
-Figure 14. AV1 dyadic reference pattern
+Figure 16. AV1 dyadic reference pattern
 
 The application **can** provide guidance to the implementation’s rate control
 algorithm about the structure of the GOP used by the application.
@@ -21111,7 +22601,7 @@ if any, as reference.
 
 ![av1 layer pattern dyadic](../_images/av1_layer_pattern_dyadic.svg)
 
-Figure 15. AV1 dyadic temporal layer pattern
+Figure 17. AV1 dyadic temporal layer pattern
 
 |  | Multi-layer rate control and multi-layer coding are typically used for
 | --- | --- |
@@ -21738,6 +23228,12 @@ operation `VK_VIDEO_CODEC_OPERATION_ENCODE_AV1_BIT_KHR`, as returned by
 | **[VkVideoEncodeAV1QuantizationMapCapabilitiesKHR](#VkVideoEncodeAV1QuantizationMapCapabilitiesKHR)** |  |  |
 | `minQIndexDelta` | - 7 | max |
 | `maxQIndexDelta` | - 7 | min |
+| **[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)** |  |  |
+| `intraRefreshModes` | 0 | min |
+| `maxIntraRefreshCycleDuration` | 2 9 | min |
+| `maxIntraRefreshActiveReferencePictures` | 1 9 | min |
+| `partitionIndependentIntraRefreshRegions` | - | implementation-dependent |
+| `nonRectangularIntraRefreshRegions` | - | implementation-dependent |
 
 1
 
@@ -21790,3 +23286,9 @@ If [VkVideoCapabilitiesKHR](#VkVideoCapabilitiesKHR)::`flags` includes
 
 If the [`videoMaintenance2`](features.html#features-videoMaintenance2) feature is
 supported.
+
+9
+
+If
+[VkVideoEncodeIntraRefreshCapabilitiesKHR](#VkVideoEncodeIntraRefreshCapabilitiesKHR)::`intraRefreshModes`
+is not zero.

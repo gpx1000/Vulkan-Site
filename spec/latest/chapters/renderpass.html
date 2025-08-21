@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -523,7 +535,7 @@ the layout specified by <code>imageLayout</code></p>
 
 For any element of <code>pRenderingInfo-&gt;pColorAttachments</code>, if
 either <code>imageResolveMode</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>, or
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>, or
 <code>imageView</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> and <code>resolveMode</code> is not
 <code>VK_RESOLVE_MODE_NONE</code>, and <code>resolveImageView</code> is not
 <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>resolveImageView</code> <strong>must</strong> be in the layout
@@ -629,6 +641,14 @@ State</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdBeginRendering is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -683,8 +703,8 @@ instance.</p>
 when <code>viewMask</code> is <code>0</code>.</p>
 </li>
 <li>
-<p><code>viewMask</code> is the view mask indicating the indices of attachment
-layers that will be rendered when it is not <code>0</code>.</p>
+<p><code>viewMask</code> is a bitfield of view indices describing which views are
+active during rendering, when it is not <code>0</code>.</p>
 </li>
 <li>
 <p><code>colorAttachmentCount</code> is the number of elements in
@@ -733,7 +753,7 @@ provided in <code>pColorAttachments</code>[<strong>X</strong>].
 If the <code>imageView</code> member of any element of <code>pColorAttachments</code> is
 <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
 and <code>resolveMode</code> is not
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>,
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>,
 writes to the corresponding location by a fragment are discarded.</p>
 </div>
 <div class="sidebarblock">
@@ -925,7 +945,7 @@ that <code>imageView</code> <strong>must</strong> have been created with
 If <code>colorAttachmentCount</code> is not <code>0</code> and there is an element of
 <code>pColorAttachments</code> with
 either its <code>resolveMode</code> member set to
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>, or
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>, or
 its <code>imageView</code> member not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, and its
 <code>resolveMode</code> member not set to <code>VK_RESOLVE_MODE_NONE</code>, the
 <code>resolveImageView</code> member of that element of <code>pColorAttachments</code>
@@ -1032,6 +1052,36 @@ If <code>pStencilAttachment</code> is not <code>NULL</code>,
 <code>pStencilAttachment-&gt;resolveMode</code> is not <code>VK_RESOLVE_MODE_NONE</code>,
 <code>pStencilAttachment-&gt;resolveImageLayout</code> <strong>must</strong> not be
 <code>VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL</code></p>
+</li>
+<li>
+<p><a id="VUID-VkRenderingInfo-layerCount-07817" href="#VUID-VkRenderingInfo-layerCount-07817"></a> <span class="vuid">VUID-VkRenderingInfo-layerCount-07817</span><br>
+
+<code>layerCount</code> <strong>must</strong> be less than or equal to
+<a href="limits.html#limits-maxFramebufferLayers" class="xref page"><code>maxFramebufferLayers</code></a></p>
+</li>
+<li>
+<p><a id="VUID-VkRenderingInfo-viewMask-10859" href="#VUID-VkRenderingInfo-viewMask-10859"></a> <span class="vuid">VUID-VkRenderingInfo-viewMask-10859</span><br>
+
+If <code>viewMask</code> is <code>0</code>, Each <code>pColorAttachment-&gt;imageView</code> and
+<code>pColorAttachment-&gt;resolveImageView</code> that is not
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> <strong>must</strong> have a <code>layerCount</code> that is greater than
+or equal to <code>VkRenderingInfo</code>::<code>layerCount</code></p>
+</li>
+<li>
+<p><a id="VUID-VkRenderingInfo-viewMask-10860" href="#VUID-VkRenderingInfo-viewMask-10860"></a> <span class="vuid">VUID-VkRenderingInfo-viewMask-10860</span><br>
+
+If <code>viewMask</code> is <code>0</code>, Each <code>pDepthAttachment-&gt;imageView</code> and
+<code>pDepthAttachment-&gt;resolveImageView</code> that is not
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> <strong>must</strong> have a <code>layerCount</code> that is greater than
+or equal to <code>VkRenderingInfo</code>::<code>layerCount</code></p>
+</li>
+<li>
+<p><a id="VUID-VkRenderingInfo-viewMask-10861" href="#VUID-VkRenderingInfo-viewMask-10861"></a> <span class="vuid">VUID-VkRenderingInfo-viewMask-10861</span><br>
+
+If <code>viewMask</code> is <code>0</code>, Each <code>pStencilAttachment-&gt;imageView</code> and
+<code>pStencilAttachment-&gt;resolveImageView</code> that is not
+<a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> <strong>must</strong> have a <code>layerCount</code> that is greater than
+or equal to <code>VkRenderingInfo</code>::<code>layerCount</code></p>
 </li>
 <li>
 <p><a id="VUID-VkRenderingInfo-colorAttachmentCount-06096" href="#VUID-VkRenderingInfo-colorAttachmentCount-06096"></a> <span class="vuid">VUID-VkRenderingInfo-colorAttachmentCount-06096</span><br>
@@ -1266,6 +1316,21 @@ equal to the <code>imageView</code> or <code>resolveImageView</code> member of
 <code>pColorAttachments</code></p>
 </li>
 <li>
+<p><a id="VUID-VkRenderingInfo-flags-10826" href="#VUID-VkRenderingInfo-flags-10826"></a> <span class="vuid">VUID-VkRenderingInfo-flags-10826</span><br>
+
+If <code>flags</code> contains
+<code>VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE</code>, then
+<code>layerCount</code> <strong>must</strong> be less than or equal to
+<a href="limits.html#limits-maxFragmentDensityMapLayers" class="xref page">    <code>maxFragmentDensityMapLayers</code></a></p>
+</li>
+<li>
+<p><a id="VUID-VkRenderingInfo-fragmentDensityMapLayered-10827" href="#VUID-VkRenderingInfo-fragmentDensityMapLayered-10827"></a> <span class="vuid">VUID-VkRenderingInfo-fragmentDensityMapLayered-10827</span><br>
+
+If the <a href="features.html#features-fragmentDensityMapLayered" class="xref page">    <code>fragmentDensityMapLayered</code></a> feature is not enabled, <code>flags</code>
+<strong>must</strong> not contain
+<code>VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE</code></p>
+</li>
+<li>
 <p><a id="VUID-VkRenderingInfo-pNext-06119" href="#VUID-VkRenderingInfo-pNext-06119"></a> <span class="vuid">VUID-VkRenderingInfo-pNext-06119</span><br>
 
 If
@@ -1342,19 +1407,14 @@ in the <code>pNext</code> chain is not <a href="../appendices/boilerplate.html#V
 for each element of <code>pDeviceRenderAreas</code></p>
 </li>
 <li>
-<p><a id="VUID-VkRenderingInfo-layerCount-07817" href="#VUID-VkRenderingInfo-layerCount-07817"></a> <span class="vuid">VUID-VkRenderingInfo-layerCount-07817</span><br>
-
-<code>layerCount</code> <strong>must</strong> be less than or equal to
-<a href="limits.html#limits-maxFramebufferLayers" class="xref page"><code>maxFramebufferLayers</code></a></p>
-</li>
-<li>
 <p><a id="VUID-VkRenderingInfo-imageView-06123" href="#VUID-VkRenderingInfo-imageView-06123"></a> <span class="vuid">VUID-VkRenderingInfo-imageView-06123</span><br>
 
 If the <code>imageView</code> member of a
 <a href="#VkRenderingFragmentShadingRateAttachmentInfoKHR">VkRenderingFragmentShadingRateAttachmentInfoKHR</a> structure included
 in the <code>pNext</code> chain is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, and <code>viewMask</code>
 is <code>0</code>, <code>imageView</code> <strong>must</strong> have a <code>layerCount</code> that is either
-equal to <code>1</code> or greater than or equal to <code>layerCount</code></p>
+equal to <code>1</code> or greater than or equal to
+<code>VkRenderingInfo</code>::<code>layerCount</code></p>
 </li>
 <li>
 <p><a id="VUID-VkRenderingInfo-imageView-06124" href="#VUID-VkRenderingInfo-imageView-06124"></a> <span class="vuid">VUID-VkRenderingInfo-imageView-06124</span><br>
@@ -1442,26 +1502,26 @@ at least one of the following features <strong>must</strong> be enabled</p>
 <p><a id="VUID-VkRenderingInfo-pDepthAttachment-09318" href="#VUID-VkRenderingInfo-pDepthAttachment-09318"></a> <span class="vuid">VUID-VkRenderingInfo-pDepthAttachment-09318</span><br>
 
 <code>pDepthAttachment-&gt;resolveMode</code> <strong>must</strong> not be
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code></p>
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code></p>
 </li>
 <li>
 <p><a id="VUID-VkRenderingInfo-pStencilAttachment-09319" href="#VUID-VkRenderingInfo-pStencilAttachment-09319"></a> <span class="vuid">VUID-VkRenderingInfo-pStencilAttachment-09319</span><br>
 
 <code>pStencilAttachment-&gt;resolveMode</code> <strong>must</strong> not be
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code></p>
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code></p>
 </li>
 <li>
 <p><a id="VUID-VkRenderingInfo-colorAttachmentCount-09320" href="#VUID-VkRenderingInfo-colorAttachmentCount-09320"></a> <span class="vuid">VUID-VkRenderingInfo-colorAttachmentCount-09320</span><br>
 
 If <code>colorAttachmentCount</code> is not <code>1</code>, the <code>resolveMode</code> member
 of any element of <code>pColorAttachments</code> <strong>must</strong> not be
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code></p>
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code></p>
 </li>
 <li>
 <p><a id="VUID-VkRenderingInfo-resolveMode-09321" href="#VUID-VkRenderingInfo-resolveMode-09321"></a> <span class="vuid">VUID-VkRenderingInfo-resolveMode-09321</span><br>
 
 If the <code>resolveMode</code> of any element of <code>pColorAttachments</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>,
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>,
 <a href="#VkRenderingFragmentDensityMapAttachmentInfoEXT">VkRenderingFragmentDensityMapAttachmentInfoEXT</a>::<code>imageView</code>
 <strong>must</strong> be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
 </li>
@@ -1469,7 +1529,7 @@ If the <code>resolveMode</code> of any element of <code>pColorAttachments</code>
 <p><a id="VUID-VkRenderingInfo-resolveMode-09322" href="#VUID-VkRenderingInfo-resolveMode-09322"></a> <span class="vuid">VUID-VkRenderingInfo-resolveMode-09322</span><br>
 
 If the <code>resolveMode</code> of any element of <code>pColorAttachments</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>,
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>,
 <a href="#VkRenderingFragmentShadingRateAttachmentInfoKHR">VkRenderingFragmentShadingRateAttachmentInfoKHR</a>::<code>imageView</code>
 <strong>must</strong> be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
 </li>
@@ -1495,7 +1555,7 @@ that <code>imageView</code> <strong>must</strong> have been created with the
 If <code>colorAttachmentCount</code> is not <code>0</code>, and there is an element of
 <code>pColorAttachments</code> with
 either its <code>resolveMode</code> member set to
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>, or
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>, or
 its <code>imageView</code> member not set to <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> and its
 <code>resolveMode</code> member not set to <code>VK_RESOLVE_MODE_NONE</code>, the
 <code>resolveImageView</code> member of that element of <code>pColorAttachments</code>
@@ -1565,7 +1625,7 @@ in <a href="#VkRenderPassTileShadingCreateInfoQCOM">VkRenderPassTileShadingCreat
 <p><a id="VUID-VkRenderingInfo-resolveMode-10644" href="#VUID-VkRenderingInfo-resolveMode-10644"></a> <span class="vuid">VUID-VkRenderingInfo-resolveMode-10644</span><br>
 
 If the <code>resolveMode</code> of any element of <code>pColorAttachments</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>,
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>,
 <code>VK_TILE_SHADING_RENDER_PASS_ENABLE_BIT_QCOM</code> <strong>must</strong> not be included
 in <a href="#VkRenderPassTileShadingCreateInfoQCOM">VkRenderPassTileShadingCreateInfoQCOM</a>::<code>flags</code></p>
 </li>
@@ -1629,6 +1689,8 @@ typedef enum VkRenderingFlagBits {
     VK_RENDERING_ENABLE_LEGACY_DITHERING_BIT_EXT = 0x00000008,
   // Provided by VK_KHR_maintenance7
     VK_RENDERING_CONTENTS_INLINE_BIT_KHR = 0x00000010,
+  // Provided by VK_VALVE_fragment_density_map_layered
+    VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE = 0x00000020,
   // Provided by VK_KHR_dynamic_rendering
     VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT_KHR = VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT,
   // Provided by VK_KHR_dynamic_rendering
@@ -1679,6 +1741,10 @@ command buffer.
 This <strong>can</strong> be combined with the
 <code>VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT</code> bit to allow
 draw calls to be recorded both inline and in secondary command buffers.</p>
+</li>
+<li>
+<p><code>VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE</code> specifies that
+the render pass <strong>can</strong> be used with layered fragment density maps.</p>
 </li>
 </ul>
 </div>
@@ -1798,7 +1864,7 @@ for each device
 specified in <a href="#VkRenderingInfo">VkRenderingInfo</a>.
 If <code>imageView</code> is <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>,
 and <code>resolveMode</code> is not
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>,
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>,
 other members of this structure are ignored; writes to this attachment will
 be discarded, and no <a href="#renderpass-load-operations">load</a>,
 <a href="#renderpass-store-operations">store</a>, or <a href="#renderpass-resolve-operations">multisample resolve</a> operations will be performed.</p>
@@ -1811,7 +1877,7 @@ If <code>resolveMode</code> is not <code>VK_RESOLVE_MODE_NONE</code>, and
 <a href="#renderpass-resolve-operations">render pass multisample resolve operation</a>
 is defined for the attachment subresource.
 If <code>resolveMode</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>, and the
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>, and the
 <a href="limits.html#limits-nullColorAttachmentWithExternalFormatResolve" class="xref page"><code>nullColorAttachmentWithExternalFormatResolve</code></a> limit is <code>VK_TRUE</code>,
 values are only <strong>undefined</strong> once <a href="#renderpass-load-operations">load operations</a> have completed.</p>
 </div>
@@ -1847,7 +1913,7 @@ for access by a resuming render pass instance.</p>
 <div class="paragraph">
 <p>If the <a href="limits.html#limits-nullColorAttachmentWithExternalFormatResolve" class="xref page"><code>nullColorAttachmentWithExternalFormatResolve</code></a> limit is <code>VK_TRUE</code>,
 and <code>resolveMode</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>, values in the
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>, values in the
 color attachment will be loaded from the resolve attachment at the start of
 rendering, and <strong>may</strong> also be reloaded any time after a resolve occurs or the
 resolve attachment is written to; if this occurs it <strong>must</strong> happen-before any
@@ -2027,6 +2093,18 @@ not <code>VK_RESOLVE_MODE_NONE</code>, <code>resolveImageLayout</code> <strong>m
 <code>VK_IMAGE_LAYOUT_FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR</code></p>
 </li>
 <li>
+<p><a id="VUID-VkRenderingAttachmentInfo-imageView-10780" href="#VUID-VkRenderingAttachmentInfo-imageView-10780"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-imageView-10780</span><br>
+
+If <a href="#renderpass-feedbackloop">feedback loop is enabled</a> for the
+attachment identified by <code>imageView</code>, then <code>imageView</code> <strong>must</strong>
+have been created with a <code>usage</code> value including
+<code>VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT</code>, either
+<code>VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT</code> or
+<code>VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT</code>, and either
+<code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code> or
+<code>VK_IMAGE_USAGE_SAMPLED_BIT</code></p>
+</li>
+<li>
 <p><a id="VUID-VkRenderingAttachmentInfo-imageView-06145" href="#VUID-VkRenderingAttachmentInfo-imageView-06145"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-imageView-06145</span><br>
 
 If <code>imageView</code> is not <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a>, <code>imageLayout</code> <strong>must</strong>
@@ -2044,13 +2122,13 @@ not <code>VK_RESOLVE_MODE_NONE</code>, <code>resolveImageLayout</code> <strong>m
 
 If the <a href="features.html#features-externalFormatResolve" class="xref page"><code>externalFormatResolve</code></a>
 feature is not enabled, <code>resolveMode</code> <strong>must</strong> not be
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code></p>
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code></p>
 </li>
 <li>
 <p><a id="VUID-VkRenderingAttachmentInfo-resolveMode-09324" href="#VUID-VkRenderingAttachmentInfo-resolveMode-09324"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-resolveMode-09324</span><br>
 
 If <code>resolveMode</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>,
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>,
 <code>resolveImageView</code> <strong>must</strong> be a valid image view</p>
 </li>
 <li>
@@ -2058,7 +2136,7 @@ If <code>resolveMode</code> is
 
 If the <a href="limits.html#limits-nullColorAttachmentWithExternalFormatResolve" class="xref page">    <code>nullColorAttachmentWithExternalFormatResolve</code></a> property is
 <code>VK_TRUE</code> and <code>resolveMode</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>,
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>,
 <code>resolveImageView</code> <strong>must</strong> have been created with an image with a
 <code>samples</code> value of <code>VK_SAMPLE_COUNT_1_BIT</code></p>
 </li>
@@ -2066,7 +2144,7 @@ If the <a href="limits.html#limits-nullColorAttachmentWithExternalFormatResolve"
 <p><a id="VUID-VkRenderingAttachmentInfo-resolveMode-09326" href="#VUID-VkRenderingAttachmentInfo-resolveMode-09326"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-resolveMode-09326</span><br>
 
 If <code>resolveMode</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>,
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>,
 <code>resolveImageView</code> <strong>must</strong> have been created with an external format
 specified by <a href="resources.html#VkExternalFormatANDROID" class="xref page">VkExternalFormatANDROID</a></p>
 </li>
@@ -2074,7 +2152,7 @@ specified by <a href="resources.html#VkExternalFormatANDROID" class="xref page">
 <p><a id="VUID-VkRenderingAttachmentInfo-resolveMode-09327" href="#VUID-VkRenderingAttachmentInfo-resolveMode-09327"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-resolveMode-09327</span><br>
 
 If <code>resolveMode</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>,
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>,
 <code>resolveImageView</code> <strong>must</strong> have been created with a
 <code>subresourceRange.layerCount</code> of <code>1</code></p>
 </li>
@@ -2082,7 +2160,7 @@ If <code>resolveMode</code> is
 <p><a id="VUID-VkRenderingAttachmentInfo-resolveMode-09328" href="#VUID-VkRenderingAttachmentInfo-resolveMode-09328"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-resolveMode-09328</span><br>
 
 If <code>resolveMode</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code> and
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code> and
 <a href="limits.html#limits-nullColorAttachmentWithExternalFormatResolve" class="xref page">    <code>nullColorAttachmentWithExternalFormatResolve</code></a> is <code>VK_TRUE</code>,
 <code>imageView</code> <strong>must</strong> be <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a></p>
 </li>
@@ -2090,7 +2168,7 @@ If <code>resolveMode</code> is
 <p><a id="VUID-VkRenderingAttachmentInfo-resolveMode-09329" href="#VUID-VkRenderingAttachmentInfo-resolveMode-09329"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-resolveMode-09329</span><br>
 
 If <code>resolveMode</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code> and
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code> and
 <a href="limits.html#limits-nullColorAttachmentWithExternalFormatResolve" class="xref page">    <code>nullColorAttachmentWithExternalFormatResolve</code></a> is <code>VK_FALSE</code>,
 <code>imageView</code> <strong>must</strong> be a valid <a href="resources.html#VkImageView" class="xref page">VkImageView</a></p>
 </li>
@@ -2098,7 +2176,7 @@ If <code>resolveMode</code> is
 <p><a id="VUID-VkRenderingAttachmentInfo-resolveMode-09330" href="#VUID-VkRenderingAttachmentInfo-resolveMode-09330"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-resolveMode-09330</span><br>
 
 If <code>resolveMode</code> is
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code> and
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code> and
 <a href="limits.html#limits-nullColorAttachmentWithExternalFormatResolve" class="xref page">    <code>nullColorAttachmentWithExternalFormatResolve</code></a> is <code>VK_FALSE</code>,
 <code>imageView</code> <strong>must</strong> have a format equal to the value of
 <a href="memory.html#VkAndroidHardwareBufferFormatResolvePropertiesANDROID" class="xref page">VkAndroidHardwareBufferFormatResolvePropertiesANDROID</a>::<code>colorAttachmentFormat</code>
@@ -2129,7 +2207,11 @@ from a <code>VkMemoryHeap</code> with the
 </li>
 <li>
 <p><a id="VUID-VkRenderingAttachmentInfo-pNext-pNext" href="#VUID-VkRenderingAttachmentInfo-pNext-pNext"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-pNext-pNext</span><br>
- <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code> or a pointer to a valid instance of <a href="#VkAttachmentFeedbackLoopInfoEXT">VkAttachmentFeedbackLoopInfoEXT</a></p>
+</li>
+<li>
+<p><a id="VUID-VkRenderingAttachmentInfo-sType-unique" href="#VUID-VkRenderingAttachmentInfo-sType-unique"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-sType-unique</span><br>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkRenderingAttachmentInfo-imageView-parameter" href="#VUID-VkRenderingAttachmentInfo-imageView-parameter"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-imageView-parameter</span><br>
@@ -2166,6 +2248,72 @@ from a <code>VkMemoryHeap</code> with the
 <li>
 <p><a id="VUID-VkRenderingAttachmentInfo-commonparent" href="#VUID-VkRenderingAttachmentInfo-commonparent"></a> <span class="vuid">VUID-VkRenderingAttachmentInfo-commonparent</span><br>
  Both of <code>imageView</code>, and <code>resolveImageView</code> that are valid handles of non-ignored parameters <strong>must</strong> have been created, allocated, or retrieved from the same <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>To <a href="#renderpass-feedbackloop">enable feedback loop</a> for an attachment, the
+<code>VkAttachmentFeedbackLoopInfoEXT</code> structure <strong>can</strong> be added to the
+<code>pNext</code> chain of <a href="#VkRenderingAttachmentInfo">VkRenderingAttachmentInfo</a>.</p>
+</div>
+<div class="paragraph">
+<p>The <code>VkAttachmentFeedbackLoopInfoEXT</code> structure is defined as:</p>
+</div>
+<div id="VkAttachmentFeedbackLoopInfoEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_unified_image_layouts with VK_EXT_attachment_feedback_loop_layout and (VK_VERSION_1_3 or VK_KHR_dynamic_rendering)
+typedef struct VkAttachmentFeedbackLoopInfoEXT {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkBool32           feedbackLoopEnable;
+} VkAttachmentFeedbackLoopInfoEXT;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>feedbackLoopEnable</code> specifies that
+<a href="#renderpass-feedbackloop">feedback loop is enabled</a> for the attachment
+identified by <a href="#VkRenderingAttachmentInfo">VkRenderingAttachmentInfo</a>::<code>imageView</code>.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkAttachmentFeedbackLoopInfoEXT-unifiedImageLayouts-10782" href="#VUID-VkAttachmentFeedbackLoopInfoEXT-unifiedImageLayouts-10782"></a> <span class="vuid">VUID-VkAttachmentFeedbackLoopInfoEXT-unifiedImageLayouts-10782</span><br>
+
+If the <a href="features.html#features-unifiedImageLayouts" class="xref page"><code>unifiedImageLayouts</code></a>
+feature is not enabled, <code>feedbackLoopEnable</code> <strong>must</strong> be <code>VK_FALSE</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkAttachmentFeedbackLoopInfoEXT-sType-sType" href="#VUID-VkAttachmentFeedbackLoopInfoEXT-sType-sType"></a> <span class="vuid">VUID-VkAttachmentFeedbackLoopInfoEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_ATTACHMENT_FEEDBACK_LOOP_INFO_EXT</code></p>
 </li>
 </ul>
 </div>
@@ -2933,6 +3081,14 @@ State</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdEndRendering is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -3082,6 +3238,14 @@ State</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdEndRendering2EXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -3197,9 +3361,8 @@ space.</p>
 multiples of tile width and/or height from the origin.</p>
 </div>
 <div class="paragraph">
-<p>#ifdef::VK_QCOM_tile_shading[] The <code>tileSize</code> is guaranteed to be a
-multiple of <a href="limits.html#limits-tileGranularity" class="xref page"><code>tileGranularity</code></a>.
-#endif::VK_QCOM_tile_shading[]</p>
+<p>The <code>tileSize</code> is guaranteed to be a multiple of
+<a href="limits.html#limits-tileGranularity" class="xref page"><code>tileGranularity</code></a>.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -3287,7 +3450,16 @@ in which the properties are returned.</p>
 </dd>
 <dt class="hdlist1"><a href="fundamentals.html#fundamentals-errorcodes" class="xref page">Failure</a></dt>
 <dd>
-<p>None</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
+</li>
+</ul>
+</div>
 </dd>
 </dl>
 </div>
@@ -3317,7 +3489,7 @@ used over the course of the subpasses.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -3469,7 +3641,7 @@ attachment is not used.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -3573,10 +3745,16 @@ include <code>VK_TILE_SHADING_RENDER_PASS_PER_TILE_EXECUTION_BIT_QCOM</code></p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -3599,7 +3777,7 @@ include <code>VK_TILE_SHADING_RENDER_PASS_PER_TILE_EXECUTION_BIT_QCOM</code></p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -3698,6 +3876,13 @@ If the pNext chain includes a
 <code>fragmentDensityMapAttachment</code> member is not
 <code>VK_ATTACHMENT_UNUSED</code>, then <code>attachment</code> <strong>must</strong> be less than
 <code>attachmentCount</code></p>
+</li>
+<li>
+<p><a id="VUID-VkRenderPassCreateInfo-fragmentDensityMapLayered-10828" href="#VUID-VkRenderPassCreateInfo-fragmentDensityMapLayered-10828"></a> <span class="vuid">VUID-VkRenderPassCreateInfo-fragmentDensityMapLayered-10828</span><br>
+
+If the <a href="features.html#features-fragmentDensityMapLayered" class="xref page">    <code>fragmentDensityMapLayered</code></a> feature is not enabled, <code>flags</code>
+<strong>must</strong> not contain
+<code>VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE</code></p>
 </li>
 <li>
 <p><a id="VUID-VkRenderPassCreateInfo-pAttachments-00836" href="#VUID-VkRenderPassCreateInfo-pAttachments-00836"></a> <span class="vuid">VUID-VkRenderPassCreateInfo-pAttachments-00836</span><br>
@@ -3931,6 +4116,8 @@ describing additional properties of the render pass, are:</p>
 typedef enum VkRenderPassCreateFlagBits {
   // Provided by VK_QCOM_render_pass_transform
     VK_RENDER_PASS_CREATE_TRANSFORM_BIT_QCOM = 0x00000002,
+  // Provided by VK_VALVE_fragment_density_map_layered
+    VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE = 0x00000004,
 } VkRenderPassCreateFlagBits;</code></pre>
 </div>
 </div>
@@ -3940,6 +4127,11 @@ typedef enum VkRenderPassCreateFlagBits {
 <p><code>VK_RENDER_PASS_CREATE_TRANSFORM_BIT_QCOM</code> specifies that the
 created render pass is compatible with
 <a href="vertexpostproc.html#vertexpostproc-renderpass-transform" class="xref page">render pass transform</a>.</p>
+</li>
+<li>
+<p><code>VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE</code>
+specifies that the created render pass is usable with layered fragment
+density maps.</p>
 </li>
 </ul>
 </div>
@@ -3954,7 +4146,7 @@ created render pass is compatible with
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -3989,7 +4181,7 @@ render pass.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -4298,7 +4490,7 @@ as:</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -4434,7 +4626,7 @@ If <code>fragmentDensityMapAttachment</code> is not <code>VK_ATTACHMENT_UNUSED</
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -4917,7 +5109,7 @@ attachment aliases the same device memory as other attachments.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -4947,7 +5139,7 @@ as:</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -5039,7 +5231,7 @@ other than those in its specified aspect mask.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -5142,7 +5334,7 @@ specific subpass in the render pass.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -5824,7 +6016,7 @@ depth testing, stencil testing, or blending operation which sources these
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -5853,7 +6045,7 @@ or more <a href="#VkSubpassDescriptionFlagBits">VkSubpassDescriptionFlagBits</a>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -5971,7 +6163,7 @@ It is described in more detail by <a href="#VkSubpassDependency">VkSubpassDepend
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -6771,6 +6963,14 @@ Secondary</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdSetAttachmentFeedbackLoopEnableEXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="paragraph">
@@ -6788,7 +6988,7 @@ Secondary</p></td>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -6910,10 +7110,16 @@ include <code>VK_TILE_SHADING_RENDER_PASS_PER_TILE_EXECUTION_BIT_QCOM</code></p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6936,7 +7142,7 @@ include <code>VK_TILE_SHADING_RENDER_PASS_PER_TILE_EXECUTION_BIT_QCOM</code></p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -6978,7 +7184,7 @@ typedef VkRenderPassCreateInfo2 VkRenderPassCreateInfo2KHR;</code></pre>
 structure.</p>
 </li>
 <li>
-<p><code>flags</code> is reserved for future use.</p>
+<p><code>flags</code> is a bitmask of <a href="#VkRenderPassCreateFlagBits">VkRenderPassCreateFlagBits</a></p>
 </li>
 <li>
 <p><code>attachmentCount</code> is the number of attachments used by this render
@@ -7078,6 +7284,13 @@ If the pNext chain includes a
 <code>fragmentDensityMapAttachment</code> member is not
 <code>VK_ATTACHMENT_UNUSED</code>, then <code>attachment</code> <strong>must</strong> be less than
 <code>attachmentCount</code></p>
+</li>
+<li>
+<p><a id="VUID-VkRenderPassCreateInfo2-fragmentDensityMapLayered-10829" href="#VUID-VkRenderPassCreateInfo2-fragmentDensityMapLayered-10829"></a> <span class="vuid">VUID-VkRenderPassCreateInfo2-fragmentDensityMapLayered-10829</span><br>
+
+If the <a href="features.html#features-fragmentDensityMapLayered" class="xref page">    <code>fragmentDensityMapLayered</code></a> feature is not enabled, <code>flags</code>
+<strong>must</strong> not contain
+<code>VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE</code></p>
 </li>
 <li>
 <p><a id="VUID-VkRenderPassCreateInfo2-pSubpasses-06473" href="#VUID-VkRenderPassCreateInfo2-pSubpasses-06473"></a> <span class="vuid">VUID-VkRenderPassCreateInfo2-pSubpasses-06473</span><br>
@@ -7220,48 +7433,6 @@ attachment in any subpass, it <strong>must</strong> have an image format whose
 <code>VK_FORMAT_FEATURE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR</code></p>
 </li>
 <li>
-<p><a id="VUID-VkRenderPassCreateInfo2-rasterizationSamples-04905" href="#VUID-VkRenderPassCreateInfo2-rasterizationSamples-04905"></a> <span class="vuid">VUID-VkRenderPassCreateInfo2-rasterizationSamples-04905</span><br>
-
-If the pipeline is being created with fragment shader state, and the
-<code><a href="../appendices/extensions.html#VK_QCOM_render_pass_shader_resolve" class="xref page">VK_QCOM_render_pass_shader_resolve</a> extension</code> is enabled, and if
-subpass has any input attachments, and if the subpass description
-contains <code>VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_QCOM</code>, then the
-sample count of the input attachments <strong>must</strong> equal
-<code>rasterizationSamples</code></p>
-</li>
-<li>
-<p><a id="VUID-VkRenderPassCreateInfo2-sampleShadingEnable-04906" href="#VUID-VkRenderPassCreateInfo2-sampleShadingEnable-04906"></a> <span class="vuid">VUID-VkRenderPassCreateInfo2-sampleShadingEnable-04906</span><br>
-
-If the pipeline is being created with fragment shader state, and the
-<code><a href="../appendices/extensions.html#VK_QCOM_render_pass_shader_resolve" class="xref page">VK_QCOM_render_pass_shader_resolve</a></code> extension is enabled, and if
-the subpass description contains
-<code>VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_QCOM</code>, then
-<code>sampleShadingEnable</code> <strong>must</strong> be false</p>
-</li>
-<li>
-<p><a id="VUID-VkRenderPassCreateInfo2-flags-04907" href="#VUID-VkRenderPassCreateInfo2-flags-04907"></a> <span class="vuid">VUID-VkRenderPassCreateInfo2-flags-04907</span><br>
-
-If <code>flags</code> includes
-<code>VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM</code>, and if
-<code>pResolveAttachments</code> is not <code>NULL</code>, then each resolve attachment
-<strong>must</strong> be <code>VK_ATTACHMENT_UNUSED</code></p>
-</li>
-<li>
-<p><a id="VUID-VkRenderPassCreateInfo2-flags-04908" href="#VUID-VkRenderPassCreateInfo2-flags-04908"></a> <span class="vuid">VUID-VkRenderPassCreateInfo2-flags-04908</span><br>
-
-If <code>flags</code> includes
-<code>VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM</code>, and if
-<code>pDepthStencilResolveAttachment</code> is not <code>NULL</code>, then the
-depth/stencil resolve attachment <strong>must</strong> be <code>VK_ATTACHMENT_UNUSED</code></p>
-</li>
-<li>
-<p><a id="VUID-VkRenderPassCreateInfo2-flags-04909" href="#VUID-VkRenderPassCreateInfo2-flags-04909"></a> <span class="vuid">VUID-VkRenderPassCreateInfo2-flags-04909</span><br>
-
-If <code>flags</code> includes
-<code>VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM</code>, then the subpass
-<strong>must</strong> be the last subpass in a subpass dependency chain</p>
-</li>
-<li>
 <p><a id="VUID-VkRenderPassCreateInfo2-attachment-06244" href="#VUID-VkRenderPassCreateInfo2-attachment-06244"></a> <span class="vuid">VUID-VkRenderPassCreateInfo2-attachment-06244</span><br>
 
 If the <code>attachment</code> member of the <code>pDepthStencilAttachment</code>
@@ -7386,7 +7557,7 @@ in <a href="#VkRenderPassTileShadingCreateInfoQCOM">VkRenderPassTileShadingCreat
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -7834,7 +8005,7 @@ If <code>format</code> is <code>VK_FORMAT_UNDEFINED</code>, there <strong>must</
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -7955,7 +8126,7 @@ instance ends.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -8067,7 +8238,7 @@ subpass.</p>
 <p>If any element of <code>pResolveAttachments</code> is an image specified with an
 <a href="resources.html#VkExternalFormatANDROID" class="xref page">VkExternalFormatANDROID</a>, values in the corresponding color attachment
 will be resolved to the resolve attachment in the same manner as specified
-for <a href="#VkResolveModeFlagBits"><code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code></a>.</p>
+for <a href="#VkResolveModeFlagBits"><code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code></a>.</p>
 </div>
 <div class="paragraph">
 <p>If the <a href="limits.html#limits-nullColorAttachmentWithExternalFormatResolve" class="xref page"><code>nullColorAttachmentWithExternalFormatResolve</code></a> limit is <code>VK_TRUE</code>,
@@ -8614,6 +8785,29 @@ attachment used in this subpass <strong>must</strong> not include
 <code>VK_IMAGE_ASPECT_PLANE<em>_i_</em>BIT</code> for any index <em>i</em> in its
 <code>aspectMask</code></p>
 </li>
+<li>
+<p><a id="VUID-VkSubpassDescription2-flags-04907" href="#VUID-VkSubpassDescription2-flags-04907"></a> <span class="vuid">VUID-VkSubpassDescription2-flags-04907</span><br>
+
+If <code>flags</code> includes
+<code>VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM</code>, and if
+<code>pResolveAttachments</code> is not <code>NULL</code>, then each resolve attachment
+<strong>must</strong> be <code>VK_ATTACHMENT_UNUSED</code></p>
+</li>
+<li>
+<p><a id="VUID-VkSubpassDescription2-flags-04908" href="#VUID-VkSubpassDescription2-flags-04908"></a> <span class="vuid">VUID-VkSubpassDescription2-flags-04908</span><br>
+
+If <code>flags</code> includes
+<code>VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM</code>, and if
+<code>pDepthStencilResolveAttachment</code> is not <code>NULL</code>, then the
+depth/stencil resolve attachment <strong>must</strong> be <code>VK_ATTACHMENT_UNUSED</code></p>
+</li>
+<li>
+<p><a id="VUID-VkSubpassDescription2-flags-04909" href="#VUID-VkSubpassDescription2-flags-04909"></a> <span class="vuid">VUID-VkSubpassDescription2-flags-04909</span><br>
+
+If <code>flags</code> includes
+<code>VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM</code>, then the subpass
+<strong>must</strong> be the last subpass in a subpass dependency chain</p>
+</li>
 </ul>
 </div>
 </div>
@@ -8681,7 +8875,7 @@ attachment used in this subpass <strong>must</strong> not include
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -8951,7 +9145,7 @@ is <code>VK_TRUE</code>, then the values of <code>depthResolveMode</code> and
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -9242,7 +9436,7 @@ boundaries even if they use the same value for
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -9482,7 +9676,7 @@ the stencil aspect of the attachment uses during the subpass.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -9875,7 +10069,7 @@ If <code>dependencyFlags</code> does not include
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -10042,7 +10236,7 @@ render pass instance uses.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -10067,7 +10261,7 @@ VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkFramebuffer)</code></pre>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -10145,6 +10339,10 @@ created on <code>device</code></p>
 <p><a id="VUID-vkCreateFramebuffer-pFramebuffer-parameter" href="#VUID-vkCreateFramebuffer-pFramebuffer-parameter"></a> <span class="vuid">VUID-vkCreateFramebuffer-pFramebuffer-parameter</span><br>
  <code>pFramebuffer</code> <strong>must</strong> be a valid pointer to a <a href="#VkFramebuffer">VkFramebuffer</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateFramebuffer-device-queuecount" href="#VUID-vkCreateFramebuffer-device-queuecount"></a> <span class="vuid">VUID-vkCreateFramebuffer-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -10169,10 +10367,16 @@ created on <code>device</code></p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -10195,7 +10399,7 @@ created on <code>device</code></p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -10344,6 +10548,14 @@ If <code>renderPass</code> has a fragment density map attachment and the
 each element of <code>pAttachments</code> <strong>must</strong> have been created with a
 <code>flags</code> value including <code>VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT</code>
 unless that element is the fragment density map attachment</p>
+</li>
+<li>
+<p><a id="VUID-VkFramebufferCreateInfo-renderPass-10830" href="#VUID-VkFramebufferCreateInfo-renderPass-10830"></a> <span class="vuid">VUID-VkFramebufferCreateInfo-renderPass-10830</span><br>
+
+If <code>renderPass</code> was created with
+<code>VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE</code>, then
+<code>layers</code> <strong>must</strong> be less than or equal to
+<a href="limits.html#limits-maxFragmentDensityMapLayers" class="xref page">    <code>maxFragmentDensityMapLayers</code></a></p>
 </li>
 <li>
 <p><a id="VUID-VkFramebufferCreateInfo-pAttachments-00880" href="#VUID-VkFramebufferCreateInfo-pAttachments-00880"></a> <span class="vuid">VUID-VkFramebufferCreateInfo-pAttachments-00880</span><br>
@@ -10882,7 +11094,7 @@ specified by the corresponding <a href="#VkAttachmentDescription2">VkAttachmentD
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -10959,7 +11171,7 @@ render pass instance.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -11128,7 +11340,7 @@ provided via a <a href="#VkFramebufferAttachmentImageInfo">VkFramebufferAttachme
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -11157,7 +11369,7 @@ or more <a href="#VkFramebufferCreateFlagBits">VkFramebufferCreateFlagBits</a>.<
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -11298,9 +11510,9 @@ if the <a href="features.html#features-maintenance7" class="xref page">maintenan
 is <code>VK_FALSE</code>,
 writes to one aspect <strong>may</strong> also result in read-modify-write operations for
 the other aspect.
-If the subresource is in the
-<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout,
-implementations <strong>must</strong> not access pixels outside of the render area.</p>
+If the subresource is bound to an attachment with
+<a href="#renderpass-feedbackloop">feedback loop enabled</a>, implementations <strong>must</strong> not
+access pixels outside of the render area.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -11438,9 +11650,9 @@ if
 is <code>VK_FALSE</code>,
 writes to one aspect <strong>may</strong> also result in read-modify-write operations for
 the other aspect.
-If the subresource is in the
-<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout,
-implementations <strong>must</strong> not access pixels outside of the render area.</p>
+If the subresource is bound to an attachment with
+<a href="#renderpass-feedbackloop">feedback loop enabled</a>, implementations <strong>must</strong> not
+access pixels outside of the render area.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -11576,9 +11788,9 @@ if
 is <code>VK_FALSE</code>,
 writes to one aspect <strong>may</strong> also result in read-modify-write operations for
 the other aspect.
-If the subresource is in the
-<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout,
-implementations <strong>must</strong> not access pixels outside of the render area.</p>
+If the subresource is bound to an attachment with
+<a href="#renderpass-feedbackloop">feedback loop enabled</a>, implementations <strong>must</strong> not
+access pixels outside of the render area.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -11613,7 +11825,7 @@ typedef enum VkResolveModeFlagBits {
     VK_RESOLVE_MODE_MIN_BIT = 0x00000004,
     VK_RESOLVE_MODE_MAX_BIT = 0x00000008,
   // Provided by VK_ANDROID_external_format_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
-    VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID = 0x00000010,
+    VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID = 0x00000010,
   // Provided by VK_KHR_depth_stencil_resolve
     VK_RESOLVE_MODE_NONE_KHR = VK_RESOLVE_MODE_NONE,
   // Provided by VK_KHR_depth_stencil_resolve
@@ -11624,6 +11836,9 @@ typedef enum VkResolveModeFlagBits {
     VK_RESOLVE_MODE_MIN_BIT_KHR = VK_RESOLVE_MODE_MIN_BIT,
   // Provided by VK_KHR_depth_stencil_resolve
     VK_RESOLVE_MODE_MAX_BIT_KHR = VK_RESOLVE_MODE_MAX_BIT,
+  // Provided by VK_ANDROID_external_format_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
+  // VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID is a deprecated alias
+    VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID = VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID,
 } VkResolveModeFlagBits;</code></pre>
 </div>
 </div>
@@ -11658,10 +11873,10 @@ operation is the minimum of the sample values.</p>
 operation is the maximum of the sample values.</p>
 </li>
 <li>
-<p><code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code> specifies that
-rather than a multisample resolve, a single sampled color attachment
-will be downsampled into a Y′C<sub>B</sub>C<sub>R</sub> format image specified by an external
-Android format.
+<p><code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code> specifies
+that rather than a multisample resolve, a single sampled color
+attachment will be downsampled into a Y′C<sub>B</sub>C<sub>R</sub> format image specified by
+an external Android format.
 Unlike other resolve modes, implementations can resolve multiple times
 during rendering, or even bypass writing to the color attachment
 altogether, as long as the final value is resolved to the resolve
@@ -11704,8 +11919,8 @@ nonlinear before writing the resolved result to resolve attachment.</p>
 <td class="content">
 <div class="paragraph">
 <p>No range compression or Y′C<sub>B</sub>C<sub>R</sub> model conversion is performed by
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>; applications have
-to do these conversions themselves.
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>; applications
+have to do these conversions themselves.
 Value outputs are expected to match those that would be read through a
 <a href="textures.html#textures-sampler-YCbCr-conversion-modelconversion" class="xref page">Y′C<sub>B</sub>C<sub>R</sub> sampler using <code>VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY</code></a>.
 The color space that the values should be in is defined by the platform and
@@ -11763,7 +11978,7 @@ instance.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -12112,6 +12327,14 @@ Synchronization</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdBeginRenderPass is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -12126,7 +12349,7 @@ Synchronization</p></td>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -12489,6 +12712,14 @@ Synchronization</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdBeginRenderPass2 is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -12503,7 +12734,7 @@ Synchronization</p></td>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -12995,7 +13226,7 @@ chain of <code>VkRenderPassBeginInfo</code>.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -13099,7 +13330,7 @@ used for rasterization do not depend on
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -13176,7 +13407,7 @@ specified in <a href="#VkRenderPassCreateInfo">VkRenderPassCreateInfo</a> the re
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -13260,7 +13491,7 @@ in <a href="#VkRenderPassCreateInfo">VkRenderPassCreateInfo</a> the render pass 
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_QCOM_render_pass_transform
 typedef struct VkRenderPassTransformBeginInfoQCOM {
     VkStructureType                  sType;
-    void*                            pNext;
+    const void*                      pNext;
     VkSurfaceTransformFlagBitsKHR    transform;
 } VkRenderPassTransformBeginInfoQCOM;</code></pre>
 </div>
@@ -13401,7 +13632,7 @@ size <strong>can</strong> be safely omitted.</p>
 <p><a id="VUID-VkTileMemorySizeInfoQCOM-size-10729" href="#VUID-VkTileMemorySizeInfoQCOM-size-10729"></a> <span class="vuid">VUID-VkTileMemorySizeInfoQCOM-size-10729</span><br>
 
 <code>size</code> must be less than or equal to the largest size memory heap
-with the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property.</p>
+with the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property</p>
 </li>
 </ul>
 </div>
@@ -13434,7 +13665,7 @@ with the <code>VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM</code> property.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -13749,7 +13980,7 @@ The <code>extent.height</code> member of any element of
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -14009,7 +14240,7 @@ and if <a href="#VkRenderingInfo">VkRenderingInfo</a>::<code>viewMask</code> set
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -14113,7 +14344,7 @@ recording the commands for a subpass, call:</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -14254,6 +14485,14 @@ Synchronization</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdNextSubpass is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -14269,7 +14508,7 @@ recording the commands for a subpass, call:</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -14427,6 +14666,14 @@ Synchronization</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdNextSubpass2 is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -14442,7 +14689,7 @@ commands for the last subpass, call:</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.2" class="xref page">Vulkan Version 1.2</a>. See <a href="../appendices/deprecation.html#deprecation-renderpass2" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -14588,6 +14835,14 @@ Synchronization</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdEndRenderPass is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -14603,7 +14858,7 @@ commands for the last subpass, call:</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -14762,6 +15017,14 @@ Synchronization</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdEndRenderPass2 is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -14776,7 +15039,7 @@ Synchronization</p></td>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -14991,7 +15254,7 @@ The <code>y</code> component of each element of <code>pFragmentDensityOffsets</c
 <p><a id="VUID-VkRenderPassFragmentDensityMapOffsetEndInfoEXT-pFragmentDensityOffsets-10730" href="#VUID-VkRenderPassFragmentDensityMapOffsetEndInfoEXT-pFragmentDensityOffsets-10730"></a> <span class="vuid">VUID-VkRenderPassFragmentDensityMapOffsetEndInfoEXT-pFragmentDensityOffsets-10730</span><br>
 
 Each element of <code>pFragmentDensityOffsets</code> must be identical for
-every <a href="#vkCmdEndRendering2EXT">vkCmdEndRendering2EXT</a> call made in a render pass.</p>
+every <a href="#vkCmdEndRendering2EXT">vkCmdEndRendering2EXT</a> call made in a render pass</p>
 </li>
 </ul>
 </div>
@@ -15036,7 +15299,7 @@ The <code>VkRenderPassCreationControlEXT</code> structure is defined as:</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -15106,7 +15369,7 @@ The <code>VkRenderPassCreationFeedbackCreateInfoEXT</code> structure is defined 
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -15168,7 +15431,7 @@ returned.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -15205,7 +15468,7 @@ chain of <a href="#VkSubpassDescription2">VkSubpassDescription2</a>.
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -15267,7 +15530,7 @@ returned.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This functionality is deprecated by <a href="../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read" class="xref page">VK_KHR_dynamic_rendering_local_read</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.4" class="xref page">Vulkan Version 1.4</a>. See <a href="../appendices/deprecation.html#deprecation-dynamicrendering" class="xref page">Deprecated Functionality</a> for more information.
 </td>
 </tr>
 </table>
@@ -15461,10 +15724,28 @@ This makes it invalid to access a non-attachment subresource that is
 simultaneously being used as an attachment where either access performs a
 write operation.</p>
 </div>
+<div id="renderpass-feedbackloop" class="paragraph">
+<p>The only exception to this is if a subresource is explicitly specified for
+use as a feedback loop attachment.
+Feedback loop is enabled for an attachment if either of the following
+conditions are satisfied:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The corresponding image is in the
+<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
+</li>
+<li>
+<p>For the attachment identified by
+<a href="#VkRenderingAttachmentInfo">VkRenderingAttachmentInfo</a>::<code>imageView</code>,
+<a href="#VkAttachmentFeedbackLoopInfoEXT">VkAttachmentFeedbackLoopInfoEXT</a>::<code>feedbackLoopEnable</code> is
+<code>VK_TRUE</code></p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
-<p>The only exception to this is if a subresource is in the
-<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> image layout, in
-which case the overlap is defined to occur at a per-pixel granularity, and
+<p>In that case the overlap is defined to occur at a per-pixel granularity, and
 applications can read data from pixels outside the render area without
 introducing a data race.</p>
 </div>
@@ -15506,8 +15787,7 @@ attachment writes in the subpass with subsequent input attachment reads.</p>
 <li>
 <p>A <a href="synchronization.html#vkCmdPipelineBarrier" class="xref page">vkCmdPipelineBarrier</a> inside a subpass can synchronize prior
 attachment writes in the subpass with subsequent non-attachment reads if
-the attachment is in the
-<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> image layout.</p>
+<a href="#renderpass-feedbackloop">feedback loop is enabled</a> for the attachment.</p>
 </li>
 <li>
 <p>If a subresource is used as a color and input attachment, and the
@@ -15769,7 +16049,7 @@ OpImageBlockMatch*QCOM,
 <code>OpImageWrite</code> or with atomic operations using <code>OpImageTexelPointer</code>.</p>
 </div>
 <div class="paragraph">
-<p>For image processing use-cases, the tiling apron allows fragment and compute
+<p>For image processing use cases, the tiling apron allows fragment and compute
 shader invocations to read or sample color attachment pixels within the
 neighborhood of a given fragment, even if the given fragment is close to a
 tile edge.</p>
@@ -16012,9 +16292,9 @@ apply:</p>
 <ul>
 <li>
 <p>Transform feedback commands such as
-<a href="vertexpostproc.html#vkCmdBeginTransformFeedbackEXT" class="xref page">vkCmdBeginTransformFeedbackEXT</a>, <a href="vertexpostproc.html#vkCmdEndTransformFeedbackEXT" class="xref page">vkCmdEndTransformFeedbackEXT</a>,
-<a href="queries.html#vkCmdBeginQueryIndexedEXT" class="xref page">vkCmdBeginQueryIndexedEXT</a>, and <a href="queries.html#vkCmdEndQueryIndexedEXT" class="xref page">vkCmdEndQueryIndexedEXT</a>,<strong>must</strong>
-not be recorded.</p>
+<a href="vertexpostproc.html#vkCmdBeginTransformFeedbackEXT" class="xref page">vkCmdBeginTransformFeedbackEXT</a>,
+<a href="vertexpostproc.html#vkCmdEndTransformFeedbackEXT" class="xref page">vkCmdEndTransformFeedbackEXT</a>, <a href="queries.html#vkCmdBeginQueryIndexedEXT" class="xref page">vkCmdBeginQueryIndexedEXT</a>, and
+<a href="queries.html#vkCmdEndQueryIndexedEXT" class="xref page">vkCmdEndQueryIndexedEXT</a>, <strong>must</strong> not be recorded.</p>
 </li>
 <li>
 <p>Query commands such as <a href="queries.html#vkCmdWriteTimestamp" class="xref page">vkCmdWriteTimestamp</a>,
@@ -16156,6 +16436,14 @@ Compute</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdBeginPerTileExecutionQCOM is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -16332,6 +16620,14 @@ Compute</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdEndPerTileExecutionQCOM is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -16422,7 +16718,30 @@ count and size based on the tile size and a given shading rate.</p>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

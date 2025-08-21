@@ -669,6 +669,34 @@ transitioned to the
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout
 
 * 
+[](#VUID-vkCmdDispatch-pDescription-09900) VUID-vkCmdDispatch-pDescription-09900
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the underlying [VkTensorARM](resources.html#VkTensorARM) object
+**must** have been created with a
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` whose `usage` member
+contained `VK_TENSOR_USAGE_SHADER_BIT_ARM`
+
+* 
+[](#VUID-vkCmdDispatch-dimensionCount-09905) VUID-vkCmdDispatch-dimensionCount-09905
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the `Rank` of the `OpTypeTensorARM`
+of the tensor resource variable **must** be equal to the
+`dimensionCount` provided via
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` when creating the
+underlying [VkTensorARM](resources.html#VkTensorARM) object
+
+* 
+[](#VUID-vkCmdDispatch-OpTypeTensorARM-09906) VUID-vkCmdDispatch-OpTypeTensorARM-09906
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the element type of the
+`OpTypeTensorARM` of the tensor resource variable **must** be
+[compatible](../appendices/spirvenv.html#spirvenv-tensor-formats) with the [VkFormat](formats.html#VkFormat) of the
+[VkTensorViewARM](resources.html#VkTensorViewARM) used for the access
+
+* 
 [](#VUID-vkCmdDispatch-None-10672) VUID-vkCmdDispatch-None-10672
 
 If the [per-tile execution model](renderpass.html#renderpass-per-tile-execution-model)
@@ -797,6 +825,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdDispatch is affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 To record an indirect dispatching command, call:
 
@@ -1438,6 +1470,34 @@ transitioned to the
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout
 
 * 
+[](#VUID-vkCmdDispatchIndirect-pDescription-09900) VUID-vkCmdDispatchIndirect-pDescription-09900
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the underlying [VkTensorARM](resources.html#VkTensorARM) object
+**must** have been created with a
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` whose `usage` member
+contained `VK_TENSOR_USAGE_SHADER_BIT_ARM`
+
+* 
+[](#VUID-vkCmdDispatchIndirect-dimensionCount-09905) VUID-vkCmdDispatchIndirect-dimensionCount-09905
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the `Rank` of the `OpTypeTensorARM`
+of the tensor resource variable **must** be equal to the
+`dimensionCount` provided via
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` when creating the
+underlying [VkTensorARM](resources.html#VkTensorARM) object
+
+* 
+[](#VUID-vkCmdDispatchIndirect-OpTypeTensorARM-09906) VUID-vkCmdDispatchIndirect-OpTypeTensorARM-09906
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the element type of the
+`OpTypeTensorARM` of the tensor resource variable **must** be
+[compatible](../appendices/spirvenv.html#spirvenv-tensor-formats) with the [VkFormat](formats.html#VkFormat) of the
+[VkTensorViewARM](resources.html#VkTensorViewARM) used for the access
+
+* 
 [](#VUID-vkCmdDispatchIndirect-None-10672) VUID-vkCmdDispatchIndirect-None-10672
 
 If the [per-tile execution model](renderpass.html#renderpass-per-tile-execution-model)
@@ -1559,6 +1619,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdDispatchIndirect is affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkDispatchIndirectCommand` structure is defined as:
 
@@ -2280,6 +2344,34 @@ transitioned to the
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout
 
 * 
+[](#VUID-vkCmdDispatchBase-pDescription-09900) VUID-vkCmdDispatchBase-pDescription-09900
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the underlying [VkTensorARM](resources.html#VkTensorARM) object
+**must** have been created with a
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` whose `usage` member
+contained `VK_TENSOR_USAGE_SHADER_BIT_ARM`
+
+* 
+[](#VUID-vkCmdDispatchBase-dimensionCount-09905) VUID-vkCmdDispatchBase-dimensionCount-09905
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the `Rank` of the `OpTypeTensorARM`
+of the tensor resource variable **must** be equal to the
+`dimensionCount` provided via
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` when creating the
+underlying [VkTensorARM](resources.html#VkTensorARM) object
+
+* 
+[](#VUID-vkCmdDispatchBase-OpTypeTensorARM-09906) VUID-vkCmdDispatchBase-OpTypeTensorARM-09906
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the element type of the
+`OpTypeTensorARM` of the tensor resource variable **must** be
+[compatible](../appendices/spirvenv.html#spirvenv-tensor-formats) with the [VkFormat](formats.html#VkFormat) of the
+[VkTensorViewARM](resources.html#VkTensorViewARM) used for the access
+
+* 
 [](#VUID-vkCmdDispatchBase-None-10672) VUID-vkCmdDispatchBase-None-10672
 
 If the [per-tile execution model](renderpass.html#renderpass-per-tile-execution-model)
@@ -2398,7 +2490,7 @@ buffer
 
 If any of `baseGroupX`, `baseGroupY`, or `baseGroupZ` are
 not zero, then the bound compute pipeline **must** have been created with
-the `VK_PIPELINE_CREATE_DISPATCH_BASE` flag
+the `VK_PIPELINE_CREATE_DISPATCH_BASE_BIT` flag
 or the bound compute shader object **must** have been created with the
 `VK_SHADER_CREATE_DISPATCH_BASE_BIT_EXT` flag
 
@@ -2439,6 +2531,10 @@ Command Properties
 
 Secondary | Both | Outside | Compute | Action |
 
+Conditional Rendering
+
+vkCmdDispatchBase is affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To record an area-based dispatch, call:
 
 // Provided by VK_QCOM_tile_shading
@@ -2468,7 +2564,7 @@ Its `x` and `y` **must** be a power of two and less than or equal to
 the [maxTileShadingRate](limits.html#limits-maxTileShadingRate) limit.
 Its `z` **must** be less than or equal to the active tile’s depth as
 reported by [VK_QCOM_tile_properties](../appendices/extensions.html#VK_QCOM_tile_properties), and
-[VkTilePropertiesQCOM](renderpass.html#VkTilePropertiesQCOM)::`tileSize`::`z` %
+[VkTilePropertiesQCOM](renderpass.html#VkTilePropertiesQCOM).tileSize.z %
 `TileShadingRateQCOM`::`z` **must** equal `0`.
 
 The start location of the shader invocation’s pixel block is
@@ -3095,6 +3191,34 @@ transitioned to the
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout
 
 * 
+[](#VUID-vkCmdDispatchTileQCOM-pDescription-09900) VUID-vkCmdDispatchTileQCOM-pDescription-09900
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the underlying [VkTensorARM](resources.html#VkTensorARM) object
+**must** have been created with a
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` whose `usage` member
+contained `VK_TENSOR_USAGE_SHADER_BIT_ARM`
+
+* 
+[](#VUID-vkCmdDispatchTileQCOM-dimensionCount-09905) VUID-vkCmdDispatchTileQCOM-dimensionCount-09905
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the `Rank` of the `OpTypeTensorARM`
+of the tensor resource variable **must** be equal to the
+`dimensionCount` provided via
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` when creating the
+underlying [VkTensorARM](resources.html#VkTensorARM) object
+
+* 
+[](#VUID-vkCmdDispatchTileQCOM-OpTypeTensorARM-09906) VUID-vkCmdDispatchTileQCOM-OpTypeTensorARM-09906
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the element type of the
+`OpTypeTensorARM` of the tensor resource variable **must** be
+[compatible](../appendices/spirvenv.html#spirvenv-tensor-formats) with the [VkFormat](formats.html#VkFormat) of the
+[VkTensorViewARM](resources.html#VkTensorViewARM) used for the access
+
+* 
 [](#VUID-vkCmdDispatchTileQCOM-None-10672) VUID-vkCmdDispatchTileQCOM-None-10672
 
 If the [per-tile execution model](renderpass.html#renderpass-per-tile-execution-model)
@@ -3225,6 +3349,10 @@ Command Properties
 | Primary
 
 Secondary | Inside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdDispatchTileQCOM is affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkDispatchTileInfoQCOM` structure is defined as:
 
@@ -3886,6 +4014,34 @@ transitioned to the
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout
 
 * 
+[](#VUID-vkCmdSubpassShadingHUAWEI-pDescription-09900) VUID-vkCmdSubpassShadingHUAWEI-pDescription-09900
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the underlying [VkTensorARM](resources.html#VkTensorARM) object
+**must** have been created with a
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` whose `usage` member
+contained `VK_TENSOR_USAGE_SHADER_BIT_ARM`
+
+* 
+[](#VUID-vkCmdSubpassShadingHUAWEI-dimensionCount-09905) VUID-vkCmdSubpassShadingHUAWEI-dimensionCount-09905
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the `Rank` of the `OpTypeTensorARM`
+of the tensor resource variable **must** be equal to the
+`dimensionCount` provided via
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` when creating the
+underlying [VkTensorARM](resources.html#VkTensorARM) object
+
+* 
+[](#VUID-vkCmdSubpassShadingHUAWEI-OpTypeTensorARM-09906) VUID-vkCmdSubpassShadingHUAWEI-OpTypeTensorARM-09906
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the element type of the
+`OpTypeTensorARM` of the tensor resource variable **must** be
+[compatible](../appendices/spirvenv.html#spirvenv-tensor-formats) with the [VkFormat](formats.html#VkFormat) of the
+[VkTensorViewARM](resources.html#VkTensorViewARM) used for the access
+
+* 
 [](#VUID-vkCmdSubpassShadingHUAWEI-None-04931) VUID-vkCmdSubpassShadingHUAWEI-None-04931
 
 This command **must** be called in a subpass with bind point
@@ -3935,6 +4091,10 @@ Command Properties
 | Primary
 
 Secondary | Inside | Outside | Graphics | Action |
+
+Conditional Rendering
+
+vkCmdSubpassShadingHUAWEI is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Compute kernels **can** be provided in SPIR-V or PTX code.
 When using PTX kernels the dispatch mechanism is different than with regular
@@ -4014,6 +4174,10 @@ Command Properties
 Secondary | Both | Outside | Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdCudaLaunchKernelNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkCudaLaunchInfoNV` structure is very close to the parameters of
 the CUDA-Driver function

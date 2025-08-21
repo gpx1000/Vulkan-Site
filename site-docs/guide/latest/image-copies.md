@@ -64,20 +64,20 @@ While buffers and CPU memory are addressed with a single linear offset, images a
 
 The following is a small example to show how two GPU can represent a `VkImage` layout differently.
 
-![image_copies_buffer_vs_image.svg](image_copies_buffer_vs_image.svg)
+![image_copies_buffer_vs_image.svg](_images/image_copies_buffer_vs_image.svg)
 
 When you set `VkImageCreateInfo::mipLevels` you create a mipmap chain.
 
-![image_copies_miplevels.svg](image_copies_miplevels.svg)
+![image_copies_miplevels.svg](_images/image_copies_miplevels.svg)
 
 Imagine you wanted 4 `VkImage` that were the exact same layout, you would probably represent it like `VkImage my_images[4]`.
 Array layers are a way to have this just be represented in a single `VkImage`.
 
-![image_copies_array_layers.svg](image_copies_array_layers.svg)
+![image_copies_array_layers.svg](_images/image_copies_array_layers.svg)
 
 When dealing with something like a depth-stencil format the GPU might need to keep the depth and stencil aspect in different layout. Using the `VkImageAspectFlags` allows you to specify which part to copy.
 
-![image_copies_depth_stencil.svg](image_copies_depth_stencil.svg)
+![image_copies_depth_stencil.svg](_images/image_copies_depth_stencil.svg)
 
 When copying between a `VkBuffer`/`VkDeviceMemory` and `VkImage` the data in the non-image might not be tightly packed.
 
@@ -98,7 +98,7 @@ The `VkBufferImageCopy` (or `VkMemoryToImageCopy`) struct provides 3 fields to s
 The [spec addressing formula](https://docs.vulkan.org/spec/latest/chapters/copies.html#copies-buffers-images) is pretty standard, the one thing that can trip you up is that there is no overlapping memory between rows.
 In the following example, if you have a `{4,4,1}` image, the `rowExtent` is the `max(bufferRowLength, imageExtent.width)`.
 
-![image_copies_buffer_row_length.svg](image_copies_buffer_row_length.svg)
+![image_copies_buffer_row_length.svg](_images/image_copies_buffer_row_length.svg)
 
 You are actually able to copy between an array of 2D images and a single 3D image.
 
@@ -160,7 +160,7 @@ copy.srcSubresource.mipLevel = 1;
 
 Dealing with compressed images can be a bit tricky, the main thing is to first grasp the terminology of `texel` vs `texel block`
 
-![image_copies_compressed_terminology.svg](image_copies_compressed_terminology.svg)
+![image_copies_compressed_terminology.svg](_images/image_copies_compressed_terminology.svg)
 
 |  | Uncompressed formats (ex. `VK_FORMAT_R8G8B8A8_UNORM`), the `texel block` is `{1, 1, 1}` so it is the same a `texel` when using it. |
 | --- | --- |
@@ -169,39 +169,39 @@ The block size, block extent, and other info can be found either in the spec, `v
 
 Copying to and from a `VkBuffer`/`VkDeviceMemory` is straight forward, the `extent` is just the amount of `texels`, so it is the same when you created the image.
 
-![image_copies_compressed_buffer.svg](image_copies_compressed_buffer.svg)
+![image_copies_compressed_buffer.svg](_images/image_copies_compressed_buffer.svg)
 
 The tricky part is when you deal with a uncompressed image that has a block extent of `{1, 1, 1}`. You will set the `VkImageCopy::extent` to match the `texels` in the `srcImage`, and the `dstImage` is scaled [as described in the spec](https://docs.vulkan.org/spec/latest/chapters/formats.html#formats-size-compatibility).
 
-![image_copies_uncompress_to_compress.svg](image_copies_uncompress_to_compress.svg)
+![image_copies_uncompress_to_compress.svg](_images/image_copies_uncompress_to_compress.svg)
 
 Some initial reactions might be "how are you copying 8 texels into 2?!"
 
 The main things to realize is the "size" of each texel block in the above diagrams are 64-bits. If you try to copy different size blocks, you will get a validation error message.
 
-![image_copies_mismatch_block_size.svg](image_copies_mismatch_block_size.svg)
+![image_copies_mismatch_block_size.svg](_images/image_copies_mismatch_block_size.svg)
 
 The `extent`, `srcOffset`, and `dstOffset` are all defined in terms of `texels`. The following shows how to copy a single texel into each of the 3 texel blocks via a different offset.
 
-![image_copies_dst_offset.svg](image_copies_dst_offset.svg)
+![image_copies_dst_offset.svg](_images/image_copies_dst_offset.svg)
 
 When using a compressed image, it is possible you might end up with a partially full texel block.
 
 This can be from just setting the original extent that is not a multiple of the texel block extent.
 
-![image_copies_non_power_of_two.svg](image_copies_non_power_of_two.svg)
+![image_copies_non_power_of_two.svg](_images/image_copies_non_power_of_two.svg)
 
 This can also occur when you create miplevels.
 
-![image_copies_block_format_mip.svg](image_copies_block_format_mip.svg)
+![image_copies_block_format_mip.svg](_images/image_copies_block_format_mip.svg)
 
 This can also occur if creating a 1D compressed texture.
 
-![image_copies_1d_compress.svg](image_copies_1d_compress.svg)
+![image_copies_1d_compress.svg](_images/image_copies_1d_compress.svg)
 
 In all these examples, it is important to realize that you copy in terms of `texels` and not `texel blocks`
 
-![image_copy_partial_texel_block.svg](image_copy_partial_texel_block.svg)
+![image_copy_partial_texel_block.svg](_images/image_copy_partial_texel_block.svg)
 
 Multi-planar formats are those with `_2PLANE` or `_3PLANE` suffix ([more about VK_KHR_sampler_ycbcr_conversion](extensions/VK_KHR_sampler_ycbcr_conversion.html)).
 
@@ -240,4 +240,4 @@ region[0].imageExtent = {width, height, 1};
 region[0].imageSubresource.aspectMask = VK_IMAGE_ASPECT_PLANE_1_BIT;
 region[0].imageExtent = {width / 2, height / 2, 1};
 
-![image_copies_multi_planar.svg](image_copies_multi_planar.svg)
+![image_copies_multi_planar.svg](_images/image_copies_multi_planar.svg)

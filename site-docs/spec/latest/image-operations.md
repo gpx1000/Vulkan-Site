@@ -969,6 +969,27 @@ implementation when [VkSamplerCreateInfo](samplers.html#VkSamplerCreateInfo)::`b
 `VK_FORMAT_UNDEFINED`.
 Implementations **should** use S = Br as the replacement method.
 
+Implementations **may** swap the blue and alpha channels when sampling
+non-custom border colors with the `VK_FORMAT_B4G4R4A4_UNORM_PACK16`
+format, or the red and alpha channels with the
+`VK_FORMAT_R4G4B4A4_UNORM_PACK16` format.
+
+|  | As `VK_FORMAT_B4G4R4A4_UNORM_PACK16` is required by Vulkan, support must
+| --- | --- |
+be advertised for this format.
+Some Vulkan implementations on Apple hardware implement these formats
+through a hardware format with a different channel order, swizzled to match
+Vulkan’s expectations.
+Unfortunately the swizzle cannot be readily applied to the fixed border
+colors - resulting in the apparent channel swap.
+For most standard border colors this does not result in a modification to
+the sampled output.
+However, `VK_BORDER_COLOR_INT_OPAQUE_BLACK` will instead be sampled as
+transparent red or blue.
+If the [`customBorderColorWithoutFormat`](features.html#features-customBorderColorWithoutFormat) feature is supported and enabled,
+this functionality is expected to work without issue, but this feature may
+come with a performance cost. |
+
 The value returned by a read of an invalid texel is **undefined**, unless that
 read operation is from a buffer resource and the
 [`robustBufferAccess`](features.html#features-robustBufferAccess) feature is
@@ -2468,7 +2489,7 @@ Both are described in more detail below.
 
 The weight image specifies filtering kernel weight values.
 A 2D image view can be used to specify a 2D matrix of filter weights.
-For separable filers, a 1D image view can be used to specity the horizontal
+For separable filters, a 1D image view can be used to specify the horizontal
 and vertical weights.
 
 A 2D image view defined with [VkImageViewSampleWeightCreateInfoQCOM](resources.html#VkImageViewSampleWeightCreateInfoQCOM)
@@ -2670,7 +2691,7 @@ result is returned to the shader.
 The SPIR-V instruction `opImageBlockMatchSAD` and
 `opImageBlockMatchSSD` specify texture block matching operations where a
 block or region of texels within a *target image* is compared with a
-same-sized region a *reference image*.
+same-sized region in a *reference image*.
 The instructions make use of two image views: the *target view* and the
 *reference view*.
 The target view and reference view can be the same view, allowing block

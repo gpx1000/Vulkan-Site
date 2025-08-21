@@ -9,6 +9,7 @@
 ## Table of Contents
 
 - [Introduction](#_introduction)
+- [Requirements](#_requirements)
 - [Goals](#_goals)
 - [Samples](#_samples)
 - [General information](#_general_information)
@@ -38,6 +39,8 @@ Additionally you may find the following links useful:
 
 [Performance samples](samples/performance/README.html) show the recommended best practice together with real-time profiling information.
 They are more advanced but also contain a detailed tutorial with more in-detail explanations.
+
+The samples are written in C++ and require a compiler that supports at least C++20. To run the samples, a device that supports at least Vulkan 1.1 or newer is required. Some samples might require a higher Vulkan version and/or support for certain extensions.
 
 * 
 Create a collection of resources that demonstrate best-practice recommendations in Vulkan

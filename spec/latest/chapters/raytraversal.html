@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -930,15 +942,17 @@ is dropped, and no further processing occurs.</p>
 <div class="sect2">
 <h3 id="ray-opacity-micromap"><a class="anchor" href="#ray-opacity-micromap"></a>Ray Opacity Micromap</h3>
 <div class="paragraph">
-<p>A <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code> geometry in the acceleration
-structure <strong>may</strong> have an opacity micromap associated with it to give
-finer-grained opacity information.</p>
+<p>A <code>VK_GEOMETRY_TYPE_TRIANGLES_KHR</code>
+or <code>VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX</code>
+geometry in the acceleration structure <strong>may</strong> have an opacity micromap
+associated with it to give finer-grained opacity information.</p>
 </div>
 <div class="paragraph">
 <p>If the intersection candidate is with a geometry with an associated opacity
-micromap and <code>VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT</code> is not
-set in its instance then the micromap is used to determine geometry opacity
-instead of the <code>VK_GEOMETRY_OPAQUE_BIT_KHR</code> flag in the geometry.</p>
+micromap and <code>VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT</code> is
+not set in its instance then the micromap is used to determine geometry
+opacity instead of the <code>VK_GEOMETRY_OPAQUE_BIT_KHR</code> flag in the
+geometry.</p>
 </div>
 <div class="paragraph">
 <p>The opacity information in the micromap object is accessed using the
@@ -979,7 +993,7 @@ bit-parallel conversion between barycentric address and index values.</p>
 <p>The result of the opacity micromap lookup and operations is to treat the
 intersection as opaque, non-opaque, or ignored.
 The interpretation of the values depends on
-<code>VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_EXT</code> in the
+<code>VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_BIT_EXT</code> in the
 instance of the candidate intersection or
 <code>ForceOpacityMicromap2StateEXT</code> ray flags on the ray.
 If either is set, the opacity micromap information is interpreted in 2 state
@@ -1304,7 +1318,30 @@ If no closest hit was identified, the committed intersection type will be
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

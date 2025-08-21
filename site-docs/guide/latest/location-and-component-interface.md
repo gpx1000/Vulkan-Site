@@ -41,26 +41,26 @@ layout(location=0) in vec4 a;
 layout(location=1, component = 0) in vec2 b;
 layout(location=1, component = 2) in float c;
 
-![location_example_basic](location_example_basic.svg)
+![location_example_basic](_images/location_example_basic.svg)
 
 16-bit values always consume a full 32-bit `Component`. So a vector with 16-bit elements will consume the same resources as a vector with 32-bit elements; they are not tightly packed.
 
 layout(location=0) in f16vec3 a;
 
-![location_example_16bit](location_example_16bit.svg)
+![location_example_16bit](_images/location_example_16bit.svg)
 
 All 16-bit and 32-bit vectors must be inside a single `Location`, so the following is **not** allowed.
 The last two elements would consume `component = 4` and `component = 5`, which do not exist.
 
 layout(location=0, component = 2) in vec4 a;
 
-![location_example_boundaries](location_example_boundaries.svg)
+![location_example_boundaries](_images/location_example_boundaries.svg)
 
 64-bit are special as they can consume up to 2 `Location`, but they must only start at `Component` `0` or `2`.
 
 layout(location=0) in f64vec3 a;
 
-![location_example_64bit](location_example_64bit.svg)
+![location_example_64bit](_images/location_example_64bit.svg)
 
 The following attempt to have multiple variables alias the same component is [not allowed](https://godbolt.org/z/h61baYhT4).
 
@@ -80,18 +80,21 @@ For example:
 
 layout(location=0) in float a[3];
 
-![location_example_array](location_example_array.svg)
+![location_example_array](_images/location_example_array.svg)
 
 As seen, using a scalar or something such as a `vec2`/`float2` will leave many `Component` slots unused.
 
-It is **not** allowed to use any other `Component` in a `Location` that is being consumed by an array
+It is **allowed** to use any other `Component` in a `Location` that is being consumed by an array
+
+|  | This behavior is guaranteed to work correctly with CTS 1.4.4.0 and higher compliant drivers. |
+| --- | --- |
 
 layout(location=0) in float a[3];
 layout(location=2, component=2) in float b;
 
-`float b` is invalid because the array consumes all of `Location` 2.
+`float b` is still valid because the array consumes only the first part of `Location` 2.
 
-![location_example_array2](location_example_array2.svg)
+![location_example_array2](_images/location_example_array2.svg)
 
 |  | Some shader stages, like geometry shaders, have an array around its interface matching, this array is disregarded for the above examples. |
 | --- | --- |
@@ -115,4 +118,4 @@ layout(location = 2, component = 2) in float b;
 
 `float b` is invalid because the implicit array of the matrix consumes all of `Location` 2.
 
-![location_example_matrix](location_example_matrix.svg)
+![location_example_matrix](_images/location_example_matrix.svg)

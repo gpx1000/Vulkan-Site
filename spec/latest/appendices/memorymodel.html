@@ -178,6 +178,9 @@
     <a class="nav-link" href="../chapters/fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../chapters/VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="../chapters/executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../chapters/VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="boilerplate.html">API Boilerplate</a>
@@ -459,8 +471,9 @@ its set of memory locations.</p>
 variables in each shader invocation.</p>
 </div>
 <div class="paragraph">
-<p>Variables with <code>Workgroup</code> storage class that point to a block-decorated
-type share a set of memory locations.</p>
+<p>Variables with <code>Workgroup</code> storage class that are decorated with
+<code>Aliased</code> and that point to a block-decorated type share a set of memory
+locations.</p>
 </div>
 </div>
 </div>
@@ -553,8 +566,17 @@ of the array <strong>may</strong> be a unique reference.</p>
 <li>
 <p>The address range for a buffer in <code>PhysicalStorageBuffer</code> storage
 class, where the base of the address range is queried with
-<a href="../chapters/descriptorsets.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a>
+<a href="../chapters/resources.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a>
 and the length of the range is the size of the buffer.</p>
+</li>
+<li>
+<p>A single common reference for all variables with <code>Workgroup</code> storage
+class that are decorated with <code>Aliased</code> and that point to a
+block-decorated type.</p>
+</li>
+<li>
+<p>The variable itself for all other variables in the <code>Workgroup</code>
+storage class.</p>
 </li>
 <li>
 <p>A single common reference for all variables with <code>Workgroup</code> storage
@@ -837,7 +859,7 @@ Host instructions that include semantics are some std::atomic methods and
 memory fences.</p>
 </div>
 <div class="paragraph">
-<p>SPIR-V supports the following memory semantics:</p>
+<p>Vulkan supports the following memory semantics:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -863,6 +885,10 @@ barrier.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>SequentiallyConsistent memory semantics is not supported and <strong>must</strong> not be
+used.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -878,9 +904,9 @@ barrier.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>The memory semantics operand also includes <em>storage class semantics</em> which
-indicate which storage classes are constrained by the synchronization.
-SPIR-V storage class semantics include:</p>
+<p>The memory semantics operand <strong>can</strong> also include <em>storage class semantics</em>
+flags which indicate the storage classes constrained by the synchronization.
+Vulkan supports the following SPIR-V storage class semantics flags:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -897,6 +923,10 @@ SPIR-V storage class semantics include:</p>
 <p>OutputMemory</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>The remaining storage class semantics flags (SubgroupMemory,
+CrossWorkgroupMemory, and AtomicCounterMemory) are ignored.</p>
 </div>
 <div class="paragraph">
 <p>Each SPIR-V memory operation accesses a single storage class.
@@ -1331,9 +1361,10 @@ has <code>CrossDevice</code> scope.</p>
 <p>By default, non-atomic memory operations are treated as <em>private</em>, meaning
 such a memory operation is not intended to be used for communication with
 other agents.
-Memory operations with the NonPrivatePointer/NonPrivateTexel bit set are
-treated as <em>non-private</em>, and are intended to be used for communication with
-other agents.</p>
+Memory operations with the <code>NonPrivatePointer</code>, <code>NonPrivateTexel</code>
+, or <code>NonPrivateElementARM</code>
+bit set are treated as <em>non-private</em>, and are intended to be used for
+communication with other agents.</p>
 </div>
 <div class="paragraph">
 <p>More precisely, for private memory operations to be
@@ -1744,22 +1775,26 @@ visibility operations.</p>
 <h2 id="memory-model-instruction-av-vis"><a class="anchor" href="#memory-model-instruction-av-vis"></a>Per-Instruction Availability and Visibility Semantics</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A memory write instruction that includes MakePointerAvailable, or an image
-write instruction that includes MakeTexelAvailable, performs an availability
-operation whose source scope includes the agent and reference used to
-perform the write and the memory locations written by the instruction, and
-whose destination scope is a set of memory domains selected by the Scope
-operand specified in <a href="#memory-model-availability-visibility-semantics">Availability and Visibility Semantics</a>.
+<p>A memory write instruction that includes <code>MakePointerAvailable</code>, or an
+image write instruction that includes <code>MakeTexelAvailable</code>,
+or a tensor write instruction that includes <code>MakeElementAvailableARM</code>,
+performs an availability operation whose source scope includes the agent and
+reference used to perform the write and the memory locations written by the
+instruction, and whose destination scope is a set of memory domains selected
+by the Scope operand specified in
+<a href="#memory-model-availability-visibility-semantics">Availability and Visibility Semantics</a>.
 The implicit availability operation is program-ordered between the write and
 all other operations program-ordered after the write.</p>
 </div>
 <div class="paragraph">
-<p>A memory read instruction that includes MakePointerVisible, or an image read
-instruction that includes MakeTexelVisible, performs a visibility operation
-whose source scope is a set of memory domains selected by the Scope operand
-as specified in <a href="#memory-model-availability-visibility-semantics">Availability and Visibility Semantics</a>, and whose destination scope
-includes the agent and reference used to perform the read and the memory
-locations read by the instruction.
+<p>A memory read instruction that includes <code>MakePointerVisible</code>, or an image
+read instruction that includes <code>MakeTexelVisible</code>,
+or a tensor read instruction that includes <code>MakeElementVisibleARM</code>
+performs a visibility operation whose source scope is a set of memory
+domains selected by the Scope operand as specified in
+<a href="#memory-model-availability-visibility-semantics">Availability and Visibility Semantics</a>, and whose destination scope includes the agent and
+reference used to perform the read and the memory locations read by the
+instruction.
 The implicit visibility operation is program-ordered between read and all
 other operations program-ordered before the read.</p>
 </div>
@@ -2283,7 +2318,30 @@ matrix&#8217;s scope performs a non-atomic store to that memory location.</p>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

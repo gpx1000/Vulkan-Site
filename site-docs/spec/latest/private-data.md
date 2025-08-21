@@ -97,6 +97,11 @@ Valid Usage (Implicit)
 
  `pPrivateDataSlot` **must** be a valid pointer to a [VkPrivateDataSlot](#VkPrivateDataSlot) handle
 
+* 
+[](#VUID-vkCreatePrivateDataSlot-device-queuecount) VUID-vkCreatePrivateDataSlot-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -108,6 +113,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkPrivateDataSlotCreateInfo` structure is defined as:
 
@@ -314,6 +325,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To retrieve application-defined data from a slot associated with a Vulkan
 object, call:

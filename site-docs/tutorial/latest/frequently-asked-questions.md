@@ -47,4 +47,4 @@ Code example:
 
 std::vector requiredExtensions;
 
-for(uint32_t i = 0; i
+for(uint32_t i = 0; i (context, createInfo);

@@ -41,33 +41,24 @@ void createDescriptorPool() {
 
 We first need to describe which descriptor types our descriptor sets are going to contain and how many of them, using `VkDescriptorPoolSize` structures.
 
-VkDescriptorPoolSize poolSize{};
-poolSize.type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-poolSize.descriptorCount = static_cast(MAX_FRAMES_IN_FLIGHT);
+vk::DescriptorPoolSize poolSize(vk::DescriptorType::eUniformBuffer, MAX_FRAMES_IN_FLIGHT);
 
 We will allocate one of these descriptors for every frame.
 This pool size structure is referenced by the main `VkDescriptorPoolCreateInfo`:
 
-VkDescriptorPoolCreateInfo poolInfo{};
-poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-poolInfo.poolSizeCount = 1;
-poolInfo.pPoolSizes = &poolSize;
+vk::DescriptorPoolCreateInfo poolInfo{ .flags = vk::DescriptorPoolCreateFlagBits::eFreeDescriptorSet, .maxSets = MAX_FRAMES_IN_FLIGHT, .poolSizeCount = 1, .pPoolSizes = &poolSize };
 
 Aside from the maximum number of individual descriptors that are available, we also need to specify the maximum number of descriptor sets that may be allocated:
-
-poolInfo.maxSets = static_cast(MAX_FRAMES_IN_FLIGHT);
 
 The structure has an optional flag similar to command pools that determines if individual descriptor sets can be freed or not: `VK_DESCRIPTOR_POOL_CREATE_FREE_DESCRIPTOR_SET_BIT`.
 We’re not going to touch the descriptor set after creating it, so we don’t need this flag.
 You can leave `flags` to its default value of `0`.
 
-VkDescriptorPool descriptorPool;
+vk::raii::DescriptorPool descriptorPool = nullptr;
 
 ...
 
-if (vkCreateDescriptorPool(device, &poolInfo, nullptr, &descriptorPool) != VK_SUCCESS) {
-    throw std::runtime_error("failed to create descriptor pool!");
-}
+descriptorPool = vk::raii::DescriptorPool(device, poolInfo);
 
 Add a new class member to store the handle of the descriptor pool and call `vkCreateDescriptorPool` to create it.
 
@@ -90,38 +81,21 @@ void createDescriptorSets() {
 A descriptor set allocation is described with a `VkDescriptorSetAllocateInfo` struct.
 You need to specify the descriptor pool to allocate from, the number of descriptor sets to allocate, and the descriptor set layout to base them on:
 
-std::vector layouts(MAX_FRAMES_IN_FLIGHT, descriptorSetLayout);
-VkDescriptorSetAllocateInfo allocInfo{};
-allocInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO;
-allocInfo.descriptorPool = descriptorPool;
-allocInfo.descriptorSetCount = static_cast(MAX_FRAMES_IN_FLIGHT);
-allocInfo.pSetLayouts = layouts.data();
+std::vector layouts(MAX_FRAMES_IN_FLIGHT, *descriptorSetLayout);
+vk::DescriptorSetAllocateInfo allocInfo{ .descriptorPool = descriptorPool, .descriptorSetCount = static_cast(layouts.size()), .pSetLayouts = layouts.data() };
 
-In our case we will create one descriptor set for each frame in flight, all with the same layout.
-Unfortunately we do need all the copies of the layout because the next function expects an array matching the number of sets.
+In our case, we will create one descriptor set for each frame in flight, all with the same layout.
+Unfortunately, we do need all the copies of the layout because the next function expects an array matching the number of sets.
 
 Add a class member to hold the descriptor set handles and allocate them with `vkAllocateDescriptorSets`:
 
-VkDescriptorPool descriptorPool;
+vk::raii::DescriptorPool descriptorPool = nullptr;
 std::vector descriptorSets;
 
 ...
 
-descriptorSets.resize(MAX_FRAMES_IN_FLIGHT);
-if (vkAllocateDescriptorSets(device, &allocInfo, descriptorSets.data()) != VK_SUCCESS) {
-    throw std::runtime_error("failed to allocate descriptor sets!");
-}
-
-You don’t need to explicitly clean up descriptor sets, because they will be automatically freed when the descriptor pool is destroyed.
-The call to `vkAllocateDescriptorSets` will allocate descriptor sets, each with one uniform buffer descriptor.
-
-void cleanup() {
-    ...
-    vkDestroyDescriptorPool(device, descriptorPool, nullptr);
-
-    vkDestroyDescriptorSetLayout(device, descriptorSetLayout, nullptr);
-    ...
-}
+descriptorSets.clear();
+descriptorSets = device.allocateDescriptorSets(allocInfo);
 
 The descriptor sets have been allocated now, but the descriptors within still need to be configured.
 We’ll now add a loop to populate every descriptor:
@@ -136,34 +110,23 @@ for (size_t i = 0; i
 If you’re overwriting the whole buffer, like we are in this case, then it is also possible to use the `VK_WHOLE_SIZE` value for the range.
 The configuration of descriptors is updated using the `vkUpdateDescriptorSets` function, which takes an array of `VkWriteDescriptorSet` structs as parameter.
 
-VkWriteDescriptorSet descriptorWrite{};
-descriptorWrite.sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-descriptorWrite.dstSet = descriptorSets[i];
-descriptorWrite.dstBinding = 0;
-descriptorWrite.dstArrayElement = 0;
+vk::WriteDescriptorSet descriptorWrite{ .dstSet = descriptorSets[i], .dstBinding = 0, .dstArrayElement = 0, .descriptorCount = 1, .descriptorType = vk::DescriptorType::eUniformBuffer, .pBufferInfo = &bufferInfo };
 
 The first two fields specify the descriptor set to update and the binding.
 We gave our uniform buffer binding index `0`.
 Remember that descriptors can be arrays, so we also need to specify the first index in the array that we want to update.
 We’re not using an array, so the index is simply `0`.
 
-descriptorWrite.descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-descriptorWrite.descriptorCount = 1;
-
 We need to specify the type of descriptor again.
 It’s possible to update multiple descriptors at once in an array, starting at index `dstArrayElement`.
 The `descriptorCount` field specifies how many array elements you want to update.
-
-descriptorWrite.pBufferInfo = &bufferInfo;
-descriptorWrite.pImageInfo = nullptr; // Optional
-descriptorWrite.pTexelBufferView = nullptr; // Optional
 
 The last field references an array with `descriptorCount` structs that actually configure the descriptors.
 It depends on the type of descriptor which one of the three you actually need to use.
 The `pBufferInfo` field is used for descriptors that refer to buffer data, `pImageInfo` is used for descriptors that refer to image data, and `pTexelBufferView` is used for descriptors that refer to buffer views.
 Our descriptor is based on buffers, so we’re using `pBufferInfo`.
 
-vkUpdateDescriptorSets(device, 1, &descriptorWrite, 0, nullptr);
+device.updateDescriptorSets(descriptorWrite, {});
 
 The updates are applied using `vkUpdateDescriptorSets`.
 It accepts two kinds of arrays as parameters: an array of `VkWriteDescriptorSet` and an array of `VkCopyDescriptorSet`.
@@ -172,11 +135,11 @@ The latter can be used to copy descriptors to each other, as its name implies.
 We now need to update the `recordCommandBuffer` function to actually bind the right descriptor set for each frame to the descriptors in the shader with `vkCmdBindDescriptorSets`.
 This needs to be done before the `vkCmdDrawIndexed` call:
 
-vkCmdBindDescriptorSets(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, pipelineLayout, 0, 1, &descriptorSets[currentFrame], 0, nullptr);
-vkCmdDrawIndexed(commandBuffer, static_cast(indices.size()), 1, 0, 0, 0);
+commandBuffers[currentFrame].bindDescriptorSets(vk::PipelineBindPoint::eGraphics, pipelineLayout, 0, *descriptorSets[currentFrame], nullptr);
+commandBuffers[currentFrame].drawIndexed(indices.size(), 1, 0, 0, 0);
 
 Unlike vertex and index buffers, descriptor sets are not unique to graphics pipelines.
-Therefore we need to specify if we want to bind descriptor sets to the graphics or compute pipeline.
+Therefore, we need to specify if we want to bind descriptor sets to the graphics or compute pipeline.
 The next parameter is the layout that the descriptors are based on.
 The next three parameters specify the index of the first descriptor set, the number of sets to bind, and the array of sets to bind.
 We’ll get back to this in a moment.
@@ -188,10 +151,10 @@ The problem is that because of the Y-flip we did in the projection matrix, the v
 This causes backface culling to kick in and prevents any geometry from being drawn.
 Go to the `createGraphicsPipeline` function and modify the `frontFace` in `VkPipelineRasterizationStateCreateInfo` to correct this:
 
-rasterizer.cullMode = VK_CULL_MODE_BACK_BIT;
-rasterizer.frontFace = VK_FRONT_FACE_COUNTER_CLOCKWISE;
+ vk::PipelineRasterizationStateCreateInfo rasterizer({}, vk::False, vk::False, vk::PolygonMode::eFill,
+        vk::CullModeFlagBits::eBack, vk::FrontFace::eCounterClockwise, vk::False, 0.0f, 0.0f, 1.0f, 1.0f);
 
-Run your program again and you should now see the following:
+Run your program again, and you should now see the following:
 
 ![spinning quad](../_images/images/spinning_quad.png)
 
@@ -207,11 +170,12 @@ struct UniformBufferObject {
     glm::mat4 proj;
 };
 
-layout(binding = 0) uniform UniformBufferObject {
-    mat4 model;
-    mat4 view;
-    mat4 proj;
-} ubo;
+struct UniformBuffer {
+    float4x4 model;
+    float4x4 view;
+    float4x4 proj;
+};
+ConstantBuffer ubo;
 
 However, that’s not all there is to it.
 For example, try modifying the struct and shader to look like this:
@@ -223,32 +187,33 @@ struct UniformBufferObject {
     glm::mat4 proj;
 };
 
-layout(binding = 0) uniform UniformBufferObject {
-    vec2 foo;
-    mat4 model;
-    mat4 view;
-    mat4 proj;
-} ubo;
+struct UniformBuffer {
+    float2 foo;
+    float4x4 model;
+    float4x4 view;
+    float4x4 proj;
+};
+ConstantBuffer ubo;
 
-Recompile your shader and your program and run it and you’ll find that the colorful square you worked so far has disappeared!
+Recompile your shader and your program and run it, and you’ll find that the colorful square you worked so far has disappeared!
 That’s because we haven’t taken into account the *alignment requirements*.
 
 Vulkan expects the data in your structure to be aligned in memory in a specific way, for example:
 
 * 
-Scalars have to be aligned by N (= 4 bytes given 32 bit floats).
+Scalars have to be aligned by N (= 4 bytes given 32-bit floats).
 
 * 
-A `vec2` must be aligned by 2N (= 8 bytes)
+A `float2` must be aligned by 2N (= 8 bytes)
 
 * 
-A `vec3` or `vec4` must be aligned by 4N (= 16 bytes)
+A `float3` or `float4` must be aligned by 4N (= 16 bytes)
 
 * 
 A nested structure must be aligned by the base alignment of its members rounded up to a multiple of 16.
 
 * 
-A `mat4` matrix must have the same alignment as a `vec4`.
+A `float4x4` matrix must have the same alignment as a `float4`.
 
 You can find the full list of alignment requirements in [the specification](https://www.khronos.org/registry/vulkan/specs/1.3-extensions/html/chap15.html#interfaces-resources-layout).
 
@@ -267,7 +232,7 @@ struct UniformBufferObject {
     glm::mat4 proj;
 };
 
-If you now compile and run your program again you should see that the shader correctly receives its matrix values once again.
+If you now compile and run your program again, you should see that the shader correctly receives its matrix values once again.
 
 Luckily there is a way to not have to think about these alignment requirements *most* of the time.
 We can define `GLM_FORCE_DEFAULT_ALIGNED_GENTYPES` right before including GLM:
@@ -278,7 +243,7 @@ We can define `GLM_FORCE_DEFAULT_ALIGNED_GENTYPES` right before including GLM:
 This will force GLM to use a version of `vec2` and `mat4` that has the alignment requirements already specified for us.
 If you add this definition then you can remove the `alignas` specifier and your program should still work.
 
-Unfortunately this method can break down if you start using nested structures.
+Unfortunately, this method can break down if you start using nested structures.
 Consider the following definition in the C++ code:
 
 struct Foo {
@@ -296,13 +261,14 @@ struct Foo {
     vec2 v;
 };
 
-layout(binding = 0) uniform UniformBufferObject {
+struct UniformBuffer {
     Foo f1;
     Foo f2;
-} ubo;
+};
+ConstantBuffer ubo;
 
 In this case `f2` will have an offset of `8` whereas it should have an offset of `16` since it is a nested structure.
-In this case you must specify the alignment yourself:
+In this case, you must specify the alignment yourself:
 
 struct UniformBufferObject {
     Foo f1;
@@ -310,7 +276,7 @@ struct UniformBufferObject {
 };
 
 These gotchas are a good reason to always be explicit about alignment.
-That way you won’t be caught offguard by the strange symptoms of alignment errors.
+That way you won’t be caught off guard by the strange symptoms of alignment errors.
 
 struct UniformBufferObject {
     alignas(16) glm::mat4 model;
@@ -318,17 +284,22 @@ struct UniformBufferObject {
     alignas(16) glm::mat4 proj;
 };
 
-Don’t forget to recompile your shader after removing the `foo` field.
+Remember to recompile your shader after removing the `foo` field.
 
 As some of the structures and function calls hinted at, it is actually possible to bind multiple descriptor sets simultaneously.
 You need to specify a descriptor set layout for each descriptor set when creating the pipeline layout.
 Shaders can then reference specific descriptor sets like this:
 
-layout(set = 0, binding = 0) uniform UniformBufferObject { ... }
+struct UniformBuffer {
+};
+ConstantBuffer ubo;
 
 You can use this feature to put descriptors that vary per-object and descriptors that are shared into separate descriptor sets.
-In that case you avoid rebinding most of the descriptors across draw calls which is potentially more efficient.
+In that case, you avoid rebinding most of the descriptors across draw calls which are potentially more efficient.
 
 In the [next chapters](../06_Texture_mapping/00_Images.html) we’ll build upon what we just learned and add textures to our scene.
 
-[C++ code](../_attachments/23_descriptor_sets.cpp) / [Vertex shader](../_attachments/22_shader_ubo.vert) / [Fragment shader](../_attachments/22_shader_ubo.frag)
+[C++ code](../_attachments/23_descriptor_sets.cpp)  /
+[slang shader](../_attachments/22_shader_ubo.slang) /
+[GLSL Vertex shader](../_attachments/22_shader_ubo.vert) /
+[GLSL Fragment shader](../_attachments/22_shader_ubo.frag)

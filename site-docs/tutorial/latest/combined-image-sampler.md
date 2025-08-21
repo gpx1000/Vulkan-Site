@@ -17,8 +17,10 @@
 ## Content
 
 We looked at descriptors for the first time in the uniform buffers part of the tutorial.
-In this chapter we will look at a new type of descriptor: *combined image sampler*.
+In this chapter, we will look at a new type of descriptor: *combined image sampler*.
 This descriptor makes it possible for shaders to access an image resource through a sampler object like the one we created in the previous chapter.
+
+It’s worth noting that Vulkan provides flexibility in how textures are accessed in shaders through different descriptor types. While we’ll be using a *combined image sampler* in this tutorial, Vulkan also supports separate descriptors for samplers (`VK_DESCRIPTOR_TYPE_SAMPLER`) and sampled images (`VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE`). Using separate descriptors allows you to reuse the same sampler with multiple images or access the same image with different sampling parameters. This can be more efficient in scenarios where you have many textures that use identical sampling configurations. However, the combined image sampler is often more convenient and can offer better performance on some hardware due to optimized cache usage.
 
 We’ll start by modifying the descriptor set layout, descriptor pool and descriptor set to include such a combined image sampler descriptor.
 After that, we’re going to add texture coordinates to `Vertex` and modify the fragment shader to read colors from the texture instead of just interpolating the vertex colors.
@@ -26,18 +28,12 @@ After that, we’re going to add texture coordinates to `Vertex` and modify the 
 Browse to the `createDescriptorSetLayout` function and add a `VkDescriptorSetLayoutBinding` for a combined image sampler descriptor.
 We’ll simply put it in the binding after the uniform buffer:
 
-VkDescriptorSetLayoutBinding samplerLayoutBinding{};
-samplerLayoutBinding.binding = 1;
-samplerLayoutBinding.descriptorCount = 1;
-samplerLayoutBinding.descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-samplerLayoutBinding.pImmutableSamplers = nullptr;
-samplerLayoutBinding.stageFlags = VK_SHADER_STAGE_FRAGMENT_BIT;
+std::array bindings = {
+    vk::DescriptorSetLayoutBinding( 0, vk::DescriptorType::eUniformBuffer, 1, vk::ShaderStageFlagBits::eVertex, nullptr),
+    vk::DescriptorSetLayoutBinding( 1, vk::DescriptorType::eCombinedImageSampler, 1, vk::ShaderStageFlagBits::eFragment, nullptr)
+};
 
-std::array bindings = {uboLayoutBinding, samplerLayoutBinding};
-VkDescriptorSetLayoutCreateInfo layoutInfo{};
-layoutInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO;
-layoutInfo.bindingCount = static_cast(bindings.size());
-layoutInfo.pBindings = bindings.data();
+vk::DescriptorSetLayoutCreateInfo layoutInfo({}, bindings.size(), bindings.data());
 
 Make sure to set the `stageFlags` to indicate that we intend to use the combined image sampler descriptor in the fragment shader.
 That’s where the color of the fragment is going to be determined.
@@ -46,17 +42,11 @@ It is possible to use texture sampling in the vertex shader, for example to dyna
 We must also create a larger descriptor pool to make room for the allocation of the combined image sampler by adding another `VkPoolSize` of type `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER` to the `VkDescriptorPoolCreateInfo`.
 Go to the `createDescriptorPool` function and modify it to include a `VkDescriptorPoolSize` for this descriptor:
 
-std::array poolSizes{};
-poolSizes[0].type = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-poolSizes[0].descriptorCount = static_cast(MAX_FRAMES_IN_FLIGHT);
-poolSizes[1].type = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-poolSizes[1].descriptorCount = static_cast(MAX_FRAMES_IN_FLIGHT);
-
-VkDescriptorPoolCreateInfo poolInfo{};
-poolInfo.sType = VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO;
-poolInfo.poolSizeCount = static_cast(poolSizes.size());
-poolInfo.pPoolSizes = poolSizes.data();
-poolInfo.maxSets = static_cast(MAX_FRAMES_IN_FLIGHT);
+std::array poolSize {
+    vk::DescriptorPoolSize( vk::DescriptorType::eUniformBuffer, MAX_FRAMES_IN_FLIGHT),
+    vk::DescriptorPoolSize(  vk::DescriptorType::eCombinedImageSampler, MAX_FRAMES_IN_FLIGHT)
+};
+vk::DescriptorPoolCreateInfo poolInfo(vk::DescriptorPoolCreateFlagBits::eFreeDescriptorSet, MAX_FRAMES_IN_FLIGHT, poolSize);
 
 Inadequate descriptor pools are a good example of a problem that the validation layers will not catch: As of Vulkan 1.1, `vkAllocateDescriptorSets` may fail with the error code `VK_ERROR_POOL_OUT_OF_MEMORY` if the pool is not sufficiently large, but the driver may also try to solve the problem internally.
 This means that sometimes (depending on hardware, pool size and allocation size) the driver will let us get away with an allocation that exceeds the limits of our descriptor pool.
@@ -74,25 +64,11 @@ for (size_t i = 0; i
 The resources for a combined image sampler structure must be specified in a `VkDescriptorImageInfo` struct, just like the buffer resource for a uniform buffer descriptor is specified in a `VkDescriptorBufferInfo` struct.
 This is where the objects from the previous chapter come together.
 
-std::array descriptorWrites{};
-
-descriptorWrites[0].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-descriptorWrites[0].dstSet = descriptorSets[i];
-descriptorWrites[0].dstBinding = 0;
-descriptorWrites[0].dstArrayElement = 0;
-descriptorWrites[0].descriptorType = VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER;
-descriptorWrites[0].descriptorCount = 1;
-descriptorWrites[0].pBufferInfo = &bufferInfo;
-
-descriptorWrites[1].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
-descriptorWrites[1].dstSet = descriptorSets[i];
-descriptorWrites[1].dstBinding = 1;
-descriptorWrites[1].dstArrayElement = 0;
-descriptorWrites[1].descriptorType = VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER;
-descriptorWrites[1].descriptorCount = 1;
-descriptorWrites[1].pImageInfo = &imageInfo;
-
-vkUpdateDescriptorSets(device, static_cast(descriptorWrites.size()), descriptorWrites.data(), 0, nullptr);
+std::array descriptorWrites{
+    vk::WriteDescriptorSet( descriptorSets[i], 0, 0, 1, vk::DescriptorType::eUniformBuffer, nullptr, &bufferInfo ),
+    vk::WriteDescriptorSet( descriptorSets[i], 1, 0, 1, vk::DescriptorType::eCombinedImageSampler, &imageInfo)
+};
+device.updateDescriptorSets(descriptorWrites, {});
 
 The descriptors must be updated with this image info, just like the buffer.
 This time we’re using the `pImageInfo` array instead of `pBufferInfo`.
@@ -106,34 +82,16 @@ struct Vertex {
     glm::vec3 color;
     glm::vec2 texCoord;
 
-    static VkVertexInputBindingDescription getBindingDescription() {
-        VkVertexInputBindingDescription bindingDescription{};
-        bindingDescription.binding = 0;
-        bindingDescription.stride = sizeof(Vertex);
-        bindingDescription.inputRate = VK_VERTEX_INPUT_RATE_VERTEX;
-
-        return bindingDescription;
+    static vk::VertexInputBindingDescription getBindingDescription() {
+        return { 0, sizeof(Vertex), vk::VertexInputRate::eVertex };
     }
 
     static std::array getAttributeDescriptions() {
-        std::array attributeDescriptions{};
-
-        attributeDescriptions[0].binding = 0;
-        attributeDescriptions[0].location = 0;
-        attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT;
-        attributeDescriptions[0].offset = offsetof(Vertex, pos);
-
-        attributeDescriptions[1].binding = 0;
-        attributeDescriptions[1].location = 1;
-        attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT;
-        attributeDescriptions[1].offset = offsetof(Vertex, color);
-
-        attributeDescriptions[2].binding = 0;
-        attributeDescriptions[2].location = 2;
-        attributeDescriptions[2].format = VK_FORMAT_R32G32_SFLOAT;
-        attributeDescriptions[2].offset = offsetof(Vertex, texCoord);
-
-        return attributeDescriptions;
+        return {
+            vk::VertexInputAttributeDescription( 0, 0, vk::Format::eR32G32Sfloat, offsetof(Vertex, pos) ),
+            vk::VertexInputAttributeDescription( 1, 0, vk::Format::eR32G32B32Sfloat, offsetof(Vertex, color) ),
+            vk::VertexInputAttributeDescription( 2, 0, vk::Format::eR32G32Sfloat, offsetof(Vertex, texCoord) )
+        };
     }
 };
 
@@ -155,35 +113,44 @@ Try using coordinates below `0` or above `1` to see the addressing modes in acti
 The final step is modifying the shaders to sample colors from the texture.
 We first need to modify the vertex shader to pass through the texture coordinates to the fragment shader:
 
-layout(location = 0) in vec2 inPosition;
-layout(location = 1) in vec3 inColor;
-layout(location = 2) in vec2 inTexCoord;
+struct VSInput {
+    float2 inPos;
+    float3 inColor;
+    float2 inTexCoord;
+};
 
-layout(location = 0) out vec3 fragColor;
-layout(location = 1) out vec2 fragTexCoord;
+struct UniformBuffer {
+    float4x4 model;
+    float4x4 view;
+    float4x4 proj;
+};
+ConstantBuffer ubo;
 
-void main() {
-    gl_Position = ubo.proj * ubo.view * ubo.model * vec4(inPosition, 0.0, 1.0);
-    fragColor = inColor;
-    fragTexCoord = inTexCoord;
+struct VSOutput
+{
+    float4 pos : SV_Position;
+    float3 fragColor;
+    float2 fragTexCoord;
+};
+
+[shader("vertex")]
+VSOutput vertMain(VSInput input) {
+    VSOutput output;
+    output.pos = mul(ubo.proj, mul(ubo.view, mul(ubo.model, float4(input.inPos, 0.0, 1.0))));
+    output.fragColor = input.inColor;
+    output.fragTexCoord = input.inTexCoord;
+    return output;
 }
 
-Just like the per vertex colors, the `fragTexCoord` values will be smoothly interpolated across the area of the square by the rasterizer.
-We can visualize this by having the fragment shader output the texture coordinates as colors:
+Sampler2D texture;
 
-#version 450
-
-layout(location = 0) in vec3 fragColor;
-layout(location = 1) in vec2 fragTexCoord;
-
-layout(location = 0) out vec4 outColor;
-
-void main() {
-    outColor = vec4(fragTexCoord, 0.0, 1.0);
+[shader("fragment")]
+float4 fragMain(VSOutput vertIn) : SV_TARGET {
+   return texture.Sample(vertIn.fragTexCoord);
 }
 
 You should see something like the image below.
-Don’t forget to recompile the shaders!
+Remember to recompile the shaders!
 
 ![texcoord visualization](../_images/images/texcoord_visualization.png)
 
@@ -191,16 +158,17 @@ The green channel represents the horizontal coordinates and the red channel the 
 The black and yellow corners confirm that the texture coordinates are correctly interpolated from `0, 0` to `1, 1` across the square.
 Visualizing data using colors is the shader programming equivalent of `printf` debugging, for lack of a better option!
 
-A combined image sampler descriptor is represented in GLSL by a sampler uniform.
+A sampler represents a combined image sampler descriptor in Slang.
 Add a reference to it in the fragment shader:
 
-layout(binding = 1) uniform sampler2D texSampler;
+Sampler2D texture;
 
 There are equivalent `sampler1D` and `sampler3D` types for other types of images.
 Make sure to use the correct binding here.
 
-void main() {
-    outColor = texture(texSampler, fragTexCoord);
+[shader("fragment")]
+float4 fragMain(VSOutput vertIn) : SV_TARGET {
+   return texture.Sample(vertIn.fragTexCoord);
 }
 
 Textures are sampled using the built-in `texture` function.
@@ -213,16 +181,18 @@ You should now see the texture on the square when you run the application:
 Try experimenting with the addressing modes by scaling the texture coordinates to values higher than `1`.
 For example, the following fragment shader produces the result in the image below when using `VK_SAMPLER_ADDRESS_MODE_REPEAT`:
 
-void main() {
-    outColor = texture(texSampler, fragTexCoord * 2.0);
+[shader("fragment")]
+float4 fragMain(VSOutput vertIn) : SV_TARGET {
+   return texture.Sample(vertIn.fragTexCoord);
 }
 
 ![texture on square repeated](../_images/images/texture_on_square_repeated.png)
 
 You can also manipulate the texture colors using the vertex colors:
 
-void main() {
-    outColor = vec4(fragColor * texture(texSampler, fragTexCoord).rgb, 1.0);
+[shader("fragment")]
+float4 fragMain(VSOutput vertIn) : SV_TARGET {
+   return vec4(vertIn.fragColor * texture.Sample(vertIn.fragTexCoord).rgb, 1.0);
 }
 
 I’ve separated the RGB and alpha channels here to not scale the alpha channel.
@@ -235,4 +205,7 @@ You can use these images as inputs to implement cool effects like post-processin
 
 In the [next chapter](../07_Depth_buffering.html) we’ll learn how to add depth buffering for properly sorting objects.
 
-[C++ code](../_attachments/26_texture_mapping.cpp) / [Vertex shader](../_attachments/26_shader_textures.vert) / [Fragment shader](../_attachments/26_shader_textures.frag)
+[C++ code](../_attachments/26_texture_mapping.cpp) /
+[slang shader](../_attachments/26_shader_textures.slang) /
+[GLSL Vertex shader](../_attachments/26_shader_textures.vert) /
+[GLSL Fragment shader](../_attachments/26_shader_textures.frag)

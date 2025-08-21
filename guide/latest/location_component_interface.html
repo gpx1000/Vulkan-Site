@@ -152,7 +152,10 @@
     <a class="nav-link" href="checking_for_support.html">Checking For Vulkan Support</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="versions.html">Versions</a>
+    <a class="nav-link" href="versions.html">Vulkan Versions &amp; Porting Guide</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vulkan_profiles.html">Vulkan Profiles</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="vulkan_release_summary.html">Vulkan Release Summary</a>
@@ -168,6 +171,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="development_tools.html">Development Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ide.html">Development Environments &amp; IDEs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="validation_overview.html">Vulkan Validation Overview</a>
@@ -212,6 +218,9 @@
     <a class="nav-link" href="wsi.html">Window System Integration (WSI)</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="windowing_audio_input.html">Windowing, Audio, and Input</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pnext_and_stype.html">pNext and sType</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -254,11 +263,20 @@
     <a class="nav-link" href="depth.html">Depth</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="primitive_topology.html">Primitive Topology</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="mapping_data_to_shaders.html">Mapping Data to Shaders</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="storage_image_and_texel_buffers.html">Storage Image and Texel Buffers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="vertex_input_data_processing.html">Vertex Input Data Processing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="descriptor_arrays.html">Descriptor Arrays</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="descriptor_dynamic_offset.html">Descriptor Dynamic Offset</a>
@@ -357,6 +375,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="extensions/VK_KHR_shader_subgroup_uniform_control_flow.html">VK_KHR_shader_subgroup_uniform_control_flow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="extensions/VK_KHR_debug_utils.html">VK_KHR_debug_utils</a>
   </li>
 </ul>
   </li>
@@ -489,9 +510,9 @@ layout(location=1, component = 0) in vec2 b;
 layout(location=1, component = 2) in float c;</code></pre>
 </div>
 </div>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<img src="location_example_basic.svg" alt="location_example_basic">
+<img src="_images/location_example_basic.svg" alt="location_example_basic">
 </div>
 </div>
 </div>
@@ -507,9 +528,9 @@ layout(location=1, component = 2) in float c;</code></pre>
 <pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">layout(location=0) in f16vec3 a;</code></pre>
 </div>
 </div>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<img src="location_example_16bit.svg" alt="location_example_16bit">
+<img src="_images/location_example_16bit.svg" alt="location_example_16bit">
 </div>
 </div>
 </div>
@@ -526,9 +547,9 @@ The last two elements would consume <code>component = 4</code> and <code>compone
 <pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">layout(location=0, component = 2) in vec4 a;</code></pre>
 </div>
 </div>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<img src="location_example_boundaries.svg" alt="location_example_boundaries">
+<img src="_images/location_example_boundaries.svg" alt="location_example_boundaries">
 </div>
 </div>
 </div>
@@ -544,9 +565,9 @@ The last two elements would consume <code>component = 4</code> and <code>compone
 <pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">layout(location=0) in f64vec3 a;</code></pre>
 </div>
 </div>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<img src="location_example_64bit.svg" alt="location_example_64bit">
+<img src="_images/location_example_64bit.svg" alt="location_example_64bit">
 </div>
 </div>
 </div>
@@ -590,16 +611,30 @@ layout(location=0, component=1) in float in_f; // Invalid: overlaps component 1<
 <pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">layout(location=0) in float a[3];</code></pre>
 </div>
 </div>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<img src="location_example_array.svg" alt="location_example_array">
+<img src="_images/location_example_array.svg" alt="location_example_array">
 </div>
 </div>
 <div class="paragraph">
 <p>As seen, using a scalar or something such as a <code>vec2</code>/<code>float2</code> will leave many <code>Component</code> slots unused.</p>
 </div>
 <div class="paragraph">
-<p>It is <strong>not</strong> allowed to use any other <code>Component</code> in a <code>Location</code> that is being consumed by an array</p>
+<p>It is <strong>allowed</strong> to use any other <code>Component</code> in a <code>Location</code> that is being consumed by an array</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This behavior is guaranteed to work correctly with CTS 1.4.4.0 and higher compliant drivers.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -608,11 +643,11 @@ layout(location=2, component=2) in float b;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>float b</code> is invalid because the array consumes all of <code>Location</code> 2.</p>
+<p><code>float b</code> is still valid because the array consumes only the first part of <code>Location</code> 2.</p>
 </div>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<img src="location_example_array2.svg" alt="location_example_array2">
+<img src="_images/location_example_array2.svg" alt="location_example_array2">
 </div>
 </div>
 <div class="admonitionblock note">
@@ -667,9 +702,9 @@ layout(location = 2, component = 2) in float b;</code></pre>
 <div class="paragraph">
 <p><code>float b</code> is invalid because the implicit array of the matrix consumes all of <code>Location</code> 2.</p>
 </div>
-<div class="imageblock unresolved">
+<div class="imageblock">
 <div class="content">
-<img src="location_example_matrix.svg" alt="location_example_matrix">
+<img src="_images/location_example_matrix.svg" alt="location_example_matrix">
 </div>
 </div>
 </div>
@@ -706,7 +741,30 @@ layout(location = 2, component = 2) in float b;</code></pre>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
-<script async src="../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

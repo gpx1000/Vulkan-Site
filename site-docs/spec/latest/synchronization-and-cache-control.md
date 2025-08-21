@@ -43,6 +43,8 @@
 - [Buffer_Memory_Barriers](#synchronization-buffer-memory-barriers)
 - [Image Memory Barriers](#synchronization-image-memory-barriers)
 - [Image_Memory_Barriers](#synchronization-image-memory-barriers)
+- [Tensor Memory Barriers](#synchronization-tensor-memory-barriers)
+- [Tensor_Memory_Barriers](#synchronization-tensor-memory-barriers)
 - [Queue Family Ownership Transfer](#synchronization-queue-transfers)
 - [Queue_Family_Ownership_Transfer](#synchronization-queue-transfers)
 - [Wait Idle Operations](#synchronization-wait-idle)
@@ -510,6 +512,8 @@ static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV = 0x20000000ULL;
 // Provided by VK_NV_cooperative_vector
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV = 0x100000000000ULL;
+// Provided by VK_ARM_data_graph
+static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM = 0x40000000000ULL;
 
 or the equivalent
 
@@ -1153,6 +1157,7 @@ and [Queues](devsandqueues.html#devsandqueues-queues).
 | `VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER_BIT_HUAWEI` | `VK_QUEUE_GRAPHICS_BIT` |
 | `VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV` | `VK_QUEUE_OPTICAL_FLOW_BIT_NV` |
 | `VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV` | `VK_QUEUE_GRAPHICS_BIT` or `VK_QUEUE_COMPUTE_BIT` or `VK_QUEUE_TRANSFER_BIT` |
+| `VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM` | `VK_QUEUE_DATA_GRAPH_BIT_ARM` |
 
 Pipeline stages that execute as a result of a command logically complete
 execution in a specific order, such that completion of a logically later
@@ -1348,6 +1353,11 @@ For the video encode pipeline, the following stages occur in this order:
 * 
 `VK_PIPELINE_STAGE_2_VIDEO_ENCODE_BIT_KHR`
 
+For the data graph pipeline, the following stages occur in this order:
+
+* 
+`VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM`
+
 Memory in Vulkan **can** be accessed from within shader invocations and via
 some fixed-function stages of the pipeline.
 The *access type* is a function of the [descriptor type](descriptorsets.html#descriptorsets)
@@ -1490,6 +1500,10 @@ static const VkAccessFlagBits2 VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT = 0x2000000000
 static const VkAccessFlagBits2 VK_ACCESS_2_OPTICAL_FLOW_READ_BIT_NV = 0x40000000000ULL;
 // Provided by VK_NV_optical_flow
 static const VkAccessFlagBits2 VK_ACCESS_2_OPTICAL_FLOW_WRITE_BIT_NV = 0x80000000000ULL;
+// Provided by VK_ARM_data_graph
+static const VkAccessFlagBits2 VK_ACCESS_2_DATA_GRAPH_READ_BIT_ARM = 0x800000000000ULL;
+// Provided by VK_ARM_data_graph
+static const VkAccessFlagBits2 VK_ACCESS_2_DATA_GRAPH_WRITE_BIT_ARM = 0x1000000000000ULL;
 
 or the equivalent
 
@@ -1793,6 +1807,14 @@ access to a [tile    attachment](renderpass.html#renderpass-tile-shading-attachm
 Such access occurs in the `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`
 or `VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT` pipeline stages.
 
+`VK_ACCESS_2_DATA_GRAPH_READ_BIT_ARM` specifies read access to
+resources in the `VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM` pipeline
+stage.
+
+`VK_ACCESS_2_DATA_GRAPH_WRITE_BIT_ARM` specifies write access to
+resources in the `VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM` pipeline
+stage.
+
 |  | In situations where an application wishes to select all access types for a
 | --- | --- |
 given set of pipeline stages, `VK_ACCESS_2_MEMORY_READ_BIT` or
@@ -2021,6 +2043,7 @@ Such access occurs in the
 [storage buffer](descriptorsets.html#descriptorsets-storagebuffer),
 [physical storage buffer](descriptorsets.html#descriptorsets-physical-storage-buffer),
 [shader binding table](raytracing.html#shader-binding-table),
+[storage tensor](descriptorsets.html#descriptorsets-storagetensor),
 [storage texel buffer](descriptorsets.html#descriptorsets-storagetexelbuffer), or
 [storage image](descriptorsets.html#descriptorsets-storageimage) in any shader pipeline
 stage.
@@ -2029,6 +2052,7 @@ stage.
 `VK_ACCESS_SHADER_WRITE_BIT` specifies write access to a
 [storage buffer](descriptorsets.html#descriptorsets-storagebuffer),
 [physical storage buffer](descriptorsets.html#descriptorsets-physical-storage-buffer),
+[storage tensor](descriptorsets.html#descriptorsets-storagetensor),
 [storage texel buffer](descriptorsets.html#descriptorsets-storagetexelbuffer), or
 [storage image](descriptorsets.html#descriptorsets-storageimage) in any shader pipeline
 stage.
@@ -2071,14 +2095,16 @@ Such access occurs in the
 `VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT` pipeline stages.
 
 * 
-`VK_ACCESS_TRANSFER_READ_BIT` specifies read access to an image or
-buffer in a [copy](copies.html#copies) operation.
+`VK_ACCESS_TRANSFER_READ_BIT` specifies read access to an
+image, tensor,
+or buffer in a [copy](copies.html#copies) operation.
 Such access occurs in the `VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT`
 pipeline stage.
 
 * 
-`VK_ACCESS_TRANSFER_WRITE_BIT` specifies write access to an image or
-buffer in a [clear](clears.html#clears) or [copy](copies.html#copies) operation.
+`VK_ACCESS_TRANSFER_WRITE_BIT` specifies write access to an
+image, tensor,
+or buffer in a [clear](clears.html#clears) or [copy](copies.html#copies) operation.
 Such access occurs in the `VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT`
 pipeline stage.
 
@@ -2366,6 +2392,8 @@ perform that type of access.
 	`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT` |
 | `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM` | `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT`,
 	`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT` |
+| `VK_ACCESS_2_DATA_GRAPH_READ_BIT_ARM` | `VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM` |
+| `VK_ACCESS_2_DATA_GRAPH_WRITE_BIT_ARM` | `VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM` |
 
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkAccessFlags;
@@ -2776,6 +2804,11 @@ Valid Usage (Implicit)
 
  `pFence` **must** be a valid pointer to a [VkFence](#VkFence) handle
 
+* 
+[](#VUID-vkCreateFence-device-queuecount) VUID-vkCreateFence-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -2786,10 +2819,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkFenceCreateInfo` structure is defined as:
 
@@ -3033,10 +3072,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkFenceGetWin32HandleInfoKHR` structure is defined as:
 
@@ -3200,10 +3245,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkFenceGetFdInfoKHR` structure is defined as:
 
@@ -3407,21 +3458,27 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_NOT_READY`
 
 * 
-`VK_NOT_READY`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_DEVICE_LOST`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_DEVICE_LOST`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To set the state of fences to unsignaled from the host, call:
 
@@ -3500,6 +3557,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 When a fence is submitted to a queue as part of a
 [queue submission](devsandqueues.html#devsandqueues-submission) command, it defines a memory
@@ -3627,13 +3690,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_DEVICE_LOST`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_DEVICE_LOST`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 An execution dependency is defined by waiting for a fence to become
 signaled, either via [vkWaitForFences](#vkWaitForFences) or by polling on
@@ -3716,6 +3785,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkDeviceEventInfoEXT` structure is defined as:
 
@@ -3841,6 +3916,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkDisplayEventInfoEXT` structure is defined as:
 
@@ -4091,10 +4172,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkImportFenceWin32HandleInfoKHR` structure is defined as:
 
@@ -4265,10 +4352,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkImportFenceFdInfoKHR` structure is defined as:
 
@@ -4494,6 +4587,11 @@ Valid Usage (Implicit)
 
  `pSemaphore` **must** be a valid pointer to a [VkSemaphore](#VkSemaphore) handle
 
+* 
+[](#VUID-vkCreateSemaphore-device-queuecount) VUID-vkCreateSemaphore-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -4504,10 +4602,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkSemaphoreCreateInfo` structure is defined as:
 
@@ -4860,10 +4964,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkSemaphoreGetWin32HandleInfoKHR` structure is defined as:
 
@@ -5063,10 +5173,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkSemaphoreGetFdInfoKHR` structure is defined as:
 
@@ -5238,10 +5354,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkSemaphoreGetZirconHandleInfoFUCHSIA` structure is defined as:
 
@@ -5681,13 +5803,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_DEVICE_LOST`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_DEVICE_LOST`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To wait for a set of semaphores created with a [VkSemaphoreType](#VkSemaphoreType) of
 `VK_SEMAPHORE_TYPE_TIMELINE` to reach particular counter values on the
@@ -5766,13 +5894,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_DEVICE_LOST`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_DEVICE_LOST`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkSemaphoreWaitInfo` structure is defined as:
 
@@ -5946,10 +6080,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkSemaphoreSignalInfo` structure is defined as:
 
@@ -6225,10 +6365,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkImportSemaphoreWin32HandleInfoKHR` structure is defined as:
 
@@ -6431,10 +6577,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkImportSemaphoreFdInfoKHR` structure is defined as:
 
@@ -6625,10 +6777,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_EXTERNAL_HANDLE`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkImportSemaphoreZirconHandleInfoFUCHSIA` structure is defined as:
 
@@ -6858,6 +7016,11 @@ Valid Usage (Implicit)
 
  `pEvent` **must** be a valid pointer to a [VkEvent](#VkEvent) handle
 
+* 
+[](#VUID-vkCreateEvent-device-queuecount) VUID-vkCreateEvent-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -6868,10 +7031,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkEventCreateInfo` structure is defined as:
 
@@ -7069,21 +7238,27 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_EVENT_SET`
+`VK_EVENT_RESET`
 
 * 
-`VK_EVENT_RESET`
+`VK_EVENT_SET`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_DEVICE_LOST`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_DEVICE_LOST`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To set the state of an event to signaled from the host, call:
 
@@ -7156,10 +7331,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To set the state of an event to unsignaled from the host, call:
 
@@ -7237,6 +7418,12 @@ Return Codes
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
 The state of an event **can** also be updated on the device by commands
 inserted in command buffers.
 
@@ -7291,9 +7478,14 @@ defined by `pDependencyInfo`.
 The second [access scope](#synchronization-dependencies-access-scopes)
 includes only [queue family ownership transfers](#synchronization-queue-transfers) and [image layout transitions](#synchronization-image-layout-transitions).
 
-Future [vkCmdWaitEvents2](#vkCmdWaitEvents2) commands rely on all values of each element in
+If `VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR` is not set in
+`pDependencyInfo->dependencyFlags`, future
+[vkCmdWaitEvents2](#vkCmdWaitEvents2) commands rely on all values of each element in
 `pDependencyInfo` matching exactly with those used to signal the
 corresponding event.
+If `VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR` is set, `vkCmdSetEvent2`
+**must** only include the [source stage mask](#synchronization-pipeline-stages-masks) of the first synchronization scope in
+`pDependencyInfo->pMemoryBarriers`[0].`srcStageMask`.
 [vkCmdWaitEvents](#vkCmdWaitEvents) **must** not be used to wait on the result of a signal
 operation defined by `vkCmdSetEvent2`.
 
@@ -7320,7 +7512,8 @@ be enabled
 * 
 [](#VUID-vkCmdSetEvent2-dependencyFlags-03825) VUID-vkCmdSetEvent2-dependencyFlags-03825
 
-The `dependencyFlags` member of `pDependencyInfo` **must** be `0`
+    The `dependencyFlags` member of `pDependencyInfo` **must** be `0`
+or `VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`
 
 * 
 [](#VUID-vkCmdSetEvent2-srcStageMask-09391) VUID-vkCmdSetEvent2-srcStageMask-09391
@@ -7361,6 +7554,29 @@ The `dstStageMask` member of any element of the
 `pImageMemoryBarriers` members of `pDependencyInfo` **must** only
 include pipeline stages valid for the queue family that was used to
 create the command pool that `commandBuffer` was allocated from
+
+* 
+[](#VUID-vkCmdSetEvent2-dependencyFlags-10785) VUID-vkCmdSetEvent2-dependencyFlags-10785
+
+If the `dependencyFlags` member of `pDependencyInfo` includes
+`VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, the
+`bufferMemoryBarrierCount` and `imageMemoryBarrierCount` members
+of `pDependencyInfo` **must** be `0`
+
+* 
+[](#VUID-vkCmdSetEvent2-dependencyFlags-10786) VUID-vkCmdSetEvent2-dependencyFlags-10786
+
+If the `dependencyFlags` member of `pDependencyInfo` includes
+`VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, the
+`memoryBarrierCount` member of `pDependencyInfo` **must** be `1`
+
+* 
+[](#VUID-vkCmdSetEvent2-dependencyFlags-10787) VUID-vkCmdSetEvent2-dependencyFlags-10787
+
+If the `dependencyFlags` member of `pDependencyInfo` includes
+`VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, the `srcAccessMask`,
+`dstStageMask`, and `dstAccessMask` members of
+`pDependencyInfo->pMemoryBarriers`[0] **must** be `0`
 
 Valid Usage (Implicit)
 
@@ -7419,6 +7635,10 @@ Compute
 Decode
 
 Encode | Synchronization |
+
+Conditional Rendering
+
+vkCmdSetEvent2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkDependencyInfo` structure is defined as:
 
@@ -7500,6 +7720,13 @@ either
     `NULL`
     or a pointer to a valid instance of [VkMemoryBarrierAccessFlags3KHR](#VkMemoryBarrierAccessFlags3KHR)
 
+* 
+[](#VUID-VkDependencyInfo-pNext-09754) VUID-VkDependencyInfo-pNext-09754
+
+If a [VkTensorDependencyInfoARM](#VkTensorDependencyInfoARM) structure is included in the
+`pNext` chain, a [VkTensorMemoryBarrierARM](#VkTensorMemoryBarrierARM) structure **must** not
+be included in the `pNext` chain
+
 Valid Usage (Implicit)
 
 * 
@@ -7510,7 +7737,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkDependencyInfo-pNext-pNext) VUID-VkDependencyInfo-pNext-pNext
 
- `pNext` **must** be `NULL`
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkTensorDependencyInfoARM](#VkTensorDependencyInfoARM) or [VkTensorMemoryBarrierARM](#VkTensorMemoryBarrierARM)
+
+* 
+[](#VUID-VkDependencyInfo-sType-unique) VUID-VkDependencyInfo-sType-unique
+
+ The `sType` value of each structure in the `pNext` chain **must** be unique
 
 * 
 [](#VUID-VkDependencyInfo-dependencyFlags-parameter) VUID-VkDependencyInfo-dependencyFlags-parameter
@@ -7713,6 +7945,10 @@ Compute
 Decode
 
 Encode | Synchronization |
+
+Conditional Rendering
+
+vkCmdSetEvent is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 To unsignal the event from a device, call:
 
@@ -7952,6 +8188,10 @@ Decode
 
 Encode | Synchronization |
 
+Conditional Rendering
+
+vkCmdResetEvent2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To set the state of an event to unsignaled from a device, call:
 
 // Provided by VK_VERSION_1_0
@@ -8147,6 +8387,10 @@ Decode
 
 Encode | Synchronization |
 
+Conditional Rendering
+
+vkCmdResetEvent is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To wait for one or more events to enter the signaled state on a device,
 call:
 
@@ -8246,12 +8490,36 @@ Members of `pEvents` **must** not have been signaled by
 [vkCmdSetEvent](#vkCmdSetEvent)
 
 * 
-[](#VUID-vkCmdWaitEvents2-pEvents-03838) VUID-vkCmdWaitEvents2-pEvents-03838
+[](#VUID-vkCmdWaitEvents2-pEvents-10788) VUID-vkCmdWaitEvents2-pEvents-10788
 
-For any element i of `pEvents`, if that event is signaled by
-[vkCmdSetEvent2](#vkCmdSetEvent2), that command’s `dependencyInfo` parameter
-**must** be exactly equal to the ith element of
-`pDependencyInfos`
+For any element i of `pEvents`,
+if the `dependencyFlags` member of the ith element of
+`pDependencyInfos` does not include
+`VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, and
+if that event is signaled by [vkCmdSetEvent2](#vkCmdSetEvent2), that command’s
+`dependencyInfo` parameter **must** be exactly equal to the ith
+element of `pDependencyInfos`
+
+* 
+[](#VUID-vkCmdWaitEvents2-pEvents-10789) VUID-vkCmdWaitEvents2-pEvents-10789
+
+For any element i of `pEvents`, if the `dependencyFlags`
+member of the ith element of `pDependencyInfos` includes
+`VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, that event **must** be
+signaled by [vkCmdSetEvent2](#vkCmdSetEvent2) with
+`VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`
+
+* 
+[](#VUID-vkCmdWaitEvents2-pEvents-10790) VUID-vkCmdWaitEvents2-pEvents-10790
+
+For any element i of `pEvents`, if the `dependencyFlags`
+member of the ith element of `pDependencyInfos` includes
+`VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR`, the union of
+`srcStageMask` members of all elements of `pMemoryBarriers`,
+`pBufferMemoryBarriers`, and `pImageMemoryBarriers` of the
+ith element of `pDependencyInfos` **must** equal
+`pDependencyInfos->pMemoryBarriers`[0].`srcStageMask` in the
+[vkCmdSetEvent2](#vkCmdSetEvent2) command
 
 * 
 [](#VUID-vkCmdWaitEvents2-pEvents-03839) VUID-vkCmdWaitEvents2-pEvents-03839
@@ -8396,6 +8664,10 @@ Compute
 Decode
 
 Encode | Synchronization |
+
+Conditional Rendering
+
+vkCmdWaitEvents2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 To wait for one or more events to enter the signaled state on a device,
 call:
@@ -8900,6 +9172,10 @@ Decode
 
 Encode | Synchronization |
 
+Conditional Rendering
+
+vkCmdWaitEvents is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To record a pipeline barrier, call:
 
 // Provided by VK_VERSION_1_3
@@ -9195,6 +9471,10 @@ Compute
 Decode
 
 Encode | Synchronization |
+
+Conditional Rendering
+
+vkCmdPipelineBarrier2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 To record a pipeline barrier, call:
 
@@ -9846,6 +10126,10 @@ Decode
 
 Encode | Synchronization |
 
+Conditional Rendering
+
+vkCmdPipelineBarrier is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Bits which **can** be set in `vkCmdPipelineBarrier`::`dependencyFlags`,
 specifying how execution and memory dependencies are formed, are:
 
@@ -9860,6 +10144,8 @@ typedef enum VkDependencyFlagBits {
     VK_DEPENDENCY_FEEDBACK_LOOP_BIT_EXT = 0x00000008,
   // Provided by VK_KHR_maintenance8
     VK_DEPENDENCY_QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_BIT_KHR = 0x00000020,
+  // Provided by VK_KHR_maintenance9
+    VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR = 0x00000040,
   // Provided by VK_KHR_multiview
     VK_DEPENDENCY_VIEW_LOCAL_BIT_KHR = VK_DEPENDENCY_VIEW_LOCAL_BIT,
   // Provided by VK_KHR_device_group
@@ -9880,8 +10166,8 @@ typedef enum VkDependencyFlagBits {
 
 * 
 `VK_DEPENDENCY_FEEDBACK_LOOP_BIT_EXT` specifies that the render pass
-will write to and read from the same image using the
-`VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout.
+will write to and read from the same image with
+[feedback loop enabled](renderpass.html#renderpass-feedbackloop).
 
 * 
 `VK_DEPENDENCY_QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_BIT_KHR`
@@ -10444,7 +10730,7 @@ If `srcAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM`,
 `srcStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
 [](#VUID-VkMemoryBarrier2-srcAccessMask-10671) VUID-VkMemoryBarrier2-srcAccessMask-10671
@@ -10453,7 +10739,7 @@ If `srcAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM`,
 `srcStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
 [](#VUID-VkMemoryBarrier2-dstStageMask-03929) VUID-VkMemoryBarrier2-dstStageMask-03929
@@ -10938,7 +11224,7 @@ If `dstAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM`,
 `dstStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
 [](#VUID-VkMemoryBarrier2-dstAccessMask-10671) VUID-VkMemoryBarrier2-dstAccessMask-10671
@@ -10947,7 +11233,7 @@ If `dstAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM`,
 `dstStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 Valid Usage (Implicit)
 
@@ -11636,7 +11922,7 @@ If `srcAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM`,
 `srcStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
 [](#VUID-VkBufferMemoryBarrier2-srcAccessMask-10671) VUID-VkBufferMemoryBarrier2-srcAccessMask-10671
@@ -11645,7 +11931,7 @@ If `srcAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM`,
 `srcStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
 [](#VUID-VkBufferMemoryBarrier2-dstStageMask-03929) VUID-VkBufferMemoryBarrier2-dstStageMask-03929
@@ -12130,7 +12416,7 @@ If `dstAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM`,
 `dstStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
 [](#VUID-VkBufferMemoryBarrier2-dstAccessMask-10671) VUID-VkBufferMemoryBarrier2-dstAccessMask-10671
@@ -12139,7 +12425,7 @@ If `dstAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM`,
 `dstStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
 [](#VUID-VkBufferMemoryBarrier2-offset-01187) VUID-VkBufferMemoryBarrier2-offset-01187
@@ -12640,6 +12926,34 @@ executed once between the queues.
 is preserved no matter what values are specified, or what layout the image
 is currently in. |
 
+If `image` is a 3D image created with
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` and the
+[`maintenance9`](features.html#features-maintenance9) feature is enabled, the
+`baseArrayLayer` and `layerCount` members of `subresourceRange`
+specify the subset of slices of the 3D image affected by the memory barrier,
+including the layout transition.
+Any slices of a 3D image not included in `subresourceRange` are not
+affected by the memory barrier and remain in their existing layout.
+
+|  | Enabling the [`maintenance9`](features.html#features-maintenance9) feature modifies
+| --- | --- |
+the behavior of image barriers targeting 3D images created with
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT`.
+Previously, a `layerCount` equal to 1 would cover the entire 3D image,
+but this has a different meaning when the `maintenance9` feature is
+enabled.
+Linking this behavioral change solely to the `maintenance9` feature
+caused an unintended break in forward-compatibility.
+Validation layers are expected to flag a warning for the scenario where the
+`maintenance9` feature is not enabled, and the application uses
+`layerCount` equal to 1 on this kind of 3D image.
+`layerCount` can be set to `VK_REMAINING_ARRAY_LAYERS` instead,
+which has the same semantics with or without the extension.
+This validation check should make it feasible for software to avoid any
+breaking changes should the `maintenance9` feature be enabled in the
+future, either explicitly by application or by a layer outside the control
+of the application. |
+
 If `image` has a [multi-planar format](formats.html#formats-multiplanar) and the
 image is *disjoint*, then including `VK_IMAGE_ASPECT_COLOR_BIT` in the
 `aspectMask` member of `subresourceRange` is equivalent to including
@@ -13131,7 +13445,7 @@ If `srcAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM`,
 `srcStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
 [](#VUID-VkImageMemoryBarrier2-srcAccessMask-10671) VUID-VkImageMemoryBarrier2-srcAccessMask-10671
@@ -13140,7 +13454,7 @@ If `srcAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM`,
 `srcStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
 [](#VUID-VkImageMemoryBarrier2-dstStageMask-03929) VUID-VkImageMemoryBarrier2-dstStageMask-03929
@@ -13625,7 +13939,7 @@ If `dstAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM`,
 `dstStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
 [](#VUID-VkImageMemoryBarrier2-dstAccessMask-10671) VUID-VkImageMemoryBarrier2-dstAccessMask-10671
@@ -13634,7 +13948,7 @@ If `dstAccessMask` includes
 `VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM`,
 `dstStageMask` **must** include
 `VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT` or
-`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`.
+`VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT`
 
 * 
 [](#VUID-VkImageMemoryBarrier2-oldLayout-01208) VUID-VkImageMemoryBarrier2-oldLayout-01208
@@ -14073,19 +14387,62 @@ the `mipLevels` specified in [VkImageCreateInfo](resources.html#VkImageCreateInf
 * 
 [](#VUID-VkImageMemoryBarrier2-subresourceRange-01488) VUID-VkImageMemoryBarrier2-subresourceRange-01488
 
+If `image` is not a 3D image or was created without
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set, or the
+[`maintenance9`](features.html#features-maintenance9) feature is not enabled,
 `subresourceRange.baseArrayLayer` **must** be less than the
 `arrayLayers` specified in [VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image`
 was created
 
 * 
+[](#VUID-VkImageMemoryBarrier2-maintenance9-10798) VUID-VkImageMemoryBarrier2-maintenance9-10798
+
+If the [`maintenance9`](features.html#features-maintenance9) feature is enabled
+and `image` is a 3D image created with
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set,
+`subresourceRange.baseArrayLayer` **must** be less than the depth
+computed from `baseMipLevel` and `extent.depth` specified in
+[VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image` was created, according to the
+formula defined in [Image Mip Level    Sizing](resources.html#resources-image-mip-level-sizing)
+
+* 
+[](#VUID-VkImageMemoryBarrier2-maintenance9-10799) VUID-VkImageMemoryBarrier2-maintenance9-10799
+
+If the [`maintenance9`](features.html#features-maintenance9) feature is enabled
+and `image` is a 3D image created with
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set and either
+`subresourceRange.baseArrayLayer` is not equal to 0 or
+`subresourceRange.layerCount` is not equal to
+`VK_REMAINING_ARRAY_LAYERS`, `subresourceRange.levelCount` **must**
+be 1
+
+* 
 [](#VUID-VkImageMemoryBarrier2-subresourceRange-01725) VUID-VkImageMemoryBarrier2-subresourceRange-01725
 
-If `subresourceRange.layerCount` is not
+If
+`image` is not a 3D image or was created without
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set, or the
+[`maintenance9`](features.html#features-maintenance9) feature is not enabled,
+and
+`subresourceRange.layerCount` is not
 `VK_REMAINING_ARRAY_LAYERS`,
 `subresourceRange.baseArrayLayer` + 
 `subresourceRange.layerCount` **must** be less than or equal to the
 `arrayLayers` specified in [VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image`
 was created
+
+* 
+[](#VUID-VkImageMemoryBarrier2-maintenance9-10800) VUID-VkImageMemoryBarrier2-maintenance9-10800
+
+If the [`maintenance9`](features.html#features-maintenance9) feature is enabled,
+`subresourceRange.layerCount` is not
+`VK_REMAINING_ARRAY_LAYERS`, and `image` is a 3D image created
+with `VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set,
+`subresourceRange.baseArrayLayer` + 
+`subresourceRange.layerCount` **must** be less than or equal to the
+depth computed from `baseMipLevel` and `extent.depth` specified
+in [VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image` was created, according to
+the formula defined in [Image Mip    Level Sizing](resources.html#resources-image-mip-level-sizing)
 
 * 
 [](#VUID-VkImageMemoryBarrier2-image-01932) VUID-VkImageMemoryBarrier2-image-01932
@@ -14342,6 +14699,15 @@ the specified image subresource range.
 enabled, when the old and new layout are equal, the layout values are
 ignored - data is preserved no matter what values are specified, or what
 layout the image is currently in. |
+
+If `image` is a 3D image created with
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` and the
+[`maintenance9`](features.html#features-maintenance9) feature is enabled, the
+`baseArrayLayer` and `layerCount` members of `subresourceRange`
+specify the subset of slices of the 3D image affected by the memory barrier,
+including the layout transition.
+Any slices of a 3D image not included in `subresourceRange` are not
+affected by the memory barrier and remain in their existing layout.
 
 If `image` has a [multi-planar format](formats.html#formats-multiplanar) and the
 image is *disjoint*, then including `VK_IMAGE_ASPECT_COLOR_BIT` in the
@@ -14788,19 +15154,62 @@ the `mipLevels` specified in [VkImageCreateInfo](resources.html#VkImageCreateInf
 * 
 [](#VUID-VkImageMemoryBarrier-subresourceRange-01488) VUID-VkImageMemoryBarrier-subresourceRange-01488
 
+If `image` is not a 3D image or was created without
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set, or the
+[`maintenance9`](features.html#features-maintenance9) feature is not enabled,
 `subresourceRange.baseArrayLayer` **must** be less than the
 `arrayLayers` specified in [VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image`
 was created
 
 * 
+[](#VUID-VkImageMemoryBarrier-maintenance9-10798) VUID-VkImageMemoryBarrier-maintenance9-10798
+
+If the [`maintenance9`](features.html#features-maintenance9) feature is enabled
+and `image` is a 3D image created with
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set,
+`subresourceRange.baseArrayLayer` **must** be less than the depth
+computed from `baseMipLevel` and `extent.depth` specified in
+[VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image` was created, according to the
+formula defined in [Image Mip Level    Sizing](resources.html#resources-image-mip-level-sizing)
+
+* 
+[](#VUID-VkImageMemoryBarrier-maintenance9-10799) VUID-VkImageMemoryBarrier-maintenance9-10799
+
+If the [`maintenance9`](features.html#features-maintenance9) feature is enabled
+and `image` is a 3D image created with
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set and either
+`subresourceRange.baseArrayLayer` is not equal to 0 or
+`subresourceRange.layerCount` is not equal to
+`VK_REMAINING_ARRAY_LAYERS`, `subresourceRange.levelCount` **must**
+be 1
+
+* 
 [](#VUID-VkImageMemoryBarrier-subresourceRange-01725) VUID-VkImageMemoryBarrier-subresourceRange-01725
 
-If `subresourceRange.layerCount` is not
+If
+`image` is not a 3D image or was created without
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set, or the
+[`maintenance9`](features.html#features-maintenance9) feature is not enabled,
+and
+`subresourceRange.layerCount` is not
 `VK_REMAINING_ARRAY_LAYERS`,
 `subresourceRange.baseArrayLayer` + 
 `subresourceRange.layerCount` **must** be less than or equal to the
 `arrayLayers` specified in [VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image`
 was created
+
+* 
+[](#VUID-VkImageMemoryBarrier-maintenance9-10800) VUID-VkImageMemoryBarrier-maintenance9-10800
+
+If the [`maintenance9`](features.html#features-maintenance9) feature is enabled,
+`subresourceRange.layerCount` is not
+`VK_REMAINING_ARRAY_LAYERS`, and `image` is a 3D image created
+with `VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set,
+`subresourceRange.baseArrayLayer` + 
+`subresourceRange.layerCount` **must** be less than or equal to the
+depth computed from `baseMipLevel` and `extent.depth` specified
+in [VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image` was created, according to
+the formula defined in [Image Mip    Level Sizing](resources.html#resources-image-mip-level-sizing)
 
 * 
 [](#VUID-VkImageMemoryBarrier-image-01932) VUID-VkImageMemoryBarrier-image-01932
@@ -15018,13 +15427,19 @@ Return Codes
 `VK_ERROR_INITIALIZATION_FAILED`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_MEMORY_MAP_FAILED`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_MEMORY_MAP_FAILED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkHostImageLayoutTransitionInfo` structure is defined as:
 
@@ -15073,6 +15488,15 @@ reads from or writes to this subresource has completed before the host
 performs the layout transition.
 The memory of `image` is accessed by the host as if [coherent](memory.html#memory-coherent).
 
+If `image` is a 3D image created with
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` and the
+[`maintenance9`](features.html#features-maintenance9) feature is enabled, the
+`baseArrayLayer` and `layerCount` members of `subresourceRange`
+specify the subset of slices of the 3D image affected by the memory barrier,
+including the layout transition.
+Any slices of a 3D image not included in `subresourceRange` are not
+affected by the memory barrier and remain in their existing layout.
+
 |  | Image layout transitions performed on the host do not require queue family
 | --- | --- |
 ownership transfers as the physical layout of the image will not vary
@@ -15117,19 +15541,62 @@ the `mipLevels` specified in [VkImageCreateInfo](resources.html#VkImageCreateInf
 * 
 [](#VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01488) VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01488
 
+If `image` is not a 3D image or was created without
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set, or the
+[`maintenance9`](features.html#features-maintenance9) feature is not enabled,
 `subresourceRange.baseArrayLayer` **must** be less than the
 `arrayLayers` specified in [VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image`
 was created
 
 * 
+[](#VUID-VkHostImageLayoutTransitionInfo-maintenance9-10798) VUID-VkHostImageLayoutTransitionInfo-maintenance9-10798
+
+If the [`maintenance9`](features.html#features-maintenance9) feature is enabled
+and `image` is a 3D image created with
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set,
+`subresourceRange.baseArrayLayer` **must** be less than the depth
+computed from `baseMipLevel` and `extent.depth` specified in
+[VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image` was created, according to the
+formula defined in [Image Mip Level    Sizing](resources.html#resources-image-mip-level-sizing)
+
+* 
+[](#VUID-VkHostImageLayoutTransitionInfo-maintenance9-10799) VUID-VkHostImageLayoutTransitionInfo-maintenance9-10799
+
+If the [`maintenance9`](features.html#features-maintenance9) feature is enabled
+and `image` is a 3D image created with
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set and either
+`subresourceRange.baseArrayLayer` is not equal to 0 or
+`subresourceRange.layerCount` is not equal to
+`VK_REMAINING_ARRAY_LAYERS`, `subresourceRange.levelCount` **must**
+be 1
+
+* 
 [](#VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01725) VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01725
 
-If `subresourceRange.layerCount` is not
+If
+`image` is not a 3D image or was created without
+`VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set, or the
+[`maintenance9`](features.html#features-maintenance9) feature is not enabled,
+and
+`subresourceRange.layerCount` is not
 `VK_REMAINING_ARRAY_LAYERS`,
 `subresourceRange.baseArrayLayer` + 
 `subresourceRange.layerCount` **must** be less than or equal to the
 `arrayLayers` specified in [VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image`
 was created
+
+* 
+[](#VUID-VkHostImageLayoutTransitionInfo-maintenance9-10800) VUID-VkHostImageLayoutTransitionInfo-maintenance9-10800
+
+If the [`maintenance9`](features.html#features-maintenance9) feature is enabled,
+`subresourceRange.layerCount` is not
+`VK_REMAINING_ARRAY_LAYERS`, and `image` is a 3D image created
+with `VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` set,
+`subresourceRange.baseArrayLayer` + 
+`subresourceRange.layerCount` **must** be less than or equal to the
+depth computed from `baseMipLevel` and `extent.depth` specified
+in [VkImageCreateInfo](resources.html#VkImageCreateInfo) when `image` was created, according to
+the formula defined in [Image Mip    Level Sizing](resources.html#resources-image-mip-level-sizing)
 
 * 
 [](#VUID-VkHostImageLayoutTransitionInfo-image-01932) VUID-VkHostImageLayoutTransitionInfo-image-01932
@@ -15266,6 +15733,203 @@ Valid Usage (Implicit)
 [](#VUID-VkHostImageLayoutTransitionInfo-subresourceRange-parameter) VUID-VkHostImageLayoutTransitionInfo-subresourceRange-parameter
 
  `subresourceRange` **must** be a valid [VkImageSubresourceRange](resources.html#VkImageSubresourceRange) structure
+
+Tensor memory barriers only apply to memory accesses involving a specific
+tensor.
+That is, a memory dependency formed from a tensor memory barrier is
+[scoped](#synchronization-dependencies-access-scopes) to access via the
+specified tensor.
+Tensor memory barriers **can** also be used to define a
+[queue family ownership transfer](#synchronization-queue-transfers) for the
+specified tensor.
+
+The `VkTensorMemoryBarrierARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkTensorMemoryBarrierARM {
+    VkStructureType          sType;
+    const void*              pNext;
+    VkPipelineStageFlags2    srcStageMask;
+    VkAccessFlags2           srcAccessMask;
+    VkPipelineStageFlags2    dstStageMask;
+    VkAccessFlags2           dstAccessMask;
+    uint32_t                 srcQueueFamilyIndex;
+    uint32_t                 dstQueueFamilyIndex;
+    VkTensorARM              tensor;
+} VkTensorMemoryBarrierARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`srcStageMask` is a [VkPipelineStageFlags2](#VkPipelineStageFlags2) mask of pipeline
+stages to be included in the [    first synchronization scope](#synchronization-dependencies-scopes).
+
+* 
+`srcAccessMask` is a [VkAccessFlags2](#VkAccessFlags2) mask of access flags to be
+included in the [first    access scope](#synchronization-dependencies-access-scopes).
+
+* 
+`dstStageMask` is a [VkPipelineStageFlags2](#VkPipelineStageFlags2) mask of pipeline
+stages to be included in the [    second synchronization scope](#synchronization-dependencies-scopes).
+
+* 
+`dstAccessMask` is a [VkAccessFlags2](#VkAccessFlags2) mask of access flags to be
+included in the [second    access scope](#synchronization-dependencies-access-scopes).
+
+* 
+`srcQueueFamilyIndex` is the source queue family for a
+[queue family ownership transfer](#synchronization-queue-transfers).
+
+* 
+`dstQueueFamilyIndex` is the destination queue family for a
+[queue family ownership transfer](#synchronization-queue-transfers).
+
+* 
+`tensor` is a handle to the tensor whose backing memory is affected
+by the barrier.
+
+The first [synchronization scope](#synchronization-dependencies-scopes) and
+[access scope](#synchronization-dependencies-access-scopes) described by
+this structure include only operations and memory accesses specified by
+`srcStageMask` and `srcAccessMask`.
+
+The second [synchronization scope](#synchronization-dependencies-scopes)
+and [access scope](#synchronization-dependencies-access-scopes) described
+by this structure include only operations and memory accesses specified by
+`dstStageMask` and `dstAccessMask`.
+
+Both [access scopes](#synchronization-dependencies-access-scopes) are
+limited to only memory accesses to `tensor`.
+
+If `tensor` was created with `VK_SHARING_MODE_EXCLUSIVE`, and
+`srcQueueFamilyIndex` is not equal to `dstQueueFamilyIndex`, this
+memory barrier defines a [queue family transfer operation](#synchronization-queue-transfers).
+When executed on a queue in the family identified by
+`srcQueueFamilyIndex`, this barrier defines a
+[queue family release operation](#synchronization-queue-transfers-release)
+for the specified tensor, and the second synchronization and access scopes
+do not synchronize operations on that queue.
+When executed on a queue in the family identified by
+`dstQueueFamilyIndex`, this barrier defines a
+[queue family acquire operation](#synchronization-queue-transfers-acquire)
+for the specified tensor, and the first synchronization and access scopes do
+not synchronize operations on that queue.
+
+A [queue family transfer operation](#synchronization-queue-transfers) is
+also defined if the values are not equal, and either is one of the special
+queue family values reserved for external memory ownership transfers, as
+described in [Queue Family Ownership Transfer](#synchronization-queue-transfers).
+A [queue family release operation](#synchronization-queue-transfers-release) is defined when `dstQueueFamilyIndex` is one of those
+values, and a [queue family acquire operation](#synchronization-queue-transfers-acquire) is defined when `srcQueueFamilyIndex` is one of
+those values.
+
+Valid Usage
+
+* 
+[](#VUID-VkTensorMemoryBarrierARM-tensor-09755) VUID-VkTensorMemoryBarrierARM-tensor-09755
+
+If `tensor` was created with a sharing mode of
+`VK_SHARING_MODE_CONCURRENT`, `srcQueueFamilyIndex` and
+`dstQueueFamilyIndex` **must** both be `VK_QUEUE_FAMILY_IGNORED`
+
+* 
+[](#VUID-VkTensorMemoryBarrierARM-tensor-09756) VUID-VkTensorMemoryBarrierARM-tensor-09756
+
+If `tensor` was created with a sharing mode of
+`VK_SHARING_MODE_EXCLUSIVE`, `srcQueueFamilyIndex` and
+`dstQueueFamilyIndex` **must** both be either
+`VK_QUEUE_FAMILY_IGNORED`, or a valid queue family (see
+[Queue Family Properties](devsandqueues.html#devsandqueues-queueprops))
+
+* 
+[](#VUID-VkTensorMemoryBarrierARM-tensor-09757) VUID-VkTensorMemoryBarrierARM-tensor-09757
+
+If `tensor` was created with a sharing mode of
+`VK_SHARING_MODE_EXCLUSIVE`, and `srcQueueFamilyIndex` and
+`dstQueueFamilyIndex` are not `VK_QUEUE_FAMILY_IGNORED`, at
+least one of them **must** be the same as the family of the queue that will
+execute this barrier
+
+* 
+[](#VUID-VkTensorMemoryBarrierARM-tensor-09758) VUID-VkTensorMemoryBarrierARM-tensor-09758
+
+If `tensor` is non-sparse then it **must** be bound completely and
+contiguously to a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkTensorMemoryBarrierARM-sType-sType) VUID-VkTensorMemoryBarrierARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_TENSOR_MEMORY_BARRIER_ARM`
+
+* 
+[](#VUID-VkTensorMemoryBarrierARM-srcStageMask-parameter) VUID-VkTensorMemoryBarrierARM-srcStageMask-parameter
+
+ `srcStageMask` **must** be a valid combination of [VkPipelineStageFlagBits2](#VkPipelineStageFlagBits2) values
+
+* 
+[](#VUID-VkTensorMemoryBarrierARM-srcAccessMask-parameter) VUID-VkTensorMemoryBarrierARM-srcAccessMask-parameter
+
+ `srcAccessMask` **must** be a valid combination of [VkAccessFlagBits2](#VkAccessFlagBits2) values
+
+* 
+[](#VUID-VkTensorMemoryBarrierARM-dstStageMask-parameter) VUID-VkTensorMemoryBarrierARM-dstStageMask-parameter
+
+ `dstStageMask` **must** be a valid combination of [VkPipelineStageFlagBits2](#VkPipelineStageFlagBits2) values
+
+* 
+[](#VUID-VkTensorMemoryBarrierARM-dstAccessMask-parameter) VUID-VkTensorMemoryBarrierARM-dstAccessMask-parameter
+
+ `dstAccessMask` **must** be a valid combination of [VkAccessFlagBits2](#VkAccessFlagBits2) values
+
+* 
+[](#VUID-VkTensorMemoryBarrierARM-tensor-parameter) VUID-VkTensorMemoryBarrierARM-tensor-parameter
+
+ `tensor` **must** be a valid [VkTensorARM](resources.html#VkTensorARM) handle
+
+The `VkTensorDependencyInfoARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkTensorDependencyInfoARM {
+    VkStructureType                    sType;
+    const void*                        pNext;
+    uint32_t                           tensorMemoryBarrierCount;
+    const VkTensorMemoryBarrierARM*    pTensorMemoryBarriers;
+} VkTensorDependencyInfoARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`tensorMemoryBarrierCount` is the length of the
+`pTensorMemoryBarriers` array.
+
+* 
+`pTensorMemoryBarriers` is a pointer to an array of
+[VkTensorMemoryBarrierARM](#VkTensorMemoryBarrierARM) structures defining memory dependencies
+between tensors.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkTensorDependencyInfoARM-sType-sType) VUID-VkTensorDependencyInfoARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_TENSOR_DEPENDENCY_INFO_ARM`
+
+* 
+[](#VUID-VkTensorDependencyInfoARM-pTensorMemoryBarriers-parameter) VUID-VkTensorDependencyInfoARM-pTensorMemoryBarriers-parameter
+
+ `pTensorMemoryBarriers` **must** be a valid pointer to a valid [VkTensorMemoryBarrierARM](#VkTensorMemoryBarrierARM) structure
 
 Resources created with a [VkSharingMode](resources.html#VkSharingMode) of
 `VK_SHARING_MODE_EXCLUSIVE` **must** have their ownership explicitly
@@ -15542,6 +16206,10 @@ every previously executed [queue submission command](devsandqueues.html#devsandq
 signal using [vkWaitForFences](#vkWaitForFences) with an infinite timeout and
 `waitAll` set to `VK_TRUE`.
 
+|  | Even though [vkQueuePresentKHR](VK_KHR_surface/wsi.html#vkQueuePresentKHR) does not have a fence parameter, it does
+| --- | --- |
+accept a fence through [VkSwapchainPresentFenceInfoEXT](VK_KHR_surface/wsi.html#VkSwapchainPresentFenceInfoEXT). |
+
 Valid Usage (Implicit)
 
 * 
@@ -15569,13 +16237,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_DEVICE_LOST`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_DEVICE_LOST`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To wait on the host for the completion of outstanding queue operations for
 all queues on a given logical device, call:
@@ -15612,13 +16286,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_DEVICE_LOST`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_DEVICE_LOST`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 When batches of command buffers are submitted to a queue via a
 [queue submission command](devsandqueues.html#devsandqueues-submission), it defines a memory
@@ -15772,10 +16452,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkCalibratedTimestampInfoKHR` structure is defined as:
 

@@ -228,6 +228,11 @@ Valid Usage (Implicit)
 
  `pCommandPool` **must** be a valid pointer to a [VkCommandPool](#VkCommandPool) handle
 
+* 
+[](#VUID-vkCreateCommandPool-device-queuecount) VUID-vkCreateCommandPool-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -238,10 +243,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkCommandPoolCreateInfo` structure is defined as:
 
@@ -279,6 +290,23 @@ If the [`protectedMemory`](features.html#features-protectedMemory) feature is
 not enabled, the `VK_COMMAND_POOL_CREATE_PROTECTED_BIT` bit of
 `flags` **must** not be set
 
+* 
+[](#VUID-VkCommandPoolCreateInfo-pNext-09908) VUID-VkCommandPoolCreateInfo-pNext-09908
+
+If the `pNext` chain includes a
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure, then
+`queueFamilyIndex` **must** designate a queue family that supports
+`VK_QUEUE_DATA_GRAPH_BIT_ARM`
+
+* 
+[](#VUID-VkCommandPoolCreateInfo-pNext-09909) VUID-VkCommandPoolCreateInfo-pNext-09909
+
+If the `pNext` chain includes a
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure, then the queue
+family designated by `queueFamilyIndex` **must** support the data graph
+processing engines specified in the
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure
+
 Valid Usage (Implicit)
 
 * 
@@ -289,7 +317,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkCommandPoolCreateInfo-pNext-pNext) VUID-VkCommandPoolCreateInfo-pNext-pNext
 
- `pNext` **must** be `NULL`
+ `pNext` **must** be `NULL` or a pointer to a valid instance of [VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM)
+
+* 
+[](#VUID-VkCommandPoolCreateInfo-sType-unique) VUID-VkCommandPoolCreateInfo-sType-unique
+
+ The `sType` value of each structure in the `pNext` chain **must** be unique
 
 * 
 [](#VUID-VkCommandPoolCreateInfo-flags-parameter) VUID-VkCommandPoolCreateInfo-flags-parameter
@@ -511,6 +544,12 @@ Return Codes
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
 Bits which **can** be set in [vkResetCommandPool](#vkResetCommandPool)::`flags`, controlling
 the reset operation, are:
 
@@ -660,6 +699,11 @@ Valid Usage (Implicit)
  `pCommandBuffers` **must** be a valid pointer to an array of `pAllocateInfo->commandBufferCount` [VkCommandBuffer](#VkCommandBuffer) handles
 
 * 
+[](#VUID-vkAllocateCommandBuffers-device-queuecount) VUID-vkAllocateCommandBuffers-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
+* 
 [](#VUID-vkAllocateCommandBuffers-pAllocateInfo::commandBufferCount-arraylength) VUID-vkAllocateCommandBuffers-pAllocateInfo::commandBufferCount-arraylength
 
  `pAllocateInfo->commandBufferCount` **must** be greater than `0`
@@ -674,10 +718,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkCommandBufferAllocateInfo` structure is defined as:
 
@@ -821,6 +871,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Bits which **can** be set in [vkResetCommandBuffer](#vkResetCommandBuffer)::`flags`,
 controlling the reset operation, are:
@@ -1007,10 +1063,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkCommandBufferBeginInfo` structure is defined as:
 
@@ -1417,7 +1479,7 @@ defined as:
 // Provided by VK_QCOM_render_pass_transform
 typedef struct VkCommandBufferInheritanceRenderPassTransformInfoQCOM {
     VkStructureType                  sType;
-    void*                            pNext;
+    const void*                      pNext;
     VkSurfaceTransformFlagBitsKHR    transform;
     VkRect2D                         renderArea;
 } VkCommandBufferInheritanceRenderPassTransformInfoQCOM;
@@ -1982,13 +2044,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 When a command buffer is in the executable state, it **can** be submitted to a
 queue for execution.
@@ -2258,13 +2326,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_DEVICE_LOST`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_DEVICE_LOST`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkSubmitInfo2` structure is defined as:
 
@@ -2414,6 +2488,33 @@ bound, any pipelines bound in the render pass instance that resumes it,
 or any subsequent render pass instances that resume from that one and so
 on, **must** use the same sample locations
 
+* 
+[](#VUID-VkSubmitInfo2-pNext-09682) VUID-VkSubmitInfo2-pNext-09682
+
+If the `pNext` chain of this structure includes a
+[VkFrameBoundaryTensorsARM](debugging.html#VkFrameBoundaryTensorsARM) structure then it **must** also include a
+[VkFrameBoundaryEXT](debugging.html#VkFrameBoundaryEXT) structure.
+
+* 
+[](#VUID-VkSubmitInfo2-pCommandBufferInfos-09933) VUID-VkSubmitInfo2-pCommandBufferInfos-09933
+
+If at least one [VkCommandBufferSubmitInfo](#VkCommandBufferSubmitInfo) structure in
+`pCommandBufferInfos` references a `commandBuffer` allocated
+from a pool that was created with a
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure in the
+`pNext` chain of [VkCommandPoolCreateInfo](#VkCommandPoolCreateInfo) that included a
+foreign data graph processing engine in its `pProcessingEngines`
+member, then `pWaitSemaphoreInfos` and `pSignalSemaphoreInfos`
+**must** only reference `semaphore` objects that were created from
+external handle types reported as supported in a
+[VkQueueFamilyDataGraphProcessingEnginePropertiesARM](VK_ARM_data_graph/graphs.html#VkQueueFamilyDataGraphProcessingEnginePropertiesARM)::`foreignSemaphoreHandleTypes`
+structure via
+[vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM](VK_ARM_data_graph/graphs.html#vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM)
+with a `queueFamilyIndex` matching the one the command pool was
+created for, for all the foreign data graph processing engines that were
+part of the [VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) used to
+create the command pool
+
 Valid Usage (Implicit)
 
 * 
@@ -2424,7 +2525,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkSubmitInfo2-pNext-pNext) VUID-VkSubmitInfo2-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkFrameBoundaryEXT](debugging.html#VkFrameBoundaryEXT), [VkLatencySubmissionPresentIdNV](VK_KHR_surface/wsi.html#VkLatencySubmissionPresentIdNV), [VkPerformanceQuerySubmitInfoKHR](#VkPerformanceQuerySubmitInfoKHR), [VkWin32KeyedMutexAcquireReleaseInfoKHR](#VkWin32KeyedMutexAcquireReleaseInfoKHR), or [VkWin32KeyedMutexAcquireReleaseInfoNV](#VkWin32KeyedMutexAcquireReleaseInfoNV)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkFrameBoundaryEXT](debugging.html#VkFrameBoundaryEXT), [VkFrameBoundaryTensorsARM](debugging.html#VkFrameBoundaryTensorsARM), [VkLatencySubmissionPresentIdNV](VK_KHR_surface/wsi.html#VkLatencySubmissionPresentIdNV), [VkPerformanceQuerySubmitInfoKHR](#VkPerformanceQuerySubmitInfoKHR), [VkWin32KeyedMutexAcquireReleaseInfoKHR](#VkWin32KeyedMutexAcquireReleaseInfoKHR), or [VkWin32KeyedMutexAcquireReleaseInfoNV](#VkWin32KeyedMutexAcquireReleaseInfoNV)
 
 * 
 [](#VUID-VkSubmitInfo2-sType-unique) VUID-VkSubmitInfo2-sType-unique
@@ -3079,13 +3180,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_DEVICE_LOST`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_DEVICE_LOST`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkSubmitInfo` structure is defined as:
 
@@ -3358,6 +3465,33 @@ render pass instance that resumes it, or any subsequent render pass
 instances that resume from that one and so on, **must** use the same sample
 locations
 
+* 
+[](#VUID-VkSubmitInfo-pNext-09683) VUID-VkSubmitInfo-pNext-09683
+
+If the `pNext` chain of this structure includes a
+[VkFrameBoundaryTensorsARM](debugging.html#VkFrameBoundaryTensorsARM) structure then it **must** also include a
+[VkFrameBoundaryEXT](debugging.html#VkFrameBoundaryEXT) structure.
+
+* 
+[](#VUID-VkSubmitInfo-pCommandBufferInfos-09942) VUID-VkSubmitInfo-pCommandBufferInfos-09942
+
+If at least one [VkCommandBufferSubmitInfo](#VkCommandBufferSubmitInfo) structure in
+`pCommandBufferInfos` references a `commandBuffer` allocated
+from a pool that was created with a
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure in the
+`pNext` chain of [VkCommandPoolCreateInfo](#VkCommandPoolCreateInfo) that included a
+foreign data graph processing engine in its `pProcessingEngines`
+member, then `pWaitSemaphoreInfos` and `pSignalSemaphoreInfos`
+**must** only reference `semaphore` objects that were created from
+external handle types reported as supported in a
+[VkQueueFamilyDataGraphProcessingEnginePropertiesARM](VK_ARM_data_graph/graphs.html#VkQueueFamilyDataGraphProcessingEnginePropertiesARM)::`foreignSemaphoreHandleTypes`
+structure via
+[vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM](VK_ARM_data_graph/graphs.html#vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM)
+with a `queueFamilyIndex` matching the one the command pool was
+created for, for all the foreign data graph processing engines that were
+part of the [VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) used to
+create the command pool
+
 Valid Usage (Implicit)
 
 * 
@@ -3368,7 +3502,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkSubmitInfo-pNext-pNext) VUID-VkSubmitInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAmigoProfilingSubmitInfoSEC](../appendices/extensions.html#VkAmigoProfilingSubmitInfoSEC), [VkD3D12FenceSubmitInfoKHR](#VkD3D12FenceSubmitInfoKHR), [VkDeviceGroupSubmitInfo](#VkDeviceGroupSubmitInfo), [VkFrameBoundaryEXT](debugging.html#VkFrameBoundaryEXT), [VkLatencySubmissionPresentIdNV](VK_KHR_surface/wsi.html#VkLatencySubmissionPresentIdNV), [VkPerformanceQuerySubmitInfoKHR](#VkPerformanceQuerySubmitInfoKHR), [VkProtectedSubmitInfo](#VkProtectedSubmitInfo), [VkTimelineSemaphoreSubmitInfo](#VkTimelineSemaphoreSubmitInfo), [VkWin32KeyedMutexAcquireReleaseInfoKHR](#VkWin32KeyedMutexAcquireReleaseInfoKHR), or [VkWin32KeyedMutexAcquireReleaseInfoNV](#VkWin32KeyedMutexAcquireReleaseInfoNV)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAmigoProfilingSubmitInfoSEC](../appendices/extensions.html#VkAmigoProfilingSubmitInfoSEC), [VkD3D12FenceSubmitInfoKHR](#VkD3D12FenceSubmitInfoKHR), [VkDeviceGroupSubmitInfo](#VkDeviceGroupSubmitInfo), [VkFrameBoundaryEXT](debugging.html#VkFrameBoundaryEXT), [VkFrameBoundaryTensorsARM](debugging.html#VkFrameBoundaryTensorsARM), [VkLatencySubmissionPresentIdNV](VK_KHR_surface/wsi.html#VkLatencySubmissionPresentIdNV), [VkPerformanceQuerySubmitInfoKHR](#VkPerformanceQuerySubmitInfoKHR), [VkProtectedSubmitInfo](#VkProtectedSubmitInfo), [VkTimelineSemaphoreSubmitInfo](#VkTimelineSemaphoreSubmitInfo), [VkWin32KeyedMutexAcquireReleaseInfoKHR](#VkWin32KeyedMutexAcquireReleaseInfoKHR), or [VkWin32KeyedMutexAcquireReleaseInfoNV](#VkWin32KeyedMutexAcquireReleaseInfoNV)
 
 * 
 [](#VUID-VkSubmitInfo-sType-unique) VUID-VkSubmitInfo-sType-unique
@@ -4552,7 +4686,7 @@ of [VkCommandBufferInheritanceInfo](#VkCommandBufferInheritanceInfo) does not in
 If `vkCmdExecuteCommands` is being called within a render pass
 instance begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering), with any color attachment
 using a resolve mode of
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`, the
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, the
 `pNext` chain of [VkCommandBufferInheritanceInfo](#VkCommandBufferInheritanceInfo) used to create
 each element of `pCommandBuffers` **must** include a
 [VkExternalFormatANDROID](resources.html#VkExternalFormatANDROID) structure with an `externalFormat`
@@ -4564,7 +4698,7 @@ matching that used to create the resolve attachment in the render pass
 If `vkCmdExecuteCommands` is being called within a render pass
 instance begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering) with any color attachment
 using a resolve mode of
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`, and the
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, and the
 `pNext` chain of [VkCommandBufferInheritanceInfo](#VkCommandBufferInheritanceInfo) does not
 include a [VkAttachmentSampleCountInfoAMD](#VkAttachmentSampleCountInfoAMD) or
 [VkAttachmentSampleCountInfoNV](#VkAttachmentSampleCountInfoNV) structure, the value of
@@ -4737,6 +4871,10 @@ Secondary | Both | Outside | Transfer
 Graphics
 
 Compute | Indirection |
+
+Conditional Rendering
+
+vkCmdExecuteCommands is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 In addition to secondary command buffer execution from primary command
 buffers, an implementation **may** support [nested command buffers](../appendices/glossary.html#glossary), which enable secondary command buffers to be executed from other
@@ -4952,3 +5090,7 @@ Secondary | Both | Both | Graphics
 Compute
 
 Transfer | State |
+
+Conditional Rendering
+
+vkCmdSetDeviceMask is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)

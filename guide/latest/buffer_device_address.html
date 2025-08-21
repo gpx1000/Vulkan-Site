@@ -152,7 +152,10 @@
     <a class="nav-link" href="checking_for_support.html">Checking For Vulkan Support</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="versions.html">Versions</a>
+    <a class="nav-link" href="versions.html">Vulkan Versions &amp; Porting Guide</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="vulkan_profiles.html">Vulkan Profiles</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="vulkan_release_summary.html">Vulkan Release Summary</a>
@@ -168,6 +171,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="development_tools.html">Development Tools</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="ide.html">Development Environments &amp; IDEs</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="validation_overview.html">Vulkan Validation Overview</a>
@@ -212,6 +218,9 @@
     <a class="nav-link" href="wsi.html">Window System Integration (WSI)</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="windowing_audio_input.html">Windowing, Audio, and Input</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pnext_and_stype.html">pNext and sType</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -254,11 +263,20 @@
     <a class="nav-link" href="depth.html">Depth</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="primitive_topology.html">Primitive Topology</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="mapping_data_to_shaders.html">Mapping Data to Shaders</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="storage_image_and_texel_buffers.html">Storage Image and Texel Buffers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
     <a class="nav-link" href="vertex_input_data_processing.html">Vertex Input Data Processing</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="descriptor_arrays.html">Descriptor Arrays</a>
   </li>
   <li class="nav-item" data-depth="3">
     <a class="nav-link" href="descriptor_dynamic_offset.html">Descriptor Dynamic Offset</a>
@@ -357,6 +375,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="extensions/VK_KHR_shader_subgroup_uniform_control_flow.html">VK_KHR_shader_subgroup_uniform_control_flow</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="extensions/VK_KHR_debug_utils.html">VK_KHR_debug_utils</a>
   </li>
 </ul>
   </li>
@@ -761,7 +782,30 @@ void main() {
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
-<script async src="../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

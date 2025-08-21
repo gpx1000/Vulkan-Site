@@ -18,6 +18,8 @@
 - [Platform-Specific Header Control](#boilerplate-platform-specific-header-control)
 - [Platform-Specific_Header_Control](#boilerplate-platform-specific-header-control)
 - [Vulkan_Core_API_Header_vulkan_core.h](#boilerplate-vulkan-core)
+- [Vulkan Header File Compile Time Controls](#_vulkan_header_file_compile_time_controls)
+- [Vulkan_Header_File_Compile_Time_Controls](#_vulkan_header_file_compile_time_controls)
 - [Vulkan Header File Version Number](#_vulkan_header_file_version_number)
 - [Vulkan_Header_File_Version_Number](#_vulkan_header_file_version_number)
 - [Vulkan Handle Macros](#_vulkan_handle_macros)
@@ -119,8 +121,32 @@ define this type.
 Applications that do not make use of window system-specific extensions may
 simply include `vulkan_core.h` instead of `vulkan.h`, although there is
 usually no reason to do so.
-In addition to the Vulkan API, `vulkan_core.h` also defines a small number
-of C preprocessor macros that are described below.
+In addition to the Vulkan API, `vulkan_core.h` also defines and / or uses a
+small number of C preprocessor macros that are described below.
+
+If the `VK_NO_PROTOTYPES` macro is defined by an application at compile
+time, prototypes for Vulkan APIs will not be included.
+Only typedefs for API function pointers will be defined.
+
+This is intended for applications using their own function loader and
+dispatch mechanism.
+
+If the macro is not defined by the application, prototypes for Vulkan APIs
+will be included.
+
+If the `VK_ONLY_EXPORTED_PROTOTYPES` macro is defined by an application
+at compile time, only prototypes for Vulkan APIs tagged as `"exported"`in
+the API XML will be included.
+For non-tagged APIs, only typedefs for API function pointers will be
+defined.
+
+This is intended to match APIs which are statically exported by the Vulkan
+loader.
+At present, the exported APIs are only those defined by Vulkan core
+versions.
+
+If the macro is not defined by the application, prototypes for all Vulkan
+APIs will be included.
 
 `VK_HEADER_VERSION` is the version number of the `vulkan_core.h` header.
 This value is kept synchronized with the patch version of the released
@@ -128,7 +154,7 @@ Specification.
 
 // Provided by VK_VERSION_1_0
 // Version of this file
-#define VK_HEADER_VERSION 316
+#define VK_HEADER_VERSION 325
 
 `VK_HEADER_VERSION_COMPLETE` is the complete version number of the
 `vulkan_core.h` header, comprising the major, minor, and patch versions.
@@ -149,14 +175,15 @@ API version using, for example, one of the `VK_API_VERSION_`*_* values.
 `VK_API_VERSION` is now commented out of `vulkan_core.h` and **cannot** be
 used.
 
+|  | This functionality is deprecated by [Vulkan Version 1.0](versions.html#versions-1.0). See [Deprecated Functionality](deprecation.html#deprecation-version-macros) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
-// DEPRECATED: This define has been removed. Specific version defines (e.g. VK_API_VERSION_1_0), or the VK_MAKE_VERSION macro, should be used instead.
 //#define VK_API_VERSION VK_MAKE_API_VERSION(0, 1, 0, 0) // Patch version should always be set to 0
 
 `VK_DEFINE_HANDLE` defines a [dispatchable handle](../chapters/fundamentals.html#fundamentals-objectmodel-overview) type.
 
 // Provided by VK_VERSION_1_0
-
 #define VK_DEFINE_HANDLE(object) typedef struct object##_T* object;
 
 * 
@@ -169,7 +196,6 @@ management, such as [VkDevice](../chapters/devsandqueues.html#VkDevice).
 [non-dispatchable handle](../chapters/fundamentals.html#fundamentals-objectmodel-overview) type.
 
 // Provided by VK_VERSION_1_0
-
 #ifndef VK_DEFINE_NON_DISPATCHABLE_HANDLE
     #if (VK_USE_64_BIT_PTR_DEFINES==1)
         #define VK_DEFINE_NON_DISPATCHABLE_HANDLE(object) typedef struct object##_T *object;
@@ -203,7 +229,6 @@ It may be passed to and returned from Vulkan commands only when
 [specifically allowed](../chapters/fundamentals.html#fundamentals-validusage-handles).
 
 // Provided by VK_VERSION_1_0
-
 #ifndef VK_DEFINE_NON_DISPATCHABLE_HANDLE
     #if (VK_USE_64_BIT_PTR_DEFINES==1)
         #if (defined(__cplusplus) && (__cplusplus >= 201103L)) || (defined(_MSVC_LANG) && (_MSVC_LANG >= 201103L))
@@ -227,7 +252,6 @@ integer type.
 or any other value to use a 64-bit unsigned integer type.
 
 // Provided by VK_VERSION_1_0
-
 #ifndef VK_USE_64_BIT_PTR_DEFINES
     #if defined(__LP64__) || defined(_WIN64) || (defined(__x86_64__) && !defined(__ILP32__) ) || defined(_M_X64) || defined(__ia64) || defined (_M_IA64) || defined(__aarch64__) || defined(__powerpc64__) || (defined(__riscv) && __riscv_xlen == 64)
         #define VK_USE_64_BIT_PTR_DEFINES 1
@@ -302,6 +326,7 @@ the [following table](#boilerplate-wsi-header-table).
   `[VK_GGP_frame_token](extensions.html#VK_GGP_frame_token)` | Google Games Platform | `vulkan_ggp.h` |  | `VK_USE_PLATFORM_GGP` |
 | `[VK_MVK_ios_surface](extensions.html#VK_MVK_ios_surface)` | iOS | `vulkan_ios.h` | None | `VK_USE_PLATFORM_IOS_MVK` |
 | `[VK_MVK_macos_surface](extensions.html#VK_MVK_macos_surface)` | macOS | `vulkan_macos.h` | None | `VK_USE_PLATFORM_MACOS_MVK` |
+| `[VK_OHOS_surface](extensions.html#VK_OHOS_surface)` | OHOS | `vulkan_ohos.h` | None | `VK_USE_PLATFORM_OHOS` |
 | `[VK_NN_vi_surface](extensions.html#VK_NN_vi_surface)` | VI | `vulkan_vi.h` | None | `VK_USE_PLATFORM_VI_NN` |
 | `[VK_FUCHSIA_imagepipe_surface](extensions.html#VK_FUCHSIA_imagepipe_surface)` | Fuchsia | `vulkan_fuchsia.h` | `` | `VK_USE_PLATFORM_FUCHSIA` |
 | `[VK_EXT_metal_surface](extensions.html#VK_EXT_metal_surface)` | Metal on CoreAnimation | `vulkan_metal.h` | None | `VK_USE_PLATFORM_METAL_EXT` |
@@ -378,6 +403,8 @@ associated with the externally-provided video compression standards.
 | `vulkan_video_codec_h265std` | ITU-T H.265 common definitions | `` | [VK_KHR_video_decode_h265](extensions.html#VK_KHR_video_decode_h265), [VK_KHR_video_encode_h265](extensions.html#VK_KHR_video_encode_h265) |
 | `vulkan_video_codec_h265std_decode` | ITU-T H.265 decode-specific definitions | `` | [VK_KHR_video_decode_h265](extensions.html#VK_KHR_video_decode_h265) |
 | `vulkan_video_codec_h265std_encode` | ITU-T H.265 encode-specific definitions | `` | [VK_KHR_video_encode_h265](extensions.html#VK_KHR_video_encode_h265) |
+| `vulkan_video_codec_vp9std` | VP9 common definitions | `` | [VK_KHR_video_decode_vp9](extensions.html#VK_KHR_video_decode_vp9) |
+| `vulkan_video_codec_vp9std_decode` | VP9 decode-specific definitions | `` | [VK_KHR_video_decode_vp9](extensions.html#VK_KHR_video_decode_vp9) |
 | `vulkan_video_codec_av1std` | AV1 common definitions | `` | [VK_KHR_video_decode_av1](extensions.html#VK_KHR_video_decode_av1) |
 | `vulkan_video_codec_av1std_decode` | AV1 decode-specific definitions | `` | [VK_KHR_video_decode_av1](extensions.html#VK_KHR_video_decode_av1) |
 | `vulkan_video_codec_av1std_encode` | AV1 encode-specific definitions | `` | [VK_KHR_video_encode_av1](extensions.html#VK_KHR_video_encode_av1) |

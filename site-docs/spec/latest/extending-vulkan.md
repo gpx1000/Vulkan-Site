@@ -165,9 +165,10 @@ packed version number:
 `VK_VERSION_MAJOR` extracts the API major version number from a packed
 version number:
 
+|  | This functionality is deprecated by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-version-macros) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
-// VK_VERSION_MAJOR is deprecated, but no reason was given in the API XML
-// DEPRECATED: This define is deprecated. VK_API_VERSION_MAJOR should be used instead.
 #define VK_VERSION_MAJOR(version) ((uint32_t)(version) >> 22U)
 
 `VK_API_VERSION_MINOR` extracts the API minor version number from a
@@ -179,9 +180,10 @@ packed version number:
 `VK_VERSION_MINOR` extracts the API minor version number from a packed
 version number:
 
+|  | This functionality is deprecated by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-version-macros) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
-// VK_VERSION_MINOR is deprecated, but no reason was given in the API XML
-// DEPRECATED: This define is deprecated. VK_API_VERSION_MINOR should be used instead.
 #define VK_VERSION_MINOR(version) (((uint32_t)(version) >> 12U) & 0x3FFU)
 
 `VK_API_VERSION_PATCH` extracts the API patch version number from a
@@ -193,9 +195,10 @@ packed version number:
 `VK_VERSION_PATCH` extracts the API patch version number from a packed
 version number:
 
+|  | This functionality is deprecated by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-version-macros) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
-// VK_VERSION_PATCH is deprecated, but no reason was given in the API XML
-// DEPRECATED: This define is deprecated. VK_API_VERSION_PATCH should be used instead.
 #define VK_VERSION_PATCH(version) ((uint32_t)(version) & 0xFFFU)
 
 `VK_MAKE_API_VERSION` constructs an API version number.
@@ -218,9 +221,10 @@ version number:
 
 `VK_MAKE_VERSION` constructs an API version number.
 
+|  | This functionality is deprecated by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-version-macros) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
-// VK_MAKE_VERSION is deprecated, but no reason was given in the API XML
-// DEPRECATED: This define is deprecated. VK_MAKE_API_VERSION should be used instead.
 #define VK_MAKE_VERSION(major, minor, patch) \
     ((((uint32_t)(major)) 
 
@@ -346,18 +350,24 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkLayerProperties` structure is defined as:
 
@@ -510,18 +520,24 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `ppEnabledLayerNames` and `enabledLayerCount` members of
 [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) are deprecated and their values **must** be ignored by
@@ -648,21 +664,27 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_INCOMPLETE`
 
 * 
-`VK_INCOMPLETE`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_LAYER_NOT_PRESENT`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_LAYER_NOT_PRESENT`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Device extensions add new
 [device-level functionality](#extendingvulkan-instanceanddevicefunctionality) to the API, outside of the core specification.
@@ -790,21 +812,27 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_INCOMPLETE`
 
 * 
-`VK_INCOMPLETE`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_LAYER_NOT_PRESENT`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_LAYER_NOT_PRESENT`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkExtensionProperties` structure is defined as:
 

@@ -80,7 +80,7 @@ adds one shader instruction:
 `OpRayQueryGetIntersectionTriangleVertexPositionsKHR` which returns the vertex position values for a triangle hit when using ray query
 
 * 
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR` on an acceleration structure indicates that an application wants to be able to read the data from that acceleration structure
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_BIT_KHR` on an acceleration structure indicates that an application wants to be able to read the data from that acceleration structure
 
 The GLSL functionality is defined in [GLSL_EXT_ray_tracing_position_fetch](https://github.com/KhronosGroup/GLSL/blob/main/extensions/ext/GLSL_EXT_ray_tracing_position_fetch.txt).
 

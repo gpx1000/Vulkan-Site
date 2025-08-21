@@ -124,6 +124,11 @@ Valid Usage (Implicit)
 
  `pQueryPool` **must** be a valid pointer to a [VkQueryPool](#VkQueryPool) handle
 
+* 
+[](#VUID-vkCreateQueryPool-device-queuecount) VUID-vkCreateQueryPool-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -134,10 +139,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkQueryPoolCreateInfo` structure is defined as:
 
@@ -159,7 +170,7 @@ typedef struct VkQueryPoolCreateInfo {
 structure.
 
 * 
-`flags` is reserved for future use.
+`flags` is a bitmask of [VkQueryPoolCreateFlagBits](#VkQueryPoolCreateFlagBits)
 
 * 
 `queryType` is a [VkQueryType](#VkQueryType) value specifying the type of
@@ -228,6 +239,15 @@ If `queryType` is `VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR`, the
 `queryCount` **must** be greater than 0
 
 * 
+[](#VUID-VkQueryPoolCreateInfo-pNext-10779) VUID-VkQueryPoolCreateInfo-pNext-10779
+
+If the `pNext` chain includes a [VkVideoProfileInfoKHR](videocoding.html#VkVideoProfileInfoKHR)
+structure and its `videoCodecOperation` member is
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the
+[`videoDecodeVP9`](features.html#features-videoDecodeVP9) feature **must** be
+enabled
+
+* 
 [](#VUID-VkQueryPoolCreateInfo-queryType-07133) VUID-VkQueryPoolCreateInfo-queryType-07133
 
 If `queryType` is `VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR`,
@@ -273,7 +293,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkQueryPoolCreateInfo-pNext-pNext) VUID-VkQueryPoolCreateInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkQueryPoolPerformanceCreateInfoKHR](#VkQueryPoolPerformanceCreateInfoKHR), [VkQueryPoolPerformanceQueryCreateInfoINTEL](#VkQueryPoolPerformanceQueryCreateInfoINTEL), [VkQueryPoolVideoEncodeFeedbackCreateInfoKHR](#VkQueryPoolVideoEncodeFeedbackCreateInfoKHR), [VkVideoDecodeAV1ProfileInfoKHR](videocoding.html#VkVideoDecodeAV1ProfileInfoKHR), [VkVideoDecodeH264ProfileInfoKHR](videocoding.html#VkVideoDecodeH264ProfileInfoKHR), [VkVideoDecodeH265ProfileInfoKHR](videocoding.html#VkVideoDecodeH265ProfileInfoKHR), [VkVideoDecodeUsageInfoKHR](videocoding.html#VkVideoDecodeUsageInfoKHR), [VkVideoEncodeAV1ProfileInfoKHR](videocoding.html#VkVideoEncodeAV1ProfileInfoKHR), [VkVideoEncodeH264ProfileInfoKHR](videocoding.html#VkVideoEncodeH264ProfileInfoKHR), [VkVideoEncodeH265ProfileInfoKHR](videocoding.html#VkVideoEncodeH265ProfileInfoKHR), [VkVideoEncodeUsageInfoKHR](videocoding.html#VkVideoEncodeUsageInfoKHR), or [VkVideoProfileInfoKHR](videocoding.html#VkVideoProfileInfoKHR)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkQueryPoolPerformanceCreateInfoKHR](#VkQueryPoolPerformanceCreateInfoKHR), [VkQueryPoolPerformanceQueryCreateInfoINTEL](#VkQueryPoolPerformanceQueryCreateInfoINTEL), [VkQueryPoolVideoEncodeFeedbackCreateInfoKHR](#VkQueryPoolVideoEncodeFeedbackCreateInfoKHR), [VkVideoDecodeAV1ProfileInfoKHR](videocoding.html#VkVideoDecodeAV1ProfileInfoKHR), [VkVideoDecodeH264ProfileInfoKHR](videocoding.html#VkVideoDecodeH264ProfileInfoKHR), [VkVideoDecodeH265ProfileInfoKHR](videocoding.html#VkVideoDecodeH265ProfileInfoKHR), [VkVideoDecodeUsageInfoKHR](videocoding.html#VkVideoDecodeUsageInfoKHR), [VkVideoDecodeVP9ProfileInfoKHR](videocoding.html#VkVideoDecodeVP9ProfileInfoKHR), [VkVideoEncodeAV1ProfileInfoKHR](videocoding.html#VkVideoEncodeAV1ProfileInfoKHR), [VkVideoEncodeH264ProfileInfoKHR](videocoding.html#VkVideoEncodeH264ProfileInfoKHR), [VkVideoEncodeH265ProfileInfoKHR](videocoding.html#VkVideoEncodeH265ProfileInfoKHR), [VkVideoEncodeUsageInfoKHR](videocoding.html#VkVideoEncodeUsageInfoKHR), or [VkVideoProfileInfoKHR](videocoding.html#VkVideoProfileInfoKHR)
 
 * 
 [](#VUID-VkQueryPoolCreateInfo-sType-unique) VUID-VkQueryPoolCreateInfo-sType-unique
@@ -281,20 +301,34 @@ Valid Usage (Implicit)
  The `sType` value of each structure in the `pNext` chain **must** be unique
 
 * 
-[](#VUID-VkQueryPoolCreateInfo-flags-zerobitmask) VUID-VkQueryPoolCreateInfo-flags-zerobitmask
+[](#VUID-VkQueryPoolCreateInfo-flags-parameter) VUID-VkQueryPoolCreateInfo-flags-parameter
 
- `flags` **must** be `0`
+ `flags` **must** be a valid combination of [VkQueryPoolCreateFlagBits](#VkQueryPoolCreateFlagBits) values
 
 * 
 [](#VUID-VkQueryPoolCreateInfo-queryType-parameter) VUID-VkQueryPoolCreateInfo-queryType-parameter
 
  `queryType` **must** be a valid [VkQueryType](#VkQueryType) value
 
+Bits which **can** be set in [VkQueryPoolCreateInfo](#VkQueryPoolCreateInfo)::`flags`,
+specifying options for query pools, are:
+
+// Provided by VK_VERSION_1_0
+typedef enum VkQueryPoolCreateFlagBits {
+  // Provided by VK_KHR_maintenance9
+    VK_QUERY_POOL_CREATE_RESET_BIT_KHR = 0x00000001,
+} VkQueryPoolCreateFlagBits;
+
+* 
+`VK_QUERY_POOL_CREATE_RESET_BIT_KHR` specifies that queries in the
+query pool are initialized on creation and do not need to be reset
+before first use.
+
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkQueryPoolCreateFlags;
 
-`VkQueryPoolCreateFlags` is a bitmask type for setting a mask, but is
-currently reserved for future use.
+`VkQueryPoolCreateFlags` is a bitmask type for setting a mask of zero or
+more [VkQueryPoolCreateFlagBits](#VkQueryPoolCreateFlagBits).
 
 The `VkQueryPoolPerformanceCreateInfoKHR` structure is defined as:
 
@@ -586,6 +620,9 @@ The operation of queries is controlled by the commands
 [vkCmdBeginQuery](#vkCmdBeginQuery), [vkCmdEndQuery](#vkCmdEndQuery),
 [vkCmdBeginQueryIndexedEXT](#vkCmdBeginQueryIndexedEXT), [vkCmdEndQueryIndexedEXT](#vkCmdEndQueryIndexedEXT),
 [vkCmdResetQueryPool](#vkCmdResetQueryPool), [vkCmdCopyQueryPoolResults](#vkCmdCopyQueryPoolResults),
+[vkCmdWriteAccelerationStructuresPropertiesKHR](accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesKHR),
+[vkCmdWriteAccelerationStructuresPropertiesNV](accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesNV),
+[vkCmdWriteMicromapsPropertiesEXT](VK_EXT_opacity_micromap/micromaps.html#vkCmdWriteMicromapsPropertiesEXT),
 [vkCmdWriteTimestamp2](#vkCmdWriteTimestamp2),
 and [vkCmdWriteTimestamp](#vkCmdWriteTimestamp).
 
@@ -602,14 +639,20 @@ or [vkResetQueryPool](#vkResetQueryPool)
 sets the status to unavailable and makes the numerical results **undefined**.
 A query is made available by the operation of [vkCmdEndQuery](#vkCmdEndQuery),
 [vkCmdEndQueryIndexedEXT](#vkCmdEndQueryIndexedEXT),
+[vkCmdWriteAccelerationStructuresPropertiesKHR](accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesKHR),
+[vkCmdWriteAccelerationStructuresPropertiesNV](accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesNV),
+[vkCmdWriteMicromapsPropertiesEXT](VK_EXT_opacity_micromap/micromaps.html#vkCmdWriteMicromapsPropertiesEXT),
 [vkCmdWriteTimestamp2](#vkCmdWriteTimestamp2),
 or [vkCmdWriteTimestamp](#vkCmdWriteTimestamp).
 Both the availability status and numerical results **can** be retrieved by
 calling either [vkGetQueryPoolResults](#vkGetQueryPoolResults) or
 [vkCmdCopyQueryPoolResults](#vkCmdCopyQueryPoolResults).
 
-After query pool creation, each query is in an uninitialized state and **must**
-be reset before it is used.
+After query pool creation,
+where `VK_QUERY_POOL_CREATE_RESET_BIT_KHR` was not set in
+[VkQueryPoolCreateInfo](#VkQueryPoolCreateInfo)::`flags`
+each query is in an uninitialized state and **must** be reset before it is
+used.
 Queries **must** also be reset between uses.
 
 If a logical device includes multiple physical devices, then each command
@@ -763,6 +806,10 @@ Decode
 Encode
 
 Opticalflow | Action |
+
+Conditional Rendering
+
+vkCmdResetQueryPool is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 To reset a range of queries in a query pool on the host, call:
 
@@ -1274,6 +1321,10 @@ Encode | Action
 
 State |
 
+Conditional Rendering
+
+vkCmdBeginQuery is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To begin an indexed query, call:
 
 // Provided by VK_EXT_transform_feedback
@@ -1666,6 +1717,10 @@ Encode | Action
 
 State |
 
+Conditional Rendering
+
+vkCmdBeginQueryIndexedEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Bits which **can** be set in [vkCmdBeginQuery](#vkCmdBeginQuery)::`flags`, specifying
 constraints on the types of queries that **can** be performed, are:
 
@@ -1831,6 +1886,10 @@ Encode | Action
 
 State |
 
+Conditional Rendering
+
+vkCmdEndQuery is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To end an indexed query after the set of desired drawing or dispatching
 commands is recorded, call:
 
@@ -1993,6 +2052,10 @@ Decode
 Encode | Action
 
 State |
+
+Conditional Rendering
+
+vkCmdEndQueryIndexedEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 An application **can** retrieve results either by requesting they be written
 into application-provided memory, or by requesting they be copied into a
@@ -2198,6 +2261,9 @@ queries.
 The first [synchronization scope](synchronization.html#synchronization-dependencies-scopes)
 includes all instances of [vkCmdEndQuery](#vkCmdEndQuery),
 [vkCmdEndQueryIndexedEXT](#vkCmdEndQueryIndexedEXT),
+[vkCmdWriteAccelerationStructuresPropertiesKHR](accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesKHR),
+[vkCmdWriteAccelerationStructuresPropertiesNV](accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesNV),
+[vkCmdWriteMicromapsPropertiesEXT](VK_EXT_opacity_micromap/micromaps.html#vkCmdWriteMicromapsPropertiesEXT),
 [vkCmdWriteTimestamp2](#vkCmdWriteTimestamp2),
 and [vkCmdWriteTimestamp](#vkCmdWriteTimestamp) that reference any query in `queryPool`
 indicated by `firstQuery` and `queryCount`.
@@ -2382,21 +2448,27 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_NOT_READY`
 
 * 
-`VK_NOT_READY`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_DEVICE_LOST`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_DEVICE_LOST`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Bits which **can** be set in [vkGetQueryPoolResults](#vkGetQueryPoolResults)::`flags` and
 [vkCmdCopyQueryPoolResults](#vkCmdCopyQueryPoolResults)::`flags`, specifying how and when
@@ -2586,10 +2658,13 @@ includes all commands which reference the queries in `queryPool`
 indicated by `query` that occur earlier in
 [submission order](synchronization.html#synchronization-submission-order).
 If `flags` does not include `VK_QUERY_RESULT_WAIT_BIT`,
+[vkCmdEndQuery](#vkCmdEndQuery),
 [vkCmdEndQueryIndexedEXT](#vkCmdEndQueryIndexedEXT),
+[vkCmdWriteAccelerationStructuresPropertiesKHR](accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesKHR),
+[vkCmdWriteAccelerationStructuresPropertiesNV](accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesNV),
+[vkCmdWriteMicromapsPropertiesEXT](VK_EXT_opacity_micromap/micromaps.html#vkCmdWriteMicromapsPropertiesEXT),
 [vkCmdWriteTimestamp2](#vkCmdWriteTimestamp2),
-[vkCmdEndQuery](#vkCmdEndQuery), and [vkCmdWriteTimestamp](#vkCmdWriteTimestamp) are excluded from this
-scope.
+and [vkCmdWriteTimestamp](#vkCmdWriteTimestamp) are excluded from this scope.
 
 The second [synchronization scope](synchronization.html#synchronization-dependencies-scopes)
 includes all commands which reference the queries in `queryPool`
@@ -2791,6 +2866,10 @@ Command Properties
 Secondary | Outside | Outside | Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyQueryPoolResults is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Rendering operations such as clears, MSAA resolves, attachment load/store
 operations, and blits **may** count towards the results of queries.
@@ -3125,8 +3204,9 @@ If an overflow occurs, the timestamp value **must** wrap back to zero.
 If `vkCmdWriteTimestamp2` is called while executing a render pass
 instance that has multiview enabled, the timestamp uses N consecutive
 query indices in the query pool (starting at `query`) where N is
-the number of bits set in the view mask of the subpass or dynamic render
-pass the command is executed in.
+the number of bits set in the view mask of the subpass
+or dynamic render pass
+the command is executed in.
 The resulting query values are determined by an implementation-dependent
 choice of one of the following behaviors:
 
@@ -3137,11 +3217,12 @@ the view mask) zero is written to the remaining queries.
 * 
 All N queries are timestamp values.
 
-Either way, if two timestamps are written in the same subpass or dynamic
-render pass with multiview enabled, each of the N consecutive queries
-written for a timestamp **must** not have a lower value than the queries with
-corresponding indices written by the timestamp that happens-before unless
-the value overflows the maximum supported integer bit width of the query.
+Either way, if two timestamps are written in the same subpass
+or dynamic render pass
+with multiview enabled, each of the N consecutive queries written for
+a timestamp **must** not have a lower value than the queries with corresponding
+indices written by the timestamp that happens-before unless the value
+overflows the maximum supported integer bit width of the query.
 
 Valid Usage
 
@@ -3356,6 +3437,10 @@ Decode
 
 Encode | Action |
 
+Conditional Rendering
+
+vkCmdWriteTimestamp2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To request a timestamp and write the value to memory, call:
 
 // Provided by VK_VERSION_1_0
@@ -3417,8 +3502,9 @@ If an overflow occurs, the timestamp value **must** wrap back to zero.
 If `vkCmdWriteTimestamp` is called while executing a render pass
 instance that has multiview enabled, the timestamp uses N consecutive
 query indices in the query pool (starting at `query`) where N is
-the number of bits set in the view mask of the subpass or dynamic render
-pass the command is executed in.
+the number of bits set in the view mask of the subpass
+or dynamic render pass
+the command is executed in.
 The resulting query values are determined by an implementation-dependent
 choice of one of the following behaviors:
 
@@ -3429,11 +3515,12 @@ the view mask) zero is written to the remaining queries.
 * 
 All N queries are timestamp values.
 
-Either way, if two timestamps are written in the same subpass or dynamic
-render pass with multiview enabled, each of the N consecutive queries
-written for a timestamp **must** not have a lower value than the queries with
-corresponding indices written by the timestamp that happens-before unless
-the value overflows the maximum supported integer bit width of the query.
+Either way, if two timestamps are written in the same subpass
+or dynamic render pass
+with multiview enabled, each of the N consecutive queries written for
+a timestamp **must** not have a lower value than the queries with corresponding
+indices written by the timestamp that happens-before unless the value
+overflows the maximum supported integer bit width of the query.
 
 Valid Usage
 
@@ -3612,6 +3699,10 @@ Encode
 
 Opticalflow | Action |
 
+Conditional Rendering
+
+vkCmdWriteTimestamp is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 *Performance queries* provide applications with a mechanism for getting
 performance counter information about the execution of command buffers,
 render passes, and commands.
@@ -3737,6 +3828,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 * 
 `VK_TIMEOUT`
@@ -3933,10 +4030,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkInitializePerformanceApiInfoINTEL` structure is defined as :
 
@@ -4031,10 +4134,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Possible values of [vkGetPerformanceParameterINTEL](#vkGetPerformanceParameterINTEL)::`parameter`,
 specifying a performance query feature, are:
@@ -4250,6 +4359,10 @@ Transfer | Action
 
 State |
 
+Conditional Rendering
+
+vkCmdSetPerformanceMarkerINTEL is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -4260,10 +4373,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkPerformanceMarkerInfoINTEL` structure is defined as:
 
@@ -4365,6 +4484,10 @@ Transfer | Action
 
 State |
 
+Conditional Rendering
+
+vkCmdSetPerformanceStreamMarkerINTEL is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -4375,10 +4498,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkPerformanceStreamMarkerInfoINTEL` structure is defined as:
 
@@ -4494,6 +4623,10 @@ Compute
 
 Transfer | State |
 
+Conditional Rendering
+
+vkCmdSetPerformanceOverrideINTEL is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -4504,10 +4637,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkPerformanceOverrideInfoINTEL` structure is defined as:
 
@@ -4630,10 +4769,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkPerformanceConfigurationAcquireInfoINTEL` structure is defined
 as:
@@ -4712,6 +4857,11 @@ Valid Usage (Implicit)
 
  Both of `configuration`, and `queue` **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
 
+Host Synchronization
+
+* 
+Host access to `queue` **must** be externally synchronized
+
 Command Properties
 | [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
 | --- | --- | --- | --- | --- |
@@ -4727,10 +4877,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To release a device performance configuration, call:
 
@@ -4787,10 +4943,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Result status queries serve a single purpose: allowing the application to
 determine whether a set of operations have completed successfully or not, as

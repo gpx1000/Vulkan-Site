@@ -166,6 +166,10 @@ ITU-T.
 *H.265 High Efficiency Video Coding* (August, 2021).
 [https://www.itu.int/rec/T-REC-H.265-202108-S/](https://www.itu.int/rec/T-REC-H.265-202108-S/) .
 
+Google.
+*VP9 Bitstream & Decoding Process Specification* (February 22, 2017).
+[https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.7-20170222-draft.pdf](https://storage.googleapis.com/downloads.webmproject.org/docs/vp9/vp9-bitstream-specification-v0.7-20170222-draft.pdf) .
+
 Alliance for Open Media.
 *AV1 Bitstream & Decoding Process Specification* (January 8, 2019).
 [https://aomediacodec.github.io/av1-spec/av1-spec.pdf](https://aomediacodec.github.io/av1-spec/av1-spec.pdf) .

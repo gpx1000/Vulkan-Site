@@ -178,6 +178,9 @@
     <a class="nav-link" href="../fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="../executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../../appendices/boilerplate.html">API Boilerplate</a>
@@ -589,18 +601,20 @@ queried <strong>must</strong> have been created with
 <li>
 <p><a id="VUID-vkCmdBuildMicromapsEXT-pInfos-07512" href="#VUID-vkCmdBuildMicromapsEXT-pInfos-07512"></a> <span class="vuid">VUID-vkCmdBuildMicromapsEXT-pInfos-07512</span><br>
 
-For each element of <code>pInfos</code>, its <code>scratchData.deviceAddress</code>,
-<code>data.deviceAddress</code>, and <code>triangleArray.deviceAddress</code> members
-<strong>must</strong> be valid device addresses obtained from
-<a href="../descriptorsets.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a></p>
+For each element of <code>pInfos</code>, <code>scratchData.deviceAddress</code> <strong>must</strong>
+be a valid <code>VkDeviceAddress</code></p>
 </li>
 <li>
-<p><a id="VUID-vkCmdBuildMicromapsEXT-pInfos-07513" href="#VUID-vkCmdBuildMicromapsEXT-pInfos-07513"></a> <span class="vuid">VUID-vkCmdBuildMicromapsEXT-pInfos-07513</span><br>
+<p><a id="VUID-vkCmdBuildMicromapsEXT-pInfos-10896" href="#VUID-vkCmdBuildMicromapsEXT-pInfos-10896"></a> <span class="vuid">VUID-vkCmdBuildMicromapsEXT-pInfos-10896</span><br>
 
-For each element of <code>pInfos</code>, if <code>scratchData.deviceAddress</code>,
-<code>data.deviceAddress</code>, or <code>triangleArray.deviceAddress</code> is the
-address of a non-sparse buffer then it <strong>must</strong> be bound completely and
-contiguously to a single <a href="../memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a> object</p>
+For each element of <code>pInfos</code>, <code>data.deviceAddress</code> <strong>must</strong> be a
+valid <code>VkDeviceAddress</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBuildMicromapsEXT-pInfos-10897" href="#VUID-vkCmdBuildMicromapsEXT-pInfos-10897"></a> <span class="vuid">VUID-vkCmdBuildMicromapsEXT-pInfos-10897</span><br>
+
+For each element of <code>pInfos</code>, <code>triangleArray.deviceAddress</code>
+<strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBuildMicromapsEXT-pInfos-07514" href="#VUID-vkCmdBuildMicromapsEXT-pInfos-07514"></a> <span class="vuid">VUID-vkCmdBuildMicromapsEXT-pInfos-07514</span><br>
@@ -702,6 +716,14 @@ Secondary</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdBuildMicromapsEXT is not affected by <a href="../drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -1424,6 +1446,14 @@ Secondary</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdWriteMicromapsPropertiesEXT is not affected by <a href="../drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -1564,6 +1594,14 @@ Secondary</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdCopyMicromapEXT is not affected by <a href="../drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -1792,8 +1830,7 @@ according to the host endianness.</p>
 <li>
 <p><a id="VUID-vkCmdCopyMicromapToMemoryEXT-pInfo-07536" href="#VUID-vkCmdCopyMicromapToMemoryEXT-pInfo-07536"></a> <span class="vuid">VUID-vkCmdCopyMicromapToMemoryEXT-pInfo-07536</span><br>
 
-<code>pInfo-&gt;dst.deviceAddress</code> <strong>must</strong> be a valid device address for a
-buffer bound to device memory</p>
+<code>pInfo-&gt;dst.deviceAddress</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMicromapToMemoryEXT-pInfo-07537" href="#VUID-vkCmdCopyMicromapToMemoryEXT-pInfo-07537"></a> <span class="vuid">VUID-vkCmdCopyMicromapToMemoryEXT-pInfo-07537</span><br>
@@ -1896,6 +1933,14 @@ Secondary</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdCopyMicromapToMemoryEXT is not affected by <a href="../drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -2038,8 +2083,7 @@ pipeline stage and an access type of <code>VK_ACCESS_TRANSFER_READ_BIT</code>.</
 <li>
 <p><a id="VUID-vkCmdCopyMemoryToMicromapEXT-pInfo-07543" href="#VUID-vkCmdCopyMemoryToMicromapEXT-pInfo-07543"></a> <span class="vuid">VUID-vkCmdCopyMemoryToMicromapEXT-pInfo-07543</span><br>
 
-<code>pInfo-&gt;src.deviceAddress</code> <strong>must</strong> be a valid device address for a
-buffer bound to device memory</p>
+<code>pInfo-&gt;src.deviceAddress</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdCopyMemoryToMicromapEXT-pInfo-07544" href="#VUID-vkCmdCopyMemoryToMicromapEXT-pInfo-07544"></a> <span class="vuid">VUID-vkCmdCopyMemoryToMicromapEXT-pInfo-07544</span><br>
@@ -2142,6 +2186,14 @@ Secondary</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdCopyMemoryToMicromapEXT is not affected by <a href="../drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -2674,13 +2726,13 @@ with multiple instances</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
-</li>
-<li>
 <p><code>VK_OPERATION_DEFERRED_KHR</code></p>
 </li>
 <li>
 <p><code>VK_OPERATION_NOT_DEFERRED_KHR</code></p>
+</li>
+<li>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -2690,10 +2742,16 @@ with multiple instances</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -2818,13 +2876,13 @@ memory that was not allocated with multiple instances</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
-</li>
-<li>
 <p><code>VK_OPERATION_DEFERRED_KHR</code></p>
 </li>
 <li>
 <p><code>VK_OPERATION_NOT_DEFERRED_KHR</code></p>
+</li>
+<li>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -2834,10 +2892,16 @@ memory that was not allocated with multiple instances</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -2964,13 +3028,13 @@ memory that was not allocated with multiple instances</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
-</li>
-<li>
 <p><code>VK_OPERATION_DEFERRED_KHR</code></p>
 </li>
 <li>
 <p><code>VK_OPERATION_NOT_DEFERRED_KHR</code></p>
+</li>
+<li>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -2980,10 +3044,16 @@ memory that was not allocated with multiple instances</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -3114,13 +3184,13 @@ memory that was not allocated with multiple instances</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
-</li>
-<li>
 <p><code>VK_OPERATION_DEFERRED_KHR</code></p>
 </li>
 <li>
 <p><code>VK_OPERATION_NOT_DEFERRED_KHR</code></p>
+</li>
+<li>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -3130,10 +3200,16 @@ memory that was not allocated with multiple instances</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -3322,10 +3398,16 @@ be bound to memory that was not allocated with multiple instances</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -3719,7 +3801,30 @@ order in that order.</p>
 <script src="../../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
-<script async src="../../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

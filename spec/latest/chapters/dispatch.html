@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -1056,6 +1068,34 @@ transitioned to the
 <code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatch-pDescription-09900" href="#VUID-vkCmdDispatch-pDescription-09900"></a> <span class="vuid">VUID-vkCmdDispatch-pDescription-09900</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object
+<strong>must</strong> have been created with a
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> whose <code>usage</code> member
+contained <code>VK_TENSOR_USAGE_SHADER_BIT_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatch-dimensionCount-09905" href="#VUID-vkCmdDispatch-dimensionCount-09905"></a> <span class="vuid">VUID-vkCmdDispatch-dimensionCount-09905</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the <code>Rank</code> of the <code>OpTypeTensorARM</code>
+of the tensor resource variable <strong>must</strong> be equal to the
+<code>dimensionCount</code> provided via
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> when creating the
+underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatch-OpTypeTensorARM-09906" href="#VUID-vkCmdDispatch-OpTypeTensorARM-09906"></a> <span class="vuid">VUID-vkCmdDispatch-OpTypeTensorARM-09906</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the element type of the
+<code>OpTypeTensorARM</code> of the tensor resource variable <strong>must</strong> be
+<a href="../appendices/spirvenv.html#spirvenv-tensor-formats" class="xref page">compatible</a> with the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of the
+<a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> used for the access</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatch-None-10672" href="#VUID-vkCmdDispatch-None-10672"></a> <span class="vuid">VUID-vkCmdDispatch-None-10672</span><br>
 
 
@@ -1228,6 +1268,14 @@ Secondary</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdDispatch is affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -1886,6 +1934,34 @@ transitioned to the
 <code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchIndirect-pDescription-09900" href="#VUID-vkCmdDispatchIndirect-pDescription-09900"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-pDescription-09900</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object
+<strong>must</strong> have been created with a
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> whose <code>usage</code> member
+contained <code>VK_TENSOR_USAGE_SHADER_BIT_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchIndirect-dimensionCount-09905" href="#VUID-vkCmdDispatchIndirect-dimensionCount-09905"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-dimensionCount-09905</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the <code>Rank</code> of the <code>OpTypeTensorARM</code>
+of the tensor resource variable <strong>must</strong> be equal to the
+<code>dimensionCount</code> provided via
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> when creating the
+underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchIndirect-OpTypeTensorARM-09906" href="#VUID-vkCmdDispatchIndirect-OpTypeTensorARM-09906"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-OpTypeTensorARM-09906</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the element type of the
+<code>OpTypeTensorARM</code> of the tensor resource variable <strong>must</strong> be
+<a href="../appendices/spirvenv.html#spirvenv-tensor-formats" class="xref page">compatible</a> with the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of the
+<a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> used for the access</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchIndirect-None-10672" href="#VUID-vkCmdDispatchIndirect-None-10672"></a> <span class="vuid">VUID-vkCmdDispatchIndirect-None-10672</span><br>
 
 
@@ -2049,6 +2125,14 @@ Secondary</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdDispatchIndirect is affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -2811,6 +2895,34 @@ transitioned to the
 <code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchBase-pDescription-09900" href="#VUID-vkCmdDispatchBase-pDescription-09900"></a> <span class="vuid">VUID-vkCmdDispatchBase-pDescription-09900</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object
+<strong>must</strong> have been created with a
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> whose <code>usage</code> member
+contained <code>VK_TENSOR_USAGE_SHADER_BIT_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchBase-dimensionCount-09905" href="#VUID-vkCmdDispatchBase-dimensionCount-09905"></a> <span class="vuid">VUID-vkCmdDispatchBase-dimensionCount-09905</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the <code>Rank</code> of the <code>OpTypeTensorARM</code>
+of the tensor resource variable <strong>must</strong> be equal to the
+<code>dimensionCount</code> provided via
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> when creating the
+underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchBase-OpTypeTensorARM-09906" href="#VUID-vkCmdDispatchBase-OpTypeTensorARM-09906"></a> <span class="vuid">VUID-vkCmdDispatchBase-OpTypeTensorARM-09906</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the element type of the
+<code>OpTypeTensorARM</code> of the tensor resource variable <strong>must</strong> be
+<a href="../appendices/spirvenv.html#spirvenv-tensor-formats" class="xref page">compatible</a> with the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of the
+<a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> used for the access</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchBase-None-10672" href="#VUID-vkCmdDispatchBase-None-10672"></a> <span class="vuid">VUID-vkCmdDispatchBase-None-10672</span><br>
 
 
@@ -2934,7 +3046,7 @@ buffer</p>
 
 If any of <code>baseGroupX</code>, <code>baseGroupY</code>, or <code>baseGroupZ</code> are
 not zero, then the bound compute pipeline <strong>must</strong> have been created with
-the <code>VK_PIPELINE_CREATE_DISPATCH_BASE</code> flag
+the <code>VK_PIPELINE_CREATE_DISPATCH_BASE_BIT</code> flag
 or the bound compute shader object <strong>must</strong> have been created with the
 <code>VK_SHADER_CREATE_DISPATCH_BASE_BIT_EXT</code> flag</p>
 </li>
@@ -3015,6 +3127,14 @@ Secondary</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdDispatchBase is affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -3058,7 +3178,7 @@ Its <code>x</code> and <code>y</code> <strong>must</strong> be a power of two an
 the <a href="limits.html#limits-maxTileShadingRate" class="xref page">maxTileShadingRate</a> limit.
 Its <code>z</code> <strong>must</strong> be less than or equal to the active tile&#8217;s depth as
 reported by <a href="../appendices/extensions.html#VK_QCOM_tile_properties" class="xref page">VK_QCOM_tile_properties</a>, and
-<span class="eq"><a href="renderpass.html#VkTilePropertiesQCOM" class="xref page">VkTilePropertiesQCOM</a>::<code>tileSize</code>::<code>z</code> %
+<span class="eq"><a href="renderpass.html#VkTilePropertiesQCOM" class="xref page">VkTilePropertiesQCOM</a>.tileSize.z %
 <code>TileShadingRateQCOM</code>::<code>z</code></span> <strong>must</strong> equal <code>0</code>.</p>
 </div>
 <div class="paragraph">
@@ -3690,6 +3810,34 @@ transitioned to the
 <code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchTileQCOM-pDescription-09900" href="#VUID-vkCmdDispatchTileQCOM-pDescription-09900"></a> <span class="vuid">VUID-vkCmdDispatchTileQCOM-pDescription-09900</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object
+<strong>must</strong> have been created with a
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> whose <code>usage</code> member
+contained <code>VK_TENSOR_USAGE_SHADER_BIT_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchTileQCOM-dimensionCount-09905" href="#VUID-vkCmdDispatchTileQCOM-dimensionCount-09905"></a> <span class="vuid">VUID-vkCmdDispatchTileQCOM-dimensionCount-09905</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the <code>Rank</code> of the <code>OpTypeTensorARM</code>
+of the tensor resource variable <strong>must</strong> be equal to the
+<code>dimensionCount</code> provided via
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> when creating the
+underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchTileQCOM-OpTypeTensorARM-09906" href="#VUID-vkCmdDispatchTileQCOM-OpTypeTensorARM-09906"></a> <span class="vuid">VUID-vkCmdDispatchTileQCOM-OpTypeTensorARM-09906</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the element type of the
+<code>OpTypeTensorARM</code> of the tensor resource variable <strong>must</strong> be
+<a href="../appendices/spirvenv.html#spirvenv-tensor-formats" class="xref page">compatible</a> with the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of the
+<a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> used for the access</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchTileQCOM-None-10672" href="#VUID-vkCmdDispatchTileQCOM-None-10672"></a> <span class="vuid">VUID-vkCmdDispatchTileQCOM-None-10672</span><br>
 
 
@@ -3862,6 +4010,14 @@ Secondary</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdDispatchTileQCOM is affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -4558,6 +4714,34 @@ transitioned to the
 <code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdSubpassShadingHUAWEI-pDescription-09900" href="#VUID-vkCmdSubpassShadingHUAWEI-pDescription-09900"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-pDescription-09900</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object
+<strong>must</strong> have been created with a
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> whose <code>usage</code> member
+contained <code>VK_TENSOR_USAGE_SHADER_BIT_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSubpassShadingHUAWEI-dimensionCount-09905" href="#VUID-vkCmdSubpassShadingHUAWEI-dimensionCount-09905"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-dimensionCount-09905</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the <code>Rank</code> of the <code>OpTypeTensorARM</code>
+of the tensor resource variable <strong>must</strong> be equal to the
+<code>dimensionCount</code> provided via
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> when creating the
+underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSubpassShadingHUAWEI-OpTypeTensorARM-09906" href="#VUID-vkCmdSubpassShadingHUAWEI-OpTypeTensorARM-09906"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-OpTypeTensorARM-09906</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the element type of the
+<code>OpTypeTensorARM</code> of the tensor resource variable <strong>must</strong> be
+<a href="../appendices/spirvenv.html#spirvenv-tensor-formats" class="xref page">compatible</a> with the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of the
+<a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> used for the access</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdSubpassShadingHUAWEI-None-04931" href="#VUID-vkCmdSubpassShadingHUAWEI-None-04931"></a> <span class="vuid">VUID-vkCmdSubpassShadingHUAWEI-None-04931</span><br>
 
 This command <strong>must</strong> be called in a subpass with bind point
@@ -4645,6 +4829,14 @@ Secondary</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdSubpassShadingHUAWEI is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -4780,6 +4972,14 @@ Compute</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdCudaLaunchKernelNV is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -5126,7 +5326,30 @@ vkCmdCudaLaunchKernelNV(commandBuffer, &amp;launchInfo);</code></pre>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

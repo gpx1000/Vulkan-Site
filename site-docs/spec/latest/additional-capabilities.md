@@ -16,6 +16,8 @@
 - [Allowed_Extent_Values_Based_on_Image_Type](#features-extentperimagetype)
 - [Additional Buffer Capabilities](#capabilities-buffer)
 - [Additional_Buffer_Capabilities](#capabilities-buffer)
+- [Additional Tensor Capabilities](#capabilities-tensor)
+- [Additional_Tensor_Capabilities](#capabilities-tensor)
 - [Optional Semaphore Capabilities](#capabilities-semaphore)
 - [Optional_Semaphore_Capabilities](#capabilities-semaphore)
 - [Optional Fence Capabilities](#capabilities-fence)
@@ -49,6 +51,9 @@ sample counts for certain image types, or additional capabilities for
 *linear* tiling format images, are described in this section.
 
 To query additional capabilities specific to image types, call:
+
+|  | This functionality is deprecated by [Vulkan Version 1.1](../appendices/versions.html#versions-1.1). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-gpdp2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 VkResult vkGetPhysicalDeviceImageFormatProperties(
@@ -111,13 +116,20 @@ than the limitations for `usage2` and `flags2`, for all values of
 `format`, `type`, and `tiling`.
 
 If the [`hostImageCopy`](features.html#features-hostImageCopy) feature is supported,
-`usage` includes `VK_IMAGE_USAGE_SAMPLED_BIT`, and `flags` does
-not include either of `VK_IMAGE_CREATE_SPARSE_BINDING_BIT`,
+and:
+
+* 
+`usage` includes `VK_IMAGE_USAGE_SAMPLED_BIT`, and
+
+* 
+`flags` does not include any of
+`VK_IMAGE_CREATE_SPARSE_BINDING_BIT`,
 `VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT`, or
-`VK_IMAGE_CREATE_SPARSE_ALIASED_BIT`, then the result of calls to
-`vkGetPhysicalDeviceImageFormatProperties` with identical parameters
-except for the inclusion of `VK_IMAGE_USAGE_HOST_TRANSFER_BIT` in
-`usage` **must** be identical.
+`VK_IMAGE_CREATE_SPARSE_ALIASED_BIT`
+
+Then the result of calls to `vkGetPhysicalDeviceImageFormatProperties`
+with identical parameters except for the inclusion of
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` in `usage` **must** be identical.
 
 Valid Usage
 
@@ -179,13 +191,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_FORMAT_NOT_SUPPORTED`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_FORMAT_NOT_SUPPORTED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkImageFormatProperties` structure is defined as:
 
@@ -401,13 +419,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_FORMAT_NOT_SUPPORTED`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_FORMAT_NOT_SUPPORTED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkExternalImageFormatPropertiesNV` structure is defined as:
 
@@ -526,6 +550,32 @@ Furthermore, if [VkPhysicalDeviceImageFormatInfo2](#VkPhysicalDeviceImageFormatI
 any image usage flag not supported by the specified video profiles, then
 this command returns `VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`.
 
+If the [`hostImageCopy`](features.html#features-hostImageCopy) feature is supported,
+and:
+
+* 
+`pImageFormatInfo->usage` includes `VK_IMAGE_USAGE_SAMPLED_BIT`
+
+* 
+`pImageFormatInfo->flags` does not include either of
+`VK_IMAGE_CREATE_SPARSE_BINDING_BIT`,
+`VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT`, or
+`VK_IMAGE_CREATE_SPARSE_ALIASED_BIT`
+
+* 
+The `pNext` chain of `pImageFormatInfo` does not include a
+[VkPhysicalDeviceExternalImageFormatInfo](#VkPhysicalDeviceExternalImageFormatInfo) structure with non-zero
+`handleType`
+
+* 
+`pImageFormatInfo->tiling` is not
+`VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT`
+
+Then the result of calls to `vkGetPhysicalDeviceImageFormatProperties2`
+with identical parameters except for the inclusion of
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT` in `pImageFormatInfo->usage`
+**must** be identical.
+
 Valid Usage
 
 * 
@@ -573,28 +623,34 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
-
-* 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
-
-* 
 `VK_ERROR_FORMAT_NOT_SUPPORTED`
 
 * 
 `VK_ERROR_IMAGE_USAGE_NOT_SUPPORTED_KHR`
 
 * 
-`VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 * 
 `VK_ERROR_VIDEO_PICTURE_LAYOUT_NOT_SUPPORTED_KHR`
 
 * 
 `VK_ERROR_VIDEO_PROFILE_CODEC_NOT_SUPPORTED_KHR`
+
+* 
+`VK_ERROR_VIDEO_PROFILE_FORMAT_NOT_SUPPORTED_KHR`
+
+* 
+`VK_ERROR_VIDEO_PROFILE_OPERATION_NOT_SUPPORTED_KHR`
 
 The `VkPhysicalDeviceImageFormatInfo2` structure is defined as:
 
@@ -1174,10 +1230,14 @@ typedef VkExternalMemoryFeatureFlagBits VkExternalMemoryFeatureFlagBitsKHR;
 
 * 
 `VK_EXTERNAL_MEMORY_FEATURE_DEDICATED_ONLY_BIT` specifies that
-images or buffers created with the specified parameters and handle type
-**must** use the mechanisms defined by [VkMemoryDedicatedRequirements](resources.html#VkMemoryDedicatedRequirements)
-and [VkMemoryDedicatedAllocateInfo](memory.html#VkMemoryDedicatedAllocateInfo) to create (or import) a
-dedicated allocation for the image or buffer.
+tensors,
+    images or buffers created with the specified parameters and handle type
+    **must** use the mechanisms defined by [VkMemoryDedicatedRequirements](resources.html#VkMemoryDedicatedRequirements)
+    and [VkMemoryDedicatedAllocateInfo](memory.html#VkMemoryDedicatedAllocateInfo)
+or [VkMemoryDedicatedAllocateInfoTensorARM](memory.html#VkMemoryDedicatedAllocateInfoTensorARM)
+    to create (or import) a dedicated allocation for the
+tensor,
+    image or buffer.
 
 * 
 `VK_EXTERNAL_MEMORY_FEATURE_EXPORTABLE_BIT` specifies that handles
@@ -1221,8 +1281,9 @@ Implementations **must** not report
 external handle type
 `VK_EXTERNAL_MEMORY_HANDLE_TYPE_SCREEN_BUFFER_BIT_QNX`.
 Implementations **must** not report
-`VK_EXTERNAL_MEMORY_FEATURE_DEDICATED_ONLY_BIT` for images or buffers
-with external handle type
+`VK_EXTERNAL_MEMORY_FEATURE_DEDICATED_ONLY_BIT` for
+tensors,
+images or buffers with external handle type
 `VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_ALLOCATION_BIT_EXT`, or
 `VK_EXTERNAL_MEMORY_HANDLE_TYPE_HOST_MAPPED_FOREIGN_MEMORY_BIT_EXT`.
 
@@ -1962,6 +2023,143 @@ Valid Usage (Implicit)
 
  `pNext` **must** be `NULL`
 
+To query the external handle types supported by tensors, call:
+
+// Provided by VK_ARM_tensors
+void vkGetPhysicalDeviceExternalTensorPropertiesARM(
+    VkPhysicalDevice                            physicalDevice,
+    const VkPhysicalDeviceExternalTensorInfoARM* pExternalTensorInfo,
+    VkExternalTensorPropertiesARM*              pExternalTensorProperties);
+
+* 
+`physicalDevice` is the physical device from which to query the
+tensor capabilities.
+
+* 
+`pExternalTensorInfo` is a pointer to a
+[VkPhysicalDeviceExternalTensorInfoARM](#VkPhysicalDeviceExternalTensorInfoARM) structure describing the
+parameters that would be consumed by [vkCreateTensorARM](resources.html#vkCreateTensorARM).
+
+* 
+`pExternalTensorProperties` is a pointer to a
+[VkExternalTensorPropertiesARM](#VkExternalTensorPropertiesARM) structure in which the capabilities
+are returned.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkGetPhysicalDeviceExternalTensorPropertiesARM-physicalDevice-parameter) VUID-vkGetPhysicalDeviceExternalTensorPropertiesARM-physicalDevice-parameter
+
+ `physicalDevice` **must** be a valid [VkPhysicalDevice](devsandqueues.html#VkPhysicalDevice) handle
+
+* 
+[](#VUID-vkGetPhysicalDeviceExternalTensorPropertiesARM-pExternalTensorInfo-parameter) VUID-vkGetPhysicalDeviceExternalTensorPropertiesARM-pExternalTensorInfo-parameter
+
+ `pExternalTensorInfo` **must** be a valid pointer to a valid [VkPhysicalDeviceExternalTensorInfoARM](#VkPhysicalDeviceExternalTensorInfoARM) structure
+
+* 
+[](#VUID-vkGetPhysicalDeviceExternalTensorPropertiesARM-pExternalTensorProperties-parameter) VUID-vkGetPhysicalDeviceExternalTensorPropertiesARM-pExternalTensorProperties-parameter
+
+ `pExternalTensorProperties` **must** be a valid pointer to a [VkExternalTensorPropertiesARM](#VkExternalTensorPropertiesARM) structure
+
+The `VkPhysicalDeviceExternalTensorInfoARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkPhysicalDeviceExternalTensorInfoARM {
+    VkStructureType                       sType;
+    const void*                           pNext;
+    VkTensorCreateFlagsARM                flags;
+    const VkTensorDescriptionARM*         pDescription;
+    VkExternalMemoryHandleTypeFlagBits    handleType;
+} VkPhysicalDeviceExternalTensorInfoARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`flags` is a bitmask of [VkTensorCreateFlagBitsARM](resources.html#VkTensorCreateFlagBitsARM) describing
+additional parameters of the tensor, corresponding to
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`flags`.
+
+* 
+`pDescription` is a [VkTensorDescriptionARM](resources.html#VkTensorDescriptionARM) structure
+describing the tensor, corresponding to
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription`.
+
+* 
+`handleType` is a [VkExternalMemoryHandleTypeFlagBits](#VkExternalMemoryHandleTypeFlagBits) value
+specifying the external memory handle type for which capabilities will
+be returned.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceExternalTensorInfoARM-sType-sType) VUID-VkPhysicalDeviceExternalTensorInfoARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_EXTERNAL_TENSOR_INFO_ARM`
+
+* 
+[](#VUID-VkPhysicalDeviceExternalTensorInfoARM-pNext-pNext) VUID-VkPhysicalDeviceExternalTensorInfoARM-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkPhysicalDeviceExternalTensorInfoARM-flags-parameter) VUID-VkPhysicalDeviceExternalTensorInfoARM-flags-parameter
+
+ `flags` **must** be a valid combination of [VkTensorCreateFlagBitsARM](resources.html#VkTensorCreateFlagBitsARM) values
+
+* 
+[](#VUID-VkPhysicalDeviceExternalTensorInfoARM-pDescription-parameter) VUID-VkPhysicalDeviceExternalTensorInfoARM-pDescription-parameter
+
+ `pDescription` **must** be a valid pointer to a valid [VkTensorDescriptionARM](resources.html#VkTensorDescriptionARM) structure
+
+* 
+[](#VUID-VkPhysicalDeviceExternalTensorInfoARM-handleType-parameter) VUID-VkPhysicalDeviceExternalTensorInfoARM-handleType-parameter
+
+ `handleType` **must** be a valid [VkExternalMemoryHandleTypeFlagBits](#VkExternalMemoryHandleTypeFlagBits) value
+
+The `VkExternalTensorPropertiesARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkExternalTensorPropertiesARM {
+    VkStructureType               sType;
+    const void*                   pNext;
+    VkExternalMemoryProperties    externalMemoryProperties;
+} VkExternalTensorPropertiesARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`externalMemoryProperties` is a [VkExternalMemoryProperties](#VkExternalMemoryProperties)
+structure specifying various capabilities of the external handle type
+when used with the specified tensor creation parameters.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkExternalTensorPropertiesARM-sType-sType) VUID-VkExternalTensorPropertiesARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_EXTERNAL_TENSOR_PROPERTIES_ARM`
+
+* 
+[](#VUID-VkExternalTensorPropertiesARM-pNext-pNext) VUID-VkExternalTensorPropertiesARM-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkExternalTensorPropertiesARM-externalMemoryProperties-parameter) VUID-VkExternalTensorPropertiesARM-externalMemoryProperties-parameter
+
+ `externalMemoryProperties` **must** be a valid [VkExternalMemoryProperties](#VkExternalMemoryProperties) structure
+
 Semaphores **may** support import and export of their
 [payload](synchronization.html#synchronization-semaphores-payloads) to external handles.
 To query the external handle types supported by semaphores, call:
@@ -2630,15 +2828,21 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`

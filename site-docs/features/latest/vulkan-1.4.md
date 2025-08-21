@@ -294,6 +294,10 @@ The following additional limits are required in Vulkan 1.4:
 | `maxImageDimension3D` | 512 | min |
 | `pointSizeRange[1]` | 256 - `pointSizeGranularity` | min |
 | `maxPushConstantsSize` | 256 | min |
+| `maxViewportDimensions` | (7680,7680) | min |
+| `viewportBoundsRange` | (-15360,15359) | (max,min) |
+| `maxFramebufferWidth` | 7680 | min |
+| `maxFramebufferHeight` | 7680 | min |
 
 The following additional extensions are promoted in their entirety to Vulkan 1.4:
 

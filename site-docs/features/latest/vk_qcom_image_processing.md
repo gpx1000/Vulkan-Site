@@ -82,16 +82,16 @@ Table of Contents
 This document proposes a new extension that adds shader built-in functions and
 descriptor types for image processing.
 
-GPUs commonly process images for a wide range of use-cases.  These include enhancement
+GPUs commonly process images for a wide range of use cases.  These include enhancement
 of externally sourced images (i.e., camera image enhancement),  post processing of GPU-rendered
-game content, image scaling, and image analysis (i.e., motion vector generation).  For common use-cases,
+game content, image scaling, and image analysis (i.e., motion vector generation).  For common use cases,
 the existing texture built-ins combined with bilinear/bicubic filtering work well.  In other cases,
 higher-order filtering kernels or advanced image algorithms are required.
 
 While such algorithms could be implemented in shader code generically using existing texture
 built-in functions, it requires many round-trips between the texture unit and shader unit.
 The latest Adreno GPUs have dedicated HW shader instructions for such image processing tasks,
-enabling advanced functionality with simplified shader code.   For some use-cases, significant
+enabling advanced functionality with simplified shader code.   For some use cases, significant
 performance and power savings are possible using dedicated texture sampling instructions.
 
 Adreno GPUs have native support for multiple image processing instructions:
@@ -116,7 +116,7 @@ The extension exposes support for 3 new SPIR-V instructions:
 `OpImageWeightedSampleQCOM`: This instruction performs a weighted texture sampling
 operation involving two images: the *sampled image* and the *weight image*.  An MxN region of texels in the
 *sampled image* are convolved with an MxN set of scalar weights provided in the *weight image*.  Large filter
-sizes up to 64x64 taps enable important use-cases like edge-detection, feature extraction,
+sizes up to 64x64 taps enable important use cases like edge-detection, feature extraction,
 and anti-aliasing.
 
 `Sub-pixel Weighting`:  Frequently the texture coordinates will not align with a texel center in the *sampled image*, and in such cases the kernel weights can be adjusted to reflect the sub-texel sample location.  Sub-texel weighting is supported, where the texel is subdivided into PxP sub-texels, called "phases", with unique weights per-phase.  Adreno GPUs support up to 32x32 phases.
@@ -124,7 +124,7 @@ and anti-aliasing.
 * 
 `Separable-filters`: Many common 2D image filtering kernels can be expressed as a mathematically equivalent 1D separable kernel.  Separable filters offer significant performance/power savings over their non-separable equivalent.  This instruction supports both separable and non-separable filtering kernels.
 
-`OpImageBoxFilterQCOM`: This instruction performs weighted average of the texels within a screen-aligned box.  The operation is similar to bi-linear filtering, except the region of texels is not limited to 2x2. The instruction includes a `BoxSize` parameter, with fractional box sizes up to [64.0, 64.0].  Similar to bi-linear filtering, the implementation computes a weighted average for all texels covered by the box, with the weight for each texel proportional covered area. Large box sizes up to 64x64 enable important use-cases like bulk mipmap generation and high quality single-pass image down-scaling with arbitrary scaling ratios (e.g. thumbnail generation).
+`OpImageBoxFilterQCOM`: This instruction performs weighted average of the texels within a screen-aligned box.  The operation is similar to bi-linear filtering, except the region of texels is not limited to 2x2. The instruction includes a `BoxSize` parameter, with fractional box sizes up to [64.0, 64.0].  Similar to bi-linear filtering, the implementation computes a weighted average for all texels covered by the box, with the weight for each texel proportional covered area. Large box sizes up to 64x64 enable important use cases like bulk mipmap generation and high quality single-pass image down-scaling with arbitrary scaling ratios (e.g. thumbnail generation).
 
 `opImageBlockMatchSAD` and `opImageBlockMatchSSD`: These instructions perform a block matching operation involving two images: the *target image* and *reference image*.   The instruction takes two sets of integer texture coordinates, and an integer `BlockSize` parameter.  An MxN region of texels in the *target image* is compared with an MxN region in the *reference image*.  The instruction returns a per-component error metric describing the difference between the two regions.  The SAD returns the sum of the absolute errors and SSD returns the sum of the squared differences.
 

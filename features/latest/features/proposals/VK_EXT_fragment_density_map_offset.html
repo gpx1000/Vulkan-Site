@@ -140,6 +140,9 @@
     <span class="nav-text">Feature Descriptions</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format.html">VK_AMDX_dense_geometry_format</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_AMDX_shader_enqueue.html">VK_AMDX_shader_enqueue</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -156,6 +159,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_ARM_render_pass_striped.html">VK_ARM_render_pass_striped</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_ARM_tensors.html">VK_ARM_tensors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_EXT_attachment_feedback_loop_dynamic_state.html">VK_EXT_attachment_feedback_loop_dynamic_state</a>
@@ -260,6 +266,9 @@
     <a class="nav-link" href="VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_EXT_shader_float8.html">VK_EXT_shader_float8</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -326,10 +335,22 @@
     <a class="nav-link" href="VK_KHR_maintenance8.html">VK_KHR_maintenance8</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_maintenance9.html">Proposal Template</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_map_memory2.html">VK_KHR_map_memory2</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_pipeline_binary.html">VK_KHR_pipeline_binary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_present_id2.html">VK_KHR_present_id2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_present_mode_fifo_latest_ready.html">VK_KHR_present_mode_fifo_latest_ready</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_present_wait2.html">VK_KHR_present_wait2</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_ray_tracing_position_fetch.html">VK_KHR_ray_tracing_position_fetch</a>
@@ -359,6 +380,18 @@
     <a class="nav-link" href="VK_KHR_shader_subgroup_rotate.html">Subgroup rotation instruction</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_shader_untyped_pointers.html">VK_KHR_shader_untyped_pointers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_surface_maintenance1.html">VK_KHR_surface_maintenance1</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_swapchain_maintenance1.html">VK_KHR_swapchain_maintenance1</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_unified_image_layouts.html">VK_KHR_unified_image_layouts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_vertex_attribute_divisor.html">VK_KHR_vertex_attribute_divisor</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -374,6 +407,9 @@
     <a class="nav-link" href="VK_KHR_video_decode_queue.html">VK_KHR_video_decode_queue</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_video_decode_vp9.html">VK_KHR_video_decode_vp9</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_av1.html">VK_KHR_video_encode_av1</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -381,6 +417,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_h265.html">VK_KHR_video_encode_h265</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_video_encode_intra_refresh.html">VK_KHR_video_encode_intra_refresh</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_quantization_map.html">VK_KHR_video_encode_quantization_map</a>
@@ -578,7 +617,7 @@ written retroactively during promotion to EXT.
 <h2 id="_problem_statement"><a class="anchor" href="#_problem_statement"></a>1. Problem Statement</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Some use-cases for
+<p>Some use cases for
 <a href="https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_fragment_density_map">VK_EXT_fragment_density_map</a>, such
 as eye-tracking foveation, require the fragment density map to be updated
 often. This can cause a distracting flickering effect for the user as local
@@ -594,7 +633,7 @@ the high-density region without sudden jumps.</p>
 <div class="paragraph">
 <p>The location and sizes of the local framebuffer regions are purposefully made
 opaque in the original extension, so there is no way to directly control them.
-The typical use-case involves translating a given fixed fragment density map,
+The typical use case involves translating a given fixed fragment density map,
 with independent control needed for each layer of the framebuffer, so the
 simplest solution is to give the implementation a per-layer offset for sampling
 the fragment density map with the expectation that the implementation should
@@ -797,7 +836,30 @@ to record a render pass.</p>
 <script src="../../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
-<script async src="../../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

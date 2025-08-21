@@ -221,6 +221,7 @@ typedef enum VkClusterAccelerationStructureOpTypeNV {
     VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_NV = 2,
     VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV = 3,
     VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV = 4,
+    VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_GET_CLUSTER_TEMPLATE_INDICES_NV = 5,
     VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_MAX_ENUM_NV = 0x7FFFFFFF
 } VkClusterAccelerationStructureOpTypeNV;
 
@@ -238,6 +239,9 @@ typedef enum VkClusterAccelerationStructureOpTypeNV {
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV` means a cluster template acceleration structures will be instantiated.
+
+* 
+`VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_GET_CLUSTER_TEMPLATE_INDICES_NV` means a cluster template acceleration structures vertex index data will be fetched.
 
 `VkClusterAccelerationStructureOpModeNV` can be one of:
 
@@ -361,6 +365,7 @@ to the implementation and is described in more detail below.
 if an operation’s addresses are retrieved from the device through another level of indirection when reading corresponding
 address in `VkClusterAccelerationStructureCommandsInfoNV`. It can be one of:
 
+- VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_NONE_NV
 - VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_DST_IMPLICIT_DATA_BIT_NV
 - VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_SCRATCH_DATA_BIT_NV
 - VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_DST_ADDRESS_ARRAY_BIT_NV
@@ -384,6 +389,9 @@ Depending on `VkClusterAccelerationStructureInputInfoNV::opType`, `srcInfosArray
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV` : `VkClusterAccelerationStructureInstantiateClusterInfoNV`
+
+* 
+`VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_GET_CLUSTER_TEMPLATE_INDICES_NV` : `VkClusterAccelerationStructureGetTemplateIndicesInfoNV`
 
 If performing a move operation, the source acceleration structure is specified in `srcInfosArray` with:
 
@@ -460,6 +468,12 @@ typedef struct VkClusterAccelerationStructureInstantiateClusterInfoNV {
     VkDeviceAddress                       clusterTemplateAddress;
     VkStridedDeviceAddressNV              vertexBuffer;
 } VkClusterAccelerationStructureInstantiateClusterInfoNV;
+
+If fetching the vertex index data of a cluster template acceleration structure, its address is specified in:
+
+typedef struct VkClusterAccelerationStructureGetTemplateIndicesInfoNV {
+    VkDeviceAddress                       clusterTemplateAddress;
+} VkClusterAccelerationStructureGetTemplateIndicesInfoNV;
 
 1) Why use a separate `VkRayTracingPipelineClusterAccelerationStructureCreateInfoNV` structure
 to enable the feature instead of a pipeline bit?

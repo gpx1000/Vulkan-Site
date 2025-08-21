@@ -199,10 +199,9 @@ Differences Relative to `VK_EXT_pipeline_protected_access`
 
 [VK_EXT_pipeline_protected_access](extensions.html#VK_EXT_pipeline_protected_access) is only useful when the
 [`protectedMemory`](../chapters/features.html#features-protectedMemory) feature is supported.
-As [`protectedMemory`](../chapters/features.html#features-protectedMemory) is optional in core
-Vulkan, [`pipelineProtectedAccess`](../chapters/features.html#features-pipelineProtectedAccess)
-is only required when [`protectedMemory`](../chapters/features.html#features-protectedMemory) is
-supported.
+As the [`protectedMemory`](../chapters/features.html#features-protectedMemory) feature is
+optional in core Vulkan, the [`pipelineProtectedAccess`](../chapters/features.html#features-pipelineProtectedAccess) feature is only required when the
+[`protectedMemory`](../chapters/features.html#features-protectedMemory) feature is supported.
 
 Differences Relative to `VK_KHR_line_rasterization`
 
@@ -314,6 +313,109 @@ The following features that were optional in earlier versions:
 
 * 
 [`storageBuffer8BitAccess`](../chapters/features.html#features-storageBuffer8BitAccess)
+
+Updated Vulkan 1.4 Limit Support
+
+Vulkan 1.4 also requires support for the following updated limits:
+
+* 
+[`maxImageDimension1D`](../chapters/limits.html#limits-maxImageDimension1D) is increased from 4096 to 8192
+
+* 
+[`maxImageDimension2D`](../chapters/limits.html#limits-maxImageDimension2D) is increased from 4096 to 8192
+
+* 
+[`maxImageDimension3D`](../chapters/limits.html#limits-maxImageDimension3D) is increased from 256 to 512
+
+* 
+[`maxImageDimensionCube`](../chapters/limits.html#limits-maxImageDimensionCube) is increased from 4096 to 8192
+
+* 
+[`maxImageArrayLayers`](../chapters/limits.html#limits-maxImageArrayLayers) is increased from 256 to 2048
+
+* 
+[`maxUniformBufferRange`](../chapters/limits.html#limits-maxUniformBufferRange) is increased from 16384 to 65536
+
+* 
+[`maxPushConstantsSize`](../chapters/limits.html#limits-maxPushConstantsSize) is increased from 128 to 256
+
+* 
+[`bufferImageGranularity`](../chapters/limits.html#limits-bufferImageGranularity) is decreased from 131072 to 4096
+
+* 
+[`maxBoundDescriptorSets`](../chapters/limits.html#limits-maxBoundDescriptorSets) is increased from 4 to 7
+
+* 
+[`maxPerStageDescriptorUniformBuffers`](../chapters/limits.html#limits-maxPerStageDescriptorUniformBuffers) is increased from 12 to 15
+
+* 
+[`maxPerStageResources`](../chapters/limits.html#limits-maxPerStageResources) is increased from 128 to 200
+
+* 
+[`maxDescriptorSetUniformBuffers`](../chapters/limits.html#limits-maxDescriptorSetUniformBuffers) is increased from 72 to 90
+
+* 
+[`maxDescriptorSetStorageBuffers`](../chapters/limits.html#limits-maxDescriptorSetStorageBuffers) is increased from 24 to 96
+
+* 
+[`maxDescriptorSetStorageImages`](../chapters/limits.html#limits-maxDescriptorSetStorageImages) is increased from 24 to 144
+
+* 
+[`maxFragmentCombinedOutputResources`](../chapters/limits.html#limits-maxFragmentCombinedOutputResources) is increased from 4 to 16
+
+* 
+[`maxComputeWorkGroupInvocations`](../chapters/limits.html#limits-maxComputeWorkGroupInvocations) is increased from 128 to 256
+
+* 
+[`maxComputeWorkGroupSize`](../chapters/limits.html#limits-maxComputeWorkGroupSize) is increased from (128,128,64) to (256,256,64)
+
+* 
+[`shaderSignedZeroInfNanPreserveFloat16`](../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat16) is changed from unspecified to `VK_TRUE`
+
+* 
+[`shaderSignedZeroInfNanPreserveFloat32`](../chapters/devsandqueues.html#limits-shaderSignedZeroInfNanPreserveFloat32) is changed from unspecified to `VK_TRUE`
+
+* 
+[`subTexelPrecisionBits`](../chapters/limits.html#limits-subTexelPrecisionBits) is increased from 4 to 8
+
+* 
+[`mipmapPrecisionBits`](../chapters/limits.html#limits-mipmapPrecisionBits) is increased from 4 to 6
+
+* 
+[`maxSamplerLodBias`](../chapters/limits.html#limits-maxSamplerLodBias) is increased from 2 to 14
+
+* 
+[`maxViewportDimensions`](../chapters/limits.html#limits-maxViewportDimensions) is increased from (4096,4096) to (7680,7680)
+
+* 
+[`viewportBoundsRange`](../chapters/limits.html#limits-viewportboundsrange) is increased from (-8192,8191) to (-15360,15359)
+
+* 
+[`maxFramebufferWidth`](../chapters/limits.html#limits-maxFramebufferWidth) is increased from 4096 to 7680
+
+* 
+[`maxFramebufferHeight`](../chapters/limits.html#limits-maxFramebufferHeight) is increased from 4096 to 7680
+
+* 
+[`maxColorAttachments`](../chapters/limits.html#limits-maxColorAttachments) is increased from 7 to 8
+
+* 
+[`timestampComputeAndGraphics`](../chapters/limits.html#limits-timestampComputeAndGraphics) is changed from unspecified to `VK_TRUE`
+
+* 
+[`pointSizeRange`](../chapters/limits.html#limits-pointSizeRange) is increased from (1.0,64.0 - ULP) to (1.0,256.0 - `pointSizeGranularity`)
+
+* 
+[`pointSizeGranularity`](../chapters/limits.html#limits-pointSizeGranularity) is decreased from 1.0 to 0.125
+
+* 
+[`lineWidthGranularity`](../chapters/limits.html#limits-lineWidthGranularity) is decreased from 1.0 to 0.5
+
+* 
+[`maxPushDescriptors`](../chapters/devsandqueues.html#limits-maxPushDescriptors) is increased from 16 to 32
+
+* 
+[`standardSampleLocations`](../chapters/limits.html#limits-standardSampleLocations) is changed from unspecified to `VK_TRUE`
 
 * 
 [VK_API_VERSION_1_4](../chapters/extensions.html#VK_API_VERSION_1_4)
@@ -981,7 +1083,7 @@ decoration.
 
 The [`bufferDeviceAddress`](../chapters/features.html#features-bufferDeviceAddress) feature
 which indicates support for accessing memory in shaders as storage
-buffers via [vkGetBufferDeviceAddress](../chapters/descriptorsets.html#vkGetBufferDeviceAddress).
+buffers via [vkGetBufferDeviceAddress](../chapters/resources.html#vkGetBufferDeviceAddress).
 
 The [`vulkanMemoryModel`](../chapters/features.html#features-vulkanMemoryModel) and
 [    `vulkanMemoryModelDeviceScope`](../chapters/features.html#features-vulkanMemoryModelDeviceScope) features, which indicate support
@@ -1207,7 +1309,7 @@ Extending [VkGraphicsPipelineCreateInfo](../chapters/pipelines.html#VkGraphicsPi
 * 
 [VkPipelineRenderingCreateInfo](../chapters/pipelines.html#VkPipelineRenderingCreateInfo)
 
-Extending [VkGraphicsPipelineCreateInfo](../chapters/pipelines.html#VkGraphicsPipelineCreateInfo), [VkComputePipelineCreateInfo](../chapters/pipelines.html#VkComputePipelineCreateInfo), [VkRayTracingPipelineCreateInfoNV](../chapters/pipelines.html#VkRayTracingPipelineCreateInfoNV), [VkRayTracingPipelineCreateInfoKHR](../chapters/pipelines.html#VkRayTracingPipelineCreateInfoKHR), [VkExecutionGraphPipelineCreateInfoAMDX](../chapters/executiongraphs.html#VkExecutionGraphPipelineCreateInfoAMDX):
+Extending [VkGraphicsPipelineCreateInfo](../chapters/pipelines.html#VkGraphicsPipelineCreateInfo), [VkComputePipelineCreateInfo](../chapters/pipelines.html#VkComputePipelineCreateInfo), [VkRayTracingPipelineCreateInfoNV](../chapters/pipelines.html#VkRayTracingPipelineCreateInfoNV), [VkRayTracingPipelineCreateInfoKHR](../chapters/pipelines.html#VkRayTracingPipelineCreateInfoKHR), [VkExecutionGraphPipelineCreateInfoAMDX](../chapters/executiongraphs.html#VkExecutionGraphPipelineCreateInfoAMDX), [VkDataGraphPipelineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCreateInfoARM):
 
 * 
 [VkPipelineCreationFeedbackCreateInfo](../chapters/pipelines.html#VkPipelineCreationFeedbackCreateInfo)
@@ -1296,6 +1398,9 @@ Extending [VkWriteDescriptorSet](../chapters/descriptorsets.html#VkWriteDescript
 
 * 
 [VkFormatFeatureFlagBits2](../chapters/formats.html#VkFormatFeatureFlagBits2)
+
+* 
+[VkPipelineCacheCreateFlagBits](../chapters/pipelines.html#VkPipelineCacheCreateFlagBits)
 
 * 
 [VkPipelineCreationFeedbackFlagBits](../chapters/pipelines.html#VkPipelineCreationFeedbackFlagBits)
@@ -1952,10 +2057,10 @@ attachments with integer formats.
 [vkCreateRenderPass2](../chapters/renderpass.html#vkCreateRenderPass2)
 
 * 
-[vkGetBufferDeviceAddress](../chapters/descriptorsets.html#vkGetBufferDeviceAddress)
+[vkGetBufferDeviceAddress](../chapters/resources.html#vkGetBufferDeviceAddress)
 
 * 
-[vkGetBufferOpaqueCaptureAddress](../chapters/descriptorsets.html#vkGetBufferOpaqueCaptureAddress)
+[vkGetBufferOpaqueCaptureAddress](../chapters/resources.html#vkGetBufferOpaqueCaptureAddress)
 
 * 
 [vkGetDeviceMemoryOpaqueCaptureAddress](../chapters/memory.html#vkGetDeviceMemoryOpaqueCaptureAddress)
@@ -1979,7 +2084,7 @@ attachments with integer formats.
 [VkAttachmentReference2](../chapters/renderpass.html#VkAttachmentReference2)
 
 * 
-[VkBufferDeviceAddressInfo](../chapters/descriptorsets.html#VkBufferDeviceAddressInfo)
+[VkBufferDeviceAddressInfo](../chapters/resources.html#VkBufferDeviceAddressInfo)
 
 * 
 [VkConformanceVersion](../chapters/devsandqueues.html#VkConformanceVersion)
@@ -4349,7 +4454,7 @@ Extending [VkBindDescriptorSetsInfo](../chapters/descriptorsets.html#VkBindDescr
 
 [VkPipelineLayoutCreateInfo](../chapters/descriptorsets.html#VkPipelineLayoutCreateInfo)
 
-Extending [VkPipelineShaderStageCreateInfo](../chapters/pipelines.html#VkPipelineShaderStageCreateInfo):
+Extending [VkPipelineShaderStageCreateInfo](../chapters/pipelines.html#VkPipelineShaderStageCreateInfo), [VkDataGraphPipelineShaderModuleCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineShaderModuleCreateInfoARM):
 
 * 
 [VkShaderModuleCreateInfo](../chapters/shaders.html#VkShaderModuleCreateInfo)
@@ -4545,6 +4650,9 @@ Extending [VkPipelineShaderStageCreateInfo](../chapters/pipelines.html#VkPipelin
 
 * 
 [VkQueryPipelineStatisticFlagBits](../chapters/queries.html#VkQueryPipelineStatisticFlagBits)
+
+* 
+[VkQueryPoolCreateFlagBits](../chapters/queries.html#VkQueryPoolCreateFlagBits)
 
 * 
 [VkQueryResultFlagBits](../chapters/queries.html#VkQueryResultFlagBits)
@@ -4830,3 +4938,8 @@ Extending [VkPipelineShaderStageCreateInfo](../chapters/pipelines.html#VkPipelin
 
 * 
 `VK_WHOLE_SIZE`
+
+* 
+Extending [VkResult](../chapters/fundamentals.html#VkResult):
+
+`VK_ERROR_VALIDATION_FAILED`

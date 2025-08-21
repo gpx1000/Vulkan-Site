@@ -177,6 +177,9 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -515,6 +527,10 @@ resulting query pool object is returned.</p>
 <p><a id="VUID-vkCreateQueryPool-pQueryPool-parameter" href="#VUID-vkCreateQueryPool-pQueryPool-parameter"></a> <span class="vuid">VUID-vkCreateQueryPool-pQueryPool-parameter</span><br>
  <code>pQueryPool</code> <strong>must</strong> be a valid pointer to a <a href="#VkQueryPool">VkQueryPool</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateQueryPool-device-queuecount" href="#VUID-vkCreateQueryPool-device-queuecount"></a> <span class="vuid">VUID-vkCreateQueryPool-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -539,10 +555,16 @@ resulting query pool object is returned.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -581,7 +603,7 @@ typedef struct VkQueryPoolCreateInfo {
 structure.</p>
 </li>
 <li>
-<p><code>flags</code> is reserved for future use.</p>
+<p><code>flags</code> is a bitmask of <a href="#VkQueryPoolCreateFlagBits">VkQueryPoolCreateFlagBits</a></p>
 </li>
 <li>
 <p><code>queryType</code> is a <a href="#VkQueryType">VkQueryType</a> value specifying the type of
@@ -656,6 +678,15 @@ If <code>queryType</code> is <code>VK_QUERY_TYPE_PERFORMANCE_QUERY_KHR</code>, t
 <code>queryCount</code> <strong>must</strong> be greater than 0</p>
 </li>
 <li>
+<p><a id="VUID-VkQueryPoolCreateInfo-pNext-10779" href="#VUID-VkQueryPoolCreateInfo-pNext-10779"></a> <span class="vuid">VUID-VkQueryPoolCreateInfo-pNext-10779</span><br>
+
+If the <code>pNext</code> chain includes a <a href="videocoding.html#VkVideoProfileInfoKHR" class="xref page">VkVideoProfileInfoKHR</a>
+structure and its <code>videoCodecOperation</code> member is
+<code>VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR</code>, then the
+<a href="features.html#features-videoDecodeVP9" class="xref page"><code>videoDecodeVP9</code></a> feature <strong>must</strong> be
+enabled</p>
+</li>
+<li>
 <p><a id="VUID-VkQueryPoolCreateInfo-queryType-07133" href="#VUID-VkQueryPoolCreateInfo-queryType-07133"></a> <span class="vuid">VUID-VkQueryPoolCreateInfo-queryType-07133</span><br>
 
 If <code>queryType</code> is <code>VK_QUERY_TYPE_VIDEO_ENCODE_FEEDBACK_KHR</code>,
@@ -706,15 +737,15 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-VkQueryPoolCreateInfo-pNext-pNext" href="#VUID-VkQueryPoolCreateInfo-pNext-pNext"></a> <span class="vuid">VUID-VkQueryPoolCreateInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkQueryPoolPerformanceCreateInfoKHR">VkQueryPoolPerformanceCreateInfoKHR</a>, <a href="#VkQueryPoolPerformanceQueryCreateInfoINTEL">VkQueryPoolPerformanceQueryCreateInfoINTEL</a>, <a href="#VkQueryPoolVideoEncodeFeedbackCreateInfoKHR">VkQueryPoolVideoEncodeFeedbackCreateInfoKHR</a>, <a href="videocoding.html#VkVideoDecodeAV1ProfileInfoKHR" class="xref page">VkVideoDecodeAV1ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoDecodeH264ProfileInfoKHR" class="xref page">VkVideoDecodeH264ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoDecodeH265ProfileInfoKHR" class="xref page">VkVideoDecodeH265ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoDecodeUsageInfoKHR" class="xref page">VkVideoDecodeUsageInfoKHR</a>, <a href="videocoding.html#VkVideoEncodeAV1ProfileInfoKHR" class="xref page">VkVideoEncodeAV1ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoEncodeH264ProfileInfoKHR" class="xref page">VkVideoEncodeH264ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoEncodeH265ProfileInfoKHR" class="xref page">VkVideoEncodeH265ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoEncodeUsageInfoKHR" class="xref page">VkVideoEncodeUsageInfoKHR</a>, or <a href="videocoding.html#VkVideoProfileInfoKHR" class="xref page">VkVideoProfileInfoKHR</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkQueryPoolPerformanceCreateInfoKHR">VkQueryPoolPerformanceCreateInfoKHR</a>, <a href="#VkQueryPoolPerformanceQueryCreateInfoINTEL">VkQueryPoolPerformanceQueryCreateInfoINTEL</a>, <a href="#VkQueryPoolVideoEncodeFeedbackCreateInfoKHR">VkQueryPoolVideoEncodeFeedbackCreateInfoKHR</a>, <a href="videocoding.html#VkVideoDecodeAV1ProfileInfoKHR" class="xref page">VkVideoDecodeAV1ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoDecodeH264ProfileInfoKHR" class="xref page">VkVideoDecodeH264ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoDecodeH265ProfileInfoKHR" class="xref page">VkVideoDecodeH265ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoDecodeUsageInfoKHR" class="xref page">VkVideoDecodeUsageInfoKHR</a>, <a href="videocoding.html#VkVideoDecodeVP9ProfileInfoKHR" class="xref page">VkVideoDecodeVP9ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoEncodeAV1ProfileInfoKHR" class="xref page">VkVideoEncodeAV1ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoEncodeH264ProfileInfoKHR" class="xref page">VkVideoEncodeH264ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoEncodeH265ProfileInfoKHR" class="xref page">VkVideoEncodeH265ProfileInfoKHR</a>, <a href="videocoding.html#VkVideoEncodeUsageInfoKHR" class="xref page">VkVideoEncodeUsageInfoKHR</a>, or <a href="videocoding.html#VkVideoProfileInfoKHR" class="xref page">VkVideoProfileInfoKHR</a></p>
 </li>
 <li>
 <p><a id="VUID-VkQueryPoolCreateInfo-sType-unique" href="#VUID-VkQueryPoolCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkQueryPoolCreateInfo-sType-unique</span><br>
  The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
-<p><a id="VUID-VkQueryPoolCreateInfo-flags-zerobitmask" href="#VUID-VkQueryPoolCreateInfo-flags-zerobitmask"></a> <span class="vuid">VUID-VkQueryPoolCreateInfo-flags-zerobitmask</span><br>
- <code>flags</code> <strong>must</strong> be <code>0</code></p>
+<p><a id="VUID-VkQueryPoolCreateInfo-flags-parameter" href="#VUID-VkQueryPoolCreateInfo-flags-parameter"></a> <span class="vuid">VUID-VkQueryPoolCreateInfo-flags-parameter</span><br>
+ <code>flags</code> <strong>must</strong> be a valid combination of <a href="#VkQueryPoolCreateFlagBits">VkQueryPoolCreateFlagBits</a> values</p>
 </li>
 <li>
 <p><a id="VUID-VkQueryPoolCreateInfo-queryType-parameter" href="#VUID-VkQueryPoolCreateInfo-queryType-parameter"></a> <span class="vuid">VUID-VkQueryPoolCreateInfo-queryType-parameter</span><br>
@@ -728,6 +759,32 @@ enabled</p>
 </div>
 <div class="openblock">
 <div class="content">
+<div class="paragraph">
+<p>Bits which <strong>can</strong> be set in <a href="#VkQueryPoolCreateInfo">VkQueryPoolCreateInfo</a>::<code>flags</code>,
+specifying options for query pools, are:</p>
+</div>
+<div id="VkQueryPoolCreateFlagBits" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_0
+typedef enum VkQueryPoolCreateFlagBits {
+  // Provided by VK_KHR_maintenance9
+    VK_QUERY_POOL_CREATE_RESET_BIT_KHR = 0x00000001,
+} VkQueryPoolCreateFlagBits;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_QUERY_POOL_CREATE_RESET_BIT_KHR</code> specifies that queries in the
+query pool are initialized on creation and do not need to be reset
+before first use.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
 <div id="VkQueryPoolCreateFlags" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_0
@@ -735,8 +792,8 @@ typedef VkFlags VkQueryPoolCreateFlags;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><code>VkQueryPoolCreateFlags</code> is a bitmask type for setting a mask, but is
-currently reserved for future use.</p>
+<p><code>VkQueryPoolCreateFlags</code> is a bitmask type for setting a mask of zero or
+more <a href="#VkQueryPoolCreateFlagBits">VkQueryPoolCreateFlagBits</a>.</p>
 </div>
 </div>
 </div>
@@ -1128,6 +1185,9 @@ for use with <a href="accelstructures.html#vkCmdWriteAccelerationStructuresPrope
 <a href="#vkCmdBeginQuery">vkCmdBeginQuery</a>, <a href="#vkCmdEndQuery">vkCmdEndQuery</a>,
 <a href="#vkCmdBeginQueryIndexedEXT">vkCmdBeginQueryIndexedEXT</a>, <a href="#vkCmdEndQueryIndexedEXT">vkCmdEndQueryIndexedEXT</a>,
 <a href="#vkCmdResetQueryPool">vkCmdResetQueryPool</a>, <a href="#vkCmdCopyQueryPoolResults">vkCmdCopyQueryPoolResults</a>,
+<a href="accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesKHR" class="xref page">vkCmdWriteAccelerationStructuresPropertiesKHR</a>,
+<a href="accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesNV" class="xref page">vkCmdWriteAccelerationStructuresPropertiesNV</a>,
+<a href="VK_EXT_opacity_micromap/micromaps.html#vkCmdWriteMicromapsPropertiesEXT" class="xref page">vkCmdWriteMicromapsPropertiesEXT</a>,
 <a href="#vkCmdWriteTimestamp2">vkCmdWriteTimestamp2</a>,
 and <a href="#vkCmdWriteTimestamp">vkCmdWriteTimestamp</a>.</p>
 </div>
@@ -1146,6 +1206,9 @@ or <a href="#vkResetQueryPool">vkResetQueryPool</a>
 sets the status to unavailable and makes the numerical results <strong>undefined</strong>.
 A query is made available by the operation of <a href="#vkCmdEndQuery">vkCmdEndQuery</a>,
 <a href="#vkCmdEndQueryIndexedEXT">vkCmdEndQueryIndexedEXT</a>,
+<a href="accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesKHR" class="xref page">vkCmdWriteAccelerationStructuresPropertiesKHR</a>,
+<a href="accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesNV" class="xref page">vkCmdWriteAccelerationStructuresPropertiesNV</a>,
+<a href="VK_EXT_opacity_micromap/micromaps.html#vkCmdWriteMicromapsPropertiesEXT" class="xref page">vkCmdWriteMicromapsPropertiesEXT</a>,
 <a href="#vkCmdWriteTimestamp2">vkCmdWriteTimestamp2</a>,
 or <a href="#vkCmdWriteTimestamp">vkCmdWriteTimestamp</a>.
 Both the availability status and numerical results <strong>can</strong> be retrieved by
@@ -1153,8 +1216,11 @@ calling either <a href="#vkGetQueryPoolResults">vkGetQueryPoolResults</a> or
 <a href="#vkCmdCopyQueryPoolResults">vkCmdCopyQueryPoolResults</a>.</p>
 </div>
 <div class="paragraph">
-<p>After query pool creation, each query is in an uninitialized state and <strong>must</strong>
-be reset before it is used.
+<p>After query pool creation,
+where <code>VK_QUERY_POOL_CREATE_RESET_BIT_KHR</code> was not set in
+<a href="#VkQueryPoolCreateInfo">VkQueryPoolCreateInfo</a>::<code>flags</code>
+each query is in an uninitialized state and <strong>must</strong> be reset before it is
+used.
 Queries <strong>must</strong> also be reset between uses.</p>
 </div>
 <div class="paragraph">
@@ -1375,6 +1441,14 @@ Opticalflow</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdResetQueryPool is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -2002,6 +2076,14 @@ State</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdBeginQuery is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -2451,6 +2533,14 @@ State</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdBeginQueryIndexedEXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -2695,6 +2785,14 @@ State</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdEndQuery is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -2914,6 +3012,14 @@ State</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdEndQueryIndexedEXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -3157,6 +3263,9 @@ queries.
 The first <a href="synchronization.html#synchronization-dependencies-scopes" class="xref page">synchronization scope</a>
 includes all instances of <a href="#vkCmdEndQuery">vkCmdEndQuery</a>,
 <a href="#vkCmdEndQueryIndexedEXT">vkCmdEndQueryIndexedEXT</a>,
+<a href="accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesKHR" class="xref page">vkCmdWriteAccelerationStructuresPropertiesKHR</a>,
+<a href="accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesNV" class="xref page">vkCmdWriteAccelerationStructuresPropertiesNV</a>,
+<a href="VK_EXT_opacity_micromap/micromaps.html#vkCmdWriteMicromapsPropertiesEXT" class="xref page">vkCmdWriteMicromapsPropertiesEXT</a>,
 <a href="#vkCmdWriteTimestamp2">vkCmdWriteTimestamp2</a>,
 and <a href="#vkCmdWriteTimestamp">vkCmdWriteTimestamp</a> that reference any query in <code>queryPool</code>
 indicated by <code>firstQuery</code> and <code>queryCount</code>.
@@ -3388,10 +3497,10 @@ query, as described <a href="#queries-operation-memorylayout">here</a></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_NOT_READY</code></p>
 </li>
 <li>
-<p><code>VK_NOT_READY</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -3401,13 +3510,19 @@ query, as described <a href="#queries-operation-memorylayout">here</a></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_DEVICE_LOST</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_DEVICE_LOST</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -3658,10 +3773,13 @@ includes all commands which reference the queries in <code>queryPool</code>
 indicated by <code>query</code> that occur earlier in
 <a href="synchronization.html#synchronization-submission-order" class="xref page">submission order</a>.
 If <code>flags</code> does not include <code>VK_QUERY_RESULT_WAIT_BIT</code>,
+<a href="#vkCmdEndQuery">vkCmdEndQuery</a>,
 <a href="#vkCmdEndQueryIndexedEXT">vkCmdEndQueryIndexedEXT</a>,
+<a href="accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesKHR" class="xref page">vkCmdWriteAccelerationStructuresPropertiesKHR</a>,
+<a href="accelstructures.html#vkCmdWriteAccelerationStructuresPropertiesNV" class="xref page">vkCmdWriteAccelerationStructuresPropertiesNV</a>,
+<a href="VK_EXT_opacity_micromap/micromaps.html#vkCmdWriteMicromapsPropertiesEXT" class="xref page">vkCmdWriteMicromapsPropertiesEXT</a>,
 <a href="#vkCmdWriteTimestamp2">vkCmdWriteTimestamp2</a>,
-<a href="#vkCmdEndQuery">vkCmdEndQuery</a>, and <a href="#vkCmdWriteTimestamp">vkCmdWriteTimestamp</a> are excluded from this
-scope.</p>
+and <a href="#vkCmdWriteTimestamp">vkCmdWriteTimestamp</a> are excluded from this scope.</p>
 </div>
 <div class="paragraph">
 <p>The second <a href="synchronization.html#synchronization-dependencies-scopes" class="xref page">synchronization scope</a>
@@ -3910,6 +4028,14 @@ Compute</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdCopyQueryPoolResults is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -4369,8 +4495,9 @@ If an overflow occurs, the timestamp value <strong>must</strong> wrap back to ze
 <p>If <code>vkCmdWriteTimestamp2</code> is called while executing a render pass
 instance that has multiview enabled, the timestamp uses <span class="eq">N</span> consecutive
 query indices in the query pool (starting at <code>query</code>) where <span class="eq">N</span> is
-the number of bits set in the view mask of the subpass or dynamic render
-pass the command is executed in.
+the number of bits set in the view mask of the subpass
+or dynamic render pass
+the command is executed in.
 The resulting query values are determined by an implementation-dependent
 choice of one of the following behaviors:</p>
 </div>
@@ -4386,11 +4513,12 @@ the view mask) zero is written to the remaining queries.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Either way, if two timestamps are written in the same subpass or dynamic
-render pass with multiview enabled, each of the <span class="eq">N</span> consecutive queries
-written for a timestamp <strong>must</strong> not have a lower value than the queries with
-corresponding indices written by the timestamp that happens-before unless
-the value overflows the maximum supported integer bit width of the query.</p>
+<p>Either way, if two timestamps are written in the same subpass
+or dynamic render pass
+with multiview enabled, each of the <span class="eq">N</span> consecutive queries written for
+a timestamp <strong>must</strong> not have a lower value than the queries with corresponding
+indices written by the timestamp that happens-before unless the value
+overflows the maximum supported integer bit width of the query.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -4642,6 +4770,14 @@ Encode</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdWriteTimestamp2 is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -4731,8 +4867,9 @@ If an overflow occurs, the timestamp value <strong>must</strong> wrap back to ze
 <p>If <code>vkCmdWriteTimestamp</code> is called while executing a render pass
 instance that has multiview enabled, the timestamp uses <span class="eq">N</span> consecutive
 query indices in the query pool (starting at <code>query</code>) where <span class="eq">N</span> is
-the number of bits set in the view mask of the subpass or dynamic render
-pass the command is executed in.
+the number of bits set in the view mask of the subpass
+or dynamic render pass
+the command is executed in.
 The resulting query values are determined by an implementation-dependent
 choice of one of the following behaviors:</p>
 </div>
@@ -4748,11 +4885,12 @@ the view mask) zero is written to the remaining queries.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Either way, if two timestamps are written in the same subpass or dynamic
-render pass with multiview enabled, each of the <span class="eq">N</span> consecutive queries
-written for a timestamp <strong>must</strong> not have a lower value than the queries with
-corresponding indices written by the timestamp that happens-before unless
-the value overflows the maximum supported integer bit width of the query.</p>
+<p>Either way, if two timestamps are written in the same subpass
+or dynamic render pass
+with multiview enabled, each of the <span class="eq">N</span> consecutive queries written for
+a timestamp <strong>must</strong> not have a lower value than the queries with corresponding
+indices written by the timestamp that happens-before unless the value
+overflows the maximum supported integer bit width of the query.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -4967,6 +5105,14 @@ Opticalflow</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdWriteTimestamp is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -5167,6 +5313,12 @@ concurrently.</p>
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 <li>
 <p><code>VK_TIMEOUT</code></p>
@@ -5493,10 +5645,16 @@ initialization parameters.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5659,10 +5817,16 @@ in which the type and value of the parameter are returned.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6010,6 +6174,14 @@ State</p></td>
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdSetPerformanceMarkerINTEL is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
 <div class="title">Return Codes</div>
 <div class="dlist">
 <dl>
@@ -6028,10 +6200,16 @@ State</p></td>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6203,6 +6381,14 @@ State</p></td>
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdSetPerformanceStreamMarkerINTEL is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
 <div class="title">Return Codes</div>
 <div class="dlist">
 <dl>
@@ -6221,10 +6407,16 @@ State</p></td>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6425,6 +6617,14 @@ Transfer</p></td>
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdSetPerformanceOverrideINTEL is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
 <div class="title">Return Codes</div>
 <div class="dlist">
 <dl>
@@ -6443,10 +6643,16 @@ Transfer</p></td>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6638,10 +6844,16 @@ configuration object is returned.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6769,6 +6981,18 @@ VkResult vkQueueSetPerformanceConfigurationINTEL(
 </div>
 <div class="sidebarblock">
 <div class="content">
+<div class="title">Host Synchronization</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Host access to <code>queue</code> <strong>must</strong> be externally synchronized</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
 <div class="title">Command Properties</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -6819,10 +7043,16 @@ VkResult vkQueueSetPerformanceConfigurationINTEL(
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6926,10 +7156,16 @@ submitted while the configuration was set are in
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -7167,7 +7403,30 @@ zero or more <a href="#VkVideoEncodeFeedbackFlagBitsKHR">VkVideoEncodeFeedbackFl
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

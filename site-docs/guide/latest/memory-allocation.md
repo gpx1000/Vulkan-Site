@@ -25,7 +25,7 @@ Sub-allocation is considered to be a first-class approach when working in Vulkan
 
 ![memory_allocation_sub_allocation.png](_images/memory_allocation_sub_allocation.png)
 
-The [VkPhysicalDeviceType](https://docs.vulkan.org/spec/latest/chapters/devsandqueues.html#VkPhysicalDeviceType) advertises two main different types of GPUs, discrete and integrated (also referred to as UMA (unified memory architecture). It is important for performance to understand the difference between the two.
+The [VkPhysicalDeviceType](https://docs.vulkan.org/spec/latest/chapters/devsandqueues.html#VkPhysicalDeviceType) advertises two main different types of GPUs, discrete and integrated (also referred to as UMA (unified memory architecture)). It is important for performance to understand the difference between the two.
 
 Discrete graphics cards contain their own dedicated memory on the device. The data is transferred over a bus (such as PCIe) which is usually a bottleneck due to the physical speed limitation of transferring data. Some physical devices will advertise a queue with a `VK_QUEUE_TRANSFER_BIT` which allows for a dedicated queue for transferring data. The common practice is to create a *staging buffer* to copy the host data into before sending through a command buffer to copy over to the device local memory.
 

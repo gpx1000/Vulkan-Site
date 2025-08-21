@@ -246,6 +246,10 @@ Secondary | Outside | Outside | Graphics
 
 Compute | Action |
 
+Conditional Rendering
+
+vkCmdClearColorImage is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To clear one or more subranges of a depth/stencil image, call:
 
 // Provided by VK_VERSION_1_0
@@ -486,6 +490,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Graphics | Action |
+
+Conditional Rendering
+
+vkCmdClearDepthStencilImage is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Clears outside render pass instances are treated as transfer operations for
 the purposes of memory barriers.
@@ -728,6 +736,10 @@ Command Properties
 | Primary
 
 Secondary | Inside | Outside | Graphics | Action |
+
+Conditional Rendering
+
+vkCmdClearAttachments is affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkClearRect` structure is defined as:
 
@@ -1063,6 +1075,10 @@ Graphics
 
 Compute | Action |
 
+Conditional Rendering
+
+vkCmdFillBuffer is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To update buffer data inline in a command buffer, call:
 
 // Provided by VK_VERSION_1_0
@@ -1238,6 +1254,10 @@ Secondary | Outside | Outside | Transfer
 Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdUpdateBuffer is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 |  | The `pData` parameter was of type `uint32_t*` instead of `void*`
 | --- | --- |

@@ -33,6 +33,7 @@
 - [Input Attachment](#descriptorsets-inputattachment)
 - [Acceleration Structure](#descriptorsets-accelerationstructure)
 - [Mutable](#descriptorsets-mutable)
+- [Storage Tensor](#descriptorsets-storagetensor)
 - [Descriptor Sets](#descriptorsets-sets)
 - [Descriptor Set Layout](#descriptorsets-setlayout)
 - [Descriptor_Set_Layout](#descriptorsets-setlayout)
@@ -135,6 +136,7 @@ with the same set of image formats as supported in compute shaders.
 
 The image subresources for a storage image **must** be in the
 `VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR` or
+`VK_IMAGE_LAYOUT_TENSOR_ALIASING_ARM` or
 `VK_IMAGE_LAYOUT_GENERAL` layout in order to access its data in a
 shader.
 
@@ -142,12 +144,13 @@ When the [`tileShadingColorAttachments`](features.html#features-tileShadingColor
 `OpImageRead` or `OpImageSparseRead` are supported for color
 [tile attachments](interfaces.html#interfaces-tile-attachment) in fragment and compute
 shaders for image views whose [format features](resources.html#resources-image-view-format-features) contain [`VK_FORMAT_FEATURE_STORAGE_IMAGE_BIT`](formats.html#formats-properties).
-Additionally, when [`tileShadingColorAttachments`](features.html#features-tileShadingColorAttachments) is enabled, stores using
+Additionally, when the [`tileShadingColorAttachments`](features.html#features-tileShadingColorAttachments) feature is enabled, stores using
 `OpImageWrite` are supported for color attachments in compute shaders
 with the same set of image formats as for loads.
-When the [`tileShadingAtomicOps`](features.html#features-tileShadingAtomicOps) is
-enabled, tile atomic operations are supported for color attachments in
-compute shaders with the same set of image formats as for loads.
+When the [`tileShadingAtomicOps`](features.html#features-tileShadingAtomicOps)
+feature is enabled, tile atomic operations are supported for color
+attachments in compute shaders with the same set of image formats as for
+loads.
 
 When the [`tileShadingInputAttachments`](features.html#features-tileShadingInputAttachments) feature is enabled, loads using
 `OpImageRead` are supported for input [tile attachments](interfaces.html#interfaces-tile-attachment) in fragment and compute shaders with the same set of image
@@ -211,6 +214,9 @@ layouts:
 * 
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT`
 
+* 
+`VK_IMAGE_LAYOUT_TENSOR_ALIASING_ARM`
+
 A *combined image sampler* (`VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`)
 is a single descriptor type associated with both a [sampler](samplers.html#samplers) and
 an [image resource](resources.html#resources-images), combining both a
@@ -256,6 +262,9 @@ following layouts:
 
 * 
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT`
+
+* 
+`VK_IMAGE_LAYOUT_TENSOR_ALIASING_ARM`
 
 |  | On some implementations, it **may** be more efficient to sample from an image
 | --- | --- |
@@ -491,6 +500,20 @@ encouraged to use them outside API layering efforts.
 Mutable descriptor types can be more efficient if the alternative is using
 many different descriptors to emulate mutable descriptor types. |
 
+A *storage tensor* (`VK_DESCRIPTOR_TYPE_TENSOR_ARM`) is a descriptor
+type associated with a [tensor resource](resources.html#resources-tensors) via a
+[tensor view](resources.html#resources-tensor-views) that read and write operations **can**
+be performed on.
+
+Storage tensor reads and writes are supported in shaders for tensor views
+whose [format features](resources.html#resources-tensor-view-format-features) contain
+[`VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM`](formats.html#formats-properties).
+
+Storage tensor reads and writes are supported in graph pipelines for tensor
+views whose [format features](resources.html#resources-tensor-view-format-features)
+contain
+[`VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM`](formats.html#formats-properties).
+
 Descriptors are grouped together into descriptor set objects.
 A descriptor set object is an opaque object containing storage for a set of
 descriptors, where the types and number of descriptors is defined by a
@@ -583,10 +606,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Information about the descriptor set layout is passed in a
 `VkDescriptorSetLayoutCreateInfo` structure:
@@ -764,7 +793,7 @@ If `flags` contains
 If `flags` contains
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`, then
 `flags` **must** not contain
-`VK_DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_VALVE`
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_HOST_ONLY_POOL_BIT_EXT`
 
 * 
 [](#VUID-VkDescriptorSetLayoutCreateInfo-flags-09463) VUID-VkDescriptorSetLayoutCreateInfo-flags-09463
@@ -936,6 +965,12 @@ not of `VK_DESCRIPTOR_TYPE_MUTABLE_EXT`
 
 `pDescriptorTypes` **must** not contain
 `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`
+
+* 
+[](#VUID-VkMutableDescriptorTypeListEXT-pDescriptorTypes-09696) VUID-VkMutableDescriptorTypeListEXT-pDescriptorTypes-09696
+
+`pDescriptorTypes` **must** not contain
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM`
 
 Valid Usage (Implicit)
 
@@ -1403,6 +1438,15 @@ If an element of `pBindingFlags` includes
 element’s `descriptorType` **must** not be
 `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER_DYNAMIC` or
 `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER_DYNAMIC`
+
+* 
+[](#VUID-VkDescriptorSetLayoutBindingFlagsCreateInfo-descriptorBindingStorageTensorUpdateAfterBind-09697) VUID-VkDescriptorSetLayoutBindingFlagsCreateInfo-descriptorBindingStorageTensorUpdateAfterBind-09697
+
+If
+[VkPhysicalDeviceTensorFeaturesARM](features.html#VkPhysicalDeviceTensorFeaturesARM)::`descriptorBindingStorageTensorUpdateAfterBind`
+is not enabled, all bindings with descriptor type
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM` **must** not use
+`VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT`
 
 Valid Usage (Implicit)
 
@@ -1976,10 +2020,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The [VkPipelineLayoutCreateInfo](#VkPipelineLayoutCreateInfo) structure is defined as:
 
@@ -2602,6 +2652,45 @@ If any element of `pSetLayouts` was created with the
 all elements of `pSetLayouts` **must** have been created with the
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT` bit set
 
+* 
+[](#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-09698) VUID-VkPipelineLayoutCreateInfo-pSetLayouts-09698
+
+The total number of descriptors in descriptor set layouts
+created without the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT` bit set
+with a `descriptorType` of `VK_DESCRIPTOR_TYPE_TENSOR_ARM`
+accessible to any given shader stage across all elements of
+`pSetLayouts` **must** be less than or equal to
+[VkPhysicalDeviceTensorPropertiesARM](limits.html#VkPhysicalDeviceTensorPropertiesARM)::`maxPerStageDescriptorSetStorageTensors`
+
+* 
+[](#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-09699) VUID-VkPipelineLayoutCreateInfo-pSetLayouts-09699
+
+The total number of descriptors in descriptor set layouts
+created without the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT` bit set
+with a `descriptorType` of `VK_DESCRIPTOR_TYPE_TENSOR_ARM`
+accessible across all shader stages and across all elements of
+`pSetLayouts` **must** be less than or equal to
+[VkPhysicalDeviceTensorPropertiesARM](limits.html#VkPhysicalDeviceTensorPropertiesARM)::`maxDescriptorSetStorageTensors`
+
+* 
+[](#VUID-VkPipelineLayoutCreateInfo-pSetLayouts-09878) VUID-VkPipelineLayoutCreateInfo-pSetLayouts-09878
+
+The total number of descriptors of the type
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM` accessible across all shader stages
+and across all elements of `pSetLayouts` **must** be less than or equal
+to
+[VkPhysicalDeviceTensorPropertiesARM](limits.html#VkPhysicalDeviceTensorPropertiesARM)::`maxDescriptorSetUpdateAfterBindStorageTensors`
+
+* 
+[](#VUID-VkPipelineLayoutCreateInfo-descriptorType-09879) VUID-VkPipelineLayoutCreateInfo-descriptorType-09879
+
+The total number of descriptors with a `descriptorType` of
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM` accessible to any given shader stage
+across all elements of `pSetLayouts` **must** be less than or equal to
+`VkPhysicalDeviceTensorPropertiesARM`::`maxPerStageDescriptorUpdateAfterBindStorageTensors`
+
 Valid Usage (Implicit)
 
 * 
@@ -2781,6 +2870,8 @@ or `maxDescriptorSetUpdateAfterBindInputAttachments` | input attachment |
 or `maxDescriptorSetUpdateAfterBindInlineUniformBlocks` | inline uniform block |
 | `maxDescriptorSetAccelerationStructures`
 or `maxDescriptorSetUpdateAfterBindAccelerationStructures` | acceleration structure |
+| `maxDescriptorSetStorageTensors`
+or `maxDescriptorSetUpdateAfterBindStorageTensors` | storage tensor |
 
 To destroy a pipeline layout, call:
 
@@ -2990,6 +3081,11 @@ Valid Usage (Implicit)
 
  `pDescriptorPool` **must** be a valid pointer to a [VkDescriptorPool](#VkDescriptorPool) handle
 
+* 
+[](#VUID-vkCreateDescriptorPool-device-queuecount) VUID-vkCreateDescriptorPool-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -3000,13 +3096,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_FRAGMENTATION_EXT`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_FRAGMENTATION_EXT`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Additional information about the pool is passed in a
 `VkDescriptorPoolCreateInfo` structure:
@@ -3184,7 +3286,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkDescriptorPoolCreateInfo-pNext-pNext) VUID-VkDescriptorPoolCreateInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDescriptorPoolInlineUniformBlockCreateInfo](#VkDescriptorPoolInlineUniformBlockCreateInfo) or [VkMutableDescriptorTypeCreateInfoEXT](#VkMutableDescriptorTypeCreateInfoEXT)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM), [VkDescriptorPoolInlineUniformBlockCreateInfo](#VkDescriptorPoolInlineUniformBlockCreateInfo), or [VkMutableDescriptorTypeCreateInfoEXT](#VkMutableDescriptorTypeCreateInfoEXT)
 
 * 
 [](#VUID-VkDescriptorPoolCreateInfo-sType-unique) VUID-VkDescriptorPoolCreateInfo-sType-unique
@@ -3551,6 +3653,11 @@ Valid Usage (Implicit)
  `pDescriptorSets` **must** be a valid pointer to an array of `pAllocateInfo->descriptorSetCount` [VkDescriptorSet](#VkDescriptorSet) handles
 
 * 
+[](#VUID-vkAllocateDescriptorSets-device-queuecount) VUID-vkAllocateDescriptorSets-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
+* 
 [](#VUID-vkAllocateDescriptorSets-pAllocateInfo::descriptorSetCount-arraylength) VUID-vkAllocateDescriptorSets-pAllocateInfo::descriptorSetCount-arraylength
 
  `pAllocateInfo->descriptorSetCount` **must** be greater than `0`
@@ -3565,16 +3672,22 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_FRAGMENTED_POOL`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_FRAGMENTED_POOL`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_POOL_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkDescriptorSetAllocateInfo` structure is defined as:
 
@@ -3875,7 +3988,11 @@ Return Codes
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
-None
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To return all descriptor sets allocated from a given pool to the pool,
 rather than freeing individual descriptor sets, call:
@@ -3946,7 +4063,11 @@ Return Codes
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
-None
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkDescriptorPoolResetFlags;
@@ -4221,6 +4342,10 @@ or
 [VkWriteDescriptorSetAccelerationStructureNV](#VkWriteDescriptorSetAccelerationStructureNV)
      structure in the `pNext` chain
 
+* 
+a value matching the `descriptorCount` of a
+[VkWriteDescriptorSetTensorARM](#VkWriteDescriptorSetTensorARM) structure in the `pNext` chain
+
 `descriptorType` is a [VkDescriptorType](#VkDescriptorType) specifying the type of
 each descriptor in `pImageInfo`, `pBufferInfo`, or
 `pTexelBufferView`, as described below.
@@ -4262,11 +4387,16 @@ or if `descriptorType` is
 data for the descriptor writes is taken from the
 [VkWriteDescriptorSetAccelerationStructureNV](#VkWriteDescriptorSetAccelerationStructureNV) structure in the
 `pNext` chain of `VkWriteDescriptorSet`,
+or if `descriptorType` is `VK_DESCRIPTOR_TYPE_TENSOR_ARM`, in which
+case the source data for the descriptor writes is taken from the instance of
+[VkWriteDescriptorSetTensorARM](#VkWriteDescriptorSetTensorARM) in the `pNext` chain of
+`VkWriteDescriptorSet`,
 as specified below.
 
 If the [`nullDescriptor`](features.html#features-nullDescriptor) feature is enabled,
 the buffer,
 acceleration structure,
+tensor,
 imageView, or bufferView **can** be [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE).
 Loads from a null descriptor return zero values and stores and atomics to a
 null descriptor are discarded.
@@ -4329,7 +4459,14 @@ specified when `dstSet`’s descriptor set layout was created
 
 All consecutive bindings updated via a single `VkWriteDescriptorSet`
 structure, except those with a `descriptorCount` of zero, **must** have
-identical `descriptorType` and `stageFlags`
+identical `descriptorType`
+
+* 
+[](#VUID-VkWriteDescriptorSet-descriptorCount-10776) VUID-VkWriteDescriptorSet-descriptorCount-10776
+
+All consecutive bindings updated via a single `VkWriteDescriptorSet`
+structure, except those with a `descriptorCount` of zero, **must** have
+identical `stageFlags`
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorCount-00318) VUID-VkWriteDescriptorSet-descriptorCount-00318
@@ -4337,6 +4474,13 @@ identical `descriptorType` and `stageFlags`
 All consecutive bindings updated via a single `VkWriteDescriptorSet`
 structure, except those with a `descriptorCount` of zero, **must** all
 either use immutable samplers or **must** all not use immutable samplers
+
+* 
+[](#VUID-VkWriteDescriptorSet-descriptorCount-10777) VUID-VkWriteDescriptorSet-descriptorCount-10777
+
+All consecutive bindings updated via a single `VkWriteDescriptorSet`
+structure, except those with a `descriptorCount` of zero, **must** have
+identical [VkDescriptorBindingFlagBits](#VkDescriptorBindingFlagBits)
 
 * 
 [](#VUID-VkWriteDescriptorSet-descriptorType-00319) VUID-VkWriteDescriptorSet-descriptorType-00319
@@ -4459,6 +4603,14 @@ If `descriptorType` is
 `VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV`, the `pNext`
 chain **must** include a [VkWriteDescriptorSetAccelerationStructureNV](#VkWriteDescriptorSetAccelerationStructureNV)
 structure whose `accelerationStructureCount` member equals
+`descriptorCount`
+
+* 
+[](#VUID-VkWriteDescriptorSet-descriptorType-09945) VUID-VkWriteDescriptorSet-descriptorType-09945
+
+If `descriptorType` is `VK_DESCRIPTOR_TYPE_TENSOR_ARM`, the
+`pNext` chain **must** include a [VkWriteDescriptorSetTensorARM](#VkWriteDescriptorSetTensorARM)
+structure whose `tensorViewCount` member equals
 `descriptorCount`
 
 * 
@@ -4693,7 +4845,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkWriteDescriptorSet-pNext-pNext) VUID-VkWriteDescriptorSet-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkWriteDescriptorSetAccelerationStructureKHR](#VkWriteDescriptorSetAccelerationStructureKHR), [VkWriteDescriptorSetAccelerationStructureNV](#VkWriteDescriptorSetAccelerationStructureNV), [VkWriteDescriptorSetInlineUniformBlock](#VkWriteDescriptorSetInlineUniformBlock), or [VkWriteDescriptorSetPartitionedAccelerationStructureNV](#VkWriteDescriptorSetPartitionedAccelerationStructureNV)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkWriteDescriptorSetAccelerationStructureKHR](#VkWriteDescriptorSetAccelerationStructureKHR), [VkWriteDescriptorSetAccelerationStructureNV](#VkWriteDescriptorSetAccelerationStructureNV), [VkWriteDescriptorSetInlineUniformBlock](#VkWriteDescriptorSetInlineUniformBlock), [VkWriteDescriptorSetPartitionedAccelerationStructureNV](#VkWriteDescriptorSetPartitionedAccelerationStructureNV), or [VkWriteDescriptorSetTensorARM](#VkWriteDescriptorSetTensorARM)
 
 * 
 [](#VUID-VkWriteDescriptorSet-sType-unique) VUID-VkWriteDescriptorSet-sType-unique
@@ -4742,6 +4894,8 @@ typedef enum VkDescriptorType {
     VK_DESCRIPTOR_TYPE_SAMPLE_WEIGHT_IMAGE_QCOM = 1000440000,
   // Provided by VK_QCOM_image_processing
     VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM = 1000440001,
+  // Provided by VK_ARM_tensors
+    VK_DESCRIPTOR_TYPE_TENSOR_ARM = 1000460000,
   // Provided by VK_EXT_mutable_descriptor_type
     VK_DESCRIPTOR_TYPE_MUTABLE_EXT = 1000351000,
   // Provided by VK_NV_partitioned_acceleration_structure
@@ -4811,6 +4965,10 @@ typedef enum VkDescriptorType {
 `VK_DESCRIPTOR_TYPE_BLOCK_MATCH_IMAGE_QCOM` specifies a
 [block matching image descriptor](#descriptorsets-blockmatch).
 
+* 
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM` specifies a
+[storage tensor descriptor](#descriptorsets-storagetensor).
+
 When a descriptor set is updated via elements of [VkWriteDescriptorSet](#VkWriteDescriptorSet),
 members of `pImageInfo`, `pBufferInfo` and `pTexelBufferView`
 are only accessed by the implementation when they correspond to descriptor
@@ -4863,6 +5021,12 @@ When updating descriptors with a `descriptorType` of
 accessed, instead the source data of the descriptor update operation is
 taken from the [VkWriteDescriptorSetAccelerationStructureNV](#VkWriteDescriptorSetAccelerationStructureNV) structure
 in the `pNext` chain of `VkWriteDescriptorSet`.
+When updating descriptors with a `descriptorType` of
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM`, none of the `pImageInfo`,
+`pBufferInfo`, or `pTexelBufferView` members are accessed, instead
+the source data of the descriptor update operation is taken from the
+instance of [VkWriteDescriptorSetTensorARM](#VkWriteDescriptorSetTensorARM) in the `pNext` chain of
+[VkWriteDescriptorSet](#VkWriteDescriptorSet).
 
 The `VkDescriptorBufferInfo` structure is defined as:
 
@@ -5325,6 +5489,56 @@ Valid Usage (Implicit)
 
  `accelerationStructureCount` **must** be greater than `0`
 
+The `VkWriteDescriptorSetTensorARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkWriteDescriptorSetTensorARM {
+    VkStructureType           sType;
+    const void*               pNext;
+    uint32_t                  tensorViewCount;
+    const VkTensorViewARM*    pTensorViews;
+} VkWriteDescriptorSetTensorARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`tensorViewCount` is the number of elements in `pTensorViews`.
+
+* 
+`pTensorViews` are the tensor views that will be used to update the
+descriptor set.
+
+Valid Usage
+
+* 
+[](#VUID-VkWriteDescriptorSetTensorARM-nullDescriptor-09898) VUID-VkWriteDescriptorSetTensorARM-nullDescriptor-09898
+
+If the [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
+enabled, each element of `pTensorViews` **must** not be
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkWriteDescriptorSetTensorARM-sType-sType) VUID-VkWriteDescriptorSetTensorARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET_TENSOR_ARM`
+
+* 
+[](#VUID-VkWriteDescriptorSetTensorARM-pTensorViews-parameter) VUID-VkWriteDescriptorSetTensorARM-pTensorViews-parameter
+
+ `pTensorViews` **must** be a valid pointer to an array of `tensorViewCount` valid [VkTensorViewARM](resources.html#VkTensorViewARM) handles
+
+* 
+[](#VUID-VkWriteDescriptorSetTensorARM-tensorViewCount-arraylength) VUID-VkWriteDescriptorSetTensorARM-tensorViewCount-arraylength
+
+ `tensorViewCount` **must** be greater than `0`
+
 The `VkCopyDescriptorSet` structure is defined as:
 
 // Provided by VK_VERSION_1_0
@@ -5664,6 +5878,11 @@ Valid Usage (Implicit)
 
  `pDescriptorUpdateTemplate` **must** be a valid pointer to a [VkDescriptorUpdateTemplate](#VkDescriptorUpdateTemplate) handle
 
+* 
+[](#VUID-vkCreateDescriptorUpdateTemplate-device-queuecount) VUID-vkCreateDescriptorUpdateTemplate-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -5674,10 +5893,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The [VkDescriptorUpdateTemplateCreateInfo](#VkDescriptorUpdateTemplateCreateInfo) structure is defined as:
 
@@ -6429,6 +6654,33 @@ Each element of `pDescriptorSets` **must** have been allocated with a
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
 
 * 
+[](#VUID-vkCmdBindDescriptorSets-pDescriptorSets-09914) VUID-vkCmdBindDescriptorSets-pDescriptorSets-09914
+
+If any element of `pDescriptorSets` was allocated from a descriptor
+pool created with a [VkDescriptorPoolCreateInfo](#VkDescriptorPoolCreateInfo) structure that had
+a [VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure specifying
+foreign data processing engines in its `pNext` chain, then the
+command pool from which `commandBuffer` was allocated **must** have
+been created with a [VkCommandPoolCreateInfo](cmdbuffers.html#VkCommandPoolCreateInfo) structure that had a
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure in its
+`pNext` chain specifying a superset of all the foreign data
+processing engines specified when creating the descriptor pools from
+which the elements of `pDescriptorSets` were allocated
+
+* 
+[](#VUID-vkCmdBindDescriptorSets-pDescriptorSets-09915) VUID-vkCmdBindDescriptorSets-pDescriptorSets-09915
+
+If none of the elements of `pDescriptorSets` were allocated from a
+descriptor pool created with a [VkDescriptorPoolCreateInfo](#VkDescriptorPoolCreateInfo)
+structure that had a [VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM)
+structure specifying foreign data processing engines in its `pNext`
+chain, then the command pool from which `commandBuffer` was
+allocated **must** not have been created with a
+[VkCommandPoolCreateInfo](cmdbuffers.html#VkCommandPoolCreateInfo) structure that had a
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure in its
+`pNext` chain
+
+* 
 [](#VUID-vkCmdBindDescriptorSets-pipelineBindPoint-00361) VUID-vkCmdBindDescriptorSets-pipelineBindPoint-00361
 
 `pipelineBindPoint` **must** be supported by the `commandBuffer`’s
@@ -6469,7 +6721,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindDescriptorSets-commandBuffer-cmdpool) VUID-vkCmdBindDescriptorSets-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
 
 * 
 [](#VUID-vkCmdBindDescriptorSets-videocoding) VUID-vkCmdBindDescriptorSets-videocoding
@@ -6501,7 +6753,13 @@ Command Properties
 
 Secondary | Both | Outside | Graphics
 
-Compute | State |
+Compute
+
+Data_Graph | State |
+
+Conditional Rendering
+
+vkCmdBindDescriptorSets is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Alternatively, to bind one or more descriptor sets to a command buffer,
 call:
@@ -6578,6 +6836,10 @@ Command Properties
 Secondary | Both | Outside | Graphics
 
 Compute | State |
+
+Conditional Rendering
+
+vkCmdBindDescriptorSets2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkBindDescriptorSetsInfo` structure is defined as:
 
@@ -6723,6 +6985,33 @@ element of `pDescriptorSets` **must** be a valid [VkDescriptorSet](#VkDescriptor
 Each element of `pDescriptorSets` **must** have been allocated with a
 `VkDescriptorSetLayout` which was not created with
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_DESCRIPTOR_BUFFER_BIT_EXT`
+
+* 
+[](#VUID-VkBindDescriptorSetsInfo-pDescriptorSets-09914) VUID-VkBindDescriptorSetsInfo-pDescriptorSets-09914
+
+If any element of `pDescriptorSets` was allocated from a descriptor
+pool created with a [VkDescriptorPoolCreateInfo](#VkDescriptorPoolCreateInfo) structure that had
+a [VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure specifying
+foreign data processing engines in its `pNext` chain, then the
+command pool from which `commandBuffer` was allocated **must** have
+been created with a [VkCommandPoolCreateInfo](cmdbuffers.html#VkCommandPoolCreateInfo) structure that had a
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure in its
+`pNext` chain specifying a superset of all the foreign data
+processing engines specified when creating the descriptor pools from
+which the elements of `pDescriptorSets` were allocated
+
+* 
+[](#VUID-VkBindDescriptorSetsInfo-pDescriptorSets-09915) VUID-VkBindDescriptorSetsInfo-pDescriptorSets-09915
+
+If none of the elements of `pDescriptorSets` were allocated from a
+descriptor pool created with a [VkDescriptorPoolCreateInfo](#VkDescriptorPoolCreateInfo)
+structure that had a [VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM)
+structure specifying foreign data processing engines in its `pNext`
+chain, then the command pool from which `commandBuffer` was
+allocated **must** not have been created with a
+[VkCommandPoolCreateInfo](cmdbuffers.html#VkCommandPoolCreateInfo) structure that had a
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure in its
+`pNext` chain
 
 * 
 [](#VUID-VkBindDescriptorSetsInfo-None-09495) VUID-VkBindDescriptorSetsInfo-None-09495
@@ -6989,6 +7278,10 @@ Secondary | Both | Outside | Graphics
 
 Compute | State |
 
+Conditional Rendering
+
+vkCmdPushDescriptorSet is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Alternatively, to push descriptor updates into a command buffer, call:
 
 // Provided by VK_VERSION_1_4
@@ -7069,6 +7362,10 @@ Command Properties
 Secondary | Both | Outside | Graphics
 
 Compute | State |
+
+Conditional Rendering
+
+vkCmdPushDescriptorSet2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkPushDescriptorSetInfo` structure is defined as:
 
@@ -7372,6 +7669,10 @@ Secondary | Both | Outside | Graphics
 
 Compute | State |
 
+Conditional Rendering
+
+vkCmdPushDescriptorSetWithTemplate is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 API Example
 
 struct AppDataStructure
@@ -7485,6 +7786,10 @@ Command Properties
 Secondary | Both | Outside | Graphics
 
 Compute | State |
+
+Conditional Rendering
+
+vkCmdPushDescriptorSetWithTemplate2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkPushDescriptorSetWithTemplateInfo` structure is defined as:
 
@@ -7815,6 +8120,10 @@ Secondary | Both | Outside | Graphics
 
 Compute | State |
 
+Conditional Rendering
+
+vkCmdPushConstants is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Alternatively, to update push constants, call:
 
 // Provided by VK_VERSION_1_4
@@ -7880,6 +8189,10 @@ Command Properties
 Secondary | Both | Outside | Graphics
 
 Compute | State |
+
+Conditional Rendering
+
+vkCmdPushConstants2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkPushConstantsInfo` structure is defined as:
 
@@ -8025,39 +8338,8 @@ Valid Usage (Implicit)
 
  `size` **must** be greater than `0`
 
-To query a 64-bit buffer device address value through which buffer memory
-**can** be accessed in a shader, call:
-
-// Provided by VK_VERSION_1_2
-VkDeviceAddress vkGetBufferDeviceAddress(
-    VkDevice                                    device,
-    const VkBufferDeviceAddressInfo*            pInfo);
-
-or the equivalent command
-
-// Provided by VK_KHR_buffer_device_address
-VkDeviceAddress vkGetBufferDeviceAddressKHR(
-    VkDevice                                    device,
-    const VkBufferDeviceAddressInfo*            pInfo);
-
-or the equivalent command
-
-// Provided by VK_EXT_buffer_device_address
-VkDeviceAddress vkGetBufferDeviceAddressEXT(
-    VkDevice                                    device,
-    const VkBufferDeviceAddressInfo*            pInfo);
-
-* 
-`device` is the logical device that the buffer was created on.
-
-* 
-`pInfo` is a pointer to a [VkBufferDeviceAddressInfo](#VkBufferDeviceAddressInfo) structure
-specifying the buffer to retrieve an address for.
-
-The 64-bit return value is an address of the start of `pInfo->buffer`.
-The address range starting at this value and whose size is the size of the
-buffer **can** be used in a shader to access the memory bound to that buffer,
-using the
+[Buffer device addresses](resources.html#resources-buffer-device-addresses) **can** also be
+used to access buffer memory in a shader, using the
 `SPV_KHR_physical_storage_buffer` extension
 or the equivalent
 `SPV_EXT_physical_storage_buffer` extension
@@ -8065,220 +8347,9 @@ and the `PhysicalStorageBuffer` storage class.
 For example, this value **can** be stored in a uniform buffer, and the shader
 **can** read the value from the uniform buffer and use it to do a dependent
 read/write to this buffer.
-A value of zero is reserved as a “null” pointer and **must** not be returned
-as a valid buffer device address.
 All loads, stores, and atomics in a shader through
 `PhysicalStorageBuffer` pointers **must** access addresses in the address
 range of some buffer.
-
-If the buffer was created with a non-zero value of
-[VkBufferOpaqueCaptureAddressCreateInfo](resources.html#VkBufferOpaqueCaptureAddressCreateInfo)::`opaqueCaptureAddress` or
-[VkBufferDeviceAddressCreateInfoEXT](resources.html#VkBufferDeviceAddressCreateInfoEXT)::`deviceAddress`,
-the return value will be the same address that was returned at capture time.
-
-The returned address **must** satisfy the alignment requirement specified by
-[VkMemoryRequirements](resources.html#VkMemoryRequirements)::`alignment` for the buffer in
-[VkBufferDeviceAddressInfo](#VkBufferDeviceAddressInfo)::`buffer`.
-
-If multiple [VkBuffer](resources.html#VkBuffer) objects are bound to overlapping ranges of
-[VkDeviceMemory](memory.html#VkDeviceMemory), implementations **may** return address ranges which
-overlap.
-In this case, it is ambiguous which [VkBuffer](resources.html#VkBuffer) is associated with any
-given device address.
-For purposes of valid usage, if multiple [VkBuffer](resources.html#VkBuffer) objects **can** be
-attributed to a device address, a [VkBuffer](resources.html#VkBuffer) is selected such that valid
-usage passes, if it exists.
-
-Valid Usage
-
-* 
-[](#VUID-vkGetBufferDeviceAddress-bufferDeviceAddress-03324) VUID-vkGetBufferDeviceAddress-bufferDeviceAddress-03324
-
-The [`bufferDeviceAddress`](features.html#features-bufferDeviceAddress)
-or [    `VkPhysicalDeviceBufferDeviceAddressFeaturesEXT`::`bufferDeviceAddress`](features.html#features-bufferDeviceAddressEXT)
-feature **must** be enabled, and at least one of the following conditions
-**must** be met
-
-`buffer` is sparse
-
-* 
-`buffer` is bound completely and contiguously to a single
-`VkDeviceMemory` object
-
-* 
-`buffer` was created with the
-`VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT` flag and
-[     `VkPhysicalDeviceBufferDeviceAddressFeaturesEXT`::`bufferDeviceAddress`](features.html#features-bufferDeviceAddressEXT)
-is enabled on the device
-
-[](#VUID-vkGetBufferDeviceAddress-device-03325) VUID-vkGetBufferDeviceAddress-device-03325
-
-If `device` was created with multiple physical devices, then the
-[    `bufferDeviceAddressMultiDevice`](features.html#features-bufferDeviceAddressMultiDevice)
-or [    `VkPhysicalDeviceBufferDeviceAddressFeaturesEXT`::`bufferDeviceAddressMultiDevice`](features.html#features-bufferDeviceAddressMultiDeviceEXT)
-feature **must** be enabled
-
-Valid Usage (Implicit)
-
-* 
-[](#VUID-vkGetBufferDeviceAddress-device-parameter) VUID-vkGetBufferDeviceAddress-device-parameter
-
- `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
-
-* 
-[](#VUID-vkGetBufferDeviceAddress-pInfo-parameter) VUID-vkGetBufferDeviceAddress-pInfo-parameter
-
- `pInfo` **must** be a valid pointer to a valid [VkBufferDeviceAddressInfo](#VkBufferDeviceAddressInfo) structure
-
-The `VkBufferDeviceAddressInfo` structure is defined as:
-
-// Provided by VK_VERSION_1_2
-typedef struct VkBufferDeviceAddressInfo {
-    VkStructureType    sType;
-    const void*        pNext;
-    VkBuffer           buffer;
-} VkBufferDeviceAddressInfo;
-
-or the equivalent
-
-// Provided by VK_KHR_buffer_device_address
-typedef VkBufferDeviceAddressInfo VkBufferDeviceAddressInfoKHR;
-
-or the equivalent
-
-// Provided by VK_EXT_buffer_device_address
-typedef VkBufferDeviceAddressInfo VkBufferDeviceAddressInfoEXT;
-
-* 
-`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
-
-* 
-`pNext` is `NULL` or a pointer to a structure extending this
-structure.
-
-* 
-`buffer` specifies the buffer whose address is being queried.
-
-Valid Usage
-
-* 
-[](#VUID-VkBufferDeviceAddressInfo-buffer-02601) VUID-VkBufferDeviceAddressInfo-buffer-02601
-
-`buffer` **must** have been created with
-`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT`
-
-Valid Usage (Implicit)
-
-* 
-[](#VUID-VkBufferDeviceAddressInfo-sType-sType) VUID-VkBufferDeviceAddressInfo-sType-sType
-
- `sType` **must** be `VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO`
-
-* 
-[](#VUID-VkBufferDeviceAddressInfo-pNext-pNext) VUID-VkBufferDeviceAddressInfo-pNext-pNext
-
- `pNext` **must** be `NULL`
-
-* 
-[](#VUID-VkBufferDeviceAddressInfo-buffer-parameter) VUID-VkBufferDeviceAddressInfo-buffer-parameter
-
- `buffer` **must** be a valid [VkBuffer](resources.html#VkBuffer) handle
-
-To query a 64-bit buffer opaque capture address, call:
-
-// Provided by VK_VERSION_1_2
-uint64_t vkGetBufferOpaqueCaptureAddress(
-    VkDevice                                    device,
-    const VkBufferDeviceAddressInfo*            pInfo);
-
-or the equivalent command
-
-// Provided by VK_KHR_buffer_device_address
-uint64_t vkGetBufferOpaqueCaptureAddressKHR(
-    VkDevice                                    device,
-    const VkBufferDeviceAddressInfo*            pInfo);
-
-* 
-`device` is the logical device that the buffer was created on.
-
-* 
-`pInfo` is a pointer to a [VkBufferDeviceAddressInfo](#VkBufferDeviceAddressInfo) structure
-specifying the buffer to retrieve an address for.
-
-The 64-bit return value is an opaque capture address of the start of
-`pInfo->buffer`.
-
-If the buffer was created with a non-zero value of
-[VkBufferOpaqueCaptureAddressCreateInfo](resources.html#VkBufferOpaqueCaptureAddressCreateInfo)::`opaqueCaptureAddress` the
-return value **must** be the same address.
-
-Valid Usage
-
-* 
-[](#VUID-vkGetBufferOpaqueCaptureAddress-None-03326) VUID-vkGetBufferOpaqueCaptureAddress-None-03326
-
-The [`bufferDeviceAddress`](features.html#features-bufferDeviceAddress) and
-[    `bufferDeviceAddressCaptureReplay`](features.html#features-bufferDeviceAddressCaptureReplay) features **must** be enabled
-
-* 
-[](#VUID-vkGetBufferOpaqueCaptureAddress-pInfo-10725) VUID-vkGetBufferOpaqueCaptureAddress-pInfo-10725
-
-`pInfo`::`buffer` **must** have been created with the
-`VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT` flag
-
-* 
-[](#VUID-vkGetBufferOpaqueCaptureAddress-device-03327) VUID-vkGetBufferOpaqueCaptureAddress-device-03327
-
-If `device` was created with multiple physical devices, then the
-[    `bufferDeviceAddressMultiDevice`](features.html#features-bufferDeviceAddressMultiDevice) feature **must** be enabled
-
-Valid Usage (Implicit)
-
-* 
-[](#VUID-vkGetBufferOpaqueCaptureAddress-device-parameter) VUID-vkGetBufferOpaqueCaptureAddress-device-parameter
-
- `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
-
-* 
-[](#VUID-vkGetBufferOpaqueCaptureAddress-pInfo-parameter) VUID-vkGetBufferOpaqueCaptureAddress-pInfo-parameter
-
- `pInfo` **must** be a valid pointer to a valid [VkBufferDeviceAddressInfo](#VkBufferDeviceAddressInfo) structure
-
-The `VkStridedDeviceAddressRegionKHR` structure is defined as:
-
-// Provided by VK_KHR_ray_tracing_pipeline
-typedef struct VkStridedDeviceAddressRegionKHR {
-    VkDeviceAddress    deviceAddress;
-    VkDeviceSize       stride;
-    VkDeviceSize       size;
-} VkStridedDeviceAddressRegionKHR;
-
-* 
-`deviceAddress` is the device address (as returned by the
-[vkGetBufferDeviceAddress](#vkGetBufferDeviceAddress) command) at which the region starts, or
-zero if the region is unused.
-
-* 
-`stride` is the byte stride between consecutive elements.
-
-* 
-`size` is the size in bytes of the region starting at
-`deviceAddress`.
-
-Valid Usage
-
-* 
-[](#VUID-VkStridedDeviceAddressRegionKHR-size-04631) VUID-VkStridedDeviceAddressRegionKHR-size-04631
-
-If `size` is not zero, all addresses between `deviceAddress` and
-`deviceAddress` +  `size` - 1 **must** be in the buffer
-device address range of the same buffer
-
-* 
-[](#VUID-VkStridedDeviceAddressRegionKHR-size-04632) VUID-VkStridedDeviceAddressRegionKHR-size-04632
-
-If `size` is not zero, `stride` **must** be less than or equal to
-the size of the buffer from which `deviceAddress` was queried
 
 If the [`descriptorBuffer`](features.html#features-descriptorBuffer) feature is
 enabled, an alternative way to specify descriptor sets is via buffers,
@@ -8432,10 +8503,10 @@ If any `binding` in `layout` is
 `VK_DESCRIPTOR_BINDING_VARIABLE_DESCRIPTOR_COUNT_BIT`, that
 `binding` **must** have the largest offset of any `binding`.
 
-A descriptor `binding` with type `VK_DESCRIPTOR_TYPE_MUTABLE_VALVE`
+A descriptor `binding` with type `VK_DESCRIPTOR_TYPE_MUTABLE_EXT`
 **can** be used.
 Any potential types in
-[VkMutableDescriptorTypeCreateInfoVALVE](#VkMutableDescriptorTypeCreateInfoVALVE)::`pDescriptorTypes` for
+[VkMutableDescriptorTypeCreateInfoEXT](#VkMutableDescriptorTypeCreateInfoEXT)::`pDescriptorTypes` for
 `binding` share the same offset.
 If the size of the [mutable descriptor](#descriptorsets-mutable) is larger
 than the size of a concrete descriptor type being accessed, the padding area
@@ -8619,8 +8690,8 @@ structure.
 `type` is the type of descriptor to get.
 
 * 
-`data` is a structure containing the information needed to get the
-descriptor.
+`data` is a [VkDescriptorDataEXT](#VkDescriptorDataEXT) union containing the
+information needed to get the descriptor.
 
 Valid Usage
 
@@ -8740,6 +8811,13 @@ If `type` is `VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV` and
 **must** contain the handle of a [VkAccelerationStructureNV](resources.html#VkAccelerationStructureNV) created on
 `device`, returned by [vkGetAccelerationStructureHandleNV](resources.html#vkGetAccelerationStructureHandleNV)
 
+* 
+[](#VUID-VkDescriptorGetInfoEXT-type-09701) VUID-VkDescriptorGetInfoEXT-type-09701
+
+If `type` is `VK_DESCRIPTOR_TYPE_TENSOR_ARM`, a
+[VkDescriptorGetTensorInfoARM](#VkDescriptorGetTensorInfoARM) structure **must** be included in the
+`pNext` chain and `data` is ignored
+
 Valid Usage (Implicit)
 
 * 
@@ -8750,7 +8828,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkDescriptorGetInfoEXT-pNext-pNext) VUID-VkDescriptorGetInfoEXT-pNext-pNext
 
- `pNext` **must** be `NULL`
+ `pNext` **must** be `NULL` or a pointer to a valid instance of [VkDescriptorGetTensorInfoARM](#VkDescriptorGetTensorInfoARM)
+
+* 
+[](#VUID-VkDescriptorGetInfoEXT-sType-unique) VUID-VkDescriptorGetInfoEXT-sType-unique
+
+ The `sType` value of each structure in the `pNext` chain **must** be unique
 
 * 
 [](#VUID-VkDescriptorGetInfoEXT-type-parameter) VUID-VkDescriptorGetInfoEXT-type-parameter
@@ -8801,6 +8884,11 @@ Valid Usage (Implicit)
 [](#VUID-VkDescriptorGetInfoEXT-pStorageBuffer-parameter) VUID-VkDescriptorGetInfoEXT-pStorageBuffer-parameter
 
  If `type` is `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER`, and if `pStorageBuffer` is not `NULL`, the `pStorageBuffer` member of `data` **must** be a valid pointer to a valid [VkDescriptorAddressInfoEXT](#VkDescriptorAddressInfoEXT) structure
+
+* 
+[](#VUID-VkDescriptorGetInfoEXT-accelerationStructure-parameter) VUID-VkDescriptorGetInfoEXT-accelerationStructure-parameter
+
+ If `type` is `VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR` or `VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV`, the `accelerationStructure` member of `data` **must** be a valid `VkDeviceAddress` value
 
 Data describing the descriptor is passed in a `VkDescriptorDataEXT`
 structure:
@@ -8887,45 +8975,9 @@ invoked.
 Valid Usage
 
 * 
-[](#VUID-VkDescriptorDataEXT-type-08030) VUID-VkDescriptorDataEXT-type-08030
-
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
-`VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER`, and
-`pUniformBuffer->address` is the address of a non-sparse buffer,
-then that buffer **must** be bound completely and contiguously to a single
-`VkDeviceMemory` object
-
-* 
-[](#VUID-VkDescriptorDataEXT-type-08031) VUID-VkDescriptorDataEXT-type-08031
-
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
-`VK_DESCRIPTOR_TYPE_STORAGE_BUFFER`, and
-`pStorageBuffer->address` is the address of a non-sparse buffer,
-then that buffer **must** be bound completely and contiguously to a single
-`VkDeviceMemory` object
-
-* 
-[](#VUID-VkDescriptorDataEXT-type-08032) VUID-VkDescriptorDataEXT-type-08032
-
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
-`VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER`, and
-`pUniformTexelBuffer->address` is the address of a non-sparse
-buffer, then that buffer **must** be bound completely and contiguously to a
-single `VkDeviceMemory` object
-
-* 
-[](#VUID-VkDescriptorDataEXT-type-08033) VUID-VkDescriptorDataEXT-type-08033
-
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
-`VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER`, and
-`pStorageTexelBuffer->address` is the address of a non-sparse
-buffer, then that buffer **must** be bound completely and contiguously to a
-single `VkDeviceMemory` object
-
-* 
 [](#VUID-VkDescriptorDataEXT-type-08034) VUID-VkDescriptorDataEXT-type-08034
 
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
+If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT)::`type` is
 `VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER`, and the
 [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
 enabled, `pCombinedImageSampler->imageView` **must** not be
@@ -8934,7 +8986,7 @@ enabled, `pCombinedImageSampler->imageView` **must** not be
 * 
 [](#VUID-VkDescriptorDataEXT-type-08035) VUID-VkDescriptorDataEXT-type-08035
 
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
+If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT)::`type` is
 `VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE`, and the
 [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
 enabled, `pSampledImage` **must** not be `NULL` and
@@ -8943,7 +8995,7 @@ enabled, `pSampledImage` **must** not be `NULL` and
 * 
 [](#VUID-VkDescriptorDataEXT-type-08036) VUID-VkDescriptorDataEXT-type-08036
 
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
+If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT)::`type` is
 `VK_DESCRIPTOR_TYPE_STORAGE_IMAGE`, and the
 [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
 enabled, `pStorageImage` **must** not be `NULL` and
@@ -8952,7 +9004,7 @@ enabled, `pStorageImage` **must** not be `NULL` and
 * 
 [](#VUID-VkDescriptorDataEXT-type-08037) VUID-VkDescriptorDataEXT-type-08037
 
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
+If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT)::`type` is
 `VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER`, and the
 [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
 enabled, `pUniformTexelBuffer` **must** not be `NULL`
@@ -8960,7 +9012,7 @@ enabled, `pUniformTexelBuffer` **must** not be `NULL`
 * 
 [](#VUID-VkDescriptorDataEXT-type-08038) VUID-VkDescriptorDataEXT-type-08038
 
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
+If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT)::`type` is
 `VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER`, and the
 [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
 enabled, `pStorageTexelBuffer` **must** not be `NULL`
@@ -8968,7 +9020,7 @@ enabled, `pStorageTexelBuffer` **must** not be `NULL`
 * 
 [](#VUID-VkDescriptorDataEXT-type-08039) VUID-VkDescriptorDataEXT-type-08039
 
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
+If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT)::`type` is
 `VK_DESCRIPTOR_TYPE_UNIFORM_BUFFER`, and the
 [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
 enabled, `pUniformBuffer` **must** not be `NULL`
@@ -8976,7 +9028,7 @@ enabled, `pUniformBuffer` **must** not be `NULL`
 * 
 [](#VUID-VkDescriptorDataEXT-type-08040) VUID-VkDescriptorDataEXT-type-08040
 
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
+If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT)::`type` is
 `VK_DESCRIPTOR_TYPE_STORAGE_BUFFER`, and the
 [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
 enabled, `pStorageBuffer` **must** not be `NULL`
@@ -8984,7 +9036,7 @@ enabled, `pStorageBuffer` **must** not be `NULL`
 * 
 [](#VUID-VkDescriptorDataEXT-type-08041) VUID-VkDescriptorDataEXT-type-08041
 
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
+If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT)::`type` is
 `VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_KHR`, and the
 [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
 enabled, `accelerationStructure` **must** not be `0`
@@ -8992,7 +9044,7 @@ enabled, `accelerationStructure` **must** not be `0`
 * 
 [](#VUID-VkDescriptorDataEXT-type-08042) VUID-VkDescriptorDataEXT-type-08042
 
-If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT):`type` is
+If [VkDescriptorGetInfoEXT](#VkDescriptorGetInfoEXT)::`type` is
 `VK_DESCRIPTOR_TYPE_ACCELERATION_STRUCTURE_NV`, and the
 [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
 enabled, `accelerationStructure` **must** not be `0`
@@ -9022,7 +9074,7 @@ structure.
 * 
 `address` is either `0` or a device address at an offset in a
 buffer, where the base address can be queried from
-[vkGetBufferDeviceAddress](#vkGetBufferDeviceAddress).
+[vkGetBufferDeviceAddress](resources.html#vkGetBufferDeviceAddress).
 
 * 
 `range` is the size in bytes of the buffer or buffer view used by
@@ -9064,8 +9116,8 @@ If `address` is not zero,
 * 
 [](#VUID-VkDescriptorAddressInfoEXT-None-08044) VUID-VkDescriptorAddressInfoEXT-None-08044
 
-If `address` is not zero, `address` **must** be a valid device
-address at an offset within a [VkBuffer](resources.html#VkBuffer)
+If `address` is not zero, `address` **must** be a valid
+`VkDeviceAddress`
 
 * 
 [](#VUID-VkDescriptorAddressInfoEXT-range-08045) VUID-VkDescriptorAddressInfoEXT-range-08045
@@ -9090,6 +9142,11 @@ Valid Usage (Implicit)
 [](#VUID-VkDescriptorAddressInfoEXT-pNext-pNext) VUID-VkDescriptorAddressInfoEXT-pNext-pNext
 
  `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkDescriptorAddressInfoEXT-address-parameter) VUID-VkDescriptorAddressInfoEXT-address-parameter
+
+ `address` **must** be a valid `VkDeviceAddress` value
 
 * 
 [](#VUID-VkDescriptorAddressInfoEXT-format-parameter) VUID-VkDescriptorAddressInfoEXT-format-parameter
@@ -9120,6 +9177,46 @@ The implementation handles allocation of these descriptors internally. |
 immutable samplers that end up in descriptor sets from the application.
 As such, applications are required to provide these samplers as if they were
 not provided immutably. |
+
+The `VkDescriptorGetTensorInfoARM` is defined as:
+
+// Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+typedef struct VkDescriptorGetTensorInfoARM {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkTensorViewARM    tensorView;
+} VkDescriptorGetTensorInfoARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`tensorView` is a [VkTensorViewARM](resources.html#VkTensorViewARM) handle specifying the
+parameters of a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor.
+
+Valid Usage
+
+* 
+[](#VUID-VkDescriptorGetTensorInfoARM-nullDescriptor-09899) VUID-VkDescriptorGetTensorInfoARM-nullDescriptor-09899
+
+If the [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
+enabled, `tensorView` **must** not be [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkDescriptorGetTensorInfoARM-sType-sType) VUID-VkDescriptorGetTensorInfoARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_DESCRIPTOR_GET_TENSOR_INFO_ARM`
+
+* 
+[](#VUID-VkDescriptorGetTensorInfoARM-tensorView-parameter) VUID-VkDescriptorGetTensorInfoARM-tensorView-parameter
+
+ `tensorView` **must** be a valid [VkTensorViewARM](resources.html#VkTensorViewARM) handle
 
 Descriptor buffers have their own separate binding point on the command
 buffer, with buffers bound using [vkCmdBindDescriptorBuffersEXT](#vkCmdBindDescriptorBuffersEXT).
@@ -9204,13 +9301,6 @@ There **must** be no more than `1` element in `pBindingInfos` with
 [VkPhysicalDeviceDescriptorBufferPropertiesEXT](limits.html#VkPhysicalDeviceDescriptorBufferPropertiesEXT)::`maxDescriptorBufferBindings`
 
 * 
-[](#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08052) VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08052
-
-For any element of `pBindingInfos`, if the buffer from which
-`address` was queried is non-sparse then it **must** be bound
-completely and contiguously to a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
-
-* 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08053) VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-08053
 
 For any element of `pBindingInfos`, the buffer from which
@@ -9252,7 +9342,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-commandBuffer-cmdpool) VUID-vkCmdBindDescriptorBuffersEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
 
 * 
 [](#VUID-vkCmdBindDescriptorBuffersEXT-videocoding) VUID-vkCmdBindDescriptorBuffersEXT-videocoding
@@ -9279,7 +9369,13 @@ Command Properties
 
 Secondary | Both | Outside | Graphics
 
-Compute | State |
+Compute
+
+Data_Graph | State |
+
+Conditional Rendering
+
+vkCmdBindDescriptorBuffersEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Data describing a descriptor buffer binding is passed in a
 `VkDescriptorBufferBindingInfoEXT` structure:
@@ -9385,6 +9481,11 @@ Valid Usage (Implicit)
 
  The `sType` value of each structure in the `pNext` chain **must** be unique
 
+* 
+[](#VUID-VkDescriptorBufferBindingInfoEXT-address-parameter) VUID-VkDescriptorBufferBindingInfoEXT-address-parameter
+
+ `address` **must** be a valid `VkDeviceAddress` value
+
 When the [`VkPhysicalDeviceDescriptorBufferPropertiesEXT`::`bufferlessPushDescriptors`](limits.html#limits-bufferlessPushDescriptors)
 property is `VK_FALSE`, the `VkBuffer` handle of the buffer for push
 descriptors is passed in a
@@ -9471,7 +9572,7 @@ to apply to the bound descriptor buffers.
 `vkCmdSetDescriptorBufferOffsetsEXT` binds `setCount` pairs of
 descriptor buffers, specified by indices into the binding points bound using
 [vkCmdBindDescriptorBuffersEXT](#vkCmdBindDescriptorBuffersEXT), and buffer offsets to set numbers
-[`firstSet`..`firstSet`+`descriptorSetCount`-1] for subsequent
+[`firstSet`..`firstSet`+`setCount`-1] for subsequent
 [bound pipeline commands](pipelines.html#pipelines-bindpoint-commands) set by
 `pipelineBindPoint`.
 Set [`firstSet` + i] is bound to the descriptor buffer at binding
@@ -9635,7 +9736,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-commandBuffer-cmdpool) VUID-vkCmdSetDescriptorBufferOffsetsEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
 
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsetsEXT-videocoding) VUID-vkCmdSetDescriptorBufferOffsetsEXT-videocoding
@@ -9667,7 +9768,13 @@ Command Properties
 
 Secondary | Both | Outside | Graphics
 
-Compute | State |
+Compute
+
+Data_Graph | State |
+
+Conditional Rendering
+
+vkCmdSetDescriptorBufferOffsetsEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Alternatively, to set descriptor buffer offsets in a command buffer, call:
 
@@ -9719,7 +9826,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsets2EXT-commandBuffer-cmdpool) VUID-vkCmdSetDescriptorBufferOffsets2EXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, compute, or data_graph operations
 
 * 
 [](#VUID-vkCmdSetDescriptorBufferOffsets2EXT-videocoding) VUID-vkCmdSetDescriptorBufferOffsets2EXT-videocoding
@@ -9741,7 +9848,13 @@ Command Properties
 
 Secondary | Both | Outside | Graphics
 
-Compute | State |
+Compute
+
+Data_Graph | State |
+
+Conditional Rendering
+
+vkCmdSetDescriptorBufferOffsets2EXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkSetDescriptorBufferOffsetsInfoEXT` structure is defined as:
 
@@ -10042,6 +10155,10 @@ Secondary | Both | Outside | Graphics
 
 Compute | State |
 
+Conditional Rendering
+
+vkCmdBindDescriptorBufferEmbeddedSamplersEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Alternatively, to bind an embedded immutable sampler set to a command
 buffer, call:
 
@@ -10116,6 +10233,10 @@ Command Properties
 Secondary | Both | Outside | Graphics
 
 Compute | State |
+
+Conditional Rendering
+
+vkCmdBindDescriptorBufferEmbeddedSamplers2EXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkBindDescriptorBufferEmbeddedSamplersInfoEXT` structure is defined
 as:
@@ -10319,10 +10440,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Information about the buffer to get descriptor buffer capture data for is
 passed in a `VkBufferCaptureDescriptorDataInfoEXT` structure:
@@ -10437,10 +10564,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Information about the image to get descriptor buffer capture data for is
 passed in a `VkImageCaptureDescriptorDataInfoEXT` structure:
@@ -10556,10 +10689,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Information about the image view to get descriptor buffer capture data for
 is passed in a `VkImageViewCaptureDescriptorDataInfoEXT` structure:
@@ -10675,10 +10814,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Information about the sampler to get descriptor buffer capture data for is
 passed in a `VkSamplerCaptureDescriptorDataInfoEXT` structure:
@@ -10795,10 +10940,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Information about the acceleration structure to get descriptor buffer
 capture data for is passed in a
@@ -10907,6 +11058,8 @@ application-allocated buffer containing opaque capture data retrieved
 using [vkGetBufferOpaqueCaptureDescriptorDataEXT](#vkGetBufferOpaqueCaptureDescriptorDataEXT),
 [vkGetImageOpaqueCaptureDescriptorDataEXT](#vkGetImageOpaqueCaptureDescriptorDataEXT),
 [vkGetImageViewOpaqueCaptureDescriptorDataEXT](#vkGetImageViewOpaqueCaptureDescriptorDataEXT),
+[vkGetTensorOpaqueCaptureDescriptorDataARM](#vkGetTensorOpaqueCaptureDescriptorDataARM),
+[vkGetTensorViewOpaqueCaptureDescriptorDataARM](#vkGetTensorViewOpaqueCaptureDescriptorDataARM),
 [vkGetSamplerOpaqueCaptureDescriptorDataEXT](#vkGetSamplerOpaqueCaptureDescriptorDataEXT), or
 [vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT](#vkGetAccelerationStructureOpaqueCaptureDescriptorDataEXT).
 
@@ -10914,6 +11067,7 @@ During replay, opaque descriptor capture data **can** be specified by adding a
 `VkOpaqueCaptureDescriptorDataCreateInfoEXT` structure to the relevant
 `pNext` chain of a [VkBufferCreateInfo](resources.html#VkBufferCreateInfo), [VkImageCreateInfo](resources.html#VkImageCreateInfo),
 [VkImageViewCreateInfo](resources.html#VkImageViewCreateInfo), [VkSamplerCreateInfo](samplers.html#VkSamplerCreateInfo),
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM), [VkTensorViewCreateInfoARM](resources.html#VkTensorViewCreateInfoARM),
 [VkAccelerationStructureCreateInfoNV](resources.html#VkAccelerationStructureCreateInfoNV) or
 [VkAccelerationStructureCreateInfoKHR](resources.html#VkAccelerationStructureCreateInfoKHR) structure.
 
@@ -10928,3 +11082,256 @@ Valid Usage (Implicit)
 [](#VUID-VkOpaqueCaptureDescriptorDataCreateInfoEXT-opaqueCaptureDescriptorData-parameter) VUID-VkOpaqueCaptureDescriptorDataCreateInfoEXT-opaqueCaptureDescriptorData-parameter
 
  `opaqueCaptureDescriptorData` **must** be a pointer value
+
+To get the opaque capture descriptor data for a tensor, call:
+
+// Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+VkResult vkGetTensorOpaqueCaptureDescriptorDataARM(
+    VkDevice                                    device,
+    const VkTensorCaptureDescriptorDataInfoARM* pInfo,
+    void*                                       pData);
+
+* 
+`device` is the logical device that gets the data.
+
+* 
+`pInfo` is a pointer to a [VkTensorCaptureDescriptorDataInfoARM](#VkTensorCaptureDescriptorDataInfoARM)
+structure specifying the tensor.
+
+* 
+`pData` is a pointer to a user-allocated buffer where the data will
+be written.
+
+Valid Usage
+
+* 
+[](#VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-descriptorBufferCaptureReplay-09702) VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-descriptorBufferCaptureReplay-09702
+
+The [`descriptorBufferCaptureReplay`](features.html#features-descriptorBuffer)
+and [    `descriptorBufferTensorDescriptors`](features.html#features-descriptorBufferTensorDescriptors) features **must** be enabled
+
+* 
+[](#VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-pData-09703) VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-pData-09703
+
+`pData` **must** point to a buffer that is at least
+[VkPhysicalDeviceDescriptorBufferTensorPropertiesARM](limits.html#VkPhysicalDeviceDescriptorBufferTensorPropertiesARM)::`tensorCaptureReplayDescriptorDataSize`
+bytes in size
+
+* 
+[](#VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-device-09704) VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-device-09704
+
+If `device` was created with multiple physical devices, then the
+[    `bufferDeviceAddressMultiDevice`](features.html#features-bufferDeviceAddressMultiDevice) feature **must** be enabled
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-device-parameter) VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-device-parameter
+
+ `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-pInfo-parameter) VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-pInfo-parameter
+
+ `pInfo` **must** be a valid pointer to a valid [VkTensorCaptureDescriptorDataInfoARM](#VkTensorCaptureDescriptorDataInfoARM) structure
+
+* 
+[](#VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-pData-parameter) VUID-vkGetTensorOpaqueCaptureDescriptorDataARM-pData-parameter
+
+ `pData` **must** be a pointer value
+
+Return Codes
+
+[Success](fundamentals.html#fundamentals-successcodes)
+
+* 
+`VK_SUCCESS`
+
+[Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
+Information about the tensor to get descriptor buffer capture data for is
+passed in a `VkTensorCaptureDescriptorDataInfoARM` structure:
+
+// Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+typedef struct VkTensorCaptureDescriptorDataInfoARM {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkTensorARM        tensor;
+} VkTensorCaptureDescriptorDataInfoARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`tensor` is the `VkTensorARM` handle of the tensor to get opaque
+capture data for.
+
+Valid Usage
+
+* 
+[](#VUID-VkTensorCaptureDescriptorDataInfoARM-tensor-09705) VUID-VkTensorCaptureDescriptorDataInfoARM-tensor-09705
+
+If `tensor` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) then `tensor` **must** have
+been created with
+`VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM` set in
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`flags`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkTensorCaptureDescriptorDataInfoARM-sType-sType) VUID-VkTensorCaptureDescriptorDataInfoARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_TENSOR_CAPTURE_DESCRIPTOR_DATA_INFO_ARM`
+
+* 
+[](#VUID-VkTensorCaptureDescriptorDataInfoARM-pNext-pNext) VUID-VkTensorCaptureDescriptorDataInfoARM-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkTensorCaptureDescriptorDataInfoARM-tensor-parameter) VUID-VkTensorCaptureDescriptorDataInfoARM-tensor-parameter
+
+ `tensor` **must** be a valid [VkTensorARM](resources.html#VkTensorARM) handle
+
+To get the opaque capture descriptor data for a tensor view, call:
+
+// Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+VkResult vkGetTensorViewOpaqueCaptureDescriptorDataARM(
+    VkDevice                                    device,
+    const VkTensorViewCaptureDescriptorDataInfoARM* pInfo,
+    void*                                       pData);
+
+* 
+`device` is the logical device that gets the data.
+
+* 
+`pInfo` is a pointer to a
+[VkTensorViewCaptureDescriptorDataInfoARM](#VkTensorViewCaptureDescriptorDataInfoARM) structure specifying the
+tensor view.
+
+* 
+`pData` is a pointer to a user-allocated buffer where the data will
+be written.
+
+Valid Usage
+
+* 
+[](#VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-descriptorBufferCaptureReplay-09706) VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-descriptorBufferCaptureReplay-09706
+
+The [`descriptorBufferCaptureReplay`](features.html#features-descriptorBuffer)
+and [    `descriptorBufferTensorDescriptors`](features.html#features-descriptorBufferTensorDescriptors) features **must** be enabled
+
+* 
+[](#VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-pData-09707) VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-pData-09707
+
+`pData` **must** point to a buffer that is at least
+[VkPhysicalDeviceDescriptorBufferTensorPropertiesARM](limits.html#VkPhysicalDeviceDescriptorBufferTensorPropertiesARM)::`tensorViewCaptureReplayDescriptorDataSize`
+bytes in size
+
+* 
+[](#VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-device-09708) VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-device-09708
+
+If `device` was created with multiple physical devices, then the
+[    `bufferDeviceAddressMultiDevice`](features.html#features-bufferDeviceAddressMultiDevice) feature **must** be enabled
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-device-parameter) VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-device-parameter
+
+ `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-pInfo-parameter) VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-pInfo-parameter
+
+ `pInfo` **must** be a valid pointer to a valid [VkTensorViewCaptureDescriptorDataInfoARM](#VkTensorViewCaptureDescriptorDataInfoARM) structure
+
+* 
+[](#VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-pData-parameter) VUID-vkGetTensorViewOpaqueCaptureDescriptorDataARM-pData-parameter
+
+ `pData` **must** be a pointer value
+
+Return Codes
+
+[Success](fundamentals.html#fundamentals-successcodes)
+
+* 
+`VK_SUCCESS`
+
+[Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
+Information about the tensor view to get descriptor buffer capture data for
+is passed in a `VkTensorViewCaptureDescriptorDataInfoARM` structure:
+
+// Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+typedef struct VkTensorViewCaptureDescriptorDataInfoARM {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkTensorViewARM    tensorView;
+} VkTensorViewCaptureDescriptorDataInfoARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`tensorView` is the `VkTensorViewARM` handle of the tensor view
+to get opaque capture data for.
+
+Valid Usage
+
+* 
+[](#VUID-VkTensorViewCaptureDescriptorDataInfoARM-tensorView-09709) VUID-VkTensorViewCaptureDescriptorDataInfoARM-tensorView-09709
+
+If `tensorView` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) then `tensorView`
+**must** have been created with
+`VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM` set
+in [VkTensorViewCreateInfoARM](resources.html#VkTensorViewCreateInfoARM)::`flags`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkTensorViewCaptureDescriptorDataInfoARM-sType-sType) VUID-VkTensorViewCaptureDescriptorDataInfoARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_TENSOR_VIEW_CAPTURE_DESCRIPTOR_DATA_INFO_ARM`
+
+* 
+[](#VUID-VkTensorViewCaptureDescriptorDataInfoARM-pNext-pNext) VUID-VkTensorViewCaptureDescriptorDataInfoARM-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkTensorViewCaptureDescriptorDataInfoARM-tensorView-parameter) VUID-VkTensorViewCaptureDescriptorDataInfoARM-tensorView-parameter
+
+ `tensorView` **must** be a valid [VkTensorViewARM](resources.html#VkTensorViewARM) handle

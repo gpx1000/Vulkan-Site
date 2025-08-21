@@ -33,7 +33,7 @@ VkResult vkCreateExternalComputeQueueNV(
 
 * 
 `pCreateInfo` is a pointer to a
-[VkExternalComputeQueueCreateInfoNV](#undefined.adoc#VkExternalComputeQueueCreateInfoNV) structure specifying
+[VkExternalComputeQueueCreateInfoNV](#VkExternalComputeQueueCreateInfoNV) structure specifying
 configuration info for creating the external queue.
 
 * 
@@ -41,7 +41,7 @@ configuration info for creating the external queue.
 [Memory Allocation](../memory.html#memory-allocation) chapter.
 
 * 
-`pExternalQueue` is a pointer to a [VkExternalComputeQueueNV](#undefined.adoc#VkExternalComputeQueueNV)
+`pExternalQueue` is a pointer to a [VkExternalComputeQueueNV](#VkExternalComputeQueueNV)
 object that will be filled with the handle for the created external
 queue.
 
@@ -55,7 +55,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCreateExternalComputeQueueNV-pCreateInfo-parameter) VUID-vkCreateExternalComputeQueueNV-pCreateInfo-parameter
 
- `pCreateInfo` **must** be a valid pointer to a valid [VkExternalComputeQueueCreateInfoNV](#undefined.adoc#VkExternalComputeQueueCreateInfoNV) structure
+ `pCreateInfo` **must** be a valid pointer to a valid [VkExternalComputeQueueCreateInfoNV](#VkExternalComputeQueueCreateInfoNV) structure
 
 * 
 [](#VUID-vkCreateExternalComputeQueueNV-pAllocator-parameter) VUID-vkCreateExternalComputeQueueNV-pAllocator-parameter
@@ -65,7 +65,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCreateExternalComputeQueueNV-pExternalQueue-parameter) VUID-vkCreateExternalComputeQueueNV-pExternalQueue-parameter
 
- `pExternalQueue` **must** be a valid pointer to a [VkExternalComputeQueueNV](#undefined.adoc#VkExternalComputeQueueNV) handle
+ `pExternalQueue` **must** be a valid pointer to a [VkExternalComputeQueueNV](#VkExternalComputeQueueNV) handle
+
+* 
+[](#VUID-vkCreateExternalComputeQueueNV-device-queuecount) VUID-vkCreateExternalComputeQueueNV-device-queuecount
+
+ The device **must** have been created with at least `1` queue
 
 Return Codes
 
@@ -82,6 +87,12 @@ Return Codes
 * 
 `VK_ERROR_TOO_MANY_OBJECTS`
 
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
 To destroy a previously created external compute queue call:
 
 // Provided by VK_NV_external_compute_queue
@@ -94,7 +105,7 @@ void vkDestroyExternalComputeQueueNV(
 `device` is the logical device that destroys the external queue.
 
 * 
-`externalQueue` is the [VkExternalComputeQueueNV](#undefined.adoc#VkExternalComputeQueueNV) to destroy.
+`externalQueue` is the [VkExternalComputeQueueNV](#VkExternalComputeQueueNV) to destroy.
 
 * 
 `pAllocator` controls host memory allocation as described in the
@@ -110,7 +121,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkDestroyExternalComputeQueueNV-externalQueue-parameter) VUID-vkDestroyExternalComputeQueueNV-externalQueue-parameter
 
- `externalQueue` **must** be a valid [VkExternalComputeQueueNV](#undefined.adoc#VkExternalComputeQueueNV) handle
+ `externalQueue` **must** be a valid [VkExternalComputeQueueNV](#VkExternalComputeQueueNV) handle
 
 * 
 [](#VUID-vkDestroyExternalComputeQueueNV-pAllocator-parameter) VUID-vkDestroyExternalComputeQueueNV-pAllocator-parameter
@@ -132,11 +143,11 @@ void vkGetExternalComputeQueueDataNV(
     void*                                       pData);
 
 * 
-`externalQueue` is the [VkExternalComputeQueueNV](#undefined.adoc#VkExternalComputeQueueNV) to query the
+`externalQueue` is the [VkExternalComputeQueueNV](#VkExternalComputeQueueNV) to query the
 data for.
 
 * 
-`params` is a pointer to a [VkExternalComputeQueueDataParamsNV](#undefined.adoc#VkExternalComputeQueueDataParamsNV)
+`params` is a pointer to a [VkExternalComputeQueueDataParamsNV](#VkExternalComputeQueueDataParamsNV)
 structure specifying parameters required for retrieval of the
 implementation-specific data.
 
@@ -150,20 +161,20 @@ Valid Usage
 [](#VUID-vkGetExternalComputeQueueDataNV-pData-08134) VUID-vkGetExternalComputeQueueDataNV-pData-08134
 
 `pData` **must** be at least the size specified by the externalDataSize
-field in the [VkPhysicalDeviceExternalComputeQueuePropertiesNV](#undefined.adoc#VkPhysicalDeviceExternalComputeQueuePropertiesNV)
-structure.
+field in the [VkPhysicalDeviceExternalComputeQueuePropertiesNV](#VkPhysicalDeviceExternalComputeQueuePropertiesNV)
+structure
 
 Valid Usage (Implicit)
 
 * 
 [](#VUID-vkGetExternalComputeQueueDataNV-externalQueue-parameter) VUID-vkGetExternalComputeQueueDataNV-externalQueue-parameter
 
- `externalQueue` **must** be a valid [VkExternalComputeQueueNV](#undefined.adoc#VkExternalComputeQueueNV) handle
+ `externalQueue` **must** be a valid [VkExternalComputeQueueNV](#VkExternalComputeQueueNV) handle
 
 * 
 [](#VUID-vkGetExternalComputeQueueDataNV-params-parameter) VUID-vkGetExternalComputeQueueDataNV-params-parameter
 
- `params` **must** be a valid pointer to a [VkExternalComputeQueueDataParamsNV](#undefined.adoc#VkExternalComputeQueueDataParamsNV) structure
+ `params` **must** be a valid pointer to a [VkExternalComputeQueueDataParamsNV](#VkExternalComputeQueueDataParamsNV) structure
 
 * 
 [](#VUID-vkGetExternalComputeQueueDataNV-pData-parameter) VUID-vkGetExternalComputeQueueDataNV-pData-parameter
@@ -190,7 +201,7 @@ structure.
 `reservedExternalQueues` is the maximum number of external queues an
 application **can** create at once.
 This **must** be less than or equal to the `maxExternalQueues` value
-reported by [VkPhysicalDeviceExternalComputeQueuePropertiesNV](#undefined.adoc#VkPhysicalDeviceExternalComputeQueuePropertiesNV)
+reported by [VkPhysicalDeviceExternalComputeQueuePropertiesNV](#VkPhysicalDeviceExternalComputeQueuePropertiesNV)
 
 Valid Usage (Implicit)
 
@@ -293,7 +304,7 @@ structure.
 
 * 
 `externalDataSize` is the minimum size of the memory allocation that
-applications **can** pass to [vkGetExternalComputeQueueDataNV](#undefined.adoc#vkGetExternalComputeQueueDataNV).
+applications **can** pass to [vkGetExternalComputeQueueDataNV](#vkGetExternalComputeQueueDataNV).
 
 * 
 `maxExternalQueues` is the maximum number of external queues that an

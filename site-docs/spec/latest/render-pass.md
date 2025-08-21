@@ -162,7 +162,7 @@ the layout specified by `imageLayout`
 
 For any element of `pRenderingInfo->pColorAttachments`, if
 either `imageResolveMode` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`, or
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, or
 `imageView` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) and `resolveMode` is not
 `VK_RESOLVE_MODE_NONE`, and `resolveImageView` is not
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `resolveImageView` **must** be in the layout
@@ -231,6 +231,10 @@ Secondary | Outside | Outside | Graphics | Action
 
 State |
 
+Conditional Rendering
+
+vkCmdBeginRendering is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkRenderingInfo` structure is defined as:
 
 // Provided by VK_VERSION_1_3
@@ -271,8 +275,8 @@ instance.
 when `viewMask` is `0`.
 
 * 
-`viewMask` is the view mask indicating the indices of attachment
-layers that will be rendered when it is not `0`.
+`viewMask` is a bitfield of view indices describing which views are
+active during rendering, when it is not `0`.
 
 * 
 `colorAttachmentCount` is the number of elements in
@@ -315,7 +319,7 @@ provided in `pColorAttachments`[**X**].
 If the `imageView` member of any element of `pColorAttachments` is
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE),
 and `resolveMode` is not
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`,
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`,
 writes to the corresponding location by a fragment are discarded.
 
 Valid Usage
@@ -482,7 +486,7 @@ that `imageView` **must** have been created with
 If `colorAttachmentCount` is not `0` and there is an element of
 `pColorAttachments` with
 either its `resolveMode` member set to
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`, or
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, or
 its `imageView` member not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and its
 `resolveMode` member not set to `VK_RESOLVE_MODE_NONE`, the
 `resolveImageView` member of that element of `pColorAttachments`
@@ -577,6 +581,32 @@ If `pStencilAttachment` is not `NULL`,
 `pStencilAttachment->resolveMode` is not `VK_RESOLVE_MODE_NONE`,
 `pStencilAttachment->resolveImageLayout` **must** not be
 `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL`
+
+[](#VUID-VkRenderingInfo-layerCount-07817) VUID-VkRenderingInfo-layerCount-07817
+
+`layerCount` **must** be less than or equal to
+[`maxFramebufferLayers`](limits.html#limits-maxFramebufferLayers)
+
+[](#VUID-VkRenderingInfo-viewMask-10859) VUID-VkRenderingInfo-viewMask-10859
+
+If `viewMask` is `0`, Each `pColorAttachment->imageView` and
+`pColorAttachment->resolveImageView` that is not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have a `layerCount` that is greater than
+or equal to `VkRenderingInfo`::`layerCount`
+
+[](#VUID-VkRenderingInfo-viewMask-10860) VUID-VkRenderingInfo-viewMask-10860
+
+If `viewMask` is `0`, Each `pDepthAttachment->imageView` and
+`pDepthAttachment->resolveImageView` that is not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have a `layerCount` that is greater than
+or equal to `VkRenderingInfo`::`layerCount`
+
+[](#VUID-VkRenderingInfo-viewMask-10861) VUID-VkRenderingInfo-viewMask-10861
+
+If `viewMask` is `0`, Each `pStencilAttachment->imageView` and
+`pStencilAttachment->resolveImageView` that is not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) **must** have a `layerCount` that is greater than
+or equal to `VkRenderingInfo`::`layerCount`
 
 [](#VUID-VkRenderingInfo-colorAttachmentCount-06096) VUID-VkRenderingInfo-colorAttachmentCount-06096
 
@@ -787,6 +817,19 @@ equal to the `imageView` or `resolveImageView` member of
 `pDepthAttachment`, `pStencilAttachment`, or any element of
 `pColorAttachments`
 
+[](#VUID-VkRenderingInfo-flags-10826) VUID-VkRenderingInfo-flags-10826
+
+If `flags` contains
+`VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE`, then
+`layerCount` **must** be less than or equal to
+[    `maxFragmentDensityMapLayers`](limits.html#limits-maxFragmentDensityMapLayers)
+
+[](#VUID-VkRenderingInfo-fragmentDensityMapLayered-10827) VUID-VkRenderingInfo-fragmentDensityMapLayered-10827
+
+If the [    `fragmentDensityMapLayered`](features.html#features-fragmentDensityMapLayered) feature is not enabled, `flags`
+**must** not contain
+`VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE`
+
 [](#VUID-VkRenderingInfo-pNext-06119) VUID-VkRenderingInfo-pNext-06119
 
 If
@@ -859,18 +902,14 @@ in the `pNext` chain is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_N
   
 for each element of `pDeviceRenderAreas`
 
-[](#VUID-VkRenderingInfo-layerCount-07817) VUID-VkRenderingInfo-layerCount-07817
-
-`layerCount` **must** be less than or equal to
-[`maxFramebufferLayers`](limits.html#limits-maxFramebufferLayers)
-
 [](#VUID-VkRenderingInfo-imageView-06123) VUID-VkRenderingInfo-imageView-06123
 
 If the `imageView` member of a
 [VkRenderingFragmentShadingRateAttachmentInfoKHR](#VkRenderingFragmentShadingRateAttachmentInfoKHR) structure included
 in the `pNext` chain is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), and `viewMask`
 is `0`, `imageView` **must** have a `layerCount` that is either
-equal to `1` or greater than or equal to `layerCount`
+equal to `1` or greater than or equal to
+`VkRenderingInfo`::`layerCount`
 
 [](#VUID-VkRenderingInfo-imageView-06124) VUID-VkRenderingInfo-imageView-06124
 
@@ -944,30 +983,30 @@ at least one of the following features **must** be enabled
 [](#VUID-VkRenderingInfo-pDepthAttachment-09318) VUID-VkRenderingInfo-pDepthAttachment-09318
 
 `pDepthAttachment->resolveMode` **must** not be
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`
 
 [](#VUID-VkRenderingInfo-pStencilAttachment-09319) VUID-VkRenderingInfo-pStencilAttachment-09319
 
 `pStencilAttachment->resolveMode` **must** not be
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`
 
 [](#VUID-VkRenderingInfo-colorAttachmentCount-09320) VUID-VkRenderingInfo-colorAttachmentCount-09320
 
 If `colorAttachmentCount` is not `1`, the `resolveMode` member
 of any element of `pColorAttachments` **must** not be
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`
 
 [](#VUID-VkRenderingInfo-resolveMode-09321) VUID-VkRenderingInfo-resolveMode-09321
 
 If the `resolveMode` of any element of `pColorAttachments` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`,
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`,
 [VkRenderingFragmentDensityMapAttachmentInfoEXT](#VkRenderingFragmentDensityMapAttachmentInfoEXT)::`imageView`
 **must** be [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
 
 [](#VUID-VkRenderingInfo-resolveMode-09322) VUID-VkRenderingInfo-resolveMode-09322
 
 If the `resolveMode` of any element of `pColorAttachments` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`,
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`,
 [VkRenderingFragmentShadingRateAttachmentInfoKHR](#VkRenderingFragmentShadingRateAttachmentInfoKHR)::`imageView`
 **must** be [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
 
@@ -990,7 +1029,7 @@ that `imageView` **must** have been created with the
 If `colorAttachmentCount` is not `0`, and there is an element of
 `pColorAttachments` with
 either its `resolveMode` member set to
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`, or
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, or
 its `imageView` member not set to [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) and its
 `resolveMode` member not set to `VK_RESOLVE_MODE_NONE`, the
 `resolveImageView` member of that element of `pColorAttachments`
@@ -1052,7 +1091,7 @@ in [VkRenderPassTileShadingCreateInfoQCOM](#VkRenderPassTileShadingCreateInfoQCO
 [](#VUID-VkRenderingInfo-resolveMode-10644) VUID-VkRenderingInfo-resolveMode-10644
 
 If the `resolveMode` of any element of `pColorAttachments` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`,
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`,
 `VK_TILE_SHADING_RENDER_PASS_ENABLE_BIT_QCOM` **must** not be included
 in [VkRenderPassTileShadingCreateInfoQCOM](#VkRenderPassTileShadingCreateInfoQCOM)::`flags`
 
@@ -1105,6 +1144,8 @@ typedef enum VkRenderingFlagBits {
     VK_RENDERING_ENABLE_LEGACY_DITHERING_BIT_EXT = 0x00000008,
   // Provided by VK_KHR_maintenance7
     VK_RENDERING_CONTENTS_INLINE_BIT_KHR = 0x00000010,
+  // Provided by VK_VALVE_fragment_density_map_layered
+    VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE = 0x00000020,
   // Provided by VK_KHR_dynamic_rendering
     VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT_KHR = VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT,
   // Provided by VK_KHR_dynamic_rendering
@@ -1148,6 +1189,10 @@ command buffer.
 This **can** be combined with the
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT` bit to allow
 draw calls to be recorded both inline and in secondary command buffers.
+
+* 
+`VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE` specifies that
+the render pass **can** be used with layered fragment density maps.
 
 The contents of `pRenderingInfo` **must** match between suspended render
 pass instances and the render pass instances that resume them, other than
@@ -1235,7 +1280,7 @@ for each device
 specified in [VkRenderingInfo](#VkRenderingInfo).
 If `imageView` is [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE),
 and `resolveMode` is not
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`,
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`,
 other members of this structure are ignored; writes to this attachment will
 be discarded, and no [load](#renderpass-load-operations),
 [store](#renderpass-store-operations), or [multisample resolve](#renderpass-resolve-operations) operations will be performed.
@@ -1247,7 +1292,7 @@ If `resolveMode` is not `VK_RESOLVE_MODE_NONE`, and
 [render pass multisample resolve operation](#renderpass-resolve-operations)
 is defined for the attachment subresource.
 If `resolveMode` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`, and the
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, and the
 [`nullColorAttachmentWithExternalFormatResolve`](limits.html#limits-nullColorAttachmentWithExternalFormatResolve) limit is `VK_TRUE`,
 values are only **undefined** once [load operations](#renderpass-load-operations) have completed.
 
@@ -1268,7 +1313,7 @@ for access by a resuming render pass instance.
 
 If the [`nullColorAttachmentWithExternalFormatResolve`](limits.html#limits-nullColorAttachmentWithExternalFormatResolve) limit is `VK_TRUE`,
 and `resolveMode` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`, values in the
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`, values in the
 color attachment will be loaded from the resolve attachment at the start of
 rendering, and **may** also be reloaded any time after a resolve occurs or the
 resolve attachment is written to; if this occurs it **must** happen-before any
@@ -1421,6 +1466,17 @@ If `imageView` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HA
 not `VK_RESOLVE_MODE_NONE`, `resolveImageLayout` **must** not be
 `VK_IMAGE_LAYOUT_FRAGMENT_SHADING_RATE_ATTACHMENT_OPTIMAL_KHR`
 
+[](#VUID-VkRenderingAttachmentInfo-imageView-10780) VUID-VkRenderingAttachmentInfo-imageView-10780
+
+If [feedback loop is enabled](#renderpass-feedbackloop) for the
+attachment identified by `imageView`, then `imageView` **must**
+have been created with a `usage` value including
+`VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT`, either
+`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`, and either
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT` or
+`VK_IMAGE_USAGE_SAMPLED_BIT`
+
 [](#VUID-VkRenderingAttachmentInfo-imageView-06145) VUID-VkRenderingAttachmentInfo-imageView-06145
 
 If `imageView` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `imageLayout` **must**
@@ -1436,54 +1492,54 @@ not `VK_RESOLVE_MODE_NONE`, `resolveImageLayout` **must** not be
 
 If the [`externalFormatResolve`](features.html#features-externalFormatResolve)
 feature is not enabled, `resolveMode` **must** not be
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`
 
 [](#VUID-VkRenderingAttachmentInfo-resolveMode-09324) VUID-VkRenderingAttachmentInfo-resolveMode-09324
 
 If `resolveMode` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`,
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`,
 `resolveImageView` **must** be a valid image view
 
 [](#VUID-VkRenderingAttachmentInfo-nullColorAttachmentWithExternalFormatResolve-09325) VUID-VkRenderingAttachmentInfo-nullColorAttachmentWithExternalFormatResolve-09325
 
 If the [    `nullColorAttachmentWithExternalFormatResolve`](limits.html#limits-nullColorAttachmentWithExternalFormatResolve) property is
 `VK_TRUE` and `resolveMode` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`,
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`,
 `resolveImageView` **must** have been created with an image with a
 `samples` value of `VK_SAMPLE_COUNT_1_BIT`
 
 [](#VUID-VkRenderingAttachmentInfo-resolveMode-09326) VUID-VkRenderingAttachmentInfo-resolveMode-09326
 
 If `resolveMode` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`,
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`,
 `resolveImageView` **must** have been created with an external format
 specified by [VkExternalFormatANDROID](resources.html#VkExternalFormatANDROID)
 
 [](#VUID-VkRenderingAttachmentInfo-resolveMode-09327) VUID-VkRenderingAttachmentInfo-resolveMode-09327
 
 If `resolveMode` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`,
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`,
 `resolveImageView` **must** have been created with a
 `subresourceRange.layerCount` of `1`
 
 [](#VUID-VkRenderingAttachmentInfo-resolveMode-09328) VUID-VkRenderingAttachmentInfo-resolveMode-09328
 
 If `resolveMode` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID` and
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID` and
 [    `nullColorAttachmentWithExternalFormatResolve`](limits.html#limits-nullColorAttachmentWithExternalFormatResolve) is `VK_TRUE`,
 `imageView` **must** be [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
 
 [](#VUID-VkRenderingAttachmentInfo-resolveMode-09329) VUID-VkRenderingAttachmentInfo-resolveMode-09329
 
 If `resolveMode` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID` and
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID` and
 [    `nullColorAttachmentWithExternalFormatResolve`](limits.html#limits-nullColorAttachmentWithExternalFormatResolve) is `VK_FALSE`,
 `imageView` **must** be a valid [VkImageView](resources.html#VkImageView)
 
 [](#VUID-VkRenderingAttachmentInfo-resolveMode-09330) VUID-VkRenderingAttachmentInfo-resolveMode-09330
 
 If `resolveMode` is
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID` and
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID` and
 [    `nullColorAttachmentWithExternalFormatResolve`](limits.html#limits-nullColorAttachmentWithExternalFormatResolve) is `VK_FALSE`,
 `imageView` **must** have a format equal to the value of
 [VkAndroidHardwareBufferFormatResolvePropertiesANDROID](memory.html#VkAndroidHardwareBufferFormatResolvePropertiesANDROID)::`colorAttachmentFormat`
@@ -1508,7 +1564,12 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkRenderingAttachmentInfo-pNext-pNext) VUID-VkRenderingAttachmentInfo-pNext-pNext
 
- `pNext` **must** be `NULL`
+ `pNext` **must** be `NULL` or a pointer to a valid instance of [VkAttachmentFeedbackLoopInfoEXT](#VkAttachmentFeedbackLoopInfoEXT)
+
+* 
+[](#VUID-VkRenderingAttachmentInfo-sType-unique) VUID-VkRenderingAttachmentInfo-sType-unique
+
+ The `sType` value of each structure in the `pNext` chain **must** be unique
 
 * 
 [](#VUID-VkRenderingAttachmentInfo-imageView-parameter) VUID-VkRenderingAttachmentInfo-imageView-parameter
@@ -1554,6 +1615,46 @@ Valid Usage (Implicit)
 [](#VUID-VkRenderingAttachmentInfo-commonparent) VUID-VkRenderingAttachmentInfo-commonparent
 
  Both of `imageView`, and `resolveImageView` that are valid handles of non-ignored parameters **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
+
+To [enable feedback loop](#renderpass-feedbackloop) for an attachment, the
+`VkAttachmentFeedbackLoopInfoEXT` structure **can** be added to the
+`pNext` chain of [VkRenderingAttachmentInfo](#VkRenderingAttachmentInfo).
+
+The `VkAttachmentFeedbackLoopInfoEXT` structure is defined as:
+
+// Provided by VK_KHR_unified_image_layouts with VK_EXT_attachment_feedback_loop_layout and (VK_VERSION_1_3 or VK_KHR_dynamic_rendering)
+typedef struct VkAttachmentFeedbackLoopInfoEXT {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkBool32           feedbackLoopEnable;
+} VkAttachmentFeedbackLoopInfoEXT;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`feedbackLoopEnable` specifies that
+[feedback loop is enabled](#renderpass-feedbackloop) for the attachment
+identified by [VkRenderingAttachmentInfo](#VkRenderingAttachmentInfo)::`imageView`.
+
+Valid Usage
+
+* 
+[](#VUID-VkAttachmentFeedbackLoopInfoEXT-unifiedImageLayouts-10782) VUID-VkAttachmentFeedbackLoopInfoEXT-unifiedImageLayouts-10782
+
+If the [`unifiedImageLayouts`](features.html#features-unifiedImageLayouts)
+feature is not enabled, `feedbackLoopEnable` **must** be `VK_FALSE`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkAttachmentFeedbackLoopInfoEXT-sType-sType) VUID-VkAttachmentFeedbackLoopInfoEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_ATTACHMENT_FEEDBACK_LOOP_INFO_EXT`
 
 The `VkRenderingFragmentShadingRateAttachmentInfoKHR` structure is
 defined as:
@@ -2116,6 +2217,10 @@ Secondary | Inside | Outside | Graphics | Action
 
 State |
 
+Conditional Rendering
+
+vkCmdEndRendering is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Alternatively, to end a render pass instance, call:
 
 // Provided by VK_EXT_fragment_density_map_offset
@@ -2212,6 +2317,10 @@ Secondary | Inside | Outside | Graphics | Action
 
 State |
 
+Conditional Rendering
+
+vkCmdEndRendering2EXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkRenderingEndInfoEXT` structure is defined as:
 
 // Provided by VK_EXT_fragment_density_map_offset
@@ -2286,9 +2395,8 @@ space.
 All tiles will be tightly packed around the first tile, with edges being
 multiples of tile width and/or height from the origin.
 
-#ifdef::VK_QCOM_tile_shading[] The `tileSize` is guaranteed to be a
-multiple of [`tileGranularity`](limits.html#limits-tileGranularity).
-#endif::VK_QCOM_tile_shading[]
+The `tileSize` is guaranteed to be a multiple of
+[`tileGranularity`](limits.html#limits-tileGranularity).
 
 Valid Usage (Implicit)
 
@@ -2347,7 +2455,11 @@ Return Codes
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
-None
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 A render pass object represents a collection of attachments, subpasses, and
 dependencies between the subpasses, and describes how the attachments are
@@ -2355,7 +2467,7 @@ used over the course of the subpasses.
 
 Render passes are represented by `VkRenderPass` handles:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -2455,7 +2567,7 @@ attachment is not used.
 
 To create a render pass, call:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -2526,14 +2638,20 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkRenderPassCreateInfo` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -2609,6 +2727,13 @@ If the pNext chain includes a
 `fragmentDensityMapAttachment` member is not
 `VK_ATTACHMENT_UNUSED`, then `attachment` **must** be less than
 `attachmentCount`
+
+* 
+[](#VUID-VkRenderPassCreateInfo-fragmentDensityMapLayered-10828) VUID-VkRenderPassCreateInfo-fragmentDensityMapLayered-10828
+
+If the [    `fragmentDensityMapLayered`](features.html#features-fragmentDensityMapLayered) feature is not enabled, `flags`
+**must** not contain
+`VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE`
 
 * 
 [](#VUID-VkRenderPassCreateInfo-pAttachments-00836) VUID-VkRenderPassCreateInfo-pAttachments-00836
@@ -2832,6 +2957,8 @@ describing additional properties of the render pass, are:
 typedef enum VkRenderPassCreateFlagBits {
   // Provided by VK_QCOM_render_pass_transform
     VK_RENDER_PASS_CREATE_TRANSFORM_BIT_QCOM = 0x00000002,
+  // Provided by VK_VALVE_fragment_density_map_layered
+    VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE = 0x00000004,
 } VkRenderPassCreateFlagBits;
 
 * 
@@ -2839,7 +2966,12 @@ typedef enum VkRenderPassCreateFlagBits {
 created render pass is compatible with
 [render pass transform](vertexpostproc.html#vertexpostproc-renderpass-transform).
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+* 
+`VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE`
+specifies that the created render pass is usable with layered fragment
+density maps.
+
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -2855,7 +2987,7 @@ render pass.
 
 The `VkRenderPassMultiviewCreateInfo` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_1
@@ -3101,7 +3233,7 @@ structure includes a fragment density map attachment for the render pass.
 The `VkRenderPassFragmentDensityMapCreateInfoEXT` structure is defined
 as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_EXT_fragment_density_map
@@ -3197,7 +3329,7 @@ Valid Usage (Implicit)
 
 The `VkAttachmentDescription` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -3612,7 +3744,7 @@ typedef enum VkAttachmentDescriptionFlagBits {
 `VK_ATTACHMENT_DESCRIPTION_MAY_ALIAS_BIT` specifies that the
 attachment aliases the same device memory as other attachments.
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -3624,7 +3756,7 @@ zero or more [VkAttachmentDescriptionFlagBits](#VkAttachmentDescriptionFlagBits)
 The `VkRenderPassInputAttachmentAspectCreateInfo` structure is defined
 as:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_1
@@ -3685,7 +3817,7 @@ Valid Usage (Implicit)
 
 The `VkInputAttachmentAspectReference` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_1
@@ -3746,7 +3878,7 @@ Valid Usage (Implicit)
 
 The `VkSubpassDescription` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -4342,7 +4474,7 @@ attachment is **undefined** at the beginning of a shader resolve subpass, any
 depth testing, stencil testing, or blending operation which sources these
 **undefined** values also has **undefined** result value. |
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -4353,7 +4485,7 @@ or more [VkSubpassDescriptionFlagBits](#VkSubpassDescriptionFlagBits).
 
 The `VkAttachmentReference` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -4429,7 +4561,7 @@ It is described in more detail by [VkSubpassDependency](#VkSubpassDependency).
 
 The `VkSubpassDependency` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -5093,11 +5225,15 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetAttachmentFeedbackLoopEnableEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 A more extensible version of render pass creation is also defined below.
 
 To create a render pass, call:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -5181,14 +5317,20 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkRenderPassCreateInfo2` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -5219,7 +5361,7 @@ typedef VkRenderPassCreateInfo2 VkRenderPassCreateInfo2KHR;
 structure.
 
 * 
-`flags` is reserved for future use.
+`flags` is a bitmask of [VkRenderPassCreateFlagBits](#VkRenderPassCreateFlagBits)
 
 * 
 `attachmentCount` is the number of attachments used by this render
@@ -5311,6 +5453,13 @@ If the pNext chain includes a
 `fragmentDensityMapAttachment` member is not
 `VK_ATTACHMENT_UNUSED`, then `attachment` **must** be less than
 `attachmentCount`
+
+* 
+[](#VUID-VkRenderPassCreateInfo2-fragmentDensityMapLayered-10829) VUID-VkRenderPassCreateInfo2-fragmentDensityMapLayered-10829
+
+If the [    `fragmentDensityMapLayered`](features.html#features-fragmentDensityMapLayered) feature is not enabled, `flags`
+**must** not contain
+`VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE`
 
 * 
 [](#VUID-VkRenderPassCreateInfo2-pSubpasses-06473) VUID-VkRenderPassCreateInfo2-pSubpasses-06473
@@ -5453,48 +5602,6 @@ attachment in any subpass, it **must** have an image format whose
 `VK_FORMAT_FEATURE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
 
 * 
-[](#VUID-VkRenderPassCreateInfo2-rasterizationSamples-04905) VUID-VkRenderPassCreateInfo2-rasterizationSamples-04905
-
-If the pipeline is being created with fragment shader state, and the
-`[VK_QCOM_render_pass_shader_resolve](../appendices/extensions.html#VK_QCOM_render_pass_shader_resolve) extension` is enabled, and if
-subpass has any input attachments, and if the subpass description
-contains `VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_QCOM`, then the
-sample count of the input attachments **must** equal
-`rasterizationSamples`
-
-* 
-[](#VUID-VkRenderPassCreateInfo2-sampleShadingEnable-04906) VUID-VkRenderPassCreateInfo2-sampleShadingEnable-04906
-
-If the pipeline is being created with fragment shader state, and the
-`[VK_QCOM_render_pass_shader_resolve](../appendices/extensions.html#VK_QCOM_render_pass_shader_resolve)` extension is enabled, and if
-the subpass description contains
-`VK_SUBPASS_DESCRIPTION_FRAGMENT_REGION_BIT_QCOM`, then
-`sampleShadingEnable` **must** be false
-
-* 
-[](#VUID-VkRenderPassCreateInfo2-flags-04907) VUID-VkRenderPassCreateInfo2-flags-04907
-
-If `flags` includes
-`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, and if
-`pResolveAttachments` is not `NULL`, then each resolve attachment
-**must** be `VK_ATTACHMENT_UNUSED`
-
-* 
-[](#VUID-VkRenderPassCreateInfo2-flags-04908) VUID-VkRenderPassCreateInfo2-flags-04908
-
-If `flags` includes
-`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, and if
-`pDepthStencilResolveAttachment` is not `NULL`, then the
-depth/stencil resolve attachment **must** be `VK_ATTACHMENT_UNUSED`
-
-* 
-[](#VUID-VkRenderPassCreateInfo2-flags-04909) VUID-VkRenderPassCreateInfo2-flags-04909
-
-If `flags` includes
-`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, then the subpass
-**must** be the last subpass in a subpass dependency chain
-
-* 
 [](#VUID-VkRenderPassCreateInfo2-attachment-06244) VUID-VkRenderPassCreateInfo2-attachment-06244
 
 If the `attachment` member of the `pDepthStencilAttachment`
@@ -5605,7 +5712,7 @@ Valid Usage (Implicit)
 
 The `VkAttachmentDescription2` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -6021,7 +6128,7 @@ Valid Usage (Implicit)
 
 The `VkAttachmentDescriptionStencilLayout` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -6106,7 +6213,7 @@ Valid Usage (Implicit)
 
 The `VkSubpassDescription2` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -6201,7 +6308,7 @@ subpass.
 If any element of `pResolveAttachments` is an image specified with an
 [VkExternalFormatANDROID](resources.html#VkExternalFormatANDROID), values in the corresponding color attachment
 will be resolved to the resolve attachment in the same manner as specified
-for [`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`](#VkResolveModeFlagBits).
+for [`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`](#VkResolveModeFlagBits).
 
 If the [`nullColorAttachmentWithExternalFormatResolve`](limits.html#limits-nullColorAttachmentWithExternalFormatResolve) limit is `VK_TRUE`,
 values in the color attachment will be loaded from the resolve attachment at
@@ -6696,6 +6803,26 @@ attachment used in this subpass **must** not include
 `VK_IMAGE_ASPECT_PLANE*_i_*BIT` for any index *i* in its
 `aspectMask`
 
+[](#VUID-VkSubpassDescription2-flags-04907) VUID-VkSubpassDescription2-flags-04907
+
+If `flags` includes
+`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, and if
+`pResolveAttachments` is not `NULL`, then each resolve attachment
+**must** be `VK_ATTACHMENT_UNUSED`
+
+[](#VUID-VkSubpassDescription2-flags-04908) VUID-VkSubpassDescription2-flags-04908
+
+If `flags` includes
+`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, and if
+`pDepthStencilResolveAttachment` is not `NULL`, then the
+depth/stencil resolve attachment **must** be `VK_ATTACHMENT_UNUSED`
+
+[](#VUID-VkSubpassDescription2-flags-04909) VUID-VkSubpassDescription2-flags-04909
+
+If `flags` includes
+`VK_SUBPASS_DESCRIPTION_SHADER_RESOLVE_BIT_QCOM`, then the subpass
+**must** be the last subpass in a subpass dependency chain
+
 Valid Usage (Implicit)
 
 * 
@@ -6750,7 +6877,7 @@ Valid Usage (Implicit)
 
 The `VkSubpassDescriptionDepthStencilResolve` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -6982,7 +7109,7 @@ Valid Usage (Implicit)
 
 The `VkFragmentShadingRateAttachmentInfoKHR` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_KHR_fragment_shading_rate
@@ -7208,7 +7335,7 @@ boundaries even if they use the same value for
 
 The `VkAttachmentReference2` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -7381,7 +7508,7 @@ Valid Usage (Implicit)
 
 The `VkSubpassDependency2` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -7736,7 +7863,7 @@ Valid Usage (Implicit)
 
 To destroy a render pass, call:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -7844,7 +7971,7 @@ render pass instance uses.
 
 Framebuffers are represented by `VkFramebuffer` handles:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -7852,7 +7979,7 @@ VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkFramebuffer)
 
 To create a framebuffer, call:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -7915,6 +8042,11 @@ Valid Usage (Implicit)
 
  `pFramebuffer` **must** be a valid pointer to a [VkFramebuffer](#VkFramebuffer) handle
 
+* 
+[](#VUID-vkCreateFramebuffer-device-queuecount) VUID-vkCreateFramebuffer-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -7925,14 +8057,20 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkFramebufferCreateInfo` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -8068,6 +8206,14 @@ If `renderPass` has a fragment density map attachment and the
 each element of `pAttachments` **must** have been created with a
 `flags` value including `VK_IMAGE_CREATE_SUBSAMPLED_BIT_EXT`
 unless that element is the fragment density map attachment
+
+* 
+[](#VUID-VkFramebufferCreateInfo-renderPass-10830) VUID-VkFramebufferCreateInfo-renderPass-10830
+
+If `renderPass` was created with
+`VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE`, then
+`layers` **must** be less than or equal to
+[    `maxFragmentDensityMapLayers`](limits.html#limits-maxFragmentDensityMapLayers)
 
 * 
 [](#VUID-VkFramebufferCreateInfo-pAttachments-00880) VUID-VkFramebufferCreateInfo-pAttachments-00880
@@ -8589,7 +8735,7 @@ Valid Usage (Implicit)
 
 The `VkFramebufferAttachmentsCreateInfo` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -8636,7 +8782,7 @@ Valid Usage (Implicit)
 
 The `VkFramebufferAttachmentImageInfo` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -8760,7 +8906,7 @@ typedef enum VkFramebufferCreateFlagBits {
 not specified, and only attachment compatibility information will be
 provided via a [VkFramebufferAttachmentImageInfo](#VkFramebufferAttachmentImageInfo) structure.
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -8771,7 +8917,7 @@ or more [VkFramebufferCreateFlagBits](#VkFramebufferCreateFlagBits).
 
 To destroy a framebuffer, call:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -8865,9 +9011,9 @@ if the [maintenance7](features.html#features-maintenance7) feature is not enable
 is `VK_FALSE`,
 writes to one aspect **may** also result in read-modify-write operations for
 the other aspect.
-If the subresource is in the
-`VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout,
-implementations **must** not access pixels outside of the render area.
+If the subresource is bound to an attachment with
+[feedback loop enabled](#renderpass-feedbackloop), implementations **must** not
+access pixels outside of the render area.
 
 |  | As entire subresources could be accessed by load operations, applications
 | --- | --- |
@@ -8962,9 +9108,9 @@ if
 is `VK_FALSE`,
 writes to one aspect **may** also result in read-modify-write operations for
 the other aspect.
-If the subresource is in the
-`VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout,
-implementations **must** not access pixels outside of the render area.
+If the subresource is bound to an attachment with
+[feedback loop enabled](#renderpass-feedbackloop), implementations **must** not
+access pixels outside of the render area.
 
 |  | As entire subresources could be accessed by store operations, applications
 | --- | --- |
@@ -9057,9 +9203,9 @@ if
 is `VK_FALSE`,
 writes to one aspect **may** also result in read-modify-write operations for
 the other aspect.
-If the subresource is in the
-`VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout,
-implementations **must** not access pixels outside of the render area.
+If the subresource is bound to an attachment with
+[feedback loop enabled](#renderpass-feedbackloop), implementations **must** not
+access pixels outside of the render area.
 
 |  | As entire subresources could be accessed by multisample resolve operations,
 | --- | --- |
@@ -9078,7 +9224,7 @@ typedef enum VkResolveModeFlagBits {
     VK_RESOLVE_MODE_MIN_BIT = 0x00000004,
     VK_RESOLVE_MODE_MAX_BIT = 0x00000008,
   // Provided by VK_ANDROID_external_format_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
-    VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID = 0x00000010,
+    VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID = 0x00000010,
   // Provided by VK_KHR_depth_stencil_resolve
     VK_RESOLVE_MODE_NONE_KHR = VK_RESOLVE_MODE_NONE,
   // Provided by VK_KHR_depth_stencil_resolve
@@ -9089,6 +9235,9 @@ typedef enum VkResolveModeFlagBits {
     VK_RESOLVE_MODE_MIN_BIT_KHR = VK_RESOLVE_MODE_MIN_BIT,
   // Provided by VK_KHR_depth_stencil_resolve
     VK_RESOLVE_MODE_MAX_BIT_KHR = VK_RESOLVE_MODE_MAX_BIT,
+  // Provided by VK_ANDROID_external_format_resolve with VK_KHR_dynamic_rendering or VK_VERSION_1_3
+  // VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID is a deprecated alias
+    VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID = VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID,
 } VkResolveModeFlagBits;
 
 or the equivalent
@@ -9116,10 +9265,10 @@ operation is the minimum of the sample values.
 operation is the maximum of the sample values.
 
 * 
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID` specifies that
-rather than a multisample resolve, a single sampled color attachment
-will be downsampled into a Y′CBCR format image specified by an external
-Android format.
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID` specifies
+that rather than a multisample resolve, a single sampled color
+attachment will be downsampled into a Y′CBCR format image specified by
+an external Android format.
 Unlike other resolve modes, implementations can resolve multiple times
 during rendering, or even bypass writing to the color attachment
 altogether, as long as the final value is resolved to the resolve
@@ -9150,8 +9299,8 @@ nonlinear before writing the resolved result to resolve attachment.
 
 |  | No range compression or Y′CBCR model conversion is performed by
 | --- | --- |
-`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID`; applications have
-to do these conversions themselves.
+`VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`; applications
+have to do these conversions themselves.
 Value outputs are expected to match those that would be read through a
 [Y′CBCR sampler using `VK_SAMPLER_YCBCR_MODEL_CONVERSION_RGB_IDENTITY`](textures.html#textures-sampler-YCbCr-conversion-modelconversion).
 The color space that the values should be in is defined by the platform and
@@ -9175,7 +9324,7 @@ instance.
 
 To begin a render pass instance, call:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -9471,9 +9620,13 @@ State
 
 Synchronization |
 
+Conditional Rendering
+
+vkCmdBeginRenderPass is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Alternatively to begin a render pass, call:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -9784,9 +9937,13 @@ State
 
 Synchronization |
 
+Conditional Rendering
+
+vkCmdBeginRenderPass2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkRenderPassBeginInfo` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -10233,7 +10390,7 @@ chain of `VkRenderPassBeginInfo`.
 
 The `VkRenderPassSampleLocationsBeginInfoEXT` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_EXT_sample_locations
@@ -10312,7 +10469,7 @@ Valid Usage (Implicit)
 
 The `VkAttachmentSampleLocationsEXT` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_EXT_sample_locations
@@ -10354,7 +10511,7 @@ Valid Usage (Implicit)
 
 The `VkSubpassSampleLocationsEXT` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_EXT_sample_locations
@@ -10407,7 +10564,7 @@ The `VkRenderPassTransformBeginInfoQCOM` structure is defined as:
 // Provided by VK_QCOM_render_pass_transform
 typedef struct VkRenderPassTransformBeginInfoQCOM {
     VkStructureType                  sType;
-    void*                            pNext;
+    const void*                      pNext;
     VkSurfaceTransformFlagBitsKHR    transform;
 } VkRenderPassTransformBeginInfoQCOM;
 
@@ -10499,7 +10656,7 @@ Valid Usage
 [](#VUID-VkTileMemorySizeInfoQCOM-size-10729) VUID-VkTileMemorySizeInfoQCOM-size-10729
 
 `size` must be less than or equal to the largest size memory heap
-with the `VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM` property.
+with the `VK_MEMORY_HEAP_TILE_MEMORY_BIT_QCOM` property
 
 Valid Usage (Implicit)
 
@@ -10510,7 +10667,7 @@ Valid Usage (Implicit)
 
 The `VkSubpassBeginInfo` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -10740,7 +10897,7 @@ Valid Usage (Implicit)
 
 The `VkRenderPassAttachmentBeginInfo` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -10934,7 +11091,7 @@ Valid Usage (Implicit)
 
 To query the render area granularity, call:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -11008,7 +11165,7 @@ Valid Usage (Implicit)
 To transition to the next subpass in the render pass instance after
 recording the commands for a subpass, call:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -11099,10 +11256,14 @@ State
 
 Synchronization |
 
+Conditional Rendering
+
+vkCmdNextSubpass is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To transition to the next subpass in the render pass instance after
 recording the commands for a subpass, call:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -11208,10 +11369,14 @@ State
 
 Synchronization |
 
+Conditional Rendering
+
+vkCmdNextSubpass2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To record a command to end a render pass instance after recording the
 commands for the last subpass, call:
 
-|  | This functionality is deprecated by [VK_KHR_create_renderpass2](../appendices/extensions.html#VK_KHR_create_renderpass2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.2](../appendices/versions.html#versions-1.2). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-renderpass2) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_0
@@ -11307,10 +11472,14 @@ State
 
 Synchronization |
 
+Conditional Rendering
+
+vkCmdEndRenderPass is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To record a command to end a render pass instance after recording the
 commands for the last subpass, call:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -11416,9 +11585,13 @@ State
 
 Synchronization |
 
+Conditional Rendering
+
+vkCmdEndRenderPass2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkSubpassEndInfo` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_VERSION_1_2
@@ -11594,7 +11767,7 @@ The `y` component of each element of `pFragmentDensityOffsets`
 [](#VUID-VkRenderPassFragmentDensityMapOffsetEndInfoEXT-pFragmentDensityOffsets-10730) VUID-VkRenderPassFragmentDensityMapOffsetEndInfoEXT-pFragmentDensityOffsets-10730
 
 Each element of `pFragmentDensityOffsets` must be identical for
-every [vkCmdEndRendering2EXT](#vkCmdEndRendering2EXT) call made in a render pass.
+every [vkCmdEndRendering2EXT](#vkCmdEndRendering2EXT) call made in a render pass
 
 Valid Usage (Implicit)
 
@@ -11613,7 +11786,7 @@ A `VkRenderPassCreationControlEXT` structure **can** be included in the
 [VkSubpassDescription2](#VkSubpassDescription2).
 The `VkRenderPassCreationControlEXT` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_EXT_subpass_merge_feedback
@@ -11655,7 +11828,7 @@ To obtain feedback about the creation of a render pass, include a
 chain of [VkRenderPassCreateInfo2](#VkRenderPassCreateInfo2).
 The `VkRenderPassCreationFeedbackCreateInfoEXT` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_EXT_subpass_merge_feedback
@@ -11691,7 +11864,7 @@ Valid Usage (Implicit)
 
 The `VkRenderPassCreationFeedbackInfoEXT` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_EXT_subpass_merge_feedback
@@ -11707,7 +11880,7 @@ Feedback about the creation of a subpass **can** be obtained by including a
 chain of [VkSubpassDescription2](#VkSubpassDescription2).
 `VkRenderPassSubpassFeedbackCreateInfoEXT` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_EXT_subpass_merge_feedback
@@ -11743,7 +11916,7 @@ Valid Usage (Implicit)
 
 The `VkRenderPassSubpassFeedbackInfoEXT` structure is defined as:
 
-|  | This functionality is deprecated by [VK_KHR_dynamic_rendering_local_read](../appendices/extensions.html#VK_KHR_dynamic_rendering_local_read). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
+|  | This functionality is deprecated by [Vulkan Version 1.4](../appendices/versions.html#versions-1.4). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-dynamicrendering) for more information. |
 | --- | --- |
 
 // Provided by VK_EXT_subpass_merge_feedback
@@ -11900,9 +12073,22 @@ This makes it invalid to access a non-attachment subresource that is
 simultaneously being used as an attachment where either access performs a
 write operation.
 
-The only exception to this is if a subresource is in the
-`VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` image layout, in
-which case the overlap is defined to occur at a per-pixel granularity, and
+The only exception to this is if a subresource is explicitly specified for
+use as a feedback loop attachment.
+Feedback loop is enabled for an attachment if either of the following
+conditions are satisfied:
+
+* 
+The corresponding image is in the
+`VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout
+
+* 
+For the attachment identified by
+[VkRenderingAttachmentInfo](#VkRenderingAttachmentInfo)::`imageView`,
+[VkAttachmentFeedbackLoopInfoEXT](#VkAttachmentFeedbackLoopInfoEXT)::`feedbackLoopEnable` is
+`VK_TRUE`
+
+In that case the overlap is defined to occur at a per-pixel granularity, and
 applications can read data from pixels outside the render area without
 introducing a data race.
 
@@ -11934,8 +12120,7 @@ attachment writes in the subpass with subsequent input attachment reads.
 * 
 A [vkCmdPipelineBarrier](synchronization.html#vkCmdPipelineBarrier) inside a subpass can synchronize prior
 attachment writes in the subpass with subsequent non-attachment reads if
-the attachment is in the
-`VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` image layout.
+[feedback loop is enabled](#renderpass-feedbackloop) for the attachment.
 
 * 
 If a subresource is used as a color and input attachment, and the
@@ -12127,7 +12312,7 @@ OpImageBlockMatch*QCOM,
 `OpImageFetch`, or `OpImageSparseFetch` but **cannot** be written using
 `OpImageWrite` or with atomic operations using `OpImageTexelPointer`.
 
-For image processing use-cases, the tiling apron allows fragment and compute
+For image processing use cases, the tiling apron allows fragment and compute
 shader invocations to read or sample color attachment pixels within the
 neighborhood of a given fragment, even if the given fragment is close to a
 tile edge.
@@ -12287,9 +12472,9 @@ apply:
 
 * 
 Transform feedback commands such as
-[vkCmdBeginTransformFeedbackEXT](vertexpostproc.html#vkCmdBeginTransformFeedbackEXT), [vkCmdEndTransformFeedbackEXT](vertexpostproc.html#vkCmdEndTransformFeedbackEXT),
-[vkCmdBeginQueryIndexedEXT](queries.html#vkCmdBeginQueryIndexedEXT), and [vkCmdEndQueryIndexedEXT](queries.html#vkCmdEndQueryIndexedEXT),**must**
-not be recorded.
+[vkCmdBeginTransformFeedbackEXT](vertexpostproc.html#vkCmdBeginTransformFeedbackEXT),
+[vkCmdEndTransformFeedbackEXT](vertexpostproc.html#vkCmdEndTransformFeedbackEXT), [vkCmdBeginQueryIndexedEXT](queries.html#vkCmdBeginQueryIndexedEXT), and
+[vkCmdEndQueryIndexedEXT](queries.html#vkCmdEndQueryIndexedEXT), **must** not be recorded.
 
 * 
 Query commands such as [vkCmdWriteTimestamp](queries.html#vkCmdWriteTimestamp),
@@ -12385,6 +12570,10 @@ Command Properties
 Secondary | Inside | Outside | Graphics
 
 Compute | State |
+
+Conditional Rendering
+
+vkCmdBeginPerTileExecutionQCOM is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkPerTileBeginInfoQCOM` structure is defined as:
 
@@ -12489,6 +12678,10 @@ Command Properties
 Secondary | Inside | Outside | Graphics
 
 Compute | State |
+
+Conditional Rendering
+
+vkCmdEndPerTileExecutionQCOM is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkPerTileEndInfoQCOM` structure is defined as:
 

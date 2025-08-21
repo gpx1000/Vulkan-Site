@@ -1152,11 +1152,13 @@ a [VkImage](../chapters/resources.html#VkImage) created with
 
 * 
 a [VkAccelerationStructureNV](../chapters/resources.html#VkAccelerationStructureNV)
-
 Because a [VkAccelerationStructureKHR](../chapters/resources.html#VkAccelerationStructureKHR) resource does not have memory
 bound to it directly, it is considered neither linear nor non-linear.
 However, the [VkBuffer](../chapters/resources.html#VkBuffer) on which a [VkAccelerationStructureKHR](../chapters/resources.html#VkAccelerationStructureKHR)
 resource is placed is a linear resource.
+
+* 
+a [VkTensorARM](../chapters/resources.html#VkTensorARM) created with `VK_TENSOR_TILING_LINEAR_ARM`
 
 A resource is *non-linear* if it is one of the following:
 
@@ -1168,6 +1170,9 @@ a [VkImage](../chapters/resources.html#VkImage) created with
 `VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT` and whose
 [Linux DRM format modifier](#glossary-drm-format-modifier) is not
 `DRM_FORMAT_MOD_LINEAR`
+
+* 
+a [VkTensorARM](../chapters/resources.html#VkTensorARM) created with `VK_TENSOR_TILING_OPTIMAL_ARM`
 
 Linux DRM Format Modifier
 
@@ -1333,8 +1338,10 @@ combination with the [    `bufferDeviceAddress`](../chapters/features.html#featu
 
 Overlapped Range (Aliased Range)
 
-The aliased range of a device memory allocation that intersects a given
-image subresource of an image or range of a buffer.
+    The aliased range of a device memory allocation that intersects a given
+    image subresource of an image
+, a given tensor,
+or range of a buffer.
 
 Ownership (Resource)
 
@@ -1345,6 +1352,11 @@ Packed Format
 
 A format whose components are stored as a single texel block in memory,
 with their relative locations defined within that element.
+
+Packed Tensor
+
+A tensor whose elements are densely laid out in memory and thus whose
+backing memory does not contain any padding data.
 
 Passthrough Geometry Shader
 
@@ -1562,6 +1574,10 @@ visible to the host.
 Protected Image
 
 An image to which protected device memory **can** be bound.
+
+Protected Tensor
+
+A tensor to which protected device memory **can** be bound.
 
 Provisional
 
@@ -1870,6 +1886,11 @@ Storage Image
 A descriptor type that represents an image view, and supports unfiltered
 loads, stores, and atomics in a shader.
 
+Storage Tensor
+
+A descriptor type that represents a tensor view, and supports reads,
+writes, in a shader.
+
 Storage Texel Buffer
 
 A descriptor type that represents a buffer view, and supports
@@ -1920,6 +1941,23 @@ A subset of a self-dependency is a pipeline barrier performed during the
 subpass of the self-dependency, and whose stage masks and access masks
 each contain a subset of the bits set in the identically named mask in
 the self-dependency.
+
+Tensor
+
+A resource that represents an N-dimensional formatted interpretation of
+device memory.
+Represented by a [VkTensorARM](../chapters/resources.html#VkTensorARM) object.
+
+Tensor Description
+
+Describes the shape, format, usage and layout in memory of a tensor.
+Represented by [VkTensorDescriptionARM](../chapters/resources.html#VkTensorDescriptionARM).
+
+Tensor View
+
+An object that represents a specific tensor, and state that controls how
+the contents are interpreted.
+Represented by a [VkTensorViewARM](../chapters/resources.html#VkTensorViewARM) object.
 
 Texel Block
 
@@ -1999,6 +2037,10 @@ the host.
 Unprotected Image
 
 An image to which unprotected device memory **can** be bound.
+
+Unprotected Tensor
+
+A tensor to which unprotected device memory **can** be bound.
 
 User-Defined Variable Interface
 

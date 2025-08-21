@@ -232,9 +232,10 @@ the maximum number of sampler objects, as created by
 
 * 
  `bufferImageGranularity` is the
-granularity, in bytes, at which buffer or linear image resources, and
-optimal image resources **can** be bound to adjacent offsets in the same
-`VkDeviceMemory` object without aliasing.
+granularity, in bytes, at which buffer or linear image resources,
+linear or optimal tensor resources,
+and optimal image resources **can** be bound to adjacent offsets in the
+same `VkDeviceMemory` object without aliasing.
 See [Buffer-Image Granularity](resources.html#resources-bufferimagegranularity) for
 more details.
 
@@ -1970,8 +1971,8 @@ structure.
 * 
 
 `advancedBlendMaxColorAttachments` is one greater than the highest
-color attachment index that **can** be used in a subpass, for a pipeline
-that uses an [advanced blend operation](framebuffer.html#framebuffer-blend-advanced).
+color attachment index that **can** be used in a render pass instance, for
+a pipeline that uses an [advanced blend    operation](framebuffer.html#framebuffer-blend-advanced).
 
 * 
 
@@ -2781,6 +2782,71 @@ Valid Usage (Implicit)
 [](#VUID-VkPhysicalDeviceLayeredApiVulkanPropertiesKHR-sType-sType) VUID-VkPhysicalDeviceLayeredApiVulkanPropertiesKHR-sType-sType
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_LAYERED_API_VULKAN_PROPERTIES_KHR`
+
+The `VkPhysicalDeviceMaintenance9PropertiesKHR` structure is defined as:
+
+// Provided by VK_KHR_maintenance9
+typedef struct VkPhysicalDeviceMaintenance9PropertiesKHR {
+    VkStructureType                     sType;
+    void*                               pNext;
+    VkBool32                            image2DViewOf3DSparse;
+    VkDefaultVertexAttributeValueKHR    defaultVertexAttributeValue;
+} VkPhysicalDeviceMaintenance9PropertiesKHR;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ If the [    `image2DViewOf3D`](features.html#features-image2DViewOf3D) feature is enabled, `image2DViewOf3DSparse`
+indicates whether the implementation supports binding a slice of a
+sparse 3D image to a 2D image view.
+
+* 
+ `defaultVertexAttributeValue`
+is a [VkDefaultVertexAttributeValueKHR](#VkDefaultVertexAttributeValueKHR) that indicates what value
+the implementation will return when the vertex shader reads unbound
+vertex attributes.
+Unbound attributes are those that have no corresponding
+[VkVertexInputAttributeDescription](fxvertex.html#VkVertexInputAttributeDescription)::`location` defined in the
+bound graphics pipeline
+or no corresponding
+[VkVertexInputAttributeDescription2EXT](fxvertex.html#VkVertexInputAttributeDescription2EXT)::`location` set by the
+most recent call to [vkCmdSetVertexInputEXT](fxvertex.html#vkCmdSetVertexInputEXT) when the state is
+dynamic
+.
+
+If the `VkPhysicalDeviceMaintenance9PropertiesKHR` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
+[vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
+corresponding implementation-dependent property.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceMaintenance9PropertiesKHR-sType-sType) VUID-VkPhysicalDeviceMaintenance9PropertiesKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_9_PROPERTIES_KHR`
+
+The possible values returned by the implementation when the vertex shader
+reads an unbound vertex attribute are:
+
+// Provided by VK_KHR_maintenance9
+typedef enum VkDefaultVertexAttributeValueKHR {
+    VK_DEFAULT_VERTEX_ATTRIBUTE_VALUE_ZERO_ZERO_ZERO_ZERO_KHR = 0,
+    VK_DEFAULT_VERTEX_ATTRIBUTE_VALUE_ZERO_ZERO_ZERO_ONE_KHR = 1,
+} VkDefaultVertexAttributeValueKHR;
+
+* 
+`VK_DEFAULT_VERTEX_ATTRIBUTE_VALUE_ZERO_ZERO_ZERO_ZERO_KHR` - the
+value read for an unbound vertex attribute is (0,0,0,0).
+
+* 
+`VK_DEFAULT_VERTEX_ATTRIBUTE_VALUE_ZERO_ZERO_ZERO_ONE_KHR` - the
+value read for an unbound vertex attribute is (0,0,0,1).
 
 The `VkPhysicalDeviceMeshShaderPropertiesNV` structure is defined as:
 
@@ -3777,6 +3843,40 @@ Valid Usage (Implicit)
 [](#VUID-VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT-sType-sType) VUID-VkPhysicalDeviceFragmentDensityMapOffsetPropertiesEXT-sType-sType
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_PROPERTIES_EXT`
+
+The `VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE` structure
+is defined as:
+
+// Provided by VK_VALVE_fragment_density_map_layered
+typedef struct VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE {
+    VkStructureType    sType;
+    void*              pNext;
+    uint32_t           maxFragmentDensityMapLayers;
+} VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `maxFragmentDensityMapLayers`
+is the maximum number of layers to use with a layered fragment density
+map.
+
+If the `VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
+[vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
+corresponding implementation-dependent property.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE-sType-sType) VUID-VkPhysicalDeviceFragmentDensityMapLayeredPropertiesVALVE-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_PROPERTIES_VALVE`
 
 The `VkPhysicalDeviceTileMemoryHeapPropertiesQCOM` structure is defined
 as:
@@ -5941,9 +6041,9 @@ of the address space available for descriptor buffers created with both
 `VK_BUFFER_USAGE_SAMPLER_DESCRIPTOR_BUFFER_BIT_EXT` and
 `VK_BUFFER_USAGE_RESOURCE_DESCRIPTOR_BUFFER_BIT_EXT`.
 
-A descriptor binding with type `VK_DESCRIPTOR_TYPE_MUTABLE_VALVE` has a
+A descriptor binding with type `VK_DESCRIPTOR_TYPE_MUTABLE_EXT` has a
 descriptor size which is implied by the descriptor types included in the
-[VkMutableDescriptorTypeCreateInfoVALVE](descriptorsets.html#VkMutableDescriptorTypeCreateInfoVALVE)::`pDescriptorTypes` list.
+[VkMutableDescriptorTypeCreateInfoEXT](descriptorsets.html#VkMutableDescriptorTypeCreateInfoEXT)::`pDescriptorTypes` list.
 The descriptor size is equal to the maximum size of any descriptor type
 included in the `pDescriptorTypes` list.
 
@@ -5999,6 +6099,50 @@ Valid Usage (Implicit)
 [](#VUID-VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT-sType-sType) VUID-VkPhysicalDeviceDescriptorBufferDensityMapPropertiesEXT-sType-sType
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_DENSITY_MAP_PROPERTIES_EXT`
+
+The `VkPhysicalDeviceDescriptorBufferTensorPropertiesARM` structure is
+defined as:
+
+// Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+typedef struct VkPhysicalDeviceDescriptorBufferTensorPropertiesARM {
+    VkStructureType    sType;
+    void*              pNext;
+    size_t             tensorCaptureReplayDescriptorDataSize;
+    size_t             tensorViewCaptureReplayDescriptorDataSize;
+    size_t             tensorDescriptorSize;
+} VkPhysicalDeviceDescriptorBufferTensorPropertiesARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`tensorCaptureReplayDescriptorDataSize` indicates the maximum size
+in bytes of the opaque data used for capture and replay with tensors.
+
+* 
+`tensorViewCaptureReplayDescriptorDataSize` indicates the maximum
+size in bytes of the opaque data used for capture and replay with tensor
+views.
+
+* 
+`tensorDescriptorSize` indicates the size in bytes of a
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor.
+
+If the `VkPhysicalDeviceDescriptorBufferTensorPropertiesARM` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
+[vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
+corresponding implementation-dependent property.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceDescriptorBufferTensorPropertiesARM-sType-sType) VUID-VkPhysicalDeviceDescriptorBufferTensorPropertiesARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_PROPERTIES_ARM`
 
 The `VkPhysicalDeviceHostImageCopyProperties` structure is defined as:
 
@@ -6076,6 +6220,9 @@ layouts that are supported, at most `copyDstLayoutCount` values will be
 written to `pCopyDstLayouts`.
 The implementation **must** include the `VK_IMAGE_LAYOUT_GENERAL` image
 layout in `pCopyDstLayouts`.
+If the [`unifiedImageLayouts`](features.html#features-unifiedImageLayouts) feature
+is enabled, the implementation **must** include all the image layouts that are
+interchangeable with `VK_IMAGE_LAYOUT_GENERAL` in `pCopyDstLayouts`.
 
 If `pCopySrcLayouts` is `NULL`, then the number of image layouts that
 are supported in [VkCopyImageToMemoryInfo](copies.html#VkCopyImageToMemoryInfo)::`srcImageLayout` and
@@ -6090,9 +6237,12 @@ layouts that are supported, at most `copySrcLayoutCount` values will be
 written to `pCopySrcLayouts`.
 The implementation **must** include the `VK_IMAGE_LAYOUT_GENERAL` image
 layout in `pCopySrcLayouts`.
+If the [`unifiedImageLayouts`](features.html#features-unifiedImageLayouts) feature
+is enabled, the implementation **must** include all the image layouts that are
+interchangeable with `VK_IMAGE_LAYOUT_GENERAL` in `pCopySrcLayouts`.
 
 The `optimalTilingLayoutUUID` value can be used to ensure compatible
-data layouts when using the `VK_HOST_IMAGE_COPY_MEMCPY` flag in
+data layouts when using the `VK_HOST_IMAGE_COPY_MEMCPY_BIT` flag in
 [vkCopyMemoryToImage](copies.html#vkCopyMemoryToImage) and [vkCopyImageToMemory](copies.html#vkCopyImageToMemory).
 
 Valid Usage (Implicit)
@@ -7362,6 +7512,137 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TILE_SHADING_PROPERTIES_QCOM`
 
+The `VkPhysicalDeviceTensorPropertiesARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkPhysicalDeviceTensorPropertiesARM {
+    VkStructureType       sType;
+    void*                 pNext;
+    uint32_t              maxTensorDimensionCount;
+    uint64_t              maxTensorElements;
+    uint64_t              maxPerDimensionTensorElements;
+    int64_t               maxTensorStride;
+    uint64_t              maxTensorSize;
+    uint32_t              maxTensorShaderAccessArrayLength;
+    uint32_t              maxTensorShaderAccessSize;
+    uint32_t              maxDescriptorSetStorageTensors;
+    uint32_t              maxPerStageDescriptorSetStorageTensors;
+    uint32_t              maxDescriptorSetUpdateAfterBindStorageTensors;
+    uint32_t              maxPerStageDescriptorUpdateAfterBindStorageTensors;
+    VkBool32              shaderStorageTensorArrayNonUniformIndexingNative;
+    VkShaderStageFlags    shaderTensorSupportedStages;
+} VkPhysicalDeviceTensorPropertiesARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `maxTensorDimensionCount` is the
+maximum number of dimensions that can be specified in the
+`dimensionCount` member of [VkTensorDescriptionARM](resources.html#VkTensorDescriptionARM).
+
+* 
+ `maxTensorElements` is the maximum
+number of data elements in a created tensor as specified in the
+[VkTensorDescriptionARM](resources.html#VkTensorDescriptionARM) of [VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM).
+The number of data elements in a tensor is computed as the product of
+`pDimensions`[i] for all 0 ≤ i ≤
+dimensionCount-1.
+
+* 
+
+`maxPerDimensionTensorElements` is the maximum number of data
+elements alongside any dimension of a tensor.
+
+* 
+ `maxTensorStride` is the maximum value
+for a tensor stride that can be used in
+[VkTensorDescriptionARM](resources.html#VkTensorDescriptionARM)::`pStrides`.
+
+* 
+ `maxTensorSize` is the maximum size, in
+bytes, of a tensor.
+
+* 
+
+`maxTensorShaderAccessArrayLength` is the maximum number of elements
+in an array returned by `OpTensoReadARM` or consumed by
+`OpTensorWriteARM`.
+
+* 
+ `maxTensorShaderAccessSize` is
+the maximum size in bytes of the data that can be read from a tensor
+with `OpTensorReadARM` or written to a tensor with
+`OpTensorWriteARM`.
+
+* 
+
+`maxDescriptorSetStorageTensors` is the maximum number of tensors
+that **can** be included in descriptor bindings in a pipeline layout across
+all pipeline shader stages and descriptor set numbers.
+Descriptors with a type of `VK_DESCRIPTOR_TYPE_TENSOR_ARM` count
+against this limit.
+
+* 
+
+`maxPerStageDescriptorSetStorageTensors` is the maximum number of
+tensors that **can** be accessible to a single shader stage in a pipeline
+layout.
+Descriptors with a type of `VK_DESCRIPTOR_TYPE_TENSOR_ARM` count
+against this limit.
+A descriptor is accessible to a pipeline shader stage when the
+`stageFlags` member of the [VkDescriptorSetLayoutBinding](descriptorsets.html#VkDescriptorSetLayoutBinding)
+structure has the bit for that shader stage set.
+
+* 
+
+`maxDescriptorSetUpdateAfterBindStorageTensors` is similar to
+`maxDescriptorSetStorageTensors` but counts descriptors from
+descriptor sets created with or without the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT` bit
+set.
+
+* 
+
+`maxPerStageDescriptorUpdateAfterBindStorageTensors` is similar to
+`maxPerStageDescriptorSetStorageTensors` but counts descriptors from
+descriptor sets created with or without the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT` bit
+set.
+
+* 
+
+`shaderStorageTensorArrayNonUniformIndexingNative` is a boolean
+value indicating whether storage tensor descriptors natively support
+nonuniform indexing.
+If this is `VK_FALSE`, then a single dynamic instance of an
+instruction that nonuniformly indexes an array of storage buffers may
+execute multiple times in order to access all the descriptors.
+
+* 
+ `shaderTensorSupportedStages`
+is a bitfield of [VkShaderStageFlagBits](pipelines.html#VkShaderStageFlagBits) describing the shader
+stages that **can** access tensor resources.
+`shaderTensorSupportedStages` will have the
+`VK_SHADER_STAGE_COMPUTE_BIT` bit set if any of the physical
+device’s queues support `VK_QUEUE_COMPUTE_BIT`.
+
+If the `VkPhysicalDeviceTensorPropertiesARM` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceProperties2](devsandqueues.html#VkPhysicalDeviceProperties2) structure passed to
+[vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2), it is filled in with each
+corresponding implementation-dependent property.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceTensorPropertiesARM-sType-sType) VUID-VkPhysicalDeviceTensorPropertiesARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_PROPERTIES_ARM`
+
 The following table specifies the **required** minimum/maximum for all Vulkan
 graphics implementations.
 Where a limit corresponds to a fine-grained device feature which is
@@ -7579,6 +7860,7 @@ whether or not the feature is enabled.
 | `uint32_t` | `maxSubsampledArrayLayers` | `[VK_EXT_fragment_density_map2](../appendices/extensions.html#VK_EXT_fragment_density_map2)` |
 | `uint32_t` | `maxDescriptorSetSubsampledSamplers` | `[VK_EXT_fragment_density_map2](../appendices/extensions.html#VK_EXT_fragment_density_map2)` |
 | [VkExtent2D](fundamentals.html#VkExtent2D) | `fragmentDensityOffsetGranularity` | `[fragmentDensityMapOffset`](features.html#features-fragmentDensityMapOffset) |
+| `uint32_t` | `maxFragmentDensityMapLayers` | `[fragmentDensityMapLayered`](features.html#features-fragmentDensityMapLayered) |
 | `uint32_t` | `maxGeometryCount` | `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)` |
 | `uint32_t` | `maxInstanceCount` | `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`, `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)` |
 | `uint32_t` | `maxVerticesPerCluster` | `[clusterAccelerationStructure`](features.html#features-clusterAccelerationStructure) |
@@ -7863,8 +8145,12 @@ whether or not the feature is enabled.
                                                    14 (Vulkan Roadmap 2022, Vulkan 1.4) | min |
 | `maxSamplerAnisotropy` | 1 | 16 | min |
 | `maxViewports` | 1 | 16 | min |
-| `maxViewportDimensions` | - | (4096,4096) 3 | min |
-| `viewportBoundsRange` | - | (-8192,8191) 4 | (max,min) |
+| `maxViewportDimensions` 3 | - | (4096,4096) (Vulkan Core)
+
+                                                   (7680,7680) (Vulkan 1.4) | min |
+| `viewportBoundsRange` 4 | - | (-8192,8191) (Vulkan Core)
+
+                                                   (-15360,15359) (Vulkan 1.4) | (max,min) |
 | `viewportSubPixelBits` | - | 0 | min |
 | `minMemoryMapAlignment` | - | 64 | min |
 | `minTexelBufferOffsetAlignment` | - | 256 | max |
@@ -7877,8 +8163,12 @@ whether or not the feature is enabled.
 | `minInterpolationOffset` | 0.0 | -0.5 5 | max |
 | `maxInterpolationOffset` | 0.0 | 0.5 - (1 ULP) 5 | min |
 | `subPixelInterpolationOffsetBits` | 0 | 4 5 | min |
-| `maxFramebufferWidth` | - | 4096 | min |
-| `maxFramebufferHeight` | - | 4096 | min |
+| `maxFramebufferWidth` | - | 4096 (Vulkan Core)
+
+                                                   7680 (Vulkan 1.4) | min |
+| `maxFramebufferHeight` | - | 4096 (Vulkan Core)
+
+                                                   7680 (Vulkan 1.4) | min |
 | `maxFramebufferLayers` | - | 256 | min |
 | `framebufferColorSampleCounts` | - | (`VK_SAMPLE_COUNT_1_BIT` \| `VK_SAMPLE_COUNT_4_BIT`) | min |
 | `framebufferIntegerColorSampleCounts` | - | (`VK_SAMPLE_COUNT_1_BIT`) | min |
@@ -8045,6 +8335,7 @@ whether or not the feature is enabled.
 | `maxSubsampledArrayLayers` | 2 | 2 | min |
 | `maxDescriptorSetSubsampledSamplers` | 1 | 1 | min |
 | `fragmentDensityOffsetGranularity` | - | (1024,1024) | max |
+| `maxFragmentDensityMapLayers` | - | (2) | max |
 | [VkPhysicalDeviceRayTracingPropertiesNV](#VkPhysicalDeviceRayTracingPropertiesNV)::`shaderGroupHandleSize` | - | 16 | min |
 | [VkPhysicalDeviceRayTracingPropertiesNV](#VkPhysicalDeviceRayTracingPropertiesNV)::`maxRecursionDepth` | - | 31 | min |
 | [VkPhysicalDeviceRayTracingPipelinePropertiesKHR](#VkPhysicalDeviceRayTracingPipelinePropertiesKHR)::`shaderGroupHandleSize` | - | 32 | exact |
@@ -8188,6 +8479,15 @@ whether or not the feature is enabled.
 | `preferNonCoherent` | - | - | implementation-dependent |
 | `tileGranularity` | - | (16,16) | min |
 | `maxTileShadingRate` | - | (8,8) | min |
+| `maxTensorDimensionCount` | - | 4 | min |
+| `maxTensorElements` | - | 65536 | min |
+| `maxPerDimensionTensorElements` | - | 65536 | min |
+| `maxTensorStride` | - | 65536 | min |
+| `maxDescriptorSetStorageTensors` | - | 16 | min |
+| `maxPerStageDescriptorSetStorageTensors` | - | 16 | min |
+| `maxDescriptorSetUpdateAfterBindStorageTensors` | 0 | 500000 | min |
+| `maxPerStageDescriptorUpdateAfterBindStorageTensors` | 0 | 500000 | min |
+| `shaderTensorSupportedStages` | - | `VK_SHADER_STAGE_COMPUTE_BIT` | bitfield |
 
 1
 

@@ -112,12 +112,14 @@ If an implementation supports [`storageInputOutput16`](features.html#features-st
 width of 16 bits.
 
 In all the following component assignment specifications, if
-[`vertexAttributeRobustness`](features.html#features-vertexAttributeRobustness) is
-enabled and there is no
-`VkVertexInputAttributeDescription`::`location` specified for the
-shader vertex attribute `Location` being read, the value (0,0,0,0) or
-(0,0,0,1) is used for each of the equivalent (x,y,z,w) components consumed
-entries as specified below.
+the [`vertexAttributeRobustness`](features.html#features-vertexAttributeRobustness)
+feature is enabled,
+or
+the [`maintenance9`](features.html#features-maintenance9) feature is enabled,
+and there is no `VkVertexInputAttributeDescription`::`location`
+specified for the shader vertex attribute `Location` being read, the
+value (0,0,0,0) or (0,0,0,1) is used for each of the equivalent (x,y,z,w)
+components consumed entries as specified below.
 
 | 16-bit or 32-bit data type | `Component` decoration | Components consumed |
 | --- | --- | --- |
@@ -628,6 +630,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetVertexInputEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkVertexInputBindingDescription2EXT` structure is defined as:
 
 // Provided by VK_EXT_shader_object, VK_EXT_vertex_input_dynamic_state
@@ -955,6 +961,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdBindVertexBuffers is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Alternatively, to bind vertex buffers, along with their sizes and strides,
 to a command buffer for use in subsequent drawing commands, call:
 
@@ -1056,24 +1066,36 @@ if other stride values are desired. |
 Valid Usage
 
 * 
+[](#VUID-vkCmdBindVertexBuffers2-None-08971) VUID-vkCmdBindVertexBuffers2-None-08971
+
+At least one of the following **must** be true:
+
+the [`extendedDynamicState`](features.html#features-extendedDynamicState)
+feature is enabled
+
+* 
+the [`shaderObject`](features.html#features-shaderObject) feature is enabled
+
+* 
+the value of [VkApplicationInfo](initialization.html#VkApplicationInfo)::`apiVersion` used to create
+the [VkInstance](initialization.html#VkInstance) parent of `commandBuffer` is greater than or
+equal to Version 1.3
+
 [](#VUID-vkCmdBindVertexBuffers2-firstBinding-03355) VUID-vkCmdBindVertexBuffers2-firstBinding-03355
 
 `firstBinding` **must** be less than
 `VkPhysicalDeviceLimits`::`maxVertexInputBindings`
 
-* 
 [](#VUID-vkCmdBindVertexBuffers2-firstBinding-03356) VUID-vkCmdBindVertexBuffers2-firstBinding-03356
 
 The sum of `firstBinding` and `bindingCount` **must** be less than
 or equal to `VkPhysicalDeviceLimits`::`maxVertexInputBindings`
 
-* 
 [](#VUID-vkCmdBindVertexBuffers2-pOffsets-03357) VUID-vkCmdBindVertexBuffers2-pOffsets-03357
 
 If `pSizes` is not `NULL`, all elements of `pOffsets` **must** be
 less than the size of the corresponding element in `pBuffers`
 
-* 
 [](#VUID-vkCmdBindVertexBuffers2-pSizes-03358) VUID-vkCmdBindVertexBuffers2-pSizes-03358
 
 If `pSizes` is not `NULL`, all elements of `pOffsets` plus
@@ -1082,39 +1104,33 @@ If `pSizes` is not `NULL`, all elements of `pOffsets` plus
 **must** be less than or equal to the size of the corresponding element in
 `pBuffers`
 
-* 
 [](#VUID-vkCmdBindVertexBuffers2-pBuffers-03359) VUID-vkCmdBindVertexBuffers2-pBuffers-03359
 
 All elements of `pBuffers` **must** have been created with the
 `VK_BUFFER_USAGE_VERTEX_BUFFER_BIT` flag
 
-* 
 [](#VUID-vkCmdBindVertexBuffers2-pBuffers-03360) VUID-vkCmdBindVertexBuffers2-pBuffers-03360
 
 Each element of `pBuffers` that is non-sparse **must** be bound
 completely and contiguously to a single `VkDeviceMemory` object
 
-* 
 [](#VUID-vkCmdBindVertexBuffers2-pBuffers-04111) VUID-vkCmdBindVertexBuffers2-pBuffers-04111
 
 If the [`nullDescriptor`](features.html#features-nullDescriptor) feature is not
 enabled, all elements of `pBuffers` **must** not be
 [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
 
-* 
 [](#VUID-vkCmdBindVertexBuffers2-pBuffers-04112) VUID-vkCmdBindVertexBuffers2-pBuffers-04112
 
 If an element of `pBuffers` is [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then the
 corresponding element of `pOffsets` **must** be zero
 
-* 
 [](#VUID-vkCmdBindVertexBuffers2-pStrides-03362) VUID-vkCmdBindVertexBuffers2-pStrides-03362
 
 If `pStrides` is not `NULL` each element of `pStrides` **must** be
 less than or equal to
 `VkPhysicalDeviceLimits`::`maxVertexInputBindingStride`
 
-* 
 [](#VUID-vkCmdBindVertexBuffers2-pStrides-06209) VUID-vkCmdBindVertexBuffers2-pStrides-06209
 
 If `pStrides` is not `NULL` each element of `pStrides` **must** be
@@ -1190,6 +1206,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdBindVertexBuffers2 is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 If the [`vertexAttributeInstanceRateDivisor`](features.html#features-vertexAttributeInstanceRateDivisor) feature is enabled and the
 `pNext` chain of [VkPipelineVertexInputStateCreateInfo](#VkPipelineVertexInputStateCreateInfo) includes a

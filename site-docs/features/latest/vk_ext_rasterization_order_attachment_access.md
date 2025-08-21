@@ -38,7 +38,7 @@ Renderpasses, and specifically subpass self-dependencies enable much of the same
 fetch and pixel local storage extensions did for OpenGL ES.
 But certain techniques such as programmable blending are awkward or impractical to implement with these alone, in part because a self-dependency
 is required every time a fragment will read a value at a given sample coordinate.
-For these use-cases, a mechanisms that more closely matches framebuffer fetch is useful.
+For these use cases, a mechanisms that more closely matches framebuffer fetch is useful.
 
 For simplicity, this proposal extends the original render pass API and not the [VK_KHR_dynamic_rendering](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_KHR_dynamic_rendering) API.
 Raster order attachment reads are done as input attachment reads (as before), but self-dependencies are no longer required when reading a value written

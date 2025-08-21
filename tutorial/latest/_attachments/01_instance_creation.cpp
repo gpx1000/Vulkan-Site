@@ -1,12 +1,22 @@
-#define GLFW_INCLUDE_VULKAN
-#include <GLFW/glfw3.h>
-
+#include <algorithm>
 #include <iostream>
 #include <stdexcept>
 #include <cstdlib>
+#include <memory>
 
-const uint32_t WIDTH = 800;
-const uint32_t HEIGHT = 600;
+#ifdef __INTELLISENSE__
+#include <vulkan/vulkan_raii.hpp>
+#else
+import vulkan_hpp;
+#endif
+
+#include <vulkan/vk_platform.h>
+
+#define GLFW_INCLUDE_VULKAN // REQUIRED only for GLFW CreateWindowSurface.
+#include <GLFW/glfw3.h>
+
+constexpr uint32_t WIDTH = 800;
+constexpr uint32_t HEIGHT = 600;
 
 class HelloTriangleApplication {
 public:
@@ -18,9 +28,10 @@ public:
     }
 
 private:
-    GLFWwindow* window;
+    GLFWwindow* window = nullptr;
 
-    VkInstance instance;
+    vk::raii::Context  context;
+    vk::raii::Instance instance = nullptr;
 
     void initWindow() {
         glfwInit();
@@ -42,45 +53,45 @@ private:
     }
 
     void cleanup() {
-        vkDestroyInstance(instance, nullptr);
-
         glfwDestroyWindow(window);
 
         glfwTerminate();
     }
 
     void createInstance() {
-        VkApplicationInfo appInfo{};
-        appInfo.sType = VK_STRUCTURE_TYPE_APPLICATION_INFO;
-        appInfo.pApplicationName = "Hello Triangle";
-        appInfo.applicationVersion = VK_MAKE_VERSION(1, 0, 0);
-        appInfo.pEngineName = "No Engine";
-        appInfo.engineVersion = VK_MAKE_VERSION(1, 0, 0);
-        appInfo.apiVersion = VK_API_VERSION_1_0;
+        constexpr vk::ApplicationInfo appInfo{ .pApplicationName   = "Hello Triangle",
+            .applicationVersion = VK_MAKE_VERSION( 1, 0, 0 ),
+            .pEngineName        = "No Engine",
+            .engineVersion      = VK_MAKE_VERSION( 1, 0, 0 ),
+            .apiVersion         = vk::ApiVersion14 };
 
-        VkInstanceCreateInfo createInfo{};
-        createInfo.sType = VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO;
-        createInfo.pApplicationInfo = &appInfo;
-
+        // Get the required instance extensions from GLFW.
         uint32_t glfwExtensionCount = 0;
-        const char** glfwExtensions;
-        glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
+        auto glfwExtensions = glfwGetRequiredInstanceExtensions(&glfwExtensionCount);
 
-        createInfo.enabledExtensionCount = glfwExtensionCount;
-        createInfo.ppEnabledExtensionNames = glfwExtensions;
-
-        createInfo.enabledLayerCount = 0;
-
-        if (vkCreateInstance(&createInfo, nullptr, &instance) != VK_SUCCESS) {
-            throw std::runtime_error("failed to create instance!");
+        // Check if the required GLFW extensions are supported by the Vulkan implementation.
+        auto extensionProperties = context.enumerateInstanceExtensionProperties();
+        for (uint32_t i = 0; i < glfwExtensionCount; ++i)
+        {
+            if (std::ranges::none_of(extensionProperties,
+                                     [glfwExtension = glfwExtensions[i]](auto const& extensionProperty)
+                                     { return strcmp(extensionProperty.extensionName, glfwExtension) == 0; }))
+            {
+                throw std::runtime_error("Required GLFW extension not supported: " + std::string(glfwExtensions[i]));
+            }
         }
+
+        vk::InstanceCreateInfo createInfo{
+            .pApplicationInfo = &appInfo,
+            .enabledExtensionCount = glfwExtensionCount,
+            .ppEnabledExtensionNames = glfwExtensions};
+        instance = vk::raii::Instance(context, createInfo);
     }
 };
 
 int main() {
-    HelloTriangleApplication app;
-
     try {
+        HelloTriangleApplication app;
         app.run();
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;

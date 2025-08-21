@@ -12,6 +12,8 @@
 - [Buffer Views](#resources-buffer-views)
 - [Buffer View Format Features](#resources-buffer-view-format-features)
 - [Buffer_View_Format_Features](#resources-buffer-view-format-features)
+- [Buffer Device Addresses](#resources-buffer-device-addresses)
+- [Buffer_Device_Addresses](#resources-buffer-device-addresses)
 - [Images](#resources-images)
 - [Image Format Features](#resources-image-format-features)
 - [Image_Format_Features](#resources-image-format-features)
@@ -52,13 +54,21 @@
 - [Retrieve Buffer Collection Properties](#_retrieve_buffer_collection_properties)
 - [Retrieve_Buffer_Collection_Properties](#_retrieve_buffer_collection_properties)
 - [Memory Allocation](#_memory_allocation)
+- [Tensors](#resources-tensors)
+- [Tensor Description](#resources-tensor-description)
+- [Tensor Views](#resources-tensor-views)
+- [Tensor View Format Features](#resources-tensor-view-format-features)
+- [Tensor_View_Format_Features](#resources-tensor-view-format-features)
 
 ## Content
 
-Vulkan supports two primary resource types: *buffers* and *images*.
+Vulkan supports three primary resource types: *buffers*, *images*, and
+*tensors*.
 Resources are views of memory with associated formatting and dimensionality.
 Buffers provide access to raw arrays of bytes, whereas images **can** be
 multidimensional and **may** have associated metadata.
+Tensors **can** be multidimensional, contain format information like images and
+**may** have associated metadata.
 
 Other resource types, such as [acceleration structures](#resources-acceleration-structures)
 and [micromaps](#resources-micromaps)
@@ -181,6 +191,11 @@ Valid Usage (Implicit)
 
  `pBuffer` **must** be a valid pointer to a [VkBuffer](#VkBuffer) handle
 
+* 
+[](#VUID-vkCreateBuffer-device-queuecount) VUID-vkCreateBuffer-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -191,13 +206,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkBufferCreateInfo` structure is defined as:
 
@@ -419,6 +440,16 @@ member specifying an encode operation
 If `flags` includes
 `VK_BUFFER_CREATE_VIDEO_PROFILE_INDEPENDENT_BIT_KHR`, then
 [`videoMaintenance1`](features.html#features-videoMaintenance1) **must** be enabled
+
+* 
+[](#VUID-VkBufferCreateInfo-pNext-10783) VUID-VkBufferCreateInfo-pNext-10783
+
+If the `pNext` chain includes a [VkVideoProfileListInfoKHR](videocoding.html#VkVideoProfileListInfoKHR)
+structure and for any element of its `pProfiles` member
+`videoCodecOperation` is
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the
+[`videoDecodeVP9`](features.html#features-videoDecodeVP9) feature **must** be
+enabled
 
 * 
 [](#VUID-VkBufferCreateInfo-pNext-10249) VUID-VkBufferCreateInfo-pNext-10249
@@ -746,6 +777,12 @@ static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_PUSH_DESCRIPTORS_DESCRIPTO
 static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_MICROMAP_BUILD_INPUT_READ_ONLY_BIT_EXT = 0x00800000ULL;
 // Provided by VK_KHR_maintenance5 with VK_EXT_opacity_micromap
 static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_MICROMAP_STORAGE_BIT_EXT = 0x01000000ULL;
+#ifdef VK_ENABLE_BETA_EXTENSIONS
+// Provided by VK_AMDX_dense_geometry_format
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_COMPRESSED_DATA_DGF1_BIT_AMDX = 0x200000000ULL;
+#endif
+// Provided by VK_ARM_data_graph
+static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM = 0x20000000ULL;
 // Provided by VK_QCOM_tile_memory_heap
 static const VkBufferUsageFlagBits2 VK_BUFFER_USAGE_2_TILE_MEMORY_BIT_QCOM = 0x08000000ULL;
 // Provided by VK_EXT_device_generated_commands
@@ -881,7 +918,7 @@ that the buffer is suitable for storage space for a
 * 
 `VK_BUFFER_USAGE_2_SHADER_DEVICE_ADDRESS_BIT` specifies that the
 buffer **can** be used to retrieve a buffer device address via
-[vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress) and use that address to access the
+[vkGetBufferDeviceAddress](#vkGetBufferDeviceAddress) and use that address to access the
 buffer’s memory from a shader.
 
 * 
@@ -911,6 +948,16 @@ the buffer **can** be used for as scratch memory for
 `VK_BUFFER_USAGE_2_PREPROCESS_BUFFER_BIT_EXT` specifies that the
 buffer **can** be used as a preprocess buffer for
 [Device-Generated Commands](device_generated_commands/generatedcommands.html#device-generated-commands).
+
+* 
+`VK_BUFFER_USAGE_2_COMPRESSED_DATA_DGF1_BIT_AMDX` specifies that the
+buffer is suitable as storage space for [Dense    Geometry Format](VK_AMDX_dense_geometry_format/dense_geometry_format.html#dense-geometry-format) data.
+
+* 
+`VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM` specifies
+that the buffer is suitable to contain resource descriptors when bound
+as a descriptor buffer in command buffers allocated from a command pool
+that **can** target foreign [data graph    processing engines](VK_ARM_data_graph/graphs.html#graphs-processing-engines).
 
 // Provided by VK_VERSION_1_4
 typedef VkFlags64 VkBufferUsageFlags2;
@@ -1108,7 +1155,7 @@ that the buffer is suitable for storage space for a
 * 
 `VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT` specifies that the
 buffer **can** be used to retrieve a buffer device address via
-[vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress) and use that address to access the
+[vkGetBufferDeviceAddress](#vkGetBufferDeviceAddress) and use that address to access the
 buffer’s memory from a shader.
 
 * 
@@ -1321,7 +1368,7 @@ the buffer.
 If `opaqueCaptureAddress` is zero, no specific address is requested.
 
 If `opaqueCaptureAddress` is not zero, then it **should** be an address
-retrieved from [vkGetBufferOpaqueCaptureAddress](descriptorsets.html#vkGetBufferOpaqueCaptureAddress) for an identically
+retrieved from [vkGetBufferOpaqueCaptureAddress](#vkGetBufferOpaqueCaptureAddress) for an identically
 created buffer on the same implementation.
 
 If this structure is not present, it is as if `opaqueCaptureAddress` is
@@ -1396,6 +1443,11 @@ Valid Usage (Implicit)
 [](#VUID-VkBufferDeviceAddressCreateInfoEXT-sType-sType) VUID-VkBufferDeviceAddressCreateInfoEXT-sType-sType
 
  `sType` **must** be `VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_CREATE_INFO_EXT`
+
+* 
+[](#VUID-VkBufferDeviceAddressCreateInfoEXT-deviceAddress-parameter) VUID-VkBufferDeviceAddressCreateInfoEXT-deviceAddress-parameter
+
+ `deviceAddress` **must** be a valid `VkDeviceAddress` value
 
 The `VkBufferCollectionBufferCreateInfoFUCHSIA` structure is defined as:
 
@@ -1578,6 +1630,11 @@ Valid Usage (Implicit)
 
  `pView` **must** be a valid pointer to a [VkBufferView](#VkBufferView) handle
 
+* 
+[](#VUID-vkCreateBufferView-device-queuecount) VUID-vkCreateBufferView-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -1588,10 +1645,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkBufferViewCreateInfo` structure is defined as:
 
@@ -1898,6 +1961,262 @@ is the value of [VkFormatProperties3](formats.html#VkFormatProperties3)::`buffer
 calling [vkGetPhysicalDeviceFormatProperties2](formats.html#vkGetPhysicalDeviceFormatProperties2) on the same
 `format` as [VkBufferViewCreateInfo](#VkBufferViewCreateInfo)::`format`.
 
+To query a 64-bit buffer device address value which can be used to identify
+a buffer to API commands or through which buffer memory **can** be accessed,
+call:
+
+// Provided by VK_VERSION_1_2
+VkDeviceAddress vkGetBufferDeviceAddress(
+    VkDevice                                    device,
+    const VkBufferDeviceAddressInfo*            pInfo);
+
+or the equivalent command
+
+// Provided by VK_KHR_buffer_device_address
+VkDeviceAddress vkGetBufferDeviceAddressKHR(
+    VkDevice                                    device,
+    const VkBufferDeviceAddressInfo*            pInfo);
+
+or the equivalent command
+
+// Provided by VK_EXT_buffer_device_address
+VkDeviceAddress vkGetBufferDeviceAddressEXT(
+    VkDevice                                    device,
+    const VkBufferDeviceAddressInfo*            pInfo);
+
+* 
+`device` is the logical device that the buffer was created on.
+
+* 
+`pInfo` is a pointer to a [VkBufferDeviceAddressInfo](#VkBufferDeviceAddressInfo) structure
+specifying the buffer to retrieve an address for.
+
+The 64-bit return value, `bufferBaseAddress`, is an address of the
+start of `pInfo->buffer`.
+Addresses in the range [`bufferBaseAddress`, `bufferBaseAddress`
++  [VkBufferCreateInfo](#VkBufferCreateInfo)::`size`) **can** be used to access the
+memory bound to this buffer on the device.
+
+A value of zero is reserved as a “null” pointer and **must** not be returned
+as a valid buffer device address.
+
+If the buffer was created with a non-zero value of
+[VkBufferOpaqueCaptureAddressCreateInfo](#VkBufferOpaqueCaptureAddressCreateInfo)::`opaqueCaptureAddress` or
+[VkBufferDeviceAddressCreateInfoEXT](#VkBufferDeviceAddressCreateInfoEXT)::`deviceAddress`,
+the return value will be the same address that was returned at capture time.
+
+The returned address **must** satisfy the alignment requirement specified by
+[VkMemoryRequirements](#VkMemoryRequirements)::`alignment` for the buffer in
+[VkBufferDeviceAddressInfo](#VkBufferDeviceAddressInfo)::`buffer`.
+
+If multiple [VkBuffer](#VkBuffer) objects are bound to overlapping ranges of
+[VkDeviceMemory](memory.html#VkDeviceMemory), implementations **may** return address ranges which
+overlap.
+In this case, it is ambiguous which [VkBuffer](#VkBuffer) is associated with any
+given device address.
+For purposes of valid usage, if multiple [VkBuffer](#VkBuffer) objects **can** be
+attributed to a device address, a [VkBuffer](#VkBuffer) is selected such that valid
+usage passes, if it exists.
+
+Valid Usage
+
+* 
+[](#VUID-vkGetBufferDeviceAddress-bufferDeviceAddress-03324) VUID-vkGetBufferDeviceAddress-bufferDeviceAddress-03324
+
+The [`bufferDeviceAddress`](features.html#features-bufferDeviceAddress) feature
+or the [    `VkPhysicalDeviceBufferDeviceAddressFeaturesEXT`::`bufferDeviceAddress`](features.html#features-bufferDeviceAddressEXT)
+feature
+**must** be enabled, and at least one of the following conditions **must** be
+met
+
+`buffer` is sparse
+
+* 
+`buffer` is bound completely and contiguously to a single
+`VkDeviceMemory` object
+
+* 
+`buffer` was created with the
+`VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT` flag and the
+[     `VkPhysicalDeviceBufferDeviceAddressFeaturesEXT`::`bufferDeviceAddress`](features.html#features-bufferDeviceAddressEXT)
+feature is enabled on the device
+
+[](#VUID-vkGetBufferDeviceAddress-device-03325) VUID-vkGetBufferDeviceAddress-device-03325
+
+If `device` was created with multiple physical devices, then the
+[    `bufferDeviceAddressMultiDevice`](features.html#features-bufferDeviceAddressMultiDevice)
+or [    `VkPhysicalDeviceBufferDeviceAddressFeaturesEXT`::`bufferDeviceAddressMultiDevice`](features.html#features-bufferDeviceAddressMultiDeviceEXT)
+feature **must** be enabled
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkGetBufferDeviceAddress-device-parameter) VUID-vkGetBufferDeviceAddress-device-parameter
+
+ `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkGetBufferDeviceAddress-pInfo-parameter) VUID-vkGetBufferDeviceAddress-pInfo-parameter
+
+ `pInfo` **must** be a valid pointer to a valid [VkBufferDeviceAddressInfo](#VkBufferDeviceAddressInfo) structure
+
+The `VkBufferDeviceAddressInfo` structure is defined as:
+
+// Provided by VK_VERSION_1_2
+typedef struct VkBufferDeviceAddressInfo {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkBuffer           buffer;
+} VkBufferDeviceAddressInfo;
+
+or the equivalent
+
+// Provided by VK_KHR_buffer_device_address
+typedef VkBufferDeviceAddressInfo VkBufferDeviceAddressInfoKHR;
+
+or the equivalent
+
+// Provided by VK_EXT_buffer_device_address
+typedef VkBufferDeviceAddressInfo VkBufferDeviceAddressInfoEXT;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`buffer` specifies the buffer whose address is being queried.
+
+Valid Usage
+
+* 
+[](#VUID-VkBufferDeviceAddressInfo-buffer-02601) VUID-VkBufferDeviceAddressInfo-buffer-02601
+
+`buffer` **must** have been created with
+`VK_BUFFER_USAGE_SHADER_DEVICE_ADDRESS_BIT`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkBufferDeviceAddressInfo-sType-sType) VUID-VkBufferDeviceAddressInfo-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_BUFFER_DEVICE_ADDRESS_INFO`
+
+* 
+[](#VUID-VkBufferDeviceAddressInfo-pNext-pNext) VUID-VkBufferDeviceAddressInfo-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkBufferDeviceAddressInfo-buffer-parameter) VUID-VkBufferDeviceAddressInfo-buffer-parameter
+
+ `buffer` **must** be a valid [VkBuffer](#VkBuffer) handle
+
+To query a 64-bit buffer opaque capture address, call:
+
+// Provided by VK_VERSION_1_2
+uint64_t vkGetBufferOpaqueCaptureAddress(
+    VkDevice                                    device,
+    const VkBufferDeviceAddressInfo*            pInfo);
+
+or the equivalent command
+
+// Provided by VK_KHR_buffer_device_address
+uint64_t vkGetBufferOpaqueCaptureAddressKHR(
+    VkDevice                                    device,
+    const VkBufferDeviceAddressInfo*            pInfo);
+
+* 
+`device` is the logical device that the buffer was created on.
+
+* 
+`pInfo` is a pointer to a [VkBufferDeviceAddressInfo](#VkBufferDeviceAddressInfo) structure
+specifying the buffer to retrieve an address for.
+
+The 64-bit return value is an opaque capture address of the start of
+`pInfo->buffer`.
+
+If the buffer was created with a non-zero value of
+[VkBufferOpaqueCaptureAddressCreateInfo](#VkBufferOpaqueCaptureAddressCreateInfo)::`opaqueCaptureAddress` the
+return value **must** be the same address.
+
+Valid Usage
+
+* 
+[](#VUID-vkGetBufferOpaqueCaptureAddress-None-03326) VUID-vkGetBufferOpaqueCaptureAddress-None-03326
+
+The [`bufferDeviceAddress`](features.html#features-bufferDeviceAddress) and
+[    `bufferDeviceAddressCaptureReplay`](features.html#features-bufferDeviceAddressCaptureReplay) features **must** be enabled
+
+* 
+[](#VUID-vkGetBufferOpaqueCaptureAddress-pInfo-10725) VUID-vkGetBufferOpaqueCaptureAddress-pInfo-10725
+
+`pInfo->buffer` **must** have been created with the
+`VK_BUFFER_CREATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT` flag
+
+* 
+[](#VUID-vkGetBufferOpaqueCaptureAddress-device-03327) VUID-vkGetBufferOpaqueCaptureAddress-device-03327
+
+If `device` was created with multiple physical devices, then the
+[    `bufferDeviceAddressMultiDevice`](features.html#features-bufferDeviceAddressMultiDevice) feature **must** be enabled
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkGetBufferOpaqueCaptureAddress-device-parameter) VUID-vkGetBufferOpaqueCaptureAddress-device-parameter
+
+ `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkGetBufferOpaqueCaptureAddress-pInfo-parameter) VUID-vkGetBufferOpaqueCaptureAddress-pInfo-parameter
+
+ `pInfo` **must** be a valid pointer to a valid [VkBufferDeviceAddressInfo](#VkBufferDeviceAddressInfo) structure
+
+The `VkStridedDeviceAddressRegionKHR` structure is defined as:
+
+// Provided by VK_KHR_ray_tracing_pipeline
+typedef struct VkStridedDeviceAddressRegionKHR {
+    VkDeviceAddress    deviceAddress;
+    VkDeviceSize       stride;
+    VkDeviceSize       size;
+} VkStridedDeviceAddressRegionKHR;
+
+* 
+`deviceAddress` is the device address (as returned by the
+[vkGetBufferDeviceAddress](#vkGetBufferDeviceAddress) command) at which the region starts, or
+zero if the region is unused.
+
+* 
+`stride` is the byte stride between consecutive elements.
+
+* 
+`size` is the size in bytes of the region starting at
+`deviceAddress`.
+
+Valid Usage
+
+* 
+[](#VUID-VkStridedDeviceAddressRegionKHR-size-04631) VUID-VkStridedDeviceAddressRegionKHR-size-04631
+
+If `size` is not zero, all addresses between `deviceAddress` and
+`deviceAddress` +  `size` - 1 **must** be in the buffer
+device address range of the same buffer
+
+* 
+[](#VUID-VkStridedDeviceAddressRegionKHR-size-04632) VUID-VkStridedDeviceAddressRegionKHR-size-04632
+
+If `size` is not zero, `stride` **must** be less than or equal to
+the size of the buffer from which `deviceAddress` was queried
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkStridedDeviceAddressRegionKHR-deviceAddress-parameter) VUID-VkStridedDeviceAddressRegionKHR-deviceAddress-parameter
+
+ If `deviceAddress` is not `0`, `deviceAddress` **must** be a valid `VkDeviceAddress` value
+
 Images represent multidimensional - up to 3 - arrays of data which **can** be
 used for various purposes (e.g. attachments, textures), by binding them to a
 graphics or compute pipeline via descriptor sets, or by directly specifying
@@ -2014,6 +2333,11 @@ Valid Usage (Implicit)
 
  `pImage` **must** be a valid pointer to a [VkImage](#VkImage) handle
 
+* 
+[](#VUID-vkCreateImage-device-queuecount) VUID-vkCreateImage-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -2024,16 +2348,22 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_COMPRESSION_EXHAUSTED_EXT`
+
+* 
+`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_COMPRESSION_EXHAUSTED_EXT`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkImageCreateInfo` structure is defined as:
 
@@ -2663,11 +2993,15 @@ be `VK_IMAGE_TYPE_3D`
 * 
 [](#VUID-VkImageCreateInfo-imageType-10197) VUID-VkImageCreateInfo-imageType-10197
 
-If `flags` contains
-`VK_IMAGE_CREATE_2D_VIEW_COMPATIBLE_BIT_EXT`, `flags` **must** not
-include `VK_IMAGE_CREATE_SPARSE_ALIASED_BIT`,
-`VK_IMAGE_CREATE_SPARSE_BINDING_BIT`, or
-`VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT`
+    If `flags` contains `VK_IMAGE_CREATE_2D_VIEW_COMPATIBLE_BIT_EXT`
+and either the [`maintenance9`](features.html#features-maintenance9) feature is not
+enabled on the device or
+[`image2DViewOf3DSparse`](limits.html#limits-image2DViewOf3DSparse) is
+`VK_FALSE`
+    , `flags` **must** not include
+    `VK_IMAGE_CREATE_SPARSE_ALIASED_BIT`,
+    `VK_IMAGE_CREATE_SPARSE_BINDING_BIT`, or
+    `VK_IMAGE_CREATE_SPARSE_RESIDENCY_BIT`
 
 * 
 [](#VUID-VkImageCreateInfo-extent-02252) VUID-VkImageCreateInfo-extent-02252
@@ -3439,6 +3773,16 @@ structure with `profileCount` greater than `0`, then
 `supportedVideoFormat` **must** be `VK_TRUE`
 
 * 
+[](#VUID-VkImageCreateInfo-pNext-10784) VUID-VkImageCreateInfo-pNext-10784
+
+If the `pNext` chain includes a [VkVideoProfileListInfoKHR](videocoding.html#VkVideoProfileListInfoKHR)
+structure and for any element of its `pProfiles` member
+`videoCodecOperation` is
+`VK_VIDEO_CODEC_OPERATION_DECODE_VP9_BIT_KHR`, then the
+[`videoDecodeVP9`](features.html#features-videoDecodeVP9) feature **must** be
+enabled
+
+* 
 [](#VUID-VkImageCreateInfo-pNext-10250) VUID-VkImageCreateInfo-pNext-10250
 
 If the `pNext` chain includes a [VkVideoProfileListInfoKHR](videocoding.html#VkVideoProfileListInfoKHR)
@@ -3662,6 +4006,13 @@ If the `pNext` chain contains a
 If the `pNext` chain contains a
 [VkImageAlignmentControlCreateInfoMESA](#VkImageAlignmentControlCreateInfoMESA) structure, it **must** not
 contain a [VkExternalMemoryImageCreateInfo](#VkExternalMemoryImageCreateInfo) structure
+
+* 
+[](#VUID-VkImageCreateInfo-tiling-09711) VUID-VkImageCreateInfo-tiling-09711
+
+If `tiling` is VK_IMAGE_TILING_LINEAR then
+`VK_IMAGE_USAGE_TENSOR_ALIASING_BIT_ARM` **must** not be set in
+`usage`.
 
 Valid Usage (Implicit)
 
@@ -4766,6 +5117,8 @@ typedef enum VkImageUsageFlagBits {
     VK_IMAGE_USAGE_SAMPLE_WEIGHT_BIT_QCOM = 0x00100000,
   // Provided by VK_QCOM_image_processing
     VK_IMAGE_USAGE_SAMPLE_BLOCK_MATCH_BIT_QCOM = 0x00200000,
+  // Provided by VK_ARM_tensors
+    VK_IMAGE_USAGE_TENSOR_ALIASING_BIT_ARM = 0x00800000,
   // Provided by VK_QCOM_tile_memory_heap
     VK_IMAGE_USAGE_TILE_MEMORY_BIT_QCOM = 0x08000000,
   // Provided by VK_KHR_video_encode_quantization_map
@@ -4871,11 +5224,8 @@ use.
 
 * 
 `VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` specifies that the
-image **can** be transitioned to the
-`VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout to be
-used as a color or depth/stencil attachment in a `VkFramebuffer`
-and/or as a read-only input resource in a shader (sampled image,
-combined image sampler or input attachment) in the same render pass.
+image **can** be used as a color or depth/stencil attachment with
+[feedback loop enabled](renderpass.html#renderpass-feedbackloop).
 
 * 
 `VK_IMAGE_USAGE_TILE_MEMORY_BIT_QCOM` specifies that the image **can**
@@ -4896,6 +5246,17 @@ specifies that the image **can** be used as a
 `VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` specifies that
 the image **can** be used as an [emphasis map](videocoding.html#encode-emphasis-map) in a
 [video encode operation](videocoding.html#video-encode-operations).
+
+* 
+`VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT` specifies that the image **can**
+be used with host copy commands and host layout transitions.
+
+* 
+`VK_IMAGE_USAGE_TENSOR_ALIASING_BIT_ARM` specifies that the image
+**can** be transitioned to the `VK_IMAGE_LAYOUT_TENSOR_ALIASING_ARM`
+layout.
+See [Memory Aliasing](#resources-memory-aliasing) for a complete set of rules for
+tensor/image aliasing.
 
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkImageUsageFlags;
@@ -5819,7 +6180,7 @@ Valid Usage (Implicit)
 
 To query the memory size needed to copy to or from an image using
 [vkCopyMemoryToImage](copies.html#vkCopyMemoryToImage) or [vkCopyImageToMemory](copies.html#vkCopyImageToMemory) when the
-`VK_HOST_IMAGE_COPY_MEMCPY` flag is specified, add a
+`VK_HOST_IMAGE_COPY_MEMCPY_BIT` flag is specified, add a
 [VkSubresourceHostMemcpySize](#VkSubresourceHostMemcpySize) structure to the `pNext` chain of the
 [VkSubresourceLayout2](#VkSubresourceLayout2) structure in a call to
 [vkGetImageSubresourceLayout2](#vkGetImageSubresourceLayout2).
@@ -6079,6 +6440,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The [VkImageDrmFormatModifierPropertiesEXT](#VkImageDrmFormatModifierPropertiesEXT) structure is defined as:
 
@@ -6485,6 +6852,8 @@ typedef enum VkImageLayout {
     VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR = 1000299002,
   // Provided by VK_EXT_attachment_feedback_loop_layout
     VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT = 1000339000,
+  // Provided by VK_ARM_tensors
+    VK_IMAGE_LAYOUT_TENSOR_ALIASING_ARM = 1000460000,
   // Provided by VK_KHR_video_encode_quantization_map
     VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR = 1000553000,
   // Provided by VK_EXT_zero_initialize_device_memory
@@ -6704,9 +7073,9 @@ the `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR` usage bit enabled.
 
 * 
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` **must** only be
-used as either a color attachment or depth/stencil attachment in a
-`VkFramebuffer` and/or read-only access in a shader as a sampled
-image, combined image/sampler, or input attachment.
+used as either a color attachment or depth/stencil attachment and/or
+read-only access in a shader as a sampled image, combined image/sampler,
+or input attachment.
 This layout is valid only for image subresources of images created with
 the `VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT` usage bit
 enabled and either the `VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT` or
@@ -6733,6 +7102,16 @@ the `VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` or
 `VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` usage bit
 enabled.
 
+* 
+`VK_IMAGE_LAYOUT_TENSOR_ALIASING_ARM` specifies the layout that an
+image created with `VK_IMAGE_TILING_OPTIMAL` **must** be in for it and
+a tensor bound to the same aliased range of memory to consistently
+interpret the data in memory.
+See [Memory Aliasing](#resources-memory-aliasing) for a complete set of rules for
+tensor/image aliasing.
+This layout is valid only for image subresources of images created with
+`VK_IMAGE_USAGE_TENSOR_ALIASING_BIT_ARM`.
+
 The layout of each image subresource is not a state of the image subresource
 itself, but is rather a property of how the data in memory is organized, and
 thus for each mechanism of accessing an image in the API the application
@@ -6746,6 +7125,10 @@ of the [VkRenderPassCreateInfo](renderpass.html#VkRenderPassCreateInfo) (see [Re
 For use in a descriptor set, this is a member in the
 `VkDescriptorImageInfo` structure (see [Descriptor Set Updates](descriptorsets.html#descriptorsets-updates)).
 
+If the [`unifiedImageLayouts`](features.html#features-unifiedImageLayouts) feature
+is enabled, the `VK_IMAGE_LAYOUT_GENERAL` image layout **may** be used in
+place of the other layouts where allowed with no loss of performance.
+
 |  | `VK_IMAGE_LAYOUT_GENERAL` can be a useful catch-all image layout, but
 | --- | --- |
 there are situations where a dedicated image layout must be used instead.
@@ -6755,22 +7138,29 @@ Some examples include:
 `VK_IMAGE_LAYOUT_PRESENT_SRC_KHR`
 
 * 
-`VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR`
+`VK_IMAGE_LAYOUT_SHARED_PRESENT_KHR`
 
 * 
-`VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR`
-
-* 
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR`,
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR`, and
 `VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR`
+without the
+[`unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo)
+feature
 
 * 
-`VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR`
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR`,
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_DST_KHR`, and
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR`
+without the
+[`unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo)
+feature
 
 * 
-`VK_IMAGE_LAYOUT_VIDEO_ENCODE_DST_KHR`
-
-* 
-`VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR` |
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR`
+without the
+[`unifiedImageLayoutsVideo`](features.html#features-unifiedImageLayoutsVideo)
+feature |
 
 |  | While `VK_IMAGE_LAYOUT_GENERAL` suggests that all types of device access
 | --- | --- |
@@ -6779,9 +7169,8 @@ in all situations.
 [Common Render Pass Data Races](renderpass.html#common-render-pass-data-races) outlines
 some situations where data races are unavoidable.
 For example, when a subresource is used as both an attachment and a sampled
-image (i.e., not an input attachment),
-`VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` adds extra
-guarantees which `VK_IMAGE_LAYOUT_GENERAL` does not. |
+image (i.e., not an input attachment), [enabling feedback loop](renderpass.html#renderpass-feedbackloop) adds extra guarantees which `VK_IMAGE_LAYOUT_GENERAL`
+alone does not. |
 
 At the time that any command buffer command accessing an image executes on
 any queue, the layouts of the image subresources that are accessed **must** all
@@ -6942,6 +7331,11 @@ Valid Usage (Implicit)
 
  `pView` **must** be a valid pointer to a [VkImageView](#VkImageView) handle
 
+* 
+[](#VUID-vkCreateImageView-device-queuecount) VUID-vkCreateImageView-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -6952,13 +7346,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkImageViewCreateInfo` structure is defined as:
 
@@ -8150,9 +8550,10 @@ image view of a 3D image created with
 include in the created image view.
 Such an image view **can** be used as a framebuffer attachment that refers only
 to the specified range of slices of the selected mip level.
-However, any layout transitions performed on such an attachment view during
-a render pass instance still apply to the entire subresource referenced
-which includes all the slices of the selected mip level.
+If the [`maintenance9`](features.html#features-maintenance9) feature is not enabled,
+any layout transitions performed on such an attachment view during a render
+pass instance still apply to the entire subresource referenced which
+includes all the slices of the selected mip level.
 
 When using an image view of a depth/stencil image to populate a descriptor
 set (e.g. for sampling in the shader, or for use as an input attachment),
@@ -8807,6 +9208,12 @@ Return Codes
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
 The `VkImageViewAddressPropertiesNVX` structure is defined as:
 
 // Provided by VK_NVX_image_view_handle
@@ -8910,12 +9317,12 @@ contain `VK_FORMAT_FEATURE_2_SAMPLED_IMAGE_BIT`.
 
 * 
 `VK_FORMAT_FEATURE_2_STORAGE_READ_WITHOUT_FORMAT_BIT` if the format
-is one of the [extended storage     formats](formats.html#formats-without-shader-storage-format) and the [     `shaderStorageImageReadWithoutFormat`](features.html#features-shaderStorageImageReadWithoutFormat) is enabled.
+is one of the [extended storage     formats](formats.html#formats-without-shader-storage-format) and the [     `shaderStorageImageReadWithoutFormat`](features.html#features-shaderStorageImageReadWithoutFormat) feature is enabled.
 
 * 
 `VK_FORMAT_FEATURE_2_STORAGE_WRITE_WITHOUT_FORMAT_BIT` if the
 format is one of the [extended     storage formats](formats.html#formats-without-shader-storage-format) and the
-[     `shaderStorageImageWriteWithoutFormat`](features.html#features-shaderStorageImageWriteWithoutFormat) is enabled.
+[     `shaderStorageImageWriteWithoutFormat`](features.html#features-shaderStorageImageWriteWithoutFormat) feature is enabled.
 
 If [VkImageViewCreateInfo](#VkImageViewCreateInfo)::`image` was created with an
 [Android    hardware buffer external format](memory.html#memory-external-android-hardware-buffer-external-formats), then the image views’s set of *format
@@ -9158,6 +9565,11 @@ Valid Usage (Implicit)
 
  `pAccelerationStructure` **must** be a valid pointer to a [VkAccelerationStructureKHR](#VkAccelerationStructureKHR) handle
 
+* 
+[](#VUID-vkCreateAccelerationStructureKHR-device-queuecount) VUID-vkCreateAccelerationStructureKHR-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -9168,10 +9580,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkAccelerationStructureCreateInfoKHR` structure is defined as:
 
@@ -9306,15 +9724,9 @@ structure from which `deviceAddress` was retrieved, except for
 If `deviceAddress` is not zero, `buffer` **must** have been created
 with a
 [VkBufferOpaqueCaptureAddressCreateInfo](#VkBufferOpaqueCaptureAddressCreateInfo)::`opaqueCaptureAddress`
-that was retrieved from [vkGetBufferOpaqueCaptureAddress](descriptorsets.html#vkGetBufferOpaqueCaptureAddress) for the
+that was retrieved from [vkGetBufferOpaqueCaptureAddress](#vkGetBufferOpaqueCaptureAddress) for the
 `buffer` that was used to create the acceleration structure from
 which `deviceAddress` was retrieved
-
-* 
-[](#VUID-VkAccelerationStructureCreateInfoKHR-deviceAddress-10393) VUID-VkAccelerationStructureCreateInfoKHR-deviceAddress-10393
-
-If `deviceAddress` is not zero, it **must** be a valid device address
-obtained from [vkGetAccelerationStructureDeviceAddressKHR](#vkGetAccelerationStructureDeviceAddressKHR)
 
 * 
 [](#VUID-VkAccelerationStructureCreateInfoKHR-createFlags-03613) VUID-VkAccelerationStructureCreateInfoKHR-createFlags-03613
@@ -9410,6 +9822,11 @@ Valid Usage (Implicit)
 [](#VUID-VkAccelerationStructureCreateInfoKHR-type-parameter) VUID-VkAccelerationStructureCreateInfoKHR-type-parameter
 
  `type` **must** be a valid [VkAccelerationStructureTypeKHR](#VkAccelerationStructureTypeKHR) value
+
+* 
+[](#VUID-VkAccelerationStructureCreateInfoKHR-deviceAddress-parameter) VUID-VkAccelerationStructureCreateInfoKHR-deviceAddress-parameter
+
+ If `deviceAddress` is not `0`, `deviceAddress` **must** be a valid `VkDeviceAddress` value
 
 The `VkAccelerationStructureMotionInfoNV` structure is defined as:
 
@@ -9552,6 +9969,58 @@ given index, with a `geometryType` member equal to
 `transformData` member of `geometry.triangles` is not `NULL`,
 the corresponding `transformData.hostAddress` parameter in
 `pBuildInfo` is not `NULL`.
+
+* 
+For each element of either `pGeometries` or `ppGeometries` at a
+given index, with a `geometryType` member equal to
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`numTriangles` member of the
+[VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX](accelstructures.html#VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX)
+structure in the `pNext` chain is less than or equal to the
+corresponding member of the same element in `pBuildInfo`
+
+* 
+For each element of either `pGeometries` or `ppGeometries` at a
+given index, with a `geometryType` member equal to
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`numVertices` member of the
+[VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX](accelstructures.html#VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX)
+structure in the `pNext` chain is less than or equal to the
+corresponding member of the same element in `pBuildInfo`
+
+* 
+For each element of either `pGeometries` or `ppGeometries` at a
+given index, with a `geometryType` member equal to
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`maxPrimitiveIndex` member of the
+[VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX](accelstructures.html#VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX)
+structure in the `pNext` chain is less than or equal to the
+corresponding member of the same element in `pBuildInfo`
+
+* 
+For each element of either `pGeometries` or `ppGeometries` at a
+given index, with a `geometryType` member equal to
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`maxGeometryIndex` member of the
+[VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX](accelstructures.html#VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX)
+structure in the `pNext` chain is less than or equal to the
+corresponding member of the same element in `pBuildInfo`
+
+* 
+For each element of either `pGeometries` or `ppGeometries` at a
+given index, with a `geometryType` member equal to
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`format` member of the
+[VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX](accelstructures.html#VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX)
+structure in the `pNext` chain is equal to the corresponding member
+of the same element in `pBuildInfo`
+
+For each [VkAccelerationStructureBuildRangeInfoKHR](accelstructures.html#VkAccelerationStructureBuildRangeInfoKHR) corresponding to
+the [VkAccelerationStructureBuildGeometryInfoKHR](accelstructures.html#VkAccelerationStructureBuildGeometryInfoKHR):
+
+* 
+Its `primitiveCount` member is less than or equal to the
+corresponding element of `pMaxPrimitiveCounts`.
 
 * 
 For each element of either `pGeometries` or `ppGeometries` at a
@@ -9752,6 +10221,11 @@ Valid Usage (Implicit)
 
  `pAccelerationStructure` **must** be a valid pointer to a [VkAccelerationStructureNV](#VkAccelerationStructureNV) handle
 
+* 
+[](#VUID-vkCreateAccelerationStructureNV-device-queuecount) VUID-vkCreateAccelerationStructureNV-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -9763,6 +10237,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkAccelerationStructureCreateInfoNV` structure is defined as:
 
@@ -10051,17 +10531,19 @@ typedef enum VkBuildAccelerationStructureFlagBitsKHR {
   // Provided by VK_NV_ray_tracing_motion_blur
     VK_BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV = 0x00000020,
   // Provided by VK_EXT_opacity_micromap
-    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_EXT = 0x00000040,
+    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_BIT_EXT = 0x00000040,
   // Provided by VK_EXT_opacity_micromap
-    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_EXT = 0x00000080,
+    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_BIT_EXT = 0x00000080,
   // Provided by VK_EXT_opacity_micromap
-    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT = 0x00000100,
+    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_BIT_EXT = 0x00000100,
 #ifdef VK_ENABLE_BETA_EXTENSIONS
   // Provided by VK_NV_displacement_micromap
-    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV = 0x00000200,
+    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_BIT_NV = 0x00000200,
 #endif
   // Provided by VK_KHR_ray_tracing_position_fetch
-    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR = 0x00000800,
+    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_BIT_KHR = 0x00000800,
+  // Provided by VK_NV_cluster_acceleration_structure
+    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_CLUSTER_OPACITY_MICROMAPS_BIT_NV = 0x00001000,
   // Provided by VK_NV_ray_tracing
     VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_NV = VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_KHR,
   // Provided by VK_NV_ray_tracing
@@ -10072,6 +10554,23 @@ typedef enum VkBuildAccelerationStructureFlagBitsKHR {
     VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_BUILD_BIT_NV = VK_BUILD_ACCELERATION_STRUCTURE_PREFER_FAST_BUILD_BIT_KHR,
   // Provided by VK_NV_ray_tracing
     VK_BUILD_ACCELERATION_STRUCTURE_LOW_MEMORY_BIT_NV = VK_BUILD_ACCELERATION_STRUCTURE_LOW_MEMORY_BIT_KHR,
+  // Provided by VK_EXT_opacity_micromap
+  // VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_EXT is a deprecated alias
+    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_EXT = VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_BIT_EXT,
+  // Provided by VK_EXT_opacity_micromap
+  // VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_EXT is a deprecated alias
+    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_EXT = VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_BIT_EXT,
+  // Provided by VK_EXT_opacity_micromap
+  // VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT is a deprecated alias
+    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT = VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_BIT_EXT,
+#ifdef VK_ENABLE_BETA_EXTENSIONS
+  // Provided by VK_NV_displacement_micromap
+  // VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV is a deprecated alias
+    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV = VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_BIT_NV,
+#endif
+  // Provided by VK_KHR_ray_tracing_position_fetch
+  // VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR is a deprecated alias
+    VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR = VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_BIT_KHR,
 } VkBuildAccelerationStructureFlagBitsKHR;
 
 or the equivalent
@@ -10116,31 +10615,37 @@ memory and the final result acceleration structure, potentially at the
 expense of build time or trace performance.
 
 * 
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_EXT`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_BIT_EXT`
 specifies that the opacity micromaps associated with the specified
 acceleration structure **may** change with an acceleration structure
 update.
 
 * 
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_BIT_EXT`
 specifies that the data of the opacity micromaps associated with the
 specified acceleration structure **may** change with an acceleration
 structure update.
 
 * 
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_EXT`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_BIT_EXT`
 specifies that the specified acceleration structure **may** be referenced
 in an instance with
-`VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT` set.
+`VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT` set.
 
 * 
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR` specifies
-that the specified acceleration structure **can** be used when fetching the
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_CLUSTER_OPACITY_MICROMAPS_BIT_NV`
+specifies that opacity micromaps **may** be associated with the given
+cluster acceleration structure.
+
+* 
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_BIT_KHR`
+specifies that the specified acceleration structure **can** be used when
+fetching the
 vertex and radius positions of a hit LSS or sphere primitive, or
 vertex positions of a hit triangle.
 
 * 
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_BIT_NV`
 specifies that the displacement micromaps associated with the specified
 acceleration structure **may** change with an acceleration structure
 update.
@@ -10248,6 +10753,10 @@ typedef enum VkGeometryTypeKHR {
     VK_GEOMETRY_TYPE_SPHERES_NV = 1000429004,
   // Provided by VK_NV_ray_tracing_linear_swept_spheres
     VK_GEOMETRY_TYPE_LINEAR_SWEPT_SPHERES_NV = 1000429005,
+#ifdef VK_ENABLE_BETA_EXTENSIONS
+  // Provided by VK_AMDX_dense_geometry_format
+    VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX = 1000478000,
+#endif
   // Provided by VK_NV_ray_tracing
     VK_GEOMETRY_TYPE_TRIANGLES_NV = VK_GEOMETRY_TYPE_TRIANGLES_KHR,
   // Provided by VK_NV_ray_tracing
@@ -10270,6 +10779,10 @@ consisting of [triangles](accelstructures.html#ray-tracing-triangle-primitive).
 * 
 `VK_GEOMETRY_TYPE_INSTANCES_KHR` specifies a geometry type
 consisting of acceleration structure instances.
+
+* 
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX` specifies a
+geometry type consisting of triangles from compressed data.
 
 * 
 `VK_GEOMETRY_TYPE_SPHERES_NV` specifies a geometry type consisting
@@ -10944,10 +11457,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkBindAccelerationStructureMemoryInfoNV` structure is defined as:
 
@@ -11146,10 +11665,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To query the 64-bit device address for an acceleration structure, call:
 
@@ -11375,6 +11900,11 @@ Valid Usage (Implicit)
 
  `pMicromap` **must** be a valid pointer to a [VkMicromapEXT](#VkMicromapEXT) handle
 
+* 
+[](#VUID-vkCreateMicromapEXT-device-queuecount) VUID-vkCreateMicromapEXT-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -11385,10 +11915,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkMicromapCreateInfoEXT` structure is defined as:
 
@@ -11535,6 +12071,11 @@ Valid Usage (Implicit)
 [](#VUID-VkMicromapCreateInfoEXT-type-parameter) VUID-VkMicromapCreateInfoEXT-type-parameter
 
  `type` **must** be a valid [VkMicromapTypeEXT](#VkMicromapTypeEXT) value
+
+* 
+[](#VUID-VkMicromapCreateInfoEXT-deviceAddress-parameter) VUID-VkMicromapCreateInfoEXT-deviceAddress-parameter
+
+ If `deviceAddress` is not `0`, `deviceAddress` **must** be a valid `VkDeviceAddress` value
 
 To get the build sizes for a micromap, call:
 
@@ -11839,7 +12380,7 @@ Non-sparse resources **must** be bound completely and contiguously to a single
 any of the following operations:
 
 * 
-creating image or buffer views
+creating buffer, image, or tensor views
 
 * 
 updating descriptor sets
@@ -11973,6 +12514,164 @@ Valid Usage (Implicit)
 
  `image` **must** have been created, allocated, or retrieved from `device`
 
+To determine the memory requirements for a tensor resource, call:
+
+// Provided by VK_ARM_tensors
+void vkGetTensorMemoryRequirementsARM(
+    VkDevice                                    device,
+    const VkTensorMemoryRequirementsInfoARM*    pInfo,
+    VkMemoryRequirements2*                      pMemoryRequirements);
+
+* 
+`device` is the logical device that owns the tensor.
+
+* 
+`pInfo` is a pointer to a [VkTensorMemoryRequirementsInfoARM](#VkTensorMemoryRequirementsInfoARM)
+structure containing parameters required for the memory requirements
+query.
+
+* 
+`pMemoryRequirements` is a pointer to a [VkMemoryRequirements2](#VkMemoryRequirements2)
+structure in which the memory requirements of the tensor object are
+returned.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkGetTensorMemoryRequirementsARM-device-parameter) VUID-vkGetTensorMemoryRequirementsARM-device-parameter
+
+ `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkGetTensorMemoryRequirementsARM-pInfo-parameter) VUID-vkGetTensorMemoryRequirementsARM-pInfo-parameter
+
+ `pInfo` **must** be a valid pointer to a valid [VkTensorMemoryRequirementsInfoARM](#VkTensorMemoryRequirementsInfoARM) structure
+
+* 
+[](#VUID-vkGetTensorMemoryRequirementsARM-pMemoryRequirements-parameter) VUID-vkGetTensorMemoryRequirementsARM-pMemoryRequirements-parameter
+
+ `pMemoryRequirements` **must** be a valid pointer to a [VkMemoryRequirements2](#VkMemoryRequirements2) structure
+
+The `VkTensorMemoryRequirementsInfoARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkTensorMemoryRequirementsInfoARM {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkTensorARM        tensor;
+} VkTensorMemoryRequirementsInfoARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`tensor` is the tensor to query.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkTensorMemoryRequirementsInfoARM-sType-sType) VUID-VkTensorMemoryRequirementsInfoARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_TENSOR_MEMORY_REQUIREMENTS_INFO_ARM`
+
+* 
+[](#VUID-VkTensorMemoryRequirementsInfoARM-pNext-pNext) VUID-VkTensorMemoryRequirementsInfoARM-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkTensorMemoryRequirementsInfoARM-tensor-parameter) VUID-VkTensorMemoryRequirementsInfoARM-tensor-parameter
+
+ `tensor` **must** be a valid [VkTensorARM](#VkTensorARM) handle
+
+To determine the memory requirements for a tensor resource without creating
+an object, call:
+
+// Provided by VK_ARM_tensors
+void vkGetDeviceTensorMemoryRequirementsARM(
+    VkDevice                                    device,
+    const VkDeviceTensorMemoryRequirementsARM*  pInfo,
+    VkMemoryRequirements2*                      pMemoryRequirements);
+
+* 
+`device` is the logical device intended to own the tensor.
+
+* 
+`pInfo` is a pointer to a [VkDeviceTensorMemoryRequirementsARM](#VkDeviceTensorMemoryRequirementsARM)
+structure containing parameters required for the memory requirements
+query.
+
+* 
+`pMemoryRequirements` is a pointer to a [VkMemoryRequirements2](#VkMemoryRequirements2)
+structure in which the memory requirements of the tensor object are
+returned.
+
+Valid Usage
+
+* 
+[](#VUID-vkGetDeviceTensorMemoryRequirementsARM-tensors-09831) VUID-vkGetDeviceTensorMemoryRequirementsARM-tensors-09831
+
+The [`tensors`](features.html#features-tensors) feature **must** be enabled
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkGetDeviceTensorMemoryRequirementsARM-device-parameter) VUID-vkGetDeviceTensorMemoryRequirementsARM-device-parameter
+
+ `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkGetDeviceTensorMemoryRequirementsARM-pInfo-parameter) VUID-vkGetDeviceTensorMemoryRequirementsARM-pInfo-parameter
+
+ `pInfo` **must** be a valid pointer to a valid [VkDeviceTensorMemoryRequirementsARM](#VkDeviceTensorMemoryRequirementsARM) structure
+
+* 
+[](#VUID-vkGetDeviceTensorMemoryRequirementsARM-pMemoryRequirements-parameter) VUID-vkGetDeviceTensorMemoryRequirementsARM-pMemoryRequirements-parameter
+
+ `pMemoryRequirements` **must** be a valid pointer to a [VkMemoryRequirements2](#VkMemoryRequirements2) structure
+
+The `VkDeviceTensorMemoryRequirementsARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkDeviceTensorMemoryRequirementsARM {
+    VkStructureType                 sType;
+    const void*                     pNext;
+    const VkTensorCreateInfoARM*    pCreateInfo;
+} VkDeviceTensorMemoryRequirementsARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`pCreateInfo` is a pointer to a [VkTensorCreateInfoARM](#VkTensorCreateInfoARM)
+structure containing parameters affecting the creation of the tensor to
+query.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkDeviceTensorMemoryRequirementsARM-sType-sType) VUID-VkDeviceTensorMemoryRequirementsARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_DEVICE_TENSOR_MEMORY_REQUIREMENTS_ARM`
+
+* 
+[](#VUID-VkDeviceTensorMemoryRequirementsARM-pNext-pNext) VUID-VkDeviceTensorMemoryRequirementsARM-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkDeviceTensorMemoryRequirementsARM-pCreateInfo-parameter) VUID-VkDeviceTensorMemoryRequirementsARM-pCreateInfo-parameter
+
+ `pCreateInfo` **must** be a valid pointer to a valid [VkTensorCreateInfoARM](#VkTensorCreateInfoARM) structure
+
 The `VkMemoryRequirements` structure is defined as:
 
 // Provided by VK_VERSION_1_0
@@ -12041,6 +12740,8 @@ requirements returned by
 [vkGetBufferMemoryRequirements2](#vkGetBufferMemoryRequirements2), [vkGetImageMemoryRequirements2](#vkGetImageMemoryRequirements2),
 [vkGetDeviceBufferMemoryRequirements](#vkGetDeviceBufferMemoryRequirements),
 [vkGetDeviceImageMemoryRequirements](#vkGetDeviceImageMemoryRequirements),
+[vkGetDeviceTensorMemoryRequirementsARM](#vkGetDeviceTensorMemoryRequirementsARM),
+[vkGetTensorMemoryRequirementsARM](#vkGetTensorMemoryRequirementsARM),
 [vkGetBufferMemoryRequirements](#vkGetBufferMemoryRequirements) and [vkGetImageMemoryRequirements](#vkGetImageMemoryRequirements):
 
 * 
@@ -12051,10 +12752,12 @@ If `buffer` is a `VkBuffer` not created with the
 `VK_BUFFER_CREATE_SPARSE_BINDING_BIT` or
 `VK_BUFFER_CREATE_PROTECTED_BIT` bits set, or if `image` is a
 [linear](../appendices/glossary.html#glossary-linear-resource) image that was not created with the
-`VK_IMAGE_CREATE_PROTECTED_BIT` bit set, then the
-`memoryTypeBits` member always contains at least one bit set
-corresponding to a `VkMemoryType` with a `propertyFlags` that
-has both the `VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT` bit and the
+`VK_IMAGE_CREATE_PROTECTED_BIT` bit set,
+or if `tensor` is a `VkTensorARM` not created with the
+`VK_TENSOR_CREATE_PROTECTED_BIT_ARM`,
+then the `memoryTypeBits` member always contains at least one bit
+set corresponding to a `VkMemoryType` with a `propertyFlags`
+that has both the `VK_MEMORY_PROPERTY_HOST_VISIBLE_BIT` bit and the
 `VK_MEMORY_PROPERTY_HOST_COHERENT_BIT` bit set.
 In other words, mappable coherent memory **can** always be attached to
 these objects.
@@ -12063,7 +12766,10 @@ these objects.
 If `buffer` was created with
 [VkExternalMemoryBufferCreateInfo](#VkExternalMemoryBufferCreateInfo)::`handleTypes` set to `0` or
 `image` was created with
-[VkExternalMemoryImageCreateInfo](#VkExternalMemoryImageCreateInfo)::`handleTypes` set to `0`, the
+[VkExternalMemoryImageCreateInfo](#VkExternalMemoryImageCreateInfo)::`handleTypes` set to `0`,
+or `tensor` was created with
+[VkExternalMemoryTensorCreateInfoARM](#VkExternalMemoryTensorCreateInfoARM)::`handleTypes` set to `0`,
+the
 `memoryTypeBits` member always contains at least one bit set
 corresponding to a `VkMemoryType` with a `propertyFlags` that
 has the `VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT` bit set.
@@ -12167,6 +12873,11 @@ If the memory requirements are for a `VkBuffer`, the
 a `propertyFlags` that has the
 `VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT` bit set.
 
+If the memory requirements are for a `VkTensorARM`, the
+`memoryTypeBits` member **must** not refer to a `VkMemoryType` with
+a `propertyFlags` that has the
+`VK_MEMORY_PROPERTY_LAZILY_ALLOCATED_BIT` bit set.
+
 |  | The implication of this requirement is that lazily allocated memory is
 | --- | --- |
 disallowed for buffers in all cases. |
@@ -12178,6 +12889,10 @@ created with the same combination of creation parameters specified in
 The `size` member is identical for all `VkImage` objects created
 with the same combination of creation parameters specified in
 [VkImageCreateInfo](#VkImageCreateInfo) and its `pNext` chain.
+
+The `size` member is identical for all `VkTensorARM` objects
+created with the same combination of creation parameters specified in
+`VkTensorCreateInfoARM` and its `pNext` chain.
 
 |  | This, however, does not imply that they interpret the contents of the bound
 | --- | --- |
@@ -12219,6 +12934,14 @@ The memory requirements returned by
 would be returned by [vkGetImageMemoryRequirements2](#vkGetImageMemoryRequirements2) if it were
 called with a `VkImage` created with the same
 [VkImageCreateInfo](#VkImageCreateInfo) values.
+
+* 
+The memory requirements returned by
+[vkGetDeviceTensorMemoryRequirementsARM](#vkGetDeviceTensorMemoryRequirementsARM) are identical to those
+that would be returned by [vkGetTensorMemoryRequirementsARM](#vkGetTensorMemoryRequirementsARM) if it
+were called with a `VkTensorARM` created with the same
+[VkTensorCreateInfoARM](#VkTensorCreateInfoARM) values, including additional values
+provided via a [VkExternalMemoryTensorCreateInfoARM](#VkExternalMemoryTensorCreateInfoARM) structure.
 
 To determine the memory requirements for a buffer resource, call:
 
@@ -12878,10 +13601,13 @@ get better performance if a dedicated allocation is used.
 is required for this resource.
 
 To determine the dedicated allocation requirements of a buffer or image
+or tensor
 resource, add a [VkMemoryDedicatedRequirements](#VkMemoryDedicatedRequirements) structure to the
 `pNext` chain of the [VkMemoryRequirements2](#VkMemoryRequirements2) structure passed as the
 `pMemoryRequirements` parameter of [vkGetBufferMemoryRequirements2](#vkGetBufferMemoryRequirements2)
-or [vkGetImageMemoryRequirements2](#vkGetImageMemoryRequirements2), respectively.
+or [vkGetImageMemoryRequirements2](#vkGetImageMemoryRequirements2),
+or [vkGetTensorMemoryRequirementsARM](#vkGetTensorMemoryRequirementsARM),
+respectively.
 
 Constraints on the values returned for buffer resources are:
 
@@ -12935,6 +13661,27 @@ If `VK_IMAGE_CREATE_SPARSE_BINDING_BIT` was set in
 [VkImageCreateInfo](#VkImageCreateInfo)::`flags` when `image` was created, then
 both `prefersDedicatedAllocation` and
 `requiresDedicatedAllocation` will be `VK_FALSE`.
+
+Constraints on the values returned for tensor resources are:
+
+* 
+`requiresDedicatedAllocation` **may** be `VK_TRUE` if the
+`pNext` chain of [VkTensorCreateInfoARM](#VkTensorCreateInfoARM) for the call to
+`vkCreateTensorARM` used to create the tensor being queried included
+a [VkExternalMemoryTensorCreateInfoARM](#VkExternalMemoryTensorCreateInfoARM) structure, and any of the
+handle types specified in
+[VkExternalMemoryTensorCreateInfoARM](#VkExternalMemoryTensorCreateInfoARM)::`handleTypes` requires
+dedicated allocation, as reported by
+[vkGetPhysicalDeviceExternalTensorPropertiesARM](capabilities.html#vkGetPhysicalDeviceExternalTensorPropertiesARM) in
+`VkExternalTensorPropertiesARM`::`externalMemoryProperties.externalMemoryFeatures`.
+
+* 
+`requiresDedicatedAllocation` will otherwise be `VK_FALSE`.
+
+* 
+When the implementation sets `requiresDedicatedAllocation` to
+`VK_TRUE`, it **must** also set `prefersDedicatedAllocation` to
+`VK_TRUE`.
 
 Valid Usage (Implicit)
 
@@ -13211,13 +13958,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To attach memory to buffer objects for one or more buffers at a time, call:
 
@@ -13294,13 +14047,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INVALID_OPAQUE_CAPTURE_ADDRESS_KHR`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 `VkBindBufferMemoryInfo` contains members corresponding to the
 parameters of [vkBindBufferMemory](#vkBindBufferMemory).
@@ -13579,6 +14338,11 @@ Valid Usage (Implicit)
 [](#VUID-VkBindBufferMemoryInfo-commonparent) VUID-VkBindBufferMemoryInfo-commonparent
 
  Both of `buffer`, and `memory` **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
+
+Host Synchronization
+
+* 
+Host access to `buffer` **must** be externally synchronized
 
 The `VkBindBufferMemoryDeviceGroupInfo` structure is defined as:
 
@@ -13968,10 +14732,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To attach memory to image objects for one or more images at a time, call:
 
@@ -14063,10 +14833,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 `VkBindImageMemoryInfo` contains members corresponding to the parameters
 of [vkBindImageMemory](#vkBindImageMemory).
@@ -14413,6 +15189,11 @@ Valid Usage (Implicit)
 
  Both of `image`, and `memory` that are valid handles of non-ignored parameters **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
 
+Host Synchronization
+
+* 
+Host access to `image` **must** be externally synchronized
+
 The `VkBindImageMemoryDeviceGroupInfo` structure is defined as:
 
 // Provided by VK_VERSION_1_1
@@ -14622,7 +15403,7 @@ Valid Usage
 [](#VUID-VkBindImageMemorySwapchainInfoKHR-swapchain-07756) VUID-VkBindImageMemorySwapchainInfoKHR-swapchain-07756
 
 If the `swapchain` has been created with
-`VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT`,
+`VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_KHR`,
 `imageIndex` **must** be one that has previously been returned by
 [vkAcquireNextImageKHR](VK_KHR_surface/wsi.html#vkAcquireNextImageKHR) or [vkAcquireNextImage2KHR](VK_KHR_surface/wsi.html#vkAcquireNextImage2KHR)
 
@@ -14704,6 +15485,247 @@ Valid Usage (Implicit)
 
  `planeAspect` **must** be a valid [VkImageAspectFlagBits](#VkImageAspectFlagBits) value
 
+To attach memory to tensor objects call:
+
+// Provided by VK_ARM_tensors
+VkResult vkBindTensorMemoryARM(
+    VkDevice                                    device,
+    uint32_t                                    bindInfoCount,
+    const VkBindTensorMemoryInfoARM*            pBindInfos);
+
+* 
+`device` is the logical device that owns the buffers and memory.
+
+* 
+`bindInfoCount` is the number of elements in `pBindInfos`.
+
+* 
+`pBindInfos` is a pointer to an array of structures of type
+[VkBindTensorMemoryInfoARM](#VkBindTensorMemoryInfoARM), describing tensors and memory to bind.
+
+On some implementations, it **may** be more efficient to batch memory bindings
+into a single command.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkBindTensorMemoryARM-device-parameter) VUID-vkBindTensorMemoryARM-device-parameter
+
+ `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkBindTensorMemoryARM-pBindInfos-parameter) VUID-vkBindTensorMemoryARM-pBindInfos-parameter
+
+ `pBindInfos` **must** be a valid pointer to an array of `bindInfoCount` valid [VkBindTensorMemoryInfoARM](#VkBindTensorMemoryInfoARM) structures
+
+* 
+[](#VUID-vkBindTensorMemoryARM-bindInfoCount-arraylength) VUID-vkBindTensorMemoryARM-bindInfoCount-arraylength
+
+ `bindInfoCount` **must** be greater than `0`
+
+Return Codes
+
+[Success](fundamentals.html#fundamentals-successcodes)
+
+* 
+`VK_SUCCESS`
+
+[Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
+The `VkBindTensorMemoryInfoARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkBindTensorMemoryInfoARM {
+    VkStructureType    sType;
+    const void*        pNext;
+    VkTensorARM        tensor;
+    VkDeviceMemory     memory;
+    VkDeviceSize       memoryOffset;
+} VkBindTensorMemoryInfoARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`tensor` is the tensor to be attached to memory.
+
+* 
+`memory` is a [VkDeviceMemory](memory.html#VkDeviceMemory) object describing the device
+memory to attach.
+
+* 
+`memoryOffset` is the start offset of the region of `memory`
+which is to be bound to the tensor.
+The number of bytes returned in the
+`VkMemoryRequirements`::`size` member in `memory`, starting
+from `memoryOffset` bytes, will be bound to the specified tensor.
+
+Valid Usage
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-tensor-09712) VUID-VkBindTensorMemoryInfoARM-tensor-09712
+
+`tensor` **must** not already be backed by a memory object
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-memoryOffset-09713) VUID-VkBindTensorMemoryInfoARM-memoryOffset-09713
+
+`memoryOffset` **must** be less than the size of `memory`
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-memory-09714) VUID-VkBindTensorMemoryInfoARM-memory-09714
+
+`memory` **must** have been allocated using one of the memory types
+allowed in the `memoryTypeBits` member of the
+`VkMemoryRequirements` structure returned from a call to
+`vkGetTensorMemoryRequirementsARM` with `tensor`
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-memoryOffset-09715) VUID-VkBindTensorMemoryInfoARM-memoryOffset-09715
+
+`memoryOffset` **must** be an integer multiple of the `alignment`
+member of the `VkMemoryRequirements` structure returned from a call
+to `vkGetTensorMemoryRequirementsARM` with `tensor`
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-size-09716) VUID-VkBindTensorMemoryInfoARM-size-09716
+
+The `size` member of the `VkMemoryRequirements` structure
+returned from a call to `vkGetTensorMemoryRequirementsARM` with
+`tensor` **must** be less than or equal to the size of `memory`
+minus `memoryOffset`
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-tensor-09717) VUID-VkBindTensorMemoryInfoARM-tensor-09717
+
+If `tensor` requires a dedicated allocation (as reported by
+[vkGetTensorMemoryRequirementsARM](#vkGetTensorMemoryRequirementsARM) in
+[VkMemoryDedicatedRequirements](#VkMemoryDedicatedRequirements)::`requiresDedicatedAllocation`
+for `tensor`), `memory` **must** have been created with
+[VkMemoryDedicatedAllocateInfoTensorARM](memory.html#VkMemoryDedicatedAllocateInfoTensorARM)::`tensor` equal to
+`tensor`
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-memory-09806) VUID-VkBindTensorMemoryInfoARM-memory-09806
+
+If the [VkMemoryAllocateInfo](memory.html#VkMemoryAllocateInfo) provided when `memory` was
+allocated included a [VkMemoryDedicatedAllocateInfoTensorARM](memory.html#VkMemoryDedicatedAllocateInfoTensorARM)
+structure in its `pNext` chain, and
+[VkMemoryDedicatedAllocateInfoTensorARM](memory.html#VkMemoryDedicatedAllocateInfoTensorARM)::`tensor` was not
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), then `tensor` **must** equal
+[VkMemoryDedicatedAllocateInfoTensorARM](memory.html#VkMemoryDedicatedAllocateInfoTensorARM)::`tensor`, and
+`memoryOffset` **must** be zero
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-memory-09895) VUID-VkBindTensorMemoryInfoARM-memory-09895
+
+If the value of [VkExportMemoryAllocateInfo](memory.html#VkExportMemoryAllocateInfo)::`handleTypes` used
+to allocate `memory` is not `0`, it **must** include at least one of
+the handles set in
+[VkExternalMemoryTensorCreateInfoARM](#VkExternalMemoryTensorCreateInfoARM)::`handleTypes` when
+`tensor` was created
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-memory-09896) VUID-VkBindTensorMemoryInfoARM-memory-09896
+
+If `memory` was allocated by a memory import operation,
+that is not [VkImportAndroidHardwareBufferInfoANDROID](memory.html#VkImportAndroidHardwareBufferInfoANDROID) with a
+non-`NULL` `buffer` value,
+the external handle type of the imported memory **must** also have been set
+in [VkExternalMemoryTensorCreateInfoARM](#VkExternalMemoryTensorCreateInfoARM)::`handleTypes` when
+`tensor` was created
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-memory-09897) VUID-VkBindTensorMemoryInfoARM-memory-09897
+
+If `memory` was allocated with the
+[VkImportAndroidHardwareBufferInfoANDROID](memory.html#VkImportAndroidHardwareBufferInfoANDROID) memory import operation
+with a non-`NULL` `buffer` value,
+`VK_EXTERNAL_MEMORY_HANDLE_TYPE_ANDROID_HARDWARE_BUFFER_BIT_ANDROID`
+**must** also have been set in
+[VkExternalMemoryTensorCreateInfoARM](#VkExternalMemoryTensorCreateInfoARM)::`handleTypes` when
+`tensor` was created
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-tensor-09718) VUID-VkBindTensorMemoryInfoARM-tensor-09718
+
+If `tensor` was created with the
+`VK_TENSOR_CREATE_PROTECTED_BIT_ARM` bit set, the tensor **must** be
+bound to a memory object allocated with a memory type that reports
+`VK_MEMORY_PROPERTY_PROTECTED_BIT`
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-tensor-09719) VUID-VkBindTensorMemoryInfoARM-tensor-09719
+
+If `tensor` was created with the
+`VK_TENSOR_CREATE_PROTECTED_BIT_ARM` bit not set, the tensor **must**
+not be bound to a memory object allocated with a memory type that
+reports `VK_MEMORY_PROPERTY_PROTECTED_BIT`
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-tensor-09943) VUID-VkBindTensorMemoryInfoARM-tensor-09943
+
+If `tensor` was created with the
+`VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM` bit set,
+`memory` **must** have been allocated with the
+`VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_BIT` bit set
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-tensor-09944) VUID-VkBindTensorMemoryInfoARM-tensor-09944
+
+If `tensor` was created with the
+`VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM` bit set,
+`memory` **must** have been allocated with the
+`VK_MEMORY_ALLOCATE_DEVICE_ADDRESS_CAPTURE_REPLAY_BIT` bit set
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-sType-sType) VUID-VkBindTensorMemoryInfoARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_BIND_TENSOR_MEMORY_INFO_ARM`
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-pNext-pNext) VUID-VkBindTensorMemoryInfoARM-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-tensor-parameter) VUID-VkBindTensorMemoryInfoARM-tensor-parameter
+
+ `tensor` **must** be a valid [VkTensorARM](#VkTensorARM) handle
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-memory-parameter) VUID-VkBindTensorMemoryInfoARM-memory-parameter
+
+ `memory` **must** be a valid [VkDeviceMemory](memory.html#VkDeviceMemory) handle
+
+* 
+[](#VUID-VkBindTensorMemoryInfoARM-commonparent) VUID-VkBindTensorMemoryInfoARM-commonparent
+
+ Both of `memory`, and `tensor` **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
+
+Host Synchronization
+
+* 
+Host access to `tensor` **must** be externally synchronized
+
 Buffer-Image Granularity
 The implementation-dependent limit [`bufferImageGranularity`](limits.html#limits-bufferImageGranularity) specifies a page-like granularity at which
 linear and non-linear resources **must** be placed in adjacent memory locations
@@ -14717,7 +15739,8 @@ Implementations which do not impose a granularity restriction **may** report a
 
 |  | Despite its name, `bufferImageGranularity` is really a granularity
 | --- | --- |
-between “linear” and “non-linear” resources. |
+between “linear” and “non-linear” resources.
+The limit `bufferImageGranularity` also applies to tensor resources. |
 
 Given resourceA at the lower memory offset and resourceB at the higher
 memory offset in the same `VkDeviceMemory` object, where one resource is
@@ -14749,6 +15772,10 @@ Sparse block size in bytes and sparse image and buffer memory alignments
 Therefore, memory bound to sparse resources naturally satisfies the
 `bufferImageGranularity`.
 
+|  | The implementation-dependent limit, `bufferImageGranularity` also
+| --- | --- |
+applies to tensors resources. |
+
 Buffer and image objects are created with a *sharing mode* controlling how
 they **can** be accessed from queues.
 The supported sharing modes are:
@@ -14779,10 +15806,72 @@ queue family that has *ownership* of the resource.
 Upon creation, such resources are not owned by any queue family; ownership
 is implicitly acquired upon first use within a queue.
 Once a resource using `VK_SHARING_MODE_EXCLUSIVE` is owned by some queue
-family, the application **must** perform a
-[queue family ownership transfer](synchronization.html#synchronization-queue-transfers) to make
-the memory contents of a range or image subresource accessible to a
-different queue family.
+family,
+unless the [`maintenance9`](features.html#features-maintenance9) feature is enabled,
+the application **must** perform a [queue family ownership transfer](synchronization.html#synchronization-queue-transfers) if it wishes to make the memory contents of a
+range or image subresource accessible to a different queue family.
+`VK_SHARING_MODE_EXCLUSIVE` resources that are already owned by a queue
+family **may** be acquired by a different queue family without a queue family
+ownership transfer, but
+unless the [`maintenance9`](features.html#features-maintenance9) feature is enabled,
+their contents become **undefined**.
+
+If the [`maintenance9`](features.html#features-maintenance9) feature is enabled, the
+contents of buffer resources, and of linear image resources (i.e., those
+created with `tiling` set to `VK_IMAGE_TILING_LINEAR`) are always
+preserved when they are implicitly acquired by a different queue family on
+the same logical device (i.e., neither queue family is
+`VK_QUEUE_FAMILY_FOREIGN_EXT` or
+`VK_QUEUE_FAMILY_EXTERNAL`).
+This means that whenever the [`maintenance9`](features.html#features-maintenance9)
+feature is enabled, explicit queue family ownership transfers of buffer and
+linear image resources between different queue families on the same logical
+device are **optional**.
+
+Additionally, if the [`maintenance9`](features.html#features-maintenance9) feature
+is enabled, the contents of some optimal image resources (i.e., those
+created with `VK_IMAGE_TILING_OPTIMAL`) are always preserved when they
+are implicitly acquired by a different queue family on the same logical
+device (i.e., neither queue family is
+`VK_QUEUE_FAMILY_FOREIGN_EXT` or
+`VK_QUEUE_FAMILY_EXTERNAL`).
+This applies only to optimal images that are being implicitly acquired by a
+queue family whose index bit is set in the current queue family’s
+[VkQueueFamilyOwnershipTransferPropertiesKHR](devsandqueues.html#VkQueueFamilyOwnershipTransferPropertiesKHR)::`optimalImageTransferToQueueFamilies`,
+and that were created without any of the following bits set in `usage`:
+
+* 
+`VK_IMAGE_USAGE_COLOR_ATTACHMENT_BIT`
+
+* 
+`VK_IMAGE_USAGE_DEPTH_STENCIL_ATTACHMENT_BIT`
+
+* 
+`VK_IMAGE_USAGE_TRANSIENT_ATTACHMENT_BIT`
+
+* 
+`VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+
+* 
+`VK_IMAGE_USAGE_ATTACHMENT_FEEDBACK_LOOP_BIT_EXT`
+
+* 
+`VK_IMAGE_USAGE_FRAGMENT_SHADING_RATE_ATTACHMENT_BIT_KHR`
+
+This means that whenever the [`maintenance9`](features.html#features-maintenance9)
+feature is enabled, explicit queue family ownership transfers of such image
+resources between such combinations of queue families are **optional**.
+For all other optimal images and/or combinations of queue families, the
+application **must** still perform an explicit queue family ownership transfer
+if it wishes to make the memory contents of an optimal image subresource
+already owned by a queue family accessible to a different queue family.
+
+|  | Applications are allowed to perform explicit queue family ownership
+| --- | --- |
+transfers in circumstances where they are not required, but there is no
+functional nor performance advantage in doing so.
+Performing explicit transfers in such cases remains supported for backward
+compatibility and is not recommended for new applications. |
 
 |  | Before being used on the first queue, images still require a
 | --- | --- |
@@ -14797,13 +15886,16 @@ different queue family.
 * 
 `VK_IMAGE_LAYOUT_ZERO_INITIALIZED_EXT` |
 
-A queue family **can** take ownership of an image subresource or buffer range
-of a resource created with `VK_SHARING_MODE_EXCLUSIVE`, without an
-ownership transfer, in the same way as for a resource that was just created;
-however, taking ownership in this way has the effect that the contents of
-the image subresource or buffer range are **undefined**.
+A queue family **can** take ownership of an
+image subresource, tensor subresource,
+or buffer range of a resource created with `VK_SHARING_MODE_EXCLUSIVE`,
+without an ownership transfer, in the same way as for a resource that was
+just created; however, taking ownership in this way has the effect that the
+contents of the image subresource or buffer range are **undefined**.
 
-Ranges of buffers and image subresources of image objects created using
+Ranges of
+buffers, tensor subresources of tensor objects,
+and image subresources of image objects created using
 `VK_SHARING_MODE_CONCURRENT` **must** only be accessed by queues from the
 queue families specified through the `queueFamilyIndexCount` and
 `pQueueFamilyIndices` members of the corresponding create info
@@ -14883,6 +15975,7 @@ A range of a `VkDeviceMemory` allocation is *aliased* if it is bound to
 multiple resources simultaneously, as described below, via
 [vkBindImageMemory](#vkBindImageMemory), [vkBindBufferMemory](#vkBindBufferMemory),
 [vkBindAccelerationStructureMemoryNV](#vkBindAccelerationStructureMemoryNV),
+[vkBindTensorMemoryARM](#vkBindTensorMemoryARM),
 via [sparse memory bindings](sparsemem.html#sparsememory-resource-binding),
 or by binding the memory to resources in multiple Vulkan instances or
 external APIs using external memory handle export and import mechanisms.
@@ -14899,6 +15992,10 @@ If one resource is linear and the other is non-linear, then the resources
 
 Applications **can** alias memory, but use of multiple aliases is subject to
 several constraints.
+
+|  | The implementation-dependent limit `bufferImageGranularity` also applies
+| --- | --- |
+to tensor resources. |
 
 |  | Memory aliasing **can** be useful to reduce the total device memory footprint
 | --- | --- |
@@ -14917,8 +16014,10 @@ sparse image blocks overlap the range, and when the memory bound to the
 image’s mip tail overlaps an aliased range all image subresources in the mip
 tail overlap the range.
 
-Buffers and linear image subresources are considered *host-accessible
-subresources* when they are in any of these layouts:
+Buffers,
+linear tensors,
+and linear image subresources are considered *host-accessible subresources*
+when they are in any of these layouts:
 
 * 
 `VK_IMAGE_LAYOUT_PREINITIALIZED`
@@ -14933,8 +16032,9 @@ That is, the host has a well-defined addressing scheme to interpret the
 contents, and thus the layout of the data in memory **can** be consistently
 interpreted across aliases if each of those aliases is a host-accessible
 subresource.
-Non-linear images, and linear image subresources in other layouts, are not
-host-accessible.
+Non-linear images,
+non-linear tensors,
+and linear image subresources in other layouts, are not host-accessible.
 
 If two aliases are both host-accessible, then they interpret the contents of
 the memory in consistent ways, and data written to one alias **can** be read by
@@ -14986,6 +16086,64 @@ Aliases created by binding the same memory to resources in multiple Vulkan
 instances or external APIs using external memory handle export and import
 mechanisms interpret the contents of the memory in consistent ways, and data
 written to one alias **can** be read by the other alias.
+
+Aliases created by binding the same memory to a tensor and an image
+subresource interpret the contents of the memory in consistent ways if and
+only if:
+
+* 
+The image was created with `VK_IMAGE_TILING_LINEAR` and the tensor
+was created with `VK_TENSOR_TILING_LINEAR_ARM`.
+The strides for the image subresource, as reported by
+[vkGetImageSubresourceLayout](#vkGetImageSubresourceLayout), are compatible with strides passed
+when creating the tensor, i.e.
+[VkTensorDescriptionARM](#VkTensorDescriptionARM)::`pStrides`[`dimensionCount`-3]
+must be equal to [VkSubresourceLayout](#VkSubresourceLayout)::`rowPitch` if
+[VkTensorDescriptionARM](#VkTensorDescriptionARM)::`dimensionCount` is greater than 2 and
+[VkTensorDescriptionARM](#VkTensorDescriptionARM)::`pStrides`[`dimensionCount`-4]
+must be equal to [VkSubresourceLayout](#VkSubresourceLayout)::`depthPitch` if
+[VkTensorDescriptionARM](#VkTensorDescriptionARM)::`dimensionCount` is greater than 3.
+
+* 
+The image was created with `VK_IMAGE_TILING_OPTIMAL` and the tensor
+was created with `VK_TENSOR_TILING_OPTIMAL_ARM`.
+The image was created with `VK_IMAGE_USAGE_TENSOR_ALIASING_BIT_ARM`
+and the tensor was created with
+`VK_TENSOR_USAGE_IMAGE_ALIASING_BIT_ARM`.
+
+* 
+The format of the tensor must be compatible with that of the individual
+components of the format of the image.
+
+* 
+The number of dimensions of the tensor
+([VkTensorDescriptionARM](#VkTensorDescriptionARM)::`dimensionCount`) is greater than or
+equal to the number of dimensions of the image (as specified by
+[VkImageCreateInfo](#VkImageCreateInfo)::`imageType`) plus 1.
+
+* 
+The size of the tensor along its innermost dimension
+([VkTensorDescriptionARM](#VkTensorDescriptionARM)::`pDimensions`[`dimensionCount`-1])
+is equal to the number of components of the format of the image
+([VkImageCreateInfo](#VkImageCreateInfo)::`format`).
+
+* 
+The size of the tensor along all dimensions other than the N innermost
+dimensions necessary to represent the image (i.e. the number of
+dimensions of the image plus 1) must be 1.
+
+* 
+The image subresource is in the
+`VK_IMAGE_LAYOUT_TENSOR_ALIASING_ARM` layout if the image was
+created with `VK_IMAGE_TILING_OPTIMAL`.
+The image **must** be transitioned to
+`VK_IMAGE_LAYOUT_TENSOR_ALIASING_ARM` prior to any reads via the
+tensor resource for those reads to return data consistent with that
+provided to the image writes.
+The image **must** be transitioned to
+`VK_IMAGE_LAYOUT_TENSOR_ALIASING_ARM` prior to any writes performed
+via the tensor resource for reads performed via the image resource to
+return data consistent with that provided to the tensor writes.
 
 Otherwise, the aliases interpret the contents of the memory differently, and
 writes via one alias make the contents of memory partially or completely
@@ -15155,6 +16313,11 @@ Valid Usage (Implicit)
 
  `pCollection` **must** be a valid pointer to a [VkBufferCollectionFUCHSIA](#VkBufferCollectionFUCHSIA) handle
 
+* 
+[](#VUID-vkCreateBufferCollectionFUCHSIA-device-queuecount) VUID-vkCreateBufferCollectionFUCHSIA-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -15165,13 +16328,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INITIALIZATION_FAILED`
 
 * 
 `VK_ERROR_INVALID_EXTERNAL_HANDLE`
 
 * 
-`VK_ERROR_INITIALIZATION_FAILED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Host Access
 
@@ -15297,13 +16466,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_FORMAT_NOT_SUPPORTED`
+
+* 
 `VK_ERROR_INITIALIZATION_FAILED`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_FORMAT_NOT_SUPPORTED`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkImageConstraintsInfoFUCHSIA` structure is defined as:
 
@@ -15745,13 +16920,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_FORMAT_NOT_SUPPORTED`
+
+* 
 `VK_ERROR_INITIALIZATION_FAILED`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_FORMAT_NOT_SUPPORTED`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkBufferConstraintsInfoFUCHSIA` structure is defined as:
 
@@ -15907,10 +17088,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_INITIALIZATION_FAILED`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_INITIALIZATION_FAILED`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkBufferCollectionPropertiesFUCHSIA` structure is defined as:
 
@@ -16113,3 +17300,1012 @@ Valid Usage (Implicit)
 [](#VUID-vkDestroyBufferCollectionFUCHSIA-collection-parent) VUID-vkDestroyBufferCollectionFUCHSIA-collection-parent
 
  `collection` **must** have been created, allocated, or retrieved from `device`
+
+Tensors represent multidimensional arrays of data.
+Tensors **can** be used by binding them to pipelines via descriptor sets, or by
+directly specifying them as parameters to certain commands.
+
+Tensors are represented by `VkTensorARM` handles:
+
+// Provided by VK_ARM_tensors
+VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkTensorARM)
+
+To create tensors, call:
+
+// Provided by VK_ARM_tensors
+VkResult vkCreateTensorARM(
+    VkDevice                                    device,
+    const VkTensorCreateInfoARM*                pCreateInfo,
+    const VkAllocationCallbacks*                pAllocator,
+    VkTensorARM*                                pTensor);
+
+* 
+`device` is the logical device that creates the tensor.
+
+* 
+`pCreateInfo` is a pointer to a [VkTensorCreateInfoARM](#VkTensorCreateInfoARM)
+structure containing parameters to be used to create the tensor.
+
+* 
+`pAllocator` controls host memory allocation as described in the
+[Memory Allocation](memory.html#memory-allocation) chapter.
+
+* 
+`pTensor` is a pointer to a [VkTensorARM](#VkTensorARM) handle in which the
+resulting tensor object is returned.
+
+Valid Usage
+
+* 
+[](#VUID-vkCreateTensorARM-tensors-09832) VUID-vkCreateTensorARM-tensors-09832
+
+The [`tensors`](features.html#features-tensors) feature **must** be enabled
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkCreateTensorARM-device-parameter) VUID-vkCreateTensorARM-device-parameter
+
+ `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkCreateTensorARM-pCreateInfo-parameter) VUID-vkCreateTensorARM-pCreateInfo-parameter
+
+ `pCreateInfo` **must** be a valid pointer to a valid [VkTensorCreateInfoARM](#VkTensorCreateInfoARM) structure
+
+* 
+[](#VUID-vkCreateTensorARM-pAllocator-parameter) VUID-vkCreateTensorARM-pAllocator-parameter
+
+ If `pAllocator` is not `NULL`, `pAllocator` **must** be a valid pointer to a valid [VkAllocationCallbacks](memory.html#VkAllocationCallbacks) structure
+
+* 
+[](#VUID-vkCreateTensorARM-pTensor-parameter) VUID-vkCreateTensorARM-pTensor-parameter
+
+ `pTensor` **must** be a valid pointer to a [VkTensorARM](#VkTensorARM) handle
+
+* 
+[](#VUID-vkCreateTensorARM-device-queuecount) VUID-vkCreateTensorARM-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
+Return Codes
+
+[Success](fundamentals.html#fundamentals-successcodes)
+
+* 
+`VK_SUCCESS`
+
+[Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
+The [VkTensorCreateInfoARM](#VkTensorCreateInfoARM) structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkTensorCreateInfoARM {
+    VkStructureType                  sType;
+    const void*                      pNext;
+    VkTensorCreateFlagsARM           flags;
+    const VkTensorDescriptionARM*    pDescription;
+    VkSharingMode                    sharingMode;
+    uint32_t                         queueFamilyIndexCount;
+    const uint32_t*                  pQueueFamilyIndices;
+} VkTensorCreateInfoARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`flags` is a bitmask of [VkTensorCreateFlagBitsARM](#VkTensorCreateFlagBitsARM) describing
+additional parameters of the tensor.
+
+* 
+`pDescription` is a pointer to an instance of
+[VkTensorDescriptionARM](#VkTensorDescriptionARM) describing the tensor.
+
+* 
+`sharingMode` is a [VkSharingMode](#VkSharingMode) value specifying the sharing
+mode of the tensor when it will be accessed by multiple queue families.
+
+* 
+`queueFamilyIndexCount` is the number of entries in the
+`pQueueFamilyIndices` array.
+
+* 
+`pQueueFamilyIndices` is a list of queue families that will access
+this tensor (ignored if `sharingMode` is not
+`VK_SHARING_MODE_CONCURRENT`).
+
+To determine the set of valid `usage` bits for a given tensor format,
+call [vkGetPhysicalDeviceFormatProperties2](formats.html#vkGetPhysicalDeviceFormatProperties2) with
+[VkTensorFormatPropertiesARM](formats.html#VkTensorFormatPropertiesARM) in the `pNext` chain.
+
+Tensor Creation Limits
+
+Valid values for some tensor creation parameters are limited by a numerical
+upper bound or by inclusion in a bitset.
+
+Several limiting values are defined below.
+The limiting values are referenced by the relevant valid usage statements of
+`VkTensorCreateInfoARM`.
+
+* 
+Let the uint64_t tensorElements define the number of data elements
+in the tensor computed as the product of all
+`VkTensorCreateInfoARM`::`pDescription->pDimensions`[i] for i
+between 0 and
+`VkTensorCreateInfoARM`::`pDescription->dimensionCount` - 1.
+
+Valid Usage
+
+* 
+[](#VUID-VkTensorCreateInfoARM-pDescription-09720) VUID-VkTensorCreateInfoARM-pDescription-09720
+
+If `pDescription->tiling` is `VK_TENSOR_TILING_OPTIMAL_ARM`,
+`pDescription->pStrides` **must** be `NULL`
+
+* 
+[](#VUID-VkTensorCreateInfoARM-tensorElements-09721) VUID-VkTensorCreateInfoARM-tensorElements-09721
+
+`tensorElements` (as defined in
+[resources-tensor-creation-limits](#resources-tensor-creation-limits)) **must** not be greater than
+[VkPhysicalDeviceTensorPropertiesARM](limits.html#VkPhysicalDeviceTensorPropertiesARM)::`maxTensorElements`
+
+* 
+[](#VUID-VkTensorCreateInfoARM-sharingMode-09722) VUID-VkTensorCreateInfoARM-sharingMode-09722
+
+If `sharingMode` is `VK_SHARING_MODE_CONCURRENT`,
+`pQueueFamilyIndices` **must** be a valid pointer to an array of
+`queueFamilyIndexCount` `uint32_t` values
+
+* 
+[](#VUID-VkTensorCreateInfoARM-sharingMode-09723) VUID-VkTensorCreateInfoARM-sharingMode-09723
+
+If `sharingMode` is `VK_SHARING_MODE_CONCURRENT`,
+`queueFamilyIndexCount` **must** be greater than `1`
+
+* 
+[](#VUID-VkTensorCreateInfoARM-sharingMode-09725) VUID-VkTensorCreateInfoARM-sharingMode-09725
+
+If `sharingMode` is `VK_SHARING_MODE_CONCURRENT`, each element
+of `pQueueFamilyIndices` **must** be unique and **must** be less than
+`pQueueFamilyPropertyCount` returned by either
+[vkGetPhysicalDeviceQueueFamilyProperties](devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties) or
+[vkGetPhysicalDeviceQueueFamilyProperties2](devsandqueues.html#vkGetPhysicalDeviceQueueFamilyProperties2) for the
+`physicalDevice` that was used to create `device`
+
+* 
+[](#VUID-VkTensorCreateInfoARM-pNext-09864) VUID-VkTensorCreateInfoARM-pNext-09864
+
+If the `pNext` chain includes a
+[VkExternalMemoryTensorCreateInfoARM](#VkExternalMemoryTensorCreateInfoARM) structure, its
+`handleTypes` member **must** only contain bits that are also in
+[VkExternalTensorPropertiesARM](capabilities.html#VkExternalTensorPropertiesARM)::`externalMemoryProperties.compatibleHandleTypes`,
+as returned by [vkGetPhysicalDeviceExternalTensorPropertiesARM](capabilities.html#vkGetPhysicalDeviceExternalTensorPropertiesARM) with
+`pExternalTensorInfo->handleType` equal to any one of the handle
+types specified in
+[VkExternalMemoryTensorCreateInfoARM](#VkExternalMemoryTensorCreateInfoARM)::`handleTypes`
+
+* 
+[](#VUID-VkTensorCreateInfoARM-flags-09726) VUID-VkTensorCreateInfoARM-flags-09726
+
+If `flags` includes
+`VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM`, the
+[`descriptorBufferCaptureReplay`](features.html#features-descriptorBufferCaptureReplay)
+feature **must** be enabled
+
+* 
+[](#VUID-VkTensorCreateInfoARM-pNext-09727) VUID-VkTensorCreateInfoARM-pNext-09727
+
+If the `pNext` chain includes a
+[VkOpaqueCaptureDescriptorDataCreateInfoEXT](descriptorsets.html#VkOpaqueCaptureDescriptorDataCreateInfoEXT) structure, `flags`
+**must** contain
+`VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM`
+
+* 
+[](#VUID-VkTensorCreateInfoARM-pDescription-09728) VUID-VkTensorCreateInfoARM-pDescription-09728
+
+If `pDescription->usage` does not have any of the following bits set
+(i.e. if it is not possible to create a tensor view for this tensor),
+then the [format features](#resources-tensor-view-format-features) **must**
+contain the format feature flags required by the `usage` flags
+`pDescription->format` as indicated in the
+[Format Feature Dependent Usage Flags](formats.html#format-feature-dependent-usage-flags) section
+
+`VK_TENSOR_USAGE_SHADER_BIT_ARM`
+
+* 
+`VK_TENSOR_USAGE_DATA_GRAPH_BIT_ARM`
+
+[](#VUID-VkTensorCreateInfoARM-protectedMemory-09729) VUID-VkTensorCreateInfoARM-protectedMemory-09729
+
+If the [`protectedMemory`](features.html#features-protectedMemory) feature is not
+enabled, `flags` **must** not contain
+`VK_TENSOR_CREATE_PROTECTED_BIT_ARM`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkTensorCreateInfoARM-sType-sType) VUID-VkTensorCreateInfoARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_TENSOR_CREATE_INFO_ARM`
+
+* 
+[](#VUID-VkTensorCreateInfoARM-pNext-pNext) VUID-VkTensorCreateInfoARM-pNext-pNext
+
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkExternalMemoryTensorCreateInfoARM](#VkExternalMemoryTensorCreateInfoARM) or [VkOpaqueCaptureDescriptorDataCreateInfoEXT](descriptorsets.html#VkOpaqueCaptureDescriptorDataCreateInfoEXT)
+
+* 
+[](#VUID-VkTensorCreateInfoARM-sType-unique) VUID-VkTensorCreateInfoARM-sType-unique
+
+ The `sType` value of each structure in the `pNext` chain **must** be unique
+
+* 
+[](#VUID-VkTensorCreateInfoARM-flags-parameter) VUID-VkTensorCreateInfoARM-flags-parameter
+
+ `flags` **must** be a valid combination of [VkTensorCreateFlagBitsARM](#VkTensorCreateFlagBitsARM) values
+
+* 
+[](#VUID-VkTensorCreateInfoARM-pDescription-parameter) VUID-VkTensorCreateInfoARM-pDescription-parameter
+
+ `pDescription` **must** be a valid pointer to a valid [VkTensorDescriptionARM](#VkTensorDescriptionARM) structure
+
+* 
+[](#VUID-VkTensorCreateInfoARM-sharingMode-parameter) VUID-VkTensorCreateInfoARM-sharingMode-parameter
+
+ `sharingMode` **must** be a valid [VkSharingMode](#VkSharingMode) value
+
+Bits which **can** be set in [VkTensorCreateInfoARM](#VkTensorCreateInfoARM)::`flags`,
+specifying additional parameters of a tensor, are:
+
+// Provided by VK_ARM_tensors
+// Flag bits for VkTensorCreateFlagBitsARM
+typedef VkFlags64 VkTensorCreateFlagBitsARM;
+static const VkTensorCreateFlagBitsARM VK_TENSOR_CREATE_MUTABLE_FORMAT_BIT_ARM = 0x00000001ULL;
+static const VkTensorCreateFlagBitsARM VK_TENSOR_CREATE_PROTECTED_BIT_ARM = 0x00000002ULL;
+// Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+static const VkTensorCreateFlagBitsARM VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM = 0x00000004ULL;
+
+* 
+`VK_TENSOR_CREATE_MUTABLE_FORMAT_BIT_ARM` specifies that the tensor
+**can** be used to create a `VkTensorViewARM` with a different format
+from the tensor.
+
+* 
+`VK_TENSOR_CREATE_PROTECTED_BIT_ARM` specifies that the tensor is a
+protected tensor.
+
+* 
+`VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM`
+specifies that the tensor **can** be used with descriptor buffers when
+capturing and replaying (e.g. for trace capture and replay), see
+[VkOpaqueCaptureDescriptorDataCreateInfoEXT](descriptorsets.html#VkOpaqueCaptureDescriptorDataCreateInfoEXT) for more detail.
+
+// Provided by VK_ARM_tensors
+typedef VkFlags64 VkTensorCreateFlagsARM;
+
+`VkTensorCreateFlagsARM` is a bitmask type for setting a mask of zero or
+more [VkTensorCreateFlagBitsARM](#VkTensorCreateFlagBitsARM).
+
+To define a set of external memory handle types that **may** be used as backing
+store for a tensor, add a [VkExternalMemoryTensorCreateInfoARM](#VkExternalMemoryTensorCreateInfoARM)
+structure to the `pNext` chain of the [VkTensorCreateInfoARM](#VkTensorCreateInfoARM)
+structure.
+
+The `VkExternalMemoryTensorCreateInfoARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkExternalMemoryTensorCreateInfoARM {
+    VkStructureType                    sType;
+    const void*                        pNext;
+    VkExternalMemoryHandleTypeFlags    handleTypes;
+} VkExternalMemoryTensorCreateInfoARM;
+
+|  | A `VkExternalMemoryTensorCreateInfoARM` structure with a non-zero
+| --- | --- |
+`handleTypes` field must be included in the creation parameters for a
+tensor that will be bound to memory that is either exported or imported. |
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`handleTypes` is zero or a bitmask of
+[VkExternalMemoryHandleTypeFlagBits](capabilities.html#VkExternalMemoryHandleTypeFlagBits) specifying one or more external
+memory handle types.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkExternalMemoryTensorCreateInfoARM-sType-sType) VUID-VkExternalMemoryTensorCreateInfoARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_EXTERNAL_MEMORY_TENSOR_CREATE_INFO_ARM`
+
+* 
+[](#VUID-VkExternalMemoryTensorCreateInfoARM-handleTypes-parameter) VUID-VkExternalMemoryTensorCreateInfoARM-handleTypes-parameter
+
+ `handleTypes` **must** be a valid combination of [VkExternalMemoryHandleTypeFlagBits](capabilities.html#VkExternalMemoryHandleTypeFlagBits) values
+
+To destroy a tensor, call:
+
+// Provided by VK_ARM_tensors
+void vkDestroyTensorARM(
+    VkDevice                                    device,
+    VkTensorARM                                 tensor,
+    const VkAllocationCallbacks*                pAllocator);
+
+* 
+`device` is the logical device that destroys the tensor.
+
+* 
+`tensor` is the tensor to destroy.
+
+* 
+`pAllocator` controls host memory allocation as described in the
+[Memory Allocation](memory.html#memory-allocation) chapter.
+
+Valid Usage
+
+* 
+[](#VUID-vkDestroyTensorARM-tensor-09730) VUID-vkDestroyTensorARM-tensor-09730
+
+All submitted commands that refer to `tensor`, either directly or
+via a `VkTensorViewARM`, **must** have completed execution
+
+* 
+[](#VUID-vkDestroyTensorARM-tensor-09731) VUID-vkDestroyTensorARM-tensor-09731
+
+If `VkAllocationCallbacks` were provided when `tensor` was
+created, a compatible set of callbacks **must** be provided here
+
+* 
+[](#VUID-vkDestroyTensorARM-tensor-09732) VUID-vkDestroyTensorARM-tensor-09732
+
+If no `VkAllocationCallbacks` were provided when `tensor` was
+created, `pAllocator` **must** be `NULL`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkDestroyTensorARM-device-parameter) VUID-vkDestroyTensorARM-device-parameter
+
+ `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkDestroyTensorARM-tensor-parameter) VUID-vkDestroyTensorARM-tensor-parameter
+
+ If `tensor` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `tensor` **must** be a valid [VkTensorARM](#VkTensorARM) handle
+
+* 
+[](#VUID-vkDestroyTensorARM-pAllocator-parameter) VUID-vkDestroyTensorARM-pAllocator-parameter
+
+ If `pAllocator` is not `NULL`, `pAllocator` **must** be a valid pointer to a valid [VkAllocationCallbacks](memory.html#VkAllocationCallbacks) structure
+
+* 
+[](#VUID-vkDestroyTensorARM-tensor-parent) VUID-vkDestroyTensorARM-tensor-parent
+
+ If `tensor` is a valid handle, it **must** have been created, allocated, or retrieved from `device`
+
+Host Synchronization
+
+* 
+Host access to `tensor` **must** be externally synchronized
+
+The `VkTensorDescriptionARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkTensorDescriptionARM {
+    VkStructureType          sType;
+    const void*              pNext;
+    VkTensorTilingARM        tiling;
+    VkFormat                 format;
+    uint32_t                 dimensionCount;
+    const int64_t*           pDimensions;
+    const int64_t*           pStrides;
+    VkTensorUsageFlagsARM    usage;
+} VkTensorDescriptionARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`tiling` is a [VkTensorTilingARM](#VkTensorTilingARM) value specifying the tiling of
+the tensor
+
+* 
+`format` is a one component [VkFormat](formats.html#VkFormat) describing the format and
+type of the data elements that will be contained in the tensor.
+
+* 
+`dimensionCount` is the number of dimensions for the tensor.
+
+* 
+`pDimensions` is a pointer to an array of integers of size
+`dimensionCount` providing the number of data elements in each
+dimension.
+
+* 
+`pStrides` is either `NULL` or is an array of size
+`dimensionCount` providing the strides in bytes for the tensor in
+each dimension.
+
+* 
+`usage` is a bitmask of [VkTensorUsageFlagBitsARM](#VkTensorUsageFlagBitsARM) specifying
+the usage of the tensor.
+
+When describing a tensor created with `VK_TENSOR_TILING_OPTIMAL_ARM`,
+`pStrides` must be equal to `NULL`.
+When describing a tensor created with `VK_TENSOR_TILING_LINEAR_ARM`,
+`pStrides` is either an array of size `dimensionCount` or `NULL`.
+
+The formats that **must** be supported for `format` are documented in
+[Mandatory tensor format support](formats.html#features-formats-mandatory-features-tensor).
+
+Each element in the `pStrides` array describes the offset in bytes
+between increments of the given dimension.
+For example, `pStrides`[0] describes the offset between element
+[x0,x1,x2,x3] and element [x0+1,x1,x2,x3].
+The `pStrides` array **can** be used to determine whether a tensor is
+*packed* or not.
+If `pStrides`[`dimensionCount`-1] is equal to the size of a tensor
+element and for each dimension `n` greater than 0 and less than
+`dimensionCount`, `pStrides`[n-1] is equal to `pStrides`[n] *
+`pDimensions`[n], then the tensor is a packed tensor.
+If the [tensorNonPacked](features.html#features-tensorNonPacked) feature is not enabled,
+the tensor **must** be a packed tensor.
+
+When a tensor is created with `VK_TENSOR_TILING_LINEAR_ARM` and
+`pStrides` equal to `NULL` the tensor strides are calculated by the
+vulkan implementation such that the resulting tensor is a packed tensor.
+
+Expressed as an addressing formula, the starting byte of an element in a
+4-dimensional, for example, linear tensor has address:
+
+// Assume (x0,x1,x2,x3) are in units of elements.
+
+address(x0,x1,x2,x3) = x0*pStrides[0] + x1*pStrides[1] + x2*pStrides[2] + x3*pStrides[3]
+
+Valid Usage
+
+* 
+[](#VUID-VkTensorDescriptionARM-dimensionCount-09733) VUID-VkTensorDescriptionARM-dimensionCount-09733
+
+`dimensionCount` **must** be less than or equal to
+[VkPhysicalDeviceTensorPropertiesARM](limits.html#VkPhysicalDeviceTensorPropertiesARM)::`maxTensorDimensionCount`
+
+* 
+[](#VUID-VkTensorDescriptionARM-pDimensions-09734) VUID-VkTensorDescriptionARM-pDimensions-09734
+
+For each i where i ≤ dimensionCount-1,
+`pDimensions`[i] **must** be greater than `0`
+
+* 
+[](#VUID-VkTensorDescriptionARM-pDimensions-09883) VUID-VkTensorDescriptionARM-pDimensions-09883
+
+For each i where i ≤ dimensionCount-1,
+`pDimensions`[i] **must** be less than or equal to
+[    `VkPhysicalDeviceTensorPropertiesARM`::`maxPerDimensionTensorElements`](limits.html#limits-maxPerDimensionTensorElements)
+
+* 
+[](#VUID-VkTensorDescriptionARM-format-09735) VUID-VkTensorDescriptionARM-format-09735
+
+`format` **must** not be `VK_FORMAT_UNDEFINED` and **must** be a
+one-component [VkFormat](formats.html#VkFormat)
+
+* 
+[](#VUID-VkTensorDescriptionARM-pStrides-09736) VUID-VkTensorDescriptionARM-pStrides-09736
+
+`pStrides`[`dimensionCount`-1] **must** equal the size in
+bytes of a tensor element
+
+* 
+[](#VUID-VkTensorDescriptionARM-pStrides-09737) VUID-VkTensorDescriptionARM-pStrides-09737
+
+For each i, `pStrides`[i] **must** be a multiple of the
+element size
+
+* 
+[](#VUID-VkTensorDescriptionARM-pStrides-09738) VUID-VkTensorDescriptionARM-pStrides-09738
+
+For each i, `pStrides`[i] **must** be greater than `0` and
+less than or equal to
+[VkPhysicalDeviceTensorPropertiesARM](limits.html#VkPhysicalDeviceTensorPropertiesARM)::`maxTensorStride`
+
+* 
+[](#VUID-VkTensorDescriptionARM-pStrides-09884) VUID-VkTensorDescriptionARM-pStrides-09884
+
+`pStrides`[0] × `pDimensions`[0] **must** be less than
+or equal to [    `VkPhysicalDeviceTensorPropertiesARM`::`maxTensorSize`](limits.html#limits-maxTensorSize)
+
+* 
+[](#VUID-VkTensorDescriptionARM-pStrides-09739) VUID-VkTensorDescriptionARM-pStrides-09739
+
+For each i greater than 0, `pStrides`[i-1] **must** be
+greater than or equal to `pStrides`[i] ×
+`pDimensions`[i] so that no two elements of the tensor reference
+the same memory address
+
+* 
+[](#VUID-VkTensorDescriptionARM-None-09740) VUID-VkTensorDescriptionARM-None-09740
+
+If the [tensorNonPacked](features.html#features-tensorNonPacked) feature is not
+enabled, then the members of [VkTensorDescriptionARM](#VkTensorDescriptionARM) **must** describe
+a packed tensor
+
+* 
+[](#VUID-VkTensorDescriptionARM-tiling-09741) VUID-VkTensorDescriptionARM-tiling-09741
+
+If `tiling` is `VK_TENSOR_TILING_OPTIMAL_ARM` and `usage` is
+`VK_TENSOR_USAGE_IMAGE_ALIASING_BIT_ARM` then the size of the tensor
+along its innermost dimension, i.e.
+`pDimensions`[`dimensionCount` - 1], **must** be less than or
+equal to `4`
+
+* 
+[](#VUID-VkTensorDescriptionARM-tiling-09742) VUID-VkTensorDescriptionARM-tiling-09742
+
+If `tiling` is `VK_TENSOR_TILING_LINEAR_ARM` then
+`VK_TENSOR_USAGE_IMAGE_ALIASING_BIT_ARM` **must** not be set in
+`usage`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkTensorDescriptionARM-sType-sType) VUID-VkTensorDescriptionARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_TENSOR_DESCRIPTION_ARM`
+
+* 
+[](#VUID-VkTensorDescriptionARM-tiling-parameter) VUID-VkTensorDescriptionARM-tiling-parameter
+
+ `tiling` **must** be a valid [VkTensorTilingARM](#VkTensorTilingARM) value
+
+* 
+[](#VUID-VkTensorDescriptionARM-format-parameter) VUID-VkTensorDescriptionARM-format-parameter
+
+ `format` **must** be a valid [VkFormat](formats.html#VkFormat) value
+
+* 
+[](#VUID-VkTensorDescriptionARM-pDimensions-parameter) VUID-VkTensorDescriptionARM-pDimensions-parameter
+
+ `pDimensions` **must** be a valid pointer to an array of `dimensionCount` `int64_t` values
+
+* 
+[](#VUID-VkTensorDescriptionARM-pStrides-parameter) VUID-VkTensorDescriptionARM-pStrides-parameter
+
+ If `pStrides` is not `NULL`, `pStrides` **must** be a valid pointer to an array of `dimensionCount` `int64_t` values
+
+* 
+[](#VUID-VkTensorDescriptionARM-usage-parameter) VUID-VkTensorDescriptionARM-usage-parameter
+
+ `usage` **must** be a valid combination of [VkTensorUsageFlagBitsARM](#VkTensorUsageFlagBitsARM) values
+
+* 
+[](#VUID-VkTensorDescriptionARM-usage-requiredbitmask) VUID-VkTensorDescriptionARM-usage-requiredbitmask
+
+ `usage` **must** not be `0`
+
+* 
+[](#VUID-VkTensorDescriptionARM-dimensionCount-arraylength) VUID-VkTensorDescriptionARM-dimensionCount-arraylength
+
+ `dimensionCount` **must** be greater than `0`
+
+Bits which **can** be set in [VkTensorDescriptionARM](#VkTensorDescriptionARM)::`usage`,
+specifying usage behavior of a tensor, are:
+
+// Provided by VK_ARM_tensors
+// Flag bits for VkTensorUsageFlagBitsARM
+typedef VkFlags64 VkTensorUsageFlagBitsARM;
+static const VkTensorUsageFlagBitsARM VK_TENSOR_USAGE_SHADER_BIT_ARM = 0x00000002ULL;
+static const VkTensorUsageFlagBitsARM VK_TENSOR_USAGE_TRANSFER_SRC_BIT_ARM = 0x00000004ULL;
+static const VkTensorUsageFlagBitsARM VK_TENSOR_USAGE_TRANSFER_DST_BIT_ARM = 0x00000008ULL;
+static const VkTensorUsageFlagBitsARM VK_TENSOR_USAGE_IMAGE_ALIASING_BIT_ARM = 0x00000010ULL;
+// Provided by VK_ARM_data_graph
+static const VkTensorUsageFlagBitsARM VK_TENSOR_USAGE_DATA_GRAPH_BIT_ARM = 0x00000020ULL;
+
+* 
+`VK_TENSOR_USAGE_SHADER_BIT_ARM` specifies that the tensor **can** be
+used to create a `VkTensorViewARM` suitable for occupying a
+`VkDescriptorSet` slot of type `VK_DESCRIPTOR_TYPE_TENSOR_ARM`
+accessed by shader stages.
+
+* 
+`VK_TENSOR_USAGE_TRANSFER_SRC_BIT_ARM` specifies that the tensor
+**can** be used as the source of a *transfer command* (see the definition
+of
+[`VK_PIPELINE_STAGE_TRANSFER_BIT`](synchronization.html#synchronization-pipeline-stages-transfer)).
+
+* 
+`VK_TENSOR_USAGE_TRANSFER_DST_BIT_ARM` specifies that the tensor
+**can** be used as the destination of a transfer command.
+
+* 
+`VK_TENSOR_USAGE_IMAGE_ALIASING_BIT_ARM` specifies that the tensor
+**can** be bound to a range of memory aliased with an image created with
+`VK_IMAGE_TILING_OPTIMAL`.
+See [Memory Aliasing](#resources-memory-aliasing) for a complete set of rules for
+tensor/image aliasing.
+
+* 
+`VK_TENSOR_USAGE_DATA_GRAPH_BIT_ARM` specifies that the tensor **can**
+be used to create a `VkTensorViewARM` suitable for occupying a
+`VkDescriptorSet` slot of type `VK_DESCRIPTOR_TYPE_TENSOR_ARM`
+accessed by [data graph pipelines](VK_ARM_data_graph/graphs.html#graphs-pipelines).
+
+// Provided by VK_ARM_tensors
+typedef VkFlags64 VkTensorUsageFlagsARM;
+
+`VkTensorUsageFlags` is a bitmask type for setting a mask of zero or
+more [VkTensorUsageFlagBitsARM](#VkTensorUsageFlagBitsARM).
+
+Possible values of [VkTensorCreateInfoARM](#VkTensorCreateInfoARM)::`tiling`, specifying the
+tiling arrangement of elements in the tensor, are:
+
+// Provided by VK_ARM_tensors
+typedef enum VkTensorTilingARM {
+    VK_TENSOR_TILING_OPTIMAL_ARM = 0,
+    VK_TENSOR_TILING_LINEAR_ARM = 1,
+} VkTensorTilingARM;
+
+* 
+`VK_TENSOR_TILING_OPTIMAL_ARM` specifies optimal tiling (elements
+are laid out in an implementation-dependent arrangement, for more
+efficient memory access).
+
+* 
+`VK_TENSOR_TILING_LINEAR_ARM` specifies linear tiling (elements are
+laid out linearly and the offset between each element is determined by
+the [strides](#resources-tensor-description-strides) of the tensor).
+
+Tensor objects are not directly accessed by pipelines for reading or writing
+tensor data.
+Instead, *tensor views* representing the tensor subresources and containing
+additional metadata are used for that purpose.
+Views **must** be created on tensors of compatible types.
+
+Tensor views are represented by `VkTensorViewARM` handles:
+
+// Provided by VK_ARM_tensors
+VK_DEFINE_NON_DISPATCHABLE_HANDLE(VkTensorViewARM)
+
+To create a tensor view, call:
+
+// Provided by VK_ARM_tensors
+VkResult vkCreateTensorViewARM(
+    VkDevice                                    device,
+    const VkTensorViewCreateInfoARM*            pCreateInfo,
+    const VkAllocationCallbacks*                pAllocator,
+    VkTensorViewARM*                            pView);
+
+* 
+`device` is the logical device that creates the tensor view.
+
+* 
+`pCreateInfo` is a pointer to an instance of the
+`VkTensorViewCreateInfoARM` structure containing parameters to be
+used to create the tensor view.
+
+* 
+`pAllocator` controls host memory allocation as described in the
+[Memory Allocation](memory.html#memory-allocation) chapter.
+
+* 
+`pView` is a pointer to a [VkTensorViewARM](#VkTensorViewARM) handle in which the
+resulting tensor view object is returned.
+
+Some of the tensor creation parameters are inherited by the view.
+In particular, other than format, the tensor view creation inherits all
+other parameters from the tensor.
+
+The remaining parameters are contained in `pCreateInfo`.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkCreateTensorViewARM-device-parameter) VUID-vkCreateTensorViewARM-device-parameter
+
+ `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkCreateTensorViewARM-pCreateInfo-parameter) VUID-vkCreateTensorViewARM-pCreateInfo-parameter
+
+ `pCreateInfo` **must** be a valid pointer to a valid [VkTensorViewCreateInfoARM](#VkTensorViewCreateInfoARM) structure
+
+* 
+[](#VUID-vkCreateTensorViewARM-pAllocator-parameter) VUID-vkCreateTensorViewARM-pAllocator-parameter
+
+ If `pAllocator` is not `NULL`, `pAllocator` **must** be a valid pointer to a valid [VkAllocationCallbacks](memory.html#VkAllocationCallbacks) structure
+
+* 
+[](#VUID-vkCreateTensorViewARM-pView-parameter) VUID-vkCreateTensorViewARM-pView-parameter
+
+ `pView` **must** be a valid pointer to a [VkTensorViewARM](#VkTensorViewARM) handle
+
+* 
+[](#VUID-vkCreateTensorViewARM-device-queuecount) VUID-vkCreateTensorViewARM-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
+Return Codes
+
+[Success](fundamentals.html#fundamentals-successcodes)
+
+* 
+`VK_SUCCESS`
+
+[Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
+The `VkTensorViewCreateInfoARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkTensorViewCreateInfoARM {
+    VkStructureType               sType;
+    const void*                   pNext;
+    VkTensorViewCreateFlagsARM    flags;
+    VkTensorARM                   tensor;
+    VkFormat                      format;
+} VkTensorViewCreateInfoARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`flags` is reserved for future use.
+
+* 
+`tensor` is a [VkTensorARM](#VkTensorARM) on which the view will be created.
+
+* 
+`format` is a [VkFormat](formats.html#VkFormat) describing the format and type used to
+interpret elements in the tensor.
+
+If `tensor` was created with the
+`VK_TENSOR_CREATE_MUTABLE_FORMAT_BIT_ARM` flag, `format` **can** be
+different from the tensor’s format, but if they are not equal they **must** be
+*compatible*.
+Tensor format compatibility is defined in the
+[Format Compatibility Classes](formats.html#formats-compatibility-classes) section.
+Views of compatible formats will have the same mapping between element
+locations irrespective of the `format`, with only the interpretation of
+the bit pattern changing.
+
+|  | Values intended to be used with one view format **may** not be exactly
+| --- | --- |
+preserved when written or read through a different format.
+For example, an integer value that happens to have the bit pattern of a
+floating-point denorm or NaN **may** be flushed or canonicalized when written
+or read through a view with a floating-point format.
+Similarly, a value written through a signed normalized format that has a bit
+pattern exactly equal to -2b **may** be changed to -2b +  1
+as described in [Conversion from Normalized Fixed-Point to Floating-Point](fundamentals.html#fundamentals-fixedfpconv). |
+
+Valid Usage
+
+* 
+[](#VUID-VkTensorViewCreateInfoARM-tensor-09743) VUID-VkTensorViewCreateInfoARM-tensor-09743
+
+If `tensor` was not created with
+`VK_TENSOR_CREATE_MUTABLE_FORMAT_BIT_ARM` flag, `format` **must**
+be identical to the `format` used to create `tensor`
+
+* 
+[](#VUID-VkTensorViewCreateInfoARM-tensor-09744) VUID-VkTensorViewCreateInfoARM-tensor-09744
+
+If `tensor` was created with
+`VK_TENSOR_CREATE_MUTABLE_FORMAT_BIT_ARM` flag, `format` **must**
+be compatible with the `format` used to create `tensor`, as
+defined in [Format Compatibility    Classes](formats.html#formats-compatibility-classes)
+
+* 
+[](#VUID-VkTensorViewCreateInfoARM-flags-09745) VUID-VkTensorViewCreateInfoARM-flags-09745
+
+If `flags` includes
+`VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM`,
+the
+[`descriptorBufferCaptureReplay`](features.html#features-descriptorBufferCaptureReplay)
+feature **must** be enabled
+
+* 
+[](#VUID-VkTensorViewCreateInfoARM-pNext-09746) VUID-VkTensorViewCreateInfoARM-pNext-09746
+
+If the `pNext` chain includes a
+[VkOpaqueCaptureDescriptorDataCreateInfoEXT](descriptorsets.html#VkOpaqueCaptureDescriptorDataCreateInfoEXT) structure, `flags`
+**must** contain
+`VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM`
+
+* 
+[](#VUID-VkTensorViewCreateInfoARM-usage-09747) VUID-VkTensorViewCreateInfoARM-usage-09747
+
+The `usage` flags of `tensor` **must** have at least one of the
+following bits set:
+
+`VK_TENSOR_USAGE_SHADER_BIT_ARM`
+
+* 
+`VK_TENSOR_USAGE_DATA_GRAPH_BIT_ARM`
+
+[](#VUID-VkTensorViewCreateInfoARM-usage-09748) VUID-VkTensorViewCreateInfoARM-usage-09748
+
+The tensor view’s [format    features](#resources-tensor-view-format-features) **must** contain the format feature flags required by the
+`usage` flags of `tensor` for `format` as indicated in the
+[Format Feature Dependent Usage Flags](formats.html#format-feature-dependent-usage-flags) section
+
+[](#VUID-VkTensorViewCreateInfoARM-tensor-09749) VUID-VkTensorViewCreateInfoARM-tensor-09749
+
+If `tensor` is non-sparse then it **must** be bound completely and
+contiguously to a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkTensorViewCreateInfoARM-sType-sType) VUID-VkTensorViewCreateInfoARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_TENSOR_VIEW_CREATE_INFO_ARM`
+
+* 
+[](#VUID-VkTensorViewCreateInfoARM-pNext-pNext) VUID-VkTensorViewCreateInfoARM-pNext-pNext
+
+ `pNext` **must** be `NULL` or a pointer to a valid instance of [VkOpaqueCaptureDescriptorDataCreateInfoEXT](descriptorsets.html#VkOpaqueCaptureDescriptorDataCreateInfoEXT)
+
+* 
+[](#VUID-VkTensorViewCreateInfoARM-sType-unique) VUID-VkTensorViewCreateInfoARM-sType-unique
+
+ The `sType` value of each structure in the `pNext` chain **must** be unique
+
+* 
+[](#VUID-VkTensorViewCreateInfoARM-flags-parameter) VUID-VkTensorViewCreateInfoARM-flags-parameter
+
+ `flags` **must** be a valid combination of [VkTensorViewCreateFlagBitsARM](#VkTensorViewCreateFlagBitsARM) values
+
+* 
+[](#VUID-VkTensorViewCreateInfoARM-tensor-parameter) VUID-VkTensorViewCreateInfoARM-tensor-parameter
+
+ `tensor` **must** be a valid [VkTensorARM](#VkTensorARM) handle
+
+* 
+[](#VUID-VkTensorViewCreateInfoARM-format-parameter) VUID-VkTensorViewCreateInfoARM-format-parameter
+
+ `format` **must** be a valid [VkFormat](formats.html#VkFormat) value
+
+Bits which **can** be set in [VkTensorViewCreateInfoARM](#VkTensorViewCreateInfoARM)::`flags`,
+specifying additional parameters of an tensor, are:
+
+// Provided by VK_ARM_tensors
+// Flag bits for VkTensorViewCreateFlagBitsARM
+typedef VkFlags64 VkTensorViewCreateFlagBitsARM;
+// Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+static const VkTensorViewCreateFlagBitsARM VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM = 0x00000001ULL;
+
+* 
+`VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM`
+specifies that the tensor view **can** be used with descriptor buffers when
+capturing and replaying (e.g. for trace capture and replay), see
+[VkOpaqueCaptureDescriptorDataCreateInfoEXT](descriptorsets.html#VkOpaqueCaptureDescriptorDataCreateInfoEXT) for more detail.
+
+// Provided by VK_ARM_tensors
+typedef VkFlags64 VkTensorViewCreateFlagsARM;
+
+`VkTensorViewCreateFlagsARM` is a bitmask type for setting a mask of
+zero or more [VkTensorViewCreateFlagBitsARM](#VkTensorViewCreateFlagBitsARM).
+
+To destroy a tensor view, call:
+
+// Provided by VK_ARM_tensors
+void vkDestroyTensorViewARM(
+    VkDevice                                    device,
+    VkTensorViewARM                             tensorView,
+    const VkAllocationCallbacks*                pAllocator);
+
+* 
+`device` is the logical device that destroys the tensor view.
+
+* 
+`tensorView` is the tensor view to destroy.
+
+* 
+`pAllocator` controls host memory allocation as described in the
+[Memory Allocation](memory.html#memory-allocation) chapter.
+
+Valid Usage
+
+* 
+[](#VUID-vkDestroyTensorViewARM-tensorView-09750) VUID-vkDestroyTensorViewARM-tensorView-09750
+
+All submitted commands that refer to `tensorView` **must** have
+completed execution
+
+* 
+[](#VUID-vkDestroyTensorViewARM-tensorView-09751) VUID-vkDestroyTensorViewARM-tensorView-09751
+
+If `VkAllocationCallbacks` were provided when `tensorView` was
+created, a compatible set of callbacks **must** be provided here
+
+* 
+[](#VUID-vkDestroyTensorViewARM-tensorView-09752) VUID-vkDestroyTensorViewARM-tensorView-09752
+
+If no `VkAllocationCallbacks` were provided when `tensorView`
+was created, `pAllocator` **must** be `NULL`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkDestroyTensorViewARM-device-parameter) VUID-vkDestroyTensorViewARM-device-parameter
+
+ `device` **must** be a valid [VkDevice](devsandqueues.html#VkDevice) handle
+
+* 
+[](#VUID-vkDestroyTensorViewARM-tensorView-parameter) VUID-vkDestroyTensorViewARM-tensorView-parameter
+
+ If `tensorView` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `tensorView` **must** be a valid [VkTensorViewARM](#VkTensorViewARM) handle
+
+* 
+[](#VUID-vkDestroyTensorViewARM-pAllocator-parameter) VUID-vkDestroyTensorViewARM-pAllocator-parameter
+
+ If `pAllocator` is not `NULL`, `pAllocator` **must** be a valid pointer to a valid [VkAllocationCallbacks](memory.html#VkAllocationCallbacks) structure
+
+* 
+[](#VUID-vkDestroyTensorViewARM-tensorView-parent) VUID-vkDestroyTensorViewARM-tensorView-parent
+
+ If `tensorView` is a valid handle, it **must** have been created, allocated, or retrieved from `device`
+
+Host Synchronization
+
+* 
+Host access to `tensorView` **must** be externally synchronized
+
+Valid usage of a [VkTensorViewARM](#VkTensorViewARM) **may** be constrained by the tensor
+view’s format features, defined below.
+Such constraints are documented in the affected valid usage statement.
+
+* 
+If the view’s tensor was created with `VK_TENSOR_TILING_LINEAR_ARM`,
+then the tensor view’s set of *format features* is the value of
+[VkTensorFormatPropertiesARM](formats.html#VkTensorFormatPropertiesARM)::`linearTilingTensorFeatures`
+found by calling [vkGetPhysicalDeviceFormatProperties2](formats.html#vkGetPhysicalDeviceFormatProperties2) on the same
+`format` as [VkTensorViewCreateInfoARM](#VkTensorViewCreateInfoARM)::`format`.
+
+* 
+If the view’s tensor was created with
+`VK_TENSOR_TILING_OPTIMAL_ARM`, then the tensor view’s set of
+*format features* is the value of
+[VkTensorFormatPropertiesARM](formats.html#VkTensorFormatPropertiesARM)::`optimalTilingTensorFeatures`
+found by calling [vkGetPhysicalDeviceFormatProperties2](formats.html#vkGetPhysicalDeviceFormatProperties2) on the same
+`format` as [VkTensorViewCreateInfoARM](#VkTensorViewCreateInfoARM)::`format`.

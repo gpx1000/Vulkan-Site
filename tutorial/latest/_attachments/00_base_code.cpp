@@ -1,4 +1,10 @@
-#define GLFW_INCLUDE_VULKAN
+#include <memory>
+#ifdef __INTELLISENSE__
+#include <vulkan/vulkan_raii.hpp>
+#else
+import vulkan_hpp;
+#endif
+#include <vulkan/vk_platform.h>
 #include <GLFW/glfw3.h>
 
 #include <iostream>
@@ -18,7 +24,7 @@ public:
     }
 
 private:
-    GLFWwindow* window;
+    GLFWwindow* window = nullptr;
 
     void initWindow() {
         glfwInit();
@@ -47,9 +53,8 @@ private:
 };
 
 int main() {
-    HelloTriangleApplication app;
-
     try {
+        HelloTriangleApplication app;
         app.run();
     } catch (const std::exception& e) {
         std::cerr << e.what() << std::endl;

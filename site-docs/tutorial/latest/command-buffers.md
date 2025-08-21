@@ -13,8 +13,10 @@
 - [Command_buffer_allocation](#_command_buffer_allocation)
 - [Command buffer recording](#_command_buffer_recording)
 - [Command_buffer_recording](#_command_buffer_recording)
-- [Starting a render pass](#_starting_a_render_pass)
-- [Starting_a_render_pass](#_starting_a_render_pass)
+- [Image layout transitions](#_image_layout_transitions)
+- [Image_layout_transitions](#_image_layout_transitions)
+- [Starting dynamic rendering](#_starting_dynamic_rendering)
+- [Starting_dynamic_rendering](#_starting_dynamic_rendering)
 - [Basic drawing commands](#_basic_drawing_commands)
 - [Basic_drawing_commands](#_basic_drawing_commands)
 - [Finishing up](#_finishing_up)
@@ -22,17 +24,19 @@
 ## Content
 
 Commands in Vulkan, like drawing operations and memory transfers, are not executed directly using function calls.
-You have to record all of the operations you want to perform in command buffer objects.
-The advantage of this is that when we are ready to tell the Vulkan what we want to do, all of the commands are submitted together and Vulkan can more efficiently process the commands since all of them are available together.
+You have to record all the operations you want to perform in command buffer objects.
+The advantage of this is that when we are ready to tell Vulkan what we want
+to do, all the commands are submitted together. Vulkan can more
+efficiently process the commands since all of them are available together.
 In addition, this allows command recording to happen in multiple threads if so desired.
 
 We have to create a command pool before we can create command buffers.
 Command pools manage the memory that is used to store the buffers and command buffers are allocated from them.
 Add a new class member to store a `VkCommandPool`:
 
-VkCommandPool commandPool;
+vk::raii::CommandPool commandPool = nullptr;
 
-Then create a new function `createCommandPool` and call it from `initVulkan` after the framebuffers were created.
+Then create a new function `createCommandPool` and call it from `initVulkan` after the graphics pipeline was created.
 
 void initVulkan() {
     createInstance();
@@ -42,9 +46,7 @@ void initVulkan() {
     createLogicalDevice();
     createSwapChain();
     createImageViews();
-    createRenderPass();
     createGraphicsPipeline();
-    createFramebuffers();
     createCommandPool();
 }
 
@@ -56,12 +58,7 @@ void createCommandPool() {
 
 Command pool creation only takes two parameters:
 
-QueueFamilyIndices queueFamilyIndices = findQueueFamilies(physicalDevice);
-
-VkCommandPoolCreateInfo poolInfo{};
-poolInfo.sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO;
-poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
-poolInfo.queueFamilyIndex = queueFamilyIndices.graphicsFamily.value();
+vk::CommandPoolCreateInfo poolInfo{ .flags = vk::CommandPoolCreateFlagBits::eResetCommandBuffer, .queueFamilyIndex = graphicsIndex };
 
 There are two possible flags for command pools:
 
@@ -78,26 +75,18 @@ Command buffers are executed by submitting them on one of the device queues, lik
 Each command pool can only allocate command buffers that are submitted on a single type of queue.
 We’re going to record commands for drawing, which is why we’ve chosen the graphics queue family.
 
-if (vkCreateCommandPool(device, &poolInfo, nullptr, &commandPool) != VK_SUCCESS) {
-    throw std::runtime_error("failed to create command pool!");
-}
+commandPool = vk::raii::CommandPool(device, poolInfo);
 
 Finish creating the command pool using the `vkCreateCommandPool` function.
 It doesn’t have any special parameters.
-Commands will be used throughout the program to draw things on the screen, so the pool should only be destroyed at the end:
-
-void cleanup() {
-    vkDestroyCommandPool(device, commandPool, nullptr);
-
-    ...
-}
+Commands will be used throughout the program to draw things on the screen.
 
 We can now start allocating command buffers.
 
 Create a `VkCommandBuffer` object as a class member.
 Command buffers will be automatically freed when their command pool is destroyed, so we don’t need explicit cleanup.
 
-VkCommandBuffer commandBuffer;
+vk::raii::CommandBuffer commandBuffer = nullptr;
 
 We’ll now start working on a `createCommandBuffer` function to allocate a single command buffer from the command pool.
 
@@ -109,9 +98,7 @@ void initVulkan() {
     createLogicalDevice();
     createSwapChain();
     createImageViews();
-    createRenderPass();
     createGraphicsPipeline();
-    createFramebuffers();
     createCommandPool();
     createCommandBuffer();
 }
@@ -124,15 +111,9 @@ void createCommandBuffer() {
 
 Command buffers are allocated with the `vkAllocateCommandBuffers` function, which takes a `VkCommandBufferAllocateInfo` struct as parameter that specifies the command pool and number of buffers to allocate:
 
-VkCommandBufferAllocateInfo allocInfo{};
-allocInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_ALLOCATE_INFO;
-allocInfo.commandPool = commandPool;
-allocInfo.level = VK_COMMAND_BUFFER_LEVEL_PRIMARY;
-allocInfo.commandBufferCount = 1;
+vk::CommandBufferAllocateInfo allocInfo{ .commandPool = commandPool, .level = vk::CommandBufferLevel::ePrimary, .commandBufferCount = 1 };
 
-if (vkAllocateCommandBuffers(device, &allocInfo, &commandBuffer) != VK_SUCCESS) {
-    throw std::runtime_error("failed to allocate command buffers!");
-}
+commandBuffer = std::move(vk::raii::CommandBuffers(device, allocInfo).front());
 
 The `level` parameter specifies if the allocated command buffers are primary or secondary command buffers.
 
@@ -149,20 +130,13 @@ Since we are only allocating one command buffer, the `commandBufferCount` parame
 We’ll now start working on the `recordCommandBuffer` function that writes the commands we want to execute into a command buffer.
 The `VkCommandBuffer` used will be passed in as a parameter, as well as the index of the current swapchain image we want to write to.
 
-void recordCommandBuffer(VkCommandBuffer commandBuffer, uint32_t imageIndex) {
+void recordCommandBuffer(uint32_t imageIndex) {
 
 }
 
 We always begin recording a command buffer by calling `vkBeginCommandBuffer` with a small `VkCommandBufferBeginInfo` structure as argument that specifies some details about the usage of this specific command buffer.
 
-VkCommandBufferBeginInfo beginInfo{};
-beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
-beginInfo.flags = 0; // Optional
-beginInfo.pInheritanceInfo = nullptr; // Optional
-
-if (vkBeginCommandBuffer(commandBuffer, &beginInfo) != VK_SUCCESS) {
-    throw std::runtime_error("failed to begin recording command buffer!");
-}
+commandBuffer->begin( {} );
 
 The `flags` parameter specifies how we’re going to use the command buffer.
 The following values are available:
@@ -184,56 +158,95 @@ It specifies which state to inherit from the calling primary command buffers.
 If the command buffer was already recorded once, then a call to `vkBeginCommandBuffer` will implicitly reset it.
 It’s not possible to append commands to a buffer at a later time.
 
-Drawing starts by beginning the render pass with `vkCmdBeginRenderPass`.
-The render pass is configured using some parameters in a `VkRenderPassBeginInfo` struct.
+Before we can start rendering to an image, we need to transition its layout to one that is suitable for rendering. In Vulkan, images can be in different layouts that are optimized for different operations. For example, an image can be in a layout that is optimal for presenting to the screen, or in a layout that is optimal for being used as a color attachment.
 
-VkRenderPassBeginInfo renderPassInfo{};
-renderPassInfo.sType = VK_STRUCTURE_TYPE_RENDER_PASS_BEGIN_INFO;
-renderPassInfo.renderPass = renderPass;
-renderPassInfo.framebuffer = swapChainFramebuffers[imageIndex];
+We’ll use a pipeline barrier to transition the image layout from `VK_IMAGE_LAYOUT_UNDEFINED` to `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL`:
 
-The first parameters are the render pass itself and the attachments to bind.
-We created a framebuffer for each swap chain image where it is specified as a color attachment.
-Thus we need to bind the framebuffer for the swapchain image we want to draw to.
-Using the imageIndex parameter which was passed in, we can pick the right framebuffer for the current swapchain image.
+void transition_image_layout(
+    uint32_t imageIndex,
+    vk::ImageLayout oldLayout,
+    vk::ImageLayout newLayout,
+    vk::AccessFlags2 srcAccessMask,
+    vk::AccessFlags2 dstAccessMask,
+    vk::PipelineStageFlags2 srcStageMask,
+    vk::PipelineStageFlags2 dstStageMask
+) {
+    vk::ImageMemoryBarrier2 barrier = {
+        .srcStageMask = srcStageMask,
+        .srcAccessMask = srcAccessMask,
+        .dstStageMask = dstStageMask,
+        .dstAccessMask = dstAccessMask,
+        .oldLayout = oldLayout,
+        .newLayout = newLayout,
+        .srcQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED,
+        .dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED,
+        .image = swapChainImages[imageIndex],
+        .subresourceRange = {
+            .aspectMask = vk::ImageAspectFlagBits::eColor,
+            .baseMipLevel = 0,
+            .levelCount = 1,
+            .baseArrayLayer = 0,
+            .layerCount = 1
+        }
+    };
+    vk::DependencyInfo dependencyInfo = {
+        .dependencyFlags = {},
+        .imageMemoryBarrierCount = 1,
+        .pImageMemoryBarriers = &barrier
+    };
+    commandBuffer.pipelineBarrier2(dependencyInfo);
+}
 
-renderPassInfo.renderArea.offset = {0, 0};
-renderPassInfo.renderArea.extent = swapChainExtent;
+This function will be used to transition the image layout before and after rendering.
 
-The next two parameters define the size of the render area.
-The render area defines where shader loads and stores will take place.
-The pixels outside this region will have undefined values.
-It should match the size of the attachments for best performance.
+With dynamic rendering, we don’t need to create a render pass or framebuffers. Instead, we specify the attachments directly when we begin rendering:
 
-VkClearValue clearColor = {{{0.0f, 0.0f, 0.0f, 1.0f}}};
-renderPassInfo.clearValueCount = 1;
-renderPassInfo.pClearValues = &clearColor;
+// Before starting rendering, transition the swapchain image to COLOR_ATTACHMENT_OPTIMAL
+transition_image_layout(
+    imageIndex,
+    vk::ImageLayout::eUndefined,
+    vk::ImageLayout::eColorAttachmentOptimal,
+    {},                                                     // srcAccessMask (no need to wait for previous operations)
+    vk::AccessFlagBits2::eColorAttachmentWrite,                // dstAccessMask
+    vk::PipelineStageFlagBits2::eTopOfPipe,                   // srcStage
+    vk::PipelineStageFlagBits2::eColorAttachmentOutput        // dstStage
+);
 
-The last two parameters define the clear values to use for `VK_ATTACHMENT_LOAD_OP_CLEAR`, which we used as load operation for the color attachment.
-I’ve defined the clear color to simply be black with 100% opacity.
+First, we transition the image layout to `VK_IMAGE_LAYOUT_COLOR_ATTACHMENT_OPTIMAL`. Then, we set up the color attachment:
 
-vkCmdBeginRenderPass(commandBuffer, &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+vk::ClearValue clearColor = vk::ClearColorValue(0.0f, 0.0f, 0.0f, 1.0f);
+vk::RenderingAttachmentInfo attachmentInfo = {
+    .imageView = swapChainImageViews[imageIndex],
+    .imageLayout = vk::ImageLayout::eColorAttachmentOptimal,
+    .loadOp = vk::AttachmentLoadOp::eClear,
+    .storeOp = vk::AttachmentStoreOp::eStore,
+    .clearValue = clearColor
+};
 
-The render pass can now begin.
-All of the functions that record commands can be recognized by their `vkCmd` prefix.
-They all return `void`, so there will be no error handling until we’ve finished recording.
+The `imageView` parameter specifies which image view to render to. The `imageLayout` parameter specifies the layout the image will be in during rendering. The `loadOp` parameter specifies what to do with the image before rendering, and the `storeOp` parameter specifies what to do with the image after rendering. We’re using `VK_ATTACHMENT_LOAD_OP_CLEAR` to clear the image to black before rendering, and `VK_ATTACHMENT_STORE_OP_STORE` to store the rendered image for later use.
 
-The first parameter for every command is always the command buffer to record the command to.
-The second parameter specifies the details of the render pass we’ve just provided.
-The final parameter controls how the drawing commands within the render pass will be provided.
-It can have one of two values:
+Next, we set up the rendering info:
 
-* 
-`VK_SUBPASS_CONTENTS_INLINE`: The render pass commands will be embedded in the primary command buffer itself and no secondary command buffers will be executed.
+vk::RenderingInfo renderingInfo = {
+    .renderArea = { .offset = { 0, 0 }, .extent = swapChainExtent },
+    .layerCount = 1,
+    .colorAttachmentCount = 1,
+    .pColorAttachments = &attachmentInfo
+};
 
-* 
-`VK_SUBPASS_CONTENTS_SECONDARY_COMMAND_BUFFERS`: The render pass commands will be executed from secondary command buffers.
+The `renderArea` parameter defines the size of the render area, similar to the render area in a render pass. The `layerCount` parameter specifies the number of layers to render to, which is 1 for a non-layered image. The `colorAttachmentCount` and `pColorAttachments` parameters specify the color attachments to render to.
 
-We will not be using secondary command buffers, so we’ll go with the first option.
+Now we can begin rendering:
+
+commandBuffer.beginRendering(renderingInfo);
+
+All the functions that record commands can be recognized by their `vkCmd` prefix. They all return `void`, so there will be no error handling until we’ve finished recording.
+
+The parameter for the `beginRendering` command is the rendering info we just set up, which specifies the attachments to render to and the render area.
 
 We can now bind the graphics pipeline:
 
-vkCmdBindPipeline(commandBuffer, VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
+commandBuffer.bindPipeline(vk::PipelineBindPoint::eGraphics, graphicsPipeline);
 
 The second parameter specifies if the pipeline object is a graphics or compute pipeline.
 We’ve now told Vulkan which operations to execute in the graphics pipeline and which attachment to use in the fragment shader.
@@ -241,23 +254,12 @@ We’ve now told Vulkan which operations to execute in the graphics pipeline and
 As noted in the [fixed functions chapter](../02_Graphics_pipeline_basics/02_Fixed_functions.md#dynamic-state),  we did specify viewport and scissor state for this pipeline to be dynamic.
 So we need to set them in the command buffer before issuing our draw command:
 
-VkViewport viewport{};
-viewport.x = 0.0f;
-viewport.y = 0.0f;
-viewport.width = static_cast(swapChainExtent.width);
-viewport.height = static_cast(swapChainExtent.height);
-viewport.minDepth = 0.0f;
-viewport.maxDepth = 1.0f;
-vkCmdSetViewport(commandBuffer, 0, 1, &viewport);
-
-VkRect2D scissor{};
-scissor.offset = {0, 0};
-scissor.extent = swapChainExtent;
-vkCmdSetScissor(commandBuffer, 0, 1, &scissor);
+commandBuffer.setViewport(0, vk::Viewport(0.0f, 0.0f, static_cast(swapChainExtent.width), static_cast(swapChainExtent.height), 0.0f, 1.0f));
+commandBuffer.setScissor(0, vk::Rect2D(vk::Offset2D(0, 0), swapChainExtent));
 
 Now we are ready to issue the draw command for the triangle:
 
-vkCmdDraw(commandBuffer, 3, 1, 0, 0);
+commandBuffer.draw(3, 1, 0, 0);
 
 The actual `vkCmdDraw` function is a bit anticlimactic, but it’s so simple because of all the information we specified in advance.
 It has the following parameters, aside from the command buffer:
@@ -269,21 +271,35 @@ It has the following parameters, aside from the command buffer:
 `instanceCount`: Used for instanced rendering, use `1` if you’re not doing that.
 
 * 
-`firstVertex`: Used as an offset into the vertex buffer, defines the lowest value of `gl_VertexIndex`.
+`firstVertex`: Used as an offset into the vertex buffer, defines the lowest value of `SV_VertexId`.
 
 * 
-`firstInstance`: Used as an offset for instanced rendering, defines the lowest value of `gl_InstanceIndex`.
+`firstInstance`: Used as an offset for instanced rendering, defines the lowest value of `SV_InstanceID`.
 
-The render pass can now be ended:
+The rendering can now be ended:
 
-vkCmdEndRenderPass(commandBuffer);
+commandBuffer.endRendering();
+
+After rendering, we need to transition the image layout back to `VK_IMAGE_LAYOUT_PRESENT_SRC_KHR` so it can be presented to the screen:
+
+// After rendering, transition the swapchain image to PRESENT_SRC
+transition_image_layout(
+    imageIndex,
+    vk::ImageLayout::eColorAttachmentOptimal,
+    vk::ImageLayout::ePresentSrcKHR,
+    vk::AccessFlagBits2::eColorAttachmentWrite,                 // srcAccessMask
+    {},                                                      // dstAccessMask
+    vk::PipelineStageFlagBits2::eColorAttachmentOutput,        // srcStage
+    vk::PipelineStageFlagBits2::eBottomOfPipe                  // dstStage
+);
 
 And we’ve finished recording the command buffer:
 
-if (vkEndCommandBuffer(commandBuffer) != VK_SUCCESS) {
-    throw std::runtime_error("failed to record command buffer!");
-}
+commandBuffer.end();
 
 In the [next chapter](02_Rendering_and_presentation.html) we’ll write the code for the main loop, which will acquire an image from the swap chain, record and execute a command buffer, then return the finished image to the swap chain.
 
-[C++ code](../../_attachments/14_command_buffers.cpp) / [Vertex shader](../../_attachments/09_shader_base.vert) / [Fragment shader](../../_attachments/09_shader_base.frag)
+[C++ code](../../_attachments/14_command_buffers.cpp) /
+[Slang shader](../../_attachments/09_shader_base.slang) /
+[GLSL Vertex shader](../../_attachments/09_shader_base.vert) /
+[GLSL Fragment shader](../../_attachments/09_shader_base.frag)

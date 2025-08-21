@@ -178,6 +178,9 @@
     <a class="nav-link" href="../chapters/fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../chapters/VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="../chapters/executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../chapters/VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../chapters/VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../chapters/extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="boilerplate.html">API Boilerplate</a>
@@ -1585,15 +1597,16 @@ See <a href="../chapters/VK_KHR_deferred_host_operations/deferred_host_operation
 <code>DRM_FORMAT_MOD_LINEAR</code></p>
 </li>
 <li>
-<p>a <a href="../chapters/resources.html#VkAccelerationStructureNV" class="xref page">VkAccelerationStructureNV</a></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>Because a <a href="../chapters/resources.html#VkAccelerationStructureKHR" class="xref page">VkAccelerationStructureKHR</a> resource does not have memory
+<p>a <a href="../chapters/resources.html#VkAccelerationStructureNV" class="xref page">VkAccelerationStructureNV</a>
+Because a <a href="../chapters/resources.html#VkAccelerationStructureKHR" class="xref page">VkAccelerationStructureKHR</a> resource does not have memory
 bound to it directly, it is considered neither linear nor non-linear.
 However, the <a href="../chapters/resources.html#VkBuffer" class="xref page">VkBuffer</a> on which a <a href="../chapters/resources.html#VkAccelerationStructureKHR" class="xref page">VkAccelerationStructureKHR</a>
 resource is placed is a linear resource.</p>
+</li>
+<li>
+<p>a <a href="../chapters/resources.html#VkTensorARM" class="xref page">VkTensorARM</a> created with <code>VK_TENSOR_TILING_LINEAR_ARM</code></p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>A resource is <em>non-linear</em> if it is one of the following:</p>
@@ -1608,6 +1621,9 @@ resource is placed is a linear resource.</p>
 <code>VK_IMAGE_TILING_DRM_FORMAT_MODIFIER_EXT</code> and whose
 <a href="#glossary-drm-format-modifier">Linux DRM format modifier</a> is not
 <code>DRM_FORMAT_MOD_LINEAR</code></p>
+</li>
+<li>
+<p>a <a href="../chapters/resources.html#VkTensorARM" class="xref page">VkTensorARM</a> created with <code>VK_TENSOR_TILING_OPTIMAL_ARM</code></p>
 </li>
 </ul>
 </div>
@@ -1786,8 +1802,10 @@ combination with the <a href="../chapters/features.html#features-bufferDeviceAdd
 </dd>
 <dt class="hdlist1">Overlapped Range (Aliased Range)</dt>
 <dd>
-<p>The aliased range of a device memory allocation that intersects a given
-image subresource of an image or range of a buffer.</p>
+<p>    The aliased range of a device memory allocation that intersects a given
+    image subresource of an image
+, a given tensor,
+or range of a buffer.</p>
 </dd>
 <dt class="hdlist1">Ownership (Resource)</dt>
 <dd>
@@ -1798,6 +1816,11 @@ to that resource is well-defined for access by that entity.</p>
 <dd>
 <p>A format whose components are stored as a single texel block in memory,
 with their relative locations defined within that element.</p>
+</dd>
+<dt class="hdlist1">Packed Tensor</dt>
+<dd>
+<p>A tensor whose elements are densely laid out in memory and thus whose
+backing memory does not contain any padding data.</p>
 </dd>
 <dt class="hdlist1">Passthrough Geometry Shader</dt>
 <dd>
@@ -2023,6 +2046,10 @@ visible to the host.</p>
 <dt class="hdlist1">Protected Image</dt>
 <dd>
 <p>An image to which protected device memory <strong>can</strong> be bound.</p>
+</dd>
+<dt class="hdlist1">Protected Tensor</dt>
+<dd>
+<p>A tensor to which protected device memory <strong>can</strong> be bound.</p>
 </dd>
 <dt class="hdlist1">Provisional</dt>
 <dd>
@@ -2343,6 +2370,11 @@ and atomics in a shader.</p>
 <p>A descriptor type that represents an image view, and supports unfiltered
 loads, stores, and atomics in a shader.</p>
 </dd>
+<dt class="hdlist1">Storage Tensor</dt>
+<dd>
+<p>A descriptor type that represents a tensor view, and supports reads,
+writes, in a shader.</p>
+</dd>
 <dt class="hdlist1">Storage Texel Buffer</dt>
 <dd>
 <p>A descriptor type that represents a buffer view, and supports
@@ -2397,6 +2429,23 @@ and preserve attachments used by the subpass in a render pass.</p>
 subpass of the self-dependency, and whose stage masks and access masks
 each contain a subset of the bits set in the identically named mask in
 the self-dependency.</p>
+</dd>
+<dt class="hdlist1">Tensor</dt>
+<dd>
+<p>A resource that represents an N-dimensional formatted interpretation of
+device memory.
+Represented by a <a href="../chapters/resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object.</p>
+</dd>
+<dt class="hdlist1">Tensor Description</dt>
+<dd>
+<p>Describes the shape, format, usage and layout in memory of a tensor.
+Represented by <a href="../chapters/resources.html#VkTensorDescriptionARM" class="xref page">VkTensorDescriptionARM</a>.</p>
+</dd>
+<dt class="hdlist1">Tensor View</dt>
+<dd>
+<p>An object that represents a specific tensor, and state that controls how
+the contents are interpreted.
+Represented by a <a href="../chapters/resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> object.</p>
 </dd>
 <dt class="hdlist1">Texel Block</dt>
 <dd>
@@ -2484,6 +2533,10 @@ the host.</p>
 <dt class="hdlist1">Unprotected Image</dt>
 <dd>
 <p>An image to which unprotected device memory <strong>can</strong> be bound.</p>
+</dd>
+<dt class="hdlist1">Unprotected Tensor</dt>
+<dd>
+<p>A tensor to which unprotected device memory <strong>can</strong> be bound.</p>
 </dd>
 <dt class="hdlist1">User-Defined Variable Interface</dt>
 <dd>
@@ -2902,7 +2955,30 @@ Used to denote the <code>VK_STRUCTURE_TYPE*</code> member of each structure in
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

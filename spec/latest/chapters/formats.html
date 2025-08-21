@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -730,6 +742,8 @@ typedef enum VkFormat {
     VK_FORMAT_PVRTC2_2BPP_SRGB_BLOCK_IMG = 1000054006,
   // Provided by VK_IMG_format_pvrtc
     VK_FORMAT_PVRTC2_4BPP_SRGB_BLOCK_IMG = 1000054007,
+  // Provided by VK_ARM_tensors
+    VK_FORMAT_R8_BOOL_ARM = 1000460000,
   // Provided by VK_NV_optical_flow
     VK_FORMAT_R16G16_SFIXED5_NV = 1000464000,
   // Provided by VK_ARM_format_pack
@@ -2730,6 +2744,11 @@ determined via <a href="resources.html#vkGetImageSubresourceLayout" class="xref 
 <code>VK_IMAGE_ASPECT_PLANE_1_BIT</code> for the BR plane.
 This format only supports images with a width that is a multiple of two.</p>
 </li>
+<li>
+<p><code>VK_FORMAT_R8_BOOL_ARM</code> specifies a one-component 8-bit boolean
+format that has a single 8-bit R component.
+See <a href="fundamentals.html#fundamentals-bool" class="xref page">8-bit booleans</a>.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -3674,6 +3693,12 @@ An X indicates a component that is unused, but <strong>may</strong> be present f
 <td class="tableblock halign-left valign-top"><p class="tableblock">OpTypeInt</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">scaled signed integer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The components are signed fractional integer values that get converted to floating-point in the range <span class="eq">[-1024,1023.96875]</span></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>BOOL</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpTypeBool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The components are booleans</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top" colspan="4"><p class="tableblock"><span class="eq">n</span> is the number of bits in the component.</p></td>
@@ -4826,7 +4851,8 @@ each texel block represents in each dimension.</p>
   Block size 1 byte<br>
   1x1x1 block extent<br>
   1 texel/block</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R4G4_UNORM_PACK8</code>,<br>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_BOOL_ARM</code>,<br>
+                    <code>VK_FORMAT_R4G4_UNORM_PACK8</code>,<br>
                     <code>VK_FORMAT_R8_UNORM</code>,<br>
                     <code>VK_FORMAT_R8_SNORM</code>,<br>
                     <code>VK_FORMAT_R8_USCALED</code>,<br>
@@ -5684,7 +5710,19 @@ size-compatible as defined by <a href="#formats-compatible-zs-color">the list of
 <p>To query supported format features which are properties of the physical
 device, call:</p>
 </div>
-<div id="vkGetPhysicalDeviceFormatProperties" class="listingblock">
+<div id="vkGetPhysicalDeviceFormatProperties" class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.1" class="xref page">Vulkan Version 1.1</a>. See <a href="../appendices/deprecation.html#deprecation-gpdp2" class="xref page">Deprecated Functionality</a> for more information.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_0
 void vkGetPhysicalDeviceFormatProperties(
@@ -6292,7 +6330,7 @@ describing features supported by the requested format.</p>
 </li>
 <li>
 <p><a id="VUID-VkFormatProperties2-pNext-pNext" href="#VUID-VkFormatProperties2-pNext-pNext"></a> <span class="vuid">VUID-VkFormatProperties2-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDrmFormatModifierPropertiesList2EXT">VkDrmFormatModifierPropertiesList2EXT</a>, <a href="#VkDrmFormatModifierPropertiesListEXT">VkDrmFormatModifierPropertiesListEXT</a>, <a href="#VkFormatProperties3">VkFormatProperties3</a>, or <a href="#VkSubpassResolvePerformanceQueryEXT">VkSubpassResolvePerformanceQueryEXT</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkDrmFormatModifierPropertiesList2EXT">VkDrmFormatModifierPropertiesList2EXT</a>, <a href="#VkDrmFormatModifierPropertiesListEXT">VkDrmFormatModifierPropertiesListEXT</a>, <a href="#VkFormatProperties3">VkFormatProperties3</a>, <a href="#VkSubpassResolvePerformanceQueryEXT">VkSubpassResolvePerformanceQueryEXT</a>, or <a href="#VkTensorFormatPropertiesARM">VkTensorFormatPropertiesARM</a></p>
 </li>
 <li>
 <p><a id="VUID-VkFormatProperties2-sType-unique" href="#VUID-VkFormatProperties2-sType-unique"></a> <span class="vuid">VUID-VkFormatProperties2-sType-unique</span><br>
@@ -6801,12 +6839,18 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_WEIGHT_SAMPLED_IMAGE_B
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BLOCK_MATCHING_BIT_QCOM = 0x1000000000ULL;
 // Provided by VK_QCOM_image_processing with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BOX_FILTER_SAMPLED_BIT_QCOM = 0x2000000000ULL;
+// Provided by VK_ARM_tensors
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM = 0x8000000000ULL;
+// Provided by VK_ARM_tensors
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TENSOR_IMAGE_ALIASING_BIT_ARM = 0x80000000000ULL;
 // Provided by VK_NV_optical_flow
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_IMAGE_BIT_NV = 0x10000000000ULL;
 // Provided by VK_NV_optical_flow
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_VECTOR_BIT_NV = 0x20000000000ULL;
 // Provided by VK_NV_optical_flow
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_NV = 0x40000000000ULL;
+// Provided by VK_ARM_data_graph
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM = 0x1000000000000ULL;
 // Provided by VK_KHR_video_encode_quantization_map
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR = 0x2000000000000ULL;
 // Provided by VK_KHR_video_encode_quantization_map
@@ -7197,6 +7241,98 @@ image view with this format <strong>can</strong> be used as an output cost map f
 </ul>
 </div>
 </div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <a href="#VkTensorFormatPropertiesARM">VkTensorFormatPropertiesARM</a> structure describes properties of a
+<a href="#VkFormat">VkFormat</a> when that format is used to describe tensor elements.
+These properties, like those of <a href="#VkFormatProperties2">VkFormatProperties2</a>, are independent
+of any particular tensor.</p>
+</div>
+<div class="paragraph">
+<p>The <a href="#VkTensorFormatPropertiesARM">VkTensorFormatPropertiesARM</a> structure is defined as:</p>
+</div>
+<div id="VkTensorFormatPropertiesARM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_ARM_tensors
+typedef struct VkTensorFormatPropertiesARM {
+    VkStructureType          sType;
+    const void*              pNext;
+    VkFormatFeatureFlags2    optimalTilingTensorFeatures;
+    VkFormatFeatureFlags2    linearTilingTensorFeatures;
+} VkTensorFormatPropertiesARM;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>linearTilingTensorFeatures</code> is a bitmask of
+<a href="#VkFormatFeatureFlagBits2">VkFormatFeatureFlagBits2</a> specifying features supported by tensors
+created with a <code>tiling</code> parameter of
+<code>VK_TENSOR_TILING_LINEAR_ARM</code>.</p>
+</li>
+<li>
+<p><code>optimalTilingTensorFeatures</code> is a bitmask of
+<a href="#VkFormatFeatureFlagBits2">VkFormatFeatureFlagBits2</a> specifying features supported by tensors
+created with a <code>tiling</code> parameter of
+<code>VK_TENSOR_TILING_OPTIMAL_ARM</code>.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkTensorFormatPropertiesARM-sType-sType" href="#VUID-VkTensorFormatPropertiesARM-sType-sType"></a> <span class="vuid">VUID-VkTensorFormatPropertiesARM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_TENSOR_FORMAT_PROPERTIES_ARM</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>The following bits <strong>may</strong> be set in <code>linearTilingTensorFeatures</code> and
+<code>optimalTilingTensorFeatures</code>, specifying that the features are
+supported by tensors or tensor views created with the queried
+<a href="#vkGetPhysicalDeviceFormatProperties2">vkGetPhysicalDeviceFormatProperties2</a>::<code>format</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT</code> specifies that a tensor <strong>can</strong>
+be used as a source tensor for <a href="copies.html#copies-tensors" class="xref page">copy commands</a>.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT</code> specifies that a tensor <strong>can</strong>
+be used as a destination tensor for <a href="copies.html#copies-tensors" class="xref page">copy commands</a>.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM</code> specifies that a tensor
+view <strong>can</strong> be used as a <a href="descriptorsets.html#descriptorsets-storagetensor" class="xref page">storage tensor</a>
+with <a href="pipelines.html#pipelines-compute" class="xref page">compute pipelines</a>.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_TENSOR_IMAGE_ALIASING_BIT_ARM</code> specifies that a
+tensor <strong>can</strong> be aliased to an image or that an image <strong>can</strong> be aliased to a
+tensor.</p>
+</li>
+<li>
+<p><code>VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM</code> specifies that a
+tensor view <strong>can</strong> be used as a <a href="descriptorsets.html#descriptorsets-storagetensor" class="xref page">storage    tensor</a> with <a href="VK_ARM_data_graph/graphs.html#graphs-pipelines" class="xref page">data graph pipelines</a>.</p>
+</li>
+</ul>
 </div>
 <div class="openblock">
 <div class="content">
@@ -12734,9 +12870,10 @@ supported, a depth/stencil format with a depth component supporting
 <div class="paragraph">
 <p>Certain resource usage flags depend on support for the corresponding format
 feature flag for the format in question.
-The following tables list the <a href="resources.html#VkBufferUsageFlagBits" class="xref page">VkBufferUsageFlagBits</a> and
-<a href="resources.html#VkImageUsageFlagBits" class="xref page">VkImageUsageFlagBits</a> that have such dependencies, and the format
-feature flags they depend on.
+The following tables list the
+<a href="resources.html#VkBufferUsageFlagBits" class="xref page">VkBufferUsageFlagBits</a>, <a href="resources.html#VkImageUsageFlagBits" class="xref page">VkImageUsageFlagBits</a> and
+<a href="resources.html#VkTensorUsageFlagBitsARM" class="xref page">VkTensorUsageFlagBitsARM</a>
+that have such dependencies, and the format feature flags they depend on.
 Additional restrictions, including, but not limited to, further required
 format feature flags specific to the particular use of the resource <strong>may</strong>
 apply, as described in the respective sections of this specification.</p>
@@ -12829,6 +12966,262 @@ apply, as described in the respective sections of this specification.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR</code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_IMAGE_USAGE_TENSOR_ALIASING_BIT_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TENSOR_IMAGE_ALIASING_BIT_ARM</code></p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 26. Format feature dependent tensor usage flags</caption>
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Tensor usage flag</th>
+<th class="tableblock halign-left valign-top">Required format feature flag</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_TENSOR_USAGE_TRANSFER_SRC_BIT_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_TENSOR_USAGE_TRANSFER_DST_BIT_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_TENSOR_USAGE_IMAGE_ALIASING_BIT_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TENSOR_IMAGE_ALIASING_BIT_ARM</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_TENSOR_USAGE_SHADER_BIT_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_TENSOR_USAGE_DATA_GRAPH_BIT_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="features-required-tensor-format-support"><a class="anchor" href="#features-required-tensor-format-support"></a>Tensor Format Support</h3>
+<div class="paragraph">
+<p>For tensors, implementations <strong>must</strong> support at least the following set of
+features on the listed tensor formats.</p>
+</div>
+<div class="paragraph">
+<p>The following tables show which tensor feature bits <strong>must</strong> be supported for
+each format.</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 70%;">
+<caption class="title">Table 27. Key for tensor format feature tables</caption>
+<colgroup>
+<col style="width: 9.0909%;">
+<col style="width: 90.9091%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">✓</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This feature <strong>must</strong> be supported on the named format</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock">†</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">This feature <strong>must</strong> be supported on at least some
+of the named formats, with more information in the table
+where the symbol appears</p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all" style="width: 70%;">
+<caption class="title">Table 28. Feature bits in <code>optimalTilingTensorFeatures</code></caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM</code></p></td>
+</tr>
+</tbody>
+</table>
+<table class="tableblock frame-all grid-all" style="width: 70%;">
+<caption class="title">Table 29. Feature bits in <code>linearTilingTensorFeatures</code></caption>
+<colgroup>
+<col style="width: 100%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM</code></p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+<table id="features-formats-mandatory-features-tensor" class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 30. Mandatory tensor format support</caption>
+<colgroup>
+<col style="width: 80%;">
+<col style="width: 6.6666%;">
+<col style="width: 6.6666%;">
+<col style="width: 6.6668%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="3"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="4"><p class="tableblock">↓</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-right valign-top" colspan="2"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="3"><p class="tableblock">↓</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-right valign-top"><p class="tableblock"><code>VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM</code></p></td>
+<td class="tableblock halign-center valign-middle" rowspan="2"><p class="tableblock">↓</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Format</strong></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_UNDEFINED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_BOOL_ARM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_UNORM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_SNORM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_USCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_SSCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_UINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R8_SINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_UNORM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_SNORM</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_USCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_SSCALED</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_UINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_SINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R16_SFLOAT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R32_UINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R32_SINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R32_SFLOAT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R64_UINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R64_SINT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_FORMAT_R64_SFLOAT</code></p></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+<td class="tableblock halign-center valign-top"></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -12866,7 +13259,30 @@ apply, as described in the respective sections of this specification.</p>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

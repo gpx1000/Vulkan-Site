@@ -373,6 +373,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdBindTransformFeedbackBuffersEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Transform feedback for specific transform feedback buffers is made active by
 calling:
 
@@ -579,6 +583,10 @@ Command Properties
 
 Secondary | Inside | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdBeginTransformFeedbackEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Transform feedback for specific transform feedback buffers is made inactive
 by calling:
 
@@ -739,6 +747,10 @@ Command Properties
 | Primary
 
 Secondary | Inside | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdEndTransformFeedbackEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Each primitive sent to a given viewport has a swizzle and **optional** negation
 applied to its clip coordinates.
@@ -908,6 +920,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetViewportSwizzleNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Each viewport specified from 0 to `viewportCount` - 1 has its x,y,z,w
 swizzle state set to the corresponding `x`, `y`, `z` and `w`
@@ -1204,6 +1220,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetProvokingVertexModeEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Primitives are culled against the *cull volume* and then clipped to the
 *clip volume*.
 In clip coordinates, the *view volume* is defined by:
@@ -1351,6 +1371,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetDepthClampEnableEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) enable or disable depth
 clipping, call:
 
@@ -1432,6 +1456,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetDepthClipEnableEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 When depth clipping is disabled, the plane equation
 
@@ -1630,6 +1658,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetDepthClipNegativeOneToOneEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Next, vertex output attributes are clipped.
 The output values associated with a vertex that lies within the clip volume
 are unaffected by clipping.
@@ -1806,6 +1838,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetViewportWScalingEnableNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the viewport **W** scaling
 parameters, call:
 
@@ -1900,6 +1936,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetViewportWScalingNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Both [VkPipelineViewportWScalingStateCreateInfoNV](#VkPipelineViewportWScalingStateCreateInfoNV) and
 [vkCmdSetViewportWScalingNV](#vkCmdSetViewportWScalingNV) use `VkViewportWScalingNV` to set the
@@ -2307,6 +2347,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetViewportWithCount is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To [dynamically set](pipelines.html#pipelines-dynamic-state) the scissor count and
 scissor rectangular bounds, call:
 
@@ -2441,6 +2485,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetScissorWithCount is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkPipelineViewportStateCreateFlags;
@@ -2584,6 +2632,10 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetViewport is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Both [VkPipelineViewportStateCreateInfo](#VkPipelineViewportStateCreateInfo) and [vkCmdSetViewport](#vkCmdSetViewport) use
 `VkViewport` to set the viewport transformation parameters.

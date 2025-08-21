@@ -417,14 +417,16 @@ is dropped, and no further processing occurs.
 The `OpaqueKHR`, `NoOpaqueKHR`, `CullOpaqueKHR`, and
 `CullNoOpaqueKHR` `Ray Flags` are mutually exclusive.
 
-A `VK_GEOMETRY_TYPE_TRIANGLES_KHR` geometry in the acceleration
-structure **may** have an opacity micromap associated with it to give
-finer-grained opacity information.
+A `VK_GEOMETRY_TYPE_TRIANGLES_KHR`
+or `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`
+geometry in the acceleration structure **may** have an opacity micromap
+associated with it to give finer-grained opacity information.
 
 If the intersection candidate is with a geometry with an associated opacity
-micromap and `VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT` is not
-set in its instance then the micromap is used to determine geometry opacity
-instead of the `VK_GEOMETRY_OPAQUE_BIT_KHR` flag in the geometry.
+micromap and `VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT` is
+not set in its instance then the micromap is used to determine geometry
+opacity instead of the `VK_GEOMETRY_OPAQUE_BIT_KHR` flag in the
+geometry.
 
 The opacity information in the micromap object is accessed using the
 candidate intersection u and v coordinates.
@@ -449,7 +451,7 @@ See the appendix for reference code implementing this mapping. |
 The result of the opacity micromap lookup and operations is to treat the
 intersection as opaque, non-opaque, or ignored.
 The interpretation of the values depends on
-`VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_EXT` in the
+`VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_BIT_EXT` in the
 instance of the candidate intersection or
 `ForceOpacityMicromap2StateEXT` ray flags on the ray.
 If either is set, the opacity micromap information is interpreted in 2 state

@@ -125,12 +125,18 @@ typedef enum VkObjectType {
     VK_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA = 1000366000,
   // Provided by VK_EXT_opacity_micromap
     VK_OBJECT_TYPE_MICROMAP_EXT = 1000396000,
+  // Provided by VK_ARM_tensors
+    VK_OBJECT_TYPE_TENSOR_ARM = 1000460000,
+  // Provided by VK_ARM_tensors
+    VK_OBJECT_TYPE_TENSOR_VIEW_ARM = 1000460001,
   // Provided by VK_NV_optical_flow
     VK_OBJECT_TYPE_OPTICAL_FLOW_SESSION_NV = 1000464000,
   // Provided by VK_EXT_shader_object
     VK_OBJECT_TYPE_SHADER_EXT = 1000482000,
   // Provided by VK_KHR_pipeline_binary
     VK_OBJECT_TYPE_PIPELINE_BINARY_KHR = 1000483000,
+  // Provided by VK_ARM_data_graph
+    VK_OBJECT_TYPE_DATA_GRAPH_PIPELINE_SESSION_ARM = 1000507000,
   // Provided by VK_NV_external_compute_queue
     VK_OBJECT_TYPE_EXTERNAL_COMPUTE_QUEUE_NV = 1000556000,
   // Provided by VK_EXT_device_generated_commands
@@ -196,6 +202,9 @@ typedef enum VkObjectType {
 | `VK_OBJECT_TYPE_MICROMAP_EXT` | [VkMicromapEXT](resources.html#VkMicromapEXT) |
 | `VK_OBJECT_TYPE_OPTICAL_FLOW_SESSION_NV` | [VkOpticalFlowSessionNV](VK_NV_optical_flow/optical_flow.html#VkOpticalFlowSessionNV) |
 | `VK_OBJECT_TYPE_SHADER_EXT` | [VkShaderEXT](shaders.html#VkShaderEXT) |
+| `VK_OBJECT_TYPE_TENSOR_ARM` | [VkTensorARM](resources.html#VkTensorARM) |
+| `VK_OBJECT_TYPE_TENSOR_VIEW_ARM` | [VkTensorViewARM](resources.html#VkTensorViewARM) |
+| `VK_OBJECT_TYPE_DATA_GRAPH_PIPELINE_SESSION_ARM` | [VkDataGraphPipelineSessionARM](VK_ARM_data_graph/graphs.html#VkDataGraphPipelineSessionARM) |
 
 If this Specification was generated with any such extensions included, they
 will be described in the remainder of this chapter.
@@ -311,10 +320,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkDebugUtilsObjectNameInfoEXT` structure is defined as:
 
@@ -460,10 +475,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkDebugUtilsObjectTagInfoEXT` structure is defined as:
 
@@ -771,12 +792,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdBeginDebugUtilsLabelEXT-commandBuffer-cmdpool) VUID-vkCmdBeginDebugUtilsLabelEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
-
-* 
-[](#VUID-vkCmdBeginDebugUtilsLabelEXT-videocoding) VUID-vkCmdBeginDebugUtilsLabelEXT-videocoding
-
- This command **must** only be called outside of a video coding scope
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
 
 Host Synchronization
 
@@ -791,11 +807,23 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Both | Transfer
 
-Compute | Action
+Graphics
+
+Compute
+
+Decode
+
+Encode
+
+Opticalflow | Action
 
 State |
+
+Conditional Rendering
+
+vkCmdBeginDebugUtilsLabelEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 A command buffer label region can be closed by calling:
 
@@ -857,12 +885,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdEndDebugUtilsLabelEXT-commandBuffer-cmdpool) VUID-vkCmdEndDebugUtilsLabelEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
-
-* 
-[](#VUID-vkCmdEndDebugUtilsLabelEXT-videocoding) VUID-vkCmdEndDebugUtilsLabelEXT-videocoding
-
- This command **must** only be called outside of a video coding scope
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
 
 Host Synchronization
 
@@ -877,11 +900,23 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Both | Transfer
 
-Compute | Action
+Graphics
+
+Compute
+
+Decode
+
+Encode
+
+Opticalflow | Action
 
 State |
+
+Conditional Rendering
+
+vkCmdEndDebugUtilsLabelEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 A single debug label can be inserted into a command buffer by calling:
 
@@ -918,12 +953,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdInsertDebugUtilsLabelEXT-commandBuffer-cmdpool) VUID-vkCmdInsertDebugUtilsLabelEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
-
-* 
-[](#VUID-vkCmdInsertDebugUtilsLabelEXT-videocoding) VUID-vkCmdInsertDebugUtilsLabelEXT-videocoding
-
- This command **must** only be called outside of a video coding scope
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
 
 Host Synchronization
 
@@ -938,9 +968,21 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Both | Transfer
 
-Compute | Action |
+Graphics
+
+Compute
+
+Decode
+
+Encode
+
+Opticalflow | Action |
+
+Conditional Rendering
+
+vkCmdInsertDebugUtilsLabelEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Vulkan allows an application to register multiple callbacks with any Vulkan
 component wishing to report debug information.
@@ -1026,6 +1068,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The application **must** ensure that [vkCreateDebugUtilsMessengerEXT](#vkCreateDebugUtilsMessengerEXT) is
 not executed in parallel with any Vulkan command that is also called with
@@ -1542,6 +1590,11 @@ Valid Usage (Implicit)
  `flags` **must** be a valid combination of [VkDeviceAddressBindingFlagBitsEXT](#VkDeviceAddressBindingFlagBitsEXT) values
 
 * 
+[](#VUID-VkDeviceAddressBindingCallbackDataEXT-baseAddress-parameter) VUID-VkDeviceAddressBindingCallbackDataEXT-baseAddress-parameter
+
+ `baseAddress` **must** be a valid `VkDeviceAddress` value
+
+* 
 [](#VUID-VkDeviceAddressBindingCallbackDataEXT-bindingType-parameter) VUID-VkDeviceAddressBindingCallbackDataEXT-bindingType-parameter
 
  `bindingType` **must** be a valid [VkDeviceAddressBindingTypeEXT](#VkDeviceAddressBindingTypeEXT) value
@@ -1764,10 +1817,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkDebugMarkerObjectNameInfoEXT` structure is defined as:
 
@@ -1890,10 +1949,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkDebugMarkerObjectTagInfoEXT` structure is defined as:
 
@@ -2044,12 +2109,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool) VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
-
-* 
-[](#VUID-vkCmdDebugMarkerBeginEXT-videocoding) VUID-vkCmdDebugMarkerBeginEXT-videocoding
-
- This command **must** only be called outside of a video coding scope
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
 
 Host Synchronization
 
@@ -2064,9 +2124,21 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Both | Transfer
 
-Compute | Action |
+Graphics
+
+Compute
+
+Decode
+
+Encode
+
+Opticalflow | Action |
+
+Conditional Rendering
+
+vkCmdDebugMarkerBeginEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkDebugMarkerMarkerInfoEXT` structure is defined as:
 
@@ -2169,12 +2241,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDebugMarkerEndEXT-commandBuffer-cmdpool) VUID-vkCmdDebugMarkerEndEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
-
-* 
-[](#VUID-vkCmdDebugMarkerEndEXT-videocoding) VUID-vkCmdDebugMarkerEndEXT-videocoding
-
- This command **must** only be called outside of a video coding scope
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
 
 Host Synchronization
 
@@ -2189,9 +2256,21 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Both | Transfer
 
-Compute | Action |
+Graphics
+
+Compute
+
+Decode
+
+Encode
+
+Opticalflow | Action |
+
+Conditional Rendering
+
+vkCmdDebugMarkerEndEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 A single marker label can be inserted into a command buffer by calling:
 
@@ -2228,12 +2307,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-vkCmdDebugMarkerInsertEXT-commandBuffer-cmdpool) VUID-vkCmdDebugMarkerInsertEXT-commandBuffer-cmdpool
 
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support graphics, or compute operations
-
-* 
-[](#VUID-vkCmdDebugMarkerInsertEXT-videocoding) VUID-vkCmdDebugMarkerInsertEXT-videocoding
-
- This command **must** only be called outside of a video coding scope
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support transfer, graphics, compute, decode, encode, or optical flow operations
 
 Host Synchronization
 
@@ -2248,9 +2322,21 @@ Command Properties
 | --- | --- | --- | --- | --- |
 | Primary
 
-Secondary | Both | Outside | Graphics
+Secondary | Both | Both | Transfer
 
-Compute | Action |
+Graphics
+
+Compute
+
+Decode
+
+Encode
+
+Opticalflow | Action |
+
+Conditional Rendering
+
+vkCmdDebugMarkerInsertEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Debug report callbacks are represented by `VkDebugReportCallbackEXT`
 handles:
@@ -2320,6 +2406,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The definition of [VkDebugReportCallbackCreateInfoEXT](#VkDebugReportCallbackCreateInfoEXT) is:
 
@@ -2603,9 +2695,13 @@ typedef enum VkDebugReportObjectTypeEXT {
 
 |  | The primary expected use of `VK_ERROR_VALIDATION_FAILED_EXT` is for
 | --- | --- |
-validation layer testing.
+validation layer testing to prevent invalid commands from reaching the ICD.
 It is not expected that an application would see this error code during
-normal use of the validation layers. |
+normal use of the validation layers.
+If an application returns `VK_TRUE` in
+[VkDebugUtilsMessengerCallbackDataEXT](#VkDebugUtilsMessengerCallbackDataEXT), the validation layers will
+return this error code instead of passing the command down the dispatch
+chain. |
 
 To inject its own messages into the debug stream, call:
 
@@ -2826,6 +2922,10 @@ Secondary | Both | Outside | Graphics
 Compute
 
 Transfer | Action |
+
+Conditional Rendering
+
+vkCmdSetCheckpointNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Note that `pCheckpointMarker` is treated as an opaque value.
 It does not need to be a valid pointer and will not be dereferenced by the
@@ -3170,15 +3270,21 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_INCOMPLETE`
 
 * 
-`VK_INCOMPLETE`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkDeviceFaultCountsEXT` structure is defined as:
 
@@ -3349,6 +3455,11 @@ Valid Usage (Implicit)
 [](#VUID-VkDeviceFaultAddressInfoEXT-addressType-parameter) VUID-VkDeviceFaultAddressInfoEXT-addressType-parameter
 
  `addressType` **must** be a valid [VkDeviceFaultAddressTypeEXT](#VkDeviceFaultAddressTypeEXT) value
+
+* 
+[](#VUID-VkDeviceFaultAddressInfoEXT-reportedAddress-parameter) VUID-VkDeviceFaultAddressInfoEXT-reportedAddress-parameter
+
+ `reportedAddress` **must** be a valid `VkDeviceAddress` value
 
 Possible values of [VkDeviceFaultAddressInfoEXT](#VkDeviceFaultAddressInfoEXT)::`addressType` are:
 
@@ -3619,15 +3730,21 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_INCOMPLETE`
 
 * 
-`VK_INCOMPLETE`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The [VkPhysicalDeviceToolProperties](#VkPhysicalDeviceToolProperties) structure is defined as:
 
@@ -3916,3 +4033,44 @@ typedef VkFlags VkFrameBoundaryFlagsEXT;
 
 [VkFrameBoundaryFlagsEXT](#VkFrameBoundaryFlagsEXT) is a bitmask type for setting a mask of zero
 or more [VkFrameBoundaryFlagBitsEXT](#VkFrameBoundaryFlagBitsEXT).
+
+The `VkFrameBoundaryTensorsARM` structure is defined as:
+
+// Provided by VK_EXT_frame_boundary with VK_ARM_tensors
+typedef struct VkFrameBoundaryTensorsARM {
+    VkStructureType       sType;
+    const void*           pNext;
+    uint32_t              tensorCount;
+    const VkTensorARM*    pTensors;
+} VkFrameBoundaryTensorsARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`tensorCount` is the number of tensors that store frame results.
+
+* 
+`pTensors` is a pointer to an array of [VkTensorARM](resources.html#VkTensorARM) objects
+with tensorCount entries.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkFrameBoundaryTensorsARM-sType-sType) VUID-VkFrameBoundaryTensorsARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_FRAME_BOUNDARY_TENSORS_ARM`
+
+* 
+[](#VUID-VkFrameBoundaryTensorsARM-pTensors-parameter) VUID-VkFrameBoundaryTensorsARM-pTensors-parameter
+
+ `pTensors` **must** be a valid pointer to an array of `tensorCount` valid [VkTensorARM](resources.html#VkTensorARM) handles
+
+* 
+[](#VUID-VkFrameBoundaryTensorsARM-tensorCount-arraylength) VUID-VkFrameBoundaryTensorsARM-tensorCount-arraylength
+
+ `tensorCount` **must** be greater than `0`

@@ -24,6 +24,8 @@
 - [Evaluation_of_Expressions](#spirvenv-evaluation-expressions)
 - [Precision of Individual Operations](#spirvenv-op-prec)
 - [Precision_of_Individual_Operations](#spirvenv-op-prec)
+- [Buffer Indexing Calculations](#spirvenv-buffer-indexing)
+- [Buffer_Indexing_Calculations](#spirvenv-buffer-indexing)
 - [Signedness of SPIR-V Image Accesses](#spirvenv-image-signedness)
 - [Signedness_of_SPIR-V_Image_Accesses](#spirvenv-image-signedness)
 - [Image Format and Type Matching](#spirvenv-format-type-matching)
@@ -34,6 +36,8 @@
 - [Compatibility_Between_SPIR-V_Image_Formats_and_Vulkan_Formats](#spirvenv-image-formats)
 - [Ray Query Precision and Operation](#spirenv-ray-query-precision-operation)
 - [Ray_Query_Precision_and_Operation](#spirenv-ray-query-precision-operation)
+- [Compatibility Between SPIR-V Tensor Element Types And Vulkan Formats](#spirvenv-tensor-formats)
+- [Compatibility_Between_SPIR-V_Tensor_Element_Types_And_Vulkan_Formats](#spirvenv-tensor-formats)
 
 ## Content
 
@@ -694,6 +698,27 @@ The corresponding core version is supported (as returned by
 | `TileShadingQCOM`
 
                 [`VkPhysicalDeviceTileShadingFeaturesQCOM`::`tileShading`](../chapters/features.html#features-tileShading) |
+| `TensorsARM`
+
+                [`VkPhysicalDeviceTensorFeaturesARM`::`shaderTensorAccess`](../chapters/features.html#features-shaderTensorAccess) |
+| `StorageTensorArrayDynamicIndexingARM`
+
+                [`VkPhysicalDeviceTensorFeaturesARM`::`shaderStorageTensorArrayDynamicIndexing`](../chapters/features.html#features-shaderStorageTensorArrayDynamicIndexing) |
+| `StorageTensorArrayNonUniformIndexingARM`
+
+                [`VkPhysicalDeviceTensorFeaturesARM`::`shaderStorageTensorArrayNonUniformIndexing`](../chapters/features.html#features-shaderStorageTensorArrayNonUniformIndexing) |
+| `Float8EXT`
+
+                [`VkPhysicalDeviceShaderFloat8FeaturesEXT`::`shaderFloat8`](../chapters/features.html#features-shaderFloat8) |
+| `Float8CooperativeMatrixEXT`
+
+                [`VkPhysicalDeviceShaderFloat8FeaturesEXT`::`shaderFloat8CooperativeMatrix`](../chapters/features.html#features-shaderFloat8CooperativeMatrix) |
+| `GraphARM`
+
+                [`VkPhysicalDeviceDataGraphFeaturesARM`::`dataGraph`](../chapters/features.html#features-dataGraph) |
+| `UntypedPointersKHR`
+
+                [`VkPhysicalDeviceShaderUntypedPointersFeaturesKHR`::`shaderUntypedPointers`](../chapters/features.html#features-shaderUntypedPointers) |
 
 The application **must** not pass a SPIR-V module containing any of the
 following to [vkCreateShaderModule](../chapters/shaders.html#vkCreateShaderModule):
@@ -977,9 +1002,6 @@ The corresponding core version is supported (as returned by
 | `SPV_ARM_core_builtins`
 
                 `[VK_ARM_shader_core_builtins](extensions.html#VK_ARM_shader_core_builtins)` |
-| `SPV_AMDX_shader_enqueue`
-
-                `[VK_AMDX_shader_enqueue](extensions.html#VK_AMDX_shader_enqueue)` |
 | `SPV_HUAWEI_cluster_culling_shader`
 
                 `[VK_HUAWEI_cluster_culling_shader](extensions.html#VK_HUAWEI_cluster_culling_shader)` |
@@ -1043,6 +1065,18 @@ The corresponding core version is supported (as returned by
 | `SPV_QCOM_tile_shading`
 
                 `[VK_QCOM_tile_shading](extensions.html#VK_QCOM_tile_shading)` |
+| `SPV_ARM_tensors`
+
+                `[VK_ARM_tensors](extensions.html#VK_ARM_tensors)` |
+| `SPV_EXT_float8`
+
+                `[VK_EXT_shader_float8](extensions.html#VK_EXT_shader_float8)` |
+| `SPV_ARM_graph`
+
+                `[VK_ARM_data_graph](extensions.html#VK_ARM_data_graph)` |
+| `SPV_KHR_untyped_pointers`
+
+                `[VK_KHR_shader_untyped_pointers](extensions.html#VK_KHR_shader_untyped_pointers)` |
 
 A SPIR-V module passed to [vkCreateShaderModule](../chapters/shaders.html#vkCreateShaderModule) **must** conform to the
 following rules:
@@ -1113,8 +1147,8 @@ callable `Execution` `Model`
 * 
 [](#VUID-StandaloneSpirv-None-04641) VUID-StandaloneSpirv-None-04641
 
-If the `Scope` for memory is `Invocation`, then memory semantics
-**must** be `None`
+If the `Scope` for memory is `Invocation`, then
+`MemorySemantics` **must** use `Relaxed` memory order
 
 * 
 [](#VUID-StandaloneSpirv-None-04642) VUID-StandaloneSpirv-None-04642
@@ -1160,55 +1194,117 @@ If the `Storage` `Class` is `TileImageEXT`, then it **must** only be used
 in the fragment execution model
 
 * 
-[](#VUID-StandaloneSpirv-OpAtomicStore-04730) VUID-StandaloneSpirv-OpAtomicStore-04730
+[](#VUID-StandaloneSpirv-MemorySemantics-10865) VUID-StandaloneSpirv-MemorySemantics-10865
 
-`OpAtomicStore` **must** not use `Acquire`, `AcquireRelease`, or
-`SequentiallyConsistent` memory semantics
-
-* 
-[](#VUID-StandaloneSpirv-OpAtomicLoad-04731) VUID-StandaloneSpirv-OpAtomicLoad-04731
-
-`OpAtomicLoad` **must** not use `Release`, `AcquireRelease`, or
-`SequentiallyConsistent` memory semantics
+`MemorySemantics` **must** have at most one non-relaxed memory order bit
+set (`Acquire`, `Release`, or `AcquireRelease`)
 
 * 
-[](#VUID-StandaloneSpirv-OpMemoryBarrier-04732) VUID-StandaloneSpirv-OpMemoryBarrier-04732
+[](#VUID-StandaloneSpirv-MemorySemantics-10866) VUID-StandaloneSpirv-MemorySemantics-10866
 
-`OpMemoryBarrier` **must** use one of `Acquire`, `Release`,
-`AcquireRelease`, or `SequentiallyConsistent` memory semantics
-
-* 
-[](#VUID-StandaloneSpirv-OpMemoryBarrier-04733) VUID-StandaloneSpirv-OpMemoryBarrier-04733
-
-`OpMemoryBarrier` **must** include at least one `Storage` `Class`
+`MemorySemantics` with `SequentiallyConsistent` memory order **must**
+not be used in the Vulkan API
 
 * 
-[](#VUID-StandaloneSpirv-OpControlBarrier-10609) VUID-StandaloneSpirv-OpControlBarrier-10609
+[](#VUID-StandaloneSpirv-MemorySemantics-10867) VUID-StandaloneSpirv-MemorySemantics-10867
 
-If the semantics for `OpControlBarrier` includes at least one
-`Storage` `Class`, then it **must** include one of `Acquire`, `Release`,
-`AcquireRelease`, or `SequentiallyConsistent` memory semantics
+`MemorySemantics` **must** not use `Acquire` or `AcquireRelease`
+memory order with `OpAtomicStore`
 
 * 
-[](#VUID-StandaloneSpirv-OpControlBarrier-04650) VUID-StandaloneSpirv-OpControlBarrier-04650
+[](#VUID-StandaloneSpirv-MemorySemantics-10868) VUID-StandaloneSpirv-MemorySemantics-10868
 
-If the semantics for `OpControlBarrier` includes one of `Acquire`,
-`Release`, `AcquireRelease`, or `SequentiallyConsistent` memory
-semantics, then it **must** include at least one `Storage` `Class`
+`MemorySemantics` **must** not use `Release` or `AcquireRelease`
+memory order with `OpAtomicLoad`
+
+* 
+[](#VUID-StandaloneSpirv-MemorySemantics-10869) VUID-StandaloneSpirv-MemorySemantics-10869
+
+`MemorySemantics` **must** not use `Relaxed` memory order with
+`OpMemoryBarrier`
+
+* 
+[](#VUID-StandaloneSpirv-MemorySemantics-10870) VUID-StandaloneSpirv-MemorySemantics-10870
+
+`MemorySemantics` with a non-relaxed memory order (`Acquire`,
+`Release`, or `AcquireRelease`) **must** have at least one
+Vulkan-supported storage class semantics bit set (`UniformMemory`,
+`WorkgroupMemory`, `ImageMemory`, or `OutputMemory`)
+
+* 
+[](#VUID-StandaloneSpirv-MemorySemantics-10871) VUID-StandaloneSpirv-MemorySemantics-10871
+
+`MemorySemantics` with at least one Vulkan-supported storage class
+semantics bit set (`UniformMemory`, `WorkgroupMemory`,
+`ImageMemory`, or `OutputMemory`) **must** use a non-relaxed memory
+order (`Acquire`, `Release`, or `AcquireRelease`)
+
+* 
+[](#VUID-StandaloneSpirv-MemorySemantics-10872) VUID-StandaloneSpirv-MemorySemantics-10872
+
+`MemorySemantics` with `MakeAvailable` bit set **must** use
+`Release` or `AcquireRelease` memory order
+
+* 
+[](#VUID-StandaloneSpirv-MemorySemantics-10873) VUID-StandaloneSpirv-MemorySemantics-10873
+
+`MemorySemantics` with `MakeVisible` bit set **must** use
+`Acquire` or `AcquireRelease` memory order
+
+* 
+[](#VUID-StandaloneSpirv-MemorySemantics-10874) VUID-StandaloneSpirv-MemorySemantics-10874
+
+`MemorySemantics` with `Volatile` bit set **must** not be used with
+barrier instructions (`OpControlBarrier` or `OpMemoryBarrier`)
+
+* 
+[](#VUID-StandaloneSpirv-UnequalMemorySemantics-10875) VUID-StandaloneSpirv-UnequalMemorySemantics-10875
+
+`UnequalMemorySemantics` of `OpAtomicCompareExchange` **must** not
+use `Release` or `AcquireRelease` memory order
+
+* 
+[](#VUID-StandaloneSpirv-UnequalMemorySemantics-10876) VUID-StandaloneSpirv-UnequalMemorySemantics-10876
+
+`UnequalMemorySemantics` of `OpAtomicCompareExchange` **must** not
+use a stronger memory order than the corresponding
+`EqualMemorySemantics`
+
+* 
+[](#VUID-StandaloneSpirv-UnequalMemorySemantics-10877) VUID-StandaloneSpirv-UnequalMemorySemantics-10877
+
+`UnequalMemorySemantics` of `OpAtomicCompareExchange` **must** not
+have any Vulkan-supported storage class semantics bit set
+(`UniformMemory`, `WorkgroupMemory`, `ImageMemory`, or
+`OutputMemory`) unless this bit is also set in the corresponding
+`EqualMemorySemantics`
+
+* 
+[](#VUID-StandaloneSpirv-UnequalMemorySemantics-10878) VUID-StandaloneSpirv-UnequalMemorySemantics-10878
+
+`UnequalMemorySemantics` of `OpAtomicCompareExchange` **must** not
+have `MakeVisible` bit set unless this bit is also set in the
+corresponding `EqualMemorySemantics`
+
+* 
+[](#VUID-StandaloneSpirv-UnequalMemorySemantics-10879) VUID-StandaloneSpirv-UnequalMemorySemantics-10879
+
+`UnequalMemorySemantics` of `OpAtomicCompareExchange` **must** have
+`Volatile` bit set if and only if this bit is also set in the
+corresponding `EqualMemorySemantics`
 
 * 
 [](#VUID-StandaloneSpirv-OpVariable-04651) VUID-StandaloneSpirv-OpVariable-04651
 
-Any `OpVariable` with an `Initializer` operand **must** have
-`Output`, `Private`, `Function`, or `Workgroup` as its
-`Storage` `Class` operand
+Any variable with an `Initializer` operand **must** have `Output`,
+`Private`, `Function`, or `Workgroup` as its `Storage` `Class`
+operand
 
 * 
 [](#VUID-StandaloneSpirv-OpVariable-04734) VUID-StandaloneSpirv-OpVariable-04734
 
-Any `OpVariable` with an `Initializer` operand and `Workgroup`
-as its `Storage` `Class` operand **must** use `OpConstantNull` as the
-initializer
+Any variable with an `Initializer` operand and `Workgroup` as its
+`Storage` `Class` operand **must** use `OpConstantNull` as the initializer
 
 * 
 [](#VUID-StandaloneSpirv-OpReadClockKHR-04652) VUID-StandaloneSpirv-OpReadClockKHR-04652
@@ -1233,7 +1329,8 @@ are always centered at half-integer coordinates)
 
 Any variable in the `UniformConstant` `Storage` `Class` **must** be typed
 as either `OpTypeImage`, `OpTypeSampler`, `OpTypeSampledImage`,
-`OpTypeAccelerationStructureKHR`, or an array of one of these types
+`OpTypeAccelerationStructureKHR`, `OpTypeTensorARM` or an array of
+one of these types
 
 * 
 [](#VUID-StandaloneSpirv-Uniform-06807) VUID-StandaloneSpirv-Uniform-06807
@@ -1311,8 +1408,9 @@ The (u,v) coordinates used for a `SubpassData` **must** be the
 [](#VUID-StandaloneSpirv-OpTypeImage-06924) VUID-StandaloneSpirv-OpTypeImage-06924
 
 Objects of types `OpTypeImage`, `OpTypeSampler`,
-`OpTypeSampledImage`, `OpTypeAccelerationStructureKHR`, and arrays
-of these types **must** not be stored to or modified
+`OpTypeSampledImage`, `OpTypeAccelerationStructureKHR`,
+`OpTypeTensorARM`, and arrays of these types **must** not be stored to
+or modified
 
 * 
 [](#VUID-StandaloneSpirv-Uniform-06925) VUID-StandaloneSpirv-Uniform-06925
@@ -1388,8 +1486,8 @@ The `Location` decorations **must** be used on
 [](#VUID-StandaloneSpirv-Location-04917) VUID-StandaloneSpirv-Location-04917
 
 If a [user-defined variable](../chapters/interfaces.html#interfaces-iointerfaces-user) is not a
-pointer to a `Block` decorated `OpTypeStruct`, then the
-`OpVariable` **must** have a `Location` decoration
+pointer to a `Block` decorated `OpTypeStruct`, then the variable
+**must** have a `Location` decoration
 
 * 
 [](#VUID-StandaloneSpirv-Location-04918) VUID-StandaloneSpirv-Location-04918
@@ -1415,20 +1513,19 @@ The `Component` decoration value **must** not be greater than 3
 * 
 [](#VUID-StandaloneSpirv-Component-04921) VUID-StandaloneSpirv-Component-04921
 
-If the `Component` decoration is used on an `OpVariable` that has
-a `OpTypeVector` type with a `Component` `Type` with a
-`Width` that is less than or equal to 32, the sum of its
-`Component` `Count` and the `Component` decoration value **must**
-be less than or equal to 4
+If the `Component` decoration is used on a variable that has a
+`OpTypeVector` type with a `Component` `Type` with a `Width`
+that is less than or equal to 32, the sum of its `Component`
+`Count` and the `Component` decoration value **must** be less than or
+equal to 4
 
 * 
 [](#VUID-StandaloneSpirv-Component-04922) VUID-StandaloneSpirv-Component-04922
 
-If the `Component` decoration is used on an `OpVariable` that has
-a `OpTypeVector` type with a `Component` `Type` with a
-`Width` that is equal to 64, the sum of two times its `Component`
-`Count` and the `Component` decoration value **must** be less than or
-equal to 4
+If the `Component` decoration is used on a variable that has a
+`OpTypeVector` type with a `Component` `Type` with a `Width`
+that is equal to 64, the sum of two times its `Component` `Count`
+and the `Component` decoration value **must** be less than or equal to 4
 
 * 
 [](#VUID-StandaloneSpirv-Component-04923) VUID-StandaloneSpirv-Component-04923
@@ -1519,6 +1616,12 @@ All variables **must** have valid explicit layout decorations
 The `GLSLShared` and `GLSLPacked` decorations **must** not be used
 
 * 
+[](#VUID-StandaloneSpirv-TessLevelInner-10880) VUID-StandaloneSpirv-TessLevelInner-10880
+
+Any variable decorated with `TessLevelInner` or `TessLevelOuter`
+**must** also be decorated with `Patch`
+
+* 
 [](#VUID-StandaloneSpirv-Flat-04670) VUID-StandaloneSpirv-Flat-04670
 
 The `Flat`, `NoPerspective`, `Sample`, and `Centroid`
@@ -1604,8 +1707,8 @@ when used in an intersection shader
 [](#VUID-StandaloneSpirv-VulkanMemoryModel-04679) VUID-StandaloneSpirv-VulkanMemoryModel-04679
 
 If the `VulkanMemoryModel` capability is declared, the `OpLoad`
-instruction **must** use the `Volatile` memory semantics when it
-accesses into any variable that includes one of the `SMIDNV`,
+instruction **must** use `MemorySemantics` with the `Volatile` flag
+when it accesses into any variable that includes one of the `SMIDNV`,
 `WarpIDNV`, `SubgroupSize`, `SubgroupLocalInvocationId`,
 `SubgroupEqMask`, `SubgroupGeMask`, `SubgroupGtMask`,
 `SubgroupLeMask`, or `SubgroupLtMask` `BuiltIn` decorations
@@ -1616,7 +1719,7 @@ when used in an intersection shader
 * 
 [](#VUID-StandaloneSpirv-OpTypeRuntimeArray-04680) VUID-StandaloneSpirv-OpTypeRuntimeArray-04680
 
-`OpTypeRuntimeArray` **must** only be used for:
+`OpTypeRuntimeArray` **must** only be instantiated by a variable as:
 
 the last member of a `Block`-decorated `OpTypeStruct` in
 `StorageBuffer` or `PhysicalStorageBuffer` storage `Storage` `Class`
@@ -1631,7 +1734,7 @@ the outermost dimension of an arrayed variable in the
 `Storage` `Class`
 
 * 
-variables in the `NodePayloadAMDX` storage `Storage` `Class` when the
+the `NodePayloadAMDX` storage `Storage` `Class` when the
 `CoalescingAMDX` `Execution` `Mode` is specified
 
 [](#VUID-StandaloneSpirv-Function-04681) VUID-StandaloneSpirv-Function-04681
@@ -1811,21 +1914,24 @@ shaders
 
 [](#VUID-StandaloneSpirv-Base-07650) VUID-StandaloneSpirv-Base-07650
 
-The `Base` operand of `OpPtrAccessChain` **must** have a storage
-class of `Workgroup`, `StorageBuffer`, or
+The `Base` operand of `OpPtrAccessChain`
+or `OpUntypedPtrAccessChainKHR`
+**must** have a storage class of `Workgroup`, `StorageBuffer`, or
 `PhysicalStorageBuffer`
 
 [](#VUID-StandaloneSpirv-Base-07651) VUID-StandaloneSpirv-Base-07651
 
-If the `Base` operand of `OpPtrAccessChain` has a `Workgroup`
-`Storage` `Class`, then the `VariablePointers` capability **must** be
-declared
+If the `Base` operand of `OpPtrAccessChain`
+or `OpUntypedPtrAccessChainKHR`
+has a `Workgroup` `Storage` `Class`, then the `VariablePointers`
+capability **must** be declared
 
 [](#VUID-StandaloneSpirv-Base-07652) VUID-StandaloneSpirv-Base-07652
 
-If the `Base` operand of `OpPtrAccessChain` has a
-`StorageBuffer` `Storage` `Class`, then the `VariablePointers` or
-`VariablePointersStorageBuffer` capability **must** be declared
+If the `Base` operand of `OpPtrAccessChain`
+or `OpUntypedPtrAccessChainKHR`
+has a `StorageBuffer` `Storage` `Class`, then the `VariablePointers`
+or `VariablePointersStorageBuffer` capability **must** be declared
 
 [](#VUID-StandaloneSpirv-PhysicalStorageBuffer64-04708) VUID-StandaloneSpirv-PhysicalStorageBuffer64-04708
 
@@ -1858,14 +1964,13 @@ dynamically uniform indices
 
 [](#VUID-StandaloneSpirv-OpVariable-06673) VUID-StandaloneSpirv-OpVariable-06673
 
-There **must** not be more than one `OpVariable` in the
-`PushConstant` `Storage` `Class` listed in the `Interface` for each
-`OpEntryPoint`
+There **must** not be more than one variable in the `PushConstant`
+`Storage` `Class` listed in the `Interface` for each `OpEntryPoint`
 
 [](#VUID-StandaloneSpirv-OpEntryPoint-06674) VUID-StandaloneSpirv-OpEntryPoint-06674
 
-Each `OpEntryPoint` **must** not statically use more than one
-`OpVariable` in the `PushConstant` `Storage` `Class`
+Each `OpEntryPoint` **must** not statically use more than one variable
+in the `PushConstant` `Storage` `Class`
 
 [](#VUID-StandaloneSpirv-OpEntryPoint-08721) VUID-StandaloneSpirv-OpEntryPoint-08721
 
@@ -1883,13 +1988,6 @@ either explicitly or implicitly
 
 The `Result` `Type` operand of any `OpImageRead` or
 `OpImageSparseRead` instruction **must** be a vector of four components
-
-[](#VUID-StandaloneSpirv-Base-04781) VUID-StandaloneSpirv-Base-04781
-
-The `Base` operand of any `OpBitCount`, `OpBitReverse`,
-`OpBitFieldInsert`, `OpBitFieldSExtract`, or
-`OpBitFieldUExtract` instruction **must** be a 32-bit integer scalar or
-a vector of 32-bit integers
 
 [](#VUID-StandaloneSpirv-PushConstant-06675) VUID-StandaloneSpirv-PushConstant-06675
 
@@ -2115,6 +2213,22 @@ Any variable in the `TileAttachmentQCOM` `Storage` `Class`
 
 An OpTypeImage variables in the `TileAttachmentQCOM` `Storage`
 `Class` **must** not be consumed by an `OpImageQuery*` instruction
+
+[](#VUID-StandaloneSpirv-OpTypeFloat-10823) VUID-StandaloneSpirv-OpTypeFloat-10823
+
+Variables with a type of `OpTypeFloat` and an encoding of
+`Float8E4M3EXT` or `Float8E5M2EXT` **must** not be declared with a
+`Storage` `Class` of `Input` or `Output`
+
+[](#VUID-StandaloneSpirv-OpGraphInputARM-09931) VUID-StandaloneSpirv-OpGraphInputARM-09931
+
+The `InputIndex` and `ElementIndex` operands to
+`OpGraphInputARM` **must** be the  of a constant instruction
+
+[](#VUID-StandaloneSpirv-OpGraphSetOutputARM-09932) VUID-StandaloneSpirv-OpGraphSetOutputARM-09932
+
+The `OutputIndex` and `ElementIndex` operands to
+`OpGraphSetOutputARM` **must** be the  of a constant instruction
 
 The following rules **must** be validated at runtime.
 These rules depend on knowledge of the implementation and its capabilities
@@ -3071,11 +3185,11 @@ floating-point
 
 * 
 If the component type of `V` is 16-bit floating-point,
-[    `cooperativeVectorTrainingFloat16Accumulation`](../chapters/limits.html#limits-cooperativeVectorTrainingFloat16Accumulation) **must** be supported
+[     `cooperativeVectorTrainingFloat16Accumulation`](../chapters/limits.html#limits-cooperativeVectorTrainingFloat16Accumulation) **must** be supported
 
 * 
 If the component type of `V` is 32-bit floating-point,
-[    `cooperativeVectorTrainingFloat32Accumulation`](../chapters/limits.html#limits-cooperativeVectorTrainingFloat32Accumulation) **must** be supported
+[     `cooperativeVectorTrainingFloat32Accumulation`](../chapters/limits.html#limits-cooperativeVectorTrainingFloat32Accumulation) **must** be supported
 
 * 
 The pointer’s storage class **must** be `StorageBuffer` or
@@ -3091,11 +3205,11 @@ or `VK_COMPONENT_TYPE_FLOAT32_KHR`
 
 * 
 If `MatrixInterpretation` is `VK_COMPONENT_TYPE_FLOAT16_KHR`,
-[    `cooperativeVectorTrainingFloat16Accumulation`](../chapters/limits.html#limits-cooperativeVectorTrainingFloat16Accumulation) **must** be supported
+[     `cooperativeVectorTrainingFloat16Accumulation`](../chapters/limits.html#limits-cooperativeVectorTrainingFloat16Accumulation) **must** be supported
 
 * 
 If `MatrixInterpretation` is `VK_COMPONENT_TYPE_FLOAT32_KHR`,
-[    `cooperativeVectorTrainingFloat32Accumulation`](../chapters/limits.html#limits-cooperativeVectorTrainingFloat32Accumulation) **must** be supported
+[     `cooperativeVectorTrainingFloat32Accumulation`](../chapters/limits.html#limits-cooperativeVectorTrainingFloat32Accumulation) **must** be supported
 
 * 
 The component types of `A` and `B` **must** be 16-bit floating-point
@@ -3296,6 +3410,14 @@ The sum of size in bytes for variables and [    padding](../chapters/shaders.htm
 `Storage` `Class` in the `TaskEXT` `Execution` `Model` **must** be less than
 or equal to [    `maxTaskPayloadAndSharedMemorySize`](../chapters/limits.html#limits-maxTaskPayloadAndSharedMemorySize)
 
+[](#VUID-RuntimeSpirv-MeshEXT-10883) VUID-RuntimeSpirv-MeshEXT-10883
+
+If the `MeshEXT` `Execution` `Model` declares a variable with the
+`TaskPayloadWorkgroupEXT` `Storage` `Class` in the entry point, there
+must be a matching `TaskPayloadWorkgroupEXT` `Storage` `Class` variable
+in the `TaskEXT` `Execution` `Model` passed as an argument to
+`OpEmitMeshTasksEXT`
+
 [](#VUID-RuntimeSpirv-OpCooperativeMatrixLoadKHR-08986) VUID-RuntimeSpirv-OpCooperativeMatrixLoadKHR-08986
 
 For `OpCooperativeMatrixLoadKHR` and `OpCooperativeMatrixStoreKHR`
@@ -3368,32 +3490,75 @@ If [`storageBuffer8BitAccess`](../chapters/features.html#features-storageBuffer8
 is `VK_FALSE`, then objects containing an 8-bit integer element
 **must** not have `Storage` `Class` of `StorageBuffer`,
 `ShaderRecordBufferKHR`, or `PhysicalStorageBuffer`
+unless [`shaderUntypedPointers`](../chapters/features.html#features-shaderUntypedPointers)
+is `VK_TRUE` and they are accessed in:
+
+* 
+32-bit multiples, or
+
+* 
+16-bit multiples if [  `storageBuffer16BitAccess`](../chapters/features.html#features-storageBuffer16BitAccess) is `VK_TRUE`.
 
 [](#VUID-RuntimeSpirv-uniformAndStorageBuffer8BitAccess-06329) VUID-RuntimeSpirv-uniformAndStorageBuffer8BitAccess-06329
 
 If [    `uniformAndStorageBuffer8BitAccess`](../chapters/features.html#features-uniformAndStorageBuffer8BitAccess) is `VK_FALSE`, then
 objects in the `Uniform` `Storage` `Class` with the `Block`
 decoration **must** not have an 8-bit integer member
+unless [`shaderUntypedPointers`](../chapters/features.html#features-shaderUntypedPointers)
+is `VK_TRUE` and they are accessed in:
+
+* 
+32-bit multiples, or
+
+* 
+16-bit multiples if [  `uniformAndStorageBuffer16BitAccess`](../chapters/features.html#features-uniformAndStorageBuffer16BitAccess) is `VK_TRUE`.
 
 [](#VUID-RuntimeSpirv-storagePushConstant8-06330) VUID-RuntimeSpirv-storagePushConstant8-06330
 
 If [`storagePushConstant8`](../chapters/features.html#features-storagePushConstant8) is
 `VK_FALSE`, then objects containing an 8-bit integer element **must**
 not have `Storage` `Class` of `PushConstant`
+unless [`shaderUntypedPointers`](../chapters/features.html#features-shaderUntypedPointers)
+is `VK_TRUE` and they are accessed in:
+
+* 
+32-bit multiples, or
+
+* 
+16-bit multiples if > is `VK_TRUE`.
 
 [](#VUID-RuntimeSpirv-workgroupMemoryExplicitLayout8BitAccess-10756) VUID-RuntimeSpirv-workgroupMemoryExplicitLayout8BitAccess-10756
 
 If [    `workgroupMemoryExplicitLayout8BitAccess`](../chapters/features.html#features-workgroupMemoryExplicitLayout8BitAccess) is `VK_FALSE`, then
 objects in the `Workgroup` `Storage` `Class` with the `Block`
-decoration **must** not have an 8-bit integer element.
+decoration **must** not have an 8-bit integer element
+unless [`shaderUntypedPointers`](../chapters/features.html#features-shaderUntypedPointers)
+is `VK_TRUE` and they are accessed in:
 
-[](#VUID-RuntimeSpirv-storageBuffer16BitAccess-06331) VUID-RuntimeSpirv-storageBuffer16BitAccess-06331
+* 
+32-bit multiples, or
+
+* 
+16-bit multiples if
+[    `workgroupMemoryExplicitLayout16BitAccess`](../chapters/features.html#features-workgroupMemoryExplicitLayout16BitAccess) is `VK_TRUE`
+
+[](#VUID-RuntimeSpirv-storageBuffer16BitAccess-11161) VUID-RuntimeSpirv-storageBuffer16BitAccess-11161
 
 If [`storageBuffer16BitAccess`](../chapters/features.html#features-storageBuffer16BitAccess)
 is `VK_FALSE`, then objects containing 16-bit integer or 16-bit
 floating-point elements **must** not have `Storage` `Class` of
 `StorageBuffer`, `ShaderRecordBufferKHR`, or
 `PhysicalStorageBuffer`
+unless:
+
+* 
+[`storageBuffer8BitAccess`](../chapters/features.html#features-storageBuffer8BitAccess) is
+`VK_TRUE`, or
+
+* 
+the elements are accessed in 32-bit multiples if
+[`shaderUntypedPointers`](../chapters/features.html#features-shaderUntypedPointers) is
+`VK_TRUE`.
 
 [](#VUID-RuntimeSpirv-uniformAndStorageBuffer16BitAccess-06332) VUID-RuntimeSpirv-uniformAndStorageBuffer16BitAccess-06332
 
@@ -3401,6 +3566,15 @@ If [    `uniformAndStorageBuffer16BitAccess`](../chapters/features.html#features
 objects in the `Uniform` `Storage` `Class` with the `Block`
 decoration **must** not have 16-bit integer or 16-bit floating-point
 members
+unless:
+
+* 
+[  `uniformAndStorageBuffer8BitAccess`](../chapters/features.html#features-uniformAndStorageBuffer8BitAccess) is `VK_TRUE`, or
+
+* 
+members are accessed in 32-bit multiples and
+[`shaderUntypedPointers`](../chapters/features.html#features-shaderUntypedPointers) is
+`VK_TRUE`.
 
 [](#VUID-RuntimeSpirv-storagePushConstant16-06333) VUID-RuntimeSpirv-storagePushConstant16-06333
 
@@ -3408,20 +3582,39 @@ If [`storagePushConstant16`](../chapters/features.html#features-storagePushConst
 `VK_FALSE`, then objects containing 16-bit integer or 16-bit
 floating-point elements **must** not have `Storage` `Class` of
 `PushConstant`
+unless:
 
-[](#VUID-RuntimeSpirv-storageInputOutput16-06334) VUID-RuntimeSpirv-storageInputOutput16-06334
+* 
+[`StoragePushConstant8`](../chapters/features.html#features-storagePushConstant8) is
+`VK_TRUE`, or
+
+* 
+elements are accessed in 32-bit multiples if
+[`shaderUntypedPointers`](../chapters/features.html#features-shaderUntypedPointers) is
+`VK_TRUE`.
+
+[](#VUID-RuntimeSpirv-storageInputOutput16-11162) VUID-RuntimeSpirv-storageInputOutput16-11162
 
 If [`storageInputOutput16`](../chapters/features.html#features-storageInputOutput16) is
 `VK_FALSE`, then objects containing 16-bit integer or 16-bit
-floating-point elements **must** not have `Storage` `Class` of `Input` or
-`Output`
+floating-point elements **must** not have storage class of **Input** or
+**Output**.
 
 [](#VUID-RuntimeSpirv-workgroupMemoryExplicitLayout16BitAccess-10757) VUID-RuntimeSpirv-workgroupMemoryExplicitLayout16BitAccess-10757
 
 If [    `workgroupMemoryExplicitLayout16BitAccess`](../chapters/features.html#features-workgroupMemoryExplicitLayout16BitAccess) is `VK_FALSE`, then
 objects in the `Workgroup` `Storage` `Class` with the `Block`
 decoration **must** not have an 16-bit integer or 16-bit floating-point
-elements.
+elements
+unless:
+
+* 
+[     `workgroupMemoryExplicitLayout8BitAccess`](../chapters/features.html#features-workgroupMemoryExplicitLayout8BitAccess) is `VK_TRUE`, or
+
+* 
+elements are accessed in 32-bit multiples if
+[`shaderUntypedPointers`](../chapters/features.html#features-shaderUntypedPointers) is
+`VK_TRUE`
 
 [](#VUID-RuntimeSpirv-None-06337) VUID-RuntimeSpirv-None-06337
 
@@ -3589,7 +3782,7 @@ For `OpRayQueryGenerateIntersectionKHR` instructions,
 
 For `OpRayQueryGetIntersectionTriangleVertexPositionsKHR`
 instructions, `Acceleration` `Structure` **must** have been built
-with `VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_KHR` in
+with `VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DATA_ACCESS_BIT_KHR` in
 `flags`
 
 [](#VUID-RuntimeSpirv-OpTraceRayKHR-06355) VUID-RuntimeSpirv-OpTraceRayKHR-06355
@@ -3837,7 +4030,7 @@ width for each `Component`
 
 [](#VUID-RuntimeSpirv-OpVariable-08746) VUID-RuntimeSpirv-OpVariable-08746
 
-Any `OpVariable`, `Block`-decorated `OpTypeStruct`, or
+Any variable, `Block`-decorated `OpTypeStruct`, or
 `Block`-decorated `OpTypeStruct` members shared between the
 `OpEntryPoint` of two shader stages **must** have matching decorations
 as defined in [interface matching](../chapters/interfaces.html#interfaces-iointerfaces-matching)
@@ -3851,8 +4044,8 @@ The sum of size in bytes for variables and [    padding](../chapters/shaders.htm
 [](#VUID-RuntimeSpirv-shaderZeroInitializeWorkgroupMemory-06372) VUID-RuntimeSpirv-shaderZeroInitializeWorkgroupMemory-06372
 
 If the [    `shaderZeroInitializeWorkgroupMemory`](../chapters/features.html#features-shaderZeroInitializeWorkgroupMemory) feature is not enabled, any
-`OpVariable` with `Workgroup` as its `Storage` `Class` **must** not have
-an `Initializer` operand
+variable with `Workgroup` as its `Storage` `Class` **must** not have an
+`Initializer` operand
 
 [](#VUID-RuntimeSpirv-Offset-10213) VUID-RuntimeSpirv-Offset-10213
 
@@ -3860,6 +4053,30 @@ If the [`maintenance8`](../chapters/features.html#features-maintenance8) feature
 enabled, image
 operand `Offset` **must** only be used with `OpImage*Gather`
 instructions
+
+[](#VUID-RuntimeSpirv-Size-11165) VUID-RuntimeSpirv-Size-11165
+
+The `Size` operand of `OpCopyMemorySized` **must** be a multiple of 4
+
+* 
+If 16-bit storage is enabled for the storage classes of both the
+`Target` and `Source` operands the `Size` operand may instead be
+a multiple of 2
+
+* 
+If 8-bit storage is enabled for the storage classes of both the
+`Target` and `Source` operands the `Size` operand may instead be
+any value
+
+[](#VUID-RuntimeSpirv-OpTypeUntypedPointerKHR-11166) VUID-RuntimeSpirv-OpTypeUntypedPointerKHR-11166
+
+Any memory access made using an `OpTypeUntypedPointerKHR` must have
+an alignment that satisfies [Offset and    Stride Assignment](../chapters/interfaces.html#interfaces-resources-layout)
+
+[](#VUID-RuntimeSpirv-OpUntypedVariableKHR-11167) VUID-RuntimeSpirv-OpUntypedVariableKHR-11167
+
+Any `OpUntypedVariableKHR` **must** have a `Data` `Type` operand
+specified
 
 [](#VUID-RuntimeSpirv-OpImage-06376) VUID-RuntimeSpirv-OpImage-06376
 
@@ -4228,26 +4445,24 @@ enabled
 
 In compute shaders that enables SPIR-V capability `TileShadingQCOM`,
 the `x` size in `TileShadingRateQCOM` **must** be less than or equal
-to
-[VkPhysicalDeviceTileShadingPropertiesQCOM](../chapters/limits.html#VkPhysicalDeviceTileShadingPropertiesQCOM)::`maxTileShadingRate`::`x`
+to [VkPhysicalDeviceTileShadingPropertiesQCOM](../chapters/limits.html#VkPhysicalDeviceTileShadingPropertiesQCOM).maxTileShadingRate.x
 
 [](#VUID-RuntimeSpirv-y-10703) VUID-RuntimeSpirv-y-10703
 
 In compute shaders that enables SPIR-V capability `TileShadingQCOM`,
 the `y` size in `TileShadingRateQCOM` **must** be less than or equal
-to
-[VkPhysicalDeviceTileShadingPropertiesQCOM](../chapters/limits.html#VkPhysicalDeviceTileShadingPropertiesQCOM)::`maxTileShadingRate`::`y`
+to [VkPhysicalDeviceTileShadingPropertiesQCOM](../chapters/limits.html#VkPhysicalDeviceTileShadingPropertiesQCOM).maxTileShadingRate.y
 
 [](#VUID-RuntimeSpirv-z-10704) VUID-RuntimeSpirv-z-10704
 
 In compute shaders that enables SPIR-V capability `TileShadingQCOM`,
 the `z` size in `TileShadingRateQCOM` **must** be less than or equal
-to [VkTilePropertiesQCOM](../chapters/renderpass.html#VkTilePropertiesQCOM)::`tileSize`::`z`
+to [VkTilePropertiesQCOM](../chapters/renderpass.html#VkTilePropertiesQCOM).tileSize.z
 
 [](#VUID-RuntimeSpirv-tileSize-10705) VUID-RuntimeSpirv-tileSize-10705
 
 In compute shaders that enables SPIR-V capability `TileShadingQCOM`,
-[VkTilePropertiesQCOM](../chapters/renderpass.html#VkTilePropertiesQCOM)::`tileSize`::`z` %
+[VkTilePropertiesQCOM](../chapters/renderpass.html#VkTilePropertiesQCOM).tileSize.z %
 `TileShadingRateQCOM`::`z` **must** equal `0`
 
 [](#VUID-RuntimeSpirv-OpImage-10706) VUID-RuntimeSpirv-OpImage-10706
@@ -4382,6 +4597,147 @@ If a [VkSampler](../chapters/samplers.html#VkSampler) object that enables
 [sampler Y′CBCR conversion](../chapters/samplers.html#samplers-YCbCr-conversion) is statically
 used, it **must** not use the `ConstOffset` or `Offset` operands
 
+[](#VUID-RuntimeSpirv-shaderTensorSupportedStages-09901) VUID-RuntimeSpirv-shaderTensorSupportedStages-09901
+
+`OpTypeTensorARM`, `OpTensorReadARM`, `OpTensorWriteARM`, or
+`OpTensorQuerySizeARM` **must** not be used in shader stages not in
+[`shaderTensorSupportedStages`](../chapters/limits.html#limits-shaderTensorSupportedStages)
+
+[](#VUID-RuntimeSpirv-OpTypeTensorARM-09902) VUID-RuntimeSpirv-OpTypeTensorARM-09902
+
+`OpTypeTensorARM` with a `Shape` **must** not be used in shader
+stages
+
+[](#VUID-RuntimeSpirv-OpTypeTensorARM-09907) VUID-RuntimeSpirv-OpTypeTensorARM-09907
+
+`OpTypeTensorARM` without a `Rank` **must** not be used in shader
+stages
+
+[](#VUID-RuntimeSpirv-maxTensorShaderAccessArrayLength-09903) VUID-RuntimeSpirv-maxTensorShaderAccessArrayLength-09903
+
+The length of an array returned by `OpTensorReadARM` or passed as the
+`Object` operand to `OpTensorWriteARM` **must** be less than or equal
+to [    `maxTensorShaderAccessArrayLength`](../chapters/limits.html#limits-maxTensorShaderAccessArrayLength)
+
+[](#VUID-RuntimeSpirv-maxTensorShaderAccessSize-09904) VUID-RuntimeSpirv-maxTensorShaderAccessSize-09904
+
+The total size of the data (number of tensor elements × size of an
+element) read or written by one `OpTensorReadARM`, or
+`OpTensorWriteARM` instruction, respectively, **must** be less than or
+equal to [    `maxTensorShaderAccessSize`](../chapters/limits.html#limits-maxTensorShaderAccessSize)
+
+[](#VUID-RuntimeSpirv-None-10824) VUID-RuntimeSpirv-None-10824
+
+If the [`maintenance9`](../chapters/features.html#features-maintenance9) feature is not
+enabled, the
+`Base` operand of any `OpBitCount`, `OpBitReverse`,
+`OpBitFieldInsert`, `OpBitFieldSExtract`, or
+`OpBitFieldUExtract` instruction **must** be a 32-bit integer scalar or
+a vector of 32-bit integers
+
+[](#VUID-RuntimeSpirv-GraphARM-09922) VUID-RuntimeSpirv-GraphARM-09922
+
+The `GraphARM` capability **must** not be declared in modules used to
+create a shader stage
+
+[](#VUID-RuntimeSpirv-pNext-09919) VUID-RuntimeSpirv-pNext-09919
+
+For each [data graph pipeline](../chapters/VK_ARM_data_graph/graphs.html#graphs-pipelines) created with a
+[VkDataGraphPipelineShaderModuleCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineShaderModuleCreateInfoARM) structure included in
+the `pNext` chain of [VkDataGraphPipelineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCreateInfoARM), the
+`OpGraph` that is used by the `OpGraphEntryPointARM` the pipeline
+is being created for **must** have an `OpTypeGraphARM` that only uses
+`OpTypeTensorARM` with `Shape` present
+
+[](#VUID-RuntimeSpirv-pNext-09920) VUID-RuntimeSpirv-pNext-09920
+
+For each [data graph pipeline](../chapters/VK_ARM_data_graph/graphs.html#graphs-pipelines) created with a
+[VkDataGraphPipelineShaderModuleCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineShaderModuleCreateInfoARM) structure included in
+the `pNext` chain of [VkDataGraphPipelineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCreateInfoARM), all the
+`OpGraphConstantARM` with `OpTypeTensorARM` type used by the
+`OpGraph` that is used by the `OpGraphEntryPointARM` the pipeline
+is being created for **must** have an `OpTypeTensorARM` with `Shape`
+present
+
+[](#VUID-RuntimeSpirv-pNext-09921) VUID-RuntimeSpirv-pNext-09921
+
+For each [data graph pipeline](../chapters/VK_ARM_data_graph/graphs.html#graphs-pipelines) created with a
+[VkDataGraphPipelineShaderModuleCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineShaderModuleCreateInfoARM) structure included in
+the `pNext` chain of [VkDataGraphPipelineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCreateInfoARM), one and
+only one [VkDataGraphPipelineConstantARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineConstantARM) structure that satisfies
+all the following constraints **must** be present in
+[VkDataGraphPipelineShaderModuleCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineShaderModuleCreateInfoARM)::`pConstants` for
+each `OpGraphConstantARM` used by the `OpGraph` that has a
+`OpTypeTensorARM` type and is used by the `OpGraphEntryPointARM`
+the pipeline is being created for:
+
+* 
+its `id` member **must** match the `GraphConstantID` of the
+`OpGraphConstantARM`
+
+* 
+its `pNext` chain **must** include a [VkTensorDescriptionARM](../chapters/resources.html#VkTensorDescriptionARM)
+structure
+
+whose `dimensionCount` is equal to the `Rank` of the
+`OpTypeTensorARM` of the `OpGraphConstantARM`
+
+* 
+whose `pDimensions` array elements are individually and in order
+equal to the elements of the array that defines the `Shape` of the
+`OpTypeTensorARM` of the `OpGraphConstantARM`
+
+* 
+whose `format` [is compatible](#spirvenv-tensor-formats) with the
+`ElementType` of the `OpTypeTensorARM` of the
+`OpGraphConstantARM`
+
+[](#VUID-RuntimeSpirv-pNext-09923) VUID-RuntimeSpirv-pNext-09923
+
+For each [data graph pipeline](../chapters/VK_ARM_data_graph/graphs.html#graphs-pipelines) created with a
+[VkDataGraphPipelineShaderModuleCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineShaderModuleCreateInfoARM) structure included in
+the `pNext` chain of [VkDataGraphPipelineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCreateInfoARM), one and
+only one [VkDataGraphPipelineResourceInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineResourceInfoARM) structure that
+satisfies all the following constraints **must** be present in
+[VkDataGraphPipelineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCreateInfoARM)::`pResourceInfos` for each
+`OpVariable` with a `OpTypeTensorARM` type that is part of the
+`Interface` of the `OpGraphEntryPointARM` the pipeline is being
+created for:
+
+* 
+its `descriptorSet` member **must** match the `DescriptorSet`
+decoration applied to the `OpVariable`
+
+* 
+its `binding` member **must** match the `Binding` decoration
+applied to the `OpVariable`
+
+* 
+its `arrayElement` member **must** be zero if `OpVariable` is not a
+`OpTypeArray` or if `OpVariable` is a `OpTypeArray` of
+`OpTypeTensorARM` with `Shape` present
+
+* 
+its `pNext` chain **must** include a [VkTensorDescriptionARM](../chapters/resources.html#VkTensorDescriptionARM)
+structure
+
+whose `dimensionCount` is equal to the `Rank` of the
+`OpTypeTensorARM` of the `OpVariable` or its elements
+
+* 
+whose `pDimensions` array elements are individually and in order
+equal to the elements of the array that defines the `Shape` of the
+`OpTypeTensorARM` of the `OpVariable` or its elements
+
+* 
+whose `format` [is compatible](#spirvenv-tensor-formats) with the
+`ElementType` of the `OpTypeTensorARM` of the `OpVariable`
+
+[](#VUID-RuntimeSpirv-None-10834) VUID-RuntimeSpirv-None-10834
+
+[Buffer indexing calculations](#spirvenv-buffer-indexing) **must** not wrap
+32 bits
+
 The following rules apply to operations on all floating-point values:
 
 * 
@@ -4476,6 +4832,11 @@ potentially generated by any instruction (except those listed above) or
 any extended instructions for GLSL in a shader **may** be flushed to zero.
 
 * 
+Denormalized floating-point values whose type use the
+`Float8E4M3EXT` or `Float8E5M2EXT` FP Encoding **must** be preserved
+during conversions to IEEE 754 binary 16 floating-point values.
+
+* 
 If the entry point is declared with the `DenormFlushToZero`
 `Execution` `Mode` then for the affected instructions the denormalized
 result **must** be flushed to zero and the denormalized operands **may** be
@@ -4483,6 +4844,12 @@ flushed to zero.
 Denormalized values obtained via unpacking an integer into a vector of
 values with smaller bit width and interpreting those values as
 floating-point numbers **must** be flushed to zero.
+
+* 
+When denormal values are being flushed, the result of an operation **may**
+be considered denormal whenever the infinitely precise result is
+non-zero and of smaller magnitude than the smallest normal value, even
+if rounding would otherwise give a normal result.
 
 * 
 The following core SPIR-V instructions **must** respect the
@@ -4595,7 +4962,17 @@ If the entry point is declared with the `RoundingModeRTE` or the
 [IEEE 754](../chapters/introduction.html#ieee-754) “roundTiesToEven” or “roundTowardZero” rounding
 directions, respectively.
 These execution modes do not affect operations on floating-point values with
-the `BFloat16KHR` encoding.
+the following encodings:
+
+* 
+`BFloat16KHR`
+
+* 
+`Float8E4M3EXT`
+
+* 
+`Float8E5M2EXT`
+
 Otherwise, they are rounded with
 [implementation-defined rounding mode](#spirvenv-correctly-rounded-impl-defined).
 
@@ -4647,12 +5024,12 @@ be Fmax and the smallest be Fmin.
 The operation **must** return a value in the range [x - E, x +  E]
 where \(E = \mathrm{max} \left( | x - F_{\mathrm{min}} |, | x -
 F_{\mathrm{max}} | \right) \).
-If the entry point is declared with the `DenormFlushToZero` execution
-mode, then any intermediate denormal value(s) while evaluating the formula
-**may** be flushed to zero.
-Denormal final results **must** be flushed to zero.
 If the entry point is declared with the `DenormPreserve` `Execution` `Mode`,
 then denormals **must** be preserved throughout the formula.
+Otherwise, any intermediate denormal value(s) while evaluating the formula
+**may** be flushed to zero.
+If the entry point is declared with the `DenormFlushToZero` execution
+mode, then denormal final results **must** be flushed to zero.
 
 The precision of all instructions on float values with the `BFloat16KHR`
 encoding is required to be
@@ -4787,6 +5164,40 @@ When `inputType` is `VK_COMPONENT_TYPE_FLOAT16_KHR` and
 `VK_COMPONENT_TYPE_FLOAT_E5M2_NV`), the input vector **should** be
 converted to the lower-precision type before performing the matrix-vector
 multiply, but **may** keep the full 16 bits of precision.
+
+Pipelines and shaders **may** be compiled to use 32-bit integer arithmetic to
+compute byte offsets (e.g. based on `OpAccessChain` instructions) within
+a
+physical storage buffer or
+buffer, limiting the accessible range to 4GB.
+For physical storage buffers, the base address is a 64-bit value and the
+implicit base plus offset calculation uses 64-bit addition.
+
+|  | Note that `OpAccessChain` indices are always treated as signed, so a
+| --- | --- |
+32-bit index can only address 2GB if the `ArrayStride` is 1. |
+
+The offset calculations that have the 4GB limit include:
+
+* 
+`OpAccessChain` and `OpPtrAccessChain` - the total offset summed
+over all indices multiplied by strides, including spanning multiple
+access chain instructions that lead to a given memory access.
+
+* 
+`OpCooperativeMatrixLoadKHR` and `OpCooperativeMatrixStoreKHR`
+instructions computing an offset based on element, row, and stride
+parameters.
+
+* 
+`OpCooperativeMatrixLoadKHR` and `OpCooperativeMatrixStoreKHR`
+instructions computing an offset based on element, row, and stride
+parameters.
+
+* 
+`OpCooperativeMatrixLoadTensorNV` and
+`OpCooperativeMatrixStoreTensorNV` instructions computing an offset
+based on tensor layout state.
 
 SPIR-V associates a signedness with all integer image accesses.
 This is required in certain parts of the SPIR-V and the Vulkan image access
@@ -4934,3 +5345,21 @@ the geometry transform, which is performed at standard
 [floating-point](../chapters/fundamentals.html#fundamentals-floating-point) precision, but without a
 specifically defined order of floating-point operations to perform the
 matrix multiplication.
+
+SPIR-V Tensor `Element` `Type` values are compatible with
+[VkFormat](../chapters/formats.html#VkFormat) values as defined below:
+
+| SPIR-V Tensor Element Type | Compatible Vulkan Formats |
+| --- | --- |
+| `OpTypeBool` | `VK_FORMAT_R8_BOOL_ARM` |
+| `OpTypeFloat 16` | `VK_FORMAT_R16_SFLOAT` |
+| `OpTypeFloat 32` | `VK_FORMAT_R32_SFLOAT` |
+| `OpTypeFloat 64` | `VK_FORMAT_R64_SFLOAT` |
+| `OpTypeInt 8 0` | `VK_FORMAT_R8_UINT` |
+| `OpTypeInt 8 1` | `VK_FORMAT_R8_SINT` |
+| `OpTypeInt 16 0` | `VK_FORMAT_R16_UINT` |
+| `OpTypeInt 16 1` | `VK_FORMAT_R16_SINT` |
+| `OpTypeInt 32 0` | `VK_FORMAT_R32_UINT` |
+| `OpTypeInt 32 1` | `VK_FORMAT_R32_SINT` |
+| `OpTypeInt 64 0` | `VK_FORMAT_R64_UINT` |
+| `OpTypeInt 64 1` | `VK_FORMAT_R64_SINT` |

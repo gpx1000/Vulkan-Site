@@ -26,20 +26,18 @@ It is possible for the window surface to change such that the swap chain is no l
 One of the reasons that could cause this to happen is the size of the window changing.
 We have to catch these events and recreate the swap chain.
 
-Create a new `recreateSwapChain` function that calls `createSwapChain` and all of the creation functions for the objects that depend on the swap chain or the window size.
+Create a new `recreateSwapChain` function that calls `createSwapChain` and all the creation functions for the objects that depend on the swap chain or the window size.
 
 void recreateSwapChain() {
-    vkDeviceWaitIdle(device);
+    device.waitIdle();
 
     createSwapChain();
     createImageViews();
-    createFramebuffers();
 }
 
 We first call `vkDeviceWaitIdle`, because just like in the last chapter, we shouldn’t touch resources that may still be in use.
 Obviously, we’ll have to recreate  the swap chain itself.
-The image views need to be recreated because they are based  directly on the swap chain images.
-Finally, the framebuffers directly depend on the  swap chain images, and thus must be recreated as well.
+The image views need to be recreated because they are based directly on the swap chain images.
 
 To make sure that the old versions of these objects are cleaned up before recreating them, we should move some of the cleanup code to a separate function that we can call from the `recreateSwapChain` function.
 Let’s call it `cleanupSwapChain`:
@@ -49,48 +47,37 @@ void cleanupSwapChain() {
 }
 
 void recreateSwapChain() {
-    vkDeviceWaitIdle(device);
+    device.waitIdle();
 
     cleanupSwapChain();
 
     createSwapChain();
     createImageViews();
-    createFramebuffers();
 }
 
 Note that we don’t recreate the renderpass here for simplicity.
-In theory it can be possible for the swap chain image format to change during an applications' lifetime, e.g.
-when moving a window from an standard range to an high dynamic range monitor.
+In theory, it can be possible for the swap chain image format to change during an applications' lifetime, e.g.,
+when moving a window from a standard range to a high dynamic range monitor.
 This may require the application to recreate the renderpass to make sure the change between dynamic ranges is properly reflected.
 
 We’ll move the cleanup code of all objects that are recreated as part of a swap chain refresh from `cleanup` to `cleanupSwapChain`:
 
 void cleanupSwapChain() {
-    for (auto framebuffer : swapChainFramebuffers) {
-        vkDestroyFramebuffer(device, framebuffer, nullptr);
-    }
-
-    for (auto imageView : swapChainImageViews) {
-        vkDestroyImageView(device, imageView, nullptr);
-    }
-
-    vkDestroySwapchainKHR(device, swapChain, nullptr);
+    swapChainImageViews.clear();
+    swapChain = nullptr;
 }
 
 void cleanup() {
     cleanupSwapChain();
 
-    vkDestroyPipeline(device, graphicsPipeline, nullptr);
-    vkDestroyPipelineLayout(device, pipelineLayout, nullptr);
-
-    vkDestroyRenderPass(device, renderPass, nullptr);
-
-    for (size_t i = 0; i 
+    glfwDestroyWindow(window);
+    glfwTerminate();
+}
 
 Note that in `chooseSwapExtent` we already query the new window resolution to make sure that the swap chain images have the (new) right size, so there’s no need to modify `chooseSwapExtent` (remember that we already had to use `glfwGetFramebufferSize` to get the resolution of the surface in pixels when creating the swap chain).
 
 That’s all it takes to recreate the swap chain!
-However, the disadvantage of this approach is that we need to stop all rendering before creating the new swap chain.
+However, the disadvantage of this approach is that we need to stop all renderings before creating the new swap chain.
 It is possible to create a new swap chain while drawing commands on an image from the old swap chain are still in-flight.
 You need to pass the previous swap chain to the `oldSwapchain` field in the `VkSwapchainCreateInfoKHR` struct and destroy the old swap chain as soon as you’ve finished using it.
 
@@ -105,33 +92,34 @@ Usually happens after a window resize.
 * 
 `VK_SUBOPTIMAL_KHR`: The swap chain can still be used to successfully present to the surface, but the surface properties are no longer matched exactly.
 
-VkResult result = vkAcquireNextImageKHR(device, swapChain, UINT64_MAX, imageAvailableSemaphores[currentFrame], VK_NULL_HANDLE, &imageIndex);
+auto [result, imageIndex] = swapChain.acquireNextImage( UINT64_MAX, *presentCompleteSemaphores[currentFrame], nullptr );
 
-if (result == VK_ERROR_OUT_OF_DATE_KHR) {
+if (result == vk::Result::eErrorOutOfDateKHR) {
     recreateSwapChain();
     return;
-} else if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR) {
+}
+if (result != vk::Result::eSuccess && result != vk::Result::eSuboptimalKHR) {
     throw std::runtime_error("failed to acquire swap chain image!");
 }
 
 If the swap chain turns out to be out of date when attempting to acquire an image, then it is no longer possible to present to it.
-Therefore we should immediately recreate the swap chain and try again in the next `drawFrame` call.
+Therefore, we should immediately recreate the swap chain and try again in the next `drawFrame` call.
 
 You could also decide to do that if the swap chain is suboptimal, but I’ve chosen to proceed anyway in that case because we’ve already acquired an image.
 Both `VK_SUCCESS` and `VK_SUBOPTIMAL_KHR` are considered "success" return codes.
 
-result = vkQueuePresentKHR(presentQueue, &presentInfo);
-
-if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR) {
+result = presentQueue.presentKHR( presentInfoKHR );
+if (result == vk::Result::eErrorOutOfDateKHR || result == vk::Result::eSuboptimalKHR) {
+    framebufferResized = false;
     recreateSwapChain();
-} else if (result != VK_SUCCESS) {
+} else if (result != vk::Result::eSuccess) {
     throw std::runtime_error("failed to present swap chain image!");
 }
 
 currentFrame = (currentFrame + 1) % MAX_FRAMES_IN_FLIGHT;
 
 The `vkQueuePresentKHR` function returns the same values with the same meaning.
-In this case we will also recreate the swap chain if it is suboptimal, because we want the best possible result.
+In this case, we will also recreate the swap chain if it is suboptimal, because we want the best possible result.
 
 If we try to run the code now, it is possible to encounter a deadlock.
 Debugging the code, we find that the application reaches `vkWaitForFences` but never continues past it.
@@ -140,7 +128,7 @@ But before that happens, the current frame’s fence was waited upon and reset.
 Since we return immediately, no work is submitted for execution and the fence will never be signaled, causing `vkWaitForFences` to halt forever.
 
 There is a simple fix thankfully.
-Delay resetting the fence until after we know for sure we will be submitting work with it.
+Delay resetting the fence until after we know for sure, we will be submitting work with it.
 Thus, if we return early, the fence is still signaled and `vkWaitForFences` wont deadlock the next time we use the same fence object.
 
 The beginning of `drawFrame` should now look like this:
@@ -162,7 +150,7 @@ vkResetFences(device, 1, &inFlightFences[currentFrame]);
 
 Although many drivers and platforms trigger `VK_ERROR_OUT_OF_DATE_KHR` automatically after a window resize, it is not guaranteed to happen.
 That’s why we’ll add some extra code to also handle resizes explicitly.
-First add a new member variable that flags that a resize has happened:
+First, add a new member variable that flags that a resize has happened:
 
 std::vector inFlightFences;
 
@@ -170,15 +158,15 @@ bool framebufferResized = false;
 
 The `drawFrame` function should then be modified to also check for this flag:
 
-if (result == VK_ERROR_OUT_OF_DATE_KHR || result == VK_SUBOPTIMAL_KHR || framebufferResized) {
+if (result == vk::Result::eErrorOutOfDateKHR || result == vk::Result::eSuboptimalKHR) {
     framebufferResized = false;
     recreateSwapChain();
-} else if (result != VK_SUCCESS) {
+} else if (result != vk::Result::eSuccess) {
     ...
 }
 
 It is important to do this after `vkQueuePresentKHR` to ensure that the semaphores are in a consistent state, otherwise a signaled semaphore may never be properly waited upon.
-Now to actually detect resizes we can use the `glfwSetFramebufferSizeCallback` function in the GLFW framework to set up a callback:
+Now, to actually detect resizes, we can use the `glfwSetFramebufferSizeCallback` function in the GLFW framework to set up a callback:
 
 void initWindow() {
     glfwInit();
@@ -195,7 +183,7 @@ static void framebufferResizeCallback(GLFWwindow* window, int width, int height)
 
 The reason that we’re creating a `static` function as a callback is because GLFW does not know how to properly call a member function with the right `this` pointer to our `HelloTriangleApplication` instance.
 
-However, we do get a reference to the `GLFWwindow` in the callback and there is another GLFW function that allows you to store an arbitrary pointer inside of it: `glfwSetWindowUserPointer`:
+However, we do get a reference to the `GLFWwindow` in the callback and there is another GLFW function that allows you to store an arbitrary pointer inside it: `glfwSetWindowUserPointer`:
 
 window = glfwCreateWindow(WIDTH, HEIGHT, "Vulkan", nullptr, nullptr);
 glfwSetWindowUserPointer(window, this);
@@ -222,7 +210,7 @@ void recreateSwapChain() {
         glfwWaitEvents();
     }
 
-    vkDeviceWaitIdle(device);
+    device.waitIdle();
 
     ...
 }
@@ -232,4 +220,7 @@ The initial call to `glfwGetFramebufferSize` handles the case where the size is 
 Congratulations, you’ve now finished your very first well-behaved Vulkan program!
 In the [next chapter](../04_Vertex_buffers/00_Vertex_input_description.html) we’re going to get rid of the hardcoded vertices in the vertex shader and actually use a vertex buffer.
 
-[C++ code](../_attachments/17_swap_chain_recreation.cpp) / [Vertex shader](../_attachments/09_shader_base.vert) / [Fragment shader](../_attachments/09_shader_base.frag)
+[C++ code](../_attachments/17_swap_chain_recreation.cpp) /
+[Slang shader](../_attachments/09_shader_base.slang) /
+[GLSL Vertex shader](../_attachments/09_shader_base.vert) /
+[GLSL Fragment shader](../_attachments/09_shader_base.frag)

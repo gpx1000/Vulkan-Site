@@ -1352,3 +1352,6 @@ Currently the following layered extensions are available:
 
 * 
 `VK_KHR_video_encode_h265` - adds support for encoding H.265/HEVC video sequences
+
+* 
+`VK_KHR_video_encode_av1` - adds support for encoding AV1 video sequences

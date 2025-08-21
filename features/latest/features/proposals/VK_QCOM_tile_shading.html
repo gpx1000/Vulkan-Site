@@ -140,6 +140,9 @@
     <span class="nav-text">Feature Descriptions</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format.html">VK_AMDX_dense_geometry_format</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_AMDX_shader_enqueue.html">VK_AMDX_shader_enqueue</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -156,6 +159,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_ARM_render_pass_striped.html">VK_ARM_render_pass_striped</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_ARM_tensors.html">VK_ARM_tensors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_EXT_attachment_feedback_loop_dynamic_state.html">VK_EXT_attachment_feedback_loop_dynamic_state</a>
@@ -260,6 +266,9 @@
     <a class="nav-link" href="VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_EXT_shader_float8.html">VK_EXT_shader_float8</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -326,10 +335,22 @@
     <a class="nav-link" href="VK_KHR_maintenance8.html">VK_KHR_maintenance8</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_maintenance9.html">Proposal Template</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_map_memory2.html">VK_KHR_map_memory2</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_pipeline_binary.html">VK_KHR_pipeline_binary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_present_id2.html">VK_KHR_present_id2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_present_mode_fifo_latest_ready.html">VK_KHR_present_mode_fifo_latest_ready</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_present_wait2.html">VK_KHR_present_wait2</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_ray_tracing_position_fetch.html">VK_KHR_ray_tracing_position_fetch</a>
@@ -359,6 +380,18 @@
     <a class="nav-link" href="VK_KHR_shader_subgroup_rotate.html">Subgroup rotation instruction</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_shader_untyped_pointers.html">VK_KHR_shader_untyped_pointers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_surface_maintenance1.html">VK_KHR_surface_maintenance1</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_swapchain_maintenance1.html">VK_KHR_swapchain_maintenance1</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_unified_image_layouts.html">VK_KHR_unified_image_layouts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_vertex_attribute_divisor.html">VK_KHR_vertex_attribute_divisor</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -374,6 +407,9 @@
     <a class="nav-link" href="VK_KHR_video_decode_queue.html">VK_KHR_video_decode_queue</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_video_decode_vp9.html">VK_KHR_video_decode_vp9</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_av1.html">VK_KHR_video_encode_av1</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -381,6 +417,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_h265.html">VK_KHR_video_encode_h265</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_video_encode_intra_refresh.html">VK_KHR_video_encode_intra_refresh</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_quantization_map.html">VK_KHR_video_encode_quantization_map</a>
@@ -616,7 +655,7 @@ that backs the framebuffer attachments.</p>
 per-tile after each tile rendering pass completes, and while the framebuffer
 content is still cached in highly efficient tile memory.
 While the primary focus is on executing compute workloads that operate on
-tiles, there are also use-cases for executing draw commands after the
+tiles, there are also use cases for executing draw commands after the
 tile rendering pass completes.
 Since these dispatch and/or draw commands execute per-tile, they can only
 access those pixel locations within the boundaries of the current tile.
@@ -629,7 +668,7 @@ tile-based features, collectively referred to as "tile shading".</p>
 <h2 id="_solution_space"><a class="anchor" href="#_solution_space"></a>2. Solution Space</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>For the common use-cases, the tile shading pass will consume the attachment
+<p>For the common use cases, the tile shading pass will consume the attachment
 pixels that were rendered in a previous pass, or will generate outputs that
 are to be consumed in a subsequent pass.
 For this reason, tile shading fits naturally as some variant of Vulkan render passes.</p>
@@ -679,7 +718,7 @@ which extends dynamic rendering to support multiple passes with input attachment
 <p>Implementations exposing this extension must support <code>VK_QCOM_tile_properties</code> because the ability
 to query how the implementation has sub-divided the attachments into tiles is so fundamental to tile
 shading. Implementations exposing this extension are encouraged (but not required) to support
-'VK_KHR_dynamic_rendering_local_read' because it significantly increases the set of tile shading use-cases
+'VK_KHR_dynamic_rendering_local_read' because it significantly increases the set of tile shading use cases
 that can be supported with dynamic render passes.</p>
 </div>
 <div class="paragraph">
@@ -946,7 +985,7 @@ must not exceed <code>VkPhysicalDeviceTileShadingPropertiesQCOM::maxApronSize</c
 <div class="paragraph">
 <p>The tile apron feature is expected to be important for image-based algorithms that require
 access to a single pixel and the neighborhood of pixels around it. These included image
-processing use-cases such as convolution image processing and gaming use-cases such as
+processing use cases such as convolution image processing and gaming use cases such as
 screen-space ambient occlusion (SSAO).
 A good mental model for the tile apron is to think of it as enabling "overlapping
 tiles".
@@ -1269,7 +1308,7 @@ contained in the tile.</p>
 <p>The framebuffer-space pipeline stages are extended to include
 <code>VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT</code> and <code>VK_PIPELINE_STAGE_DRAW_INDIRECT_BIT</code>. Allowing
 <code>VK_PIPELINE_STAGE_DRAW_INDIRECT_BIT</code> with framebuffer-local dependencies enables important
-use-cases of tile shading.</p>
+use cases of tile shading.</p>
 </li>
 <li>
 <p>Explicit ordering constraints must be expressed through explicit synchronization primitives.</p>
@@ -1478,7 +1517,7 @@ nor input attachments.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>There are no known use-cases for tile stores to input attachments, and it seemed
+<p>There are no known use cases for tile stores to input attachments, and it seemed
 unexpected that an "input attachment" would be modified. Shader writes to
 depth/stencil attachments is unexpected and may require disablement of
 implementation-specific depth acceleration features. Resolve attachments are
@@ -1491,7 +1530,7 @@ in this extension.</p>
 <div class="sect2">
 <h3 id="_should_draw_commands_be_allowed_when_per_tile_execution_mode_is_enabled"><a class="anchor" href="#_should_draw_commands_be_allowed_when_per_tile_execution_mode_is_enabled"></a>4.2. Should draw commands be allowed when per-tile execution mode is enabled?</h3>
 <div class="paragraph">
-<p>PROPOSED: Yes, this is allowed, because it can be useful for certain use-cases.</p>
+<p>PROPOSED: Yes, this is allowed, because it can be useful for certain use cases.</p>
 </div>
 <div class="paragraph">
 <p>Without this extension, a TBDR GPU can "distribute" the draw call across the tiles.
@@ -1506,8 +1545,8 @@ This is important feature for maximizing TBDR rendering efficiency.</p>
 <p>With this extension, per-tile draws are introduced. A per-tile draw guarantees
 the draw will be executed for each tile, effectively bypassing the above
 mechanisms.
-The intended use-case for per-tile draws is for GPU-driven rendering.
-In this use-case, a per-tile dispatch invokes a per-tile compute shader that writes
+The intended use case for per-tile draws is for GPU-driven rendering.
+In this use case, a per-tile dispatch invokes a per-tile compute shader that writes
 data to an indirect buffer, followed by a per-tile vkCmdDrawIndirect* that
 consumes the same buffer. The application should ensure that each
 per-tile draw contains only primitives that cover the current tile. This is also
@@ -1516,7 +1555,7 @@ framebuffer-space pipeline stage, enabling BY_REGION dependencies for the
 DRAW_INDIRECT stage.</p>
 </div>
 <div class="paragraph">
-<p>Other than such GPU-driven use-cases, the use of per-tile draws is discouraged.</p>
+<p>Other than such GPU-driven use cases, the use of per-tile draws is discouraged.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1587,7 +1626,7 @@ rendering as single-pass rendering to a multi-layered attachment, or multi-pass
 rendering where each pass renders one view/layer. With this extension,
 the former would use multi-layered tiles and the latter would use
 single-layered tiles. The number of layers in the tile would affect
-most application use-cases for tile shading. <code>VK_QCOM_tile_properties</code> exposes
+most application use cases for tile shading. <code>VK_QCOM_tile_properties</code> exposes
 the number of layers in the tile, allowing the application to handle either
 implementation style.</p>
 </div>
@@ -1605,7 +1644,7 @@ extension exposes support for multi-layered tiles.</p>
 <p>PROPOSED: No, this is not allowed.</p>
 </div>
 <div class="paragraph">
-<p>There are no known use-cases, for stores to the apron pixels
+<p>There are no known use cases, for stores to the apron pixels
 and supporting this may come at a performance cost on some
 TBDRs.</p>
 </div>
@@ -1664,7 +1703,7 @@ used. Therefore, it may be best handled as a completely separate extension.</p>
 <div class="sect2">
 <h3 id="_should_this_extension_include_an_area_based_dispatch"><a class="anchor" href="#_should_this_extension_include_an_area_based_dispatch"></a>4.13. Should this extension include an area-based dispatch?</h3>
 <div class="paragraph">
-<p>RESOLVED: Yes, one some Adreno &#8482; GPUs and for some use-cases, the tile-sized
+<p>RESOLVED: Yes, one some Adreno &#8482; GPUs and for some use cases, the tile-sized
 dispatch can improve GPU efficiency and has been incorporated into this extension.</p>
 </div>
 <div class="paragraph">
@@ -1717,7 +1756,7 @@ the exception of descriptor-less access.</p>
 <p>RESOLVED: Possibly in a future extension. This extension requires that sampling
 and load/store tile attachment access must use an offset/coordinate that is within
 the boundary of the tile (plus any apron). Out-of-bounds access will result in
-undefined behavior. For many use-cases, this will require the
+undefined behavior. For many use cases, this will require the
 application shader clamps the coordinates to the tile&#8217;s boundaries.
 Note that although clamp/wrap modes are specified in the VkSampler object,
 and are fully supported with tile attachment access, those clamp/wrap operations are
@@ -1778,7 +1817,30 @@ for image processing (<code>OpImageSampleWeightedQCOM</code>, <code>OpImageBoxFi
 <script src="../../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
-<script async src="../../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

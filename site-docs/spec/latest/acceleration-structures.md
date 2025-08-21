@@ -199,7 +199,7 @@ Change the number of vertices or primitives for any geometry in the
 structure.
 
 If the original acceleration structure was built using opacity micromaps and
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_BIT_EXT`
 was set in `flags`, the application **must** provide a micromap matching
 the original micromap in structure with only opacity values updated.
 The application is prohibited from changing anything other than the specific
@@ -221,13 +221,14 @@ Change the subdivision level or format of the micromap triangle
 associated with any acceleration-structure triangle.
 
 If the original acceleration structure was built using opacity micromaps and
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_EXT` was
-set in `flags`, the application **must** provide a micromap to the update
-operation.
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_BIT_EXT`
+was set in `flags`, the application **must** provide a micromap to the
+update operation.
 
 If [VkMicromapBuildSizesInfoEXT](resources.html#VkMicromapBuildSizesInfoEXT)::`discardable` is `VK_FALSE`, a
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT`
-or `VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_EXT`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_BIT_EXT`
+or
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_BIT_EXT`
 operation transfers the reference in the acceleration structure to the new
 micromap.
 
@@ -237,7 +238,7 @@ the original micromap to the update operation.
 
 If the original acceleration structure was built using displacement
 micromaps and
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_NV`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISPLACEMENT_MICROMAP_UPDATE_BIT_NV`
 was set in `flags`, the application **must** provide a displacement
 micromap to the update operation.
 
@@ -335,248 +336,6 @@ or
 Primitives that are defined with the same index value for more than one
 vertex **can** always be discarded.
 
-To build an acceleration structure call:
-
-// Provided by VK_NV_ray_tracing
-void vkCmdBuildAccelerationStructureNV(
-    VkCommandBuffer                             commandBuffer,
-    const VkAccelerationStructureInfoNV*        pInfo,
-    VkBuffer                                    instanceData,
-    VkDeviceSize                                instanceOffset,
-    VkBool32                                    update,
-    VkAccelerationStructureNV                   dst,
-    VkAccelerationStructureNV                   src,
-    VkBuffer                                    scratch,
-    VkDeviceSize                                scratchOffset);
-
-* 
-`commandBuffer` is the command buffer into which the command will be
-recorded.
-
-* 
-`pInfo` contains the shared information for the acceleration
-structure’s structure.
-
-* 
-`instanceData` is the buffer containing an array of
-[VkAccelerationStructureInstanceKHR](#VkAccelerationStructureInstanceKHR) structures defining
-acceleration structures.
-This parameter **must** be `NULL` for bottom level acceleration structures.
-
-* 
-`instanceOffset` is the offset in bytes (relative to the start of
-`instanceData`) at which the instance data is located.
-
-* 
-`update` specifies whether to update the `dst` acceleration
-structure with the data in `src`.
-
-* 
-`dst` is a pointer to the target acceleration structure for the
-build.
-
-* 
-`src` is a pointer to an existing acceleration structure that is to
-be used to update the `dst` acceleration structure.
-
-* 
-`scratch` is the [VkBuffer](resources.html#VkBuffer) that will be used as scratch memory
-for the build.
-
-* 
-`scratchOffset` is the offset in bytes relative to the start of
-`scratch` that will be used as a scratch memory.
-
-Accesses to `dst`, `src`, and `scratch` **must** be
-[synchronized](synchronization.html#synchronization-dependencies) with the
-`VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`
-[pipeline stage](synchronization.html#synchronization-pipeline-stages) and an
-[access type](synchronization.html#synchronization-access-types) of
-`VK_ACCESS_ACCELERATION_STRUCTURE_READ_BIT_KHR` or
-`VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_KHR`.
-
-Valid Usage
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-geometryCount-02241) VUID-vkCmdBuildAccelerationStructureNV-geometryCount-02241
-
-`geometryCount` **must** be less than or equal to
-[VkPhysicalDeviceRayTracingPropertiesNV](limits.html#VkPhysicalDeviceRayTracingPropertiesNV)::`maxGeometryCount`
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-dst-02488) VUID-vkCmdBuildAccelerationStructureNV-dst-02488
-
-`dst` **must** have been created with compatible
-[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV) where
-[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`type` and
-[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`flags` are identical,
-[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`instanceCount` and
-[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`geometryCount` for `dst`
-are greater than or equal to the build size and each geometry in
-[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`pGeometries` for `dst` has
-greater than or equal to the number of vertices, indices, and AABBs
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-update-02489) VUID-vkCmdBuildAccelerationStructureNV-update-02489
-
-If `update` is `VK_TRUE`, `src` **must** not be
-[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-update-02490) VUID-vkCmdBuildAccelerationStructureNV-update-02490
-
-If `update` is `VK_TRUE`, `src` **must** have previously been
-constructed with
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_NV` set in
-[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`flags` in the original build
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-update-02491) VUID-vkCmdBuildAccelerationStructureNV-update-02491
-
-If `update` is `VK_FALSE`, the `size` member of the
-[VkMemoryRequirements](resources.html#VkMemoryRequirements) structure returned from a call to
-[vkGetAccelerationStructureMemoryRequirementsNV](resources.html#vkGetAccelerationStructureMemoryRequirementsNV) with
-[VkAccelerationStructureMemoryRequirementsInfoNV](resources.html#VkAccelerationStructureMemoryRequirementsInfoNV)::`accelerationStructure`
-set to `dst` and
-[VkAccelerationStructureMemoryRequirementsInfoNV](resources.html#VkAccelerationStructureMemoryRequirementsInfoNV)::`type` set to
-`VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_BUILD_SCRATCH_NV`
-**must** be less than or equal to the size of `scratch` minus
-`scratchOffset`
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-update-02492) VUID-vkCmdBuildAccelerationStructureNV-update-02492
-
-If `update` is `VK_TRUE`, the `size` member of the
-[VkMemoryRequirements](resources.html#VkMemoryRequirements) structure returned from a call to
-[vkGetAccelerationStructureMemoryRequirementsNV](resources.html#vkGetAccelerationStructureMemoryRequirementsNV) with
-[VkAccelerationStructureMemoryRequirementsInfoNV](resources.html#VkAccelerationStructureMemoryRequirementsInfoNV)::`accelerationStructure`
-set to `dst` and
-[VkAccelerationStructureMemoryRequirementsInfoNV](resources.html#VkAccelerationStructureMemoryRequirementsInfoNV)::`type` set to
-`VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_UPDATE_SCRATCH_NV`
-**must** be less than or equal to the size of `scratch` minus
-`scratchOffset`
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-scratch-03522) VUID-vkCmdBuildAccelerationStructureNV-scratch-03522
-
-`scratch` **must** have been created with
-`VK_BUFFER_USAGE_RAY_TRACING_BIT_NV` usage flag
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-instanceData-03523) VUID-vkCmdBuildAccelerationStructureNV-instanceData-03523
-
-If `instanceData` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `instanceData`
-**must** have been created with `VK_BUFFER_USAGE_RAY_TRACING_BIT_NV`
-usage flag
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-accelerationStructureReference-03786) VUID-vkCmdBuildAccelerationStructureNV-accelerationStructureReference-03786
-
-Each
-[VkAccelerationStructureInstanceKHR](#VkAccelerationStructureInstanceKHR)::`accelerationStructureReference`
-value in `instanceData` **must** be a valid device address containing a
-value obtained from [vkGetAccelerationStructureHandleNV](resources.html#vkGetAccelerationStructureHandleNV)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-update-03524) VUID-vkCmdBuildAccelerationStructureNV-update-03524
-
-If `update` is `VK_TRUE`, then objects that were previously
-active **must** not be made inactive as per
-[Inactive Primitives and Instances](#acceleration-structure-inactive-prims)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-update-03525) VUID-vkCmdBuildAccelerationStructureNV-update-03525
-
-If `update` is `VK_TRUE`, then objects that were previously
-inactive **must** not be made active as per
-[Inactive Primitives and Instances](#acceleration-structure-inactive-prims)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-update-03526) VUID-vkCmdBuildAccelerationStructureNV-update-03526
-
-If `update` is `VK_TRUE`, the `src` and `dst` objects
-**must** either be the same object or not have any
-[memory aliasing](resources.html#resources-memory-aliasing)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-dst-07787) VUID-vkCmdBuildAccelerationStructureNV-dst-07787
-
-`dst` **must** be bound completely and contiguously to a single
-`VkDeviceMemory` object via
-[vkBindAccelerationStructureMemoryNV](resources.html#vkBindAccelerationStructureMemoryNV)
-
-Valid Usage (Implicit)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-parameter) VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-parameter
-
- `commandBuffer` **must** be a valid [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) handle
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-pInfo-parameter) VUID-vkCmdBuildAccelerationStructureNV-pInfo-parameter
-
- `pInfo` **must** be a valid pointer to a valid [VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV) structure
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-instanceData-parameter) VUID-vkCmdBuildAccelerationStructureNV-instanceData-parameter
-
- If `instanceData` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `instanceData` **must** be a valid [VkBuffer](resources.html#VkBuffer) handle
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-dst-parameter) VUID-vkCmdBuildAccelerationStructureNV-dst-parameter
-
- `dst` **must** be a valid [VkAccelerationStructureNV](resources.html#VkAccelerationStructureNV) handle
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-src-parameter) VUID-vkCmdBuildAccelerationStructureNV-src-parameter
-
- If `src` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `src` **must** be a valid [VkAccelerationStructureNV](resources.html#VkAccelerationStructureNV) handle
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-scratch-parameter) VUID-vkCmdBuildAccelerationStructureNV-scratch-parameter
-
- `scratch` **must** be a valid [VkBuffer](resources.html#VkBuffer) handle
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-recording) VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-recording
-
- `commandBuffer` **must** be in the [recording state](cmdbuffers.html#commandbuffers-lifecycle)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-cmdpool) VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-cmdpool
-
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-renderpass) VUID-vkCmdBuildAccelerationStructureNV-renderpass
-
- This command **must** only be called outside of a render pass instance
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-videocoding) VUID-vkCmdBuildAccelerationStructureNV-videocoding
-
- This command **must** only be called outside of a video coding scope
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructureNV-commonparent) VUID-vkCmdBuildAccelerationStructureNV-commonparent
-
- Each of `commandBuffer`, `dst`, `instanceData`, `scratch`, and `src` that are valid handles of non-ignored parameters **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
-
-Host Synchronization
-
-* 
-Host access to `commandBuffer` **must** be externally synchronized
-
-* 
-Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
-
-Command Properties
-| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
-| --- | --- | --- | --- | --- |
-| Primary
-
-Secondary | Outside | Outside | Compute | Action |
-
 To build acceleration structures call:
 
 // Provided by VK_KHR_acceleration_structure
@@ -622,6 +381,11 @@ associated bottom-level or instance acceleration structures are being built.
 There also **cannot** be any memory aliasing between any acceleration structure
 memories or scratch memories being used by any of the builds. |
 
+|  | A [VkAccelerationStructureBuildRangeInfoKHR](#VkAccelerationStructureBuildRangeInfoKHR) structure is not used when
+| --- | --- |
+building an acceleration structure with a geometry type of
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`. |
+
 Accesses to the acceleration structure scratch buffers as identified by the
 [VkAccelerationStructureBuildGeometryInfoKHR](#VkAccelerationStructureBuildGeometryInfoKHR)::`scratchData` buffer
 device addresses **must** be [synchronized](synchronization.html#synchronization-dependencies) with
@@ -643,6 +407,7 @@ and
 
 Accesses to other input buffers as identified by any used values of
 [VkAccelerationStructureGeometryMotionTrianglesDataNV](#VkAccelerationStructureGeometryMotionTrianglesDataNV)::`vertexData`,
+[VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX](#VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX)::`compressedData`,
 [VkAccelerationStructureGeometryTrianglesDataKHR](#VkAccelerationStructureGeometryTrianglesDataKHR)::`vertexData`,
 [VkAccelerationStructureGeometryTrianglesDataKHR](#VkAccelerationStructureGeometryTrianglesDataKHR)::`indexData`,
 [VkAccelerationStructureGeometryTrianglesDataKHR](#VkAccelerationStructureGeometryTrianglesDataKHR)::`transformData`,
@@ -927,6 +692,84 @@ is `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if its
 `NULL`
 
 * 
+[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10898) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10898
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`numTriangles` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10899) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10899
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`numVertices` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10900) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10900
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`maxPrimitiveIndex` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10901) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10901
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`maxGeometryIndex` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10902) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10902
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`format` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10903) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10903
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`dataSize` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
 [](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03768) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03768
 
 For each element of `pInfos`, if its `mode` member is
@@ -1034,15 +877,7 @@ been created with `VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag
 [](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03802) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03802
 
 For each element of `pInfos`, its `scratchData.deviceAddress`
-member **must** be a valid device address obtained from
-[vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03803) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03803
-
-For each element of `pInfos`, if `scratchData.deviceAddress` is
-the address of a non-sparse buffer then it **must** be bound completely and
-contiguously to a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+member **must** be a valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03710) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03710
@@ -1058,17 +893,7 @@ For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_TRIANGLES_KHR`,
 `geometry.triangles.vertexData.deviceAddress` **must** be a valid
-device address obtained from [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03805) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03805
-
-For any element of `pInfos`[i].`pGeometries` or
-`pInfos`[i].`ppGeometries` with a `geometryType` of
-`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
-`geometry.triangles.vertexData.deviceAddress` is the address of a
-non-sparse buffer then it **must** be bound completely and contiguously to
-a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+`VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03711) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03711
@@ -1087,19 +912,8 @@ For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
 `geometry.triangles.indexType` is not `VK_INDEX_TYPE_NONE_KHR`,
-`geometry.triangles.indexData.deviceAddress` **must** be a valid device
-address obtained from [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03807) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03807
-
-For any element of `pInfos`[i].`pGeometries` or
-`pInfos`[i].`ppGeometries` with a `geometryType` of
-`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
-`geometry.triangles.indexType` is not `VK_INDEX_TYPE_NONE_KHR`,
-if `geometry.triangles.indexData.deviceAddress` is the address of a
-non-sparse buffer then it **must** be bound completely and contiguously to
-a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+`geometry.triangles.indexData.deviceAddress` **must** be a valid
+`VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03712) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03712
@@ -1119,18 +933,7 @@ For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
 `geometry.triangles.transformData.deviceAddress` is not `0`, it
-**must** be a valid device address obtained from
-[vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03809) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03809
-
-For any element of `pInfos`[i].`pGeometries` or
-`pInfos`[i].`ppGeometries` with a `geometryType` of
-`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
-`geometry.triangles.transformData.deviceAddress` is the address of a
-non-sparse buffer then it **must** be bound completely and contiguously to
-a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+**must** be a valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03810) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03810
@@ -1147,18 +950,8 @@ For any element of `pInfos`[i].`pGeometries` or
 For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_AABBS_KHR`,
-`geometry.aabbs.data.deviceAddress` **must** be a valid device address
-obtained from [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03812) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03812
-
-For any element of `pInfos`[i].`pGeometries` or
-`pInfos`[i].`ppGeometries` with a `geometryType` of
-`VK_GEOMETRY_TYPE_AABBS_KHR`, if
-`geometry.aabbs.data.deviceAddress` is the address of a non-sparse
-buffer then it **must** be bound completely and contiguously to a single
-[VkDeviceMemory](memory.html#VkDeviceMemory) object
+`geometry.aabbs.data.deviceAddress` **must** be a valid
+`VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03714) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03714
@@ -1202,18 +995,8 @@ aligned to `16` bytes
 For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_INSTANCES_KHR`,
-`geometry.instances.data.deviceAddress` **must** be a valid device
-address obtained from [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03814) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-03814
-
-For any element of `pInfos`[i].`pGeometries` or
-`pInfos`[i].`ppGeometries` with a `geometryType` of
-`VK_GEOMETRY_TYPE_INSTANCES_KHR`, if
-`geometry.instances.data.deviceAddress` is the address of a
-non-sparse buffer then it **must** be bound completely and contiguously to
-a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+`geometry.instances.data.deviceAddress` **must** be a valid
+`VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-06707) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-06707
@@ -1222,9 +1005,9 @@ For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_INSTANCES_KHR`, each
 [VkAccelerationStructureInstanceKHR](#VkAccelerationStructureInstanceKHR)::`accelerationStructureReference`
-value in `geometry.instances.data.deviceAddress` **must** be a valid
-device address containing a value obtained from
-[vkGetAccelerationStructureDeviceAddressKHR](resources.html#vkGetAccelerationStructureDeviceAddressKHR) or `0`
+value in `geometry.instances.data.deviceAddress` **must** be `0` or a
+value obtained from [vkGetAccelerationStructureDeviceAddressKHR](resources.html#vkGetAccelerationStructureDeviceAddressKHR) for
+a valid acceleration structure
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10607) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10607
@@ -1232,17 +1015,39 @@ device address containing a value obtained from
 For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_INSTANCES_KHR`, if
-`VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT` is set in
+`VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT` is set in
 [VkAccelerationStructureInstanceKHR](#VkAccelerationStructureInstanceKHR)::`flags` then
 `geometry.instances.data.deviceAddress` **must** refer to an
 acceleration structure that was built with
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_EXT`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_BIT_EXT`
 set in [VkAccelerationStructureBuildGeometryInfoKHR](#VkAccelerationStructureBuildGeometryInfoKHR)::`flags`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresKHR-commandBuffer-09547) VUID-vkCmdBuildAccelerationStructuresKHR-commandBuffer-09547
 
 `commandBuffer` **must** not be a protected command buffer
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10904) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10904
+
+For any element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if there is an instance of
+[VkAccelerationStructureTrianglesOpacityMicromapEXT](#VkAccelerationStructureTrianglesOpacityMicromapEXT) in the
+`geometry.triangles.pNext` chain, and its `indexType` is
+`VK_INDEX_TYPE_NONE_KHR`, then its `indexBuffer.deviceAddress`
+**must** be 0
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10905) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10905
+
+For any element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if there is an instance of
+[VkAccelerationStructureTrianglesOpacityMicromapEXT](#VkAccelerationStructureTrianglesOpacityMicromapEXT) in the
+`geometry.triangles.pNext` chain, and its `indexType` is not
+`VK_INDEX_TYPE_NONE_KHR`, then its `indexBuffer.deviceAddress`
+**must** be a valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10126) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10126
@@ -1269,6 +1074,14 @@ updating a compacted acceleration structure
 Each element of `ppBuildRangeInfos`[i] **must** be a valid pointer to
 an array of `pInfos`[i].`geometryCount`
 `VkAccelerationStructureBuildRangeInfoKHR` structures
+, or `NULL`
+
+[](#VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10906) VUID-vkCmdBuildAccelerationStructuresKHR-pInfos-10906
+
+For each element of `pInfos`[i] whose `pGeometries` or
+`ppGeometries` members have a `geometryType` of
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`,
+`ppBuildRangeInfos`[i] **must** be `NULL`
 
 Valid Usage (Implicit)
 
@@ -1326,6 +1139,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdBuildAccelerationStructuresKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 To build acceleration structures with some parameters sourced on the device
 call:
@@ -1653,6 +1470,84 @@ is `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if its
 `NULL`
 
 * 
+[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10898) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10898
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`numTriangles` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10899) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10899
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`numVertices` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10900) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10900
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`maxPrimitiveIndex` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10901) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10901
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`maxGeometryIndex` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10902) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10902
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`format` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10903) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10903
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`dataSize` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
 [](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03768) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03768
 
 For each element of `pInfos`, if its `mode` member is
@@ -1760,15 +1655,7 @@ been created with `VK_BUFFER_USAGE_STORAGE_BUFFER_BIT` usage flag
 [](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03802) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03802
 
 For each element of `pInfos`, its `scratchData.deviceAddress`
-member **must** be a valid device address obtained from
-[vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03803) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03803
-
-For each element of `pInfos`, if `scratchData.deviceAddress` is
-the address of a non-sparse buffer then it **must** be bound completely and
-contiguously to a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+member **must** be a valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03710) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03710
@@ -1784,17 +1671,7 @@ For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_TRIANGLES_KHR`,
 `geometry.triangles.vertexData.deviceAddress` **must** be a valid
-device address obtained from [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03805) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03805
-
-For any element of `pInfos`[i].`pGeometries` or
-`pInfos`[i].`ppGeometries` with a `geometryType` of
-`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
-`geometry.triangles.vertexData.deviceAddress` is the address of a
-non-sparse buffer then it **must** be bound completely and contiguously to
-a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+`VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03711) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03711
@@ -1813,19 +1690,8 @@ For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
 `geometry.triangles.indexType` is not `VK_INDEX_TYPE_NONE_KHR`,
-`geometry.triangles.indexData.deviceAddress` **must** be a valid device
-address obtained from [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03807) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03807
-
-For any element of `pInfos`[i].`pGeometries` or
-`pInfos`[i].`ppGeometries` with a `geometryType` of
-`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
-`geometry.triangles.indexType` is not `VK_INDEX_TYPE_NONE_KHR`,
-if `geometry.triangles.indexData.deviceAddress` is the address of a
-non-sparse buffer then it **must** be bound completely and contiguously to
-a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+`geometry.triangles.indexData.deviceAddress` **must** be a valid
+`VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03712) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03712
@@ -1845,18 +1711,7 @@ For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
 `geometry.triangles.transformData.deviceAddress` is not `0`, it
-**must** be a valid device address obtained from
-[vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03809) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03809
-
-For any element of `pInfos`[i].`pGeometries` or
-`pInfos`[i].`ppGeometries` with a `geometryType` of
-`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if
-`geometry.triangles.transformData.deviceAddress` is the address of a
-non-sparse buffer then it **must** be bound completely and contiguously to
-a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+**must** be a valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03810) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03810
@@ -1873,18 +1728,8 @@ For any element of `pInfos`[i].`pGeometries` or
 For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_AABBS_KHR`,
-`geometry.aabbs.data.deviceAddress` **must** be a valid device address
-obtained from [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03812) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03812
-
-For any element of `pInfos`[i].`pGeometries` or
-`pInfos`[i].`ppGeometries` with a `geometryType` of
-`VK_GEOMETRY_TYPE_AABBS_KHR`, if
-`geometry.aabbs.data.deviceAddress` is the address of a non-sparse
-buffer then it **must** be bound completely and contiguously to a single
-[VkDeviceMemory](memory.html#VkDeviceMemory) object
+`geometry.aabbs.data.deviceAddress` **must** be a valid
+`VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03714) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03714
@@ -1928,18 +1773,8 @@ aligned to `16` bytes
 For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_INSTANCES_KHR`,
-`geometry.instances.data.deviceAddress` **must** be a valid device
-address obtained from [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
-
-* 
-[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03814) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-03814
-
-For any element of `pInfos`[i].`pGeometries` or
-`pInfos`[i].`ppGeometries` with a `geometryType` of
-`VK_GEOMETRY_TYPE_INSTANCES_KHR`, if
-`geometry.instances.data.deviceAddress` is the address of a
-non-sparse buffer then it **must** be bound completely and contiguously to
-a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+`geometry.instances.data.deviceAddress` **must** be a valid
+`VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-06707) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-06707
@@ -1948,9 +1783,9 @@ For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_INSTANCES_KHR`, each
 [VkAccelerationStructureInstanceKHR](#VkAccelerationStructureInstanceKHR)::`accelerationStructureReference`
-value in `geometry.instances.data.deviceAddress` **must** be a valid
-device address containing a value obtained from
-[vkGetAccelerationStructureDeviceAddressKHR](resources.html#vkGetAccelerationStructureDeviceAddressKHR) or `0`
+value in `geometry.instances.data.deviceAddress` **must** be `0` or a
+value obtained from [vkGetAccelerationStructureDeviceAddressKHR](resources.html#vkGetAccelerationStructureDeviceAddressKHR) for
+a valid acceleration structure
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10607) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10607
@@ -1958,11 +1793,11 @@ device address containing a value obtained from
 For any element of `pInfos`[i].`pGeometries` or
 `pInfos`[i].`ppGeometries` with a `geometryType` of
 `VK_GEOMETRY_TYPE_INSTANCES_KHR`, if
-`VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT` is set in
+`VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT` is set in
 [VkAccelerationStructureInstanceKHR](#VkAccelerationStructureInstanceKHR)::`flags` then
 `geometry.instances.data.deviceAddress` **must** refer to an
 acceleration structure that was built with
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_EXT`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_DISABLE_OPACITY_MICROMAPS_BIT_EXT`
 set in [VkAccelerationStructureBuildGeometryInfoKHR](#VkAccelerationStructureBuildGeometryInfoKHR)::`flags`
 
 * 
@@ -1971,11 +1806,26 @@ set in [VkAccelerationStructureBuildGeometryInfoKHR](#VkAccelerationStructureBui
 `commandBuffer` **must** not be a protected command buffer
 
 * 
-[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03645) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03645
+[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10904) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10904
 
-For any element of `pIndirectDeviceAddresses`, if the buffer from
-which it was queried is non-sparse then it **must** be bound completely and
-contiguously to a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
+For any element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if there is an instance of
+[VkAccelerationStructureTrianglesOpacityMicromapEXT](#VkAccelerationStructureTrianglesOpacityMicromapEXT) in the
+`geometry.triangles.pNext` chain, and its `indexType` is
+`VK_INDEX_TYPE_NONE_KHR`, then its `indexBuffer.deviceAddress`
+**must** be 0
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10905) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pInfos-10905
+
+For any element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if there is an instance of
+[VkAccelerationStructureTrianglesOpacityMicromapEXT](#VkAccelerationStructureTrianglesOpacityMicromapEXT) in the
+`geometry.triangles.pNext` chain, and its `indexType` is not
+`VK_INDEX_TYPE_NONE_KHR`, then its `indexBuffer.deviceAddress`
+**must** be a valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03646) VUID-vkCmdBuildAccelerationStructuresIndirectKHR-pIndirectDeviceAddresses-03646
@@ -2096,6 +1946,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdBuildAccelerationStructuresIndirectKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkAccelerationStructureBuildGeometryInfoKHR` structure is defined
 as:
@@ -2254,6 +2108,15 @@ then `geometryCount` **must** be less than or equal to
 [VkPhysicalDeviceAccelerationStructurePropertiesKHR](limits.html#VkPhysicalDeviceAccelerationStructurePropertiesKHR)::`maxGeometryCount`
 
 * 
+[](#VUID-VkAccelerationStructureBuildGeometryInfoKHR-type-10884) VUID-VkAccelerationStructureBuildGeometryInfoKHR-type-10884
+
+If `type` is `VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR`
+and the `geometryType` member of either `pGeometries` or
+`ppGeometries` is
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, then
+`geometryCount` **must** be `1`
+
+* 
 [](#VUID-VkAccelerationStructureBuildGeometryInfoKHR-type-03794) VUID-VkAccelerationStructureBuildGeometryInfoKHR-type-03794
 
 If `type` is `VK_ACCELERATION_STRUCTURE_TYPE_BOTTOM_LEVEL_KHR`
@@ -2307,9 +2170,9 @@ If `VK_BUILD_ACCELERATION_STRUCTURE_MOTION_BIT_NV` is set in
 [](#VUID-VkAccelerationStructureBuildGeometryInfoKHR-flags-07334) VUID-VkAccelerationStructureBuildGeometryInfoKHR-flags-07334
 
 If `flags` has the
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_EXT`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_UPDATE_BIT_EXT`
 bit set then it **must** not have the
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_EXT`
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_OPACITY_MICROMAP_DATA_UPDATE_BIT_EXT`
 bit set
 
 Valid Usage (Implicit)
@@ -2377,7 +2240,7 @@ typedef union VkDeviceOrHostAddressKHR {
 
 * 
 `deviceAddress` is a buffer device address as returned by the
-[vkGetBufferDeviceAddressKHR](descriptorsets.html#vkGetBufferDeviceAddressKHR) command.
+[vkGetBufferDeviceAddressKHR](resources.html#vkGetBufferDeviceAddressKHR) command.
 
 * 
 `hostAddress` is a host memory address.
@@ -2392,7 +2255,7 @@ typedef union VkDeviceOrHostAddressConstKHR {
 
 * 
 `deviceAddress` is a buffer device address as returned by the
-[vkGetBufferDeviceAddressKHR](descriptorsets.html#vkGetBufferDeviceAddressKHR) command.
+[vkGetBufferDeviceAddressKHR](resources.html#vkGetBufferDeviceAddressKHR) command.
 
 * 
 `hostAddress` is a const host memory address.
@@ -2437,7 +2300,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkAccelerationStructureGeometryKHR-pNext-pNext) VUID-VkAccelerationStructureGeometryKHR-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAccelerationStructureGeometryLinearSweptSpheresDataNV](#VkAccelerationStructureGeometryLinearSweptSpheresDataNV) or [VkAccelerationStructureGeometrySpheresDataNV](#VkAccelerationStructureGeometrySpheresDataNV)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX](#VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX), [VkAccelerationStructureGeometryLinearSweptSpheresDataNV](#VkAccelerationStructureGeometryLinearSweptSpheresDataNV), or [VkAccelerationStructureGeometrySpheresDataNV](#VkAccelerationStructureGeometrySpheresDataNV)
 
 * 
 [](#VUID-VkAccelerationStructureGeometryKHR-sType-unique) VUID-VkAccelerationStructureGeometryKHR-sType-unique
@@ -2696,6 +2559,7 @@ geometry
 
 If `VkAccelerationStructureTrianglesOpacityMicromapEXT` is included in
 the `pNext` chain of a
+[VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX](#VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX) or
 [VkAccelerationStructureGeometryTrianglesDataKHR](#VkAccelerationStructureGeometryTrianglesDataKHR) structure, that
 geometry will reference that micromap.
 
@@ -2737,19 +2601,6 @@ pointer, the other **must** be `NULL`
 
 `indexType` **must** be `VK_INDEX_TYPE_UINT16`,
 `VK_INDEX_TYPE_UINT32`, or `VK_INDEX_TYPE_NONE_KHR`
-
-* 
-[](#VUID-VkAccelerationStructureTrianglesOpacityMicromapEXT-indexType-10720) VUID-VkAccelerationStructureTrianglesOpacityMicromapEXT-indexType-10720
-
-If `indexType` is `VK_INDEX_TYPE_NONE_KHR`, then
-`indexBuffer` **must** be `NULL`
-
-* 
-[](#VUID-VkAccelerationStructureTrianglesOpacityMicromapEXT-indexType-10721) VUID-VkAccelerationStructureTrianglesOpacityMicromapEXT-indexType-10721
-
-If `indexType` is not `VK_INDEX_TYPE_NONE_KHR`, then
-`indexBuffer` **must** be a valid device address obtained from
-[vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress)
 
 * 
 [](#VUID-VkAccelerationStructureTrianglesOpacityMicromapEXT-indexType-10722) VUID-VkAccelerationStructureTrianglesOpacityMicromapEXT-indexType-10722
@@ -2994,6 +2845,253 @@ Valid Usage (Implicit)
 [](#VUID-VkAccelerationStructureTrianglesDisplacementMicromapNV-micromap-parameter) VUID-VkAccelerationStructureTrianglesDisplacementMicromapNV-micromap-parameter
 
  If `micromap` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `micromap` **must** be a valid [VkMicromapEXT](resources.html#VkMicromapEXT) handle
+
+To build an acceleration structure for the `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`
+extension call:
+
+// Provided by VK_NV_ray_tracing
+void vkCmdBuildAccelerationStructureNV(
+    VkCommandBuffer                             commandBuffer,
+    const VkAccelerationStructureInfoNV*        pInfo,
+    VkBuffer                                    instanceData,
+    VkDeviceSize                                instanceOffset,
+    VkBool32                                    update,
+    VkAccelerationStructureNV                   dst,
+    VkAccelerationStructureNV                   src,
+    VkBuffer                                    scratch,
+    VkDeviceSize                                scratchOffset);
+
+* 
+`commandBuffer` is the command buffer into which the command will be
+recorded.
+
+* 
+`pInfo` contains the shared information for the acceleration
+structure’s structure.
+
+* 
+`instanceData` is the buffer containing an array of
+[VkAccelerationStructureInstanceKHR](#VkAccelerationStructureInstanceKHR) structures defining
+acceleration structures.
+This parameter **must** be `NULL` for bottom level acceleration structures.
+
+* 
+`instanceOffset` is the offset in bytes (relative to the start of
+`instanceData`) at which the instance data is located.
+
+* 
+`update` specifies whether to update the `dst` acceleration
+structure with the data in `src`.
+
+* 
+`dst` is a pointer to the target acceleration structure for the
+build.
+
+* 
+`src` is a pointer to an existing acceleration structure that is to
+be used to update the `dst` acceleration structure.
+
+* 
+`scratch` is the [VkBuffer](resources.html#VkBuffer) that will be used as scratch memory
+for the build.
+
+* 
+`scratchOffset` is the offset in bytes relative to the start of
+`scratch` that will be used as a scratch memory.
+
+Accesses to `dst`, `src`, and `scratch` **must** be
+[synchronized](synchronization.html#synchronization-dependencies) with the
+`VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`
+[pipeline stage](synchronization.html#synchronization-pipeline-stages) and an
+[access type](synchronization.html#synchronization-access-types) of
+`VK_ACCESS_ACCELERATION_STRUCTURE_READ_BIT_KHR` or
+`VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_KHR`.
+
+Valid Usage
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-geometryCount-02241) VUID-vkCmdBuildAccelerationStructureNV-geometryCount-02241
+
+`geometryCount` **must** be less than or equal to
+[VkPhysicalDeviceRayTracingPropertiesNV](limits.html#VkPhysicalDeviceRayTracingPropertiesNV)::`maxGeometryCount`
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-dst-02488) VUID-vkCmdBuildAccelerationStructureNV-dst-02488
+
+`dst` **must** have been created with compatible
+[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV) where
+[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`type` and
+[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`flags` are identical,
+[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`instanceCount` and
+[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`geometryCount` for `dst`
+are greater than or equal to the build size and each geometry in
+[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`pGeometries` for `dst` has
+greater than or equal to the number of vertices, indices, and AABBs
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-update-02489) VUID-vkCmdBuildAccelerationStructureNV-update-02489
+
+If `update` is `VK_TRUE`, `src` **must** not be
+[VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE)
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-update-02490) VUID-vkCmdBuildAccelerationStructureNV-update-02490
+
+If `update` is `VK_TRUE`, `src` **must** have previously been
+constructed with
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_UPDATE_BIT_NV` set in
+[VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV)::`flags` in the original build
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-update-02491) VUID-vkCmdBuildAccelerationStructureNV-update-02491
+
+If `update` is `VK_FALSE`, the `size` member of the
+[VkMemoryRequirements](resources.html#VkMemoryRequirements) structure returned from a call to
+[vkGetAccelerationStructureMemoryRequirementsNV](resources.html#vkGetAccelerationStructureMemoryRequirementsNV) with
+[VkAccelerationStructureMemoryRequirementsInfoNV](resources.html#VkAccelerationStructureMemoryRequirementsInfoNV)::`accelerationStructure`
+set to `dst` and
+[VkAccelerationStructureMemoryRequirementsInfoNV](resources.html#VkAccelerationStructureMemoryRequirementsInfoNV)::`type` set to
+`VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_BUILD_SCRATCH_NV`
+**must** be less than or equal to the size of `scratch` minus
+`scratchOffset`
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-update-02492) VUID-vkCmdBuildAccelerationStructureNV-update-02492
+
+If `update` is `VK_TRUE`, the `size` member of the
+[VkMemoryRequirements](resources.html#VkMemoryRequirements) structure returned from a call to
+[vkGetAccelerationStructureMemoryRequirementsNV](resources.html#vkGetAccelerationStructureMemoryRequirementsNV) with
+[VkAccelerationStructureMemoryRequirementsInfoNV](resources.html#VkAccelerationStructureMemoryRequirementsInfoNV)::`accelerationStructure`
+set to `dst` and
+[VkAccelerationStructureMemoryRequirementsInfoNV](resources.html#VkAccelerationStructureMemoryRequirementsInfoNV)::`type` set to
+`VK_ACCELERATION_STRUCTURE_MEMORY_REQUIREMENTS_TYPE_UPDATE_SCRATCH_NV`
+**must** be less than or equal to the size of `scratch` minus
+`scratchOffset`
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-scratch-03522) VUID-vkCmdBuildAccelerationStructureNV-scratch-03522
+
+`scratch` **must** have been created with
+`VK_BUFFER_USAGE_RAY_TRACING_BIT_NV` usage flag
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-instanceData-03523) VUID-vkCmdBuildAccelerationStructureNV-instanceData-03523
+
+If `instanceData` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `instanceData`
+**must** have been created with `VK_BUFFER_USAGE_RAY_TRACING_BIT_NV`
+usage flag
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-accelerationStructureReference-03786) VUID-vkCmdBuildAccelerationStructureNV-accelerationStructureReference-03786
+
+Each
+[VkAccelerationStructureInstanceKHR](#VkAccelerationStructureInstanceKHR)::`accelerationStructureReference`
+value in `instanceData` **must** be a value obtained from
+[vkGetAccelerationStructureHandleNV](resources.html#vkGetAccelerationStructureHandleNV)
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-update-03524) VUID-vkCmdBuildAccelerationStructureNV-update-03524
+
+If `update` is `VK_TRUE`, then objects that were previously
+active **must** not be made inactive as per
+[Inactive Primitives and Instances](#acceleration-structure-inactive-prims)
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-update-03525) VUID-vkCmdBuildAccelerationStructureNV-update-03525
+
+If `update` is `VK_TRUE`, then objects that were previously
+inactive **must** not be made active as per
+[Inactive Primitives and Instances](#acceleration-structure-inactive-prims)
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-update-03526) VUID-vkCmdBuildAccelerationStructureNV-update-03526
+
+If `update` is `VK_TRUE`, the `src` and `dst` objects
+**must** either be the same object or not have any
+[memory aliasing](resources.html#resources-memory-aliasing)
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-dst-07787) VUID-vkCmdBuildAccelerationStructureNV-dst-07787
+
+`dst` **must** be bound completely and contiguously to a single
+`VkDeviceMemory` object via
+[vkBindAccelerationStructureMemoryNV](resources.html#vkBindAccelerationStructureMemoryNV)
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-parameter) VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-parameter
+
+ `commandBuffer` **must** be a valid [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) handle
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-pInfo-parameter) VUID-vkCmdBuildAccelerationStructureNV-pInfo-parameter
+
+ `pInfo` **must** be a valid pointer to a valid [VkAccelerationStructureInfoNV](resources.html#VkAccelerationStructureInfoNV) structure
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-instanceData-parameter) VUID-vkCmdBuildAccelerationStructureNV-instanceData-parameter
+
+ If `instanceData` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `instanceData` **must** be a valid [VkBuffer](resources.html#VkBuffer) handle
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-dst-parameter) VUID-vkCmdBuildAccelerationStructureNV-dst-parameter
+
+ `dst` **must** be a valid [VkAccelerationStructureNV](resources.html#VkAccelerationStructureNV) handle
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-src-parameter) VUID-vkCmdBuildAccelerationStructureNV-src-parameter
+
+ If `src` is not [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), `src` **must** be a valid [VkAccelerationStructureNV](resources.html#VkAccelerationStructureNV) handle
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-scratch-parameter) VUID-vkCmdBuildAccelerationStructureNV-scratch-parameter
+
+ `scratch` **must** be a valid [VkBuffer](resources.html#VkBuffer) handle
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-recording) VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-recording
+
+ `commandBuffer` **must** be in the [recording state](cmdbuffers.html#commandbuffers-lifecycle)
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-cmdpool) VUID-vkCmdBuildAccelerationStructureNV-commandBuffer-cmdpool
+
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-renderpass) VUID-vkCmdBuildAccelerationStructureNV-renderpass
+
+ This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-videocoding) VUID-vkCmdBuildAccelerationStructureNV-videocoding
+
+ This command **must** only be called outside of a video coding scope
+
+* 
+[](#VUID-vkCmdBuildAccelerationStructureNV-commonparent) VUID-vkCmdBuildAccelerationStructureNV-commonparent
+
+ Each of `commandBuffer`, `dst`, `instanceData`, `scratch`, and `src` that are valid handles of non-ignored parameters **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
+
+Host Synchronization
+
+* 
+Host access to `commandBuffer` **must** be externally synchronized
+
+* 
+Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
+
+Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
+
+Secondary | Outside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdBuildAccelerationStructureNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkTransformMatrixKHR` structure is defined as:
 
@@ -3285,9 +3383,9 @@ typedef enum VkGeometryInstanceFlagBitsKHR {
     VK_GEOMETRY_INSTANCE_FORCE_OPAQUE_BIT_KHR = 0x00000004,
     VK_GEOMETRY_INSTANCE_FORCE_NO_OPAQUE_BIT_KHR = 0x00000008,
   // Provided by VK_EXT_opacity_micromap
-    VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_EXT = 0x00000010,
+    VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_BIT_EXT = 0x00000010,
   // Provided by VK_EXT_opacity_micromap
-    VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT = 0x00000020,
+    VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT = 0x00000020,
     VK_GEOMETRY_INSTANCE_TRIANGLE_FRONT_COUNTERCLOCKWISE_BIT_KHR = VK_GEOMETRY_INSTANCE_TRIANGLE_FLIP_FACING_BIT_KHR,
   // Provided by VK_NV_ray_tracing
     VK_GEOMETRY_INSTANCE_TRIANGLE_CULL_DISABLE_BIT_NV = VK_GEOMETRY_INSTANCE_TRIANGLE_FACING_CULL_DISABLE_BIT_KHR,
@@ -3297,6 +3395,12 @@ typedef enum VkGeometryInstanceFlagBitsKHR {
     VK_GEOMETRY_INSTANCE_FORCE_OPAQUE_BIT_NV = VK_GEOMETRY_INSTANCE_FORCE_OPAQUE_BIT_KHR,
   // Provided by VK_NV_ray_tracing
     VK_GEOMETRY_INSTANCE_FORCE_NO_OPAQUE_BIT_NV = VK_GEOMETRY_INSTANCE_FORCE_NO_OPAQUE_BIT_KHR,
+  // Provided by VK_EXT_opacity_micromap
+  // VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_EXT is a deprecated alias
+    VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_EXT = VK_GEOMETRY_INSTANCE_FORCE_OPACITY_MICROMAP_2_STATE_BIT_EXT,
+  // Provided by VK_EXT_opacity_micromap
+  // VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT is a deprecated alias
+    VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT = VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT,
 } VkGeometryInstanceFlagBitsKHR;
 
 or the equivalent
@@ -3747,6 +3851,132 @@ The effective derived transform is then given by
 
 `T` × `R` × `S`
 
+If a `VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure is included in the `pNext` chain of a
+[VkAccelerationStructureGeometryKHR](#VkAccelerationStructureGeometryKHR) structure whose `geometryType`
+member is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, then
+that structure defines triangle geometry using compressed data.
+
+The `VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure is defined as:
+
+// Provided by VK_AMDX_dense_geometry_format
+typedef struct VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX {
+    VkStructureType                   sType;
+    const void*                       pNext;
+    VkDeviceOrHostAddressConstKHR     compressedData;
+    VkDeviceSize                      dataSize;
+    uint32_t                          numTriangles;
+    uint32_t                          numVertices;
+    uint32_t                          maxPrimitiveIndex;
+    uint32_t                          maxGeometryIndex;
+    VkCompressedTriangleFormatAMDX    format;
+} VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`compressedData` specifies the base address of the compressed data.
+
+* 
+`dataSize` specifies the size of the compressed data.
+
+* 
+`numTriangles` specifies the total number of triangles encoded in
+the compressed data.
+
+* 
+`numVertices` specifies the number of vertices in the compressed
+data.
+
+* 
+`maxPrimitiveIndex` specifies the maximum primitive index encoded in
+the compressed data.
+
+* 
+`maxGeometryIndex` specifies the maximum geometry index encoded in
+the compressed data.
+
+* 
+`format` specifies the [VkCompressedTriangleFormatAMDX](#VkCompressedTriangleFormatAMDX) format
+of the compressed data.
+
+If `format` is `VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_AMDX`,
+`numVertices` specifies the sum of vertex counts across all blocks.
+
+Valid Usage
+
+* 
+[](#VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-compressedData-10885) VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-compressedData-10885
+
+The buffer from which `compressedData.deviceAddress` is queried
+**must** have been created with the
+`VK_BUFFER_USAGE_2_COMPRESSED_DATA_DGF1_BIT_AMDX` usage flag
+
+* 
+[](#VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-denseGeometryFormat-10886) VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-denseGeometryFormat-10886
+
+The [    `VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX`::`denseGeometryFormat`](features.html#features-denseGeometryFormat)
+feature **must** be enabled
+
+* 
+[](#VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-format-10887) VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-format-10887
+
+If `format` is VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_AMDX, then
+`compressedData.address` **must** be aligned to 128 bytes
+
+* 
+[](#VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-format-10888) VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-format-10888
+
+If `format` is VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_AMDX, then
+`dataSize` **must** be aligned to 128 bytes
+
+* 
+[](#VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-pNext-10890) VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-pNext-10890
+
+`pNext` **must** be `NULL` or a pointer to a valid
+[VkAccelerationStructureTrianglesOpacityMicromapEXT](#VkAccelerationStructureTrianglesOpacityMicromapEXT) structure
+
+* 
+[](#VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-pNext-10891) VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-pNext-10891
+
+If `pNext` is a pointer to a valid
+[VkAccelerationStructureTrianglesOpacityMicromapEXT](#VkAccelerationStructureTrianglesOpacityMicromapEXT) structure, the
+[`micromap`](features.html#features-micromap) feature **must** be enabled
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-sType-sType) VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_ACCELERATION_STRUCTURE_DENSE_GEOMETRY_FORMAT_TRIANGLES_DATA_AMDX`
+
+* 
+[](#VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-compressedData-parameter) VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-compressedData-parameter
+
+ `compressedData` **must** be a valid [VkDeviceOrHostAddressConstKHR](#VkDeviceOrHostAddressConstKHR) union
+
+* 
+[](#VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-format-parameter) VUID-VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX-format-parameter
+
+ `format` **must** be a valid [VkCompressedTriangleFormatAMDX](#VkCompressedTriangleFormatAMDX) value
+
+The `VkCompressedTriangleFormatAMDX` enumeration is defined as:
+
+// Provided by VK_AMDX_dense_geometry_format
+typedef enum VkCompressedTriangleFormatAMDX {
+    VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_AMDX = 0,
+} VkCompressedTriangleFormatAMDX;
+
+* 
+`VK_COMPRESSED_TRIANGLE_FORMAT_DGF1_AMDX` specifies that the
+compressed triangle data is in [Dense Geometry    Format](VK_AMDX_dense_geometry_format/dense_geometry_format.html#dense-geometry-format), version 1, consisting of an array of 128B DGF blocks.
+
 `VkAccelerationStructureBuildRangeInfoKHR` is defined as:
 
 // Provided by VK_KHR_acceleration_structure
@@ -3905,6 +4135,25 @@ if that format is a [packed format](formats.html#formats-packed)
 the [component size](formats.html#formats) of the
 [VkAccelerationStructureGeometryTrianglesDataKHR](#VkAccelerationStructureGeometryTrianglesDataKHR)::`vertexFormat`,
 if that format is not a [packed format](formats.html#formats-packed)
+
+[](#VUID-VkAccelerationStructureBuildRangeInfoKHR-maxVertex-10774) VUID-VkAccelerationStructureBuildRangeInfoKHR-maxVertex-10774
+
+For geometries of type `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if the
+geometry uses indices, then
+[VkAccelerationStructureGeometryTrianglesDataKHR](#VkAccelerationStructureGeometryTrianglesDataKHR)::`maxVertex`
+**must** be greater than or equal to `firstVertex` plus the maximum
+index value found in the
+[VkAccelerationStructureGeometryTrianglesDataKHR](#VkAccelerationStructureGeometryTrianglesDataKHR)::`indexData`
+in the range [`primitiveOffset`, `primitiveOffset`
+
+`primitiveCount` x 3]
+
+[](#VUID-VkAccelerationStructureBuildRangeInfoKHR-None-10775) VUID-VkAccelerationStructureBuildRangeInfoKHR-None-10775
+
+For geometries of type `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if the
+geometry does not use indices, then
+[VkAccelerationStructureGeometryTrianglesDataKHR](#VkAccelerationStructureGeometryTrianglesDataKHR)::maxVertex **must**
+be greater than or equal to firstVertex + primitiveCount x 3 - 1
 
 [](#VUID-VkAccelerationStructureBuildRangeInfoKHR-transformOffset-03658) VUID-VkAccelerationStructureBuildRangeInfoKHR-transformOffset-03658
 
@@ -4248,7 +4497,7 @@ that format is a [packed format](formats.html#formats-packed)
 
 * 
 the smallest [component size](formats.html#formats) specified in
-`vertexFormat` if that format is not a [packed    format](formats.html#formats-packed)
+`vertexFormat` if that format is not a [packed     format](formats.html#formats-packed)
 
 [](#VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexStride-10432) VUID-VkAccelerationStructureGeometrySpheresDataNV-vertexStride-10432
 
@@ -4504,7 +4753,12 @@ Command Properties
 
 Secondary | Outside | Outside | Compute | Action |
 
-To query acceleration structure size parameters call:
+Conditional Rendering
+
+vkCmdWriteAccelerationStructuresPropertiesKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
+To query acceleration structure size parameters for the
+`[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)` extension call:
 
 // Provided by VK_NV_ray_tracing
 void vkCmdWriteAccelerationStructuresPropertiesNV(
@@ -4655,7 +4909,214 @@ Command Properties
 
 Secondary | Outside | Outside | Compute | Action |
 
+Conditional Rendering
+
+vkCmdWriteAccelerationStructuresPropertiesNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 To copy an acceleration structure call:
+
+// Provided by VK_KHR_acceleration_structure
+void vkCmdCopyAccelerationStructureKHR(
+    VkCommandBuffer                             commandBuffer,
+    const VkCopyAccelerationStructureInfoKHR*   pInfo);
+
+* 
+`commandBuffer` is the command buffer into which the command will be
+recorded.
+
+* 
+`pInfo` is a pointer to a [VkCopyAccelerationStructureInfoKHR](#VkCopyAccelerationStructureInfoKHR)
+structure defining the copy operation.
+
+This command copies the `pInfo->src` acceleration structure to the
+`pInfo->dst` acceleration structure in the manner specified by
+`pInfo->mode`.
+
+Accesses to `pInfo->src` and `pInfo->dst` **must** be
+[synchronized](synchronization.html#synchronization-dependencies) with the
+`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR`
+[pipeline stage](synchronization.html#synchronization-pipeline-stages) or the
+`VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`
+[pipeline stage](synchronization.html#synchronization-pipeline-stages), and an
+[access type](synchronization.html#synchronization-access-types) of
+`VK_ACCESS_ACCELERATION_STRUCTURE_READ_BIT_KHR` or
+`VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_KHR` as appropriate.
+
+Valid Usage
+
+* 
+[](#VUID-vkCmdCopyAccelerationStructureKHR-accelerationStructure-08925) VUID-vkCmdCopyAccelerationStructureKHR-accelerationStructure-08925
+
+The [    `VkPhysicalDeviceAccelerationStructureFeaturesKHR`::`accelerationStructure`](features.html#features-accelerationStructure)
+feature **must** be enabled
+
+* 
+[](#VUID-vkCmdCopyAccelerationStructureKHR-buffer-03737) VUID-vkCmdCopyAccelerationStructureKHR-buffer-03737
+
+The `buffer` used to create `pInfo->src` **must** be bound to
+device memory
+
+* 
+[](#VUID-vkCmdCopyAccelerationStructureKHR-buffer-03738) VUID-vkCmdCopyAccelerationStructureKHR-buffer-03738
+
+The `buffer` used to create `pInfo->dst` **must** be bound to
+device memory
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-parameter) VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-parameter
+
+ `commandBuffer` **must** be a valid [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) handle
+
+* 
+[](#VUID-vkCmdCopyAccelerationStructureKHR-pInfo-parameter) VUID-vkCmdCopyAccelerationStructureKHR-pInfo-parameter
+
+ `pInfo` **must** be a valid pointer to a valid [VkCopyAccelerationStructureInfoKHR](#VkCopyAccelerationStructureInfoKHR) structure
+
+* 
+[](#VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-recording) VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-recording
+
+ `commandBuffer` **must** be in the [recording state](cmdbuffers.html#commandbuffers-lifecycle)
+
+* 
+[](#VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-cmdpool) VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-cmdpool
+
+ The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
+
+* 
+[](#VUID-vkCmdCopyAccelerationStructureKHR-renderpass) VUID-vkCmdCopyAccelerationStructureKHR-renderpass
+
+ This command **must** only be called outside of a render pass instance
+
+* 
+[](#VUID-vkCmdCopyAccelerationStructureKHR-videocoding) VUID-vkCmdCopyAccelerationStructureKHR-videocoding
+
+ This command **must** only be called outside of a video coding scope
+
+Host Synchronization
+
+* 
+Host access to `commandBuffer` **must** be externally synchronized
+
+* 
+Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
+
+Command Properties
+| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
+| --- | --- | --- | --- | --- |
+| Primary
+
+Secondary | Outside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyAccelerationStructureKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
+The `VkCopyAccelerationStructureInfoKHR` structure is defined as:
+
+// Provided by VK_KHR_acceleration_structure
+typedef struct VkCopyAccelerationStructureInfoKHR {
+    VkStructureType                       sType;
+    const void*                           pNext;
+    VkAccelerationStructureKHR            src;
+    VkAccelerationStructureKHR            dst;
+    VkCopyAccelerationStructureModeKHR    mode;
+} VkCopyAccelerationStructureInfoKHR;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`src` is the source acceleration structure for the copy.
+
+* 
+`dst` is the target acceleration structure for the copy.
+
+* 
+`mode` is a [VkCopyAccelerationStructureModeKHR](#VkCopyAccelerationStructureModeKHR) value
+specifying additional operations to perform during the copy.
+
+Valid Usage
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-mode-03410) VUID-VkCopyAccelerationStructureInfoKHR-mode-03410
+
+`mode` **must** be
+`VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_KHR` or
+`VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_KHR`
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-src-04963) VUID-VkCopyAccelerationStructureInfoKHR-src-04963
+
+The source acceleration structure `src` **must** have been constructed
+prior to the execution of this command
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-src-03411) VUID-VkCopyAccelerationStructureInfoKHR-src-03411
+
+If `mode` is `VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_KHR`,
+`src` **must** have been constructed with
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR` in the
+build
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-buffer-03718) VUID-VkCopyAccelerationStructureInfoKHR-buffer-03718
+
+The `buffer` used to create `src` **must** be bound to device
+memory
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-buffer-03719) VUID-VkCopyAccelerationStructureInfoKHR-buffer-03719
+
+The `buffer` used to create `dst` **must** be bound to device
+memory
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-dst-07791) VUID-VkCopyAccelerationStructureInfoKHR-dst-07791
+
+The range of memory backing `dst` that is accessed by this command
+**must** not overlap the memory backing `src` that is accessed by this
+command
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-sType-sType) VUID-VkCopyAccelerationStructureInfoKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_COPY_ACCELERATION_STRUCTURE_INFO_KHR`
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-pNext-pNext) VUID-VkCopyAccelerationStructureInfoKHR-pNext-pNext
+
+ `pNext` **must** be `NULL`
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-src-parameter) VUID-VkCopyAccelerationStructureInfoKHR-src-parameter
+
+ `src` **must** be a valid [VkAccelerationStructureKHR](resources.html#VkAccelerationStructureKHR) handle
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-dst-parameter) VUID-VkCopyAccelerationStructureInfoKHR-dst-parameter
+
+ `dst` **must** be a valid [VkAccelerationStructureKHR](resources.html#VkAccelerationStructureKHR) handle
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-mode-parameter) VUID-VkCopyAccelerationStructureInfoKHR-mode-parameter
+
+ `mode` **must** be a valid [VkCopyAccelerationStructureModeKHR](#VkCopyAccelerationStructureModeKHR) value
+
+* 
+[](#VUID-VkCopyAccelerationStructureInfoKHR-commonparent) VUID-VkCopyAccelerationStructureInfoKHR-commonparent
+
+ Both of `dst`, and `src` **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
+
+To copy an acceleration structure for the `[VK_NV_ray_tracing](../appendices/extensions.html#VK_NV_ray_tracing)`
+extension call:
 
 // Provided by VK_NV_ray_tracing
 void vkCmdCopyAccelerationStructureNV(
@@ -4798,203 +5259,9 @@ Command Properties
 
 Secondary | Outside | Outside | Compute | Action |
 
-To copy an acceleration structure call:
+Conditional Rendering
 
-// Provided by VK_KHR_acceleration_structure
-void vkCmdCopyAccelerationStructureKHR(
-    VkCommandBuffer                             commandBuffer,
-    const VkCopyAccelerationStructureInfoKHR*   pInfo);
-
-* 
-`commandBuffer` is the command buffer into which the command will be
-recorded.
-
-* 
-`pInfo` is a pointer to a [VkCopyAccelerationStructureInfoKHR](#VkCopyAccelerationStructureInfoKHR)
-structure defining the copy operation.
-
-This command copies the `pInfo->src` acceleration structure to the
-`pInfo->dst` acceleration structure in the manner specified by
-`pInfo->mode`.
-
-Accesses to `pInfo->src` and `pInfo->dst` **must** be
-[synchronized](synchronization.html#synchronization-dependencies) with the
-`VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR`
-[pipeline stage](synchronization.html#synchronization-pipeline-stages) or the
-`VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`
-[pipeline stage](synchronization.html#synchronization-pipeline-stages), and an
-[access type](synchronization.html#synchronization-access-types) of
-`VK_ACCESS_ACCELERATION_STRUCTURE_READ_BIT_KHR` or
-`VK_ACCESS_ACCELERATION_STRUCTURE_WRITE_BIT_KHR` as appropriate.
-
-Valid Usage
-
-* 
-[](#VUID-vkCmdCopyAccelerationStructureKHR-accelerationStructure-08925) VUID-vkCmdCopyAccelerationStructureKHR-accelerationStructure-08925
-
-The [    `VkPhysicalDeviceAccelerationStructureFeaturesKHR`::`accelerationStructure`](features.html#features-accelerationStructure)
-feature **must** be enabled
-
-* 
-[](#VUID-vkCmdCopyAccelerationStructureKHR-buffer-03737) VUID-vkCmdCopyAccelerationStructureKHR-buffer-03737
-
-The `buffer` used to create `pInfo->src` **must** be bound to
-device memory
-
-* 
-[](#VUID-vkCmdCopyAccelerationStructureKHR-buffer-03738) VUID-vkCmdCopyAccelerationStructureKHR-buffer-03738
-
-The `buffer` used to create `pInfo->dst` **must** be bound to
-device memory
-
-Valid Usage (Implicit)
-
-* 
-[](#VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-parameter) VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-parameter
-
- `commandBuffer` **must** be a valid [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) handle
-
-* 
-[](#VUID-vkCmdCopyAccelerationStructureKHR-pInfo-parameter) VUID-vkCmdCopyAccelerationStructureKHR-pInfo-parameter
-
- `pInfo` **must** be a valid pointer to a valid [VkCopyAccelerationStructureInfoKHR](#VkCopyAccelerationStructureInfoKHR) structure
-
-* 
-[](#VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-recording) VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-recording
-
- `commandBuffer` **must** be in the [recording state](cmdbuffers.html#commandbuffers-lifecycle)
-
-* 
-[](#VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-cmdpool) VUID-vkCmdCopyAccelerationStructureKHR-commandBuffer-cmdpool
-
- The `VkCommandPool` that `commandBuffer` was allocated from **must** support compute operations
-
-* 
-[](#VUID-vkCmdCopyAccelerationStructureKHR-renderpass) VUID-vkCmdCopyAccelerationStructureKHR-renderpass
-
- This command **must** only be called outside of a render pass instance
-
-* 
-[](#VUID-vkCmdCopyAccelerationStructureKHR-videocoding) VUID-vkCmdCopyAccelerationStructureKHR-videocoding
-
- This command **must** only be called outside of a video coding scope
-
-Host Synchronization
-
-* 
-Host access to `commandBuffer` **must** be externally synchronized
-
-* 
-Host access to the `VkCommandPool` that `commandBuffer` was allocated from **must** be externally synchronized
-
-Command Properties
-| [Command Buffer Levels](cmdbuffers.html#VkCommandBufferLevel) | [Render Pass Scope](renderpass.html#vkCmdBeginRenderPass) | [Video Coding Scope](videocoding.html#vkCmdBeginVideoCodingKHR) | [Supported Queue Types](devsandqueues.html#VkQueueFlagBits) | [Command Type](fundamentals.html#fundamentals-queueoperation-command-types) |
-| --- | --- | --- | --- | --- |
-| Primary
-
-Secondary | Outside | Outside | Compute | Action |
-
-The `VkCopyAccelerationStructureInfoKHR` structure is defined as:
-
-// Provided by VK_KHR_acceleration_structure
-typedef struct VkCopyAccelerationStructureInfoKHR {
-    VkStructureType                       sType;
-    const void*                           pNext;
-    VkAccelerationStructureKHR            src;
-    VkAccelerationStructureKHR            dst;
-    VkCopyAccelerationStructureModeKHR    mode;
-} VkCopyAccelerationStructureInfoKHR;
-
-* 
-`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
-
-* 
-`pNext` is `NULL` or a pointer to a structure extending this
-structure.
-
-* 
-`src` is the source acceleration structure for the copy.
-
-* 
-`dst` is the target acceleration structure for the copy.
-
-* 
-`mode` is a [VkCopyAccelerationStructureModeKHR](#VkCopyAccelerationStructureModeKHR) value
-specifying additional operations to perform during the copy.
-
-Valid Usage
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-mode-03410) VUID-VkCopyAccelerationStructureInfoKHR-mode-03410
-
-`mode` **must** be
-`VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_KHR` or
-`VK_COPY_ACCELERATION_STRUCTURE_MODE_CLONE_KHR`
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-src-04963) VUID-VkCopyAccelerationStructureInfoKHR-src-04963
-
-The source acceleration structure `src` **must** have been constructed
-prior to the execution of this command
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-src-03411) VUID-VkCopyAccelerationStructureInfoKHR-src-03411
-
-If `mode` is `VK_COPY_ACCELERATION_STRUCTURE_MODE_COMPACT_KHR`,
-`src` **must** have been constructed with
-`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_COMPACTION_BIT_KHR` in the
-build
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-buffer-03718) VUID-VkCopyAccelerationStructureInfoKHR-buffer-03718
-
-The `buffer` used to create `src` **must** be bound to device
-memory
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-buffer-03719) VUID-VkCopyAccelerationStructureInfoKHR-buffer-03719
-
-The `buffer` used to create `dst` **must** be bound to device
-memory
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-dst-07791) VUID-VkCopyAccelerationStructureInfoKHR-dst-07791
-
-The range of memory backing `dst` that is accessed by this command
-**must** not overlap the memory backing `src` that is accessed by this
-command
-
-Valid Usage (Implicit)
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-sType-sType) VUID-VkCopyAccelerationStructureInfoKHR-sType-sType
-
- `sType` **must** be `VK_STRUCTURE_TYPE_COPY_ACCELERATION_STRUCTURE_INFO_KHR`
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-pNext-pNext) VUID-VkCopyAccelerationStructureInfoKHR-pNext-pNext
-
- `pNext` **must** be `NULL`
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-src-parameter) VUID-VkCopyAccelerationStructureInfoKHR-src-parameter
-
- `src` **must** be a valid [VkAccelerationStructureKHR](resources.html#VkAccelerationStructureKHR) handle
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-dst-parameter) VUID-VkCopyAccelerationStructureInfoKHR-dst-parameter
-
- `dst` **must** be a valid [VkAccelerationStructureKHR](resources.html#VkAccelerationStructureKHR) handle
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-mode-parameter) VUID-VkCopyAccelerationStructureInfoKHR-mode-parameter
-
- `mode` **must** be a valid [VkCopyAccelerationStructureModeKHR](#VkCopyAccelerationStructureModeKHR) value
-
-* 
-[](#VUID-VkCopyAccelerationStructureInfoKHR-commonparent) VUID-VkCopyAccelerationStructureInfoKHR-commonparent
-
- Both of `dst`, and `src` **must** have been created, allocated, or retrieved from the same [VkDevice](devsandqueues.html#VkDevice)
+vkCmdCopyAccelerationStructureNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Possible values of `mode` specifying additional operations to perform
 during the copy, are:
@@ -5139,20 +5406,12 @@ feature **must** be enabled
 * 
 [](#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-pInfo-03739) VUID-vkCmdCopyAccelerationStructureToMemoryKHR-pInfo-03739
 
-`pInfo->dst.deviceAddress` **must** be a valid device address for a
-buffer bound to device memory
+`pInfo->dst.deviceAddress` **must** be a valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-pInfo-03740) VUID-vkCmdCopyAccelerationStructureToMemoryKHR-pInfo-03740
 
 `pInfo->dst.deviceAddress` **must** be aligned to `256` bytes
-
-* 
-[](#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-pInfo-03741) VUID-vkCmdCopyAccelerationStructureToMemoryKHR-pInfo-03741
-
-If the buffer pointed to by `pInfo->dst.deviceAddress` is non-sparse
-then it **must** be bound completely and contiguously to a single
-[VkDeviceMemory](memory.html#VkDeviceMemory) object
 
 * 
 [](#VUID-vkCmdCopyAccelerationStructureToMemoryKHR-None-03559) VUID-vkCmdCopyAccelerationStructureToMemoryKHR-None-03559
@@ -5206,6 +5465,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyAccelerationStructureToMemoryKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 // Provided by VK_KHR_acceleration_structure
 typedef struct VkCopyAccelerationStructureToMemoryInfoKHR {
@@ -5331,20 +5594,12 @@ feature **must** be enabled
 * 
 [](#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-pInfo-03742) VUID-vkCmdCopyMemoryToAccelerationStructureKHR-pInfo-03742
 
-`pInfo->src.deviceAddress` **must** be a valid device address for a
-buffer bound to device memory
+`pInfo->src.deviceAddress` **must** be a valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-pInfo-03743) VUID-vkCmdCopyMemoryToAccelerationStructureKHR-pInfo-03743
 
 `pInfo->src.deviceAddress` **must** be aligned to `256` bytes
-
-* 
-[](#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-pInfo-03744) VUID-vkCmdCopyMemoryToAccelerationStructureKHR-pInfo-03744
-
-If the buffer pointed to by `pInfo->src.deviceAddress` is non-sparse
-then it **must** be bound completely and contiguously to a single
-[VkDeviceMemory](memory.html#VkDeviceMemory) object
 
 * 
 [](#VUID-vkCmdCopyMemoryToAccelerationStructureKHR-buffer-03745) VUID-vkCmdCopyMemoryToAccelerationStructureKHR-buffer-03745
@@ -5398,6 +5653,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdCopyMemoryToAccelerationStructureKHR is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The `VkCopyMemoryToAccelerationStructureInfoKHR` structure is defined
 as:
@@ -5784,7 +6043,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkClusterAccelerationStructureInputInfoNV-pTriangleClusters-parameter) VUID-VkClusterAccelerationStructureInputInfoNV-pTriangleClusters-parameter
 
- If `opType` is `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_NV`,VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV,VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV, the `pTriangleClusters` member of `opInput` **must** be a valid pointer to a [VkClusterAccelerationStructureTriangleClusterInputNV](#VkClusterAccelerationStructureTriangleClusterInputNV) structure
+ If `opType` is `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_NV`, `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV`, `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV`, or `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_GET_CLUSTER_TEMPLATE_INDICES_NV`, the `pTriangleClusters` member of `opInput` **must** be a valid pointer to a [VkClusterAccelerationStructureTriangleClusterInputNV](#VkClusterAccelerationStructureTriangleClusterInputNV) structure
 
 * 
 [](#VUID-VkClusterAccelerationStructureInputInfoNV-pMoveObjects-parameter) VUID-VkClusterAccelerationStructureInputInfoNV-pMoveObjects-parameter
@@ -5801,6 +6060,7 @@ typedef enum VkClusterAccelerationStructureOpTypeNV {
     VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_NV = 2,
     VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV = 3,
     VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV = 4,
+    VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_GET_CLUSTER_TEMPLATE_INDICES_NV = 5,
 } VkClusterAccelerationStructureOpTypeNV;
 
 * 
@@ -5816,22 +6076,27 @@ returns the size of existing cluster acceleration structures.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_CLUSTERS_BOTTOM_LEVEL_NV`
-indicates that bottom level cluster acceleration structures will be
+specifies that bottom level cluster acceleration structures will be
 built.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_NV`
-indicates that cluster acceleration structures will be built.
+specifies that cluster acceleration structures will be built.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV`
-indicates that a template for cluster acceleration structure will be
+specifies that a template for cluster acceleration structure will be
 built.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV`
-indicates that a template for a cluster acceleration structure will be
+specifies that a template for a cluster acceleration structure will be
 instantiated, resulting in a built cluster acceleration structure.
+
+* 
+`VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_GET_CLUSTER_TEMPLATE_INDICES_NV`
+specifies that the vertex indices of the cluster template acceleration
+structure will be fetched.
 
 Values which **can** be set in `VkClusterAccelerationStructureOpModeNV`
 are:
@@ -5845,7 +6110,7 @@ typedef enum VkClusterAccelerationStructureOpModeNV {
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_MODE_IMPLICIT_DESTINATIONS_NV`
-indicates that the build or move operation will implicitly distribute
+specifies that the build or move operation will implicitly distribute
 built or compacted cluster acceleration structures starting at the
 address provided in
 [VkClusterAccelerationStructureCommandsInfoNV](#VkClusterAccelerationStructureCommandsInfoNV)::`dstImplicitData`.
@@ -5854,14 +6119,14 @@ be tightly compacted.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_MODE_EXPLICIT_DESTINATIONS_NV`
-indicates that the build or move operation will explicitly write built
+specifies that the build or move operation will explicitly write built
 or compacted cluster acceleration structures in the array of addresses
 provided in
 [VkClusterAccelerationStructureCommandsInfoNV](#VkClusterAccelerationStructureCommandsInfoNV)::`dstAddressesArray`.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_MODE_COMPUTE_SIZES_NV`
-indicates that computed cluster acceleration structure sizes will be
+specifies that computed cluster acceleration structure sizes will be
 written to
 [VkClusterAccelerationStructureCommandsInfoNV](#VkClusterAccelerationStructureCommandsInfoNV)::`dstSizesArray`.
 
@@ -6094,7 +6359,7 @@ typedef enum VkClusterAccelerationStructureTypeNV {
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_TYPE_CLUSTERS_BOTTOM_LEVEL_NV`
-indicates a bottom level cluster acceleration structure.
+specifies a bottom level cluster acceleration structure.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_TYPE_TRIANGLE_CLUSTER_NV`
@@ -6102,7 +6367,7 @@ specifies a cluster acceleration structure.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_TYPE_TRIANGLE_CLUSTER_TEMPLATE_NV`
-indicates a template cluster acceleration structure.
+specifies a template cluster acceleration structure.
 
 To build or move a cluster acceleration structure or a cluster acceleration
 structure template call:
@@ -6173,8 +6438,8 @@ structure
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10445) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10445
 
-`pCommandInfos->input`::`maxAccelerationStructureCount` **must** be
-less than or equal to the value used in
+`pCommandInfos->input.maxAccelerationStructureCount` **must** be less
+than or equal to the value used in
 `pInfo->maxAccelerationStructureCount` in
 [vkGetClusterAccelerationStructureBuildSizesNV](#vkGetClusterAccelerationStructureBuildSizesNV) to determine the
 memory requirements for the build operation
@@ -6199,7 +6464,7 @@ its alignment properties as queried with
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10448) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10448
 
-If `pCommandInfos->input`::`opType` is
+If `pCommandInfos->input.opType` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_MOVE_OBJECTS_NV`,
 `pCommandInfos->srcInfosArray` **must** be an array of
 [VkClusterAccelerationStructureMoveObjectsInfoNV](#VkClusterAccelerationStructureMoveObjectsInfoNV) structures
@@ -6207,7 +6472,7 @@ If `pCommandInfos->input`::`opType` is
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10449) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10449
 
-If `pCommandInfos->input`::`opType` is
+If `pCommandInfos->input.opType` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_CLUSTERS_BOTTOM_LEVEL_NV`,
 `pCommandInfos->srcInfosArray` **must** be an array of
 [VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV](#VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV)
@@ -6216,7 +6481,7 @@ structures
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10450) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10450
 
-If `pCommandInfos->input`::`opType` is
+If `pCommandInfos->input.opType` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_NV`,
 `pCommandInfos->srcInfosArray` **must** be an array of
 [VkClusterAccelerationStructureBuildTriangleClusterInfoNV](#VkClusterAccelerationStructureBuildTriangleClusterInfoNV)
@@ -6225,7 +6490,7 @@ structures
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10451) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10451
 
-If `pCommandInfos->input`::`opType` is
+If `pCommandInfos->input.opType` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV`,
 `pCommandInfos->srcInfosArray` **must** be an array of
 [VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV](#VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV)
@@ -6234,16 +6499,24 @@ structures
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10452) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10452
 
-If `pCommandInfos->input`::`opType` is
+If `pCommandInfos->input.opType` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV`,
 `pCommandInfos->srcInfosArray` **must** be an array of
 [VkClusterAccelerationStructureInstantiateClusterInfoNV](#VkClusterAccelerationStructureInstantiateClusterInfoNV) structures
 
 * 
+[](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10832) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10832
+
+If `pCommandInfos->input.opType` is
+`VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_GET_CLUSTER_TEMPLATE_INDICES_NV`,
+`pCommandInfos->srcInfosArray` **must** be an array of
+[VkClusterAccelerationStructureGetTemplateIndicesInfoNV](#VkClusterAccelerationStructureGetTemplateIndicesInfoNV) structures
+
+* 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10453) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10453
 
 The value in `pCommandInfos->srcInfosCount` **must** be less than or
-equal to `pCommandInfos->input`::`maxAccelerationStructureCount`
+equal to `pCommandInfos->input.maxAccelerationStructureCount`
 
 * 
 [](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10454) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10454
@@ -6293,48 +6566,6 @@ The buffers from which the buffer device addresses for
 created with the
 `VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR` usage flag
 
-* 
-[](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10460) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10460
-
-If `pCommandInfos->dstImplicitData` is the address of a non-sparse
-buffer then it **must** be bound completely and contiguously to a single
-[VkDeviceMemory](memory.html#VkDeviceMemory) object
-
-* 
-[](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10461) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10461
-
-If `pCommandInfos->scratchData` is the address of a non-sparse
-buffer then it **must** be bound completely and contiguously to a single
-[VkDeviceMemory](memory.html#VkDeviceMemory) object
-
-* 
-[](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10462) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10462
-
-If `pCommandInfos->srcInfosCount` is the address of a non-sparse
-buffer then it **must** be bound completely and contiguously to a single
-[VkDeviceMemory](memory.html#VkDeviceMemory) object
-
-* 
-[](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10463) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10463
-
-If the addresses specified in `pCommandInfos->dstAddressesArray` are
-the address of a non-sparse buffer then they each **must** be bound
-completely and contiguously to a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
-
-* 
-[](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10464) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10464
-
-If the addresses specified in `pCommandInfos->dstSizesArray` are the
-address of a non-sparse buffer then they each **must** be bound completely
-and contiguously to a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
-
-* 
-[](#VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10465) VUID-vkCmdBuildClusterAccelerationStructureIndirectNV-pCommandInfos-10465
-
-If the addresses specified in `pCommandInfos->srcInfosArray` are the
-address of a non-sparse buffer then they each **must** be bound completely
-and contiguously to a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
-
 Valid Usage (Implicit)
 
 * 
@@ -6382,6 +6613,10 @@ Command Properties
 
 Secondary | Outside | Outside | Compute | Action |
 
+Conditional Rendering
+
+vkCmdBuildClusterAccelerationStructureIndirectNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The [VkClusterAccelerationStructureCommandsInfoNV](#VkClusterAccelerationStructureCommandsInfoNV) structure is defined
 as:
 
@@ -6424,7 +6659,7 @@ this value is ignored.
 used during cluster acceleration structure move or build.
 
 * 
-`dstAddressesArray` is a [VkStridedDeviceAddressRegionKHR](descriptorsets.html#VkStridedDeviceAddressRegionKHR) where
+`dstAddressesArray` is a [VkStridedDeviceAddressRegionKHR](resources.html#VkStridedDeviceAddressRegionKHR) where
 the individual addresses and stride of moved or built cluster
 acceleration structures will be saved or read from depending on
 [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV)::`opMode`.
@@ -6440,7 +6675,7 @@ If [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureIn
 this value is ignored and **may** be `0`.
 
 * 
-`dstSizesArray` is `NULL` or a [VkStridedDeviceAddressRegionKHR](descriptorsets.html#VkStridedDeviceAddressRegionKHR)
+`dstSizesArray` is `NULL` or a [VkStridedDeviceAddressRegionKHR](resources.html#VkStridedDeviceAddressRegionKHR)
 containing sizes of moved or built cluster acceleration structures.
 Similar to `dstAddressesArray`, if
 [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV)::`opMode` is
@@ -6451,28 +6686,29 @@ If [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureIn
 then the sizes are read from.
 
 * 
-`srcInfosArray` is a [VkStridedDeviceAddressRegionKHR](descriptorsets.html#VkStridedDeviceAddressRegionKHR) where
+`srcInfosArray` is a [VkStridedDeviceAddressRegionKHR](resources.html#VkStridedDeviceAddressRegionKHR) where
 input data for the build or move operation is read from.
 If the stride is `0`, the structures are assumed to be packed tightly.
 Its format is dependent on
 [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV)::`opType` as per the
 table below.
 
-| `input`::`opType` | Format of `srcInfosArray` |
+| `input.opType` | Format of `srcInfosArray` |
 | --- | --- |
 | `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_MOVE_OBJECTS_NV` | [VkClusterAccelerationStructureMoveObjectsInfoNV](#VkClusterAccelerationStructureMoveObjectsInfoNV) |
 | `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_CLUSTERS_BOTTOM_LEVEL_NV` | [VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV](#VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV) |
 | `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_NV` | [VkClusterAccelerationStructureBuildTriangleClusterInfoNV](#VkClusterAccelerationStructureBuildTriangleClusterInfoNV) |
 | `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV` | [VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV](#VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV) |
 | `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV` | [VkClusterAccelerationStructureInstantiateClusterInfoNV](#VkClusterAccelerationStructureInstantiateClusterInfoNV) |
+| `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_GET_CLUSTER_TEMPLATE_INDICES_NV` | [VkClusterAccelerationStructureGetTemplateIndicesInfoNV](#VkClusterAccelerationStructureGetTemplateIndicesInfoNV) |
 
 * 
 `srcInfosCount` is the device address of memory containing the count
 of number of build or move operations to perform.
 The actual value is the minimum of this value and the value specified in
-`input`::`maxAccelerationStructureCount`.
+`input.maxAccelerationStructureCount`.
 If this value is `0`, the count is determined by
-`input`::`maxAccelerationStructureCount` alone.
+`input.maxAccelerationStructureCount` alone.
 
 * 
 `addressResolutionFlags` is a bitmask of
@@ -6494,7 +6730,7 @@ If [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureIn
 
 If [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV)::`opMode` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_MODE_IMPLICIT_DESTINATIONS_NV`
-and `input`::`opType` is not
+and `input.opType` is not
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_MOVE_OBJECTS_NV`, the
 memory in `dstImplicitData` **must** be equal to or larger than the
 [VkAccelerationStructureBuildSizesInfoKHR](resources.html#VkAccelerationStructureBuildSizesInfoKHR)::`accelerationStructureSize`
@@ -6506,7 +6742,7 @@ with same input parameters
 
 If [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV)::`opMode` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_MODE_IMPLICIT_DESTINATIONS_NV`
-and `input`::`opType` is
+and `input.opType` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_MOVE_OBJECTS_NV`, the
 memory in `dstImplicitData` **must** be equal to or larger than the sum
 of all the built acceleration structures that are being moved
@@ -6514,7 +6750,7 @@ of all the built acceleration structures that are being moved
 * 
 [](#VUID-VkClusterAccelerationStructureCommandsInfoNV-input-10469) VUID-VkClusterAccelerationStructureCommandsInfoNV-input-10469
 
-If `input`::`opType` is
+If `input.opType` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_MOVE_OBJECTS_NV`, the
 total memory moved **must** not be larger than the size provided in
 [VkClusterAccelerationStructureMoveObjectsInputNV](#VkClusterAccelerationStructureMoveObjectsInputNV)::`maxMovedBytes`
@@ -6572,7 +6808,7 @@ structure the address is describing
 * 
 [](#VUID-VkClusterAccelerationStructureCommandsInfoNV-input-10477) VUID-VkClusterAccelerationStructureCommandsInfoNV-input-10477
 
-If `input`::`opType` is
+If `input.opType` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_NV`,
 then depending on the
 [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV)::`opMode`,
@@ -6583,7 +6819,7 @@ then depending on the
 * 
 [](#VUID-VkClusterAccelerationStructureCommandsInfoNV-input-10478) VUID-VkClusterAccelerationStructureCommandsInfoNV-input-10478
 
-If `input`::`opType` is
+If `input.opType` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_TRIANGLE_CLUSTER_TEMPLATE_NV`,
 then depending on the
 [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV)::`opMode`,
@@ -6594,7 +6830,7 @@ then depending on the
 * 
 [](#VUID-VkClusterAccelerationStructureCommandsInfoNV-input-10479) VUID-VkClusterAccelerationStructureCommandsInfoNV-input-10479
 
-If `input`::`opType` is
+If `input.opType` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_INSTANTIATE_TRIANGLE_CLUSTER_NV`,
 then depending on the
 [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV)::`opMode`,
@@ -6616,7 +6852,7 @@ then depending on the
 * 
 [](#VUID-VkClusterAccelerationStructureCommandsInfoNV-input-10482) VUID-VkClusterAccelerationStructureCommandsInfoNV-input-10482
 
-If `input`::`opType` is
+If `input.opType` is
 `VK_CLUSTER_ACCELERATION_STRUCTURE_OP_TYPE_BUILD_CLUSTERS_BOTTOM_LEVEL_NV`,
 the total and per argument number of cluster acceleration structures
 referenced in `srcInfosArray` **must** be equal or less than the
@@ -6642,6 +6878,21 @@ Valid Usage (Implicit)
  `input` **must** be a valid [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV) structure
 
 * 
+[](#VUID-VkClusterAccelerationStructureCommandsInfoNV-dstImplicitData-parameter) VUID-VkClusterAccelerationStructureCommandsInfoNV-dstImplicitData-parameter
+
+ `dstImplicitData` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkClusterAccelerationStructureCommandsInfoNV-scratchData-parameter) VUID-VkClusterAccelerationStructureCommandsInfoNV-scratchData-parameter
+
+ `scratchData` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkClusterAccelerationStructureCommandsInfoNV-srcInfosCount-parameter) VUID-VkClusterAccelerationStructureCommandsInfoNV-srcInfosCount-parameter
+
+ `srcInfosCount` **must** be a valid `VkDeviceAddress` value
+
+* 
 [](#VUID-VkClusterAccelerationStructureCommandsInfoNV-addressResolutionFlags-parameter) VUID-VkClusterAccelerationStructureCommandsInfoNV-addressResolutionFlags-parameter
 
  `addressResolutionFlags` **must** be a valid combination of [VkClusterAccelerationStructureAddressResolutionFlagBitsNV](#VkClusterAccelerationStructureAddressResolutionFlagBitsNV) values
@@ -6653,6 +6904,7 @@ specifying how the device address in
 
 // Provided by VK_NV_cluster_acceleration_structure
 typedef enum VkClusterAccelerationStructureAddressResolutionFlagBitsNV {
+    VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_NONE_NV = 0,
     VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_DST_IMPLICIT_DATA_BIT_NV = 0x00000001,
     VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_SCRATCH_DATA_BIT_NV = 0x00000002,
     VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_DST_ADDRESS_ARRAY_BIT_NV = 0x00000004,
@@ -6662,33 +6914,37 @@ typedef enum VkClusterAccelerationStructureAddressResolutionFlagBitsNV {
 } VkClusterAccelerationStructureAddressResolutionFlagBitsNV;
 
 * 
+`VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_NONE_NV`
+specifies that no address resolution flags are provided.
+
+* 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_DST_IMPLICIT_DATA_BIT_NV`
-indicates another level of indirection when reading
+specifies another level of indirection when reading
 [VkClusterAccelerationStructureCommandsInfoNV](#VkClusterAccelerationStructureCommandsInfoNV)::`dstImplicitData`.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_SCRATCH_DATA_BIT_NV`
-indicates another level of indirection when reading
+specifies another level of indirection when reading
 [VkClusterAccelerationStructureCommandsInfoNV](#VkClusterAccelerationStructureCommandsInfoNV)::`scratchData`.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_DST_ADDRESS_ARRAY_BIT_NV`
-indicates another level of indirection when reading
+specifies another level of indirection when reading
 [VkClusterAccelerationStructureCommandsInfoNV](#VkClusterAccelerationStructureCommandsInfoNV)::`dstAddressesArray`.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_DST_SIZES_ARRAY_BIT_NV`
-indicates another level of indirection when reading
+specifies another level of indirection when reading
 [VkClusterAccelerationStructureCommandsInfoNV](#VkClusterAccelerationStructureCommandsInfoNV)::`dstSizesArray`.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_SRC_INFOS_ARRAY_BIT_NV`
-indicates another level of indirection when reading
+specifies another level of indirection when reading
 [VkClusterAccelerationStructureCommandsInfoNV](#VkClusterAccelerationStructureCommandsInfoNV)::`srcInfosArray`.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_ADDRESS_RESOLUTION_INDIRECTED_SRC_INFOS_COUNT_BIT_NV`
-indicates another level of indirection when reading
+specifies another level of indirection when reading
 [VkClusterAccelerationStructureCommandsInfoNV](#VkClusterAccelerationStructureCommandsInfoNV)::`srcInfosCount`.
 
 // Provided by VK_NV_cluster_acceleration_structure
@@ -6716,6 +6972,13 @@ Valid Usage
 [](#VUID-VkClusterAccelerationStructureMoveObjectsInfoNV-srcAccelerationStructure-10483) VUID-VkClusterAccelerationStructureMoveObjectsInfoNV-srcAccelerationStructure-10483
 
 `srcAccelerationStructure` **must** be a type of [    cluster acceleration structure](#cluster-geometry)
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkClusterAccelerationStructureMoveObjectsInfoNV-srcAccelerationStructure-parameter) VUID-VkClusterAccelerationStructureMoveObjectsInfoNV-srcAccelerationStructure-parameter
+
+ `srcAccelerationStructure` **must** be a valid `VkDeviceAddress` value
 
 The [VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV](#VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV)
 structure is defined as:
@@ -6756,6 +7019,13 @@ values
 
 `clusterReferencesStride` **must** be greater than or equal to 8
 
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV-clusterReferences-parameter) VUID-VkClusterAccelerationStructureBuildClustersBottomLevelInfoNV-clusterReferences-parameter
+
+ `clusterReferences` **must** be a valid `VkDeviceAddress` value
+
 Bits which **can** be set in
 [VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV](#VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV)::`geometryFlags`,
 specifying geometry flags for cluster acceleration structure, are:
@@ -6773,7 +7043,7 @@ disables face culling for this geometry.
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_GEOMETRY_NO_DUPLICATE_ANYHIT_INVOCATION_BIT_NV`
-indicates that the implementation **must** only call the any-hit shader a
+specifies that the implementation **must** only call the any-hit shader a
 single time for each primitive in this geometry.
 If this bit is absent an implementation **may** invoke the any-hit shader
 more than once for this geometry.
@@ -6849,9 +7119,9 @@ typedef enum VkClusterAccelerationStructureClusterFlagBitsNV {
 
 * 
 `VK_CLUSTER_ACCELERATION_STRUCTURE_CLUSTER_ALLOW_DISABLE_OPACITY_MICROMAPS_NV`
-indicates that the specified cluster acceleration structure **may** be
+specifies that the specified cluster acceleration structure **may** be
 referenced in an instance with
-`VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_EXT` set.
+`VK_GEOMETRY_INSTANCE_DISABLE_OPACITY_MICROMAPS_BIT_EXT` set.
 
 // Provided by VK_NV_cluster_acceleration_structure
 typedef VkFlags VkClusterAccelerationStructureClusterFlagsNV;
@@ -6938,32 +7208,34 @@ tightly-packed.
 tightly-packed.
 
 * 
-`indexBuffer` contains the indices of vertices in the cluster and is
-of type `indexType`.
+`indexBuffer` is a device address containing the indices of the
+vertices in the cluster and are of type `indexType`.
 
 * 
-`vertexBuffer` specifies the vertex data of the triangles in the
-cluster with format specified in
+`vertexBuffer` is a device address containing the vertex data of the
+triangles in the cluster with format specified in
 [VkClusterAccelerationStructureTriangleClusterInputNV](#VkClusterAccelerationStructureTriangleClusterInputNV)::`vertexFormat`.
 
 * 
  `geometryIndexAndFlagsBuffer` is
-either `NULL` or an address containing strided
+either `0` or an address containing strided
 [VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV](#VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV)
 values specifying the geometry index and flag for every triangle in the
 cluster.
 
 * 
-`opacityMicromapArray` is either `NULL` or specifies the address of
-a valid opacity micromap array to reference from the cluster
+`opacityMicromapArray` is either `0` or specifies the address of a
+valid opacity micromap array to reference from the cluster acceleration
+structure.
+If it is `0`, then opacity micromaps will be disabled for this cluster
 acceleration structure.
-If it is `NULL`, then opacity micromaps will be disabled for this
-cluster acceleration structure.
 
 * 
-`opacityMicromapIndexBuffer` is either `NULL` or specifies the
-address of a strided array with size equal to the number of triangles or
-indices into the opacity micromap array.
+`opacityMicromapIndexBuffer` is either `0` or specifies the address
+of a strided array with size equal to the number of triangles or indices
+into the opacity micromap array.
+If `opacityMicromapIndexBuffer` is `0` then the index used is the
+index of the triangle in the geometry.
 
 The C language specification does not define the ordering of bit-fields, but
 in practice, this structure produces the correct layout with existing
@@ -7053,12 +7325,45 @@ The maximum geometry index after using the values in
 `baseGeometryIndex` and `geometryIndexBuffer` **must** be less than
 [VkPhysicalDeviceClusterAccelerationStructurePropertiesNV](limits.html#VkPhysicalDeviceClusterAccelerationStructurePropertiesNV)::`maxClusterGeometryIndex`
 
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-opacityMicromapArray-10881) VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-opacityMicromapArray-10881
+
+If `opacityMicromapArray` is not `0`, then the cluster acceleration
+structure **must** have been built with
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_CLUSTER_OPACITY_MICROMAPS_BIT_NV`
+flag set in [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV)::`flags`
+
 Valid Usage (Implicit)
 
 * 
 [](#VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-clusterFlags-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-clusterFlags-parameter
 
  `clusterFlags` **must** be a valid combination of [VkClusterAccelerationStructureClusterFlagBitsNV](#VkClusterAccelerationStructureClusterFlagBitsNV) values
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-indexBuffer-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-indexBuffer-parameter
+
+ `indexBuffer` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-vertexBuffer-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-vertexBuffer-parameter
+
+ `vertexBuffer` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-geometryIndexAndFlagsBuffer-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-geometryIndexAndFlagsBuffer-parameter
+
+ `geometryIndexAndFlagsBuffer` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-opacityMicromapArray-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-opacityMicromapArray-parameter
+
+ `opacityMicromapArray` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-opacityMicromapIndexBuffer-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterInfoNV-opacityMicromapIndexBuffer-parameter
+
+ `opacityMicromapIndexBuffer` **must** be a valid `VkDeviceAddress` value
 
 Bits that **can** be set in
 [VkClusterAccelerationStructureBuildTriangleClusterInfoNV](#VkClusterAccelerationStructureBuildTriangleClusterInfoNV)::`indexType`,
@@ -7173,31 +7478,33 @@ the cluster template.
 of type `indexType`.
 
 * 
-`vertexBuffer` is either `NULL` or specifies the vertex data of the
+`vertexBuffer` is either `0` or specifies the vertex data of the
 triangles in the cluster template with format specified in
 [VkClusterAccelerationStructureTriangleClusterInputNV](#VkClusterAccelerationStructureTriangleClusterInputNV)::`vertexFormat`.
 
 * 
-`geometryIndexAndFlagsBuffer` is either `NULL` or an address
-containing strided
+`geometryIndexAndFlagsBuffer` is either `0` or an address containing
+strided
 [VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV](#VkClusterAccelerationStructureGeometryIndexAndGeometryFlagsNV)
 values specifying the geometry index and flag for every triangle in the
 cluster.
 
 * 
-`opacityMicromapArray` is either `NULL` or specifies the address of
-a valid opacity micromap array to reference from the cluster
+`opacityMicromapArray` is either `0` or specifies the address of a
+valid opacity micromap array to reference from the cluster acceleration
+structure.
+If it is `0`, then opacity micromaps will be disabled for this cluster
 acceleration structure.
-If it is `NULL`, then opacity micromaps will be disabled for this
-cluster acceleration structure.
 
 * 
-`opacityMicromapIndexBuffer` is either `NULL` or specifies the
-address of a strided array with size equal to the number of triangles or
-indices into the opacity micromap array.
+`opacityMicromapIndexBuffer` is either `0` or specifies the address
+of a strided array with size equal to the number of triangles or indices
+into the opacity micromap array.
+If `opacityMicromapIndexBuffer` is `0` then the index used is the
+index of the triangle in the geometry.
 
 * 
-`instantiationBoundingBoxLimit` is either `NULL` or specifies the
+`instantiationBoundingBoxLimit` is either `0` or specifies the
 address of a bounding box within which all instantiated clusters **must**
 lie.
 The bounding box is specified by six 32-bit floating-point values in the
@@ -7292,7 +7599,7 @@ in
 [](#VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-instantiationBoundingBoxLimit-10505) VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-instantiationBoundingBoxLimit-10505
 
 `instantiationBoundingBoxLimit` **must** be aligned to
-[VkPhysicalDeviceClusterAccelerationStructurePropertiesNV](limits.html#VkPhysicalDeviceClusterAccelerationStructurePropertiesNV)::`clusterTemplateBoundsByteAlignment`.
+[VkPhysicalDeviceClusterAccelerationStructurePropertiesNV](limits.html#VkPhysicalDeviceClusterAccelerationStructurePropertiesNV)::`clusterTemplateBoundsByteAlignment`
 
 * 
 [](#VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-baseGeometryIndex-10506) VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-baseGeometryIndex-10506
@@ -7301,12 +7608,50 @@ The maximum geometry index after using the values in
 `baseGeometryIndex` and `geometryIndexBuffer` **must** be less than
 [VkPhysicalDeviceClusterAccelerationStructurePropertiesNV](limits.html#VkPhysicalDeviceClusterAccelerationStructurePropertiesNV)::`maxClusterGeometryIndex`
 
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-opacityMicromapArray-10882) VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-opacityMicromapArray-10882
+
+If `opacityMicromapArray` is not `0`, then the template cluster
+acceleration structure **must** have been built with
+`VK_BUILD_ACCELERATION_STRUCTURE_ALLOW_CLUSTER_OPACITY_MICROMAPS_BIT_NV`
+flag set in [VkClusterAccelerationStructureInputInfoNV](#VkClusterAccelerationStructureInputInfoNV)::`flags`
+
 Valid Usage (Implicit)
 
 * 
 [](#VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-clusterFlags-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-clusterFlags-parameter
 
  `clusterFlags` **must** be a valid combination of [VkClusterAccelerationStructureClusterFlagBitsNV](#VkClusterAccelerationStructureClusterFlagBitsNV) values
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-indexBuffer-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-indexBuffer-parameter
+
+ `indexBuffer` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-vertexBuffer-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-vertexBuffer-parameter
+
+ `vertexBuffer` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-geometryIndexAndFlagsBuffer-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-geometryIndexAndFlagsBuffer-parameter
+
+ `geometryIndexAndFlagsBuffer` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-opacityMicromapArray-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-opacityMicromapArray-parameter
+
+ `opacityMicromapArray` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-opacityMicromapIndexBuffer-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-opacityMicromapIndexBuffer-parameter
+
+ `opacityMicromapIndexBuffer` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-instantiationBoundingBoxLimit-parameter) VUID-VkClusterAccelerationStructureBuildTriangleClusterTemplateInfoNV-instantiationBoundingBoxLimit-parameter
+
+ `instantiationBoundingBoxLimit` **must** be a valid `VkDeviceAddress` value
 
 The [VkClusterAccelerationStructureInstantiateClusterInfoNV](#VkClusterAccelerationStructureInstantiateClusterInfoNV) structure
 is defined as:
@@ -7336,7 +7681,7 @@ index of each triangle.
 cluster template.
 
 * 
-`vertexBuffer` is either `NULL` or a [VkStridedDeviceAddressNV](#VkStridedDeviceAddressNV)
+`vertexBuffer` is either `0` or a [VkStridedDeviceAddressNV](#VkStridedDeviceAddressNV)
 structure containing the vertex data for the indexed triangles stored in
 the cluster template.
 
@@ -7345,7 +7690,7 @@ Valid Usage
 * 
 [](#VUID-VkClusterAccelerationStructureInstantiateClusterInfoNV-vertexBuffer-10507) VUID-VkClusterAccelerationStructureInstantiateClusterInfoNV-vertexBuffer-10507
 
-`vertexBuffer` **must** not be `NULL` if the template was built without
+`vertexBuffer` **must** not be `0` if the template was built without
 vertex data
 
 * 
@@ -7366,6 +7711,40 @@ The maximum geometry index after using the value in
 `geometryIndexOffset` **must** be less than
 [VkPhysicalDeviceClusterAccelerationStructurePropertiesNV](limits.html#VkPhysicalDeviceClusterAccelerationStructurePropertiesNV)::`maxClusterGeometryIndex`
 
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkClusterAccelerationStructureInstantiateClusterInfoNV-clusterTemplateAddress-parameter) VUID-VkClusterAccelerationStructureInstantiateClusterInfoNV-clusterTemplateAddress-parameter
+
+ `clusterTemplateAddress` **must** be a valid `VkDeviceAddress` value
+
+The [VkClusterAccelerationStructureGetTemplateIndicesInfoNV](#VkClusterAccelerationStructureGetTemplateIndicesInfoNV) structure
+is defined as:
+
+// Provided by VK_NV_cluster_acceleration_structure
+typedef struct VkClusterAccelerationStructureGetTemplateIndicesInfoNV {
+    VkDeviceAddress    clusterTemplateAddress;
+} VkClusterAccelerationStructureGetTemplateIndicesInfoNV;
+
+* 
+`clusterTemplateAddress` is the device address of the cluster
+template acceleration structure whose index data is being fetched.
+
+Valid Usage
+
+* 
+[](#VUID-VkClusterAccelerationStructureGetTemplateIndicesInfoNV-clusterTemplateAddress-10833) VUID-VkClusterAccelerationStructureGetTemplateIndicesInfoNV-clusterTemplateAddress-10833
+
+`clusterTemplateAddress` **must** be a
+[template cluster acceleration    structure](#acceleration-structure-clas-template)
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkClusterAccelerationStructureGetTemplateIndicesInfoNV-clusterTemplateAddress-parameter) VUID-VkClusterAccelerationStructureGetTemplateIndicesInfoNV-clusterTemplateAddress-parameter
+
+ `clusterTemplateAddress` **must** be a valid `VkDeviceAddress` value
+
 The [VkStridedDeviceAddressNV](#VkStridedDeviceAddressNV) structure is defined as:
 
 // Provided by VK_NV_cluster_acceleration_structure
@@ -7376,7 +7755,7 @@ typedef struct VkStridedDeviceAddressNV {
 
 * 
 `startAddress` is the device address (as returned by the
-[vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress) command) at which the region starts, or
+[vkGetBufferDeviceAddress](resources.html#vkGetBufferDeviceAddress) command) at which the region starts, or
 zero if the region is unused.
 
 * 
@@ -7384,6 +7763,13 @@ zero if the region is unused.
 Only the bottom 32 bits are used.
 The field is 64 bits to ensure consistent alignment across all
 containing structures.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkStridedDeviceAddressNV-startAddress-parameter) VUID-VkStridedDeviceAddressNV-startAddress-parameter
+
+ `startAddress` **must** be a valid `VkDeviceAddress` value
 
 Partitioned Top Level Acceleration Structures (PTLAS) allow efficient reuse
 of previously constructed sections of the top level acceleration structure
@@ -7639,8 +8025,8 @@ feature **must** be enabled
 * 
 [](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10537) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10537
 
-The count specified in `pBuildInfo->input`::`instanceCount` for
-the build operation **must** not exceed the value provided in
+The count specified in `pBuildInfo->input.instanceCount` for the
+build operation **must** not exceed the value provided in
 `pInfo->instanceCount` when calling
 [vkGetPartitionedAccelerationStructuresBuildSizesNV](#vkGetPartitionedAccelerationStructuresBuildSizesNV) to determine
 the memory size
@@ -7649,8 +8035,8 @@ the memory size
 [](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10538) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10538
 
 The count specified in
-`pBuildInfo->input`::`maxInstancePerPartitionCount` for the
-build operation **must** not exceed the value provided in
+`pBuildInfo->input.maxInstancePerPartitionCount` for the build
+operation **must** not exceed the value provided in
 `pInfo->maxInstancePerPartitionCount` when calling
 [vkGetPartitionedAccelerationStructuresBuildSizesNV](#vkGetPartitionedAccelerationStructuresBuildSizesNV) to determine
 the memory size
@@ -7658,8 +8044,8 @@ the memory size
 * 
 [](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10539) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10539
 
-The count specified in `pBuildInfo->input`::`partitionCount` for
-the build operation **must** not exceed the value provided in
+The count specified in `pBuildInfo->input.partitionCount` for the
+build operation **must** not exceed the value provided in
 `pInfo->partitionCount` when calling
 [vkGetPartitionedAccelerationStructuresBuildSizesNV](#vkGetPartitionedAccelerationStructuresBuildSizesNV) to determine
 the memory size
@@ -7668,8 +8054,8 @@ the memory size
 [](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10540) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10540
 
 The count specified in
-`pBuildInfo->input`::`maxInstanceInGlobalPartitionCount` for the
-build operation **must** not exceed the value provided in
+`pBuildInfo->input.maxInstanceInGlobalPartitionCount` for the build
+operation **must** not exceed the value provided in
 `pInfo->maxInstanceInGlobalPartitionCount` when calling
 [vkGetPartitionedAccelerationStructuresBuildSizesNV](#vkGetPartitionedAccelerationStructuresBuildSizesNV) to determine
 the memory size
@@ -7760,41 +8146,6 @@ The buffers from which the buffer device addresses for
 been created with the
 `VK_BUFFER_USAGE_ACCELERATION_STRUCTURE_STORAGE_BIT_KHR` usage flag
 
-* 
-[](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10553) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10553
-
-If `pBuildInfo->srcAccelerationStructureData` is the address of a
-non-sparse buffer then it **must** be bound completely and contiguously to
-a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
-
-* 
-[](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10554) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10554
-
-If `pBuildInfo->dstAccelerationStructureData` is the address of a
-non-sparse buffer then it **must** be bound completely and contiguously to
-a single [VkDeviceMemory](memory.html#VkDeviceMemory) object
-
-* 
-[](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10555) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10555
-
-If `pBuildInfo->scratchData` is the address of a non-sparse buffer
-then it **must** be bound completely and contiguously to a single
-[VkDeviceMemory](memory.html#VkDeviceMemory) object
-
-* 
-[](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10556) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10556
-
-If `pBuildInfo->srcInfos` is the address of a non-sparse buffer then
-it **must** be bound completely and contiguously to a single
-[VkDeviceMemory](memory.html#VkDeviceMemory) object
-
-* 
-[](#VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10557) VUID-vkCmdBuildPartitionedAccelerationStructuresNV-pBuildInfo-10557
-
-If `pBuildInfo->srcInfosCount` is the address of a non-sparse buffer
-then it **must** be bound completely and contiguously to a single
-[VkDeviceMemory](memory.html#VkDeviceMemory) object
-
 Valid Usage (Implicit)
 
 * 
@@ -7841,6 +8192,10 @@ Command Properties
 | Primary
 
 Secondary | Outside | Outside | Compute | Action |
+
+Conditional Rendering
+
+vkCmdBuildPartitionedAccelerationStructuresNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 The [VkBuildPartitionedAccelerationStructureInfoNV](#VkBuildPartitionedAccelerationStructureInfoNV) structure is defined
 as:
@@ -7963,6 +8318,31 @@ Valid Usage (Implicit)
 
  `input` **must** be a valid [VkPartitionedAccelerationStructureInstancesInputNV](#VkPartitionedAccelerationStructureInstancesInputNV) structure
 
+* 
+[](#VUID-VkBuildPartitionedAccelerationStructureInfoNV-srcAccelerationStructureData-parameter) VUID-VkBuildPartitionedAccelerationStructureInfoNV-srcAccelerationStructureData-parameter
+
+ `srcAccelerationStructureData` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkBuildPartitionedAccelerationStructureInfoNV-dstAccelerationStructureData-parameter) VUID-VkBuildPartitionedAccelerationStructureInfoNV-dstAccelerationStructureData-parameter
+
+ `dstAccelerationStructureData` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkBuildPartitionedAccelerationStructureInfoNV-scratchData-parameter) VUID-VkBuildPartitionedAccelerationStructureInfoNV-scratchData-parameter
+
+ `scratchData` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkBuildPartitionedAccelerationStructureInfoNV-srcInfos-parameter) VUID-VkBuildPartitionedAccelerationStructureInfoNV-srcInfos-parameter
+
+ `srcInfos` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-VkBuildPartitionedAccelerationStructureInfoNV-srcInfosCount-parameter) VUID-VkBuildPartitionedAccelerationStructureInfoNV-srcInfosCount-parameter
+
+ `srcInfosCount` **must** be a valid `VkDeviceAddress` value
+
 The [VkBuildPartitionedAccelerationStructureIndirectCommandNV](#VkBuildPartitionedAccelerationStructureIndirectCommandNV) structure
 is defined as:
 
@@ -8029,12 +8409,12 @@ have their internal acceleration structure rebuilt.
 
 * 
 `VK_PARTITIONED_ACCELERATION_STRUCTURE_OP_TYPE_UPDATE_INSTANCE_NV`
-indicates that an instance will be updated with a new bottom level
+specifies that an instance will be updated with a new bottom level
 acceleration structure.
 
 * 
 `VK_PARTITIONED_ACCELERATION_STRUCTURE_OP_TYPE_WRITE_PARTITION_TRANSLATION_NV`
-indicates that a partition will be assigned a
+specifies that a partition will be assigned a
 [translation vector](#ptlas-partition-translation).
 
 The [VkPartitionedAccelerationStructureWriteInstanceDataNV](#VkPartitionedAccelerationStructureWriteInstanceDataNV) structure is
@@ -8114,13 +8494,13 @@ The most significant 8 bits of `instanceContributionToHitGroupIndex`
 [](#VUID-VkPartitionedAccelerationStructureWriteInstanceDataNV-instanceIndex-10568) VUID-VkPartitionedAccelerationStructureWriteInstanceDataNV-instanceIndex-10568
 
 `instanceIndex` **must** be less than
-[VkBuildPartitionedAccelerationStructureInfoNV](#VkBuildPartitionedAccelerationStructureInfoNV)::`input`::`instanceCount`
+[VkBuildPartitionedAccelerationStructureInfoNV](#VkBuildPartitionedAccelerationStructureInfoNV)::`input.instanceCount`
 
 * 
 [](#VUID-VkPartitionedAccelerationStructureWriteInstanceDataNV-partitionIndex-10569) VUID-VkPartitionedAccelerationStructureWriteInstanceDataNV-partitionIndex-10569
 
 `partitionIndex` **must** be less than
-[VkBuildPartitionedAccelerationStructureInfoNV](#VkBuildPartitionedAccelerationStructureInfoNV)::`input`::`partitionCount`
+[VkBuildPartitionedAccelerationStructureInfoNV](#VkBuildPartitionedAccelerationStructureInfoNV)::`input.partitionCount`
 
 * 
 [](#VUID-VkPartitionedAccelerationStructureWriteInstanceDataNV-explicitAABB-10570) VUID-VkPartitionedAccelerationStructureWriteInstanceDataNV-explicitAABB-10570
@@ -8136,6 +8516,11 @@ Valid Usage (Implicit)
 [](#VUID-VkPartitionedAccelerationStructureWriteInstanceDataNV-instanceFlags-parameter) VUID-VkPartitionedAccelerationStructureWriteInstanceDataNV-instanceFlags-parameter
 
  `instanceFlags` **must** be a valid combination of [VkPartitionedAccelerationStructureInstanceFlagBitsNV](#VkPartitionedAccelerationStructureInstanceFlagBitsNV) values
+
+* 
+[](#VUID-VkPartitionedAccelerationStructureWriteInstanceDataNV-accelerationStructure-parameter) VUID-VkPartitionedAccelerationStructureWriteInstanceDataNV-accelerationStructure-parameter
+
+ `accelerationStructure` **must** be a valid `VkDeviceAddress` value
 
 The [VkPartitionedAccelerationStructureUpdateInstanceDataNV](#VkPartitionedAccelerationStructureUpdateInstanceDataNV) structure
 is defined as:
@@ -8191,7 +8576,14 @@ or did not have an acceleration structure assigned with
 [](#VUID-VkPartitionedAccelerationStructureUpdateInstanceDataNV-instanceIndex-10573) VUID-VkPartitionedAccelerationStructureUpdateInstanceDataNV-instanceIndex-10573
 
 `instanceIndex` **must** be less than
-[VkBuildPartitionedAccelerationStructureInfoNV](#VkBuildPartitionedAccelerationStructureInfoNV)::`input`::`instanceCount`
+[VkBuildPartitionedAccelerationStructureInfoNV](#VkBuildPartitionedAccelerationStructureInfoNV)::`input.instanceCount`
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPartitionedAccelerationStructureUpdateInstanceDataNV-accelerationStructure-parameter) VUID-VkPartitionedAccelerationStructureUpdateInstanceDataNV-accelerationStructure-parameter
+
+ `accelerationStructure` **must** be a valid `VkDeviceAddress` value
 
 Bits which **can** be set in
 [VkPartitionedAccelerationStructureWriteInstanceDataNV](#VkPartitionedAccelerationStructureWriteInstanceDataNV)::`instanceFlags`,
@@ -8212,7 +8604,7 @@ disables face culling for this instance.
 
 * 
 `VK_PARTITIONED_ACCELERATION_STRUCTURE_INSTANCE_FLAG_TRIANGLE_FLIP_FACING_BIT_NV`
-indicates that the [facing determination](raytraversal.html#ray-traversal-culling-face)
+specifies that the [facing determination](raytraversal.html#ray-traversal-culling-face)
 for geometry in this instance is inverted.
 
 * 
@@ -8264,7 +8656,7 @@ Valid Usage
 [](#VUID-VkPartitionedAccelerationStructureWritePartitionTranslationDataNV-partitionIndex-10574) VUID-VkPartitionedAccelerationStructureWritePartitionTranslationDataNV-partitionIndex-10574
 
 `partitionIndex` **must** be less than
-[VkBuildPartitionedAccelerationStructureInfoNV](#VkBuildPartitionedAccelerationStructureInfoNV)::`input`::`partitionCount`
+[VkBuildPartitionedAccelerationStructureInfoNV](#VkBuildPartitionedAccelerationStructureInfoNV)::`input.partitionCount`
 
 * 
 [](#VUID-VkPartitionedAccelerationStructureWritePartitionTranslationDataNV-enablePartitionTranslation-10575) VUID-VkPartitionedAccelerationStructureWritePartitionTranslationDataNV-enablePartitionTranslation-10575
@@ -8655,6 +9047,84 @@ is `VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if its
 `NULL`
 
 * 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-10898) VUID-vkBuildAccelerationStructuresKHR-pInfos-10898
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`numTriangles` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-10899) VUID-vkBuildAccelerationStructuresKHR-pInfos-10899
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`numVertices` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-10900) VUID-vkBuildAccelerationStructuresKHR-pInfos-10900
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`maxPrimitiveIndex` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-10901) VUID-vkBuildAccelerationStructuresKHR-pInfos-10901
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`maxGeometryIndex` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-10902) VUID-vkBuildAccelerationStructuresKHR-pInfos-10902
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`format` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-10903) VUID-vkBuildAccelerationStructuresKHR-pInfos-10903
+
+For each element of `pInfos`, if its `mode` member is
+`VK_BUILD_ACCELERATION_STRUCTURE_MODE_UPDATE_KHR`, then for each
+`VkAccelerationStructureGeometryKHR` structure referred to by its
+`pGeometries` or `ppGeometries` members, if `geometryType`
+is `VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`, the
+`dataSize` member of the
+`VkAccelerationStructureDenseGeometryFormatTrianglesDataAMDX`
+structure in the `pNext` chain **must** have the same value which was
+specified when `srcAccelerationStructure` was last built
+
+* 
 [](#VUID-vkBuildAccelerationStructuresKHR-pInfos-03768) VUID-vkBuildAccelerationStructuresKHR-pInfos-03768
 
 For each element of `pInfos`, if its `mode` member is
@@ -8713,6 +9183,14 @@ updating a compacted acceleration structure
 Each element of `ppBuildRangeInfos`[i] **must** be a valid pointer to
 an array of `pInfos`[i].`geometryCount`
 `VkAccelerationStructureBuildRangeInfoKHR` structures
+, or `NULL`
+
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-10906) VUID-vkBuildAccelerationStructuresKHR-pInfos-10906
+
+For each element of `pInfos`[i] whose `pGeometries` or
+`ppGeometries` members have a `geometryType` of
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`,
+`ppBuildRangeInfos`[i] **must** be `NULL`
 
 * 
 [](#VUID-vkBuildAccelerationStructuresKHR-deferredOperation-03678) VUID-vkBuildAccelerationStructuresKHR-deferredOperation-03678
@@ -8860,6 +9338,24 @@ For any element of `pInfos`[i].`pGeometries` or
 `geometry.instances.data.hostAddress` **must** be a valid
 [VkAccelerationStructureKHR](resources.html#VkAccelerationStructureKHR) object
 
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-10892) VUID-vkBuildAccelerationStructuresKHR-pInfos-10892
+
+For any element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries` with a `geometryType` of
+`VK_GEOMETRY_TYPE_TRIANGLES_KHR`, if there is an instance of
+[VkAccelerationStructureTrianglesOpacityMicromapEXT](#VkAccelerationStructureTrianglesOpacityMicromapEXT) in the
+`geometry.triangles.pNext` chain, and its `indexType` is
+`VK_INDEX_TYPE_NONE_KHR`, then its `indexBuffer.hostAddress`
+**must** be 0
+
+* 
+[](#VUID-vkBuildAccelerationStructuresKHR-pInfos-10893) VUID-vkBuildAccelerationStructuresKHR-pInfos-10893
+
+For any element of `pInfos`[i].`pGeometries` or
+`pInfos`[i].`ppGeometries`, `geometryType` **must** not be
+`VK_GEOMETRY_TYPE_DENSE_GEOMETRY_FORMAT_TRIANGLES_AMDX`
+
 Valid Usage (Implicit)
 
 * 
@@ -8897,21 +9393,27 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_OPERATION_DEFERRED_KHR`
 
 * 
 `VK_OPERATION_NOT_DEFERRED_KHR`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To copy or compact an acceleration structure on the host, call:
 
@@ -9001,21 +9503,27 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_OPERATION_DEFERRED_KHR`
 
 * 
 `VK_OPERATION_NOT_DEFERRED_KHR`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To copy host accessible memory to an acceleration structure, call:
 
@@ -9108,21 +9616,27 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_OPERATION_DEFERRED_KHR`
 
 * 
 `VK_OPERATION_NOT_DEFERRED_KHR`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To copy an acceleration structure to host accessible memory, call:
 
@@ -9219,21 +9733,27 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_OPERATION_DEFERRED_KHR`
 
 * 
 `VK_OPERATION_NOT_DEFERRED_KHR`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To query acceleration structure size parameters on the host, call:
 
@@ -9435,7 +9955,13 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`

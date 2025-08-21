@@ -103,6 +103,14 @@ layer used for offsets and for fetching from the fragment density map is:
 
   
 
+Otherwise, if the render pass was created with
+`VK_RENDER_PASS_CREATE_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE` specified,
+or the dynamic render pass was begun with
+`VK_RENDERING_PER_LAYER_FRAGMENT_DENSITY_BIT_VALVE` specified,
+then the layer used is:
+
+  
+
 Otherwise:
 
   

@@ -312,7 +312,7 @@ Colin Riley, AMD (version 1.1)
 Connor Abbott, Valve Software (version 1.4)
 
 * 
-Constantine Shablya, Collabora (version 1.4)
+Caterina Shablia, Collabora (version 1.4)
 
 * 
 Cort Stratton, Google (versions 1.1, 1.2)

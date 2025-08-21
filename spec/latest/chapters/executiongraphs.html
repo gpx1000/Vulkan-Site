@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -588,10 +600,10 @@ not be set in the <code>flags</code> of that element</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_PIPELINE_COMPILE_REQUIRED_EXT</code></p>
 </li>
 <li>
-<p><code>VK_PIPELINE_COMPILE_REQUIRED_EXT</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -601,10 +613,16 @@ not be set in the <code>flags</code> of that element</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -1241,6 +1259,12 @@ index equal to <code>pNodeInfo-&gt;pName</code> and <code>pNodeInfo-&gt;index</c
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
+</li>
 </ul>
 </div>
 </dd>
@@ -1341,6 +1365,12 @@ will be returned in <code>pSizeInfo</code>.</p>
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -1509,6 +1539,10 @@ graph pipeline</p>
  <code>executionGraph</code> <strong>must</strong> be a valid <a href="pipelines.html#VkPipeline" class="xref page">VkPipeline</a> handle</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-parameter" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-parameter"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-parameter</span><br>
+ <code>scratch</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code> value</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-recording" href="#VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-recording"></a> <span class="vuid">VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-recording</span><br>
  <code>commandBuffer</code> <strong>must</strong> be in the <a href="cmdbuffers.html#commandbuffers-lifecycle" class="xref page">recording state</a></p>
 </li>
@@ -1575,6 +1609,14 @@ Compute</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdInitializeGraphScratchMemoryAMDX is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -2269,6 +2311,34 @@ transitioned to the
 <code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-pDescription-09900" href="#VUID-vkCmdDispatchGraphAMDX-pDescription-09900"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-pDescription-09900</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object
+<strong>must</strong> have been created with a
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> whose <code>usage</code> member
+contained <code>VK_TENSOR_USAGE_SHADER_BIT_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-dimensionCount-09905" href="#VUID-vkCmdDispatchGraphAMDX-dimensionCount-09905"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-dimensionCount-09905</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the <code>Rank</code> of the <code>OpTypeTensorARM</code>
+of the tensor resource variable <strong>must</strong> be equal to the
+<code>dimensionCount</code> provided via
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> when creating the
+underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-OpTypeTensorARM-09906" href="#VUID-vkCmdDispatchGraphAMDX-OpTypeTensorARM-09906"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-OpTypeTensorARM-09906</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the element type of the
+<code>OpTypeTensorARM</code> of the tensor resource variable <strong>must</strong> be
+<a href="../appendices/spirvenv.html#spirvenv-tensor-formats" class="xref page">compatible</a> with the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of the
+<a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> used for the access</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-commandBuffer-09181" href="#VUID-vkCmdDispatchGraphAMDX-commandBuffer-09181"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-commandBuffer-09181</span><br>
 
 <code>commandBuffer</code> <strong>must</strong> not be a protected command buffer</p>
@@ -2393,6 +2463,10 @@ node in <code>nodeIndex</code> in the first bytes</p>
  <code>commandBuffer</code> <strong>must</strong> be a valid <a href="cmdbuffers.html#VkCommandBuffer" class="xref page">VkCommandBuffer</a> handle</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchGraphAMDX-scratch-parameter" href="#VUID-vkCmdDispatchGraphAMDX-scratch-parameter"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-scratch-parameter</span><br>
+ <code>scratch</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code> value</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchGraphAMDX-pCountInfo-parameter" href="#VUID-vkCmdDispatchGraphAMDX-pCountInfo-parameter"></a> <span class="vuid">VUID-vkCmdDispatchGraphAMDX-pCountInfo-parameter</span><br>
  <code>pCountInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkDispatchGraphCountInfoAMDX">VkDispatchGraphCountInfoAMDX</a> structure</p>
 </li>
@@ -2459,6 +2533,14 @@ Compute</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdDispatchGraphAMDX is affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -3147,6 +3229,34 @@ transitioned to the
 <code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-pDescription-09900" href="#VUID-vkCmdDispatchGraphIndirectAMDX-pDescription-09900"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-pDescription-09900</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object
+<strong>must</strong> have been created with a
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> whose <code>usage</code> member
+contained <code>VK_TENSOR_USAGE_SHADER_BIT_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-dimensionCount-09905" href="#VUID-vkCmdDispatchGraphIndirectAMDX-dimensionCount-09905"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-dimensionCount-09905</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the <code>Rank</code> of the <code>OpTypeTensorARM</code>
+of the tensor resource variable <strong>must</strong> be equal to the
+<code>dimensionCount</code> provided via
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> when creating the
+underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-OpTypeTensorARM-09906" href="#VUID-vkCmdDispatchGraphIndirectAMDX-OpTypeTensorARM-09906"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-OpTypeTensorARM-09906</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the element type of the
+<code>OpTypeTensorARM</code> of the tensor resource variable <strong>must</strong> be
+<a href="../appendices/spirvenv.html#spirvenv-tensor-formats" class="xref page">compatible</a> with the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of the
+<a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> used for the access</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-09181" href="#VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-09181"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-09181</span><br>
 
 <code>commandBuffer</code> <strong>must</strong> not be a protected command buffer</p>
@@ -3303,6 +3413,10 @@ on the device</p>
  <code>commandBuffer</code> <strong>must</strong> be a valid <a href="cmdbuffers.html#VkCommandBuffer" class="xref page">VkCommandBuffer</a> handle</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-scratch-parameter" href="#VUID-vkCmdDispatchGraphIndirectAMDX-scratch-parameter"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-scratch-parameter</span><br>
+ <code>scratch</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code> value</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-parameter" href="#VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-parameter"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-parameter</span><br>
  <code>pCountInfo</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkDispatchGraphCountInfoAMDX">VkDispatchGraphCountInfoAMDX</a> structure</p>
 </li>
@@ -3369,6 +3483,14 @@ Compute</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdDispatchGraphIndirectAMDX is affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -4049,6 +4171,34 @@ transitioned to the
 <code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-pDescription-09900" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-pDescription-09900"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-pDescription-09900</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object
+<strong>must</strong> have been created with a
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> whose <code>usage</code> member
+contained <code>VK_TENSOR_USAGE_SHADER_BIT_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-dimensionCount-09905" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-dimensionCount-09905"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-dimensionCount-09905</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the <code>Rank</code> of the <code>OpTypeTensorARM</code>
+of the tensor resource variable <strong>must</strong> be equal to the
+<code>dimensionCount</code> provided via
+<a href="resources.html#VkTensorCreateInfoARM" class="xref page">VkTensorCreateInfoARM</a>::<code>pDescription</code> when creating the
+underlying <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> object</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-OpTypeTensorARM-09906" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-OpTypeTensorARM-09906"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-OpTypeTensorARM-09906</span><br>
+
+If a <code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> descriptor is accessed as a
+result of this command, then the element type of the
+<code>OpTypeTensorARM</code> of the tensor resource variable <strong>must</strong> be
+<a href="../appendices/spirvenv.html#spirvenv-tensor-formats" class="xref page">compatible</a> with the <a href="formats.html#VkFormat" class="xref page">VkFormat</a> of the
+<a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a> used for the access</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-09181" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-09181"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-09181</span><br>
 
 <code>commandBuffer</code> <strong>must</strong> not be a protected command buffer</p>
@@ -4223,6 +4373,14 @@ on the device</p>
  <code>commandBuffer</code> <strong>must</strong> be a valid <a href="cmdbuffers.html#VkCommandBuffer" class="xref page">VkCommandBuffer</a> handle</p>
 </li>
 <li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-parameter" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-parameter"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-parameter</span><br>
+ <code>scratch</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code> value</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-parameter" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-parameter"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-parameter</span><br>
+ <code>countInfo</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code> value</p>
+</li>
+<li>
 <p><a id="VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-recording" href="#VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-recording"></a> <span class="vuid">VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-recording</span><br>
  <code>commandBuffer</code> <strong>must</strong> be in the <a href="cmdbuffers.html#commandbuffers-lifecycle" class="xref page">recording state</a></p>
 </li>
@@ -4287,6 +4445,14 @@ Compute</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdDispatchGraphIndirectCountAMDX is affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -4307,7 +4473,7 @@ typedef union VkDeviceOrHostAddressConstAMDX {
 <ul>
 <li>
 <p><code>deviceAddress</code> is a buffer device address as returned by the
-<a href="descriptorsets.html#vkGetBufferDeviceAddressKHR" class="xref page">vkGetBufferDeviceAddressKHR</a> command.</p>
+<a href="resources.html#vkGetBufferDeviceAddressKHR" class="xref page">vkGetBufferDeviceAddressKHR</a> command.</p>
 </li>
 <li>
 <p><code>hostAddress</code> is a const host memory address.</p>
@@ -4548,7 +4714,30 @@ pipeline.</p>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

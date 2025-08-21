@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -659,6 +671,10 @@ available in the logical device <code>device</code></p>
 <p><a id="VUID-vkCreateCommandPool-pCommandPool-parameter" href="#VUID-vkCreateCommandPool-pCommandPool-parameter"></a> <span class="vuid">VUID-vkCreateCommandPool-pCommandPool-parameter</span><br>
  <code>pCommandPool</code> <strong>must</strong> be a valid pointer to a <a href="#VkCommandPool">VkCommandPool</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateCommandPool-device-queuecount" href="#VUID-vkCreateCommandPool-device-queuecount"></a> <span class="vuid">VUID-vkCreateCommandPool-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -683,10 +699,16 @@ available in the logical device <code>device</code></p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -746,6 +768,23 @@ If the <a href="features.html#features-protectedMemory" class="xref page"><code>
 not enabled, the <code>VK_COMMAND_POOL_CREATE_PROTECTED_BIT</code> bit of
 <code>flags</code> <strong>must</strong> not be set</p>
 </li>
+<li>
+<p><a id="VUID-VkCommandPoolCreateInfo-pNext-09908" href="#VUID-VkCommandPoolCreateInfo-pNext-09908"></a> <span class="vuid">VUID-VkCommandPoolCreateInfo-pNext-09908</span><br>
+
+If the <code>pNext</code> chain includes a
+<a href="VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM" class="xref page">VkDataGraphProcessingEngineCreateInfoARM</a> structure, then
+<code>queueFamilyIndex</code> <strong>must</strong> designate a queue family that supports
+<code>VK_QUEUE_DATA_GRAPH_BIT_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-VkCommandPoolCreateInfo-pNext-09909" href="#VUID-VkCommandPoolCreateInfo-pNext-09909"></a> <span class="vuid">VUID-VkCommandPoolCreateInfo-pNext-09909</span><br>
+
+If the <code>pNext</code> chain includes a
+<a href="VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM" class="xref page">VkDataGraphProcessingEngineCreateInfoARM</a> structure, then the queue
+family designated by <code>queueFamilyIndex</code> <strong>must</strong> support the data graph
+processing engines specified in the
+<a href="VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM" class="xref page">VkDataGraphProcessingEngineCreateInfoARM</a> structure</p>
+</li>
 </ul>
 </div>
 </div>
@@ -761,7 +800,11 @@ not enabled, the <code>VK_COMMAND_POOL_CREATE_PROTECTED_BIT</code> bit of
 </li>
 <li>
 <p><a id="VUID-VkCommandPoolCreateInfo-pNext-pNext" href="#VUID-VkCommandPoolCreateInfo-pNext-pNext"></a> <span class="vuid">VUID-VkCommandPoolCreateInfo-pNext-pNext</span><br>
- <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+ <code>pNext</code> <strong>must</strong> be <code>NULL</code> or a pointer to a valid instance of <a href="VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM" class="xref page">VkDataGraphProcessingEngineCreateInfoARM</a></p>
+</li>
+<li>
+<p><a id="VUID-VkCommandPoolCreateInfo-sType-unique" href="#VUID-VkCommandPoolCreateInfo-sType-unique"></a> <span class="vuid">VUID-VkCommandPoolCreateInfo-sType-unique</span><br>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkCommandPoolCreateInfo-flags-parameter" href="#VUID-VkCommandPoolCreateInfo-flags-parameter"></a> <span class="vuid">VUID-VkCommandPoolCreateInfo-flags-parameter</span><br>
@@ -1102,6 +1145,12 @@ not be in the <a href="#commandbuffers-lifecycle">pending state</a></p>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
+</li>
 </ul>
 </div>
 </dd>
@@ -1339,6 +1388,10 @@ contents.</p>
  <code>pCommandBuffers</code> <strong>must</strong> be a valid pointer to an array of <code>pAllocateInfo-&gt;commandBufferCount</code> <a href="#VkCommandBuffer">VkCommandBuffer</a> handles</p>
 </li>
 <li>
+<p><a id="VUID-vkAllocateCommandBuffers-device-queuecount" href="#VUID-vkAllocateCommandBuffers-device-queuecount"></a> <span class="vuid">VUID-vkAllocateCommandBuffers-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
+<li>
 <p><a id="VUID-vkAllocateCommandBuffers-pAllocateInfo::commandBufferCount-arraylength" href="#VUID-vkAllocateCommandBuffers-pAllocateInfo::commandBufferCount-arraylength"></a> <span class="vuid">VUID-vkAllocateCommandBuffers-pAllocateInfo::commandBufferCount-arraylength</span><br>
  <code>pAllocateInfo-&gt;commandBufferCount</code> <strong>must</strong> be greater than <code>0</code></p>
 </li>
@@ -1366,10 +1419,16 @@ contents.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -1597,6 +1656,12 @@ created with the <code>VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT</code></p
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -1885,10 +1950,16 @@ If <code>commandBuffer</code> is a primary command buffer, then
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -2426,7 +2497,7 @@ defined as:</p>
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_QCOM_render_pass_transform
 typedef struct VkCommandBufferInheritanceRenderPassTransformInfoQCOM {
     VkStructureType                  sType;
-    void*                            pNext;
+    const void*                      pNext;
     VkSurfaceTransformFlagBitsKHR    transform;
     VkRect2D                         renderArea;
 } VkCommandBufferInheritanceRenderPassTransformInfoQCOM;</code></pre>
@@ -3183,13 +3254,19 @@ an outstanding <a href="debugging.html#vkCmdDebugMarkerBeginEXT" class="xref pag
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_VIDEO_STD_PARAMETERS_KHR</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -3557,13 +3634,19 @@ any element of <code>pSubmits</code> <strong>must</strong> not include
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_DEVICE_LOST</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_DEVICE_LOST</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -3739,6 +3822,33 @@ bound, any pipelines bound in the render pass instance that resumes it,
 or any subsequent render pass instances that resume from that one and so
 on, <strong>must</strong> use the same sample locations</p>
 </li>
+<li>
+<p><a id="VUID-VkSubmitInfo2-pNext-09682" href="#VUID-VkSubmitInfo2-pNext-09682"></a> <span class="vuid">VUID-VkSubmitInfo2-pNext-09682</span><br>
+
+If the <code>pNext</code> chain of this structure includes a
+<a href="debugging.html#VkFrameBoundaryTensorsARM" class="xref page">VkFrameBoundaryTensorsARM</a> structure then it <strong>must</strong> also include a
+<a href="debugging.html#VkFrameBoundaryEXT" class="xref page">VkFrameBoundaryEXT</a> structure.</p>
+</li>
+<li>
+<p><a id="VUID-VkSubmitInfo2-pCommandBufferInfos-09933" href="#VUID-VkSubmitInfo2-pCommandBufferInfos-09933"></a> <span class="vuid">VUID-VkSubmitInfo2-pCommandBufferInfos-09933</span><br>
+
+If at least one <a href="#VkCommandBufferSubmitInfo">VkCommandBufferSubmitInfo</a> structure in
+<code>pCommandBufferInfos</code> references a <code>commandBuffer</code> allocated
+from a pool that was created with a
+<a href="VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM" class="xref page">VkDataGraphProcessingEngineCreateInfoARM</a> structure in the
+<code>pNext</code> chain of <a href="#VkCommandPoolCreateInfo">VkCommandPoolCreateInfo</a> that included a
+foreign data graph processing engine in its <code>pProcessingEngines</code>
+member, then <code>pWaitSemaphoreInfos</code> and <code>pSignalSemaphoreInfos</code>
+<strong>must</strong> only reference <code>semaphore</code> objects that were created from
+external handle types reported as supported in a
+<a href="VK_ARM_data_graph/graphs.html#VkQueueFamilyDataGraphProcessingEnginePropertiesARM" class="xref page">VkQueueFamilyDataGraphProcessingEnginePropertiesARM</a>::<code>foreignSemaphoreHandleTypes</code>
+structure via
+<a href="VK_ARM_data_graph/graphs.html#vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM" class="xref page">vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM</a>
+with a <code>queueFamilyIndex</code> matching the one the command pool was
+created for, for all the foreign data graph processing engines that were
+part of the <a href="VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM" class="xref page">VkDataGraphProcessingEngineCreateInfoARM</a> used to
+create the command pool</p>
+</li>
 </ul>
 </div>
 </div>
@@ -3754,7 +3864,7 @@ on, <strong>must</strong> use the same sample locations</p>
 </li>
 <li>
 <p><a id="VUID-VkSubmitInfo2-pNext-pNext" href="#VUID-VkSubmitInfo2-pNext-pNext"></a> <span class="vuid">VUID-VkSubmitInfo2-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="debugging.html#VkFrameBoundaryEXT" class="xref page">VkFrameBoundaryEXT</a>, <a href="VK_KHR_surface/wsi.html#VkLatencySubmissionPresentIdNV" class="xref page">VkLatencySubmissionPresentIdNV</a>, <a href="#VkPerformanceQuerySubmitInfoKHR">VkPerformanceQuerySubmitInfoKHR</a>, <a href="#VkWin32KeyedMutexAcquireReleaseInfoKHR">VkWin32KeyedMutexAcquireReleaseInfoKHR</a>, or <a href="#VkWin32KeyedMutexAcquireReleaseInfoNV">VkWin32KeyedMutexAcquireReleaseInfoNV</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="debugging.html#VkFrameBoundaryEXT" class="xref page">VkFrameBoundaryEXT</a>, <a href="debugging.html#VkFrameBoundaryTensorsARM" class="xref page">VkFrameBoundaryTensorsARM</a>, <a href="VK_KHR_surface/wsi.html#VkLatencySubmissionPresentIdNV" class="xref page">VkLatencySubmissionPresentIdNV</a>, <a href="#VkPerformanceQuerySubmitInfoKHR">VkPerformanceQuerySubmitInfoKHR</a>, <a href="#VkWin32KeyedMutexAcquireReleaseInfoKHR">VkWin32KeyedMutexAcquireReleaseInfoKHR</a>, or <a href="#VkWin32KeyedMutexAcquireReleaseInfoNV">VkWin32KeyedMutexAcquireReleaseInfoNV</a></p>
 </li>
 <li>
 <p><a id="VUID-VkSubmitInfo2-sType-unique" href="#VUID-VkSubmitInfo2-sType-unique"></a> <span class="vuid">VUID-VkSubmitInfo2-sType-unique</span><br>
@@ -4587,13 +4697,19 @@ its <code>pNext</code> chain with <code>protectedSubmit</code> equal to <code>VK
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_DEVICE_LOST</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_DEVICE_LOST</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -4889,6 +5005,33 @@ render pass instance that resumes it, or any subsequent render pass
 instances that resume from that one and so on, <strong>must</strong> use the same sample
 locations</p>
 </li>
+<li>
+<p><a id="VUID-VkSubmitInfo-pNext-09683" href="#VUID-VkSubmitInfo-pNext-09683"></a> <span class="vuid">VUID-VkSubmitInfo-pNext-09683</span><br>
+
+If the <code>pNext</code> chain of this structure includes a
+<a href="debugging.html#VkFrameBoundaryTensorsARM" class="xref page">VkFrameBoundaryTensorsARM</a> structure then it <strong>must</strong> also include a
+<a href="debugging.html#VkFrameBoundaryEXT" class="xref page">VkFrameBoundaryEXT</a> structure.</p>
+</li>
+<li>
+<p><a id="VUID-VkSubmitInfo-pCommandBufferInfos-09942" href="#VUID-VkSubmitInfo-pCommandBufferInfos-09942"></a> <span class="vuid">VUID-VkSubmitInfo-pCommandBufferInfos-09942</span><br>
+
+If at least one <a href="#VkCommandBufferSubmitInfo">VkCommandBufferSubmitInfo</a> structure in
+<code>pCommandBufferInfos</code> references a <code>commandBuffer</code> allocated
+from a pool that was created with a
+<a href="VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM" class="xref page">VkDataGraphProcessingEngineCreateInfoARM</a> structure in the
+<code>pNext</code> chain of <a href="#VkCommandPoolCreateInfo">VkCommandPoolCreateInfo</a> that included a
+foreign data graph processing engine in its <code>pProcessingEngines</code>
+member, then <code>pWaitSemaphoreInfos</code> and <code>pSignalSemaphoreInfos</code>
+<strong>must</strong> only reference <code>semaphore</code> objects that were created from
+external handle types reported as supported in a
+<a href="VK_ARM_data_graph/graphs.html#VkQueueFamilyDataGraphProcessingEnginePropertiesARM" class="xref page">VkQueueFamilyDataGraphProcessingEnginePropertiesARM</a>::<code>foreignSemaphoreHandleTypes</code>
+structure via
+<a href="VK_ARM_data_graph/graphs.html#vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM" class="xref page">vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM</a>
+with a <code>queueFamilyIndex</code> matching the one the command pool was
+created for, for all the foreign data graph processing engines that were
+part of the <a href="VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM" class="xref page">VkDataGraphProcessingEngineCreateInfoARM</a> used to
+create the command pool</p>
+</li>
 </ul>
 </div>
 </div>
@@ -4904,7 +5047,7 @@ locations</p>
 </li>
 <li>
 <p><a id="VUID-VkSubmitInfo-pNext-pNext" href="#VUID-VkSubmitInfo-pNext-pNext"></a> <span class="vuid">VUID-VkSubmitInfo-pNext-pNext</span><br>
- Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="../appendices/extensions.html#VkAmigoProfilingSubmitInfoSEC" class="xref page">VkAmigoProfilingSubmitInfoSEC</a>, <a href="#VkD3D12FenceSubmitInfoKHR">VkD3D12FenceSubmitInfoKHR</a>, <a href="#VkDeviceGroupSubmitInfo">VkDeviceGroupSubmitInfo</a>, <a href="debugging.html#VkFrameBoundaryEXT" class="xref page">VkFrameBoundaryEXT</a>, <a href="VK_KHR_surface/wsi.html#VkLatencySubmissionPresentIdNV" class="xref page">VkLatencySubmissionPresentIdNV</a>, <a href="#VkPerformanceQuerySubmitInfoKHR">VkPerformanceQuerySubmitInfoKHR</a>, <a href="#VkProtectedSubmitInfo">VkProtectedSubmitInfo</a>, <a href="#VkTimelineSemaphoreSubmitInfo">VkTimelineSemaphoreSubmitInfo</a>, <a href="#VkWin32KeyedMutexAcquireReleaseInfoKHR">VkWin32KeyedMutexAcquireReleaseInfoKHR</a>, or <a href="#VkWin32KeyedMutexAcquireReleaseInfoNV">VkWin32KeyedMutexAcquireReleaseInfoNV</a></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="../appendices/extensions.html#VkAmigoProfilingSubmitInfoSEC" class="xref page">VkAmigoProfilingSubmitInfoSEC</a>, <a href="#VkD3D12FenceSubmitInfoKHR">VkD3D12FenceSubmitInfoKHR</a>, <a href="#VkDeviceGroupSubmitInfo">VkDeviceGroupSubmitInfo</a>, <a href="debugging.html#VkFrameBoundaryEXT" class="xref page">VkFrameBoundaryEXT</a>, <a href="debugging.html#VkFrameBoundaryTensorsARM" class="xref page">VkFrameBoundaryTensorsARM</a>, <a href="VK_KHR_surface/wsi.html#VkLatencySubmissionPresentIdNV" class="xref page">VkLatencySubmissionPresentIdNV</a>, <a href="#VkPerformanceQuerySubmitInfoKHR">VkPerformanceQuerySubmitInfoKHR</a>, <a href="#VkProtectedSubmitInfo">VkProtectedSubmitInfo</a>, <a href="#VkTimelineSemaphoreSubmitInfo">VkTimelineSemaphoreSubmitInfo</a>, <a href="#VkWin32KeyedMutexAcquireReleaseInfoKHR">VkWin32KeyedMutexAcquireReleaseInfoKHR</a>, or <a href="#VkWin32KeyedMutexAcquireReleaseInfoNV">VkWin32KeyedMutexAcquireReleaseInfoNV</a></p>
 </li>
 <li>
 <p><a id="VUID-VkSubmitInfo-sType-unique" href="#VUID-VkSubmitInfo-sType-unique"></a> <span class="vuid">VUID-VkSubmitInfo-sType-unique</span><br>
@@ -6291,7 +6434,7 @@ of <a href="#VkCommandBufferInheritanceInfo">VkCommandBufferInheritanceInfo</a> 
 If <code>vkCmdExecuteCommands</code> is being called within a render pass
 instance begun with <a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>, with any color attachment
 using a resolve mode of
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>, the
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>, the
 <code>pNext</code> chain of <a href="#VkCommandBufferInheritanceInfo">VkCommandBufferInheritanceInfo</a> used to create
 each element of <code>pCommandBuffers</code> <strong>must</strong> include a
 <a href="resources.html#VkExternalFormatANDROID" class="xref page">VkExternalFormatANDROID</a> structure with an <code>externalFormat</code>
@@ -6303,7 +6446,7 @@ matching that used to create the resolve attachment in the render pass</p>
 If <code>vkCmdExecuteCommands</code> is being called within a render pass
 instance begun with <a href="renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a> with any color attachment
 using a resolve mode of
-<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_ANDROID</code>, and the
+<code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>, and the
 <code>pNext</code> chain of <a href="#VkCommandBufferInheritanceInfo">VkCommandBufferInheritanceInfo</a> does not
 include a <a href="#VkAttachmentSampleCountInfoAMD">VkAttachmentSampleCountInfoAMD</a> or
 <a href="#VkAttachmentSampleCountInfoNV">VkAttachmentSampleCountInfoNV</a> structure, the value of
@@ -6510,6 +6653,14 @@ Compute</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdExecuteCommands is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -6836,6 +6987,14 @@ Transfer</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdSetDeviceMask is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -6872,7 +7031,30 @@ Transfer</p></td>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

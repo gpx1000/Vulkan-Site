@@ -185,18 +185,24 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_PIPELINE_COMPILE_REQUIRED_EXT`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkExecutionGraphPipelineCreateInfoAMDX` structure is defined as:
 
@@ -729,6 +735,12 @@ Return Codes
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
+
 Implementations **may** need scratch memory to manage dispatch queues or
 similar when executing a pipeline graph, and this is explicitly managed by
 the application.
@@ -790,6 +802,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkExecutionGraphPipelineScratchSizeAMDX` structure is defined as:
 
@@ -909,6 +927,11 @@ Valid Usage (Implicit)
  `executionGraph` **must** be a valid [VkPipeline](pipelines.html#VkPipeline) handle
 
 * 
+[](#VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-parameter) VUID-vkCmdInitializeGraphScratchMemoryAMDX-scratch-parameter
+
+ `scratch` **must** be a valid `VkDeviceAddress` value
+
+* 
 [](#VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-recording) VUID-vkCmdInitializeGraphScratchMemoryAMDX-commandBuffer-recording
 
  `commandBuffer` **must** be in the [recording state](cmdbuffers.html#commandbuffers-lifecycle)
@@ -944,6 +967,10 @@ Command Properties
 | Primary | Both | Outside | Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdInitializeGraphScratchMemoryAMDX is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Initial dispatch of an execution graph is done from the host in the same way
 as any other command, and **can** be used in a similar way to compute dispatch
@@ -1612,6 +1639,34 @@ transitioned to the
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout
 
 * 
+[](#VUID-vkCmdDispatchGraphAMDX-pDescription-09900) VUID-vkCmdDispatchGraphAMDX-pDescription-09900
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the underlying [VkTensorARM](resources.html#VkTensorARM) object
+**must** have been created with a
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` whose `usage` member
+contained `VK_TENSOR_USAGE_SHADER_BIT_ARM`
+
+* 
+[](#VUID-vkCmdDispatchGraphAMDX-dimensionCount-09905) VUID-vkCmdDispatchGraphAMDX-dimensionCount-09905
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the `Rank` of the `OpTypeTensorARM`
+of the tensor resource variable **must** be equal to the
+`dimensionCount` provided via
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` when creating the
+underlying [VkTensorARM](resources.html#VkTensorARM) object
+
+* 
+[](#VUID-vkCmdDispatchGraphAMDX-OpTypeTensorARM-09906) VUID-vkCmdDispatchGraphAMDX-OpTypeTensorARM-09906
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the element type of the
+`OpTypeTensorARM` of the tensor resource variable **must** be
+[compatible](../appendices/spirvenv.html#spirvenv-tensor-formats) with the [VkFormat](formats.html#VkFormat) of the
+[VkTensorViewARM](resources.html#VkTensorViewARM) used for the access
+
+* 
 [](#VUID-vkCmdDispatchGraphAMDX-commandBuffer-09181) VUID-vkCmdDispatchGraphAMDX-commandBuffer-09181
 
 `commandBuffer` **must** not be a protected command buffer
@@ -1731,6 +1786,11 @@ Valid Usage (Implicit)
  `commandBuffer` **must** be a valid [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) handle
 
 * 
+[](#VUID-vkCmdDispatchGraphAMDX-scratch-parameter) VUID-vkCmdDispatchGraphAMDX-scratch-parameter
+
+ `scratch` **must** be a valid `VkDeviceAddress` value
+
+* 
 [](#VUID-vkCmdDispatchGraphAMDX-pCountInfo-parameter) VUID-vkCmdDispatchGraphAMDX-pCountInfo-parameter
 
  `pCountInfo` **must** be a valid pointer to a valid [VkDispatchGraphCountInfoAMDX](#VkDispatchGraphCountInfoAMDX) structure
@@ -1766,6 +1826,10 @@ Command Properties
 | Primary | Both | Outside | Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdDispatchGraphAMDX is affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 To record an execution graph dispatch with node and payload parameters read
 on device, call:
@@ -2434,6 +2498,34 @@ transitioned to the
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout
 
 * 
+[](#VUID-vkCmdDispatchGraphIndirectAMDX-pDescription-09900) VUID-vkCmdDispatchGraphIndirectAMDX-pDescription-09900
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the underlying [VkTensorARM](resources.html#VkTensorARM) object
+**must** have been created with a
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` whose `usage` member
+contained `VK_TENSOR_USAGE_SHADER_BIT_ARM`
+
+* 
+[](#VUID-vkCmdDispatchGraphIndirectAMDX-dimensionCount-09905) VUID-vkCmdDispatchGraphIndirectAMDX-dimensionCount-09905
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the `Rank` of the `OpTypeTensorARM`
+of the tensor resource variable **must** be equal to the
+`dimensionCount` provided via
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` when creating the
+underlying [VkTensorARM](resources.html#VkTensorARM) object
+
+* 
+[](#VUID-vkCmdDispatchGraphIndirectAMDX-OpTypeTensorARM-09906) VUID-vkCmdDispatchGraphIndirectAMDX-OpTypeTensorARM-09906
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the element type of the
+`OpTypeTensorARM` of the tensor resource variable **must** be
+[compatible](../appendices/spirvenv.html#spirvenv-tensor-formats) with the [VkFormat](formats.html#VkFormat) of the
+[VkTensorViewARM](resources.html#VkTensorViewARM) used for the access
+
+* 
 [](#VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-09181) VUID-vkCmdDispatchGraphIndirectAMDX-commandBuffer-09181
 
 `commandBuffer` **must** not be a protected command buffer
@@ -2585,6 +2677,11 @@ Valid Usage (Implicit)
  `commandBuffer` **must** be a valid [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) handle
 
 * 
+[](#VUID-vkCmdDispatchGraphIndirectAMDX-scratch-parameter) VUID-vkCmdDispatchGraphIndirectAMDX-scratch-parameter
+
+ `scratch` **must** be a valid `VkDeviceAddress` value
+
+* 
 [](#VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-parameter) VUID-vkCmdDispatchGraphIndirectAMDX-pCountInfo-parameter
 
  `pCountInfo` **must** be a valid pointer to a valid [VkDispatchGraphCountInfoAMDX](#VkDispatchGraphCountInfoAMDX) structure
@@ -2620,6 +2717,10 @@ Command Properties
 | Primary | Both | Outside | Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdDispatchGraphIndirectAMDX is affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 To record an execution graph dispatch with all parameters read on device,
 call:
@@ -3281,6 +3382,34 @@ transitioned to the
 `VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT` layout
 
 * 
+[](#VUID-vkCmdDispatchGraphIndirectCountAMDX-pDescription-09900) VUID-vkCmdDispatchGraphIndirectCountAMDX-pDescription-09900
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the underlying [VkTensorARM](resources.html#VkTensorARM) object
+**must** have been created with a
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` whose `usage` member
+contained `VK_TENSOR_USAGE_SHADER_BIT_ARM`
+
+* 
+[](#VUID-vkCmdDispatchGraphIndirectCountAMDX-dimensionCount-09905) VUID-vkCmdDispatchGraphIndirectCountAMDX-dimensionCount-09905
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the `Rank` of the `OpTypeTensorARM`
+of the tensor resource variable **must** be equal to the
+`dimensionCount` provided via
+[VkTensorCreateInfoARM](resources.html#VkTensorCreateInfoARM)::`pDescription` when creating the
+underlying [VkTensorARM](resources.html#VkTensorARM) object
+
+* 
+[](#VUID-vkCmdDispatchGraphIndirectCountAMDX-OpTypeTensorARM-09906) VUID-vkCmdDispatchGraphIndirectCountAMDX-OpTypeTensorARM-09906
+
+If a `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptor is accessed as a
+result of this command, then the element type of the
+`OpTypeTensorARM` of the tensor resource variable **must** be
+[compatible](../appendices/spirvenv.html#spirvenv-tensor-formats) with the [VkFormat](formats.html#VkFormat) of the
+[VkTensorViewARM](resources.html#VkTensorViewARM) used for the access
+
+* 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-09181) VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-09181
 
 `commandBuffer` **must** not be a protected command buffer
@@ -3450,6 +3579,16 @@ Valid Usage (Implicit)
  `commandBuffer` **must** be a valid [VkCommandBuffer](cmdbuffers.html#VkCommandBuffer) handle
 
 * 
+[](#VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-parameter) VUID-vkCmdDispatchGraphIndirectCountAMDX-scratch-parameter
+
+ `scratch` **must** be a valid `VkDeviceAddress` value
+
+* 
+[](#VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-parameter) VUID-vkCmdDispatchGraphIndirectCountAMDX-countInfo-parameter
+
+ `countInfo` **must** be a valid `VkDeviceAddress` value
+
+* 
 [](#VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-recording) VUID-vkCmdDispatchGraphIndirectCountAMDX-commandBuffer-recording
 
  `commandBuffer` **must** be in the [recording state](cmdbuffers.html#commandbuffers-lifecycle)
@@ -3481,6 +3620,10 @@ Command Properties
 
 Compute | Action |
 
+Conditional Rendering
+
+vkCmdDispatchGraphIndirectCountAMDX is affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The `VkDeviceOrHostAddressConstAMDX` union is defined as:
 
 // Provided by VK_AMDX_shader_enqueue
@@ -3491,7 +3634,7 @@ typedef union VkDeviceOrHostAddressConstAMDX {
 
 * 
 `deviceAddress` is a buffer device address as returned by the
-[vkGetBufferDeviceAddressKHR](descriptorsets.html#vkGetBufferDeviceAddressKHR) command.
+[vkGetBufferDeviceAddressKHR](resources.html#vkGetBufferDeviceAddressKHR) command.
 
 * 
 `hostAddress` is a const host memory address.

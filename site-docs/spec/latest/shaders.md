@@ -28,6 +28,17 @@
 - [Binding Shaders](#shaders-binding)
 - [Shader Execution](#shaders-execution)
 - [Shader Termination](#shaders-termination)
+- [Shader Out-of-Bounds Memory Access](#shaders-execution-memory-access-bounds)
+- [Shader_Out-of-Bounds_Memory_Access](#shaders-execution-memory-access-bounds)
+- [Robust Buffer Access](#shaders-robust-buffer-access)
+- [Robust_Buffer_Access](#shaders-robust-buffer-access)
+- [Robust Buffer Access 2](#shaders-robust-buffer-access2)
+- [Robust_Buffer_Access_2](#shaders-robust-buffer-access2)
+- [Image Sampling](#_image_sampling)
+- [Robust Image Access](#shaders-robust-image-access)
+- [Robust_Image_Access](#shaders-robust-image-access)
+- [Robust Image Access 2](#shaders-robust-image-access2)
+- [Robust_Image_Access_2](#shaders-robust-image-access2)
 - [Shader Memory Access Ordering](#shaders-execution-memory-ordering)
 - [Shader_Memory_Access_Ordering](#shaders-execution-memory-ordering)
 - [Shader Inputs and Outputs](#shaders-inputs)
@@ -426,21 +437,27 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_INCOMPATIBLE_SHADER_BINARY_EXT`
 
 * 
-`VK_INCOMPATIBLE_SHADER_BINARY_EXT`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INITIALIZATION_FAILED`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INITIALIZATION_FAILED`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkShaderCreateInfoEXT` structure is defined as:
 
@@ -963,7 +980,7 @@ stage in `stageFlags`
 
 If `codeType` is `VK_SHADER_CODE_TYPE_SPIRV_EXT`, and if a push
 constant block is declared in a shader, then an element of
-`pPushConstantRanges`::`stageFlags` **must** match `stage`
+`pPushConstantRanges->stageFlags` **must** match `stage`
 
 * 
 [](#VUID-VkShaderCreateInfoEXT-codeType-10065) VUID-VkShaderCreateInfoEXT-codeType-10065
@@ -1280,18 +1297,24 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Binary shader compatibility means that binary shader code returned from a
 call to [vkGetShaderBinaryDataEXT](#vkGetShaderBinaryDataEXT) **can** be passed to a later call to
@@ -1539,6 +1562,10 @@ Secondary | Both | Outside | Graphics
 
 Compute | State |
 
+Conditional Rendering
+
+vkCmdBindShadersEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 Whenever shader objects are used to issue drawing commands, the appropriate
 [dynamic state](pipelines.html#pipelines-dynamic-state) setting commands **must** have been
 called to set the relevant state in the command buffer prior to drawing:
@@ -1599,13 +1626,8 @@ If `rasterizerDiscardEnable` is `VK_FALSE`, the following commands
 [vkCmdSetPolygonModeEXT](primsrast.html#vkCmdSetPolygonModeEXT)
 
 * 
-[vkCmdSetLineWidth](primsrast.html#vkCmdSetLineWidth), if `polygonMode` is
-`VK_POLYGON_MODE_LINE`, or if
-a shader is bound to the `VK_SHADER_STAGE_VERTEX_BIT` stage and
-`primitiveTopology` is a line topology, or if a shader which outputs
-line primitives is bound to the
-`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` or
-`VK_SHADER_STAGE_GEOMETRY_BIT` stage
+[vkCmdSetLineWidth](primsrast.html#vkCmdSetLineWidth), if the [    effective rasterization input topology](drawing.html#drawing-rasterization-input-topology) is in line
+[topology class](drawing.html#drawing-primitive-topology-class)
 
 * 
 [vkCmdSetCullMode](primsrast.html#vkCmdSetCullMode)
@@ -1758,13 +1780,10 @@ been called in the command buffer prior to drawing:
 [vkCmdSetProvokingVertexModeEXT](vertexpostproc.html#vkCmdSetProvokingVertexModeEXT)
 
 If any of the [`stippledRectangularLines`](features.html#features-stippledRectangularLines), [`stippledBresenhamLines`](features.html#features-stippledBresenhamLines), or [`stippledSmoothLines`](features.html#features-stippledSmoothLines) features are enabled, and
-`rasterizerDiscardEnable` is `VK_FALSE`, and if `polygonMode` is
-`VK_POLYGON_MODE_LINE` or a shader is bound to the
-`VK_SHADER_STAGE_VERTEX_BIT` stage and `primitiveTopology` is a line
-topology or a shader which outputs line primitives is bound to the
-`VK_SHADER_STAGE_TESSELLATION_EVALUATION_BIT` or
-`VK_SHADER_STAGE_GEOMETRY_BIT` stage, the following commands **must** have
-been called in the command buffer prior to drawing:
+`rasterizerDiscardEnable` is `VK_FALSE`, and if the
+[effective rasterization input topology](drawing.html#drawing-rasterization-input-topology) is in line [topology class](drawing.html#drawing-primitive-topology-class),
+the following commands **must** have been called in the command buffer prior to
+drawing:
 
 * 
 [vkCmdSetLineRasterizationModeEXT](primsrast.html#vkCmdSetLineRasterizationModeEXT)
@@ -2085,13 +2104,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_INVALID_SHADER_NV`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_INVALID_SHADER_NV`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkShaderModuleCreateInfo` structure is defined as:
 
@@ -2604,6 +2629,298 @@ To obtain the most predictable behavior, shader authors should use
 `OpTerminateInvocation` or `OpDemoteToHelperInvocation` rather than
 `OpKill` wherever possible. |
 
+Shader accesses to memory are not automatically bounds checked by the
+implementation.
+Applications **must** not execute operations that would access out of bounds
+memory locations unless some form of bounds checking is enabled.
+An access is considered out of bounds if any part of the access is outside
+of any specified memory range, whether that is the array length specified in
+a shader or a range specified in the API (e.g. descriptor size).
+
+|  | External tooling such as the Vulkan Validation Layers can be used to help
+| --- | --- |
+validate that accesses are not out of bounds. |
+
+An access **can** be independently out of bounds for each range that applies;
+if one is bounds checked and the others are not, behavior is still
+**undefined**.
+
+|  | For example, given the following shader declaration
+| --- | --- |
+
+// Buffer type
+struct MySSBO {
+    uint32_t data[2];
+};
+
+accessing `data` at an index greater than 1 is **undefined** behavior, whether
+the underlying buffer is bigger than that or not. |
+
+Vulkan provides functionality that enables automatic bounds checking in some
+cases, as outlined below.
+
+|  | Automatic bounds checking can be used to ensure that accesses outside of
+| --- | --- |
+certain bounds have predictable results, acting as a safety net for
+untrusted code, or simply as a way for applications to avoid their own
+bounds checks.
+While there may be a performance cost for enabling these features, they
+should not be slower than an application performing equivalent checks.
+Automatic checks do not necessarily account for all possible bounds - e.g.
+[Robust Buffer Access](#shaders-robust-buffer-access) will not prevent **undefined** behavior in the
+buffer access example in the prior note. |
+
+Robust buffer access **can** be enabled by
+specifying `VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS`
+in [VkPipelineRobustnessCreateInfo](pipelines.html#VkPipelineRobustnessCreateInfo), or specifying
+`VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT` and enabling the
+the [`robustBufferAccess`](features.html#features-robustBufferAccess) feature.
+
+When robust buffer access is enabled, access to a buffer via a descriptor is
+bounds checked against the range specified for the descriptor, and access to
+vertex input data is bounds checked against the bound vertex buffer range.
+Reads from a vertex input **may** instead be bounds checked against a range
+rounded down to the nearest multiple of the stride of its binding.
+
+|  | The range of a descriptor is not necessarily equivalent to the size of the
+| --- | --- |
+underlying resource; applications may suballocate descriptors from larger
+buffers, for instance.
+The APIs specifying the descriptor range vary between resource types and
+descriptor interfaces, but for example include the ranges specified by
+[VkDescriptorBufferInfo](descriptorsets.html#VkDescriptorBufferInfo) or [VkBufferViewCreateInfo](resources.html#VkBufferViewCreateInfo). |
+
+If any vertex input read is outside of the checked range, all other vertex
+input reads through the same binding in the same shader invocation **may**
+behave as if they were outside of the checked range.
+
+If any access to a uniform, storage, uniform texel, or storage texel buffer
+is outside of the checked range, any access of the same type (write,
+read-modify-write, or read) to the same buffer that is less than 16 bytes
+away from the first access **may** behave as if it is also outside of the
+checked range.
+
+Any non-atomic access to a uniform, storage, uniform texel, or storage texel
+buffer wider than 32-bits **may** be treated as multiple 32-bit accesses that
+are separately bounds checked.
+
+Writes to a storage or storage texel buffer outside of the checked range
+will either be discarded, or modify values within the memory range(s) bound
+to the underlying buffer (including outside of the checked range).
+They will not modify any other memory.
+
+|  | Non-atomic writes outside of the checked range **can** lead to data races, as
+| --- | --- |
+the application has no control over where the data will be written. |
+
+Atomic read-modify-write operations to a storage or storage texel buffer
+outside of the checked range will behave the same as a write outside of the
+checked range, but will return an **undefined** value.
+
+Reading a uniform, storage, uniform texel, or storage texel buffer outside
+of the checked range will return one of the following values:
+
+* 
+Values from anywhere within the memory range(s) bound to the underlying
+buffer object, which **may** include bytes beyond the size of the buffer
+itself.
+
+* 
+Zero values
+
+* 
+For 4-component vectors, a value of (0,0,0,x), where x is
+any of
+
+0, 1, or the maximum positive integer value for integer components
+
+* 
+0.0 or 1.0 for floating-point components
+
+The value of the last store to the same out-of-bounds location in the
+same shader invocation.
+
+* 
+Using
+the `Volatile`/`VolatileTexel` memory/image operand, the
+`Volatile` memory semantic, or
+the `Volatile` decoration to load the value will prevent prior stored
+values from being returned.
+
+|  | Getting the value of the previous store is possible as implementations are
+| --- | --- |
+free to optimize multiple accesses in the general case.
+There are several ways this **can** be prevented, but using volatile loads is
+by far the simplest. |
+
+Reads from a vertex input outside of the checked range will produce one of
+the following values:
+
+* 
+Values from anywhere within the memory range(s) bound to the underlying
+buffer object, which **may** include bytes beyond the size of the buffer
+itself, converted via [input extraction](fxvertex.html#fxvertex-input-extraction).
+
+* 
+Zero values, converted via [input    extraction](fxvertex.html#fxvertex-input-extraction).
+
+* 
+Zero values
+
+* 
+For 4-component vectors, a value of (0,0,0,x), where x is
+any of
+
+0, 1, or the maximum positive integer value for integer components
+
+* 
+0.0 or 1.0 for floating-point components
+
+Accesses via `OpCooperativeMatrixLoadNV` and
+`OpCooperativeMatrixStoreNV` are only bounds checked in the above manner
+if the [`VkPhysicalDeviceCooperativeMatrixFeaturesNV`::`cooperativeMatrixRobustBufferAccess`](features.html#features-cooperativeMatrixRobustBufferAccessNV)
+feature is enabled.
+
+Accesses via `OpCooperativeMatrixLoadKHR` and
+`OpCooperativeMatrixStoreKHR` are only bounds checked in the above manner
+if the [`VkPhysicalDeviceCooperativeMatrixFeaturesKHR`::`cooperativeMatrixRobustBufferAccess`](features.html#features-cooperativeMatrixRobustBufferAccess)
+feature is enabled.
+
+Accesses using `OpCooperativeVector*` instructions are not
+bounds-checked.
+
+Robust buffer access 2 **can** be enabled by
+specifying
+`VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_ROBUST_BUFFER_ACCESS_2` in
+[VkPipelineRobustnessCreateInfo](pipelines.html#VkPipelineRobustnessCreateInfo), or specifying
+`VK_PIPELINE_ROBUSTNESS_BUFFER_BEHAVIOR_DEVICE_DEFAULT` and enabling the
+the [`robustBufferAccess2`](features.html#features-robustBufferAccess) feature.
+
+When robust buffer access 2 is enabled, access to a buffer via a descriptor
+is bounds checked against the range specified for the descriptor, and access
+to vertex input data is bounds checked against the bound vertex buffer
+range, similarly to [Robust Buffer Access](#shaders-robust-buffer-access), but with tighter
+bounds on the results.
+
+Accesses to a uniform buffer **may** instead be bounds checked against a range
+rounded up to [`robustUniformBufferAccessSizeAlignment`](limits.html#limits-robustUniformBufferAccessSizeAlignment).
+Accesses inside the aligned range **may** behave as if they are in bounds, even
+if they are outside of the unaligned descriptor range, and access memory
+accordingly.
+The same is true for accesses to a storage buffer, using the
+[`robustStorageBufferAccessSizeAlignment`](limits.html#limits-robustStorageBufferAccessSizeAlignment) limit instead.
+
+|  | To avoid unexpected data races between neighboring descriptor ranges,
+| --- | --- |
+applications may wish to ensure suballocated ranges of buffers are aligned
+to these limits. |
+
+Any access to a uniform, storage, uniform texel, or storage texel buffer
+wider than 32-bits **may** be treated as multiple 32-bit accesses that are
+separately bounds checked.
+
+|  | Accesses to null descriptors are not considered out-of-bounds and have
+| --- | --- |
+separate behavior controlled by the [`nullDescriptor`](features.html#features-nullDescriptor) feature. |
+
+Writes to a storage or storage texel buffer outside of the checked range
+will not modify any memory.
+
+Atomic read-modify-write operations to a storage or storage texel buffer
+outside of the checked range will behave the same as a write outside of the
+checked range, but will return an **undefined** value.
+
+Reads from a uniform or storage buffer outside of the checked range will
+return zero values.
+If a value was previously written to the same out of bounds location in the
+same shader invocation, that value **may** be returned instead; using
+the `Volatile`/`VolatileTexel` memory/image operand, the `Volatile`
+memory semantic, or
+the `Volatile` decoration to load the value will prevent prior stored
+values from being returned.
+
+Reading a uniform texel or storage texel buffer outside of the checked range
+will produce zero values, but [conversion to RGBA](textures.html#textures-conversion-to-rgba) will still be applied based on the buffer view’s format, with the
+resulting value returned to the shader.
+If a value was previously written to the same out of bounds location in the
+same shader invocation, that value **may** be returned instead; using
+the `Volatile`/`VolatileTexel` memory/image operand, the `Volatile`
+memory semantic, or
+the `Volatile` decoration to load the value will prevent prior stored
+values from being returned.
+
+Reads from a vertex input outside of the checked range will produce zero
+values, but [input extraction](fxvertex.html#fxvertex-input-extraction) will still be
+applied, filling missing G, B, or A components with (0,0,1).
+
+Accesses via `OpCooperativeMatrixLoadNV` and
+`OpCooperativeMatrixStoreNV` are only bounds checked in the above manner
+if the [`VkPhysicalDeviceCooperativeMatrixFeaturesNV`::`cooperativeMatrixRobustBufferAccess`](features.html#features-cooperativeMatrixRobustBufferAccessNV)
+feature is enabled.
+
+Accesses via `OpCooperativeMatrixLoadKHR` and
+`OpCooperativeMatrixStoreKHR` are only bounds checked in the above manner
+if the [`VkPhysicalDeviceCooperativeMatrixFeaturesKHR`::`cooperativeMatrixRobustBufferAccess`](features.html#features-cooperativeMatrixRobustBufferAccess)
+feature is enabled.
+
+Accesses using `OpCooperativeVector*` instructions are not
+bounds-checked.
+
+Sampling operations on an image descriptor are always well-defined when
+coordinates exceeding the dimensions specified for the descriptor are
+accessed, as described in the [Wrapping Operation](textures.html#textures-wrapping-operation) section.
+
+Robust image access **can** be enabled by
+specifying `VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS`
+in [VkPipelineRobustnessCreateInfo](pipelines.html#VkPipelineRobustnessCreateInfo), or specifying
+`VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_DEVICE_DEFAULT` and enabling the
+the [`robustImageAccess`](features.html#features-robustImageAccess) feature.
+
+If robust image access is enabled, accesses to image descriptors are bounds
+checked against the image view dimensions specified for the descriptor.
+
+Writes or atomic read-modify-write operations to a storage image outside of
+the checked dimensions will not modify any memory.
+
+Reads, atomic read-modify-write operations, or fetches from images outside
+of the checked dimensions will return zero values, with (0,0,1) or
+[eq]#(0,0,0) values [inserted for missing G, B, or A components](textures.html#textures-conversion-to-rgba) based on the format.
+
+If a value was previously written to the same out of bounds location in the
+same shader invocation, that value **may** be returned instead; using
+the `VolatileTexel` image operand, the `Volatile` memory semantic, or
+the `Volatile` decoration to load the value will prevent prior stored
+values from being returned.
+
+|  | This is largely identical to [Robust Image Access](#shaders-robust-image-access); the only
+| --- | --- |
+difference being that the alpha channel must be replaced with 1, rather than
+1 or 0, for out of bounds texel access. |
+
+Robust image access 2 **can** be enabled by
+specifying `VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_ROBUST_IMAGE_ACCESS_2`
+in [VkPipelineRobustnessCreateInfo](pipelines.html#VkPipelineRobustnessCreateInfo), or specifying
+`VK_PIPELINE_ROBUSTNESS_IMAGE_BEHAVIOR_DEVICE_DEFAULT` and enabling the
+the [`robustImageAccess2`](features.html#features-robustImageAccess2) feature.
+
+If robust image access 2 is enabled, accesses to image descriptors are
+bounds checked against the image view dimensions specified for the
+descriptor.
+
+Writes or atomic read-modify-write operations to a storage image outside of
+the checked dimensions will not modify any memory.
+
+Reads, atomic read-modify-write operations, or fetches from images outside
+of the checked dimensions will return zero values, with (0,0,1) values
+[inserted for missing G, B, or A components](textures.html#textures-conversion-to-rgba)
+based on the format.
+
+If a value was previously written to the same out of bounds location in the
+same shader invocation, that value **may** be returned instead; using
+the `VolatileTexel` image operand, the `Volatile` memory semantic, or
+the `Volatile` decoration to load the value will prevent prior stored
+values from being returned.
+
 The order in which image or buffer memory is read or written by shaders is
 largely **undefined**.
 For some shader types (vertex, tessellation evaluation, and in some cases,
@@ -2648,14 +2965,7 @@ The [Memory Model](../appendices/memorymodel.html#memory-model) appendix defines
 for how to correctly communicate between shader invocations, such as when a
 write is [Visible-To](../appendices/memorymodel.html#memory-model-visible-to) a read, and what constitutes
 a [Data Race](../appendices/memorymodel.html#memory-model-access-data-race).
-
 Applications **must** not cause a data race.
-
-The SPIR-V **SubgroupMemory**, **CrossWorkgroupMemory**, and
-**AtomicCounterMemory** memory semantics are ignored.
-Sequentially consistent atomics and barriers are not supported and
-**SequentiallyConsistent** is treated as **AcquireRelease**.
-**SequentiallyConsistent** **should** not be used.
 
 Data is passed into and out of shaders using variables with input or output
 storage class, respectively.
@@ -2895,6 +3205,10 @@ Command Properties
 
 Secondary | Both | Outside | Graphics | State |
 
+Conditional Rendering
+
+vkCmdSetPatchControlPointsEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
+
 The size of the output patch is controlled by the `OpExecutionMode`
 `OutputVertices` specified in the tessellation control or tessellation
 evaluation shaders, which **must** be specified in at least one of the shaders.
@@ -3111,6 +3425,7 @@ value **cannot** be accessed directly; instead the extended instruction
 vertices.
 
 A SPIR-V module declares a global object in memory using the `OpVariable`
+or `OpUntypedVariableKHR`
 instruction, which results in a pointer `x` to that object.
 A specific entry point in a SPIR-V module is said to *statically use* that
 object if that entry point’s call tree contains a function containing a
@@ -3755,18 +4070,24 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To enumerate additional supported cooperative matrix types and operations,
 call:
@@ -3827,18 +4148,24 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 To enumerate the supported cooperative matrix types and operations, call:
 
@@ -3893,18 +4220,24 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Each
 [VkCooperativeMatrixPropertiesKHR](#VkCooperativeMatrixPropertiesKHR)
@@ -4262,10 +4595,10 @@ typedef enum VkComponentTypeKHR {
     VK_COMPONENT_TYPE_SINT8_PACKED_NV = 1000491000,
   // Provided by VK_NV_cooperative_vector
     VK_COMPONENT_TYPE_UINT8_PACKED_NV = 1000491001,
-  // Provided by VK_NV_cooperative_vector
-    VK_COMPONENT_TYPE_FLOAT_E4M3_NV = 1000491002,
-  // Provided by VK_NV_cooperative_vector
-    VK_COMPONENT_TYPE_FLOAT_E5M2_NV = 1000491003,
+  // Provided by VK_KHR_cooperative_matrix with VK_EXT_shader_float8
+    VK_COMPONENT_TYPE_FLOAT8_E4M3_EXT = 1000491002,
+  // Provided by VK_KHR_cooperative_matrix with VK_EXT_shader_float8
+    VK_COMPONENT_TYPE_FLOAT8_E5M2_EXT = 1000491003,
   // Provided by VK_NV_cooperative_matrix
     VK_COMPONENT_TYPE_FLOAT16_NV = VK_COMPONENT_TYPE_FLOAT16_KHR,
   // Provided by VK_NV_cooperative_matrix
@@ -4288,6 +4621,10 @@ typedef enum VkComponentTypeKHR {
     VK_COMPONENT_TYPE_UINT32_NV = VK_COMPONENT_TYPE_UINT32_KHR,
   // Provided by VK_NV_cooperative_matrix
     VK_COMPONENT_TYPE_UINT64_NV = VK_COMPONENT_TYPE_UINT64_KHR,
+  // Provided by VK_NV_cooperative_vector
+    VK_COMPONENT_TYPE_FLOAT_E4M3_NV = VK_COMPONENT_TYPE_FLOAT8_E4M3_EXT,
+  // Provided by VK_NV_cooperative_vector
+    VK_COMPONENT_TYPE_FLOAT_E5M2_NV = VK_COMPONENT_TYPE_FLOAT8_E5M2_EXT,
 } VkComponentTypeKHR;
 
 or the equivalent
@@ -4361,6 +4698,14 @@ exponent bits, followed by three mantissa bits.
 type with a sign bit in the most significant bit, followed by five
 exponent bits, followed by two mantissa bits.
 
+* 
+`VK_COMPONENT_TYPE_FLOAT8_E4M3_EXT` corresponds to SPIR-V
+`OpTypeFloat` 8 Float8E4M3EXT.
+
+* 
+`VK_COMPONENT_TYPE_FLOAT8_E5M2_EXT` corresponds to SPIR-V
+`OpTypeFloat` 8 Float8E5M2EXT.
+
 A *cooperative vector* type is a SPIR-V vector type optimized for the
 evaluation of small neural networks.
 
@@ -4421,18 +4766,24 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Each `VkCooperativeVectorPropertiesNV` structure describes a single
 supported combination of types for a matrix-vector multiply (or
@@ -4612,15 +4963,21 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_INCOMPLETE`
 
 * 
-`VK_INCOMPLETE`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Each `VkConvertCooperativeVectorMatrixInfoNV` structure describes a
 request to convert the layout and type of a cooperative vector matrix.
@@ -4886,20 +5243,26 @@ Valid Usage
 * 
 [](#VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10083) VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10083
 
-For each element of `pInfo`, `srcData`::`deviceAddress` and
-`dstData`::`deviceAddress` **must** be valid device addresses
+For each element of `pInfo`, `srcData.deviceAddress` **must** be a
+valid `VkDeviceAddress`
+
+* 
+[](#VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10895) VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10895
+
+For each element of `pInfo`, `dstData.deviceAddress` **must** be a
+valid `VkDeviceAddress`
 
 * 
 [](#VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10084) VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10084
 
-For each element of `pInfo`, `srcData`::`deviceAddress`
-**must** be 64 byte aligned
+For each element of `pInfo`, `srcData.deviceAddress` **must** be 64
+byte aligned
 
 * 
 [](#VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10085) VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10085
 
-For each element of `pInfo`, `dstData`::`deviceAddress`
-**must** be 64 byte aligned
+For each element of `pInfo`, `dstData.deviceAddress` **must** be 64
+byte aligned
 
 * 
 [](#VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10086) VUID-vkCmdConvertCooperativeVectorMatrixNV-pInfo-10086
@@ -4975,6 +5338,10 @@ Command Properties
 Secondary | Outside | Outside | Graphics
 
 Compute | Action |
+
+Conditional Rendering
+
+vkCmdConvertCooperativeVectorMatrixNV is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)
 
 Validation cache objects allow the result of internal validation to be
 reused, both within a single application run and between multiple runs.
@@ -5068,6 +5435,11 @@ Valid Usage (Implicit)
 
  `pValidationCache` **must** be a valid pointer to a [VkValidationCacheEXT](#VkValidationCacheEXT) handle
 
+* 
+[](#VUID-vkCreateValidationCacheEXT-device-queuecount) VUID-vkCreateValidationCacheEXT-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -5079,6 +5451,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkValidationCacheCreateInfoEXT` structure is defined as:
 
@@ -5240,10 +5618,16 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+
+* 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Data **can** be retrieved from a validation cache object using the command:
 
@@ -5365,18 +5749,24 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
-
-* 
 `VK_INCOMPLETE`
 
+* 
+`VK_SUCCESS`
+
 [Failure](fundamentals.html#fundamentals-errorcodes)
+
+* 
+`VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
 
 * 
-`VK_ERROR_OUT_OF_DEVICE_MEMORY`
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 Possible values of the second group of four bytes in the header returned by
 [vkGetValidationCacheDataEXT](#vkGetValidationCacheDataEXT), encoding the validation cache version,
@@ -5508,6 +5898,11 @@ Valid Usage (Implicit)
 
  `pModule` **must** be a valid pointer to a [VkCudaModuleNV](#VkCudaModuleNV) handle
 
+* 
+[](#VUID-vkCreateCudaModuleNV-device-queuecount) VUID-vkCreateCudaModuleNV-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -5522,6 +5917,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkCudaModuleCreateInfoNV` structure is defined as:
 
@@ -5630,6 +6031,11 @@ Valid Usage (Implicit)
 
  `pFunction` **must** be a valid pointer to a [VkCudaFunctionNV](#VkCudaFunctionNV) handle
 
+* 
+[](#VUID-vkCreateCudaFunctionNV-device-queuecount) VUID-vkCreateCudaFunctionNV-device-queuecount
+
+ The device **must** have been created with at least `1` queue
+
 Return Codes
 
 [Success](fundamentals.html#fundamentals-successcodes)
@@ -5644,6 +6050,12 @@ Return Codes
 
 * 
 `VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkCudaFunctionCreateInfoNV` structure is defined as:
 
@@ -5872,15 +6284,21 @@ Return Codes
 [Success](fundamentals.html#fundamentals-successcodes)
 
 * 
-`VK_SUCCESS`
+`VK_INCOMPLETE`
 
 * 
-`VK_INCOMPLETE`
+`VK_SUCCESS`
 
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
 `VK_ERROR_INITIALIZATION_FAILED`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 CUDA and Vulkan do not use the device in the same configuration.
 The following limitations **must** be taken into account:

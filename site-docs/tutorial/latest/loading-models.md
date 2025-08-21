@@ -18,7 +18,7 @@
 ## Content
 
 Your program is now ready to render textured 3D meshes, but the current geometry in the `vertices` and `indices` arrays is not very interesting yet.
-In this chapter we’re going to extend the program to load the vertices and indices from an actual model file to make the graphics card actually do some work.
+In this chapter, we’re going to extend the program to load the vertices and indices from an actual model file to make the graphics card actually do some work.
 
 Many graphics API tutorials have the reader write their own OBJ loader in a chapter like this.
 The problem with this is that any remotely interesting 3D application will soon require features that are not supported by this file format, like skeletal animation.
@@ -26,38 +26,22 @@ We *will* load mesh data from an OBJ model in this chapter, but we’ll focus mo
 
 We will use the [tinyobjloader](https://github.com/syoyo/tinyobjloader) library to load vertices and faces from an OBJ file.
 It’s fast and it’s easy to integrate because it’s a single file library like stb_image.
-Go to the repository linked above and download the `tiny_obj_loader.h` file to a folder in your library directory.
+This was mentioned in the [Development
+Enviornment](02_Development_environment.adoc) chapter and should be part of the dependencies for this portion
+of the tutorial.
 
-**Visual Studio**
-
-Add the directory with `tiny_obj_loader.h` in it to the `Additional Include Directories` paths.
-
-![include dirs tinyobjloader](_images/images/include_dirs_tinyobjloader.png)
-
-**Makefile**
-
-Add the directory with `tiny_obj_loader.h` to the include directories for GCC:
-
-VULKAN_SDK_PATH = /home/user/VulkanSDK/x.x.x.x/x86_64
-STB_INCLUDE_PATH = /home/user/libraries/stb
-TINYOBJ_INCLUDE_PATH = /home/user/libraries/tinyobjloader
-
-...
-
-CFLAGS = -std=c++17 -I$(VULKAN_SDK_PATH)/include -I$(STB_INCLUDE_PATH) -I$(TINYOBJ_INCLUDE_PATH)
-
-In this chapter we won’t be enabling lighting yet, so it helps to use a sample model that has lighting baked into the texture.
+In this chapter, we won’t be enabling lighting yet, so it helps to use a sample model that has lighting baked into the texture.
 An easy way to find such models is to look for 3D scans on [Sketchfab](https://sketchfab.com/).
 Many of the models on that site are available in OBJ format with a permissive license.
 
-For this tutorial I’ve decided to go with the [Viking room](https://sketchfab.com/3d-models/viking-room-a49f1b8e4f5c4ecf9e1fe7d81915ad38) model by [nigelgoh](https://sketchfab.com/nigelgoh) ([CC BY 4.0](https://web.archive.org/web/20200428202538/https://sketchfab.com/3d-models/viking-room-a49f1b8e4f5c4ecf9e1fe7d81915ad38)).
-I tweaked the size and orientation of the model to use it as a drop in replacement for the current geometry:
+For this tutorial, I’ve decided to go with the [Viking room](https://sketchfab.com/3d-models/viking-room-a49f1b8e4f5c4ecf9e1fe7d81915ad38) model by [nigelgoh](https://sketchfab.com/nigelgoh) ([CC BY 4.0](https://web.archive.org/web/20200428202538/https://sketchfab.com/3d-models/viking-room-a49f1b8e4f5c4ecf9e1fe7d81915ad38)).
+I tweaked the size and orientation of the model to use it as a drop-in replacement for the current geometry:
 
 * 
-[viking_room.obj](_attachments/viking_room.obj)
+[viking_room.obj](_attachments/assets/viking_room.obj)
 
 * 
-[viking_room.png](_attachments/viking_room.png)
+[viking_room.png](_attachments/assets/viking_room.png)
 
 Feel free to use your own model, but make sure that it only consists of one material and that is has dimensions of about 1.5 x 1.5 x 1.5 units.
 If it is larger than that, then you’ll have to change the view matrix.
@@ -65,9 +49,9 @@ Put the model file in a new `models` directory next to `shaders` and `textures`,
 
 Put two new configuration variables in your program to define the model and texture paths:
 
-const uint32_t WIDTH = 800;
-const uint32_t HEIGHT = 600;
-
+constexpr uint32_t WIDTH = 800;
+constexpr uint32_t HEIGHT = 600;
+constexpr uint64_t FenceTimeout = 100000000;
 const std::string MODEL_PATH = "models/viking_room.obj";
 const std::string TEXTURE_PATH = "textures/viking_room.png";
 
@@ -80,13 +64,15 @@ Replace them with non-const containers as class members:
 
 std::vector vertices;
 std::vector indices;
-VkBuffer vertexBuffer;
-VkDeviceMemory vertexBufferMemory;
+vk::raii::Buffer vertexBuffer = nullptr;
+vk::raii::DeviceMemory vertexBufferMemory = nullptr;
+vk::raii::Buffer indexBuffer = nullptr;
+vk::raii::DeviceMemory indexBufferMemory = nullptr;
 
 You should change the type of the indices from `uint16_t` to `uint32_t`, because there are going to be a lot more vertices than 65535.
 Remember to also change the `vkCmdBindIndexBuffer` parameter:
 
-vkCmdBindIndexBuffer(commandBuffer, indexBuffer, 0, VK_INDEX_TYPE_UINT32);
+commandBuffers[currentFrame]->bindIndexBuffer( **indexBuffer, 0, vk::IndexType::eUint32 );
 
 The tinyobjloader library is included in the same way as STB libraries.
 Include the `tiny_obj_loader.h` file and make sure to define `TINYOBJLOADER_IMPLEMENTATION` in one source file to include the function bodies and avoid linker errors:
@@ -203,7 +189,7 @@ All that hard work is finally beginning to pay off with a demo like this!
 As the model rotates you may notice that the rear (backside of the walls) looks a bit funny.
 This is normal and is simply because the model is not really designed to be viewed from that side.
 
-Unfortunately we’re not really taking advantage of the index buffer yet.
+Unfortunately, we’re not really taking advantage of the index buffer yet.
 The `vertices` vector contains a lot of duplicated vertex data, because many vertices are included in multiple triangles.
 We should keep only the unique vertices and use the index buffer to reuse them whenever they come up.
 A straightforward way to implement this is to use a `map` or `unordered_map` to keep track of the unique vertices and respective indices:
@@ -258,7 +244,7 @@ The hash functions for the GLM types need to be included using the following hea
 #include 
 
 The hash functions are defined in the `gtx` folder, which means that it is technically still an experimental extension to GLM.
-Therefore you need to define `GLM_ENABLE_EXPERIMENTAL` to use it.
+Therefore, you need to define `GLM_ENABLE_EXPERIMENTAL` to use it.
 It means that the API could change with a new version of GLM in the future, but in practice the API is very stable.
 
 You should now be able to successfully compile and run your program.
@@ -266,6 +252,9 @@ If you check the size of `vertices`, then you’ll see that it has shrunk down f
 That means that each vertex is reused in an average number of ~6 triangles.
 This definitely saves us a lot of GPU memory.
 
-In the [next chapter](09_Generating_Mipmaps.html) we’ll learn about a technique to improve texture rendering.
+In the [next chapter,](09_Generating_Mipmaps.html) we’ll learn about a technique to improve texture rendering.
 
-[C++ code](_attachments/28_model_loading.cpp) / [Vertex shader](_attachments/27_shader_depth.vert) / [Fragment shader](_attachments/27_shader_depth.frag)
+[C++ code](_attachments/28_model_loading.cpp) /
+[slang shader](_attachments/27_shader_depth.slang) /
+[GLSL Vertex shader](_attachments/27_shader_depth.vert) /
+[GLSL Fragment shader](_attachments/27_shader_depth.frag)

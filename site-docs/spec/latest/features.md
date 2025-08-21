@@ -23,9 +23,8 @@ that [VkDevice](devsandqueues.html#VkDevice).
 If a feature is *unsupported*, that functionality **cannot** be used with that
 [VkDevice](devsandqueues.html#VkDevice).
 
-|  | Features are reported via the basic [VkPhysicalDeviceFeatures](#VkPhysicalDeviceFeatures)
+|  | Features are reported via the extensible structure
 | --- | --- |
-structure, as well as the extensible structure
 `VkPhysicalDeviceFeatures2`, which was added in the
 `[VK_KHR_get_physical_device_properties2](../appendices/extensions.html#VK_KHR_get_physical_device_properties2)` extension and included in
 Vulkan 1.1.
@@ -61,6 +60,9 @@ When a promoted extension is available, any corresponding feature aliases
 | `[VK_KHR_push_descriptor](../appendices/extensions.html#VK_KHR_push_descriptor)` | [`pushDescriptor`](#features-pushDescriptor) |
 
 To query supported features, call:
+
+|  | This functionality is deprecated by [Vulkan Version 1.1](../appendices/versions.html#versions-1.1). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-gpdp2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 void vkGetPhysicalDeviceFeatures(
@@ -267,206 +269,10 @@ typedef struct VkPhysicalDeviceFeatures {
 This structure describes the following features:
 
 * 
- `robustBufferAccess` specifies that
-accesses to buffers are bounds-checked against the range of the buffer
-descriptor (as determined by `VkDescriptorBufferInfo`::`range`,
-[VkBufferViewCreateInfo](resources.html#VkBufferViewCreateInfo)::`range`, or the size of the buffer).
-Out of bounds accesses **must** not cause application termination, and the
-effects of shader loads, stores, and atomics **must** conform to an
-implementation-dependent behavior as described below.
-
-A buffer access is considered to be out of bounds if any of the
-following are true:
-
-The pointer was formed by `OpImageTexelPointer` and the coordinate
-is less than zero or greater than or equal to the number of whole
-elements in the bound range.
+ `robustBufferAccess` enables
+[Robust Buffer Access](shaders.html#shaders-robust-buffer-access) guarantees for shader buffer accesses.
 
 * 
-The pointer was not formed by `OpImageTexelPointer` and the object
-pointed to is not wholly contained within the bound range.
-This includes accesses performed via *variable pointers* where the
-buffer descriptor being accessed cannot be statically determined.
-Uninitialized pointers and pointers equal to `OpConstantNull` are
-treated as pointing to a zero-sized object, so all accesses through
-such pointers are considered to be out of bounds.
-Buffer accesses through buffer device addresses are not
-bounds-checked.
-
-* 
-If the [      `VkPhysicalDeviceCooperativeMatrixFeaturesNV`::`cooperativeMatrixRobustBufferAccess`](#features-cooperativeMatrixRobustBufferAccessNV)
-feature is not enabled, then accesses using
-`OpCooperativeMatrixLoadNV` and `OpCooperativeMatrixStoreNV`
-**may** not be bounds-checked.
-
-* 
-If the [      `VkPhysicalDeviceCooperativeMatrixFeaturesKHR`::`cooperativeMatrixRobustBufferAccess`](#features-cooperativeMatrixRobustBufferAccess)
-feature is not enabled, then accesses using
-`OpCooperativeMatrixLoadKHR` and `OpCooperativeMatrixStoreKHR`
-**may** not be bounds-checked.
-
-* 
-Accesses using `OpCooperativeVector*` are not bounds-checked.
-
-|  | If a SPIR-V `OpLoad` instruction loads a structure and the tail end of
-| --- | --- |
-the structure is out of bounds, then all members of the structure are
-considered out of bounds even if the members at the end are not statically
-used. |
-
-* 
-If
-the [`robustBufferAccess2`](#features-robustBufferAccess2)
-feature is not enabled and
-any buffer access is determined to be out of bounds, then any other
-access of the same type (load, store, or atomic) to the same buffer
-that accesses an address less than 16 bytes away from the out of
-bounds address **may** also be considered out of bounds.
-
-* 
-If the access is a load that reads from the same memory locations as a
-prior store in the same shader invocation, with no other intervening
-accesses to the same memory locations in that shader invocation, then
-the result of the load **may** be the value stored by the store
-instruction, even if the access is out of bounds.
-If the load is `Volatile`, then an out of bounds load **must** return
-the appropriate out of bounds value.
-
-Accesses to descriptors written with a [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE) resource or
-view are not considered to be out of bounds.
-Instead, each type of descriptor access defines a specific behavior for
-accesses to a null descriptor.
-
-Out-of-bounds buffer loads will return any of the following values:
-
-* 
-If the access is to a uniform buffer and the
-[`robustBufferAccess2`](#features-robustBufferAccess2) feature is
-enabled, loads of offsets between the end of the descriptor range and
-the end of the descriptor range rounded up to a multiple of
-[      `robustUniformBufferAccessSizeAlignment`](limits.html#limits-robustUniformBufferAccessSizeAlignment) bytes **must** return
-either zero values or the contents of the memory at the offset being
-loaded.
-Loads of offsets past the descriptor range rounded up to a multiple of
-[      `robustUniformBufferAccessSizeAlignment`](limits.html#limits-robustUniformBufferAccessSizeAlignment) bytes **must** return zero
-values.
-
-* 
-If the access is to a storage buffer and the
-[`robustBufferAccess2`](#features-robustBufferAccess2) feature is
-enabled, loads of offsets between the end of the descriptor range and
-the end of the descriptor range rounded up to a multiple of
-[      `robustStorageBufferAccessSizeAlignment`](limits.html#limits-robustStorageBufferAccessSizeAlignment) bytes **must** return
-either zero values or the contents of the memory at the offset being
-loaded.
-Loads of offsets past the descriptor range rounded up to a multiple of
-[      `robustStorageBufferAccessSizeAlignment`](limits.html#limits-robustStorageBufferAccessSizeAlignment) bytes **must** return zero
-values.
-Similarly, stores to addresses between the end of the descriptor range
-and the end of the descriptor range rounded up to a multiple of
-[      `robustStorageBufferAccessSizeAlignment`](limits.html#limits-robustStorageBufferAccessSizeAlignment) bytes **may** be
-discarded.
-
-* 
-Non-atomic accesses to storage buffers that are a multiple of 32 bits
-**may** be decomposed into 32-bit accesses that are individually
-bounds-checked.
-
-* 
-If the access is to an index buffer and the
-[`robustBufferAccess2`](#features-robustBufferAccess2) feature is
-enabled, zero values **must** be returned.
-
-* 
-If the access is to a uniform texel buffer or storage texel buffer and
-the [`robustBufferAccess2`](#features-robustBufferAccess2)
-feature is enabled, zero values **must** be returned, and then
-[Conversion to RGBA](textures.html#textures-conversion-to-rgba) is applied based on
-the buffer view’s format.
-
-* 
-Values from anywhere within the memory range(s) bound to the buffer
-(possibly including bytes of memory past the end of the buffer, up to
-the end of the bound range).
-
-* 
-Zero values, or (0,0,0,x) vectors for vector reads where x is a
-valid value represented in the type of the vector components and **may**
-be any of:
-
-0, 1, or the maximum representable positive integer value, for signed
-or unsigned integer components
-
-* 
-0.0 or 1.0, for floating-point components
-
-Out-of-bounds writes **may** modify values within the memory range(s)
-bound to the buffer, but **must** not modify any other memory.
-
-* 
-If the [`robustBufferAccess2`](#features-robustBufferAccess2)
-feature is enabled, out of bounds writes **must** not modify any memory.
-
-Out-of-bounds atomics **may** modify values within the memory range(s)
-bound to the buffer, but **must** not modify any other memory, and return
-an **undefined** value.
-
-* 
-If the [`robustBufferAccess2`](#features-robustBufferAccess2)
-feature is enabled, out of bounds atomics **must** not modify any memory,
-and return an **undefined** value.
-
-If the [`robustBufferAccess2`](#features-robustBufferAccess2)
-feature is not enabled, vertex
-input attributes are considered out of bounds if the offset of the
-attribute in the bound vertex buffer range plus the size of the
-attribute is greater than either:
-
-* 
-`vertexBufferRangeSize`, if `bindingStride` == 0; or
-
-* 
-(`vertexBufferRangeSize` - (`vertexBufferRangeSize` %
-`bindingStride`))
-
-where `vertexBufferRangeSize` is the byte size of the memory range bound
-to the vertex buffer binding and `bindingStride` is the byte stride of
-the corresponding vertex input binding.
-Further, if any vertex input attribute using a specific vertex input binding
-is out of bounds, then all vertex input attributes using that vertex input
-binding for that vertex shader invocation are considered out of bounds.
-
-* 
-If a vertex input attribute is out of bounds, it will be assigned one
-of the following values:
-
-Values from anywhere within the memory range(s) bound to the buffer,
-converted according to the format of the attribute.
-
-* 
-Zero values, format converted according to the format of the
-attribute.
-
-* 
-Zero values, or (0,0,0,x) vectors, as described above.
-
-If the [`robustBufferAccess2`](#features-robustBufferAccess2)
-feature is enabled, vertex input attributes are considered out of
-bounds if the offset of the attribute in the bound vertex buffer range
-plus the size of the attribute is greater than the byte size of the
-memory range bound to the vertex buffer binding.
-
-* 
-If a vertex input attribute is out of bounds, the
-[raw data](fxvertex.html#fxvertex-input-extraction) extracted are zero values, and
-missing G, B, or A components are [filled      with (0](fxvertex.html#fxvertex-input-extraction).
-
-If `robustBufferAccess` is not enabled, applications **must** not
-perform out of bounds accesses
-except under the conditions enabled by the
-[`pipelineRobustness`](#features-pipelineRobustness) feature
-.
-
  `fullDrawIndexUint32` specifies the
 full 32-bit range of indices is supported for indexed draw calls when
 using a [VkIndexType](drawing.html#VkIndexType) of `VK_INDEX_TYPE_UINT32`.
@@ -477,12 +283,14 @@ If this feature is supported, `maxDrawIndexedIndexValue` **must** be
 232-1; otherwise it **must** be no smaller than 224-1.
 See [`maxDrawIndexedIndexValue`](limits.html#limits-maxDrawIndexedIndexValue).
 
+* 
  `imageCubeArray` specifies whether image
 views with a [VkImageViewType](resources.html#VkImageViewType) of
 `VK_IMAGE_VIEW_TYPE_CUBE_ARRAY` **can** be created, and that the
 corresponding `SampledCubeArray` and `ImageCubeArray` SPIR-V
 capabilities **can** be used in shader code.
 
+* 
  `independentBlend` specifies whether
 the `VkPipelineColorBlendAttachmentState` settings are controlled
 independently per-attachment.
@@ -492,6 +300,7 @@ attachments **must** be identical.
 Otherwise, a different `VkPipelineColorBlendAttachmentState` **can** be
 provided for each bound color attachment.
 
+* 
  `geometryShader` specifies whether
 geometry shaders are supported.
 If this feature is not enabled, the `VK_SHADER_STAGE_GEOMETRY_BIT`
@@ -500,6 +309,7 @@ used.
 This also specifies whether shader modules **can** declare the
 `Geometry` capability.
 
+* 
  `tessellationShader` specifies
 whether tessellation control and evaluation shaders are supported.
 If this feature is not enabled, the
@@ -512,6 +322,7 @@ values **must** not be used.
 This also specifies whether shader modules **can** declare the
 `Tessellation` capability.
 
+* 
  `sampleRateShading` specifies whether
 [Sample Shading](primsrast.html#primsrast-sampleshading) and multisample interpolation
 are supported.
@@ -521,6 +332,7 @@ the [VkPipelineMultisampleStateCreateInfo](primsrast.html#VkPipelineMultisampleS
 This also specifies whether shader modules **can** declare the
 `SampleRateShading` capability.
 
+* 
  `dualSrcBlend` specifies whether blend
 operations which take two sources are supported.
 If this feature is not enabled, the `VK_BLEND_FACTOR_SRC1_COLOR`,
@@ -530,12 +342,14 @@ If this feature is not enabled, the `VK_BLEND_FACTOR_SRC1_COLOR`,
 as source or destination blending factors.
 See [Dual-Source Blending](framebuffer.html#framebuffer-dsb).
 
+* 
  `logicOp` specifies whether logic operations
 are supported.
 If this feature is not enabled, the `logicOpEnable` member of the
 [VkPipelineColorBlendStateCreateInfo](framebuffer.html#VkPipelineColorBlendStateCreateInfo) structure **must** be
 `VK_FALSE`, and the `logicOp` member is ignored.
 
+* 
  `multiDrawIndirect` specifies whether
 multiple draw indirect is supported.
 If this feature is not enabled, the `drawCount` parameter to the
@@ -546,6 +360,7 @@ The `maxDrawIndirectCount` member of the
 is not supported.
 See [`maxDrawIndirectCount`](limits.html#limits-maxDrawIndirectCount).
 
+* 
  `drawIndirectFirstInstance`
 specifies whether indirect drawing calls support the `firstInstance`
 parameter.
@@ -554,6 +369,7 @@ If this feature is not enabled, the `firstInstance` member of all
 structures that are provided to the [vkCmdDrawIndirect](drawing.html#vkCmdDrawIndirect) and
 [vkCmdDrawIndexedIndirect](drawing.html#vkCmdDrawIndexedIndirect) commands **must** be 0.
 
+* 
  `depthClamp` specifies whether depth
 clamping is supported.
 If this feature is not enabled, the `depthClampEnable` member of the
@@ -562,6 +378,7 @@ If this feature is not enabled, the `depthClampEnable` member of the
 Otherwise, setting `depthClampEnable` to `VK_TRUE` will enable
 depth clamping.
 
+* 
  `depthBiasClamp` specifies whether depth
 bias clamping is supported.
 If this feature is not enabled, the `depthBiasClamp` member of the
@@ -570,11 +387,13 @@ unless the `VK_DYNAMIC_STATE_DEPTH_BIAS` dynamic state is enabled,
 in which case the `depthBiasClamp` parameter to
 [vkCmdSetDepthBias](primsrast.html#vkCmdSetDepthBias) **must** be 0.0.
 
+* 
  `fillModeNonSolid` specifies whether
 point and wireframe fill modes are supported.
 If this feature is not enabled, the `VK_POLYGON_MODE_POINT` and
 `VK_POLYGON_MODE_LINE` enum values **must** not be used.
 
+* 
  `depthBounds` specifies whether depth
 bounds tests are supported.
 If this feature is not enabled, the `depthBoundsTestEnable` member
@@ -587,6 +406,7 @@ When `depthBoundsTestEnable` is `VK_FALSE`, the
 `minDepthBounds` and `maxDepthBounds` members of the
 [VkPipelineDepthStencilStateCreateInfo](fragops.html#VkPipelineDepthStencilStateCreateInfo) structure are ignored.
 
+* 
  `wideLines` specifies whether lines with
 width other than 1.0 are supported.
 If this feature is not enabled, the `lineWidth` member of the
@@ -599,6 +419,7 @@ line widths are indicated by the `lineWidthRange` and
 `lineWidthGranularity` members of the `VkPhysicalDeviceLimits`
 structure, respectively.
 
+* 
  `largePoints` specifies whether points with
 size greater than 1.0 are supported.
 If this feature is not enabled, only a point size of 1.0 written by a
@@ -607,6 +428,7 @@ The range and granularity of supported point sizes are indicated by the
 `pointSizeRange` and `pointSizeGranularity` members of the
 `VkPhysicalDeviceLimits` structure, respectively.
 
+* 
  `alphaToOne` specifies whether the
 implementation is able to replace the alpha value of the fragment shader
 color output in the [Multisample Coverage](fragops.html#fragops-covg) fragment
@@ -617,11 +439,11 @@ of the [VkPipelineMultisampleStateCreateInfo](primsrast.html#VkPipelineMultisamp
 Otherwise setting `alphaToOneEnable` to `VK_TRUE` will enable
 alpha-to-one behavior.
 
+* 
  `multiViewport` specifies whether more
 than one viewport is supported.
 If this feature is not enabled:
 
-* 
 The `viewportCount` and `scissorCount` members of the
 [VkPipelineViewportStateCreateInfo](vertexpostproc.html#VkPipelineViewportStateCreateInfo) structure **must** be 1.
 
@@ -1275,7 +1097,10 @@ structure.
     storage class with the `Block` decoration **can** have 16-bit integer
     and 16-bit floating-point members.
     If this feature is not enabled, 16-bit integer or 16-bit floating-point
-    members **must** not be used in such objects.
+    members **must** not be used in such
+    objects unless [    `storageBuffer8BitAccess`](#features-storageBuffer8BitAccess) or
+    [    `uniformAndStorageBuffer8BitAccess`](#features-uniformAndStorageBuffer8BitAccess) are enabled or they are
+    accessed in 32-bit multiples if [    `shaderUntypedPointers`](#features-shaderUntypedPointers) is enabled.
     This also specifies whether shader modules **can** declare the
     `StorageBuffer16BitAccess` capability.
 
@@ -1285,7 +1110,10 @@ structure.
 the `Uniform` storage class with the `Block` decoration **can** have
 16-bit integer and 16-bit floating-point members.
 If this feature is not enabled, 16-bit integer or 16-bit floating-point
-members **must** not be used in such objects.
+members **must** not be used in such
+objects unless
+[    `uniformAndStorageBuffer8BitAccess`](#features-uniformAndStorageBuffer8BitAccess) are enabled or they are
+accessed in 32-bit multiples if [    `shaderUntypedPointers`](#features-shaderUntypedPointers) is enabled.
 This also specifies whether shader modules **can** declare the
 `UniformAndStorageBuffer16BitAccess` capability.
 
@@ -1295,7 +1123,9 @@ This also specifies whether shader modules **can** declare the
 `PushConstant` storage class **can** have 16-bit integer and 16-bit
 floating-point members.
 If this feature is not enabled, 16-bit integer or floating-point members
-**must** not be used in such objects.
+**must** not be used in such
+objects unless [    `storagePushConstant8`](#features-storagePushConstant8) are enabled or they are accessed in 32-bit
+multiples if [    `shaderUntypedPointers`](#features-shaderUntypedPointers) is enabled.
 This also specifies whether shader modules **can** declare the
 `StoragePushConstant16` capability.
 
@@ -1470,7 +1300,10 @@ If this feature is not enabled, these functions **must** not be used.
     storage class with the `Block` decoration **can** have 8-bit integer
     members.
     If this feature is not enabled, 8-bit integer members **must** not be used
-    in such objects.
+    in such
+    objects unless [    `shaderUntypedPointer`](#features-shaderUntypedPointers) is enabled and they are accessed in 32-bit
+    multiples or 16-bit multiples if
+    [    `storageBuffer16BitAccess`](#features-storageBuffer16BitAccess) is enabled.
     This also indicates whether shader modules **can** declare the
     `StorageBuffer8BitAccess` capability.
 
@@ -1480,7 +1313,10 @@ If this feature is not enabled, these functions **must** not be used.
 `Uniform` storage class with the `Block` decoration **can** have
 8-bit integer members.
 If this feature is not enabled, 8-bit integer members **must** not be used
-in such objects.
+in such
+objects unless [    `shaderUntypedPointers`](#features-shaderUntypedPointers) is enabled and they are accessed in 32-bit
+multiples or 16-bit multiples if
+[    `uniformAndStorageBuffer16BitAccess`](#features-uniformAndStorageBuffer16BitAccess) is enabled.
 This also indicates whether shader modules **can** declare the
 `UniformAndStorageBuffer8BitAccess` capability.
 
@@ -1489,7 +1325,10 @@ This also indicates whether shader modules **can** declare the
 `storagePushConstant8` indicates whether objects in the
 `PushConstant` storage class **can** have 8-bit integer members.
 If this feature is not enabled, 8-bit integer members **must** not be used
-in such objects.
+in such
+objects unless [    `shaderUntypedPointers`](#features-shaderUntypedPointers) is enabled and they are accessed in 32-bit
+multiples or 16-bit multiples if
+[    `storagePushConstant16`](#features-storagePushConstant16) is enabled.
 This also indicates whether shader modules **can** declare the
 `StoragePushConstant8` capability.
 
@@ -1823,7 +1662,7 @@ indicates whether semaphores created with a [VkSemaphoreType](synchronization.ht
 
 `bufferDeviceAddress` indicates that the implementation supports
 accessing buffer memory in shaders as storage buffers via an address
-queried from [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress).
+queried from [vkGetBufferDeviceAddress](resources.html#vkGetBufferDeviceAddress).
 
 * 
 
@@ -1942,13 +1781,8 @@ structure.
 
 * 
  `robustImageAccess`
-indicates whether image accesses are tightly bounds-checked against the
-dimensions of the image view.
-[Invalid texels](textures.html#textures-input-validation) resulting from out of
-bounds image loads will be replaced as described in
-[Texel Replacement](textures.html#textures-texel-replacement), with either
-(0,0,1) or (0,0,0) values inserted for missing G, B, or A
-components based on the format.
+enables [Robust Image Access](shaders.html#shaders-robust-image-access) guarantees for shader image
+accesses.
 
 * 
  `inlineUniformBlock`
@@ -2896,7 +2730,10 @@ structure.
     storage class with the `Block` decoration **can** have 8-bit integer
     members.
     If this feature is not enabled, 8-bit integer members **must** not be used
-    in such objects.
+    in such
+    objects unless [    `shaderUntypedPointer`](#features-shaderUntypedPointers) is enabled and they are accessed in 32-bit
+    multiples or 16-bit multiples if
+    [    `storageBuffer16BitAccess`](#extension-features-storageBuffer16BitAccess) is enabled.
     This also indicates whether shader modules **can** declare the
     `StorageBuffer8BitAccess` capability.
 
@@ -2906,7 +2743,10 @@ structure.
 `Uniform` storage class with the `Block` decoration **can** have
 8-bit integer members.
 If this feature is not enabled, 8-bit integer members **must** not be used
-in such objects.
+in such
+objects unless [    `shaderUntypedPointers`](#features-shaderUntypedPointers) is enabled and they are accessed in 32-bit
+multiples or 16-bit multiples if
+[    `uniformAndStorageBuffer16BitAccess`](#extension-features-uniformAndStorageBuffer16BitAccess) is enabled.
 This also indicates whether shader modules **can** declare the
 `UniformAndStorageBuffer8BitAccess` capability.
 
@@ -2915,7 +2755,10 @@ This also indicates whether shader modules **can** declare the
 `storagePushConstant8` indicates whether objects in the
 `PushConstant` storage class **can** have 8-bit integer members.
 If this feature is not enabled, 8-bit integer members **must** not be used
-in such objects.
+in such
+objects unless [    `shaderUntypedPointers`](#features-shaderUntypedPointers) is enabled and they are accessed in 32-bit
+multiples or 16-bit multiples if
+[    `storagePushConstant16`](#extension-features-storagePushConstant16) is enabled.
 This also indicates whether shader modules **can** declare the
 `StoragePushConstant8` capability.
 
@@ -2970,7 +2813,10 @@ structure.
     storage class with the `Block` decoration **can** have 16-bit integer
     and 16-bit floating-point members.
     If this feature is not enabled, 16-bit integer or 16-bit floating-point
-    members **must** not be used in such objects.
+    members **must** not be used in such
+    objects unless [    `storageBuffer8BitAccess`](#extension-features-storageBuffer8BitAccess) or
+    [    `uniformAndStorageBuffer8BitAccess`](#extension-features-uniformAndStorageBuffer8BitAccess) are enabled or they are
+    accessed in 32-bit multiples if [    `shaderUntypedPointers`](#features-shaderUntypedPointers) is enabled.
     This also specifies whether shader modules **can** declare the
     `StorageBuffer16BitAccess` capability.
 
@@ -2980,7 +2826,10 @@ structure.
 the `Uniform` storage class with the `Block` decoration **can** have
 16-bit integer and 16-bit floating-point members.
 If this feature is not enabled, 16-bit integer or 16-bit floating-point
-members **must** not be used in such objects.
+members **must** not be used in such
+objects unless
+[    `uniformAndStorageBuffer8BitAccess`](#extension-features-uniformAndStorageBuffer8BitAccess) are enabled or they are
+accessed in 32-bit multiples if [    `shaderUntypedPointers`](#features-shaderUntypedPointers) is enabled.
 This also specifies whether shader modules **can** declare the
 `UniformAndStorageBuffer16BitAccess` capability.
 
@@ -2990,7 +2839,9 @@ This also specifies whether shader modules **can** declare the
 `PushConstant` storage class **can** have 16-bit integer and 16-bit
 floating-point members.
 If this feature is not enabled, 16-bit integer or floating-point members
-**must** not be used in such objects.
+**must** not be used in such
+objects unless [    `storagePushConstant8`](#extension-features-storagePushConstant8) are enabled or they are accessed in 32-bit
+multiples if [    `shaderUntypedPointers`](#features-shaderUntypedPointers) is enabled.
 This also specifies whether shader modules **can** declare the
 `StoragePushConstant16` capability.
 
@@ -4582,6 +4433,46 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_OFFSET_FEATURES_EXT`
 
+The `VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE` structure
+is defined as:
+
+// Provided by VK_VALVE_fragment_density_map_layered
+typedef struct VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           fragmentDensityMapLayered;
+} VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE;
+
+This structure describes the following feature:
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `fragmentDensityMapLayered`
+specifies whether the implementation supports layered fragment density
+maps.
+
+If the `VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE-sType-sType) VUID-VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE`
+
 The `VkPhysicalDeviceInvocationMaskFeaturesHUAWEI` structure is defined
 as:
 
@@ -4826,7 +4717,7 @@ structure.
 
 `bufferDeviceAddress` indicates that the implementation supports
 accessing buffer memory in shaders as storage buffers via an address
-queried from [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress).
+queried from [vkGetBufferDeviceAddress](resources.html#vkGetBufferDeviceAddress).
 
 * 
 
@@ -4850,7 +4741,7 @@ than one physical device.
 platforms to be able to support `bufferDeviceAddress` without needing to
 support shared GPU virtual addresses for multi-device configurations. |
 
-See [vkGetBufferDeviceAddress](descriptorsets.html#vkGetBufferDeviceAddress) for more information.
+See [vkGetBufferDeviceAddress](resources.html#vkGetBufferDeviceAddress) for more information.
 
 If the `VkPhysicalDeviceBufferDeviceAddressFeatures` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
@@ -4896,7 +4787,7 @@ structure.
  `bufferDeviceAddress` indicates
 that the implementation supports accessing buffer memory in shaders as
 storage buffers via an address queried from
-[vkGetBufferDeviceAddressEXT](descriptorsets.html#vkGetBufferDeviceAddressEXT).
+[vkGetBufferDeviceAddressEXT](resources.html#vkGetBufferDeviceAddressEXT).
 
 * 
 
@@ -6611,6 +6502,51 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_QUANTIZATION_MAP_FEATURES_KHR`
 
+The `VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR` structure is
+defined as:
+
+// Provided by VK_KHR_video_encode_intra_refresh
+typedef struct VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           videoEncodeIntraRefresh;
+} VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR;
+
+This structure describes the following features:
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `videoEncodeIntraRefresh`
+specifies that the implementation supports [video    encode intra refresh](videocoding.html#encode-intra-refresh).
+
+|  | Support for `videoEncodeIntraRefresh` does not indicate that all video
+| --- | --- |
+encode profiles support intra refresh.
+Support for intra refresh for any specific video encode profile is subject
+to video-profile-specific capabilities. |
+
+If the `VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR-sType-sType) VUID-VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR`
+
 The `VkPhysicalDeviceVideoMaintenance1FeaturesKHR` structure is defined
 as:
 
@@ -6762,6 +6698,44 @@ Valid Usage (Implicit)
 [](#VUID-VkPhysicalDeviceVideoEncodeAV1FeaturesKHR-sType-sType) VUID-VkPhysicalDeviceVideoEncodeAV1FeaturesKHR-sType-sType
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR`
+
+The `VkPhysicalDeviceVideoDecodeVP9FeaturesKHR` structure is defined as:
+
+// Provided by VK_KHR_video_decode_vp9
+typedef struct VkPhysicalDeviceVideoDecodeVP9FeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           videoDecodeVP9;
+} VkPhysicalDeviceVideoDecodeVP9FeaturesKHR;
+
+This structure describes the following features:
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `videoDecodeVP9` specifies that the
+implementation supports [VP9 decode operations](videocoding.html#decode-vp9).
+
+If the `VkPhysicalDeviceVideoDecodeVP9FeaturesKHR` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDeviceVideoDecodeVP9FeaturesKHR`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceVideoDecodeVP9FeaturesKHR-sType-sType) VUID-VkPhysicalDeviceVideoDecodeVP9FeaturesKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR`
 
 The `VkPhysicalDeviceExtendedDynamicStateFeaturesEXT` structure is
 defined as:
@@ -7724,25 +7698,12 @@ This structure describes the following features:
 structure.
 
 * 
- `robustBufferAccess2` indicates
-whether buffer accesses are tightly bounds-checked against the range of
-the descriptor.
-Uniform buffers **must** be bounds-checked to the range of the descriptor,
-where the range is rounded up to a multiple of
-[    `robustUniformBufferAccessSizeAlignment`](limits.html#limits-robustUniformBufferAccessSizeAlignment).
-Storage buffers **must** be bounds-checked to the range of the descriptor,
-where the range is rounded up to a multiple of
-[    `robustStorageBufferAccessSizeAlignment`](limits.html#limits-robustStorageBufferAccessSizeAlignment).
-Out of bounds buffer loads will return zero values, and [    image load, sample, and atomic operations](textures.html#textures) from texel buffers will have
-(0,0,1) values [inserted for missing    G, B, or A components](textures.html#textures-conversion-to-rgba) based on the format.
+ `robustBufferAccess2` enables
+[Robust Buffer Access 2](shaders.html#shaders-robust-buffer-access2) guarantees for shader buffer accesses.
 
 * 
- `robustImageAccess2` indicates
-whether image accesses are tightly bounds-checked against the dimensions
-of the image view.
-Out of bounds [image load, sample, and atomic operations](textures.html#textures)
-from images will return zero values, with (0,0,1) values
-[inserted for missing G, B, or A    components](textures.html#textures-conversion-to-rgba) based on the format.
+ `robustImageAccess2` enables
+[Robust Image Access 2](shaders.html#shaders-robust-image-access2) guarantees for shader image accesses.
 
 * 
  `nullDescriptor` indicates
@@ -7800,13 +7761,8 @@ structure.
 
 * 
  `robustImageAccess`
-indicates whether image accesses are tightly bounds-checked against the
-dimensions of the image view.
-[Invalid texels](textures.html#textures-input-validation) resulting from out of
-bounds image loads will be replaced as described in
-[Texel Replacement](textures.html#textures-texel-replacement), with either
-(0,0,1) or (0,0,0) values inserted for missing G, B, or A
-components based on the format.
+enables [Robust Image Access](shaders.html#shaders-robust-image-access) guarantees for shader image
+accesses.
 
 If the `VkPhysicalDeviceImageRobustnessFeatures` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
@@ -8449,7 +8405,8 @@ Blocks.
 in the `Workgroup` storage class with the `Block` decoration **can**
 have 8-bit integer members.
 If this feature is not enabled, 8-bit integer members **must** not be used
-in such objects.
+in such
+objects.
 This also indicates whether shader modules **can** declare the
 `WorkgroupMemoryExplicitLayout8BitAccessKHR` capability.
 
@@ -8459,7 +8416,8 @@ This also indicates whether shader modules **can** declare the
 in the `Workgroup` storage class with the `Block` decoration **can**
 have 16-bit integer and 16-bit floating-point members.
 If this feature is not enabled, 16-bit integer or 16-bit floating-point
-members **must** not be used in such objects.
+members **must** not be used in such
+objects.
 This also indicates whether shader modules **can** declare the
 `WorkgroupMemoryExplicitLayout16BitAccessKHR` capability.
 
@@ -8762,6 +8720,38 @@ Valid Usage (Implicit)
 [](#VUID-VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV-sType-sType) VUID-VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV-sType-sType
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV`
+
+The `VkPhysicalDeviceShaderUntypedPointersFeaturesKHR` structure is
+defined as:
+
+// Provided by VK_KHR_shader_untyped_pointers
+typedef struct VkPhysicalDeviceShaderUntypedPointersFeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           shaderUntypedPointers;
+} VkPhysicalDeviceShaderUntypedPointersFeaturesKHR;
+
+The members of `VkPhysicalDeviceShaderUntypedPointersFeaturesKHR`
+describe the following features:
+
+* 
+ `shaderUntypedPointers` specifies
+whether shader modules **can** declare the `UntypedPointersKHR`
+capability and untyped pointers in any
+[explicitly laid out storage class](interfaces.html#interfaces-resources-layout).
+
+If the `VkPhysicalDeviceShaderUntypedPointersFeaturesKHR` structure is
+included in the `pNext` chain of [VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2), it is
+filled with values indicating whether the features are supported.
+`VkPhysicalDeviceShaderUntypedPointersFeaturesKHR` **can** also be included
+in the `pNext` chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) to enable the features.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceShaderUntypedPointersFeaturesKHR-sType-sType) VUID-VkPhysicalDeviceShaderUntypedPointersFeaturesKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR`
 
 The `VkPhysicalDeviceInheritedViewportScissorFeaturesNV` structure is
 defined as:
@@ -9084,6 +9074,8 @@ If this is `VK_TRUE`, all resources created with
 `VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT`,
 `VK_IMAGE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT`,
 `VK_IMAGE_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT`,
+`VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM`,
+`VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM`,
 `VK_SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT`, or
 `VK_ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT`
 **must** be created before resources of the same types without those flags.
@@ -9114,6 +9106,47 @@ Valid Usage (Implicit)
 [](#VUID-VkPhysicalDeviceDescriptorBufferFeaturesEXT-sType-sType) VUID-VkPhysicalDeviceDescriptorBufferFeaturesEXT-sType-sType
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT`
+
+The `VkPhysicalDeviceDescriptorBufferTensorFeaturesARM` structure is
+defined as:
+
+// Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+typedef struct VkPhysicalDeviceDescriptorBufferTensorFeaturesARM {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           descriptorBufferTensorDescriptors;
+} VkPhysicalDeviceDescriptorBufferTensorFeaturesARM;
+
+This structure describes the following features:
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+
+`descriptorBufferTensorDescriptors` indicates that the
+implementation supports putthing shader-accessible tensor descriptors
+directly in memory.
+
+If the `VkPhysicalDeviceDescriptorBufferTensorFeaturesARM` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDeviceDescriptorBufferTensorFeaturesARM`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceDescriptorBufferTensorFeaturesARM-sType-sType) VUID-VkPhysicalDeviceDescriptorBufferTensorFeaturesARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM`
 
 The `VkPhysicalDevicePageableDeviceLocalMemoryFeaturesEXT` structure is
 defined as:
@@ -9574,6 +9607,45 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_FEATURES_KHR`
 
+The `VkPhysicalDevicePresentId2FeaturesKHR` structure is defined as:
+
+// Provided by VK_KHR_present_id2
+typedef struct VkPhysicalDevicePresentId2FeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           presentId2;
+} VkPhysicalDevicePresentId2FeaturesKHR;
+
+This structure describes the following feature:
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `presentId2` indicates that the
+implementation supports specifying present ID values in the
+`VkPresentId2KHR` extension to the `VkPresentInfoKHR` struct.
+
+If the `VkPhysicalDevicePresentId2FeaturesKHR` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDevicePresentId2FeaturesKHR`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDevicePresentId2FeaturesKHR-sType-sType) VUID-VkPhysicalDevicePresentId2FeaturesKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR`
+
 The `VkPhysicalDevicePresentWaitFeaturesKHR` structure is defined as:
 
 // Provided by VK_KHR_present_wait
@@ -9611,6 +9683,112 @@ Valid Usage (Implicit)
 [](#VUID-VkPhysicalDevicePresentWaitFeaturesKHR-sType-sType) VUID-VkPhysicalDevicePresentWaitFeaturesKHR-sType-sType
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR`
+
+The `VkPhysicalDevicePresentWait2FeaturesKHR` structure is defined as:
+
+// Provided by VK_KHR_present_wait2
+typedef struct VkPhysicalDevicePresentWait2FeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           presentWait2;
+} VkPhysicalDevicePresentWait2FeaturesKHR;
+
+This structure describes the following feature:
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `presentWait2` indicates that the
+implementation supports `vkWaitForPresent2KHR`.
+
+If the `VkPhysicalDevicePresentWait2FeaturesKHR` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDevicePresentWait2FeaturesKHR`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDevicePresentWait2FeaturesKHR-sType-sType) VUID-VkPhysicalDevicePresentWait2FeaturesKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR`
+
+The `VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR` structure is
+defined as:
+
+// Provided by VK_KHR_unified_image_layouts
+typedef struct VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           unifiedImageLayouts;
+    VkBool32           unifiedImageLayoutsVideo;
+} VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR;
+
+This structure describes the following feature:
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `unifiedImageLayouts` specifies
+whether usage of `VK_IMAGE_LAYOUT_GENERAL`, where valid, incurs no
+loss in efficiency.
+Additionally, it indicates whether it **can** be used in place of
+`VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT`.
+
+* 
+ `unifiedImageLayoutsVideo`
+specifies whether `VK_IMAGE_LAYOUT_GENERAL` can be used in place of
+any of the following image layouts with no loss in efficiency.
+
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_DST_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR`
+
+* 
+`VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR`
+
+If the `VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR-sType-sType) VUID-VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR`
 
 The `VkPhysicalDeviceHostImageCopyFeatures` structure is defined as:
 
@@ -10086,10 +10264,10 @@ This structure describes the following feature:
 `pNext` is `NULL` or a pointer to a structure extending this
 structure.
 
+* 
  `maintenance8` indicates that the
 implementation supports the following:
 
-* 
 Allow copies between depth/stencil and “matching” color attachments
 
 * 
@@ -10131,6 +10309,82 @@ Valid Usage (Implicit)
 [](#VUID-VkPhysicalDeviceMaintenance8FeaturesKHR-sType-sType) VUID-VkPhysicalDeviceMaintenance8FeaturesKHR-sType-sType
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR`
+
+The `VkPhysicalDeviceMaintenance9FeaturesKHR` structure is defined as:
+
+// Provided by VK_KHR_maintenance9
+typedef struct VkPhysicalDeviceMaintenance9FeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           maintenance9;
+} VkPhysicalDeviceMaintenance9FeaturesKHR;
+
+This structure describes the following feature:
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `maintenance9` indicates that the
+implementation supports the following:
+
+The restriction that certain bitfield SPIR-V instructions only operate
+on 32-bit integers is relaxed.
+
+* 
+The value returned when a vertex shader reads an unbound vertex
+attribute is defined by way of the
+[     `defaultVertexAttributeValue`](limits.html#limits-defaultVertexAttributeValue) property.
+
+* 
+A new
+[VkQueryPoolCreateFlagBits](queries.html#VkQueryPoolCreateFlagBits)::`VK_QUERY_POOL_CREATE_RESET_BIT_KHR`
+flag **can** be used to initialize all queries in query pool to the reset
+state on creation.
+
+* 
+[vkCmdSetEvent2](synchronization.html#vkCmdSetEvent2) **may** not provide a dependency other than the event
+src stage mask.
+
+* 
+The effects of image memory barriers and image layout transitions on 3D
+images created with `VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT` are
+limited to only those slices specified in `VkImageSubresourceRange`
+
+* 
+A device **can** be created with no queues.
+This can be used for compiling pipelines or shaders for the purpose of
+filling pipeline caches.
+
+* 
+Queue family ownership transfers are no longer required when
+transitioning resources created with `VK_SHARING_MODE_EXCLUSIVE`
+between queue families that support `VK_QUEUE_GRAPHICS_BIT` and
+those that support only `VK_QUEUE_TRANSFER_BIT`.
+
+* 
+[`image2DViewOf3DSparse`](limits.html#limits-image2DViewOf3DSparse) enables
+2D views of 3D sparse images.
+
+If the `VkPhysicalDeviceMaintenance9FeaturesKHR` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDeviceMaintenance9FeaturesKHR`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceMaintenance9FeaturesKHR-sType-sType) VUID-VkPhysicalDeviceMaintenance9FeaturesKHR-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR`
 
 The `VkPhysicalDeviceDynamicRenderingFeatures` structure is defined as:
 
@@ -11529,6 +11783,83 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_OBJECT_FEATURES_EXT`
 
+The `VkPhysicalDeviceTensorFeaturesARM` structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkPhysicalDeviceTensorFeaturesARM {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           tensorNonPacked;
+    VkBool32           shaderTensorAccess;
+    VkBool32           shaderStorageTensorArrayDynamicIndexing;
+    VkBool32           shaderStorageTensorArrayNonUniformIndexing;
+    VkBool32           descriptorBindingStorageTensorUpdateAfterBind;
+    VkBool32           tensors;
+} VkPhysicalDeviceTensorFeaturesARM;
+
+The members of the `VkPhysicalDeviceTensorFeaturesARM` structure
+describe the following features:
+
+* 
+ `tensorNonPacked` indicates whether the
+implementation supports the creation of tensors that are not packed
+tensors.
+
+* 
+ `shaderTensorAccess` indicates
+whether shader modules **can** declare the `TensorsARM` capability.
+
+* 
+
+`shaderStorageBufferArrayDynamicIndexing` indicates whether arrays
+of storage tensors **can** be indexed by dynamically uniform integer
+expressions in shader code.
+If this feature is not enabled, resources with a descriptor type of
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM` **must** be indexed only by constant
+integral expressions when aggregated into arrays in shader code.
+This also indicates whether shader modules **can** declare the
+`StorageTensorArrayDynamicIndexingARM` capability.
+
+* 
+
+`shaderStorageTensorArrayNonUniformIndexing` indicates whether
+arrays of storage tensors **can** be indexed by non-uniform integer
+expressions in shader code.
+If this feature is not enabled, resources with a descriptor type of
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM` **must** not be indexed by non-uniform
+integer expressions when aggregated into arrays in shader code.
+This also indicates whether shader modules **can** declare the
+`StorageTensorArrayNonUniformIndexingARM` capability.
+
+* 
+
+`descriptorBindingStorageTensorUpdateAfterBind` indicates whether
+the implementation supports updating storage tensor descriptors after a
+set is bound.
+If this feature is not enabled,
+`VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT` **must** not be used with
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM`.
+
+* 
+ `tensors` indicates whether the implementation
+supports tensor resources.
+
+If the `VkPhysicalDeviceTensorFeaturesARM` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDeviceTensorFeaturesARM`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceTensorFeaturesARM-sType-sType) VUID-VkPhysicalDeviceTensorFeaturesARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_FEATURES_ARM`
+
 The `VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM` structure is defined
 as:
 
@@ -11607,15 +11938,20 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAME_BOUNDARY_FEATURES_EXT`
 
-The `VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT` structure is
+The `VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR` structure is
 defined as:
 
-// Provided by VK_EXT_swapchain_maintenance1
-typedef struct VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT {
+// Provided by VK_KHR_swapchain_maintenance1
+typedef struct VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR {
     VkStructureType    sType;
     void*              pNext;
     VkBool32           swapchainMaintenance1;
-} VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT;
+} VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR;
+
+or the equivalent
+
+// Provided by VK_EXT_swapchain_maintenance1
+typedef VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT;
 
 This structure describes the following feature:
 
@@ -11630,53 +11966,58 @@ structure.
  `swapchainMaintenance1` indicates
 that the implementation supports the following:
 
-[VkSwapchainPresentFenceInfoEXT](VK_KHR_surface/wsi.html#VkSwapchainPresentFenceInfoEXT), specifying a fence that is
+[VkSwapchainPresentFenceInfoKHR](VK_KHR_surface/wsi.html#VkSwapchainPresentFenceInfoKHR), specifying a fence that is
 signaled when the resources associated with a present operation **can** be
 safely destroyed.
 
 * 
-[VkSwapchainPresentModesCreateInfoEXT](VK_KHR_surface/wsi.html#VkSwapchainPresentModesCreateInfoEXT) and
-[VkSwapchainPresentModeInfoEXT](VK_KHR_surface/wsi.html#VkSwapchainPresentModeInfoEXT), allowing the swapchain to switch
+[VkSwapchainPresentModesCreateInfoKHR](VK_KHR_surface/wsi.html#VkSwapchainPresentModesCreateInfoKHR) and
+[VkSwapchainPresentModeInfoKHR](VK_KHR_surface/wsi.html#VkSwapchainPresentModeInfoKHR), allowing the swapchain to switch
 present modes without a need for recreation.
 
 * 
-[VkSwapchainPresentScalingCreateInfoEXT](VK_KHR_surface/wsi.html#VkSwapchainPresentScalingCreateInfoEXT), specifying the scaling
+[VkSwapchainPresentScalingCreateInfoKHR](VK_KHR_surface/wsi.html#VkSwapchainPresentScalingCreateInfoKHR), specifying the scaling
 behavior of the swapchain in presence of window resizing.
 
 * 
-The `VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT` flag,
+The `VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_KHR` flag,
 allowing the implementation to defer the allocation of swapchain image
 memory until first acquisition.
 
 * 
-[vkReleaseSwapchainImagesEXT](VK_KHR_surface/wsi.html#vkReleaseSwapchainImagesEXT), allowing acquired swapchain images
+[vkReleaseSwapchainImagesKHR](VK_KHR_surface/wsi.html#vkReleaseSwapchainImagesKHR), allowing acquired swapchain images
 to be released without presenting them.
 
-If the `VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT` structure is included in the `pNext` chain of the
+If the `VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
 [vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
 corresponding feature is supported.
 If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
-described by `VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT`, it **must** add an instance of the structure,
+described by `VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR`, it **must** add an instance of the structure,
 with the desired feature members set to `VK_TRUE`, to the `pNext`
 chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
 
 Valid Usage (Implicit)
 
 * 
-[](#VUID-VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT-sType-sType) VUID-VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT-sType-sType
+[](#VUID-VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR-sType-sType) VUID-VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR-sType-sType
 
- `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT`
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR`
 
-The `VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT` structure is
+The `VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR` structure is
 defined as:
 
-// Provided by VK_EXT_present_mode_fifo_latest_ready
-typedef struct VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT {
+// Provided by VK_KHR_present_mode_fifo_latest_ready
+typedef struct VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR {
     VkStructureType    sType;
     void*              pNext;
     VkBool32           presentModeFifoLatestReady;
-} VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT;
+} VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR;
+
+or the equivalent
+
+// Provided by VK_EXT_present_mode_fifo_latest_ready
+typedef VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT;
 
 * 
 `sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
@@ -11688,23 +12029,23 @@ structure.
 * 
  `presentModeFifoLatestReady`
 specifies whether the implementation supports the
-`VK_PRESENT_MODE_FIFO_LATEST_READY_EXT` present mode.
+`VK_PRESENT_MODE_FIFO_LATEST_READY_KHR` present mode.
 
-If the `VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT` structure is included in the `pNext` chain of the
+If the `VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR` structure is included in the `pNext` chain of the
 [VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
 [vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
 corresponding feature is supported.
 If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
-described by `VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT`, it **must** add an instance of the structure,
+described by `VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR`, it **must** add an instance of the structure,
 with the desired feature members set to `VK_TRUE`, to the `pNext`
 chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
 
 Valid Usage (Implicit)
 
 * 
-[](#VUID-VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT-sType-sType) VUID-VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT-sType-sType
+[](#VUID-VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR-sType-sType) VUID-VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR-sType-sType
 
- `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_EXT`
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR`
 
 The `VkPhysicalDeviceDynamicRenderingUnusedAttachmentsFeaturesEXT`
 structure is defined as:
@@ -12461,8 +12802,8 @@ information.
 
 `tileShadingAnisotropicApron` indicates that the implementation
 supports [VkRenderPassTileShadingCreateInfoQCOM](renderpass.html#VkRenderPassTileShadingCreateInfoQCOM)::`apronSize`
-set to a value where `apronSize`::`width` differs from
-`apronSize`::`height`.
+set to a value where `apronSize.width` differs from
+`apronSize.height`.
 
 * 
  `tileShadingAtomicOps` indicates
@@ -13141,6 +13482,45 @@ Valid Usage (Implicit)
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_RELAXED_EXTENDED_INSTRUCTION_FEATURES_KHR`
 
+The `VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX` structure is
+defined as:
+
+// Provided by VK_AMDX_dense_geometry_format
+typedef struct VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           denseGeometryFormat;
+} VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX;
+
+This structure describes the following feature:
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `denseGeometryFormat` specifies
+whether the implementation supports DGF1 compressed geometry data.
+
+If the `VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX-sType-sType) VUID-VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX`
+
 The `VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT` structure is
 defined as:
 
@@ -13307,6 +13687,112 @@ Valid Usage (Implicit)
 [](#VUID-VkPhysicalDeviceFormatPackFeaturesARM-sType-sType) VUID-VkPhysicalDeviceFormatPackFeaturesARM-sType-sType
 
  `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM`
+
+The `VkPhysicalDeviceDataGraphFeaturesARM` structure is defined as:
+
+// Provided by VK_ARM_data_graph
+typedef struct VkPhysicalDeviceDataGraphFeaturesARM {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           dataGraph;
+    VkBool32           dataGraphUpdateAfterBind;
+    VkBool32           dataGraphSpecializationConstants;
+    VkBool32           dataGraphDescriptorBuffer;
+    VkBool32           dataGraphShaderModule;
+} VkPhysicalDeviceDataGraphFeaturesARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `dataGraph` specifies whether data graph
+pipelines **can** be used.
+
+* 
+ `dataGraphUpdateAfterBind`
+specifies whether data graph pipelines **can** be created with a
+[VkPipelineLayout](descriptorsets.html#VkPipelineLayout) that uses one or more [VkDescriptorSetLayout](descriptorsets.html#VkDescriptorSetLayout)
+objects created with the
+`VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT` bit
+set.
+
+* 
+
+`dataGraphSpecializationConstants` specifies whether data graph
+pipelines **can** be created from shader modules that use specialization
+constants.
+
+* 
+ `dataGraphDescriptorBuffer`
+specifies whether data graph pipelines **can** use descriptor buffers.
+
+* 
+ `dataGraphShaderModule` specifies
+whether data graph pipelines **can** be created from a shader module.
+
+If the `VkPhysicalDeviceDataGraphFeaturesARM` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDeviceDataGraphFeaturesARM`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceDataGraphFeaturesARM-sType-sType) VUID-VkPhysicalDeviceDataGraphFeaturesARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM`
+
+The `VkPhysicalDeviceShaderFloat8FeaturesEXT` structure is defined as:
+
+// Provided by VK_EXT_shader_float8
+typedef struct VkPhysicalDeviceShaderFloat8FeaturesEXT {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           shaderFloat8;
+    VkBool32           shaderFloat8CooperativeMatrix;
+} VkPhysicalDeviceShaderFloat8FeaturesEXT;
+
+This structure describes the following features:
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+ `shaderFloat8` indicates whether the
+implementation supports shaders with the `Float8EXT` capability.
+
+* 
+
+`shaderFloat8CooperativeMatrix` indicates whether the implementation
+supports shaders with the `Float8CooperativeMatrixEXT` capability.
+
+If the `VkPhysicalDeviceShaderFloat8FeaturesEXT` structure is included in the `pNext` chain of the
+[VkPhysicalDeviceFeatures2](#VkPhysicalDeviceFeatures2) structure passed to
+[vkGetPhysicalDeviceFeatures2](#vkGetPhysicalDeviceFeatures2), it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a [VkDevice](devsandqueues.html#VkDevice) with any features
+described by `VkPhysicalDeviceShaderFloat8FeaturesEXT`, it **must** add an instance of the structure,
+with the desired feature members set to `VK_TRUE`, to the `pNext`
+chain of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) when creating the [VkDevice](devsandqueues.html#VkDevice).
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkPhysicalDeviceShaderFloat8FeaturesEXT-sType-sType) VUID-VkPhysicalDeviceShaderFloat8FeaturesEXT-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT`
 
 All Vulkan graphics implementations **must** support the following features:
 
@@ -13732,6 +14218,9 @@ If `[VK_KHR_workgroup_memory_explicit_layout](../appendices/extensions.html#VK_K
 If `[VK_KHR_ray_tracing_maintenance1](../appendices/extensions.html#VK_KHR_ray_tracing_maintenance1)` is supported,
 [`rayTracingMaintenance1`](#features-rayTracingMaintenance1) **must** be supported
 
+If `[VK_KHR_shader_untyped_pointers](../appendices/extensions.html#VK_KHR_shader_untyped_pointers)` is supported,
+[`shaderUntypedPointers`](#features-shaderUntypedPointers) **must** be supported
+
 If `[VK_KHR_maintenance4](../appendices/extensions.html#VK_KHR_maintenance4)` is supported,
 [`maintenance4`](#features-maintenance4) **must** be supported
 
@@ -13744,11 +14233,20 @@ If `[VK_KHR_shader_maximal_reconvergence](../appendices/extensions.html#VK_KHR_s
 If `[VK_KHR_maintenance5](../appendices/extensions.html#VK_KHR_maintenance5)` is supported,
 [`maintenance5`](#features-maintenance5) **must** be supported
 
+If `[VK_KHR_present_id2](../appendices/extensions.html#VK_KHR_present_id2)` is supported,
+[`presentId2`](#features-presentId2) **must** be supported
+
+If `[VK_KHR_present_wait2](../appendices/extensions.html#VK_KHR_present_wait2)` is supported,
+[`presentWait2`](#features-presentWait2) **must** be supported
+
 If `[VK_KHR_ray_tracing_position_fetch](../appendices/extensions.html#VK_KHR_ray_tracing_position_fetch)` is supported,
 [`rayTracingPositionFetch`](#features-rayTracingPositionFetch) **must** be supported
 
 If `[VK_KHR_pipeline_binary](../appendices/extensions.html#VK_KHR_pipeline_binary)` is supported,
 [`pipelineBinaries`](#features-pipelineBinaries) **must** be supported
+
+If `[VK_KHR_swapchain_maintenance1](../appendices/extensions.html#VK_KHR_swapchain_maintenance1)` is supported,
+[`swapchainMaintenance1`](#features-swapchainMaintenance1) **must** be supported
 
 If `[VK_KHR_cooperative_matrix](../appendices/extensions.html#VK_KHR_cooperative_matrix)` is supported,
 [`cooperativeMatrix`](#features-cooperativeMatrix) **must** be supported
@@ -13759,11 +14257,17 @@ If `[VK_KHR_compute_shader_derivatives](../appendices/extensions.html#VK_KHR_com
 If `[VK_KHR_video_encode_av1](../appendices/extensions.html#VK_KHR_video_encode_av1)` is supported,
 [`videoEncodeAV1`](#features-videoEncodeAV1) **must** be supported
 
+If `[VK_KHR_video_decode_vp9](../appendices/extensions.html#VK_KHR_video_decode_vp9)` is supported,
+[`videoDecodeVP9`](#features-videoDecodeVP9) **must** be supported
+
 If `[VK_KHR_video_maintenance1](../appendices/extensions.html#VK_KHR_video_maintenance1)` is supported,
 [`videoMaintenance1`](#features-videoMaintenance1) **must** be supported
 
 If `[VK_KHR_vertex_attribute_divisor](../appendices/extensions.html#VK_KHR_vertex_attribute_divisor)` is supported,
 [`vertexAttributeInstanceRateDivisor`](#features-vertexAttributeInstanceRateDivisor) **must** be supported
+
+If `[VK_KHR_unified_image_layouts](../appendices/extensions.html#VK_KHR_unified_image_layouts)` is supported,
+[`unifiedImageLayouts`](#features-unifiedImageLayouts) **must** be supported
 
 If `[VK_KHR_shader_float_controls2](../appendices/extensions.html#VK_KHR_shader_float_controls2)` is supported,
 [`shaderFloatControls2`](#features-shaderFloatControls2) **must** be supported
@@ -13780,6 +14284,9 @@ If `[VK_KHR_shader_expect_assume](../appendices/extensions.html#VK_KHR_shader_ex
 If `[VK_KHR_maintenance6](../appendices/extensions.html#VK_KHR_maintenance6)` is supported,
 [`maintenance6`](#features-maintenance6) **must** be supported
 
+If `[VK_KHR_video_encode_intra_refresh](../appendices/extensions.html#VK_KHR_video_encode_intra_refresh)` is supported,
+[`videoEncodeIntraRefresh`](#features-videoEncodeIntraRefresh) **must** be supported
+
 If `[VK_KHR_video_encode_quantization_map](../appendices/extensions.html#VK_KHR_video_encode_quantization_map)` is supported,
 [`videoEncodeQuantizationMap`](#features-videoEncodeQuantizationMap) **must** be supported
 
@@ -13792,6 +14299,9 @@ If `[VK_KHR_maintenance7](../appendices/extensions.html#VK_KHR_maintenance7)` is
 If `[VK_KHR_maintenance8](../appendices/extensions.html#VK_KHR_maintenance8)` is supported,
 [`maintenance8`](#features-maintenance8) **must** be supported
 
+If `[VK_KHR_maintenance9](../appendices/extensions.html#VK_KHR_maintenance9)` is supported,
+[`maintenance9`](#features-maintenance9) **must** be supported
+
 If `[VK_KHR_video_maintenance2](../appendices/extensions.html#VK_KHR_video_maintenance2)` is supported,
 [`videoMaintenance2`](#features-videoMaintenance2) **must** be supported
 
@@ -13800,6 +14310,9 @@ If `[VK_KHR_depth_clamp_zero_one](../appendices/extensions.html#VK_KHR_depth_cla
 
 If `[VK_KHR_robustness2](../appendices/extensions.html#VK_KHR_robustness2)` is supported,
 at least one of [`robustBufferAccess2`](#features-robustBufferAccess2), [`robustImageAccess2`](#features-robustImageAccess2), or [`nullDescriptor`](#features-nullDescriptor) **must** be supported
+
+If `[VK_KHR_present_mode_fifo_latest_ready](../appendices/extensions.html#VK_KHR_present_mode_fifo_latest_ready)` is supported,
+[`presentModeFifoLatestReady`](#features-presentModeFifoLatestReady) **must** be supported
 
 If `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_feedback)` is supported,
 [`transformFeedback`](#features-transformFeedback) **must** be supported
@@ -14287,6 +14800,9 @@ if `[VK_EXT_transform_feedback](../appendices/extensions.html#VK_EXT_transform_f
 If `[VK_EXT_subpass_merge_feedback](../appendices/extensions.html#VK_EXT_subpass_merge_feedback)` is supported,
 [`subpassMergeFeedback`](#features-subpassMergeFeedback) **must** be supported
 
+If `[VK_ARM_tensors](../appendices/extensions.html#VK_ARM_tensors)` is supported,
+[`tensors`](#features-tensors) **must** be supported
+
 If `[VK_EXT_shader_module_identifier](../appendices/extensions.html#VK_EXT_shader_module_identifier)` is supported,
 [`shaderModuleIdentifier`](#features-shaderModuleIdentifier) **must** be supported
 
@@ -14304,6 +14820,9 @@ If `[VK_ANDROID_external_format_resolve](../appendices/extensions.html#VK_ANDROI
 
 If `[VK_AMD_anti_lag](../appendices/extensions.html#VK_AMD_anti_lag)` is supported,
 [`antiLag`](#features-antiLag) **must** be supported
+
+If `[VK_AMDX_dense_geometry_format](../appendices/extensions.html#VK_AMDX_dense_geometry_format)` is supported,
+[`denseGeometryFormat`](#features-denseGeometryFormat) **must** be supported
 
 If `[VK_EXT_shader_object](../appendices/extensions.html#VK_EXT_shader_object)` is supported,
 [`shaderObject`](#features-shaderObject) **must** be supported
@@ -14340,6 +14859,9 @@ If `[VK_EXT_pipeline_library_group_handles](../appendices/extensions.html#VK_EXT
 
 If `[VK_EXT_dynamic_rendering_unused_attachments](../appendices/extensions.html#VK_EXT_dynamic_rendering_unused_attachments)` is supported,
 [`dynamicRenderingUnusedAttachments`](#features-dynamicRenderingUnusedAttachments) **must** be supported
+
+If `[VK_ARM_data_graph](../appendices/extensions.html#VK_ARM_data_graph)` is supported,
+[`dataGraph`](#features-dataGraph) **must** be supported
 
 If `[VK_QCOM_multiview_per_view_render_areas](../appendices/extensions.html#VK_QCOM_multiview_per_view_render_areas)` is supported,
 [`multiviewPerViewRenderAreas`](#features-multiviewPerViewRenderAreas) **must** be supported
@@ -14383,6 +14905,9 @@ If `[VK_NV_shader_atomic_float16_vector](../appendices/extensions.html#VK_NV_sha
 If `[VK_EXT_shader_replicated_composites](../appendices/extensions.html#VK_EXT_shader_replicated_composites)` is supported,
 [`shaderReplicatedComposites`](#features-shaderReplicatedComposites) **must** be supported
 
+If `[VK_EXT_shader_float8](../appendices/extensions.html#VK_EXT_shader_float8)` is supported,
+[`shaderFloat8`](#features-shaderFloat8) **must** be supported
+
 If `[VK_NV_ray_tracing_validation](../appendices/extensions.html#VK_NV_ray_tracing_validation)` is supported,
 [`rayTracingValidation`](#features-rayTracingValidation) **must** be supported
 
@@ -14416,6 +14941,9 @@ If `[VK_EXT_vertex_attribute_robustness](../appendices/extensions.html#VK_EXT_ve
 If `[VK_ARM_format_pack](../appendices/extensions.html#VK_ARM_format_pack)` is supported,
 [`formatPack`](#features-formatPack) **must** be supported
 
+If `[VK_VALVE_fragment_density_map_layered](../appendices/extensions.html#VK_VALVE_fragment_density_map_layered)` is supported,
+[`fragmentDensityMapLayered`](#features-fragmentDensityMapLayered) **must** be supported
+
 If `[VK_NV_present_metering](../appendices/extensions.html#VK_NV_present_metering)` is supported,
 [`presentMetering`](#features-presentMetering) **must** be supported
 
@@ -14424,6 +14952,9 @@ If `[VK_EXT_fragment_density_map_offset](../appendices/extensions.html#VK_EXT_fr
 
 If `[VK_EXT_zero_initialize_device_memory](../appendices/extensions.html#VK_EXT_zero_initialize_device_memory)` is supported,
 [`zeroInitializeDeviceMemory`](#features-zeroInitializeDeviceMemory) **must** be supported
+
+If `[VK_SEC_pipeline_cache_incremental_mode](../appendices/extensions.html#VK_SEC_pipeline_cache_incremental_mode)` is supported,
+[`pipelineCacheIncrementalMode`](../appendices/extensions.html#features-pipelineCacheIncrementalMode) **must** be supported
 
 If `[VK_KHR_acceleration_structure](../appendices/extensions.html#VK_KHR_acceleration_structure)` is supported,
 the following features **must** be supported:

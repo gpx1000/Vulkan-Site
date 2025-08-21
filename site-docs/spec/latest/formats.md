@@ -35,6 +35,8 @@
 - [Depth_Comparison_Format_Support](#_depth_comparison_format_support)
 - [Format Feature Dependent Usage Flags](#format-feature-dependent-usage-flags)
 - [Format_Feature_Dependent_Usage_Flags](#format-feature-dependent-usage-flags)
+- [Tensor Format Support](#features-required-tensor-format-support)
+- [Tensor_Format_Support](#features-required-tensor-format-support)
 
 ## Content
 
@@ -367,6 +369,8 @@ typedef enum VkFormat {
     VK_FORMAT_PVRTC2_2BPP_SRGB_BLOCK_IMG = 1000054006,
   // Provided by VK_IMG_format_pvrtc
     VK_FORMAT_PVRTC2_4BPP_SRGB_BLOCK_IMG = 1000054007,
+  // Provided by VK_ARM_tensors
+    VK_FORMAT_R8_BOOL_ARM = 1000460000,
   // Provided by VK_NV_optical_flow
     VK_FORMAT_R16G16_SFIXED5_NV = 1000464000,
   // Provided by VK_ARM_format_pack
@@ -2364,6 +2368,11 @@ determined via [vkGetImageSubresourceLayout](resources.html#vkGetImageSubresourc
 `VK_IMAGE_ASPECT_PLANE_1_BIT` for the BR plane.
 This format only supports images with a width that is a multiple of two.
 
+* 
+`VK_FORMAT_R8_BOOL_ARM` specifies a one-component 8-bit boolean
+format that has a single 8-bit R component.
+See [8-bit booleans](fundamentals.html#fundamentals-bool).
+
 Individual planes of [multi-planar formats](#formats-multiplanar) are
 size-compatible with single-plane color formats if they occupy the same
 number of bits per texel block, and are compatible with those formats if
@@ -2770,6 +2779,7 @@ An X indicates a component that is unused, but **may** be present for padding.
 | `SFLOAT` | OpTypeFloat | floating-point | The components are signed floating-point numbers |
 | `SRGB` | OpTypeFloat | floating-point | The R, G, and B components are unsigned normalized values that represent values using sRGB nonlinear encoding, while the A component (if one exists) is a regular unsigned normalized value |
 | `SFIXED5` | OpTypeInt | scaled signed integer | The components are signed fractional integer values that get converted to floating-point in the range [-1024,1023.96875] |
+| `BOOL` | OpTypeBool | boolean | The components are booleans |
 | n is the number of bits in the component. |
 
 The suffix `_PACKnn` indicates that the format is packed into an
@@ -2969,7 +2979,9 @@ each texel block represents in each dimension.
 
   1x1x1 block extent
 
-  1 texel/block | `VK_FORMAT_R4G4_UNORM_PACK8`,
+  1 texel/block | `VK_FORMAT_R8_BOOL_ARM`,
+
+                    `VK_FORMAT_R4G4_UNORM_PACK8`,
 
                     `VK_FORMAT_R8_UNORM`,
 
@@ -3964,6 +3976,9 @@ size-compatible as defined by [the list of compatible depth-stencil and color fo
 To query supported format features which are properties of the physical
 device, call:
 
+|  | This functionality is deprecated by [Vulkan Version 1.1](../appendices/versions.html#versions-1.1). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-gpdp2) for more information. |
+| --- | --- |
+
 // Provided by VK_VERSION_1_0
 void vkGetPhysicalDeviceFormatProperties(
     VkPhysicalDevice                            physicalDevice,
@@ -4449,7 +4464,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkFormatProperties2-pNext-pNext) VUID-VkFormatProperties2-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDrmFormatModifierPropertiesList2EXT](#VkDrmFormatModifierPropertiesList2EXT), [VkDrmFormatModifierPropertiesListEXT](#VkDrmFormatModifierPropertiesListEXT), [VkFormatProperties3](#VkFormatProperties3), or [VkSubpassResolvePerformanceQueryEXT](#VkSubpassResolvePerformanceQueryEXT)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDrmFormatModifierPropertiesList2EXT](#VkDrmFormatModifierPropertiesList2EXT), [VkDrmFormatModifierPropertiesListEXT](#VkDrmFormatModifierPropertiesListEXT), [VkFormatProperties3](#VkFormatProperties3), [VkSubpassResolvePerformanceQueryEXT](#VkSubpassResolvePerformanceQueryEXT), or [VkTensorFormatPropertiesARM](#VkTensorFormatPropertiesARM)
 
 * 
 [](#VUID-VkFormatProperties2-sType-unique) VUID-VkFormatProperties2-sType-unique
@@ -4847,12 +4862,18 @@ static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_WEIGHT_SAMPLED_IMAGE_B
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BLOCK_MATCHING_BIT_QCOM = 0x1000000000ULL;
 // Provided by VK_QCOM_image_processing with VK_KHR_format_feature_flags2 or VK_VERSION_1_3
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_BOX_FILTER_SAMPLED_BIT_QCOM = 0x2000000000ULL;
+// Provided by VK_ARM_tensors
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM = 0x8000000000ULL;
+// Provided by VK_ARM_tensors
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TENSOR_IMAGE_ALIASING_BIT_ARM = 0x80000000000ULL;
 // Provided by VK_NV_optical_flow
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_IMAGE_BIT_NV = 0x10000000000ULL;
 // Provided by VK_NV_optical_flow
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_VECTOR_BIT_NV = 0x20000000000ULL;
 // Provided by VK_NV_optical_flow
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_NV = 0x40000000000ULL;
+// Provided by VK_ARM_data_graph
+static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM = 0x1000000000000ULL;
 // Provided by VK_KHR_video_encode_quantization_map
 static const VkFormatFeatureFlagBits2 VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR = 0x2000000000000ULL;
 // Provided by VK_KHR_video_encode_quantization_map
@@ -5203,6 +5224,74 @@ hint, output or global flow) for [optical flow    operations](VK_NV_optical_flow
 `VK_FORMAT_FEATURE_2_OPTICAL_FLOW_COST_BIT_NV` specifies that an
 image view with this format **can** be used as an output cost map for
 [optical flow operations](VK_NV_optical_flow/optical_flow.html#opticalflow-operations)
+
+The [VkTensorFormatPropertiesARM](#VkTensorFormatPropertiesARM) structure describes properties of a
+[VkFormat](#VkFormat) when that format is used to describe tensor elements.
+These properties, like those of [VkFormatProperties2](#VkFormatProperties2), are independent
+of any particular tensor.
+
+The [VkTensorFormatPropertiesARM](#VkTensorFormatPropertiesARM) structure is defined as:
+
+// Provided by VK_ARM_tensors
+typedef struct VkTensorFormatPropertiesARM {
+    VkStructureType          sType;
+    const void*              pNext;
+    VkFormatFeatureFlags2    optimalTilingTensorFeatures;
+    VkFormatFeatureFlags2    linearTilingTensorFeatures;
+} VkTensorFormatPropertiesARM;
+
+* 
+`sType` is a [VkStructureType](fundamentals.html#VkStructureType) value identifying this structure.
+
+* 
+`pNext` is `NULL` or a pointer to a structure extending this
+structure.
+
+* 
+`linearTilingTensorFeatures` is a bitmask of
+[VkFormatFeatureFlagBits2](#VkFormatFeatureFlagBits2) specifying features supported by tensors
+created with a `tiling` parameter of
+`VK_TENSOR_TILING_LINEAR_ARM`.
+
+* 
+`optimalTilingTensorFeatures` is a bitmask of
+[VkFormatFeatureFlagBits2](#VkFormatFeatureFlagBits2) specifying features supported by tensors
+created with a `tiling` parameter of
+`VK_TENSOR_TILING_OPTIMAL_ARM`.
+
+Valid Usage (Implicit)
+
+* 
+[](#VUID-VkTensorFormatPropertiesARM-sType-sType) VUID-VkTensorFormatPropertiesARM-sType-sType
+
+ `sType` **must** be `VK_STRUCTURE_TYPE_TENSOR_FORMAT_PROPERTIES_ARM`
+
+The following bits **may** be set in `linearTilingTensorFeatures` and
+`optimalTilingTensorFeatures`, specifying that the features are
+supported by tensors or tensor views created with the queried
+[vkGetPhysicalDeviceFormatProperties2](#vkGetPhysicalDeviceFormatProperties2)::`format`:
+
+* 
+`VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT` specifies that a tensor **can**
+be used as a source tensor for [copy commands](copies.html#copies-tensors).
+
+* 
+`VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT` specifies that a tensor **can**
+be used as a destination tensor for [copy commands](copies.html#copies-tensors).
+
+* 
+`VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM` specifies that a tensor
+view **can** be used as a [storage tensor](descriptorsets.html#descriptorsets-storagetensor)
+with [compute pipelines](pipelines.html#pipelines-compute).
+
+* 
+`VK_FORMAT_FEATURE_2_TENSOR_IMAGE_ALIASING_BIT_ARM` specifies that a
+tensor **can** be aliased to an image or that an image **can** be aliased to a
+tensor.
+
+* 
+`VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM` specifies that a
+tensor view **can** be used as a [storage    tensor](descriptorsets.html#descriptorsets-storagetensor) with [data graph pipelines](VK_ARM_data_graph/graphs.html#graphs-pipelines).
 
 // Provided by VK_VERSION_1_3
 typedef VkFlags64 VkFormatFeatureFlags2;
@@ -6203,9 +6292,10 @@ supported, a depth/stencil format with a depth component supporting
 
 Certain resource usage flags depend on support for the corresponding format
 feature flag for the format in question.
-The following tables list the [VkBufferUsageFlagBits](resources.html#VkBufferUsageFlagBits) and
-[VkImageUsageFlagBits](resources.html#VkImageUsageFlagBits) that have such dependencies, and the format
-feature flags they depend on.
+The following tables list the
+[VkBufferUsageFlagBits](resources.html#VkBufferUsageFlagBits), [VkImageUsageFlagBits](resources.html#VkImageUsageFlagBits) and
+[VkTensorUsageFlagBitsARM](resources.html#VkTensorUsageFlagBitsARM)
+that have such dependencies, and the format feature flags they depend on.
 Additional restrictions, including, but not limited to, further required
 format feature flags specific to the particular use of the resource **may**
 apply, as described in the respective sections of this specification.
@@ -6230,3 +6320,61 @@ apply, as described in the respective sections of this specification.
 | `VK_IMAGE_USAGE_VIDEO_ENCODE_DPB_BIT_KHR` | `VK_FORMAT_FEATURE_VIDEO_ENCODE_DPB_BIT_KHR` |
 | `VK_IMAGE_USAGE_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` | `VK_FORMAT_FEATURE_2_VIDEO_ENCODE_QUANTIZATION_DELTA_MAP_BIT_KHR` |
 | `VK_IMAGE_USAGE_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` | `VK_FORMAT_FEATURE_2_VIDEO_ENCODE_EMPHASIS_MAP_BIT_KHR` |
+| `VK_IMAGE_USAGE_TENSOR_ALIASING_BIT_ARM` | `VK_FORMAT_FEATURE_2_TENSOR_IMAGE_ALIASING_BIT_ARM` |
+
+| Tensor usage flag | Required format feature flag |
+| --- | --- |
+| `VK_TENSOR_USAGE_TRANSFER_SRC_BIT_ARM` | `VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT` |
+| `VK_TENSOR_USAGE_TRANSFER_DST_BIT_ARM` | `VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT` |
+| `VK_TENSOR_USAGE_IMAGE_ALIASING_BIT_ARM` | `VK_FORMAT_FEATURE_2_TENSOR_IMAGE_ALIASING_BIT_ARM` |
+| `VK_TENSOR_USAGE_SHADER_BIT_ARM` | `VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM` |
+| `VK_TENSOR_USAGE_DATA_GRAPH_BIT_ARM` | `VK_FORMAT_FEATURE_2_TENSOR_DATA_GRAPH_BIT_ARM` |
+
+For tensors, implementations **must** support at least the following set of
+features on the listed tensor formats.
+
+The following tables show which tensor feature bits **must** be supported for
+each format.
+
+| ✓ | This feature **must** be supported on the named format |
+| --- | --- |
+| † | This feature **must** be supported on at least some
+of the named formats, with more information in the table
+where the symbol appears |
+
+| `VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT` |
+| --- |
+| `VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT` |
+| `VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM` |
+
+| `VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT` |
+| --- |
+| `VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT` |
+| `VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM` |
+
+| `VK_FORMAT_FEATURE_2_TRANSFER_SRC_BIT` | ↓ |
+| --- | --- | --- | --- |
+| `VK_FORMAT_FEATURE_2_TRANSFER_DST_BIT` | ↓ |
+| `VK_FORMAT_FEATURE_2_TENSOR_SHADER_BIT_ARM` | ↓ |
+| **Format** |
+| `VK_FORMAT_UNDEFINED` |  |  |  |
+| `VK_FORMAT_R8_BOOL_ARM` |  |  |  |
+| `VK_FORMAT_R8_UNORM` |  |  |  |
+| `VK_FORMAT_R8_SNORM` |  |  |  |
+| `VK_FORMAT_R8_USCALED` |  |  |  |
+| `VK_FORMAT_R8_SSCALED` |  |  |  |
+| `VK_FORMAT_R8_UINT` |  |  |  |
+| `VK_FORMAT_R8_SINT` |  |  |  |
+| `VK_FORMAT_R16_UNORM` |  |  |  |
+| `VK_FORMAT_R16_SNORM` |  |  |  |
+| `VK_FORMAT_R16_USCALED` |  |  |  |
+| `VK_FORMAT_R16_SSCALED` |  |  |  |
+| `VK_FORMAT_R16_UINT` |  |  |  |
+| `VK_FORMAT_R16_SINT` |  |  |  |
+| `VK_FORMAT_R16_SFLOAT` |  |  |  |
+| `VK_FORMAT_R32_UINT` |  |  |  |
+| `VK_FORMAT_R32_SINT` |  |  |  |
+| `VK_FORMAT_R32_SFLOAT` |  |  |  |
+| `VK_FORMAT_R64_UINT` |  |  |  |
+| `VK_FORMAT_R64_SINT` |  |  |  |
+| `VK_FORMAT_R64_SFLOAT` |  |  |  |

@@ -86,7 +86,7 @@ typedef struct VkPhysicalDeviceHostImageCopyPropertiesEXT {
     VkBool32           identicalMemoryTypeRequirements;
 } VkPhysicalDeviceHostImageCopyPropertiesEXT;
 
-In the above, `optimalTilingLayoutUUID` can be used to ensure compatible data layouts between memory and images when using `VK_HOST_IMAGE_COPY_MEMCPY_EXT` in the below commands.
+In the above, `optimalTilingLayoutUUID` can be used to ensure compatible data layouts between memory and images when using `VK_HOST_IMAGE_COPY_MEMCPY_BIT_EXT` in the below commands.
 `identicalMemoryTypeRequirements` specifies whether using `VK_IMAGE_USAGE_HOST_TRANSFER_BIT_EXT` may affect the memory type requirements of the image or not.
 
 Defining regions to copy to an image:
@@ -101,7 +101,7 @@ typedef struct VkCopyMemoryToImageInfoEXT {
     const VkMemoryToImageCopyEXT* pRegions;
 } VkCopyMemoryToImageInfoEXT;
 
-In the above, `flags` may be `VK_HOST_IMAGE_COPY_MEMCPY_EXT`, in which case the data in host memory should have the same swizzling layout as the image.
+In the above, `flags` may be `VK_HOST_IMAGE_COPY_MEMCPY_BIT_EXT`, in which case the data in host memory should have the same swizzling layout as the image.
 This is mainly useful for embedded systems where this swizzling is known and well defined outside of Vulkan.
 
 Defining regions to copy from an image:
@@ -116,7 +116,7 @@ typedef struct VkCopyImageToMemoryInfoEXT {
     const VkImageToMemoryCopyEXT* pRegions;
 } VkCopyImageToMemoryInfoEXT;
 
-In the above, `flags` may be `VK_HOST_IMAGE_COPY_MEMCPY_EXT`, in which case the data in host memory will have the same swizzling layout as the image.
+In the above, `flags` may be `VK_HOST_IMAGE_COPY_MEMCPY_BIT_EXT`, in which case the data in host memory will have the same swizzling layout as the image.
 
 Defining regions to copy between images
 
@@ -132,7 +132,7 @@ typedef struct VkCopyImageToImageInfoEXT {
     const VkImageCopy2*           pRegions;
 } VkCopyImageToImageInfoEXT;
 
-In the above, `flags` may be `VK_HOST_IMAGE_COPY_MEMCPY_EXT`, in which case data is copied between images with no swizzling layout considerations.
+In the above, `flags` may be `VK_HOST_IMAGE_COPY_MEMCPY_BIT_EXT`, in which case data is copied between images with no swizzling layout considerations.
 Current limitations on source and destination images necessarily lead to raw copies between images, so this flag is currently redundant for image to image copies.
 
 Defining the copy regions themselves:
@@ -202,7 +202,7 @@ This list always includes `VK_IMAGE_LAYOUT_GENERAL`
 
 ---
 
-When `VK_HOST_IMAGE_COPY_MEMCPY_EXT` is used in copies to or from an image with `VK_IMAGE_TILING_OPTIMAL`, the application may need to query the memory size needed for copy.
+When `VK_HOST_IMAGE_COPY_MEMCPY_BIT_EXT` is used in copies to or from an image with `VK_IMAGE_TILING_OPTIMAL`, the application may need to query the memory size needed for copy.
 The [vkGetImageSubresourceLayout2EXT](https://docs.vulkan.org/spec/latest/chapters/resources.html#vkGetImageSubresourceLayout2EXT) function can be used for this purpose:
 
 void vkGetImageSubresourceLayout2EXT(
@@ -211,7 +211,7 @@ void vkGetImageSubresourceLayout2EXT(
     const VkImageSubresource2EXT*  pSubresource,
     VkSubresourceLayout2EXT*       pLayout);
 
-The memory size in bytes needed for copies using `VK_HOST_IMAGE_COPY_MEMCPY_EXT` can be retrieved by chaining `VkSubresourceHostMemcpySizeEXT` to `pLayout`:
+The memory size in bytes needed for copies using `VK_HOST_IMAGE_COPY_MEMCPY_BIT_EXT` can be retrieved by chaining `VkSubresourceHostMemcpySizeEXT` to `pLayout`:
 
 typedef struct VkSubresourceHostMemcpySizeEXT {
     VkStructureType            sType;

@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -406,8 +418,7 @@ If a feature is <em>unsupported</em>, that functionality <strong>cannot</strong>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>Features are reported via the basic <a href="#VkPhysicalDeviceFeatures">VkPhysicalDeviceFeatures</a>
-structure, as well as the extensible structure
+<p>Features are reported via the extensible structure
 <code>VkPhysicalDeviceFeatures2</code>, which was added in the
 <code><a href="../appendices/extensions.html#VK_KHR_get_physical_device_properties2" class="xref page">VK_KHR_get_physical_device_properties2</a></code> extension and included in
 Vulkan 1.1.
@@ -486,7 +497,19 @@ When a promoted extension is available, any corresponding feature aliases
 <div class="paragraph">
 <p>To query supported features, call:</p>
 </div>
-<div id="vkGetPhysicalDeviceFeatures" class="listingblock">
+<div id="vkGetPhysicalDeviceFeatures" class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This functionality is deprecated by <a href="../appendices/versions.html#versions-1.1" class="xref page">Vulkan Version 1.1</a>. See <a href="../appendices/deprecation.html#deprecation-gpdp2" class="xref page">Deprecated Functionality</a> for more information.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VERSION_1_0
 void vkGetPhysicalDeviceFeatures(
@@ -773,264 +796,8 @@ typedef struct VkPhysicalDeviceFeatures {
 <div class="ulist">
 <ul>
 <li>
-<p><a id="features-robustBufferAccess"></a> <code>robustBufferAccess</code> specifies that
-accesses to buffers are bounds-checked against the range of the buffer
-descriptor (as determined by <code>VkDescriptorBufferInfo</code>::<code>range</code>,
-<a href="resources.html#VkBufferViewCreateInfo" class="xref page">VkBufferViewCreateInfo</a>::<code>range</code>, or the size of the buffer).
-Out of bounds accesses <strong>must</strong> not cause application termination, and the
-effects of shader loads, stores, and atomics <strong>must</strong> conform to an
-implementation-dependent behavior as described below.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>A buffer access is considered to be out of bounds if any of the
-following are true:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>The pointer was formed by <code>OpImageTexelPointer</code> and the coordinate
-is less than zero or greater than or equal to the number of whole
-elements in the bound range.</p>
-</li>
-<li>
-<p>The pointer was not formed by <code>OpImageTexelPointer</code> and the object
-pointed to is not wholly contained within the bound range.
-This includes accesses performed via <em>variable pointers</em> where the
-buffer descriptor being accessed cannot be statically determined.
-Uninitialized pointers and pointers equal to <code>OpConstantNull</code> are
-treated as pointing to a zero-sized object, so all accesses through
-such pointers are considered to be out of bounds.
-Buffer accesses through buffer device addresses are not
-bounds-checked.</p>
-</li>
-<li>
-<p>If the <a href="#features-cooperativeMatrixRobustBufferAccessNV">      <code>VkPhysicalDeviceCooperativeMatrixFeaturesNV</code>::<code>cooperativeMatrixRobustBufferAccess</code></a>
-feature is not enabled, then accesses using
-<code>OpCooperativeMatrixLoadNV</code> and <code>OpCooperativeMatrixStoreNV</code>
-<strong>may</strong> not be bounds-checked.</p>
-</li>
-<li>
-<p>If the <a href="#features-cooperativeMatrixRobustBufferAccess">      <code>VkPhysicalDeviceCooperativeMatrixFeaturesKHR</code>::<code>cooperativeMatrixRobustBufferAccess</code></a>
-feature is not enabled, then accesses using
-<code>OpCooperativeMatrixLoadKHR</code> and <code>OpCooperativeMatrixStoreKHR</code>
-<strong>may</strong> not be bounds-checked.</p>
-</li>
-<li>
-<p>Accesses using <code>OpCooperativeVector*</code> are not bounds-checked.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If a SPIR-V <code>OpLoad</code> instruction loads a structure and the tail end of
-the structure is out of bounds, then all members of the structure are
-considered out of bounds even if the members at the end are not statically
-used.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>If
-the <a href="#features-robustBufferAccess2"><code>robustBufferAccess2</code></a>
-feature is not enabled and
-any buffer access is determined to be out of bounds, then any other
-access of the same type (load, store, or atomic) to the same buffer
-that accesses an address less than 16 bytes away from the out of
-bounds address <strong>may</strong> also be considered out of bounds.</p>
-</li>
-<li>
-<p>If the access is a load that reads from the same memory locations as a
-prior store in the same shader invocation, with no other intervening
-accesses to the same memory locations in that shader invocation, then
-the result of the load <strong>may</strong> be the value stored by the store
-instruction, even if the access is out of bounds.
-If the load is <code>Volatile</code>, then an out of bounds load <strong>must</strong> return
-the appropriate out of bounds value.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Accesses to descriptors written with a <a href="../appendices/boilerplate.html#VK_NULL_HANDLE" class="xref page">VK_NULL_HANDLE</a> resource or
-view are not considered to be out of bounds.
-Instead, each type of descriptor access defines a specific behavior for
-accesses to a null descriptor.</p>
-</li>
-<li>
-<p>Out-of-bounds buffer loads will return any of the following values:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>If the access is to a uniform buffer and the
-<a href="#features-robustBufferAccess2"><code>robustBufferAccess2</code></a> feature is
-enabled, loads of offsets between the end of the descriptor range and
-the end of the descriptor range rounded up to a multiple of
-<a href="limits.html#limits-robustUniformBufferAccessSizeAlignment" class="xref page">      <code>robustUniformBufferAccessSizeAlignment</code></a> bytes <strong>must</strong> return
-either zero values or the contents of the memory at the offset being
-loaded.
-Loads of offsets past the descriptor range rounded up to a multiple of
-<a href="limits.html#limits-robustUniformBufferAccessSizeAlignment" class="xref page">      <code>robustUniformBufferAccessSizeAlignment</code></a> bytes <strong>must</strong> return zero
-values.</p>
-</li>
-<li>
-<p>If the access is to a storage buffer and the
-<a href="#features-robustBufferAccess2"><code>robustBufferAccess2</code></a> feature is
-enabled, loads of offsets between the end of the descriptor range and
-the end of the descriptor range rounded up to a multiple of
-<a href="limits.html#limits-robustStorageBufferAccessSizeAlignment" class="xref page">      <code>robustStorageBufferAccessSizeAlignment</code></a> bytes <strong>must</strong> return
-either zero values or the contents of the memory at the offset being
-loaded.
-Loads of offsets past the descriptor range rounded up to a multiple of
-<a href="limits.html#limits-robustStorageBufferAccessSizeAlignment" class="xref page">      <code>robustStorageBufferAccessSizeAlignment</code></a> bytes <strong>must</strong> return zero
-values.
-Similarly, stores to addresses between the end of the descriptor range
-and the end of the descriptor range rounded up to a multiple of
-<a href="limits.html#limits-robustStorageBufferAccessSizeAlignment" class="xref page">      <code>robustStorageBufferAccessSizeAlignment</code></a> bytes <strong>may</strong> be
-discarded.</p>
-</li>
-<li>
-<p>Non-atomic accesses to storage buffers that are a multiple of 32 bits
-<strong>may</strong> be decomposed into 32-bit accesses that are individually
-bounds-checked.</p>
-</li>
-<li>
-<p>If the access is to an index buffer and the
-<a href="#features-robustBufferAccess2"><code>robustBufferAccess2</code></a> feature is
-enabled, zero values <strong>must</strong> be returned.</p>
-</li>
-<li>
-<p>If the access is to a uniform texel buffer or storage texel buffer and
-the <a href="#features-robustBufferAccess2"><code>robustBufferAccess2</code></a>
-feature is enabled, zero values <strong>must</strong> be returned, and then
-<a href="textures.html#textures-conversion-to-rgba" class="xref page">Conversion to RGBA</a> is applied based on
-the buffer view&#8217;s format.</p>
-</li>
-<li>
-<p>Values from anywhere within the memory range(s) bound to the buffer
-(possibly including bytes of memory past the end of the buffer, up to
-the end of the bound range).</p>
-</li>
-<li>
-<p>Zero values, or <span class="eq">(0,0,0,x)</span> vectors for vector reads where x is a
-valid value represented in the type of the vector components and <strong>may</strong>
-be any of:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>0, 1, or the maximum representable positive integer value, for signed
-or unsigned integer components</p>
-</li>
-<li>
-<p>0.0 or 1.0, for floating-point components</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Out-of-bounds writes <strong>may</strong> modify values within the memory range(s)
-bound to the buffer, but <strong>must</strong> not modify any other memory.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>If the <a href="#features-robustBufferAccess2"><code>robustBufferAccess2</code></a>
-feature is enabled, out of bounds writes <strong>must</strong> not modify any memory.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Out-of-bounds atomics <strong>may</strong> modify values within the memory range(s)
-bound to the buffer, but <strong>must</strong> not modify any other memory, and return
-an <strong>undefined</strong> value.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>If the <a href="#features-robustBufferAccess2"><code>robustBufferAccess2</code></a>
-feature is enabled, out of bounds atomics <strong>must</strong> not modify any memory,
-and return an <strong>undefined</strong> value.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>If the <a href="#features-robustBufferAccess2"><code>robustBufferAccess2</code></a>
-feature is not enabled, vertex
-input attributes are considered out of bounds if the offset of the
-attribute in the bound vertex buffer range plus the size of the
-attribute is greater than either:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><code>vertexBufferRangeSize</code>, if <span class="eq"><code>bindingStride</code> == 0</span>; or</p>
-</li>
-<li>
-<p><span class="eq">(<code>vertexBufferRangeSize</code> - (<code>vertexBufferRangeSize</code> %
-<code>bindingStride</code>))</span></p>
-<div class="paragraph">
-<p>where <code>vertexBufferRangeSize</code> is the byte size of the memory range bound
-to the vertex buffer binding and <code>bindingStride</code> is the byte stride of
-the corresponding vertex input binding.
-Further, if any vertex input attribute using a specific vertex input binding
-is out of bounds, then all vertex input attributes using that vertex input
-binding for that vertex shader invocation are considered out of bounds.</p>
-</div>
-</li>
-<li>
-<p>If a vertex input attribute is out of bounds, it will be assigned one
-of the following values:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Values from anywhere within the memory range(s) bound to the buffer,
-converted according to the format of the attribute.</p>
-</li>
-<li>
-<p>Zero values, format converted according to the format of the
-attribute.</p>
-</li>
-<li>
-<p>Zero values, or <span class="eq">(0,0,0,x)</span> vectors, as described above.</p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>If the <a href="#features-robustBufferAccess2"><code>robustBufferAccess2</code></a>
-feature is enabled, vertex input attributes are considered out of
-bounds if the offset of the attribute in the bound vertex buffer range
-plus the size of the attribute is greater than the byte size of the
-memory range bound to the vertex buffer binding.</p>
-<div class="ulist">
-<ul>
-<li>
-<p>If a vertex input attribute is out of bounds, the
-<a href="fxvertex.html#fxvertex-input-extraction" class="xref page">raw data</a> extracted are zero values, and
-missing G, B, or A components are <a href="fxvertex.html#fxvertex-input-extraction" class="xref page">filled      with <span class="eq">(0</a>.</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>If <code>robustBufferAccess</code> is not enabled, applications <strong>must</strong> not
-perform out of bounds accesses
-except under the conditions enabled by the
-<a href="#features-pipelineRobustness"><code>pipelineRobustness</code></a> feature
-.</p>
-</li>
-</ul>
-</div>
+<p><a id="features-robustBufferAccess"></a> <code>robustBufferAccess</code> enables
+<a href="shaders.html#shaders-robust-buffer-access" class="xref page">Robust Buffer Access</a> guarantees for shader buffer accesses.</p>
 </li>
 <li>
 <p><a id="features-fullDrawIndexUint32"></a> <code>fullDrawIndexUint32</code> specifies the
@@ -1957,7 +1724,10 @@ structure.</p>
     storage class with the <code>Block</code> decoration <strong>can</strong> have 16-bit integer
     and 16-bit floating-point members.
     If this feature is not enabled, 16-bit integer or 16-bit floating-point
-    members <strong>must</strong> not be used in such objects.
+    members <strong>must</strong> not be used in such
+    objects unless <a href="#features-storageBuffer8BitAccess">    <code>storageBuffer8BitAccess</code></a> or
+    <a href="#features-uniformAndStorageBuffer8BitAccess">    <code>uniformAndStorageBuffer8BitAccess</code></a> are enabled or they are
+    accessed in 32-bit multiples if <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointers</code></a> is enabled.
     This also specifies whether shader modules <strong>can</strong> declare the
     <code>StorageBuffer16BitAccess</code> capability.</p>
 </li>
@@ -1967,7 +1737,10 @@ structure.</p>
 the <code>Uniform</code> storage class with the <code>Block</code> decoration <strong>can</strong> have
 16-bit integer and 16-bit floating-point members.
 If this feature is not enabled, 16-bit integer or 16-bit floating-point
-members <strong>must</strong> not be used in such objects.
+members <strong>must</strong> not be used in such
+objects unless
+<a href="#features-uniformAndStorageBuffer8BitAccess">    <code>uniformAndStorageBuffer8BitAccess</code></a> are enabled or they are
+accessed in 32-bit multiples if <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointers</code></a> is enabled.
 This also specifies whether shader modules <strong>can</strong> declare the
 <code>UniformAndStorageBuffer16BitAccess</code> capability.</p>
 </li>
@@ -1977,7 +1750,9 @@ This also specifies whether shader modules <strong>can</strong> declare the
 <code>PushConstant</code> storage class <strong>can</strong> have 16-bit integer and 16-bit
 floating-point members.
 If this feature is not enabled, 16-bit integer or floating-point members
-<strong>must</strong> not be used in such objects.
+<strong>must</strong> not be used in such
+objects unless <a href="#features-storagePushConstant8">    <code>storagePushConstant8</code></a> are enabled or they are accessed in 32-bit
+multiples if <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointers</code></a> is enabled.
 This also specifies whether shader modules <strong>can</strong> declare the
 <code>StoragePushConstant16</code> capability.</p>
 </li>
@@ -2176,7 +1951,10 @@ If this feature is not enabled, these functions <strong>must</strong> not be use
     storage class with the <code>Block</code> decoration <strong>can</strong> have 8-bit integer
     members.
     If this feature is not enabled, 8-bit integer members <strong>must</strong> not be used
-    in such objects.
+    in such
+    objects unless <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointer</code></a> is enabled and they are accessed in 32-bit
+    multiples or 16-bit multiples if
+    <a href="#features-storageBuffer16BitAccess">    <code>storageBuffer16BitAccess</code></a> is enabled.
     This also indicates whether shader modules <strong>can</strong> declare the
     <code>StorageBuffer8BitAccess</code> capability.</p>
 </li>
@@ -2186,7 +1964,10 @@ If this feature is not enabled, these functions <strong>must</strong> not be use
 <code>Uniform</code> storage class with the <code>Block</code> decoration <strong>can</strong> have
 8-bit integer members.
 If this feature is not enabled, 8-bit integer members <strong>must</strong> not be used
-in such objects.
+in such
+objects unless <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointers</code></a> is enabled and they are accessed in 32-bit
+multiples or 16-bit multiples if
+<a href="#features-uniformAndStorageBuffer16BitAccess">    <code>uniformAndStorageBuffer16BitAccess</code></a> is enabled.
 This also indicates whether shader modules <strong>can</strong> declare the
 <code>UniformAndStorageBuffer8BitAccess</code> capability.</p>
 </li>
@@ -2195,7 +1976,10 @@ This also indicates whether shader modules <strong>can</strong> declare the
 <code>storagePushConstant8</code> indicates whether objects in the
 <code>PushConstant</code> storage class <strong>can</strong> have 8-bit integer members.
 If this feature is not enabled, 8-bit integer members <strong>must</strong> not be used
-in such objects.
+in such
+objects unless <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointers</code></a> is enabled and they are accessed in 32-bit
+multiples or 16-bit multiples if
+<a href="#features-storagePushConstant16">    <code>storagePushConstant16</code></a> is enabled.
 This also indicates whether shader modules <strong>can</strong> declare the
 <code>StoragePushConstant8</code> capability.</p>
 </li>
@@ -2529,7 +2313,7 @@ indicates whether semaphores created with a <a href="synchronization.html#VkSema
 <p><a id="features-bufferDeviceAddress"></a>
 <code>bufferDeviceAddress</code> indicates that the implementation supports
 accessing buffer memory in shaders as storage buffers via an address
-queried from <a href="descriptorsets.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a>.</p>
+queried from <a href="resources.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a>.</p>
 </li>
 <li>
 <p><a id="features-bufferDeviceAddressCaptureReplay"></a>
@@ -2672,13 +2456,8 @@ structure.</p>
 <ul>
 <li>
 <p><a id="features-robustImageAccess"></a> <code>robustImageAccess</code>
-indicates whether image accesses are tightly bounds-checked against the
-dimensions of the image view.
-<a href="textures.html#textures-input-validation" class="xref page">Invalid texels</a> resulting from out of
-bounds image loads will be replaced as described in
-<a href="textures.html#textures-texel-replacement" class="xref page">Texel Replacement</a>, with either
-<span class="eq">(0,0,1)</span> or <span class="eq">(0,0,0)</span> values inserted for missing G, B, or A
-components based on the format.</p>
+enables <a href="shaders.html#shaders-robust-image-access" class="xref page">Robust Image Access</a> guarantees for shader image
+accesses.</p>
 </li>
 <li>
 <p><a id="features-inlineUniformBlock"></a> <code>inlineUniformBlock</code>
@@ -3907,7 +3686,10 @@ structure.</p>
     storage class with the <code>Block</code> decoration <strong>can</strong> have 8-bit integer
     members.
     If this feature is not enabled, 8-bit integer members <strong>must</strong> not be used
-    in such objects.
+    in such
+    objects unless <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointer</code></a> is enabled and they are accessed in 32-bit
+    multiples or 16-bit multiples if
+    <a href="#extension-features-storageBuffer16BitAccess">    <code>storageBuffer16BitAccess</code></a> is enabled.
     This also indicates whether shader modules <strong>can</strong> declare the
     <code>StorageBuffer8BitAccess</code> capability.</p>
 </li>
@@ -3917,7 +3699,10 @@ structure.</p>
 <code>Uniform</code> storage class with the <code>Block</code> decoration <strong>can</strong> have
 8-bit integer members.
 If this feature is not enabled, 8-bit integer members <strong>must</strong> not be used
-in such objects.
+in such
+objects unless <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointers</code></a> is enabled and they are accessed in 32-bit
+multiples or 16-bit multiples if
+<a href="#extension-features-uniformAndStorageBuffer16BitAccess">    <code>uniformAndStorageBuffer16BitAccess</code></a> is enabled.
 This also indicates whether shader modules <strong>can</strong> declare the
 <code>UniformAndStorageBuffer8BitAccess</code> capability.</p>
 </li>
@@ -3926,7 +3711,10 @@ This also indicates whether shader modules <strong>can</strong> declare the
 <code>storagePushConstant8</code> indicates whether objects in the
 <code>PushConstant</code> storage class <strong>can</strong> have 8-bit integer members.
 If this feature is not enabled, 8-bit integer members <strong>must</strong> not be used
-in such objects.
+in such
+objects unless <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointers</code></a> is enabled and they are accessed in 32-bit
+multiples or 16-bit multiples if
+<a href="#extension-features-storagePushConstant16">    <code>storagePushConstant16</code></a> is enabled.
 This also indicates whether shader modules <strong>can</strong> declare the
 <code>StoragePushConstant8</code> capability.</p>
 </li>
@@ -4009,7 +3797,10 @@ structure.</p>
     storage class with the <code>Block</code> decoration <strong>can</strong> have 16-bit integer
     and 16-bit floating-point members.
     If this feature is not enabled, 16-bit integer or 16-bit floating-point
-    members <strong>must</strong> not be used in such objects.
+    members <strong>must</strong> not be used in such
+    objects unless <a href="#extension-features-storageBuffer8BitAccess">    <code>storageBuffer8BitAccess</code></a> or
+    <a href="#extension-features-uniformAndStorageBuffer8BitAccess">    <code>uniformAndStorageBuffer8BitAccess</code></a> are enabled or they are
+    accessed in 32-bit multiples if <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointers</code></a> is enabled.
     This also specifies whether shader modules <strong>can</strong> declare the
     <code>StorageBuffer16BitAccess</code> capability.</p>
 </li>
@@ -4019,7 +3810,10 @@ structure.</p>
 the <code>Uniform</code> storage class with the <code>Block</code> decoration <strong>can</strong> have
 16-bit integer and 16-bit floating-point members.
 If this feature is not enabled, 16-bit integer or 16-bit floating-point
-members <strong>must</strong> not be used in such objects.
+members <strong>must</strong> not be used in such
+objects unless
+<a href="#extension-features-uniformAndStorageBuffer8BitAccess">    <code>uniformAndStorageBuffer8BitAccess</code></a> are enabled or they are
+accessed in 32-bit multiples if <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointers</code></a> is enabled.
 This also specifies whether shader modules <strong>can</strong> declare the
 <code>UniformAndStorageBuffer16BitAccess</code> capability.</p>
 </li>
@@ -4029,7 +3823,9 @@ This also specifies whether shader modules <strong>can</strong> declare the
 <code>PushConstant</code> storage class <strong>can</strong> have 16-bit integer and 16-bit
 floating-point members.
 If this feature is not enabled, 16-bit integer or floating-point members
-<strong>must</strong> not be used in such objects.
+<strong>must</strong> not be used in such
+objects unless <a href="#extension-features-storagePushConstant8">    <code>storagePushConstant8</code></a> are enabled or they are accessed in 32-bit
+multiples if <a href="#features-shaderUntypedPointers">    <code>shaderUntypedPointers</code></a> is enabled.
 This also specifies whether shader modules <strong>can</strong> declare the
 <code>StoragePushConstant16</code> capability.</p>
 </li>
@@ -6265,6 +6061,66 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE</code> structure
+is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_VALVE_fragment_density_map_layered
+typedef struct VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           fragmentDensityMapLayered;
+} VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-fragmentDensityMapLayered"></a> <code>fragmentDensityMapLayered</code>
+specifies whether the implementation supports layered fragment density
+maps.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE-sType-sType" href="#VUID-VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceFragmentDensityMapLayeredFeaturesVALVE-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_DENSITY_MAP_LAYERED_FEATURES_VALVE</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceInvocationMaskFeaturesHUAWEI</code> structure is defined
 as:</p>
 </div>
@@ -6639,7 +6495,7 @@ structure.</p>
 <p><a id="extension-features-bufferDeviceAddress"></a>
 <code>bufferDeviceAddress</code> indicates that the implementation supports
 accessing buffer memory in shaders as storage buffers via an address
-queried from <a href="descriptorsets.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a>.</p>
+queried from <a href="resources.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a>.</p>
 </li>
 <li>
 <p><a id="extension-features-bufferDeviceAddressCaptureReplay"></a>
@@ -6677,7 +6533,7 @@ support shared GPU virtual addresses for multi-device configurations.</p>
 </table>
 </div>
 <div class="paragraph">
-<p>See <a href="descriptorsets.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a> for more information.</p>
+<p>See <a href="resources.html#vkGetBufferDeviceAddress" class="xref page">vkGetBufferDeviceAddress</a> for more information.</p>
 </div>
 <div class="paragraph">
 <p>If the <code>VkPhysicalDeviceBufferDeviceAddressFeatures</code> structure is included in the <code>pNext</code> chain of the
@@ -6744,7 +6600,7 @@ structure.</p>
 <p><a id="features-bufferDeviceAddressEXT"></a> <code>bufferDeviceAddress</code> indicates
 that the implementation supports accessing buffer memory in shaders as
 storage buffers via an address queried from
-<a href="descriptorsets.html#vkGetBufferDeviceAddressEXT" class="xref page">vkGetBufferDeviceAddressEXT</a>.</p>
+<a href="resources.html#vkGetBufferDeviceAddressEXT" class="xref page">vkGetBufferDeviceAddressEXT</a>.</p>
 </li>
 <li>
 <p><a id="features-bufferDeviceAddressCaptureReplayEXT"></a>
@@ -9276,6 +9132,82 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR</code> structure is
+defined as:</p>
+</div>
+<div id="VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_encode_intra_refresh
+typedef struct VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           videoEncodeIntraRefresh;
+} VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-videoEncodeIntraRefresh"></a> <code>videoEncodeIntraRefresh</code>
+specifies that the implementation supports <a href="videocoding.html#encode-intra-refresh" class="xref page">video    encode intra refresh</a>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Support for <code>videoEncodeIntraRefresh</code> does not indicate that all video
+encode profiles support intra refresh.
+Support for intra refresh for any specific video encode profile is subject
+to video-profile-specific capabilities.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceVideoEncodeIntraRefreshFeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_INTRA_REFRESH_FEATURES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceVideoMaintenance1FeaturesKHR</code> structure is defined
 as:</p>
 </div>
@@ -9494,6 +9426,64 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <li>
 <p><a id="VUID-VkPhysicalDeviceVideoEncodeAV1FeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceVideoEncodeAV1FeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceVideoEncodeAV1FeaturesKHR-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_ENCODE_AV1_FEATURES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceVideoDecodeVP9FeaturesKHR</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceVideoDecodeVP9FeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_video_decode_vp9
+typedef struct VkPhysicalDeviceVideoDecodeVP9FeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           videoDecodeVP9;
+} VkPhysicalDeviceVideoDecodeVP9FeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-videoDecodeVP9"></a> <code>videoDecodeVP9</code> specifies that the
+implementation supports <a href="videocoding.html#decode-vp9" class="xref page">VP9 decode operations</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceVideoDecodeVP9FeaturesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceVideoDecodeVP9FeaturesKHR</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceVideoDecodeVP9FeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceVideoDecodeVP9FeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceVideoDecodeVP9FeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_VIDEO_DECODE_VP9_FEATURES_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -11033,25 +11023,12 @@ typedef VkPhysicalDeviceRobustness2FeaturesKHR VkPhysicalDeviceRobustness2Featur
 structure.</p>
 </li>
 <li>
-<p><a id="features-robustBufferAccess2"></a> <code>robustBufferAccess2</code> indicates
-whether buffer accesses are tightly bounds-checked against the range of
-the descriptor.
-Uniform buffers <strong>must</strong> be bounds-checked to the range of the descriptor,
-where the range is rounded up to a multiple of
-<a href="limits.html#limits-robustUniformBufferAccessSizeAlignment" class="xref page">    <code>robustUniformBufferAccessSizeAlignment</code></a>.
-Storage buffers <strong>must</strong> be bounds-checked to the range of the descriptor,
-where the range is rounded up to a multiple of
-<a href="limits.html#limits-robustStorageBufferAccessSizeAlignment" class="xref page">    <code>robustStorageBufferAccessSizeAlignment</code></a>.
-Out of bounds buffer loads will return zero values, and <a href="textures.html#textures" class="xref page">    image load, sample, and atomic operations</a> from texel buffers will have
-<span class="eq">(0,0,1)</span> values <a href="textures.html#textures-conversion-to-rgba" class="xref page">inserted for missing    G, B, or A components</a> based on the format.</p>
+<p><a id="features-robustBufferAccess2"></a> <code>robustBufferAccess2</code> enables
+<a href="shaders.html#shaders-robust-buffer-access2" class="xref page">Robust Buffer Access 2</a> guarantees for shader buffer accesses.</p>
 </li>
 <li>
-<p><a id="features-robustImageAccess2"></a> <code>robustImageAccess2</code> indicates
-whether image accesses are tightly bounds-checked against the dimensions
-of the image view.
-Out of bounds <a href="textures.html#textures" class="xref page">image load, sample, and atomic operations</a>
-from images will return zero values, with <span class="eq">(0,0,1)</span> values
-<a href="textures.html#textures-conversion-to-rgba" class="xref page">inserted for missing G, B, or A    components</a> based on the format.</p>
+<p><a id="features-robustImageAccess2"></a> <code>robustImageAccess2</code> enables
+<a href="shaders.html#shaders-robust-image-access2" class="xref page">Robust Image Access 2</a> guarantees for shader image accesses.</p>
 </li>
 <li>
 <p><a id="features-nullDescriptor"></a> <code>nullDescriptor</code> indicates
@@ -11144,13 +11121,8 @@ structure.</p>
 <ul>
 <li>
 <p><a id="extension-features-robustImageAccess"></a> <code>robustImageAccess</code>
-indicates whether image accesses are tightly bounds-checked against the
-dimensions of the image view.
-<a href="textures.html#textures-input-validation" class="xref page">Invalid texels</a> resulting from out of
-bounds image loads will be replaced as described in
-<a href="textures.html#textures-texel-replacement" class="xref page">Texel Replacement</a>, with either
-<span class="eq">(0,0,1)</span> or <span class="eq">(0,0,0)</span> values inserted for missing G, B, or A
-components based on the format.</p>
+enables <a href="shaders.html#shaders-robust-image-access" class="xref page">Robust Image Access</a> guarantees for shader image
+accesses.</p>
 </li>
 </ul>
 </div>
@@ -12043,7 +12015,8 @@ Blocks.</p>
 in the <code>Workgroup</code> storage class with the <code>Block</code> decoration <strong>can</strong>
 have 8-bit integer members.
 If this feature is not enabled, 8-bit integer members <strong>must</strong> not be used
-in such objects.
+in such
+objects.
 This also indicates whether shader modules <strong>can</strong> declare the
 <code>WorkgroupMemoryExplicitLayout8BitAccessKHR</code> capability.</p>
 </li>
@@ -12053,7 +12026,8 @@ This also indicates whether shader modules <strong>can</strong> declare the
 in the <code>Workgroup</code> storage class with the <code>Block</code> decoration <strong>can</strong>
 have 16-bit integer and 16-bit floating-point members.
 If this feature is not enabled, 16-bit integer or 16-bit floating-point
-members <strong>must</strong> not be used in such objects.
+members <strong>must</strong> not be used in such
+objects.
 This also indicates whether shader modules <strong>can</strong> declare the
 <code>WorkgroupMemoryExplicitLayout16BitAccessKHR</code> capability.</p>
 </li>
@@ -12494,6 +12468,58 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <li>
 <p><a id="VUID-VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV-sType-sType" href="#VUID-VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceFragmentShadingRateEnumsFeaturesNV-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FRAGMENT_SHADING_RATE_ENUMS_FEATURES_NV</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceShaderUntypedPointersFeaturesKHR</code> structure is
+defined as:</p>
+</div>
+<div id="VkPhysicalDeviceShaderUntypedPointersFeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_shader_untyped_pointers
+typedef struct VkPhysicalDeviceShaderUntypedPointersFeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           shaderUntypedPointers;
+} VkPhysicalDeviceShaderUntypedPointersFeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The members of <code>VkPhysicalDeviceShaderUntypedPointersFeaturesKHR</code>
+describe the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="features-shaderUntypedPointers"></a> <code>shaderUntypedPointers</code> specifies
+whether shader modules <strong>can</strong> declare the <code>UntypedPointersKHR</code>
+capability and untyped pointers in any
+<a href="interfaces.html#interfaces-resources-layout" class="xref page">explicitly laid out storage class</a>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceShaderUntypedPointersFeaturesKHR</code> structure is
+included in the <code>pNext</code> chain of <a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a>, it is
+filled with values indicating whether the features are supported.
+<code>VkPhysicalDeviceShaderUntypedPointersFeaturesKHR</code> <strong>can</strong> also be included
+in the <code>pNext</code> chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> to enable the features.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceShaderUntypedPointersFeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceShaderUntypedPointersFeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceShaderUntypedPointersFeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_UNTYPED_POINTERS_FEATURES_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -12976,6 +13002,8 @@ If this is <code>VK_TRUE</code>, all resources created with
 <code>VK_BUFFER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT</code>,
 <code>VK_IMAGE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT</code>,
 <code>VK_IMAGE_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT</code>,
+<code>VK_TENSOR_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM</code>,
+<code>VK_TENSOR_VIEW_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_ARM</code>,
 <code>VK_SAMPLER_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT</code>, or
 <code>VK_ACCELERATION_STRUCTURE_CREATE_DESCRIPTOR_BUFFER_CAPTURE_REPLAY_BIT_EXT</code>
 <strong>must</strong> be created before resources of the same types without those flags.</p>
@@ -13011,6 +13039,67 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <li>
 <p><a id="VUID-VkPhysicalDeviceDescriptorBufferFeaturesEXT-sType-sType" href="#VUID-VkPhysicalDeviceDescriptorBufferFeaturesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceDescriptorBufferFeaturesEXT-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_FEATURES_EXT</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceDescriptorBufferTensorFeaturesARM</code> structure is
+defined as:</p>
+</div>
+<div id="VkPhysicalDeviceDescriptorBufferTensorFeaturesARM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_descriptor_buffer with VK_ARM_tensors
+typedef struct VkPhysicalDeviceDescriptorBufferTensorFeaturesARM {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           descriptorBufferTensorDescriptors;
+} VkPhysicalDeviceDescriptorBufferTensorFeaturesARM;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-descriptorBufferTensorDescriptors"></a>
+<code>descriptorBufferTensorDescriptors</code> indicates that the
+implementation supports putthing shader-accessible tensor descriptors
+directly in memory.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceDescriptorBufferTensorFeaturesARM</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceDescriptorBufferTensorFeaturesARM</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceDescriptorBufferTensorFeaturesARM-sType-sType" href="#VUID-VkPhysicalDeviceDescriptorBufferTensorFeaturesARM-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceDescriptorBufferTensorFeaturesARM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DESCRIPTOR_BUFFER_TENSOR_FEATURES_ARM</code></p>
 </li>
 </ul>
 </div>
@@ -13700,6 +13789,65 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDevicePresentId2FeaturesKHR</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDevicePresentId2FeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_present_id2
+typedef struct VkPhysicalDevicePresentId2FeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           presentId2;
+} VkPhysicalDevicePresentId2FeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-presentId2"></a> <code>presentId2</code> indicates that the
+implementation supports specifying present ID values in the
+<code>VkPresentId2KHR</code> extension to the <code>VkPresentInfoKHR</code> struct.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDevicePresentId2FeaturesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDevicePresentId2FeaturesKHR</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDevicePresentId2FeaturesKHR-sType-sType" href="#VUID-VkPhysicalDevicePresentId2FeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDevicePresentId2FeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_ID_2_FEATURES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDevicePresentWaitFeaturesKHR</code> structure is defined as:</p>
 </div>
 <div id="VkPhysicalDevicePresentWaitFeaturesKHR" class="listingblock">
@@ -13748,6 +13896,157 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <li>
 <p><a id="VUID-VkPhysicalDevicePresentWaitFeaturesKHR-sType-sType" href="#VUID-VkPhysicalDevicePresentWaitFeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDevicePresentWaitFeaturesKHR-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_WAIT_FEATURES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDevicePresentWait2FeaturesKHR</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDevicePresentWait2FeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_present_wait2
+typedef struct VkPhysicalDevicePresentWait2FeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           presentWait2;
+} VkPhysicalDevicePresentWait2FeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-presentWait2"></a> <code>presentWait2</code> indicates that the
+implementation supports <code>vkWaitForPresent2KHR</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDevicePresentWait2FeaturesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDevicePresentWait2FeaturesKHR</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDevicePresentWait2FeaturesKHR-sType-sType" href="#VUID-VkPhysicalDevicePresentWait2FeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDevicePresentWait2FeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_WAIT_2_FEATURES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR</code> structure is
+defined as:</p>
+</div>
+<div id="VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_unified_image_layouts
+typedef struct VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           unifiedImageLayouts;
+    VkBool32           unifiedImageLayoutsVideo;
+} VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-unifiedImageLayouts"></a> <code>unifiedImageLayouts</code> specifies
+whether usage of <code>VK_IMAGE_LAYOUT_GENERAL</code>, where valid, incurs no
+loss in efficiency.
+Additionally, it indicates whether it <strong>can</strong> be used in place of
+<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code>.</p>
+</li>
+<li>
+<p><a id="features-unifiedImageLayoutsVideo"></a> <code>unifiedImageLayoutsVideo</code>
+specifies whether <code>VK_IMAGE_LAYOUT_GENERAL</code> can be used in place of
+any of the following image layouts with no loss in efficiency.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DST_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_DECODE_SRC_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_DECODE_DPB_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_DST_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_SRC_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_DPB_KHR</code></p>
+</li>
+<li>
+<p><code>VK_IMAGE_LAYOUT_VIDEO_ENCODE_QUANTIZATION_MAP_KHR</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceUnifiedImageLayoutsFeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_UNIFIED_IMAGE_LAYOUTS_FEATURES_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -14437,12 +14736,12 @@ typedef struct VkPhysicalDeviceMaintenance8FeaturesKHR {
 <li>
 <p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
 structure.</p>
-<div class="ulist">
-<ul>
+</li>
 <li>
 <p><a id="features-maintenance8"></a> <code>maintenance8</code> indicates that the
 implementation supports the following:</p>
-</li>
+<div class="ulist">
+<ul>
 <li>
 <p>Allow copies between depth/stencil and &#8220;matching&#8221; color attachments</p>
 </li>
@@ -14493,6 +14792,107 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <li>
 <p><a id="VUID-VkPhysicalDeviceMaintenance8FeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceMaintenance8FeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceMaintenance8FeaturesKHR-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_8_FEATURES_KHR</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceMaintenance9FeaturesKHR</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceMaintenance9FeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_maintenance9
+typedef struct VkPhysicalDeviceMaintenance9FeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           maintenance9;
+} VkPhysicalDeviceMaintenance9FeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-maintenance9"></a> <code>maintenance9</code> indicates that the
+implementation supports the following:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The restriction that certain bitfield SPIR-V instructions only operate
+on 32-bit integers is relaxed.</p>
+</li>
+<li>
+<p>The value returned when a vertex shader reads an unbound vertex
+attribute is defined by way of the
+<a href="limits.html#limits-defaultVertexAttributeValue" class="xref page">     <code>defaultVertexAttributeValue</code></a> property.</p>
+</li>
+<li>
+<p>A new
+<a href="queries.html#VkQueryPoolCreateFlagBits" class="xref page">VkQueryPoolCreateFlagBits</a>::<code>VK_QUERY_POOL_CREATE_RESET_BIT_KHR</code>
+flag <strong>can</strong> be used to initialize all queries in query pool to the reset
+state on creation.</p>
+</li>
+<li>
+<p><a href="synchronization.html#vkCmdSetEvent2" class="xref page">vkCmdSetEvent2</a> <strong>may</strong> not provide a dependency other than the event
+src stage mask.</p>
+</li>
+<li>
+<p>The effects of image memory barriers and image layout transitions on 3D
+images created with <code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> are
+limited to only those slices specified in <code>VkImageSubresourceRange</code></p>
+</li>
+<li>
+<p>A device <strong>can</strong> be created with no queues.
+This can be used for compiling pipelines or shaders for the purpose of
+filling pipeline caches.</p>
+</li>
+<li>
+<p>Queue family ownership transfers are no longer required when
+transitioning resources created with <code>VK_SHARING_MODE_EXCLUSIVE</code>
+between queue families that support <code>VK_QUEUE_GRAPHICS_BIT</code> and
+those that support only <code>VK_QUEUE_TRANSFER_BIT</code>.</p>
+</li>
+<li>
+<p><a href="limits.html#limits-image2DViewOf3DSparse" class="xref page"><code>image2DViewOf3DSparse</code></a> enables
+2D views of 3D sparse images.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceMaintenance9FeaturesKHR</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceMaintenance9FeaturesKHR</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceMaintenance9FeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceMaintenance9FeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceMaintenance9FeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_MAINTENANCE_9_FEATURES_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -16601,6 +17001,103 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceTensorFeaturesARM</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceTensorFeaturesARM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_ARM_tensors
+typedef struct VkPhysicalDeviceTensorFeaturesARM {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           tensorNonPacked;
+    VkBool32           shaderTensorAccess;
+    VkBool32           shaderStorageTensorArrayDynamicIndexing;
+    VkBool32           shaderStorageTensorArrayNonUniformIndexing;
+    VkBool32           descriptorBindingStorageTensorUpdateAfterBind;
+    VkBool32           tensors;
+} VkPhysicalDeviceTensorFeaturesARM;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The members of the <code>VkPhysicalDeviceTensorFeaturesARM</code> structure
+describe the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="features-tensorNonPacked"></a> <code>tensorNonPacked</code> indicates whether the
+implementation supports the creation of tensors that are not packed
+tensors.</p>
+</li>
+<li>
+<p><a id="features-shaderTensorAccess"></a> <code>shaderTensorAccess</code> indicates
+whether shader modules <strong>can</strong> declare the <code>TensorsARM</code> capability.</p>
+</li>
+<li>
+<p><a id="features-shaderStorageTensorArrayDynamicIndexing"></a>
+<code>shaderStorageBufferArrayDynamicIndexing</code> indicates whether arrays
+of storage tensors <strong>can</strong> be indexed by dynamically uniform integer
+expressions in shader code.
+If this feature is not enabled, resources with a descriptor type of
+<code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> <strong>must</strong> be indexed only by constant
+integral expressions when aggregated into arrays in shader code.
+This also indicates whether shader modules <strong>can</strong> declare the
+<code>StorageTensorArrayDynamicIndexingARM</code> capability.</p>
+</li>
+<li>
+<p><a id="features-shaderStorageTensorArrayNonUniformIndexing"></a>
+<code>shaderStorageTensorArrayNonUniformIndexing</code> indicates whether
+arrays of storage tensors <strong>can</strong> be indexed by non-uniform integer
+expressions in shader code.
+If this feature is not enabled, resources with a descriptor type of
+<code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code> <strong>must</strong> not be indexed by non-uniform
+integer expressions when aggregated into arrays in shader code.
+This also indicates whether shader modules <strong>can</strong> declare the
+<code>StorageTensorArrayNonUniformIndexingARM</code> capability.</p>
+</li>
+<li>
+<p><a id="features-descriptorBindingStorageTensorUpdateAfterBind"></a>
+<code>descriptorBindingStorageTensorUpdateAfterBind</code> indicates whether
+the implementation supports updating storage tensor descriptors after a
+set is bound.
+If this feature is not enabled,
+<code>VK_DESCRIPTOR_BINDING_UPDATE_AFTER_BIND_BIT</code> <strong>must</strong> not be used with
+<code>VK_DESCRIPTOR_TYPE_TENSOR_ARM</code>.</p>
+</li>
+<li>
+<p><a id="features-tensors"></a> <code>tensors</code> indicates whether the implementation
+supports tensor resources.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceTensorFeaturesARM</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceTensorFeaturesARM</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceTensorFeaturesARM-sType-sType" href="#VUID-VkPhysicalDeviceTensorFeaturesARM-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceTensorFeaturesARM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_TENSOR_FEATURES_ARM</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceShaderCoreBuiltinsFeaturesARM</code> structure is defined
 as:</p>
 </div>
@@ -16719,17 +17216,26 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT</code> structure is
+<p>The <code>VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR</code> structure is
 defined as:</p>
+</div>
+<div id="VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_swapchain_maintenance1
+typedef struct VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           swapchainMaintenance1;
+} VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
 </div>
 <div id="VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_swapchain_maintenance1
-typedef struct VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT {
-    VkStructureType    sType;
-    void*              pNext;
-    VkBool32           swapchainMaintenance1;
-} VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT;</code></pre>
+typedef VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -16750,26 +17256,26 @@ that the implementation supports the following:</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="VK_KHR_surface/wsi.html#VkSwapchainPresentFenceInfoEXT" class="xref page">VkSwapchainPresentFenceInfoEXT</a>, specifying a fence that is
+<p><a href="VK_KHR_surface/wsi.html#VkSwapchainPresentFenceInfoKHR" class="xref page">VkSwapchainPresentFenceInfoKHR</a>, specifying a fence that is
 signaled when the resources associated with a present operation <strong>can</strong> be
 safely destroyed.</p>
 </li>
 <li>
-<p><a href="VK_KHR_surface/wsi.html#VkSwapchainPresentModesCreateInfoEXT" class="xref page">VkSwapchainPresentModesCreateInfoEXT</a> and
-<a href="VK_KHR_surface/wsi.html#VkSwapchainPresentModeInfoEXT" class="xref page">VkSwapchainPresentModeInfoEXT</a>, allowing the swapchain to switch
+<p><a href="VK_KHR_surface/wsi.html#VkSwapchainPresentModesCreateInfoKHR" class="xref page">VkSwapchainPresentModesCreateInfoKHR</a> and
+<a href="VK_KHR_surface/wsi.html#VkSwapchainPresentModeInfoKHR" class="xref page">VkSwapchainPresentModeInfoKHR</a>, allowing the swapchain to switch
 present modes without a need for recreation.</p>
 </li>
 <li>
-<p><a href="VK_KHR_surface/wsi.html#VkSwapchainPresentScalingCreateInfoEXT" class="xref page">VkSwapchainPresentScalingCreateInfoEXT</a>, specifying the scaling
+<p><a href="VK_KHR_surface/wsi.html#VkSwapchainPresentScalingCreateInfoKHR" class="xref page">VkSwapchainPresentScalingCreateInfoKHR</a>, specifying the scaling
 behavior of the swapchain in presence of window resizing.</p>
 </li>
 <li>
-<p>The <code>VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_EXT</code> flag,
+<p>The <code>VK_SWAPCHAIN_CREATE_DEFERRED_MEMORY_ALLOCATION_BIT_KHR</code> flag,
 allowing the implementation to defer the allocation of swapchain image
 memory until first acquisition.</p>
 </li>
 <li>
-<p><a href="VK_KHR_surface/wsi.html#vkReleaseSwapchainImagesEXT" class="xref page">vkReleaseSwapchainImagesEXT</a>, allowing acquired swapchain images
+<p><a href="VK_KHR_surface/wsi.html#vkReleaseSwapchainImagesKHR" class="xref page">vkReleaseSwapchainImagesKHR</a>, allowing acquired swapchain images
 to be released without presenting them.</p>
 </li>
 </ul>
@@ -16778,12 +17284,12 @@ to be released without presenting them.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code>VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT</code> structure is included in the <code>pNext</code> chain of the
+<p>If the <code>VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR</code> structure is included in the <code>pNext</code> chain of the
 <a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
 <a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
 corresponding feature is supported.
 If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
-described by <code>VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT</code>, it <strong>must</strong> add an instance of the structure,
+described by <code>VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR</code>, it <strong>must</strong> add an instance of the structure,
 with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
 chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
 </div>
@@ -16793,8 +17299,8 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT-sType-sType" href="#VUID-VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceSwapchainMaintenance1FeaturesEXT-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_EXT</code></p>
+<p><a id="VUID-VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR-sType-sType" href="#VUID-VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceSwapchainMaintenance1FeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SWAPCHAIN_MAINTENANCE_1_FEATURES_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -16805,17 +17311,26 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT</code> structure is
+<p>The <code>VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR</code> structure is
 defined as:</p>
+</div>
+<div id="VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_KHR_present_mode_fifo_latest_ready
+typedef struct VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           presentModeFifoLatestReady;
+} VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or the equivalent</p>
 </div>
 <div id="VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_present_mode_fifo_latest_ready
-typedef struct VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT {
-    VkStructureType    sType;
-    void*              pNext;
-    VkBool32           presentModeFifoLatestReady;
-} VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT;</code></pre>
+typedef VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -16830,17 +17345,17 @@ structure.</p>
 <li>
 <p><a id="features-presentModeFifoLatestReady"></a> <code>presentModeFifoLatestReady</code>
 specifies whether the implementation supports the
-<code>VK_PRESENT_MODE_FIFO_LATEST_READY_EXT</code> present mode.</p>
+<code>VK_PRESENT_MODE_FIFO_LATEST_READY_KHR</code> present mode.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>If the <code>VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT</code> structure is included in the <code>pNext</code> chain of the
+<p>If the <code>VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR</code> structure is included in the <code>pNext</code> chain of the
 <a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
 <a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
 corresponding feature is supported.
 If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
-described by <code>VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT</code>, it <strong>must</strong> add an instance of the structure,
+described by <code>VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR</code>, it <strong>must</strong> add an instance of the structure,
 with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
 chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
 </div>
@@ -16850,8 +17365,8 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT-sType-sType" href="#VUID-VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDevicePresentModeFifoLatestReadyFeaturesEXT-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_EXT</code></p>
+<p><a id="VUID-VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR-sType-sType" href="#VUID-VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDevicePresentModeFifoLatestReadyFeaturesKHR-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_PRESENT_MODE_FIFO_LATEST_READY_FEATURES_KHR</code></p>
 </li>
 </ul>
 </div>
@@ -17958,8 +18473,8 @@ information.</p>
 <p><a id="features-tileShadingAnisotropicApron"></a>
 <code>tileShadingAnisotropicApron</code> indicates that the implementation
 supports <a href="renderpass.html#VkRenderPassTileShadingCreateInfoQCOM" class="xref page">VkRenderPassTileShadingCreateInfoQCOM</a>::<code>apronSize</code>
-set to a value where <code>apronSize</code>::<code>width</code> differs from
-<code>apronSize</code>::<code>height</code>.</p>
+set to a value where <code>apronSize.width</code> differs from
+<code>apronSize.height</code>.</p>
 </li>
 <li>
 <p><a id="features-tileShadingAtomicOps"></a> <code>tileShadingAtomicOps</code> indicates
@@ -19001,6 +19516,65 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
+<p>The <code>VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX</code> structure is
+defined as:</p>
+</div>
+<div id="VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_AMDX_dense_geometry_format
+typedef struct VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           denseGeometryFormat;
+} VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following feature:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-denseGeometryFormat"></a> <code>denseGeometryFormat</code> specifies
+whether the implementation supports DGF1 compressed geometry data.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX-sType-sType" href="#VUID-VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceDenseGeometryFormatFeaturesAMDX-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DENSE_GEOMETRY_FORMAT_FEATURES_AMDX</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
 <p>The <code>VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT</code> structure is
 defined as:</p>
 </div>
@@ -19243,6 +19817,151 @@ chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDev
 <li>
 <p><a id="VUID-VkPhysicalDeviceFormatPackFeaturesARM-sType-sType" href="#VUID-VkPhysicalDeviceFormatPackFeaturesARM-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceFormatPackFeaturesARM-sType-sType</span><br>
  <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_FORMAT_PACK_FEATURES_ARM</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceDataGraphFeaturesARM</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceDataGraphFeaturesARM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_ARM_data_graph
+typedef struct VkPhysicalDeviceDataGraphFeaturesARM {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           dataGraph;
+    VkBool32           dataGraphUpdateAfterBind;
+    VkBool32           dataGraphSpecializationConstants;
+    VkBool32           dataGraphDescriptorBuffer;
+    VkBool32           dataGraphShaderModule;
+} VkPhysicalDeviceDataGraphFeaturesARM;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-dataGraph"></a> <code>dataGraph</code> specifies whether data graph
+pipelines <strong>can</strong> be used.</p>
+</li>
+<li>
+<p><a id="features-dataGraphUpdateAfterBind"></a> <code>dataGraphUpdateAfterBind</code>
+specifies whether data graph pipelines <strong>can</strong> be created with a
+<a href="descriptorsets.html#VkPipelineLayout" class="xref page">VkPipelineLayout</a> that uses one or more <a href="descriptorsets.html#VkDescriptorSetLayout" class="xref page">VkDescriptorSetLayout</a>
+objects created with the
+<code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_UPDATE_AFTER_BIND_POOL_BIT</code> bit
+set.</p>
+</li>
+<li>
+<p><a id="features-dataGraphSpecializationConstants"></a>
+<code>dataGraphSpecializationConstants</code> specifies whether data graph
+pipelines <strong>can</strong> be created from shader modules that use specialization
+constants.</p>
+</li>
+<li>
+<p><a id="features-dataGraphDescriptorBuffer"></a> <code>dataGraphDescriptorBuffer</code>
+specifies whether data graph pipelines <strong>can</strong> use descriptor buffers.</p>
+</li>
+<li>
+<p><a id="features-dataGraphShaderModule"></a> <code>dataGraphShaderModule</code> specifies
+whether data graph pipelines <strong>can</strong> be created from a shader module.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceDataGraphFeaturesARM</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceDataGraphFeaturesARM</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceDataGraphFeaturesARM-sType-sType" href="#VUID-VkPhysicalDeviceDataGraphFeaturesARM-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceDataGraphFeaturesARM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_DATA_GRAPH_FEATURES_ARM</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkPhysicalDeviceShaderFloat8FeaturesEXT</code> structure is defined as:</p>
+</div>
+<div id="VkPhysicalDeviceShaderFloat8FeaturesEXT" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_shader_float8
+typedef struct VkPhysicalDeviceShaderFloat8FeaturesEXT {
+    VkStructureType    sType;
+    void*              pNext;
+    VkBool32           shaderFloat8;
+    VkBool32           shaderFloat8CooperativeMatrix;
+} VkPhysicalDeviceShaderFloat8FeaturesEXT;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This structure describes the following features:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><a id="features-shaderFloat8"></a> <code>shaderFloat8</code> indicates whether the
+implementation supports shaders with the <code>Float8EXT</code> capability.</p>
+</li>
+<li>
+<p><a id="features-shaderFloat8CooperativeMatrix"></a>
+<code>shaderFloat8CooperativeMatrix</code> indicates whether the implementation
+supports shaders with the <code>Float8CooperativeMatrixEXT</code> capability.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If the <code>VkPhysicalDeviceShaderFloat8FeaturesEXT</code> structure is included in the <code>pNext</code> chain of the
+<a href="#VkPhysicalDeviceFeatures2">VkPhysicalDeviceFeatures2</a> structure passed to
+<a href="#vkGetPhysicalDeviceFeatures2">vkGetPhysicalDeviceFeatures2</a>, it is filled in to indicate whether each
+corresponding feature is supported.
+If the application wishes to use a <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a> with any features
+described by <code>VkPhysicalDeviceShaderFloat8FeaturesEXT</code>, it <strong>must</strong> add an instance of the structure,
+with the desired feature members set to <code>VK_TRUE</code>, to the <code>pNext</code>
+chain of <a href="devsandqueues.html#VkDeviceCreateInfo" class="xref page">VkDeviceCreateInfo</a> when creating the <a href="devsandqueues.html#VkDevice" class="xref page">VkDevice</a>.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkPhysicalDeviceShaderFloat8FeaturesEXT-sType-sType" href="#VUID-VkPhysicalDeviceShaderFloat8FeaturesEXT-sType-sType"></a> <span class="vuid">VUID-VkPhysicalDeviceShaderFloat8FeaturesEXT-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_SHADER_FLOAT8_FEATURES_EXT</code></p>
 </li>
 </ul>
 </div>
@@ -19740,6 +20459,10 @@ the following features <strong>must</strong> be supported:</p>
 <a href="#features-rayTracingMaintenance1"><code>rayTracingMaintenance1</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_shader_untyped_pointers" class="xref page">VK_KHR_shader_untyped_pointers</a></code> is supported,
+<a href="#features-shaderUntypedPointers"><code>shaderUntypedPointers</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_maintenance4" class="xref page">VK_KHR_maintenance4</a></code> is supported,
 <a href="#features-maintenance4"><code>maintenance4</code></a> <strong>must</strong> be supported</p>
 </li>
@@ -19756,12 +20479,24 @@ the following features <strong>must</strong> be supported:</p>
 <a href="#features-maintenance5"><code>maintenance5</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_present_id2" class="xref page">VK_KHR_present_id2</a></code> is supported,
+<a href="#features-presentId2"><code>presentId2</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_present_wait2" class="xref page">VK_KHR_present_wait2</a></code> is supported,
+<a href="#features-presentWait2"><code>presentWait2</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_ray_tracing_position_fetch" class="xref page">VK_KHR_ray_tracing_position_fetch</a></code> is supported,
 <a href="#features-rayTracingPositionFetch"><code>rayTracingPositionFetch</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_pipeline_binary" class="xref page">VK_KHR_pipeline_binary</a></code> is supported,
 <a href="#features-pipelineBinaries"><code>pipelineBinaries</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_swapchain_maintenance1" class="xref page">VK_KHR_swapchain_maintenance1</a></code> is supported,
+<a href="#features-swapchainMaintenance1"><code>swapchainMaintenance1</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_cooperative_matrix" class="xref page">VK_KHR_cooperative_matrix</a></code> is supported,
@@ -19776,12 +20511,20 @@ the following features <strong>must</strong> be supported:</p>
 <a href="#features-videoEncodeAV1"><code>videoEncodeAV1</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_video_decode_vp9" class="xref page">VK_KHR_video_decode_vp9</a></code> is supported,
+<a href="#features-videoDecodeVP9"><code>videoDecodeVP9</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_video_maintenance1" class="xref page">VK_KHR_video_maintenance1</a></code> is supported,
 <a href="#features-videoMaintenance1"><code>videoMaintenance1</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_vertex_attribute_divisor" class="xref page">VK_KHR_vertex_attribute_divisor</a></code> is supported,
 <a href="#features-vertexAttributeInstanceRateDivisor"><code>vertexAttributeInstanceRateDivisor</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_unified_image_layouts" class="xref page">VK_KHR_unified_image_layouts</a></code> is supported,
+<a href="#features-unifiedImageLayouts"><code>unifiedImageLayouts</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_shader_float_controls2" class="xref page">VK_KHR_shader_float_controls2</a></code> is supported,
@@ -19804,6 +20547,10 @@ at least one of <a href="#features-rectangularLines"><code>rectangularLines</cod
 <a href="#features-maintenance6"><code>maintenance6</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_video_encode_intra_refresh" class="xref page">VK_KHR_video_encode_intra_refresh</a></code> is supported,
+<a href="#features-videoEncodeIntraRefresh"><code>videoEncodeIntraRefresh</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_video_encode_quantization_map" class="xref page">VK_KHR_video_encode_quantization_map</a></code> is supported,
 <a href="#features-videoEncodeQuantizationMap"><code>videoEncodeQuantizationMap</code></a> <strong>must</strong> be supported</p>
 </li>
@@ -19820,6 +20567,10 @@ at least one of <a href="#features-rectangularLines"><code>rectangularLines</cod
 <a href="#features-maintenance8"><code>maintenance8</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_maintenance9" class="xref page">VK_KHR_maintenance9</a></code> is supported,
+<a href="#features-maintenance9"><code>maintenance9</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_video_maintenance2" class="xref page">VK_KHR_video_maintenance2</a></code> is supported,
 <a href="#features-videoMaintenance2"><code>videoMaintenance2</code></a> <strong>must</strong> be supported</p>
 </li>
@@ -19830,6 +20581,10 @@ at least one of <a href="#features-rectangularLines"><code>rectangularLines</cod
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_robustness2" class="xref page">VK_KHR_robustness2</a></code> is supported,
 at least one of <a href="#features-robustBufferAccess2"><code>robustBufferAccess2</code></a>, <a href="#features-robustImageAccess2"><code>robustImageAccess2</code></a>, or <a href="#features-nullDescriptor"><code>nullDescriptor</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_KHR_present_mode_fifo_latest_ready" class="xref page">VK_KHR_present_mode_fifo_latest_ready</a></code> is supported,
+<a href="#features-presentModeFifoLatestReady"><code>presentModeFifoLatestReady</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_EXT_transform_feedback" class="xref page">VK_EXT_transform_feedback</a></code> is supported,
@@ -20468,6 +21223,10 @@ if <code><a href="../appendices/extensions.html#VK_EXT_transform_feedback" class
 <a href="#features-subpassMergeFeedback"><code>subpassMergeFeedback</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_ARM_tensors" class="xref page">VK_ARM_tensors</a></code> is supported,
+<a href="#features-tensors"><code>tensors</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_EXT_shader_module_identifier" class="xref page">VK_EXT_shader_module_identifier</a></code> is supported,
 <a href="#features-shaderModuleIdentifier"><code>shaderModuleIdentifier</code></a> <strong>must</strong> be supported</p>
 </li>
@@ -20490,6 +21249,10 @@ if <code><a href="../appendices/extensions.html#VK_EXT_transform_feedback" class
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_AMD_anti_lag" class="xref page">VK_AMD_anti_lag</a></code> is supported,
 <a href="#features-antiLag"><code>antiLag</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_AMDX_dense_geometry_format" class="xref page">VK_AMDX_dense_geometry_format</a></code> is supported,
+<a href="#features-denseGeometryFormat"><code>denseGeometryFormat</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_EXT_shader_object" class="xref page">VK_EXT_shader_object</a></code> is supported,
@@ -20538,6 +21301,10 @@ if <code><a href="../appendices/extensions.html#VK_EXT_transform_feedback" class
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_EXT_dynamic_rendering_unused_attachments" class="xref page">VK_EXT_dynamic_rendering_unused_attachments</a></code> is supported,
 <a href="#features-dynamicRenderingUnusedAttachments"><code>dynamicRenderingUnusedAttachments</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_ARM_data_graph" class="xref page">VK_ARM_data_graph</a></code> is supported,
+<a href="#features-dataGraph"><code>dataGraph</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_QCOM_multiview_per_view_render_areas" class="xref page">VK_QCOM_multiview_per_view_render_areas</a></code> is supported,
@@ -20596,6 +21363,10 @@ if <code><a href="../appendices/extensions.html#VK_EXT_transform_feedback" class
 <a href="#features-shaderReplicatedComposites"><code>shaderReplicatedComposites</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_EXT_shader_float8" class="xref page">VK_EXT_shader_float8</a></code> is supported,
+<a href="#features-shaderFloat8"><code>shaderFloat8</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_NV_ray_tracing_validation" class="xref page">VK_NV_ray_tracing_validation</a></code> is supported,
 <a href="#features-rayTracingValidation"><code>rayTracingValidation</code></a> <strong>must</strong> be supported</p>
 </li>
@@ -20640,6 +21411,10 @@ at least one of <a href="#features-cooperativeMatrixWorkgroupScope"><code>cooper
 <a href="#features-formatPack"><code>formatPack</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
+<p>If <code><a href="../appendices/extensions.html#VK_VALVE_fragment_density_map_layered" class="xref page">VK_VALVE_fragment_density_map_layered</a></code> is supported,
+<a href="#features-fragmentDensityMapLayered"><code>fragmentDensityMapLayered</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
 <p>If <code><a href="../appendices/extensions.html#VK_NV_present_metering" class="xref page">VK_NV_present_metering</a></code> is supported,
 <a href="#features-presentMetering"><code>presentMetering</code></a> <strong>must</strong> be supported</p>
 </li>
@@ -20650,6 +21425,10 @@ at least one of <a href="#features-cooperativeMatrixWorkgroupScope"><code>cooper
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_EXT_zero_initialize_device_memory" class="xref page">VK_EXT_zero_initialize_device_memory</a></code> is supported,
 <a href="#features-zeroInitializeDeviceMemory"><code>zeroInitializeDeviceMemory</code></a> <strong>must</strong> be supported</p>
+</li>
+<li>
+<p>If <code><a href="../appendices/extensions.html#VK_SEC_pipeline_cache_incremental_mode" class="xref page">VK_SEC_pipeline_cache_incremental_mode</a></code> is supported,
+<a href="../appendices/extensions.html#features-pipelineCacheIncrementalMode" class="xref page"><code>pipelineCacheIncrementalMode</code></a> <strong>must</strong> be supported</p>
 </li>
 <li>
 <p>If <code><a href="../appendices/extensions.html#VK_KHR_acceleration_structure" class="xref page">VK_KHR_acceleration_structure</a></code> is supported,
@@ -21009,7 +21788,30 @@ profile <strong>must</strong> support the following features:</p>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

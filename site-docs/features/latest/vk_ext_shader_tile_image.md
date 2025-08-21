@@ -149,12 +149,12 @@ Table of Contents
 [8.3. Tile Image size query](#_tile_image_size_query)
 [8.4. Memoryless attachments](#_memoryless_attachments)
 
-`VK_EXT_shader_tile_image` is a device extension that explicitly enables access to on-chip pixel data. For GPUs supporting this extension, it is a replacement for many use-cases for subpasses, which are not available when the `VK_KHR_dynamic_rendering` extension is used.
+`VK_EXT_shader_tile_image` is a device extension that explicitly enables access to on-chip pixel data. For GPUs supporting this extension, it is a replacement for many use cases for subpasses, which are not available when the `VK_KHR_dynamic_rendering` extension is used.
 
 Some implementations, in particular tile-based GPUs, want to allow applications to effectively exploit local, e.g. on-chip, memory.
 A classic example would be optimizing G-buffer based deferred shading techniques where the G-buffer is produced and consumed on-chip.
 
-Subpasses were designed to support such use-cases with an API mechanism that was portable across all implementations. In practice, that has led to some problems, including:
+Subpasses were designed to support such use cases with an API mechanism that was portable across all implementations. In practice, that has led to some problems, including:
 
 * 
 the high level abstraction is far removed from the mental model an application developer needs to have to be able to optimize for keeping data on-chip
@@ -247,7 +247,7 @@ The reasoning behind this choice is that:
 It should be possible to support this extension on existing GPUs
 
 * 
-Many use-cases that benefit from subpasses could be implemented with this functionality
+Many use cases that benefit from subpasses could be implemented with this functionality
 
 * 
 Ease of integration; this option requires the least amount of changes to rendering engines
@@ -367,7 +367,7 @@ Add `OpColorAttachmentReadEXT`, which is similar to `OpImageRead` but helps disa
 Add `OpDepthAttachmentReadEXT` and `OpStencilAttachmentReadEXT` to read depth/stencil
 
 * 
-These take an optional `Sample` parameter for MSAA use-cases
+These take an optional `Sample` parameter for MSAA use cases
 
 Add a `TileImageEXT` Storage Class that is only supported for variables of `OpTypeImage` with `Dim` equal to `TileImageDataEXT`
 

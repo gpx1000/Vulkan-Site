@@ -140,6 +140,9 @@
     <span class="nav-text">Feature Descriptions</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_AMDX_dense_geometry_format.html">VK_AMDX_dense_geometry_format</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_AMDX_shader_enqueue.html">VK_AMDX_shader_enqueue</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -156,6 +159,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_ARM_render_pass_striped.html">VK_ARM_render_pass_striped</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_ARM_tensors.html">VK_ARM_tensors</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_EXT_attachment_feedback_loop_dynamic_state.html">VK_EXT_attachment_feedback_loop_dynamic_state</a>
@@ -260,6 +266,9 @@
     <a class="nav-link" href="VK_EXT_rasterization_order_attachment_access.html">VK_EXT_rasterization_order_attachment_access</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_EXT_shader_float8.html">VK_EXT_shader_float8</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_EXT_shader_module_identifier.html">VK_EXT_shader_module_identifier</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -326,10 +335,22 @@
     <a class="nav-link" href="VK_KHR_maintenance8.html">VK_KHR_maintenance8</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_maintenance9.html">Proposal Template</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_map_memory2.html">VK_KHR_map_memory2</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_pipeline_binary.html">VK_KHR_pipeline_binary</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_present_id2.html">VK_KHR_present_id2</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_present_mode_fifo_latest_ready.html">VK_KHR_present_mode_fifo_latest_ready</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_present_wait2.html">VK_KHR_present_wait2</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_ray_tracing_position_fetch.html">VK_KHR_ray_tracing_position_fetch</a>
@@ -359,6 +380,18 @@
     <a class="nav-link" href="VK_KHR_shader_subgroup_rotate.html">Subgroup rotation instruction</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_shader_untyped_pointers.html">VK_KHR_shader_untyped_pointers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_surface_maintenance1.html">VK_KHR_surface_maintenance1</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_swapchain_maintenance1.html">VK_KHR_swapchain_maintenance1</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_unified_image_layouts.html">VK_KHR_unified_image_layouts</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_vertex_attribute_divisor.html">VK_KHR_vertex_attribute_divisor</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -374,6 +407,9 @@
     <a class="nav-link" href="VK_KHR_video_decode_queue.html">VK_KHR_video_decode_queue</a>
   </li>
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_video_decode_vp9.html">VK_KHR_video_decode_vp9</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_av1.html">VK_KHR_video_encode_av1</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -381,6 +417,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_h265.html">VK_KHR_video_encode_h265</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="VK_KHR_video_encode_intra_refresh.html">VK_KHR_video_encode_intra_refresh</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="VK_KHR_video_encode_quantization_map.html">VK_KHR_video_encode_quantization_map</a>
@@ -568,9 +607,9 @@ descriptor types for image processing.</p>
 <h2 id="_problem_statement"><a class="anchor" href="#_problem_statement"></a>1. Problem Statement</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>GPUs commonly process images for a wide range of use-cases.  These include enhancement
+<p>GPUs commonly process images for a wide range of use cases.  These include enhancement
 of externally sourced images (i.e., camera image enhancement),  post processing of GPU-rendered
-game content, image scaling, and image analysis (i.e., motion vector generation).  For common use-cases,
+game content, image scaling, and image analysis (i.e., motion vector generation).  For common use cases,
 the existing texture built-ins combined with bilinear/bicubic filtering work well.  In other cases,
 higher-order filtering kernels or advanced image algorithms are required.</p>
 </div>
@@ -578,7 +617,7 @@ higher-order filtering kernels or advanced image algorithms are required.</p>
 <p>While such algorithms could be implemented in shader code generically using existing texture
 built-in functions, it requires many round-trips between the texture unit and shader unit.
 The latest Adreno GPUs have dedicated HW shader instructions for such image processing tasks,
-enabling advanced functionality with simplified shader code.   For some use-cases, significant
+enabling advanced functionality with simplified shader code.   For some use cases, significant
 performance and power savings are possible using dedicated texture sampling instructions.</p>
 </div>
 </div>
@@ -622,7 +661,7 @@ unit, saving shader instructions cycles, memory bandwidth, and shader register s
 <p><code>OpImageWeightedSampleQCOM</code>: This instruction performs a weighted texture sampling
 operation involving two images: the <em>sampled image</em> and the <em>weight image</em>.  An MxN region of texels in the
 <em>sampled image</em> are convolved with an MxN set of scalar weights provided in the <em>weight image</em>.  Large filter
-sizes up to 64x64 taps enable important use-cases like edge-detection, feature extraction,
+sizes up to 64x64 taps enable important use cases like edge-detection, feature extraction,
 and anti-aliasing.</p>
 <div class="ulist">
 <ul>
@@ -636,7 +675,7 @@ and anti-aliasing.</p>
 </div>
 </li>
 <li>
-<p><code>OpImageBoxFilterQCOM</code>: This instruction performs weighted average of the texels within a screen-aligned box.  The operation is similar to bi-linear filtering, except the region of texels is not limited to 2x2. The instruction includes a <code>BoxSize</code> parameter, with fractional box sizes up to [64.0, 64.0].  Similar to bi-linear filtering, the implementation computes a weighted average for all texels covered by the box, with the weight for each texel proportional covered area. Large box sizes up to 64x64 enable important use-cases like bulk mipmap generation and high quality single-pass image down-scaling with arbitrary scaling ratios (e.g. thumbnail generation).</p>
+<p><code>OpImageBoxFilterQCOM</code>: This instruction performs weighted average of the texels within a screen-aligned box.  The operation is similar to bi-linear filtering, except the region of texels is not limited to 2x2. The instruction includes a <code>BoxSize</code> parameter, with fractional box sizes up to [64.0, 64.0].  Similar to bi-linear filtering, the implementation computes a weighted average for all texels covered by the box, with the weight for each texel proportional covered area. Large box sizes up to 64x64 enable important use cases like bulk mipmap generation and high quality single-pass image down-scaling with arbitrary scaling ratios (e.g. thumbnail generation).</p>
 </li>
 <li>
 <p><code>opImageBlockMatchSAD</code> and <code>opImageBlockMatchSSD</code>: These instructions perform a block matching operation involving two images: the <em>target image</em> and <em>reference image</em>.   The instruction takes two sets of integer texture coordinates, and an integer <code>BlockSize</code> parameter.  An MxN region of texels in the <em>target image</em> is compared with an MxN region in the <em>reference image</em>.  The instruction returns a per-component error metric describing the difference between the two regions.  The SAD returns the sum of the absolute errors and SSD returns the sum of the squared differences.</p>
@@ -1558,7 +1597,30 @@ instructions is not bound, undefined results will occur.</p>
 <script src="../../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
-<script async src="../../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -951,7 +963,9 @@ static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_CLUSTER_CULLING_SHADER
 // Provided by VK_NV_optical_flow
 static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_OPTICAL_FLOW_BIT_NV = 0x20000000ULL;
 // Provided by VK_NV_cooperative_vector
-static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV = 0x100000000000ULL;</code></pre>
+static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV = 0x100000000000ULL;
+// Provided by VK_ARM_data_graph
+static const VkPipelineStageFlagBits2 VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM = 0x40000000000ULL;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -1891,6 +1905,10 @@ and <a href="devsandqueues.html#devsandqueues-queues" class="xref page">Queues</
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_PIPELINE_STAGE_2_CONVERT_COOPERATIVE_VECTOR_MATRIX_BIT_NV</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_QUEUE_GRAPHICS_BIT</code> or <code>VK_QUEUE_COMPUTE_BIT</code> or <code>VK_QUEUE_TRANSFER_BIT</code></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_QUEUE_DATA_GRAPH_BIT_ARM</code></p></td>
+</tr>
 </tbody>
 </table>
 <div id="synchronization-pipeline-stages-order" class="paragraph">
@@ -2179,6 +2197,16 @@ order is guaranteed:</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>For the data graph pipeline, the following stages occur in this order:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM</code></p>
+</li>
+</ul>
+</div>
 </div>
 <div class="sect2">
 <h3 id="synchronization-access-types"><a class="anchor" href="#synchronization-access-types"></a>Access Types</h3>
@@ -2330,7 +2358,11 @@ static const VkAccessFlagBits2 VK_ACCESS_2_MICROMAP_WRITE_BIT_EXT = 0x2000000000
 // Provided by VK_NV_optical_flow
 static const VkAccessFlagBits2 VK_ACCESS_2_OPTICAL_FLOW_READ_BIT_NV = 0x40000000000ULL;
 // Provided by VK_NV_optical_flow
-static const VkAccessFlagBits2 VK_ACCESS_2_OPTICAL_FLOW_WRITE_BIT_NV = 0x80000000000ULL;</code></pre>
+static const VkAccessFlagBits2 VK_ACCESS_2_OPTICAL_FLOW_WRITE_BIT_NV = 0x80000000000ULL;
+// Provided by VK_ARM_data_graph
+static const VkAccessFlagBits2 VK_ACCESS_2_DATA_GRAPH_READ_BIT_ARM = 0x800000000000ULL;
+// Provided by VK_ARM_data_graph
+static const VkAccessFlagBits2 VK_ACCESS_2_DATA_GRAPH_WRITE_BIT_ARM = 0x1000000000000ULL;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -2682,6 +2714,16 @@ access to a <a href="renderpass.html#renderpass-tile-shading-attachment-access" 
 Such access occurs in the <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code>
 or <code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code> pipeline stages.</p>
 </li>
+<li>
+<p><code>VK_ACCESS_2_DATA_GRAPH_READ_BIT_ARM</code> specifies read access to
+resources in the <code>VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM</code> pipeline
+stage.</p>
+</li>
+<li>
+<p><code>VK_ACCESS_2_DATA_GRAPH_WRITE_BIT_ARM</code> specifies write access to
+resources in the <code>VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM</code> pipeline
+stage.</p>
+</li>
 </ul>
 </div>
 <div class="admonitionblock note">
@@ -3006,6 +3048,7 @@ Such access occurs in the
 <a href="descriptorsets.html#descriptorsets-storagebuffer" class="xref page">storage buffer</a>,
 <a href="descriptorsets.html#descriptorsets-physical-storage-buffer" class="xref page">physical storage buffer</a>,
 <a href="raytracing.html#shader-binding-table" class="xref page">shader binding table</a>,
+<a href="descriptorsets.html#descriptorsets-storagetensor" class="xref page">storage tensor</a>,
 <a href="descriptorsets.html#descriptorsets-storagetexelbuffer" class="xref page">storage texel buffer</a>, or
 <a href="descriptorsets.html#descriptorsets-storageimage" class="xref page">storage image</a> in any shader pipeline
 stage.</p>
@@ -3014,6 +3057,7 @@ stage.</p>
 <p><code>VK_ACCESS_SHADER_WRITE_BIT</code> specifies write access to a
 <a href="descriptorsets.html#descriptorsets-storagebuffer" class="xref page">storage buffer</a>,
 <a href="descriptorsets.html#descriptorsets-physical-storage-buffer" class="xref page">physical storage buffer</a>,
+<a href="descriptorsets.html#descriptorsets-storagetensor" class="xref page">storage tensor</a>,
 <a href="descriptorsets.html#descriptorsets-storagetexelbuffer" class="xref page">storage texel buffer</a>, or
 <a href="descriptorsets.html#descriptorsets-storageimage" class="xref page">storage image</a> in any shader pipeline
 stage.</p>
@@ -3056,14 +3100,16 @@ Such access occurs in the
 <code>VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT</code> pipeline stages.</p>
 </li>
 <li>
-<p><code>VK_ACCESS_TRANSFER_READ_BIT</code> specifies read access to an image or
-buffer in a <a href="copies.html#copies" class="xref page">copy</a> operation.
+<p><code>VK_ACCESS_TRANSFER_READ_BIT</code> specifies read access to an
+image, tensor,
+or buffer in a <a href="copies.html#copies" class="xref page">copy</a> operation.
 Such access occurs in the <code>VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT</code>
 pipeline stage.</p>
 </li>
 <li>
-<p><code>VK_ACCESS_TRANSFER_WRITE_BIT</code> specifies write access to an image or
-buffer in a <a href="clears.html#clears" class="xref page">clear</a> or <a href="copies.html#copies" class="xref page">copy</a> operation.
+<p><code>VK_ACCESS_TRANSFER_WRITE_BIT</code> specifies write access to an
+image, tensor,
+or buffer in a <a href="clears.html#clears" class="xref page">clear</a> or <a href="copies.html#copies" class="xref page">copy</a> operation.
 Such access occurs in the <code>VK_PIPELINE_STAGE_2_ALL_TRANSFER_BIT</code>
 pipeline stage.</p>
 </li>
@@ -3496,6 +3542,14 @@ perform that type of access.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code>,
 	<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_ACCESS_2_DATA_GRAPH_READ_BIT_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_ACCESS_2_DATA_GRAPH_WRITE_BIT_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_PIPELINE_STAGE_2_DATA_GRAPH_BIT_ARM</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -4077,6 +4131,10 @@ object is returned.</p>
 <p><a id="VUID-vkCreateFence-pFence-parameter" href="#VUID-vkCreateFence-pFence-parameter"></a> <span class="vuid">VUID-vkCreateFence-pFence-parameter</span><br>
  <code>pFence</code> <strong>must</strong> be a valid pointer to a <a href="#VkFence">VkFence</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateFence-device-queuecount" href="#VUID-vkCreateFence-device-queuecount"></a> <span class="vuid">VUID-vkCreateFence-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -4101,10 +4159,16 @@ object is returned.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -4478,10 +4542,16 @@ the transference of the specified handle type, as described in
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -4716,10 +4786,16 @@ the transference of the specified handle type, as described in
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5027,10 +5103,10 @@ it will eventually return either <code>VK_SUCCESS</code> or
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_NOT_READY</code></p>
 </li>
 <li>
-<p><code>VK_NOT_READY</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -5040,13 +5116,19 @@ it will eventually return either <code>VK_SUCCESS</code> or
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_DEVICE_LOST</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_DEVICE_LOST</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5174,6 +5256,12 @@ queue command that has not yet completed execution on that queue</p>
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5353,13 +5441,19 @@ permanently (or seemingly permanently) dead process.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_DEVICE_LOST</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_DEVICE_LOST</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5491,6 +5585,12 @@ object is returned.</p>
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5674,6 +5774,12 @@ object is returned.</p>
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6058,10 +6164,16 @@ yet completed execution on that queue</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6327,10 +6439,16 @@ yet completed execution on that queue</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6686,6 +6804,10 @@ semaphore object is returned.</p>
 <p><a id="VUID-vkCreateSemaphore-pSemaphore-parameter" href="#VUID-vkCreateSemaphore-pSemaphore-parameter"></a> <span class="vuid">VUID-vkCreateSemaphore-pSemaphore-parameter</span><br>
  <code>pSemaphore</code> <strong>must</strong> be a valid pointer to a <a href="#VkSemaphore">VkSemaphore</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateSemaphore-device-queuecount" href="#VUID-vkCreateSemaphore-device-queuecount"></a> <span class="vuid">VUID-vkCreateSemaphore-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -6710,10 +6832,16 @@ semaphore object is returned.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -7242,10 +7370,16 @@ on the transference of the specified handle type, as described in
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -7533,10 +7667,16 @@ depending on the transference of the specified handle type, as described in
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -7777,10 +7917,16 @@ depending on the transference of the specified handle type, as described in
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_TOO_MANY_OBJECTS</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -8394,13 +8540,19 @@ of date.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_DEVICE_LOST</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_DEVICE_LOST</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -8521,13 +8673,19 @@ with either <code>VK_SUCCESS</code> or <code>VK_ERROR_DEVICE_LOST</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_DEVICE_LOST</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_DEVICE_LOST</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -8794,10 +8952,16 @@ happened-before it.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -9198,10 +9362,16 @@ times into a given Vulkan instance.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -9503,10 +9673,16 @@ not yet completed execution on that queue</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -9803,10 +9979,16 @@ not yet completed execution on that queue</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_INVALID_EXTERNAL_HANDLE</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -10158,6 +10340,10 @@ used</p>
 <p><a id="VUID-vkCreateEvent-pEvent-parameter" href="#VUID-vkCreateEvent-pEvent-parameter"></a> <span class="vuid">VUID-vkCreateEvent-pEvent-parameter</span><br>
  <code>pEvent</code> <strong>must</strong> be a valid pointer to a <a href="#VkEvent">VkEvent</a> handle</p>
 </li>
+<li>
+<p><a id="VUID-vkCreateEvent-device-queuecount" href="#VUID-vkCreateEvent-device-queuecount"></a> <span class="vuid">VUID-vkCreateEvent-device-queuecount</span><br>
+ The device <strong>must</strong> have been created with at least <code>1</code> queue</p>
+</li>
 </ul>
 </div>
 </div>
@@ -10182,10 +10368,16 @@ used</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -10509,10 +10701,10 @@ state has no effect.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_EVENT_SET</code></p>
+<p><code>VK_EVENT_RESET</code></p>
 </li>
 <li>
-<p><code>VK_EVENT_RESET</code></p>
+<p><code>VK_EVENT_SET</code></p>
 </li>
 </ul>
 </div>
@@ -10522,13 +10714,19 @@ state has no effect.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_DEVICE_LOST</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_DEVICE_LOST</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -10661,10 +10859,16 @@ as described in the <a href="cmdbuffers.html#commandbuffers-submission-progress"
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -10791,6 +10995,12 @@ its <code>pEvents</code> parameter</p>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
+</li>
 </ul>
 </div>
 </dd>
@@ -10874,9 +11084,14 @@ defined by <code>pDependencyInfo</code>.</p>
 includes only <a href="#synchronization-queue-transfers">queue family ownership transfers</a> and <a href="#synchronization-image-layout-transitions">image layout transitions</a>.</p>
 </div>
 <div class="paragraph">
-<p>Future <a href="#vkCmdWaitEvents2">vkCmdWaitEvents2</a> commands rely on all values of each element in
+<p>If <code>VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR</code> is not set in
+<code>pDependencyInfo-&gt;dependencyFlags</code>, future
+<a href="#vkCmdWaitEvents2">vkCmdWaitEvents2</a> commands rely on all values of each element in
 <code>pDependencyInfo</code> matching exactly with those used to signal the
 corresponding event.
+If <code>VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR</code> is set, <code>vkCmdSetEvent2</code>
+<strong>must</strong> only include the <a href="#synchronization-pipeline-stages-masks">source stage mask</a> of the first synchronization scope in
+<code>pDependencyInfo-&gt;pMemoryBarriers</code>[0].<code>srcStageMask</code>.
 <a href="#vkCmdWaitEvents">vkCmdWaitEvents</a> <strong>must</strong> not be used to wait on the result of a signal
 operation defined by <code>vkCmdSetEvent2</code>.</p>
 </div>
@@ -10918,7 +11133,8 @@ be enabled</p>
 <li>
 <p><a id="VUID-vkCmdSetEvent2-dependencyFlags-03825" href="#VUID-vkCmdSetEvent2-dependencyFlags-03825"></a> <span class="vuid">VUID-vkCmdSetEvent2-dependencyFlags-03825</span><br>
 
-The <code>dependencyFlags</code> member of <code>pDependencyInfo</code> <strong>must</strong> be <code>0</code></p>
+    The <code>dependencyFlags</code> member of <code>pDependencyInfo</code> <strong>must</strong> be <code>0</code>
+or <code>VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR</code></p>
 </li>
 <li>
 <p><a id="VUID-vkCmdSetEvent2-srcStageMask-09391" href="#VUID-vkCmdSetEvent2-srcStageMask-09391"></a> <span class="vuid">VUID-vkCmdSetEvent2-srcStageMask-09391</span><br>
@@ -10959,6 +11175,29 @@ The <code>dstStageMask</code> member of any element of the
 <code>pImageMemoryBarriers</code> members of <code>pDependencyInfo</code> <strong>must</strong> only
 include pipeline stages valid for the queue family that was used to
 create the command pool that <code>commandBuffer</code> was allocated from</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSetEvent2-dependencyFlags-10785" href="#VUID-vkCmdSetEvent2-dependencyFlags-10785"></a> <span class="vuid">VUID-vkCmdSetEvent2-dependencyFlags-10785</span><br>
+
+If the <code>dependencyFlags</code> member of <code>pDependencyInfo</code> includes
+<code>VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR</code>, the
+<code>bufferMemoryBarrierCount</code> and <code>imageMemoryBarrierCount</code> members
+of <code>pDependencyInfo</code> <strong>must</strong> be <code>0</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSetEvent2-dependencyFlags-10786" href="#VUID-vkCmdSetEvent2-dependencyFlags-10786"></a> <span class="vuid">VUID-vkCmdSetEvent2-dependencyFlags-10786</span><br>
+
+If the <code>dependencyFlags</code> member of <code>pDependencyInfo</code> includes
+<code>VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR</code>, the
+<code>memoryBarrierCount</code> member of <code>pDependencyInfo</code> <strong>must</strong> be <code>1</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdSetEvent2-dependencyFlags-10787" href="#VUID-vkCmdSetEvent2-dependencyFlags-10787"></a> <span class="vuid">VUID-vkCmdSetEvent2-dependencyFlags-10787</span><br>
+
+If the <code>dependencyFlags</code> member of <code>pDependencyInfo</code> includes
+<code>VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR</code>, the <code>srcAccessMask</code>,
+<code>dstStageMask</code>, and <code>dstAccessMask</code> members of
+<code>pDependencyInfo-&gt;pMemoryBarriers</code>[0] <strong>must</strong> be <code>0</code></p>
 </li>
 </ul>
 </div>
@@ -11050,6 +11289,14 @@ Encode</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdSetEvent2 is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -11153,6 +11400,13 @@ either
     <code>NULL</code>
     or a pointer to a valid instance of <a href="#VkMemoryBarrierAccessFlags3KHR">VkMemoryBarrierAccessFlags3KHR</a></p>
 </li>
+<li>
+<p><a id="VUID-VkDependencyInfo-pNext-09754" href="#VUID-VkDependencyInfo-pNext-09754"></a> <span class="vuid">VUID-VkDependencyInfo-pNext-09754</span><br>
+
+If a <a href="#VkTensorDependencyInfoARM">VkTensorDependencyInfoARM</a> structure is included in the
+<code>pNext</code> chain, a <a href="#VkTensorMemoryBarrierARM">VkTensorMemoryBarrierARM</a> structure <strong>must</strong> not
+be included in the <code>pNext</code> chain</p>
+</li>
 </ul>
 </div>
 </div>
@@ -11168,7 +11422,11 @@ either
 </li>
 <li>
 <p><a id="VUID-VkDependencyInfo-pNext-pNext" href="#VUID-VkDependencyInfo-pNext-pNext"></a> <span class="vuid">VUID-VkDependencyInfo-pNext-pNext</span><br>
- <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
+ Each <code>pNext</code> member of any structure (including this one) in the <code>pNext</code> chain <strong>must</strong> be either <code>NULL</code> or a pointer to a valid instance of <a href="#VkTensorDependencyInfoARM">VkTensorDependencyInfoARM</a> or <a href="#VkTensorMemoryBarrierARM">VkTensorMemoryBarrierARM</a></p>
+</li>
+<li>
+<p><a id="VUID-VkDependencyInfo-sType-unique" href="#VUID-VkDependencyInfo-sType-unique"></a> <span class="vuid">VUID-VkDependencyInfo-sType-unique</span><br>
+ The <code>sType</code> value of each structure in the <code>pNext</code> chain <strong>must</strong> be unique</p>
 </li>
 <li>
 <p><a id="VUID-VkDependencyInfo-dependencyFlags-parameter" href="#VUID-VkDependencyInfo-dependencyFlags-parameter"></a> <span class="vuid">VUID-VkDependencyInfo-dependencyFlags-parameter</span><br>
@@ -11420,6 +11678,14 @@ Encode</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdSetEvent is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -11717,6 +11983,14 @@ Encode</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdResetEvent2 is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -11962,6 +12236,14 @@ Encode</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdResetEvent is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -12110,12 +12392,36 @@ Members of <code>pEvents</code> <strong>must</strong> not have been signaled by
 <a href="#vkCmdSetEvent">vkCmdSetEvent</a></p>
 </li>
 <li>
-<p><a id="VUID-vkCmdWaitEvents2-pEvents-03838" href="#VUID-vkCmdWaitEvents2-pEvents-03838"></a> <span class="vuid">VUID-vkCmdWaitEvents2-pEvents-03838</span><br>
+<p><a id="VUID-vkCmdWaitEvents2-pEvents-10788" href="#VUID-vkCmdWaitEvents2-pEvents-10788"></a> <span class="vuid">VUID-vkCmdWaitEvents2-pEvents-10788</span><br>
 
-For any element <span class="eq">i</span> of <code>pEvents</code>, if that event is signaled by
-<a href="#vkCmdSetEvent2">vkCmdSetEvent2</a>, that command&#8217;s <code>dependencyInfo</code> parameter
-<strong>must</strong> be exactly equal to the <span class="eq">i</span>th element of
-<code>pDependencyInfos</code></p>
+For any element <span class="eq">i</span> of <code>pEvents</code>,
+if the <code>dependencyFlags</code> member of the <span class="eq">i</span>th element of
+<code>pDependencyInfos</code> does not include
+<code>VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR</code>, and
+if that event is signaled by <a href="#vkCmdSetEvent2">vkCmdSetEvent2</a>, that command&#8217;s
+<code>dependencyInfo</code> parameter <strong>must</strong> be exactly equal to the <span class="eq">i</span>th
+element of <code>pDependencyInfos</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdWaitEvents2-pEvents-10789" href="#VUID-vkCmdWaitEvents2-pEvents-10789"></a> <span class="vuid">VUID-vkCmdWaitEvents2-pEvents-10789</span><br>
+
+For any element <span class="eq">i</span> of <code>pEvents</code>, if the <code>dependencyFlags</code>
+member of the <span class="eq">i</span>th element of <code>pDependencyInfos</code> includes
+<code>VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR</code>, that event <strong>must</strong> be
+signaled by <a href="#vkCmdSetEvent2">vkCmdSetEvent2</a> with
+<code>VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdWaitEvents2-pEvents-10790" href="#VUID-vkCmdWaitEvents2-pEvents-10790"></a> <span class="vuid">VUID-vkCmdWaitEvents2-pEvents-10790</span><br>
+
+For any element <span class="eq">i</span> of <code>pEvents</code>, if the <code>dependencyFlags</code>
+member of the <span class="eq">i</span>th element of <code>pDependencyInfos</code> includes
+<code>VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR</code>, the union of
+<code>srcStageMask</code> members of all elements of <code>pMemoryBarriers</code>,
+<code>pBufferMemoryBarriers</code>, and <code>pImageMemoryBarriers</code> of the
+<span class="eq">i</span>th element of <code>pDependencyInfos</code> <strong>must</strong> equal
+<code>pDependencyInfos-&gt;pMemoryBarriers</code>[0].<code>srcStageMask</code> in the
+<a href="#vkCmdSetEvent2">vkCmdSetEvent2</a> command</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdWaitEvents2-pEvents-03839" href="#VUID-vkCmdWaitEvents2-pEvents-03839"></a> <span class="vuid">VUID-vkCmdWaitEvents2-pEvents-03839</span><br>
@@ -12302,6 +12608,14 @@ Encode</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdWaitEvents2 is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -12885,6 +13199,14 @@ Encode</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdWaitEvents is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 </div>
@@ -13243,6 +13565,14 @@ Encode</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdPipelineBarrier2 is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -13968,6 +14298,14 @@ Encode</p></td>
 </table>
 </div>
 </div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdPipelineBarrier is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="openblock">
@@ -13989,6 +14327,8 @@ typedef enum VkDependencyFlagBits {
     VK_DEPENDENCY_FEEDBACK_LOOP_BIT_EXT = 0x00000008,
   // Provided by VK_KHR_maintenance8
     VK_DEPENDENCY_QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_BIT_KHR = 0x00000020,
+  // Provided by VK_KHR_maintenance9
+    VK_DEPENDENCY_ASYMMETRIC_EVENT_BIT_KHR = 0x00000040,
   // Provided by VK_KHR_multiview
     VK_DEPENDENCY_VIEW_LOCAL_BIT_KHR = VK_DEPENDENCY_VIEW_LOCAL_BIT,
   // Provided by VK_KHR_device_group
@@ -14012,8 +14352,8 @@ typedef enum VkDependencyFlagBits {
 </li>
 <li>
 <p><code>VK_DEPENDENCY_FEEDBACK_LOOP_BIT_EXT</code> specifies that the render pass
-will write to and read from the same image using the
-<code>VK_IMAGE_LAYOUT_ATTACHMENT_FEEDBACK_LOOP_OPTIMAL_EXT</code> layout.</p>
+will write to and read from the same image with
+<a href="renderpass.html#renderpass-feedbackloop" class="xref page">feedback loop enabled</a>.</p>
 </li>
 <li>
 <p><code>VK_DEPENDENCY_QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_BIT_KHR</code>
@@ -14621,7 +14961,7 @@ If <code>srcAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM</code>,
 <code>srcStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkMemoryBarrier2-srcAccessMask-10671" href="#VUID-VkMemoryBarrier2-srcAccessMask-10671"></a> <span class="vuid">VUID-VkMemoryBarrier2-srcAccessMask-10671</span><br>
@@ -14630,7 +14970,7 @@ If <code>srcAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM</code>,
 <code>srcStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 </ul>
 </div>
@@ -15123,7 +15463,7 @@ If <code>dstAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM</code>,
 <code>dstStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkMemoryBarrier2-dstAccessMask-10671" href="#VUID-VkMemoryBarrier2-dstAccessMask-10671"></a> <span class="vuid">VUID-VkMemoryBarrier2-dstAccessMask-10671</span><br>
@@ -15132,7 +15472,7 @@ If <code>dstAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM</code>,
 <code>dstStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 </ul>
 </div>
@@ -15877,7 +16217,7 @@ If <code>srcAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM</code>,
 <code>srcStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkBufferMemoryBarrier2-srcAccessMask-10671" href="#VUID-VkBufferMemoryBarrier2-srcAccessMask-10671"></a> <span class="vuid">VUID-VkBufferMemoryBarrier2-srcAccessMask-10671</span><br>
@@ -15886,7 +16226,7 @@ If <code>srcAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM</code>,
 <code>srcStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 </ul>
 </div>
@@ -16379,7 +16719,7 @@ If <code>dstAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM</code>,
 <code>dstStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkBufferMemoryBarrier2-dstAccessMask-10671" href="#VUID-VkBufferMemoryBarrier2-dstAccessMask-10671"></a> <span class="vuid">VUID-VkBufferMemoryBarrier2-dstAccessMask-10671</span><br>
@@ -16388,7 +16728,7 @@ If <code>dstAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM</code>,
 <code>dstStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 </ul>
 </div>
@@ -16980,6 +17320,46 @@ is currently in.</p>
 </table>
 </div>
 <div class="paragraph">
+<p>If <code>image</code> is a 3D image created with
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> and the
+<a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled, the
+<code>baseArrayLayer</code> and <code>layerCount</code> members of <code>subresourceRange</code>
+specify the subset of slices of the 3D image affected by the memory barrier,
+including the layout transition.
+Any slices of a 3D image not included in <code>subresourceRange</code> are not
+affected by the memory barrier and remain in their existing layout.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Enabling the <a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature modifies
+the behavior of image barriers targeting 3D images created with
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code>.
+Previously, a <code>layerCount</code> equal to 1 would cover the entire 3D image,
+but this has a different meaning when the <code>maintenance9</code> feature is
+enabled.
+Linking this behavioral change solely to the <code>maintenance9</code> feature
+caused an unintended break in forward-compatibility.
+Validation layers are expected to flag a warning for the scenario where the
+<code>maintenance9</code> feature is not enabled, and the application uses
+<code>layerCount</code> equal to 1 on this kind of 3D image.
+<code>layerCount</code> can be set to <code>VK_REMAINING_ARRAY_LAYERS</code> instead,
+which has the same semantics with or without the extension.
+This validation check should make it feasible for software to avoid any
+breaking changes should the <code>maintenance9</code> feature be enabled in the
+future, either explicitly by application or by a layer outside the control
+of the application.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
 <p>If <code>image</code> has a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a> and the
 image is <em>disjoint</em>, then including <code>VK_IMAGE_ASPECT_COLOR_BIT</code> in the
 <code>aspectMask</code> member of <code>subresourceRange</code> is equivalent to including
@@ -17478,7 +17858,7 @@ If <code>srcAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM</code>,
 <code>srcStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkImageMemoryBarrier2-srcAccessMask-10671" href="#VUID-VkImageMemoryBarrier2-srcAccessMask-10671"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-srcAccessMask-10671</span><br>
@@ -17487,7 +17867,7 @@ If <code>srcAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM</code>,
 <code>srcStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 </ul>
 </div>
@@ -17980,7 +18360,7 @@ If <code>dstAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_READ_BIT_QCOM</code>,
 <code>dstStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkImageMemoryBarrier2-dstAccessMask-10671" href="#VUID-VkImageMemoryBarrier2-dstAccessMask-10671"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-dstAccessMask-10671</span><br>
@@ -17989,7 +18369,7 @@ If <code>dstAccessMask</code> includes
 <code>VK_ACCESS_2_SHADER_TILE_ATTACHMENT_WRITE_BIT_QCOM</code>,
 <code>dstStageMask</code> <strong>must</strong> include
 <code>VK_PIPELINE_STAGE_2_FRAGMENT_SHADER_BIT</code> or
-<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code>.</p>
+<code>VK_PIPELINE_STAGE_2_COMPUTE_SHADER_BIT</code></p>
 </li>
 </ul>
 </div>
@@ -18436,19 +18816,62 @@ the <code>mipLevels</code> specified in <a href="resources.html#VkImageCreateInf
 <li>
 <p><a id="VUID-VkImageMemoryBarrier2-subresourceRange-01488" href="#VUID-VkImageMemoryBarrier2-subresourceRange-01488"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-subresourceRange-01488</span><br>
 
+If <code>image</code> is not a 3D image or was created without
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set, or the
+<a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is not enabled,
 <code>subresourceRange.baseArrayLayer</code> <strong>must</strong> be less than the
 <code>arrayLayers</code> specified in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code>
 was created</p>
 </li>
 <li>
+<p><a id="VUID-VkImageMemoryBarrier2-maintenance9-10798" href="#VUID-VkImageMemoryBarrier2-maintenance9-10798"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-maintenance9-10798</span><br>
+
+If the <a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled
+and <code>image</code> is a 3D image created with
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set,
+<code>subresourceRange.baseArrayLayer</code> <strong>must</strong> be less than the depth
+computed from <code>baseMipLevel</code> and <code>extent.depth</code> specified in
+<a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code> was created, according to the
+formula defined in <a href="resources.html#resources-image-mip-level-sizing" class="xref page">Image Mip Level    Sizing</a></p>
+</li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier2-maintenance9-10799" href="#VUID-VkImageMemoryBarrier2-maintenance9-10799"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-maintenance9-10799</span><br>
+
+If the <a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled
+and <code>image</code> is a 3D image created with
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set and either
+<code>subresourceRange.baseArrayLayer</code> is not equal to 0 or
+<code>subresourceRange.layerCount</code> is not equal to
+<code>VK_REMAINING_ARRAY_LAYERS</code>, <code>subresourceRange.levelCount</code> <strong>must</strong>
+be 1</p>
+</li>
+<li>
 <p><a id="VUID-VkImageMemoryBarrier2-subresourceRange-01725" href="#VUID-VkImageMemoryBarrier2-subresourceRange-01725"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-subresourceRange-01725</span><br>
 
-If <code>subresourceRange.layerCount</code> is not
+If
+<code>image</code> is not a 3D image or was created without
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set, or the
+<a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is not enabled,
+and
+<code>subresourceRange.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
 <span class="eq"><code>subresourceRange.baseArrayLayer</code> + 
 <code>subresourceRange.layerCount</code></span> <strong>must</strong> be less than or equal to the
 <code>arrayLayers</code> specified in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code>
 was created</p>
+</li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier2-maintenance9-10800" href="#VUID-VkImageMemoryBarrier2-maintenance9-10800"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-maintenance9-10800</span><br>
+
+If the <a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled,
+<code>subresourceRange.layerCount</code> is not
+<code>VK_REMAINING_ARRAY_LAYERS</code>, and <code>image</code> is a 3D image created
+with <code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set,
+<span class="eq"><code>subresourceRange.baseArrayLayer</code> + 
+<code>subresourceRange.layerCount</code></span> <strong>must</strong> be less than or equal to the
+depth computed from <code>baseMipLevel</code> and <code>extent.depth</code> specified
+in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code> was created, according to
+the formula defined in <a href="resources.html#resources-image-mip-level-sizing" class="xref page">Image Mip    Level Sizing</a></p>
 </li>
 <li>
 <p><a id="VUID-VkImageMemoryBarrier2-image-01932" href="#VUID-VkImageMemoryBarrier2-image-01932"></a> <span class="vuid">VUID-VkImageMemoryBarrier2-image-01932</span><br>
@@ -18733,6 +19156,16 @@ layout the image is currently in.</p>
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>If <code>image</code> is a 3D image created with
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> and the
+<a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled, the
+<code>baseArrayLayer</code> and <code>layerCount</code> members of <code>subresourceRange</code>
+specify the subset of slices of the 3D image affected by the memory barrier,
+including the layout transition.
+Any slices of a 3D image not included in <code>subresourceRange</code> are not
+affected by the memory barrier and remain in their existing layout.</p>
 </div>
 <div class="paragraph">
 <p>If <code>image</code> has a <a href="formats.html#formats-multiplanar" class="xref page">multi-planar format</a> and the
@@ -19187,19 +19620,62 @@ the <code>mipLevels</code> specified in <a href="resources.html#VkImageCreateInf
 <li>
 <p><a id="VUID-VkImageMemoryBarrier-subresourceRange-01488" href="#VUID-VkImageMemoryBarrier-subresourceRange-01488"></a> <span class="vuid">VUID-VkImageMemoryBarrier-subresourceRange-01488</span><br>
 
+If <code>image</code> is not a 3D image or was created without
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set, or the
+<a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is not enabled,
 <code>subresourceRange.baseArrayLayer</code> <strong>must</strong> be less than the
 <code>arrayLayers</code> specified in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code>
 was created</p>
 </li>
 <li>
+<p><a id="VUID-VkImageMemoryBarrier-maintenance9-10798" href="#VUID-VkImageMemoryBarrier-maintenance9-10798"></a> <span class="vuid">VUID-VkImageMemoryBarrier-maintenance9-10798</span><br>
+
+If the <a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled
+and <code>image</code> is a 3D image created with
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set,
+<code>subresourceRange.baseArrayLayer</code> <strong>must</strong> be less than the depth
+computed from <code>baseMipLevel</code> and <code>extent.depth</code> specified in
+<a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code> was created, according to the
+formula defined in <a href="resources.html#resources-image-mip-level-sizing" class="xref page">Image Mip Level    Sizing</a></p>
+</li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier-maintenance9-10799" href="#VUID-VkImageMemoryBarrier-maintenance9-10799"></a> <span class="vuid">VUID-VkImageMemoryBarrier-maintenance9-10799</span><br>
+
+If the <a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled
+and <code>image</code> is a 3D image created with
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set and either
+<code>subresourceRange.baseArrayLayer</code> is not equal to 0 or
+<code>subresourceRange.layerCount</code> is not equal to
+<code>VK_REMAINING_ARRAY_LAYERS</code>, <code>subresourceRange.levelCount</code> <strong>must</strong>
+be 1</p>
+</li>
+<li>
 <p><a id="VUID-VkImageMemoryBarrier-subresourceRange-01725" href="#VUID-VkImageMemoryBarrier-subresourceRange-01725"></a> <span class="vuid">VUID-VkImageMemoryBarrier-subresourceRange-01725</span><br>
 
-If <code>subresourceRange.layerCount</code> is not
+If
+<code>image</code> is not a 3D image or was created without
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set, or the
+<a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is not enabled,
+and
+<code>subresourceRange.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
 <span class="eq"><code>subresourceRange.baseArrayLayer</code> + 
 <code>subresourceRange.layerCount</code></span> <strong>must</strong> be less than or equal to the
 <code>arrayLayers</code> specified in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code>
 was created</p>
+</li>
+<li>
+<p><a id="VUID-VkImageMemoryBarrier-maintenance9-10800" href="#VUID-VkImageMemoryBarrier-maintenance9-10800"></a> <span class="vuid">VUID-VkImageMemoryBarrier-maintenance9-10800</span><br>
+
+If the <a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled,
+<code>subresourceRange.layerCount</code> is not
+<code>VK_REMAINING_ARRAY_LAYERS</code>, and <code>image</code> is a 3D image created
+with <code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set,
+<span class="eq"><code>subresourceRange.baseArrayLayer</code> + 
+<code>subresourceRange.layerCount</code></span> <strong>must</strong> be less than or equal to the
+depth computed from <code>baseMipLevel</code> and <code>extent.depth</code> specified
+in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code> was created, according to
+the formula defined in <a href="resources.html#resources-image-mip-level-sizing" class="xref page">Image Mip    Level Sizing</a></p>
 </li>
 <li>
 <p><a id="VUID-VkImageMemoryBarrier-image-01932" href="#VUID-VkImageMemoryBarrier-image-01932"></a> <span class="vuid">VUID-VkImageMemoryBarrier-image-01932</span><br>
@@ -19452,13 +19928,19 @@ transition.</p>
 <p><code>VK_ERROR_INITIALIZATION_FAILED</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_MEMORY_MAP_FAILED</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_MEMORY_MAP_FAILED</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -19530,6 +20012,16 @@ The application <strong>must</strong> guarantee that any previously submitted co
 reads from or writes to this subresource has completed before the host
 performs the layout transition.
 The memory of <code>image</code> is accessed by the host as if <a href="memory.html#memory-coherent" class="xref page">coherent</a>.</p>
+</div>
+<div class="paragraph">
+<p>If <code>image</code> is a 3D image created with
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> and the
+<a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled, the
+<code>baseArrayLayer</code> and <code>layerCount</code> members of <code>subresourceRange</code>
+specify the subset of slices of the 3D image affected by the memory barrier,
+including the layout transition.
+Any slices of a 3D image not included in <code>subresourceRange</code> are not
+affected by the memory barrier and remain in their existing layout.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -19605,19 +20097,62 @@ the <code>mipLevels</code> specified in <a href="resources.html#VkImageCreateInf
 <li>
 <p><a id="VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01488" href="#VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01488"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01488</span><br>
 
+If <code>image</code> is not a 3D image or was created without
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set, or the
+<a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is not enabled,
 <code>subresourceRange.baseArrayLayer</code> <strong>must</strong> be less than the
 <code>arrayLayers</code> specified in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code>
 was created</p>
 </li>
 <li>
+<p><a id="VUID-VkHostImageLayoutTransitionInfo-maintenance9-10798" href="#VUID-VkHostImageLayoutTransitionInfo-maintenance9-10798"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfo-maintenance9-10798</span><br>
+
+If the <a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled
+and <code>image</code> is a 3D image created with
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set,
+<code>subresourceRange.baseArrayLayer</code> <strong>must</strong> be less than the depth
+computed from <code>baseMipLevel</code> and <code>extent.depth</code> specified in
+<a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code> was created, according to the
+formula defined in <a href="resources.html#resources-image-mip-level-sizing" class="xref page">Image Mip Level    Sizing</a></p>
+</li>
+<li>
+<p><a id="VUID-VkHostImageLayoutTransitionInfo-maintenance9-10799" href="#VUID-VkHostImageLayoutTransitionInfo-maintenance9-10799"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfo-maintenance9-10799</span><br>
+
+If the <a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled
+and <code>image</code> is a 3D image created with
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set and either
+<code>subresourceRange.baseArrayLayer</code> is not equal to 0 or
+<code>subresourceRange.layerCount</code> is not equal to
+<code>VK_REMAINING_ARRAY_LAYERS</code>, <code>subresourceRange.levelCount</code> <strong>must</strong>
+be 1</p>
+</li>
+<li>
 <p><a id="VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01725" href="#VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01725"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfo-subresourceRange-01725</span><br>
 
-If <code>subresourceRange.layerCount</code> is not
+If
+<code>image</code> is not a 3D image or was created without
+<code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set, or the
+<a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is not enabled,
+and
+<code>subresourceRange.layerCount</code> is not
 <code>VK_REMAINING_ARRAY_LAYERS</code>,
 <span class="eq"><code>subresourceRange.baseArrayLayer</code> + 
 <code>subresourceRange.layerCount</code></span> <strong>must</strong> be less than or equal to the
 <code>arrayLayers</code> specified in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code>
 was created</p>
+</li>
+<li>
+<p><a id="VUID-VkHostImageLayoutTransitionInfo-maintenance9-10800" href="#VUID-VkHostImageLayoutTransitionInfo-maintenance9-10800"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfo-maintenance9-10800</span><br>
+
+If the <a href="features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature is enabled,
+<code>subresourceRange.layerCount</code> is not
+<code>VK_REMAINING_ARRAY_LAYERS</code>, and <code>image</code> is a 3D image created
+with <code>VK_IMAGE_CREATE_2D_ARRAY_COMPATIBLE_BIT</code> set,
+<span class="eq"><code>subresourceRange.baseArrayLayer</code> + 
+<code>subresourceRange.layerCount</code></span> <strong>must</strong> be less than or equal to the
+depth computed from <code>baseMipLevel</code> and <code>extent.depth</code> specified
+in <a href="resources.html#VkImageCreateInfo" class="xref page">VkImageCreateInfo</a> when <code>image</code> was created, according to
+the formula defined in <a href="resources.html#resources-image-mip-level-sizing" class="xref page">Image Mip    Level Sizing</a></p>
 </li>
 <li>
 <p><a id="VUID-VkHostImageLayoutTransitionInfo-image-01932" href="#VUID-VkHostImageLayoutTransitionInfo-image-01932"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfo-image-01932</span><br>
@@ -19755,6 +20290,249 @@ current layout of the image subresources as specified in
 <li>
 <p><a id="VUID-VkHostImageLayoutTransitionInfo-subresourceRange-parameter" href="#VUID-VkHostImageLayoutTransitionInfo-subresourceRange-parameter"></a> <span class="vuid">VUID-VkHostImageLayoutTransitionInfo-subresourceRange-parameter</span><br>
  <code>subresourceRange</code> <strong>must</strong> be a valid <a href="resources.html#VkImageSubresourceRange" class="xref page">VkImageSubresourceRange</a> structure</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="synchronization-tensor-memory-barriers"><a class="anchor" href="#synchronization-tensor-memory-barriers"></a>Tensor Memory Barriers</h3>
+<div class="paragraph">
+<p>Tensor memory barriers only apply to memory accesses involving a specific
+tensor.
+That is, a memory dependency formed from a tensor memory barrier is
+<a href="#synchronization-dependencies-access-scopes">scoped</a> to access via the
+specified tensor.
+Tensor memory barriers <strong>can</strong> also be used to define a
+<a href="#synchronization-queue-transfers">queue family ownership transfer</a> for the
+specified tensor.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkTensorMemoryBarrierARM</code> structure is defined as:</p>
+</div>
+<div id="VkTensorMemoryBarrierARM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_ARM_tensors
+typedef struct VkTensorMemoryBarrierARM {
+    VkStructureType          sType;
+    const void*              pNext;
+    VkPipelineStageFlags2    srcStageMask;
+    VkAccessFlags2           srcAccessMask;
+    VkPipelineStageFlags2    dstStageMask;
+    VkAccessFlags2           dstAccessMask;
+    uint32_t                 srcQueueFamilyIndex;
+    uint32_t                 dstQueueFamilyIndex;
+    VkTensorARM              tensor;
+} VkTensorMemoryBarrierARM;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>srcStageMask</code> is a <a href="#VkPipelineStageFlags2">VkPipelineStageFlags2</a> mask of pipeline
+stages to be included in the <a href="#synchronization-dependencies-scopes">    first synchronization scope</a>.</p>
+</li>
+<li>
+<p><code>srcAccessMask</code> is a <a href="#VkAccessFlags2">VkAccessFlags2</a> mask of access flags to be
+included in the <a href="#synchronization-dependencies-access-scopes">first    access scope</a>.</p>
+</li>
+<li>
+<p><code>dstStageMask</code> is a <a href="#VkPipelineStageFlags2">VkPipelineStageFlags2</a> mask of pipeline
+stages to be included in the <a href="#synchronization-dependencies-scopes">    second synchronization scope</a>.</p>
+</li>
+<li>
+<p><code>dstAccessMask</code> is a <a href="#VkAccessFlags2">VkAccessFlags2</a> mask of access flags to be
+included in the <a href="#synchronization-dependencies-access-scopes">second    access scope</a>.</p>
+</li>
+<li>
+<p><code>srcQueueFamilyIndex</code> is the source queue family for a
+<a href="#synchronization-queue-transfers">queue family ownership transfer</a>.</p>
+</li>
+<li>
+<p><code>dstQueueFamilyIndex</code> is the destination queue family for a
+<a href="#synchronization-queue-transfers">queue family ownership transfer</a>.</p>
+</li>
+<li>
+<p><code>tensor</code> is a handle to the tensor whose backing memory is affected
+by the barrier.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The first <a href="#synchronization-dependencies-scopes">synchronization scope</a> and
+<a href="#synchronization-dependencies-access-scopes">access scope</a> described by
+this structure include only operations and memory accesses specified by
+<code>srcStageMask</code> and <code>srcAccessMask</code>.</p>
+</div>
+<div class="paragraph">
+<p>The second <a href="#synchronization-dependencies-scopes">synchronization scope</a>
+and <a href="#synchronization-dependencies-access-scopes">access scope</a> described
+by this structure include only operations and memory accesses specified by
+<code>dstStageMask</code> and <code>dstAccessMask</code>.</p>
+</div>
+<div class="paragraph">
+<p>Both <a href="#synchronization-dependencies-access-scopes">access scopes</a> are
+limited to only memory accesses to <code>tensor</code>.</p>
+</div>
+<div class="paragraph">
+<p>If <code>tensor</code> was created with <code>VK_SHARING_MODE_EXCLUSIVE</code>, and
+<code>srcQueueFamilyIndex</code> is not equal to <code>dstQueueFamilyIndex</code>, this
+memory barrier defines a <a href="#synchronization-queue-transfers">queue family transfer operation</a>.
+When executed on a queue in the family identified by
+<code>srcQueueFamilyIndex</code>, this barrier defines a
+<a href="#synchronization-queue-transfers-release">queue family release operation</a>
+for the specified tensor, and the second synchronization and access scopes
+do not synchronize operations on that queue.
+When executed on a queue in the family identified by
+<code>dstQueueFamilyIndex</code>, this barrier defines a
+<a href="#synchronization-queue-transfers-acquire">queue family acquire operation</a>
+for the specified tensor, and the first synchronization and access scopes do
+not synchronize operations on that queue.</p>
+</div>
+<div class="paragraph">
+<p>A <a href="#synchronization-queue-transfers">queue family transfer operation</a> is
+also defined if the values are not equal, and either is one of the special
+queue family values reserved for external memory ownership transfers, as
+described in <a href="#synchronization-queue-transfers">Queue Family Ownership Transfer</a>.
+A <a href="#synchronization-queue-transfers-release">queue family release operation</a> is defined when <code>dstQueueFamilyIndex</code> is one of those
+values, and a <a href="#synchronization-queue-transfers-acquire">queue family acquire operation</a> is defined when <code>srcQueueFamilyIndex</code> is one of
+those values.</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkTensorMemoryBarrierARM-tensor-09755" href="#VUID-VkTensorMemoryBarrierARM-tensor-09755"></a> <span class="vuid">VUID-VkTensorMemoryBarrierARM-tensor-09755</span><br>
+
+If <code>tensor</code> was created with a sharing mode of
+<code>VK_SHARING_MODE_CONCURRENT</code>, <code>srcQueueFamilyIndex</code> and
+<code>dstQueueFamilyIndex</code> <strong>must</strong> both be <code>VK_QUEUE_FAMILY_IGNORED</code></p>
+</li>
+<li>
+<p><a id="VUID-VkTensorMemoryBarrierARM-tensor-09756" href="#VUID-VkTensorMemoryBarrierARM-tensor-09756"></a> <span class="vuid">VUID-VkTensorMemoryBarrierARM-tensor-09756</span><br>
+
+If <code>tensor</code> was created with a sharing mode of
+<code>VK_SHARING_MODE_EXCLUSIVE</code>, <code>srcQueueFamilyIndex</code> and
+<code>dstQueueFamilyIndex</code> <strong>must</strong> both be either
+<code>VK_QUEUE_FAMILY_IGNORED</code>, or a valid queue family (see
+<a href="devsandqueues.html#devsandqueues-queueprops" class="xref page">Queue Family Properties</a>)</p>
+</li>
+<li>
+<p><a id="VUID-VkTensorMemoryBarrierARM-tensor-09757" href="#VUID-VkTensorMemoryBarrierARM-tensor-09757"></a> <span class="vuid">VUID-VkTensorMemoryBarrierARM-tensor-09757</span><br>
+
+If <code>tensor</code> was created with a sharing mode of
+<code>VK_SHARING_MODE_EXCLUSIVE</code>, and <code>srcQueueFamilyIndex</code> and
+<code>dstQueueFamilyIndex</code> are not <code>VK_QUEUE_FAMILY_IGNORED</code>, at
+least one of them <strong>must</strong> be the same as the family of the queue that will
+execute this barrier</p>
+</li>
+<li>
+<p><a id="VUID-VkTensorMemoryBarrierARM-tensor-09758" href="#VUID-VkTensorMemoryBarrierARM-tensor-09758"></a> <span class="vuid">VUID-VkTensorMemoryBarrierARM-tensor-09758</span><br>
+
+If <code>tensor</code> is non-sparse then it <strong>must</strong> be bound completely and
+contiguously to a single <a href="memory.html#VkDeviceMemory" class="xref page">VkDeviceMemory</a> object</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkTensorMemoryBarrierARM-sType-sType" href="#VUID-VkTensorMemoryBarrierARM-sType-sType"></a> <span class="vuid">VUID-VkTensorMemoryBarrierARM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_TENSOR_MEMORY_BARRIER_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-VkTensorMemoryBarrierARM-srcStageMask-parameter" href="#VUID-VkTensorMemoryBarrierARM-srcStageMask-parameter"></a> <span class="vuid">VUID-VkTensorMemoryBarrierARM-srcStageMask-parameter</span><br>
+ <code>srcStageMask</code> <strong>must</strong> be a valid combination of <a href="#VkPipelineStageFlagBits2">VkPipelineStageFlagBits2</a> values</p>
+</li>
+<li>
+<p><a id="VUID-VkTensorMemoryBarrierARM-srcAccessMask-parameter" href="#VUID-VkTensorMemoryBarrierARM-srcAccessMask-parameter"></a> <span class="vuid">VUID-VkTensorMemoryBarrierARM-srcAccessMask-parameter</span><br>
+ <code>srcAccessMask</code> <strong>must</strong> be a valid combination of <a href="#VkAccessFlagBits2">VkAccessFlagBits2</a> values</p>
+</li>
+<li>
+<p><a id="VUID-VkTensorMemoryBarrierARM-dstStageMask-parameter" href="#VUID-VkTensorMemoryBarrierARM-dstStageMask-parameter"></a> <span class="vuid">VUID-VkTensorMemoryBarrierARM-dstStageMask-parameter</span><br>
+ <code>dstStageMask</code> <strong>must</strong> be a valid combination of <a href="#VkPipelineStageFlagBits2">VkPipelineStageFlagBits2</a> values</p>
+</li>
+<li>
+<p><a id="VUID-VkTensorMemoryBarrierARM-dstAccessMask-parameter" href="#VUID-VkTensorMemoryBarrierARM-dstAccessMask-parameter"></a> <span class="vuid">VUID-VkTensorMemoryBarrierARM-dstAccessMask-parameter</span><br>
+ <code>dstAccessMask</code> <strong>must</strong> be a valid combination of <a href="#VkAccessFlagBits2">VkAccessFlagBits2</a> values</p>
+</li>
+<li>
+<p><a id="VUID-VkTensorMemoryBarrierARM-tensor-parameter" href="#VUID-VkTensorMemoryBarrierARM-tensor-parameter"></a> <span class="vuid">VUID-VkTensorMemoryBarrierARM-tensor-parameter</span><br>
+ <code>tensor</code> <strong>must</strong> be a valid <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> handle</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkTensorDependencyInfoARM</code> structure is defined as:</p>
+</div>
+<div id="VkTensorDependencyInfoARM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_ARM_tensors
+typedef struct VkTensorDependencyInfoARM {
+    VkStructureType                    sType;
+    const void*                        pNext;
+    uint32_t                           tensorMemoryBarrierCount;
+    const VkTensorMemoryBarrierARM*    pTensorMemoryBarriers;
+} VkTensorDependencyInfoARM;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>tensorMemoryBarrierCount</code> is the length of the
+<code>pTensorMemoryBarriers</code> array.</p>
+</li>
+<li>
+<p><code>pTensorMemoryBarriers</code> is a pointer to an array of
+<a href="#VkTensorMemoryBarrierARM">VkTensorMemoryBarrierARM</a> structures defining memory dependencies
+between tensors.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkTensorDependencyInfoARM-sType-sType" href="#VUID-VkTensorDependencyInfoARM-sType-sType"></a> <span class="vuid">VUID-VkTensorDependencyInfoARM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_TENSOR_DEPENDENCY_INFO_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-VkTensorDependencyInfoARM-pTensorMemoryBarriers-parameter" href="#VUID-VkTensorDependencyInfoARM-pTensorMemoryBarriers-parameter"></a> <span class="vuid">VUID-VkTensorDependencyInfoARM-pTensorMemoryBarriers-parameter</span><br>
+ <code>pTensorMemoryBarriers</code> <strong>must</strong> be a valid pointer to a valid <a href="#VkTensorMemoryBarrierARM">VkTensorMemoryBarrierARM</a> structure</p>
 </li>
 </ul>
 </div>
@@ -20199,6 +20977,21 @@ every previously executed <a href="devsandqueues.html#devsandqueues-submission" 
 signal using <a href="#vkWaitForFences">vkWaitForFences</a> with an infinite timeout and
 <code>waitAll</code> set to <code>VK_TRUE</code>.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Even though <a href="VK_KHR_surface/wsi.html#vkQueuePresentKHR" class="xref page">vkQueuePresentKHR</a> does not have a fence parameter, it does
+accept a fence through <a href="VK_KHR_surface/wsi.html#VkSwapchainPresentFenceInfoEXT" class="xref page">VkSwapchainPresentFenceInfoEXT</a>.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="sidebarblock">
 <div class="content">
 <div class="title">Valid Usage (Implicit)</div>
@@ -20276,13 +21069,19 @@ signal using <a href="#vkWaitForFences">vkWaitForFences</a> with an infinite tim
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_DEVICE_LOST</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_DEVICE_LOST</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -20362,13 +21161,19 @@ all queues owned by <code>device</code>.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+<p><code>VK_ERROR_DEVICE_LOST</code></p>
 </li>
 <li>
 <p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_DEVICE_LOST</code></p>
+<p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -20612,10 +21417,16 @@ The <code>timeDomain</code> value of each <a href="#VkCalibratedTimestampInfoKHR
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -20858,7 +21669,30 @@ return counter.QuadPart;</code></pre>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

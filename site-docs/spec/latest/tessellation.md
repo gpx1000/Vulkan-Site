@@ -750,3 +750,7 @@ Command Properties
 | Primary
 
 Secondary | Both | Outside | Graphics | State |
+
+Conditional Rendering
+
+vkCmdSetTessellationDomainOriginEXT is not affected by [conditional rendering](drawing.html#drawing-conditional-rendering)

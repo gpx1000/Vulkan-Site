@@ -201,6 +201,9 @@ For GLSL, more information can be found in the [GLSL Spec - 12.2.4. Vulkan Only:
 
 `VK_DESCRIPTOR_TYPE_STORAGE_IMAGE`
 
+|  | More details found in [Storage Image chapter](storage_image_and_texel_buffers.html) |
+| --- | --- |
+
 [Try Online](https://godbolt.org/z/7KPe11GPs)
 
 // VK_FORMAT_R32_UINT
@@ -330,6 +333,9 @@ OpDecorate %ssbo Binding 0
 
 `VK_DESCRIPTOR_TYPE_UNIFORM_TEXEL_BUFFER`
 
+|  | More details found in [Texel Buffer chapter](storage_image_and_texel_buffers.html) |
+| --- | --- |
+
 [Try Online](https://godbolt.org/z/ob4T9d3E4)
 
 layout(set = 0, binding = 0) uniform textureBuffer uniformTexelBuffer;
@@ -345,6 +351,9 @@ OpDecorate %uniformTexelBuffer Binding 0
 %uniformTexelBuffer = OpVariable %ptr UniformConstant
 
 `VK_DESCRIPTOR_TYPE_STORAGE_TEXEL_BUFFER`
+
+|  | More details found in [Texel Buffer chapter](storage_image_and_texel_buffers.html) |
+| --- | --- |
 
 [Try Online](https://godbolt.org/z/zoeMxsKjq)
 

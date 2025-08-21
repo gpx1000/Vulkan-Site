@@ -178,6 +178,9 @@
     <a class="nav-link" href="fragmentdensitymapops.html">Fragment Density Map Operations</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_tensors/tensorops.html">Tensor Operations</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="queries.html">Queries</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -259,6 +262,12 @@
     <a class="nav-link" href="executiongraphs.html">Execution Graphs</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_NV_external_compute_queue/VK_NV_external_compute_queue.html">External Compute Queues</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="VK_ARM_data_graph/graphs.html">Data graphs</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="extensions.html">Extending Vulkan</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -293,6 +302,9 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/roadmap.html">Vulkan Roadmap Milestones</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendices/deprecation.html">Deprecation</a>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="../appendices/boilerplate.html">API Boilerplate</a>
@@ -482,12 +494,18 @@ typedef enum VkObjectType {
     VK_OBJECT_TYPE_BUFFER_COLLECTION_FUCHSIA = 1000366000,
   // Provided by VK_EXT_opacity_micromap
     VK_OBJECT_TYPE_MICROMAP_EXT = 1000396000,
+  // Provided by VK_ARM_tensors
+    VK_OBJECT_TYPE_TENSOR_ARM = 1000460000,
+  // Provided by VK_ARM_tensors
+    VK_OBJECT_TYPE_TENSOR_VIEW_ARM = 1000460001,
   // Provided by VK_NV_optical_flow
     VK_OBJECT_TYPE_OPTICAL_FLOW_SESSION_NV = 1000464000,
   // Provided by VK_EXT_shader_object
     VK_OBJECT_TYPE_SHADER_EXT = 1000482000,
   // Provided by VK_KHR_pipeline_binary
     VK_OBJECT_TYPE_PIPELINE_BINARY_KHR = 1000483000,
+  // Provided by VK_ARM_data_graph
+    VK_OBJECT_TYPE_DATA_GRAPH_PIPELINE_SESSION_ARM = 1000507000,
   // Provided by VK_NV_external_compute_queue
     VK_OBJECT_TYPE_EXTERNAL_COMPUTE_QUEUE_NV = 1000556000,
   // Provided by VK_EXT_device_generated_commands
@@ -712,6 +730,18 @@ typedef enum VkObjectType {
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_SHADER_EXT</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="shaders.html#VkShaderEXT" class="xref page">VkShaderEXT</a></p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_TENSOR_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_TENSOR_VIEW_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="resources.html#VkTensorViewARM" class="xref page">VkTensorViewARM</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>VK_OBJECT_TYPE_DATA_GRAPH_PIPELINE_SESSION_ARM</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="VK_ARM_data_graph/graphs.html#VkDataGraphPipelineSessionARM" class="xref page">VkDataGraphPipelineSessionARM</a></p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -886,10 +916,16 @@ identified by <code>device</code></p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -1106,10 +1142,16 @@ identified by <code>device</code></p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -1657,11 +1699,7 @@ specifying parameters of the label region to open.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginDebugUtilsLabelEXT-commandBuffer-cmdpool" href="#VUID-vkCmdBeginDebugUtilsLabelEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdBeginDebugUtilsLabelEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdBeginDebugUtilsLabelEXT-videocoding" href="#VUID-vkCmdBeginDebugUtilsLabelEXT-videocoding"></a> <span class="vuid">VUID-vkCmdBeginDebugUtilsLabelEXT-videocoding</span><br>
- This command <strong>must</strong> only be called outside of a video coding scope</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
 </li>
 </ul>
 </div>
@@ -1707,14 +1745,26 @@ specifying parameters of the label region to open.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary<br>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
+Graphics<br>
+Compute<br>
+Decode<br>
+Encode<br>
+Opticalflow</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
 State</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdBeginDebugUtilsLabelEXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -1798,11 +1848,7 @@ outstanding <code>vkCmdBeginDebugUtilsLabelEXT</code> command recorded to
 </li>
 <li>
 <p><a id="VUID-vkCmdEndDebugUtilsLabelEXT-commandBuffer-cmdpool" href="#VUID-vkCmdEndDebugUtilsLabelEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdEndDebugUtilsLabelEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdEndDebugUtilsLabelEXT-videocoding" href="#VUID-vkCmdEndDebugUtilsLabelEXT-videocoding"></a> <span class="vuid">VUID-vkCmdEndDebugUtilsLabelEXT-videocoding</span><br>
- This command <strong>must</strong> only be called outside of a video coding scope</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
 </li>
 </ul>
 </div>
@@ -1848,14 +1894,26 @@ outstanding <code>vkCmdBeginDebugUtilsLabelEXT</code> command recorded to
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary<br>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
+Graphics<br>
+Compute<br>
+Decode<br>
+Encode<br>
+Opticalflow</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action<br>
 State</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdEndDebugUtilsLabelEXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -1904,11 +1962,7 @@ specifying parameters of the label to insert.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdInsertDebugUtilsLabelEXT-commandBuffer-cmdpool" href="#VUID-vkCmdInsertDebugUtilsLabelEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdInsertDebugUtilsLabelEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdInsertDebugUtilsLabelEXT-videocoding" href="#VUID-vkCmdInsertDebugUtilsLabelEXT-videocoding"></a> <span class="vuid">VUID-vkCmdInsertDebugUtilsLabelEXT-videocoding</span><br>
- This command <strong>must</strong> only be called outside of a video coding scope</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
 </li>
 </ul>
 </div>
@@ -1954,13 +2008,25 @@ specifying parameters of the label to insert.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary<br>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
+Graphics<br>
+Compute<br>
+Decode<br>
+Encode<br>
+Opticalflow</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdInsertDebugUtilsLabelEXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -2085,6 +2151,12 @@ in which the created object is returned.</p>
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -2790,6 +2862,10 @@ with the object&#8217;s creation.</p>
  <code>flags</code> <strong>must</strong> be a valid combination of <a href="#VkDeviceAddressBindingFlagBitsEXT">VkDeviceAddressBindingFlagBitsEXT</a> values</p>
 </li>
 <li>
+<p><a id="VUID-VkDeviceAddressBindingCallbackDataEXT-baseAddress-parameter" href="#VUID-VkDeviceAddressBindingCallbackDataEXT-baseAddress-parameter"></a> <span class="vuid">VUID-VkDeviceAddressBindingCallbackDataEXT-baseAddress-parameter</span><br>
+ <code>baseAddress</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code> value</p>
+</li>
+<li>
 <p><a id="VUID-VkDeviceAddressBindingCallbackDataEXT-bindingType-parameter" href="#VUID-VkDeviceAddressBindingCallbackDataEXT-bindingType-parameter"></a> <span class="vuid">VUID-VkDeviceAddressBindingCallbackDataEXT-bindingType-parameter</span><br>
  <code>bindingType</code> <strong>must</strong> be a valid <a href="#VkDeviceAddressBindingTypeEXT">VkDeviceAddressBindingTypeEXT</a> value</p>
 </li>
@@ -3138,10 +3214,16 @@ structure specifying the parameters of the name to set on the object.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -3328,10 +3410,16 @@ structure specifying the parameters of the tag to attach to the object.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+</li>
+<li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
 </li>
 <li>
-<p><code>VK_ERROR_OUT_OF_DEVICE_MEMORY</code></p>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -3541,11 +3629,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool" href="#VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdDebugMarkerBeginEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdDebugMarkerBeginEXT-videocoding" href="#VUID-vkCmdDebugMarkerBeginEXT-videocoding"></a> <span class="vuid">VUID-vkCmdDebugMarkerBeginEXT-videocoding</span><br>
- This command <strong>must</strong> only be called outside of a video coding scope</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
 </li>
 </ul>
 </div>
@@ -3591,13 +3675,25 @@ enabled</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary<br>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
+Graphics<br>
+Compute<br>
+Decode<br>
+Encode<br>
+Opticalflow</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdDebugMarkerBeginEXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -3737,11 +3833,7 @@ enabled</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDebugMarkerEndEXT-commandBuffer-cmdpool" href="#VUID-vkCmdDebugMarkerEndEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdDebugMarkerEndEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdDebugMarkerEndEXT-videocoding" href="#VUID-vkCmdDebugMarkerEndEXT-videocoding"></a> <span class="vuid">VUID-vkCmdDebugMarkerEndEXT-videocoding</span><br>
- This command <strong>must</strong> only be called outside of a video coding scope</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
 </li>
 </ul>
 </div>
@@ -3787,13 +3879,25 @@ enabled</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary<br>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
+Graphics<br>
+Compute<br>
+Decode<br>
+Encode<br>
+Opticalflow</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdDebugMarkerEndEXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -3842,11 +3946,7 @@ structure specifying the parameters of the marker to insert.</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdDebugMarkerInsertEXT-commandBuffer-cmdpool" href="#VUID-vkCmdDebugMarkerInsertEXT-commandBuffer-cmdpool"></a> <span class="vuid">VUID-vkCmdDebugMarkerInsertEXT-commandBuffer-cmdpool</span><br>
- The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support graphics, or compute operations</p>
-</li>
-<li>
-<p><a id="VUID-vkCmdDebugMarkerInsertEXT-videocoding" href="#VUID-vkCmdDebugMarkerInsertEXT-videocoding"></a> <span class="vuid">VUID-vkCmdDebugMarkerInsertEXT-videocoding</span><br>
- This command <strong>must</strong> only be called outside of a video coding scope</p>
+ The <code>VkCommandPool</code> that <code>commandBuffer</code> was allocated from <strong>must</strong> support transfer, graphics, compute, decode, encode, or optical flow operations</p>
 </li>
 </ul>
 </div>
@@ -3892,13 +3992,25 @@ structure specifying the parameters of the marker to insert.</p>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Primary<br>
 Secondary</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Outside</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Graphics<br>
-Compute</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Both</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transfer<br>
+Graphics<br>
+Compute<br>
+Decode<br>
+Encode<br>
+Opticalflow</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Action</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdDebugMarkerInsertEXT is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -4009,6 +4121,12 @@ in which the created object is returned.</p>
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -4476,9 +4594,13 @@ typedef enum VkDebugReportObjectTypeEXT {
 <td class="content">
 <div class="paragraph">
 <p>The primary expected use of <code>VK_ERROR_VALIDATION_FAILED_EXT</code> is for
-validation layer testing.
+validation layer testing to prevent invalid commands from reaching the ICD.
 It is not expected that an application would see this error code during
-normal use of the validation layers.</p>
+normal use of the validation layers.
+If an application returns <code>VK_TRUE</code> in
+<a href="#VkDebugUtilsMessengerCallbackDataEXT">VkDebugUtilsMessengerCallbackDataEXT</a>, the validation layers will
+return this error code instead of passing the command down the dispatch
+chain.</p>
 </div>
 </td>
 </tr>
@@ -4806,6 +4928,14 @@ Transfer</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Conditional Rendering</div>
+<div class="paragraph">
+<p>vkCmdSetCheckpointNV is not affected by <a href="drawing.html#drawing-conditional-rendering" class="xref page">conditional rendering</a></p>
+</div>
 </div>
 </div>
 </div>
@@ -5278,10 +5408,10 @@ of <code>pFaultCounts-&gt;vendorBinarySize</code> bytes</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -5292,6 +5422,12 @@ of <code>pFaultCounts-&gt;vendorBinarySize</code> bytes</p>
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -5550,6 +5686,10 @@ fault, or to the value of an instruction pointer.</p>
 <li>
 <p><a id="VUID-VkDeviceFaultAddressInfoEXT-addressType-parameter" href="#VUID-VkDeviceFaultAddressInfoEXT-addressType-parameter"></a> <span class="vuid">VUID-VkDeviceFaultAddressInfoEXT-addressType-parameter</span><br>
  <code>addressType</code> <strong>must</strong> be a valid <a href="#VkDeviceFaultAddressTypeEXT">VkDeviceFaultAddressTypeEXT</a> value</p>
+</li>
+<li>
+<p><a id="VUID-VkDeviceFaultAddressInfoEXT-reportedAddress-parameter" href="#VUID-VkDeviceFaultAddressInfoEXT-reportedAddress-parameter"></a> <span class="vuid">VUID-VkDeviceFaultAddressInfoEXT-reportedAddress-parameter</span><br>
+ <code>reportedAddress</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code> value</p>
 </li>
 </ul>
 </div>
@@ -5936,10 +6076,10 @@ time.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_SUCCESS</code></p>
+<p><code>VK_INCOMPLETE</code></p>
 </li>
 <li>
-<p><code>VK_INCOMPLETE</code></p>
+<p><code>VK_SUCCESS</code></p>
 </li>
 </ul>
 </div>
@@ -5950,6 +6090,12 @@ time.</p>
 <ul>
 <li>
 <p><code>VK_ERROR_OUT_OF_HOST_MEMORY</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_UNKNOWN</code></p>
+</li>
+<li>
+<p><code>VK_ERROR_VALIDATION_FAILED</code></p>
 </li>
 </ul>
 </div>
@@ -6351,6 +6497,63 @@ or more <a href="#VkFrameBoundaryFlagBitsEXT">VkFrameBoundaryFlagBitsEXT</a>.</p
 </div>
 </div>
 </div>
+<div class="openblock">
+<div class="content">
+<div class="paragraph">
+<p>The <code>VkFrameBoundaryTensorsARM</code> structure is defined as:</p>
+</div>
+<div id="VkFrameBoundaryTensorsARM" class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_EXT_frame_boundary with VK_ARM_tensors
+typedef struct VkFrameBoundaryTensorsARM {
+    VkStructureType       sType;
+    const void*           pNext;
+    uint32_t              tensorCount;
+    const VkTensorARM*    pTensors;
+} VkFrameBoundaryTensorsARM;</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>sType</code> is a <a href="fundamentals.html#VkStructureType" class="xref page">VkStructureType</a> value identifying this structure.</p>
+</li>
+<li>
+<p><code>pNext</code> is <code>NULL</code> or a pointer to a structure extending this
+structure.</p>
+</li>
+<li>
+<p><code>tensorCount</code> is the number of tensors that store frame results.</p>
+</li>
+<li>
+<p><code>pTensors</code> is a pointer to an array of <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> objects
+with tensorCount entries.</p>
+</li>
+</ul>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">Valid Usage (Implicit)</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a id="VUID-VkFrameBoundaryTensorsARM-sType-sType" href="#VUID-VkFrameBoundaryTensorsARM-sType-sType"></a> <span class="vuid">VUID-VkFrameBoundaryTensorsARM-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_FRAME_BOUNDARY_TENSORS_ARM</code></p>
+</li>
+<li>
+<p><a id="VUID-VkFrameBoundaryTensorsARM-pTensors-parameter" href="#VUID-VkFrameBoundaryTensorsARM-pTensors-parameter"></a> <span class="vuid">VUID-VkFrameBoundaryTensorsARM-pTensors-parameter</span><br>
+ <code>pTensors</code> <strong>must</strong> be a valid pointer to an array of <code>tensorCount</code> valid <a href="resources.html#VkTensorARM" class="xref page">VkTensorARM</a> handles</p>
+</li>
+<li>
+<p><a id="VUID-VkFrameBoundaryTensorsARM-tensorCount-arraylength" href="#VUID-VkFrameBoundaryTensorsARM-tensorCount-arraylength"></a> <span class="vuid">VUID-VkFrameBoundaryTensorsARM-tensorCount-arraylength</span><br>
+ <code>tensorCount</code> <strong>must</strong> be greater than <code>0</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 </article>
@@ -6385,7 +6588,30 @@ or more <a href="#VkFrameBoundaryFlagBitsEXT">VkFrameBoundaryFlagBitsEXT</a>.</p
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
-<script async src="../../../search-index.js"></script>
+<script>
+(function(){
+  try {
+    var script = document.getElementById('search-ui-script');
+    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
+    var manifestUrl = siteRoot + '/search-index/manifest.json';
+    fetch(manifestUrl)
+      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
+      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
+      .catch(function () {
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = siteRoot + '/search-index.js';
+        document.head.appendChild(s);
+      });
+  } catch (e) {
+    // Fallback to monolithic index if anything goes wrong
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = '../../../search-index.js';
+    document.head.appendChild(s);
+  }
+})();
+</script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

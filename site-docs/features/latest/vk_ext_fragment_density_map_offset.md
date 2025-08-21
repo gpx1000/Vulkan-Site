@@ -61,7 +61,7 @@ with the addition of support for
 already shipped before proposal documents existed, this document has been
 written retroactively during promotion to EXT. |
 
-Some use-cases for
+Some use cases for
 [VK_EXT_fragment_density_map](https://docs.vulkan.org/spec/latest/appendices/extensions.html#VK_EXT_fragment_density_map), such
 as eye-tracking foveation, require the fragment density map to be updated
 often. This can cause a distracting flickering effect for the user as local
@@ -71,7 +71,7 @@ the high-density region without sudden jumps.
 
 The location and sizes of the local framebuffer regions are purposefully made
 opaque in the original extension, so there is no way to directly control them.
-The typical use-case involves translating a given fixed fragment density map,
+The typical use case involves translating a given fixed fragment density map,
 with independent control needed for each layer of the framebuffer, so the
 simplest solution is to give the implementation a per-layer offset for sampling
 the fragment density map with the expectation that the implementation should

@@ -288,6 +288,18 @@ component.
 Example: Reading the alpha component of an unbacked `VK_FORMAT_R8_UNORM`
 image will return a value of 1.0f.
 
+If a value was previously written to the same unbound sparse memory location
+in the same shader invocation, that value **may** be returned instead; using
+the `VolatileTexel` image operand, the `Volatile` memory semantic, or
+the `Volatile` decoration to load the value will prevent prior stored
+values from being returned.
+
+|  | Getting the value of the previous store is possible as implementations are
+| --- | --- |
+free to optimize multiple accesses in the general case.
+There are other ways this **can** be prevented, but using volatile loads is by
+far the simplest. |
+
 See [Physical Device Enumeration](devsandqueues.html#devsandqueues-physical-device-enumeration) for instructions for retrieving physical device properties.
 
 Sparse images created using `VK_IMAGE_CREATE_SPARSE_BINDING_BIT`
@@ -760,6 +772,9 @@ creation parameters.
 This is usually one element for each aspect in the image, but for
 interleaved depth/stencil images there is only one element describing the
 combined aspects.
+
+|  | This functionality is deprecated by [Vulkan Version 1.1](../appendices/versions.html#versions-1.1). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-gpdp2) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 void vkGetPhysicalDeviceSparseImageFormatProperties(
@@ -2129,13 +2144,19 @@ Return Codes
 [Failure](fundamentals.html#fundamentals-errorcodes)
 
 * 
-`VK_ERROR_OUT_OF_HOST_MEMORY`
+`VK_ERROR_DEVICE_LOST`
 
 * 
 `VK_ERROR_OUT_OF_DEVICE_MEMORY`
 
 * 
-`VK_ERROR_DEVICE_LOST`
+`VK_ERROR_OUT_OF_HOST_MEMORY`
+
+* 
+`VK_ERROR_UNKNOWN`
+
+* 
+`VK_ERROR_VALIDATION_FAILED`
 
 The `VkBindSparseInfo` structure is defined as:
 
@@ -2274,6 +2295,13 @@ semaphore or from the value of any outstanding semaphore wait or signal
 operation on that semaphore by more than
 [    `maxTimelineSemaphoreValueDifference`](devsandqueues.html#limits-maxTimelineSemaphoreValueDifference)
 
+* 
+[](#VUID-VkBindSparseInfo-pNext-09753) VUID-VkBindSparseInfo-pNext-09753
+
+If the `pNext` chain of this structure includes a
+[VkFrameBoundaryTensorsARM](debugging.html#VkFrameBoundaryTensorsARM) structure then it **must** also include a
+[VkFrameBoundaryEXT](debugging.html#VkFrameBoundaryEXT) structure.
+
 Valid Usage (Implicit)
 
 * 
@@ -2284,7 +2312,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkBindSparseInfo-pNext-pNext) VUID-VkBindSparseInfo-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDeviceGroupBindSparseInfo](#VkDeviceGroupBindSparseInfo), [VkFrameBoundaryEXT](debugging.html#VkFrameBoundaryEXT), or [VkTimelineSemaphoreSubmitInfo](cmdbuffers.html#VkTimelineSemaphoreSubmitInfo)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDeviceGroupBindSparseInfo](#VkDeviceGroupBindSparseInfo), [VkFrameBoundaryEXT](debugging.html#VkFrameBoundaryEXT), [VkFrameBoundaryTensorsARM](debugging.html#VkFrameBoundaryTensorsARM), or [VkTimelineSemaphoreSubmitInfo](cmdbuffers.html#VkTimelineSemaphoreSubmitInfo)
 
 * 
 [](#VUID-VkBindSparseInfo-sType-unique) VUID-VkBindSparseInfo-sType-unique
