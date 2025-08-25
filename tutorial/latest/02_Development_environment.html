@@ -744,7 +744,7 @@ everything works.</p>
 how variables and rules work. If not, you can get up to speed very quickly with <a href="https://cmake.org/cmake/help/book/mastering-cmake/cmake/Help/guide/tutorial/">this tutorial</a>.</p>
 </div>
 <div class="paragraph">
-<p>You can now use the <a href="_attachments/">attachments</a> directory in this tutorial
+<p>You can now use the <a href="https://github.com/KhronosGroup/Vulkan-Tutorial/tree/main/attachments">attachments</a> directory in this tutorial
 as a template for your Vulkan projects. Make a copy, rename it to something like <code>HelloTriangle</code>
 and remove all the code in <code>main.cpp</code>.</p>
 </div>
@@ -1093,30 +1093,7 @@ On Xcode toolbar go to <code>Product</code> &gt; <code>Scheme</code> &gt; <code>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
-<script>
-(function(){
-  try {
-    var script = document.getElementById('search-ui-script');
-    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
-    var manifestUrl = siteRoot + '/search-index/manifest.json';
-    fetch(manifestUrl)
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
-      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
-      .catch(function () {
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = siteRoot + '/search-index.js';
-        document.head.appendChild(s);
-      });
-  } catch (e) {
-    // Fallback to monolithic index if anything goes wrong
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = '../../search-index.js';
-    document.head.appendChild(s);
-  }
-})();
-</script>
+<script async src="../../search-index.js"></script>
 <script async src="../../_/js/vendor/tabs.js"></script>
   </body>
 </html>

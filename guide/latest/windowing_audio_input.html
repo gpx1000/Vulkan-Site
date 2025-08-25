@@ -188,6 +188,9 @@
     <span class="nav-text">Using Vulkan</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deprecated.html">Deprecated</a>
+  </li>
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="loader.html">Loader</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -751,6 +754,112 @@ SDL_PauseAudioDevice(audioDevice, 0);
 
 // Later, when done:
 SDL_CloseAudioDevice(audioDevice);</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sfml"><a class="anchor" href="#_sfml"></a>SFML</h3>
+<div class="paragraph">
+<p><a href="https://www.sfml-dev.org/">SFML</a> (Simple and Fast Multimedia Library) is a multi-platform C++ library designed to provide a simple interface to various multi-media components, such as input, audio and graphics. Compared to GLFW, SFML offers a more extensive set of features and supports more platforms like mobile.</p>
+</div>
+<div class="sect3">
+<h4 id="_setting_up_sfml_with_vulkan"><a class="anchor" href="#_setting_up_sfml_with_vulkan"></a>Setting up SFML with Vulkan</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">#include &lt;SFML/Window.hpp&gt;
+#include &lt;vulkan/vulkan.h&gt;
+#include &lt;iostream&gt;
+#include &lt;vector&gt;
+
+int main() {
+    // Create SFML window
+    sf::WindowBase window{sf::VideoMode({800, 600}), "Vulkan SFML Window", sf::Style::Default};
+
+    // Get required Vulkan extensions for SFML
+    std::vector&lt;const char*&gt; extensions = sf::Vulkan::getGraphicsRequiredInstanceExtensions();
+
+    // Create Vulkan instance (not shown)
+    VkInstance instance = VK_NULL_HANDLE;
+    // ... create instance with extensions ...
+
+    // Create Vulkan surface
+    VkSurfaceKHR surface;
+    if (!window.createVulkanSurface(instance, surface)) {
+        std::cerr &lt;&lt; "Failed to create Vulkan surface" &lt;&lt; std::endl;
+        return -1;
+    }
+
+    // Main loop
+    while (window.isOpen()) {
+        while (const std::optional event = window.pollEvent()) {
+            if (event-&gt;is&lt;sf::Event::Closed&gt;()) {
+                window.close();
+            }
+        }
+
+        // Render with Vulkan (not shown)
+    }
+
+    vkDestroySurfaceKHR(instance, surface, nullptr);
+    // No explicit SFML cleanup required
+
+    return 0;
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sfml_input_handling"><a class="anchor" href="#_sfml_input_handling"></a>SFML Input Handling</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">// In the main loop
+while (window.isOpen()) {
+    while (const std::optional event = window.pollEvent()) {
+        if (event-&gt;is&lt;sf::Event::Closed&gt;()) {
+            window.close();
+        }
+        if (event-&gt;is&lt;sf::Event::KeyPressed&gt;()) {
+            if (event-&gt;getIf&lt;sf::Event::KeyPressed&gt;()-&gt;code == sf::Keyboard::Key::W) {
+                // Move forwards
+            }
+        }
+        if (event-&gt;is&lt;sf::Event::MouseButtonPressed&gt;()) {
+            if (event-&gt;getIf&lt;sf::Event::MouseButtonPressed&gt;()-&gt;button == sf::Mouse::Button::Left) {
+                // Pick object
+            }
+        }
+    }
+}
+
+// Alternatively, poll key state
+if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::W)) {
+    // Move forward
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_sfml_audio_integration"><a class="anchor" href="#_sfml_audio_integration"></a>SFML Audio Integration</h4>
+<div class="paragraph">
+<p>SFML provides a simple audio and music API:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">// Load a sound buffer from a wav file
+const sf::SoundBuffer buffer("soundfile.wav");
+// Create a sound instance of the sound buffer
+sf::Sound sound(buffer);
+// Play it
+sound.play();</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-cpp hljs" data-lang="cpp">// Load a music track
+sf::Music music("soundtrack.ogg");
+// Play it
+music.play();</code></pre>
 </div>
 </div>
 </div>
@@ -2661,30 +2770,7 @@ if (result != VK_SUCCESS) {
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
-<script>
-(function(){
-  try {
-    var script = document.getElementById('search-ui-script');
-    var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
-    var manifestUrl = siteRoot + '/search-index/manifest.json';
-    fetch(manifestUrl)
-      .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error('manifest not found')) })
-      .then(function (manifest) { antoraSearch.bootstrap(lunr, manifest, siteRoot); })
-      .catch(function () {
-        var s = document.createElement('script');
-        s.async = true;
-        s.src = siteRoot + '/search-index.js';
-        document.head.appendChild(s);
-      });
-  } catch (e) {
-    // Fallback to monolithic index if anything goes wrong
-    var s = document.createElement('script');
-    s.async = true;
-    s.src = '../../search-index.js';
-    document.head.appendChild(s);
-  }
-})();
-</script>
+<script async src="../../search-index.js"></script>
 <script async src="../../_/js/vendor/tabs.js"></script>
   </body>
 </html>
