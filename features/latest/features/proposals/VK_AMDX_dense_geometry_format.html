@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../../_/img/favicon-16x16.png">
-    <link rel="manifest" href="../../../../_/static/site.webmanifest">
+    <link rel="manifest" href="../../../../_/site.webmanifest">
     <link rel="mask-icon" href="../../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
   </head>
@@ -54,6 +54,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../refpages/latest/refpages/index.html">Vulkan Reference Pages</a>
             <a class="navbar-item" href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../../guide/latest/index.html">Vulkan Guide</a>
             <a class="navbar-item" href="../../../../samples/latest/README.html">Vulkan Samples</a>
@@ -510,6 +511,14 @@
         </li>
       </ul>
     </li>
+    <li class="component">
+      <div class="title"><a href="../../../../refpages/latest/refpages/index.html">Vulkan API Reference Pages</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../refpages/latest/refpages/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
     <li class="component is-current">
       <div class="title"><a href="../index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
@@ -565,6 +574,27 @@
 </aside>
 <article class="doc">
 <h1 class="page">VK_AMDX_dense_geometry_format</h1>
+<div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_problem_statement">1. Problem Statement</a></li>
+<li><a href="#_solution_space">2. Solution Space</a></li>
+<li><a href="#_proposal">3. Proposal</a>
+<ul class="sectlevel2">
+<li><a href="#_acceleration_structure_construction">3.1. Acceleration Structure Construction</a></li>
+<li><a href="#_bottom_level_acceleration_structure_update_constraints">3.2. Bottom-level Acceleration Structure Update Constraints</a></li>
+<li><a href="#_flags_and_indices">3.3. Flags and Indices</a></li>
+<li><a href="#_vertex_attribute_access">3.4. Vertex Attribute Access</a></li>
+<li><a href="#_api_changes">3.5. API Changes</a></li>
+</ul>
+</li>
+<li><a href="#_issues">4. Issues</a>
+<ul class="sectlevel2">
+<li><a href="#_can_dgf_data_be_decoded_for_use_in_e_g_rasterization">4.1. Can DGF data be decoded for use in e.g. rasterization?</a></li>
+</ul>
+</li>
+</ul>
+</div>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -961,11 +991,11 @@ and the maximum primitive index.</p>
         })
     }
 </script>
-<script src="../../../../_/js/vendor/lunr.js"></script>
-<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
-<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
+<script src="../../../../_/js/vendor/lunr.js" defer></script>
+<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js" defer></script>
+<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css" defer></script>
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', function(){
   try {
     var script = document.getElementById('search-ui-script');
     var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
@@ -986,7 +1016,7 @@ and the maximum primitive index.</p>
     s.src = '../../../../search-index.js';
     document.head.appendChild(s);
   }
-})();
+});
 </script>
 <script async src="../../../../_/js/vendor/tabs.js"></script>
   </body>

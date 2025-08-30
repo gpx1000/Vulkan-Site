@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../../_/img/favicon-16x16.png">
-    <link rel="manifest" href="../../../../_/static/site.webmanifest">
+    <link rel="manifest" href="../../../../_/site.webmanifest">
     <link rel="mask-icon" href="../../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
   </head>
@@ -54,6 +54,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../refpages/latest/refpages/index.html">Vulkan Reference Pages</a>
             <a class="navbar-item" href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../../guide/latest/index.html">Vulkan Guide</a>
             <a class="navbar-item" href="../../../../samples/latest/README.html">Vulkan Samples</a>
@@ -342,6 +343,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../../refpages/latest/refpages/index.html">Vulkan API Reference Pages</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../refpages/latest/refpages/index.html">latest</a>
         </li>
       </ul>
     </li>
@@ -3420,7 +3429,7 @@ VkResult vkCreateSurfaceOHOS(
 <p><code>instance</code> is the instance to associate the surface with.</p>
 </li>
 <li>
-<p><code>pCreateInfo</code> is a pointer to a <a href="#VkOHSurfaceCreateInfoOHOS">VkOHSurfaceCreateInfoOHOS</a>
+<p><code>pCreateInfo</code> is a pointer to a <a href="#VkSurfaceCreateInfoOHOS">VkSurfaceCreateInfoOHOS</a>
 structure containing parameters affecting the creation of the surface
 object.</p>
 </li>
@@ -3503,17 +3512,17 @@ created surface object is returned.</p>
 <div class="openblock">
 <div class="content">
 <div class="paragraph">
-<p>The <code>VkOHSurfaceCreateInfoOHOS</code> structure is defined as:</p>
+<p>The <code>VkSurfaceCreateInfoOHOS</code> structure is defined as:</p>
 </div>
-<div id="VkOHSurfaceCreateInfoOHOS" class="listingblock">
+<div id="VkSurfaceCreateInfoOHOS" class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_OHOS_surface
-typedef struct VkOHSurfaceCreateInfoOHOS {
+typedef struct VkSurfaceCreateInfoOHOS {
     VkStructureType             sType;
     const void*                 pNext;
     VkSurfaceCreateFlagsOHOS    flags;
     OHNativeWindow*             window;
-} VkOHSurfaceCreateInfoOHOS;</code></pre>
+} VkSurfaceCreateInfoOHOS;</code></pre>
 </div>
 </div>
 <div class="ulist">
@@ -3529,19 +3538,10 @@ structure.</p>
 <p><code>flags</code> is reserved for future use.</p>
 </li>
 <li>
-<p><code>window</code>: the pointer to a <code>OHNativeWindow</code> to associate the
+<p><code>window</code>: is a pointer to a <code>OHNativeWindow</code> to associate the
 surface with.</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>or the equivalent</p>
-</div>
-<div id="VkSurfaceCreateInfoOHOS" class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-c++ hljs" data-lang="c++">// Provided by VK_OHOS_surface
-typedef VkOHSurfaceCreateInfoOHOS VkSurfaceCreateInfoOHOS;</code></pre>
-</div>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -3549,28 +3549,20 @@ typedef VkOHSurfaceCreateInfoOHOS VkSurfaceCreateInfoOHOS;</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><a id="VUID-VkOHSurfaceCreateInfoOHOS-sType-sType" href="#VUID-VkOHSurfaceCreateInfoOHOS-sType-sType"></a> <span class="vuid">VUID-VkOHSurfaceCreateInfoOHOS-sType-sType</span><br>
- <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_OH_SURFACE_CREATE_INFO_OHOS</code></p>
+<p><a id="VUID-VkSurfaceCreateInfoOHOS-sType-sType" href="#VUID-VkSurfaceCreateInfoOHOS-sType-sType"></a> <span class="vuid">VUID-VkSurfaceCreateInfoOHOS-sType-sType</span><br>
+ <code>sType</code> <strong>must</strong> be <code>VK_STRUCTURE_TYPE_SURFACE_CREATE_INFO_OHOS</code></p>
 </li>
 <li>
-<p><a id="VUID-VkOHSurfaceCreateInfoOHOS-pNext-pNext" href="#VUID-VkOHSurfaceCreateInfoOHOS-pNext-pNext"></a> <span class="vuid">VUID-VkOHSurfaceCreateInfoOHOS-pNext-pNext</span><br>
+<p><a id="VUID-VkSurfaceCreateInfoOHOS-pNext-pNext" href="#VUID-VkSurfaceCreateInfoOHOS-pNext-pNext"></a> <span class="vuid">VUID-VkSurfaceCreateInfoOHOS-pNext-pNext</span><br>
  <code>pNext</code> <strong>must</strong> be <code>NULL</code></p>
 </li>
 <li>
-<p><a id="VUID-VkOHSurfaceCreateInfoOHOS-flags-zerobitmask" href="#VUID-VkOHSurfaceCreateInfoOHOS-flags-zerobitmask"></a> <span class="vuid">VUID-VkOHSurfaceCreateInfoOHOS-flags-zerobitmask</span><br>
+<p><a id="VUID-VkSurfaceCreateInfoOHOS-flags-zerobitmask" href="#VUID-VkSurfaceCreateInfoOHOS-flags-zerobitmask"></a> <span class="vuid">VUID-VkSurfaceCreateInfoOHOS-flags-zerobitmask</span><br>
  <code>flags</code> <strong>must</strong> be <code>0</code></p>
 </li>
 </ul>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="openblock">
-<div class="content">
-<div class="paragraph">
-<p>The <code>VkSurfaceCreateInfoOHOS</code> structure is an alias to
-<a href="#VkOHSurfaceCreateInfoOHOS">VkOHSurfaceCreateInfoOHOS</a>.</p>
 </div>
 </div>
 </div>
@@ -3600,8 +3592,8 @@ typedef VkFlags VkSurfaceCreateFlagsOHOS;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>VkSurfaceCreateFlagsOHOS</code> a bitmask type for setting a mask, but is
-currently a reserved flag for future use.</p>
+<p><code>VkSurfaceCreateFlagsOHOS</code> is a bitmask type for setting a mask, but is
+currently reserved for future use.</p>
 </div>
 </div>
 </div>
@@ -12780,43 +12772,6 @@ treated the same as for <code>VK_PRESENT_MODE_IMMEDIATE_KHR</code>.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>ifndef::VK_KHR_present_wait2</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="present-wait"><a class="anchor" href="#present-wait"></a>Present Wait</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Applications wanting to control the pacing of the application by monitoring
-when presentation processes have completed to limit the number of
-outstanding images queued for presentation, need to have a method of being
-signaled during the presentation process.</p>
-</div>
-<div class="paragraph">
-<p>Using
-the <code><a href="../../appendices/extensions.html#VK_GOOGLE_display_timing" class="xref page">VK_GOOGLE_display_timing</a></code> extension
-applications can discover when images were presented, but only
-asynchronously.</p>
-</div>
-<div class="paragraph">
-<p>Providing a mechanism which allows applications to block, waiting for a
-specific step of the presentation process to complete allows them to control
-the amount of outstanding work (and hence the potential lag in responding to
-user input or changes in the rendering environment).</p>
-</div>
-<div class="paragraph">
-<p>The <code><a href="../../appendices/extensions.html#VK_KHR_present_wait" class="xref page">VK_KHR_present_wait</a></code> extension allows applications to tell the
-presentation engine at the <a href="#vkQueuePresentKHR">vkQueuePresentKHR</a> call that it plans on
-waiting for presentation by passing a <a href="#VkPresentIdKHR">VkPresentIdKHR</a> structure.
-The <code>presentId</code> passed in that structure may then be passed to a future
-<a href="#vkWaitForPresentKHR">vkWaitForPresentKHR</a> call to cause the application to block until that
-presentation is finished.</p>
-</div>
-<div class="paragraph">
-<p>endif::VK_KHR_present_wait2</p>
-</div>
 </div>
 </div>
 <div class="sect1">
@@ -20592,11 +20547,11 @@ be updated every <code>numFramesPerBatch</code> presents.</p>
         })
     }
 </script>
-<script src="../../../../_/js/vendor/lunr.js"></script>
-<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
-<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
+<script src="../../../../_/js/vendor/lunr.js" defer></script>
+<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js" defer></script>
+<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css" defer></script>
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', function(){
   try {
     var script = document.getElementById('search-ui-script');
     var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
@@ -20617,7 +20572,7 @@ be updated every <code>numFramesPerBatch</code> presents.</p>
     s.src = '../../../../search-index.js';
     document.head.appendChild(s);
   }
-})();
+});
 </script>
 <script async src="../../../../_/js/vendor/tabs.js"></script>
   </body>

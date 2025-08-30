@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
-    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="manifest" href="../../../_/site.webmanifest">
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
   </head>
@@ -54,6 +54,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../refpages/latest/refpages/index.html">Vulkan Reference Pages</a>
             <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
@@ -342,6 +343,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../refpages/latest/refpages/index.html">Vulkan API Reference Pages</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../refpages/latest/refpages/index.html">latest</a>
         </li>
       </ul>
     </li>
@@ -758,8 +767,10 @@ race.</p>
 their entirety in <a href="#synchronization-submission-order">submission order</a>,
 relative to other image layout transitions submitted to the same queue,
 including those performed by <a href="renderpass.html#renderpass" class="xref page">render passes</a>.
-In effect there is an implicit execution dependency from each such layout
-transition to all layout transitions previously submitted to the same queue.</p>
+This ordering of image layout transitions only applies if the implementation
+performs actual read/write operations during the transition.
+An application <strong>must</strong> not rely on ordering of image layout transitions to
+influence ordering of other commands.</p>
 </div>
 <div class="paragraph">
 <p>The image layout of each image subresource of a depth/stencil image created
@@ -17142,9 +17153,10 @@ or <code>VK_QUEUE_FAMILY_EXTERNAL</code></p>
 <div class="content">
 <div class="paragraph">
 <p><code>VK_WHOLE_SIZE</code> is a special value indicating that the entire remaining
-length of a buffer following a given <code>offset</code> should be used.
-It <strong>can</strong> be specified for <a href="#VkBufferMemoryBarrier">VkBufferMemoryBarrier</a>::<code>size</code> and other
-structures.</p>
+length of a buffer or allocation following a given <code>offset</code> should be
+used.
+It <strong>can</strong> be specified for <a href="#VkBufferMemoryBarrier">VkBufferMemoryBarrier</a>::<code>size</code>,
+<a href="memory.html#vkMapMemory" class="xref page">vkMapMemory</a>::<code>size</code>, and other similar structures.</p>
 </div>
 <div id="VK_WHOLE_SIZE" class="listingblock">
 <div class="content">
@@ -20688,7 +20700,30 @@ The release operation happens-after the availability operation.
 If <code>dependencyFlags</code> does not include
 <code>VK_DEPENDENCY_QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_BIT_KHR</code>,
 <code>dstStageMask</code> is also ignored for such a barrier as defined by
-<a href="#buffer-memory-barrier-ownership-transfer">buffer memory ownership transfer</a> and <a href="#image-memory-barrier-ownership-transfer">image memory ownership transfer</a>.</p>
+<a href="#buffer-memory-barrier-ownership-transfer">buffer memory ownership transfer</a> and <a href="#image-memory-barrier-ownership-transfer">image memory ownership transfer</a>.
+After a release operation is performed, the contents and image layout (if
+applicable) of the released resource are <strong>undefined</strong> until a matching acquire
+operation is performed.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It is valid to never call the acquire operation after a release, and instead
+simply start using the resource on any queue (even the releasing queue), but
+the contents should be reinitialized before being read.
+In the case of images, an image layout transition away from
+<code>VK_IMAGE_LAYOUT_UNDEFINED</code> is also required.
+Executing an acquire operation after this without another release is
+invalid.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p><a id="synchronization-queue-transfers-acquire"></a> An <em>acquire operation</em> is used
@@ -20710,7 +20745,9 @@ The acquire operation happens-before the visibility operation.
 If <code>dependencyFlags</code> does not include
 <code>VK_DEPENDENCY_QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_BIT_KHR</code>,
 <code>srcStageMask</code> is also ignored for such a barrier as defined by
-<a href="#buffer-memory-barrier-ownership-transfer">buffer memory ownership transfer</a> and <a href="#image-memory-barrier-ownership-transfer">image memory ownership transfer</a>.</p>
+<a href="#buffer-memory-barrier-ownership-transfer">buffer memory ownership transfer</a> and <a href="#image-memory-barrier-ownership-transfer">image memory ownership transfer</a>.
+Applications <strong>must</strong> not execute an acquire operation on any resource where it
+has been modified in any way other than a matching release operation.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -21666,11 +21703,11 @@ return counter.QuadPart;</code></pre>
         })
     }
 </script>
-<script src="../../../_/js/vendor/lunr.js"></script>
-<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
-<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script src="../../../_/js/vendor/lunr.js" defer></script>
+<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js" defer></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css" defer></script>
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', function(){
   try {
     var script = document.getElementById('search-ui-script');
     var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
@@ -21691,7 +21728,7 @@ return counter.QuadPart;</code></pre>
     s.src = '../../../search-index.js';
     document.head.appendChild(s);
   }
-})();
+});
 </script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>

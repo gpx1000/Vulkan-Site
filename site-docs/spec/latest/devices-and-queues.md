@@ -3920,10 +3920,11 @@ below for further details.
 
 * 
 `enabledLayerCount` is deprecated and ignored.
+See [Device Layers: Deprecation via instance layers](../appendices/deprecation.html#deprecation-devicelayers).
 
 * 
 `ppEnabledLayerNames` is deprecated and ignored.
-See [Device Layer Deprecation](extensions.html#extendingvulkan-layers-devicelayerdeprecation).
+See [Device Layers: Deprecation via instance layers](../appendices/deprecation.html#deprecation-devicelayers).
 
 * 
 `enabledExtensionCount` is the number of device extensions to

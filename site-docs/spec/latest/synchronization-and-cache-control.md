@@ -330,8 +330,10 @@ Layout transitions that are performed via image memory barriers execute in
 their entirety in [submission order](#synchronization-submission-order),
 relative to other image layout transitions submitted to the same queue,
 including those performed by [render passes](renderpass.html#renderpass).
-In effect there is an implicit execution dependency from each such layout
-transition to all layout transitions previously submitted to the same queue.
+This ordering of image layout transitions only applies if the implementation
+performs actual read/write operations during the transition.
+An application **must** not rely on ordering of image layout transitions to
+influence ordering of other commands.
 
 The image layout of each image subresource of a depth/stencil image created
 with `VK_IMAGE_CREATE_SAMPLE_LOCATIONS_COMPATIBLE_DEPTH_BIT_EXT` is
@@ -12790,9 +12792,10 @@ Valid Usage (Implicit)
  `buffer` **must** be a valid [VkBuffer](resources.html#VkBuffer) handle
 
 `VK_WHOLE_SIZE` is a special value indicating that the entire remaining
-length of a buffer following a given `offset` should be used.
-It **can** be specified for [VkBufferMemoryBarrier](#VkBufferMemoryBarrier)::`size` and other
-structures.
+length of a buffer or allocation following a given `offset` should be
+used.
+It **can** be specified for [VkBufferMemoryBarrier](#VkBufferMemoryBarrier)::`size`,
+[vkMapMemory](memory.html#vkMapMemory)::`size`, and other similar structures.
 
 #define VK_WHOLE_SIZE                     (~0ULL)
 
@@ -16015,6 +16018,18 @@ If `dependencyFlags` does not include
 `VK_DEPENDENCY_QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_BIT_KHR`,
 `dstStageMask` is also ignored for such a barrier as defined by
 [buffer memory ownership transfer](#buffer-memory-barrier-ownership-transfer) and [image memory ownership transfer](#image-memory-barrier-ownership-transfer).
+After a release operation is performed, the contents and image layout (if
+applicable) of the released resource are **undefined** until a matching acquire
+operation is performed.
+
+|  | It is valid to never call the acquire operation after a release, and instead
+| --- | --- |
+simply start using the resource on any queue (even the releasing queue), but
+the contents should be reinitialized before being read.
+In the case of images, an image layout transition away from
+`VK_IMAGE_LAYOUT_UNDEFINED` is also required.
+Executing an acquire operation after this without another release is
+invalid. |
 
  An *acquire operation* is used
 to acquire exclusive ownership of a range of a buffer or image subresource
@@ -16036,6 +16051,8 @@ If `dependencyFlags` does not include
 `VK_DEPENDENCY_QUEUE_FAMILY_OWNERSHIP_TRANSFER_USE_ALL_STAGES_BIT_KHR`,
 `srcStageMask` is also ignored for such a barrier as defined by
 [buffer memory ownership transfer](#buffer-memory-barrier-ownership-transfer) and [image memory ownership transfer](#image-memory-barrier-ownership-transfer).
+Applications **must** not execute an acquire operation on any resource where it
+has been modified in any way other than a matching release operation.
 
 |  | Whilst it is not invalid to provide destination or source access masks for
 | --- | --- |

@@ -4454,7 +4454,7 @@ Extending [VkBindDescriptorSetsInfo](../chapters/descriptorsets.html#VkBindDescr
 
 [VkPipelineLayoutCreateInfo](../chapters/descriptorsets.html#VkPipelineLayoutCreateInfo)
 
-Extending [VkPipelineShaderStageCreateInfo](../chapters/pipelines.html#VkPipelineShaderStageCreateInfo), [VkDataGraphPipelineShaderModuleCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineShaderModuleCreateInfoARM):
+Extending [VkPipelineShaderStageCreateInfo](../chapters/pipelines.html#VkPipelineShaderStageCreateInfo), [VkDataGraphPipelineCreateInfoARM](../chapters/VK_ARM_data_graph/graphs.html#VkDataGraphPipelineCreateInfoARM):
 
 * 
 [VkShaderModuleCreateInfo](../chapters/shaders.html#VkShaderModuleCreateInfo)

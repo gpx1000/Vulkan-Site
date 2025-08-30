@@ -1018,12 +1018,11 @@ VkResult vkCreateComputePipelines(
 
 * 
 `pipelineCache` is
-    either [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), indicating that pipeline caching is
-    disabled, or to enable caching,
-    the handle of a valid [VkPipelineCache](#VkPipelineCache) object.
-The
-    implementation **must** not access this object outside of the duration of
-    this command.
+either [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), indicating that pipeline caching is
+disabled, or to enable caching,
+the handle of a valid [VkPipelineCache](#VkPipelineCache) object.
+The implementation **must** not access this object outside of the duration
+of this command.
 
 * 
 `createInfoCount` is the length of the `pCreateInfos` and
@@ -2773,7 +2772,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkComputePipelineIndirectBufferInfoNV-pipelineDeviceAddressCaptureReplay-parameter) VUID-VkComputePipelineIndirectBufferInfoNV-pipelineDeviceAddressCaptureReplay-parameter
 
- `pipelineDeviceAddressCaptureReplay` **must** be a valid `VkDeviceAddress` value
+ If `pipelineDeviceAddressCaptureReplay` is not `0`, `pipelineDeviceAddressCaptureReplay` **must** be a valid `VkDeviceAddress` value
 
 To save a compute pipeline’s metadata at a device address call:
 
@@ -2915,12 +2914,11 @@ VkResult vkCreateGraphicsPipelines(
 
 * 
 `pipelineCache` is
-    either [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), indicating that pipeline caching is
-    disabled, or to enable caching,
-    the handle of a valid [VkPipelineCache](#VkPipelineCache) object.
-The
-    implementation **must** not access this object outside of the duration of
-    this command.
+either [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), indicating that pipeline caching is
+disabled, or to enable caching,
+the handle of a valid [VkPipelineCache](#VkPipelineCache) object.
+The implementation **must** not access this object outside of the duration
+of this command.
 
 * 
 `createInfoCount` is the length of the `pCreateInfos` and
@@ -3987,6 +3985,17 @@ is `VK_DYNAMIC_STATE_DEPTH_BOUNDS`, and the
 `depthBoundsTestEnable` member of `pDepthStencilState` is
 `VK_TRUE`, the `minDepthBounds` and `maxDepthBounds` members
 of `pDepthStencilState` **must** be between `0.0` and `1.0`, inclusive
+
+* 
+[](#VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-10913) VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-10913
+
+If the pipeline requires [    fragment shader state](#pipelines-graphics-subsets-fragment-shader), no element of the `pDynamicStates` member
+of `pDynamicState` is `VK_DYNAMIC_STATE_DEPTH_BOUNDS`, and
+`pDynamicStates` includes
+`VK_DYNAMIC_STATE_DEPTH_BOUNDS_TEST_ENABLE` or
+the `depthBoundsTestEnable` member of `pDepthStencilState` is
+`VK_TRUE`, `minDepthBounds` **must** be less than or equal to
+`maxDepthBounds`
 
 * 
 [](#VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-07610) VUID-VkGraphicsPipelineCreateInfo-pDynamicStates-07610
@@ -8190,12 +8199,11 @@ pipelines.
 
 * 
 `pipelineCache` is
-    either [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), indicating that pipeline caching is
-    disabled, or to enable caching,
-    the handle of a valid [VkPipelineCache](#VkPipelineCache) object.
-The
-    implementation **must** not access this object outside of the duration of
-    this command.
+either [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), indicating that pipeline caching is
+disabled, or to enable caching,
+the handle of a valid [VkPipelineCache](#VkPipelineCache) object.
+The implementation **must** not access this object outside of the duration
+of this command.
 
 * 
 `createInfoCount` is the length of the `pCreateInfos` and
@@ -8386,12 +8394,11 @@ pipelines.
 
 * 
 `pipelineCache` is
-    either [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), indicating that pipeline caching is
-    disabled, or to enable caching,
-    the handle of a valid [VkPipelineCache](#VkPipelineCache) object.
-The
-    implementation **must** not access this object outside of the duration of
-    this command.
+either [VK_NULL_HANDLE](../appendices/boilerplate.html#VK_NULL_HANDLE), indicating that pipeline caching is
+disabled, or to enable caching,
+the handle of a valid [VkPipelineCache](#VkPipelineCache) object.
+The implementation **must** not access this object outside of the duration
+of this command.
 
 * 
 `createInfoCount` is the length of the `pCreateInfos` and

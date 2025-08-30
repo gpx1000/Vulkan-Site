@@ -69,7 +69,6 @@
 - [Device_Group_Queries](#_device_group_queries)
 - [Display Timing Queries](#_display_timing_queries)
 - [Display_Timing_Queries](#_display_timing_queries)
-- [Present Wait](#present-wait)
 - [Present Wait](#present-wait2)
 - [WSI Swapchain](#wsi-swapchain)
 - [HDR Metadata](#_hdr_metadata)
@@ -2087,7 +2086,7 @@ VkResult vkCreateSurfaceOHOS(
 `instance` is the instance to associate the surface with.
 
 * 
-`pCreateInfo` is a pointer to a [VkOHSurfaceCreateInfoOHOS](#VkOHSurfaceCreateInfoOHOS)
+`pCreateInfo` is a pointer to a [VkSurfaceCreateInfoOHOS](#VkSurfaceCreateInfoOHOS)
 structure containing parameters affecting the creation of the surface
 object.
 
@@ -2143,15 +2142,15 @@ Return Codes
 * 
 `VK_ERROR_VALIDATION_FAILED`
 
-The `VkOHSurfaceCreateInfoOHOS` structure is defined as:
+The `VkSurfaceCreateInfoOHOS` structure is defined as:
 
 // Provided by VK_OHOS_surface
-typedef struct VkOHSurfaceCreateInfoOHOS {
+typedef struct VkSurfaceCreateInfoOHOS {
     VkStructureType             sType;
     const void*                 pNext;
     VkSurfaceCreateFlagsOHOS    flags;
     OHNativeWindow*             window;
-} VkOHSurfaceCreateInfoOHOS;
+} VkSurfaceCreateInfoOHOS;
 
 * 
 `sType` is a [VkStructureType](../fundamentals.html#VkStructureType) value identifying this structure.
@@ -2164,33 +2163,25 @@ structure.
 `flags` is reserved for future use.
 
 * 
-`window`: the pointer to a `OHNativeWindow` to associate the
+`window`: is a pointer to a `OHNativeWindow` to associate the
 surface with.
-
-or the equivalent
-
-// Provided by VK_OHOS_surface
-typedef VkOHSurfaceCreateInfoOHOS VkSurfaceCreateInfoOHOS;
 
 Valid Usage (Implicit)
 
 * 
-[](#VUID-VkOHSurfaceCreateInfoOHOS-sType-sType) VUID-VkOHSurfaceCreateInfoOHOS-sType-sType
+[](#VUID-VkSurfaceCreateInfoOHOS-sType-sType) VUID-VkSurfaceCreateInfoOHOS-sType-sType
 
- `sType` **must** be `VK_STRUCTURE_TYPE_OH_SURFACE_CREATE_INFO_OHOS`
+ `sType` **must** be `VK_STRUCTURE_TYPE_SURFACE_CREATE_INFO_OHOS`
 
 * 
-[](#VUID-VkOHSurfaceCreateInfoOHOS-pNext-pNext) VUID-VkOHSurfaceCreateInfoOHOS-pNext-pNext
+[](#VUID-VkSurfaceCreateInfoOHOS-pNext-pNext) VUID-VkSurfaceCreateInfoOHOS-pNext-pNext
 
  `pNext` **must** be `NULL`
 
 * 
-[](#VUID-VkOHSurfaceCreateInfoOHOS-flags-zerobitmask) VUID-VkOHSurfaceCreateInfoOHOS-flags-zerobitmask
+[](#VUID-VkSurfaceCreateInfoOHOS-flags-zerobitmask) VUID-VkSurfaceCreateInfoOHOS-flags-zerobitmask
 
  `flags` **must** be `0`
-
-The `VkSurfaceCreateInfoOHOS` structure is an alias to
-[VkOHSurfaceCreateInfoOHOS](#VkOHSurfaceCreateInfoOHOS).
 
 The `OHNativeWindow` structure is defined as:
 
@@ -2203,8 +2194,8 @@ It is exposed by the Open Harmony OS NDK.
 // Provided by VK_OHOS_surface
 typedef VkFlags VkSurfaceCreateFlagsOHOS;
 
-The `VkSurfaceCreateFlagsOHOS` a bitmask type for setting a mask, but is
-currently a reserved flag for future use.
+`VkSurfaceCreateFlagsOHOS` is a bitmask type for setting a mask, but is
+currently reserved for future use.
 
 Once created, `VkSurfaceKHR` objects **can** be used in this and other
 extensions, in particular the `[VK_KHR_swapchain](../../appendices/extensions.html#VK_KHR_swapchain)` extension.
@@ -8379,32 +8370,6 @@ the vertical blanking period (i.e. with tearing), the values of
 `VkPastPresentationTimingGOOGLE` **may** be treated as if the image was
 displayed at the start of the vertical blanking period, or **may** be
 treated the same as for `VK_PRESENT_MODE_IMMEDIATE_KHR`.
-
-ifndef::VK_KHR_present_wait2
-
-Applications wanting to control the pacing of the application by monitoring
-when presentation processes have completed to limit the number of
-outstanding images queued for presentation, need to have a method of being
-signaled during the presentation process.
-
-Using
-the `[VK_GOOGLE_display_timing](../../appendices/extensions.html#VK_GOOGLE_display_timing)` extension
-applications can discover when images were presented, but only
-asynchronously.
-
-Providing a mechanism which allows applications to block, waiting for a
-specific step of the presentation process to complete allows them to control
-the amount of outstanding work (and hence the potential lag in responding to
-user input or changes in the rendering environment).
-
-The `[VK_KHR_present_wait](../../appendices/extensions.html#VK_KHR_present_wait)` extension allows applications to tell the
-presentation engine at the [vkQueuePresentKHR](#vkQueuePresentKHR) call that it plans on
-waiting for presentation by passing a [VkPresentIdKHR](#VkPresentIdKHR) structure.
-The `presentId` passed in that structure may then be passed to a future
-[vkWaitForPresentKHR](#vkWaitForPresentKHR) call to cause the application to block until that
-presentation is finished.
-
-endif::VK_KHR_present_wait2
 
 Applications wanting to control the pacing of the application by monitoring
 when presentation processes have completed to limit the number of

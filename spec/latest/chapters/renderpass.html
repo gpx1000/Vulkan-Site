@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
-    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="manifest" href="../../../_/site.webmanifest">
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
   </head>
@@ -54,6 +54,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../refpages/latest/refpages/index.html">Vulkan Reference Pages</a>
             <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
@@ -346,6 +347,14 @@
       </ul>
     </li>
     <li class="component">
+      <div class="title"><a href="../../../refpages/latest/refpages/index.html">Vulkan API Reference Pages</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../refpages/latest/refpages/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
@@ -475,6 +484,14 @@ and the <a href="features.html#features-nestedCommandBuffer" class="xref page"><
 feature is not enabled,
 <code>pRenderingInfo-&gt;flags</code> <strong>must</strong> not include
 <code>VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBeginRendering-commandBuffer-10914" href="#VUID-vkCmdBeginRendering-commandBuffer-10914"></a> <span class="vuid">VUID-vkCmdBeginRendering-commandBuffer-10914</span><br>
+
+If <code>commandBuffer</code> is a secondary command buffer,
+<code>VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT</code> <strong>must</strong> not have
+been set in <a href="cmdbuffers.html#VkCommandBufferBeginInfo" class="xref page">VkCommandBufferBeginInfo</a>::<code>flags</code> when
+<code>commandBuffer</code> began</p>
 </li>
 <li>
 <p><a id="VUID-vkCmdBeginRendering-pRenderingInfo-09588" href="#VUID-vkCmdBeginRendering-pRenderingInfo-09588"></a> <span class="vuid">VUID-vkCmdBeginRendering-pRenderingInfo-09588</span><br>
@@ -755,6 +772,14 @@ If the <code>imageView</code> member of any element of <code>pColorAttachments</
 and <code>resolveMode</code> is not
 <code>VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID</code>,
 writes to the corresponding location by a fragment are discarded.</p>
+</div>
+<div class="paragraph">
+<p>The <code>aspectMask</code> of any image view specified for <code>pDepthAttachment</code>
+or <code>pStencilAttachment</code> is ignored.
+Instead, depth attachments are automatically treated as if
+<code>VK_IMAGE_ASPECT_DEPTH_BIT</code> was specified for their aspect masks, and
+stencil attachments are automatically treated as if
+<code>VK_IMAGE_ASPECT_STENCIL_BIT</code> was specified for their aspect masks.</p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -4057,6 +4082,12 @@ is not <code>VK_ATTACHMENT_UNUSED</code>,
 <code>VK_TILE_SHADING_RENDER_PASS_ENABLE_BIT_QCOM</code> <strong>must</strong> not be included
 in <a href="#VkRenderPassTileShadingCreateInfoQCOM">VkRenderPassTileShadingCreateInfoQCOM</a>::<code>flags</code></p>
 </li>
+<li>
+<p><a id="VUID-VkRenderPassCreateInfo-None-10915" href="#VUID-VkRenderPassCreateInfo-None-10915"></a> <span class="vuid">VUID-VkRenderPassCreateInfo-None-10915</span><br>
+
+If any subpass preserves an attachment, there <strong>must</strong> be a subpass
+dependency from a prior subpass which uses or preserves that attachment</p>
+</li>
 </ul>
 </div>
 </div>
@@ -5511,12 +5542,41 @@ are true:</p>
 </ul>
 </div>
 <div class="paragraph">
+<p>For color attachments, this operation will be performed in the
+<code>VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT</code> pipeline stage, with any
+image accesses performed via <code>VK_ACCESS_INPUT_ATTACHMENT_READ_BIT</code>,
+<code>VK_ACCESS_COLOR_ATTACHMENT_READ_BIT</code>, and
+<code>VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT</code>.
+For depth/stencil attachments, this operation <strong>may</strong> be performed in either
+the <code>VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT</code> or
+<code>VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT</code> pipeline stage, with any
+image accesses performed via <code>VK_ACCESS_INPUT_ATTACHMENT_READ_BIT</code>,
+<code>VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT</code>, and
+<code>VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT</code>.</p>
+</div>
+<div class="paragraph">
 <p>Once the contents of an attachment become <strong>undefined</strong> in subpass <strong>S</strong>, they
 remain <strong>undefined</strong> for subpasses in subpass dependency chains starting with
 subpass <strong>S</strong> until they are written again.
 However, they remain valid for subpasses in other subpass dependency chains
-starting with subpass <strong>S<sub>1</sub></strong> if those subpasses use or preserve the
-attachment.</p>
+starting with subpass <strong>S<sub>1</sub></strong> if all subpasses in each chain use or preserve
+the attachment.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If a subpass has multiple dependency chains where some of the chains
+preserve the attachment, and others do not, the contents of the attachment
+are <strong>undefined</strong> for that subpass.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -7493,6 +7553,12 @@ If
 is not <code>VK_ATTACHMENT_UNUSED</code>,
 <code>VK_TILE_SHADING_RENDER_PASS_ENABLE_BIT_QCOM</code> <strong>must</strong> not be included
 in <a href="#VkRenderPassTileShadingCreateInfoQCOM">VkRenderPassTileShadingCreateInfoQCOM</a>::<code>flags</code></p>
+</li>
+<li>
+<p><a id="VUID-VkRenderPassCreateInfo2-None-10916" href="#VUID-VkRenderPassCreateInfo2-None-10916"></a> <span class="vuid">VUID-VkRenderPassCreateInfo2-None-10916</span><br>
+
+If any subpass preserves an attachment, there <strong>must</strong> be a subpass
+dependency from a prior subpass which uses or preserves that attachment</p>
 </li>
 </ul>
 </div>
@@ -10459,6 +10525,13 @@ used.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p>For any depth/stencil attachments used by this framebuffer in
+<code>pAttachments</code>,
+or set later through
+<a href="#VkRenderPassAttachmentBeginInfoKHR">VkRenderPassAttachmentBeginInfoKHR</a>::<code>pAttachments</code>,
+the <code>aspectMask</code> is ignored.</p>
+</div>
 <div id="renderpass-noattachments" class="paragraph">
 <p>It is legal for a subpass to use no color or depth/stencil attachments,
 either because it has no attachment references or because all of them are
@@ -10532,6 +10605,18 @@ include <code>VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT</code>, each element of
 <code>pAttachments</code> that is used as an input attachment by
 <code>renderPass</code> <strong>must</strong> have been created with a <code>usage</code> value
 including <code>VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT</code></p>
+</li>
+<li>
+<p><a id="VUID-VkFramebufferCreateInfo-flags-10917" href="#VUID-VkFramebufferCreateInfo-flags-10917"></a> <span class="vuid">VUID-VkFramebufferCreateInfo-flags-10917</span><br>
+
+If <code>flags</code> does not include
+<code>VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT</code>, each element of
+<code>pAttachments</code> that is used as a color attachment or resolve
+attachment by <code>renderPass</code> <strong>must</strong> have been created with a
+<a href="resources.html#VkImageSubresourceRange" class="xref page">VkImageSubresourceRange</a>::<code>aspectMask</code> including
+<code>VK_IMAGE_ASPECT_PLANE_0_BIT</code>, <code>VK_IMAGE_ASPECT_PLANE_1_BIT</code>,
+<code>VK_IMAGE_ASPECT_PLANE_2_BIT</code>, or
+<code>VK_IMAGE_ASPECT_COLOR_BIT</code></p>
 </li>
 <li>
 <p><a id="VUID-VkFramebufferCreateInfo-pAttachments-02552" href="#VUID-VkFramebufferCreateInfo-pAttachments-02552"></a> <span class="vuid">VUID-VkFramebufferCreateInfo-pAttachments-02552</span><br>
@@ -11479,7 +11564,9 @@ Load operations for attachments with a color format execute in the
 <code>VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT</code> pipeline stage.
 The load operation for each sample in an attachment happens-before any
 recorded command which accesses the sample in that render pass instance via
-that attachment or an alias.</p>
+that attachment or an alias.
+In a render pass object with multiple <a href="#renderpass-subpass">subpasses</a>, load
+operations are performed in the first subpass which uses an attachment.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -11618,7 +11705,9 @@ during a render pass instance are stored to memory.</p>
 Store operations for attachments with a color format execute in the
 <code>VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT</code> pipeline stage.
 The store operation for each sample in an attachment happens-after any
-recorded command which accesses the sample via that attachment or an alias.</p>
+recorded command which accesses the sample via that attachment or an alias.
+In a render pass object with multiple <a href="#renderpass-subpass">subpasses</a>,
+store operations are performed in the last subpass which uses an attachment.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -16715,11 +16804,11 @@ count and size based on the tile size and a given shading rate.</p>
         })
     }
 </script>
-<script src="../../../_/js/vendor/lunr.js"></script>
-<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
-<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script src="../../../_/js/vendor/lunr.js" defer></script>
+<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js" defer></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css" defer></script>
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', function(){
   try {
     var script = document.getElementById('search-ui-script');
     var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
@@ -16740,7 +16829,7 @@ count and size based on the tile size and a given shading rate.</p>
     s.src = '../../../search-index.js';
     document.head.appendChild(s);
   }
-})();
+});
 </script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>

@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
-    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="manifest" href="../../../_/site.webmanifest">
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
   </head>
@@ -54,6 +54,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../refpages/latest/refpages/index.html">Vulkan Reference Pages</a>
             <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
@@ -342,6 +343,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../refpages/latest/refpages/index.html">Vulkan API Reference Pages</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../refpages/latest/refpages/index.html">latest</a>
         </li>
       </ul>
     </li>
@@ -2571,26 +2580,30 @@ shaders</p>
 <li>
 <p><a id="VUID-StandaloneSpirv-Base-07650" href="#VUID-StandaloneSpirv-Base-07650"></a> <span class="vuid">VUID-StandaloneSpirv-Base-07650</span><br>
 
-The <code>Base</code> operand of <code>OpPtrAccessChain</code>
-or <code>OpUntypedPtrAccessChainKHR</code>
-<strong>must</strong> have a storage class of <code>Workgroup</code>, <code>StorageBuffer</code>, or
-<code>PhysicalStorageBuffer</code></p>
+The <code>Base</code> operand of <code>OpPtrAccessChain</code> or
+<code>OpUntypedPtrAccessChainKHR</code> <strong>must</strong> have a storage class of
+<code>Workgroup</code>, <code>StorageBuffer</code>, or <code>PhysicalStorageBuffer</code></p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Base-07651" href="#VUID-StandaloneSpirv-Base-07651"></a> <span class="vuid">VUID-StandaloneSpirv-Base-07651</span><br>
 
-If the <code>Base</code> operand of <code>OpPtrAccessChain</code>
-or <code>OpUntypedPtrAccessChainKHR</code>
-has a <code>Workgroup</code> <code>Storage</code> <code>Class</code>, then the <code>VariablePointers</code>
-capability <strong>must</strong> be declared</p>
+If the <code>Base</code> operand of <code>OpPtrAccessChain</code> or
+<code>OpUntypedPtrAccessChainKHR</code> has a <code>Workgroup</code> <code>Storage</code> <code>Class</code>,
+then the <code>VariablePointers</code> capability <strong>must</strong> be declared</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-Base-07652" href="#VUID-StandaloneSpirv-Base-07652"></a> <span class="vuid">VUID-StandaloneSpirv-Base-07652</span><br>
 
-If the <code>Base</code> operand of <code>OpPtrAccessChain</code>
-or <code>OpUntypedPtrAccessChainKHR</code>
-has a <code>StorageBuffer</code> <code>Storage</code> <code>Class</code>, then the <code>VariablePointers</code>
-or <code>VariablePointersStorageBuffer</code> capability <strong>must</strong> be declared</p>
+If the <code>Base</code> operand of <code>OpPtrAccessChain</code> or
+<code>OpUntypedPtrAccessChainKHR</code> has a <code>StorageBuffer</code> <code>Storage</code> <code>Class</code>,
+then the <code>VariablePointers</code> or <code>VariablePointersStorageBuffer</code>
+capability <strong>must</strong> be declared</p>
+</li>
+<li>
+<p><a id="VUID-StandaloneSpirv-OpUntypedVariableKHR-11167" href="#VUID-StandaloneSpirv-OpUntypedVariableKHR-11167"></a> <span class="vuid">VUID-StandaloneSpirv-OpUntypedVariableKHR-11167</span><br>
+
+Any <code>OpUntypedVariableKHR</code> <strong>must</strong> have a <code>Data</code> <code>Type</code> operand
+specified</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-PhysicalStorageBuffer64-04708" href="#VUID-StandaloneSpirv-PhysicalStorageBuffer64-04708"></a> <span class="vuid">VUID-StandaloneSpirv-PhysicalStorageBuffer64-04708</span><br>
@@ -2612,6 +2625,14 @@ only be used as the <code>Pointer</code> operand to <code>OpLoad</code> or <code
 If the <code>PhysicalStorageBuffer64</code> addressing model is enabled,
 <code>OpConvertUToPtr</code> and <code>OpConvertPtrToU</code> <strong>must</strong> use an integer type
 whose <code>Width</code> is 64</p>
+</li>
+<li>
+<p><a id="VUID-StandaloneSpirv-PhysicalStorageBuffer64-06314" href="#VUID-StandaloneSpirv-PhysicalStorageBuffer64-06314"></a> <span class="vuid">VUID-StandaloneSpirv-PhysicalStorageBuffer64-06314</span><br>
+
+If the <code>PhysicalStorageBuffer64</code> addressing model is enabled any load
+or store through a physical pointer type <strong>must</strong> have an <code>Aligned</code>
+operand which is a multiple of the size of the largest scalar type in
+the pointed-to type</p>
 </li>
 <li>
 <p><a id="VUID-StandaloneSpirv-OpTypeForwardPointer-04711" href="#VUID-StandaloneSpirv-OpTypeForwardPointer-04711"></a> <span class="vuid">VUID-StandaloneSpirv-OpTypeForwardPointer-04711</span><br>
@@ -3512,13 +3533,6 @@ The stream number value to <code>Stream</code> <strong>must</strong> be less tha
 
 The XFB Stride value to <code>XfbStride</code> <strong>must</strong> be less than or equal to
 <a href="../chapters/limits.html#VkPhysicalDeviceTransformFeedbackPropertiesEXT" class="xref page">VkPhysicalDeviceTransformFeedbackPropertiesEXT</a>::<code>maxTransformFeedbackBufferDataStride</code></p>
-</li>
-<li>
-<p><a id="VUID-RuntimeSpirv-PhysicalStorageBuffer64-06314" href="#VUID-RuntimeSpirv-PhysicalStorageBuffer64-06314"></a> <span class="vuid">VUID-RuntimeSpirv-PhysicalStorageBuffer64-06314</span><br>
-
-If the <code>PhysicalStorageBuffer64</code> addressing model is enabled any load
-or store through a physical pointer type <strong>must</strong> be aligned to a multiple
-of the size of the largest scalar type in the pointed-to type</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-PhysicalStorageBuffer64-06315" href="#VUID-RuntimeSpirv-PhysicalStorageBuffer64-06315"></a> <span class="vuid">VUID-RuntimeSpirv-PhysicalStorageBuffer64-06315</span><br>
@@ -4997,12 +5011,6 @@ any value</p>
 
 Any memory access made using an <code>OpTypeUntypedPointerKHR</code> must have
 an alignment that satisfies <a href="../chapters/interfaces.html#interfaces-resources-layout" class="xref page">Offset and    Stride Assignment</a></p>
-</li>
-<li>
-<p><a id="VUID-RuntimeSpirv-OpUntypedVariableKHR-11167" href="#VUID-RuntimeSpirv-OpUntypedVariableKHR-11167"></a> <span class="vuid">VUID-RuntimeSpirv-OpUntypedVariableKHR-11167</span><br>
-
-Any <code>OpUntypedVariableKHR</code> <strong>must</strong> have a <code>Data</code> <code>Type</code> operand
-specified</p>
 </li>
 <li>
 <p><a id="VUID-RuntimeSpirv-OpImage-06376" href="#VUID-RuntimeSpirv-OpImage-06376"></a> <span class="vuid">VUID-RuntimeSpirv-OpImage-06376</span><br>
@@ -6673,7 +6681,7 @@ over all indices multiplied by strides, including spanning multiple
 access chain instructions that lead to a given memory access.</p>
 </li>
 <li>
-<p><code>OpCooperativeMatrixLoadKHR</code> and <code>OpCooperativeMatrixStoreKHR</code>
+<p><code>OpCooperativeMatrixLoadNV</code> and <code>OpCooperativeMatrixStoreNV</code>
 instructions computing an offset based on element, row, and stride
 parameters.</p>
 </li>
@@ -6686,6 +6694,12 @@ parameters.</p>
 <p><code>OpCooperativeMatrixLoadTensorNV</code> and
 <code>OpCooperativeMatrixStoreTensorNV</code> instructions computing an offset
 based on tensor layout state.</p>
+</li>
+<li>
+<p><code>OpCooperativeVectorMatrixMulAddNV</code>,
+<code>OpCooperativeVectorMatrixMulNV</code> and
+<code>OpCooperativeVectorOuterProductAccumulateNV</code> instructions computing
+an offset based on offset, row, and stride parameters.</p>
 </li>
 </ul>
 </div>
@@ -7264,11 +7278,11 @@ matrix multiplication.</p>
         })
     }
 </script>
-<script src="../../../_/js/vendor/lunr.js"></script>
-<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
-<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script src="../../../_/js/vendor/lunr.js" defer></script>
+<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js" defer></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css" defer></script>
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', function(){
   try {
     var script = document.getElementById('search-ui-script');
     var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
@@ -7289,7 +7303,7 @@ matrix multiplication.</p>
     s.src = '../../../search-index.js';
     document.head.appendChild(s);
   }
-})();
+});
 </script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>

@@ -13,6 +13,8 @@
 - [Physical_Device_Queries:_Deprecation_via_version_2](#deprecation-gpdp2)
 - [Version Macros: Deprecation via replacements including API variant](#deprecation-version-macros)
 - [Version_Macros:_Deprecation_via_replacements_including_API_variant](#deprecation-version-macros)
+- [Device Layers: Deprecation via instance layers](#deprecation-devicelayers)
+- [Device_Layers:_Deprecation_via_instance_layers](#deprecation-devicelayers)
 - [Render Pass Functions: Deprecation via version 2](#deprecation-renderpass2)
 - [Render_Pass_Functions:_Deprecation_via_version_2](#deprecation-renderpass2)
 - [Render Pass Objects: Deprecation via dynamic rendering](#_render_pass_objects_deprecation_via_dynamic_rendering)
@@ -84,6 +86,22 @@ that do, such as [VK_MAKE_API_VERSION](../chapters/extensions.html#VK_MAKE_API_V
 Instead of [VK_API_VERSION](boilerplate.html#VK_API_VERSION), specific version defines (e.g.
 [VK_API_VERSION_1_0](../chapters/extensions.html#VK_API_VERSION_1_0)) or the [VK_MAKE_API_VERSION](../chapters/extensions.html#VK_MAKE_API_VERSION) macro should be
 used instead.
+
+Previous versions of this specification distinguished between instance and
+device layers.
+Instance layers were only able to intercept commands that operate on
+`VkInstance` and `VkPhysicalDevice`, except they were not able to
+intercept [vkCreateDevice](../chapters/devsandqueues.html#vkCreateDevice).
+Device layers were enabled for individual devices when they were created,
+and could only intercept commands operating on that device or its child
+objects.
+
+Device-only layers are now deprecated, and this specification no longer
+distinguishes between instance and device layers.
+Layers are enabled during instance creation, and are able to intercept all
+commands operating on that instance or any of its child objects.
+At the time of deprecation there were no known device-only layers and no
+compelling reason to create one.
 
 [VK_KHR_create_renderpass2](extensions.html#VK_KHR_create_renderpass2) was incorporated into Vulkan 1.2, which
 introduced new versions of several render pass functions.

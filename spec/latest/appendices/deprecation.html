@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
-    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="manifest" href="../../../_/site.webmanifest">
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
   </head>
@@ -54,6 +54,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../refpages/latest/refpages/index.html">Vulkan Reference Pages</a>
             <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
@@ -346,6 +347,14 @@
       </ul>
     </li>
     <li class="component">
+      <div class="title"><a href="../../../refpages/latest/refpages/index.html">Vulkan API Reference Pages</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../refpages/latest/refpages/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
       <div class="title"><a href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
         <li class="version is-latest">
@@ -522,6 +531,27 @@ used instead.</p>
 </div>
 </div>
 <div class="sect2">
+<h3 id="deprecation-devicelayers"><a class="anchor" href="#deprecation-devicelayers"></a>Device Layers: Deprecation via instance layers</h3>
+<div class="paragraph">
+<p>Previous versions of this specification distinguished between instance and
+device layers.
+Instance layers were only able to intercept commands that operate on
+<code>VkInstance</code> and <code>VkPhysicalDevice</code>, except they were not able to
+intercept <a href="../chapters/devsandqueues.html#vkCreateDevice" class="xref page">vkCreateDevice</a>.
+Device layers were enabled for individual devices when they were created,
+and could only intercept commands operating on that device or its child
+objects.</p>
+</div>
+<div class="paragraph">
+<p>Device-only layers are now deprecated, and this specification no longer
+distinguishes between instance and device layers.
+Layers are enabled during instance creation, and are able to intercept all
+commands operating on that instance or any of its child objects.
+At the time of deprecation there were no known device-only layers and no
+compelling reason to create one.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="deprecation-renderpass2"><a class="anchor" href="#deprecation-renderpass2"></a>Render Pass Functions: Deprecation via version 2</h3>
 <div class="paragraph">
 <p><a href="extensions.html#VK_KHR_create_renderpass2" class="xref page">VK_KHR_create_renderpass2</a> was incorporated into Vulkan 1.2, which
@@ -619,11 +649,11 @@ passes from this API version onward.</p>
         })
     }
 </script>
-<script src="../../../_/js/vendor/lunr.js"></script>
-<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
-<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script src="../../../_/js/vendor/lunr.js" defer></script>
+<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js" defer></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css" defer></script>
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', function(){
   try {
     var script = document.getElementById('search-ui-script');
     var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
@@ -644,7 +674,7 @@ passes from this API version onward.</p>
     s.src = '../../../search-index.js';
     document.head.appendChild(s);
   }
-})();
+});
 </script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>

@@ -636,6 +636,9 @@ of the name of the retrieved binary data.
 If such commands are called with the binary pointer not set to `NULL`, the
 binary size pointer **must** point to a variable set by the application to the
 allocated size of the binary pointer.
+These arguments **may** also be placed in an extensible structure, in which
+case the binary data size argument is not a pointer.
+
 If the input binary size is less than the total retrievable binary size, the
 query will not write any data to the location pointed to the binary pointer,
 and the command will return `VK_ERROR_NOT_ENOUGH_SPACE_KHR` instead of
@@ -6038,7 +6041,7 @@ typedef enum VkStructureType {
   // Provided by VK_KHR_video_decode_av1 with VK_KHR_video_maintenance2
     VK_STRUCTURE_TYPE_VIDEO_DECODE_AV1_INLINE_SESSION_PARAMETERS_INFO_KHR = 1000586003,
   // Provided by VK_OHOS_surface
-    VK_STRUCTURE_TYPE_OH_SURFACE_CREATE_INFO_OHOS = 1000587000,
+    VK_STRUCTURE_TYPE_SURFACE_CREATE_INFO_OHOS = 1000685000,
   // Provided by VK_HUAWEI_hdr_vivid
     VK_STRUCTURE_TYPE_PHYSICAL_DEVICE_HDR_VIVID_FEATURES_HUAWEI = 1000590000,
   // Provided by VK_HUAWEI_hdr_vivid

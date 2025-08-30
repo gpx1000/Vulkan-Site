@@ -78,9 +78,9 @@ The extension adds a feature struct:
 
 typedef struct VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT
 {
-	VkStructureType sType;
-	const void *pNext;
-	VkBool32 zeroInitializeDeviceMemory;
+        VkStructureType sType;
+        const void *pNext;
+        VkBool32 zeroInitializeDeviceMemory;
 } VkPhysicalDeviceZeroInitializeDeviceMemoryFeaturesEXT;
 
 and a new `VkMemoryAllocateFlagBits` flag:

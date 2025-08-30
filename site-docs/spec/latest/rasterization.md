@@ -418,11 +418,6 @@ Valid Usage (Implicit)
 
  `rasterizationSamples` **must** be a valid [VkSampleCountFlagBits](limits.html#VkSampleCountFlagBits) value
 
-* 
-[](#VUID-VkPipelineMultisampleStateCreateInfo-pSampleMask-parameter) VUID-VkPipelineMultisampleStateCreateInfo-pSampleMask-parameter
-
- If `pSampleMask` is not `NULL`, `pSampleMask` **must** be a valid pointer to an array of    `VkSampleMask` values
-
 // Provided by VK_VERSION_1_0
 typedef VkFlags VkPipelineMultisampleStateCreateFlags;
 

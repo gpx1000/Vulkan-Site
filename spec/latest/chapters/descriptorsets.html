@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
-    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="manifest" href="../../../_/site.webmanifest">
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
   </head>
@@ -54,6 +54,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../refpages/latest/refpages/index.html">Vulkan Reference Pages</a>
             <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
@@ -342,6 +343,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../refpages/latest/refpages/index.html">Vulkan API Reference Pages</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../refpages/latest/refpages/index.html">latest</a>
         </li>
       </ul>
     </li>
@@ -1868,7 +1877,7 @@ If <a href="#VkDescriptorSetLayoutCreateInfo">VkDescriptorSetLayoutCreateInfo</a
 
 If <a href="#VkDescriptorSetLayoutCreateInfo">VkDescriptorSetLayoutCreateInfo</a>::<code>flags</code> contains
 <code>VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT</code>,
-<code>descriptorCount</code> <strong>must</strong> less than or equal to <code>1</code></p>
+<code>descriptorCount</code> <strong>must</strong> be less than or equal to <code>1</code></p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorSetLayoutBinding-flags-08007" href="#VUID-VkDescriptorSetLayoutBinding-flags-08007"></a> <span class="vuid">VUID-VkDescriptorSetLayoutBinding-flags-08007</span><br>
@@ -4448,6 +4457,16 @@ If <code>pPoolSizes</code> contains a <code>descriptorType</code> of
 <code>VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK</code>, the <code>pNext</code> chain
 <strong>must</strong> include a <a href="#VkDescriptorPoolInlineUniformBlockCreateInfo">VkDescriptorPoolInlineUniformBlockCreateInfo</a>
 structure whose <code>maxInlineUniformBlockBindings</code> member is not zero</p>
+</li>
+<li>
+<p><a id="VUID-VkDescriptorPoolCreateInfo-pNext-09946" href="#VUID-VkDescriptorPoolCreateInfo-pNext-09946"></a> <span class="vuid">VUID-VkDescriptorPoolCreateInfo-pNext-09946</span><br>
+
+If a <a href="VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM" class="xref page">VkDataGraphProcessingEngineCreateInfoARM</a> structure is
+included in the <code>pNext</code> chain, each member of
+<code>pProcessingEngines</code> <strong>must</strong> be identical to an
+<a href="VK_ARM_data_graph/graphs.html#VkQueueFamilyDataGraphPropertiesARM" class="xref page">VkQueueFamilyDataGraphPropertiesARM</a>::<code>engine</code> retrieved from
+<a href="VK_ARM_data_graph/graphs.html#vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM" class="xref page">vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM</a> with the
+<code>physicalDevice</code> that was used to create <code>device</code></p>
 </li>
 </ul>
 </div>
@@ -11908,12 +11927,6 @@ If <code>address</code> is not zero,
 <code>range</code> <strong>must</strong> not be <code>VK_WHOLE_SIZE</code></p>
 </li>
 <li>
-<p><a id="VUID-VkDescriptorAddressInfoEXT-None-08044" href="#VUID-VkDescriptorAddressInfoEXT-None-08044"></a> <span class="vuid">VUID-VkDescriptorAddressInfoEXT-None-08044</span><br>
-
-If <code>address</code> is not zero, <code>address</code> <strong>must</strong> be a valid
-<code>VkDeviceAddress</code></p>
-</li>
-<li>
 <p><a id="VUID-VkDescriptorAddressInfoEXT-range-08045" href="#VUID-VkDescriptorAddressInfoEXT-range-08045"></a> <span class="vuid">VUID-VkDescriptorAddressInfoEXT-range-08045</span><br>
 
 <code>range</code> <strong>must</strong> be less than or equal to the size of the buffer
@@ -11944,7 +11957,7 @@ address of the buffer</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorAddressInfoEXT-address-parameter" href="#VUID-VkDescriptorAddressInfoEXT-address-parameter"></a> <span class="vuid">VUID-VkDescriptorAddressInfoEXT-address-parameter</span><br>
- <code>address</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code> value</p>
+ If <code>address</code> is not <code>0</code>, <code>address</code> <strong>must</strong> be a valid <code>VkDeviceAddress</code> value</p>
 </li>
 <li>
 <p><a id="VUID-VkDescriptorAddressInfoEXT-format-parameter" href="#VUID-VkDescriptorAddressInfoEXT-format-parameter"></a> <span class="vuid">VUID-VkDescriptorAddressInfoEXT-format-parameter</span><br>
@@ -12190,6 +12203,17 @@ contains resource descriptor data</p>
 
 For any element of <code>pBindingInfos</code>, <code>usage</code> <strong>must</strong> match the
 buffer from which <code>address</code> was queried</p>
+</li>
+<li>
+<p><a id="VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947" href="#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947"></a> <span class="vuid">VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947</span><br>
+
+For all elements of <code>pBindingInfos</code>, the buffer from which
+<code>address</code> was queried <strong>must</strong> have been created with the
+<code>VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM</code> bit set if
+the command pool from which <code>commandBuffer</code> was allocated from was
+created with any element of
+<a href="VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM" class="xref page">VkDataGraphProcessingEngineCreateInfoARM</a>::pProcessingEngines with
+<code>isForeign</code> set to <code>VK_TRUE</code></p>
 </li>
 </ul>
 </div>
@@ -15106,11 +15130,11 @@ in <a href="resources.html#VkTensorViewCreateInfoARM" class="xref page">VkTensor
         })
     }
 </script>
-<script src="../../../_/js/vendor/lunr.js"></script>
-<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
-<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script src="../../../_/js/vendor/lunr.js" defer></script>
+<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js" defer></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css" defer></script>
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', function(){
   try {
     var script = document.getElementById('search-ui-script');
     var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
@@ -15131,7 +15155,7 @@ in <a href="resources.html#VkTensorViewCreateInfoARM" class="xref page">VkTensor
     s.src = '../../../search-index.js';
     document.head.appendChild(s);
   }
-})();
+});
 </script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>

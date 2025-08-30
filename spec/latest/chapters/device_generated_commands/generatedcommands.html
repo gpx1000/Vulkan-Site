@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../../_/img/favicon-16x16.png">
-    <link rel="manifest" href="../../../../_/static/site.webmanifest">
+    <link rel="manifest" href="../../../../_/site.webmanifest">
     <link rel="mask-icon" href="../../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
   </head>
@@ -54,6 +54,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../refpages/latest/refpages/index.html">Vulkan Reference Pages</a>
             <a class="navbar-item" href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../../guide/latest/index.html">Vulkan Guide</a>
             <a class="navbar-item" href="../../../../samples/latest/README.html">Vulkan Samples</a>
@@ -342,6 +343,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../../refpages/latest/refpages/index.html">Vulkan API Reference Pages</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../refpages/latest/refpages/index.html">latest</a>
         </li>
       </ul>
     </li>
@@ -729,7 +738,7 @@ data type as defined in <a href="../interfaces.html#interfaces-alignment-require
 <li>
 <p><a id="VUID-VkIndirectCommandsLayoutCreateInfoEXT-tokenCount-11092" href="#VUID-VkIndirectCommandsLayoutCreateInfoEXT-tokenCount-11092"></a> <span class="vuid">VUID-VkIndirectCommandsLayoutCreateInfoEXT-tokenCount-11092</span><br>
 
-<code>tokenCount</code> <strong>must</strong> less than or equal to
+<code>tokenCount</code> <strong>must</strong> be less than or equal to
 <a href="../limits.html#VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT" class="xref page">VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT</a>::<code>maxIndirectCommandsTokenCount</code></p>
 </li>
 <li>
@@ -8744,8 +8753,9 @@ either the source or destination blend factors for that attachment
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsNV-None-09548" href="#VUID-vkCmdExecuteGeneratedCommandsNV-None-09548"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsNV-None-09548</span><br>
 
 If the current render pass was begun with <a href="../renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>,
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and <a href="../interfaces.html#vkCmdSetRenderingAttachmentLocations" class="xref page">vkCmdSetRenderingAttachmentLocations</a> has been called inside
+the render pass instance, the value of each element of
 <a href="../interfaces.html#VkRenderingAttachmentLocationInfo" class="xref page">VkRenderingAttachmentLocationInfo</a>::<code>pColorAttachmentLocations</code>
 set by <a href="../interfaces.html#vkCmdSetRenderingAttachmentLocations" class="xref page">vkCmdSetRenderingAttachmentLocations</a> <strong>must</strong> match the value
 set for the corresponding element in the bound pipeline</p>
@@ -9103,7 +9113,7 @@ If <code>isPreprocessed</code> is <code>VK_TRUE</code> then
 executed on the device, using the same <code>pGeneratedCommandsInfo</code>
 content as well as the content of the input buffers it references (all
 except <a href="#VkGeneratedCommandsInfoNV">VkGeneratedCommandsInfoNV</a>::<code>preprocessBuffer</code>).
-Furthermore <code>pGeneratedCommandsInfo</code>`s <code>indirectCommandsLayout</code>
+Furthermore, <code>pGeneratedCommandsInfo</code>&#8217;s <code>indirectCommandsLayout</code>
 <strong>must</strong> have been created with the
 <code>VK_INDIRECT_COMMANDS_LAYOUT_USAGE_EXPLICIT_PREPROCESS_BIT_NV</code> bit
 set</p>
@@ -9425,7 +9435,7 @@ completely and contiguously to a single <code>VkDeviceMemory</code> object</p>
 <li>
 <p><a id="VUID-VkGeneratedCommandsInfoNV-preprocessSize-02920" href="#VUID-VkGeneratedCommandsInfoNV-preprocessSize-02920"></a> <span class="vuid">VUID-VkGeneratedCommandsInfoNV-preprocessSize-02920</span><br>
 
-<code>preprocessSize</code> <strong>must</strong> be at least equal to the memory requirement`s
+<code>preprocessSize</code> <strong>must</strong> be at least equal to the memory requirement&#8217;s
 size returned by <a href="#vkGetGeneratedCommandsMemoryRequirementsNV">vkGetGeneratedCommandsMemoryRequirementsNV</a> using
 the matching inputs (<code>indirectCommandsLayout</code>, &#8230;&#8203;) as within this
 structure</p>
@@ -13014,8 +13024,9 @@ either the source or destination blend factors for that attachment
 <p><a id="VUID-vkCmdExecuteGeneratedCommandsEXT-None-09548" href="#VUID-vkCmdExecuteGeneratedCommandsEXT-None-09548"></a> <span class="vuid">VUID-vkCmdExecuteGeneratedCommandsEXT-None-09548</span><br>
 
 If the current render pass was begun with <a href="../renderpass.html#vkCmdBeginRendering" class="xref page">vkCmdBeginRendering</a>,
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and <a href="../interfaces.html#vkCmdSetRenderingAttachmentLocations" class="xref page">vkCmdSetRenderingAttachmentLocations</a> has been called inside
+the render pass instance, the value of each element of
 <a href="../interfaces.html#VkRenderingAttachmentLocationInfo" class="xref page">VkRenderingAttachmentLocationInfo</a>::<code>pColorAttachmentLocations</code>
 set by <a href="../interfaces.html#vkCmdSetRenderingAttachmentLocations" class="xref page">vkCmdSetRenderingAttachmentLocations</a> <strong>must</strong> match the value
 set for the corresponding element in the bound pipeline</p>
@@ -14021,11 +14032,11 @@ COMMAND_PREPROCESS_READ_BIT</p>
         })
     }
 </script>
-<script src="../../../../_/js/vendor/lunr.js"></script>
-<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
-<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
+<script src="../../../../_/js/vendor/lunr.js" defer></script>
+<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js" defer></script>
+<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css" defer></script>
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', function(){
   try {
     var script = document.getElementById('search-ui-script');
     var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
@@ -14046,7 +14057,7 @@ COMMAND_PREPROCESS_READ_BIT</p>
     s.src = '../../../../search-index.js';
     document.head.appendChild(s);
   }
-})();
+});
 </script>
 <script async src="../../../../_/js/vendor/tabs.js"></script>
   </body>

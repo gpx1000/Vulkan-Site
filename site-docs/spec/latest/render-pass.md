@@ -104,6 +104,14 @@ feature is not enabled,
 `VK_RENDERING_CONTENTS_SECONDARY_COMMAND_BUFFERS_BIT`
 
 * 
+[](#VUID-vkCmdBeginRendering-commandBuffer-10914) VUID-vkCmdBeginRendering-commandBuffer-10914
+
+If `commandBuffer` is a secondary command buffer,
+`VK_COMMAND_BUFFER_USAGE_RENDER_PASS_CONTINUE_BIT` **must** not have
+been set in [VkCommandBufferBeginInfo](cmdbuffers.html#VkCommandBufferBeginInfo)::`flags` when
+`commandBuffer` began
+
+* 
 [](#VUID-vkCmdBeginRendering-pRenderingInfo-09588) VUID-vkCmdBeginRendering-pRenderingInfo-09588
 
 If `pRenderingInfo->pDepthAttachment` is not `NULL` and
@@ -321,6 +329,13 @@ If the `imageView` member of any element of `pColorAttachments` is
 and `resolveMode` is not
 `VK_RESOLVE_MODE_EXTERNAL_FORMAT_DOWNSAMPLE_BIT_ANDROID`,
 writes to the corresponding location by a fragment are discarded.
+
+The `aspectMask` of any image view specified for `pDepthAttachment`
+or `pStencilAttachment` is ignored.
+Instead, depth attachments are automatically treated as if
+`VK_IMAGE_ASPECT_DEPTH_BIT` was specified for their aspect masks, and
+stencil attachments are automatically treated as if
+`VK_IMAGE_ASPECT_STENCIL_BIT` was specified for their aspect masks.
 
 Valid Usage
 
@@ -2908,6 +2923,12 @@ is not `VK_ATTACHMENT_UNUSED`,
 `VK_TILE_SHADING_RENDER_PASS_ENABLE_BIT_QCOM` **must** not be included
 in [VkRenderPassTileShadingCreateInfoQCOM](#VkRenderPassTileShadingCreateInfoQCOM)::`flags`
 
+* 
+[](#VUID-VkRenderPassCreateInfo-None-10915) VUID-VkRenderPassCreateInfo-None-10915
+
+If any subpass preserves an attachment, there **must** be a subpass
+dependency from a prior subpass which uses or preserves that attachment
+
 Valid Usage (Implicit)
 
 * 
@@ -4029,12 +4050,29 @@ are true:
 * 
 The attachment is used as a color or depth/stencil in the subpass.
 
+For color attachments, this operation will be performed in the
+`VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT` pipeline stage, with any
+image accesses performed via `VK_ACCESS_INPUT_ATTACHMENT_READ_BIT`,
+`VK_ACCESS_COLOR_ATTACHMENT_READ_BIT`, and
+`VK_ACCESS_COLOR_ATTACHMENT_WRITE_BIT`.
+For depth/stencil attachments, this operation **may** be performed in either
+the `VK_PIPELINE_STAGE_EARLY_FRAGMENT_TESTS_BIT` or
+`VK_PIPELINE_STAGE_LATE_FRAGMENT_TESTS_BIT` pipeline stage, with any
+image accesses performed via `VK_ACCESS_INPUT_ATTACHMENT_READ_BIT`,
+`VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_READ_BIT`, and
+`VK_ACCESS_DEPTH_STENCIL_ATTACHMENT_WRITE_BIT`.
+
 Once the contents of an attachment become **undefined** in subpass **S**, they
 remain **undefined** for subpasses in subpass dependency chains starting with
 subpass **S** until they are written again.
 However, they remain valid for subpasses in other subpass dependency chains
-starting with subpass **S1** if those subpasses use or preserve the
-attachment.
+starting with subpass **S1** if all subpasses in each chain use or preserve
+the attachment.
+
+|  | If a subpass has multiple dependency chains where some of the chains
+| --- | --- |
+preserve the attachment, and others do not, the contents of the attachment
+are **undefined** for that subpass. |
 
 Valid Usage
 
@@ -5662,6 +5700,12 @@ If
 is not `VK_ATTACHMENT_UNUSED`,
 `VK_TILE_SHADING_RENDER_PASS_ENABLE_BIT_QCOM` **must** not be included
 in [VkRenderPassTileShadingCreateInfoQCOM](#VkRenderPassTileShadingCreateInfoQCOM)::`flags`
+
+* 
+[](#VUID-VkRenderPassCreateInfo2-None-10916) VUID-VkRenderPassCreateInfo2-None-10916
+
+If any subpass preserves an attachment, there **must** be a subpass
+dependency from a prior subpass which uses or preserves that attachment
 
 Valid Usage (Implicit)
 
@@ -8121,6 +8165,12 @@ each attachment requires a number of layers that is greater than the
 maximum bit index set in the view mask in the subpasses in which it is
 used.
 
+For any depth/stencil attachments used by this framebuffer in
+`pAttachments`,
+or set later through
+[VkRenderPassAttachmentBeginInfoKHR](#VkRenderPassAttachmentBeginInfoKHR)::`pAttachments`,
+the `aspectMask` is ignored.
+
 It is legal for a subpass to use no color or depth/stencil attachments,
 either because it has no attachment references or because all of them are
 `VK_ATTACHMENT_UNUSED`.
@@ -8190,6 +8240,18 @@ include `VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT`, each element of
 `pAttachments` that is used as an input attachment by
 `renderPass` **must** have been created with a `usage` value
 including `VK_IMAGE_USAGE_INPUT_ATTACHMENT_BIT`
+
+* 
+[](#VUID-VkFramebufferCreateInfo-flags-10917) VUID-VkFramebufferCreateInfo-flags-10917
+
+If `flags` does not include
+`VK_FRAMEBUFFER_CREATE_IMAGELESS_BIT`, each element of
+`pAttachments` that is used as a color attachment or resolve
+attachment by `renderPass` **must** have been created with a
+[VkImageSubresourceRange](resources.html#VkImageSubresourceRange)::`aspectMask` including
+`VK_IMAGE_ASPECT_PLANE_0_BIT`, `VK_IMAGE_ASPECT_PLANE_1_BIT`,
+`VK_IMAGE_ASPECT_PLANE_2_BIT`, or
+`VK_IMAGE_ASPECT_COLOR_BIT`
 
 * 
 [](#VUID-VkFramebufferCreateInfo-pAttachments-02552) VUID-VkFramebufferCreateInfo-pAttachments-02552
@@ -8993,6 +9055,8 @@ Load operations for attachments with a color format execute in the
 The load operation for each sample in an attachment happens-before any
 recorded command which accesses the sample in that render pass instance via
 that attachment or an alias.
+In a render pass object with multiple [subpasses](#renderpass-subpass), load
+operations are performed in the first subpass which uses an attachment.
 
 |  | Because load operations always happen first, external synchronization with
 | --- | --- |
@@ -9089,6 +9153,8 @@ Store operations for attachments with a color format execute in the
 `VK_PIPELINE_STAGE_COLOR_ATTACHMENT_OUTPUT_BIT` pipeline stage.
 The store operation for each sample in an attachment happens-after any
 recorded command which accesses the sample via that attachment or an alias.
+In a render pass object with multiple [subpasses](#renderpass-subpass),
+store operations are performed in the last subpass which uses an attachment.
 
 |  | Because store operations always happen after other accesses in a render pass
 | --- | --- |

@@ -14588,9 +14588,6 @@ the following features **must** be supported:
 [`tileShadingPerTileDraw`](#features-tileShadingPerTileDraw)
 
 * 
-[`tileShadingApron`](#features-tileShadingApron)
-
-* 
 [`tileShadingDepthAttachments`](#features-tileShadingDepthAttachments)
 
 * 

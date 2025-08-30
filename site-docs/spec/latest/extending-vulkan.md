@@ -8,22 +8,15 @@
 
 ## Table of Contents
 
-- [Instance and Device Functionality](#extendingvulkan-instanceanddevicefunctionality)
-- [Instance_and_Device_Functionality](#extendingvulkan-instanceanddevicefunctionality)
+- [Functionality Levels](#extendingvulkan-functionalitylevels)
+- [Instance and Device Versions](#extendingvulkan-instanceanddeviceversions)
+- [Instance_and_Device_Versions](#extendingvulkan-instanceanddeviceversions)
 - [Core Versions](#extendingvulkan-coreversions)
 - [Version Numbers](#extendingvulkan-coreversions-versionnumbers)
-- [Querying Version Support](#extendingvulkan-coreversions-queryingversionsupport)
-- [Querying_Version_Support](#extendingvulkan-coreversions-queryingversionsupport)
 - [Layers](#extendingvulkan-layers)
-- [Device Layer Deprecation](#extendingvulkan-layers-devicelayerdeprecation)
-- [Device_Layer_Deprecation](#extendingvulkan-layers-devicelayerdeprecation)
 - [Extensions](#extendingvulkan-extensions)
 - [Instance Extensions](#extendingvulkan-instance-extensions)
 - [Device Extensions](#extendingvulkan-device-extensions)
-- [Accessing Device-Level Functionality From a VkPhysicalDevice](#extendingvulkan-accessing-device-physical-device)
-- [Accessing_Device-Level_Functionality_From_a_VkPhysicalDevice](#extendingvulkan-accessing-device-physical-device)
-- [Accessing Device-Level Functionality From a VkDevice](#extendingvulkan-accessing-device-logical-device)
-- [Accessing_Device-Level_Functionality_From_a_VkDevice](#extendingvulkan-accessing-device-logical-device)
 - [Extension Dependencies](#extendingvulkan-extensions-extensiondependencies)
 - [Compatibility Guarantees (Informative)](#_compatibility_guarantees_informative)
 - [Compatibility_Guarantees_(Informative)](#_compatibility_guarantees_informative)
@@ -48,46 +41,43 @@ This chapter describes how Vulkan is versioned, how compatibility is
 affected between different versions, and compatibility rules that are
 followed by the Vulkan Working Group.
 
-Commands that enumerate instance properties, or that accept a
-[VkInstance](initialization.html#VkInstance) object as a parameter, are considered instance-level
-functionality.
+Functionality in Vulkan is divided into several different levels; global,
+instance-level, physical-device-level, and device-level.
 
-Commands that dispatch from a [VkDevice](devsandqueues.html#VkDevice) object or a child object of a
-[VkDevice](devsandqueues.html#VkDevice), or take any of them as a parameter, are considered
-device-level functionality.
-Types defined by a [device extension](#extendingvulkan-device-extensions)
-are also considered device-level functionality.
+* 
+[VkInstance](initialization.html#VkInstance) and any objects created from a [VkInstance](initialization.html#VkInstance) other
+than [VkPhysicalDevice](devsandqueues.html#VkPhysicalDevice) are instance-level.
 
-Commands that dispatch from [VkPhysicalDevice](devsandqueues.html#VkPhysicalDevice), or accept a
-[VkPhysicalDevice](devsandqueues.html#VkPhysicalDevice) object as a parameter, are considered either
-instance-level or device-level functionality depending if the functionality
-is specified by an [instance extension](#extendingvulkan-instance-extensions) or [device extension](#extendingvulkan-device-extensions)
-respectively.
+* 
+[VkPhysicalDevice](devsandqueues.html#VkPhysicalDevice) is the only physical-device-level object.
 
-Additionally, commands that enumerate physical device properties are
-considered device-level functionality.
+* 
+[VkDevice](devsandqueues.html#VkDevice) and any objects created from a [VkDevice](devsandqueues.html#VkDevice) are
+device-level.
 
-|  | Applications usually interface to Vulkan using a loader that implements only
-| --- | --- |
-instance-level functionality, passing device-level functionality to
-implementations of the full Vulkan API on the system.
-In some circumstances, as these may be implemented independently, it is
-possible that the loader and device implementations on a given installation
-will support different versions.
-To allow for this and call out when it happens, the Vulkan specification
-enumerates device and instance level functionality separately - they have
-[independent version queries](#extendingvulkan-coreversions-queryingversionsupport). |
+The level of a command is the same as the level of its first parameter - if
+the first parameter is not a [dispatchable handle](fundamentals.html#fundamentals-objectmodel-overview), it is a global command.
+Different levels of functionality **may** be advertised in different ways.
 
-|  | Vulkan 1.0 initially specified new physical device enumeration functionality
-| --- | --- |
-as instance-level, requiring it to be included in an instance extension.
-As the capabilities of device-level functionality require discovery via
-physical device enumeration, this led to the situation where many device
-extensions required an instance extension as well.
-To alleviate this extra work,
-`[VK_KHR_get_physical_device_properties2](../appendices/extensions.html#VK_KHR_get_physical_device_properties2)` (and subsequently Vulkan
-1.1) redefined device-level functionality to include physical device
-enumeration. |
+Starting with Vulkan 1.1, there are separate versions advertised for the
+Vulkan instance, and for each device supported on the system.
+This allows a system with multiple devices to advertise all devices at their
+full capabilities, even if those devices do not support the same version of
+Vulkan.
+
+The instance version indicates which global and instance-level functionality
+is supported, while each device version indicates the physical-device-level
+and device-level functionality supported.
+
+The instance version **can** be queried by calling
+[vkEnumerateInstanceVersion](initialization.html#vkEnumerateInstanceVersion).
+Querying for this function via [vkGetInstanceProcAddr](initialization.html#vkGetInstanceProcAddr) will return
+`NULL` on implementations that only support Vulkan 1.0 functionality.
+
+The device version **can** be queried by calling
+[vkGetPhysicalDeviceProperties](devsandqueues.html#vkGetPhysicalDeviceProperties) or [vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2),
+and is returned in [VkPhysicalDeviceProperties](devsandqueues.html#VkPhysicalDeviceProperties)::`apiVersion`,
+encoded as described in [Version Numbers](#extendingvulkan-coreversions-versionnumbers).
 
 The Vulkan Specification is regularly updated with bug fixes and
 clarifications.
@@ -267,15 +257,6 @@ version number:
 // Vulkan 1.4 version number
 #define VK_API_VERSION_1_4 VK_MAKE_API_VERSION(0, 1, 4, 0)// Patch version should always be set to 0
 
-The version of instance-level functionality can be queried by calling
-[vkEnumerateInstanceVersion](initialization.html#vkEnumerateInstanceVersion).
-
-The version of device-level functionality can be queried by calling
-[vkGetPhysicalDeviceProperties](devsandqueues.html#vkGetPhysicalDeviceProperties)
-or [vkGetPhysicalDeviceProperties2](devsandqueues.html#vkGetPhysicalDeviceProperties2),
-and is returned in [VkPhysicalDeviceProperties](devsandqueues.html#VkPhysicalDeviceProperties)::`apiVersion`,
-encoded as described in [Version Numbers](#extendingvulkan-coreversions-versionnumbers).
-
 When a layer is enabled, it inserts itself into the call chain for Vulkan
 commands the layer is interested in.
 Layers **can** be used for a variety of tasks that extend the base behavior of
@@ -431,31 +412,10 @@ are loaded.
 Explicitly enabling a layer that is implicitly enabled results in this layer
 being loaded as an implicitly enabled layer; it has no additional effect.
 
-Previous versions of this specification distinguished between instance and
-device layers.
-Instance layers were only able to intercept commands that operate on
-`VkInstance` and `VkPhysicalDevice`, except they were not able to
-intercept [vkCreateDevice](devsandqueues.html#vkCreateDevice).
-Device layers were enabled for individual devices when they were created,
-and could only intercept commands operating on that device or its child
-objects.
-
-Device-only layers are now deprecated, and this specification no longer
-distinguishes between instance and device layers.
-Layers are enabled during instance creation, and are able to intercept all
-commands operating on that instance or any of its child objects.
-At the time of deprecation there were no known device-only layers and no
-compelling reason to create one.
-
-In order to maintain compatibility with implementations released prior to
-device-layer deprecation, applications **should** still enumerate and enable
-device layers.
-The behavior of `vkEnumerateDeviceLayerProperties` and valid usage of
-the `ppEnabledLayerNames` member of [VkDeviceCreateInfo](devsandqueues.html#VkDeviceCreateInfo) maximizes
-compatibility with applications written to work with the previous
-requirements.
-
 To enumerate device layers, call:
+
+|  | This functionality is deprecated by [Vulkan Version 1.0](../appendices/versions.html#versions-1.0). See [Deprecated Functionality](../appendices/deprecation.html#deprecation-devicelayers) for more information. |
+| --- | --- |
 
 // Provided by VK_VERSION_1_0
 VkResult vkEnumerateDeviceLayerProperties(
@@ -591,8 +551,9 @@ contain which extensions have to be enabled in order to make their use
 valid, although they might do so in the future.
 It is defined only in the [Valid Usage for Extensions](fundamentals.html#fundamentals-validusage-extensions) section. |
 
-Instance extensions add new
-[instance-level functionality](#extendingvulkan-instanceanddevicefunctionality) to the API, outside of the core specification.
+Instance extensions add new [global or instance-level functionality](#extendingvulkan-functionalitylevels) to the API, outside of the core
+specification.
+Instance extensions **may** also add [physical-device-level functionality](#extendingvulkan-functionalitylevels).
 
 To query the available instance extensions, call:
 
@@ -686,8 +647,13 @@ Return Codes
 * 
 `VK_ERROR_VALIDATION_FAILED`
 
-Device extensions add new
-[device-level functionality](#extendingvulkan-instanceanddevicefunctionality) to the API, outside of the core specification.
+Device extensions add new [device-level functionality](#extendingvulkan-functionalitylevels) to the API, outside of the core specification.
+If
+Vulkan 1.1
+or
+[VK_KHR_get_physical_device_properties2](../appendices/extensions.html#VK_KHR_get_physical_device_properties2)
+is required by the extension, it **may** also add new
+[physical-device-level functionality](#extendingvulkan-functionalitylevels).
 
 To query the extensions available to a given physical device, call:
 
@@ -850,16 +816,6 @@ the extension.
 * 
 `specVersion` is the version of this extension.
 It is an integer, incremented with backward compatible changes.
-
-Some device extensions also add support for physical-device-level
-functionality.
-Physical-device-level functionality **can** be used, if the required extension
-is supported as advertised by [vkEnumerateDeviceExtensionProperties](#vkEnumerateDeviceExtensionProperties) for
-a given [VkPhysicalDevice](devsandqueues.html#VkPhysicalDevice).
-
-For commands that are dispatched from a [VkDevice](devsandqueues.html#VkDevice), or from a child
-object of a [VkDevice](devsandqueues.html#VkDevice), device extensions **must** be enabled in
-[vkCreateDevice](devsandqueues.html#vkCreateDevice).
 
 Some extensions are dependent on other extensions, or on specific core API
 versions, to function.

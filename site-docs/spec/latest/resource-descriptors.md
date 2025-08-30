@@ -1196,7 +1196,7 @@ If [VkDescriptorSetLayoutCreateInfo](#VkDescriptorSetLayoutCreateInfo)::`flags` 
 
 If [VkDescriptorSetLayoutCreateInfo](#VkDescriptorSetLayoutCreateInfo)::`flags` contains
 `VK_DESCRIPTOR_SET_LAYOUT_CREATE_EMBEDDED_IMMUTABLE_SAMPLERS_BIT_EXT`,
-`descriptorCount` **must** less than or equal to `1`
+`descriptorCount` **must** be less than or equal to `1`
 
 * 
 [](#VUID-VkDescriptorSetLayoutBinding-flags-08007) VUID-VkDescriptorSetLayoutBinding-flags-08007
@@ -3275,6 +3275,16 @@ If `pPoolSizes` contains a `descriptorType` of
 `VK_DESCRIPTOR_TYPE_INLINE_UNIFORM_BLOCK`, the `pNext` chain
 **must** include a [VkDescriptorPoolInlineUniformBlockCreateInfo](#VkDescriptorPoolInlineUniformBlockCreateInfo)
 structure whose `maxInlineUniformBlockBindings` member is not zero
+
+* 
+[](#VUID-VkDescriptorPoolCreateInfo-pNext-09946) VUID-VkDescriptorPoolCreateInfo-pNext-09946
+
+If a [VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure is
+included in the `pNext` chain, each member of
+`pProcessingEngines` **must** be identical to an
+[VkQueueFamilyDataGraphPropertiesARM](VK_ARM_data_graph/graphs.html#VkQueueFamilyDataGraphPropertiesARM)::`engine` retrieved from
+[vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM](VK_ARM_data_graph/graphs.html#vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM) with the
+`physicalDevice` that was used to create `device`
 
 Valid Usage (Implicit)
 
@@ -9114,12 +9124,6 @@ If `address` is not zero,
 `range` **must** not be `VK_WHOLE_SIZE`
 
 * 
-[](#VUID-VkDescriptorAddressInfoEXT-None-08044) VUID-VkDescriptorAddressInfoEXT-None-08044
-
-If `address` is not zero, `address` **must** be a valid
-`VkDeviceAddress`
-
-* 
 [](#VUID-VkDescriptorAddressInfoEXT-range-08045) VUID-VkDescriptorAddressInfoEXT-range-08045
 
 `range` **must** be less than or equal to the size of the buffer
@@ -9146,7 +9150,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkDescriptorAddressInfoEXT-address-parameter) VUID-VkDescriptorAddressInfoEXT-address-parameter
 
- `address` **must** be a valid `VkDeviceAddress` value
+ If `address` is not `0`, `address` **must** be a valid `VkDeviceAddress` value
 
 * 
 [](#VUID-VkDescriptorAddressInfoEXT-format-parameter) VUID-VkDescriptorAddressInfoEXT-format-parameter
@@ -9321,6 +9325,17 @@ contains resource descriptor data
 
 For any element of `pBindingInfos`, `usage` **must** match the
 buffer from which `address` was queried
+
+* 
+[](#VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947) VUID-vkCmdBindDescriptorBuffersEXT-pBindingInfos-09947
+
+For all elements of `pBindingInfos`, the buffer from which
+`address` was queried **must** have been created with the
+`VK_BUFFER_USAGE_2_DATA_GRAPH_FOREIGN_DESCRIPTOR_BIT_ARM` bit set if
+the command pool from which `commandBuffer` was allocated from was
+created with any element of
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM)::pProcessingEngines with
+`isForeign` set to `VK_TRUE`
 
 Valid Usage (Implicit)
 

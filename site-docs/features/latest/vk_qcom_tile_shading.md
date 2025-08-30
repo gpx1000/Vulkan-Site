@@ -196,7 +196,7 @@ Tile shading extends Vulkan render passes with new functionality. When tile shad
 enabled for a render pass instance, these are the highlights of the new functionality:
 
 * 
-Fragment shaders can declare [tile image attachment](#renderpass-tile-shading-attachment-access)
+Fragment shaders can declare [tile image attachment](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-attachment-access.html)
 resources allowing fragment shader invocations to load pixel values of other fragments
 within the same tile, or to sample from the pixels in a tile attachment.
 
@@ -205,12 +205,12 @@ Fragment shaders can use [built-in input variables](#spirv-changes) that describ
 active tile’s extent in framebuffer coordinates.
 
 * 
-[Tile aprons](#renderpass-tile-shading-aprons) can be enabled and pixels in the apron
+[Tile aprons](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons.html) can be enabled and pixels in the apron
 region can be accessed by the fragment shader.
 
 * 
 A new state command is added that enables/disables
-[per-tile execution model](#renderpass-per-tile-execution-model).
+[per-tile execution model](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html).
 When this execution model is enabled:
 
 `VkCmdDispatch*` commands can be recorded in a render pass instance.
@@ -223,8 +223,8 @@ and in the API via `VK_QCOM_tile_properties`.
 
 * 
 Compute shaders have all the same functionality described above for fragment shaders.
-This includes load/store/sample of [tile image attachments](#renderpass-tile-shading-attachment-access),
-[built-in input variables](#spirv-changes), and [tile aprons](#renderpass-tile-shading-aprons).
+This includes load/store/sample of [tile image attachments](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-attachment-access.html),
+[built-in input variables](#spirv-changes), and [tile aprons](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons.html).
 
 Vulkan tile shading will empower applications to leverage tile memory by injecting
 per-tile commands into GPU’s existing TBDR geometry pipeline, allowing compute to
@@ -252,7 +252,7 @@ typedef struct VkRenderPassTileShadingCreateInfoQCOM {
 } VkRenderPassTileShadingCreateInfoQCOM;
 
 `tileApronSize` specifies the width and height of the
-[tile apron](#renderpass-tile-shading-aprons).
+[ tile apron](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons.html).
 If tile apron is not used, this should be set to 0.
 
 When tile shading is enabled for a render pass, the following
@@ -261,8 +261,8 @@ features become available to shaders within that render pass:
   * Fragment shaders shaders can declare the `TileShadingQCOM` capability if the
     `tileShadingFragmentStage` feature is enabled.
 
-Within a render pass that [enables tile shading](#renderpass-tile-shading),
-the [per-tile execution mode](#renderpass-per-tile-execution-model)
+Within a render pass that [enables tile shading](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading.html),
+the [per-tile execution mode](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html)
 can be enabled or disabled:
 
 typedef struct VkPerTileBeginInfoQCOM {
@@ -298,7 +298,7 @@ These per-tile dispatches can use the functionality described in
 [SPIRV changes](#spirv-changes).
 
 When *per-tile execution mode* is enabled, the
-[Per-Tile Command Restrictions](#renderpass-tile-shading-command-restrictions) apply.
+[Per-Tile Command Restrictions](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-command-restrictions.html) apply.
 
 When executing secondary command buffers in a render pass with tile shading enabled a
 VkRenderPassTileShadingInfoQCOM must have been supplied when recording the secondary command
@@ -344,7 +344,7 @@ Tile attachment variables can be aggregated into arrays.
 More details on tile attachment variable declarations and associated load/store/sample
 operations are described in the [SPIR-V Changes](#spirv-changes).
 
-When [per-tile execution mode](#renderpass-per-tile-execution-model)
+When [per-tile execution mode](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html)
 is enabled within a render pass instance, the set of commands that can
 be recorded is largely unchanged. This section documents several exceptions.
 Due to the continuously evolving API, this may not be a complete list of exceptions.
@@ -430,7 +430,7 @@ void vkCmdDispatchTileQCOM(
     const VkDispatchTileInfoQCOM* pDispatchTileInfo);
 
 This command operates in the
-[per-tile execution model](#renderpass-per-tile-execution-model),
+[per-tile execution model](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html),
 invoking a separate dispatch for each *covered tile*.
 The global workgroup count and local workgroup size of each dispatch are defined by the
 implementation to efficiently iterate over a uniform grid of pixel blocks within
@@ -439,7 +439,7 @@ the area of its *active tile*.
 Each shader invocation operates on a single pixel block and its size is determined by the shader’s
 tiling rate, which **must** be defined by shaders executed by this command. The TileShadingRateQCOM
 execution mode operand defines the shader’s tiling rate. Its x and y **must** be a power
-of two and less than or equal to the [maxTileShadingRate](#limits-maxTileShadingRate) limit.
+of two and less than or equal to the [maxTileShadingRate](https://docs.vulkan.org/spec/latest/chapters/limits.html#limits-maxTileShadingRate) limit.
 Its z **must** be less than or equal to the z value of the active tile size as returned by
 `VK_QCOM_tile_properties`, and
 `VkTilePropertiesQCOM::tileSize.z % TileShadingRateQCOM.z` **must** equal `0`.
@@ -466,7 +466,7 @@ Execution Mode                      Meaning
 -------------                       ---------------------------------------
 NonCoherentTileAttachmentReadQCOM   Disables raster order guarantee. Fragment only.
 
-[Tile attachment](#renderpass-tile-shading-attachment-access) variables are declared
+[Tile attachment](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-attachment-access.html) variables are declared
 as  `OpTypeImage` variables with storage class `TileAttachmentQCOM`.
 Such variables can be used to perform tile read/write operations, tile sampling
 operations, or tile atomic operations.
@@ -531,7 +531,7 @@ A fragment or compute shader can use loads (`OpImageRead`, `OpImageSparseRead`) 
 or tile input attachments.
 
 * 
-If the [tile apron](#renderpass-tile-shading-aprons) has width or height greater than zero, then loads
+If the [tile apron](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-tile-shading-aprons.html) has width or height greater than zero, then loads
 and sampling of apron pixels (outside the tile, but within
 the apron) are allowed. Stores to apron pixels are disallowed. If not executing in a dynamic render pass,
 the subpass flags must include `VK_SUBPASS_DESCRIPTION_TILE_SHADING_APRON_BIT_QCOM`.
@@ -742,7 +742,7 @@ use of `OpImageRead` in the supported
 stages to access an input attachment.
 
 * 
-Feature`tileShadingSampledAttachments` indicates the implementation supports
+`tileShadingSampledAttachments` indicates the implementation supports
 sampling instructions (`OpImageSample*`, `OpImageSparseSample*`,
 `OpImage*Gather`, `OpImageSparse*Gather`, `OpImageFetch`, `OpImageSparseFetch`,
 `OpImageSampleWeightedQCOM`, `OpImageBoxFilterQCOM`, `OpImageBlockMatch*SSD*QCOM`)
@@ -756,7 +756,7 @@ recording of draw commands inside a per-tile execution block.
 `tileShadingPerTileDispatch` indicates the implementation supports
 the recording of dispatch commands inside a render pass. Note that
 dispatches inside a render pass are allowed only where
-[per-tile execution](#renderpass-per-tile-execution-model) is enabled.
+[per-tile execution](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html) is enabled.
 
 * 
 `tileShadingDispatchTile` indicates the implementation supports
@@ -918,7 +918,7 @@ for dynamic render passes.
 RESOLVED: No, there is no change to the behavior.
 
 RESOLVED: Yes, if a render pass enables tile shading but not the
-[per-tile execution model](#renderpass-per-tile-execution-model), then
+[ per-tile execution model](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html), then
 fragment shader invocations can load pixel values from tile attachment
 variables.
 
@@ -949,7 +949,7 @@ most optimally perform load/store operations for the micro tile’s pixels.
 
 RESOLVED: No. In this proposal, a created graphics pipeline can be used in a render
 pass regardless whether the render pass enables tile shading, and regardless whether
-[per-tile execution mode](#renderpass-per-tile-execution-model) is enabled. Similarly,
+[per-tile execution mode](https://docs.vulkan.org/spec/latest/chapters/renderpass.html#renderpass-per-tile-execution-model.html) is enabled. Similarly,
 a created compute pipelines can now be used inside or outside a render pass. We decided
 not to require these usage flags during pipeline creation because we think it would be a burden
 to developers and because we do not anticipate implementations will require this information.

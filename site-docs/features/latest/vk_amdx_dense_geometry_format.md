@@ -37,6 +37,22 @@
 
 ## Content
 
+Table of Contents
+
+[1. Problem Statement](#_problem_statement)
+[2. Solution Space](#_solution_space)
+[3. Proposal](#_proposal)
+
+[3.1. Acceleration Structure Construction](#_acceleration_structure_construction)
+[3.2. Bottom-level Acceleration Structure Update Constraints](#_bottom_level_acceleration_structure_update_constraints)
+[3.3. Flags and Indices](#_flags_and_indices)
+[3.4. Vertex Attribute Access](#_vertex_attribute_access)
+[3.5. API Changes](#_api_changes)
+
+[4. Issues](#_issues)
+
+[4.1. Can DGF data be decoded for use in e.g. rasterization?](#_can_dgf_data_be_decoded_for_use_in_e_g_rasterization)
+
 This document details the VK_AMDX_dense_geometry_format extension which adds a compressed format for triangle data, and the ability to build acceleration structures from pre-compressed data in that format.
 
 Vulkan ray tracing currently requires uncompressed input geometry data to put in GPU memory, from which opaque vendor-specific acceleration structures are built.  These acceleration structures typically have a large memory footprint, primarily consisting of geometry data that is generally stored in single precision floating-point format.

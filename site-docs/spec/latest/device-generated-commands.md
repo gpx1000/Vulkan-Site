@@ -244,7 +244,7 @@ Valid Usage
 * 
 [](#VUID-VkIndirectCommandsLayoutCreateInfoEXT-tokenCount-11092) VUID-VkIndirectCommandsLayoutCreateInfoEXT-tokenCount-11092
 
-`tokenCount` **must** less than or equal to
+`tokenCount` **must** be less than or equal to
 [VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT](../limits.html#VkPhysicalDeviceDeviceGeneratedCommandsPropertiesEXT)::`maxIndirectCommandsTokenCount`
 
 * 
@@ -6673,8 +6673,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdExecuteGeneratedCommandsNV-None-09548) VUID-vkCmdExecuteGeneratedCommandsNV-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](../renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](../interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](../interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](../interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -7023,7 +7024,7 @@ If `isPreprocessed` is `VK_TRUE` then
 executed on the device, using the same `pGeneratedCommandsInfo`
 content as well as the content of the input buffers it references (all
 except [VkGeneratedCommandsInfoNV](#VkGeneratedCommandsInfoNV)::`preprocessBuffer`).
-Furthermore `pGeneratedCommandsInfo``s `indirectCommandsLayout`
+Furthermore, `pGeneratedCommandsInfo`’s `indirectCommandsLayout`
 **must** have been created with the
 `VK_INDIRECT_COMMANDS_LAYOUT_USAGE_EXPLICIT_PREPROCESS_BIT_NV` bit
 set
@@ -7290,7 +7291,7 @@ completely and contiguously to a single `VkDeviceMemory` object
 * 
 [](#VUID-VkGeneratedCommandsInfoNV-preprocessSize-02920) VUID-VkGeneratedCommandsInfoNV-preprocessSize-02920
 
-`preprocessSize` **must** be at least equal to the memory requirement`s
+`preprocessSize` **must** be at least equal to the memory requirement’s
 size returned by [vkGetGeneratedCommandsMemoryRequirementsNV](#vkGetGeneratedCommandsMemoryRequirementsNV) using
 the matching inputs (`indirectCommandsLayout`, …​) as within this
 structure
@@ -10534,8 +10535,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdExecuteGeneratedCommandsEXT-None-09548) VUID-vkCmdExecuteGeneratedCommandsEXT-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](../renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](../interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](../interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](../interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline

@@ -232,6 +232,17 @@ When an identifier is used to create a data graph pipeline, implementations
 **may** fail pipeline creation with `VK_PIPELINE_COMPILE_REQUIRED` for any
 reason.
 
+The data graph engines for this pipeline **can** be selected by including a
+[VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM) to the `pNext` chain of
+this structure.
+Otherwise,
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM` will
+be used as the sole data graph engine.
+
+The data graph operations that this pipeline uses **must** be supported for the
+data graph engines selected for this pipeline as retrieved by
+[vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM](#vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM).
+
 Valid Usage
 
 * 
@@ -275,24 +286,19 @@ If the
 feature is not enabled, `flags` **must** not contain
 `VK_PIPELINE_CREATE_2_DESCRIPTOR_BUFFER_BIT_EXT`
 
-[](#VUID-VkDataGraphPipelineCreateInfoARM-module-09769) VUID-VkDataGraphPipelineCreateInfoARM-module-09769
+[](#VUID-VkDataGraphPipelineCreateInfoARM-layout-09769) VUID-VkDataGraphPipelineCreateInfoARM-layout-09769
 
-If a [resource variable](../interfaces.html#interfaces-resources) is declared in
-[VkDataGraphPipelineShaderModuleCreateInfoARM](#VkDataGraphPipelineShaderModuleCreateInfoARM)::`module`, a
-descriptor slot in `layout` **must** match the descriptor type
+If a [VkDataGraphPipelineShaderModuleCreateInfoARM](#VkDataGraphPipelineShaderModuleCreateInfoARM) structure is
+included in the `pNext` chain and a [resource    variable](../interfaces.html#interfaces-resources) is declared in the shader module, the corresponding
+descriptor binding used to create `layout` **must** have a
+`descriptorType` that corresponds to the type of the
+[resource variable](../interfaces.html#interfaces-resources)
 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-09875) VUID-VkDataGraphPipelineCreateInfoARM-pNext-09875
 
 If a [VkDataGraphPipelineIdentifierCreateInfoARM](#VkDataGraphPipelineIdentifierCreateInfoARM) structure is
 included in the `pNext` chain, then `flags` **must** contain
 `VK_PIPELINE_CREATE_2_FAIL_ON_PIPELINE_COMPILE_REQUIRED_BIT`
-
-[](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-09876) VUID-VkDataGraphPipelineCreateInfoARM-pNext-09876
-
-If a [VkDataGraphPipelineIdentifierCreateInfoARM](#VkDataGraphPipelineIdentifierCreateInfoARM) structure is
-included in the `pNext` chain, then a
-[VkDataGraphPipelineShaderModuleCreateInfoARM](#VkDataGraphPipelineShaderModuleCreateInfoARM) structure **must** not
-be included in the `pNext` chain
 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-09882) VUID-VkDataGraphPipelineCreateInfoARM-pNext-09882
 
@@ -307,11 +313,13 @@ feature is not enabled, a
 [VkDataGraphPipelineShaderModuleCreateInfoARM](#VkDataGraphPipelineShaderModuleCreateInfoARM) structure **must** not
 be included in the `pNext` chain
 
-[](#VUID-VkDataGraphPipelineCreateInfoARM-module-09934) VUID-VkDataGraphPipelineCreateInfoARM-module-09934
+[](#VUID-VkDataGraphPipelineCreateInfoARM-layout-09934) VUID-VkDataGraphPipelineCreateInfoARM-layout-09934
 
-If a [resource variable](../interfaces.html#interfaces-resources) is declared in
-`module` as an array, a descriptor slot in `layout` **must** match
-the descriptor count
+If a [VkDataGraphPipelineShaderModuleCreateInfoARM](#VkDataGraphPipelineShaderModuleCreateInfoARM) structure is
+included in the `pNext` chain and an array
+[resource variable](../interfaces.html#interfaces-resources) is declared in the shader
+module, the corresponding descriptor binding used to create `layout`
+**must** have a `descriptorCount` that matches the length of the array
 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-pipelineCreationCacheControl-09871) VUID-VkDataGraphPipelineCreateInfoARM-pipelineCreationCacheControl-09871
 
@@ -326,13 +334,6 @@ The descriptor set layouts in
 [VkPipelineLayoutCreateInfo](../descriptorsets.html#VkPipelineLayoutCreateInfo)::`pSetLayouts` used to create
 `layout` **must** not include any [VkDescriptorSetLayoutBinding](../descriptorsets.html#VkDescriptorSetLayoutBinding)
 whose descriptor type is `VK_DESCRIPTOR_TYPE_MUTABLE_EXT`
-
-[](#VUID-VkDataGraphPipelineCreateInfoARM-pResourceInfos-09771) VUID-VkDataGraphPipelineCreateInfoARM-pResourceInfos-09771
-
-For each of the structures in `pResourceInfos`,
-[VkDataGraphPipelineResourceInfoARM](#VkDataGraphPipelineResourceInfoARM)::`descriptorSet` and
-[VkDataGraphPipelineResourceInfoARM](#VkDataGraphPipelineResourceInfoARM)::`binding` **must** correspond
-to a [resource variable](../interfaces.html#interfaces-resources) declared in `module`
 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-pipelineProtectedAccess-09772) VUID-VkDataGraphPipelineCreateInfoARM-pipelineProtectedAccess-09772
 
@@ -354,6 +355,25 @@ If the `pNext` chain includes an
 [VkPipelineCreationFeedbackCreateInfo](../pipelines.html#VkPipelineCreationFeedbackCreateInfo) structure, then its
 `pipelineStageCreationFeedbackCount` **must** be 0
 
+[](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-09948) VUID-VkDataGraphPipelineCreateInfoARM-pNext-09948
+
+If a [VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM) structure is
+included in the `pNext` chain, each member of
+`pProcessingEngines` **must** be identical to an
+[VkQueueFamilyDataGraphPropertiesARM](#VkQueueFamilyDataGraphPropertiesARM)::`engine` retrieved from
+[vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM](#vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM) with the
+`physicalDevice` that was used to create `device`
+
+[](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-09949) VUID-VkDataGraphPipelineCreateInfoARM-pNext-09949
+
+If a [VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM) structure is not
+included in the `pNext` chain,
+`VK_PHYSICAL_DEVICE_DATA_GRAPH_PROCESSING_ENGINE_TYPE_DEFAULT_ARM`
+**must** be set in an
+[VkQueueFamilyDataGraphPropertiesARM](#VkQueueFamilyDataGraphPropertiesARM)::`engine` retrieved from
+[vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM](#vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM) with the
+`physicalDevice` that was used to create `device`
+
 Valid Usage (Implicit)
 
 * 
@@ -364,7 +384,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-pNext-pNext) VUID-VkDataGraphPipelineCreateInfoARM-pNext-pNext
 
- Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDataGraphPipelineCompilerControlCreateInfoARM](#VkDataGraphPipelineCompilerControlCreateInfoARM), [VkDataGraphPipelineIdentifierCreateInfoARM](#VkDataGraphPipelineIdentifierCreateInfoARM), [VkDataGraphPipelineShaderModuleCreateInfoARM](#VkDataGraphPipelineShaderModuleCreateInfoARM), [VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM), or [VkPipelineCreationFeedbackCreateInfo](../pipelines.html#VkPipelineCreationFeedbackCreateInfo)
+ Each `pNext` member of any structure (including this one) in the `pNext` chain **must** be either `NULL` or a pointer to a valid instance of [VkDataGraphPipelineCompilerControlCreateInfoARM](#VkDataGraphPipelineCompilerControlCreateInfoARM), [VkDataGraphPipelineIdentifierCreateInfoARM](#VkDataGraphPipelineIdentifierCreateInfoARM), [VkDataGraphPipelineShaderModuleCreateInfoARM](#VkDataGraphPipelineShaderModuleCreateInfoARM), [VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM), [VkPipelineCreationFeedbackCreateInfo](../pipelines.html#VkPipelineCreationFeedbackCreateInfo), or [VkShaderModuleCreateInfo](../shaders.html#VkShaderModuleCreateInfo)
 
 * 
 [](#VUID-VkDataGraphPipelineCreateInfoARM-sType-unique) VUID-VkDataGraphPipelineCreateInfoARM-sType-unique
@@ -526,14 +546,10 @@ accessible via `pIdentifier`.
 `pIdentifer` is a pointer to `identifierSize` bytes of data that
 describe the pipeline being created.
 
-Valid Usage
-
-* 
-[](#VUID-VkDataGraphPipelineIdentifierCreateInfoARM-pIdentifer-09877) VUID-VkDataGraphPipelineIdentifierCreateInfoARM-pIdentifer-09877
-
-The data provided via `pIdentifer` **must** have been obtained by
-calling [vkGetDataGraphPipelinePropertiesARM](#vkGetDataGraphPipelinePropertiesARM) to query the value of
-the `VK_DATA_GRAPH_PIPELINE_PROPERTY_IDENTIFIER_ARM` property
+The `pIdentifier` **can** be retrieved from the device by calling
+[vkGetDataGraphPipelinePropertiesARM](#vkGetDataGraphPipelinePropertiesARM) and searching the results for a
+[VkDataGraphPipelinePropertyQueryResultARM](#VkDataGraphPipelinePropertyQueryResultARM) structure with
+`property` set to `VK_DATA_GRAPH_PIPELINE_PROPERTY_IDENTIFIER_ARM`.
 
 Valid Usage (Implicit)
 
@@ -1229,6 +1245,12 @@ session object are returned.
 Valid Usage
 
 * 
+[](#VUID-vkGetDataGraphPipelineSessionMemoryRequirementsARM-session-09950) VUID-vkGetDataGraphPipelineSessionMemoryRequirementsARM-session-09950
+
+The `session` member of `pInfo` **must** have been created with
+`device`
+
+* 
 [](#VUID-vkGetDataGraphPipelineSessionMemoryRequirementsARM-bindPoint-09784) VUID-vkGetDataGraphPipelineSessionMemoryRequirementsARM-bindPoint-09784
 
 The `bindPoint` member of `pInfo` **must** have been returned as
@@ -1621,6 +1643,13 @@ For each of the session bind point requirements returned by
 objects **must** have been bound to `session`
 
 * 
+[](#VUID-vkCmdDispatchDataGraphARM-dataGraphPipeline-09951) VUID-vkCmdDispatchDataGraphARM-dataGraphPipeline-09951
+
+The [VkPipeline](../pipelines.html#VkPipeline) bound to the pipeline bind point used by this
+command **must** be identical to the `dataGraphPipeline` used to create
+`session`
+
+* 
 [](#VUID-vkCmdDispatchDataGraphARM-None-09797) VUID-vkCmdDispatchDataGraphARM-None-09797
 
 For each set *n* that is statically used by a bound data graph pipeline,
@@ -1689,23 +1718,48 @@ result of this command, then the underlying [VkTensorARM](../resources.html#VkTe
 contained `VK_TENSOR_USAGE_DATA_GRAPH_BIT_ARM`
 
 * 
-[](#VUID-vkCmdDispatchDataGraphARM-commandBuffer-09940) VUID-vkCmdDispatchDataGraphARM-commandBuffer-09940
+[](#VUID-vkCmdDispatchDataGraphARM-pipeline-09940) VUID-vkCmdDispatchDataGraphARM-pipeline-09940
 
-If `commandBuffer` was allocated from a pool that was created with a
+If the [VkPipeline](../pipelines.html#VkPipeline) bound to the pipeline bind point used by this
+command was created with a
 [VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM) structure in the
-`pNext` chain of [VkCommandPoolCreateInfo](../cmdbuffers.html#VkCommandPoolCreateInfo) that included a
-foreign data graph processing engine in its `pProcessingEngines`
-member, then all `VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptors
-accessed as a result of this command **must** be tied to [VkTensorARM](../resources.html#VkTensorARM)
-objects that have been bound to memory created from external handle
-types reported as supported in a
+`pNext` chain of [VkDataGraphPipelineCreateInfoARM](#VkDataGraphPipelineCreateInfoARM) that
+included a foreign data graph processing engine in its
+`pProcessingEngines` member, then all
+`VK_DESCRIPTOR_TYPE_TENSOR_ARM` descriptors accessed as a result of
+this command **must** be [VkTensorARM](../resources.html#VkTensorARM) objects that have been bound to
+memory allocated with
+[VkExportMemoryAllocateInfo](../memory.html#VkExportMemoryAllocateInfo)::`handleTypes` with set bits that
+are a subset of the bits in
 [VkQueueFamilyDataGraphProcessingEnginePropertiesARM](#VkQueueFamilyDataGraphProcessingEnginePropertiesARM)::`foreignMemoryHandleTypes`
-structure via
+structure queried via
 [vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM](#vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM)
-with a `queueFamilyIndex` matching the one the command pool was
-created for, for all the foreign data graph processing engines that were
-part of the [VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM) used to
-create the command pool
+with a `queueFamilyIndex` matching the one the command pool used to
+create `commandBuffer` was created for and an identical
+`engineType`, for all the foreign data graph processing engines that
+were part of the [VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM) used to
+create the [VkPipeline](../pipelines.html#VkPipeline)
+
+* 
+[](#VUID-vkCmdDispatchDataGraphARM-pNext-09952) VUID-vkCmdDispatchDataGraphARM-pNext-09952
+
+If the [VkPipeline](../pipelines.html#VkPipeline) bound to the pipeline bind point used by this
+command was created with a
+[VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM) structure in the
+`pNext` chain of [VkDataGraphPipelineCreateInfoARM](#VkDataGraphPipelineCreateInfoARM) that
+included a foreign data graph processing engine in its
+`pProcessingEngines` member, then all `session` bound memory
+**must** have been allocated with
+[VkExportMemoryAllocateInfo](../memory.html#VkExportMemoryAllocateInfo)::`handleTypes` with set bits that
+are a subset of the bits in
+[VkQueueFamilyDataGraphProcessingEnginePropertiesARM](#VkQueueFamilyDataGraphProcessingEnginePropertiesARM)::`foreignMemoryHandleTypes`
+structure queried via
+[vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM](#vkGetPhysicalDeviceQueueFamilyDataGraphProcessingEnginePropertiesARM)
+with a `queueFamilyIndex` matching the one the command pool used to
+create `commandBuffer` was created for and an identical
+`engineType`, for all the foreign data graph processing engines that
+were part of the [VkDataGraphProcessingEngineCreateInfoARM](#VkDataGraphProcessingEngineCreateInfoARM) used to
+create the [VkPipeline](../pipelines.html#VkPipeline)
 
 * 
 [](#VUID-vkCmdDispatchDataGraphARM-commandBuffer-09800) VUID-vkCmdDispatchDataGraphARM-commandBuffer-09800
@@ -1882,12 +1936,6 @@ returned.
 Valid Usage
 
 * 
-[](#VUID-vkGetDataGraphPipelineAvailablePropertiesARM-dataGraphPipeline-09887) VUID-vkGetDataGraphPipelineAvailablePropertiesARM-dataGraphPipeline-09887
-
-The `dataGraphPipeline` member of `pPipelineInfo` **must** have
-been returned by a call to [vkCreateDataGraphPipelinesARM](#vkCreateDataGraphPipelinesARM)
-
-* 
 [](#VUID-vkGetDataGraphPipelineAvailablePropertiesARM-dataGraphPipeline-09888) VUID-vkGetDataGraphPipelineAvailablePropertiesARM-dataGraphPipeline-09888
 
 The `dataGraphPipeline` member of `pPipelineInfo` **must** have
@@ -1963,12 +2011,6 @@ the [VkPipeline](../pipelines.html#VkPipeline) being queried.
 [VkDataGraphPipelinePropertyQueryResultARM](#VkDataGraphPipelinePropertyQueryResultARM) structures.
 
 Valid Usage
-
-* 
-[](#VUID-vkGetDataGraphPipelinePropertiesARM-dataGraphPipeline-09869) VUID-vkGetDataGraphPipelinePropertiesARM-dataGraphPipeline-09869
-
-The `dataGraphPipeline` member of `pPipelineInfo` **must** have
-been returned by a call to [vkCreateDataGraphPipelinesARM](#vkCreateDataGraphPipelinesARM)
 
 * 
 [](#VUID-vkGetDataGraphPipelinePropertiesARM-dataGraphPipeline-09802) VUID-vkGetDataGraphPipelinePropertiesARM-dataGraphPipeline-09802
@@ -2123,8 +2165,6 @@ indicate that not all the available property data was returned.
 If `isText` is `VK_TRUE` and `pData` is not `NULL` and
 `dataSize` is not zero, the last byte written to `pData` will be a
 NUL character.
-
-Valid Usage
 
 Valid Usage (Implicit)
 
@@ -2393,6 +2433,11 @@ structure.
 [VkPhysicalDeviceDataGraphProcessingEngineARM](#VkPhysicalDeviceDataGraphProcessingEngineARM) structures.
 
 Valid Usage
+
+* 
+[](#VUID-VkDataGraphProcessingEngineCreateInfoARM-dataGraph-09953) VUID-VkDataGraphProcessingEngineCreateInfoARM-dataGraph-09953
+
+The [`dataGraph`](../features.html#features-dataGraph) feature **must** be enabled
 
 * 
 [](#VUID-VkDataGraphProcessingEngineCreateInfoARM-pProcessingEngines-09918) VUID-VkDataGraphProcessingEngineCreateInfoARM-pProcessingEngines-09918

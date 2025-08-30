@@ -650,7 +650,7 @@ Declare a new payload array type.  Its length is not known at compile time.
 
 A payload array can be allocated by either **OpAllocateNodePayloadsAMDX** to be enqueued as an output, or via **OpVariable** in the **NodePayloadAMDX** storage class to be consumed as an input.
 
-Can be dereferenced using an access chain in the same way as **OpTypeRuntimeArray** or **OpTypeArray**. | [Capability](#Capability):
+Can be dereferenced using an access chain in the same way as **OpTypeRuntimeArray** or **OpTypeArray**. | Capability:
 
 **Shader** |
 | 3 | 5076 | *Result * | **
@@ -727,7 +727,7 @@ Query the length of a payload array. Must only be used with input payload arrays
 
 *Result Type* must be an **OpTypeInt** with 32-bit *Width* and 0 *Signedness*.
 
-*Payload Array* is a pointer to a payload array previously allocated by **OpAllocateNodePayloadsAMDX**, or declared via **OpVariable** in the **NodePayloadAMDX** storage class as an input. | [Capability](#Capability):
+*Payload Array* is a pointer to a payload array previously allocated by **OpAllocateNodePayloadsAMDX**, or declared via **OpVariable** in the **NodePayloadAMDX** storage class as an input. | Capability:
 
 **Shader** |
 | 4 | 5090 | **

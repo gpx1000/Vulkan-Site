@@ -153,7 +153,7 @@ must be decorated with WeightTextureQCOM.  The MS operand of the
 underlying OpTypeImage must be 0. | Capability:
 
 **TextureSampleWeightedQCOM** |
-| 6 | 4480 | *Result Type* | ['Result ' ](#ResultId) | *Texture Sampled Image* | *Coordinate* | *Weight Image* |
+| 6 | 4480 | *Result Type* | Result | *Texture Sampled Image* | *Coordinate* | *Weight Image* |
 
 | **OpImageBoxFilterQCOM**
 | --- | --- | --- | --- | --- | --- | --- |
@@ -170,7 +170,7 @@ underlying OpTypeImage must be 0.
 *Box Size* must be a vector of floating-point type, whose vector size is 2 and signedness is 0. | Capability:
 
 **TextureBoxFilterQCOM** |
-| 6 | 4481 | *Result Type* | ['Result ' ](#ResultId) | *Texture Sampled Image* | *Coordinate* | *Box Size* |
+| 6 | 4481 | *Result Type* | Result | *Texture Sampled Image* | *Coordinate* | *Box Size* |
 
 | **OpImageBlockMatchSADQCOM**
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -196,7 +196,7 @@ The MS operand of the underlying OpTypeImage must be 0.
 *Block Size* must be a vector of integer type, whose vector size is 2 and signedness is 0. | Capability:
 
 **TextureBlockMatchQCOM** |
-| 8 | 4483 | *Result Type* | ['Result ' ](#ResultId) | *Target Sampled Image* | *Target Coordinate* | *Reference Sampled Image* | *Reference Coordinate* | *Block Size* |
+| 8 | 4483 | *Result Type* | Result | *Target Sampled Image* | *Target Coordinate* | *Reference Sampled Image* | *Reference Coordinate* | *Block Size* |
 
 | **OpImageBlockMatchSSDQCOM**
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -222,7 +222,7 @@ The MS operand of the underlying OpTypeImage must be 0.
 *Block Size* must be a vector of integer type, whose vector size is 2 and signedness is 0. | Capability:
 
 **TextureBlockMatchQCOM** |
-| 8 | 4482 | *Result Type* | ['Result ' ](#ResultId) | *Target Sampled Image* | *Target Coordinate* | *Reference Sampled Image* | *Reference Coordinate* | *Block Size* |
+| 8 | 4482 | *Result Type* | Result | *Target Sampled Image* | *Target Coordinate* | *Reference Sampled Image* | *Reference Coordinate* | *Block Size* |
 
 The extension adds two new SPIR-V decorations
 

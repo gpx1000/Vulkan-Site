@@ -1447,7 +1447,7 @@ Valid Usage (Implicit)
 * 
 [](#VUID-VkBufferDeviceAddressCreateInfoEXT-deviceAddress-parameter) VUID-VkBufferDeviceAddressCreateInfoEXT-deviceAddress-parameter
 
- `deviceAddress` **must** be a valid `VkDeviceAddress` value
+ If `deviceAddress` is not `0`, `deviceAddress` **must** be a valid `VkDeviceAddress` value
 
 The `VkBufferCollectionBufferCreateInfoFUCHSIA` structure is defined as:
 
@@ -4941,7 +4941,6 @@ Both of these cases can be requested with
 To query the compression properties of an image, add a
 [VkImageCompressionPropertiesEXT](#VkImageCompressionPropertiesEXT) structure to the `pNext` chain of
 the [VkSubresourceLayout2](#VkSubresourceLayout2) structure in a call to
-[vkGetImageSubresourceLayout2](#vkGetImageSubresourceLayout2) or
 [vkGetImageSubresourceLayout2](#vkGetImageSubresourceLayout2).
 
 To determine the compression rates that are supported for a given image
@@ -13604,10 +13603,11 @@ To determine the dedicated allocation requirements of a buffer or image
 or tensor
 resource, add a [VkMemoryDedicatedRequirements](#VkMemoryDedicatedRequirements) structure to the
 `pNext` chain of the [VkMemoryRequirements2](#VkMemoryRequirements2) structure passed as the
-`pMemoryRequirements` parameter of [vkGetBufferMemoryRequirements2](#vkGetBufferMemoryRequirements2)
-or [vkGetImageMemoryRequirements2](#vkGetImageMemoryRequirements2),
-or [vkGetTensorMemoryRequirementsARM](#vkGetTensorMemoryRequirementsARM),
-respectively.
+`pMemoryRequirements` parameter of [vkGetBufferMemoryRequirements2](#vkGetBufferMemoryRequirements2),
+[vkGetTensorMemoryRequirementsARM](#vkGetTensorMemoryRequirementsARM),
+[vkGetDeviceBufferMemoryRequirements](#vkGetDeviceBufferMemoryRequirements),
+[vkGetDeviceImageMemoryRequirements](#vkGetDeviceImageMemoryRequirements),
+or [vkGetImageMemoryRequirements2](#vkGetImageMemoryRequirements2) respectively.
 
 Constraints on the values returned for buffer resources are:
 

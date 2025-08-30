@@ -4258,6 +4258,8 @@
 - [Other Extension Metadata](#_other_extension_metadata_399)
 - [Other_Extension_Metadata](#_other_extension_metadata_399)
 - [Description](#_description_399)
+- [Promotion to VK_KHR_maintenance9](#_promotion_to_vk_khr_maintenance9)
+- [Promotion_to_VK_KHR_maintenance9](#_promotion_to_vk_khr_maintenance9)
 - [New Structures](#_new_structures_356)
 - [New Enum Constants](#_new_enum_constants_401)
 - [New_Enum_Constants](#_new_enum_constants_401)
@@ -38149,6 +38151,9 @@ Chetan Mistry, Arm Ltd.
 * 
 Georgios Teneketzis, Arm Ltd.
 
+* 
+Matthew Netsch, Qualcomm Technologies, Inc
+
 This extension adds support for a new type of pipeline, data graph
 pipelines, that provide an encapsulation construct for computational graphs
 operating on full resources (e.g. ML/AI graphs, image processing pipelines,
@@ -50918,9 +50923,6 @@ compositor, video encoders, and application-specific compositors.
 [vkCreateSurfaceOHOS](../chapters/VK_KHR_surface/wsi.html#vkCreateSurfaceOHOS)
 
 * 
-[VkOHSurfaceCreateInfoOHOS](../chapters/VK_KHR_surface/wsi.html#VkOHSurfaceCreateInfoOHOS)
-
-* 
 [VkSurfaceCreateInfoOHOS](../chapters/VK_KHR_surface/wsi.html#VkSurfaceCreateInfoOHOS)
 
 * 
@@ -50935,7 +50937,7 @@ compositor, video encoders, and application-specific compositors.
 * 
 Extending [VkStructureType](../chapters/fundamentals.html#VkStructureType):
 
-`VK_STRUCTURE_TYPE_OH_SURFACE_CREATE_INFO_OHOS`
+`VK_STRUCTURE_TYPE_SURFACE_CREATE_INFO_OHOS`
 
 * 
 Revision 1, 2025-05-19 (Weilan Chen)
@@ -52693,7 +52695,7 @@ Device extension
 
 **Revision**
 
-1
+2
 
 **Ratification Status**
 
@@ -52723,7 +52725,7 @@ Matthew Netsch [mnetsch](https://github.com/KhronosGroup/Vulkan-Docs/issues/new?
 
 **Last Modified Date**
 
-2025-5-12
+2025-8-13
 
 **IP Status**
 
@@ -52936,10 +52938,18 @@ Extending [VkSubpassDescriptionFlagBits](../chapters/renderpass.html#VkSubpassDe
 * 
 [`TileShadingQCOM`](spirvenv.html#spirvenv-capabilities-table-TileShadingQCOM)
 
-* 
-none
+1) Some early Adreno drivers advertised support for version 1 of this
+extension without supporting the required
+[`tileShadingApron`](../chapters/features.html#features-tileShadingApron) feature.
+To cover all Adreno devices on the market, applications should not assume
+any version of this extension supports the `tileShadingApron` feature
+without performing a feature query.
 
 * 
+Revision 2, 2025-08-13 (Matthew Netsch)
+
+Make the `tileShadingApron` feature optional
+
 Revision 1, 2023-10-12 (Jeff Leger)
 
 **Name String**
@@ -66780,7 +66790,7 @@ Device extension
 
 **Ratification Status**
 
-Not ratified
+Ratified
 
 **Extension and Version Dependencies**
 
@@ -66974,7 +66984,7 @@ Device extension
 
 **Ratification Status**
 
-Not ratified
+Ratified
 
 **Extension and Version Dependencies**
 
@@ -71728,6 +71738,11 @@ reference attribute locations for which there is no vertex data.
 This extension allows applications to not have to specify fake vertex
 attribute locations, and if the vertex shader reads those attributes it will
 read (0,0,0,0) or (0,0,0,1).
+
+The same functionality is provided by [VK_KHR_maintenance9](#VK_KHR_maintenance9), but
+enabled by the [`maintenance9`](../chapters/features.html#features-maintenance9) feature instead.
+The [VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT](../chapters/features.html#VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT) structure was
+not included in the maintenance extension.
 
 * 
 Extending [VkPhysicalDeviceFeatures2](../chapters/features.html#VkPhysicalDeviceFeatures2), [VkDeviceCreateInfo](../chapters/devsandqueues.html#VkDeviceCreateInfo):

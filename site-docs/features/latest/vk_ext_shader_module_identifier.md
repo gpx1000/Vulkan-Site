@@ -8,27 +8,52 @@
 
 ## Table of Contents
 
-- [Problem Statement](#_problem_statement)
-- [Solution Space](#_solution_space)
-- [Example use case](#_example_use_case)
-- [Example_use_case](#_example_use_case)
-- [Proposal](#_proposal)
-- [Querying identifier](#_querying_identifier)
-- [VK_NULL_HANDLE module proxy](#_vk_null_handle_module_proxy)
-- [VK_NULL_HANDLE_module_proxy](#_vk_null_handle_module_proxy)
-- [Handling fallbacks](#_handling_fallbacks)
-- [Soft guarantees of successfully compiling pipelines](#_soft_guarantees_of_successfully_compiling_pipelines)
-- [Soft_guarantees_of_successfully_compiling_pipelines](#_soft_guarantees_of_successfully_compiling_pipelines)
-- [Issues](#_issues)
-- [RESOLVED: Should applications be allowed to specify their own shader module identifier?](#_resolved_should_applications_be_allowed_to_specify_their_own_shader_module_identifier)
-- [RESOLVED:_Should_applications_be_allowed_to_specify_their_own_shader_module_identifier?](#_resolved_should_applications_be_allowed_to_specify_their_own_shader_module_identifier)
-- [RESOLVED: How does this interact with VK_KHR_ray_tracing_pipeline, VK_KHR_pipeline_library and VK_EXT_graphics_pipeline_library?](#_resolved_how_does_this_interact_with_vk_khr_ray_tracing_pipeline_vk_khr_pipeline_library_and_vk_ext_graphics_pipeline_library)
-- [RESOLVED:_How_does_this_interact_with_VK_KHR_ray_tracing_pipeline,_VK_KHR_pipeline_library_and_VK_EXT_graphics_pipeline_library?](#_resolved_how_does_this_interact_with_vk_khr_ray_tracing_pipeline_vk_khr_pipeline_library_and_vk_ext_graphics_pipeline_library)
-- [RESOLVED: Should there be stronger guarantees on when pipeline compilation with identifier must succeed?](#_resolved_should_there_be_stronger_guarantees_on_when_pipeline_compilation_with_identifier_must_succeed)
-- [RESOLVED:_Should_there_be_stronger_guarantees_on_when_pipeline_compilation_with_identifier_must_succeed?](#_resolved_should_there_be_stronger_guarantees_on_when_pipeline_compilation_with_identifier_must_succeed)
-- [Further Functionality](#_further_functionality)
+- [1. Problem Statement](#_problem_statement)
+- [1._Problem_Statement](#_problem_statement)
+- [2. Solution Space](#_solution_space)
+- [2._Solution_Space](#_solution_space)
+- [3. Example use case](#_example_use_case)
+- [3._Example_use_case](#_example_use_case)
+- [4. Proposal](#_proposal)
+- [4.1. Querying identifier](#_querying_identifier)
+- [4.1._Querying_identifier](#_querying_identifier)
+- [4.2. VK_NULL_HANDLE module proxy](#_vk_null_handle_module_proxy)
+- [4.2._VK_NULL_HANDLE_module_proxy](#_vk_null_handle_module_proxy)
+- [4.3. Handling fallbacks](#_handling_fallbacks)
+- [4.3._Handling_fallbacks](#_handling_fallbacks)
+- [4.4. Soft guarantees of successfully compiling pipelines](#_soft_guarantees_of_successfully_compiling_pipelines)
+- [4.4._Soft_guarantees_of_successfully_compiling_pipelines](#_soft_guarantees_of_successfully_compiling_pipelines)
+- [5. Issues](#_issues)
+- [5.1. RESOLVED: Should applications be allowed to specify their own shader module identifier?](#_resolved_should_applications_be_allowed_to_specify_their_own_shader_module_identifier)
+- [5.1._RESOLVED:_Should_applications_be_allowed_to_specify_their_own_shader_module_identifier?](#_resolved_should_applications_be_allowed_to_specify_their_own_shader_module_identifier)
+- [5.2. RESOLVED: How does this interact with VK_KHR_ray_tracing_pipeline, VK_KHR_pipeline_library and VK_EXT_graphics_pipeline_library?](#_resolved_how_does_this_interact_with_vk_khr_ray_tracing_pipeline_vk_khr_pipeline_library_and_vk_ext_graphics_pipeline_library)
+- [5.2._RESOLVED:_How_does_this_interact_with_VK_KHR_ray_tracing_pipeline,_VK_KHR_pipeline_library_and_VK_EXT_graphics_pipeline_library?](#_resolved_how_does_this_interact_with_vk_khr_ray_tracing_pipeline_vk_khr_pipeline_library_and_vk_ext_graphics_pipeline_library)
+- [5.3. RESOLVED: Should there be stronger guarantees on when pipeline compilation with identifier must succeed?](#_resolved_should_there_be_stronger_guarantees_on_when_pipeline_compilation_with_identifier_must_succeed)
+- [5.3._RESOLVED:_Should_there_be_stronger_guarantees_on_when_pipeline_compilation_with_identifier_must_succeed?](#_resolved_should_there_be_stronger_guarantees_on_when_pipeline_compilation_with_identifier_must_succeed)
+- [6. Further Functionality](#_further_functionality)
+- [6._Further_Functionality](#_further_functionality)
 
 ## Content
+
+Table of Contents
+
+[1. Problem Statement](#_problem_statement)
+[2. Solution Space](#_solution_space)
+[3. Example use case](#_example_use_case)
+[4. Proposal](#_proposal)
+
+[4.1. Querying identifier](#_querying_identifier)
+[4.2. `VK_NULL_HANDLE` module proxy](#_vk_null_handle_module_proxy)
+[4.3. Handling fallbacks](#_handling_fallbacks)
+[4.4. Soft guarantees of successfully compiling pipelines](#_soft_guarantees_of_successfully_compiling_pipelines)
+
+[5. Issues](#_issues)
+
+[5.1. RESOLVED: Should applications be allowed to specify their own shader module identifier?](#_resolved_should_applications_be_allowed_to_specify_their_own_shader_module_identifier)
+[5.2. RESOLVED: How does this interact with VK_KHR_ray_tracing_pipeline, VK_KHR_pipeline_library and VK_EXT_graphics_pipeline_library?](#_resolved_how_does_this_interact_with_vk_khr_ray_tracing_pipeline_vk_khr_pipeline_library_and_vk_ext_graphics_pipeline_library)
+[5.3. RESOLVED: Should there be stronger guarantees on when pipeline compilation with identifier must succeed?](#_resolved_should_there_be_stronger_guarantees_on_when_pipeline_compilation_with_identifier_must_succeed)
+
+[6. Further Functionality](#_further_functionality)
 
 This extension adds functionality to avoid having to pass down complete SPIR-V to shaders in situations
 where we speculate that an implementation already has a pipeline blob in cache and conversion to SPIR-V is not needed to begin with.

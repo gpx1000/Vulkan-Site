@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../../_/img/favicon-16x16.png">
-    <link rel="manifest" href="../../../../_/static/site.webmanifest">
+    <link rel="manifest" href="../../../../_/site.webmanifest">
     <link rel="mask-icon" href="../../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
   </head>
@@ -54,6 +54,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../../refpages/latest/refpages/index.html">Vulkan Reference Pages</a>
             <a class="navbar-item" href="../../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../../guide/latest/index.html">Vulkan Guide</a>
             <a class="navbar-item" href="../../../../samples/latest/README.html">Vulkan Samples</a>
@@ -510,6 +511,14 @@
         </li>
       </ul>
     </li>
+    <li class="component">
+      <div class="title"><a href="../../../../refpages/latest/refpages/index.html">Vulkan API Reference Pages</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../../refpages/latest/refpages/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
     <li class="component is-current">
       <div class="title"><a href="../index.html">Vulkan Feature Descriptions</a></div>
       <ul class="versions">
@@ -728,7 +737,7 @@ underlying OpTypeImage must be 0.
 <td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4480</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Result Type</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResultId">'Result &lt;id&gt;' </a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Result &lt;id&gt;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Texture Sampled Image</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Coordinate</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Weight Image</em></p></td>
@@ -767,7 +776,7 @@ underlying OpTypeImage must be 0.
 <td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4481</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Result Type</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResultId">'Result &lt;id&gt;' </a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Result &lt;id&gt;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Texture Sampled Image</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Coordinate</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Box Size</em></p></td>
@@ -817,7 +826,7 @@ The MS operand of the underlying OpTypeImage must be 0.
 <td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4483</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Result Type</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResultId">'Result &lt;id&gt;' </a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Result &lt;id&gt;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Target Sampled Image</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Target Coordinate</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Reference Sampled Image</em></p></td>
@@ -869,7 +878,7 @@ The MS operand of the underlying OpTypeImage must be 0.
 <td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4482</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Result Type</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="#ResultId">'Result &lt;id&gt;' </a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Result &lt;id&gt;</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Target Sampled Image</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Target Coordinate</em></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">&lt;id&gt; <em>Reference Sampled Image</em></p></td>
@@ -1594,11 +1603,11 @@ instructions is not bound, undefined results will occur.</p>
         })
     }
 </script>
-<script src="../../../../_/js/vendor/lunr.js"></script>
-<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
-<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css"></script>
+<script src="../../../../_/js/vendor/lunr.js" defer></script>
+<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js" defer></script>
+<script src="../../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../../.." data-snippet-length="100" data-stylesheet="../../../../_/css/search.css" defer></script>
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', function(){
   try {
     var script = document.getElementById('search-ui-script');
     var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
@@ -1619,7 +1628,7 @@ instructions is not bound, undefined results will occur.</p>
     s.src = '../../../../search-index.js';
     document.head.appendChild(s);
   }
-})();
+});
 </script>
 <script async src="../../../../_/js/vendor/tabs.js"></script>
   </body>

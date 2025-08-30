@@ -26,6 +26,19 @@
 
 ## Content
 
+Table of Contents
+
+[1. Problem Statement](#_problem_statement)
+[2. Solution Space](#_solution_space)
+[3. Proposal](#_proposal)
+
+[3.1. SPIR-V Changes](#_spir_v_changes)
+[3.2. API Changes](#_api_changes)
+
+[4. Issues](#_issues)
+
+[4.1. What is the origin of the naming for bfloat16?](#_what_is_the_origin_of_the_naming_for_bfloat16)
+
 This extension enables support for bfloat16 operations in shaders.
 
 With machine learning algorithms commonly being run on GPUs, it has become desirable to support smaller types in GPUs to allow increased throughput for large networks.
@@ -64,7 +77,7 @@ New capabilities enable both the declaration of the type and its use with dot pr
 | --- | --- |
 | 5116 | **BFloat16TypeKHR**
 
-Uses **OpTypeFloat** to specify types with the **BFloat16KHR** [floating point encoding](#Floating_Point_Encoding) and the use of conversion functions for those types. |  |
+Uses **OpTypeFloat** to specify types with the **BFloat16KHR** [floating point encoding](https://registry.khronos.org/SPIR-V/specs/unified1/SPIRV.html#FP_Encoding) and the use of conversion functions for those types. |  |
 | 5117 | **BFloat16DotProductKHR**
 
 Uses vectors with a **Component Type** of **OpTypeFloat** with the **BFloat16KHR** encoding with **OpDot**. | **BFloat16TypeKHR** |

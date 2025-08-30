@@ -1914,24 +1914,27 @@ shaders
 
 [](#VUID-StandaloneSpirv-Base-07650) VUID-StandaloneSpirv-Base-07650
 
-The `Base` operand of `OpPtrAccessChain`
-or `OpUntypedPtrAccessChainKHR`
-**must** have a storage class of `Workgroup`, `StorageBuffer`, or
-`PhysicalStorageBuffer`
+The `Base` operand of `OpPtrAccessChain` or
+`OpUntypedPtrAccessChainKHR` **must** have a storage class of
+`Workgroup`, `StorageBuffer`, or `PhysicalStorageBuffer`
 
 [](#VUID-StandaloneSpirv-Base-07651) VUID-StandaloneSpirv-Base-07651
 
-If the `Base` operand of `OpPtrAccessChain`
-or `OpUntypedPtrAccessChainKHR`
-has a `Workgroup` `Storage` `Class`, then the `VariablePointers`
-capability **must** be declared
+If the `Base` operand of `OpPtrAccessChain` or
+`OpUntypedPtrAccessChainKHR` has a `Workgroup` `Storage` `Class`,
+then the `VariablePointers` capability **must** be declared
 
 [](#VUID-StandaloneSpirv-Base-07652) VUID-StandaloneSpirv-Base-07652
 
-If the `Base` operand of `OpPtrAccessChain`
-or `OpUntypedPtrAccessChainKHR`
-has a `StorageBuffer` `Storage` `Class`, then the `VariablePointers`
-or `VariablePointersStorageBuffer` capability **must** be declared
+If the `Base` operand of `OpPtrAccessChain` or
+`OpUntypedPtrAccessChainKHR` has a `StorageBuffer` `Storage` `Class`,
+then the `VariablePointers` or `VariablePointersStorageBuffer`
+capability **must** be declared
+
+[](#VUID-StandaloneSpirv-OpUntypedVariableKHR-11167) VUID-StandaloneSpirv-OpUntypedVariableKHR-11167
+
+Any `OpUntypedVariableKHR` **must** have a `Data` `Type` operand
+specified
 
 [](#VUID-StandaloneSpirv-PhysicalStorageBuffer64-04708) VUID-StandaloneSpirv-PhysicalStorageBuffer64-04708
 
@@ -1950,6 +1953,13 @@ only be used as the `Pointer` operand to `OpLoad` or `OpStore`
 If the `PhysicalStorageBuffer64` addressing model is enabled,
 `OpConvertUToPtr` and `OpConvertPtrToU` **must** use an integer type
 whose `Width` is 64
+
+[](#VUID-StandaloneSpirv-PhysicalStorageBuffer64-06314) VUID-StandaloneSpirv-PhysicalStorageBuffer64-06314
+
+If the `PhysicalStorageBuffer64` addressing model is enabled any load
+or store through a physical pointer type **must** have an `Aligned`
+operand which is a multiple of the size of the largest scalar type in
+the pointed-to type
 
 [](#VUID-StandaloneSpirv-OpTypeForwardPointer-04711) VUID-StandaloneSpirv-OpTypeForwardPointer-04711
 
@@ -2785,13 +2795,6 @@ The stream number value to `Stream` **must** be less than
 
 The XFB Stride value to `XfbStride` **must** be less than or equal to
 [VkPhysicalDeviceTransformFeedbackPropertiesEXT](../chapters/limits.html#VkPhysicalDeviceTransformFeedbackPropertiesEXT)::`maxTransformFeedbackBufferDataStride`
-
-* 
-[](#VUID-RuntimeSpirv-PhysicalStorageBuffer64-06314) VUID-RuntimeSpirv-PhysicalStorageBuffer64-06314
-
-If the `PhysicalStorageBuffer64` addressing model is enabled any load
-or store through a physical pointer type **must** be aligned to a multiple
-of the size of the largest scalar type in the pointed-to type
 
 * 
 [](#VUID-RuntimeSpirv-PhysicalStorageBuffer64-06315) VUID-RuntimeSpirv-PhysicalStorageBuffer64-06315
@@ -4073,11 +4076,6 @@ any value
 Any memory access made using an `OpTypeUntypedPointerKHR` must have
 an alignment that satisfies [Offset and    Stride Assignment](../chapters/interfaces.html#interfaces-resources-layout)
 
-[](#VUID-RuntimeSpirv-OpUntypedVariableKHR-11167) VUID-RuntimeSpirv-OpUntypedVariableKHR-11167
-
-Any `OpUntypedVariableKHR` **must** have a `Data` `Type` operand
-specified
-
 [](#VUID-RuntimeSpirv-OpImage-06376) VUID-RuntimeSpirv-OpImage-06376
 
 If an `OpImage*Gather` operation has an image operand of `Offset`,
@@ -5185,7 +5183,7 @@ over all indices multiplied by strides, including spanning multiple
 access chain instructions that lead to a given memory access.
 
 * 
-`OpCooperativeMatrixLoadKHR` and `OpCooperativeMatrixStoreKHR`
+`OpCooperativeMatrixLoadNV` and `OpCooperativeMatrixStoreNV`
 instructions computing an offset based on element, row, and stride
 parameters.
 
@@ -5198,6 +5196,12 @@ parameters.
 `OpCooperativeMatrixLoadTensorNV` and
 `OpCooperativeMatrixStoreTensorNV` instructions computing an offset
 based on tensor layout state.
+
+* 
+`OpCooperativeVectorMatrixMulAddNV`,
+`OpCooperativeVectorMatrixMulNV` and
+`OpCooperativeVectorOuterProductAccumulateNV` instructions computing
+an offset based on offset, row, and stride parameters.
 
 SPIR-V associates a signedness with all integer image accesses.
 This is required in certain parts of the SPIR-V and the Vulkan image access

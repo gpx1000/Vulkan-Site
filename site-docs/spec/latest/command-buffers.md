@@ -302,10 +302,12 @@ If the `pNext` chain includes a
 [](#VUID-VkCommandPoolCreateInfo-pNext-09909) VUID-VkCommandPoolCreateInfo-pNext-09909
 
 If the `pNext` chain includes a
-[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure, then the queue
-family designated by `queueFamilyIndex` **must** support the data graph
-processing engines specified in the
-[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure
+[VkDataGraphProcessingEngineCreateInfoARM](VK_ARM_data_graph/graphs.html#VkDataGraphProcessingEngineCreateInfoARM) structure, each member of
+`pProcessingEngines` **must** be identical to
+[VkQueueFamilyDataGraphPropertiesARM](VK_ARM_data_graph/graphs.html#VkQueueFamilyDataGraphPropertiesARM)::`engine` retrieved from
+[vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM](VK_ARM_data_graph/graphs.html#vkGetPhysicalDeviceQueueFamilyDataGraphPropertiesARM) with
+`queueFamilyIndex` and the `physicalDevice` that was used to
+create `device`
 
 Valid Usage (Implicit)
 
@@ -2263,6 +2265,15 @@ acquire operation as defined in the definition of such
 which happens before the acquire operation
 
 * 
+[](#VUID-vkQueueSubmit2-commandBuffer-10910) VUID-vkQueueSubmit2-commandBuffer-10910
+
+If a command recorded into the `commandBuffer` member of any element
+of the `pCommandBufferInfos` member of any element of `pSubmits`
+includes a [Queue Family    Ownership Transfer Acquire Operation](synchronization.html#synchronization-queue-transfers-acquire), the affected resource **must** not
+be modified in any way between the last matching release operation and
+the acquire operation
+
+* 
 [](#VUID-vkQueueSubmit2-commandBuffer-03880) VUID-vkQueueSubmit2-commandBuffer-03880
 
 If a command recorded into the `commandBuffer` member of any element
@@ -3101,6 +3112,14 @@ by the acquire operation, with parameters matching the acquire operation
 as defined in the definition of such
 [acquire operations](synchronization.html#synchronization-queue-transfers-acquire), and
 which happens-before the acquire operation
+
+* 
+[](#VUID-vkQueueSubmit-pSubmits-10911) VUID-vkQueueSubmit-pSubmits-10911
+
+If any element of `pSubmits->pCommandBuffers` includes a
+[Queue Family Ownership    Transfer Acquire Operation](synchronization.html#synchronization-queue-transfers-acquire), the affected resource **must** not be
+modified in any way between the last matching release operation and the
+acquire operation
 
 * 
 [](#VUID-vkQueueSubmit-pCommandBuffers-03220) VUID-vkQueueSubmit-pCommandBuffers-03220

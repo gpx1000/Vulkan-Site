@@ -2151,6 +2151,11 @@ If the `[VK_EXT_depth_range_unrestricted](../appendices/extensions.html#VK_EXT_d
 If the `[VK_EXT_depth_range_unrestricted](../appendices/extensions.html#VK_EXT_depth_range_unrestricted)` extension is not enabled
 `maxDepthBounds` **must** be between `0.0` and `1.0`, inclusive
 
+* 
+[](#VUID-vkCmdSetDepthBounds-minDepthBounds-10912) VUID-vkCmdSetDepthBounds-minDepthBounds-10912
+
+`minDepthBounds` **must** be less than or equal to `maxDepthBounds`
+
 Valid Usage (Implicit)
 
 * 

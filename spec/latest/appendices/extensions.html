@@ -16,7 +16,7 @@
     <link rel="apple-touch-icon" sizes="180x180" href="../../../_/img/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../../../_/img/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../../../_/img/favicon-16x16.png">
-    <link rel="manifest" href="../../../_/static/site.webmanifest">
+    <link rel="manifest" href="../../../_/site.webmanifest">
     <link rel="mask-icon" href="../../../_/img/safari-pinned-tab.svg" color="#a41e22">
     <meta name="msapplication-TileColor" content="#ffc40d">
   </head>
@@ -54,6 +54,7 @@
         <div class="navbar-item has-dropdown is-hoverable">
           <a class="navbar-link" href="#">Education</a>
           <div class="navbar-dropdown is-right">
+            <a class="navbar-item" href="../../../refpages/latest/refpages/index.html">Vulkan Reference Pages</a>
             <a class="navbar-item" href="../../../features/latest/features/index.html">Vulkan Feature Descriptions</a>
             <a class="navbar-item" href="../../../guide/latest/index.html">Vulkan Guide</a>
             <a class="navbar-item" href="../../../samples/latest/README.html">Vulkan Samples</a>
@@ -342,6 +343,14 @@
       <ul class="versions">
         <li class="version is-latest">
           <a href="../../../glsl/latest/index.html">latest</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component">
+      <div class="title"><a href="../../../refpages/latest/refpages/index.html">Vulkan API Reference Pages</a></div>
+      <ul class="versions">
+        <li class="version is-latest">
+          <a href="../../../refpages/latest/refpages/index.html">latest</a>
         </li>
       </ul>
     </li>
@@ -54893,6 +54902,9 @@ and<br>
 <li>
 <p>Georgios Teneketzis, Arm Ltd.</p>
 </li>
+<li>
+<p>Matthew Netsch, Qualcomm Technologies, Inc</p>
+</li>
 </ul>
 </div>
 </dd>
@@ -76607,9 +76619,6 @@ compositor, video encoders, and application-specific compositors.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="../chapters/VK_KHR_surface/wsi.html#VkOHSurfaceCreateInfoOHOS" class="xref page">VkOHSurfaceCreateInfoOHOS</a></p>
-</li>
-<li>
 <p><a href="../chapters/VK_KHR_surface/wsi.html#VkSurfaceCreateInfoOHOS" class="xref page">VkSurfaceCreateInfoOHOS</a></p>
 </li>
 </ul>
@@ -76640,7 +76649,7 @@ compositor, video encoders, and application-specific compositors.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>VK_STRUCTURE_TYPE_OH_SURFACE_CREATE_INFO_OHOS</code></p>
+<p><code>VK_STRUCTURE_TYPE_SURFACE_CREATE_INFO_OHOS</code></p>
 </li>
 </ul>
 </div>
@@ -79629,7 +79638,7 @@ This extension supports both renderpasses and dynamic rendering.</p>
 </dd>
 <dt class="hdlist1"><strong>Revision</strong></dt>
 <dd>
-<p>1</p>
+<p>2</p>
 </dd>
 <dt class="hdlist1"><strong>Ratification Status</strong></dt>
 <dd>
@@ -79679,7 +79688,7 @@ or<br>
 <dl>
 <dt class="hdlist1"><strong>Last Modified Date</strong></dt>
 <dd>
-<p>2025-5-12</p>
+<p>2025-8-13</p>
 </dd>
 <dt class="hdlist1"><strong>IP Status</strong></dt>
 <dd>
@@ -79998,18 +80007,29 @@ tiles that enable specific use cases.</p>
 </div>
 <div class="sect3">
 <h4 id="_issues_128"><a class="anchor" href="#_issues_128"></a>Issues</h4>
-<div class="ulist">
-<ul>
-<li>
-<p>none</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>1) Some early Adreno drivers advertised support for version 1 of this
+extension without supporting the required
+<a href="../chapters/features.html#features-tileShadingApron" class="xref page"><code>tileShadingApron</code></a> feature.
+To cover all Adreno devices on the market, applications should not assume
+any version of this extension supports the <code>tileShadingApron</code> feature
+without performing a feature query.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_version_history_285"><a class="anchor" href="#_version_history_285"></a>Version History</h4>
 <div class="ulist">
 <ul>
+<li>
+<p>Revision 2, 2025-08-13 (Matthew Netsch)</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Make the <code>tileShadingApron</code> feature optional</p>
+</li>
+</ul>
+</div>
+</li>
 <li>
 <p>Revision 1, 2023-10-12 (Jeff Leger)</p>
 </li>
@@ -103105,7 +103125,7 @@ functionality.</p>
 </dd>
 <dt class="hdlist1"><strong>Ratification Status</strong></dt>
 <dd>
-<p>Not ratified</p>
+<p>Ratified</p>
 </dd>
 <dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
 <dd>
@@ -103394,7 +103414,7 @@ freely when supported via <a href="../chapters/fxvertex.html#vkCmdSetVertexInput
 </dd>
 <dt class="hdlist1"><strong>Ratification Status</strong></dt>
 <dd>
-<p>Not ratified</p>
+<p>Ratified</p>
 </dd>
 <dt class="hdlist1"><strong>Extension and Version Dependencies</strong></dt>
 <dd>
@@ -111523,6 +111543,15 @@ read (0,0,0,0) or (0,0,0,1).</p>
 </div>
 </div>
 <div class="sect3">
+<h4 id="_promotion_to_vk_khr_maintenance9"><a class="anchor" href="#_promotion_to_vk_khr_maintenance9"></a>Promotion to <code>VK_KHR_maintenance9</code></h4>
+<div class="paragraph">
+<p>The same functionality is provided by <a href="#VK_KHR_maintenance9">VK_KHR_maintenance9</a>, but
+enabled by the <a href="../chapters/features.html#features-maintenance9" class="xref page"><code>maintenance9</code></a> feature instead.
+The <a href="../chapters/features.html#VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT" class="xref page">VkPhysicalDeviceVertexAttributeRobustnessFeaturesEXT</a> structure was
+not included in the maintenance extension.</p>
+</div>
+</div>
+<div class="sect3">
 <h4 id="_new_structures_356"><a class="anchor" href="#_new_structures_356"></a>New Structures</h4>
 <div class="ulist">
 <ul>
@@ -116899,11 +116928,11 @@ This extension is primarily intended to be useful for API layering efforts.</p>
         })
     }
 </script>
-<script src="../../../_/js/vendor/lunr.js"></script>
-<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js"></script>
-<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
+<script src="../../../_/js/vendor/lunr.js" defer></script>
+<script src="https://cdn.jsdelivr.net/pako/1.0.3/pako.min.js" defer></script>
+<script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css" defer></script>
 <script>
-(function(){
+window.addEventListener('DOMContentLoaded', function(){
   try {
     var script = document.getElementById('search-ui-script');
     var siteRoot = (script && script.getAttribute('data-site-root-path')) || '';
@@ -116924,7 +116953,7 @@ This extension is primarily intended to be useful for API layering efforts.</p>
     s.src = '../../../search-index.js';
     document.head.appendChild(s);
   }
-})();
+});
 </script>
 <script async src="../../../_/js/vendor/tabs.js"></script>
   </body>

@@ -202,7 +202,7 @@ string "VK_EXT_debug_utils". Using this macro lets you avoid typos.
 We can now use this function in `createInstance`:
 
 auto extensions = getRequiredExtensions();
-vk::InstanceCreateInfo createInfo({}, &appInfo, enabledLayers, extensions);
+vk::InstanceCreateInfo createInfo({}, &appInfo, requiredLayers, extensions);
 
 Run the program to make sure you don’t receive a
 `VK_ERROR_EXTENSION_NOT_PRESENT` error. We don’t really need to check for the

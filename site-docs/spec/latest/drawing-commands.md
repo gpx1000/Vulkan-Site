@@ -4295,8 +4295,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDraw-None-09548) VUID-vkCmdDraw-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -7731,8 +7732,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawIndexed-None-09548) VUID-vkCmdDrawIndexed-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -11171,8 +11173,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawMultiEXT-None-09548) VUID-vkCmdDrawMultiEXT-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -14625,8 +14628,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawMultiIndexedEXT-None-09548) VUID-vkCmdDrawMultiIndexedEXT-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -18132,8 +18136,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawIndirect-None-09548) VUID-vkCmdDrawIndirect-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -21652,8 +21657,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawIndirectCount-None-09548) VUID-vkCmdDrawIndirectCount-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -25101,8 +25107,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawIndexedIndirect-None-09548) VUID-vkCmdDrawIndexedIndirect-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -28648,8 +28655,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawIndexedIndirectCount-None-09548) VUID-vkCmdDrawIndexedIndirectCount-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -32144,8 +32152,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawIndirectByteCountEXT-None-09548) VUID-vkCmdDrawIndirectByteCountEXT-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -35969,8 +35978,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawMeshTasksNV-None-09548) VUID-vkCmdDrawMeshTasksNV-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -39118,8 +39128,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawMeshTasksIndirectNV-None-09548) VUID-vkCmdDrawMeshTasksIndirectNV-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -42363,8 +42374,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawMeshTasksIndirectCountNV-None-09548) VUID-vkCmdDrawMeshTasksIndirectCountNV-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -45583,8 +45595,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawMeshTasksEXT-None-09548) VUID-vkCmdDrawMeshTasksEXT-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -48792,8 +48805,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawMeshTasksIndirectEXT-None-09548) VUID-vkCmdDrawMeshTasksIndirectEXT-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -52102,8 +52116,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-09548) VUID-vkCmdDrawMeshTasksIndirectCountEXT-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -55329,8 +55344,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawClusterHUAWEI-None-09548) VUID-vkCmdDrawClusterHUAWEI-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
@@ -58490,8 +58506,9 @@ either the source or destination blend factors for that attachment
 [](#VUID-vkCmdDrawClusterIndirectHUAWEI-None-09548) VUID-vkCmdDrawClusterIndirectHUAWEI-None-09548
 
 If the current render pass was begun with [vkCmdBeginRendering](renderpass.html#vkCmdBeginRendering),
-and there is no shader object bound to any graphics stage,
-the value of each element of
+there is no shader object bound to any graphics stage,
+and [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) has been called inside
+the render pass instance, the value of each element of
 [VkRenderingAttachmentLocationInfo](interfaces.html#VkRenderingAttachmentLocationInfo)::`pColorAttachmentLocations`
 set by [vkCmdSetRenderingAttachmentLocations](interfaces.html#vkCmdSetRenderingAttachmentLocations) **must** match the value
 set for the corresponding element in the bound pipeline
