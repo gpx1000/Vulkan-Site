@@ -31,7 +31,7 @@ void vkCmdCopyAccelerationStructureToMemoryKHR(
 recorded.
 
 * 
-`pInfo` is an a pointer to a
+`pInfo` is a pointer to a
 [VkCopyAccelerationStructureToMemoryInfoKHR](VkCopyAccelerationStructureToMemoryInfoKHR.html) structure defining the
 copy operation.
 
@@ -47,7 +47,7 @@ synchronized with the
 `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR`
 [pipeline stage](../../../../spec/latest/chapters/synchronization.html#synchronization-pipeline-stages) or the
 `VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`
-[pipeline stage](../../../../spec/latest/chapters/synchronization.html#synchronization-pipeline-stages), and an and an access
+[pipeline stage](../../../../spec/latest/chapters/synchronization.html#synchronization-pipeline-stages), and an access
 type of `VK_ACCESS_TRANSFER_WRITE_BIT`.
 
 This command produces the same results as

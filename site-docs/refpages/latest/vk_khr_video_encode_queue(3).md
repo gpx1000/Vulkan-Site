@@ -442,7 +442,7 @@ them to `maxRateControlLayers` and `maxQualityLevels`, respectively
 
 * 
 Change the type of `averageBitrate` and `maxBitrate` in
-`VkVideoEncodeRateControlLayerInfoKHR`` from `uint32_t` to `uint64_t`
+`VkVideoEncodeRateControlLayerInfoKHR` from `uint32_t` to `uint64_t`
 
 * 
 Fixed the definition of rate control flag bits and added the new

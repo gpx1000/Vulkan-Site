@@ -21,6 +21,8 @@
 - [Renderpasses_with_subpasses](#_renderpasses_with_subpasses)
 - [Dynamic render with local read](#_dynamic_render_with_local_read)
 - [Dynamic_render_with_local_read](#_dynamic_render_with_local_read)
+- [Understanding the location mapping with an example](#_understanding_the_location_mapping_with_an_example)
+- [Understanding_the_location_mapping_with_an_example](#_understanding_the_location_mapping_with_an_example)
 - [Conclusion](#_conclusion)
 - [Additional information](#_additional_information)
 
@@ -92,6 +94,27 @@ Combine G-Buffer attachments using input attachments (and draw to screen using a
 Draw transparent geometry with a forward pass reading depth from an attachment
 
 End dynamic rendering with `vkCmdEndRenderingKHR`
+
+To help better grasp idea of location remapping, let’s use the following simple fragment shader
+
+layout(location=0) out vec4 A;
+layout(location=1) out vec4 B;
+layout(location=2) out vec4 C;
+
+Now if we set our `VkRenderingAttachmentLocationInfo::pColorAttachment` to be `[1, 2, 0]`
+
+* 
+Writes to `A` write to `VkRenderingInfo::pColorAttachments[2]`
+
+* 
+Writes to `B` write to `VkRenderingInfo::pColorAttachments[0]`
+
+* 
+Writes to `C` write to `VkRenderingInfo::pColorAttachments[1]`
+
+But if we set our `VkRenderingAttachmentLocationInfo::pColorAttachment` to be only `[1, 2]`
+
+Any writes to `A` will be discarded.
 
 With the addition of `VK_KHR_dynamic_rendering_local_read` it’s now finally possible to fully replace renderpasses, including those that have multiple subpasses. This makes dynamic rendering a fully fledged replacement for renderpasses on all implementations, including tile based architectures.
 

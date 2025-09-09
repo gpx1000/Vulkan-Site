@@ -1305,7 +1305,7 @@ is `VK_TRUE` and they are accessed in:
 32-bit multiples, or
 
 * 
-16-bit multiples if > is `VK_TRUE`.
+16-bit multiples if [  `storagePushConstant16`](../../../../spec/latest/chapters/features.html#features-storagePushConstant16) is `VK_TRUE`.
 
 [](#VUID-RuntimeSpirv-workgroupMemoryExplicitLayout8BitAccess-10756) VUID-RuntimeSpirv-workgroupMemoryExplicitLayout8BitAccess-10756
 

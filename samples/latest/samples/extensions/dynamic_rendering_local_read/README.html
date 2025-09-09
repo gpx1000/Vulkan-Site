@@ -816,6 +816,43 @@ The source for this sample can be found in the <a href="https://github.com/Khron
 </div>
 </div>
 <div class="sect1">
+<h2 id="_understanding_the_location_mapping_with_an_example"><a class="anchor" href="#_understanding_the_location_mapping_with_an_example"></a>Understanding the location mapping with an example</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To help better grasp idea of location remapping, let&#8217;s use the following simple fragment shader</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-glsl hljs" data-lang="glsl">layout(location=0) out vec4 A;
+layout(location=1) out vec4 B;
+layout(location=2) out vec4 C;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now if we set our <code>VkRenderingAttachmentLocationInfo::pColorAttachment</code> to be <code>[1, 2, 0]</code></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Writes to <code>A</code> write to <code>VkRenderingInfo::pColorAttachments[2]</code></p>
+</li>
+<li>
+<p>Writes to <code>B</code> write to <code>VkRenderingInfo::pColorAttachments[0]</code></p>
+</li>
+<li>
+<p>Writes to <code>C</code> write to <code>VkRenderingInfo::pColorAttachments[1]</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>But if we set our <code>VkRenderingAttachmentLocationInfo::pColorAttachment</code> to be only <code>[1, 2]</code></p>
+</div>
+<div class="paragraph">
+<p>Any writes to <code>A</code> will be discarded.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="_conclusion"><a class="anchor" href="#_conclusion"></a>Conclusion</h2>
 <div class="sectionbody">
 <div class="paragraph">

@@ -233,7 +233,7 @@ operation transfers the reference in the acceleration structure to the new
 micromap.
 
 If the original acceleration structure was built using opacity micromaps and
-neither opacity micromap update flag is set the application **must** provide
+neither opacity micromap update flag is set, the application **must** provide
 the original micromap to the update operation.
 
 If the original acceleration structure was built using displacement
@@ -5329,7 +5329,7 @@ void vkCmdCopyAccelerationStructureToMemoryKHR(
 recorded.
 
 * 
-`pInfo` is an a pointer to a
+`pInfo` is a pointer to a
 [VkCopyAccelerationStructureToMemoryInfoKHR](#VkCopyAccelerationStructureToMemoryInfoKHR) structure defining the
 copy operation.
 
@@ -5345,7 +5345,7 @@ synchronized with the
 `VK_PIPELINE_STAGE_2_ACCELERATION_STRUCTURE_COPY_BIT_KHR`
 [pipeline stage](synchronization.html#synchronization-pipeline-stages) or the
 `VK_PIPELINE_STAGE_ACCELERATION_STRUCTURE_BUILD_BIT_KHR`
-[pipeline stage](synchronization.html#synchronization-pipeline-stages), and an and an access
+[pipeline stage](synchronization.html#synchronization-pipeline-stages), and an access
 type of `VK_ACCESS_TRANSFER_WRITE_BIT`.
 
 This command produces the same results as
